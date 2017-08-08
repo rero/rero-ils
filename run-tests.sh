@@ -25,5 +25,5 @@
 
 pydocstyle reroils_app tests docs && \
 isort -rc -c -df && \
-check-manifest --ignore ".travis-*" && \
+#check-manifest --ignore ".travis-*" && \
 python setup.py test

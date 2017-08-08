@@ -23,6 +23,7 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 include MANIFEST.IN
+include MANIFEST.in
 include .dockerignore
 include .editorconfig
 include .tx/config
