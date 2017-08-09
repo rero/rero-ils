@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y curl \
 # Add Invenio sources to `code` and work there:
 WORKDIR /reroils/reroils/src/reroils-app
 COPY setup.py /reroils/reroils/src/reroils-app/
+COPY MANIFEST.in /reroils/reroils/src/reroils-app/
 COPY reroils_app /reroils/reroils/src/reroils-app/reroils_app
 
 
@@ -25,7 +26,7 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /reroils
 RUN virtualenv reroils
 RUN source reroils/bin/activate && \
-    pip install -e reroils/src/reroils-app && \
+    pip install reroils/src/reroils-app && \
     #pip install https://gitlab.rero.ch/rero-projects/invenio-prebooking/repository/archive.tar.gz && \
     pip install gunicorn
 
