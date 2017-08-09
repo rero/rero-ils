@@ -19,14 +19,14 @@ workon ${VIRTUALENV_NAME}
 pip install --upgrade pip
 
 # go to the instance dir
-cdvirtualenv src/${VIRTUALENV_NAME}
+cdvirtualenv src/reroils-app
 
 # install instance
 pip install -e .
 
 # install nodejs dev tools
 npm install -g --prefix ${VIRTUAL_ENV} npm
-npm install -g --prefix ${VIRTUAL_ENV} node-sass@3.8.0 clean-css@3.4.24 requirejs uglify-js
+npm install -g --prefix ${VIRTUAL_ENV} node-sass clean-css clean-css-cli requirejs uglify-js
 
 # collect and install nodejs packages
 invenio npm
