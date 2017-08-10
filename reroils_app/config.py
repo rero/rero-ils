@@ -29,3 +29,6 @@ THEME_SITENAME = _('reroils-app')
 
 # For dev
 APP_ENABLE_SECURE_HEADERS=False
+
+# no needs for redis
+CACHE_TYPE='simple'
