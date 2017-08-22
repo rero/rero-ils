@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 -e git+https://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
--e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db
+-e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql]
 -e git+https://github.com/inveniosoftware/invenio-indexer.git#egg=invenio-indexer
 -e git+https://github.com/inveniosoftware/invenio-jsonschemas.git#egg=invenio-jsonschemas
 -e git+https://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
 -e git+https://github.com/inveniosoftware/invenio-oaiserver.git#egg=invenio-oaiserver
+-e git+https://github.com/inveniosoftware/invenio-celery.git#egg=invenio-celery
 -e git+https://github.com/inveniosoftware/invenio-pidstore.git#egg=invenio-pidstore
 -e git+https://github.com/inveniosoftware/invenio-records-rest.git#egg=invenio-records-rest
 -e git+https://github.com/inveniosoftware/invenio-records-ui.git#egg=invenio-records-ui

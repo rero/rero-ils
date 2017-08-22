@@ -61,7 +61,7 @@ setup(
         'invenio-assets>=1.0.0a4',
         'invenio-base>=1.0.0a14',
         'invenio-config>=1.0.0b2',
-        'invenio-db>=1.0.0a9',
+        'invenio-db[postgresql]>=1.0.0a9',
         'invenio-indexer>=1.0.0a2',
         'invenio-jsonschemas>=1.0.0a5',
         'invenio-marc21>=1.0.0a1',
@@ -72,5 +72,6 @@ setup(
         'invenio-search-ui>=1.0.0a4',
         'invenio-search>=1.0.0a7',
         'invenio-theme>=1.0.0a17',
+        'invenio-celery>=1.0.0b3',
     ],
 )

@@ -30,6 +30,8 @@ ENV PATH=$PATH:/home/invenio/reroils/bin
 
 # put install script
 ADD install.sh /home/invenio
-
+ADD start.sh /home/invenio
+ADD populate.sh /home/invenio
+ADD celery.sh /home/invenio
 # default command
-CMD /home/invenio/install.sh
+CMD /home/invenio/start.sh

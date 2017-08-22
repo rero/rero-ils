@@ -37,4 +37,3 @@ else
     echo "Installation done!"
 fi
 
-invenio run -h 0.0.0.0

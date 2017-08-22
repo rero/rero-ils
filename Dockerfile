@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y curl \
     && apt-get install -y nodejs gcc \
     && pip install -U setuptools pip && \
 	pip install -U virtualenv
-    #&& apt-get remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && rm -rf /var/lib/apt/lists/*
 
 
 # Add Invenio sources to `code` and work there:
@@ -30,7 +29,6 @@ WORKDIR /reroils
 RUN virtualenv reroils
 RUN source reroils/bin/activate && \
     pip install reroils/src/reroils-app && \
-    #pip install https://gitlab.rero.ch/rero-projects/invenio-prebooking/repository/archive.tar.gz && \
     pip install gunicorn
 
 RUN source reroils/bin/activate && \
@@ -44,9 +42,7 @@ RUN source reroils/bin/activate && \
 	invenio assets build
 
 USER root
-#RUN apt-get remove --purge -y $BUILD_PACKAGES $(apt-mark showauto)
 RUN rm -rf /var/lib/apt/lists/*
 
 USER invenio
-#CMD ["/prebooking/prebooking/bin/gunicorn", "--config", "/gunicorn.conf", "--log-config", "/logging.conf", "-b", ":8000", "myapp:app"]
 CMD ["/reroils/reroils/bin/gunicorn", "-w", "3", "-b", "0.0.0.0:5000", "invenio_app.wsgi"]
