@@ -4,14 +4,13 @@ pipeline {
         stage('Clone source') {
             steps {
                 git 'https://github.com/rero/reroils-app'
-                sh 'ls'
             }
         }
         stage('Build Docker Image') {
             steps {
                 echo 'Building..'
                 script {
-                    docker.build('reroils-app')
+                    app = docker.build('rero/reroils-app')
                 }
             }
         }
@@ -22,7 +21,12 @@ pipeline {
         }
         stage('Push Docker image') {
             steps {
-                echo 'Push docker image....'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    /*app.push("${env.BUILD_NUMBER}")*/
+                        app.push("latest")
+                    }
+                }
             }
         }
         stage('Kubernetes delployement') {
