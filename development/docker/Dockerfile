@@ -28,10 +28,12 @@ WORKDIR /home/invenio
 ENV FLASK_DEBUG=1
 ENV PATH=$PATH:/home/invenio/reroils/bin
 
-# put install script
+# put action scripts
 ADD install.sh /home/invenio
 ADD start.sh /home/invenio
 ADD populate.sh /home/invenio
 ADD celery.sh /home/invenio
+ADD tests.sh /home/invenio
+
 # default command
 CMD /home/invenio/start.sh

@@ -15,7 +15,8 @@ WORKDIR /reroils/reroils/src/reroils-app
 COPY setup.py /reroils/reroils/src/reroils-app/
 COPY MANIFEST.in /reroils/reroils/src/reroils-app/
 COPY reroils_app /reroils/reroils/src/reroils-app/reroils_app
-
+COPY deployment/populate.sh /reroils/populate.sh
+COPY development/docker/demo.json /reroils/demo.json
 
 # # Run container as user `invenio` with UID `1000`, which should match
 # # current host user in most situations:

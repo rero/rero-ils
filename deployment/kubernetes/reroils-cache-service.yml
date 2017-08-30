@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ils-cache
+  labels:
+    app: reroils
+    tier: cache
+spec:
+  type: NodePort
+  ports:
+    - port: 6379
+      nodePort: 30014
+      name: cache
+  selector:
+    app: reroils
+    tier: cache

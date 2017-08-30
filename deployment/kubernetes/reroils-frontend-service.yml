@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ils-frontend
+  labels:
+    app: reroils
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 5000
+      nodePort: 30010
+  selector:
+    app: reroils
+    tier: frontend

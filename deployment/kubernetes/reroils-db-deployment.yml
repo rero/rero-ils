@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reroils
+        tier: db
+    spec:
+      containers:
+      - name: reroils-db
+        image: postgres
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: reroils-app
+              key: db-user
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: reroils-app
+              key: db-name
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: reroils-app
+              key: db-password
+        ports:
+        - containerPort: 5432
+          name: db

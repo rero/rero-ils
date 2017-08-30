@@ -36,13 +36,11 @@ CACHE_TYPE='simple'
 
 USER_EMAIL='software@rero.ch'
 USER_PASS='uspass123'
-POSTGRESQL_HOST='postgresql'
+
 SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils'
-REDIS_HOST='redis'
 SEARCH_ELASTIC_HOSTS='elasticsearch'
-RABBITMQ_HOST='rabbitmq'
-BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
 CELERY_BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
 CELERY_RESULT_BACKEND='redis://redis:6379/1'
+
 JSONSCHEMAS_ENDPOINT='/schema'
 JSONSCHEMAS_HOST='localhost:5000'

@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-worker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reroils
+        tier: worker
+    spec:
+      containers:
+      - name: reroils-worker
+        image: rabbitmq:3-management
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: reroils-app
+              key: worker-user
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: reroils-app
+              key: worker-password
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 30015
+          name: worker
+        - containerPort: 30016
+          name: ui

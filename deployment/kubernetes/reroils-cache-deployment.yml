@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-cache
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reroils
+        tier: cache
+    spec:
+      containers:
+      - name: reroils-cache
+        image: redis
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 6379
+          name: cache

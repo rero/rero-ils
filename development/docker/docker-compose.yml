@@ -74,7 +74,7 @@ elasticsearch:
 
 rabbitmq:
   restart: "always"
-  image: rabbitmq
+  image: rabbitmq:3-management
   ports:
     - "24369:4369"
-    - "45672:25672"
+    - "21567:15672"

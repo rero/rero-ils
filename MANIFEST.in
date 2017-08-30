@@ -22,7 +22,6 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-include Dockerfile
 recursive-include docker *.sh Dockerfile
 include MANIFEST.in
 include .dockerignore
@@ -45,3 +44,17 @@ recursive-include rerils_app *.po *.pot *.mo
 recursive-include reroils_app *.svg
 recursive-include tests *.py
 recursive-include scripts *.sh
+recursive-include deployment *.yml
+recursive-include development *.json
+recursive-include development *.sh
+recursive-include development *.txt
+recursive-include development *.yml
+recursive-include deployment *.sh
+
+include deployment/Dockerfile
+include deployment/jenkins
+include deployment/jenkins/Dockerfile
+include deployment/jenkins/Jenkinsfile
+include deployment/jenkins/Jenkinsfile_populate
+include development/docker/Dockerfile
+exclude development/docker/Dockerfile_elastic

@@ -1,0 +1,90 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+    }
+
+    stages {
+        stage('Clone source') {
+            steps {
+                git 'https://github.com/rero/reroils-app'
+                sh 'echo "GIT_COMMIT: $(git rev-parse HEAD)"'
+            }
+        }
+        stage('Build Dev Docker Image') {
+            steps {
+                echo 'Building..'
+                script {
+                    app_dev = docker.build('rero/reroils-app:dev', '--rm  -f development/docker/Dockerfile development/docker')
+                }
+            }
+        }
+        stage('Run Test') {
+            steps {
+                script {
+                   sh "docker run --rm rero/reroils-app:dev ./tests.sh"
+                }
+            }
+        }
+        stage('Build Deploy Docker Image') {
+            steps {
+                echo 'Building..'
+                script {
+                    app_deploy = docker.build('rero/reroils-app:latest', '--rm  -f deployment/Dockerfile .')
+                }
+            }
+        }
+        stage('Push Docker image') {
+            steps {
+                script {
+                    // gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        app_dev.push("dev")
+                        app_dev.push("dev-" + GIT_COMMIT)
+                        app_deploy.push("latest")
+                        app_deploy.push(GIT_COMMIT)
+                    }
+                }
+            }
+        }
+        stage('Kubernetes delployement') {
+            steps {
+                echo 'Deploying....'
+                withCredentials([string(credentialsId: 'KUBE_SERVER_URL', variable: 'KUBE_SERVER_URL'),
+                                 string(credentialsId: 'KUBE_TOKEN', variable: 'KUBE_TOKEN')
+                ]) {
+                    sh '''
+                        kubectl config --kubeconfig=config-demo set-cluster dev --server=$KUBE_SERVER_URL --insecure-skip-tls-verify=true
+                        kubectl config --kubeconfig=config-demo set-context dev --cluster=dev --user=dev --namespace=default
+                        kubectl config --kubeconfig=config-demo set-credentials dev --token=$KUBE_TOKEN
+                        kubectl --kubeconfig=config-demo config use-context dev
+                        kubectl --kubeconfig=config-demo apply -f deployment/kubernetes
+                        kubectl --kubeconfig=config-demo set image deployment/ils-frontend reroils-app=rero/reroils-app:$GIT_COMMIT
+                        kubectl delete pods ils-populate || true
+                        kubectl --kubeconfig=config-demo apply -f deployment/reroils-populate.yml
+                    '''
+                }
+            }
+        }
+        stage('Populate with data...') {
+            steps {
+                echo 'Populating....'
+                script {
+                    sh '''
+                        kubectl --kubeconfig=config-demo delete pods ils-populate || true
+                        kubectl --kubeconfig=config-demo apply -f deployment/reroils-populate.yml
+                    '''
+                }
+            }
+        }
+        stage('Cleaning') {
+            steps {
+                echo 'Cleaning....'
+                script {
+                    sh "docker rmi rero/reroils-app:dev rero/reroils-app:latest"
+                }
+            }
+        }
+    }
+}

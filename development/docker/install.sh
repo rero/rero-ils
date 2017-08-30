@@ -21,8 +21,8 @@ else
 
     # install the invenio application
     cd reroils-app
-    pip install -r requirements-devel.txt
-    pip install -e .
+    pip install -r development/requirements-devel.txt
+    pip install -e .[tests]
 
     # collect and install js dependencies
     invenio npm

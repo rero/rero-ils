@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ils-worker
+  labels:
+    app: reroils
+    tier: worker
+spec:
+  type: NodePort
+  ports:
+    - port: 5672
+      nodePort: 30018
+      name: worker
+    - port: 15672
+      nodePort: 30019
+      name: ui
+  selector:
+    app: reroils
+    tier: worker

@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-indexer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reroils
+        tier: indexer
+    spec:
+      containers:
+      - name: reroils-indexer
+        image: elasticsearch:2
+        args: ["-Des.cluster.name=reroils"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 9300
+          name: api
+        - containerPort: 9200
+          name: cluster
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns

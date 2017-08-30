@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ils-flower
+  labels:
+    app: reroils
+    tier: flower
+spec:
+  type: NodePort
+  ports:
+    - port: 5555
+      nodePort: 30017
+      name: flower
+  selector:
+    app: reroils
+    tier: flower
