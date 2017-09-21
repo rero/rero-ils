@@ -25,7 +25,6 @@ fi" >> ~/.bashrc
 WORKDIR /home/invenio
 
 # Debug mode by default
-ENV FLASK_DEBUG=1
 ENV PATH=$PATH:/home/invenio/reroils/bin
 
 # put action scripts

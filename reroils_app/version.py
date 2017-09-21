@@ -6,4 +6,4 @@ This file is imported by ``reroils_app.__init__``,
 and parsed by ``setup.py``.
 """
 
-__version__ = "0.1.0.dev0"
+__version__ = "0.1.0-alpha.1"

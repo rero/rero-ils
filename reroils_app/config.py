@@ -13,12 +13,17 @@ def _(x):
 BABEL_DEFAULT_LANGUAGE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 I18N_LANGUAGES = [
+    ('fr', _('French')),
+    ('de', _('German')),
+    ('it', _('Italian'))
 ]
 
 HEADER_TEMPLATE = 'invenio_theme/header.html'
 BASE_TEMPLATE = 'invenio_theme/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
+
 
 # WARNING: Do not share the secret key - especially do not commit it to
 # version control.

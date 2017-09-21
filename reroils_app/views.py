@@ -6,6 +6,8 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint, render_template
 
+from .version import __version__
+
 blueprint = Blueprint(
     'reroils_app',
     __name__,
@@ -18,4 +20,4 @@ blueprint = Blueprint(
 def index():
     """Home Page."""
     return render_template('reroils_app/index.html',
-                           module_name='reroils_app')
+                           module_name='reroils_app', version=__version__)
