@@ -40,3 +40,5 @@
 Integrated Library System flavour of Invenio by RERO.
 
 *This is an experimental developer preview release.*
+
+For setup, please read the ``INSTALL.rst`` file.
