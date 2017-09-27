@@ -1,3 +1,27 @@
+..
+    This file is part of Invenio.
+    Copyright (C) 2017 RERO.
+
+    Invenio is free software; you can redistribute it
+    and/or modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation; either version 2 of the
+    License, or (at your option) any later version.
+
+    Invenio is distributed in the hope that it will be
+    useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Invenio; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+    MA 02111-1307, USA.
+
+    In applying this license, CERN does not
+    waive the privileges and immunities granted to it by virtue of its status
+    as an Intergovernmental Organization or submit itself to any jurisdiction.
+
+
 ============
 Installation
 ============
@@ -25,8 +49,11 @@ Requirements
 - ``Docker``
 - a local directory in which the container will mount the ``virtualenv``; this local directory is ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install processus is started**
 
+
 Install the dev environment
 ---------------------------
+
+This installation process needs to be done only once, except if you want to start anew.
 
 **First**, copy and paste the following code in a ``docker-compose.yml`` file somewhere on your machine.
 
@@ -177,6 +204,7 @@ Then you can run:
 
 **Keep in mind that this commands and aliases are available only in the** ``docker-compose.yml`` **directory!**
 
+
 Debug Mode
 ----------
 
@@ -193,14 +221,18 @@ Or, you can add this variable in a ``.env`` file aside your ``docker-compose.yml
 
 To test it, you can modify the following file: ``<local_dir.>/src/reroils-app/reroils-app/templates/index.html``, save it and then reload http://localhost:5000.
 
+
 Development workflow
 --------------------
 
 This suppose you have a development environment up and running.
 
+The first time
+..............
+
 1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
 #. ``git remote set-url master git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository  
-#. check that your master branch is up to date ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**  
+#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**  
 #. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments 
 #. select a task your going to realize 
 #. assign the corresponding digital card to yourself 
@@ -221,6 +253,18 @@ This suppose you have a development environment up and running.
 #. once all task are done, check that the user story reach the acceptance criterium and the *how to demo*   
 #. the user story is to be marked as *ready for test* 
 #. the PO test the user story, notify the team that it's ready to deploy and mark it as *done* once it's deployed
+
+When you resume developing
+..........................
+
+1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
+#. check your in the master branch
+#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**  
+#. ``git checkout <your-dev-branch>`` to get into your dev branch
+#. ``git rebase master`` to update you dev branch
+#. continue since the point 5 from the above list
+
+
 
 
 .. References:
