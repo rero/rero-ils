@@ -24,6 +24,6 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 pydocstyle reroils_app tests docs && \
-isort -rc -c -df && \
+isort -rc -c -df reroils_app *.py && \
 check-manifest --ignore ".travis-*" && \
 python setup.py test
