@@ -93,7 +93,7 @@ This installation process needs to be done only once, except if you want to star
       restart: "always"
       image: rero/reroils-app:dev
       volumes:
-        - /home/igor/tmp/reroils-app:/home/invenio/reroils:cached
+        - changeit:/home/invenio/reroils:cached
       environment:
         - FLASK_DEBUG
         - INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
@@ -111,7 +111,7 @@ This installation process needs to be done only once, except if you want to star
       restart: "always"
       image: rero/reroils-app:dev
       volumes:
-        - /home/igor/tmp/reroils-app:/home/invenio/reroils:cached
+        - changeit:/home/invenio/reroils:cached
       environment:
         - FLASK_DEBUG=1
         - INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
