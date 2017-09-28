@@ -57,7 +57,7 @@ This installation process needs to be done only once, except if you want to star
 
 **First**, copy and paste the following code in a ``docker-compose.yml`` file somewhere on your machine.
 
-.. code:: yaml 
+.. code:: console 
 
     # -*- coding: utf-8 -*-
     #
@@ -93,70 +93,70 @@ This installation process needs to be done only once, except if you want to star
       restart: "always"
       image: rero/reroils-app:dev
       volumes:
-        1. changeit:/home/invenio/reroils:cached
+        - /home/igor/tmp/reroils-app:/home/invenio/reroils:cached
       environment:
-        1. FLASK_DEBUG
-        2. INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
-        3. INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
-        4. INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
-        5. INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
+        - FLASK_DEBUG
+        - INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
+        - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
+        - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+        - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
       links:
-        1. postgresql
-        2. redis
-        3. elasticsearch
-        4. rabbitmq
+        - postgresql
+        - redis
+        - elasticsearch
+        - rabbitmq
       command: ['./celery.sh']
 
     web:
       restart: "always"
       image: rero/reroils-app:dev
       volumes:
-        1. changeit:/home/invenio/reroils:cached
+        - /home/igor/tmp/reroils-app:/home/invenio/reroils:cached
       environment:
-        1. FLASK_DEBUG
-        2. INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
-        3. INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
-        4. INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
-        5. INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
+        - FLASK_DEBUG=1
+        - INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
+        - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
+        - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+        - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
       links:
-        1. postgresql
-        2. redis
-        3. elasticsearch
-        4. rabbitmq
+        - postgresql
+        - redis
+        - elasticsearch
+        - rabbitmq
       ports:
-        1. "5000:5000"
+        - "5000:5000"
       command: ['./start.sh']
 
     postgresql:
       restart: "always"
       image: postgres
       environment:
-        1. POSTGRES_USER=reroils
-        2. POSTGRES_DB=reroils
-        3. POSTGRES_PASSWORD=dbpass123
+        - POSTGRES_USER=reroils
+        - POSTGRES_DB=reroils
+        - POSTGRES_PASSWORD=dbpass123
       ports:
-        1. "25432:5432"
+        - "25432:5432"
 
     redis:
       restart: "always"
       image: redis
       ports:
-        1. "26379:6379"
+        - "26379:6379"
 
     elasticsearch:
       restart: "always"
       image: elasticsearch:2
       # dockerfile: Dockerfile_elastic
       ports:
-        1. "29200:9200"
-        2. "29300:9300"
+        - "29200:9200"
+        - "29300:9300"
 
     rabbitmq:
       restart: "always"
       image: rabbitmq:3-management
       ports:
-        1. "24369:4369"
-        2. "21567:15672"
+        - "24369:4369"
+        - "21567:15672"
 
 **Once** this file is saved on your machine, change the two ``changeit`` occurrences by the path to your ``<local_dir.>``.
 
