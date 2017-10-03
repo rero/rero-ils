@@ -58,7 +58,7 @@ This installation process needs to be done only once, except if you want to star
 
 **First**, copy and paste the following code in a ``docker-compose.yml`` file somewhere on your machine.
 
-.. code:: console 
+.. code:: console
 
     # -*- coding: utf-8 -*-
     #
@@ -166,7 +166,7 @@ This installation process needs to be done only once, except if you want to star
     l. 35   <local_dir.>:/home/invenio/reroils:cached
     l. 53   <local_dir.>:/home/invenio/reroils:cached
 
-**Then**, run the following command from the directory where the ``docker-compose.yml`` file is saved: 
+**Then**, run the following command from the directory where the ``docker-compose.yml`` file is saved:
 
 .. code:: console
 
@@ -187,19 +187,19 @@ Invenio commands
 Once the container is started you should be able to run invenio commands like this:
 
 .. code:: console
-   
-   docker exec reroils invenio --help
+
+   docker-compose exec web invenio --help
 
 You can write an alias:
 
 .. code:: console
-  
-  alias reroils=`docker exec reroils invenio`
+
+  alias reroils=`docker-compose exec web invenio`
 
 Then you can run:
 
 .. code:: console
-  
+
    reroils --help
    reroils db create
 
@@ -232,16 +232,16 @@ The first time
 ..............
 
 1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
-#. ``git remote set-url master git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository  
-#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**  
-#. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments 
-#. select a task your going to realize 
-#. assign the corresponding digital card to yourself 
-#. move the card into the *in progress* column 
-#. add the username of your pair in the card description, ie ``@<username>`` 
+#. ``git remote set-url master git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository
+#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
+#. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments
+#. select a task your going to realize
+#. assign the corresponding digital card to yourself
+#. move the card into the *in progress* column
+#. add the username of your pair in the card description, ie ``@<username>``
 #. implement the task
 #. once your done, run the test scripts
-#. check the acceptance criterium and the definition of done for the current implementation  
+#. check the acceptance criterium and the definition of done for the current implementation
 #. commit your changes with a well formated message
 #. ``git checkout master`` to return into the master branch
 #. ``git pull`` to fetch the remote modifications from the other members of the team
@@ -249,10 +249,10 @@ The first time
 #. run the tests scripts
 #. ``git push`` to push your modifications into the remote master branch
 #. move the related task in the *ready to test* column and announce the new state of this task in the next daily meeting
-#. ask another developer to test this feature 
+#. ask another developer to test this feature
 #. once everything is ok, this developer will mark the card as *done*
-#. once all task are done, check that the user story reach the acceptance criterium and the *how to demo*   
-#. the user story is to be marked as *ready for test* 
+#. once all task are done, check that the user story reach the acceptance criterium and the *how to demo*
+#. the user story is to be marked as *ready for test*
 #. the PO test the user story, notify the team that it's ready to deploy and mark it as *done* once it's deployed
 
 When you resume developing
@@ -260,7 +260,7 @@ When you resume developing
 
 1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
 #. check your in the master branch
-#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**  
+#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
 #. ``git checkout <your-dev-branch>`` to get into your dev branch
 #. ``git rebase master`` to update you dev branch
 #. continue since the point 5 from the above list
@@ -272,7 +272,7 @@ When you resume developing
 .. _GitHub: https://github.com/rero/reroils-app
 .. _Travis: https://travis-ci.org/rero/reroils-app
 .. _Docker: https://hub.docker.com/r/rero/reroils-app/
-.. _npm: https://www.npmjs.com/org/rero 
+.. _npm: https://www.npmjs.com/org/rero
 .. _Gitter: https://gitter.im/rero/interne
 .. _Transiflex: https://www.transifex.com/rero/reroils
 .. _gitlab.rero.ch: https://gitlab.rero.ch
