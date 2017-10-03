@@ -47,6 +47,7 @@ Requirements
 
 - ``git``
 - ``Docker``
+- ``Docker Compose``
 - a local directory in which the container will mount the ``virtualenv``; this local directory is ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install processus is started**
 
 
