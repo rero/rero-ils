@@ -26,6 +26,7 @@ include MANIFEST.in
 include .dockerignore
 include *.rst
 include *.sh
+include *.txt
 include LICENSE
 recursive-include reroils_app *.html
 
