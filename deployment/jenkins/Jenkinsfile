@@ -48,7 +48,7 @@ pipeline {
                 }
             }
         }
-        stage('Kubernetes delployement') {
+        stage('Kubernetes deployement') {
             steps {
                 echo 'Deploying....'
                 withCredentials([string(credentialsId: 'KUBE_SERVER_URL', variable: 'KUBE_SERVER_URL'),
