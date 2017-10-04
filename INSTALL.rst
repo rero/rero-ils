@@ -265,7 +265,24 @@ When you resume developing
 #. ``git rebase master`` to update you dev branch
 #. continue since the point 5 from the above list
 
+Commit Messages
+................
 
+As defined by the `invenio documentation`_ but instead of `component` we can use `type`.
+
+Type must be one of the following
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-   **feat**: A new feature
+-   **fix**: A bug fix
+-   **docs**: Only documentation changes
+-   **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing
+    semi-colons, etc)
+-   **refactor**: A code change that neither fixes a bug nor adds a feature
+-   **perf**: A code change that improves performance
+-   **test**: Adding missing tests
+-   **core**: Changes to the build process or auxiliary tools and libraries such as documentation
+    generation
 
 
 .. References:
@@ -276,3 +293,4 @@ When you resume developing
 .. _Gitter: https://gitter.im/rero/interne
 .. _Transiflex: https://www.transifex.com/rero/reroils
 .. _gitlab.rero.ch: https://gitlab.rero.ch
+.. _invenio documentation: http://invenio.readthedocs.io/en/latest/community/contribution-guide.html?highlight=commit%20message
