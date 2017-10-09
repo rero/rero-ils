@@ -29,6 +29,7 @@ include *.sh
 include *.txt
 include LICENSE
 recursive-include reroils_app *.html
+recursive-include reroils_app *.png
 
 prune deployment
 prune development
