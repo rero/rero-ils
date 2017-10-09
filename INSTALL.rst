@@ -46,9 +46,9 @@ Requirements
 ------------
 
 - ``git``
-- ``Docker``
-- ``Docker Compose``
-- a local directory in which the container will mount the ``virtualenv``; this local directory is ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install processus is started**
+- ``docker``
+- ``docker-compose``
+- a local directory in which the container will mount the ``virtualenv``; this local directory is named ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install processus is started**
 
 
 Install the dev environment
@@ -232,7 +232,7 @@ The first time
 ..............
 
 1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
-#. ``git remote set-url master git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository
+#. ``git remote set-url origin git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository
 #. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
 #. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments
 #. select a task your going to realize
