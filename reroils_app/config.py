@@ -4,6 +4,8 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_search import RecordsSearch
+
 
 # Identity function for string extraction
 def _(x):
@@ -49,4 +51,27 @@ CELERY_BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
 CELERY_RESULT_BACKEND='redis://redis:6379/1'
 
 JSONSCHEMAS_ENDPOINT='/schema'
-JSONSCHEMAS_HOST='localhost:5000'
+JSONSCHEMAS_HOST='ils.test.rero.ch'
+
+RECORDS_REST_ENDPOINTS = dict(
+    recid=dict(
+        pid_type='recid',
+        pid_minter='bibid',
+        pid_fetcher='bibid',
+        search_class=RecordsSearch,
+        search_index=None,
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/records/',
+        item_route='/records/<pid(recid):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    ),
+)
