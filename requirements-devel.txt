@@ -43,3 +43,6 @@
 
 # MARC21-based ILS
 -e git+git://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
+
+# RERO
+-e git+https://git@gitlab.rero.ch/rero21/reroils-data.git#egg=reroils-data
