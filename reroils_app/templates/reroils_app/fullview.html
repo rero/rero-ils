@@ -1,0 +1,16 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container">
+  {%- block record_title %}
+  <h1>{{record.title}} {% if record.author %}/ {{record.author}} {%endif %}</h1>
+  {%- endblock %}
+  {%- block record_body %}
+  {% if record.author %}
+  <b>Author:</b> {{record.author}}<br>
+  {% endif %}
+  <b>Title:</b> {{record.title}}<br>
+  <b>Record:</b> {{pid.pid_value}}
+  {%- endblock %}
+</div>
+{%- endblock %}

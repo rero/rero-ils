@@ -76,3 +76,17 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
     ),
 )
+
+RECORDS_UI_ENDPOINTS = {
+    "recid": {
+        "pid_type": "recid",
+        "route": "/records/<pid_value>",
+        "template": "reroils_app/fullview.html",
+    },
+    "recid_export": {
+        "pid_type": "recid",
+        "route": "/records/<pid_value>/export/<format>",
+        "view_imp": "invenio_records_ui.views.export",
+        "template": "invenio_records_ui/export.html",
+    }
+}
