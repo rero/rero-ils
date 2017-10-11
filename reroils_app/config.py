@@ -21,12 +21,13 @@ I18N_LANGUAGES = [
 ]
 
 HEADER_TEMPLATE = 'invenio_theme/header.html'
-BASE_TEMPLATE = 'invenio_theme/page.html'
+BASE_TEMPLATE = 'reroils_app/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+SEARCH_UI_JSTEMPLATE_RESULTS = \
+    'templates/reroils_app/briefview.html'
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
 THEME_LOGO = 'images/logo_rero_ils.png'
-
 
 # WARNING: Do not share the secret key - especially do not commit it to
 # version control.
