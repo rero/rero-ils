@@ -1,4 +1,48 @@
 # -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2017 CERN.
+#
+# Invenio is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# Invenio is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Invenio; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, CERN does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
+
+# Base bundle
+-e git+git://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
+-e git+git://github.com/inveniosoftware/invenio-theme.git#egg=invenio-theme
+-e git+git://github.com/inveniosoftware/invenio-celery.git#egg=invenio-celery
+-e git+git://github.com/inveniosoftware/invenio-app.git#egg=invenio-app
+-e git+git://github.com/inveniosoftware/invenio-base.git#egg=invenio-base
+-e git+git://github.com/inveniosoftware/invenio-config.git#egg=invenio-config
+
+# Metadata bundle
+-e git+git://github.com/inveniosoftware/invenio-pidstore.git#egg=invenio-pidstore
+-e git+git://github.com/inveniosoftware/invenio-records-rest.git#egg=invenio-records-rest
+-e git+git://github.com/inveniosoftware/invenio-records-ui.git#egg=invenio-records-ui
+-e git+git://github.com/inveniosoftware/invenio-records.git#egg=invenio-records
+-e git+git://github.com/inveniosoftware/invenio-search-ui.git#egg=invenio-search-ui
+-e git+git://github.com/inveniosoftware/invenio-search.git#egg=invenio-search
+-e git+git://github.com/inveniosoftware/invenio-indexer.git#egg=invenio-indexer
+-e git+git://github.com/inveniosoftware/invenio-jsonschemas.git#egg=invenio-jsonschemas
+-e git+git://github.com/inveniosoftware/invenio-oaiserver.git#egg=invenio-oaiserver
+
+# MARC21-based ILS
+-e git+git://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
 
 -e git+https://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
 -e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql]
@@ -14,3 +58,6 @@
 -e git+https://github.com/inveniosoftware/invenio-search-ui.git#egg=invenio-search-ui
 -e git+https://github.com/inveniosoftware/invenio-search.git#egg=invenio-search
 -e git+https://github.com/inveniosoftware/invenio-theme.git#egg=invenio-theme
+
+# RERO
+-e git+https://git@gitlab.rero.ch/rero21/reroils-data.git#egg=reroils-data

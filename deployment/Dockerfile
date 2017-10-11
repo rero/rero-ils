@@ -3,9 +3,9 @@ FROM python:3.5-slim
 LABEL maintainer="software@rero.ch"
 LABEL description="Integrated Library System flavour of Invenio by RERO."
 
-RUN apt-get update && apt-get install -y curl \
+RUN apt-get update && apt-get install -y curl git gcc \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get install -y nodejs gcc \
+    && apt-get install -y nodejs \
     && pip install -U setuptools pip && \
 	pip install -U virtualenv
 
@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y curl \
 WORKDIR /reroils/reroils/src/reroils-app
 COPY setup.py /reroils/reroils/src/reroils-app/
 COPY MANIFEST.in /reroils/reroils/src/reroils-app/
+COPY requirements.txt /reroils/reroils/src/reroils-app/
 COPY reroils_app /reroils/reroils/src/reroils-app/reroils_app
 COPY deployment/populate.sh /reroils/populate.sh
-COPY development/docker/demo.json /reroils/demo.json
+COPY deployment/10k_2017_10_06.json /reroils/demo.json
 
 # # Run container as user `invenio` with UID `1000`, which should match
 # # current host user in most situations:
@@ -29,6 +30,7 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /reroils
 RUN virtualenv reroils
 RUN source reroils/bin/activate && \
+    pip install -r /reroils/reroils/src/reroils-app/requirements.txt && \
     pip install reroils/src/reroils-app && \
     pip install gunicorn
 

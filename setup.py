@@ -56,6 +56,7 @@ setup(
     setup_requires=setup_requires,
     tests_require=tests_require,
     install_requires=[
+        'reroils_data>=0.1.0a1',
         'Flask>=0.11.1',
         'invenio-app>=1.0.0a1',
         'invenio-assets>=1.0.0a4',
