@@ -1,3 +1,7 @@
 .re-list { 
   list-style-type: none;
 }
+
+.list-inline > li {
+    padding-right: 0;
+}

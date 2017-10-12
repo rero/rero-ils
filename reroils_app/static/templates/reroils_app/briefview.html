@@ -1,7 +1,30 @@
 <ul class="re-list">
-  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
-    <h4><a target="_self" ng-href="/records/{{ record.id }}">{{ record.metadata.title }}</a></h4>
-    {{ record.metadata.author }}
+    <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <h3><a target="_self" ng-href="/records/{{ record.id }}">{{ record.metadata.title }}</a></h3>
+
+    <!-- author -->
+    <ul class="list-inline" ng-show='record.metadata.authors.length > 0'>
+        <li ng-repeat='author in record.metadata.authors.slice(0,3)'>
+            {{ author.name }}
+            {{ author.qualifier ? author.qualifier : '' }}
+            {{ author.date ? author.date : '' }}
+            {{ $last ? '' : '; ' }}
+        </li>
+        <li ng-show='record.metadata.authors.length > 3'>; …</li>
+    </ul>
+
+    <!-- publishers -->
+    <ul class="list-inline" ng-show='record.metadata.publishers.length > 0'>
+        <li ng-repeat='publisher in record.metadata.publishers'>
+            {{ publisher.place.join(', ') }}:
+            {{ publisher.name.join(', ') }}
+            {{ $last ? '' : '; ' }}
+        </li>
+    </ul>
+
+    <!-- publicationDate -->
+    <span ng-show='record.metadata.publicationDate'>{{ record.metadata.publicationDate }}</span>
+
     <div class="text-right">
       <ul class="list-inline">
         <li>
