@@ -1,16 +1,180 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
 {%- block page_body %}
-<div class="container">
-  {%- block record_title %}
-  <h1>{{record.title}} {% if record.author %}/ {{record.author}} {%endif %}</h1>
-  {%- endblock %}
-  {%- block record_body %}
-  {% if record.author %}
-  <b>Author:</b> {{record.author}}<br>
-  {% endif %}
-  <b>Title:</b> {{record.title}}<br>
-  <b>Record:</b> {{pid.pid_value}}
-  {%- endblock %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.title}}</h1>
+        </div>
+    </div>
+    {%- block record_body %}
+        {% if record.authors|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Author:
+                </div>
+                <div class="col-md-10">
+                {% for author in record.authors %}
+                    {{ author.name }}
+                    {% if author.qualifier %}
+                    , {{ author.qualifier }}
+                    {% endif %}
+                    {% if author.date %}
+                    , {{ author.date }}
+                    {% endif %}
+                    {{ ";" if not loop.last }}
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.publishers|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Publisher:
+                </div>
+                <div class="col-md-10">
+                    {% for publisher in record.publishers %}
+                        {{ publisher.place|join('; ') }}:
+                        {{ publisher.name|join('; ') }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.publicationDate %}
+            <div class="row">
+                <div class="col-md-2">
+                    Date:
+                </div>
+                <div class="col-md-10">
+                    {{ record.publicationDate }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.abstracts|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Abstract:
+                </div>
+                <div class="col-md-10">
+                    {{ record.abstracts|join('<br>') }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.extent or record.otherMaterialCharacteristics or record.formats|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Physical description:
+                </div>
+                <div class="col-md-10">
+                    {% if record.extent %}
+                        {{ record.extent }},
+                    {% endif %}
+                    {% if record.otherMaterialCharacteristics %}
+                        {{ record.otherMaterialCharacteristics }},
+                    {% endif %}
+                    {% if record.formats|length > 0 %}
+                        {{ record.formats|join(', ') }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.additionalMaterials %}
+            <div class="row">
+                <div class="col-md-2">
+                    Additional Materials:
+                </div>
+                <div class="col-md-10">
+                    {{ record.additionalMaterials }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.series|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Series:
+                </div>
+                <div class="col-md-10">
+                    {% for serie in record.series %}
+                        {% if serie.name %}
+                            {{ serie.name }},
+                        {% endif %}
+                        {% if serie.number %}
+                            {{ serie.number }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.titlesProper|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Uniform title:
+                </div>
+                <div class="col-md-10">
+                    {{ record.titlesProper|join('; ') }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.subjects|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Subjects:
+                </div>
+                <div class="col-md-10">
+                    {{ record.subjects|join('; ') }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.notes|length > 0 %}
+            <div class="row">
+                <div class="col-md-2">
+                    Notes:
+                </div>
+                <div class="col-md-10">
+                    {{ record.notes|join('<br>') }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if record.identifiers.isbn %}
+            <div class="row">
+                <div class="col-md-2">
+                    ISBN:
+                </div>
+                <div class="col-md-10">
+                    {{ record.identifiers.isbn }}
+                </div>
+            </div>
+        {% endif %}
+        {% if record.identifiers.reroID %}
+            <div class="row">
+                <div class="col-md-2">
+                    RERO Number:
+                </div>
+                <div class="col-md-10">
+                    {{ record.identifiers.reroID }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% set permalink = 'http://data.rero.ch/01-%reroid%'|replace('%reroid%', record.identifiers.reroID) %}
+        <div class="row">
+            <div class="col-md-2">
+                Permalink:
+            </div>
+            <div class="col-md-10">
+                <a href="{{ permalink }}" target="_blank">{{ permalink }}</a>
+            </div>
+        </div>
+    {%- endblock %}
 </div>
 {%- endblock %}
