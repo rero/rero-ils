@@ -5,3 +5,22 @@
 .list-inline > li {
     padding-right: 0;
 }
+
+.container .jumbotron,
+.container-fluid .jumbotron {
+    margin-top: 30px;
+    min-height: 30em;
+}
+
+.navbar-default {
+    background-color: #1B4464;
+}
+
+#footer {
+    min-height: 80px;
+}
+
+#re-copyright {
+    color: #bbbbbb;
+    padding-top: 20px;
+}
