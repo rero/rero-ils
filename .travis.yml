@@ -51,6 +51,7 @@ before_install:
   - "requirements-builder -e all --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
 
 install:
+  - "travis_retry pip install -r requirements.txt"
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
   - "travis_retry pip install -e .[tests]"
 
