@@ -101,6 +101,9 @@ This installation process needs to be done only once, except if you want to star
         - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
         - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
         - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
+        - INVENIO_CACHE_REDIS_URL = 'redis://redis:6379/1'
+        - INVENIO_ACCOUNTS_SESSION_REDIS_URL='redis://redis:6379/0'
+        - INVENIO_DB_VERSIONING=0
       links:
         - postgresql
         - redis
@@ -119,6 +122,9 @@ This installation process needs to be done only once, except if you want to star
         - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
         - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
         - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
+        - INVENIO_CACHE_REDIS_URL = 'redis://redis:6379/1'
+        - INVENIO_ACCOUNTS_SESSION_REDIS_URL='redis://redis:6379/0'
+        - INVENIO_DB_VERSIONING=0
       links:
         - postgresql
         - redis
