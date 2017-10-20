@@ -45,7 +45,7 @@
 -e git+git://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
 
 -e git+https://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
--e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql]
+-e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql,versioning]
 -e git+https://github.com/inveniosoftware/invenio-indexer.git#egg=invenio-indexer
 -e git+https://github.com/inveniosoftware/invenio-jsonschemas.git#egg=invenio-jsonschemas
 -e git+https://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
@@ -69,5 +69,8 @@
 -e git+https://github.com/rero/invenio-circulation.git#egg=invenio-circulation
 
 # RERO
--e git+https://git@gitlab.rero.ch/rero21/reroils-data.git#egg=reroils-data
--e git+https://git@gitlab.rero.ch/rero21/reroils-record-editor.git#egg=reroils-record-editor
+-e git+https://github.com/rero/reroils-data.git#egg=reroils-data[all]
+-e git+https://github.com/rero/reroils-record-editor.git#egg=reroils-record-editor[all]
+
+#-e git+https://git@gitlab.rero.ch/rero21/reroils-data.git#egg=reroils-data[all]
+#-e git+https://git@gitlab.rero.ch/rero21/reroils-record-editor.git#egg=reroils-record-editor[all]

@@ -4,4 +4,4 @@
 
 source reroils/bin/activate
 
-invenio run -h 0.0.0.0
+invenio run -h 0.0.0.0 -p 5010
