@@ -131,7 +131,7 @@ This installation process needs to be done only once, except if you want to star
         - elasticsearch
         - rabbitmq
       ports:
-        - "5000:5000"
+        - "5000:5010"
       command: ['./start.sh']
 
     postgresql:
