@@ -22,6 +22,9 @@ RUN echo "if [ -f /home/invenio/reroils/bin/activate ]; then \n\
     source /home/invenio/reroils/bin/activate \n\
 fi" >> ~/.bashrc
 
+RUN echo "if [ -f /home/invenio/reroils/etc/bashrc ]; then \n\
+    source /home/invenio/reroils/etc/bashrc \n\
+fi" >> ~/.bashrc
 
 WORKDIR /home/invenio
 
