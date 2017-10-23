@@ -2,6 +2,10 @@
   list-style-type: none;
 }
 
+.search-page ul {
+    margin-bottom: 0;
+}
+
 .list-inline > li {
     padding-right: 0;
 }

@@ -59,7 +59,11 @@
                     Abstract:
                 </div>
                 <div class="col-md-10">
-                    {{ record.abstracts|join('<br>') }}
+                    <ul class="list-inline">
+                    {% for abstract in record.abstracts %}
+                    <li>{{ abstract|e }}</li>
+                    {% endfor %}
+                    </ul>
                 </div>
             </div>
         {% endif %}
@@ -140,7 +144,11 @@
                     Notes:
                 </div>
                 <div class="col-md-10">
-                    {{ record.notes|join('<br>') }}
+                    <ul class="list-inline">
+                    {% for note in record.notes %}
+                    <li>{{ note|e }}</li>
+                    {% endfor %}
+                    </ul>
                 </div>
             </div>
         {% endif %}
