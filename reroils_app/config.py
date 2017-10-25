@@ -95,3 +95,10 @@ RECORDS_UI_ENDPOINTS = {
         "template": "invenio_records_ui/export.html",
     }
 }
+
+REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
+
+REROILS_RECORD_EDITOR_FORM_OPTIONS = (
+    'reroils_data.form_options',
+    'records/record-v0.0.1.json'
+)
