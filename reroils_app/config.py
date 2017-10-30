@@ -52,6 +52,8 @@ SEARCH_ELASTIC_HOSTS='elasticsearch'
 CELERY_BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
 CELERY_RESULT_BACKEND='redis://redis:6379/1'
 
+CIRCULATION_ITEM_SCHEMA = 'records/item-v0.0.1.json'
+
 JSONSCHEMAS_ENDPOINT = '/schema'
 JSONSCHEMAS_HOST = 'ils.test.rero.ch'
 JSONSCHEMAS_REGISTER_ENDPOINTS_UI = True
@@ -65,7 +67,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='bibid',
         pid_fetcher='bibid',
         search_class=RecordsSearch,
-        search_index=None,
+        search_index='records-record-v0.0.1',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -80,6 +82,27 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
     ),
+    crcitm=dict(
+        pid_type='crcitm',
+        pid_minter='itemid',
+        pid_fetcher='itemid',
+        search_class=RecordsSearch,
+        search_index='records-item-v0.0.1',
+        record_class='invenio_circulation.api:Item',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/items/',
+        item_route='/items/<pid(crcitm):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    )
 )
 
 RECORDS_UI_ENDPOINTS = {
@@ -93,6 +116,11 @@ RECORDS_UI_ENDPOINTS = {
         "route": "/records/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
         "template": "invenio_records_ui/export.html",
+    },
+    "crcitm": {
+        "pid_type": "crcitm",
+        "route": "/items/<pid_value>",
+        "template": "reroils_app/fullview_items.html",
     }
 }
 

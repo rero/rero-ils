@@ -1,0 +1,14 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.barcode}}</h1>
+        </div>
+    </div>
+    {%- block record_body %}
+        {{record | tojson}}
+    {%- endblock %}
+</div>
+{%- endblock %}
