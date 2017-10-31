@@ -20,8 +20,8 @@ invenio index delete --force --yes-i-know marc21-holdings-hd-v1.0.0 || true
 
 invenio index queue init
 dojson -i demo.json schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
-invenio index reindex --yes-i-know --pid-type recid
-invenio index run
+# invenio index reindex --yes-i-know --pid-type recid
+# invenio index run
 
-# circulation
-invenio fixtures createitems
+# create items and index bibitems
+invenio fixtures createitems -v
