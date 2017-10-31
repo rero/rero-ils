@@ -25,6 +25,8 @@
     <!-- publicationDate -->
     <span ng-show='record.metadata.publicationDate'>{{ record.metadata.publicationDate }}</span>
 
+    <span ng-show='record.metadata.citems[0]["_circulation"]["status"] == "on_shelf"' class="label label-success">Available</span>
+
     <div class="text-right">
       <ul class="list-inline">
         <li>
