@@ -130,3 +130,5 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
     'reroils_data.form_options',
     'records/record-v0.0.1.json'
 )
+
+INDEXER_REPLACE_REFS = False
