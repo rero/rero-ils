@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y curl git gcc \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y nodejs \
     && pip install -U setuptools pip && \
-	pip install -U virtualenv
+	pip install -U virtualenv && \
+    node --version && \
+    npm install -g node-sass clean-css clean-css-cli requirejs uglify-js
 
 
 # Add Invenio sources to `code` and work there:
@@ -35,12 +37,10 @@ RUN source reroils/bin/activate && \
     pip install gunicorn
 
 RUN source reroils/bin/activate && \
-	node --version &&\
-	npm install -g --prefix ${VIRTUAL_ENV} npm &&\
-	npm install -g --prefix ${VIRTUAL_ENV} node-sass clean-css clean-css-cli requirejs uglify-js &&\
 	invenio npm && \
 	cd reroils/var/instance/static && \
 	npm i && \
+    npm install --save angular-schema-form && \
 	invenio collect -v && \
 	invenio assets build
 

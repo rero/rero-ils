@@ -57,7 +57,7 @@ spec:
         - name: INVENIO_ACCOUNTS_SESSION_REDIS_URL
           value: 'redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/0'
         - name: INVENIO_DB_VERSIONING
-          value: 0
+          value: '0'
         ports:
         - containerPort: 5000
         volumeMounts:

@@ -49,6 +49,8 @@ spec:
       value: 'amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-worker:$(ILS_WORKER_SERVICE_PORT_WORKER)//'
     - name: INVENIO_CELERY_RESULT_BACKEND
       value: 'redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/1'
+    - name: INVENIO_DB_VERSIONING
+      value: '0'
     volumeMounts:
     - mountPath: /data
       name: ils-data

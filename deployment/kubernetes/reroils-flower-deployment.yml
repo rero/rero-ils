@@ -30,4 +30,3 @@ spec:
         - containerPort: 5555
           name: flower
         args: ['--broker=amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-worker:$(ILS_WORKER_SERVICE_PORT_WORKER)// --broker_api=http://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-worker:$(ILS_WORKER_SERVICE_PORT_UI)/api/']
-      

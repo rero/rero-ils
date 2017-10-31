@@ -6,7 +6,7 @@
 # Distributed under terms of the MIT license.
 #
 invenio db destroy --yes-i-know || true
-invenio index destroy --yes-i-know || true
+invenio index destroy --force --yes-i-know || true
 invenio index delete records-record-v1.0.0 --yes-i-know || true
 
 invenio db init create
