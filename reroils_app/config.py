@@ -38,7 +38,7 @@ SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzP
 THEME_SITENAME = _('reroils-app')
 
 # For dev
-APP_ENABLE_SECURE_HEADERS=False
+# APP_ENABLE_SECURE_HEADERS=False
 
 # no needs for redis
 CACHE_TYPE='simple'
