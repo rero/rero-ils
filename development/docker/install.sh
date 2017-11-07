@@ -52,7 +52,9 @@ else
     # install the invenio application
     cd reroils-app
     pip install -r requirements-devel.txt
-    pip install -e .[tests]
+    pip install -e .[all]
+
+    python setup.py compile_catalog
 
     # collect and install js dependencies
     invenio npm
@@ -66,4 +68,6 @@ else
     # test the assets
     invenio assets build
     echo "Installation done!"
+
+
 fi

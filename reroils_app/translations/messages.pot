@@ -1,0 +1,44 @@
+# Translations template for reroils-app.
+# Copyright (C) 2017 RERO
+# This file is distributed under the same license as the reroils-app
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: reroils-app 0.1.0a4\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2017-11-06 15:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.1\n"
+
+#: reroils_app/config.py:18
+msgid "French"
+msgstr ""
+
+#: reroils_app/config.py:19
+msgid "German"
+msgstr ""
+
+#: reroils_app/config.py:20
+msgid "Italian"
+msgstr ""
+
+#: reroils_app/config.py:38
+msgid "reroils-app"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/footer.html:11
+msgid "Powered by"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/index.html:9
+msgid "Welcome to ILS RERO"
+msgstr ""
+

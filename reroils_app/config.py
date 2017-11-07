@@ -12,7 +12,7 @@ def _(x):
     return x
 
 # Default language and timezone
-BABEL_DEFAULT_LANGUAGE = 'en'
+BABEL_DEFAULT_LANGUAGE = 'en_US'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 I18N_LANGUAGES = [
     ('fr', _('French')),

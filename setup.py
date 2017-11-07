@@ -20,12 +20,19 @@ tests_require = [
     'pytest-cache>=1.0',
     'pytest-cov>=1.8.0',
     'pytest-pep8>=1.0.6',
-    'pytest>=2.8.0',
+    'pytest>=2.8.0'
 ]
 
 extras_require = {
+    'translations': [
+        'transifex-client>=0.12.5'
+    ],
     'tests': tests_require
 }
+
+extras_require['all'] = []
+for reqs in extras_require.values():
+    extras_require['all'].extend(reqs)
 
 setup_requires = [
     'Babel>=1.3',
@@ -50,6 +57,9 @@ setup(
         'invenio_config.module': [
             'reroils_app = '
             'reroils_app.config',
+        ],
+        'invenio_i18n.translations': [
+            'messages = reroils_app',
         ],
     },
     extras_require=extras_require,

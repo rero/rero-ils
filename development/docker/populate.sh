@@ -12,6 +12,12 @@ invenio index delete --force --yes-i-know circulation-item-default-v1.0.0 || tru
 invenio index delete --force --yes-i-know marc21-authority-ad-v1.0.0 || true
 invenio index delete --force --yes-i-know marc21-holdings-hd-v1.0.0 || true
 
+invenio users create -a --password 123456 software@rero.ch
+invenio roles create -d "Admin group" admin
+invenio roles add software@rero.ch admin
+invenio access allow admin-access role admin
+invenio access allow superuser-access role admin
+
 invenio index queue init
 
 # create new user

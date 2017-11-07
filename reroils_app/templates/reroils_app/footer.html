@@ -1,8 +1,14 @@
 <footer id="footer">
   <div class="container">
     <div id="re-copyright" class="row">
-      <div class="col-xs-6">© Copyright 2017, RERO - Martigny</div>
-      <div class="col-xs-6 text-right">Powered by <a href="http://invenio-software.org" target="_blank">Invenio</a></div>
+      <div class="col-xs-4">
+        {%- if config.I18N_LANGUAGES %}
+        {% from "invenio_i18n/macros/language_selector.html" import language_selector_dropdown %}
+        {{ language_selector_dropdown() }}
+        {%- endif %}
+      </div>
+      <div class="col-xs-4 text-center">© Copyright 2017, RERO - Martigny</div>
+      <div class="col-xs-4 text-right">{{_('Powered by')}} <a href="http://invenio-software.org" target="_blank">Invenio</a></div>
     </div>
   </div>
 </footer>
