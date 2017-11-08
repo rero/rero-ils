@@ -132,3 +132,5 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
 )
 
 REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
+
+SEARCH_UI_SEARCH_TEMPLATE = "reroils_app/search.html"

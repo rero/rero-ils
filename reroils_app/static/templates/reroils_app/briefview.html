@@ -25,18 +25,19 @@
     <!-- publicationDate -->
     <span ng-show='record.metadata.publicationDate'>{{ record.metadata.publicationDate }}</span>
 
-    <span ng-show='record.metadata.citems[0]["_circulation"]["status"] == "on_shelf"' class="label label-success">Available</span>
+    <span ng-show='record.metadata.citems[0]["_circulation"]["status"] == "on_shelf"' class="label label-success" translate>Available</span>
 
     <div class="text-right">
       <ul class="list-inline">
         <li>
           <a ng-click="showSource=!showSource">
-            {{ showSource ? 'Hide source' : 'Show source' }}
+            <span ng-show="showSource" translate>Hide source</span>
+            <span ng-hide="showSource" translate>Show source</span>
           </a>
         </li>
       </ul>
     </div>
-    <div ng-hide="!showSource">
+    <div ng-show="showSource">
       <pre>{{ record | json }}</pre>
     </div>
     <hr />

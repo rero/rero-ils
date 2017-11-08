@@ -11,7 +11,7 @@
         {% if record.authors|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Author:
+                    {{_('Author')}}:
                 </div>
                 <div class="col-md-10">
                 {% for author in record.authors %}
@@ -31,7 +31,7 @@
         {% if record.publishers|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Publisher:
+                    {{_('Publisher')}}:
                 </div>
                 <div class="col-md-10">
                     {% for publisher in record.publishers %}
@@ -45,7 +45,7 @@
         {% if record.publicationDate %}
             <div class="row">
                 <div class="col-md-2">
-                    Date:
+                    {{_('Date')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.publicationDate }}
@@ -56,7 +56,7 @@
         {% if record.abstracts|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Abstract:
+                    {{_('Abstract')}}:
                 </div>
                 <div class="col-md-10">
                     <ul class="list-inline">
@@ -71,7 +71,7 @@
         {% if record.extent or record.otherMaterialCharacteristics or record.formats|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Physical description:
+                    {{_('Physical description')}}:
                 </div>
                 <div class="col-md-10">
                     {% if record.extent %}
@@ -90,7 +90,7 @@
         {% if record.additionalMaterials %}
             <div class="row">
                 <div class="col-md-2">
-                    Additional Materials:
+                    {{_('Additional Materials')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.additionalMaterials }}
@@ -101,7 +101,7 @@
         {% if record.series|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Series:
+                    {{_('Series')}}:
                 </div>
                 <div class="col-md-10">
                     {% for serie in record.series %}
@@ -119,7 +119,7 @@
         {% if record.titlesProper|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Uniform title:
+                    {{_('Uniform title')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.titlesProper|join('; ') }}
@@ -130,7 +130,7 @@
         {% if record.subjects|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Subjects:
+                    {{_('Subjects')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.subjects|join('; ') }}
@@ -141,7 +141,7 @@
         {% if record.notes|length > 0 %}
             <div class="row">
                 <div class="col-md-2">
-                    Notes:
+                    {{_('Notes')}}:
                 </div>
                 <div class="col-md-10">
                     <ul class="list-inline">
@@ -156,7 +156,7 @@
         {% if record.identifiers.isbn %}
             <div class="row">
                 <div class="col-md-2">
-                    ISBN:
+                    {{_('ISBN')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.identifiers.isbn }}
@@ -166,7 +166,7 @@
         {% if record.identifiers.reroID %}
             <div class="row">
                 <div class="col-md-2">
-                    RERO Number:
+                    {{_('RERO Number')}}:
                 </div>
                 <div class="col-md-10">
                     {{ record.identifiers.reroID }}
@@ -177,7 +177,7 @@
         {% set permalink = 'http://data.rero.ch/01-%reroid%'|replace('%reroid%', record.identifiers.reroID) %}
         <div class="row">
             <div class="col-md-2">
-                Permalink:
+                {{_('Permalink')}}:
             </div>
             <div class="col-md-10">
                 <a href="{{ permalink }}" target="_blank">{{ permalink }}</a>

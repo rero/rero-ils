@@ -61,6 +61,9 @@ setup(
         'invenio_i18n.translations': [
             'messages = reroils_app',
         ],
+        'invenio_assets.bundles': [
+            'reroils_app_search_js = reroils_app.bundles:search_js',
+        ],
     },
     extras_require=extras_require,
     setup_requires=setup_requires,
