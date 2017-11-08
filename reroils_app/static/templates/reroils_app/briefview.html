@@ -1,5 +1,5 @@
 <ul class="re-list">
-    <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <li ng-controller="recordController" ng-init="record=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
     <h3><a target="_self" ng-href="/records/{{ record.id }}">{{ record.metadata.title }}</a></h3>
 
     <!-- author -->
@@ -24,8 +24,19 @@
 
     <!-- publicationDate -->
     <span ng-show='record.metadata.publicationDate'>{{ record.metadata.publicationDate }}</span>
-
-    <span ng-show='record.metadata.citems[0]["_circulation"]["status"] == "on_shelf"' class="label label-success" translate>Available</span>
+    <div class="reroils-circulation">
+        <a ng-href="/records/{{ record.id }}" ng-show='numberOfCitemsAvailable() === 1'>
+            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+            <span class="">{{numberOfCitemsAvailable()}}</span>
+            <span translate>item available</span>
+        </a>
+        <a ng-href="/records/{{ record.id }}" ng-show='numberOfCitemsAvailable() > 1'>
+            <i class="fa fa-circle text-success" aria-hidden="true"></i>
+            <span class="">{{numberOfCitemsAvailable()}}</span>
+            <span translate>items available</span>
+        </a>
+        <span ng-show='numberOfCitemsAvailable() === 0' translate>no item available</span>
+    </div>
 
     <div class="text-right">
       <ul class="list-inline">

@@ -1,0 +1,7 @@
+_('on_loan')
+_('on_shelf')
+_('missing')
+
+_('publicAccess')
+_('storeroom')
+_('readingRoom')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a4\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-08 09:52+0000\n"
+"POT-Creation-Date: 2017-11-08 14:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017\n"
 "Language: en_US\n"
@@ -36,15 +36,47 @@ msgstr ""
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/static/templates/reroils_app/briefview.html:28
-msgid "Available"
+#: reroils_app/manual_translations.txt:1
+msgid "on_loan"
+msgstr "on loan"
+
+#: reroils_app/manual_translations.txt:2
+msgid "on_shelf"
+msgstr "on shelf"
+
+#: reroils_app/manual_translations.txt:3
+msgid "missing"
+msgstr "excluded from loan"
+
+#: reroils_app/manual_translations.txt:5
+msgid "publicAccess"
+msgstr "public access"
+
+#: reroils_app/manual_translations.txt:6
+msgid "storeroom"
+msgstr "store room"
+
+#: reroils_app/manual_translations.txt:7
+msgid "readingRoom"
+msgstr "reading room"
+
+#: reroils_app/static/templates/reroils_app/briefview.html:31
+msgid "item available"
 msgstr ""
 
-#: reroils_app/static/templates/reroils_app/briefview.html:34
+#: reroils_app/static/templates/reroils_app/briefview.html:36
+msgid "items available"
+msgstr ""
+
+#: reroils_app/static/templates/reroils_app/briefview.html:38
+msgid "no item available"
+msgstr ""
+
+#: reroils_app/static/templates/reroils_app/briefview.html:45
 msgid "Hide source"
 msgstr ""
 
-#: reroils_app/static/templates/reroils_app/briefview.html:35
+#: reroils_app/static/templates/reroils_app/briefview.html:46
 msgid "Show source"
 msgstr ""
 
@@ -104,7 +136,26 @@ msgstr ""
 msgid "Permalink"
 msgstr ""
 
+#: reroils_app/templates/reroils_app/fullview.html:190
+msgid "Items"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:195
+msgid "Location"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:206
+msgid "Call Number"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:217
+msgid "Barcode"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:228
+msgid "Status"
+msgstr ""
+
 #: reroils_app/templates/reroils_app/index.html:9
 msgid "Welcome to ILS RERO"
 msgstr ""
-

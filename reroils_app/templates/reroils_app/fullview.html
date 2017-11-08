@@ -183,6 +183,67 @@
                 <a href="{{ permalink }}" target="_blank">{{ permalink }}</a>
             </div>
         </div>
+
+        <!-- Items -->
+        {% if record.citems %}
+        <div class='reroils-items'>
+            <h3>{{_('Items')}}</h3>
+        {% for item in record.citems %}
+            {% if item.localisation %}
+                <div class="row">
+                    <div class="col-md-2">
+                        {{_('Location')}}:
+                    </div>
+                    <div class="col-md-10">
+                        {{ _(item.localisation) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if item.callNumber %}
+                <div class="row">
+                    <div class="col-md-2">
+                        {{_('Call Number')}}:
+                    </div>
+                    <div class="col-md-10">
+                        {{ item.callNumber }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if item.barcode %}
+                <div class="row">
+                    <div class="col-md-2">
+                        {{_('Barcode')}}:
+                    </div>
+                    <div class="col-md-10">
+                        {{ item.barcode }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if item._circulation.status %}
+                <div class="row">
+                    <div class="col-md-2">
+                        {{_('Status')}}:
+                    </div>
+                    <div class="col-md-10">
+                        {% if item._circulation.status == 'on_shelf' %}
+                        <i class="fa fa-circle text-success" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+                        {% elif item._circulation.status == 'on_loan' %}
+                        <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+                        {% else %}
+                        <i class="fa fa-circle" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if not loop.last %}
+                <hr/>
+            {% endif %}
+        {% endfor %}
+        </div>
+        {% endif %}
     {%- endblock %}
 </div>
 {%- endblock %}

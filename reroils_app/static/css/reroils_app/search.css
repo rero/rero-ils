@@ -1,4 +1,4 @@
-.re-list { 
+.re-list {
   list-style-type: none;
 }
 
@@ -27,4 +27,8 @@
 #re-copyright {
     color: #bbbbbb;
     padding-top: 20px;
+}
+
+.reroils-circulation {
+    margin-top: 10px;
 }

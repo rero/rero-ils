@@ -25,14 +25,12 @@
 """JS/CSS bundles for theme."""
 
 from __future__ import absolute_import, print_function
+
 import os
 
-from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
-
 from flask_assets import Bundle
-
+from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
 from pkg_resources import resource_filename
-
 
 
 def catalog(domain):
