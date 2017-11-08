@@ -4,12 +4,15 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_records_rest.facets import range_filter, terms_filter
+from invenio_records_rest.query import es_search_factory
 from invenio_search import RecordsSearch
 
 
 # Identity function for string extraction
 def _(x):
     return x
+
 
 # Default language and timezone
 BABEL_DEFAULT_LANGUAGE = 'en_US'
@@ -41,16 +44,16 @@ THEME_SITENAME = _('reroils-app')
 # APP_ENABLE_SECURE_HEADERS=False
 
 # no needs for redis
-CACHE_TYPE='simple'
+CACHE_TYPE = 'simple'
 
 
-USER_EMAIL='software@rero.ch'
-USER_PASS='uspass123'
+USER_EMAIL = 'software@rero.ch'
+USER_PASS = 'uspass123'
 
-SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils'
-SEARCH_ELASTIC_HOSTS='elasticsearch'
-CELERY_BROKER_URL='amqp://guest:guest@rabbitmq:5672//'
-CELERY_RESULT_BACKEND='redis://redis:6379/1'
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils'
+SEARCH_ELASTIC_HOSTS = 'elasticsearch'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 
 CIRCULATION_ITEM_SCHEMA = 'records/item-v0.0.1.json'
 
@@ -124,6 +127,87 @@ RECORDS_UI_ENDPOINTS = {
         "template": "reroils_app/fullview_items.html",
     }
 }
+
+RECORDS_REST_FACETS = {
+    'records-record-v0.0.1': dict(
+        aggs=dict(
+            status=dict(
+                terms=dict(
+                    field='citems._circulation.status',
+                    size=0
+                )
+            ),
+            location=dict(
+                terms=dict(
+                    field='citems.localisation',
+                    size=0
+                )
+            ),
+            language=dict(
+                terms=dict(
+                    field='languages',
+                    size=5
+                )
+            ),
+            author=dict(
+                terms=dict(
+                    field='facet_authors',
+                    size=5
+                )
+            ),
+            # date=dict(
+            #     date_histogram=dict(
+            #         field='publicationDate',
+            #         interval='year',
+            #         format='yyyy'
+            #     )
+            # ),
+        ),
+        # can be also post_filter
+        filters=dict(
+            status=terms_filter('citems._circulation.status'),
+            location=terms_filter('citems.localisation'),
+            language=terms_filter('languages'),
+            author=terms_filter('facet_authors'),
+#            date=terms_filter('publicationDate')
+        )
+    )
+}
+# # sort
+# RECORDS_REST_SORT_OPTIONS = {
+#     'records-record-v0.0.1': dict(
+#         title=dict(
+#             fields=['title'],
+#             title='Title',
+#             default_order='asc',
+#             order=1
+#         ),
+#         author=dict(
+#             fields=['authors.name'],
+#             title='Author',
+#             default_order='asc',
+#             order=2
+#         ),
+#         bestmatch=dict(
+#             fields=['_score'],
+#             title='Best match',
+#             default_order='asc',
+#             order=3
+#         ),
+#         mostrecent=dict(
+#             fields=['_created'],
+#             title='Most recent',
+#             default_order='asc',
+#             order=4
+#         ),
+#     )
+# }
+#
+# #default sort
+# RECORDS_REST_DEFAULT_SORT = {
+#     'records-record-v0.0.1': dict(query='bestmatch', noquery='title'),
+# }
+
 
 INDEXER_REPLACE_REFS = False
 
