@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a4\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-08 14:55+0000\n"
+"POT-Creation-Date: 2017-11-09 15:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igormilhit@mailoo.org>, 2017\n"
 "Language: fr\n"
@@ -19,21 +19,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: reroils_app/config.py:18
+#: reroils_app/config.py:21
 msgid "French"
 msgstr "français"
 
-#: reroils_app/config.py:19
+#: reroils_app/config.py:22
 msgid "German"
 msgstr "allemand"
 
-#: reroils_app/config.py:20
+#: reroils_app/config.py:23
 msgid "Italian"
 msgstr "italien"
 
-#: reroils_app/config.py:38
+#: reroils_app/config.py:43
 msgid "reroils-app"
 msgstr "reroils-app"
+
+#: reroils_app/config.py:176
+msgid "status"
+msgstr "statut"
+
+#: reroils_app/config.py:177
+msgid "location"
+msgstr "localisation"
+
+#: reroils_app/config.py:178
+msgid "language"
+msgstr "langue"
+
+#: reroils_app/config.py:179
+msgid "author"
+msgstr "auteur"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -59,6 +75,66 @@ msgstr "magasin"
 msgid "readingRoom"
 msgstr "salle de lecture"
 
+#: reroils_app/manual_translations.txt:8
+msgid "readingroom"
+msgstr "salle de lecture"
+
+#: reroils_app/manual_translations.txt:9
+msgid "publicaccess"
+msgstr "libre accès"
+
+#: reroils_app/manual_translations.txt:11
+msgid "eng"
+msgstr "anglais"
+
+#: reroils_app/manual_translations.txt:12
+msgid "ara"
+msgstr "arabe"
+
+#: reroils_app/manual_translations.txt:13
+msgid "chi"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:14
+msgid "fre"
+msgstr "français"
+
+#: reroils_app/manual_translations.txt:15
+msgid "lat"
+msgstr "latin"
+
+#: reroils_app/manual_translations.txt:16
+msgid "ger"
+msgstr "allemand"
+
+#: reroils_app/manual_translations.txt:17
+msgid "spa"
+msgstr "espagnol"
+
+#: reroils_app/manual_translations.txt:18
+msgid "ita"
+msgstr "italien"
+
+#: reroils_app/manual_translations.txt:19
+msgid "afr"
+msgstr "africain"
+
+#: reroils_app/manual_translations.txt:20
+msgid "grc"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:21
+msgid "gre"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:22
+msgid "heb"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:23
+msgid "ice"
+msgstr ""
+
 #: reroils_app/static/templates/reroils_app/briefview.html:31
 msgid "item available"
 msgstr "exemplaire disponible"
@@ -67,15 +143,15 @@ msgstr "exemplaire disponible"
 msgid "items available"
 msgstr "exemplaires disponible"
 
-#: reroils_app/static/templates/reroils_app/briefview.html:38
+#: reroils_app/static/templates/reroils_app/briefview.html:40
 msgid "no item available"
 msgstr "aucun exemplaire disponible"
 
-#: reroils_app/static/templates/reroils_app/briefview.html:45
+#: reroils_app/static/templates/reroils_app/briefview.html:48
 msgid "Hide source"
 msgstr "Masquer les sources"
 
-#: reroils_app/static/templates/reroils_app/briefview.html:46
+#: reroils_app/static/templates/reroils_app/briefview.html:49
 msgid "Show source"
 msgstr "Voir les sources"
 

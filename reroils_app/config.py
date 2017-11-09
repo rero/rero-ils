@@ -29,6 +29,8 @@ REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'reroils_app/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
 SEARCH_UI_JSTEMPLATE_RESULTS = \
     'templates/reroils_app/briefview.html'
+SEARCH_UI_SEARCH_TEMPLATE = 'reroils_app/search.html'
+SEARCH_UI_JSTEMPLATE_FACETS = 'templates/reroils_app/facets.html'
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
 THEME_LOGO = 'images/logo_rero_ils.png'
@@ -128,6 +130,12 @@ RECORDS_UI_ENDPOINTS = {
     }
 }
 
+REROILS_APP_SORT_FACETS = {
+    'records': 'status,location,language,author'
+}
+
+SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
+
 RECORDS_REST_FACETS = {
     'records-record-v0.0.1': dict(
         aggs=dict(
@@ -146,7 +154,7 @@ RECORDS_REST_FACETS = {
             language=dict(
                 terms=dict(
                     field='languages',
-                    size=5
+                    size=0
                 )
             ),
             author=dict(
@@ -164,15 +172,16 @@ RECORDS_REST_FACETS = {
             # ),
         ),
         # can be also post_filter
-        filters=dict(
-            status=terms_filter('citems._circulation.status'),
-            location=terms_filter('citems.localisation'),
-            language=terms_filter('languages'),
-            author=terms_filter('facet_authors'),
+        filters={
+            _('status'): terms_filter('citems._circulation.status'),
+            _('location'): terms_filter('citems.localisation'),
+            _('language'): terms_filter('languages'),
+            _('author'): terms_filter('facet_authors'),
 #            date=terms_filter('publicationDate')
-        )
+        }
     )
 }
+
 # # sort
 # RECORDS_REST_SORT_OPTIONS = {
 #     'records-record-v0.0.1': dict(
@@ -202,7 +211,7 @@ RECORDS_REST_FACETS = {
 #         ),
 #     )
 # }
-#
+
 # #default sort
 # RECORDS_REST_DEFAULT_SORT = {
 #     'records-record-v0.0.1': dict(query='bestmatch', noquery='title'),
@@ -217,5 +226,3 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
 )
 
 REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
-
-SEARCH_UI_SEARCH_TEMPLATE = 'reroils_app/search.html'
