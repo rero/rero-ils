@@ -1,3 +1,7 @@
+body {
+	font-size: 16px;
+}
+
 .re-list {
   list-style-type: none;
 }
@@ -10,14 +14,25 @@
     padding-right: 0;
 }
 
-.container .jumbotron,
-.container-fluid .jumbotron {
-    margin-top: 30px;
-    min-height: 30em;
-}
-
 .navbar-default {
     background-color: #1B4464;
+}
+
+.reroils-frontpage-upper {
+	margin-top: -20px;
+    position: relative;
+}
+
+.reroils-frontpage-lower {
+	margin-top: 20px;
+}
+
+.reroils-frontpage-upper input.input-lg {
+	height: 50px;
+}
+
+.reroils-frontpage-upper button.btn-lg {
+	padding: 12px 16px;
 }
 
 #footer {
@@ -31,4 +46,72 @@
 
 .reroils-circulation {
     margin-top: 10px;
+}
+
+.reroils-red-banner {
+	background-color: #ba1319;
+	color: #ffffff;
+	padding: 6px;
+}
+
+.reroils-frontpage-bullet {
+	margin-bottom: 10px;
+	min-height: 48px;
+}
+
+.reroils-frontpage-bullet-logo {
+	width: 48px;
+	float: left;
+	vertical-align: top;
+}
+
+.reroils-frontpage-bullet-text {
+	/*width: 300px;*/
+	display: block;
+}
+
+.reroils-frontpage-lower h3 {
+	color: #1B4464;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+img.reroils-frontpage-rero21 {
+	width: 65px;
+	margin-left: 2px;
+	margin-right: 9px;
+	margin-bottom: 6px;
+}
+
+.reroils-service-logo {
+	background-color: #204b73;
+	padding: 5px 20px;
+	margin-bottom: 8px;
+	margin-left: 1px;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.reroils-slogan-large {
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    color: #ffffff;
+}
+
+.reroils-slogan-small {
+    width: 100%;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    color: #ffffff;
+}
+
+.reroils-prompt {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+    padding: 0 20%;
 }

@@ -19,5 +19,5 @@ blueprint = Blueprint(
 @blueprint.route("/")
 def index():
     """Home Page."""
-    return render_template('reroils_app/index.html',
-                           module_name='reroils_app', version=__version__)
+    return render_template('reroils_app/frontpage.html',
+                           version=__version__)
