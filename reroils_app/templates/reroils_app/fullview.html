@@ -42,13 +42,17 @@
             </div>
         {% endif %}
 
-        {% if record.publicationDate %}
+        {% if record.publicationYear %}
             <div class="row">
                 <div class="col-md-2">
                     {{_('Date')}}:
                 </div>
                 <div class="col-md-10">
-                    {{ record.publicationDate }}
+                    {% if record.freeFormedPublicationDate %}
+                        {{record.freeFormedPublicationDate}}
+                    {% else %}
+                        {{ record.publicationYear }}
+                    {% endif %}
                 </div>
             </div>
         {% endif %}
@@ -189,13 +193,13 @@
         <div class='reroils-items'>
             <h3>{{_('Items')}}</h3>
         {% for item in record.citems %}
-            {% if item.localisation %}
+            {% if item.location %}
                 <div class="row">
                     <div class="col-md-2">
                         {{_('Location')}}:
                     </div>
                     <div class="col-md-10">
-                        {{ _(item.localisation) }}
+                        {{ _(item.location) }}
                     </div>
                 </div>
             {% endif %}

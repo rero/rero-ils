@@ -23,7 +23,8 @@
     </ul>
 
     <!-- publicationDate -->
-    <span ng-show='record.metadata.publicationDate'>{{ record.metadata.publicationDate }}</span>
+    <span ng-show='record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate'>{{ record.metadata.publicationYear }}</span>
+    <span ng-show='record.metadata.freeFormedPublicationDate'>{{ record.metadata.freeFormedPublicationDate }}</span>
     <div class="reroils-circulation">
         <a ng-href="/records/{{ record.id }}" ng-show='numberOfCitemsAvailable() === 1'>
             <i class="fa fa-circle text-success" aria-hidden="true"></i>

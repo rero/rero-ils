@@ -147,13 +147,13 @@ RECORDS_REST_FACETS = {
             ),
             location=dict(
                 terms=dict(
-                    field='citems.localisation',
+                    field='citems.location',
                     size=0
                 )
             ),
             language=dict(
                 terms=dict(
-                    field='languages',
+                    field='languages.language',
                     size=0
                 )
             ),
@@ -163,21 +163,27 @@ RECORDS_REST_FACETS = {
                     size=5
                 )
             ),
-            # date=dict(
-            #     date_histogram=dict(
-            #         field='publicationDate',
-            #         interval='year',
-            #         format='yyyy'
-            #     )
-            # ),
+            years=dict(
+                date_histogram=dict(
+                    field='publicationYear',
+                    interval='year',
+                    format='yyyy'
+                )
+            ),
         ),
         # can be also post_filter
         filters={
             _('status'): terms_filter('citems._circulation.status'),
-            _('location'): terms_filter('citems.localisation'),
-            _('language'): terms_filter('languages'),
-            _('author'): terms_filter('facet_authors'),
-#            date=terms_filter('publicationDate')
+            _('location'): terms_filter('citems.location'),
+            _('language'): terms_filter('languages.language'),
+            _('author'): terms_filter('facet_authors')
+        },
+        post_filters={
+            _('years'):range_filter(
+                'publicationYear',
+                format='yyyy',
+                end_date_math='/y'
+            )
         }
     )
 }

@@ -1,5 +1,5 @@
 <div ng-init="tree=[];tree_more=[]" ng-repeat="aggr in orderedAggs track by $index">
-  <div ng-if="aggr.value.buckets.length > 0" class="panel panel-default">
+  <div ng-if="aggr.value.buckets.length > 0 && aggr.key !== 'years'" class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{ aggr.key | translate }}</h3>
     </div>
