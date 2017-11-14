@@ -1,5 +1,5 @@
 <ul class="re-list">
-    <li ng-controller="recordController" ng-init="record=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
     <h3><a target="_self" ng-href="/records/{{ record.id }}">{{ record.metadata.title }}</a></h3>
 
     <!-- author -->

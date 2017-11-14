@@ -9,7 +9,7 @@ require([
     angular.module('reroilsUtils', [])
       .controller('recordController', ['$scope', function($scope) {
 
-        record = $scope.record;
+        record = $scope.rec;
 
         $scope.numberOfCitemsAvailable = function() {
           // console.log(record);
