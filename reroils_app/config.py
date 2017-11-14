@@ -57,7 +57,7 @@ SEARCH_ELASTIC_HOSTS = 'elasticsearch'
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 
-CIRCULATION_ITEM_SCHEMA = 'records/item-v0.0.1.json'
+CIRCULATION_ITEM_SCHEMA = 'items/item-v0.0.1.json'
 
 JSONSCHEMAS_ENDPOINT = '/schema'
 JSONSCHEMAS_HOST = 'ils.test.rero.ch'
@@ -72,7 +72,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='bibid',
         pid_fetcher='bibid',
         search_class=RecordsSearch,
-        search_index='records-record-v0.0.1',
+        search_index='records',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -134,10 +134,10 @@ REROILS_APP_SORT_FACETS = {
     'records': 'status,location,language,author'
 }
 
-SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
+# SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
 
 RECORDS_REST_FACETS = {
-    'records-record-v0.0.1': dict(
+    'records': dict(
         aggs=dict(
             status=dict(
                 terms=dict(
@@ -190,7 +190,7 @@ RECORDS_REST_FACETS = {
 
 # # sort
 # RECORDS_REST_SORT_OPTIONS = {
-#     'records-record-v0.0.1': dict(
+#     'records': dict(
 #         title=dict(
 #             fields=['title'],
 #             title='Title',
@@ -220,7 +220,7 @@ RECORDS_REST_FACETS = {
 
 # #default sort
 # RECORDS_REST_DEFAULT_SORT = {
-#     'records-record-v0.0.1': dict(query='bestmatch', noquery='title'),
+#     'records': dict(query='bestmatch', noquery='title'),
 # }
 
 
