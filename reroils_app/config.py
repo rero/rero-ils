@@ -188,40 +188,38 @@ RECORDS_REST_FACETS = {
     )
 }
 
-# # sort
-# RECORDS_REST_SORT_OPTIONS = {
-#     'records': dict(
-#         title=dict(
-#             fields=['title'],
-#             title='Title',
-#             default_order='asc',
-#             order=1
-#         ),
-#         author=dict(
-#             fields=['authors.name'],
-#             title='Author',
-#             default_order='asc',
-#             order=2
-#         ),
-#         bestmatch=dict(
-#             fields=['_score'],
-#             title='Best match',
-#             default_order='asc',
-#             order=3
-#         ),
-#         mostrecent=dict(
-#             fields=['_created'],
-#             title='Most recent',
-#             default_order='asc',
-#             order=4
-#         ),
-#     )
-# }
+# sort
+RECORDS_REST_SORT_OPTIONS = {
+    'records': dict(
+        # title=dict(
+        #     fields=['title'],
+        #     title='Title',
+        #     default_order='asc',
+        #     order=1
+        # ),
+        # author=dict(
+        #     fields=['authors.name'],
+        #     title='Author',
+        #     default_order='asc',
+        #     order=2
+        # ),
+        bestmatch=dict(
+            fields=['_score'],
+            title='Best match',
+            default_order='asc'
+        ),
+        mostrecent=dict(
+            fields=['-_created'],
+            title='Most recent',
+            default_order='desc'
+        ),
+    )
+}
 
-# #default sort
-# RECORDS_REST_DEFAULT_SORT = {
-#     'records': dict(query='bestmatch', noquery='title'),
-# }
+#default sort
+RECORDS_REST_DEFAULT_SORT = {
+    'records': dict(query='bestmatch', noquery='mostrecent'),
+}
 
 
 INDEXER_REPLACE_REFS = False
