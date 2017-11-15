@@ -115,3 +115,34 @@ img.reroils-frontpage-rero21 {
     bottom: 10%;
     padding: 0 20%;
 }
+
+/*****************************************
+   Size of the search input, in the navbar
+   Smaller for medium screens
+ ****************************************/
+
+.navbar-form .input-group {
+    width: 250%;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .navbar-form .input-group {
+        width: 140%;
+    }
+}
+
+invenio-search-range .panel-heading h3,
+invenio-search-facets .panel-heading h3 {
+    text-transform: capitalize;
+}
+/****************************************
+   Colors for availability
+  **************************************/
+
+.text-success {
+    color: #439544;
+}
+
+.text-danger {
+    color: #d5504d;
+}

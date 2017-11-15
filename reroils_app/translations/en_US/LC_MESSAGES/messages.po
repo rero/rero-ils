@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a4\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-13 15:26+0000\n"
+"POT-Creation-Date: 2017-11-15 15:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017\n"
 "Language: en_US\n"
@@ -28,31 +28,27 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: reroils_app/config.py:23
-msgid "Italian"
-msgstr ""
-
-#: reroils_app/config.py:43
+#: reroils_app/config.py:45
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:176
+#: reroils_app/config.py:178
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:177
+#: reroils_app/config.py:179
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:178
+#: reroils_app/config.py:180
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:179
+#: reroils_app/config.py:181
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:182
+#: reroils_app/config.py:184
 msgid "years"
 msgstr ""
 
@@ -156,9 +152,14 @@ msgstr ""
 msgid "Show source"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/footer.html:11
-msgid "Powered by"
-msgstr "Made using"
+#: reroils_app/templates/reroils_app/footer.html:4
+msgid "Made by"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/footer.html:4
+#, fuzzy
+msgid "using"
+msgstr "excluded from loan"
 
 #: reroils_app/templates/reroils_app/frontpage.html:15
 #: reroils_app/templates/reroils_app/frontpage.html:21
@@ -242,28 +243,38 @@ msgstr ""
 msgid "RERO Number"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:184
+#: reroils_app/templates/reroils_app/fullview.html:185
 msgid "Permalink"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:194
+#: reroils_app/templates/reroils_app/fullview.html:196
+msgid "Edit"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:204
 msgid "Items"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:199
+#: reroils_app/templates/reroils_app/fullview.html:209
 msgid "Location"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:210
+#: reroils_app/templates/reroils_app/fullview.html:220
 msgid "Call Number"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:221
+#: reroils_app/templates/reroils_app/fullview.html:231
 msgid "Barcode"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:232
+#: reroils_app/templates/reroils_app/fullview.html:242
 msgid "Status"
 msgstr ""
 
+#: reroils_app/templates/reroils_app/header.html:32
+msgid "Toggle navigation"
+msgstr ""
 
+#: reroils_app/templates/reroils_app/header.html:54
+msgid "Search"
+msgstr ""

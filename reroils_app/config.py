@@ -19,18 +19,20 @@ BABEL_DEFAULT_LANGUAGE = 'en_US'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 I18N_LANGUAGES = [
     ('fr', _('French')),
-    ('de', _('German')),
-    ('it', _('Italian'))
+    ('de', _('German'))
 ]
 
-HEADER_TEMPLATE = 'invenio_theme/header.html'
+HEADER_TEMPLATE = 'reroils_app/header.html'
+THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 BASE_TEMPLATE = 'reroils_app/page.html'
 REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'reroils_app/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+
 SEARCH_UI_JSTEMPLATE_RESULTS = \
     'templates/reroils_app/briefview.html'
 SEARCH_UI_SEARCH_TEMPLATE = 'reroils_app/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/reroils_app/facets.html'
+
 SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
 THEME_LOGO = 'images/logo_rero_ils.png'
