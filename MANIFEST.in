@@ -43,3 +43,6 @@ recursive-include reroils_app *.js
 recursive-include reroils_app *.po
 recursive-include reroils_app *.pot
 recursive-include reroils_app *.txt
+
+# added by check_manifest.py
+recursive-include reroils_app *.jpg
