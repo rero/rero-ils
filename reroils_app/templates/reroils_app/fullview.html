@@ -178,6 +178,7 @@
             </div>
         {% endif %}
 
+        {% if record.identifiers.reroID %}
         {% set permalink = 'http://data.rero.ch/01-%reroid%'|replace('%reroid%', record.identifiers.reroID) %}
         <div class="row">
             <div class="col-md-2">
@@ -187,6 +188,15 @@
                 <a href="{{ permalink }}" target="_blank">{{ permalink }}</a>
             </div>
         </div>
+        {% endif %}
+
+        {%- if current_user | can_edit %}
+        <div class="row">
+        <a href="{{ url_for('reroils_record_editor.edit', bibid=record.bibid) }}" type="button" class="btn pull-right btn-success">
+            <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+        </a>
+        </div>
+        {% endif %}
 
         <!-- Items -->
         {% if record.citems %}
