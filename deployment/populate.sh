@@ -16,19 +16,22 @@ invenio index delete --force --yes-i-know marc21-holdings-hd-v1.0.0 || true
 invenio index queue init
 
 # create new user
-invenio users create  -a software@rero.ch --password rero21
+invenio users create -a admin@rero.ch --password administrator
+invenio users create -a librarian@rero.ch --password librarian
 
 # create roles
 invenio roles create -d "Admins Group" admins
 invenio roles create -d "Super Users Group" superusers
+invenio roles create -d "Cataloguer" cataloguer
 
-# grant accesses to roles
+# grant accesses to action roles
 invenio access allow admin-access role admins
 invenio access allow superuser-access role superusers
 
 # grant roles to users
-invenio roles add software@rero.ch admins
-invenio roles add software@rero.ch superusers
+invenio roles add admin@rero.ch admins
+invenio roles add admin@rero.ch superusers
+invenio roles add librarian@rero.ch cataloguer
 
 #invenio records create --pid-minter recid  reroils/src/reroils-app/development/docker/demo.json
 dojson -i demo.json schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
