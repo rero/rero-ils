@@ -89,6 +89,26 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
     ),
+    recid_excel=dict(
+        pid_type='recid',
+        pid_minter='bibid',
+        pid_fetcher='bibid',
+        search_class=RecordsSearch,
+        search_index='records',
+        search_type=None,
+        record_serializers={
+            'text/csv': ('reroils_app.serializers'
+                                 ':text_v1_response'),
+        },
+        search_serializers={
+            'text/csv': ('reroils_app.serializers'
+                                 ':text_v1_search'),
+        },
+        list_route='/export/records/csv/',
+        item_route='/export/records/csv/<pid(recid):pid_value>',
+        default_media_type='text/csv',
+        max_result_window=20000,
+    ),
     crcitm=dict(
         pid_type='crcitm',
         pid_minter='itemid',

@@ -24,5 +24,12 @@
 
 {%- block search_sort_select scoped %}
 {%- endblock search_sort_select %}
+
+
 {%- block search_sort_order scoped %}
+{%- if current_user | can_edit %}
+    <reroils-export-csv>
+    </reroils-export-csv>
+{% endif %}
 {%- endblock search_sort_order %}
+
