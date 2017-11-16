@@ -45,5 +45,5 @@ host = https://www.transifex.com
 [reroils.reroils-app-messages]
 file_filter = reroils_app/translations/<lang>/LC_MESSAGES/messages.po
 source_file = reroils_app/translations/messages.pot
-source_lang = en
+source_lang = en_US
 type = PO

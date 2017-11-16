@@ -26,7 +26,7 @@
     <form action="/search">
       <div class="form-group">
         <div class="input-group">
-          <input type="text" name="q" class="input-lg form-control" placeholder="Type and press enter to search">
+          <input type="text" name="q" class="input-lg form-control" placeholder="{{_('Type and press enter to search')}}">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-lg btn-default"><i class="fa fa-search"></i></button>
           </div>
@@ -47,9 +47,20 @@
   <div class="row">
     <div class="col-md-4">
       <h3>RERO ILS</h3>
+      {% if current_i18n.language == 'en' %}
       <p>The RERO ILS project aims at creating the future RERO Integrated Library System, using components of the <a href="http://invenio-software.org" target="_blank">Invenio 3</a> framework. This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
       <p>The project will start in January 2018. During Oct-Nov 2017, an early ILS prototype with a small subset of features, is being built and made available here. This prototype, as the main project, are developed using Agile principles, namely <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, pair programming and continuous integration.</p>
+      {% endif  %}
+      {% if current_i18n.language == 'fr' %}
+      <p>Le projet RERO IS a pour but de créer le future système de gestion de blibliothèque de RERO basé sur le framework <a href="http://invenio-software.org" target="_blank">Invenio 3</a>  . This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
+      <p>The project will start in January 2018. During Oct-Nov 2017, an early ILS prototype with a small subset of features, is being built and made available here. This prototype, as the main project, are developed using Agile principles, namely <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, pair programming and continuous integration.</p>
+      {% endif  %}
+      {% if current_i18n.language == 'de' %}
+      <p>The RERO ILS project aims at creating the future RERO Integrated Library System, using components of the <a href="http://invenio-software.org" target="_blank">Invenio 3</a> framework. This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
+      <p>The project will start in January 2018. During Oct-Nov 2017, an early ILS prototype with a small subset of features, is being built and made available here. This prototype, as the main project, are developed using Agile principles, namely <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, pair programming and continuous integration.</p>
+      {% endif  %}
     </div>
+
     <div class="col-md-4">
       <h3>{{ _('Follow Us') }}</h3>
       <div class="reroils-frontpage-bullet">
@@ -60,8 +71,8 @@
           </a>
       </div>
       <div class="reroils-frontpage-bullet-text">
-        Scrum process: Product Backlog, Sprint&nbsp;Taskboard, Wiki, <span class="h4"><a href="https://tree.taiga.io/project/mmo-rero-test-project/backlog"
-         target="_blank">on Taiga</a></span>
+        {{_('Scrum process')}}: {{_('Product Backlog')}}, {{_('Sprint&nbsp;Taskboard')}}, {{_('Wiki')}}, <span class="h4"><a href="https://tree.taiga.io/project/mmo-rero-test-project/backlog"
+         target="_blank">{{_('on Taiga')}}</a></span>
        </div>
      </div>
      <div class="reroils-frontpage-bullet">
@@ -69,7 +80,7 @@
         <a href="https://github.com/rero/reroils-app" target="_blank"><img src="/static/images/GitHub-Mark-120px-plus.png" width="32"></a>
       </div>
       <div class="reroils-frontpage-bullet-text">
-        Software source code: <span class="h4"><a href="https://github.com/rero/reroils-app" target="_blank">reroils-app on GitHub</a></span>
+        {{_('Software source code')}}: <span class="h4"><a href="https://github.com/rero/reroils-app" target="_blank">reroils-app {{_('on GitHub')}}</a></span>
       </div>
     </div>
     <div class="reroils-frontpage-bullet">
@@ -86,7 +97,7 @@
     <div>
       <img src="/static/images/logo_rero_21_inline.png" class="reroils-frontpage-rero21">
       <!-- <span class="h4">RERO 21</span> : -->
-      in <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-fr-20161027" target="blank">French</a> or <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-de-20161027" target="blank">German</a>
+      {{_('in')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-fr-20161027" target="blank">{{ _('French') }}</a>{{_('or')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-de-20161027" target="blank">{{ _('German') }}</a>
     </div>
     <h3>{{ _('Present') }}</h3>
     <div class="reroils-service-logo"><a href="https://explore.rero.ch" target="blank"><img src="/static/images/logo_explore_height_119.png" height="55"></a></div>
