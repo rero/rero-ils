@@ -23,16 +23,15 @@ body {
     position: relative;
 }
 
+@media (max-width: 768px) {
+    .reroils-frontpage-upper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
 .reroils-frontpage-lower {
 	margin-top: 20px;
-}
-
-.reroils-frontpage-upper input.input-lg {
-	height: 50px;
-}
-
-.reroils-frontpage-upper button.btn-lg {
-	padding: 12px 16px;
 }
 
 #footer {
@@ -52,6 +51,10 @@ body {
 	background-color: #ba1319;
 	color: #ffffff;
 	padding: 6px;
+}
+
+.reroils-red-banner a {
+    color: #ffffff;
 }
 
 .reroils-frontpage-bullet {
@@ -114,6 +117,13 @@ img.reroils-frontpage-rero21 {
     left: 0;
     bottom: 10%;
     padding: 0 20%;
+}
+
+@media (max-width: 768px) {
+    .reroils-prompt {
+        bottom: 40%;
+        padding: 0 10%;
+    }
 }
 
 /*****************************************

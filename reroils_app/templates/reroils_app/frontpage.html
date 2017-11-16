@@ -26,7 +26,7 @@
     <form action="/search">
       <div class="form-group">
         <div class="input-group">
-          <input type="text" name="q" class="input-lg form-control" placeholder="{{_('Type and press enter to search')}}">
+            <input type="text" name="q" class="input-lg form-control" placeholder="{{ _('Type and press enter to search') }}">
           <div class="input-group-btn">
             <button type="submit" class="btn btn-lg btn-default"><i class="fa fa-search"></i></button>
           </div>
@@ -36,7 +36,7 @@
   </div>
 
   <div class="text-center reroils-red-banner">
-    {{ _('Software under development') }} - {{ _('This is a prototype') }} - {{ _('Version') }} {{ version }}
+      {{ _('Software under development') }} - {{ _('This is a prototype') }} - {{ _('Version') }} <a href="https://github.com/rero/reroils-app/tree/v{{ version }}">{{ version }}</a>
   </div>
 
 </div>
