@@ -5,6 +5,21 @@
 import os
 
 from setuptools import find_packages, setup
+from setuptools.command.egg_info import egg_info
+
+
+class EggInfoWithCompile(egg_info):
+    def run(self):
+        from babel.messages.frontend import compile_catalog
+        compiler = compile_catalog()
+        option_dict = self.distribution.get_option_dict('compile_catalog')
+        if option_dict.get('domain'):
+            compiler.domain = [option_dict['domain'][1]]
+        else:
+            compiler.domain = ['messages']
+        compiler.directory = option_dict['directory'][1]
+        compiler.run()
+        super().run()
 
 # Get the version string. Cannot be done with import!
 version = {}
@@ -40,6 +55,9 @@ setup_requires = [
 ]
 
 setup(
+    cmdclass={
+        'egg_info': EggInfoWithCompile
+    },
     name='reroils-app',
     version=version['__version__'],
     description=__doc__,

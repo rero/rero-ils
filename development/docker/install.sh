@@ -54,8 +54,6 @@ else
     pip install -r requirements-devel.txt
     pip install -e .[all]
 
-    python setup.py compile_catalog
-
     # collect and install js dependencies
     invenio npm
     cd /home/invenio/reroils/var/instance/static

@@ -1,8 +1,9 @@
 #! /bin/bash
 
+FLASK_DEBUG=0
+
 invenio db destroy --yes-i-know || true
 invenio index destroy --force --yes-i-know || true
-invenio index delete records-record-v1.0.0 --yes-i-know || true
 
 invenio db init create
 invenio index init
@@ -33,7 +34,7 @@ invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
-#invenio records create --pid-minter recid  reroils/src/reroils-app/development/docker/demo.json
+# create the bib records
 dojson -i demo.json schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
 
 #invenio index reindex --yes-i-know --pid-type recid

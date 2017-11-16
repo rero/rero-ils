@@ -34,7 +34,7 @@ invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
-#invenio records create --pid-minter recid  reroils/src/reroils-app/development/docker/demo.json
+# create the bib records
 dojson -i reroils/src/reroils-data/data/10k_2017_11_10.json schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
 
 #invenio index reindex --yes-i-know --pid-type recid

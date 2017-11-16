@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y curl git gcc \
 # Add Invenio sources to `code` and work there:
 WORKDIR /reroils/reroils/src/reroils-app
 COPY setup.py /reroils/reroils/src/reroils-app/
+COPY setup.cfg /reroils/reroils/src/reroils-app/
+COPY babel.ini /reroils/reroils/src/reroils-app/
 COPY MANIFEST.in /reroils/reroils/src/reroils-app/
 COPY requirements.txt /reroils/reroils/src/reroils-app/
 COPY reroils_app /reroils/reroils/src/reroils-app/reroils_app
