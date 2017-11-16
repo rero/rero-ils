@@ -12,6 +12,14 @@ pipeline {
                 sh 'echo "GIT_COMMIT: $(git rev-parse HEAD)"'
             }
         }
+        stage('Force Remove') {
+            steps {
+                echo 'Force remove docker images if exists....'
+                script {
+                    sh "docker rmi rero/reroils-app:dev rero/reroils-app:latest || true"
+                }
+            }
+        }
         stage('Build Dev Docker Image') {
             steps {
                 echo 'Building..'
@@ -61,8 +69,6 @@ pipeline {
                         kubectl --kubeconfig=config-demo config use-context dev
                         kubectl --kubeconfig=config-demo apply -f deployment/kubernetes
                         kubectl --kubeconfig=config-demo set image deployment/ils-frontend reroils-app=rero/reroils-app:$GIT_COMMIT
-                        kubectl delete pods ils-populate || true
-                        kubectl --kubeconfig=config-demo apply -f deployment/reroils-populate.yml
                     '''
                 }
             }

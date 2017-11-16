@@ -10,7 +10,7 @@ require([
 
       .controller('exportController', ['$scope', function($scope) {
           $scope.csvURL = function() {
-            return window.location.href.toString().replace('search', 'api/export/records/csv').replace(/size=\d+/, 'size=20000');
+            return window.location.href.toString().replace('search', 'api/export/records/csv').replace(/size=\d+/, 'size=19999');
           };
       }])
       .directive('reroilsExportCsv', function() {
