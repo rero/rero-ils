@@ -7,9 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a4\n"
+"Project-Id-Version: reroils-app 0.1.0a5\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-16 07:46+0000\n"
+"POT-Creation-Date: 2017-11-20 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
 
-#: reroils_app/config.py:21 reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/config.py:21
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "French"
 msgstr ""
 
-#: reroils_app/config.py:22 reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/config.py:22
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "German"
 msgstr ""
 
@@ -30,23 +32,23 @@ msgstr ""
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:178
+#: reroils_app/config.py:198
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:179
+#: reroils_app/config.py:199
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:180
+#: reroils_app/config.py:200
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:181
+#: reroils_app/config.py:201
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:184
+#: reroils_app/config.py:204
 msgid "years"
 msgstr ""
 
@@ -184,51 +186,51 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:64
+#: reroils_app/templates/reroils_app/frontpage.html:65
 msgid "Follow Us"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Scrum process"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Product Backlog"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Sprint&nbsp;Taskboard"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Wiki"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:74
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "on Taiga"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:82
+#: reroils_app/templates/reroils_app/frontpage.html:83
 msgid "Software source code"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:82
+#: reroils_app/templates/reroils_app/frontpage.html:83
 msgid "on GitHub"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:95
+#: reroils_app/templates/reroils_app/frontpage.html:96
 msgid "Future"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "in"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "or"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:101
+#: reroils_app/templates/reroils_app/frontpage.html:102
 msgid "Present"
 msgstr ""
 

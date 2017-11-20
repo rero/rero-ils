@@ -1,29 +1,30 @@
-# French translations for reroils-app.
+# Translations template for reroils-app.
 # Copyright (C) 2017 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a4\n"
+"Project-Id-Version: reroils-app 0.1.0a5\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-16 07:46+0000\n"
+"POT-Creation-Date: 2017-11-20 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
-"Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: reroils_app/config.py:21 reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/config.py:21
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "French"
 msgstr "français"
 
-#: reroils_app/config.py:22 reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/config.py:22
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "German"
 msgstr "allemand"
 
@@ -31,23 +32,23 @@ msgstr "allemand"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:178
+#: reroils_app/config.py:198
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:179
+#: reroils_app/config.py:199
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:180
+#: reroils_app/config.py:200
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:181
+#: reroils_app/config.py:201
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:184
+#: reroils_app/config.py:204
 msgid "years"
 msgstr "années"
 
@@ -162,16 +163,16 @@ msgstr "avec"
 #: reroils_app/templates/reroils_app/frontpage.html:15
 #: reroils_app/templates/reroils_app/frontpage.html:21
 msgid "Get into your library"
-msgstr ""
+msgstr "Entrez dans votre bibliothèque"
 
 #: reroils_app/templates/reroils_app/frontpage.html:16
 #: reroils_app/templates/reroils_app/frontpage.html:22
 msgid "A wealth of knowledge just a click away"
-msgstr ""
+msgstr "Une source de connaissance au bout du clic"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
 msgid "Type and press enter to search"
-msgstr ""
+msgstr "Entrez votre requête et taper la touche Enter"
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
 msgid "Software under development"
@@ -185,51 +186,51 @@ msgstr "Ceci est un prototype"
 msgid "Version"
 msgstr "Version"
 
-#: reroils_app/templates/reroils_app/frontpage.html:64
+#: reroils_app/templates/reroils_app/frontpage.html:65
 msgid "Follow Us"
 msgstr "Nous suivre"
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Scrum process"
 msgstr "Processus scrum"
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Product Backlog"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Sprint&nbsp;Taskboard"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:74
 msgid "Wiki"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:74
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "on Taiga"
 msgstr "sur Taiga"
 
-#: reroils_app/templates/reroils_app/frontpage.html:82
+#: reroils_app/templates/reroils_app/frontpage.html:83
 msgid "Software source code"
 msgstr "Code source du logiciel"
 
-#: reroils_app/templates/reroils_app/frontpage.html:82
+#: reroils_app/templates/reroils_app/frontpage.html:83
 msgid "on GitHub"
 msgstr "sur GitHub"
 
-#: reroils_app/templates/reroils_app/frontpage.html:95
+#: reroils_app/templates/reroils_app/frontpage.html:96
 msgid "Future"
 msgstr "Futur"
 
-#: reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "in"
 msgstr "dans"
 
-#: reroils_app/templates/reroils_app/frontpage.html:99
+#: reroils_app/templates/reroils_app/frontpage.html:100
 msgid "or"
 msgstr "ou"
 
-#: reroils_app/templates/reroils_app/frontpage.html:101
+#: reroils_app/templates/reroils_app/frontpage.html:102
 msgid "Present"
 msgstr "Actuel"
 
@@ -316,4 +317,3 @@ msgstr "Activer le menu"
 #: reroils_app/templates/reroils_app/header.html:54
 msgid "Search"
 msgstr "Recherche"
-
