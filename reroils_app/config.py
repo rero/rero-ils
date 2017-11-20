@@ -252,3 +252,19 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
 )
 
 REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
+
+
+SECURITY_CHANGEABLE = False
+"""Allow password change by users."""
+
+SECURITY_CONFIRMABLE = False
+"""Allow user to confirm their email address."""
+
+SECURITY_RECOVERABLE = False
+"""Allow password recovery by users."""
+
+SECURITY_REGISTERABLE = False
+"""Allow users to register."""
+
+SECURITY_TRACKABLE = False
+"""Enable user tracking on login."""
