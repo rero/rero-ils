@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ils-frontend
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
