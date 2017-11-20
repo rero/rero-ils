@@ -156,6 +156,7 @@
                 </div>
             </div>
         {% endif %}
+        {% if record.identifiers %}
 
         {% if record.identifiers.isbn %}
             <div class="row">
@@ -167,19 +168,18 @@
                 </div>
             </div>
         {% endif %}
-        {% if record.identifiers.reroID %}
-            <div class="row">
-                <div class="col-md-2">
-                    {{_('RERO Number')}}:
-                </div>
-                <div class="col-md-10">
-                    {{ record.identifiers.reroID }}
-                </div>
-            </div>
-        {% endif %}
 
         {% if record.identifiers.reroID %}
         {% set permalink = 'http://data.rero.ch/01-%reroid%'|replace('%reroid%', record.identifiers.reroID) %}
+        <div class="row">
+            <div class="col-md-2">
+                {{_('RERO Number')}}:
+            </div>
+            <div class="col-md-10">
+                {{ record.identifiers.reroID }}
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-2">
                 {{_('Permalink')}}:
@@ -188,6 +188,8 @@
                 <a href="{{ permalink }}" target="_blank">{{ permalink }}</a>
             </div>
         </div>
+        {% endif %}
+
         {% endif %}
 
         {%- if current_user | can_edit %}
