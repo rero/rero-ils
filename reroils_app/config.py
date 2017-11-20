@@ -153,7 +153,7 @@ RECORDS_UI_ENDPOINTS = {
 }
 
 REROILS_APP_SORT_FACETS = {
-    'records': 'status,location,language,author'
+    'records': 'language,author,location,status'
 }
 
 # SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
