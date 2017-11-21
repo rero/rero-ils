@@ -266,17 +266,17 @@
         {% endfor %}
         </div>
         {% endif %}
-    {%- endblock %}
-{%- set formats = export_formats(pid.pid_type) %}
-{%- if formats %}
-<hr/>
-<h3>{{_('Export Formats')}}</h3>
-<ul class="list-inline">
-  {%- for slug, fmt in formats %}
-  <li><a href="{{ url_for('invenio_records_ui.recid_export', pid_value=pid.pid_value, format=slug) }}">{{fmt['title']}}</a></li>
-  {%- endfor %}
-</ul>
-{%- endif %}
 
+        {%- set formats = export_formats(pid.pid_type) %}
+        {%- if formats %}
+        <hr/>
+        <h3>{{_('Export Formats')}}</h3>
+        <ul class="list-inline">
+          {%- for slug, fmt in formats %}
+          <li><a href="{{ url_for('invenio_records_ui.recid_export', pid_value=pid.pid_value, format=slug) }}">     {{fmt['title']}}</a></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+    {%- endblock %}
 </div>
 {%- endblock %}
