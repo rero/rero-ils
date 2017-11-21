@@ -265,6 +265,7 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
 
 REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
 REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
+REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
 
 SECURITY_CHANGEABLE = False
 """Allow password change by users."""

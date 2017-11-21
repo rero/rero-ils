@@ -175,6 +175,18 @@
             </div>
         </div>
         {% endif %}
+
+        {% if record.identifiers.bnfID %}
+        {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_BNF_URL + record.identifiers.bnfID %}
+        <div class="row">
+            <div class="col-md-2">
+                {{_('Source')}}:
+            </div>
+            <div class="col-md-10">
+                <a href="{{ source }}" target="_blank">{{ source }}</a>
+            </div>
+        </div>
+        {% endif %}
         {% endif %}
 
         <div class="row">
