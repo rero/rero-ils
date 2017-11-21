@@ -3,11 +3,14 @@
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# 
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a5\n"
+"Project-Id-Version: reroils-app 0.1.0a6\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-20 09:18+0000\n"
+"POT-Creation-Date: 2017-11-21 14:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017\n"
 "Language-Team: English (https://www.transifex.com/rero/teams/77935/en/)\n"
@@ -32,33 +35,33 @@ msgstr ""
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:198
+#: reroils_app/config.py:210
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:199
+#: reroils_app/config.py:211
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:200
+#: reroils_app/config.py:212
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:201
+#: reroils_app/config.py:213
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:204
+#: reroils_app/config.py:216
 msgid "years"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
-msgstr ""
+msgstr "on loan"
 
 #: reroils_app/manual_translations.txt:2
 msgid "on_shelf"
-msgstr ""
+msgstr "on shelf"
 
 #: reroils_app/manual_translations.txt:3
 msgid "missing"
@@ -90,47 +93,47 @@ msgstr "french"
 
 #: reroils_app/manual_translations.txt:12
 msgid "eng"
-msgstr ""
+msgstr "english"
 
 #: reroils_app/manual_translations.txt:13
 msgid "ger"
-msgstr ""
+msgstr "german"
 
 #: reroils_app/manual_translations.txt:14
 msgid "ita"
-msgstr ""
+msgstr "italian"
 
 #: reroils_app/manual_translations.txt:15
 msgid "lat"
-msgstr ""
+msgstr "latin"
 
 #: reroils_app/manual_translations.txt:16
 msgid "spa"
-msgstr ""
+msgstr "spanish"
 
 #: reroils_app/manual_translations.txt:17
 msgid "ara"
-msgstr ""
+msgstr "arabic"
 
 #: reroils_app/manual_translations.txt:18
 msgid "por"
-msgstr ""
+msgstr "portuguese"
 
 #: reroils_app/manual_translations.txt:19
 msgid "rus"
-msgstr ""
+msgstr "russian"
 
 #: reroils_app/manual_translations.txt:20
 msgid "heb"
-msgstr ""
+msgstr "hebrew"
 
 #: reroils_app/manual_translations.txt:21
 msgid "jpn"
-msgstr ""
+msgstr "japanese"
 
 #: reroils_app/manual_translations.txt:22
 msgid "chi"
-msgstr ""
+msgstr "chinese"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:32
 msgid "item available"
@@ -153,7 +156,7 @@ msgid "Show source"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/footer.html:4
-msgid "Made by"
+msgid "Developed by"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/footer.html:4
@@ -171,7 +174,7 @@ msgid "A wealth of knowledge just a click away"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
-msgid "Type and press enter to search"
+msgid "What's in you mind?"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
@@ -250,64 +253,69 @@ msgstr ""
 msgid "Abstract"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:78
+#: reroils_app/templates/reroils_app/fullview.html:80
 msgid "Physical description"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:97
+#: reroils_app/templates/reroils_app/fullview.html:91
 msgid "Additional Materials"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:108
+#: reroils_app/templates/reroils_app/fullview.html:102
 msgid "Series"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:126
+#: reroils_app/templates/reroils_app/fullview.html:120
 msgid "Uniform title"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:137
+#: reroils_app/templates/reroils_app/fullview.html:131
 msgid "Subjects"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:148
+#: reroils_app/templates/reroils_app/fullview.html:142
 msgid "Notes"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:163
+#: reroils_app/templates/reroils_app/fullview.html:159
 msgid "ISBN"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:173
-msgid "RERO Number"
+#: reroils_app/templates/reroils_app/fullview.html:171
+#: reroils_app/templates/reroils_app/fullview.html:183
+msgid "Source"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:185
+#: reroils_app/templates/reroils_app/fullview.html:194
 msgid "Permalink"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:196
+#: reroils_app/templates/reroils_app/fullview.html:204
 msgid "Edit"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:204
+#: reroils_app/templates/reroils_app/fullview.html:212
 msgid "Items"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:209
+#: reroils_app/templates/reroils_app/fullview.html:217
 msgid "Location"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:220
+#: reroils_app/templates/reroils_app/fullview.html:228
 msgid "Call Number"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:231
+#: reroils_app/templates/reroils_app/fullview.html:239
 msgid "Barcode"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/fullview.html:242
+#: reroils_app/templates/reroils_app/fullview.html:250
 msgid "Status"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview.html:273
+msgid "Export Formats"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/header.html:32

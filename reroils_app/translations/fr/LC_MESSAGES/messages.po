@@ -3,11 +3,15 @@
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# 
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a5\n"
+"Project-Id-Version: reroils-app 0.1.0a6\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-20 09:18+0000\n"
+"POT-Creation-Date: 2017-11-21 14:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
@@ -32,23 +36,23 @@ msgstr "allemand"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:198
+#: reroils_app/config.py:210
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:199
+#: reroils_app/config.py:211
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:200
+#: reroils_app/config.py:212
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:201
+#: reroils_app/config.py:213
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:204
+#: reroils_app/config.py:216
 msgid "years"
 msgstr "années"
 
@@ -153,8 +157,8 @@ msgid "Show source"
 msgstr "Voir les sources"
 
 #: reroils_app/templates/reroils_app/footer.html:4
-msgid "Made by"
-msgstr "Fait par"
+msgid "Developed by"
+msgstr "Réalisé par"
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "using"
@@ -171,8 +175,8 @@ msgid "A wealth of knowledge just a click away"
 msgstr "Une source de connaissance au bout du clic"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
-msgid "Type and press enter to search"
-msgstr "Entrez votre requête et taper la touche Enter"
+msgid "What's in you mind?"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
 msgid "Software under development"
@@ -250,65 +254,70 @@ msgstr "Date"
 msgid "Abstract"
 msgstr "Résumé"
 
-#: reroils_app/templates/reroils_app/fullview.html:78
+#: reroils_app/templates/reroils_app/fullview.html:80
 msgid "Physical description"
 msgstr "Description matérielle"
 
-#: reroils_app/templates/reroils_app/fullview.html:97
+#: reroils_app/templates/reroils_app/fullview.html:91
 msgid "Additional Materials"
 msgstr "Matériels additionnels"
 
-#: reroils_app/templates/reroils_app/fullview.html:108
+#: reroils_app/templates/reroils_app/fullview.html:102
 msgid "Series"
 msgstr "Collection"
 
-#: reroils_app/templates/reroils_app/fullview.html:126
+#: reroils_app/templates/reroils_app/fullview.html:120
 msgid "Uniform title"
 msgstr "Titre uniforme"
 
-#: reroils_app/templates/reroils_app/fullview.html:137
+#: reroils_app/templates/reroils_app/fullview.html:131
 msgid "Subjects"
 msgstr "Sujets"
 
-#: reroils_app/templates/reroils_app/fullview.html:148
+#: reroils_app/templates/reroils_app/fullview.html:142
 msgid "Notes"
 msgstr "Notes"
 
-#: reroils_app/templates/reroils_app/fullview.html:163
+#: reroils_app/templates/reroils_app/fullview.html:159
 msgid "ISBN"
 msgstr "ISBN"
 
-#: reroils_app/templates/reroils_app/fullview.html:173
-msgid "RERO Number"
-msgstr "Numéro RERO"
+#: reroils_app/templates/reroils_app/fullview.html:171
+#: reroils_app/templates/reroils_app/fullview.html:183
+msgid "Source"
+msgstr "Voir les sources"
 
-#: reroils_app/templates/reroils_app/fullview.html:185
+#: reroils_app/templates/reroils_app/fullview.html:194
 msgid "Permalink"
 msgstr "Permalien"
 
-#: reroils_app/templates/reroils_app/fullview.html:196
+#: reroils_app/templates/reroils_app/fullview.html:204
 msgid "Edit"
 msgstr "Editer"
 
-#: reroils_app/templates/reroils_app/fullview.html:204
+#: reroils_app/templates/reroils_app/fullview.html:212
 msgid "Items"
 msgstr "Exemplaires"
 
-#: reroils_app/templates/reroils_app/fullview.html:209
+#: reroils_app/templates/reroils_app/fullview.html:217
 msgid "Location"
 msgstr "Localisation"
 
-#: reroils_app/templates/reroils_app/fullview.html:220
+#: reroils_app/templates/reroils_app/fullview.html:228
 msgid "Call Number"
 msgstr "Cote"
 
-#: reroils_app/templates/reroils_app/fullview.html:231
+#: reroils_app/templates/reroils_app/fullview.html:239
 msgid "Barcode"
 msgstr "Code-barres"
 
-#: reroils_app/templates/reroils_app/fullview.html:242
+#: reroils_app/templates/reroils_app/fullview.html:250
 msgid "Status"
 msgstr "Statut"
+
+#: reroils_app/templates/reroils_app/fullview.html:273
+msgid "Export Formats"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
