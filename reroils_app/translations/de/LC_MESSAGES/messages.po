@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a5\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-21 14:35+0000\n"
+"POT-Creation-Date: 2017-11-21 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Peter Weber <peter.weber@rero.ch>, 2017\n"
 "Language: de\n"
@@ -28,27 +28,28 @@ msgstr "Französisch"
 msgid "German"
 msgstr "Deutsch"
 
-#: reroils_app/config.py:45
+#: reroils_app/config.py:49
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:210
+#: reroils_app/config.py:214
 msgid "status"
 msgstr "Status"
 
-#: reroils_app/config.py:211
+#: reroils_app/config.py:215
 msgid "location"
 msgstr "Standort"
 
-#: reroils_app/config.py:212
+#: reroils_app/config.py:216
 msgid "language"
 msgstr "Sprache"
 
-#: reroils_app/config.py:213
+#: reroils_app/config.py:217
 msgid "author"
 msgstr "Autor"
 
-#: reroils_app/config.py:216
+#: reroils_app/config.py:220
+#: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "Jahre"
 
@@ -151,6 +152,16 @@ msgstr "Details ausblenden"
 #: reroils_app/static/templates/reroils_app/briefview.html:50
 msgid "Show source"
 msgstr "Details anzeigen"
+
+#: reroils_app/static/templates/reroils_app/count.html:3
+msgid "Found {{$count}} result."
+msgid_plural "Found {{$count}} results."
+msgstr[0] ""
+msgstr[1] ""
+
+#: reroils_app/static/templates/reroils_app/count.html:4
+msgid "No results found."
+msgstr ""
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "Developed by"
@@ -323,12 +334,37 @@ msgstr "Navigation umschalten"
 msgid "Search"
 msgstr "Suche"
 
-#~ msgid "Made by"
-#~ msgstr "Entwickelt von"
+#: reroils_app/templates/reroils_app/header_login.html:27
+msgid "Log in"
+msgstr ""
 
-#~ msgid "Type and press enter to search"
-#~ msgstr "Schreiben Sie und drücken Sie die Eingabetaste um zu suchen"
+#: reroils_app/templates/reroils_app/header_login.html:28
+msgid "Sign up"
+msgstr ""
 
-#~ msgid "RERO Number"
-#~ msgstr "RERO-Nr."
+#: reroils_app/templates/reroils_app/header_login.html:45
+#: reroils_app/templates/reroils_app/header_login.html:49
+msgid "Log out"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:34
+msgid "Log in to account"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:43
+msgid "Log In"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:51
+#, python-format
+msgid "New to %(sitename)s?"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:51
+msgid "Sign Up"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:58
+msgid "Forgot password?"
+msgstr ""
 

@@ -4,11 +4,12 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a6\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-21 14:35+0000\n"
+"POT-Creation-Date: 2017-11-21 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,27 +28,28 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: reroils_app/config.py:45
+#: reroils_app/config.py:49
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:210
+#: reroils_app/config.py:214
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:211
+#: reroils_app/config.py:215
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:212
+#: reroils_app/config.py:216
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:213
+#: reroils_app/config.py:217
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:216
+#: reroils_app/config.py:220
+#: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""
 
@@ -149,6 +151,16 @@ msgstr ""
 
 #: reroils_app/static/templates/reroils_app/briefview.html:50
 msgid "Show source"
+msgstr ""
+
+#: reroils_app/static/templates/reroils_app/count.html:3
+msgid "Found {{$count}} result."
+msgid_plural "Found {{$count}} results."
+msgstr[0] ""
+msgstr[1] ""
+
+#: reroils_app/static/templates/reroils_app/count.html:4
+msgid "No results found."
 msgstr ""
 
 #: reroils_app/templates/reroils_app/footer.html:4
@@ -320,5 +332,39 @@ msgstr ""
 
 #: reroils_app/templates/reroils_app/header.html:54
 msgid "Search"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/header_login.html:27
+msgid "Log in"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/header_login.html:28
+msgid "Sign up"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/header_login.html:45
+#: reroils_app/templates/reroils_app/header_login.html:49
+msgid "Log out"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:34
+msgid "Log in to account"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:43
+msgid "Log In"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:51
+#, python-format
+msgid "New to %(sitename)s?"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:51
+msgid "Sign Up"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/login_user.html:58
+msgid "Forgot password?"
 msgstr ""
 

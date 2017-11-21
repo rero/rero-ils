@@ -1,0 +1,62 @@
+{# -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2015 CERN.
+#
+# Invenio is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# Invenio is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Invenio; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, CERN does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
+#}
+{%- extends config.ACCOUNTS_COVER_TEMPLATE %}
+
+{% from "invenio_accounts/_macros.html" import render_field, form_errors %}
+
+{% block panel %}
+<div class="col-md-6 col-md-offset-3">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {%- block form_header %}
+      <h3 class="text-center panel-free-title">{{_('Log in to account') }}</h3>
+      {%- endblock form_header %}
+      {%- block form_outer %}
+      {%- with form = login_user_form %}
+      <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+      {{form.hidden_tag()}}
+      {{form_errors(form)}}
+      {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False) }}
+      {{ render_field(form.password, icon="fa fa-lock", errormsg=False) }}
+      <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-sign-in"></i> {{_('Log In')}}</button>
+      </form>
+      {%- endwith %}
+      {%- endblock form_outer %}
+    </div>
+    {%- block registerable %}
+    {%- if security.registerable %}
+    <div class="panel-footer text-center">
+        <h4 class="text-muted">{% trans sitename=config.ACCOUNTS_SITENAME %}New to {{sitename}}?{% endtrans %} <a href="{{url_for('security.register')}}">{{_('Sign Up')}}</a></h4>
+    </div>
+    {%- endif %}
+    {%- endblock %}
+  </div>
+  {%- block recoverable %}
+  {%- if security.recoverable %}
+  <a href="{{url_for('security.forgot_password')}}" class="text-muted">{{_('Forgot password?')}}</a>
+  {%- endif %}
+  {%- endblock %}
+</div>
+{% endblock panel %}

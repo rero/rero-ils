@@ -1,0 +1,6 @@
+<div ng-show="vm.invenioSearchResults.hits.total != undefined">
+  <div class="invenio-search-results">
+    <div translate ng-show="vm.invenioSearchResults.hits.total" translate-n="vm.invenioSearchResults.hits.total" translate-plural="Found {{$count}} results.">Found {{$count}} result.</div>
+    <div translate ng-hide="vm.invenioSearchResults.hits.total">No results found.</div>
+  </div>
+</div>
