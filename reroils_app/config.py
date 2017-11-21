@@ -252,7 +252,7 @@ REROILS_RECORD_EDITOR_FORM_OPTIONS = (
 )
 
 REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
-
+REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
 
 SECURITY_CHANGEABLE = False
 """Allow password change by users."""
@@ -265,6 +265,3 @@ SECURITY_RECOVERABLE = False
 
 SECURITY_REGISTERABLE = False
 """Allow users to register."""
-
-SECURITY_TRACKABLE = False
-"""Enable user tracking on login."""

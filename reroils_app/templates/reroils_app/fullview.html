@@ -72,21 +72,15 @@
             </div>
         {% endif %}
 
-        {% if record.extent or record.otherMaterialCharacteristics or record.formats|length > 0 %}
+        {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
+        {% set formats = ', '.join(record.formats) %}
+        {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats] | select) %}
             <div class="row">
                 <div class="col-md-2">
                     {{_('Physical description')}}:
                 </div>
                 <div class="col-md-10">
-                    {% if record.extent %}
-                        {{ record.extent }},
-                    {% endif %}
-                    {% if record.otherMaterialCharacteristics %}
-                        {{ record.otherMaterialCharacteristics }},
-                    {% endif %}
-                    {% if record.formats|length > 0 %}
-                        {{ record.formats|join(', ') }}
-                    {% endif %}
+                    {{ description }}
                 </div>
             </div>
         {% endif %}
@@ -171,23 +165,24 @@
         {% endif %}
 
         {% if record.identifiers.reroID %}
-        {% set source = 'http://data.rero.ch/01-%reroid%'|replace('%reroid%', record.identifiers.reroID) %}
+        {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_RERO_URL + '01-' + record.identifiers.reroID %}
         <div class="row">
             <div class="col-md-2">
                 {{_('Source')}}:
             </div>
             <div class="col-md-10">
-                {{ source }}
+                <a href="{{ source }}" target="_blank">{{ source }}</a>
             </div>
         </div>
         {% endif %}
         {% endif %}
+
         <div class="row">
             <div class="col-md-2">
                 {{_('Permalink')}}:
             </div>
             <div class="col-md-10">
-                <a href="{{ url_for('invenio_records_ui.recid', pid_value=record.bibid) }}" target="_blank">{{ url_for('invenio_records_ui.recid', pid_value=record.bibid, _external=True) }}</a>
+                {{ url_for('invenio_records_ui.recid', pid_value=record.bibid, _external=True) }}
             </div>
         </div>
 
