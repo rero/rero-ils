@@ -35,7 +35,7 @@ invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
 # create the bib records
-dojson -i demo.json schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
+dojson -i demo.json reverse schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
 
 #invenio index reindex --yes-i-know --pid-type recid
 #invenio index run
