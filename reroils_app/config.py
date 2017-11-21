@@ -143,12 +143,24 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "recid",
         "route": "/records/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
-        "template": "invenio_records_ui/export.html",
+        "template": "reroils_app/export.html",
+        "record_class": 'reroils_data.api.Record',
     },
     "crcitm": {
         "pid_type": "crcitm",
         "route": "/items/<pid_value>",
         "template": "reroils_app/fullview_items.html",
+    }
+}
+
+RECORDS_UI_EXPORT_FORMATS = {
+    'recid': {
+        'json': dict(
+            title='JSON',
+            serializer='invenio_records_rest.serializers'
+                                     ':json_v1',
+            order=1,
+        )
     }
 }
 
