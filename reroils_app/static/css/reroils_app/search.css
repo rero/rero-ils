@@ -156,3 +156,7 @@ invenio-search-facets .panel-heading h3 {
 .text-danger {
     color: #d5504d;
 }
+
+.rero21-import {
+    margin-top: 27px;
+}
