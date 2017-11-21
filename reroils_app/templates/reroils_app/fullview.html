@@ -10,10 +10,10 @@
     {%- block record_body %}
         {% if record.authors|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Author')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                 {% for author in record.authors %}
                     {{ author.name }}
                     {% if author.qualifier %}
@@ -30,10 +30,10 @@
 
         {% if record.publishers|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Publisher')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {% for publisher in record.publishers %}
                         {{ publisher.place|join('; ') }}:
                         {{ publisher.name|join('; ') }}
@@ -44,10 +44,10 @@
 
         {% if record.publicationYear %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Date')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {% if record.freeFormedPublicationDate %}
                         {{record.freeFormedPublicationDate}}
                     {% else %}
@@ -59,10 +59,10 @@
 
         {% if record.abstracts|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Abstract')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     <ul class="list-inline">
                     {% for abstract in record.abstracts %}
                     <li>{{ abstract|e }}</li>
@@ -76,10 +76,10 @@
         {% set formats = ', '.join(record.formats) %}
         {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats] | select) %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Physical description')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {{ description }}
                 </div>
             </div>
@@ -87,10 +87,10 @@
 
         {% if record.additionalMaterials %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Additional Materials')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {{ record.additionalMaterials }}
                 </div>
             </div>
@@ -98,10 +98,10 @@
 
         {% if record.series|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Series')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {% for serie in record.series %}
                         {% if serie.name %}
                             {{ serie.name }},
@@ -116,10 +116,10 @@
 
         {% if record.titlesProper|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Uniform title')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {{ record.titlesProper|join('; ') }}
                 </div>
             </div>
@@ -127,10 +127,10 @@
 
         {% if record.subjects|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Subjects')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {{ record.subjects|join('; ') }}
                 </div>
             </div>
@@ -138,10 +138,10 @@
 
         {% if record.notes|length > 0 %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('Notes')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     <ul class="list-inline">
                     {% for note in record.notes %}
                     <li>{{ note|e }}</li>
@@ -155,10 +155,10 @@
 
         {% if record.identifiers.isbn %}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-xs-3 col-md-2">
                     {{_('ISBN')}}:
                 </div>
-                <div class="col-md-10">
+                <div class="col-xs-9 col-md-10">
                     {{ record.identifiers.isbn }}
                 </div>
             </div>
@@ -167,10 +167,10 @@
         {% if record.identifiers.reroID %}
         {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_RERO_URL + '01-' + record.identifiers.reroID %}
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-xs-3 col-md-2">
                 {{_('Source')}}:
             </div>
-            <div class="col-md-10">
+            <div class="col-xs-9 col-md-10">
                 <a href="{{ source }}" target="_blank">{{ source }}</a>
             </div>
         </div>
@@ -179,10 +179,10 @@
         {% if record.identifiers.bnfID %}
         {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_BNF_URL + record.identifiers.bnfID %}
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-xs-3 col-md-2">
                 {{_('Source')}}:
             </div>
-            <div class="col-md-10">
+            <div class="col-xs-9 col-md-10">
                 <a href="{{ source }}" target="_blank">{{ source }}</a>
             </div>
         </div>
@@ -190,10 +190,10 @@
         {% endif %}
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-xs-3 col-md-2">
                 {{_('Permalink')}}:
             </div>
-            <div class="col-md-10">
+            <div class="col-xs-9 col-md-10">
                 {{ url_for('invenio_records_ui.recid', pid_value=record.bibid, _external=True) }}
             </div>
         </div>
@@ -213,10 +213,10 @@
         {% for item in record.citems %}
             {% if item.location %}
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-xs-3 col-md-2">
                         {{_('Location')}}:
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-xs-9 col-md-10">
                         {{ _(item.location) }}
                     </div>
                 </div>
@@ -224,10 +224,10 @@
 
             {% if item.callNumber %}
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-xs-3 col-md-2">
                         {{_('Call Number')}}:
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-xs-9 col-md-10">
                         {{ item.callNumber }}
                     </div>
                 </div>
@@ -235,10 +235,10 @@
 
             {% if item.barcode %}
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-xs-3 col-md-2">
                         {{_('Barcode')}}:
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-xs-9 col-md-10">
                         {{ item.barcode }}
                     </div>
                 </div>
@@ -246,10 +246,10 @@
 
             {% if item._circulation.status %}
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-xs-3 col-md-2">
                         {{_('Status')}}:
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-xs-9 col-md-10">
                         {% if item._circulation.status == 'on_shelf' %}
                         <i class="fa fa-circle text-success" aria-hidden="true"></i> {{ _(item._circulation.status) }}
                         {% elif item._circulation.status == 'on_loan' %}

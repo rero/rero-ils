@@ -141,6 +141,12 @@ img.reroils-frontpage-rero21 {
     }
 }
 
+@media (max-width: 768px) {
+    .navbar-form .input-group {
+        width: 100%;
+    }
+}
+
 invenio-search-range .panel-heading h3,
 invenio-search-facets .panel-heading h3 {
     text-transform: capitalize;
