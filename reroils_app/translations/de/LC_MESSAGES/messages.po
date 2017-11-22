@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-# 
-#, fuzzy
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# Peter Weber <peter.weber@rero.ch>, 2017
+# Nicolas Prongué <n.prongue@outlook.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a6\n"
+"Project-Id-Version: reroils-app 0.1.0a7\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-21 16:03+0000\n"
+"POT-Creation-Date: 2017-11-22 09:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2017\n"
 "Language-Team: German (https://www.transifex.com/rero/teams/77935/de/)\n"
@@ -21,12 +23,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: reroils_app/config.py:21
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "French"
 msgstr "Französisch"
 
 #: reroils_app/config.py:22
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "German"
 msgstr "Deutsch"
 
@@ -185,7 +187,7 @@ msgstr "Unendliches Wissen nur einen Klick entfernt"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
 msgid "What's in you mind?"
-msgstr "Was suchst Du?"
+msgstr "Woran denken Sie?"
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
 msgid "Software under development"
@@ -199,51 +201,51 @@ msgstr "Dies ist ein Prototyp"
 msgid "Version"
 msgstr "Version"
 
-#: reroils_app/templates/reroils_app/frontpage.html:65
+#: reroils_app/templates/reroils_app/frontpage.html:66
 msgid "Follow Us"
 msgstr "Folgen Sie uns"
 
-#: reroils_app/templates/reroils_app/frontpage.html:74
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "Scrum process"
 msgstr "Scrum Prozess"
 
-#: reroils_app/templates/reroils_app/frontpage.html:74
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "Product Backlog"
-msgstr ""
-
-#: reroils_app/templates/reroils_app/frontpage.html:74
-msgid "Sprint&nbsp;Taskboard"
-msgstr ""
-
-#: reroils_app/templates/reroils_app/frontpage.html:74
-msgid "Wiki"
-msgstr ""
+msgstr "Product Backlog"
 
 #: reroils_app/templates/reroils_app/frontpage.html:75
+msgid "Sprint&nbsp;Taskboard"
+msgstr "Sprint&nbsp;Taskboard"
+
+#: reroils_app/templates/reroils_app/frontpage.html:75
+msgid "Wiki"
+msgstr "Wiki"
+
+#: reroils_app/templates/reroils_app/frontpage.html:76
 msgid "on Taiga"
 msgstr "auf Taiga"
 
-#: reroils_app/templates/reroils_app/frontpage.html:83
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Software source code"
 msgstr "Software-Quellcode"
 
-#: reroils_app/templates/reroils_app/frontpage.html:83
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "on GitHub"
 msgstr "auf GitHub"
 
-#: reroils_app/templates/reroils_app/frontpage.html:96
+#: reroils_app/templates/reroils_app/frontpage.html:97
 msgid "Future"
 msgstr "Zukunft"
 
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "in"
 msgstr "auf"
 
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "or"
 msgstr "oder"
 
-#: reroils_app/templates/reroils_app/frontpage.html:102
+#: reroils_app/templates/reroils_app/frontpage.html:103
 msgid "Present"
 msgstr "Gegenwart"
 
@@ -300,31 +302,35 @@ msgstr "Original"
 msgid "Permalink"
 msgstr "Permalink"
 
-#: reroils_app/templates/reroils_app/fullview.html:204
+#: reroils_app/templates/reroils_app/fullview.html:205
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: reroils_app/templates/reroils_app/fullview.html:212
+#: reroils_app/templates/reroils_app/fullview.html:208
+msgid "Delete"
+msgstr "Löschen"
+
+#: reroils_app/templates/reroils_app/fullview.html:216
 msgid "Items"
 msgstr "Exemplare"
 
-#: reroils_app/templates/reroils_app/fullview.html:217
+#: reroils_app/templates/reroils_app/fullview.html:221
 msgid "Location"
 msgstr "Standort"
 
-#: reroils_app/templates/reroils_app/fullview.html:228
+#: reroils_app/templates/reroils_app/fullview.html:232
 msgid "Call Number"
 msgstr "Signatur"
 
-#: reroils_app/templates/reroils_app/fullview.html:239
+#: reroils_app/templates/reroils_app/fullview.html:243
 msgid "Barcode"
 msgstr "Strichcode"
 
-#: reroils_app/templates/reroils_app/fullview.html:250
+#: reroils_app/templates/reroils_app/fullview.html:254
 msgid "Status"
 msgstr "Status"
 
-#: reroils_app/templates/reroils_app/fullview.html:273
+#: reroils_app/templates/reroils_app/fullview.html:277
 msgid "Export Formats"
 msgstr "Exportformate"
 
