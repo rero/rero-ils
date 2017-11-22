@@ -200,9 +200,13 @@
 
         {%- if current_user | can_edit %}
         <div class="row">
-        <a href="{{ url_for('reroils_record_editor.edit', bibid=record.bibid) }}" type="button" class="btn pull-right btn-success">
-            <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
-        </a>
+        <div class="btn-group  pull-right" role="group" aria-label="...">
+            <a href="{{ url_for('reroils_record_editor.edit', bibid=record.bibid) }}" type="button" class="btn btn-success">
+                <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+            </a>
+            <a href="{{ url_for('reroils_record_editor.delete', bibid=record.bibid) }}" type="button" class="btn btn-danger">
+                <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+            </a>
         </div>
         {% endif %}
 
