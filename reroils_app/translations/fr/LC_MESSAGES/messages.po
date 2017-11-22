@@ -365,7 +365,6 @@ msgid "New to %(sitename)s?"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/login_user.html:51
-#, fuzzy
 msgid "Sign Up"
 msgstr "S'enregistrer"
 
