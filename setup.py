@@ -17,6 +17,7 @@ class EggInfoWithCompile(egg_info):
             compiler.domain = [option_dict['domain'][1]]
         else:
             compiler.domain = ['messages']
+        compiler.use_fuzzy = True
         compiler.directory = option_dict['directory'][1]
         compiler.run()
         super().run()

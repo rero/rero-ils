@@ -23,9 +23,18 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-pydocstyle reroils_app tests docs && \
-isort -rc -c -df reroils_app *.py && \
-check-manifest --ignore ".travis-*" # && \
+set -e
+pydocstyle reroils_app tests docs
+isort -rc -c -df
 
-#python setup.py test
+set +e
+grep -r fuzzy reroils_app/translations
+if [ $? -eq 0 ]
+then
+    echo "Error: fuzzy tranlations!"
+    exit 1
+fi
+set -e
+
+check-manifest --ignore ".travis-*"
 
