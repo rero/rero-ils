@@ -1,12 +1,10 @@
-# French translations for reroils-app.
+# Translations template for reroils-app.
 # Copyright (C) 2017 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
-#
-# Translators:
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
-# iGor milhit <igor.milhit@rero.ch>, 2017
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a6\n"
@@ -14,13 +12,13 @@ msgstr ""
 "POT-Creation-Date: 2017-11-21 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
-"Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: reroils_app/config.py:21
 #: reroils_app/templates/reroils_app/frontpage.html:100
@@ -143,7 +141,7 @@ msgstr "exemplaire disponible"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:37
 msgid "items available"
-msgstr "exemplaires disponible"
+msgstr "exemplaires disponibles"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
@@ -151,11 +149,11 @@ msgstr "aucun exemplaire disponible"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:49
 msgid "Hide source"
-msgstr "Masquer les sources"
+msgstr "Masquer la source"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:50
 msgid "Show source"
-msgstr "Voir les sources"
+msgstr "Voir la source"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
@@ -187,7 +185,7 @@ msgstr "Une source de connaissance au bout du clic"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
 msgid "What's in you mind?"
-msgstr ""
+msgstr "À quoi pensez-vous?"
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
 msgid "Software under development"
@@ -328,7 +326,7 @@ msgstr "Statut"
 
 #: reroils_app/templates/reroils_app/fullview.html:273
 msgid "Export Formats"
-msgstr ""
+msgstr "Formats d'export"
 
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
@@ -336,11 +334,11 @@ msgstr "Activer le menu"
 
 #: reroils_app/templates/reroils_app/header.html:54
 msgid "Search"
-msgstr "Recherche"
+msgstr "Recherchez"
 
 #: reroils_app/templates/reroils_app/header_login.html:27
 msgid "Log in"
-msgstr "Se connecter"
+msgstr "S'identifier"
 
 #: reroils_app/templates/reroils_app/header_login.html:28
 msgid "Sign up"
@@ -357,18 +355,17 @@ msgstr "Se connecter à votre compte."
 
 #: reroils_app/templates/reroils_app/login_user.html:43
 msgid "Log In"
-msgstr "Se connecter"
+msgstr "S'identifier"
 
 #: reroils_app/templates/reroils_app/login_user.html:51
 #, python-format
 msgid "New to %(sitename)s?"
-msgstr ""
+msgstr "Pas encore inscrit·e sur %(sitename)s?"
 
 #: reroils_app/templates/reroils_app/login_user.html:51
 msgid "Sign Up"
-msgstr "S'enregistrer"
+msgstr "S'inscrire"
 
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
-msgstr ""
-
+msgstr "Vous avez oublié votre mot de passe?"
