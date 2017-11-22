@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a7\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-22 11:35+0000\n"
+"POT-Creation-Date: 2017-11-22 13:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,14 +142,6 @@ msgstr ""
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
-msgstr ""
-
-#: reroils_app/static/templates/reroils_app/briefview.html:49
-msgid "Hide source"
-msgstr ""
-
-#: reroils_app/static/templates/reroils_app/briefview.html:50
-msgid "Show source"
 msgstr ""
 
 #: reroils_app/static/templates/reroils_app/count.html:3

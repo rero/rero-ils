@@ -41,20 +41,6 @@
             <span translate>no item available</span>
         </span>
     </div>
-
-    <div class="text-right">
-      <ul class="list-inline">
-        <li>
-          <a ng-click="showSource=!showSource">
-            <span ng-show="showSource" translate>Hide source</span>
-            <span ng-hide="showSource" translate>Show source</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div ng-show="showSource">
-      <pre>{{ record | json }}</pre>
-    </div>
     <hr />
   </li>
 </ul>
