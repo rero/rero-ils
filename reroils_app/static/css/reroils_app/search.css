@@ -126,6 +126,10 @@ img.reroils-frontpage-rero21 {
     }
 }
 
+invenio-search-facets li {
+    text-transform: capitalize;
+}
+
 /*****************************************
    Size of the search input, in the navbar
    Smaller for medium screens
