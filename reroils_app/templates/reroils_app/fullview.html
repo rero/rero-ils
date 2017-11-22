@@ -3,284 +3,294 @@
 {%- block page_body %}
 <div class="container search-page">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <h1>{{record.title}}</h1>
         </div>
     </div>
     {%- block record_body %}
-        {% if record.authors|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Author')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                {% for author in record.authors %}
-                    {{ author.name }}
-                    {% if author.qualifier %}
-                    , {{ author.qualifier }}
-                    {% endif %}
-                    {% if author.date %}
-                    , {{ author.date }}
-                    {% endif %}
-                    {{ ";" if not loop.last }}
+    {% if record.authors|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Author')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {% for author in record.authors %}
+            {{ author.name }}
+            {% if author.qualifier %}
+            , {{ author.qualifier }}
+            {% endif %}
+            {% if author.date %}
+            , {{ author.date }}
+            {% endif %}
+            {{ ";" if not loop.last }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.publishers|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Publisher')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {% for publisher in record.publishers %}
+            {{ publisher.place|join('; ') }}:
+            {{ publisher.name|join('; ') }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.publicationYear %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Date')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {% if record.freeFormedPublicationDate %}
+            {{record.freeFormedPublicationDate}}
+            {% else %}
+            {{ record.publicationYear }}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.abstracts|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Abstract')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <ul class="list-inline">
+                {% for abstract in record.abstracts %}
+                <li>{{ abstract|e }}</li>
                 {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.publishers|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Publisher')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {% for publisher in record.publishers %}
-                        {{ publisher.place|join('; ') }}:
-                        {{ publisher.name|join('; ') }}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
+    {% set formats = ', '.join(record.formats) %}
+    {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats] | select) %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Physical description')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ description }}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.publicationYear %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Date')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {% if record.freeFormedPublicationDate %}
-                        {{record.freeFormedPublicationDate}}
-                    {% else %}
-                        {{ record.publicationYear }}
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.additionalMaterials %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Additional Materials')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ record.additionalMaterials }}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.abstracts|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Abstract')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    <ul class="list-inline">
-                    {% for abstract in record.abstracts %}
-                    <li>{{ abstract|e }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% endif %}
+    {% if record.series|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Series')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {% for serie in record.series %}
+            {% if serie.name %}
+            {{ serie.name }},
+            {% endif %}
+            {% if serie.number %}
+            {{ serie.number }}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
-        {% set formats = ', '.join(record.formats) %}
-        {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats] | select) %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Physical description')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {{ description }}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.titlesProper|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Uniform title')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ record.titlesProper|join('; ') }}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.additionalMaterials %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Additional Materials')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {{ record.additionalMaterials }}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.subjects|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Subjects')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ record.subjects|join('; ') }}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.series|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Series')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {% for serie in record.series %}
-                        {% if serie.name %}
-                            {{ serie.name }},
-                        {% endif %}
-                        {% if serie.number %}
-                            {{ serie.number }}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.notes|length > 0 %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Notes')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <ul class="list-inline">
+                {% for note in record.notes %}
+                <li>{{ note|e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.titlesProper|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Uniform title')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {{ record.titlesProper|join('; ') }}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.identifiers %}
 
-        {% if record.subjects|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Subjects')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {{ record.subjects|join('; ') }}
-                </div>
-            </div>
-        {% endif %}
+    {% if record.identifiers.isbn %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('ISBN')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ record.identifiers.isbn }}
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.notes|length > 0 %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('Notes')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    <ul class="list-inline">
-                    {% for note in record.notes %}
-                    <li>{{ note|e }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% endif %}
+    {% if record.identifiers.reroID %}
+    {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_RERO_URL + '01-' + record.identifiers.reroID %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Source')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <a href="{{ source }}" target="_blank">{{ source }}</a>
+        </div>
+    </div>
+    {% endif %}
 
-        {% if record.identifiers %}
+    {% if record.identifiers.bnfID %}
+    {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_BNF_URL + record.identifiers.bnfID %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Source')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <a href="{{ source }}" target="_blank">{{ source }}</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
 
-        {% if record.identifiers.isbn %}
-            <div class="row">
-                <div class="col-xs-3 col-md-2">
-                    {{_('ISBN')}}:
-                </div>
-                <div class="col-xs-9 col-md-10">
-                    {{ record.identifiers.isbn }}
-                </div>
-            </div>
-        {% endif %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Permalink')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ url_for('invenio_records_ui.recid', pid_value=record.bibid, _external=True) }}
+        </div>
+    </div>
 
-        {% if record.identifiers.reroID %}
-        {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_RERO_URL + '01-' + record.identifiers.reroID %}
-        <div class="row">
-            <div class="col-xs-3 col-md-2">
-                {{_('Source')}}:
-            </div>
-            <div class="col-xs-9 col-md-10">
-                <a href="{{ source }}" target="_blank">{{ source }}</a>
+    {%- if current_user | can_edit %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group  pull-right" role="group" aria-label="...">
+                <a href="{{ url_for('reroils_record_editor.edit', bibid=record.bibid) }}" type="button" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+                </a>
+                <a href="{{ url_for('reroils_record_editor.delete', bibid=record.bibid) }}" type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+                </a>
             </div>
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 
-        {% if record.identifiers.bnfID %}
-        {% set source = config.REROILS_RECORD_EDITOR_PERMALINK_BNF_URL + record.identifiers.bnfID %}
-        <div class="row">
-            <div class="col-xs-3 col-md-2">
-                {{_('Source')}}:
-            </div>
-            <div class="col-xs-9 col-md-10">
-                <a href="{{ source }}" target="_blank">{{ source }}</a>
-            </div>
-        </div>
-        {% endif %}
-        {% endif %}
-
-        <div class="row">
-            <div class="col-xs-3 col-md-2">
-                {{_('Permalink')}}:
-            </div>
-            <div class="col-xs-9 col-md-10">
-                {{ url_for('invenio_records_ui.recid', pid_value=record.bibid, _external=True) }}
-            </div>
-        </div>
-
-        {%- if current_user | can_edit %}
-        <div class="row">
-        <div class="btn-group  pull-right" role="group" aria-label="...">
-            <a href="{{ url_for('reroils_record_editor.edit', bibid=record.bibid) }}" type="button" class="btn btn-success">
-                <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
-            </a>
-            <a href="{{ url_for('reroils_record_editor.delete', bibid=record.bibid) }}" type="button" class="btn btn-danger">
-                <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
-            </a>
-        </div>
-        {% endif %}
-
-        <!-- Items -->
-        {% if record.citems %}
-        <div class='reroils-items'>
+    <!-- Items -->
+    {% if record.citems %}
+    <div class='reroils-items row'>
+        <div class="col-sm-12">
             <h3>{{_('Items')}}</h3>
-        {% for item in record.citems %}
-            {% if item.location %}
-                <div class="row">
-                    <div class="col-xs-3 col-md-2">
-                        {{_('Location')}}:
-                    </div>
-                    <div class="col-xs-9 col-md-10">
-                        {{ _(item.location) }}
-                    </div>
-                </div>
-            {% endif %}
-
-            {% if item.callNumber %}
-                <div class="row">
-                    <div class="col-xs-3 col-md-2">
-                        {{_('Call Number')}}:
-                    </div>
-                    <div class="col-xs-9 col-md-10">
-                        {{ item.callNumber }}
-                    </div>
-                </div>
-            {% endif %}
-
-            {% if item.barcode %}
-                <div class="row">
-                    <div class="col-xs-3 col-md-2">
-                        {{_('Barcode')}}:
-                    </div>
-                    <div class="col-xs-9 col-md-10">
-                        {{ item.barcode }}
-                    </div>
-                </div>
-            {% endif %}
-
-            {% if item._circulation.status %}
-                <div class="row">
-                    <div class="col-xs-3 col-md-2">
-                        {{_('Status')}}:
-                    </div>
-                    <div class="col-xs-9 col-md-10">
-                        {% if item._circulation.status == 'on_shelf' %}
-                        <i class="fa fa-circle text-success" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-                        {% elif item._circulation.status == 'on_loan' %}
-                        <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-                        {% else %}
-                        <i class="fa fa-circle" aria-hidden="true"></i> {{ _(item._circulation.status) }}
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
-            {% if not loop.last %}
-                <hr/>
-            {% endif %}
-        {% endfor %}
         </div>
-        {% endif %}
+    </div>
+    {% for item in record.citems %}
+    {% if item.location %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Location')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ _(item.location) }}
+        </div>
+    </div>
+    {% endif %}
 
-        {%- set formats = export_formats(pid.pid_type) %}
-        {%- if formats %}
-        <hr/>
-        <h3>{{_('Export Formats')}}</h3>
-        <ul class="list-inline">
-          {%- for slug, fmt in formats %}
-          <li><a href="{{ url_for('invenio_records_ui.recid_export', pid_value=pid.pid_value, format=slug) }}">     {{fmt['title']}}</a></li>
-          {%- endfor %}
-        </ul>
-        {%- endif %}
-    {%- endblock %}
+    {% if item.callNumber %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Call Number')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ item.callNumber }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if item.barcode %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Barcode')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ item.barcode }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if item._circulation.status %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Status')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {% if item._circulation.status == 'on_shelf' %}
+            <i class="fa fa-circle text-success" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+            {% elif item._circulation.status == 'on_loan' %}
+            <i class="fa fa-circle text-danger" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+            {% else %}
+            <i class="fa fa-circle" aria-hidden="true"></i> {{ _(item._circulation.status) }}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <hr/>
+    {% endfor %}
+    {% endif %}
+
+    {%- set formats = export_formats(pid.pid_type) %}
+    {%- if formats %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{_('Export Formats')}}</h3>
+        </div>
+        <div class="col-sm-12">
+            <ul class="list-inline">
+            {%- for slug, fmt in formats %}
+                <li>
+                    <a href="{{ url_for('invenio_records_ui.recid_export', pid_value=pid.pid_value, format=slug) }}">{{fmt['title']}}</a>
+                </li>
+            {%- endfor %}
+            </ul>
+        </div>
+    </div>
+  {%- endif %}
+  {%- endblock %}
 </div>
 {%- endblock %}
