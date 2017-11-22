@@ -1,4 +1,4 @@
-# Translations template for reroils-app.
+# French translations for reroils-app.
 # Copyright (C) 2017 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a7\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-22 09:39+0000\n"
+"POT-Creation-Date: 2017-11-22 11:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
+"Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.1\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: reroils_app/config.py:21
 #: reroils_app/templates/reroils_app/frontpage.html:101
@@ -185,7 +185,7 @@ msgid "A wealth of knowledge just a click away"
 msgstr "Une source de connaissance au bout du clic"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
-msgid "What's in you mind?"
+msgid "What's on your mind?"
 msgstr "À quoi pensez-vous?"
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
@@ -374,3 +374,4 @@ msgstr "S'inscrire"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
+

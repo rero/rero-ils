@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a6\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-22 09:39+0000\n"
+"POT-Creation-Date: 2017-11-22 11:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: en\n"
@@ -183,7 +183,7 @@ msgid "A wealth of knowledge just a click away"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
-msgid "What's in you mind?"
+msgid "What's on your mind?"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
@@ -372,4 +372,7 @@ msgstr ""
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr ""
+
+#~ msgid "What's in you mind?"
+#~ msgstr ""
 
