@@ -29,6 +29,8 @@ SECURITY_LOGIN_USER_TEMPLATE = 'reroils_app/login_user.html'
 BASE_TEMPLATE = 'reroils_app/page.html'
 REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'reroils_app/page.html'
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+THEME_TRACKINGCODE_TEMPLATE = 'reroils_app/trackingcode.html'
+"""Template for including a tracking code for web analytics."""
 
 SEARCH_UI_JSTEMPLATE_RESULTS = \
     'templates/reroils_app/briefview.html'
