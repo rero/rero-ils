@@ -21,3 +21,9 @@ def index():
     """Home Page."""
     return render_template('reroils_app/frontpage.html',
                            version=__version__)
+
+@blueprint.route("/help")
+def help():
+    """Help Page."""
+    return render_template('reroils_app/help.html',
+                           version=__version__)

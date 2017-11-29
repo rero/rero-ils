@@ -25,7 +25,7 @@
 
 set -e
 pydocstyle reroils_app tests docs
-isort -rc -c -df
+isort -rc -c -df -s .eggs
 
 set +e
 grep -r fuzzy reroils_app/translations

@@ -1,0 +1,95 @@
+{%- extends config.BASE_TEMPLATE %}
+
+{% block page_body %}
+<div class="container">
+
+    {% if current_i18n.language == 'en' %}
+    <h1>How to use this demo instance?</h1>
+    <h2><i class="fa fa-sign-in"></i> Librarian account</h2>
+    <p>A librarian account (cataloguing role) is available with the following credentials:</p>
+    <ul>
+        <li>email: librarian@rero.ch</li>
+        <li>{{ _('password') }}: librarian</li>
+    </ul>
+
+    <h2><i class="fa fa-pencil"></i> Editing records</h2>
+    <p>Once you are identified, a menu is made visible. Through it, you can access the <a href="{{ url_for('reroils_record_editor.new') }}">editor</a>, and start cataloguing a new record.</p>
+    <p>A <em>very simple</em> import function is available, but only using the ISBN field. Once a correct ISBN-13 is entered into that field, hitting the <span class="btn btn-info btn-xs">{{ _('import') }}</span> button will send a request to the <a href="http://www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">BnF's SRU service</a>.</p>
+    <p>When you display the detailed view of a record, you should see two buttons, one to <span class="btn btn-success btn-xs">{{ _('edit') }}</span> the record, and the second to <span class="btn btn-danger btn-xs">{{ _('delete') }}</span> it.</p>
+
+    <h2><i class="fa fa-search"></i> Searching the catalog</h2>
+    <p>The syntax to write complex requests in the search input is discribed on the <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html" target="_blank"><em>lucene</em> documentation</a>.</p>
+    <p>With this syntax, the search engine (<a href="https://www.elastic.co/" target="_blank">ElasticSearch</a>) can retrieve information from all the fields of the bibliographic and items records. To see all the available fields and their structure, you can consult:</p>
+    <ul>
+        <li>the JSON export available at the bottom of the detailed view of any record</li>
+        <li>the JSON schema of the <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='records/record-v0.0.1.json') }}">bibliographic record</a> and of the <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='items/item-v0.0.1.json') }}">item record</a>.</li>
+    </ul>
+
+    <h2><i class="fa fa-comments"></i> Reaching the dev team</h2>
+    <p>You can open issues on <span class="fa fa-github"><a href="https://github.com/rero/reroils-app/issues" target="_blank"> GitHub</a></span> if you want to report errors or suggest improvements.</p>
+    <p>If you prefer a less formal way, there's a chatroom on <a href="https://gitter.im/rero/reroils" target="_blank">Gitter</a>, which you can access with a GitHub account.</p>
+    {% endif %}
+
+    {% if current_i18n.language == 'fr' %}
+    <h1>Comment utiliser cette installation de démonstration?</h1>
+    <h2><i class="fa fa-sign-in"></i> Compte bibliothécaire</h2>
+    <p>Un compte bibliothécaire (avec le rôle de catalogueur) est disponible, avec les identifiants suiants:</p>
+    <ul>
+        <li>email: librarian@rero.ch</li>
+        <li>{{ _('password') }}: librarian</li>
+    </ul>
+
+    <h2><i class="fa fa-pencil"></i> Modifier les notices</h2>
+    <p>Une fois que vous êtes identifié·e, un menu s'affiche. Il donne accès à l'<a href="{{ url_for('reroils_record_editor.new') }}">éditeur</a> qui permet de cataloguer une nouveau document.</p>
+    <p>Une fonction d'importation <em>très simple</em> est disponible, limitée au champ de l'ISBN. Lorsqu'un ISBN-13 correct est saisi dans ce champ, le bouton <span class="btn btn-info btn-xs">{{ _('import') }}</span> envoie une requête au <a href="http://www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">service SRU de la BnF</a>.</p>
+    <p>Depuis la vue détaillée d'une notice, deux boutons sont visibles, le premier pour <span class="btn btn-success btn-xs">{{ _('edit') }}</span> la notice, et le deuxième pour la <span class="btn btn-danger btn-xs">{{ _('delete') }}</span>.</p>
+
+    <h2><i class="fa fa-search"></i> Rechercher dans le catalogue</h2>
+    <p>La syntaxe pour construire des requêtes complexes dans le champ de recherche se trouve dans la <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html" target="_blank">documentation de <em>lucene</em></a>.</p>
+    <p>Au moyen de cette syntaxe, le moteur de recherche (<a href="https://www.elastic.co/" target="_blank">ElasticSearch</a>) est en mesure d'accéder aux données contenues dans l'ensemble des champs des notices bibliographiques et des exemplaires. Pour connaître les champs existants et leur structure, vous pouvez consulter:</p>
+    <ul>
+        <li>l'export JSON accessible au bas de chaque notice détaillée;</li>
+        <li>les JSON schemas de la <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='records/record-v0.0.1.json') }}">notice bibliographique</a> et de <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='items/item-v0.0.1.json') }}">l'exemplaire</a>.</li>
+    </ul>
+
+    <h2><i class="fa fa-comments"></i> Communiquer avec l'équipe de développement</h2>
+    <p>Vous pouvez ouvrir des <em>issues</em> sur <span class="fa fa-github"><a href="https://github.com/rero/reroils-app/issues" target="_blank"> GitHub</a></span>, afin de signaler des erreurs ou de suggérer des améliorations.</p>
+    <p>Si vous préférez une voie moins formelle, un salon de discussion est disponible sur <a href="https://gitter.im/rero/reroils" target="_blank">Gitter</a>, auquel vous pouvez accéder au moyen d'un compte GitHub.</p>
+    {% endif %}
+
+    {% if current_i18n.language == 'de' %}
+    <h1>Wie wird diese Demo-Instanz verwendet?</h1>
+
+    <h2><i class="fa fa-sign-in"></i> Bibliothekarkonto</h2>
+
+    <p>Ein Bibliothekarkonto (Katalogisierungsrolle) steht mit folgenden Nutzerdaten zur Verfügung:</p>
+    <ul>
+        <li>E-Mail: librarian@rero.ch</li>
+        <li>{{ _('password') }}: librarian</li>
+    </ul>
+
+    <h2>
+        <i class="fa fa-pencil"></i> Datensatz bearbeiten</h2>
+    <p>Nach dem Einloggen wird ein Menü sichtbar, über welches Sie auf den <a href="{{ url_for('reroils_record_editor.new') }}">Editor</a> zugreifen können und einen neuen Datensatz erfassen können.</p>
+    <p>Eine <em>sehr einfache</em> Importfunktion steht unter Verwendung des ISBN-Feldes zur Verfügung. Sobald eine korrekte ISBN-13 in das ISBN-Feld eingegeben wurde, wird durch den Klick auf <span class="btn btn-info btn-xs">{{ _('import') }}</span> eine Anfrage an den <a href="http://www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">SRU-Service der BnF</a> gesendet.</p>
+    <p>Bei der Detailanzeige eines Datensatzes sehen Sie zwei Buttons, den einen um den Datensatz zu <span class="btn btn-success btn-xs">{{ ('edit') }}</span> und den anderen um ihn zu <span class="btn btn-danger btn-xs">{{ ('delete') }}</span>.</p>
+
+    <h2>
+        <i class="fa fa-search"></i> Im Katalog suchen</h2>
+
+    <p>Die Syntax, um komplexe Abfragen im Suchfeld zu schreiben, wird in der <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html" target="_blank">Lucene-Dokumentation</a> beschrieben.</p>
+
+    <p>Mit dieser Syntax kann die Suchmaschine (<a href="https://www.elastic.co/" target="_blank">ElasticSearch</a>) Informationen aus allen Feldern der bibliographischen und der Exemplar-Datensätze finden. Um sämtliche verfügbare Felder zu sehen, können Sie:</p>
+    <ul>
+        <li>den JSON-Export, verfügbar unterhalb der Detailanzeige jedes Datensatzes, anschauen;</li>
+        <li>das JSON-Schema eines <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='records/record-v0.0.1.json') }}">bibliographischen Datensatzes</a> und eines <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='items/item-v0.0.1.json') }}">Exemplar-Datensatzes</a> konsultieren.</li>
+    </ul>
+
+    <h2>
+        <i class="fa fa-comments"></i> Das Entwicklerteam kontaktieren</h2>
+    <p>Auf <span class="fa fa-github"><a href="https://github.com/rero/reroils-app/issues" target="_blank"> GitHub</a></span> können Sie ein neues <em>Issue</em> öffnen, wenn Sie einen Fehler melden oder eine Verbesserung vorschlagen möchten.</p>
+    <p>Wenn Sie ein weniger formales Verfahren bevorzugen, gibt es ein Chatroom auf <a href="https://gitter.im/rero/reroils" target="_blank">Gitter</a>. Das Chatroom können Sie mit einem GitHubkonto beitreten.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
