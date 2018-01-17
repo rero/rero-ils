@@ -158,7 +158,7 @@ msgstr "Nessun risultato trovato."
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "Developed by"
-msgstr "Sviluppato da"
+msgstr "Realizzato da"
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "using"
@@ -176,7 +176,7 @@ msgstr "Una ricchezza di conoscenze a portata di click"
 
 #: reroils_app/templates/reroils_app/frontpage.html:29
 msgid "What's on your mind?"
-msgstr "Cosa pensa?"
+msgstr "Cosa pensi?"
 
 #: reroils_app/templates/reroils_app/frontpage.html:39
 msgid "Software under development"
@@ -196,7 +196,7 @@ msgstr "Come usare questa installazione dimostrativa"
 
 #: reroils_app/templates/reroils_app/frontpage.html:67
 msgid "See the"
-msgstr "Vedere il"
+msgstr "Vedere la"
 
 #: reroils_app/templates/reroils_app/frontpage.html:67
 msgid "help page"
@@ -244,11 +244,11 @@ msgstr "in"
 
 #: reroils_app/templates/reroils_app/frontpage.html:104
 msgid "or"
-msgstr "or"
+msgstr "o"
 
 #: reroils_app/templates/reroils_app/frontpage.html:106
 msgid "Present"
-msgstr "Atuale"
+msgstr "Attuale"
 
 #: reroils_app/templates/reroils_app/fullview.html:14
 msgid "Author"
@@ -380,7 +380,7 @@ msgstr "eliminare"
 
 #: reroils_app/templates/reroils_app/login_user.html:34
 msgid "Log in to account"
-msgstr "Acceda al Suo conto"
+msgstr "Accedi al conto"
 
 #: reroils_app/templates/reroils_app/login_user.html:43
 msgid "Log In"

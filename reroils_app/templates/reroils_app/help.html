@@ -101,21 +101,21 @@
     </ul>
   
     <h2><i class="fa fa-pencil"></i> Modificare i record</h2>
-    <p>Una volta effettuato l'accesso, viene visualizzato un menu. Questo dà accesso all'<a href="{{ url_for('reroils_record_editor.new')   }}">editor</a> che permette di catalogare un nuovo documento.</p>
-    <p>È disponibile una funzione di importazione <em>molto semplice</em>, limitata al campo ISBN. Quando in questo campo viene inserito   un ISBN-13 corretto, il pulsante <span class="btn btn-info btn-xs">{{ _('import') }}</span> invia una richiesta <a href="http://  www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">al servizio SRU della BnF</a>.</  p>
-    <p>Dalla vista dettagliata di un record sono visibili due pulsanti, il primo per <span class="btn btn-success btn-xs">{{ _('edit') }}</  span> il record e il secondo per <span class="btn btn-danger btn-xs">{{ _('delete') }}</span>.</p>
+    <p>Una volta effettuato l'accesso, viene visualizzato un menu. Questo dà accesso all'<a href="{{ url_for('reroils_record_editor.new') }}">editor</a> che permette di catalogare un nuovo documento.</p>
+    <p>È disponibile una funzione di importazione <em>molto semplice</em>, limitata al campo ISBN. Quando in questo campo viene inserito un ISBN-13 corretto, il pulsante <span class="btn btn-info btn-xs">{{ _('import') }}</span> invia una richiesta <a href="http://www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">al servizio SRU della BnF</a>.</p>
+    <p>Dalla vista dettagliata di un record compaiono due pulsanti, il primo per <span class="btn btn-success btn-xs">{{ _('edit') }}</span> il record e il secondo per <span class="btn btn-danger btn-xs">{{ _('delete') }}</span> il record.</p>
   
     <h2><i class="fa fa-search"></i> Ricerca nel catalogo</h2>
-    <p>La procedura per presentare richieste complesse nel campo di ricerca si trova nella <a href="https://lucene.apache.org/core/2_9_4/  queryparsersyntax.html" target="_blank">documentazione di <em>lucene</em></a>.</p>
-    <p>Attraverso questa sintassi, il motore di ricerca (<a href="https://www.elastic.co/" target="_blank">ElasticSearch</a>) è in grado   di accedere ai dati contenuti in tutti i campi delle registrazioni e copie bibliografiche. Per conoscere i campi esistenti e la loro   struttura, è possibile consultarli:</p>
+    <p>La procedura per presentare richieste complesse nel campo di ricerca si trova nella <a href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html" target="_blank">documentazione di <em>lucene</em></a>.</p>
+    <p>Attraverso questa procedura, il motore di ricerca (<a href="https://www.elastic.co/" target="_blank">ElasticSearch</a>) è in grado di accedere ai dati contenuti in tutti i campi delle registrazioni e delle copie bibliografiche. Per conoscere i campi esistenti e la loro struttura, si procede:</p>
     <ul>
-        <li>esportazione JSON accessibile nella parte inferiore di ogni registrazione dettagliata;</li>
-        <li>gli schemi JSON dello <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='records/record-v0.0.1.json') }}">  record bibliografico</a> e del <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='items/item-v0.0.1.json') }}">  esemplare</a>.</li>
+        <li>esportando JSON accessibile nella parte inferiore di ogni registrazione dettagliata;</li>
+        <li>consultando gli schemi JSON del <a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='records/record-v0.0.1.json') }}"> record bibliografico</a> e dell'<a href="{{ url_for('invenio_jsonschemas.get_schema', schema_path='items/item-v0.0.1.json') }}">esemplare</a>.</li>
     </ul>
   
     <h2><i class="fa fa-comments"></i> Comunicare con il team di sviluppo</h2>
-    <p>È possibile aprire <em>issues</em> su <span class="fa fa-github"><a href="https://github.com/rero/reroils-app/issues" target="_blank  "> GitHub</a></span>, per segnalare errori o suggerire miglioramenti.</p>
-    <p>Se si preferisce una modalità più informale, su <a href="https://gitter.im/rero/reroils" target="_blank">Gitter</a>, è disponibile   una chat room, alla quale si può accedere tramite un account GitHub.</p>
+    <p>È possibile aprire <em>issues</em> su <span class="fa fa-github"><a href="https://github.com/rero/reroils-app/issues" target="_blank"> GitHub</a></span> per segnalare errori o suggerire miglioramenti.</p>
+    <p>Se si preferisce una modalità più informale, su <a href="https://gitter.im/rero/reroils" target="_blank">Gitter</a>, è disponibile una chat room, alla quale si può accedere tramite un account GitHub.</p>
 {% endif %}
 </div>
 
