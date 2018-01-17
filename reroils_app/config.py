@@ -19,7 +19,8 @@ BABEL_DEFAULT_LANGUAGE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 I18N_LANGUAGES = [
     ('fr', _('French')),
-    ('de', _('German'))
+    ('de', _('German')),
+    ('it', _('Italian'))
 ]
 
 HEADER_TEMPLATE = 'reroils_app/header.html'

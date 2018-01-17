@@ -1,13 +1,14 @@
 # Translations template for reroils-app.
-# Copyright (C) 2017 RERO
+# Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a7\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-30 17:00+0000\n"
+"POT-Creation-Date: 2018-01-16 14:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,27 +27,31 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: reroils_app/config.py:51
+#: reroils_app/config.py:23
+msgid "Italian"
+msgstr ""
+
+#: reroils_app/config.py:52
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:216
+#: reroils_app/config.py:217
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:217
+#: reroils_app/config.py:218
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:218
+#: reroils_app/config.py:219
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:219
+#: reroils_app/config.py:220
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:222
+#: reroils_app/config.py:223
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a7\n"
@@ -191,7 +192,7 @@ msgstr "Version"
 
 #: reroils_app/templates/reroils_app/frontpage.html:65
 msgid "How to use this demo"
-msgstr "Comment utiliser cette démo?"
+msgstr "Comment utiliser cette démo"
 
 #: reroils_app/templates/reroils_app/frontpage.html:67
 msgid "See the"
@@ -211,15 +212,15 @@ msgstr "Processus scrum"
 
 #: reroils_app/templates/reroils_app/frontpage.html:78
 msgid "Product Backlog"
-msgstr ""
+msgstr "Product Backlog"
 
 #: reroils_app/templates/reroils_app/frontpage.html:78
 msgid "Sprint&nbsp;Taskboard"
-msgstr ""
+msgstr "Sprint&nbsp;Taskboard"
 
 #: reroils_app/templates/reroils_app/frontpage.html:78
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: reroils_app/templates/reroils_app/frontpage.html:79
 msgid "on Taiga"
