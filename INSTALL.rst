@@ -56,6 +56,7 @@ Install the dev environment
 
 This installation process needs to be done only once, except if you want to start anew.
 
+
 **First**, copy and paste the following code in a ``docker-compose.yml`` file somewhere on your machine.
 
 .. code:: console
@@ -269,38 +270,34 @@ This suppose you have a development environment up and running.
 The first time
 ..............
 
-1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
-#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
-#. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments
-#. select a task your going to realize
-#. assign the corresponding digital card to yourself
-#. move the card into the *in progress* column
-#. add the username of your pair in the card description, ie ``@<username>``
-#. implement the task
+1. Fork the RERO project on your own GitHub account
+#. ``cd`` to the sources, ie ``<local_dir.>/src/<module>/<module>``
+#. add the remote URL of your fork (``git remote add <choose-a-name> <your-fork-url>``)
+#. ``git checkout -b <your-dev-branch> <the-name-of-your-repository>/<your-dev-branch>`` to create a new branch
+#. develop on the new branch you just created
 #. once your done, run the test scripts
-#. check the acceptance criterium and the definition of done for the current implementation
-#. commit your changes with a well formated message
-#. ``git checkout master`` to return into the master branch
-#. ``git pull`` to fetch the remote modifications from the other members of the team
-#. ``git rebase <your-dev-branch>`` to merge your developments into the master branch
-#. run the tests scripts
-#. ``git push`` to push your modifications into the remote master branch
-#. move the related task in the *ready to test* column and announce the new state of this task in the next daily meeting
-#. ask another developer to test this feature
-#. once everything is ok, this developer will mark the card as *done*
-#. once all task are done, check that the user story reach the acceptance criterium and the *how to demo*
-#. the user story is to be marked as *ready for test*
-#. the PO test the user story, notify the team that it's ready to deploy and mark it as *done* once it's deployed
+
+.. code:: console
+
+    docker-compose run web bash
+    cd /home/invenio/reroils/src/<module>
+    ./run-tests.sh
+
+
+#. if it complains about the manifest, it is because new files had been added, but they aren't registered into the MANIFEST.in file, so let's do so (from inside the container): ``check-manifest -u``
+#. commit your changes with a well formated message (see the Commit Messages section below)
+#. ``git push <your-repository>`` to push your modifications into your branch
+#. Make a Pull Request on GitHub
 
 When you resume developing
 ..........................
 
-1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
+1. ``cd`` to the sources, ie ``<local_dir.>/src/<module>/<module>``
 #. check your in the master branch
-#. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
+#. check that your master branch is up to date: ``git fetch origin``, or ``git reset --hard origin/master`` **Changes will be lost**
 #. ``git checkout <your-dev-branch>`` to get into your dev branch
 #. ``git rebase master`` to update you dev branch
-#. continue since the point 5 from the above list
+#. continue from the point 5 from the above list
 
 Commit Messages
 ................
