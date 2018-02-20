@@ -178,13 +178,45 @@ This installation process needs to be done only once, except if you want to star
 
     docker-compose up
 
-The first time, it should take some times, but then you'll have the sources in ``<local_dir.>/src/reroils-app``. You should be able to reach the reroils-app at http://localhost:5000.
+The first time [#]_, it should take some times, but then you'll have the sources in ``<local_dir.>/src/reroils-app``. You should be able to reach the reroils-app at http://localhost:5000.
 
 **Finally**, populate the application with minimal data. Run the following command, still in the directory where the ``docker-compose.yml`` is saved:
 
 .. code:: console
 
     docker-compose exec web ./populate.sh
+
+
+Update the development environment
+----------------------------------
+
+As new modules are developed, you may need to update the development environment. To do so, follow these steps:
+
+Stop the running containers. `cd` to the directory where the `docker-compose.yml` file is, and run:
+
+.. code:: console
+
+   docker-compose down
+
+Update your `git` local master branch:
+
+.. code:: console
+
+   git pull 
+
+Update the docker images from the RERO registry and start the containers. Don't forget to `cd` to the directory where the `docker-compose.yml` file is and run:
+
+.. code:: console
+
+   docker-compose pull
+   docker-compose up
+
+Force the `install.sh` script, and launch the `populate.sh` script:
+
+.. code:: console
+
+   docker-compose exec web ./install.sh -f
+   docker-compose exec web ./populate.sh
 
 
 Invenio commands
@@ -238,7 +270,6 @@ The first time
 ..............
 
 1. ``cd`` to the sources, ie ``<local_dir.>/src/reroils-app/reroils-app``
-#. ``git remote set-url origin git@gitlab.rero.ch:rero21/reroils-app.git`` to add the gitlab.rero.ch_ remote repository
 #. check that your master branch is up to date: ``git fetch``, or ``git reset --hard origin/master`` **Changes will be lost**
 #. ``git checkout -b <your-dev-branch>`` to create a new branch for your developments
 #. select a task your going to realize
@@ -300,3 +331,4 @@ Type must be one of the following
 .. _Transiflex: https://www.transifex.com/rero/reroils
 .. _gitlab.rero.ch: https://gitlab.rero.ch
 .. _invenio documentation: http://invenio.readthedocs.io/en/latest/community/contribution-guide.html?highlight=commit%20message
+.. [#] If you want to update your installation instead of installing it for the first time, check the *Updating your installation* section
