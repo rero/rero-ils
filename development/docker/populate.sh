@@ -37,8 +37,8 @@ invenio roles add librarian@rero.ch cataloguer
 # create the bib records
 dojson -i reroils/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
 
-#invenio index reindex --yes-i-know --pid-type recid
-#invenio index run
+invenio index reindex --yes-i-know --pid-type recid
+invenio index run
 
 # create items and index bibitems
-invenio fixtures createitems
+invenio fixtures createitems -c 1000
