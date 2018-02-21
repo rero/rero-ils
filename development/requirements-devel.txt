@@ -74,6 +74,3 @@
 # RERO
 -e git+https://github.com/rero/reroils-data.git#egg=reroils-data[all]
 -e git+https://github.com/rero/reroils-record-editor.git#egg=reroils-record-editor[all]
-
-#-e git+https://git@gitlab.rero.ch/rero21/reroils-data.git#egg=reroils-data[all]
-#-e git+https://git@gitlab.rero.ch/rero21/reroils-record-editor.git#egg=reroils-record-editor[all]

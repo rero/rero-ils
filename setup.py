@@ -106,6 +106,7 @@ setup(
         'invenio-search>=1.0.0a7',
         'invenio-theme>=1.0.0a17',
         'invenio-celery>=1.0.0b3',
-        'invenio-admin>=1.0.0b4'
+        'invenio-admin>=1.0.0b4',
+        'SQLAlchemy-Utils<0.33.0'
     ],
 )
