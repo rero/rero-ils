@@ -51,8 +51,8 @@ SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzP
 # Theme
 THEME_SITENAME = _('reroils-app')
 
-# For dev
-# APP_ENABLE_SECURE_HEADERS=False
+# For dev. Set to false when testing on localhost in no debug mode
+APP_ENABLE_SECURE_HEADERS=False
 
 # no needs for redis
 CACHE_TYPE = 'simple'
@@ -277,11 +277,17 @@ REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
 SECURITY_CHANGEABLE = False
 """Allow password change by users."""
 
-SECURITY_CONFIRMABLE = False
+SECURITY_CONFIRMABLE = True
 """Allow user to confirm their email address."""
 
-SECURITY_RECOVERABLE = False
+SECURITY_RECOVERABLE = True
 """Allow password recovery by users."""
 
-SECURITY_REGISTERABLE = False
+SECURITY_REGISTERABLE = True
 """Allow users to register."""
+
+SECURITY_SEND_REGISTER_EMAIL = True
+"""Allow sending registration email."""
+
+SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
+"""Allow users to login without first confirming their email address."""

@@ -62,6 +62,7 @@
 -e git+https://github.com/inveniosoftware/invenio-access.git#egg=invenio-access
 -e git+https://github.com/inveniosoftware/invenio-accounts.git#egg=invenio-accounts
 -e git+https://github.com/inveniosoftware/invenio-admin.git#egg=invenio-admin
+-e git+https://github.com/inveniosoftware/invenio-mail.git#egg=invenio-mail
 
 -e git+https://github.com/inveniosoftware/invenio-cache.git#egg=invenio-cache
 -e git+https://github.com/inveniosoftware/invenio-i18n.git#egg=invenio-i18n

@@ -90,6 +90,8 @@ This installation process needs to be done only once, except if you want to star
     ## invenio --help
     ## tests: docker-compose exec web ./tests.sh
     ## debug: echo "FLASK_DEBUG=1" > .env; docker-compose up
+    ## WARNING: do not insert spaces around '='
+
 
     celery:
       restart: "always"
@@ -97,14 +99,18 @@ This installation process needs to be done only once, except if you want to star
       volumes:
         - changeit:/home/invenio/reroils:cached
       environment:
-        - FLASK_DEBUG
+        - FLASK_DEBUG=1
         - INVENIO_SEARCH_ELASTIC_HOSTS=elasticsearch
         - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
         - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
         - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
-        - INVENIO_CACHE_REDIS_URL = 'redis://redis:6379/1'
+        - INVENIO_CACHE_REDIS_URL='redis://redis:6379/1'
         - INVENIO_ACCOUNTS_SESSION_REDIS_URL='redis://redis:6379/0'
         - INVENIO_DB_VERSIONING=0
+        # To send email in dev mode e.g. user registration (uncomment and change value)
+        # - INVENIO_MAIL_SUPPRESS_SEND=0
+        # - INVENIO_MAIL_SERVER='changeit'
+        # - INVENIO_SECURITY_EMAIL_SENDER='changeit'
       links:
         - postgresql
         - redis
@@ -123,9 +129,13 @@ This installation process needs to be done only once, except if you want to star
         - INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils
         - INVENIO_CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
         - INVENIO_CELERY_RESULT_BACKEND=redis://redis:6379/1
-        - INVENIO_CACHE_REDIS_URL = 'redis://redis:6379/1'
+        - INVENIO_CACHE_REDIS_URL='redis://redis:6379/1'
         - INVENIO_ACCOUNTS_SESSION_REDIS_URL='redis://redis:6379/0'
         - INVENIO_DB_VERSIONING=0
+        # To send email in dev mode e.g. user registration (uncomment and change value)
+        # - INVENIO_MAIL_SUPPRESS_SEND=0
+        # - INVENIO_MAIL_SERVER='changeit'
+        # - INVENIO_SECURITY_EMAIL_SENDER='changeit'
       links:
         - postgresql
         - redis
@@ -166,13 +176,20 @@ This installation process needs to be done only once, except if you want to star
         - "24369:4369"
         - "21567:15672"
 
-**Once** this file is saved on your machine, change the two ``changeit`` occurrences by the path to your ``<local_dir.>``.
+**Once** this file is saved on your machine, change the *two* ``changeit`` occurrences by the path to your ``<local_dir.>``. These occurrences are in the celery and web configurations.
 
 ::
 
-    l. 35   <local_dir.>:/home/invenio/reroils:cached
-    l. 53   <local_dir.>:/home/invenio/reroils:cached
+    changeit:/home/invenio/reroils:cached
 
+To enable email sending in development mode, uncomment and change the value of the following lines, again in the celery and web configurations (two times, then):
+
+::
+
+    #- INVENIO_MAIL_SUPPRESS_SEND=0
+    #- INVENIO_MAIL_SERVER='changeit'
+    #- INVENIO_SECURITY_EMAIL_SENDER='changeit'
+    
 **Then**, run the following command from the directory where the ``docker-compose.yml`` file is saved:
 
 .. code:: console
