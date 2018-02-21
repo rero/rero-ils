@@ -48,7 +48,7 @@ Requirements
 - ``git``
 - ``docker``
 - ``docker-compose``
-- a local directory in which the container will mount the ``virtualenv``; this local directory is named ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install processus is started**
+- a local directory in which the container will mount the ``virtualenv``; this local directory is named ``<local_dir.>`` in this documentation, and you have to change it accordingly to your file system organisation; **this** ``<local_dir.>`` **has to be created before the install process is started**
 
 
 Install the dev environment
@@ -187,6 +187,8 @@ The first time [#]_, it should take some times, but then you'll have the sources
 
     docker-compose exec web ./populate.sh
 
+This script will generate 10.000 bibliographic records, but create only items for 1.000 of them, due to performance reason. If you need more items, edit the ``reroils-app/development/docker/populate.sh`` script and change the line ``invenio fixtures createitems -c 1000`` into ``invenio fixtures createitems -c 10000``, or the number you want.
+
 
 Update the development environment
 ----------------------------------
@@ -242,7 +244,7 @@ Then you can run:
    reroils --help
    reroils db create
 
-**Keep in mind that this commands and aliases are available only in the** ``docker-compose.yml`` **directory!**
+**Keep in mind that these commands and aliases are available only in the** ``docker-compose.yml`` **directory!**
 
 
 Debug Mode
@@ -250,7 +252,7 @@ Debug Mode
 
 Sources changes won't be in effect unless you restart the application, or unless if ``FLASK_DEBUG`` is set to ``1``.
 
-To activate the debug mode, you have to possibilities. You can edit the ``docker-compose.yml`` file and change the ``FLASK_DEBUG`` web environment variable (l. 55) to ``FLASK_DEBUG=1``.
+To activate the debug mode, you have two possibilities. You can edit the ``docker-compose.yml`` file and change the ``FLASK_DEBUG`` web environment variable (l. 55) to ``FLASK_DEBUG=1``.
 
 Or, you can add this variable in a ``.env`` file aside your ``docker-compose.yml`` file:
 
@@ -265,7 +267,7 @@ To test it, you can modify the following file: ``<local_dir.>/src/reroils-app/re
 Development workflow
 --------------------
 
-This suppose you have a development environment up and running.
+This supposes you have a development environment up and running.
 
 The first time
 ..............
@@ -275,7 +277,7 @@ The first time
 #. add the remote URL of your fork (``git remote add <choose-a-name> <your-fork-url>``)
 #. ``git checkout -b <your-dev-branch> <the-name-of-your-repository>/<your-dev-branch>`` to create a new branch
 #. develop on the new branch you just created
-#. once your done, run the test scripts
+#. once you're done, run the test scripts
 
 .. code:: console
 
@@ -293,7 +295,7 @@ When you resume developing
 ..........................
 
 1. ``cd`` to the sources, ie ``<local_dir.>/src/<module>/<module>``
-#. check your in the master branch
+#. check you're in the master branch
 #. check that your master branch is up to date: ``git fetch origin``, or ``git reset --hard origin/master`` **Changes will be lost**
 #. ``git checkout <your-dev-branch>`` to get into your dev branch
 #. ``git rebase master`` to update you dev branch
