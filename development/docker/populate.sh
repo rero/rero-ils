@@ -20,6 +20,10 @@ invenio index queue init
 invenio users create -a admin@rero.ch --password administrator
 invenio users create -a librarian@rero.ch --password librarian
 
+# confirm users
+invenio users confirm admin@rero.ch
+invenio users confirm librarian@rero.ch
+
 # create roles
 invenio roles create -d "Admins Group" admins
 invenio roles create -d "Super Users Group" superusers
