@@ -1,18 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ils-frontend
+  name: ils-tasks
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         app: reroils
-        tier: frontend
+        tier: tasks
     spec:
       containers:
       - name: reroils-app
         image: rero/reroils-app:latest
+        command: ["celery", "-A", "invenio_app", "worker"]
         imagePullPolicy: Always
         env:
         - name: PATH
@@ -70,8 +71,6 @@ spec:
             secretKeyRef:
               name: reroils-app
               key: mail-sender
-        ports:
-        - containerPort: 5000
         volumeMounts:
           - mountPath: /data
             name: ils-data

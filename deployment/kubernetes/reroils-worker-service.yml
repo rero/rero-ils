@@ -12,7 +12,7 @@ spec:
       nodePort: 30018
       name: worker
     - port: 15672
-      nodePort: 30019
+      nodePort: 30015
       name: ui
   selector:
     app: reroils

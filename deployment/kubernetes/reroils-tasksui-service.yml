@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ils-flower
+  name: ils-tasksui
   labels:
     app: reroils
-    tier: flower
+    tier: tasksui
 spec:
   type: NodePort
   ports:
     - port: 5555
       nodePort: 30017
-      name: flower
   selector:
     app: reroils
-    tier: flower
+    tier: tasksui

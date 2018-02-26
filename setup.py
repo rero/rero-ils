@@ -107,6 +107,7 @@ setup(
         'invenio-theme>=1.0.0a17',
         'invenio-celery>=1.0.0b3',
         'invenio-admin>=1.0.0b4',
-        'invenio-oauth2server>=v1.0.0b4'
+        'invenio-oauth2server>=v1.0.0b4',
+        'invenio-mail>=1.0.0b1'
     ],
 )

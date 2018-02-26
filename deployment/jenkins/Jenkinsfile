@@ -69,6 +69,8 @@ pipeline {
                         kubectl --kubeconfig=config-demo config use-context dev
                         kubectl --kubeconfig=config-demo apply -f deployment/kubernetes
                         kubectl --kubeconfig=config-demo set image deployment/ils-frontend reroils-app=rero/reroils-app:$GIT_COMMIT
+                        kubectl --kubeconfig=config-demo set image deployment/ils-tasks reroils-app=rero/reroils-app:$GIT_COMMIT
+                        kubectl --kubeconfig=config-demo set image deployment/ils-tasksui reroils-app=rero/reroils-app:$GIT_COMMIT
                     '''
                 }
             }

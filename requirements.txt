@@ -24,5 +24,7 @@
 
 git+https://github.com/inveniosoftware/invenio-circulation.git#egg=invenio-circulation
 
-git+https://github.com/rero/reroils-data.git@v0.1.0a8#egg=reroils-data
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a8#egg=reroils-record-editor
+git+https://github.com/rero/reroils-data.git@v0.1.0a9#egg=reroils-data
+git+https://github.com/rero/reroils-record-editor.git@v0.1.0a9#egg=reroils-record-editor
+
+flower
