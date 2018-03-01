@@ -38,6 +38,12 @@ invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
+# create the institution records
+dojson -i reroils/src/reroils-data/data/institutions.json schema http://ils.test.rero.ch/schema/institutions/institution-v0.0.1.json | invenio records create --pid-minter institutionid
+
+invenio index reindex --yes-i-know --pid-type instid
+invenio index run
+
 # create the bib records
 dojson -i reroils/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
 
