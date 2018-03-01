@@ -10,5 +10,19 @@
     {%- block record_body %}
         {{record | tojson}}
     {%- endblock %}
+    {%- if current_user | can_edit %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group  pull-right" role="group" aria-label="...">
+                <a href="{{ url_for('reroils_record_editor.update_crcitm', pid=record.itemid) }}" type="button" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+                </a>
+                <a href="{{ url_for('reroils_record_editor.delete_crcitm', pid=record.itemid) }}" type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {%- endblock %}

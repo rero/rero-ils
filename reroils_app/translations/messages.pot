@@ -6,24 +6,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a7\n"
+"Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-01-16 14:00+0000\n"
+"POT-Creation-Date: 2018-03-08 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.1\n"
+"Generated-By: Babel 2.5.3\n"
 
 #: reroils_app/config.py:21
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr ""
 
 #: reroils_app/config.py:22
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr ""
 
@@ -35,23 +35,23 @@ msgstr ""
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:217
+#: reroils_app/config.py:242 reroils_app/config.py:272
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:218
+#: reroils_app/config.py:243 reroils_app/config.py:273
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:219
+#: reroils_app/config.py:244
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:220
+#: reroils_app/config.py:245
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:223
+#: reroils_app/config.py:248
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""
@@ -192,63 +192,63 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:65
+#: reroils_app/templates/reroils_app/frontpage.html:71
 msgid "How to use this demo"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:67
+#: reroils_app/templates/reroils_app/frontpage.html:73
 msgid "See the"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:67
+#: reroils_app/templates/reroils_app/frontpage.html:73
 msgid "help page"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:69
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "Follow Us"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Scrum process"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Product Backlog"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Sprint&nbsp;Taskboard"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Wiki"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:79
+#: reroils_app/templates/reroils_app/frontpage.html:86
 msgid "on Taiga"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:87
+#: reroils_app/templates/reroils_app/frontpage.html:95
 msgid "Software source code"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:87
+#: reroils_app/templates/reroils_app/frontpage.html:95
 msgid "on GitHub"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:108
 msgid "Future"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "in"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "or"
 msgstr ""
 
-#: reroils_app/templates/reroils_app/frontpage.html:106
+#: reroils_app/templates/reroils_app/frontpage.html:114
 msgid "Present"
 msgstr ""
 
@@ -306,10 +306,14 @@ msgid "Permalink"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview.html:206
+#: reroils_app/templates/reroils_app/fullview_institution.html:99
+#: reroils_app/templates/reroils_app/fullview_items.html:18
 msgid "Edit"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview.html:209
+#: reroils_app/templates/reroils_app/fullview_institution.html:102
+#: reroils_app/templates/reroils_app/fullview_items.html:21
 msgid "Delete"
 msgstr ""
 
@@ -337,6 +341,37 @@ msgstr ""
 msgid "Export Formats"
 msgstr ""
 
+#: reroils_app/templates/reroils_app/fullview_institution.html:15
+msgid "Institution ID"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:26
+#: reroils_app/templates/reroils_app/fullview_institution.html:47
+msgid "Address"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:35
+msgid "Libraries"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:41
+#: reroils_app/templates/reroils_app/fullview_institution.html:72
+msgid "Name"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:53
+#: reroils_app/templates/reroils_app/fullview_institution.html:78
+msgid "Code"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:59
+msgid "Email"
+msgstr ""
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:66
+msgid "Locations"
+msgstr ""
+
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
 msgstr ""
@@ -361,22 +396,26 @@ msgstr ""
 #: reroils_app/templates/reroils_app/help.html:12
 #: reroils_app/templates/reroils_app/help.html:39
 #: reroils_app/templates/reroils_app/help.html:68
+#: reroils_app/templates/reroils_app/help.html:100
 msgid "password"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/help.html:17
 #: reroils_app/templates/reroils_app/help.html:44
 #: reroils_app/templates/reroils_app/help.html:74
+#: reroils_app/templates/reroils_app/help.html:105
 msgid "import"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/help.html:18
 #: reroils_app/templates/reroils_app/help.html:45
+#: reroils_app/templates/reroils_app/help.html:106
 msgid "edit"
 msgstr ""
 
 #: reroils_app/templates/reroils_app/help.html:18
 #: reroils_app/templates/reroils_app/help.html:45
+#: reroils_app/templates/reroils_app/help.html:106
 msgid "delete"
 msgstr ""
 

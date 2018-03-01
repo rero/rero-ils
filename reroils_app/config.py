@@ -121,7 +121,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='itemid',
         pid_fetcher='itemid',
         search_class=RecordsSearch,
-        search_index='records-item-v0.0.1',
+        search_index='items',
         record_class='invenio_circulation.api:Item',
         search_type=None,
         record_serializers={
@@ -251,6 +251,27 @@ RECORDS_REST_FACETS = {
                 end_date_math='/y'
             )
         }
+    ),
+    'items': dict(
+        aggs=dict(
+            status=dict(
+                terms=dict(
+                    field='_circulation.status',
+                    size=0
+                )
+            ),
+            location=dict(
+                terms=dict(
+                    field='location',
+                    size=0
+                )
+            )
+        ),
+        # can be also post_filter
+        filters={
+            _('status'): terms_filter('_circulation.status'),
+            _('location'): terms_filter('location')
+        }
     )
 }
 
@@ -290,12 +311,39 @@ RECORDS_REST_DEFAULT_SORT = {
 
 INDEXER_REPLACE_REFS = False
 
-REROILS_RECORD_EDITOR_FORM_OPTIONS = (
-    'reroils_data.form_options',
-    'records/record-v0.0.1.json'
+REROILS_RECORD_EDITOR_OPTIONS = dict(
+    # crcitm=dict(
+    #     api='/api/items',
+    #     template='reroils_record_editor/search.html',
+    #     results_template='templates/reroils_app/itembriefview.html',
+    #     schema='items/item-v0.0.1.json'
+    # ),
+    recid=dict(
+        api='/api/records',
+        template='reroils_record_editor/search.html',
+        results_template='templates/reroils_app/briefview.html',
+        schema='records/record-v0.0.1.json',
+        form_options=('reroils_data.form_options',
+                      'records/record-v0.0.1.json'),
+        form_options_create_exclude=['bibid']
+    ),
+    instid=dict(
+        api='/api/institutions',
+        template='reroils_record_editor/search.html',
+        results_template='templates/reroils_app/institutionbriefview.html',
+        schema='institutions/institution-v0.0.1.json',
+        form_options=('reroils_data.form_options',
+                      'institutions/institution-v0.0.1.json'),
+        form_options_create_exclude=['institutionid']
+    )
 )
 
-REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
+REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
+    'title', 'description', 'placeholder',
+    'validationMessage', 'name', 'add', '403'
+]
+
+# REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
 REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
 REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
 

@@ -1,55 +1,64 @@
 # Translations template for reroils-app.
-# Copyright (C) 2017 RERO
+# Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 # 
+# Translators:
+# Gianni Pante <gianni.pante@rero.ch>, 2018
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
+# Nicolas Prongué <n.prongue@outlook.com>, 2018
+# iGor milhit <igor.milhit@rero.ch>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a7\n"
+"Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2017-11-30 17:00+0000\n"
+"POT-Creation-Date: 2018-03-08 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Gianni Pante <gianni.pante@rero.ch>, 2018\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2018\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.1\n"
+"Generated-By: Babel 2.5.3\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: reroils_app/config.py:21
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr "Francese"
 
 #: reroils_app/config.py:22
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr "Tedesco"
 
-#: reroils_app/config.py:51
+#: reroils_app/config.py:23
+msgid "Italian"
+msgstr "italiano"
+
+#: reroils_app/config.py:52
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:216
+#: reroils_app/config.py:242 reroils_app/config.py:272
 msgid "status"
 msgstr "stato"
 
-#: reroils_app/config.py:217
+#: reroils_app/config.py:243 reroils_app/config.py:273
 msgid "location"
 msgstr "collocazione"
 
-#: reroils_app/config.py:218
+#: reroils_app/config.py:244
 msgid "language"
 msgstr "lingua"
 
-#: reroils_app/config.py:219
+#: reroils_app/config.py:245
 msgid "author"
 msgstr "autore"
 
-#: reroils_app/config.py:222
+#: reroils_app/config.py:248
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "anno"
@@ -140,11 +149,11 @@ msgstr "esemplare disponibile"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:37
 msgid "items available"
-msgstr "esemplari disponibili"
+msgstr "items available"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
-msgstr "nessun esemplare disponibile"
+msgstr "no item available"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
@@ -190,63 +199,63 @@ msgstr "Questo è un prototipo"
 msgid "Version"
 msgstr "Versione"
 
-#: reroils_app/templates/reroils_app/frontpage.html:65
+#: reroils_app/templates/reroils_app/frontpage.html:71
 msgid "How to use this demo"
 msgstr "Come usare questa installazione dimostrativa"
 
-#: reroils_app/templates/reroils_app/frontpage.html:67
+#: reroils_app/templates/reroils_app/frontpage.html:73
 msgid "See the"
 msgstr "Vedere la"
 
-#: reroils_app/templates/reroils_app/frontpage.html:67
+#: reroils_app/templates/reroils_app/frontpage.html:73
 msgid "help page"
 msgstr "pagina d'aiuto"
 
-#: reroils_app/templates/reroils_app/frontpage.html:69
+#: reroils_app/templates/reroils_app/frontpage.html:75
 msgid "Follow Us"
 msgstr "Seguici"
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Scrum process"
 msgstr "Scrum process"
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Product Backlog"
 msgstr "Product Backlog"
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Sprint&nbsp;Taskboard"
 msgstr "Sprint&nbsp;Taskboard"
 
-#: reroils_app/templates/reroils_app/frontpage.html:78
+#: reroils_app/templates/reroils_app/frontpage.html:84
 msgid "Wiki"
 msgstr "Wiki"
 
-#: reroils_app/templates/reroils_app/frontpage.html:79
+#: reroils_app/templates/reroils_app/frontpage.html:86
 msgid "on Taiga"
 msgstr "su Taiga"
 
-#: reroils_app/templates/reroils_app/frontpage.html:87
+#: reroils_app/templates/reroils_app/frontpage.html:95
 msgid "Software source code"
 msgstr "codice sorgente del software"
 
-#: reroils_app/templates/reroils_app/frontpage.html:87
+#: reroils_app/templates/reroils_app/frontpage.html:95
 msgid "on GitHub"
 msgstr "su GitHub"
 
-#: reroils_app/templates/reroils_app/frontpage.html:100
+#: reroils_app/templates/reroils_app/frontpage.html:108
 msgid "Future"
 msgstr "Futuro"
 
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "in"
 msgstr "in"
 
-#: reroils_app/templates/reroils_app/frontpage.html:104
+#: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "or"
 msgstr "o"
 
-#: reroils_app/templates/reroils_app/frontpage.html:106
+#: reroils_app/templates/reroils_app/frontpage.html:114
 msgid "Present"
 msgstr "Attuale"
 
@@ -304,10 +313,14 @@ msgid "Permalink"
 msgstr "Permalink"
 
 #: reroils_app/templates/reroils_app/fullview.html:206
+#: reroils_app/templates/reroils_app/fullview_institution.html:99
+#: reroils_app/templates/reroils_app/fullview_items.html:18
 msgid "Edit"
 msgstr "Digitare"
 
 #: reroils_app/templates/reroils_app/fullview.html:209
+#: reroils_app/templates/reroils_app/fullview_institution.html:102
+#: reroils_app/templates/reroils_app/fullview_items.html:21
 msgid "Delete"
 msgstr "Eliminare"
 
@@ -335,6 +348,37 @@ msgstr "Stato"
 msgid "Export Formats"
 msgstr "Formati di esportazione"
 
+#: reroils_app/templates/reroils_app/fullview_institution.html:15
+msgid "Institution ID"
+msgstr "ID dell' istituzione"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:26
+#: reroils_app/templates/reroils_app/fullview_institution.html:47
+msgid "Address"
+msgstr "Indirizzo"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:35
+msgid "Libraries"
+msgstr "Biblioteche"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:41
+#: reroils_app/templates/reroils_app/fullview_institution.html:72
+msgid "Name"
+msgstr "Nome"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:53
+#: reroils_app/templates/reroils_app/fullview_institution.html:78
+msgid "Code"
+msgstr "Codice a barre"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:59
+msgid "Email"
+msgstr "Email"
+
+#: reroils_app/templates/reroils_app/fullview_institution.html:66
+msgid "Locations"
+msgstr "Collocazioni"
+
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
 msgstr "Attivare il menu"
@@ -359,22 +403,26 @@ msgstr "Logout"
 #: reroils_app/templates/reroils_app/help.html:12
 #: reroils_app/templates/reroils_app/help.html:39
 #: reroils_app/templates/reroils_app/help.html:68
+#: reroils_app/templates/reroils_app/help.html:100
 msgid "password"
 msgstr "password"
 
 #: reroils_app/templates/reroils_app/help.html:17
 #: reroils_app/templates/reroils_app/help.html:44
 #: reroils_app/templates/reroils_app/help.html:74
+#: reroils_app/templates/reroils_app/help.html:105
 msgid "import"
 msgstr "importazione"
 
 #: reroils_app/templates/reroils_app/help.html:18
 #: reroils_app/templates/reroils_app/help.html:45
+#: reroils_app/templates/reroils_app/help.html:106
 msgid "edit"
 msgstr "editare"
 
 #: reroils_app/templates/reroils_app/help.html:18
 #: reroils_app/templates/reroils_app/help.html:45
+#: reroils_app/templates/reroils_app/help.html:106
 msgid "delete"
 msgstr "eliminare"
 
