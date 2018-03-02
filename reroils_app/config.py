@@ -136,7 +136,27 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/items/<pid(crcitm):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-    )
+    ),
+    instid=dict(
+        pid_type='instid',
+        pid_minter='institutionid',
+        pid_fetcher='institutionid',
+        search_class=RecordsSearch,
+        search_index='institutions',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/institutions/',
+        item_route='/institutions/<pid(recid):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    ),
 )
 
 RECORDS_UI_ENDPOINTS = {
@@ -157,6 +177,11 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "crcitm",
         "route": "/items/<pid_value>",
         "template": "reroils_app/fullview_items.html",
+    },
+    "instid": {
+        "pid_type": "instid",
+        "route": "/institutions/<pid_value>",
+        "template": "reroils_app/fullview_institution.html",
     }
 }
 
