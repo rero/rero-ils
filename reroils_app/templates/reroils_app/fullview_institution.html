@@ -30,6 +30,66 @@
         </div>
     </div>
     {% endif %}
+
+    {% if record.libraries|length > 0 %}
+        <h2>{{_('Libraries')}}</h2>
+        <ul class="list-group">
+            {% for library in record.libraries %}
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Name')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.name}}
+                    </div>
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Address')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.address}}
+                    </div>
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Code')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.code}}
+                    </div>
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Email')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.email}}
+                    </div>
+                </div>
+                {% if library.locations|length > 0 %}
+                <h3>{{_('Locations')}}</h3>
+                <ul class="list-group">
+                    {% for location in library.locations %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-2">
+                                {{_('Name')}}:
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                {{location.name}}
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                {{_('Code')}}:
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                {{location.code}}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        <ul>
+    {% endif %}
+
     {%- endblock %}
 </div>
 {%- endblock %}
