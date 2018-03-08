@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a9\n"
+"Project-Id-Version: reroils-app 0.1.0a10\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:27+0100\n"
+"POT-Creation-Date: 2018-03-08 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,14 @@ msgstr ""
 #: reroils_app/config.py:248
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
+msgstr ""
+
+#: reroils_app/config.py:321
+msgid "recid"
+msgstr ""
+
+#: reroils_app/config.py:330
+msgid "instid"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:1

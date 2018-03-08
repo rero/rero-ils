@@ -4,11 +4,16 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# Peter Weber <peter.weber@rero.ch>, 2017
+# Nicolas Prongué <n.prongue@outlook.com>, 2017
+# iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:27+0100\n"
+"POT-Creation-Date: 2018-03-08 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: de\n"
@@ -57,6 +62,14 @@ msgstr "Autor"
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "Jahre"
+
+#: reroils_app/config.py:321
+msgid "recid"
+msgstr "Datensätze"
+
+#: reroils_app/config.py:330
+msgid "instid"
+msgstr "Einrichtungen"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -140,25 +153,25 @@ msgstr "chinesisch"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:32
 msgid "item available"
-msgstr ""
+msgstr "Exemplar verfügbar"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:37
 msgid "items available"
-msgstr ""
+msgstr "Exemplare verfügbar"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
-msgstr ""
+msgstr "no item available"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ein Resultat gefunden."
+msgstr[1] "{{$count}} Resultate gefunden"
 
 #: reroils_app/static/templates/reroils_app/count.html:4
 msgid "No results found."
-msgstr ""
+msgstr "Keine Resultate gefunden"
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "Developed by"
@@ -345,7 +358,7 @@ msgstr "Exportformate"
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:15
 msgid "Institution ID"
-msgstr "EinrichtungsID"
+msgstr "ID der Einrichtung"
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:26
 #: reroils_app/templates/reroils_app/fullview_institution.html:47
@@ -441,10 +454,4 @@ msgstr "Registrieren"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Passwort vergessen?"
-
-#~ msgid "recid"
-#~ msgstr "Datensätze"
-
-#~ msgid "instid"
-#~ msgstr "Einrichtungen"
 

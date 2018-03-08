@@ -4,11 +4,15 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# Peter Weber <peter.weber@rero.ch>, 2017
+# iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:27+0100\n"
+"POT-Creation-Date: 2018-03-08 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: en\n"
@@ -57,6 +61,14 @@ msgstr ""
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""
+
+#: reroils_app/config.py:321
+msgid "recid"
+msgstr "Bibliographic records"
+
+#: reroils_app/config.py:330
+msgid "instid"
+msgstr "Institutions"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -441,10 +453,4 @@ msgstr ""
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr ""
-
-#~ msgid "recid"
-#~ msgstr "Bibliographic records"
-
-#~ msgid "instid"
-#~ msgstr "Institutions"
 

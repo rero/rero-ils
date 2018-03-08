@@ -4,11 +4,14 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:27+0100\n"
+"POT-Creation-Date: 2018-03-08 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: fr\n"
@@ -57,6 +60,14 @@ msgstr "auteur"
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "années"
+
+#: reroils_app/config.py:321
+msgid "recid"
+msgstr "Notices bibliographiques"
+
+#: reroils_app/config.py:330
+msgid "instid"
+msgstr "Institutions"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -140,25 +151,25 @@ msgstr "chinois"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:32
 msgid "item available"
-msgstr ""
+msgstr "exemplaire disponible"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:37
 msgid "items available"
-msgstr ""
+msgstr "exemplaires disponibles"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
-msgstr ""
+msgstr "aucun exemplaire disponible"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un résultat trouvé."
+msgstr[1] "{{$count}} résultats."
 
 #: reroils_app/static/templates/reroils_app/count.html:4
 msgid "No results found."
-msgstr ""
+msgstr "Aucun résultat."
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "Developed by"
@@ -441,10 +452,4 @@ msgstr "S'inscrire"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
-
-#~ msgid "recid"
-#~ msgstr "Notices bibliographiques"
-
-#~ msgid "instid"
-#~ msgstr "Institutions"
 

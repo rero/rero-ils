@@ -1,28 +1,23 @@
-# Translations template for reroils-app.
+# Italian translations for reroils-app.
 # Copyright (C) 2018 RERO
 # This file is distributed under the same license as the reroils-app
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
-# 
-# Translators:
-# Gianni Pante <gianni.pante@rero.ch>, 2018
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
-# Nicolas Prongué <n.prongue@outlook.com>, 2018
-# iGor milhit <igor.milhit@rero.ch>, 2018
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a9\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 08:27+0100\n"
+"POT-Creation-Date: 2018-03-08 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2018\n"
+"Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: reroils_app/config.py:21
 #: reroils_app/templates/reroils_app/frontpage.html:112
@@ -62,6 +57,14 @@ msgstr "autore"
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "anno"
+
+#: reroils_app/config.py:321
+msgid "recid"
+msgstr "Record bibliografichi"
+
+#: reroils_app/config.py:330
+msgid "instid"
+msgstr "Istituzioni"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -145,25 +148,25 @@ msgstr "cinese"
 
 #: reroils_app/static/templates/reroils_app/briefview.html:32
 msgid "item available"
-msgstr "esemplare disponibile"
+msgstr ""
 
 #: reroils_app/static/templates/reroils_app/briefview.html:37
 msgid "items available"
-msgstr "items available"
+msgstr ""
 
 #: reroils_app/static/templates/reroils_app/briefview.html:41
 msgid "no item available"
-msgstr "no item available"
+msgstr ""
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
-msgstr[0] "{{$count}} risultato trovato."
-msgstr[1] "{{$count}} risultati trovati."
+msgstr[0] ""
+msgstr[1] ""
 
 #: reroils_app/static/templates/reroils_app/count.html:4
 msgid "No results found."
-msgstr "Nessun risultato trovato."
+msgstr ""
 
 #: reroils_app/templates/reroils_app/footer.html:4
 msgid "Developed by"
@@ -350,7 +353,7 @@ msgstr "Formati di esportazione"
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:15
 msgid "Institution ID"
-msgstr "ID dell' istituzione"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:26
 #: reroils_app/templates/reroils_app/fullview_institution.html:47
@@ -359,12 +362,12 @@ msgstr "Indirizzo"
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:35
 msgid "Libraries"
-msgstr "Biblioteche"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:41
 #: reroils_app/templates/reroils_app/fullview_institution.html:72
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:53
 #: reroils_app/templates/reroils_app/fullview_institution.html:78
@@ -373,11 +376,11 @@ msgstr "Codice a barre"
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:59
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 #: reroils_app/templates/reroils_app/fullview_institution.html:66
 msgid "Locations"
-msgstr "Collocazioni"
+msgstr "collocazione"
 
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
@@ -446,3 +449,4 @@ msgstr "Registrazione nuovo utente"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Password dimenticata?"
+

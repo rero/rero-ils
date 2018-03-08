@@ -311,15 +311,15 @@ RECORDS_REST_DEFAULT_SORT = {
 
 INDEXER_REPLACE_REFS = False
 
-REROILS_RECORD_EDITOR_OPTIONS = dict(
+REROILS_RECORD_EDITOR_OPTIONS = {
     # crcitm=dict(
     #     api='/api/items',
     #     template='reroils_record_editor/search.html',
     #     results_template='templates/reroils_app/itembriefview.html',
     #     schema='items/item-v0.0.1.json'
     # ),
-    recid=dict(
-        api='/api/records',
+    _('recid'): dict(
+        api='/api/records/',
         template='reroils_record_editor/search.html',
         results_template='templates/reroils_app/briefview.html',
         schema='records/record-v0.0.1.json',
@@ -327,8 +327,8 @@ REROILS_RECORD_EDITOR_OPTIONS = dict(
                       'records/record-v0.0.1.json'),
         form_options_create_exclude=['bibid']
     ),
-    instid=dict(
-        api='/api/institutions',
+    _('instid'): dict(
+        api='/api/institutions/',
         template='reroils_record_editor/search.html',
         results_template='templates/reroils_app/institutionbriefview.html',
         schema='institutions/institution-v0.0.1.json',
@@ -336,7 +336,7 @@ REROILS_RECORD_EDITOR_OPTIONS = dict(
                       'institutions/institution-v0.0.1.json'),
         form_options_create_exclude=['institutionid']
     )
-)
+}
 
 REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
     'title', 'description', 'placeholder',
