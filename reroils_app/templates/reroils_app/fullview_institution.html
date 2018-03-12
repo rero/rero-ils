@@ -43,24 +43,28 @@
                     <div class="col-xs-9 col-sm-10">
                         {{library.name}}
                     </div>
+                    {% if library.address %}
                     <div class="col-xs-3 col-sm-2">
                         {{_('Address')}}:
                     </div>
                     <div class="col-xs-9 col-sm-10">
                         {{library.address}}
                     </div>
+                    {% endif %}
                     <div class="col-xs-3 col-sm-2">
                         {{_('Code')}}:
                     </div>
                     <div class="col-xs-9 col-sm-10">
                         {{library.code}}
                     </div>
+                    {% if library.email %}
                     <div class="col-xs-3 col-sm-2">
                         {{_('Email')}}:
                     </div>
                     <div class="col-xs-9 col-sm-10">
                         {{library.email}}
                     </div>
+                    {% endif %}
                 </div>
                 {% if library.locations|length > 0 %}
                 <h3>{{_('Locations')}}</h3>
