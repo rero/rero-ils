@@ -34,7 +34,7 @@ THEME_TRACKINGCODE_TEMPLATE = 'reroils_app/trackingcode.html'
 """Template for including a tracking code for web analytics."""
 
 SEARCH_UI_JSTEMPLATE_RESULTS = \
-    'templates/reroils_app/briefview.html'
+    'templates/reroils_data/brief_view_documents_items.html'
 SEARCH_UI_SEARCH_TEMPLATE = 'reroils_app/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/reroils_app/facets.html'
 SEARCH_UI_JSTEMPLATE_RANGE = 'templates/reroils_app/range.html'
@@ -76,12 +76,12 @@ JSONSCHEMAS_REPLACE_REFS = True
 JSONSCHEMAS_RESOLVE_SCHEMA = True
 
 RECORDS_REST_ENDPOINTS = dict(
-    recid=dict(
-        pid_type='recid',
-        pid_minter='bibid',
-        pid_fetcher='bibid',
+    doc=dict(
+        pid_type='doc',
+        pid_minter='document_id',
+        pid_fetcher='document_id',
         search_class=RecordsSearch,
-        search_index='records',
+        search_index='documents',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -91,38 +91,37 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
-        list_route='/records/',
-        item_route='/records/<pid(recid):pid_value>',
+        list_route='/documents/',
+        item_route='/documents/<pid(doc):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
     ),
-    recid_excel=dict(
-        pid_type='recid',
-        pid_minter='bibid',
-        pid_fetcher='bibid',
+    doc_csv=dict(
+        pid_type='doc',
+        pid_minter='document_id',
+        pid_fetcher='document_id',
         search_class=RecordsSearch,
-        search_index='records',
+        search_index='documents',
         search_type=None,
         record_serializers={
-            'text/csv': ('reroils_app.serializers'
-                                 ':text_v1_response'),
+            'text/csv': ('reroils_data.documents_items.serializers'
+                                 ':documents_items_csv_v1_response'),
         },
         search_serializers={
-            'text/csv': ('reroils_app.serializers'
-                                 ':text_v1_search'),
+            'text/csv': ('reroils_data.documents_items.serializers'
+                                 ':documents_items_csv_v1_search'),
         },
-        list_route='/export/records/csv/',
-        item_route='/export/records/csv/<pid(recid):pid_value>',
+        list_route='/export/documents/csv/',
+        item_route='/export/documents/csv/<pid(doc):pid_value>',
         default_media_type='text/csv',
         max_result_window=20000,
     ),
-    crcitm=dict(
-        pid_type='crcitm',
-        pid_minter='itemid',
-        pid_fetcher='itemid',
+    org=dict(
+        pid_type='org',
+        pid_minter='organisation_id',
+        pid_fetcher='organisation_id',
         search_class=RecordsSearch,
-        search_index='items',
-        record_class='invenio_circulation.api:Item',
+        search_index='organisations',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -132,61 +131,36 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
-        list_route='/items/',
-        item_route='/items/<pid(crcitm):pid_value>',
-        default_media_type='application/json',
-        max_result_window=10000,
-    ),
-    instid=dict(
-        pid_type='instid',
-        pid_minter='institutionid',
-        pid_fetcher='institutionid',
-        search_class=RecordsSearch,
-        search_index='institutions',
-        search_type=None,
-        record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
-        },
-        search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
-        },
-        list_route='/institutions/',
-        item_route='/institutions/<pid(recid):pid_value>',
+        list_route='/organisations/',
+        item_route='/organisations/<pid(org):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
     ),
 )
 
 RECORDS_UI_ENDPOINTS = {
-    "recid": {
-        "pid_type": "recid",
-        "route": "/records/<pid_value>",
-        "template": "reroils_app/fullview.html",
-        "record_class": "reroils_data.api:Record"
+    "doc": {
+        "pid_type": "doc",
+        "route": "/documents/<pid_value>",
+        "template": "reroils_data/detailed_view_documents_items.html",
+        "record_class": "reroils_data.documents_items.api:DocumentsWithItems"
     },
-    "recid_export": {
-        "pid_type": "recid",
-        "route": "/records/<pid_value>/export/<format>",
+    "doc_export": {
+        "pid_type": "doc",
+        "route": "/documents/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
-        "template": "reroils_app/export.html",
-        "record_class": 'reroils_data.api.Record',
+        "template": "reroils_data/export_documents_items.html",
+        "record_class": 'reroils_data.documents_items.api:DocumentsWithItems',
     },
-    "crcitm": {
-        "pid_type": "crcitm",
-        "route": "/items/<pid_value>",
-        "template": "reroils_app/fullview_items.html",
-    },
-    "instid": {
-        "pid_type": "instid",
-        "route": "/institutions/<pid_value>",
-        "template": "reroils_app/fullview_institution.html",
+    "org": {
+        "pid_type": "org",
+        "route": "/organisations/<pid_value>",
+        "template": "reroils_data/detailed_view_organisations.html",
     }
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
-    'recid': {
+    'doc': {
         'json': dict(
             title='JSON',
             serializer='invenio_records_rest.serializers'
@@ -203,17 +177,17 @@ REROILS_APP_SORT_FACETS = {
 # SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
 
 RECORDS_REST_FACETS = {
-    'records': dict(
+    'documents': dict(
         aggs=dict(
             status=dict(
                 terms=dict(
-                    field='citems._circulation.status',
+                    field='itemslist._circulation.status',
                     size=0
                 )
             ),
             location=dict(
                 terms=dict(
-                    field='citems.location',
+                    field='itemslist.location',
                     size=0
                 )
             ),
@@ -239,8 +213,8 @@ RECORDS_REST_FACETS = {
         ),
         # can be also post_filter
         filters={
-            _('status'): terms_filter('citems._circulation.status'),
-            _('location'): terms_filter('citems.location'),
+            _('status'): terms_filter('itemslist._circulation.status'),
+            _('location'): terms_filter('itemslist.location'),
             _('language'): terms_filter('languages.language'),
             _('author'): terms_filter('facet_authors')
         },
@@ -251,45 +225,12 @@ RECORDS_REST_FACETS = {
                 end_date_math='/y'
             )
         }
-    ),
-    'items': dict(
-        aggs=dict(
-            status=dict(
-                terms=dict(
-                    field='_circulation.status',
-                    size=0
-                )
-            ),
-            location=dict(
-                terms=dict(
-                    field='location',
-                    size=0
-                )
-            )
-        ),
-        # can be also post_filter
-        filters={
-            _('status'): terms_filter('_circulation.status'),
-            _('location'): terms_filter('location')
-        }
     )
 }
 
 # sort
 RECORDS_REST_SORT_OPTIONS = {
-    'records': dict(
-        # title=dict(
-        #     fields=['title'],
-        #     title='Title',
-        #     default_order='asc',
-        #     order=1
-        # ),
-        # author=dict(
-        #     fields=['authors.name'],
-        #     title='Author',
-        #     default_order='asc',
-        #     order=2
-        # ),
+    'documents': dict(
         bestmatch=dict(
             fields=['_score'],
             title='Best match',
@@ -305,36 +246,30 @@ RECORDS_REST_SORT_OPTIONS = {
 
 #default sort
 RECORDS_REST_DEFAULT_SORT = {
-    'records': dict(query='bestmatch', noquery='mostrecent'),
+    'documents': dict(query='bestmatch', noquery='mostrecent'),
 }
 
 
 INDEXER_REPLACE_REFS = False
 
 REROILS_RECORD_EDITOR_OPTIONS = {
-    # crcitm=dict(
-    #     api='/api/items',
-    #     template='reroils_record_editor/search.html',
-    #     results_template='templates/reroils_app/itembriefview.html',
-    #     schema='items/item-v0.0.1.json'
-    # ),
-    _('recid'): dict(
-        api='/api/records/',
+    _('doc'): dict(
+        api='/api/documents/',
         template='reroils_record_editor/search.html',
-        results_template='templates/reroils_app/briefview.html',
-        schema='records/record-v0.0.1.json',
-        form_options=('reroils_data.form_options',
-                      'records/record-v0.0.1.json'),
-        form_options_create_exclude=['bibid']
+        results_template='templates/reroils_data/brief_view_documents_items.html',
+        schema='documents/book-v0.0.1.json',
+        form_options=('reroils_data.documents.form_options',
+                      'documents/document-v0.0.1.json'),
+        form_options_create_exclude=['pid']
     ),
-    _('instid'): dict(
-        api='/api/institutions/',
+    _('org'): dict(
+        api='/api/organisations/',
         template='reroils_record_editor/search.html',
-        results_template='templates/reroils_app/institutionbriefview.html',
-        schema='institutions/institution-v0.0.1.json',
-        form_options=('reroils_data.form_options',
-                      'institutions/institution-v0.0.1.json'),
-        form_options_create_exclude=['institutionid']
+        results_template='templates/reroils_data/brief_view_organisations.html',
+        schema='organisations/organisation-v0.0.1.json',
+        form_options=('reroils_data.organisations.form_options',
+                      'organisations/organisation-v0.0.1.json'),
+        form_options_create_exclude=['pid']
     )
 }
 
@@ -342,7 +277,7 @@ REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
     'title', 'description', 'placeholder',
     'validationMessage', 'name', 'add', '403'
 ]
-
+SEARCH_UI_SEARCH_API = '/api/documents/'
 # REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
 REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
 REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'

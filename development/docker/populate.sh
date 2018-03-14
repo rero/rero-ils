@@ -39,15 +39,15 @@ invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
 # create the institution records
-dojson -i reroils/src/reroils-data/data/institutions.json schema http://ils.test.rero.ch/schema/institutions/institution-v0.0.1.json | invenio records create --pid-minter institutionid
+dojson -i $VIRTUAL_ENV/src/reroils-data/data/organisations.json schema http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json | invenio records create --pid-minter organisation_id
 
-invenio index reindex --yes-i-know --pid-type instid
+invenio index reindex --yes-i-know --pid-type org
 invenio index run
 
 # create the bib records
-dojson -i reroils/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/records/record-v0.0.1.json | invenio records create --pid-minter bibid
+dojson -i $VIRTUAL_ENV/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/documents/book-v0.0.1.json | invenio records create --pid-minter document_id
 
-invenio index reindex --yes-i-know --pid-type recid
+invenio index reindex --yes-i-know --pid-type doc
 invenio index run
 
 # create items and index bibitems
