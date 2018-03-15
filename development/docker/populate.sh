@@ -48,8 +48,11 @@ invenio index run
 
 # create the organisation records
 dojson -i $VIRTUAL_ENV/src/reroils-data/data/organisations.json schema http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json | invenio records create --pid-minter organisation_id
-
 invenio index reindex --yes-i-know --pid-type org
+
+# create the member records
+dojson -i $VIRTUAL_ENV/src/reroils-data/data/members.json schema http://ils.test.rero.ch/schema/members/member-v0.0.1.json | invenio records create --pid-minter member_id
+invenio index reindex --yes-i-know --pid-type memb
 invenio index run
 
 # create the bib records

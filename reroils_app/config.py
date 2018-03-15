@@ -343,6 +343,13 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='patrons/patron-v0.0.1.json',
         form_options=('reroils_data.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
+    _('memb'): dict(
+        api='/api/members/',
+        template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_members.html',
+        schema='members/member-v0.0.1.json',
+        form_options=('reroils_data.members.form_options',
+                      'members/member-v0.0.1.json'),
         form_options_create_exclude=['pid']
     )
 }
