@@ -158,12 +158,21 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
     ),
+<<<<<<< HEAD
     ptrn=dict(
         pid_type='ptrn',
         pid_minter='patron_id',
         pid_fetcher='patron_id',
         search_class=RecordsSearch,
         search_index='patrons',
+=======
+    loc=dict(
+        pid_type='loc',
+        pid_minter='location_id',
+        pid_fetcher='location_id',
+        search_class=RecordsSearch,
+        search_index='locations',
+>>>>>>> feat: add locations
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -173,11 +182,19 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
+<<<<<<< HEAD
         list_route='/patrons/',
         item_route='/patrons/<pid(ptrn):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
     )
+=======
+        list_route='/locations/',
+        item_route='/locations/<pid(loc):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    ),
+>>>>>>> feat: add locations
 )
 
 RECORDS_UI_ENDPOINTS = {
@@ -351,7 +368,16 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options=('reroils_data.members.form_options',
                       'members/member-v0.0.1.json'),
         form_options_create_exclude=['pid']
-    )
+    ),
+    _('loc'): dict(
+        api='/api/locations/',
+        template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_locations.html',
+        schema='locations/location-v0.0.1.json',
+        form_options=('reroils_data.locations.form_options',
+                      'locations/location-v0.0.1.json'),
+        form_options_create_exclude=['pid']
+    ),
 }
 
 REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
