@@ -6,35 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone source') {
-            steps {
-                git 'https://github.com/rero/reroils-app'
-                sh 'echo "GIT_COMMIT: $(git rev-parse HEAD)"'
-            }
-        }
-        stage('Force Remove') {
-            steps {
-                echo 'Force remove docker images if exists....'
-                script {
-                    sh "docker rmi rero/reroils-app:dev rero/reroils-app:latest || true"
-                }
-            }
-        }
-        stage('Build Dev Docker Image') {
-            steps {
-                echo 'Building..'
-                script {
-                    app_dev = docker.build('rero/reroils-app:dev', '--rm  -f development/docker/Dockerfile development/docker')
-                }
-            }
-        }
-        stage('Run Test') {
-            steps {
-                script {
-                   sh "docker run --rm rero/reroils-app:dev ./tests.sh"
-                }
-            }
-        }
         stage('Build Deploy Docker Image') {
             steps {
                 echo 'Building..'
@@ -48,8 +19,6 @@ pipeline {
                 script {
                     // gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        app_dev.push("dev")
-                        app_dev.push("dev-" + GIT_COMMIT)
                         app_deploy.push("latest")
                         app_deploy.push(GIT_COMMIT)
                     }
@@ -90,7 +59,7 @@ pipeline {
             steps {
                 echo 'Cleaning....'
                 script {
-                    sh "docker rmi rero/reroils-app:dev rero/reroils-app:latest"
+                    sh "docker rmi rero/reroils-app:latest"
                 }
             }
         }
