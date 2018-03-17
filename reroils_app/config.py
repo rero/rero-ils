@@ -4,9 +4,11 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_circulation.api import Item
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.query import es_search_factory
 from invenio_search import RecordsSearch
+from reroils_data.documents_items.api import DocumentsWithItems
 
 
 # Identity function for string extraction
@@ -136,6 +138,26 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
     ),
+    item=dict(
+        pid_type='item',
+        pid_minter='item_id',
+        pid_fetcher='item_id',
+        search_class=RecordsSearch,
+        search_index='items',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/items/',
+        item_route='/items/<pid(org):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    ),
 )
 
 RECORDS_UI_ENDPOINTS = {
@@ -156,6 +178,11 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "org",
         "route": "/organisations/<pid_value>",
         "template": "reroils_data/detailed_view_organisations.html",
+    },
+    "item": {
+        "pid_type": "item",
+        "route": "/items/<pid_value>",
+        "template": "reroils_data/detailed_view_items.html",
     }
 }
 
@@ -228,6 +255,7 @@ RECORDS_REST_FACETS = {
     )
 }
 
+
 # sort
 RECORDS_REST_SORT_OPTIONS = {
     'documents': dict(
@@ -269,6 +297,19 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='organisations/organisation-v0.0.1.json',
         form_options=('reroils_data.organisations.form_options',
                       'organisations/organisation-v0.0.1.json'),
+        record_class=DocumentsWithItems,
+        form_options_create_exclude=['pid']
+    ),
+    _('item'): dict(
+        # api='/api/items/',
+        # template='reroils_record_editor/search.html',
+        # results_template='templates/reroils_data/brief_view_items.html',
+        schema='items/item-v0.0.1.json',
+        form_options=('reroils_data.items.form_options',
+                      'items/item-v0.0.1.json'),
+        record_class=Item,
+        save_record='reroils_data.documents_items.utils:save_item',
+        delete_record='reroils_data.documents_items.utils:delete_item',
         form_options_create_exclude=['pid']
     )
 }
