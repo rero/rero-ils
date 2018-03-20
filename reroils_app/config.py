@@ -158,6 +158,26 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
     ),
+    ptrn=dict(
+        pid_type='ptrn',
+        pid_minter='patron_id',
+        pid_fetcher='patron_id',
+        search_class=RecordsSearch,
+        search_index='patrons',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/patrons/',
+        item_route='/patrons/<pid(ptrn):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+    )
 )
 
 RECORDS_UI_ENDPOINTS = {
@@ -183,6 +203,11 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "item",
         "route": "/items/<pid_value>",
         "template": "reroils_data/detailed_view_items.html",
+    },
+    "ptrn": {
+        "pid_type": "ptrn",
+        "route": "/patrons/<pid_value>",
+        "template": "reroils_data/detailed_view_patrons.html",
     }
 }
 
@@ -310,6 +335,15 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         record_class=Item,
         save_record='reroils_data.documents_items.utils:save_item',
         delete_record='reroils_data.documents_items.utils:delete_item',
+        form_options_create_exclude=['pid']
+    ),
+    _('ptrn'): dict(
+        api='/api/patrons/',
+        template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_patrons.html',
+        schema='patrons/patron-v0.0.1.json',
+        form_options=('reroils_data.patrons.form_options',
+                      'patrons/patron-v0.0.1.json'),
         form_options_create_exclude=['pid']
     )
 }
