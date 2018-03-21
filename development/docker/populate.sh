@@ -38,7 +38,15 @@ invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
-# create the institution records
+
+# create the patron records
+dojson -i $VIRTUAL_ENV/src/reroils-data/data/patron.json schema http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json | invenio records create --pid-minter patron_id
+
+invenio index reindex --yes-i-know --pid-type ptrn
+invenio index run
+#
+
+# create the organisation records
 dojson -i $VIRTUAL_ENV/src/reroils-data/data/organisations.json schema http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json | invenio records create --pid-minter organisation_id
 
 invenio index reindex --yes-i-know --pid-type org

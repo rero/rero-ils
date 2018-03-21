@@ -20,7 +20,7 @@ invenio index queue init
 invenio users create -a admin@rero.ch --password administrator
 invenio users create -a librarian@rero.ch --password librarian
 
-# confirm user
+# confirm users
 invenio users confirm admin@rero.ch
 invenio users confirm librarian@rero.ch
 
@@ -38,17 +38,25 @@ invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
-# create the institution records
+
+# create the patron records
+dojson -i patrons.json schema http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json | invenio records create --pid-minter patron_id
+
+invenio index reindex --yes-i-know --pid-type ptrn
+invenio index run
+#
+
+# create the organisation records
 dojson -i organisations.json schema http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json | invenio records create --pid-minter organisation_id
 
-invenio index reindex --yes-i-know --pid-type instid
+invenio index reindex --yes-i-know --pid-type org
 invenio index run
 
 # create the bib records
 dojson -i documents.json reverse schema http://ils.test.rero.ch/schema/documents/book-v0.0.1.json | invenio records create --pid-minter document_id
 
-#invenio index reindex --yes-i-know --pid-type recid
-#invenio index run
+invenio index reindex --yes-i-know --pid-type doc
+invenio index run
 
 # create items and index bibitems
-invenio fixtures createitems
+invenio fixtures createitems -c 10000
