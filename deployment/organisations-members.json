@@ -1,0 +1,44 @@
+[
+    {
+        "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
+        "name": "Network of Science Libraries",
+        "address": "Moffett Blvd, Mountain View.",
+        "members": [
+            {
+                "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
+                "code": "net1-national-doc",
+                "name": "National Documentation Centre",
+                "address": "48, Vas. Constantinou Av.",
+                "email": "national@network.ch"
+            }
+        ]
+    },
+    {
+        "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
+        "name": "Network of Medicine Libraries",
+        "address": "101 Independence Ave SE.",
+        "members": [
+            {
+                "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
+                "code": "net2-national-doc",
+                "name": "National Documentation Centre 2",
+                "address": "48, Vas. Constantinou Av.",
+                "email": "national2@network.ch"
+            }
+        ]
+    },
+    {
+        "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
+        "name": "Network of Art Libraries",
+        "address": "Abandoibarra Etorb., 2.",
+        "members": [
+            {
+                "$schema": "http://ils.test.rero.ch/schema/members/member-v0.0.1.json",
+                "code": "net3-national-doc",
+                "name": "National Documentation Centre 3",
+                "address": "48, Vas. Constantinou Av.",
+                "email": "national3@network.ch"
+            }
+        ]
+    }
+]

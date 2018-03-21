@@ -51,6 +51,7 @@ i18n = GlobBundle(
 
 js = NpmBundle(
     'js/reroils_data/documents_items.js',
+    # 'js/reroils_data/organisations_members.js',
     'js/reroils_app/app.js',
     filters='requirejs',
     depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
