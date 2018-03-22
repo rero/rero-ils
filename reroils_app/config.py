@@ -308,8 +308,9 @@ INDEXER_REPLACE_REFS = False
 REROILS_RECORD_EDITOR_OPTIONS = {
     _('doc'): dict(
         api='/api/documents/',
-        template='reroils_record_editor/search.html',
+        search_template='reroils_record_editor/search.html',
         results_template='templates/reroils_data/brief_view_documents_items.html',
+        editor_template='reroils_data/document_editor.html',
         schema='documents/book-v0.0.1.json',
         form_options=('reroils_data.documents.form_options',
                       'documents/document-v0.0.1.json'),
@@ -317,7 +318,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
     _('org'): dict(
         api='/api/organisations/',
-        template='reroils_record_editor/search.html',
+        search_template='reroils_record_editor/search.html',
         results_template='templates/reroils_data/brief_view_organisations.html',
         schema='organisations/organisation-v0.0.1.json',
         form_options=('reroils_data.organisations.form_options',
@@ -326,9 +327,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('item'): dict(
-        # api='/api/items/',
-        # template='reroils_record_editor/search.html',
-        # results_template='templates/reroils_data/brief_view_items.html',
+        editor_template='reroils_data/item_editor.html',
         schema='items/item-v0.0.1.json',
         form_options=('reroils_data.items.form_options',
                       'items/item-v0.0.1.json'),
@@ -339,7 +338,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
     _('ptrn'): dict(
         api='/api/patrons/',
-        template='reroils_record_editor/search.html',
+        search_template='reroils_record_editor/search.html',
         results_template='templates/reroils_data/brief_view_patrons.html',
         schema='patrons/patron-v0.0.1.json',
         form_options=('reroils_data.patrons.form_options',
