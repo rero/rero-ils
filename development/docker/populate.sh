@@ -43,10 +43,8 @@ dojson -i $VIRTUAL_ENV/src/reroils-data/data/patron.json schema http://ils.test.
 invenio index reindex --yes-i-know --pid-type ptrn
 invenio index run
 
-# create the organisations with members records
-invenio fixtures importorganisations $VIRTUAL_ENV/src/reroils-data/data/organisations-members.json
-invenio index reindex --yes-i-know --pid-type memb
-invenio index reindex --yes-i-know --pid-type org
+# create the organisations with members and locations
+invenio fixtures importorganisations $VIRTUAL_ENV/src/reroils-data/data/organisations-members-locations.json -v
 invenio index run
 
 # create the location records

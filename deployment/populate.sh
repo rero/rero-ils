@@ -43,10 +43,8 @@ dojson -i patrons.json schema http://ils.test.rero.ch/schema/patrons/patron-v0.0
 invenio index reindex --yes-i-know --pid-type ptrn
 invenio index run
 
-# create the organisations with members records
-invenio fixtures importorganisations organisations-members.json
-invenio index reindex --yes-i-know --pid-type memb
-invenio index reindex --yes-i-know --pid-type org
+# create the organisations with members and locations
+invenio fixtures importorganisations organisations-members-locations.json
 invenio index run
 
 # create the bib records

@@ -9,6 +9,8 @@ from invenio_records.api import Record
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 from reroils_data.documents_items.api import DocumentsWithItems
+from reroils_data.members_locations.api import MemberWithLocations
+from reroils_data.organisations_members.api import OrganisationWithMembers
 
 
 # Identity function for string extraction
@@ -197,6 +199,26 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/members/<pid(memb):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+    ),
+    loc=dict(
+        pid_type='loc',
+        pid_minter='location_id',
+        pid_fetcher='location_id',
+        search_class=RecordsSearch,
+        search_index='locations',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/locations/',
+        item_route='/locations/<pid(loc):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
     )
 )
 
@@ -220,6 +242,18 @@ RECORDS_UI_ENDPOINTS = {
         "template": "reroils_data/detailed_view_organisations_members.html",
         "record_class":
             "reroils_data.organisations_members.api:OrganisationWithMembers"
+    },
+    "memb": {
+        "pid_type": "memb",
+        "route": "/members/<pid_value>",
+        "template": "reroils_data/detailed_view_members_locations.html",
+        "record_class":
+            "reroils_data.members_locations.api:MemberWithLocations"
+    },
+    "loc": {
+        "pid_type": "loc",
+        "route": "/locations/<pid_value>",
+        "template": "reroils_data/detailed_view_locations.html",
     },
     "item": {
         "pid_type": "item",
@@ -336,15 +370,6 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='documents/book-v0.0.1.json',
         form_options=('reroils_data.documents.form_options',
                       'documents/document-v0.0.1.json'),
-        form_options_create_exclude=['pid']
-    ),
-    _('org'): dict(
-        api='/api/organisations/',
-        template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_organisations_members.html',
-        schema='organisations/organisation-v0.0.1.json',
-        form_options=('reroils_data.organisations.form_options',
-                      'organisations/organisation-v0.0.1.json'),
         record_class=DocumentsWithItems,
         form_options_create_exclude=['pid']
     ),
@@ -366,19 +391,32 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options=('reroils_data.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
     ),
+    _('org'): dict(
+        api='/api/organisations/',
+        search_template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_organisations_members.html',
+        schema='organisations/organisation-v0.0.1.json',
+        form_options=('reroils_data.organisations.form_options',
+                      'organisations/organisation-v0.0.1.json'),
+        record_class=OrganisationWithMembers,
+        form_options_create_exclude=['pid']
+    ),
     _('memb'): dict(
         schema='members/member-v0.0.1.json',
         form_options=('reroils_data.members.form_options',
                       'members/member-v0.0.1.json'),
-        record_class=Record,
         save_record='reroils_data.organisations_members.utils:save_member',
         delete_record='reroils_data.organisations_members.utils:delete_member',
+        record_class=MemberWithLocations,
         form_options_create_exclude=['pid']
     ),
     _('loc'): dict(
         schema='locations/location-v0.0.1.json',
         form_options=('reroils_data.locations.form_options',
                       'locations/location-v0.0.1.json'),
+        save_record='reroils_data.members_locations.utils:save_location',
+        delete_record='reroils_data.members_locations.utils:delete_location',
+        record_class=Record,
         form_options_create_exclude=['pid']
     ),
 }
