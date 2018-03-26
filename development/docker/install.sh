@@ -58,7 +58,6 @@ else
     invenio npm
     cd /home/invenio/reroils/var/instance/static
     npm install
-    npm install --save angular-schema-form
 
     # collect static files
     invenio collect -v
