@@ -390,6 +390,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='patrons/patron-v0.0.1.json',
         form_options=('reroils_data.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
+        save_record='reroils_data.patrons.utils:save_patron',
     ),
     _('org'): dict(
         api='/api/organisations/',
