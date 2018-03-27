@@ -295,7 +295,7 @@ RECORDS_REST_FACETS = {
             ),
             location=dict(
                 terms=dict(
-                    field='itemslist.location',
+                    field='itemslist.location_name',
                     size=0
                 )
             ),
@@ -322,7 +322,7 @@ RECORDS_REST_FACETS = {
         # can be also post_filter
         filters={
             _('status'): terms_filter('itemslist._circulation.status'),
-            _('location'): terms_filter('itemslist.location'),
+            _('location'): terms_filter('itemslist.location_name'),
             _('language'): terms_filter('languages.language'),
             _('author'): terms_filter('facet_authors')
         },
