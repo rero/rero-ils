@@ -11,9 +11,9 @@
 # iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a9\n"
+"Project-Id-Version: reroils-app 0.1.0a10\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-03-08 20:07+0100\n"
+"POT-Creation-Date: 2018-04-10 05:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: de\n"
@@ -24,52 +24,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: reroils_app/config.py:21
+#: reroils_app/config.py:25
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr "Französisch"
 
-#: reroils_app/config.py:22
+#: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr "Deutsch"
 
-#: reroils_app/config.py:23
+#: reroils_app/config.py:27
 msgid "Italian"
 msgstr "Italienisch"
 
-#: reroils_app/config.py:52
+#: reroils_app/config.py:56
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:242 reroils_app/config.py:272
+#: reroils_app/config.py:324
 msgid "status"
 msgstr "Status"
 
-#: reroils_app/config.py:243 reroils_app/config.py:273
+#: reroils_app/config.py:325
 msgid "location"
 msgstr "Standort"
 
-#: reroils_app/config.py:244
+#: reroils_app/config.py:326
 msgid "language"
 msgstr "Sprache"
 
-#: reroils_app/config.py:245
+#: reroils_app/config.py:327
 msgid "author"
 msgstr "Autor"
 
-#: reroils_app/config.py:248
+#: reroils_app/config.py:330
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "Jahre"
 
-#: reroils_app/config.py:321
-msgid "recid"
-msgstr "Datensätze"
+#: reroils_app/config.py:365
+msgid "doc"
+msgstr "Dokumente"
 
-#: reroils_app/config.py:330
-msgid "instid"
-msgstr "Einrichtungen"
+#: reroils_app/config.py:376
+msgid "item"
+msgstr "Exemplare"
+
+#: reroils_app/config.py:386
+msgid "ptrn"
+msgstr "Leser"
+
+#: reroils_app/config.py:395
+msgid "org"
+msgstr "Organisationen"
+
+#: reroils_app/config.py:405
+msgid "memb"
+msgstr "Mitglieder"
+
+#: reroils_app/config.py:414
+msgid "loc"
+msgstr "Lokalisationen"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -150,18 +166,6 @@ msgstr "japanisch"
 #: reroils_app/manual_translations.txt:22
 msgid "chi"
 msgstr "chinesisch"
-
-#: reroils_app/static/templates/reroils_app/briefview.html:32
-msgid "item available"
-msgstr "Exemplar verfügbar"
-
-#: reroils_app/static/templates/reroils_app/briefview.html:37
-msgid "items available"
-msgstr "Exemplare verfügbar"
-
-#: reroils_app/static/templates/reroils_app/briefview.html:41
-msgid "no item available"
-msgstr "no item available"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
@@ -266,126 +270,6 @@ msgstr "oder"
 #: reroils_app/templates/reroils_app/frontpage.html:114
 msgid "Present"
 msgstr "Gegenwart"
-
-#: reroils_app/templates/reroils_app/fullview.html:14
-msgid "Author"
-msgstr "Autor"
-
-#: reroils_app/templates/reroils_app/fullview.html:34
-msgid "Publisher"
-msgstr "Verleger"
-
-#: reroils_app/templates/reroils_app/fullview.html:48
-msgid "Date"
-msgstr "Datum"
-
-#: reroils_app/templates/reroils_app/fullview.html:63
-msgid "Abstract"
-msgstr "Abstrakt"
-
-#: reroils_app/templates/reroils_app/fullview.html:80
-msgid "Physical description"
-msgstr "Format"
-
-#: reroils_app/templates/reroils_app/fullview.html:91
-msgid "Additional Materials"
-msgstr "Zusätzliche Materialien"
-
-#: reroils_app/templates/reroils_app/fullview.html:102
-msgid "Series"
-msgstr "Reihe"
-
-#: reroils_app/templates/reroils_app/fullview.html:120
-msgid "Uniform title"
-msgstr "Einheitlicher Titel"
-
-#: reroils_app/templates/reroils_app/fullview.html:131
-msgid "Subjects"
-msgstr "Schlagworte"
-
-#: reroils_app/templates/reroils_app/fullview.html:142
-msgid "Notes"
-msgstr "Anmerkungen"
-
-#: reroils_app/templates/reroils_app/fullview.html:159
-msgid "ISBN"
-msgstr "ISBN"
-
-#: reroils_app/templates/reroils_app/fullview.html:171
-#: reroils_app/templates/reroils_app/fullview.html:183
-msgid "Source"
-msgstr "Original"
-
-#: reroils_app/templates/reroils_app/fullview.html:194
-msgid "Permalink"
-msgstr "Permalink"
-
-#: reroils_app/templates/reroils_app/fullview.html:206
-#: reroils_app/templates/reroils_app/fullview_institution.html:99
-#: reroils_app/templates/reroils_app/fullview_items.html:18
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: reroils_app/templates/reroils_app/fullview.html:209
-#: reroils_app/templates/reroils_app/fullview_institution.html:102
-#: reroils_app/templates/reroils_app/fullview_items.html:21
-msgid "Delete"
-msgstr "Löschen"
-
-#: reroils_app/templates/reroils_app/fullview.html:220
-msgid "Items"
-msgstr "Exemplare"
-
-#: reroils_app/templates/reroils_app/fullview.html:227
-msgid "Location"
-msgstr "Standort"
-
-#: reroils_app/templates/reroils_app/fullview.html:238
-msgid "Call Number"
-msgstr "Signatur"
-
-#: reroils_app/templates/reroils_app/fullview.html:249
-msgid "Barcode"
-msgstr "Strichcode"
-
-#: reroils_app/templates/reroils_app/fullview.html:260
-msgid "Status"
-msgstr "Status"
-
-#: reroils_app/templates/reroils_app/fullview.html:281
-msgid "Export Formats"
-msgstr "Exportformate"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:15
-msgid "Institution ID"
-msgstr "ID der Einrichtung"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:26
-#: reroils_app/templates/reroils_app/fullview_institution.html:47
-msgid "Address"
-msgstr "Adresse"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:35
-msgid "Libraries"
-msgstr "Bibliotheken"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:41
-#: reroils_app/templates/reroils_app/fullview_institution.html:72
-msgid "Name"
-msgstr "Name"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:53
-#: reroils_app/templates/reroils_app/fullview_institution.html:78
-msgid "Code"
-msgstr "Strichcode"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:59
-msgid "Email"
-msgstr "E-Mail"
-
-#: reroils_app/templates/reroils_app/fullview_institution.html:66
-msgid "Locations"
-msgstr "Standort"
 
 #: reroils_app/templates/reroils_app/header.html:32
 msgid "Toggle navigation"
