@@ -33,14 +33,14 @@
     {% if current_i18n.language == 'fr' %}
     <h1>Comment utiliser cette installation de démonstration?</h1>
     <h2><i class="fa fa-sign-in"></i> Compte bibliothécaire</h2>
-    <p>Un compte bibliothécaire (avec le rôle de catalogueur) est disponible, avec les identifiants suiants:</p>
+    <p>Un compte bibliothécaire (avec le rôle de catalogueur) est disponible, avec les identifiants suivants:</p>
     <ul>
         <li>email: librarian@rero.ch</li>
         <li>{{ _('password') }}: librarian</li>
     </ul>
 
     <h2><i class="fa fa-pencil"></i> Modifier les notices</h2>
-    <p>Une fois que vous êtes identifié·e, un menu s'affiche. Il donne accès à l'<a href="{{ url_for('reroils_record_editor.create_doc') }}">éditeur</a> qui permet de cataloguer une nouveau document.</p>
+    <p>Une fois que vous êtes identifié·e, un menu s'affiche. Il donne accès à l'<a href="{{ url_for('reroils_record_editor.create_doc') }}">éditeur</a> qui permet de cataloguer un nouveau document.</p>
     <p>Une fonction d'importation <em>très simple</em> est disponible, limitée au champ de l'ISBN. Lorsqu'un ISBN-13 correct est saisi dans ce champ, le bouton <span class="btn btn-info btn-xs">{{ _('import') }}</span> envoie une requête au <a href="http://www.bnf.fr/fr/professionnels/recuperation_donnees_bnf_boite_outils/a.service_SRU.html" target="_blank">service SRU de la BnF</a>.</p>
     <p>Depuis la vue détaillée d'une notice, deux boutons sont visibles, le premier pour <span class="btn btn-success btn-xs">{{ _('edit') }}</span> la notice, et le deuxième pour la <span class="btn btn-danger btn-xs">{{ _('delete') }}</span>.</p>
 
