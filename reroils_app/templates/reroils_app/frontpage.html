@@ -36,7 +36,7 @@
   </div>
 
   <div class="text-center reroils-red-banner">
-      {{ _('Software under development') }} - {{ _('This is a prototype') }} - {{ _('Version') }} <a href="https://github.com/rero/reroils-app/tree/v{{ version }}">{{ version }}</a>
+      {{ _('Software under development') }} - {{ _('This is a prototype') }}</a>
   </div>
 
 </div>
@@ -82,9 +82,7 @@
             </div>
             <div class="reroils-frontpage-bullet-text">
                 {{_('Scrum process')}}: {{_('Product Backlog')}}, {{_('Sprint&nbsp;Taskboard')}}, {{_('Wiki')}}, 
-                <span class="h4">
                   <a href="https://tree.taiga.io/project/rero21-reroils/backlog" target="_blank">{{_('on Taiga')}}</a>
-                </span>
             </div>
         </div>
         <div class="reroils-frontpage-bullet">
@@ -92,7 +90,10 @@
                 <a href="https://github.com/rero/reroils-app" target="_blank"><img src="/static/images/GitHub-Mark-120px-plus.png" width="32"></a>
             </div>
             <div class="reroils-frontpage-bullet-text">
-                {{_('Software source code')}}: <span class="h4"><a href="https://github.com/rero/reroils-app" target="_blank">reroils-app {{_('on GitHub')}}</a></span>
+                {{_('Software source code')}}: <a
+                    href="https://github.com/rero/reroils-app"
+                    target="_blank">reroils-app {{_('on GitHub')}}</a>, {{ _('Version') }}
+                    <a href="https://github.com/rero/reroils-app/releases/tag/v{{ version }}">{{ version }}
             </div>
         </div>
         <div class="reroils-frontpage-bullet">
@@ -100,7 +101,7 @@
                 <a href="http://twitter.com/rero_centrale" target="_blank"><img src="/static/images/Twitter_Logo_Blue.png" width="32"></a>
             </div>
             <div class="reroils-frontpage-bullet-text">
-                <span class="h4"><a href="http://twitter.com/rero_centrale" target="_blank">@rero_centrale</a></span>
+                <a href="http://twitter.com/rero_centrale" target="_blank">@rero_centrale</a>
             </div>
         </div>
     </div>
@@ -108,7 +109,6 @@
     <h3>{{ _('Future') }}</h3>
     <div>
       <img src="/static/images/logo_rero_21_inline.png" class="reroils-frontpage-rero21">
-      <!-- <span class="h4">RERO 21</span> : -->
       {{_('in')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-fr-20161027" target="blank">{{ _('French') }}</a> {{_('or')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-de-20161027" target="blank">{{ _('German') }}</a>
     </div>
     <h3>{{ _('Present') }}</h3>
