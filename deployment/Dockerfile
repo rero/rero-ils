@@ -22,7 +22,8 @@ COPY requirements.txt /reroils/reroils/src/reroils-app/
 COPY reroils_app /reroils/reroils/src/reroils-app/reroils_app
 COPY deployment/populate.sh /reroils/populate.sh
 COPY deployment/documents.json /reroils/documents.json
-COPY deployment/organisations.json /reroils/organisations.json
+COPY deployment/patrons.json /reroils/patrons.json
+COPY deployment/organisations-members-locations.json /reroils/organisations-members-locations.json
 
 # # Run container as user `invenio` with UID `1000`, which should match
 # # current host user in most situations:
