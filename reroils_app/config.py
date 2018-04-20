@@ -227,6 +227,7 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "doc",
         "route": "/documents/<pid_value>",
         "template": "reroils_data/detailed_view_documents_items.html",
+        "view_imp": "reroils_data.documents_items.views.doc_item_view_method",
         "record_class": "reroils_data.documents_items.api:DocumentsWithItems"
     },
     "doc_export": {
