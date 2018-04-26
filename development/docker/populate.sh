@@ -44,24 +44,15 @@ invenio roles add admin@rero.ch superusers
 invenio roles add librarian@rero.ch cataloguer
 
 # create the patron records
-dojson -i $VIRTUAL_ENV/src/reroils-data/data/patron.json schema http://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json | invenio records create --pid-minter patron_id
-invenio index reindex --yes-i-know --pid-type ptrn
-invenio index run
+invenio fixtures importpatrons $VIRTUAL_ENV/src/reroils-data/data/patrons.json -v
 
 # create the organisations with members and locations
 invenio fixtures importorganisations $VIRTUAL_ENV/src/reroils-data/data/organisations-members-locations.json -v
-invenio index run
-
-# create the location records
-dojson -i $VIRTUAL_ENV/src/reroils-data/data/locations.json schema http://ils.test.rero.ch/schema/locations/location-v0.0.1.json | invenio records create --pid-minter location_id
-invenio index reindex --yes-i-know --pid-type loc
-invenio index run
 
 # create the bib records
 dojson -i $VIRTUAL_ENV/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/documents/book-v0.0.1.json | invenio records create --pid-minter document_id
-
 invenio index reindex --yes-i-know --pid-type doc
-invenio index run
+invenio index run -d -c 4
 
-# create items and index bibitems
-invenio fixtures createitems -c 1000
+# create items
+invenio fixtures createitems -c 1000 -R
