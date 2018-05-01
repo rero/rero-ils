@@ -2,6 +2,11 @@
 
 FLASK_DEBUG=0
 
+# Test if $VIRTUAL_ENV is set
+if [ -z "$VIRTUAL_ENV" ]
+	then VIRTUAL_ENV="/home/invenio/reroils"
+fi
+
 invenio db destroy --yes-i-know || true
 invenio index destroy --force --yes-i-know || true
 
