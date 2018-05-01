@@ -4,7 +4,7 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template
 
 from .version import __version__
 
@@ -22,8 +22,10 @@ def index():
     return render_template('reroils_app/frontpage.html',
                            version=__version__)
 
+
 @blueprint.route("/help")
 def help():
     """Help Page."""
-    return render_template('reroils_app/help.html',
-                           version=__version__)
+    return redirect(
+        "https://github.com/rero/reroils-app/wiki/Public-demo-help",
+        code=302)
