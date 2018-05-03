@@ -4,14 +4,11 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-# Translators:
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
-# iGor milhit <igor.milhit@rero.ch>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a10\n"
+"Project-Id-Version: reroils-app 0.1.0a11\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-04-10 05:28+0000\n"
+"POT-Creation-Date: 2018-05-03 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
 "Language: fr\n"
@@ -40,48 +37,48 @@ msgstr "italien"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:324
+#: reroils_app/config.py:325
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:325
+#: reroils_app/config.py:326
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:326
+#: reroils_app/config.py:327
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:327
+#: reroils_app/config.py:328
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:330
+#: reroils_app/config.py:331
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "années"
 
-#: reroils_app/config.py:365
+#: reroils_app/config.py:366
 msgid "doc"
 msgstr "Documents"
 
-#: reroils_app/config.py:376
+#: reroils_app/config.py:377
 msgid "item"
 msgstr "Exemplaires"
 
-#: reroils_app/config.py:386
+#: reroils_app/config.py:387
 msgid "ptrn"
 msgstr "Lecteurs"
 
-#: reroils_app/config.py:395
+#: reroils_app/config.py:396
 msgid "org"
 msgstr "Organisations"
 
-#: reroils_app/config.py:405
+#: reroils_app/config.py:406
 msgid "memb"
 msgstr "Membres"
 
-#: reroils_app/config.py:414
+#: reroils_app/config.py:415
 msgid "loc"
 msgstr "Localisations"
 
@@ -205,10 +202,6 @@ msgstr "Logiciel en cours de développement"
 msgid "This is a prototype"
 msgstr "Ceci est un prototype"
 
-#: reroils_app/templates/reroils_app/frontpage.html:39
-msgid "Version"
-msgstr "Version"
-
 #: reroils_app/templates/reroils_app/frontpage.html:71
 msgid "How to use this demo"
 msgstr "Comment utiliser cette démo"
@@ -241,11 +234,11 @@ msgstr "Sprint&nbsp;Taskboard"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: reroils_app/templates/reroils_app/frontpage.html:86
+#: reroils_app/templates/reroils_app/frontpage.html:85
 msgid "on Taiga"
 msgstr "sur Taiga"
 
-#: reroils_app/templates/reroils_app/frontpage.html:95
+#: reroils_app/templates/reroils_app/frontpage.html:93
 msgid "Software source code"
 msgstr "Code source du logiciel"
 
@@ -253,7 +246,11 @@ msgstr "Code source du logiciel"
 msgid "on GitHub"
 msgstr "sur GitHub"
 
-#: reroils_app/templates/reroils_app/frontpage.html:108
+#: reroils_app/templates/reroils_app/frontpage.html:95
+msgid "Version"
+msgstr "Version"
+
+#: reroils_app/templates/reroils_app/frontpage.html:109
 msgid "Future"
 msgstr "Futur"
 
@@ -290,32 +287,6 @@ msgstr "S'enregistrer"
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: reroils_app/templates/reroils_app/help.html:12
-#: reroils_app/templates/reroils_app/help.html:39
-#: reroils_app/templates/reroils_app/help.html:68
-#: reroils_app/templates/reroils_app/help.html:100
-msgid "password"
-msgstr "mot de passe"
-
-#: reroils_app/templates/reroils_app/help.html:17
-#: reroils_app/templates/reroils_app/help.html:44
-#: reroils_app/templates/reroils_app/help.html:74
-#: reroils_app/templates/reroils_app/help.html:105
-msgid "import"
-msgstr "importer"
-
-#: reroils_app/templates/reroils_app/help.html:18
-#: reroils_app/templates/reroils_app/help.html:45
-#: reroils_app/templates/reroils_app/help.html:106
-msgid "edit"
-msgstr "éditer"
-
-#: reroils_app/templates/reroils_app/help.html:18
-#: reroils_app/templates/reroils_app/help.html:45
-#: reroils_app/templates/reroils_app/help.html:106
-msgid "delete"
-msgstr "supprimer"
-
 #: reroils_app/templates/reroils_app/login_user.html:34
 msgid "Log in to account"
 msgstr "Se connecter à votre compte."
@@ -336,4 +307,16 @@ msgstr "S'inscrire"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
+
+#~ msgid "password"
+#~ msgstr "mot de passe"
+
+#~ msgid "import"
+#~ msgstr "importer"
+
+#~ msgid "edit"
+#~ msgstr "éditer"
+
+#~ msgid "delete"
+#~ msgstr "supprimer"
 
