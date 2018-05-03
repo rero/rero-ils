@@ -1,5 +1,6 @@
 [
     {
+        "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
         "first_name": "Simonetta",
         "last_name": "Casalini",
         "barcode": "2050124311",
@@ -12,6 +13,7 @@
         "patron_type": "standard_user"
     },
     {
+        "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
         "first_name": "Helder",
         "last_name": "de Figueiredo Santos",
         "barcode": "2030124287",
@@ -23,6 +25,7 @@
         "patron_type": "standard_user"
     },
     {
+        "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
         "first_name": "Virgile",
         "last_name": "Charbonnet",
         "barcode": "2030155308",
