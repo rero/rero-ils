@@ -406,6 +406,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('ptrn'): dict(
+        editor_template='reroils_data/patron_editor.html',
         api='/api/patrons/',
         search_template='reroils_record_editor/search.html',
         results_template='templates/reroils_data/brief_view_patrons.html',
@@ -425,6 +426,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('memb'): dict(
+        editor_template='reroils_data/member_editor.html',
         schema='members/member-v0.0.1.json',
         form_options=('reroils_data.members.form_options',
                       'members/member-v0.0.1.json'),
@@ -434,6 +436,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('loc'): dict(
+        editor_template='reroils_data/location_editor.html',
         schema='locations/location-v0.0.1.json',
         form_options=('reroils_data.locations.form_options',
                       'locations/location-v0.0.1.json'),
