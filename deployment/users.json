@@ -1,6 +1,21 @@
 [
     {
         "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
+        "first_name": "Astrid",
+        "last_name": "Müller",
+        "birth_date": "1989-05-14",
+        "email": "librarian@rero.ch",
+        "street": "Spitalstrasse, 112",
+        "postal_code": "8200",
+        "city": "Schaffhausen",
+        "phone": "+41324993597",
+        "member_pid": "1",
+        "is_staff": true,
+        "is_patron": false,
+        "password": "librarian"
+    },
+    {
+        "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
         "first_name": "Simonetta",
         "last_name": "Casalini",
         "barcode": "2050124311",
@@ -10,7 +25,10 @@
         "postal_code": "2300",
         "city": "La Chaux-de-Fonds",
         "phone": "+41324993585",
-        "patron_type": "standard_user"
+        "patron_type": "standard_user",
+        "is_staff": false,
+        "is_patron": true,
+        "password": "123456"
     },
     {
         "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -22,7 +40,10 @@
         "street": "Rue des Aubépines, 15",
         "postal_code": "1950",
         "city": "Sion",
-        "patron_type": "standard_user"
+        "patron_type": "standard_user",
+        "is_staff": false,
+        "is_patron": true,
+        "password": "123456"
     },
     {
         "$schema" : "https://ils.test.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -35,6 +56,9 @@
         "postal_code": "1891",
         "city": "Vérossaz",
         "phone": "+41244857275",
-        "patron_type": "standard_user"
+        "patron_type": "standard_user",
+        "is_staff": false,
+        "is_patron": true,
+        "password": "123456"
     }
 ]

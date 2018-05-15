@@ -18,16 +18,20 @@ invenio index queue init
 
 # create new user
 invenio users create -a admin@rero.ch --password administrator
-invenio users create -a librarian@rero.ch --password librarian
 
 # confirm users
 invenio users confirm admin@rero.ch
-invenio users confirm librarian@rero.ch
 
 # create roles
 invenio roles create -d "Admins Group" admins
 invenio roles create -d "Super Users Group" superusers
 invenio roles create -d "Cataloguer" cataloguer
+
+# create a role for users qualified as a patron
+invenio roles create -d "Patrons" patrons
+
+# create a role for users qualified as a staff member
+invenio roles create -d "Staff" staff
 
 # grant accesses to action roles
 invenio access allow admin-access role admins
@@ -36,10 +40,9 @@ invenio access allow superuser-access role superusers
 # grant roles to users
 invenio roles add admin@rero.ch admins
 invenio roles add admin@rero.ch superusers
-invenio roles add librarian@rero.ch cataloguer
 
 # create the patron records
-invenio fixtures importpatrons patrons.json -v
+invenio fixtures importusers users.json -v
 
 # create the organisations with members and locations
 invenio fixtures importorganisations organisations-members-locations.json
