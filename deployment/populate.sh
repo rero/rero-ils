@@ -28,7 +28,7 @@ invenio roles create -d "Super Users Group" superusers
 invenio roles create -d "Cataloguer" cataloguer
 
 # create a role for users qualified as a patron
-invenio roles create -d "Patrons" patrons
+invenio roles create -d "Patron" patrons
 
 # create a role for users qualified as a staff member
 invenio roles create -d "Staff" staff

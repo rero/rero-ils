@@ -287,7 +287,8 @@ RECORDS_UI_EXPORT_FORMATS = {
 }
 
 REROILS_APP_SORT_FACETS = {
-    'records': 'language,author,location,status'
+    'documents': 'language,author,location,status',
+    'patrons': 'roles'
 }
 
 # SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
@@ -340,6 +341,19 @@ RECORDS_REST_FACETS = {
                 format='yyyy',
                 end_date_math='/y'
             )
+        }
+    ),
+    'patrons': dict(
+        aggs=dict(
+            roles=dict(
+                terms=dict(
+                    field='roles',
+                    size=0
+                )
+            )
+        ),
+        filters={
+            _('roles'): terms_filter('roles')
         }
     )
 }
