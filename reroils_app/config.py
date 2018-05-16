@@ -56,7 +56,7 @@ SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzP
 THEME_SITENAME = _('reroils-app')
 
 # For dev. Set to false when testing on localhost in no debug mode
-APP_ENABLE_SECURE_HEADERS=False
+APP_ENABLE_SECURE_HEADERS = False
 
 # no needs for redis
 CACHE_TYPE = 'simple'
@@ -108,12 +108,16 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='documents',
         search_type=None,
         record_serializers={
-            'text/csv': ('reroils_data.documents_items.serializers'
-                                 ':documents_items_csv_v1_response'),
+            'text/csv': (
+                'reroils_data.documents_items.serializers'
+                ':documents_items_csv_v1_response'
+            ),
         },
         search_serializers={
-            'text/csv': ('reroils_data.documents_items.serializers'
-                                 ':documents_items_csv_v1_search'),
+            'text/csv': (
+                'reroils_data.documents_items.serializers'
+                ':documents_items_csv_v1_search'
+            ),
         },
         list_route='/export/documents/csv/',
         item_route='/export/documents/csv/<pid(doc):pid_value>',
@@ -255,16 +259,19 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "loc",
         "route": "/locations/<pid_value>",
         "template": "reroils_data/detailed_view_locations.html",
+        "record_class": 'reroils_data.locations.api:Location'
     },
     "item": {
         "pid_type": "item",
         "route": "/items/<pid_value>",
         "template": "reroils_data/detailed_view_items.html",
+        "record_class": 'reroils_data.items.api:Item'
     },
     "ptrn": {
         "pid_type": "ptrn",
         "route": "/patrons/<pid_value>",
         "template": "reroils_data/detailed_view_patrons.html",
+        "record_class": 'reroils_data.patrons.api:Patron'
     }
 }
 
@@ -273,7 +280,7 @@ RECORDS_UI_EXPORT_FORMATS = {
         'json': dict(
             title='JSON',
             serializer='invenio_records_rest.serializers'
-                                     ':json_v1',
+                       ':json_v1',
             order=1,
         )
     }
@@ -328,7 +335,7 @@ RECORDS_REST_FACETS = {
             _('author'): terms_filter('facet_authors')
         },
         post_filters={
-            _('years'):range_filter(
+            _('years'): range_filter(
                 'publicationYear',
                 format='yyyy',
                 end_date_math='/y'
@@ -354,7 +361,7 @@ RECORDS_REST_SORT_OPTIONS = {
     )
 }
 
-#default sort
+# default sort
 RECORDS_REST_DEFAULT_SORT = {
     'documents': dict(query='bestmatch', noquery='mostrecent'),
 }
