@@ -4,13 +4,17 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2017
+# iGor milhit <igor.milhit@rero.ch>, 2017
+# Nicolas Labat <n-labat@hotmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a11\n"
+"Project-Id-Version: reroils-app 0.1.0a12\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-05-03 09:48+0200\n"
+"POT-Creation-Date: 2018-05-24 08:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
+"Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
 "Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -37,48 +41,52 @@ msgstr "italien"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:325
+#: reroils_app/config.py:333
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:326
+#: reroils_app/config.py:334
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:327
+#: reroils_app/config.py:335
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:328
+#: reroils_app/config.py:336
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:331
+#: reroils_app/config.py:339
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "années"
 
-#: reroils_app/config.py:366
+#: reroils_app/config.py:356
+msgid "roles"
+msgstr "rôles"
+
+#: reroils_app/config.py:387
 msgid "doc"
 msgstr "Documents"
 
-#: reroils_app/config.py:377
+#: reroils_app/config.py:398
 msgid "item"
 msgstr "Exemplaires"
 
-#: reroils_app/config.py:387
+#: reroils_app/config.py:408
 msgid "ptrn"
-msgstr "Lecteurs"
+msgstr "Utilisateurs"
 
-#: reroils_app/config.py:396
+#: reroils_app/config.py:418
 msgid "org"
 msgstr "Organisations"
 
-#: reroils_app/config.py:406
+#: reroils_app/config.py:428
 msgid "memb"
 msgstr "Membres"
 
-#: reroils_app/config.py:415
+#: reroils_app/config.py:438
 msgid "loc"
 msgstr "Localisations"
 
@@ -165,7 +173,7 @@ msgstr "chinois"
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
-msgstr[0] "Un résultat trouvé."
+msgstr[0] "{{$count}} résultat."
 msgstr[1] "{{$count}} résultats."
 
 #: reroils_app/static/templates/reroils_app/count.html:4
@@ -307,16 +315,4 @@ msgstr "S'inscrire"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
-
-#~ msgid "password"
-#~ msgstr "mot de passe"
-
-#~ msgid "import"
-#~ msgstr "importer"
-
-#~ msgid "edit"
-#~ msgstr "éditer"
-
-#~ msgid "delete"
-#~ msgstr "supprimer"
 

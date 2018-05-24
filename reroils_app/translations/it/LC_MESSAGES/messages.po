@@ -4,11 +4,15 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Gianni Pante <gianni.pante@rero.ch>, 2018
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
+# iGor milhit <igor.milhit@rero.ch>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a11\n"
+"Project-Id-Version: reroils-app 0.1.0a12\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-05-03 09:48+0200\n"
+"POT-Creation-Date: 2018-05-24 08:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2018\n"
 "Language: it\n"
@@ -37,48 +41,52 @@ msgstr "italiano"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:325
+#: reroils_app/config.py:333
 msgid "status"
 msgstr "stato"
 
-#: reroils_app/config.py:326
+#: reroils_app/config.py:334
 msgid "location"
 msgstr "collocazione"
 
-#: reroils_app/config.py:327
+#: reroils_app/config.py:335
 msgid "language"
 msgstr "lingua"
 
-#: reroils_app/config.py:328
+#: reroils_app/config.py:336
 msgid "author"
 msgstr "autore"
 
-#: reroils_app/config.py:331
+#: reroils_app/config.py:339
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "anno"
 
-#: reroils_app/config.py:366
+#: reroils_app/config.py:356
+msgid "roles"
+msgstr "ruoli"
+
+#: reroils_app/config.py:387
 msgid "doc"
 msgstr "Documenti"
 
-#: reroils_app/config.py:377
+#: reroils_app/config.py:398
 msgid "item"
 msgstr "Esemplari"
 
-#: reroils_app/config.py:387
+#: reroils_app/config.py:408
 msgid "ptrn"
-msgstr "Lettori"
+msgstr "Utenti"
 
-#: reroils_app/config.py:396
+#: reroils_app/config.py:418
 msgid "org"
 msgstr "Enti"
 
-#: reroils_app/config.py:406
+#: reroils_app/config.py:428
 msgid "memb"
 msgstr "Membri"
 
-#: reroils_app/config.py:415
+#: reroils_app/config.py:438
 msgid "loc"
 msgstr "Localizzazioni"
 
@@ -307,16 +315,4 @@ msgstr "Registrazione nuovo utente"
 #: reroils_app/templates/reroils_app/login_user.html:58
 msgid "Forgot password?"
 msgstr "Password dimenticata?"
-
-#~ msgid "password"
-#~ msgstr "password"
-
-#~ msgid "import"
-#~ msgstr "importazione"
-
-#~ msgid "edit"
-#~ msgstr "editare"
-
-#~ msgid "delete"
-#~ msgstr "eliminare"
 
