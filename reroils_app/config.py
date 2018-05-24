@@ -4,13 +4,14 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_circulation.api import Item
-from invenio_records.api import Record
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 from reroils_data.documents_items.api import DocumentsWithItems
+from reroils_data.items.api import Item
+from reroils_data.locations.api import Location
 from reroils_data.members_locations.api import MemberWithLocations
 from reroils_data.organisations_members.api import OrganisationWithMembers
+from reroils_data.patrons.api import Patron
 
 
 # Identity function for string extraction
@@ -400,20 +401,21 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='items/item-v0.0.1.json',
         form_options=('reroils_data.items.form_options',
                       'items/item-v0.0.1.json'),
-        record_class=Item,
         save_record='reroils_data.documents_items.utils:save_item',
         delete_record='reroils_data.documents_items.utils:delete_item',
+        record_class=Item,
         form_options_create_exclude=['pid']
     ),
     _('ptrn'): dict(
-        editor_template='reroils_data/patron_editor.html',
         api='/api/patrons/',
-        search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_patrons.html',
         schema='patrons/patron-v0.0.1.json',
         form_options=('reroils_data.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
         save_record='reroils_data.patrons.utils:save_patron',
+        editor_template='reroils_data/patron_editor.html',
+        search_template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_patrons.html',
+        record_class=Patron,
     ),
     _('org'): dict(
         api='/api/organisations/',
@@ -442,7 +444,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
                       'locations/location-v0.0.1.json'),
         save_record='reroils_data.members_locations.utils:save_location',
         delete_record='reroils_data.members_locations.utils:delete_location',
-        record_class=Record,
+        record_class=Location,
         form_options_create_exclude=['pid']
     ),
 }
