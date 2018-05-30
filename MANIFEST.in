@@ -32,6 +32,8 @@ include LICENSE
 recursive-include reroils_app *.html
 recursive-include reroils_app *.png
 recursive-include reroils_app *.css
+recursive-include documentation *.graffle
+recursive-include documentation *.pdf
 
 prune deployment
 prune development
