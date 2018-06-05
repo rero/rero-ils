@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a12\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-05-24 08:08+0000\n"
+"POT-Creation-Date: 2018-06-05 15:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
 "Language: en\n"
@@ -24,70 +24,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: reroils_app/config.py:25
+#: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr "French"
 
-#: reroils_app/config.py:26
+#: reroils_app/config.py:27
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr "German"
 
-#: reroils_app/config.py:27
+#: reroils_app/config.py:28
 msgid "Italian"
 msgstr "Italian"
 
-#: reroils_app/config.py:56
+#: reroils_app/config.py:57
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:333
+#: reroils_app/config.py:334
 msgid "status"
 msgstr "status"
 
-#: reroils_app/config.py:334
+#: reroils_app/config.py:335
 msgid "location"
 msgstr "location"
 
-#: reroils_app/config.py:335
+#: reroils_app/config.py:336
 msgid "language"
 msgstr "language"
 
-#: reroils_app/config.py:336
+#: reroils_app/config.py:337
 msgid "author"
 msgstr "author"
 
-#: reroils_app/config.py:339
+#: reroils_app/config.py:340
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "years"
 
-#: reroils_app/config.py:356
+#: reroils_app/config.py:357
 msgid "roles"
 msgstr "roles"
 
-#: reroils_app/config.py:387
+#: reroils_app/config.py:388
 msgid "doc"
 msgstr "documents"
 
-#: reroils_app/config.py:398
+#: reroils_app/config.py:399
 msgid "item"
 msgstr "items"
 
-#: reroils_app/config.py:408
+#: reroils_app/config.py:409
 msgid "ptrn"
 msgstr "users"
 
-#: reroils_app/config.py:418
+#: reroils_app/config.py:420
 msgid "org"
 msgstr "organisations"
 
-#: reroils_app/config.py:428
+#: reroils_app/config.py:430
 msgid "memb"
 msgstr "members"
 
-#: reroils_app/config.py:438
+#: reroils_app/config.py:440
 msgid "loc"
 msgstr "locations"
 
@@ -103,73 +103,93 @@ msgstr "on shelf"
 msgid "missing"
 msgstr "not for loan"
 
+#: reroils_app/manual_translations.txt:4
+msgid "in_transit"
+msgstr "in transit"
+
 #: reroils_app/manual_translations.txt:5
+msgid "at_desk"
+msgstr "at desk"
+
+#: reroils_app/manual_translations.txt:7
 msgid "publicAccess"
 msgstr "public access"
 
-#: reroils_app/manual_translations.txt:6
+#: reroils_app/manual_translations.txt:8
 msgid "storeroom"
 msgstr "store room"
 
-#: reroils_app/manual_translations.txt:7
+#: reroils_app/manual_translations.txt:9
 msgid "readingRoom"
 msgstr "reading room"
 
-#: reroils_app/manual_translations.txt:8
+#: reroils_app/manual_translations.txt:10
 msgid "readingroom"
 msgstr "reading room"
 
-#: reroils_app/manual_translations.txt:9
+#: reroils_app/manual_translations.txt:11
 msgid "publicaccess"
 msgstr "public access"
 
-#: reroils_app/manual_translations.txt:11
+#: reroils_app/manual_translations.txt:13
 msgid "fre"
 msgstr "french"
 
-#: reroils_app/manual_translations.txt:12
+#: reroils_app/manual_translations.txt:14
 msgid "eng"
 msgstr "english"
 
-#: reroils_app/manual_translations.txt:13
+#: reroils_app/manual_translations.txt:15
 msgid "ger"
 msgstr "german"
 
-#: reroils_app/manual_translations.txt:14
+#: reroils_app/manual_translations.txt:16
 msgid "ita"
 msgstr "italian"
 
-#: reroils_app/manual_translations.txt:15
+#: reroils_app/manual_translations.txt:17
 msgid "lat"
 msgstr "latin"
 
-#: reroils_app/manual_translations.txt:16
+#: reroils_app/manual_translations.txt:18
 msgid "spa"
 msgstr "spanish"
 
-#: reroils_app/manual_translations.txt:17
+#: reroils_app/manual_translations.txt:19
 msgid "ara"
 msgstr "arabic"
 
-#: reroils_app/manual_translations.txt:18
+#: reroils_app/manual_translations.txt:20
 msgid "por"
 msgstr "portuguese"
 
-#: reroils_app/manual_translations.txt:19
+#: reroils_app/manual_translations.txt:21
 msgid "rus"
 msgstr "russian"
 
-#: reroils_app/manual_translations.txt:20
+#: reroils_app/manual_translations.txt:22
 msgid "heb"
 msgstr "hebrew"
 
-#: reroils_app/manual_translations.txt:21
+#: reroils_app/manual_translations.txt:23
 msgid "jpn"
 msgstr "japanese"
 
-#: reroils_app/manual_translations.txt:22
+#: reroils_app/manual_translations.txt:24
 msgid "chi"
 msgstr "chinese"
+
+#: reroils_app/manual_translations.txt:26
+msgid "patrons"
+msgstr "patrons"
+
+#: reroils_app/manual_translations.txt:27
+msgid "cataloguer"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:28
+msgid "staff"
+msgstr ""
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
