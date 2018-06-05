@@ -266,7 +266,9 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "item",
         "route": "/items/<pid_value>",
         "template": "reroils_data/detailed_view_items.html",
-        "record_class": 'reroils_data.items.api:Item'
+        "view_imp": "reroils_data.items.views.item_view_method",
+        "record_class": 'reroils_data.items.api:Item',
+        "permission_factory_imp": "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "ptrn": {
         "pid_type": "ptrn",
