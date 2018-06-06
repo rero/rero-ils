@@ -50,6 +50,6 @@ invenio fixtures importorganisations organisations-members-locations.json
 # create the bib records
 dojson -i documents.json reverse schema http://ils.test.rero.ch/schema/documents/book-v0.0.1.json | invenio records create --pid-minter document_id
 invenio index reindex --yes-i-know --pid-type doc
-invenio index run -d -c 4
+invenio index run -c 4
 
 invenio fixtures createitems -R
