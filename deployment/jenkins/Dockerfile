@@ -26,7 +26,7 @@ RUN   apt-get update \
   && apt-get update && apt-get install -y docker-ce
 
 
-RUN addgroup --system --gid 997 dockerhost
+RUN addgroup --system --gid 996 dockerhost
 RUN addgroup jenkins dockerhost
 
 # set timezone

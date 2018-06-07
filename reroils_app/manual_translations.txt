@@ -1,6 +1,8 @@
 _('on_loan')
 _('on_shelf')
 _('missing')
+_('in_transit')
+_('at_desk')
 
 _('publicAccess')
 _('storeroom')
@@ -20,3 +22,7 @@ _('rus')
 _('heb')
 _('jpn')
 _('chi')
+
+_('patrons')
+_('cataloguer')
+_('staff')

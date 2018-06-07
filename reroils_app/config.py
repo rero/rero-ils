@@ -4,13 +4,14 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_circulation.api import Item
-from invenio_records.api import Record
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 from reroils_data.documents_items.api import DocumentsWithItems
+from reroils_data.items.api import Item
+from reroils_data.locations.api import Location
 from reroils_data.members_locations.api import MemberWithLocations
 from reroils_data.organisations_members.api import OrganisationWithMembers
+from reroils_data.patrons.api import Patron
 
 
 # Identity function for string extraction
@@ -56,7 +57,7 @@ SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzP
 THEME_SITENAME = _('reroils-app')
 
 # For dev. Set to false when testing on localhost in no debug mode
-APP_ENABLE_SECURE_HEADERS=False
+APP_ENABLE_SECURE_HEADERS = False
 
 # no needs for redis
 CACHE_TYPE = 'simple'
@@ -108,12 +109,16 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='documents',
         search_type=None,
         record_serializers={
-            'text/csv': ('reroils_data.documents_items.serializers'
-                                 ':documents_items_csv_v1_response'),
+            'text/csv': (
+                'reroils_data.documents_items.serializers'
+                ':documents_items_csv_v1_response'
+            ),
         },
         search_serializers={
-            'text/csv': ('reroils_data.documents_items.serializers'
-                                 ':documents_items_csv_v1_search'),
+            'text/csv': (
+                'reroils_data.documents_items.serializers'
+                ':documents_items_csv_v1_search'
+            ),
         },
         list_route='/export/documents/csv/',
         item_route='/export/documents/csv/<pid(doc):pid_value>',
@@ -255,16 +260,19 @@ RECORDS_UI_ENDPOINTS = {
         "pid_type": "loc",
         "route": "/locations/<pid_value>",
         "template": "reroils_data/detailed_view_locations.html",
+        "record_class": 'reroils_data.locations.api:Location'
     },
     "item": {
         "pid_type": "item",
         "route": "/items/<pid_value>",
         "template": "reroils_data/detailed_view_items.html",
+        "record_class": 'reroils_data.items.api:Item'
     },
     "ptrn": {
         "pid_type": "ptrn",
         "route": "/patrons/<pid_value>",
         "template": "reroils_data/detailed_view_patrons.html",
+        "record_class": 'reroils_data.patrons.api:Patron'
     }
 }
 
@@ -273,14 +281,15 @@ RECORDS_UI_EXPORT_FORMATS = {
         'json': dict(
             title='JSON',
             serializer='invenio_records_rest.serializers'
-                                     ':json_v1',
+                       ':json_v1',
             order=1,
         )
     }
 }
 
 REROILS_APP_SORT_FACETS = {
-    'records': 'language,author,location,status'
+    'documents': 'language,author,location,status',
+    'patrons': 'roles'
 }
 
 # SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
@@ -328,11 +337,24 @@ RECORDS_REST_FACETS = {
             _('author'): terms_filter('facet_authors')
         },
         post_filters={
-            _('years'):range_filter(
+            _('years'): range_filter(
                 'publicationYear',
                 format='yyyy',
                 end_date_math='/y'
             )
+        }
+    ),
+    'patrons': dict(
+        aggs=dict(
+            roles=dict(
+                terms=dict(
+                    field='roles',
+                    size=0
+                )
+            )
+        ),
+        filters={
+            _('roles'): terms_filter('roles')
         }
     )
 }
@@ -354,7 +376,7 @@ RECORDS_REST_SORT_OPTIONS = {
     )
 }
 
-#default sort
+# default sort
 RECORDS_REST_DEFAULT_SORT = {
     'documents': dict(query='bestmatch', noquery='mostrecent'),
 }
@@ -379,19 +401,21 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         schema='items/item-v0.0.1.json',
         form_options=('reroils_data.items.form_options',
                       'items/item-v0.0.1.json'),
-        record_class=Item,
         save_record='reroils_data.documents_items.utils:save_item',
         delete_record='reroils_data.documents_items.utils:delete_item',
+        record_class=Item,
         form_options_create_exclude=['pid']
     ),
     _('ptrn'): dict(
         api='/api/patrons/',
-        search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_patrons.html',
         schema='patrons/patron-v0.0.1.json',
         form_options=('reroils_data.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
         save_record='reroils_data.patrons.utils:save_patron',
+        editor_template='reroils_data/patron_editor.html',
+        search_template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_patrons.html',
+        record_class=Patron,
     ),
     _('org'): dict(
         api='/api/organisations/',
@@ -404,6 +428,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('memb'): dict(
+        editor_template='reroils_data/member_editor.html',
         schema='members/member-v0.0.1.json',
         form_options=('reroils_data.members.form_options',
                       'members/member-v0.0.1.json'),
@@ -413,12 +438,13 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('loc'): dict(
+        editor_template='reroils_data/location_editor.html',
         schema='locations/location-v0.0.1.json',
         form_options=('reroils_data.locations.form_options',
                       'locations/location-v0.0.1.json'),
         save_record='reroils_data.members_locations.utils:save_location',
         delete_record='reroils_data.members_locations.utils:delete_location',
-        record_class=Record,
+        record_class=Location,
         form_options_create_exclude=['pid']
     ),
 }

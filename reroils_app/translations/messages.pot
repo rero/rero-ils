@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a11\n"
+"Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-05-03 09:48+0200\n"
+"POT-Creation-Date: 2018-06-05 15:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,66 +17,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: reroils_app/config.py:25
+#: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr ""
 
-#: reroils_app/config.py:26
+#: reroils_app/config.py:27
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr ""
 
-#: reroils_app/config.py:27
+#: reroils_app/config.py:28
 msgid "Italian"
 msgstr ""
 
-#: reroils_app/config.py:56
+#: reroils_app/config.py:57
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:325
+#: reroils_app/config.py:334
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:326
+#: reroils_app/config.py:335
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:327
+#: reroils_app/config.py:336
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:328
+#: reroils_app/config.py:337
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:331
+#: reroils_app/config.py:340
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""
 
-#: reroils_app/config.py:366
+#: reroils_app/config.py:357
+msgid "roles"
+msgstr ""
+
+#: reroils_app/config.py:388
 msgid "doc"
 msgstr ""
 
-#: reroils_app/config.py:377
+#: reroils_app/config.py:399
 msgid "item"
 msgstr ""
 
-#: reroils_app/config.py:387
+#: reroils_app/config.py:409
 msgid "ptrn"
 msgstr ""
 
-#: reroils_app/config.py:396
+#: reroils_app/config.py:420
 msgid "org"
 msgstr ""
 
-#: reroils_app/config.py:406
+#: reroils_app/config.py:430
 msgid "memb"
 msgstr ""
 
-#: reroils_app/config.py:415
+#: reroils_app/config.py:440
 msgid "loc"
 msgstr ""
 
@@ -92,72 +96,92 @@ msgstr ""
 msgid "missing"
 msgstr ""
 
-#: reroils_app/manual_translations.txt:5
-msgid "publicAccess"
+#: reroils_app/manual_translations.txt:4
+msgid "in_transit"
 msgstr ""
 
-#: reroils_app/manual_translations.txt:6
-msgid "storeroom"
+#: reroils_app/manual_translations.txt:5
+msgid "at_desk"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:7
-msgid "readingRoom"
+msgid "publicAccess"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:8
-msgid "readingroom"
+msgid "storeroom"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:9
-msgid "publicaccess"
+msgid "readingRoom"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:10
+msgid "readingroom"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:11
-msgid "fre"
-msgstr ""
-
-#: reroils_app/manual_translations.txt:12
-msgid "eng"
+msgid "publicaccess"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:13
-msgid "ger"
+msgid "fre"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:14
-msgid "ita"
+msgid "eng"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:15
-msgid "lat"
+msgid "ger"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:16
-msgid "spa"
+msgid "ita"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:17
-msgid "ara"
+msgid "lat"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:18
-msgid "por"
+msgid "spa"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:19
-msgid "rus"
+msgid "ara"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:20
-msgid "heb"
+msgid "por"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:21
-msgid "jpn"
+msgid "rus"
 msgstr ""
 
 #: reroils_app/manual_translations.txt:22
+msgid "heb"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:23
+msgid "jpn"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:24
 msgid "chi"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:26
+msgid "patrons"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:27
+msgid "cataloguer"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:28
+msgid "staff"
 msgstr ""
 
 #: reroils_app/static/templates/reroils_app/count.html:3
