@@ -420,9 +420,6 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         record_class=Patron,
     ),
     _('org'): dict(
-        api='/api/organisations/',
-        search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_organisations_members.html',
         schema='organisations/organisation-v0.0.1.json',
         form_options=('reroils_data.organisations.form_options',
                       'organisations/organisation-v0.0.1.json'),
@@ -430,6 +427,9 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         form_options_create_exclude=['pid']
     ),
     _('memb'): dict(
+        api='/api/members/',
+        search_template='reroils_record_editor/search.html',
+        results_template='templates/reroils_data/brief_view_members_locations.html',
         editor_template='reroils_data/member_editor.html',
         schema='members/member-v0.0.1.json',
         form_options=('reroils_data.members.form_options',

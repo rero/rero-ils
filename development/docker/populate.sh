@@ -49,7 +49,6 @@ invenio roles add admin@rero.ch superusers
 # create the patron records
 invenio fixtures importusers $VIRTUAL_ENV/src/reroils-data/data/users.json -v
 
-
 # create the organisations with members and locations
 invenio fixtures importorganisations $VIRTUAL_ENV/src/reroils-data/data/organisations-members-locations.json -v
 
