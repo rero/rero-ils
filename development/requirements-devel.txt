@@ -70,7 +70,6 @@
 -e git+https://github.com/inveniosoftware/invenio-query-parser.git#egg=invenio-query-parser
 -e git+https://github.com/inveniosoftware/invenio-rest.git#egg=invenio-rest
 -e git+https://github.com/inveniosoftware/invenio-webhooks.git#egg=invenio-webhooks
--e git+https://github.com/inveniosoftware/invenio-circulation.git#egg=invenio-circulation
 
 # RERO
 -e git+https://github.com/rero/reroils-data.git#egg=reroils-data[all]

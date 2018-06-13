@@ -3,7 +3,7 @@ FROM python:3.5-slim
 LABEL maintainer="software@rero.ch"
 LABEL description="Integrated Library System flavour of Invenio by RERO. Devel version."
 
-RUN apt-get update && apt-get install -y curl \
+RUN apt-get update && apt-get install -y curl gcc\
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y nodejs gcc git \
     && pip install -U setuptools pip && \

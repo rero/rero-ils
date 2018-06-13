@@ -5,7 +5,7 @@ LABEL description="ILS App by RERO."
 
 
 
-RUN apt-get update && apt-get install -y git curl
+RUN apt-get update && apt-get install -y git curl gcc
 
 RUN pip install -U setuptools pip &&\
     pip install -U virtualenv

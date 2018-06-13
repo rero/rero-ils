@@ -6,6 +6,4 @@ cd reroils/src && \
 git clone https://github.com/rero/reroils-app.git && \
 cd reroils-app
 pip install git+https://github.com/rero/reroils-data.git#egg=reroils-data
-pip install git+https://github.com/inveniosoftware/invenio-circulation.git#egg=invenio-circulation
 pip install .[all]
-
