@@ -34,8 +34,8 @@
 .. image:: https://img.shields.io/github/tag/rero/reroils-app.svg
         :target: https://github.com/rero/reroils-app/releases
 
-.. image:: https://img.shields.io/github/license/inveniosoftware/invenio-app-ils.svg
-        :target: https://github.com/inveniosoftware/invenio-app-ils/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/rero/reroils-app.svg
+        :target: https://github.com/rero/reroils-app/blob/master/LICENSE
 
 Integrated Library System flavour of Invenio by RERO.
 
