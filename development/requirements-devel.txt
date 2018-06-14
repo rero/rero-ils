@@ -41,8 +41,6 @@
 -e git+git://github.com/inveniosoftware/invenio-jsonschemas.git#egg=invenio-jsonschemas
 -e git+git://github.com/inveniosoftware/invenio-oaiserver.git#egg=invenio-oaiserver
 
-# MARC21-based ILS
--e git+git://github.com/inveniosoftware/invenio-marc21.git#egg=invenio-marc21
 
 -e git+https://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
 -e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql,versioning]
@@ -69,7 +67,6 @@
 -e git+https://github.com/inveniosoftware/invenio-oauth2server.git#egg=invenio-oauth2server
 -e git+https://github.com/inveniosoftware/invenio-query-parser.git#egg=invenio-query-parser
 -e git+https://github.com/inveniosoftware/invenio-rest.git#egg=invenio-rest
--e git+https://github.com/inveniosoftware/invenio-webhooks.git#egg=invenio-webhooks
 
 # RERO
 -e git+https://github.com/rero/reroils-data.git#egg=reroils-data[all]
