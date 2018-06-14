@@ -247,20 +247,26 @@ RECORDS_UI_ENDPOINTS = {
         "route": "/organisations/<pid_value>",
         "template": "reroils_data/detailed_view_organisations_members.html",
         "record_class":
-            "reroils_data.organisations_members.api:OrganisationWithMembers"
+            "reroils_data.organisations_members.api:OrganisationWithMembers",
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "memb": {
         "pid_type": "memb",
         "route": "/members/<pid_value>",
         "template": "reroils_data/detailed_view_members_locations.html",
         "record_class":
-            "reroils_data.members_locations.api:MemberWithLocations"
+            "reroils_data.members_locations.api:MemberWithLocations",
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "loc": {
         "pid_type": "loc",
         "route": "/locations/<pid_value>",
         "template": "reroils_data/detailed_view_locations.html",
-        "record_class": 'reroils_data.locations.api:Location'
+        "record_class": 'reroils_data.locations.api:Location',
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "item": {
         "pid_type": "item",
@@ -268,13 +274,17 @@ RECORDS_UI_ENDPOINTS = {
         "template": "reroils_data/detailed_view_items.html",
         "view_imp": "reroils_data.items.views.item_view_method",
         "record_class": 'reroils_data.items.api:Item',
-        "permission_factory_imp": "reroils_record_editor.permissions.cataloguer_permission_factory"
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "ptrn": {
         "pid_type": "ptrn",
         "route": "/patrons/<pid_value>",
         "template": "reroils_data/detailed_view_patrons.html",
-        "record_class": 'reroils_data.patrons.api:Patron'
+        "record_class": 'reroils_data.patrons.api:Patron',
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
+
     }
 }
 
