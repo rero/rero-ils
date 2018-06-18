@@ -52,4 +52,8 @@ dojson -i documents.json reverse schema http://ils.test.rero.ch/schema/documents
 invenio index reindex --yes-i-know --pid-type doc
 invenio index run -c 4
 
+# create items
 invenio fixtures createitems -R
+
+# create circulation transactions
+invenio fixtures createcirctransactions $VIRTUAL_ENV/src/reroils-data/data/circulation_transactions.json 

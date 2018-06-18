@@ -2,6 +2,7 @@
 
 FLASK_DEBUG=0
 
+
 # Test if $VIRTUAL_ENV is set
 if [ -z "$VIRTUAL_ENV" ]
 	then VIRTUAL_ENV="/home/invenio/reroils"
@@ -59,3 +60,6 @@ invenio index run -c 4
 
 # create items
 invenio fixtures createitems -c 1000 -R
+
+# create circulation transactions
+invenio fixtures createcirctransactions $VIRTUAL_ENV/src/reroils-data/data/circulation_transactions.json 
