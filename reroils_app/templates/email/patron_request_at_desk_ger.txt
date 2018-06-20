@@ -1,0 +1,10 @@
+Guten Tag,
+
+Das Dokument, das Sie bestellt haben, ist jetzt verfügbar. Sie können es an der Ausleihtheke der nachstehend genannten Bibliothek abholen.
+
+{% include 'email/_patron_request_at_desk_data.txt' %}
+
+Abholbibliothek: {{ holding.pickup_member_name }}
+
+Freundliche Grüsse
+Ihre Bibliothek

@@ -1,0 +1,10 @@
+Buon giorno,
+
+Il documento che Lei ha richiesto è ora disponibile. Si può ritirare al banco prestiti della biblioteca indicata in appresso.
+
+{% include 'email/_patron_request_at_desk_data.txt' %}
+
+Biblioteca di ritiro: {{ holding.pickup_member_name }}
+
+Cordiali saluti
+La Sua biblioteca

@@ -1,0 +1,10 @@
+Bonjour,
+
+Le document que vous avez demandé est maintenant disponible. Vous pouvez venir le chercher au bureau de prêt de la bibliothèque mentionnée ci-dessous.
+
+{% include 'email/_patron_request_at_desk_data.txt' %}
+
+Bibliothèque de retrait : {{ holding.pickup_member_name }}
+
+Meilleures salutations
+Votre bibliothèque
