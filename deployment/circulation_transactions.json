@@ -1,0 +1,100 @@
+[
+  {
+    "barcode": "reroils1",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 2
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1
+    }
+  },
+  {
+    "barcode": "2000000001",
+    "loans": {
+      "active": 1
+    },
+    "requests": {
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "10000001",
+    "loans": {
+      "active": 2
+    },
+    "requests": {
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "2050124312",
+    "loans": {
+      "active": 14
+    },
+    "requests": {
+      "requests": 8
+    }
+  },
+  {
+    "barcode": "kad001",
+    "loans": {
+      "active": 1
+    },
+    "requests": {
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "kad002",
+    "loans": {
+      "active": 1
+    },
+    "requests": {
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "2030155308",
+    "loans": {
+      "active": 4,
+      "extended": 1,
+      "overdue": 4,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1,
+      "requests": 2
+    }
+  },
+  {
+    "barcode": "2030124287",
+    "loans": {
+      "active": 2,
+      "extended": 1,
+      "overdue": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1,
+      "requests": 3
+    }
+  },
+  {
+    "barcode": "2050124311",
+    "loans": {
+      "active": 5,
+      "extended": 1,
+      "overdue": 5,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1,
+      "requests": 2
+    }
+  }
+]

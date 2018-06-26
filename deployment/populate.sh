@@ -56,4 +56,4 @@ invenio index run -c 4
 invenio fixtures createitems -R
 
 # create circulation transactions
-invenio fixtures createcirctransactions $VIRTUAL_ENV/src/reroils-data/data/circulation_transactions.json 
+invenio fixtures createcirctransactions circulation_transactions.json 

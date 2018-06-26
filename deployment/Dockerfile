@@ -24,6 +24,7 @@ COPY deployment/populate.sh /reroils/populate.sh
 COPY deployment/documents.json /reroils/documents.json
 COPY deployment/users.json /reroils/users.json
 COPY deployment/organisations-members-locations.json /reroils/organisations-members-locations.json
+COPY deployment/circulation_transactions.json /reroils/circulation_transactions.json
 
 # # Run container as user `invenio` with UID `1000`, which should match
 # # current host user in most situations:
