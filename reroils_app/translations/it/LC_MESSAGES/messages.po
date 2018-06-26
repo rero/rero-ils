@@ -4,24 +4,20 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-# Translators:
-# Gianni Pante <gianni.pante@rero.ch>, 2018
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
-# iGor milhit <igor.milhit@rero.ch>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a12\n"
+"Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-06-05 15:30+0200\n"
+"POT-Creation-Date: 2018-06-26 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2018\n"
+"Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018\n"
 "Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
 #: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
@@ -41,52 +37,52 @@ msgstr "italiano"
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:334
+#: reroils_app/config.py:346
 msgid "status"
 msgstr "stato"
 
-#: reroils_app/config.py:335
+#: reroils_app/config.py:347
 msgid "location"
 msgstr "collocazione"
 
-#: reroils_app/config.py:336
+#: reroils_app/config.py:348
 msgid "language"
 msgstr "lingua"
 
-#: reroils_app/config.py:337
+#: reroils_app/config.py:349
 msgid "author"
 msgstr "autore"
 
-#: reroils_app/config.py:340
+#: reroils_app/config.py:352
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "anno"
 
-#: reroils_app/config.py:357
+#: reroils_app/config.py:369
 msgid "roles"
 msgstr "ruoli"
 
-#: reroils_app/config.py:388
+#: reroils_app/config.py:400
 msgid "doc"
 msgstr "Documenti"
 
-#: reroils_app/config.py:399
+#: reroils_app/config.py:411
 msgid "item"
 msgstr "Esemplari"
 
-#: reroils_app/config.py:409
+#: reroils_app/config.py:421
 msgid "ptrn"
 msgstr "Utenti"
 
-#: reroils_app/config.py:420
+#: reroils_app/config.py:432
 msgid "org"
 msgstr "Enti"
 
-#: reroils_app/config.py:430
+#: reroils_app/config.py:439
 msgid "memb"
 msgstr "Membri"
 
-#: reroils_app/config.py:440
+#: reroils_app/config.py:452
 msgid "loc"
 msgstr "Localizzazioni"
 
@@ -100,7 +96,7 @@ msgstr "su scaffale"
 
 #: reroils_app/manual_translations.txt:3
 msgid "missing"
-msgstr "prestito escluso"
+msgstr "mancante"
 
 #: reroils_app/manual_translations.txt:4
 msgid "in_transit"

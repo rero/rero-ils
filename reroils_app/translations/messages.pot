@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-06-05 15:30+0200\n"
+"POT-Creation-Date: 2018-06-26 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
 #: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
@@ -35,52 +35,52 @@ msgstr ""
 msgid "reroils-app"
 msgstr ""
 
-#: reroils_app/config.py:334
+#: reroils_app/config.py:346
 msgid "status"
 msgstr ""
 
-#: reroils_app/config.py:335
+#: reroils_app/config.py:347
 msgid "location"
 msgstr ""
 
-#: reroils_app/config.py:336
+#: reroils_app/config.py:348
 msgid "language"
 msgstr ""
 
-#: reroils_app/config.py:337
+#: reroils_app/config.py:349
 msgid "author"
 msgstr ""
 
-#: reroils_app/config.py:340
+#: reroils_app/config.py:352
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr ""
 
-#: reroils_app/config.py:357
+#: reroils_app/config.py:369
 msgid "roles"
 msgstr ""
 
-#: reroils_app/config.py:388
+#: reroils_app/config.py:400
 msgid "doc"
 msgstr ""
 
-#: reroils_app/config.py:399
+#: reroils_app/config.py:411
 msgid "item"
 msgstr ""
 
-#: reroils_app/config.py:409
+#: reroils_app/config.py:421
 msgid "ptrn"
 msgstr ""
 
-#: reroils_app/config.py:420
+#: reroils_app/config.py:432
 msgid "org"
 msgstr ""
 
-#: reroils_app/config.py:430
+#: reroils_app/config.py:439
 msgid "memb"
 msgstr ""
 
-#: reroils_app/config.py:440
+#: reroils_app/config.py:452
 msgid "loc"
 msgstr ""
 
