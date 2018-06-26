@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-git+https://github.com/rero/reroils-data.git@v0.1.0a14#egg=reroils-data
-git+https://github.com/rero/reroils-record-editor.git@v0.1.0a14#egg=reroils-record-editor
+git+https://github.com/rero/reroils-data.git@v0.1.0a15#egg=reroils-data
+git+https://github.com/rero/reroils-record-editor.git@v0.1.0a15#egg=reroils-record-editor
 
 flower
