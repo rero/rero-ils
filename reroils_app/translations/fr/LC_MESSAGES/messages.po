@@ -4,13 +4,14 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2018-06-26 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2017\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -176,7 +177,7 @@ msgstr "chinois"
 
 #: reroils_app/manual_translations.txt:26
 msgid "patrons"
-msgstr "Utilisateurs"
+msgstr "lecteur"
 
 #: reroils_app/manual_translations.txt:27
 msgid "cataloguer"

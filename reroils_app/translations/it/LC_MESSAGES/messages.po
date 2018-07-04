@@ -4,13 +4,14 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2018-06-26 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: it\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -176,7 +177,7 @@ msgstr "cinese"
 
 #: reroils_app/manual_translations.txt:26
 msgid "patrons"
-msgstr "Utenti"
+msgstr "lettore"
 
 #: reroils_app/manual_translations.txt:27
 msgid "cataloguer"
@@ -184,7 +185,7 @@ msgstr "cataloghista"
 
 #: reroils_app/manual_translations.txt:28
 msgid "staff"
-msgstr "personale"
+msgstr "professionista"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."

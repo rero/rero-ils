@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2018-06-26 09:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: en\n"
 "Language-Team: English (https://www.transifex.com/rero/teams/77935/en/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -176,7 +176,7 @@ msgstr "chinese"
 
 #: reroils_app/manual_translations.txt:26
 msgid "patrons"
-msgstr "patrons"
+msgstr "patron"
 
 #: reroils_app/manual_translations.txt:27
 msgid "cataloguer"

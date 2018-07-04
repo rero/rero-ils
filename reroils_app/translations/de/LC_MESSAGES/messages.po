@@ -4,6 +4,7 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a13\n"
@@ -180,7 +181,7 @@ msgstr "Benutzer"
 
 #: reroils_app/manual_translations.txt:27
 msgid "cataloguer"
-msgstr "Katalogeur"
+msgstr "Katalogisierer"
 
 #: reroils_app/manual_translations.txt:28
 msgid "staff"
