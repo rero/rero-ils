@@ -402,7 +402,7 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         search_template='reroils_record_editor/search.html',
         results_template='templates/reroils_data/brief_view_documents_items.html',
         editor_template='reroils_data/document_editor.html',
-        schema='documents/book-v0.0.1.json',
+        schema='documents/document-v0.0.1.json',
         form_options=('reroils_data.documents.form_options',
                       'documents/document-v0.0.1.json'),
         record_class=DocumentsWithItems,
