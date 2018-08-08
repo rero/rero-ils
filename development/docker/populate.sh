@@ -54,7 +54,7 @@ invenio fixtures importusers $VIRTUAL_ENV/src/reroils-data/data/users.json -v
 invenio fixtures importorganisations $VIRTUAL_ENV/src/reroils-data/data/organisations-members-locations.json -v
 
 # create the bib records
-dojson -i $VIRTUAL_ENV/src/reroils-data/data/10k_2017_11_10.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | invenio records create --pid-minter document_id
+dojson -i $VIRTUAL_ENV/src/reroils-data/data/10k.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | invenio records create --pid-minter document_id
 invenio index reindex --yes-i-know --pid-type doc
 invenio index run -c 4
 
