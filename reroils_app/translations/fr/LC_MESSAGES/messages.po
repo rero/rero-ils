@@ -4,12 +4,11 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a13\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-06-26 09:41+0200\n"
+"POT-Creation-Date: 2018-08-09 11:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: fr\n"
@@ -18,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Babel 2.5.3\n"
 
 #: reroils_app/config.py:26
 #: reroils_app/templates/reroils_app/frontpage.html:112
@@ -186,6 +185,34 @@ msgstr "catalogueur"
 #: reroils_app/manual_translations.txt:28
 msgid "staff"
 msgstr "professionnel"
+
+#: reroils_app/manual_translations.txt:31
+msgid "article"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:32
+msgid "book"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:33
+msgid "ebook"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:34
+msgid "journal"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:35
+msgid "score"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:36
+msgid "sound"
+msgstr ""
+
+#: reroils_app/manual_translations.txt:37
+msgid "video"
+msgstr ""
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."

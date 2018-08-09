@@ -170,3 +170,19 @@ invenio-search-facets .panel-heading h3 {
 .rero21-import {
     margin-top: 27px;
 }
+
+/****************************************
+   Icon
+  **************************************/
+.icon-document {
+    margin-top: 20px;
+    border: 1px solid #e1e1e1;
+}
+
+.icon-document-type {
+    display: block;
+    width: 58px;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 0.9em;
+}
