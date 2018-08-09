@@ -26,3 +26,12 @@ _('chi')
 _('patrons')
 _('cataloguer')
 _('staff')
+
+
+_('article')
+_('book')
+_('ebook')
+_('journal')
+_('score')
+_('sound')
+_('video')
