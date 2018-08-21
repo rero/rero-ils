@@ -63,3 +63,6 @@ invenio fixtures createitems -c 1000 -R
 
 # create circulation transactions
 invenio fixtures createcirctransactions $VIRTUAL_ENV/src/reroils-data/data/circulation_transactions.json 
+
+# put OAI configuration
+invenio oaiharvester initconfig $VIRTUAL_ENV/src/reroils-data/data/oaisources.yml

@@ -4,6 +4,8 @@
 
 from __future__ import absolute_import, print_function
 
+from datetime import timedelta
+
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 from reroils_data.documents_items.api import DocumentsWithItems
@@ -494,3 +496,20 @@ SECURITY_SEND_REGISTER_EMAIL = True
 
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
 """Allow users to login without first confirming their email address."""
+
+#: Beat schedule
+CELERY_BEAT_SCHEDULE = {
+    'indexer': {
+        'task': 'invenio_indexer.tasks.process_bulk_queue',
+        'schedule': timedelta(minutes=5),
+    },
+    'session-cleaner': {
+        'task': 'invenio_accounts.tasks.clean_session_table',
+        'schedule': timedelta(hours=24),
+    },
+    'ebooks-harvester': {
+        'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
+        'schedule': timedelta(minutes=60),
+        'kwargs': dict(name='ebooks')
+    },
+}
