@@ -100,6 +100,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/documents/<pid(doc):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     doc_csv=dict(
         pid_type='doc',
@@ -124,6 +125,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/export/documents/csv/<pid(doc):pid_value>',
         default_media_type='text/csv',
         max_result_window=20000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     org=dict(
         pid_type='org',
@@ -144,6 +146,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/organisations/<pid(org):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     item=dict(
         pid_type='item',
@@ -164,6 +167,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/items/<pid(org):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -184,6 +188,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/patrons/<pid(ptrn):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     memb=dict(
         pid_type='memb',
@@ -204,6 +209,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/members/<pid(memb):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     ),
     loc=dict(
         pid_type='loc',
@@ -224,6 +230,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/locations/<pid(loc):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
+        search_factory_imp='reroils_app.query:and_search_factory'
     )
 )
 
