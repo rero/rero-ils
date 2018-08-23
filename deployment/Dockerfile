@@ -25,7 +25,7 @@ COPY deployment/documents.json /reroils/documents.json
 COPY deployment/users.json /reroils/users.json
 COPY deployment/organisations-members-locations.json /reroils/organisations-members-locations.json
 COPY deployment/circulation_transactions.json /reroils/circulation_transactions.json
-
+COPY deployment/oaisources.yml /reroils/oaisources.yml
 # # Run container as user `invenio` with UID `1000`, which should match
 # # current host user in most situations:
 RUN adduser --uid 1000 --disabled-password --gecos '' invenio && \
