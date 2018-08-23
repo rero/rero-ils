@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: reroils-app 0.1.0a13\n"
+"Project-Id-Version: reroils-app 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-09 11:11+0000\n"
+"POT-Creation-Date: 2018-08-23 10:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
 "Language: de\n"
@@ -17,72 +17,76 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.5.3\n"
+"Generated-By: Babel 2.6.0\n"
 
-#: reroils_app/config.py:26
+#: reroils_app/config.py:28
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "French"
 msgstr "Französisch"
 
-#: reroils_app/config.py:27
+#: reroils_app/config.py:29
 #: reroils_app/templates/reroils_app/frontpage.html:112
 msgid "German"
 msgstr "Deutsch"
 
-#: reroils_app/config.py:28
+#: reroils_app/config.py:30
 msgid "Italian"
 msgstr "Italienisch"
 
-#: reroils_app/config.py:57
+#: reroils_app/config.py:59
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:346
+#: reroils_app/config.py:354
 msgid "status"
 msgstr "Status"
 
-#: reroils_app/config.py:347
+#: reroils_app/config.py:355
 msgid "location"
 msgstr "Standort"
 
-#: reroils_app/config.py:348
+#: reroils_app/config.py:356
 msgid "language"
 msgstr "Sprache"
 
-#: reroils_app/config.py:349
+#: reroils_app/config.py:357
+msgid "document_type"
+msgstr "Dokumenttyp"
+
+#: reroils_app/config.py:358
 msgid "author"
 msgstr "Autor"
 
-#: reroils_app/config.py:352
+#: reroils_app/config.py:361
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "Jahre"
 
-#: reroils_app/config.py:369
+#: reroils_app/config.py:378
 msgid "roles"
 msgstr "Rollen"
 
-#: reroils_app/config.py:400
+#: reroils_app/config.py:409
 msgid "doc"
 msgstr "Dokumente"
 
-#: reroils_app/config.py:411
+#: reroils_app/config.py:420
 msgid "item"
 msgstr "Exemplare"
 
-#: reroils_app/config.py:421
+#: reroils_app/config.py:430
 msgid "ptrn"
 msgstr "Benutzer"
 
-#: reroils_app/config.py:432
+#: reroils_app/config.py:441
 msgid "org"
 msgstr "Organisationen"
 
-#: reroils_app/config.py:439
+#: reroils_app/config.py:448
 msgid "memb"
 msgstr "Mitglieder"
 
-#: reroils_app/config.py:452
+#: reroils_app/config.py:461
 msgid "loc"
 msgstr "Lokalisationen"
 
@@ -174,45 +178,49 @@ msgstr "japanisch"
 msgid "chi"
 msgstr "chinesisch"
 
-#: reroils_app/manual_translations.txt:26
+#: reroils_app/manual_translations.txt:25
+msgid "und"
+msgstr "unbekannt"
+
+#: reroils_app/manual_translations.txt:27
 msgid "patrons"
 msgstr "Benutzer"
 
-#: reroils_app/manual_translations.txt:27
+#: reroils_app/manual_translations.txt:28
 msgid "cataloguer"
 msgstr "Katalogisierer"
 
-#: reroils_app/manual_translations.txt:28
+#: reroils_app/manual_translations.txt:29
 msgid "staff"
 msgstr "Mitarbeiter"
 
-#: reroils_app/manual_translations.txt:31
-msgid "article"
-msgstr ""
-
 #: reroils_app/manual_translations.txt:32
-msgid "book"
-msgstr ""
+msgid "article"
+msgstr "Artikel"
 
 #: reroils_app/manual_translations.txt:33
-msgid "ebook"
-msgstr ""
+msgid "book"
+msgstr "Buch"
 
 #: reroils_app/manual_translations.txt:34
-msgid "journal"
-msgstr ""
+msgid "ebook"
+msgstr "e-book"
 
 #: reroils_app/manual_translations.txt:35
-msgid "score"
-msgstr ""
+msgid "journal"
+msgstr "Zeitschrift"
 
 #: reroils_app/manual_translations.txt:36
-msgid "sound"
-msgstr ""
+msgid "score"
+msgstr "Partitur"
 
 #: reroils_app/manual_translations.txt:37
+msgid "sound"
+msgstr "Ton"
+
+#: reroils_app/manual_translations.txt:38
 msgid "video"
-msgstr ""
+msgstr "Film"
 
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."

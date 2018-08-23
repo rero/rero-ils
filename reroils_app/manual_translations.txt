@@ -22,6 +22,7 @@ _('rus')
 _('heb')
 _('jpn')
 _('chi')
+_('und')
 
 _('patrons')
 _('cataloguer')
