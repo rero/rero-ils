@@ -336,6 +336,12 @@ RECORDS_REST_FACETS = {
                     size=0
                 )
             ),
+            document_type=dict(
+                terms=dict(
+                    field='type',
+                    size=0
+                )
+            ),
             author=dict(
                 terms=dict(
                     field='facet_authors',
@@ -355,6 +361,7 @@ RECORDS_REST_FACETS = {
             _('status'): terms_filter('itemslist._circulation.status'),
             _('location'): terms_filter('itemslist.location_name'),
             _('language'): terms_filter('languages.language'),
+            _('document_type'): terms_filter('type'),
             _('author'): terms_filter('facet_authors')
         },
         post_filters={
