@@ -1,0 +1,107 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.name}}</h1>
+        </div>
+    </div>
+    {%- block record_body %}
+        <!-- {{record | tojson}} -->
+    {% if record.pid %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Organisation ID')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.pid}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.address %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Address')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.address}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.libraries|length > 0 %}
+        <h2>{{_('Libraries')}}</h2>
+        <ul class="list-group">
+            {% for library in record.libraries %}
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Name')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.name}}
+                    </div>
+                    {% if library.address %}
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Address')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.address}}
+                    </div>
+                    {% endif %}
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Code')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.code}}
+                    </div>
+                    {% if library.email %}
+                    <div class="col-xs-3 col-sm-2">
+                        {{_('Email')}}:
+                    </div>
+                    <div class="col-xs-9 col-sm-10">
+                        {{library.email}}
+                    </div>
+                    {% endif %}
+                </div>
+                {% if library.locations|length > 0 %}
+                <h3>{{_('Locations')}}</h3>
+                <ul class="list-group">
+                    {% for location in library.locations %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-2">
+                                {{_('Name')}}:
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                {{location.name}}
+                            </div>
+                            <div class="col-xs-3 col-sm-2">
+                                {{_('Code')}}:
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                {{location.code}}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        <ul>
+    {% endif %}
+    {%- endblock %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_org', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_org', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+</div>
+{%- endblock %}

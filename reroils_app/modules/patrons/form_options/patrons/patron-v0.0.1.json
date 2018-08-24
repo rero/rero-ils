@@ -1,0 +1,185 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Personal information",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "last_name"
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "first_name"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "birth_date"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Contact information",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "street"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "postal_code"
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "city"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "email"
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "phone"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Patron information",
+    "items": [
+      {
+        "key": "is_patron",
+        "description": "",
+        "type": "checkbox"
+      },
+      {
+        "key": "barcode",
+        "condition": "model.is_patron == true",
+        "htmlClass": "col-xs-6",
+        "validationMessage": {
+          "alreadyTakenMessage": "The barcode is already taken",
+          "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+        }
+      },
+      {
+        "key": "patron_type",
+        "condition": "model.is_patron == true",
+        "htmlClass": "col-xs-6"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Staff information",
+    "items": [
+      {
+        "key": "is_staff",
+        "description": "",
+        "type": "checkbox"
+      },
+      {
+        "key": "member_pid",
+        "htmlClass": "col-xs-6",
+        "condition": "model.is_staff == true"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  }
+]

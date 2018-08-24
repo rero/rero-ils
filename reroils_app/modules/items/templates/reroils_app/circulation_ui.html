@@ -1,0 +1,27 @@
+{%- extends config.BASE_TEMPLATE %}
+{%- block head_meta %}
+    <base href="/items/circulation">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- if description %}<meta name="description" content="{{ description }}" />{% endif %}
+    {%- if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+    {%- if config.get('THEME_GOOGLE_SITE_VERIFICATION', None) %}
+      {%- for google_id in config.THEME_GOOGLE_SITE_VERIFICATION %}
+    <meta name="google-site-verification" content="{{google_id}}"/>
+      {%- endfor %}
+    {%- endif %}
+    {%- endblock head_meta %}
+
+{%- block page_body %}
+<div class="container">
+    <reroils-circulation-root></reroils-circulation-root>
+</div>
+{%- endblock page_body %}
+
+{%- block javascript %}
+    {% assets "reroils_app_item_circulation_ui_js" %}
+        <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script src="{{ url_for('static', filename='js/reroils_app/circulation_ui/main.bundle_%s.js' % current_i18n.language)}}"></script>
+{%- endblock javascript %}

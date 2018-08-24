@@ -1,0 +1,118 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.last_name}}, {{record.first_name}}</h1>
+        </div>
+    </div>
+
+    {% if record.is_patron %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Barcode')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+          <a href="{{ '/items/circulation/checkinout?patron=' + record.barcode }}">
+            {{record.barcode}}
+          </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Type')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.patron_type}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.birth_date %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Birth Date')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.birth_date | format_date(format='medium_date', locale=current_i18n.locale.language) }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.email %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Email')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.email}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.street %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Street')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.street}}
+        </div>
+    </div>
+    {% endif %}
+
+
+    {% if record.postal_code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Postal Code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.postal_code}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.city %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('City')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.city}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.phone %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Phone')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.phone}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.is_staff %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.member_pid}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_ptrn', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_ptrn', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+</div>
+{%- endblock %}

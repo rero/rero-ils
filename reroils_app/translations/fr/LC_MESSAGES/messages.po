@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-23 10:37+0200\n"
+"POT-Creation-Date: 2018-08-27 17:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: fr\n"
@@ -19,76 +19,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: reroils_app/config.py:28
-#: reroils_app/templates/reroils_app/frontpage.html:112
+#: reroils_app/config.py:54
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:173
+#: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "French"
 msgstr "Français"
 
-#: reroils_app/config.py:29
-#: reroils_app/templates/reroils_app/frontpage.html:112
+#: reroils_app/config.py:55
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:177
+#: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "German"
 msgstr "Allemand"
 
-#: reroils_app/config.py:30
+#: reroils_app/config.py:56
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:185
 msgid "Italian"
 msgstr "Italien"
 
-#: reroils_app/config.py:59
+#: reroils_app/config.py:75 reroils_app/config.py:79
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:354
+#: reroils_app/config.py:117
+msgid "Welcome to RERO-ILS!"
+msgstr ""
+
+#: reroils_app/config.py:471
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:355
+#: reroils_app/config.py:472
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:356
+#: reroils_app/config.py:473
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:357
+#: reroils_app/config.py:474
 msgid "document_type"
 msgstr "Type de document"
 
-#: reroils_app/config.py:358
+#: reroils_app/config.py:475
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:361
+#: reroils_app/config.py:478
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "années"
 
-#: reroils_app/config.py:378
+#: reroils_app/config.py:495
 msgid "roles"
 msgstr "rôles"
 
-#: reroils_app/config.py:409
+#: reroils_app/config.py:526
 msgid "doc"
 msgstr "Documents"
 
-#: reroils_app/config.py:420
+#: reroils_app/config.py:537
 msgid "item"
 msgstr "Exemplaires"
 
-#: reroils_app/config.py:430
+#: reroils_app/config.py:547
 msgid "ptrn"
 msgstr "Utilisateurs"
 
-#: reroils_app/config.py:441
+#: reroils_app/config.py:558
 msgid "org"
 msgstr "Organisations"
 
-#: reroils_app/config.py:448
+#: reroils_app/config.py:565
 msgid "memb"
 msgstr "Membres"
 
-#: reroils_app/config.py:461
+#: reroils_app/config.py:578
 msgid "loc"
 msgstr "Localisations"
+
+#: reroils_app/filter.py:49
+msgid "available"
+msgstr "disponible"
+
+#: reroils_app/filter.py:51
+msgid "on_site consultation"
+msgstr "consultation sur place"
+
+#: reroils_app/filter.py:53
+msgid "not available"
+msgstr "non disponible"
+
+#: reroils_app/filter.py:60
+msgid "due until"
+msgstr "à rendre le"
+
+#: reroils_app/filter.py:62
+msgid "requested"
+msgstr "demandé"
 
 #: reroils_app/manual_translations.txt:1
 msgid "on_loan"
@@ -222,6 +249,1167 @@ msgstr "son"
 msgid "video"
 msgstr "vidéo"
 
+#. NOTE: This is a note to a translator.
+#: reroils_app/modules/ext.py:27
+msgid "A translation string"
+msgstr "A translation string"
+
+#: reroils_app/modules/documents/views.py:63
+msgid "The record has been imported."
+msgstr "La notice a été importée."
+
+#: reroils_app/modules/documents/views.py:64
+msgid "Success:"
+msgstr "Succès:"
+
+#: reroils_app/modules/documents/views.py:72
+#, python-format
+msgid "EAN (%(ean)s) not found on the BNF server."
+msgstr "Le numéro EAN (%(ean)s) n'existe pas sur le serveur de la BNF."
+
+#: reroils_app/modules/documents/views.py:74
+msgid "Warning:"
+msgstr "Alerte:"
+
+#: reroils_app/modules/documents/views.py:85
+msgid "An error occured on the BNF server."
+msgstr "Une erreur est survenue sur le serveur de la BNF."
+
+#: reroils_app/modules/documents/views.py:86
+msgid "Error:"
+msgstr "Erreur:"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:12
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:275
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:12
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:127
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:12
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:54
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:12
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:60
+#: reroils_app/modules/organisations/form_options/organisations/organisation-v0.0.1.json:12
+#: reroils_app/modules/organisations/form_options/organisations/organisation-v0.0.1.json:50
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:12
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:173
+msgid "Cancel"
+msgstr "Annuler"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:18
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:281
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:18
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:133
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:18
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:60
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:18
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:66
+#: reroils_app/modules/organisations/form_options/organisations/organisation-v0.0.1.json:18
+#: reroils_app/modules/organisations/form_options/organisations/organisation-v0.0.1.json:56
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:18
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:179
+msgid "Submit"
+msgstr "Soumettre"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:26
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:289
+msgid "Identifiers"
+msgstr "Identifiants"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:38
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:21
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:20
+msgid "Document ID"
+msgstr "ID du document"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:39
+msgid "Persistent identifier, automatically generated."
+msgstr "Identifiant persistant, généré automatiquement."
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:50
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:290
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:308
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:178
+msgid "ISBN"
+msgstr "ISBN"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:64
+msgid "Import"
+msgstr "Importer"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:77
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:42
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:41
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:256
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:52
+msgid "Title"
+msgstr "Titre"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:88
+msgid "Author(s)"
+msgstr "Auteur(s)"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:94
+msgid "new author"
+msgstr "nouvel auteur"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:96
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:145
+msgid "btn-link"
+msgstr "btn-link"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:108
+msgid "Person"
+msgstr "Personne"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:112
+#: reroils_app/modules/organisations/form_options/organisations/organisation-v0.0.1.json:26
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
+msgid "Organisation"
+msgstr "Collectivité"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:137
+msgid "Language(s) of the resource"
+msgstr "Langue(s) de la ressource"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:142
+msgid "Language(s) name"
+msgstr "Nom de la langue ou des langues"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:143
+msgid "new language"
+msgstr "nouvelle langue"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:161
+msgid "Arabic"
+msgstr "Arabe"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:165
+msgid "Chinese"
+msgstr "Chinois"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:169
+msgid "English"
+msgstr "Anglais"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:181
+msgid "Hebrew"
+msgstr "Hébreu"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:189
+msgid "Japanese"
+msgstr "Japonais"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:193
+msgid "Latin"
+msgstr "Latin"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:197
+msgid "Portuguese"
+msgstr "Portugais"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:201
+msgid "Russian"
+msgstr "Russe"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:205
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:215
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:184
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:202
+msgid "Date of publication"
+msgstr "Date de publication"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:244
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:257
+msgid "Type of the document"
+msgstr "Type du document"
+
+#: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:256
+msgid "Document type"
+msgstr "Type du document"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
+msgid "Schema for document"
+msgstr "Schéma pour un document"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:15
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:14
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:17
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:15
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:14
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
+msgid "Schema"
+msgstr "Schéma"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:16
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:15
+msgid "Schema to validate document against."
+msgstr "Schéma de validation des notices bibliographiques."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:26
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:129
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:25
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:147
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:84
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:17
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:24
+msgid "Type"
+msgstr "Type"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:27
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:26
+msgid "Document type."
+msgstr "Type de document."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:29
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:28
+msgid "Required. Type of the document. Should be selected in the list below."
+msgstr "Obligatoire. Type du document. À sélectionner dans la liste ci-dessous."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:43
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:42
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:43
+msgid "Required. Entire title without statement of responsibility."
+msgstr "Requis. Titre complet sans mention de responsabilité."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:49
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:48
+msgid "Proper or uniformed title"
+msgstr "Titre uniforme"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:50
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:49
+msgid ""
+"Uniform title, a related or an analytical title that is controlled by an "
+"authority file or list, used as an added access point."
+msgstr ""
+"Titre uniforme, un titre associé ou analytique, contrôlé par un fichier "
+"ou une liste d'autorités, et utilisé comme point d'accès supplémentaire."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:59
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:58
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:139
+msgid "Is part of"
+msgstr "Fait partie de"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:60
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:59
+msgid "Title of the host document."
+msgstr "Titre du document hôte."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:65
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:64
+msgid "Languages"
+msgstr "Langues"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:66
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:65
+msgid "List of languages for the resource."
+msgstr "Listes des langues de la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:77
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:76
+msgid "Language"
+msgstr "Langue"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:78
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:80
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:77
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:79
+msgid "Required. Language of the resource, primary or not."
+msgstr "Requis. Langue de la ressource, principale ou secondaire."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:100
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:100
+msgid "Translated from"
+msgstr "Traduit de"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:101
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:101
+msgid "Language from which a resource is translated."
+msgstr "Langue de laquelle la ressource a été traduite."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:107
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:107
+msgid ""
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
+"for English."
+msgstr ""
+"Doit être dans le format ISO 639, en 3 caractères, par exemple "
+"<code>eng</code> pour l'anglais."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:111
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:129
+msgid "Authors"
+msgstr "Auteurs"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:112
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:130
+msgid "Author(s) of the resource. Can be either persons or organisations."
+msgstr ""
+"Auteur(s) de la ressource. Peut être soit une personne soit une "
+"collectivité."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:124
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:161
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:142
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:179
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:29
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:24
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:41
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:76
+msgid "Name"
+msgstr "Nom"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:125
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:143
+msgid "Person's or organisation's name."
+msgstr "Nom de la personne ou de la collectivité."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:130
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:148
+msgid "Identify if the author is a person or an organisation."
+msgstr "Identifie si l'auteur est une personne ou une collectivité."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:139
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:157
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:56
+msgid "Date"
+msgstr "Date"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:140
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:158
+msgid ""
+"Information about the birth and the death of a person. Helpful to "
+"disambiguate people."
+msgstr ""
+"Informations sur les dates de naissance et de décès d'une personne. Utile"
+" pour distinguer les homonymes."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:144
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:162
+msgid "Qualifier"
+msgstr "Qualificatif"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:145
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:163
+msgid ""
+"Information about the person, ie her profession. Helpful to disambiguate "
+"people."
+msgstr ""
+"Informations qualifiant la personne, par exemple sa profession. Utile "
+"pour distinguer les homonymes."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:152
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:170
+msgid "Publishers"
+msgstr "Editeurs"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:153
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:171
+msgid "Publisher(s) of the resource."
+msgstr "Editeur(s) de la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:162
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:180
+msgid "Publisher's name."
+msgstr "Nom de l'éditeur."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:171
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:189
+msgid "Place of publication"
+msgstr "Lieu de publication"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:172
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:190
+msgid "Publisher's place of publication."
+msgstr "Lieu de publication de l'éditeur."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:185
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:203
+msgid ""
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
+" to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
+msgstr ""
+"Date de publication. Doit être un chiffre, par exemple 1989, 453, -50. "
+"Utilisée pour filtrer les résultats de recherche. Une fois le champ "
+"renseigné, une date de publication sous forme libre peut être ajoutée "
+"dans le champ suivant."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:189
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:207
+msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgstr "Doit être un chiffre, de -9999 à +2050. Aucun préfixe n'est nécessaire."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:192
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:210
+msgid "Date of publication (free formed)"
+msgstr "Date de publication (forme libre)"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:193
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:211
+msgid ""
+"Date of the publication in a free form. If there's a normalized date of "
+"publication, then a free formed date can be added to be displayed."
+msgstr ""
+"Date de publication sous forme libre. S'il existe une date de publication"
+" sous forme normalisée, une date sous forme libre peut être ajoutée et "
+"affichée."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:198
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:216
+msgid "Extent"
+msgstr "Importance matérielle"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:199
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:217
+msgid "Extent of the resource, ie number of pages or volumes."
+msgstr ""
+"Importance matérielle de la ressource, par exemple le nombre de pages ou "
+"de volumes."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:204
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:222
+msgid "Other Material Characteristics"
+msgstr "Autres caractéristiques matérielles"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:205
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:223
+msgid ""
+"Other Material Characteristics, ie illustrations, black and with or "
+"coloured."
+msgstr ""
+"Autres caractéristiques matérielles, par exemple des illustrations, noir "
+"et blanc ou en couleurs."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:210
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:228
+msgid "Format"
+msgstr "Format"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:211
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:229
+msgid "Format of the resource, ie dimensions in cm."
+msgstr "Format de la ressource, par exemple les dimensions en cm."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:220
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:238
+msgid "Additional materials"
+msgstr "Matériel d'accompagnement"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:221
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:239
+msgid "Accompanying material of the resource, ie maps."
+msgstr ""
+"Matériel d'accompagnement de la ressource, par exemple des cartes "
+"géographiques."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:226
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:244
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:110
+msgid "Series"
+msgstr "Collection"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:227
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:245
+msgid "Series to which belongs the resource."
+msgstr "Collection à laquelle appartient la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:257
+msgid "Title of the series."
+msgstr "Titre de la collection."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:243
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:261
+msgid "Numbering"
+msgstr "Numérotation"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:244
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:262
+msgid "Numbering of the resource within the series."
+msgstr "Numérotation de la ressource au sein de la collection."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:251
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:269
+msgid "Note"
+msgstr "Note"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:252
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:270
+msgid "Note on the resource."
+msgstr "Note sur la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:261
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:279
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:71
+msgid "Abstract"
+msgstr "Résumé"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:262
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:280
+msgid "Abstract of the resource."
+msgstr "Résumé de la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:272
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:290
+msgid "Persistent identifiers of the resource, ie reroID and ISBN."
+msgstr "Identifiants pérennes de la ressource, par exemple le reroID et l'ISBN."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:278
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:296
+msgid "reroID"
+msgstr "reroID"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:279
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:297
+msgid "Corresponding reroID of the original RERO record."
+msgstr "reroID correspondant de la notice bibliographique RERO d'origine."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:284
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:302
+msgid "bnfID"
+msgstr "bnfID"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:285
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:303
+msgid "Corresponding bnfID of the original BNF record."
+msgstr "bnfID correspondant de la notice bibliographique BNF d'origine."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:291
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:309
+msgid "ISBN of the resource."
+msgstr "ISBN de la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:294
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:312
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:319
+msgid "Should be a valid ISBN-13 without dashes."
+msgstr "Doit être un ISBN-13 valide sans traits d'union."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:299
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:324
+msgid "Subject"
+msgstr "Sujet"
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:300
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:325
+msgid "Subject of the resource."
+msgstr "Sujet de la ressource."
+
+#: reroils_app/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:334
+msgid "Document availability"
+msgstr "Disponibilité du document"
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:3
+msgid "Schema for ebooks document"
+msgstr "Schema pour les e-books."
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:111
+msgid "Electronic Location"
+msgstr "Emplacement électronique"
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:112
+msgid "Information needed to locate and access an electronic resource."
+msgstr "Information nécessaire pour accéder à une ressource électronique."
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:121
+msgid "Uniform Resource Identifier"
+msgstr "Uniform Resource Identifier"
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:122
+msgid ""
+"Uniform Resource Identifier (URI), which provides standard syntax for "
+"locating an object using existing Internet protocols."
+msgstr ""
+"Uniform Resource Identifier (URI), qui fournit une syntaxe standard pour "
+"localiser un objet en utilisant les protocoles Internet existants."
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:315
+msgid "OAI"
+msgstr "OAI"
+
+#: reroils_app/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:316
+msgid "OAI identifiers of the harvested source."
+msgstr "Identifiants OAI de la source d'origine."
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:21
+msgid "Author"
+msgstr "Auteurs"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:41
+msgid "Publisher"
+msgstr "Editeurs"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:88
+msgid "Physical description"
+msgstr "Description matérielle"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:99
+msgid "Additional Materials"
+msgstr "Matériel d'accompagnement"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:128
+msgid "Uniform title"
+msgstr "Titre uniforme"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:150
+msgid "Subjects"
+msgstr "Sujet"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:161
+msgid "Notes"
+msgstr "Notes"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:189
+msgid "Online Access"
+msgstr "Accès en ligne"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:203
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:215
+msgid "Source"
+msgstr "Source"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:226
+msgid "Permalink"
+msgstr "Permalien"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:246
+msgid "JSON"
+msgstr "JSON"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:263
+msgid "Items"
+msgstr "Exemplaires"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:267
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:61
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:38
+msgid "Add"
+msgstr "Ajouter"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:282
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:28
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_head.html:15
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:9
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:14
+msgid "Barcode"
+msgstr "Code-barre"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:297
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:53
+msgid "Call Number"
+msgstr "Cote"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:308
+msgid "Library"
+msgstr "Bibliothèque"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:319
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:76
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:33
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:26
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
+msgid "Location"
+msgstr "Localisation"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:332
+msgid "Rank"
+msgstr "Position dans la liste"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:344
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:109
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:50
+msgid "Status"
+msgstr "Statut"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:359
+msgid "Request"
+msgstr "Demander"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:363
+msgid "Available Pickup Locations"
+msgstr "Lieux de retrait disponibles"
+
+#: reroils_app/modules/documents_items/templates/reroils_app/detailed_view_documents_items.html:394
+msgid "Export Formats"
+msgstr "Formats d'export"
+
+#: reroils_app/modules/items/views.py:173
+#, python-format
+msgid "The item %s has been requested."
+msgstr "L'exemplaire %s a été demandé."
+
+#: reroils_app/modules/items/views.py:182
+msgid "Something went wrong"
+msgstr "Quelque chose s'est mal passé"
+
+#: reroils_app/modules/items/views.py:191
+#, python-format
+msgid "%(icon)s Circulation"
+msgstr "%(icon)s Prêt et retour"
+
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:45
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:136
+msgid "The barcode is already taken"
+msgstr "Le code-barres est déjà utilisé"
+
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:46
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:137
+msgid "The server cannot verify the barcode"
+msgstr "Le serveur ne peut pas vérifier le code-barres"
+
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:88
+msgid "Standard Loan"
+msgstr "Prêt standard"
+
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:92
+msgid "Short Loan"
+msgstr "Prêt court"
+
+#: reroils_app/modules/items/form_options/items/item-v0.0.1.json:96
+msgid "On Site Consultation"
+msgstr "Consultation sur place"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:4
+msgid "Item"
+msgstr "Exemplaire"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:5
+msgid "JSON schema for an item."
+msgstr "Schéma pour un exemplaire."
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:18
+msgid "Schema to validate item records against."
+msgstr "Schéma pour la validation d'un exemplaire."
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:23
+msgid "Item ID"
+msgstr "ID de l'exemplaire"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:29
+msgid "Barcode of the item."
+msgstr "Code-barres de l'exemplaire."
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:34
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:9
+msgid "Call number"
+msgstr "Cote"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:35
+msgid "Call number of the item."
+msgstr "Cote de l'exemplaire."
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:40
+msgid "Location PID"
+msgstr "PID de la localisation"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:41
+msgid "Location PID of the item."
+msgstr "PID de la localisation de l'exemplaire."
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:46
+msgid "Item type"
+msgstr "Type d'exemplaire"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:56
+msgid "Item availability"
+msgstr "Disponibilité de l'exemplaire"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:85
+msgid "Renewal count"
+msgstr "Nombre de prolongation(s)"
+
+#: reroils_app/modules/items/jsonschemas/items/item-v0.0.1.json:86
+msgid "Item renewal count."
+msgstr "Nombre de prolongation de l'exemplaire."
+
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:25
+msgid "Document"
+msgstr "Document"
+
+#: reroils_app/modules/items/templates/reroils_app/_item_head.html:41
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:26
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:4
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:102
+msgid "Member"
+msgstr "Membre"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:14
+msgid "In Transit"
+msgstr "En transit"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:22
+msgid "Loaned by"
+msgstr "Emprunté par"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:28
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:65
+msgid "Patron"
+msgstr "Lecteur"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:29
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:63
+msgid "Due date"
+msgstr "Date de retour"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:30
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:70
+msgid "Renewals"
+msgstr "Prolongations"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:59
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:19
+msgid "Pending"
+msgstr "En attente"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:66
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:58
+msgid "Pickup member"
+msgstr "Lieu de retrait"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:67
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:65
+msgid "Reservation date"
+msgstr "Date de la réservation"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:79
+msgid "No patron found!"
+msgstr "Aucun lecteur trouvé !"
+
+#: reroils_app/modules/items/templates/reroils_app/detailed_view_items.html:93
+msgid "No Date"
+msgstr "Aucune date"
+
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:35
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:38
+msgid "The code is already taken"
+msgstr "Le code est déjà utilisé"
+
+#: reroils_app/modules/locations/form_options/locations/location-v0.0.1.json:36
+#: reroils_app/modules/members/form_options/members/member-v0.0.1.json:39
+msgid "The server cannot verify the code"
+msgstr "Le serveur ne peut pas vérifier le code"
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
+msgid "JSON schema for an location"
+msgstr "Schéma pour une institution"
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:15
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:15
+msgid "Schema to validate organisation records against."
+msgstr "Schéma de validation des enregistrements d'institutions."
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:21
+msgid "Location ID"
+msgstr "ID de la localisation"
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:25
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:24
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:15
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:77
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:55
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:82
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:57
+msgid "Code"
+msgstr "Code"
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:26
+msgid "Code of the location."
+msgstr "Code de la localisation."
+
+#: reroils_app/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
+msgid "Name of the location."
+msgstr "Nom de la localisation."
+
+#: reroils_app/modules/locations/templates/reroils_app/detailed_view_locations.html:14
+msgid "Code:"
+msgstr "Code:"
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:5
+msgid "JSON schema for an member"
+msgstr "Schéma pour un exemplaire"
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:20
+#: reroils_app/modules/members/templates/reroils_app/detailed_view_members.html:14
+msgid "Member ID"
+msgstr "ID du membre"
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:25
+msgid "Code of the member."
+msgstr "Code du membre."
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:30
+msgid "Name of the member."
+msgstr "Nom du membre."
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:35
+#: reroils_app/modules/members/templates/reroils_app/detailed_view_members.html:36
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:26
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:31
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:26
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:48
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:14
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:68
+msgid "Address"
+msgstr "Adresse"
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:36
+msgid "Address of the member."
+msgstr "Adresse du membre."
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:41
+#: reroils_app/modules/members/templates/reroils_app/detailed_view_members.html:47
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:37
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:62
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:79
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:49
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:23
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:46
+msgid "Email"
+msgstr "Email"
+
+#: reroils_app/modules/members/jsonschemas/members/member-v0.0.1.json:42
+msgid "Email of the member."
+msgstr "Email du membre."
+
+#: reroils_app/modules/members/templates/reroils_app/detailed_view_members.html:25
+msgid "Member code"
+msgstr "Code du membre"
+
+#: reroils_app/modules/members_locations/templates/reroils_app/detailed_view_members_locations.html:57
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:70
+msgid "Locations"
+msgstr "Localisations"
+
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
+msgid "JSON schema for an organisation"
+msgstr "Schéma d'une organisation"
+
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:15
+msgid "Organisation ID"
+msgstr "ID de l'organisation"
+
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:25
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
+msgid "Required. Name of the organisation."
+msgstr "Obligatoire. Nom de l'organisation."
+
+#: reroils_app/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:32
+msgid "Address of the organisation."
+msgstr "Adresse de l'organisation."
+
+#: reroils_app/modules/organisations/templates/reroils_app/detailed_view_organisations.html:35
+msgid "Libraries"
+msgstr "Bibliothèques"
+
+#: reroils_app/modules/organisations_members/templates/reroils_app/detailed_view_organisations_members.html:34
+msgid "Members"
+msgstr "Membres"
+
+#: reroils_app/modules/patrons/listener.py:52
+msgid "Document at desk"
+msgstr "Document au bureau de prêt"
+
+#: reroils_app/modules/patrons/views.py:57
+#, python-format
+msgid "%(icon)s Profile"
+msgstr "%(icon)s Mon compte"
+
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:26
+msgid "Personal information"
+msgstr "Données personnelles"
+
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:65
+msgid "Contact information"
+msgstr "Information de contact"
+
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:124
+msgid "Patron information"
+msgstr "Données du compte lecteur/lectrice"
+
+#: reroils_app/modules/patrons/form_options/patrons/patron-v0.0.1.json:149
+msgid "Staff information"
+msgstr "Données du professionnel"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
+msgid "patron"
+msgstr "lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:5
+msgid "JSON schema for a patron"
+msgstr "Schéma d'un lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
+msgid "Schema to validate patron records against."
+msgstr "Schéma pour la validation d'un lecteur."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:26
+msgid "Patron ID"
+msgstr "ID du lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:30
+msgid "First name"
+msgstr "Prénom"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
+msgid "First Name is required."
+msgstr "Le prénom est obligatoire."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
+msgid "Last Name is required."
+msgstr "Le nom de famille est obligatoire."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
+msgid "Date of birth"
+msgstr "Date de naissance"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:46
+msgid "Required. Should be in the ISO 8601, YYYY-MM-DD."
+msgstr "Obligatoire. Doit être au format ISO 8601, AAAA-MM-JJ."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
+msgid "Email should have at least one <code>@</code> and one <code>.</code>"
+msgstr "L'email doit comporter au moins un <code>@</code> et un <code>.</code>"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:57
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:20
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:57
+msgid "Street"
+msgstr "Rue"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:58
+msgid "Street and number of the patron's address, separated by a coma."
+msgstr "Rue et n° de l'adresse du lecteur, séparés par une virgule."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:73
+msgid "Required."
+msgstr "Obligatoire."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:64
+msgid "Postal code"
+msgstr "Code postal"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
+msgid "Required. A valid postal code with a min of 4 characters."
+msgstr "Obligatoire. Code postal valide d'au moins 4 caractères."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:70
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_head.html:37
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:21
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:80
+msgid "City"
+msgstr "Ville"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:76
+msgid "Phone number"
+msgstr "Numéro de téléphone"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:77
+msgid "Phone number with the international prefix, without spaces."
+msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
+msgid ""
+"Phone number with the international prefix, without spaces, ie "
+"+41221234567."
+msgstr ""
+"Numéro de téléphone avec l'indicatif international, sans espaces, ex: "
+"+41221234567."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:83
+msgid "Patron's type"
+msgstr "Type de lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
+msgid "Patron's barcode or card number"
+msgstr "Code-barres ou numéro de carte du lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
+msgid "The member pid of the appartenance library"
+msgstr "Le PID du membre de la bibliothèque d'appartenance"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
+msgid "Qualify this user as a patron"
+msgstr "Ajouter à cet utilisateur le rôle de lecteur"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:105
+msgid "Qualify this user as a patron."
+msgstr "Ajoute à cet utilisateur le rôle de lecteur."
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:108
+msgid "Qualify this user as a staff member"
+msgstr "Ajouter à cet utilisateur le rôle de professionnel"
+
+#: reroils_app/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:111
+msgid "Qualify this user as a staff member."
+msgstr "Ajouter à cet utilisateur le rôle de professionnel."
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_head.html:26
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:35
+msgid "Birth Date"
+msgstr "Date de naissance"
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:5
+msgid "Patron account"
+msgstr "Compte(s) du lecteur"
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:22
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:91
+msgid "Phone"
+msgstr "Téléphone"
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:33
+msgid "Secondary address"
+msgstr "Adresse secondaire"
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:40
+msgid "Edit my personal data"
+msgstr "Modifier mes données personnelles"
+
+#: reroils_app/modules/patrons/templates/reroils_app/_patron_profile_personal.html:41
+msgid "Change my password"
+msgstr "Modifier mon mot de passe"
+
+#: reroils_app/modules/patrons/templates/reroils_app/detailed_view_patrons.html:69
+msgid "Postal Code"
+msgstr "Code postal"
+
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:16
+msgid "Loan"
+msgstr "Livre(s) emprunté(s)"
+
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:22
+msgid "Personal data"
+msgstr "Données personnelles"
+
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:30
+msgid "No loan"
+msgstr "Aucun livre emprunté"
+
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:37
+msgid "No pending"
+msgstr "Aucune réservation"
+
+#: reroils_app/modules/patrons/templates/reroils_app/patron_profile.html:56
+msgid "Belongs to"
+msgstr "Appartient à"
+
 #: reroils_app/static/templates/reroils_app/count.html:3
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
@@ -232,139 +1420,139 @@ msgstr[1] "{{$count}} résultats."
 msgid "No results found."
 msgstr "Aucun résultat."
 
-#: reroils_app/templates/reroils_app/footer.html:4
+#: reroils_app/templates/reroils_app/footer.html:10
 msgid "Developed by"
 msgstr "Réalisé par"
 
-#: reroils_app/templates/reroils_app/footer.html:4
+#: reroils_app/templates/reroils_app/footer.html:10
 msgid "using"
 msgstr "avec"
 
-#: reroils_app/templates/reroils_app/frontpage.html:15
 #: reroils_app/templates/reroils_app/frontpage.html:21
+#: reroils_app/templates/reroils_app/frontpage.html:27
 msgid "Get into your library"
 msgstr "Entrez dans votre bibliothèque"
 
-#: reroils_app/templates/reroils_app/frontpage.html:16
 #: reroils_app/templates/reroils_app/frontpage.html:22
+#: reroils_app/templates/reroils_app/frontpage.html:28
 msgid "A wealth of knowledge just a click away"
 msgstr "mille et une connaissances à portée de clic"
 
-#: reroils_app/templates/reroils_app/frontpage.html:29
+#: reroils_app/templates/reroils_app/frontpage.html:35
 msgid "What's on your mind?"
 msgstr "À quoi pensez-vous?"
 
-#: reroils_app/templates/reroils_app/frontpage.html:39
+#: reroils_app/templates/reroils_app/frontpage.html:45
 msgid "Software under development"
 msgstr "Logiciel en cours de développement"
 
-#: reroils_app/templates/reroils_app/frontpage.html:39
+#: reroils_app/templates/reroils_app/frontpage.html:45
 msgid "This is a prototype"
 msgstr "Ceci est un prototype"
 
-#: reroils_app/templates/reroils_app/frontpage.html:71
+#: reroils_app/templates/reroils_app/frontpage.html:77
 msgid "How to use this demo"
 msgstr "Comment utiliser cette démo"
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:79
 msgid "See the"
 msgstr "Consultez la"
 
-#: reroils_app/templates/reroils_app/frontpage.html:73
+#: reroils_app/templates/reroils_app/frontpage.html:79
 msgid "help page"
 msgstr "page d'aide"
 
-#: reroils_app/templates/reroils_app/frontpage.html:75
+#: reroils_app/templates/reroils_app/frontpage.html:81
 msgid "Follow Us"
 msgstr "Nous suivre"
 
-#: reroils_app/templates/reroils_app/frontpage.html:84
+#: reroils_app/templates/reroils_app/frontpage.html:90
 msgid "Scrum process"
 msgstr "Processus scrum"
 
-#: reroils_app/templates/reroils_app/frontpage.html:84
+#: reroils_app/templates/reroils_app/frontpage.html:90
 msgid "Product Backlog"
 msgstr "Product Backlog"
 
-#: reroils_app/templates/reroils_app/frontpage.html:84
+#: reroils_app/templates/reroils_app/frontpage.html:90
 msgid "Sprint&nbsp;Taskboard"
 msgstr "Sprint&nbsp;Taskboard"
 
-#: reroils_app/templates/reroils_app/frontpage.html:84
+#: reroils_app/templates/reroils_app/frontpage.html:90
 msgid "Wiki"
 msgstr "Wiki"
 
-#: reroils_app/templates/reroils_app/frontpage.html:85
+#: reroils_app/templates/reroils_app/frontpage.html:91
 msgid "on Taiga"
 msgstr "sur Taiga"
 
-#: reroils_app/templates/reroils_app/frontpage.html:93
+#: reroils_app/templates/reroils_app/frontpage.html:99
 msgid "Software source code"
 msgstr "Code source du logiciel"
 
-#: reroils_app/templates/reroils_app/frontpage.html:95
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "on GitHub"
 msgstr "sur GitHub"
 
-#: reroils_app/templates/reroils_app/frontpage.html:95
+#: reroils_app/templates/reroils_app/frontpage.html:101
 msgid "Version"
 msgstr "Version"
 
-#: reroils_app/templates/reroils_app/frontpage.html:109
+#: reroils_app/templates/reroils_app/frontpage.html:115
 msgid "Future"
 msgstr "Futur"
 
-#: reroils_app/templates/reroils_app/frontpage.html:112
+#: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "in"
 msgstr "en"
 
-#: reroils_app/templates/reroils_app/frontpage.html:112
+#: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "or"
 msgstr "ou"
 
-#: reroils_app/templates/reroils_app/frontpage.html:114
+#: reroils_app/templates/reroils_app/frontpage.html:120
 msgid "Present"
 msgstr "Actuel"
 
-#: reroils_app/templates/reroils_app/header.html:32
+#: reroils_app/templates/reroils_app/header.html:15
 msgid "Toggle navigation"
 msgstr "Activer le menu"
 
-#: reroils_app/templates/reroils_app/header.html:54
+#: reroils_app/templates/reroils_app/header.html:37
 msgid "Search"
 msgstr "Recherche"
 
-#: reroils_app/templates/reroils_app/header_login.html:27
+#: reroils_app/templates/reroils_app/header_login.html:10
 msgid "Log in"
 msgstr "S'identifier"
 
-#: reroils_app/templates/reroils_app/header_login.html:28
+#: reroils_app/templates/reroils_app/header_login.html:11
 msgid "Sign up"
 msgstr "S'enregistrer"
 
-#: reroils_app/templates/reroils_app/header_login.html:45
-#: reroils_app/templates/reroils_app/header_login.html:49
+#: reroils_app/templates/reroils_app/header_login.html:28
+#: reroils_app/templates/reroils_app/header_login.html:32
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: reroils_app/templates/reroils_app/login_user.html:34
+#: reroils_app/templates/reroils_app/login_user.html:16
 msgid "Log in to account"
 msgstr "Se connecter à votre compte."
 
-#: reroils_app/templates/reroils_app/login_user.html:43
+#: reroils_app/templates/reroils_app/login_user.html:25
 msgid "Log In"
 msgstr "S'identifier"
 
-#: reroils_app/templates/reroils_app/login_user.html:51
+#: reroils_app/templates/reroils_app/login_user.html:33
 #, python-format
 msgid "New to %(sitename)s?"
 msgstr "Pas encore inscrit·e sur %(sitename)s?"
 
-#: reroils_app/templates/reroils_app/login_user.html:51
+#: reroils_app/templates/reroils_app/login_user.html:33
 msgid "Sign Up"
 msgstr "S'inscrire"
 
-#: reroils_app/templates/reroils_app/login_user.html:58
+#: reroils_app/templates/reroils_app/login_user.html:40
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
 

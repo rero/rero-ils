@@ -1,0 +1,101 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>{{record.name}}</h1>
+        </div>
+    </div>
+    {%- block record_body %}
+    {% if record.address %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Address')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.address}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_org', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_org', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+    <!-- Members -->
+    <hr>
+    <div class='reroils-members row'>
+        <div class="col-sm-12">
+            <h3>{{_('Members')}}
+                {%- if current_user | can_edit %}
+                <a href="{{ url_for('reroils_record_editor.create_memb',
+                parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
+                </a>
+                {% endif %}
+            </h3>
+        </div>
+    </div>
+    {% if record.members %}
+    {% for member in record.members %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-10">
+            <h2>
+            <a target="_self" href="/members/{{ member.pid }}">{{ member.name }}</a>
+            </a>
+            </h2>
+        </div>
+    </div>
+    {% if member.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ _(member.code) }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if member.address %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Address')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ member.address }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if member.email %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Email')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ member.email }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_memb', pid=member.pid, parent_pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_memb', pid=member.pid, parent_pid=record.pid),
+        json=member
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+    <hr/>
+    {% endfor %}
+    {% endif %}
+
+  {%- endblock %}
+</div>
+{%- endblock %}

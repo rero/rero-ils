@@ -1,3 +1,9 @@
+{#
+  Copyright (C) 2018 RERO.
+
+  reroils-app is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
 {%- extends config.BASE_TEMPLATE %}
 
 {%- block page_header %}
@@ -70,7 +76,7 @@
     <div class="col-md-4">
         <h3>{{ _('How to use this demo') }}?</h3>
         <div class="reroils-frontpage-bullet">
-            {{ _('See the') }} <a href="https://github.com/rero/reroils-app/wiki/Public-demo-help">{{ _('help page') }}</a>.
+            {{ _('See the') }} <a href="{{ url_for('reroils_app.help') }}">{{ _('help page') }}</a>.
         </div>
         <h3>{{ _('Follow Us') }}</h3>
         <div class="reroils-frontpage-bullet">
@@ -81,7 +87,7 @@
                 </a>
             </div>
             <div class="reroils-frontpage-bullet-text">
-                {{_('Scrum process')}}: {{_('Product Backlog')}}, {{_('Sprint&nbsp;Taskboard')}}, {{_('Wiki')}}, 
+                {{_('Scrum process')}}: {{_('Product Backlog')}}, {{_('Sprint&nbsp;Taskboard')}}, {{_('Wiki')}},
                   <a href="https://tree.taiga.io/project/rero21-reroils/backlog" target="_blank">{{_('on Taiga')}}</a>
             </div>
         </div>

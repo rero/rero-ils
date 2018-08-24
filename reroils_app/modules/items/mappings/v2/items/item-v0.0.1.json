@@ -1,0 +1,95 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "item-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "barcode": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "call_number": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "location_pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "location_name": {
+          "type": "string"
+        },
+        "member_pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "member_name": {
+          "type": "string"
+        },
+        "item_type": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "requests_count": {
+          "type": "integer"
+        },
+        "_circulation": {
+          "properties": {
+            "holdings": {
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "patron_barcode": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "renewal_count": {
+                  "type": "integer"
+                },
+                "start_date": {
+                  "type": "date"
+                },
+                "end_date": {
+                  "type": "date"
+                },
+                "pickup_member_pid": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "pickup_member_name": {
+                  "type": "string"
+                }
+              }
+            },
+            "status": {
+              "type": "string",
+              "index": "not_analyzed",
+              "copy_to": "item_status"
+            }
+          }
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

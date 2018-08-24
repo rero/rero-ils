@@ -1,49 +1,75 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2018 RERO.
 #
-# Invenio is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of the
-# License, or (at your option) any later version.
-#
-# Invenio is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Invenio; if not, write to the
-# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307, USA.
-#
-# In applying this license, RERO does not
-# waive the privileges and immunities granted to it by virtue of its status
-# as an Intergovernmental Organization or submit itself to any jurisdiction.
+# reroils-app is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
 
-include MANIFEST.in
+# TODO: Generate this manifest file by running the following commands:
+#
+#  git init
+#  git add -A
+#  pip install -e .[all]
+#  check-manifest -u
+
+# Check manifest will not automatically add these two files:
 include .dockerignore
+include .editorconfig
+include .tx/config
+include docker/haproxy/Dockerfile
+include docker/nginx/Dockerfile
+include docker/postgres/Dockerfile
+include Dockerfile
+include scripts/bootstrap
+include scripts/console
+include scripts/server
+include scripts/setup
+include scripts/update
+prune docs/_build
+recursive-include reroils_app *.po *.pot *.mo
+recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+
+# added by check_manifest.py
 include *.rst
 include *.sh
 include *.txt
-include .tx/config
+include *.yml
 include LICENSE
-recursive-include reroils_app *.html
-recursive-include reroils_app *.png
-recursive-include reroils_app *.css
-recursive-include documentation *.graffle
-recursive-include documentation *.pdf
-
-prune deployment
-prune development
-prune scripts
-
-# added by check_manifest.py
 include babel.ini
-recursive-include reroils_app *.js
-recursive-include reroils_app *.po *.pot *.mo
-recursive-include reroils_app *.txt
+include pytest.ini
 
-# added by check_manifest.py
+recursive-include development *.json
+recursive-include development *.sh
+recursive-include development *.txt
+include development/docker/Dockerfile
+include development/docker/Dockerfile_elastic
+include development/tests/Dockerfile
+
+recursive-include deployment *.json
+recursive-include deployment *.sh
+recursive-include deployment *.yml
+include deployment/Dockerfile
+include deployment/jenkins/Dockerfile
+include deployment/jenkins/Jenkinsfile_deployment
+include deployment/jenkins/Jenkinsfile_development
+
+recursive-include doc *.graffle
+recursive-include doc *.pdf
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include reroils_app *.css
+recursive-include reroils_app *.gitkeep
+recursive-include reroils_app *.html
 recursive-include reroils_app *.jpg
+recursive-include reroils_app *.js
+recursive-include reroils_app *.json
+recursive-include reroils_app *.png
+recursive-include reroils_app *.scss
+recursive-include reroils_app *.txt
+recursive-include tests *.py
+recursive-include data *.json
+recursive-include data *.xml
+recursive-include data *.yml

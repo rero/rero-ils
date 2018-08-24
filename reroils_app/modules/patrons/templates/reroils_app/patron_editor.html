@@ -1,0 +1,32 @@
+{%- extends config.REROILS_RECORD_EDITOR_EDITOR_TEMPLATE %}
+
+
+{%- block schema_editor %}
+<div class="container">
+    <div class="row">
+        <schema-form ng-controller="PatronValidator"></schema-form>
+    </div>
+</div>
+{%- endblock schema_editor %}
+
+
+{%- block editor_javascript %}
+{% assets "reroils_record_editor_editor_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{% assets "reroils_app_patron_editor_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+
+<script type="text/javascript">
+    (function (angular) {
+
+        // Bootstrap it!
+        angular.element(document).ready(function() {
+            angular.bootstrap(
+                document.getElementById("reroils-editor"), [
+                    'schemaForm',
+                    'reroilsEditor',
+                    'patronEditor'
+                ]
+            );
+        });
+    })(angular);
+</script>
+{%- endblock %}

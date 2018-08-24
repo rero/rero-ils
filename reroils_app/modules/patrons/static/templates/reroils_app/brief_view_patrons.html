@@ -1,0 +1,40 @@
+<ul class='re-list'>
+  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <!-- FIXME find a better way to set the record url -->
+    <h3><a target="_self" ng-href="/patrons/{{ record.metadata.pid }}">{{record.metadata.name}}</a>
+
+    <small ng-repeat="role in record.metadata.roles | filter : 'patrons'" class="inline-headers">
+      &mdash;
+      <i class="fa fa-barcode fa-fw" aria-hidden="true"></i>
+      <a ng-href="/items/circulation/checkinout?patron={{ record.metadata.barcode }}">
+        circulation
+      </a>
+    </small>
+
+    </h3>
+
+    <!-- birth date and city -->
+    <ul class="list-inline">
+           <li>{{ record.metadata.birth_date | date:'mediumDate'}}</li>
+           <li>&mdash; {{ record.metadata.city }}</li>
+    </ul>
+    <ul class="list-inline">
+        <li ng-repeat="role in record.metadata.roles">
+            {{ role|translate }}{{ $last ? '': ', '}}
+        </li>
+    </ul>
+    <div class="text-right">
+      <ul class="list-inline">
+        <li>
+          <a ng-click="showSource=!showSource">
+            {{ 'JSON' }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-hide="!showSource">
+      <pre>{{ record | json }}</pre>
+    </div>
+    <hr />
+  </li>
+</ul>

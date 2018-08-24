@@ -1,0 +1,73 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "organisation-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "text"
+        },
+        "address": {
+          "type": "text"
+        },
+        "members": {
+          "type": "object",
+          "properties": {
+            "$schema": {
+              "type": "keyword"
+            },
+            "address": {
+              "type": "text"
+            },
+            "code": {
+              "type": "keyword"
+            },
+            "email": {
+              "type": "keyword"
+            },
+            "locations": {
+              "type": "object",
+              "properties": {
+                "$schema": {
+                  "type": "keyword"
+                },
+                "code": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "text"
+                },
+                "pid": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "name": {
+              "type": "text"
+            },
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

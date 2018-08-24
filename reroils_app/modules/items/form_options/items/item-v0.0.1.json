@@ -1,0 +1,139 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "htmlClass": "row",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "col-xs-6",
+        "items": [
+          {
+            "key": "pid",
+            "readonly": true
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "htmlClass": "col-xs-6",
+        "items": [
+          {
+            "key": "barcode",
+            "validationMessage": {
+              "alreadyTakenMessage": "The barcode is already taken",
+              "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "htmlClass": "row",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "col-xs-6",
+        "items": [
+          "call_number"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "htmlClass": "row",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "col-xs-6",
+        "items": [
+          {
+            "key": "location_pid",
+            "title": "Location"
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              {
+                "key": "item_type",
+                "title": "Type",
+                "titleMap": [
+                  {
+                    "value": "standard_loan",
+                    "name": "Standard Loan"
+                  },
+                  {
+                    "value": "short_loan",
+                    "name": "Short Loan"
+                  },
+                  {
+                    "value": "on_site_consultation",
+                    "name": "On Site Consultation"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              {
+                "key": "_circulation.status",
+                "readonly": true,
+                "title": "Status"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  }
+]

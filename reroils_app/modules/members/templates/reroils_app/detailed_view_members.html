@@ -1,0 +1,55 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.name}}</h1>
+        </div>
+    </div>
+
+    {% if record.pid %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member ID')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.pid}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.code}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.address %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Address')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.address}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.email %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Email')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.email}}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{%- endblock %}

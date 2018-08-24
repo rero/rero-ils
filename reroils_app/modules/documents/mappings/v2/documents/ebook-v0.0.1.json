@@ -1,0 +1,169 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "ebook-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "title": {
+          "type": "string"
+        },
+        "titlesProper": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "languages": {
+          "type": "object",
+          "properties": {
+            "language": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "is_part_of": {
+          "type": "string"
+        },
+        "translatedFrom": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "authors": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "copy_to": "facet_authors"
+            },
+            "type": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "date": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "qualifier": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "item_status": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "facet_authors": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "publishers": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "place": {
+              "type": "string"
+            }
+          }
+        },
+        "freeFormedPublicationDate": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "extent": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "publicationYear": {
+          "type": "date",
+          "format": "yyyy"
+        },
+        "otherMaterialCharacteristics": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "formats": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "electronic_location": {
+          "properties": {
+            "uri": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "additionalMaterials": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "series": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "number": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "abstracts": {
+          "type": "string"
+        },
+        "identifiers": {
+          "type": "object",
+          "properties": {
+            "reroID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "bnfID": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "isbn": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "oai": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "subjects": {
+          "type": "string"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

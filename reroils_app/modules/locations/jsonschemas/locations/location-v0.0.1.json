@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Location",
+  "description": "JSON schema for an location",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "code",
+    "name"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate organisation records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Location ID",
+      "type": "string"
+    },
+    "code": {
+      "title": "Code",
+      "description": "Code of the location.",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the location.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

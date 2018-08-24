@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Member",
+  "description": "JSON schema for an member",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate organisation records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Member ID",
+      "type": "string"
+    },
+    "code": {
+      "title": "Code",
+      "description": "Code of the member.",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the member.",
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "title": "Address",
+      "description": "Address of the member.",
+      "type": "string",
+      "minLength": 1
+    },
+    "email": {
+      "title": "Email",
+      "description": "Email of the member.",
+      "type": "string",
+      "format": "email",
+      "pattern": "^.*?@.*.*$",
+      "minLength": 3
+    }
+  }
+}

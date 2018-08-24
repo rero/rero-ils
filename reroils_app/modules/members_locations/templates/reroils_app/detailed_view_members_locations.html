@@ -1,0 +1,98 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.name}}</h1>
+        </div>
+    </div>
+
+   {% if record.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ _(record.code) }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if record.address %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Address')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ _(record.address) }}
+        </div>
+    </div>
+    {% endif %}
+
+   {% if record.email %}
+   <div class="row">
+       <div class="col-xs-3 col-sm-2">
+           {{_('Email')}}:
+       </div>
+       <div class="col-xs-9 col-sm-10">
+           {{ _(record.email) }}
+       </div>
+   </div>
+   {% endif %}
+
+   {% with
+        href_update=url_for('reroils_record_editor.update_memb', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_memb', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+    <!-- Locations -->
+    <hr>
+    <div class='reroils-locations row'>
+        <div class="col-sm-12">
+            <h3>{{_('Locations')}}
+                {%- if current_user | can_edit %}
+                <a href="{{ url_for('reroils_record_editor.create_loc',
+                parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
+                    <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
+                </a>
+                {% endif %}
+            </h3>
+        </div>
+    </div>
+    {% if record.locations %}
+    {% for location in record.locations %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-10">
+            <h2>{{ location.name }}</h2>
+        </div>
+    </div>
+    {% if location.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Code')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{ _(location.code) }}
+        </div>
+    </div>
+    {% endif %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_loc', pid=record.pid, parent_pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_loc', pid=record.pid, parent_pid=record.pid),
+        json=location
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+    <hr/>
+    {% endfor %}
+    {% endif %}
+
+</div>
+{%- endblock %}

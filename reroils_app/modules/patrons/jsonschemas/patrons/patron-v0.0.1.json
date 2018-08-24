@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "patron",
+  "description": "JSON schema for a patron",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "first_name",
+    "last_name",
+    "birth_date",
+    "email",
+    "street",
+    "postal_code",
+    "city"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate patron records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Patron ID",
+      "type": "string"
+    },
+    "first_name": {
+      "title": "First name",
+      "validationMessage": "First Name is required.",
+      "type": "string",
+      "minLength": 2
+    },
+    "last_name": {
+      "title": "Last name",
+      "validationMessage": "Last Name is required.",
+      "type": "string",
+      "minLength": 2
+    },
+    "birth_date": {
+      "title": "Date of birth",
+      "type": "string",
+      "format": "date",
+      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD."
+    },
+    "email": {
+      "title": "Email",
+      "type": "string",
+      "format": "email",
+      "pattern": "^.*@.*\\..*$",
+      "minLength": 6,
+      "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+    },
+    "street": {
+      "title": "Street",
+      "description": "Street and number of the patron's address, separated by a coma.",
+      "type": "string",
+      "minLength": 4,
+      "validationMessage": "Required."
+    },
+    "postal_code": {
+      "title": "Postal code",
+      "type": "string",
+      "minLength": 4,
+      "validationMessage": "Required. A valid postal code with a min of 4 characters."
+    },
+    "city": {
+      "title": "City",
+      "type": "string",
+      "minLength": 3,
+      "validationMessage": "Required."
+    },
+    "phone": {
+      "title": "Phone number",
+      "description": "Phone number with the international prefix, without spaces.",
+      "type": "string",
+      "pattern": "^\\+[0-9]*$",
+      "validationMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
+    },
+    "patron_type": {
+      "title": "Patron's type",
+      "type": "string",
+      "enum": [
+        "standard_user",
+        "with_privileges"
+      ],
+      "default": "standard_user"
+    },
+    "barcode": {
+      "title": "Patron's barcode or card number",
+      "type": "string",
+      "minLength": 6
+    },
+    "member_pid": {
+      "title": "The member pid of the appartenance library",
+      "type": "string",
+      "default": "1"
+    },
+    "is_patron": {
+      "title": "Qualify this user as a patron",
+      "type": "boolean",
+      "default": false,
+      "description": "Qualify this user as a patron."
+    },
+    "is_staff": {
+      "title": "Qualify this user as a staff member",
+      "type": "boolean",
+      "default": false,
+      "description": "Qualify this user as a staff member."
+    }
+  }
+}

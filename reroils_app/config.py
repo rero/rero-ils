@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
+#
+# Copyright (C) 2018 RERO.
+#
+# reroils-app is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
 
-"""reroils-app base Invenio configuration."""
+"""Default configuration for reroils-app.
+
+You overwrite and set instance-specific configuration by either:
+
+- Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
+- Environment variables: ``APP_<variable name>``
+"""
 
 from __future__ import absolute_import, print_function
 
@@ -8,79 +19,177 @@ from datetime import timedelta
 
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
-from reroils_data.documents_items.api import DocumentsWithItems
-from reroils_data.items.api import Item
-from reroils_data.locations.api import Location
-from reroils_data.members_locations.api import MemberWithLocations
-from reroils_data.organisations_members.api import OrganisationWithMembers
-from reroils_data.patrons.api import Patron
+
+from .modules.documents_items.api import DocumentsWithItems
+from .modules.items.api import Item
+from .modules.locations.api import Location
+from .modules.members_locations.api import MemberWithLocations
+from .modules.organisations_members.api import OrganisationWithMembers
+from .modules.patrons.api import Patron
 
 
-# Identity function for string extraction
 def _(x):
+    """Identity function used to trigger string extraction."""
     return x
 
 
-# Default language and timezone
+# Rate limiting
+# =============
+#: Storage for ratelimiter.
+RATELIMIT_STORAGE_URL = 'redis://localhost:6379/3'
+#: no needs for redis
+CACHE_TYPE = 'redis'
+USER_EMAIL = 'software@rero.ch'
+USER_PASS = 'uspass123'
+
+# I18N
+# ====
+#: Default language
 BABEL_DEFAULT_LANGUAGE = 'en'
+#: Default time zone
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
+#: Other supported languages (do not include the default language in list).
 I18N_LANGUAGES = [
     ('fr', _('French')),
     ('de', _('German')),
     ('it', _('Italian'))
 ]
 
+# Base templates
+# ==============
+#: Global base template.
+BASE_TEMPLATE = 'reroils_app/page.html'
+#: Cover page base template (used for e.g. login/sign-up).
+COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+#: Footer base template.
+FOOTER_TEMPLATE = 'invenio_theme/footer.html'
+#: Header base template.
 HEADER_TEMPLATE = 'reroils_app/header.html'
+#: Settings base template.
+SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+
+# Theme configuration
+# ===================
+#: Site name
+THEME_SITENAME = _('reroils-app')
+#: Use default frontpage.
+THEME_FRONTPAGE = False
+#: Frontpage title.
+THEME_FRONTPAGE_TITLE = _('reroils-app')
+#: Frontpage template.
+THEME_FRONTPAGE_TEMPLATE = 'reroils_app/frontpage.html'
+
 THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 THEME_HEADER_LOGIN_TEMPLATE = 'reroils_app/header_login.html'
-SECURITY_LOGIN_USER_TEMPLATE = 'reroils_app/login_user.html'
-BASE_TEMPLATE = 'reroils_app/page.html'
-REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'reroils_app/page.html'
-COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+#: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'reroils_app/trackingcode.html'
-"""Template for including a tracking code for web analytics."""
+THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
+THEME_LOGO = 'images/logo_rero_ils.png'
 
 SEARCH_UI_JSTEMPLATE_RESULTS = \
-    'templates/reroils_data/brief_view_documents_items.html'
+    'templates/reroils_app/brief_view_documents_items.html'
 SEARCH_UI_SEARCH_TEMPLATE = 'reroils_app/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/reroils_app/facets.html'
 SEARCH_UI_JSTEMPLATE_RANGE = 'templates/reroils_app/range.html'
 SEARCH_UI_JSTEMPLATE_COUNT = 'templates/reroils_app/count.html'
 
-SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
-THEME_FOOTER_TEMPLATE = 'reroils_app/footer.html'
-THEME_LOGO = 'images/logo_rero_ils.png'
+REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'reroils_app/page.html'
+SECURITY_LOGIN_USER_TEMPLATE = 'reroils_app/login_user.html'
 
-# WARNING: Do not share the secret key - especially do not commit it to
-# version control.
-SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzPqo6YwT0cprOsamTEI2vVMWdmOTp7Xn0GjzcIFs1n3baDQlicLhbI5dzyWqGBrKZS6rOpipZMdnwP1yMBtmu5dTBVfVjLd5yaTCx1iUKHjLNYMdY6k4XWUWDSIdNMfM5GF63Ar1qfRcCtzivQtYMX4UujM03rC5Ciu6osoxDMsxEwfwaMXhkUn1Py6WtttM'
+# Email configuration
+# ===================
+#: Email address for support.
+SUPPORT_EMAIL = "software@rero.ch"
+#: Disable email sending by default.
+MAIL_SUPPRESS_SEND = True
 
-# Theme
-THEME_SITENAME = _('reroils-app')
+# Assets
+# ======
+#: Static files collection method (defaults to copying files).
+COLLECT_STORAGE = 'flask_collect.storage.file'
 
-# For dev. Set to false when testing on localhost in no debug mode
+# Accounts
+# ========
+#: Email address used as sender of account registration emails.
+SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
+#: Email subject for account registration emails.
+SECURITY_EMAIL_SUBJECT_REGISTER = _(
+    "Welcome to RERO-ILS!")
+#: Redis session storage URL.
+ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
+
+# Celery configuration
+# ====================
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+#: URL of message broker for Celery (default is RabbitMQ).
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+#: URL of backend for result storage (default is Redis).
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+#: Scheduled tasks configuration (aka cronjobs).
+CELERY_BEAT_SCHEDULE = {
+    'indexer': {
+        'task': 'invenio_indexer.tasks.process_bulk_queue',
+        'schedule': timedelta(minutes=5),
+    },
+    'session-cleaner': {
+        'task': 'invenio_accounts.tasks.clean_session_table',
+        'schedule': timedelta(minutes=60),
+    },
+    'ebooks-harvester': {
+        'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
+        'schedule': timedelta(minutes=60),
+        'kwargs': dict(name='ebooks')
+    },
+}
+
+# Database
+# ========
+#: Database URI including user and password
+SQLALCHEMY_DATABASE_URI = \
+    'postgresql+psycopg2://reroils:dbpass123@localhost:5432/reroils'
+DB_VERSIONING = False
+
+# JSONSchemas
+# ===========
+#: Hostname used in URLs for local JSONSchemas.
+JSONSCHEMAS_HOST = 'ils.test.rero.ch'
+JSONSCHEMAS_ENDPOINT = '/schema'
+"""Default schema endpoint."""
+
+# Flask configuration
+# ===================
+# See details on
+# http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
+
+#: For dev. Set to false when testing on localhost in no debug mode
 APP_ENABLE_SECURE_HEADERS = False
 
-# no needs for redis
-CACHE_TYPE = 'simple'
+#: Secret key - each installation (dev, production, ...) needs a separate key.
+#: It should be changed before deploying.
+SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzPqo6YwT0cprOsamTEI2vVMWdmOTp7Xn0GjzcIFs1n3baDQlicLhbI5dzyWqGBrKZS6rOpipZMdnwP1yMBtmu5dTBVfVjLd5yaTCx1iUKHjLNYMdY6k4XWUWDSIdNMfM5GF63Ar1qfRcCtzivQtYMX4UujM03rC5Ciu6osoxDMsxEwfwaMXhkUn1Py6WtttM'
+#: Max upload size for form data via application/mulitpart-formdata.
+MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
+#: Sets cookie with the secure flag by default
+SESSION_COOKIE_SECURE = False
+#: Since HAProxy and Nginx route all requests no matter the host header
+#: provided, the allowed hosts variable is set to localhost. In production it
+#: should be set to the correct host and it is strongly recommended to only
+#: route correct hosts to the application.
+APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# OAI-PMH
+# =======
+OAISERVER_ID_PREFIX = 'oai:ils.test.rero.ch:'
 
-USER_EMAIL = 'software@rero.ch'
-USER_PASS = 'uspass123'
+# Debug
+# =====
+# Flask-DebugToolbar is by default enabled when the application is running in
+# debug mode. More configuration options are available at
+# https://flask-debugtoolbar.readthedocs.io/en/latest/#configuration
 
-SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://reroils:dbpass123@postgresql:5432/reroils'
-SEARCH_ELASTIC_HOSTS = 'elasticsearch'
-CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
-CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
-
-CIRCULATION_ITEM_SCHEMA = 'items/item-v0.0.1.json'
-
-JSONSCHEMAS_ENDPOINT = '/schema'
-JSONSCHEMAS_HOST = 'ils.test.rero.ch'
-JSONSCHEMAS_REGISTER_ENDPOINTS_UI = True
-JSONSCHEMAS_REGISTER_ENDPOINTS_API = True
-JSONSCHEMAS_REPLACE_REFS = True
-JSONSCHEMAS_RESOLVE_SCHEMA = True
+#: Switches off incept of redirects by Flask-DebugToolbar.
+DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 RECORDS_REST_ENDPOINTS = dict(
     doc=dict(
@@ -113,13 +222,13 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'text/csv': (
-                'reroils_data.documents_items.serializers'
+                'reroils_app.modules.documents_items.serializers'
                 ':documents_items_csv_v1_response'
             ),
         },
         search_serializers={
             'text/csv': (
-                'reroils_data.documents_items.serializers'
+                'reroils_app.modules.documents_items.serializers'
                 ':documents_items_csv_v1_search'
             ),
         },
@@ -240,57 +349,57 @@ RECORDS_UI_ENDPOINTS = {
     "doc": {
         "pid_type": "doc",
         "route": "/documents/<pid_value>",
-        "template": "reroils_data/detailed_view_documents_items.html",
-        "view_imp": "reroils_data.documents_items.views.doc_item_view_method",
-        "record_class": "reroils_data.documents_items.api:DocumentsWithItems"
+        "template": "reroils_app/detailed_view_documents_items.html",
+        "view_imp": "reroils_app.modules.documents_items.views.doc_item_view_method",
+        "record_class": "reroils_app.modules.documents_items.api:DocumentsWithItems"
     },
     "doc_export": {
         "pid_type": "doc",
         "route": "/documents/<pid_value>/export/<format>",
         "view_imp": "invenio_records_ui.views.export",
-        "template": "reroils_data/export_documents_items.html",
-        "record_class": 'reroils_data.documents_items.api:DocumentsWithItems',
+        "template": "reroils_app/export_documents_items.html",
+        "record_class": 'reroils_app.modules.documents_items.api:DocumentsWithItems',
     },
     "org": {
         "pid_type": "org",
         "route": "/organisations/<pid_value>",
-        "template": "reroils_data/detailed_view_organisations_members.html",
+        "template": "reroils_app/detailed_view_organisations_members.html",
         "record_class":
-            "reroils_data.organisations_members.api:OrganisationWithMembers",
+            "reroils_app.modules.organisations_members.api:OrganisationWithMembers",
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "memb": {
         "pid_type": "memb",
         "route": "/members/<pid_value>",
-        "template": "reroils_data/detailed_view_members_locations.html",
+        "template": "reroils_app/detailed_view_members_locations.html",
         "record_class":
-            "reroils_data.members_locations.api:MemberWithLocations",
+            "reroils_app.modules.members_locations.api:MemberWithLocations",
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "loc": {
         "pid_type": "loc",
         "route": "/locations/<pid_value>",
-        "template": "reroils_data/detailed_view_locations.html",
-        "record_class": 'reroils_data.locations.api:Location',
+        "template": "reroils_app/detailed_view_locations.html",
+        "record_class": 'reroils_app.modules.locations.api:Location',
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "item": {
         "pid_type": "item",
         "route": "/items/<pid_value>",
-        "template": "reroils_data/detailed_view_items.html",
-        "view_imp": "reroils_data.items.views.item_view_method",
-        "record_class": 'reroils_data.items.api:Item',
+        "template": "reroils_app/detailed_view_items.html",
+        "view_imp": "reroils_app.modules.items.views.item_view_method",
+        "record_class": 'reroils_app.modules.items.api:Item',
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
     },
     "ptrn": {
         "pid_type": "ptrn",
         "route": "/patrons/<pid_value>",
-        "template": "reroils_data/detailed_view_patrons.html",
-        "record_class": 'reroils_data.patrons.api:Patron',
+        "template": "reroils_app/detailed_view_patrons.html",
+        "record_class": 'reroils_app.modules.patrons.api:Patron',
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
 
@@ -321,25 +430,25 @@ RECORDS_REST_FACETS = {
             status=dict(
                 terms=dict(
                     field='itemslist._circulation.status',
-                    size=0
+                    size=100
                 )
             ),
             location=dict(
                 terms=dict(
                     field='itemslist.location_name',
-                    size=0
+                    size=100000
                 )
             ),
             language=dict(
                 terms=dict(
                     field='languages.language',
-                    size=0
+                    size=10000
                 )
             ),
             document_type=dict(
                 terms=dict(
                     field='type',
-                    size=0
+                    size=1000
                 )
             ),
             author=dict(
@@ -377,7 +486,7 @@ RECORDS_REST_FACETS = {
             roles=dict(
                 terms=dict(
                     field='roles',
-                    size=0
+                    size=100
                 )
             )
         ),
@@ -416,38 +525,38 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     _('doc'): dict(
         api='/api/documents/',
         search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_documents_items.html',
-        editor_template='reroils_data/document_editor.html',
+        results_template='templates/reroils_app/brief_view_documents_items.html',
+        editor_template='reroils_app/document_editor.html',
         schema='documents/document-v0.0.1.json',
-        form_options=('reroils_data.documents.form_options',
+        form_options=('reroils_app.modules.documents.form_options',
                       'documents/document-v0.0.1.json'),
         record_class=DocumentsWithItems,
         form_options_create_exclude=['pid']
     ),
     _('item'): dict(
-        editor_template='reroils_data/item_editor.html',
+        editor_template='reroils_app/item_editor.html',
         schema='items/item-v0.0.1.json',
-        form_options=('reroils_data.items.form_options',
+        form_options=('reroils_app.modules.items.form_options',
                       'items/item-v0.0.1.json'),
-        save_record='reroils_data.documents_items.utils:save_item',
-        delete_record='reroils_data.documents_items.utils:delete_item',
+        save_record='reroils_app.modules.documents_items.utils:save_item',
+        delete_record='reroils_app.modules.documents_items.utils:delete_item',
         record_class=Item,
         form_options_create_exclude=['pid']
     ),
     _('ptrn'): dict(
         api='/api/patrons/',
         schema='patrons/patron-v0.0.1.json',
-        form_options=('reroils_data.patrons.form_options',
+        form_options=('reroils_app.modules.patrons.form_options',
                       'patrons/patron-v0.0.1.json'),
-        save_record='reroils_data.patrons.utils:save_patron',
-        editor_template='reroils_data/patron_editor.html',
+        save_record='reroils_app.modules.patrons.utils:save_patron',
+        editor_template='reroils_app/patron_editor.html',
         search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_patrons.html',
+        results_template='templates/reroils_app/brief_view_patrons.html',
         record_class=Patron,
     ),
     _('org'): dict(
         schema='organisations/organisation-v0.0.1.json',
-        form_options=('reroils_data.organisations.form_options',
+        form_options=('reroils_app.modules.organisations.form_options',
                       'organisations/organisation-v0.0.1.json'),
         record_class=OrganisationWithMembers,
         form_options_create_exclude=['pid']
@@ -455,23 +564,23 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     _('memb'): dict(
         api='/api/members/',
         search_template='reroils_record_editor/search.html',
-        results_template='templates/reroils_data/brief_view_members_locations.html',
-        editor_template='reroils_data/member_editor.html',
+        results_template='templates/reroils_app/brief_view_members_locations.html',
+        editor_template='reroils_app/member_editor.html',
         schema='members/member-v0.0.1.json',
-        form_options=('reroils_data.members.form_options',
+        form_options=('reroils_app.modules.members.form_options',
                       'members/member-v0.0.1.json'),
-        save_record='reroils_data.organisations_members.utils:save_member',
-        delete_record='reroils_data.organisations_members.utils:delete_member',
+        save_record='reroils_app.modules.organisations_members.utils:save_member',
+        delete_record='reroils_app.modules.organisations_members.utils:delete_member',
         record_class=MemberWithLocations,
         form_options_create_exclude=['pid']
     ),
     _('loc'): dict(
-        editor_template='reroils_data/location_editor.html',
+        editor_template='reroils_app/location_editor.html',
         schema='locations/location-v0.0.1.json',
-        form_options=('reroils_data.locations.form_options',
+        form_options=('reroils_app.modules.locations.form_options',
                       'locations/location-v0.0.1.json'),
-        save_record='reroils_data.members_locations.utils:save_location',
-        delete_record='reroils_data.members_locations.utils:delete_location',
+        save_record='reroils_app.modules.members_locations.utils:save_location',
+        delete_record='reroils_app.modules.members_locations.utils:delete_location',
         record_class=Location,
         form_options_create_exclude=['pid']
     ),
@@ -486,37 +595,28 @@ SEARCH_UI_SEARCH_API = '/api/documents/'
 REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
 REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
 
+#: Allow password change by users.
 SECURITY_CHANGEABLE = False
-"""Allow password change by users."""
 
+#: Allow user to confirm their email address.
 SECURITY_CONFIRMABLE = True
-"""Allow user to confirm their email address."""
 
+#: Allow password recovery by users.
 SECURITY_RECOVERABLE = True
-"""Allow password recovery by users."""
 
+#: Allow users to register.
 SECURITY_REGISTERABLE = True
-"""Allow users to register."""
 
+#: Allow sending registration email.
 SECURITY_SEND_REGISTER_EMAIL = True
-"""Allow sending registration email."""
 
+#: Allow users to login without first confirming their email address.
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
-"""Allow users to login without first confirming their email address."""
 
-#: Beat schedule
-CELERY_BEAT_SCHEDULE = {
-    'indexer': {
-        'task': 'invenio_indexer.tasks.process_bulk_queue',
-        'schedule': timedelta(minutes=5),
-    },
-    'session-cleaner': {
-        'task': 'invenio_accounts.tasks.clean_session_table',
-        'schedule': timedelta(hours=24),
-    },
-    'ebooks-harvester': {
-        'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
-        'schedule': timedelta(minutes=60),
-        'kwargs': dict(name='ebooks')
-    },
-}
+#: REROILS specific configurations.
+REROILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
+    'version=1.2&operation=searchRetrieve'\
+    '&recordSchema=unimarcxchange&maximumRecords=1'\
+    '&startRecord=1&query=bib.ean%%20all%%20"%s"'
+
+REROILS_APP_HELP_PAGE = 'https://github.com/rero/reroils-app/wiki/Public-demo-help'

@@ -1,0 +1,45 @@
+<div id="patron_profile" class="container">
+    <div class="col-md-1 visible-lg visible-md">
+        <i aria-hidden="true" class="fa fa-user fa-4x"></i>
+    </div>
+    <div class="col-md-11">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{record.last_name}}, {{record.first_name}}</h1>
+            </div>
+        </div>
+
+        {% if record.barcode %}
+        <div class="row">
+            <div class="col-md-2">
+                {{_('Barcode')}}:
+            </div>
+            <div class="col-md-10">
+                {{record.barcode}}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if record.birth_date %}
+        <div class="row">
+            <div class="col-md-2">
+                {{_('Birth Date')}}:
+            </div>
+            <div class="col-md-10">
+                {{record.birth_date | format_date(format='medium_date', locale=current_i18n.locale.language) }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if record.city %}
+        <div class="row">
+            <div class="col-md-2">
+                {{_('City')}}:
+            </div>
+            <div class="col-md-10">
+                {{record.city}}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
