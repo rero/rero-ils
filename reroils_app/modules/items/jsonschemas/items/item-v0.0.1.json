@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Item",
+  "description": "JSON schema for an item.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "barcode",
+    "call_number",
+    "location_pid",
+    "item_type"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate item records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Item ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "barcode": {
+      "title": "Barcode",
+      "description": "Barcode of the item.",
+      "type": "string",
+      "minLength": 4
+    },
+    "call_number": {
+      "title": "Call number",
+      "description": "Call number of the item.",
+      "type": "string",
+      "minLength": 4
+    },
+    "location_pid": {
+      "title": "Location PID",
+      "description": "Location PID of the item.",
+      "type": "string",
+      "minLength": 1
+    },
+    "item_type": {
+      "title": "Item type",
+      "type": "string",
+      "default": "standard_loan",
+      "enum": [
+        "standard_loan",
+        "short_loan",
+        "on_site_consultation"
+      ]
+    },
+    "available": {
+      "title": "Item availability",
+      "type": "boolean",
+      "default": false
+    },
+    "_circulation": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "default": "on_shelf",
+          "enum": [
+            "on_shelf",
+            "on_loan",
+            "missing",
+            "in_transit",
+            "at_desk",
+            "excluded"
+          ]
+        },
+        "holdings": {
+          "type": "array",
+          "items": {
+            "_circulation": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string"
+                },
+                "renewal_count": {
+                  "title": "Renewal count",
+                  "description": "Item renewal count.",
+                  "type": "integer",
+                  "default": 0
+                },
+                "delivery": {
+                  "enum": [
+                    "mail",
+                    "pickup"
+                  ]
+                },
+                "group_uuid": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "end_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "desired_start_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "desired_end_date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "requested_extension_end_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

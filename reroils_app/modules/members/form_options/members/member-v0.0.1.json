@@ -1,0 +1,72 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Member",
+    "items": [
+      {
+        "key": "pid",
+        "readonly": true
+      },
+      {
+        "key": "name"
+      },
+      {
+        "key": "code",
+        "validationMessage": {
+          "alreadyTakenMessage": "The code is already taken",
+          "cannotBeVerifiedMessage": "The server cannot verify the code"
+        }
+      },
+      {
+        "key": "address"
+      },
+      {
+        "key": "email"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  }
+]

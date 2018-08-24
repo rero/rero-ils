@@ -1,0 +1,287 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Identifiers",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-4",
+            "items": [
+              {
+                "key": "pid",
+                "title": "Document ID",
+                "description": "Persistent identifier, automatically generated.",
+                "readonly": true
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-4",
+            "items": [
+              {
+                "key": "identifiers.isbn",
+                "title": "ISBN"
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-4",
+            "items": [
+              {
+                "type": "actions",
+                "items": [
+                  {
+                    "type": "button",
+                    "style": "btn-info rero21-import",
+                    "title": "Import",
+                    "onClick": "importEanFromBnf()"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Title",
+    "items": [
+      {
+        "key": "title",
+        "notitle": true,
+        "htmlClass": "rero21-required"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Author(s)",
+    "items": [
+      {
+        "key": "authors",
+        "notitle": true,
+        "description": "",
+        "add": "new author",
+        "style": {
+          "add": "btn-link"
+        },
+        "type": "array",
+        "startEmpty": true,
+        "items": [
+          {
+            "key": "authors[].type",
+            "type": "radiobuttons",
+            "notitle": true,
+            "titleMap": [
+              {
+                "value": "person",
+                "name": "Person"
+              },
+              {
+                "value": "organisation",
+                "name": "Organisation"
+              }
+            ],
+            "style": {
+              "selected": "btn-success",
+              "unselected": "btn-default"
+            }
+          },
+          {
+            "key": "authors[].name"
+          },
+          {
+            "key": "authors[].date",
+            "condition": "model.authors[arrayIndex].type == 'person'"
+          },
+          {
+            "key": "authors[].qualifier",
+            "condition": "model.authors[arrayIndex].type == 'person'"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Language(s) of the resource",
+    "items": [
+      {
+        "key": "languages",
+        "notitle": false,
+        "title": "Language(s) name",
+        "add": "new language",
+        "style": {
+          "add": "btn-link"
+        },
+        "startEmpty": false,
+        "type": "array",
+        "validationMessage": {
+          "402": "<span class=\"text-danger\">Language value should be unique!</span>"
+        },
+        "items": [
+          {
+            "key": "languages[].language",
+            "notitle": true,
+            "description": "",
+            "htmlClass": "rero21-required",
+            "titleMap": [
+              {
+                "value": "ara",
+                "name": "Arabic"
+              },
+              {
+                "value": "chi",
+                "name": "Chinese"
+              },
+              {
+                "value": "eng",
+                "name": "English"
+              },
+              {
+                "value": "fre",
+                "name": "French"
+              },
+              {
+                "value": "ger",
+                "name": "German"
+              },
+              {
+                "value": "heb",
+                "name": "Hebrew"
+              },
+              {
+                "value": "ita",
+                "name": "Italian"
+              },
+              {
+                "value": "jpn",
+                "name": "Japanese"
+              },
+              {
+                "value": "lat",
+                "name": "Latin"
+              },
+              {
+                "value": "por",
+                "name": "Portuguese"
+              },
+              {
+                "value": "rus",
+                "name": "Russian"
+              },
+              {
+                "value": "spa",
+                "name": "Spanish"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Date of publication",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              "publicationYear"
+            ]
+          },
+          {
+            "type": "section",
+            "htmlClass": "col-xs-6",
+            "items": [
+              {
+                "key": "freeFormedPublicationDate",
+                "condition": "model.publicationYear"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Type of the document",
+    "items": [
+      {
+        "type": "section",
+        "htmlClass": "row",
+        "items": [
+          {
+            "type": "section",
+            "htmlClass": "col-xs-4",
+            "items": [
+              {
+                "key": "type",
+                "title": "Document type",
+                "description": "Type of the document"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "type": "actions",
+        "htmlClass": "rero21-submit pull-right",
+        "items": [
+          {
+            "type": "button",
+            "style": "btn-warning",
+            "title": "Cancel",
+            "onClick": "onCancel()"
+          },
+          {
+            "type": "submit",
+            "style": "btn-success",
+            "title": "Submit"
+          }
+        ]
+      }
+    ]
+  }
+]

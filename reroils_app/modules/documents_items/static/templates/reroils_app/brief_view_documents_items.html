@@ -1,0 +1,43 @@
+<ul class="re-list">
+    <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+      <div class="col-xs-1">
+        <img alt="{{ record.metadata.type|translate }}" ng-src="/static/images/icon_{{ record.metadata.type }}.png" class="icon-document">
+        <span class="icon-document-type">{{ record.metadata.type|translate }}</span>
+      </div>
+      <div class="col-xs-11">
+        <h3><a target="_self" ng-href="/documents/{{ record.id }}">{{ record.metadata.title }}</a></h3>
+
+        <!-- author -->
+        <ul class="list-inline" ng-show='record.metadata.authors.length > 0'>
+            <li ng-repeat='author in record.metadata.authors.slice(0,3)'>
+                {{ author.name }}
+                {{ author.qualifier ? author.qualifier : '' }}
+                {{ author.date ? author.date : '' }}
+                {{ $last ? '' : '; ' }}
+            </li>
+            <li ng-show='record.metadata.authors.length > 3'>; …</li>
+        </ul>
+
+        <!-- is_part_of -->
+        <span ng-if="record.metadata.is_part_of">{{ record.metadata.is_part_of }}</span>
+
+        <!-- publishers -->
+        <ul class="list-inline" ng-show='record.metadata.publishers.length > 0'>
+            <li ng-repeat='publisher in record.metadata.publishers'>
+                {{ publisher.place.join(', ') }}<span ng-if="publisher.place">: </span>
+                {{ publisher.name.join(', ') }}
+                {{ $last ? '' : '; ' }}
+            </li>
+        </ul>
+
+        <!-- publicationDate -->
+        <span ng-show='record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate'>{{ record.metadata.publicationYear }}</span>
+        <span ng-show='record.metadata.freeFormedPublicationDate'>{{ record.metadata.freeFormedPublicationDate }}</span>
+        <div ng-hide="record.metadata.type == 'ebook'" class='reroils-circulation' ng-if="status = record.metadata.available ? 'available' : 'not available'">
+            <i class="fa fa-circle text-{{ record.metadata.available ? 'success' : 'danger' }}" aria-hidden="true"></i>
+            <span>{{ status|translate }}</span>
+        </div>
+        <hr />
+      </div>
+  </li>
+</ul>

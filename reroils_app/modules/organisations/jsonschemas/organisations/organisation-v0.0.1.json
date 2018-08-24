@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Organisation",
+  "description": "JSON schema for an organisation",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate organisation records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Organisation ID",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Required. Name of the organisation.",
+      "validationMessage": "Required. Name of the organisation.",
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "title": "Address",
+      "description": "Address of the organisation.",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

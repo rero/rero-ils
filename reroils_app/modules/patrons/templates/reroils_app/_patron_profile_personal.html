@@ -1,0 +1,45 @@
+<div class="container">
+<!--     <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <b>{{ _('Patron account') }}</b>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td>- {{_('Barcode')}}: {{ record.barcode }}</td>
+                            <td class="text-align-right">-</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <ul class="panel-body list-unstyled">
+                <li>{{_('Street')}}: {{ record.street }}</li>
+                <li>{{_('City')}}: {{ record.postal_code }} {{ record.city }}</li>
+                <li>{{_('Phone')}}: {{ record.phone }}</li>
+                <li>{{_('Email')}}: {{ record.email }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body">
+                <b>{{ _('Secondary address') }}</b>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm">
+        <div class="panel panel-defaut">
+            <div class="panel-body text-align-right">
+                <a href="#" class="btn btn-primary btn-space">{{ _('Edit my personal data') }}</a><br>
+                <a href="#" class="btn btn-primary btn-space">{{ _('Change my password') }}</a>
+            </div>
+        </div>
+    </div>
+</div> -->

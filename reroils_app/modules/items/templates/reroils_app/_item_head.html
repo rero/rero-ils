@@ -1,0 +1,64 @@
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ item_dumps.barcode }}</a></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Call number')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{item_dumps.call_number}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Type')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{item_dumps.item_type}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Document')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <a href="{{ '/documents/' + document.pid }}">{{ document.title }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Location')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            <a href="{{ '/locations/' + item_dumps.location_pid }}">{{ item_dumps.location_name }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Member')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+          <a href="{{ '/members/' + item_dumps.member_pid }}">{{ item_dumps.member_name }}</a>
+        </div>
+    </div>
+    {% if record._circulation.status %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Status')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+           {{ _(record._circulation.status) }}
+        </div>
+    </div>
+    {% endif %}
+    {% with
+        href_update=url_for('reroils_record_editor.update_item', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_item', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+</div>

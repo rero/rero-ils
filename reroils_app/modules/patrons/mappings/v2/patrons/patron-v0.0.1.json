@@ -1,0 +1,82 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "patron-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "first_name": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "last_name": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "name": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "birth_date": {
+          "type": "date"
+        },
+        "email": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "street": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "postal_code": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "city": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "patron_type": {
+          "type": "string"
+        },
+        "barcode": {
+          "type": "string"
+        },
+        "is_staff": {
+          "type": "boolean"
+        },
+        "is_patron": {
+          "type": "boolean"
+        },
+        "member_pid": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

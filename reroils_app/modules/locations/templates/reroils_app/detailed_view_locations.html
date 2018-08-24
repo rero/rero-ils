@@ -1,0 +1,31 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block page_body %}
+<div class="container search-page">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{record.name}}</h1>
+        </div>
+    </div>
+
+    {% if record.code %}
+    <div class="row">
+        <div class="col-xs-3 col-sm-2">
+            {{_('Code:')}}:
+        </div>
+        <div class="col-xs-9 col-sm-10">
+            {{record.code}}
+        </div>
+    </div>
+    {% endif %}
+
+    {% with
+        href_update=url_for('reroils_record_editor.update_loc', pid=record.pid),
+        href_delete=url_for('reroils_record_editor.delete_loc', pid=record.pid),
+        json=record
+    %}
+        {% include 'reroils_record_editor/_button_actions.html' %}
+    {% endwith %}
+
+</div>
+{%- endblock %}

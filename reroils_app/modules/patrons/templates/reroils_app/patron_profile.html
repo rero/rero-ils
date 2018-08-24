@@ -1,0 +1,110 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+
+{%- block css %}
+    {{ super () }}
+    {%- assets "reroils_app_patron_profile_css" %}
+        <link href="{{ ASSET_URL }}" rel="stylesheet">
+    {% endassets %}
+{%- endblock css %}
+
+{%- block page_body %}
+{% include('reroils_app/_patron_profile_head.html') %}
+
+<div id="patron_profile_tabs" class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#loan" data-toggle="tab">{{ _('Loan') }} ({{ loans|length }})</a>
+        </li>
+        <li role="presentation">
+            <a href="#pending" data-toggle="tab">{{ _('Pending') }} ({{ pendings|length }})</a>
+        </li>
+        <li role="presentation">
+            <a href="#user" data-toggle="tab">{{ _('Personal data')}}</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="loan">
+            {% if loans|length > 0 %}
+                {{ build_table('loan', loans) }}
+            {% else %}
+                <p>{{ _('No loan') }}</p>
+            {% endif %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pending">
+            {% if pendings|length > 0 %}
+                {{ build_table('pending', pendings) }}
+            {% else %}
+                <p>{{ _('No pending') }}</p>
+            {% endif %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="user">
+            {% include('reroils_app/_patron_profile_personal.html') %}
+        </div>
+    </div>
+</div>
+{%- endblock %}
+
+{% macro build_table(type, documents) %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th class="col-md-6" scope="col">{{ _('Title') }}</th>
+                <th class="col-md-2" scope="col">{{ _('Call Number') }}</th>
+                <th class="col-md-2" scope="col">
+                  {% if 'loan' == type %}
+                    {{ _('Belongs to') }}
+                  {% else %}
+                    {{ _('Pickup member') }}
+                  {% endif %}
+                </th>
+                <th class="col-md-2" scope="col">
+                    {% if 'loan' == type %}
+                        {{ _('Due date') }}
+                    {% else %}
+                        {{ _('Reservation date') }}
+                    {% endif %}
+                </th>
+                {% if 'loan' == type %}
+                <th class="col-md-1" scope="col">
+                        {{ _('Renewals') }}
+                </th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+            <tr>
+                <td>{{ document.title }}</td>
+                <td>{{ document.item.call_number }}</td>
+                <td>
+                    {% if 'loan' == type %}
+                      {{ document.item.member_name}}
+                    {% else %}
+                        {{ document.item.holding.pickup_member_name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if 'loan' == type %}
+                      {{ document.item.holding.end_date|format_date(
+                          format='short_date',
+                          locale=current_i18n.locale.language
+                      )}}
+                    {% else %}
+                        {{ document.item.holding.request_datetime|format_date(
+                          format='short_date',
+                          locale=current_i18n.locale.language
+                      )}}
+                    {% endif %}
+                </td>
+                {% if 'loan' == type %}
+                <td>
+                    {{ document.item.holding.renewal_count }}
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endmacro %}

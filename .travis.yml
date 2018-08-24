@@ -1,31 +1,23 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2018 RERO.
 #
-# Invenio is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of the
-# License, or (at your option) any later version.
-#
-# Invenio is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Invenio; if not, write to the
-# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307, USA.
-#
-# In applying this license, CERN does not
-# waive the privileges and immunities granted to it by virtue of its status
-# as an Intergovernmental Organization or submit itself to any jurisdiction.
+# reroils-app is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+
+addons:
+  chrome: stable # https://docs.travis-ci.com/user/chrome
+
+# Chrome Webdriver fails if not on sudo
+# See https://github.com/travis-ci/travis-ci/issues/8836
+sudo: true
+
+dist: trusty # Chrome driver fails if not trusty dist
 
 notifications:
-  email: false
-
-sudo: false
+  email: # sent to the committer and the author
+    on_success: never # default: always
+    on_failure: always # default: always
 
 language: python
 
@@ -35,39 +27,55 @@ matrix:
 cache:
   - pip
 
+services:
+  - postgresql
+  - redis
+  - rabbitmq
+addons:
+  postgresql: "9.6"
+
 env:
-  - REQUIREMENTS=release # DEPLOY=true
-  - REQUIREMENTS=devel
+  global:
+    # Print screenshots to console output
+    - E2E_OUTPUT=base64
+    # Enable end-to-end tests
+    - E2E=no
+  matrix:
+    - REQUIREMENTS=prod E2E=yes
+    - REQUIREMENTS=qa
 
 python:
   - "3.5"
 
 before_install:
+  - mkdir /tmp/elasticsearch
+  - wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
+  - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
+  # Chrome webdriver for Selenium
+  - "PATH=$PATH:$HOME/webdrivers"
+  - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
   - "nvm install 6; nvm use 6"
   - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
-  - "requirements-builder -e all --level=pypi setup.py > .travis-release-requirements.txt"
-  - "requirements-builder -e all --level=dev --req requirements-devel.txt setup.py > .travis-devel-requirements.txt"
+  - "cat requirements.txt > .travis-prod-requirements.txt"
+  - "requirements-builder -e all --level=pypi setup.py > .travis-qa-requirements.txt"
+  - "./scripts/bootstrap"
 
 install:
   - "travis_retry pip install -r requirements.txt"
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
-  - "travis_retry pip install -e .[tests]"
+  - "travis_retry pip install -e .[all]"
+
+before_script:
+  # https://docs.travis-ci.com/user/gui-and-headless-browsers/
+  - "export DISPLAY=:99.0"
+  - "if [ ${E2E} == 'yes' ]; then sh -e /etc/init.d/xvfb start; sleep 3; fi"
+  # Allow ES to start
+  - sleep 10
+  - wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200 && echo "Elasticsearch is up!" || cat /tmp/local-es.log
 
 script:
-  - "./run-tests.sh"
+  - ./run-tests.sh # E2E tests are skipped if E2E env is set to 'no'
 
 after_success:
   - coveralls
-
-# deploy:
-#   provider: pypi
-#   user: inveniosoftware
-#   password:
-#     secure: "HtQx/0iqKVcIdVKLx71Llufk5qmZtpYEac9Ic9ACHj7Ns/JMRBn1lP4vshMm2cWyZfzq+w0HtDO0I5KhiugBIA2vqIqqWYgV9HurZqLUusufEWL1Te6wrG+FtZzB5e77VLL7X+1fYyfiHeRU75SFRiwB1m95ALA8ghs0fjV2YAiZYN7L4NUQ0P7lOqx62azD1iBLmH94mBE6yKP3eRPmeOUTGXb5mXe/K7rRak8vhbfarVn0U0KHgzYFomANg/vhqcqAfmm600CYxEuQrfHFQWe5WNDf6yRVdkrYwIzWOGPZM7cDabZV4LpvuA0lcD26bSIflVJ6nlJtdWY7/l1HM2gtMfDW6d0iCLeBXTziIrz7g7sbPpzYalU/AVKJ7yyiSRN1uLrzOnB6cPYFWEJWGlrPcs/astDjSMKXNivJuKnGtF8eq81NNcZfVb8MhheOpmOhh87wzqU4mDwfLat2aB0vlYrKQN7e72LwOqUL1MbPVoR1+qdh8JwzJdwNNc6OCryg/gDm667vGEaMjybAL8Qv2UA7vWpizGQyYBKuoRcvPIA8CUN3uOaqKCHrX5wdnqSK8IjPlp1bsETJ+mnOaye8jYSfZDCsdBnB71wwM7NV24SE4AAgYre8rLt7b1bAiCdZs8TlF7ulwC5RGyJnqgvE2JBeZBkBxxuBFSQX7i0="
-#   distributions: "compile_catalog sdist bdist_wheel"
-#   on:
-#     tags: true
-#     python: "2.7"
-#     repo: inveniosoftware/invenio-app-ils
-#     condition: $DEPLOY = true

@@ -1,0 +1,23 @@
+<ul class='re-list'>
+  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <!-- FIXME find a better way to set the record url -->
+    <h3><a target="_self" ng-href="/members/{{ record.metadata.pid }}">{{ record.metadata.name }}</a></h3>
+      <ul class="list-inline">
+           <li>{{ record.metadata.address}}</li>
+           <li ng-if="record.metadata.email">&mdash; {{ record.metadata.email}}</li>
+      </ul>
+    <div class="text-right">
+      <ul class="list-inline">
+        <li>
+          <a ng-click="showSource=!showSource">
+            {{ 'JSON' }}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-hide="!showSource">
+      <pre>{{ record | json }}</pre>
+    </div>
+    <hr />
+  </li>
+</ul>

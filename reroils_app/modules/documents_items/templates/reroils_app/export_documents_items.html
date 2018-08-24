@@ -1,0 +1,8 @@
+{%- extends "reroils_app/detailed_view_documents_items.html" %}
+
+{%- set canonical_url = url_for('invenio_records_ui.doc', pid_value=pid.pid_value) %}
+
+{% block record_body %}
+<h3 itemprop="name"> {{ format_title }} Export</h3>
+<pre style="white-space: pre-wrap;">{{data}}</pre>
+{% endblock record_body %}

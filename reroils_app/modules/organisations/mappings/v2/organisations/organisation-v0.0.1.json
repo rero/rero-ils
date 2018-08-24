@@ -1,0 +1,82 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "organisation-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "pid": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "members": {
+          "type": "object",
+          "properties": {
+            "$schema": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "address": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "email": {
+              "type": "string",
+              "index": "not_analyzed"
+            },
+            "locations": {
+              "type": "object",
+              "properties": {
+                "$schema": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "code": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "pid": {
+                  "type": "string",
+                  "index": "not_analyzed"
+                }
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "pid": {
+              "type": "string",
+              "index": "not_analyzed"
+            }
+          }
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

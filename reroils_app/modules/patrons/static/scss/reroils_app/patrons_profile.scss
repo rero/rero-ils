@@ -1,0 +1,34 @@
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2017-2018 RERO.
+ *
+ * Invenio is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+#patron_profile {
+	margin-bottom: 1em;
+}
+
+#patron_profile h1 {
+	margin: 0;
+}
+
+#user > div:nth-child(1),
+#user > div:nth-child(2) {
+	margin-top: .5em;
+}
+
+#loan p,
+#pending p {
+	margin-top: .5em;
+	font-weight: bold;
+}
+
+.btn-space {
+    margin: 5px;
+}
+
+.text-align-right {
+	text-align: right;
+}

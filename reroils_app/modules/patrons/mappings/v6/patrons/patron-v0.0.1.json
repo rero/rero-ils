@@ -1,0 +1,72 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "patron-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "first_name": {
+          "type": "keyword"
+        },
+        "last_name": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "birth_date": {
+          "type": "date"
+        },
+        "email": {
+          "type": "keyword"
+        },
+        "street": {
+          "type": "keyword"
+        },
+        "postal_code": {
+          "type": "keyword"
+        },
+        "city": {
+          "type": "keyword"
+        },
+        "phone": {
+          "type": "text"
+        },
+        "patron_type": {
+          "type": "text"
+        },
+        "barcode": {
+          "type": "text"
+        },
+        "is_staff": {
+          "type": "boolean"
+        },
+        "is_patron": {
+          "type": "boolean"
+        },
+        "member_pid": {
+          "type": "text"
+        },
+        "roles": {
+          "type": "keyword"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

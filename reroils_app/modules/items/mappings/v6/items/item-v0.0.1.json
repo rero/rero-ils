@@ -1,0 +1,84 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "item-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "barcode": {
+          "type": "keyword"
+        },
+        "call_number": {
+          "type": "keyword"
+        },
+        "location_pid": {
+          "type": "keyword"
+        },
+        "location_name": {
+          "type": "text"
+        },
+        "member_pid": {
+          "type": "keyword"
+        },
+        "member_name": {
+          "type": "text"
+        },
+        "item_type": {
+          "type": "keyword"
+        },
+        "requests_count": {
+          "type": "integer"
+        },
+        "_circulation": {
+          "properties": {
+            "holdings": {
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                },
+                "patron_barcode": {
+                  "type": "keyword"
+                },
+                "renewal_count": {
+                  "type": "integer"
+                },
+                "start_date": {
+                  "type": "date"
+                },
+                "end_date": {
+                  "type": "date"
+                },
+                "pickup_member_pid": {
+                  "type": "keyword"
+                },
+                "pickup_member_name": {
+                  "type": "text"
+                }
+              }
+            },
+            "status": {
+              "type": "keyword",
+              "copy_to": "item_status"
+            }
+          }
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schema for document",
+  "type": "object",
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "title",
+    "languages"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate document against.",
+      "type": "string",
+      "minLength": 7
+    },
+    "pid": {
+      "title": "Document ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "title": "Type",
+      "description": "Document type.",
+      "type": "string",
+      "validationMessage": "Required. Type of the document. Should be selected in the list below.",
+      "enum": [
+        "article",
+        "book",
+        "ebook",
+        "journal",
+        "score",
+        "sound",
+        "video"
+      ],
+      "minLength": 4
+    },
+    "title": {
+      "title": "Title",
+      "description": "Required. Entire title without statement of responsibility.",
+      "validationMessage": "Required. Entire title without statement of responsibility.",
+      "type": "string",
+      "minLength": 1
+    },
+    "titlesProper": {
+      "title": "Proper or uniformed title",
+      "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "is_part_of": {
+      "title": "Is part of",
+      "description": "Title of the host document.",
+      "type": "string",
+      "minLength": 3
+    },
+    "languages": {
+      "title": "Languages",
+      "description": "List of languages for the resource.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "properties": {
+          "language": {
+            "title": "Language",
+            "description": "Required. Language of the resource, primary or not.",
+            "type": "string",
+            "validationMessage": "Required. Language of the resource, primary or not.",
+            "enum": [
+              "fre",
+              "ger",
+              "eng",
+              "ita",
+              "spa",
+              "ara",
+              "chi",
+              "lat",
+              "heb",
+              "jpn",
+              "por",
+              "rus"
+            ]
+          }
+        }
+      }
+    },
+    "translatedFrom": {
+      "title": "Translated from",
+      "description": "Language from which a resource is translated.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+      }
+    },
+    "authors": {
+      "title": "Authors",
+      "description": "Author(s) of the resource. Can be either persons or organisations.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Person's or organisation's name.",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "description": "Identify if the author is a person or an organisation.",
+            "type": "string",
+            "enum": [
+              "person",
+              "organisation"
+            ],
+            "default": "person"
+          },
+          "date": {
+            "title": "Date",
+            "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
+            "type": "string"
+          },
+          "qualifier": {
+            "title": "Qualifier",
+            "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "publishers": {
+      "title": "Publishers",
+      "description": "Publisher(s) of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Name",
+            "description": "Publisher's name.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 2
+            }
+          },
+          "place": {
+            "title": "Place of publication",
+            "description": "Publisher's place of publication.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        }
+      }
+    },
+    "publicationYear": {
+      "title": "Date of publication",
+      "description": "Date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+      "type": "integer",
+      "minimum": -9999,
+      "maximum": 2050,
+      "validationMessage": "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+    },
+    "freeFormedPublicationDate": {
+      "title": "Date of publication (free formed)",
+      "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
+      "type": "string",
+      "minLength": 3
+    },
+    "extent": {
+      "title": "Extent",
+      "description": "Extent of the resource, ie number of pages or volumes.",
+      "type": "string",
+      "minLength": 1
+    },
+    "otherMaterialCharacteristics": {
+      "title": "Other Material Characteristics",
+      "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
+      "type": "string",
+      "minLength": 1
+    },
+    "formats": {
+      "title": "Format",
+      "description": "Format of the resource, ie dimensions in cm.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additionalMaterials": {
+      "title": "Additional materials",
+      "description": "Accompanying material of the resource, ie maps.",
+      "type": "string",
+      "minLength": 1
+    },
+    "series": {
+      "title": "Series",
+      "description": "Series to which belongs the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Title",
+            "description": "Title of the series.",
+            "type": "string"
+          },
+          "number": {
+            "title": "Numbering",
+            "description": "Numbering of the resource within the series.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "title": "Note",
+      "description": "Note on the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "abstracts": {
+      "title": "Abstract",
+      "description": "Abstract of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "identifiers": {
+      "title": "Identifiers",
+      "description": "Persistent identifiers of the resource, ie reroID and ISBN.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "reroID": {
+          "title": "reroID",
+          "description": "Corresponding reroID of the original RERO record.",
+          "type": "string",
+          "minLength": 1
+        },
+        "bnfID": {
+          "title": "bnfID",
+          "description": "Corresponding bnfID of the original BNF record.",
+          "type": "string",
+          "minLength": 1
+        },
+        "isbn": {
+          "title": "ISBN",
+          "description": "ISBN of the resource.",
+          "type": "string",
+          "pattern": "^97[8|9][0-9]{10}$",
+          "validationMessage": "Should be a valid ISBN-13 without dashes."
+        }
+      }
+    },
+    "subjects": {
+      "title": "Subject",
+      "description": "Subject of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "available": {
+      "title": "Document availability",
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

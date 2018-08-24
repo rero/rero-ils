@@ -1,28 +1,18 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2018 RERO.
 #
-# Invenio is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of the
-# License, or (at your option) any later version.
+# reroils-app is free software; you can redistribute it and/or modify it
+# under the terms of the MIT License; see LICENSE file for more details.
+# This file will include pinned versions of packages
+# TODO: Generate this file by running the following commands:
 #
-# Invenio is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# pip install -e .
+# pip install pip-tools
+# pip-compile
 #
-# You should have received a copy of the GNU General Public License
-# along with Invenio; if not, write to the
-# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307, USA.
-#
-# In applying this license, RERO does not
-# waive the privileges and immunities granted to it by virtue of its status
-# as an Intergovernmental Organization or submit itself to any jurisdiction.
+# You can read more about pip-compile command here:
+# https://github.com/jazzband/pip-tools#example-usage-for-pip-compile
 
-git+https://github.com/rero/reroils-data.git@v0.1.0a18#egg=reroils-data
 git+https://github.com/rero/reroils-record-editor.git@v0.1.0a17#egg=reroils-record-editor
-
-flower
+git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4#egg=invenio-oaiharvester

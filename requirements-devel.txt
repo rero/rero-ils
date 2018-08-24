@@ -1,1 +1,73 @@
-development/requirements-devel.txt
+# -*- coding: utf-8 -*-
+#
+# This file is part of Invenio.
+# Copyright (C) 2017 RERO.
+#
+# Invenio is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# Invenio is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Invenio; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
+
+-e git+https://github.com/inveniosoftware/invenio.git#egg=invenio[postgresql,elasticsearch6,base,auth,metadata]
+
+# base bundle
+-e git+https://github.com/inveniosoftware/invenio-admin.git#egg=invenio-admin
+-e git+git://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
+-e git+git://github.com/inveniosoftware/invenio-formatter.git#egg=invenio-formatter
+-e git+git://github.com/inveniosoftware/invenio-logging.git#egg=invenio-logging
+-e git+https://github.com/inveniosoftware/invenio-mail.git#egg=invenio-mail
+-e git+https://github.com/inveniosoftware/invenio-rest.git#egg=invenio-rest
+-e git+git://github.com/inveniosoftware/invenio-theme.git#egg=invenio-theme
+
+
+# auth
+-e git+https://github.com/inveniosoftware/invenio-access.git#egg=invenio-access
+-e git+https://github.com/inveniosoftware/invenio-accounts.git#egg=invenio-accounts
+-e git+https://github.com/inveniosoftware/invenio-oauth2server.git#egg=invenio-oauth2server
+-e git+https://github.com/inveniosoftware/invenio-oauthclient.git#egg=invenio-oauthclient
+
+# metadata
+-e git+git://github.com/inveniosoftware/invenio-indexer.git#egg=invenio-indexer
+-e git+git://github.com/inveniosoftware/invenio-jsonschemas.git#egg=invenio-jsonschemas
+-e git+git://github.com/inveniosoftware/invenio-oaiserver.git#egg=invenio-oaiserver
+-e git+git://github.com/inveniosoftware/invenio-oaiharvester.git#egg=invenio-oaiharvester
+-e git+https://github.com/inveniosoftware/invenio-pidstore.git#egg=invenio-pidstore
+-e git+git://github.com/inveniosoftware/invenio-records-rest.git#egg=invenio-records-rest
+-e git+git://github.com/inveniosoftware/invenio-records-ui.git#egg=invenio-records-ui
+-e git+git://github.com/inveniosoftware/invenio-records.git#egg=invenio-records
+-e git+git://github.com/inveniosoftware/invenio-search-ui.git#egg=invenio-search-ui
+-e git+git://github.com/inveniosoftware/dojson.git#egg=dojson
+
+
+# other
+-e git+git://github.com/inveniosoftware/invenio-app.git#egg=invenio-app
+-e git+git://github.com/inveniosoftware/invenio-base.git#egg=invenio-base
+-e git+git://github.com/inveniosoftware/invenio-celery.git#egg=invenio-celery
+-e git+git://github.com/inveniosoftware/invenio-config.git#egg=invenio-config
+-e git+https://github.com/inveniosoftware/invenio-i18n.git#egg=invenio-i18n
+
+# elasticsearch
+-e git+git://github.com/inveniosoftware/invenio-search.git#egg=invenio-search[elasticsearch6]
+
+# db
+-e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql,versioning]
+# cache
+-e git+https://github.com/inveniosoftware/invenio-cache.git#egg=invenio-cache
+
+
+# RERO
+#-e git+https://github.com/rero/reroils-record-editor.git@app-data-merge#egg=reroils-record-editor
