@@ -1,9 +1,26 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 RERO.
+# This file is part of REROILS.
+# Copyright (C) 2017 RERO.
 #
-# reroils-app is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# REROILS is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# REROILS is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with REROILS; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 """Default configuration for reroils-app.
 
@@ -37,10 +54,6 @@ def _(x):
 # =============
 #: Storage for ratelimiter.
 RATELIMIT_STORAGE_URL = 'redis://localhost:6379/3'
-#: no needs for redis
-CACHE_TYPE = 'redis'
-USER_EMAIL = 'software@rero.ch'
-USER_PASS = 'uspass123'
 
 # I18N
 # ====
@@ -125,20 +138,20 @@ BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 #: URL of message broker for Celery (default is RabbitMQ).
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 #: URL of backend for result storage (default is Redis).
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
     'indexer': {
         'task': 'invenio_indexer.tasks.process_bulk_queue',
         'schedule': timedelta(minutes=5),
     },
-    'session-cleaner': {
+    'accounts': {
         'task': 'invenio_accounts.tasks.clean_session_table',
         'schedule': timedelta(minutes=60),
     },
     'ebooks-harvester': {
         'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
-        'schedule': timedelta(minutes=60),
+        'schedule': timedelta(seconds=60),
         'kwargs': dict(name='ebooks')
     },
 }
@@ -147,29 +160,30 @@ CELERY_BEAT_SCHEDULE = {
 # ========
 #: Database URI including user and password
 SQLALCHEMY_DATABASE_URI = \
-    'postgresql+psycopg2://reroils:dbpass123@localhost:5432/reroils'
+    'postgresql+psycopg2://reroils-app:reroils-app@localhost/reroils-app'
+#: Disable Versioning due to Bad Performance
 DB_VERSIONING = False
+#: Disable warning
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
 JSONSCHEMAS_HOST = 'ils.test.rero.ch'
 JSONSCHEMAS_ENDPOINT = '/schema'
-"""Default schema endpoint."""
 
 # Flask configuration
 # ===================
 # See details on
 # http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
 
-#: For dev. Set to false when testing on localhost in no debug mode
-APP_ENABLE_SECURE_HEADERS = False
-
 #: Secret key - each installation (dev, production, ...) needs a separate key.
 #: It should be changed before deploying.
-SECRET_KEY = 'vdJLhU0z3elI6NyfB0y8ZSJwabuJ4B3mgjXtVxBKUGaqKxfoirLUrVjJAMQx3zKCzPqo6YwT0cprOsamTEI2vVMWdmOTp7Xn0GjzcIFs1n3baDQlicLhbI5dzyWqGBrKZS6rOpipZMdnwP1yMBtmu5dTBVfVjLd5yaTCx1iUKHjLNYMdY6k4XWUWDSIdNMfM5GF63Ar1qfRcCtzivQtYMX4UujM03rC5Ciu6osoxDMsxEwfwaMXhkUn1Py6WtttM'
+SECRET_KEY = 'CHANGE_ME'
 #: Max upload size for form data via application/mulitpart-formdata.
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
+#: For dev. Set to false when testing on localhost in no debug mode
+APP_ENABLE_SECURE_HEADERS = False
 #: Sets cookie with the secure flag by default
 SESSION_COOKIE_SECURE = False
 #: Since HAProxy and Nginx route all requests no matter the host header
@@ -191,6 +205,8 @@ OAISERVER_ID_PREFIX = 'oai:ils.test.rero.ch:'
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+# REST API Configuration
+# ======================
 RECORDS_REST_ENDPOINTS = dict(
     doc=dict(
         pid_type='doc',
@@ -345,84 +361,12 @@ RECORDS_REST_ENDPOINTS = dict(
     )
 )
 
-RECORDS_UI_ENDPOINTS = {
-    "doc": {
-        "pid_type": "doc",
-        "route": "/documents/<pid_value>",
-        "template": "reroils_app/detailed_view_documents_items.html",
-        "view_imp": "reroils_app.modules.documents_items.views.doc_item_view_method",
-        "record_class": "reroils_app.modules.documents_items.api:DocumentsWithItems"
-    },
-    "doc_export": {
-        "pid_type": "doc",
-        "route": "/documents/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "reroils_app/export_documents_items.html",
-        "record_class": 'reroils_app.modules.documents_items.api:DocumentsWithItems',
-    },
-    "org": {
-        "pid_type": "org",
-        "route": "/organisations/<pid_value>",
-        "template": "reroils_app/detailed_view_organisations_members.html",
-        "record_class":
-            "reroils_app.modules.organisations_members.api:OrganisationWithMembers",
-        "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
-    },
-    "memb": {
-        "pid_type": "memb",
-        "route": "/members/<pid_value>",
-        "template": "reroils_app/detailed_view_members_locations.html",
-        "record_class":
-            "reroils_app.modules.members_locations.api:MemberWithLocations",
-        "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
-    },
-    "loc": {
-        "pid_type": "loc",
-        "route": "/locations/<pid_value>",
-        "template": "reroils_app/detailed_view_locations.html",
-        "record_class": 'reroils_app.modules.locations.api:Location',
-        "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
-    },
-    "item": {
-        "pid_type": "item",
-        "route": "/items/<pid_value>",
-        "template": "reroils_app/detailed_view_items.html",
-        "view_imp": "reroils_app.modules.items.views.item_view_method",
-        "record_class": 'reroils_app.modules.items.api:Item',
-        "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
-    },
-    "ptrn": {
-        "pid_type": "ptrn",
-        "route": "/patrons/<pid_value>",
-        "template": "reroils_app/detailed_view_patrons.html",
-        "record_class": 'reroils_app.modules.patrons.api:Patron',
-        "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
-
-    }
-}
-
-RECORDS_UI_EXPORT_FORMATS = {
-    'doc': {
-        'json': dict(
-            title='JSON',
-            serializer='invenio_records_rest.serializers'
-                       ':json_v1',
-            order=1,
-        )
-    }
-}
 
 REROILS_APP_SORT_FACETS = {
     'documents': 'language,author,location,status',
     'patrons': 'roles'
 }
 
-# SEARCH_UI_SEARCH_INDEX = 'records-record-v0.0.1'
 
 RECORDS_REST_FACETS = {
     'documents': dict(
@@ -518,9 +462,84 @@ RECORDS_REST_DEFAULT_SORT = {
     'documents': dict(query='bestmatch', noquery='mostrecent'),
 }
 
+# Detailed View Configuration
+# ===========================
+RECORDS_UI_ENDPOINTS = {
+    "doc": {
+        "pid_type": "doc",
+        "route": "/documents/<pid_value>",
+        "template": "reroils_app/detailed_view_documents_items.html",
+        "view_imp": "reroils_app.modules.documents_items.views.doc_item_view_method",
+        "record_class": "reroils_app.modules.documents_items.api:DocumentsWithItems"
+    },
+    "doc_export": {
+        "pid_type": "doc",
+        "route": "/documents/<pid_value>/export/<format>",
+        "view_imp": "invenio_records_ui.views.export",
+        "template": "reroils_app/export_documents_items.html",
+        "record_class": 'reroils_app.modules.documents_items.api:DocumentsWithItems',
+    },
+    "org": {
+        "pid_type": "org",
+        "route": "/organisations/<pid_value>",
+        "template": "reroils_app/detailed_view_organisations_members.html",
+        "record_class":
+            "reroils_app.modules.organisations_members.api:OrganisationWithMembers",
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
+    },
+    "memb": {
+        "pid_type": "memb",
+        "route": "/members/<pid_value>",
+        "template": "reroils_app/detailed_view_members_locations.html",
+        "record_class":
+            "reroils_app.modules.members_locations.api:MemberWithLocations",
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
+    },
+    "loc": {
+        "pid_type": "loc",
+        "route": "/locations/<pid_value>",
+        "template": "reroils_app/detailed_view_locations.html",
+        "record_class": 'reroils_app.modules.locations.api:Location',
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
+    },
+    "item": {
+        "pid_type": "item",
+        "route": "/items/<pid_value>",
+        "template": "reroils_app/detailed_view_items.html",
+        "view_imp": "reroils_app.modules.items.views.item_view_method",
+        "record_class": 'reroils_app.modules.items.api:Item',
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
+    },
+    "ptrn": {
+        "pid_type": "ptrn",
+        "route": "/patrons/<pid_value>",
+        "template": "reroils_app/detailed_view_patrons.html",
+        "record_class": 'reroils_app.modules.patrons.api:Patron',
+        "permission_factory_imp":
+            "reroils_record_editor.permissions.cataloguer_permission_factory"
 
-INDEXER_REPLACE_REFS = False
+    }
+}
 
+RECORDS_UI_EXPORT_FORMATS = {
+    'doc': {
+        'json': dict(
+            title='JSON',
+            serializer='invenio_records_rest.serializers'
+                       ':json_v1',
+            order=1,
+        )
+    }
+}
+
+
+
+# Editor Configuration
+# =====================
 REROILS_RECORD_EDITOR_OPTIONS = {
     _('doc'): dict(
         api='/api/documents/',
@@ -586,15 +605,8 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
 }
 
-REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
-    'title', 'description', 'placeholder',
-    'validationMessage', 'name', 'add', '403'
-]
-SEARCH_UI_SEARCH_API = '/api/documents/'
-# REROILS_RECORD_EDITOR_JSONSCHEMA = 'records/record-v0.0.1.json'
-REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
-REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
-
+# Login Configuration
+# ===================
 #: Allow password change by users.
 SECURITY_CHANGEABLE = False
 
@@ -612,6 +624,22 @@ SECURITY_SEND_REGISTER_EMAIL = True
 
 #: Allow users to login without first confirming their email address.
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
+
+# Misc
+INDEXER_REPLACE_REFS = False
+
+SEARCH_UI_SEARCH_API = '/api/documents/'
+
+# RERO Specific Configuration
+# ===========================
+REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
+    'title', 'description', 'placeholder',
+    'validationMessage', 'name', 'add', '403'
+]
+
+REROILS_RECORD_EDITOR_PERMALINK_RERO_URL = 'http://data.rero.ch/'
+REROILS_RECORD_EDITOR_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
+
 
 #: REROILS specific configurations.
 REROILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\

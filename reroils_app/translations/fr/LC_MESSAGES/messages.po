@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reroils-app 0.1.0a17\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-08-27 17:55+0200\n"
+"POT-Creation-Date: 2018-08-29 11:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
 "Language: fr\n"
@@ -19,81 +19,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: reroils_app/config.py:54
+#: reroils_app/config.py:49
 #: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:173
 #: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "French"
 msgstr "Français"
 
-#: reroils_app/config.py:55
+#: reroils_app/config.py:50
 #: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:177
 #: reroils_app/templates/reroils_app/frontpage.html:118
 msgid "German"
 msgstr "Allemand"
 
-#: reroils_app/config.py:56
+#: reroils_app/config.py:51
 #: reroils_app/modules/documents/form_options/documents/document-v0.0.1.json:185
 msgid "Italian"
 msgstr "Italien"
 
-#: reroils_app/config.py:75 reroils_app/config.py:79
+#: reroils_app/config.py:70 reroils_app/config.py:74
 msgid "reroils-app"
 msgstr "reroils-app"
 
-#: reroils_app/config.py:117
+#: reroils_app/config.py:112
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-#: reroils_app/config.py:471
+#: reroils_app/config.py:397
 msgid "status"
 msgstr "statut"
 
-#: reroils_app/config.py:472
+#: reroils_app/config.py:398
 msgid "location"
 msgstr "localisation"
 
-#: reroils_app/config.py:473
+#: reroils_app/config.py:399
 msgid "language"
 msgstr "langue"
 
-#: reroils_app/config.py:474
+#: reroils_app/config.py:400
 msgid "document_type"
 msgstr "Type de document"
 
-#: reroils_app/config.py:475
+#: reroils_app/config.py:401
 msgid "author"
 msgstr "auteur"
 
-#: reroils_app/config.py:478
+#: reroils_app/config.py:404
 #: reroils_app/static/templates/reroils_app/range.html:3
 msgid "years"
 msgstr "années"
 
-#: reroils_app/config.py:495
+#: reroils_app/config.py:421
 msgid "roles"
 msgstr "rôles"
 
-#: reroils_app/config.py:526
+#: reroils_app/config.py:527
 msgid "doc"
 msgstr "Documents"
 
-#: reroils_app/config.py:537
+#: reroils_app/config.py:538
 msgid "item"
 msgstr "Exemplaires"
 
-#: reroils_app/config.py:547
+#: reroils_app/config.py:548
 msgid "ptrn"
 msgstr "Utilisateurs"
 
-#: reroils_app/config.py:558
+#: reroils_app/config.py:559
 msgid "org"
 msgstr "Organisations"
 
-#: reroils_app/config.py:565
+#: reroils_app/config.py:566
 msgid "memb"
 msgstr "Membres"
 
-#: reroils_app/config.py:578
+#: reroils_app/config.py:579
 msgid "loc"
 msgstr "Localisations"
 
@@ -248,11 +248,6 @@ msgstr "son"
 #: reroils_app/manual_translations.txt:38
 msgid "video"
 msgstr "vidéo"
-
-#. NOTE: This is a note to a translator.
-#: reroils_app/modules/ext.py:27
-msgid "A translation string"
-msgstr "A translation string"
 
 #: reroils_app/modules/documents/views.py:63
 msgid "The record has been imported."
@@ -1555,4 +1550,7 @@ msgstr "S'inscrire"
 #: reroils_app/templates/reroils_app/login_user.html:40
 msgid "Forgot password?"
 msgstr "Vous avez oublié votre mot de passe?"
+
+#~ msgid "A translation string"
+#~ msgstr "A translation string"
 

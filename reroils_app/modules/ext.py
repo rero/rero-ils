@@ -1,15 +1,31 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 RERO.
+# This file is part of REROILS.
+# Copyright (C) 2017 RERO.
 #
-# reroils-app is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# REROILS is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# REROILS is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with REROILS; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 """REROILS invenio module declaration."""
 
 from __future__ import absolute_import, print_function
 
-from flask_babelex import gettext as _
 from invenio_oaiharvester.signals import oaiharvest_finished
 
 from ..filter import format_date_filter, item_status_text, to_pretty_json
@@ -17,14 +33,10 @@ from .ebooks.receivers import publish_harvested_records
 
 
 class REROILSAPP(object):
-    """rerpils-app extension."""
+    """reroils-app extension."""
 
     def __init__(self, app=None):
-        """Extension initialization."""
-        # TODO: This is an example of translation string with comment. Please
-        # remove it.
-        # NOTE: This is a note to a translator.
-        _('A translation string')
+        """RERO ILS App module."""
         if app:
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
@@ -35,7 +47,7 @@ class REROILSAPP(object):
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
-        app.extensions['rerpils-app'] = self
+        app.extensions['reroils-app'] = self
 
     def init_config(self, app):
         """Initialize configuration."""
