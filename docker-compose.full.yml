@@ -1,10 +1,34 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2018 RERO.
+# This file is part of REROILS.
+# Copyright (C) 2017 RERO.
 #
-# reroils-app is free software; you can redistribute it and/or modify it
-# under the terms of the MIT License; see LICENSE file for more details.
+# REROILS is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# REROILS is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with REROILS; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+#
+# This file is an example of what an REROILS production environment would look like.
+# Here you can find a HAProxy load balancer which redirects the traffic to the web frontend, based on nginx.
+# UI application and REST API are separate.
+# There are also a celery worker backend, which can be monitored using Flower, and basics services such as
+# a Redis cache, a database, a message broker (RabbitMQ) and ElasticSearch.
+#
 version: '2.3'
 services:
   # Load balancer
@@ -29,7 +53,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uwsgi /opt/reroils-app/var/instance/uwsgi_ui.ini
+    command: pipenv run uwsgi /opt/reroils-app/var/instance/uwsgi_ui.ini
     image: reroils-app-web-ui
     ports:
       - "5000"
@@ -45,7 +69,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uwsgi /opt/reroils-app/var/instance/uwsgi_rest.ini
+    command: pipenv run uwsgi /opt/reroils-app/var/instance/uwsgi_rest.ini
     image: reroils-app-web-api
     ports:
       - "5001"
@@ -62,7 +86,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "always"
-    command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    command: "pipenv run celery worker -A invenio_app.celery --loglevel=INFO"
     image: reroils-app-worker
     links:
       - cache

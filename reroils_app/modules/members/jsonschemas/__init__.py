@@ -22,6 +22,6 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""JSON schemas for rerpils-app."""
+"""JSON schemas for reroils-app."""
 
 from __future__ import absolute_import, print_function

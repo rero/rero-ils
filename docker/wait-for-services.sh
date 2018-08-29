@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
 # This file is part of REROILS.
@@ -22,38 +23,29 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
+# Verify that all services are running before continuing
+check_ready() {
+    RETRIES=5
+    while ! $2
+    do
+        echo "Waiting for $1, $((RETRIES--)) remaining attempts..."
+        sleep 2
+        if [ $RETRIES -eq 0 ]
+        then
+            echo "Couldn't reach $1"
+            exit 1
+        fi
+    done
+}
+_db_check(){ docker-compose exec --user postgres db bash -c "pg_isready" &>/dev/null; }
+check_ready "postgres" _db_check
 
-from flask import Blueprint, current_app, redirect, render_template
+_es_check(){ [[ $(curl -sL -w "%{http_code}\\n" "http://localhost:9200/" -o /dev/null)==200 ]]; }
+check_ready "Elasticsearch" _es_check
 
-from .version import __version__
+_redis_check(){ [[ $(docker-compose exec cache bash -c "redis-cli ping")=="PONG" ]]; }
+check_ready "redis" _redis_check
 
-blueprint = Blueprint(
-    'reroils_app',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
-)
-
-
-@blueprint.route('/ping', methods=['HEAD', 'GET'])
-def ping():
-    """Load balancer ping view."""
-    return 'OK'
-
-
-@blueprint.route('/')
-def index():
-    """Home Page."""
-    return render_template('reroils_app/frontpage.html',
-                           version=__version__)
-
-
-@blueprint.route('/help')
-def help():
-    """Help Page."""
-    return redirect(
-        current_app.config.get('REROILS_APP_HELP_PAGE'),
-        code=302)
+_rabbit_check(){ docker-compose exec mq bash -c "rabbitmqctl status" &>/dev/null; }
+check_ready "RabbitMQ" _rabbit_check
