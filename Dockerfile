@@ -24,9 +24,17 @@
 
 FROM reroils-app-base:latest
 
-COPY ./ .
+USER 0
+
+COPY ./ ${WORKING_DIR}/src
+WORKDIR ${WORKING_DIR}/src
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
-RUN ./scripts/bootstrap
+RUN chown -R invenio:invenio ${WORKING_DIR}
 
-USER ${INVENIO_USER_ID}
+USER 1000
+
+# workaround
+RUN npm uninstall --prefix `pipenv --venv` --silent -g node-sass clean-css uglify-js requirejs
+
+RUN ./scripts/bootstrap --deploy

@@ -151,7 +151,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'ebooks-harvester': {
         'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
-        'schedule': timedelta(seconds=60),
+        'schedule': timedelta(minutes=60),
         'kwargs': dict(name='ebooks')
     },
 }
@@ -440,7 +440,6 @@ RECORDS_REST_FACETS = {
     )
 }
 
-
 # sort
 RECORDS_REST_SORT_OPTIONS = {
     'documents': dict(
@@ -535,8 +534,6 @@ RECORDS_UI_EXPORT_FORMATS = {
         )
     }
 }
-
-
 
 # Editor Configuration
 # =====================

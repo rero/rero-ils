@@ -36,7 +36,7 @@ from pkg_resources import resource_filename
 def catalog(domain):
     """Return glob matching path to tranlated messages for a given domain."""
     return os.path.join(
-        resource_filename('reroils_app', 'translations'),
+        os.path.abspath(resource_filename('reroils_app', 'translations')),
         '*',  # language code
         'LC_MESSAGES',
         '{0}.po'.format(domain),

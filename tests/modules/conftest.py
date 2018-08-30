@@ -46,7 +46,7 @@ from sqlalchemy_utils.functions import create_database, database_exists
 from werkzeug.local import LocalProxy
 
 from reroils_app.modules.documents_items.api import DocumentsWithItems
-from reroils_app.modules.ext import REROILSDATA
+from reroils_app.modules.ext import REROILSAPP
 from reroils_app.modules.items.api import Item
 from reroils_app.modules.items.views import blueprint as item_blueprint
 from reroils_app.modules.locations.api import Location
@@ -419,7 +419,7 @@ def app(request):
     InvenioPIDStore(app)
     InvenioRecords(app)
     InvenioAccounts(app)
-    REROILSDATA(app)
+    REROILSAPP(app)
     InvenioAccess(app)
     InvenioJSONSchemas(app)
     InvenioRecordsUI(app)

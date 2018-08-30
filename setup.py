@@ -80,7 +80,7 @@ setup(
             'reroils-app = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
-            'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
+            # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             'reroils-app = reroils_app.modules.ext:REROILSAPP'
         ],
         'invenio_base.blueprints': [
