@@ -38,3 +38,38 @@ include scripts/update
 prune docs/_build
 recursive-include reroils_app *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+include deployment/jenkins/Dockerfile
+include deployment/jenkins/Jenkinsfile_deployment
+
+# added by check_manifest.py
+include *.base
+include *.lock
+include *.rst
+include *.sh
+include *.txt
+include *.yml
+include LICENSE
+include Pipfile
+include babel.ini
+include pytest.ini
+recursive-include data *.json
+recursive-include data *.xml
+recursive-include data *.yml
+recursive-include deployment *.yml
+recursive-include doc *.graffle
+recursive-include doc *.pdf
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include reroils_app *.css
+recursive-include reroils_app *.gitkeep
+recursive-include reroils_app *.html
+recursive-include reroils_app *.jpg
+recursive-include reroils_app *.js
+recursive-include reroils_app *.json
+recursive-include reroils_app *.png
+recursive-include reroils_app *.scss
+recursive-include reroils_app *.txt
+recursive-include tests *.py

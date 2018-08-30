@@ -44,7 +44,7 @@ services:
       file: docker-services.yml
       service: frontend
     volumes:
-      - static_data:/opt/reroils-app/var/instance/static
+      - static_data:/invenio/var/instance/static
     links:
       - web-ui
       - web-api
@@ -53,12 +53,12 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: pipenv run uwsgi /opt/reroils-app/var/instance/uwsgi_ui.ini
+    command: pipenv run uwsgi /invenio/var/instance/uwsgi_ui.ini
     image: reroils-app-web-ui
     ports:
-      - "5000"
+      - "5000:5000"
     volumes:
-      - static_data:/opt/reroils-app/var/instance/static
+      - static_data:/invenio/var/instance/static
     links:
       - cache
       - es
@@ -69,12 +69,12 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: pipenv run uwsgi /opt/reroils-app/var/instance/uwsgi_rest.ini
+    command: pipenv run uwsgi /invenio/var/instance/uwsgi_rest.ini
     image: reroils-app-web-api
     ports:
       - "5001"
     volumes:
-      - static_data:/opt/reroils-app/var/instance/static
+      - static_data:/invenio/var/instance/static
     links:
       - cache
       - es
@@ -88,6 +88,19 @@ services:
     restart: "always"
     command: "pipenv run celery worker -A invenio_app.celery --loglevel=INFO"
     image: reroils-app-worker
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # Beat
+  beat:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "always"
+    command: "pipenv run celery beat -A invenio_app.celery --loglevel=INFO"
+    image: reroils-app-beat
     links:
       - cache
       - es

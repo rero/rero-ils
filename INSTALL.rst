@@ -449,6 +449,7 @@ You can use simulate a full production environment using the
 
 .. code-block:: console
 
+    $ docker build --rm -t reroils-app-base:latest -f Dockerfile.base .
     $ docker-compose -f docker-compose.full.yml up -d
 
 In addition to the normal ``docker-compose.yml``, this one will start:
@@ -457,4 +458,5 @@ In addition to the normal ``docker-compose.yml``, this one will start:
 - Nginx (web frontend)
 - UWSGI (application container)
 - Celery (background task worker)
+- Celery (background task beat)
 - Flower (Celery monitoring)

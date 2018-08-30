@@ -71,7 +71,7 @@ pipenv run invenio fixtures importusers ${data_path}/users.json -v
 pipenv run invenio fixtures importorganisations ${data_path}/organisations-members-locations.json -v
 
 # create the bib records
-pipenv run dojson -i ${data_path}/10k.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | invenio records create --pid-minter document_id
+pipenv run dojson -i ${data_path}/10k.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | pipenv run invenio records create --pid-minter document_id
 pipenv run invenio index reindex --yes-i-know --pid-type doc
 pipenv run invenio index run -c 4
 
