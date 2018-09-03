@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 script {
-                    app_deploy = docker.build('rero/reroils-app:latest', '--rm  -f deployment/Dockerfile .')
+                    app_deploy = docker.build('rero/rero-ils:latest', '--rm  -f deployment/Dockerfile .')
                 }
             }
         }
@@ -37,9 +37,9 @@ pipeline {
                         kubectl config --kubeconfig=config-demo set-credentials dev --token=$KUBE_TOKEN
                         kubectl --kubeconfig=config-demo config use-context dev
                         kubectl --kubeconfig=config-demo apply -f deployment/kubernetes
-                        kubectl --kubeconfig=config-demo set image deployment/ils-frontend reroils-app=rero/reroils-app:$GIT_COMMIT
-                        kubectl --kubeconfig=config-demo set image deployment/ils-tasks reroils-app=rero/reroils-app:$GIT_COMMIT
-                        kubectl --kubeconfig=config-demo set image deployment/ils-tasksui reroils-app=rero/reroils-app:$GIT_COMMIT
+                        kubectl --kubeconfig=config-demo set image deployment/ils-frontend rero-ils=rero/rero-ils:$GIT_COMMIT
+                        kubectl --kubeconfig=config-demo set image deployment/ils-tasks rero-ils=rero/rero-ils:$GIT_COMMIT
+                        kubectl --kubeconfig=config-demo set image deployment/ils-tasksui rero-ils=rero/rero-ils:$GIT_COMMIT
                     '''
                 }
             }
@@ -59,7 +59,7 @@ pipeline {
             steps {
                 echo 'Cleaning....'
                 script {
-                    sh "docker rmi rero/reroils-app:latest"
+                    sh "docker rmi rero/rero-ils:latest"
                 }
             }
         }

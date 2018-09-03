@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -35,8 +35,8 @@ spec:
         tier: tasks
     spec:
       containers:
-      - name: reroils-app
-        image: rero/reroils-app:latest
+      - name: rero-ils
+        image: rero/rero-ils:latest
         command: ["celery", "-A", "invenio_app", "worker"]
         imagePullPolicy: Always
         env:
@@ -47,27 +47,27 @@ spec:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: worker-user
         - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: worker-password
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: db-user
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: db-name
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: db-password
         - name: INVENIO_SEARCH_ELASTIC_HOSTS
           value: ils-indexer:$(ILS_INDEXER_SERVICE_PORT_API)
@@ -88,12 +88,12 @@ spec:
         - name: INVENIO_MAIL_SERVER
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: mail-server
         - name: INVENIO_SECURITY_EMAIL_SENDER
           valueFrom:
             secretKeyRef:
-              name: reroils-app
+              name: rero-ils
               key: mail-sender
         volumeMounts:
           - mountPath: /data

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -31,19 +31,19 @@ from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from werkzeug.local import LocalProxy
 
-from reroils_app.modules.patrons.api import Patron
-from reroils_app.modules.patrons.utils import save_patron, structure_document
+from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.utils import save_patron, structure_document
 
 
-@mock.patch('reroils_app.modules.patrons.utils.confirm_user')
+@mock.patch('rero_ils.modules.patrons.utils.confirm_user')
 @mock.patch(
-    'reroils_app.modules.patrons.utils.send_reset_password_instructions'
+    'rero_ils.modules.patrons.utils.send_reset_password_instructions'
 )
-@mock.patch('reroils_app.modules.patrons.utils.url_for')
+@mock.patch('rero_ils.modules.patrons.utils.url_for')
 @mock.patch('reroils_record_editor.utils.url_for')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
-@mock.patch('reroils_app.modules.patrons.api.Patron._get_uuid_pid_by_email')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.patrons.api.Patron._get_uuid_pid_by_email')
 def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
                      url_for2, send_email, confirm_user, app, db,
                      minimal_patron_only_record):

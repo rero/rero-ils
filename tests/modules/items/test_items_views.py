@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -30,14 +30,14 @@ import json
 
 import mock
 
-from reroils_app.modules.items.api import Item
-from reroils_app.modules.items.models import ItemStatus
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
 
 
-@mock.patch('reroils_app.modules.patrons.api.Patron.get_patron_by_email')
+@mock.patch('rero_ils.modules.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
-@mock.patch('reroils_app.modules.patrons.listener.func_item_at_desk')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
 def test_view_return_item(func_item_at_desk, reindex, record_indexer,
                           get_patron_by_email, db, http_client,
                           create_minimal_resources
@@ -76,8 +76,8 @@ def test_view_return_item(func_item_at_desk, reindex, record_indexer,
 
 
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
-@mock.patch('reroils_app.modules.patrons.listener.func_item_at_desk')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
 def test_view_validate_item(func_item_at_desk, reindex, record_indexer,
                             db, http_client,
                             create_minimal_resources_on_shelf_req):
@@ -112,9 +112,9 @@ def test_view_validate_item(func_item_at_desk, reindex, record_indexer,
     assert item.status == ItemStatus.AT_DESK
 
 
-@mock.patch('reroils_app.modules.patrons.api.Patron.get_patron_by_email')
+@mock.patch('rero_ils.modules.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_view_receive_item(reindex, record_indexer,
                            get_patron_by_email, db, http_client,
                            create_minimal_resources_in_transit):
@@ -151,9 +151,9 @@ def test_view_receive_item(reindex, record_indexer,
     assert item.status == ItemStatus.ON_SHELF
 
 
-@mock.patch('reroils_app.modules.patrons.api.Patron.get_patron_by_email')
+@mock.patch('rero_ils.modules.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_view_loan_item(reindex, record_indexer,
                         get_patron_by_email, db, http_client,
                         create_minimal_resources_on_shelf):
@@ -193,9 +193,9 @@ def test_view_loan_item(reindex, record_indexer,
     assert item.status == ItemStatus.ON_LOAN
 
 
-@mock.patch('reroils_app.modules.patrons.api.Patron.get_patron_by_email')
+@mock.patch('rero_ils.modules.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_view_extend_loan(reindex, record_indexer,
                           get_patron_by_email, db, http_client,
                           create_minimal_resources_on_loan):
@@ -233,10 +233,10 @@ def test_view_extend_loan(reindex, record_indexer,
     assert item['_circulation']['holdings'][0]['renewal_count'] == 1
 
 
-@mock.patch('reroils_app.modules.patrons.api.Patron.get_patron_by_email')
+@mock.patch('rero_ils.modules.patrons.api.Patron.get_patron_by_email')
 @mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
-@mock.patch('reroils_app.modules.items.views.url_for')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.items.views.url_for')
 def test_view_request_item(url_for, reindex, record_indexer,
                            get_patron_by_email,
                            db, http_client,
@@ -272,7 +272,7 @@ def test_view_request_item(url_for, reindex, record_indexer,
     assert item.number_of_item_requests() == 1
 
 
-@mock.patch('reroils_app.modules.items.views.render_template')
+@mock.patch('rero_ils.modules.items.views.render_template')
 def test_view_circulation(render_template, minimal_patron_record,
                           db, http_client):
     """Test circulation items using a http post request."""

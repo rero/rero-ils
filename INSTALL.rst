@@ -1,19 +1,19 @@
 ..
-    This file is part of REROILS.
+    This file is part of RERO ILS.
     Copyright (C) 2017 RERO.
 
-    REROILS is free software; you can redistribute it
+    RERO ILS is free software; you can redistribute it
     and/or modify it under the terms of the GNU General Public License as
     published by the Free Software Foundation; either version 2 of the
     License, or (at your option) any later version.
 
-    REROILS is distributed in the hope that it will be
+    RERO ILS is distributed in the hope that it will be
     useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with REROILS; if not, write to the
+    along with RERO ILS; if not, write to the
     Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
     MA 02111-1307, USA.
 
@@ -94,7 +94,7 @@ This installation process needs to be done only once, except if you want to star
 
     celery:
       restart: "always"
-      image: rero/reroils-app:dev
+      image: rero/rero-ils:dev
       volumes:
         - changeit:/home/invenio/reroils:cached
       environment:
@@ -119,7 +119,7 @@ This installation process needs to be done only once, except if you want to star
 
     web:
       restart: "always"
-      image: rero/reroils-app:dev
+      image: rero/rero-ils:dev
       volumes:
         - changeit:/home/invenio/reroils:cached
       environment:
@@ -195,7 +195,7 @@ To enable email sending in development mode, uncomment and change the value of t
 
     docker-compose up
 
-The first time [#]_, it should take some times, but then you'll have the sources in ``<local_dir.>/src/reroils-app``. You should be able to reach the reroils-app at http://localhost:5000.
+The first time [#]_, it should take some times, but then you'll have the sources in ``<local_dir.>/src/rero-ils``. You should be able to reach the rero-ils at http://localhost:5000.
 
 **Finally**, populate the application with minimal data. Run the following command, still in the directory where the ``docker-compose.yml`` is saved:
 
@@ -203,7 +203,7 @@ The first time [#]_, it should take some times, but then you'll have the sources
 
     docker-compose exec web ./populate.sh
 
-This script will generate 10.000 bibliographic records, but create only items for 1.000 of them, due to performance reason. If you need more items, edit the ``reroils-app/development/docker/populate.sh`` script and change the line ``invenio fixtures createitems -c 1000`` into ``invenio fixtures createitems -c 10000``, or the number you want.
+This script will generate 10.000 bibliographic records, but create only items for 1.000 of them, due to performance reason. If you need more items, edit the ``rero-ils/development/docker/populate.sh`` script and change the line ``invenio fixtures createitems -c 1000`` into ``invenio fixtures createitems -c 10000``, or the number you want.
 
 
 Update the development environment
@@ -277,7 +277,7 @@ Or, you can add this variable in a ``.env`` file aside your ``docker-compose.yml
    echo "FLASK_DEBUG=1" > .env
    docker-compose up
 
-To test it, you can modify the following file: ``<local_dir.>/src/reroils-app/reroils-app/templates/index.html``, save it and then reload http://localhost:5000.
+To test it, you can modify the following file: ``<local_dir.>/src/rero-ils/rero-ils/templates/index.html``, save it and then reload http://localhost:5000.
 
 
 Development workflow
@@ -338,9 +338,9 @@ Type must be one of the following
 
 
 .. References:
-.. _GitHub: https://github.com/rero/reroils-app
-.. _Travis: https://travis-ci.org/rero/reroils-app
-.. _Docker: https://hub.docker.com/r/rero/reroils-app/
+.. _GitHub: https://github.com/rero/rero-ils
+.. _Travis: https://travis-ci.org/rero/rero-ils
+.. _Docker: https://hub.docker.com/r/rero/rero-ils/
 .. _npm: https://www.npmjs.com/org/rero
 .. _Gitter: https://gitter.im/rero/interne
 .. _Transiflex: https://www.transifex.com/rero/reroils
@@ -449,7 +449,7 @@ You can use simulate a full production environment using the
 
 .. code-block:: console
 
-    $ docker build --rm -t reroils-app-base:latest -f Dockerfile.base .
+    $ docker build --rm -t rero-ils-base:latest -f Dockerfile.base .
     $ docker-compose -f docker-compose.full.yml up -d
 
 In addition to the normal ``docker-compose.yml``, this one will start:

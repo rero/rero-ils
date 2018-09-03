@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -31,10 +31,9 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
 
-from reroils_app.modules.locations.api import Location
-from reroils_app.modules.members_locations.api import MemberWithLocations
-from reroils_app.modules.members_locations.models import \
-    MembersLocationsMetadata
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.members_locations.api import MemberWithLocations
+from rero_ils.modules.members_locations.models import MembersLocationsMetadata
 
 
 def test_members_locations_create(db, minimal_member_record,
@@ -52,7 +51,7 @@ def test_members_locations_create(db, minimal_member_record,
     assert dump['locations'][0] == loc.dumps()
 
 
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_delete_location(reindex, db,
                          minimal_member_record, minimal_location_record):
     """Test MembersLocations delete."""
@@ -77,7 +76,7 @@ def test_delete_location(reindex, db,
     assert memb.locations[1]['pid'] == '4'
 
 
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_delete_member(reindex, db,
                        minimal_member_record, minimal_location_record):
     """Test Member delete."""

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -45,12 +45,12 @@ from invenio_records_ui import InvenioRecordsUI
 from sqlalchemy_utils.functions import create_database, database_exists
 from werkzeug.local import LocalProxy
 
-from reroils_app.modules.documents_items.api import DocumentsWithItems
-from reroils_app.modules.ext import REROILSAPP
-from reroils_app.modules.items.api import Item
-from reroils_app.modules.items.views import blueprint as item_blueprint
-from reroils_app.modules.locations.api import Location
-from reroils_app.modules.members_locations.api import MemberWithLocations
+from rero_ils.modules.documents_items.api import DocumentsWithItems
+from rero_ils.modules.ext import REROILSAPP
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.views import blueprint as item_blueprint
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.members_locations.api import MemberWithLocations
 
 # TODO: get url dynamiclly
 url_schema = 'http://ils.test.rero.ch/schema'
@@ -410,7 +410,7 @@ def app(request):
             "doc": {
                 "pid_type": "doc",
                 "route": "/documents/<pid_value>",
-                "template": "reroils_app/detailed_view_documents_items.html"
+                "template": "rero_ils/detailed_view_documents_items.html"
             }
         }
     )

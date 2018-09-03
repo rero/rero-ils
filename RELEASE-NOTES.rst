@@ -1,19 +1,19 @@
 ..
-    This file is part of REROILS.
+    This file is part of RERO ILS.
     Copyright (C) 2017 RERO.
 
-    REROILS is free software; you can redistribute it
+    RERO ILS is free software; you can redistribute it
     and/or modify it under the terms of the GNU General Public License as
     published by the Free Software Foundation; either version 2 of the
     License, or (at your option) any later version.
 
-    REROILS is distributed in the hope that it will be
+    RERO ILS is distributed in the hope that it will be
     useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
     General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with REROILS; if not, write to the
+    along with RERO ILS; if not, write to the
     Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
     MA 02111-1307, USA.
 
@@ -22,10 +22,10 @@
     as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 =====================
- reroils-app v0.1.0
+ rero-ils v0.1.0
 =====================
 
-reroils-app v0.1.0 was released on TBD, 2017.
+rero-ils v0.1.0 was released on TBD, 2017.
 
 About
 -----
@@ -42,18 +42,18 @@ What's new
 Installation
 ------------
 
-   $ pip install reroils-app==0.1.0
+   $ pip install rero-ils==0.1.0
 
 Documentation
 -------------
 
-   https://reroils-app.readthedocs.io/
+   https://rero-ils.readthedocs.io/
 
-Happy hacking and thanks for flying reroils-app.
+Happy hacking and thanks for flying rero-ils.
 
 | Invenio Development Team
 |   Email: info@inveniosoftware.org
 |   IRC: #invenio on irc.freenode.net
 |   Twitter: https://twitter.com/inveniosoftware
-|   GitHub: https://github.com/rero21/reroils-app
+|   GitHub: https://github.com/rero21/rero-ils
 |   URL: http://inveniosoftware.org

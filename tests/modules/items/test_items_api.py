@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -31,9 +31,9 @@ import datetime
 
 import mock
 
-from reroils_app.modules.items.api import Item, ItemStatus
-from reroils_app.modules.locations.api import Location
-from reroils_app.modules.members_locations.api import MemberWithLocations
+from rero_ils.modules.items.api import Item, ItemStatus
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.members_locations.api import MemberWithLocations
 
 
 def test_extend_item(db, create_minimal_resources_on_loan,
@@ -65,7 +65,7 @@ def test_extend_item(db, create_minimal_resources_on_loan,
     assert item_no_req['_circulation']['holdings'][0]['end_date'] == end_date
 
 
-@mock.patch('reroils_app.modules.patrons.listener.func_item_at_desk')
+@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
 def test_return_item(func_item_at_desk,
                      db, create_minimal_resources_on_loan,
                      minimal_patron_only_record,
@@ -128,7 +128,7 @@ def test_return_item(func_item_at_desk,
     assert item_req_ext.status == ItemStatus.IN_TRANSIT
 
 
-@mock.patch('reroils_app.modules.patrons.listener.func_item_at_desk')
+@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
 def test_validate_item(func_item_at_desk,
                        db, create_minimal_resources_on_shelf_req,
                        minimal_patron_only_record,
@@ -169,7 +169,7 @@ def test_validate_item(func_item_at_desk,
     assert item_req_intern.status == ItemStatus.AT_DESK
 
 
-@mock.patch('reroils_app.modules.patrons.listener.func_item_at_desk')
+@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
 def test_receive_item(func_item_at_desk,
                       db, create_minimal_resources_in_transit,
                       minimal_patron_only_record,

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -64,7 +64,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'reroils-app'
+project = u'rero-ils'
 copyright = u'2018, RERO'
 author = u'RERO'
 
@@ -77,7 +77,7 @@ author = u'RERO'
 # Get the version string. Cannot be done with import!
 g = {}
 with open(os.path.join(os.path.dirname(__file__), '..',
-                       'reroils_app', 'version.py'),
+                       'rero_ils', 'version.py'),
           'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
@@ -136,13 +136,13 @@ html_theme = 'alabaster'
 html_theme_options = {
     'description': 'Invenio digital library framework.',
     'github_user': 'inveniosoftware',
-    'github_repo': 'reroils-app',
+    'github_repo': 'rero-ils',
     'github_button': False,
     'github_banner': True,
     'show_powered_by': False,
     'extra_nav_links': {
-        'reroils-app@GitHub': 'https://github.com/rero/reroils-app',
-        'reroils-app@PyPI': 'https://pypi.python.org/pypi/reroils-app/',
+        'rero-ils@GitHub': 'https://github.com/rero/rero-ils',
+        'rero-ils@PyPI': 'https://pypi.python.org/pypi/rero-ils/',
     }
 }
 
@@ -247,7 +247,7 @@ html_sidebars = {
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'reroils-app_namedoc'
+htmlhelp_basename = 'rero-ils_namedoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -269,7 +269,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'reroils-app.tex', u'reroils-app Documentation',
+    (master_doc, 'rero-ils.tex', u'rero-ils Documentation',
      u'RERO', 'manual'),
 ]
 
@@ -299,7 +299,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'reroils-app', u'reroils-app Documentation',
+    (master_doc, 'rero-ils', u'rero-ils Documentation',
      [author], 1)
 ]
 
@@ -313,8 +313,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'reroils-app', u'reroils-app Documentation',
-     author, 'reroils-app', 'Invenio digital library framework.',
+    (master_doc, 'rero-ils', u'rero-ils Documentation',
+     author, 'rero-ils', 'Invenio digital library framework.',
      'Miscellaneous'),
 ]
 

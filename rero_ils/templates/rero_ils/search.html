@@ -1,0 +1,34 @@
+{% extends "invenio_search_ui/search.html" %}
+
+{%- block javascript %}
+  {% assets "invenio_theme_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+  {%- if config.I18N_LANGUAGES %}
+    {% assets "invenio_i18n_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+  {%- endif %}
+  {% assets "rero_ils_search_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}
+
+{%- block search_facets %}
+    <div class="col-md-3 col-md-pull-9 col-xs-12">
+      {%- block search_range %}
+      <invenio-search-range
+       options='{{ config.SEARCH_UI_JSTEMPLATE_RANGE_OPTIONS | tojson }}'
+       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RANGE) }}">
+      </invenio-search-range>
+      {%- endblock search_range %}
+      <invenio-search-facets order="{{ config.get('RERO_ILS_APP_SORT_FACETS', {}).get(config.SEARCH_UI_SEARCH_INDEX, '') }}"
+       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
+      </invenio-search-facets>
+    </div>
+{%- endblock search_facets %}
+
+{%- block search_sort_select scoped %}
+{%- endblock search_sort_select %}
+
+
+{%- block search_sort_order scoped %}
+{%- if current_user | can_edit %}
+    <reroils-export-csv>
+    </reroils-export-csv>
+{% endif %}
+{%- endblock search_sort_order %}

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -54,7 +54,7 @@ packages = find_packages()
 
 # Get the version string. Cannot be done with import!
 g = {}
-with open(os.path.join('reroils_app', 'version.py'), 'rt') as fp:
+with open(os.path.join('rero_ils', 'version.py'), 'rt') as fp:
     exec(fp.read(), g)
     version = g['__version__']
 
@@ -62,139 +62,139 @@ setup(
     cmdclass={
         'egg_info': EggInfoWithCompile
     },
-    name='reroils-app',
+    name='rero-ils',
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='reroils-app Invenio',
+    keywords='rero-ils Invenio',
     license='GPL',
     author='RERO',
     author_email='software@rero.ch',
-    url='https://github.com/rero/reroils-app',
+    url='https://github.com/rero/rero-ils',
     packages=packages,
     zip_safe=False,
     include_package_data=True,
     platforms='any',
     entry_points={
         'console_scripts': [
-            'reroils-app = invenio_app.cli:cli',
+            'rero-ils = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
-            'reroils-app = reroils_app.modules.ext:REROILSAPP'
+            'rero-ils = rero_ils.modules.ext:REROILSAPP'
         ],
         'invenio_base.blueprints': [
-            'reroils_app = reroils_app.views:blueprint',
+            'rero_ils = rero_ils.views:blueprint',
             'organisations =\
-                reroils_app.modules.organisations_members.views:blueprint',
-            'members = reroils_app.modules.members_locations.views:blueprint',
-            'locations = reroils_app.modules.locations.views:blueprint',
+                rero_ils.modules.organisations_members.views:blueprint',
+            'members = rero_ils.modules.members_locations.views:blueprint',
+            'locations = rero_ils.modules.locations.views:blueprint',
             'documents_items =\
-                reroils_app.modules.documents_items.views:blueprint',
-            'documents = reroils_app.modules.documents.views:blueprint',
-            'items = reroils_app.modules.items.views:blueprint',
-            'patrons = reroils_app.modules.patrons.views:blueprint',
+                rero_ils.modules.documents_items.views:blueprint',
+            'documents = rero_ils.modules.documents.views:blueprint',
+            'items = rero_ils.modules.items.views:blueprint',
+            'patrons = rero_ils.modules.patrons.views:blueprint',
         ],
         'invenio_config.module': [
-            'reroils_app = reroils_app.config',
+            'rero_ils = rero_ils.config',
         ],
         'invenio_i18n.translations': [
-            'messages = reroils_app',
+            'messages = rero_ils',
         ],
         'invenio_assets.bundles': [
-            'reroils_app_search_js = reroils_app.bundles:search_js',
-            'reroils_app_item_editor_js =\
-                reroils_app.modules.items.bundles:editor_js',
-            'reroils_app_item_circulation_ui_js =\
-                reroils_app.modules.items.bundles:circulation_ui_js',
-            'reroils_app_document_editor_js =\
-                reroils_app.modules.documents.bundles:editor_js',
-            'reroils_app_patron_profile_css =\
-                reroils_app.modules.patrons.bundles:profile_css',
-            'reroils_app_patron_editor_js =\
-                reroils_app.modules.patrons.bundles:editor_js',
-            'reroils_app_member_editor_js =\
-                reroils_app.modules.members_locations.bundles:editor_js',
-            'reroils_app_location_editor_js =\
-                reroils_app.modules.locations.bundles:editor_js'
+            'rero_ils_search_js = rero_ils.bundles:search_js',
+            'rero_ils_item_editor_js =\
+                rero_ils.modules.items.bundles:editor_js',
+            'rero_ils_item_circulation_ui_js =\
+                rero_ils.modules.items.bundles:circulation_ui_js',
+            'rero_ils_document_editor_js =\
+                rero_ils.modules.documents.bundles:editor_js',
+            'rero_ils_patron_profile_css =\
+                rero_ils.modules.patrons.bundles:profile_css',
+            'rero_ils_patron_editor_js =\
+                rero_ils.modules.patrons.bundles:editor_js',
+            'rero_ils_member_editor_js =\
+                rero_ils.modules.members_locations.bundles:editor_js',
+            'rero_ils_location_editor_js =\
+                rero_ils.modules.locations.bundles:editor_js'
         ],
         'dojson.cli': [
-            'reverse = reroils_app.dojson.cli:reverse',
-            'head = reroils_app.dojson.cli:head',
+            'reverse = rero_ils.dojson.cli:reverse',
+            'head = rero_ils.dojson.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = reroils_app.modules.dojson.dump:pretty_json_dump',
+            'pjson = rero_ils.modules.dojson.dump:pretty_json_dump',
         ],
         'dojson.cli.rule': [
             'marc21tojson =\
-                reroils_app.modules.documents.dojson.contrib.marc21tojson:marc21tojson',
+                rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson',
             'marc21toebooks =\
-                reroils_app.modules.ebooks.dojson.contrib.marc21:marc21',
+                rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
             'unimarctojson =\
-                reroils_app.modules.documents.dojson.contrib.unimarctojson:unimarctojson',
+                rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
-            'fixtures = reroils_app.modules.cli:fixtures',
-            'utils = reroils_app.modules.cli:utils',
-            'oaiharvester = reroils_app.modules.ebooks.cli:oaiharvester'
+            'fixtures = rero_ils.modules.cli:fixtures',
+            'utils = rero_ils.modules.cli:utils',
+            'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester'
         ],
         'invenio_db.models': [
-            'organisations = reroils_app.modules.organisations.models',
+            'organisations = rero_ils.modules.organisations.models',
             'organisations_members =\
-                reroils_app.modules.organisations_members.models',
-            'members = reroils_app.modules.members.models',
-            'members_locations = reroils_app.modules.members_locations.models'
-            'locations = reroils_app.modules.locations.models',
-            'documents = reroils_app.modules.documents.models',
-            'documents_items = reroils_app.modules.documents_items.models',
-            'items = reroils_app.modules.items.models',
-            'patrons = reroils_app.modules.patrons.models',
-            'transactions = reroils_app.modules.transactions.models',
+                rero_ils.modules.organisations_members.models',
+            'members = rero_ils.modules.members.models',
+            'members_locations = rero_ils.modules.members_locations.models'
+            'locations = rero_ils.modules.locations.models',
+            'documents = rero_ils.modules.documents.models',
+            'documents_items = rero_ils.modules.documents_items.models',
+            'items = rero_ils.modules.items.models',
+            'patrons = rero_ils.modules.patrons.models',
+            'transactions = rero_ils.modules.transactions.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id =\
-                reroils_app.modules.organisations.minters:organisation_id_minter',
+                rero_ils.modules.organisations.minters:organisation_id_minter',
             'member_id =\
-                reroils_app.modules.members.minters:member_id_minter',
+                rero_ils.modules.members.minters:member_id_minter',
             'location_id =\
-                reroils_app.modules.locations.minters:location_id_minter',
+                rero_ils.modules.locations.minters:location_id_minter',
             'document_id =\
-                reroils_app.modules.documents.minters:document_id_minter',
-            'item_id = reroils_app.modules.items.minters:item_id_minter',
-            'patron_id = reroils_app.modules.patrons.minters:patron_id_minter',
+                rero_ils.modules.documents.minters:document_id_minter',
+            'item_id = rero_ils.modules.items.minters:item_id_minter',
+            'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id =\
-                reroils_app.modules.organisations.fetchers:organisation_id_fetcher',
+                rero_ils.modules.organisations.fetchers:organisation_id_fetcher',
             'member_id =\
-                reroils_app.modules.members.fetchers:member_id_fetcher',
+                rero_ils.modules.members.fetchers:member_id_fetcher',
             'location_id =\
-                reroils_app.modules.locations.fetchers:location_id_fetcher',
+                rero_ils.modules.locations.fetchers:location_id_fetcher',
             'document_id =\
-                reroils_app.modules.documents.fetchers:document_id_fetcher',
+                rero_ils.modules.documents.fetchers:document_id_fetcher',
             'item_id =\
-                reroils_app.modules.items.fetchers:item_id_fetcher',
+                rero_ils.modules.items.fetchers:item_id_fetcher',
             'patron_id =\
-                reroils_app.modules.patrons.fetchers:patron_id_fetcher',
+                rero_ils.modules.patrons.fetchers:patron_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
-            'organisations = reroils_app.modules.organisations.jsonschemas',
-            'members = reroils_app.modules.members.jsonschemas',
-            'locations = reroils_app.modules.locations.jsonschemas',
-            'documents = reroils_app.modules.documents.jsonschemas',
-            'items = reroils_app.modules.items.jsonschemas',
-            'patrons = reroils_app.modules.patrons.jsonschemas',
+            'organisations = rero_ils.modules.organisations.jsonschemas',
+            'members = rero_ils.modules.members.jsonschemas',
+            'locations = rero_ils.modules.locations.jsonschemas',
+            'documents = rero_ils.modules.documents.jsonschemas',
+            'items = rero_ils.modules.items.jsonschemas',
+            'patrons = rero_ils.modules.patrons.jsonschemas',
         ],
         'invenio_search.mappings': [
-            'organisations = reroils_app.modules.organisations.mappings',
-            'members = reroils_app.modules.members.mappings',
-            'locations = reroils_app.modules.locations.mappings',
-            'documents = reroils_app.modules.documents.mappings',
-            'items = reroils_app.modules.items.mappings',
-            'patrons = reroils_app.modules.patrons.mappings',
+            'organisations = rero_ils.modules.organisations.mappings',
+            'members = rero_ils.modules.members.mappings',
+            'locations = rero_ils.modules.locations.mappings',
+            'documents = rero_ils.modules.documents.mappings',
+            'items = rero_ils.modules.items.mappings',
+            'patrons = rero_ils.modules.patrons.mappings',
         ],
         'invenio_celery.tasks': [
-            'reroils_app_oaiharvest = reroils_app.modules.ebooks.tasks',
+            'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
         ]
     },
     classifiers=[

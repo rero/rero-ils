@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -29,11 +29,11 @@ from __future__ import absolute_import, print_function
 import mock
 from invenio_records.models import RecordMetadata
 
-from reroils_app.modules.documents_items.api import DocumentsWithItems
-from reroils_app.modules.documents_items.models import DocumentsItemsMetadata
-from reroils_app.modules.items.api import Item
-from reroils_app.modules.locations.api import Location
-from reroils_app.modules.members_locations.api import MemberWithLocations
+from rero_ils.modules.documents_items.api import DocumentsWithItems
+from rero_ils.modules.documents_items.models import DocumentsItemsMetadata
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.members_locations.api import MemberWithLocations
 
 
 def test_create(db, minimal_document_record, minimal_item_record,
@@ -54,7 +54,7 @@ def test_create(db, minimal_document_record, minimal_item_record,
     assert dump['itemslist'][0] == item.dumps()
 
 
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_delete_item(reindex, db,
                      minimal_document_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
@@ -84,7 +84,7 @@ def test_delete_item(reindex, db,
     assert doc.itemslist[1]['pid'] == '4'
 
 
-@mock.patch('reroils_app.modules.api.IlsRecord.reindex')
+@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
 def test_delete_document(reindex, db,
                          minimal_document_record, minimal_item_record):
     """Test DocumentWithItems deletion."""

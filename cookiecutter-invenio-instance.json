@@ -1,0 +1,18 @@
+{
+  "cookiecutter": {
+    "copyright_holder": "RERO",
+    "package_name": "rero_ils",
+    "transifex_project": "rero-ils",
+    "author_email": "software@rero.ch",
+    "project_shortname": "rero-ils",
+    "author_name": "RERO",
+    "year": "2018",
+    "_template": "gh:inveniosoftware/cookiecutter-invenio-instance",
+    "project_name": "RERO ILS",
+    "project_site": "ils.test.rero.ch",
+    "database": "postgresql",
+    "description": "Integrated Library System flavour of Invenio by RERO.",
+    "elasticsearch": "6",
+    "github_repo": "rero/rero-ils"
+  }
+}

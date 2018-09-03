@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -36,7 +36,7 @@ include scripts/server
 include scripts/setup
 include scripts/update
 prune docs/_build
-recursive-include reroils_app *.po *.pot *.mo
+recursive-include rero_ils *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
 include deployment/jenkins/Dockerfile
 include deployment/jenkins/Jenkinsfile_deployment
@@ -63,13 +63,16 @@ recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
-recursive-include reroils_app *.css
-recursive-include reroils_app *.gitkeep
-recursive-include reroils_app *.html
-recursive-include reroils_app *.jpg
-recursive-include reroils_app *.js
-recursive-include reroils_app *.json
-recursive-include reroils_app *.png
-recursive-include reroils_app *.scss
-recursive-include reroils_app *.txt
+recursive-include rero_ils *.css
+recursive-include rero_ils *.gitkeep
+recursive-include rero_ils *.html
+recursive-include rero_ils *.jpg
+recursive-include rero_ils *.js
+recursive-include rero_ils *.json
+recursive-include rero_ils *.png
+recursive-include rero_ils *.scss
+recursive-include rero_ils *.txt
 recursive-include tests *.py
+
+# added by check_manifest.py
+include *.json

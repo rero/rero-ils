@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of REROILS.
+# This file is part of RERO ILS.
 # Copyright (C) 2017 RERO.
 #
-# REROILS is free software; you can redistribute it
+# RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 2 of the
 # License, or (at your option) any later version.
 #
-# REROILS is distributed in the hope that it will be
+# RERO ILS is distributed in the hope that it will be
 # useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with REROILS; if not, write to the
+# along with RERO ILS; if not, write to the
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #
@@ -29,7 +29,7 @@ services:
       context: ./
       args:
         - ENVIRONMENT=DEV
-    image: reroils-app
+    image: rero-ils
     environment:
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
       - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
@@ -39,12 +39,12 @@ services:
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
-      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://reroils-app:reroils-app@db/reroils-app"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://rero-ils:rero-ils@db/rero-ils"
       - "INVENIO_WSGI_PROXIES=2"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
   lb:
     build: ./docker/haproxy/
-    image: reroils-app-lb
+    image: rero-ils-lb
     restart: "always"
     ports:
       - "80:80"
@@ -52,7 +52,7 @@ services:
       - "8080:8080"
   frontend:
     build: ./docker/nginx/
-    image: reroils-app-frontend
+    image: rero-ils-frontend
     restart: "always"
     ports:
       - "80"
@@ -67,9 +67,9 @@ services:
     image: postgres:9.6
     restart: "always"
     environment:
-      - "POSTGRES_USER=reroils-app"
-      - "POSTGRES_PASSWORD=reroils-app"
-      - "POSTGRES_DB=reroils-app"
+      - "POSTGRES_USER=rero-ils"
+      - "POSTGRES_PASSWORD=rero-ils"
+      - "POSTGRES_DB=rero-ils"
     ports:
       - "5432:5432"
   mq:

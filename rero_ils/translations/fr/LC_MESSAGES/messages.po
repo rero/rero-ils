@@ -1,0 +1,1556 @@
+# French translations for rero-ils.
+# Copyright (C) 2018 RERO
+# This file is distributed under the same license as the rero-ils
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rero-ils 0.1.0a17\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2018-08-29 11:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2018\n"
+"Language: fr\n"
+"Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: rero_ils/config.py:49
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:173
+#: rero_ils/templates/rero_ils/frontpage.html:118
+msgid "French"
+msgstr "Français"
+
+#: rero_ils/config.py:50
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:177
+#: rero_ils/templates/rero_ils/frontpage.html:118
+msgid "German"
+msgstr "Allemand"
+
+#: rero_ils/config.py:51
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:185
+msgid "Italian"
+msgstr "Italien"
+
+#: rero_ils/config.py:70 rero_ils/config.py:74
+msgid "rero-ils"
+msgstr "rero-ils"
+
+#: rero_ils/config.py:112
+msgid "Welcome to RERO-ILS!"
+msgstr ""
+
+#: rero_ils/config.py:397
+msgid "status"
+msgstr "statut"
+
+#: rero_ils/config.py:398
+msgid "location"
+msgstr "localisation"
+
+#: rero_ils/config.py:399
+msgid "language"
+msgstr "langue"
+
+#: rero_ils/config.py:400
+msgid "document_type"
+msgstr "Type de document"
+
+#: rero_ils/config.py:401
+msgid "author"
+msgstr "auteur"
+
+#: rero_ils/config.py:404
+#: rero_ils/static/templates/rero_ils/range.html:3
+msgid "years"
+msgstr "années"
+
+#: rero_ils/config.py:421
+msgid "roles"
+msgstr "rôles"
+
+#: rero_ils/config.py:527
+msgid "doc"
+msgstr "Documents"
+
+#: rero_ils/config.py:538
+msgid "item"
+msgstr "Exemplaires"
+
+#: rero_ils/config.py:548
+msgid "ptrn"
+msgstr "Utilisateurs"
+
+#: rero_ils/config.py:559
+msgid "org"
+msgstr "Organisations"
+
+#: rero_ils/config.py:566
+msgid "memb"
+msgstr "Membres"
+
+#: rero_ils/config.py:579
+msgid "loc"
+msgstr "Localisations"
+
+#: rero_ils/filter.py:49
+msgid "available"
+msgstr "disponible"
+
+#: rero_ils/filter.py:51
+msgid "on_site consultation"
+msgstr "consultation sur place"
+
+#: rero_ils/filter.py:53
+msgid "not available"
+msgstr "non disponible"
+
+#: rero_ils/filter.py:60
+msgid "due until"
+msgstr "à rendre le"
+
+#: rero_ils/filter.py:62
+msgid "requested"
+msgstr "demandé"
+
+#: rero_ils/manual_translations.txt:1
+msgid "on_loan"
+msgstr "en prêt"
+
+#: rero_ils/manual_translations.txt:2
+msgid "on_shelf"
+msgstr "en rayon"
+
+#: rero_ils/manual_translations.txt:3
+msgid "missing"
+msgstr "manquant"
+
+#: rero_ils/manual_translations.txt:4
+msgid "in_transit"
+msgstr "en transit"
+
+#: rero_ils/manual_translations.txt:5
+msgid "at_desk"
+msgstr "au bureau de prêt"
+
+#: rero_ils/manual_translations.txt:7
+msgid "publicAccess"
+msgstr "libre accès"
+
+#: rero_ils/manual_translations.txt:8
+msgid "storeroom"
+msgstr "magasin"
+
+#: rero_ils/manual_translations.txt:9
+msgid "readingRoom"
+msgstr "salle de lecture"
+
+#: rero_ils/manual_translations.txt:10
+msgid "readingroom"
+msgstr "salle de lecture"
+
+#: rero_ils/manual_translations.txt:11
+msgid "publicaccess"
+msgstr "libre accès"
+
+#: rero_ils/manual_translations.txt:13
+msgid "fre"
+msgstr "français"
+
+#: rero_ils/manual_translations.txt:14
+msgid "eng"
+msgstr "anglais"
+
+#: rero_ils/manual_translations.txt:15
+msgid "ger"
+msgstr "allemand"
+
+#: rero_ils/manual_translations.txt:16
+msgid "ita"
+msgstr "italien"
+
+#: rero_ils/manual_translations.txt:17
+msgid "lat"
+msgstr "latin"
+
+#: rero_ils/manual_translations.txt:18
+msgid "spa"
+msgstr "espagnol"
+
+#: rero_ils/manual_translations.txt:19
+msgid "ara"
+msgstr "arabe"
+
+#: rero_ils/manual_translations.txt:20
+msgid "por"
+msgstr "portugais"
+
+#: rero_ils/manual_translations.txt:21
+msgid "rus"
+msgstr "russe"
+
+#: rero_ils/manual_translations.txt:22
+msgid "heb"
+msgstr "hébreux"
+
+#: rero_ils/manual_translations.txt:23
+msgid "jpn"
+msgstr "japonais"
+
+#: rero_ils/manual_translations.txt:24
+msgid "chi"
+msgstr "chinois"
+
+#: rero_ils/manual_translations.txt:25
+msgid "und"
+msgstr "inconnue"
+
+#: rero_ils/manual_translations.txt:27
+msgid "patrons"
+msgstr "lecteur"
+
+#: rero_ils/manual_translations.txt:28
+msgid "cataloguer"
+msgstr "catalogueur"
+
+#: rero_ils/manual_translations.txt:29
+msgid "staff"
+msgstr "professionnel"
+
+#: rero_ils/manual_translations.txt:32
+msgid "article"
+msgstr "article"
+
+#: rero_ils/manual_translations.txt:33
+msgid "book"
+msgstr "livre"
+
+#: rero_ils/manual_translations.txt:34
+msgid "ebook"
+msgstr "e-book"
+
+#: rero_ils/manual_translations.txt:35
+msgid "journal"
+msgstr "journal"
+
+#: rero_ils/manual_translations.txt:36
+msgid "score"
+msgstr "partition"
+
+#: rero_ils/manual_translations.txt:37
+msgid "sound"
+msgstr "son"
+
+#: rero_ils/manual_translations.txt:38
+msgid "video"
+msgstr "vidéo"
+
+#: rero_ils/modules/documents/views.py:63
+msgid "The record has been imported."
+msgstr "La notice a été importée."
+
+#: rero_ils/modules/documents/views.py:64
+msgid "Success:"
+msgstr "Succès:"
+
+#: rero_ils/modules/documents/views.py:72
+#, python-format
+msgid "EAN (%(ean)s) not found on the BNF server."
+msgstr "Le numéro EAN (%(ean)s) n'existe pas sur le serveur de la BNF."
+
+#: rero_ils/modules/documents/views.py:74
+msgid "Warning:"
+msgstr "Alerte:"
+
+#: rero_ils/modules/documents/views.py:85
+msgid "An error occured on the BNF server."
+msgstr "Une erreur est survenue sur le serveur de la BNF."
+
+#: rero_ils/modules/documents/views.py:86
+msgid "Error:"
+msgstr "Erreur:"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:12
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:275
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:12
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:127
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:12
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:54
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:12
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:60
+#: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:12
+#: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:50
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:12
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:173
+msgid "Cancel"
+msgstr "Annuler"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:18
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:281
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:18
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:133
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:18
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:60
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:18
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:66
+#: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:18
+#: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:56
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:18
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:179
+msgid "Submit"
+msgstr "Soumettre"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:26
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:289
+msgid "Identifiers"
+msgstr "Identifiants"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:38
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:21
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:20
+msgid "Document ID"
+msgstr "ID du document"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:39
+msgid "Persistent identifier, automatically generated."
+msgstr "Identifiant persistant, généré automatiquement."
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:50
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:290
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:308
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:178
+msgid "ISBN"
+msgstr "ISBN"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:64
+msgid "Import"
+msgstr "Importer"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:41
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:256
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:52
+msgid "Title"
+msgstr "Titre"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:88
+msgid "Author(s)"
+msgstr "Auteur(s)"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:94
+msgid "new author"
+msgstr "nouvel auteur"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:96
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:145
+msgid "btn-link"
+msgstr "btn-link"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:108
+msgid "Person"
+msgstr "Personne"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:112
+#: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:26
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
+msgid "Organisation"
+msgstr "Collectivité"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:137
+msgid "Language(s) of the resource"
+msgstr "Langue(s) de la ressource"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:142
+msgid "Language(s) name"
+msgstr "Nom de la langue ou des langues"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:143
+msgid "new language"
+msgstr "nouvelle langue"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:161
+msgid "Arabic"
+msgstr "Arabe"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:165
+msgid "Chinese"
+msgstr "Chinois"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:169
+msgid "English"
+msgstr "Anglais"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:181
+msgid "Hebrew"
+msgstr "Hébreu"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:189
+msgid "Japanese"
+msgstr "Japonais"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:193
+msgid "Latin"
+msgstr "Latin"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:197
+msgid "Portuguese"
+msgstr "Portugais"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:201
+msgid "Russian"
+msgstr "Russe"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:205
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:215
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:184
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:202
+msgid "Date of publication"
+msgstr "Date de publication"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:244
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:257
+msgid "Type of the document"
+msgstr "Type du document"
+
+#: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:256
+msgid "Document type"
+msgstr "Type du document"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
+msgid "Schema for document"
+msgstr "Schéma pour un document"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:15
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:14
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:17
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:15
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:14
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
+msgid "Schema"
+msgstr "Schéma"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:16
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:15
+msgid "Schema to validate document against."
+msgstr "Schéma de validation des notices bibliographiques."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:26
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:129
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:25
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:147
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:84
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:17
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:24
+msgid "Type"
+msgstr "Type"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:27
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:26
+msgid "Document type."
+msgstr "Type de document."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:29
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:28
+msgid "Required. Type of the document. Should be selected in the list below."
+msgstr "Obligatoire. Type du document. À sélectionner dans la liste ci-dessous."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:43
+msgid "Required. Entire title without statement of responsibility."
+msgstr "Requis. Titre complet sans mention de responsabilité."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:49
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:48
+msgid "Proper or uniformed title"
+msgstr "Titre uniforme"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:50
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:49
+msgid ""
+"Uniform title, a related or an analytical title that is controlled by an "
+"authority file or list, used as an added access point."
+msgstr ""
+"Titre uniforme, un titre associé ou analytique, contrôlé par un fichier "
+"ou une liste d'autorités, et utilisé comme point d'accès supplémentaire."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:59
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:58
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:139
+msgid "Is part of"
+msgstr "Fait partie de"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:60
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:59
+msgid "Title of the host document."
+msgstr "Titre du document hôte."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:65
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:64
+msgid "Languages"
+msgstr "Langues"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:66
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:65
+msgid "List of languages for the resource."
+msgstr "Listes des langues de la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:76
+msgid "Language"
+msgstr "Langue"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:78
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:80
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:79
+msgid "Required. Language of the resource, primary or not."
+msgstr "Requis. Langue de la ressource, principale ou secondaire."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:100
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:100
+msgid "Translated from"
+msgstr "Traduit de"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:101
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:101
+msgid "Language from which a resource is translated."
+msgstr "Langue de laquelle la ressource a été traduite."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:107
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:107
+msgid ""
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
+"for English."
+msgstr ""
+"Doit être dans le format ISO 639, en 3 caractères, par exemple "
+"<code>eng</code> pour l'anglais."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:111
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:129
+msgid "Authors"
+msgstr "Auteurs"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:112
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:130
+msgid "Author(s) of the resource. Can be either persons or organisations."
+msgstr ""
+"Auteur(s) de la ressource. Peut être soit une personne soit une "
+"collectivité."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:124
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:161
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:142
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:179
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:29
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:24
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:41
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:76
+msgid "Name"
+msgstr "Nom"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:125
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:143
+msgid "Person's or organisation's name."
+msgstr "Nom de la personne ou de la collectivité."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:130
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:148
+msgid "Identify if the author is a person or an organisation."
+msgstr "Identifie si l'auteur est une personne ou une collectivité."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:139
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:157
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:56
+msgid "Date"
+msgstr "Date"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:140
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:158
+msgid ""
+"Information about the birth and the death of a person. Helpful to "
+"disambiguate people."
+msgstr ""
+"Informations sur les dates de naissance et de décès d'une personne. Utile"
+" pour distinguer les homonymes."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:144
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:162
+msgid "Qualifier"
+msgstr "Qualificatif"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:145
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:163
+msgid ""
+"Information about the person, ie her profession. Helpful to disambiguate "
+"people."
+msgstr ""
+"Informations qualifiant la personne, par exemple sa profession. Utile "
+"pour distinguer les homonymes."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:152
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:170
+msgid "Publishers"
+msgstr "Editeurs"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:153
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:171
+msgid "Publisher(s) of the resource."
+msgstr "Editeur(s) de la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:162
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:180
+msgid "Publisher's name."
+msgstr "Nom de l'éditeur."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:171
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:189
+msgid "Place of publication"
+msgstr "Lieu de publication"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:172
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:190
+msgid "Publisher's place of publication."
+msgstr "Lieu de publication de l'éditeur."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:185
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:203
+msgid ""
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
+" to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
+msgstr ""
+"Date de publication. Doit être un chiffre, par exemple 1989, 453, -50. "
+"Utilisée pour filtrer les résultats de recherche. Une fois le champ "
+"renseigné, une date de publication sous forme libre peut être ajoutée "
+"dans le champ suivant."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:189
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:207
+msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgstr "Doit être un chiffre, de -9999 à +2050. Aucun préfixe n'est nécessaire."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:192
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:210
+msgid "Date of publication (free formed)"
+msgstr "Date de publication (forme libre)"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:193
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:211
+msgid ""
+"Date of the publication in a free form. If there's a normalized date of "
+"publication, then a free formed date can be added to be displayed."
+msgstr ""
+"Date de publication sous forme libre. S'il existe une date de publication"
+" sous forme normalisée, une date sous forme libre peut être ajoutée et "
+"affichée."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:198
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:216
+msgid "Extent"
+msgstr "Importance matérielle"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:199
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:217
+msgid "Extent of the resource, ie number of pages or volumes."
+msgstr ""
+"Importance matérielle de la ressource, par exemple le nombre de pages ou "
+"de volumes."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:204
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:222
+msgid "Other Material Characteristics"
+msgstr "Autres caractéristiques matérielles"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:205
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:223
+msgid ""
+"Other Material Characteristics, ie illustrations, black and with or "
+"coloured."
+msgstr ""
+"Autres caractéristiques matérielles, par exemple des illustrations, noir "
+"et blanc ou en couleurs."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:210
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:228
+msgid "Format"
+msgstr "Format"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:211
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:229
+msgid "Format of the resource, ie dimensions in cm."
+msgstr "Format de la ressource, par exemple les dimensions en cm."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:220
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:238
+msgid "Additional materials"
+msgstr "Matériel d'accompagnement"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:221
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:239
+msgid "Accompanying material of the resource, ie maps."
+msgstr ""
+"Matériel d'accompagnement de la ressource, par exemple des cartes "
+"géographiques."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:226
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:244
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:110
+msgid "Series"
+msgstr "Collection"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:227
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:245
+msgid "Series to which belongs the resource."
+msgstr "Collection à laquelle appartient la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:257
+msgid "Title of the series."
+msgstr "Titre de la collection."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:243
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:261
+msgid "Numbering"
+msgstr "Numérotation"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:244
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:262
+msgid "Numbering of the resource within the series."
+msgstr "Numérotation de la ressource au sein de la collection."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:251
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:269
+msgid "Note"
+msgstr "Note"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:252
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:270
+msgid "Note on the resource."
+msgstr "Note sur la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:261
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:279
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:71
+msgid "Abstract"
+msgstr "Résumé"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:262
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:280
+msgid "Abstract of the resource."
+msgstr "Résumé de la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:272
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:290
+msgid "Persistent identifiers of the resource, ie reroID and ISBN."
+msgstr "Identifiants pérennes de la ressource, par exemple le reroID et l'ISBN."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:278
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:296
+msgid "reroID"
+msgstr "reroID"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:279
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:297
+msgid "Corresponding reroID of the original RERO record."
+msgstr "reroID correspondant de la notice bibliographique RERO d'origine."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:284
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:302
+msgid "bnfID"
+msgstr "bnfID"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:285
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:303
+msgid "Corresponding bnfID of the original BNF record."
+msgstr "bnfID correspondant de la notice bibliographique BNF d'origine."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:291
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:309
+msgid "ISBN of the resource."
+msgstr "ISBN de la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:294
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:312
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:319
+msgid "Should be a valid ISBN-13 without dashes."
+msgstr "Doit être un ISBN-13 valide sans traits d'union."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:299
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:324
+msgid "Subject"
+msgstr "Sujet"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:300
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:325
+msgid "Subject of the resource."
+msgstr "Sujet de la ressource."
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:309
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:334
+msgid "Document availability"
+msgstr "Disponibilité du document"
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:3
+msgid "Schema for ebooks document"
+msgstr "Schema pour les e-books."
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:111
+msgid "Electronic Location"
+msgstr "Emplacement électronique"
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:112
+msgid "Information needed to locate and access an electronic resource."
+msgstr "Information nécessaire pour accéder à une ressource électronique."
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:121
+msgid "Uniform Resource Identifier"
+msgstr "Uniform Resource Identifier"
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:122
+msgid ""
+"Uniform Resource Identifier (URI), which provides standard syntax for "
+"locating an object using existing Internet protocols."
+msgstr ""
+"Uniform Resource Identifier (URI), qui fournit une syntaxe standard pour "
+"localiser un objet en utilisant les protocoles Internet existants."
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:315
+msgid "OAI"
+msgstr "OAI"
+
+#: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:316
+msgid "OAI identifiers of the harvested source."
+msgstr "Identifiants OAI de la source d'origine."
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:21
+msgid "Author"
+msgstr "Auteurs"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:41
+msgid "Publisher"
+msgstr "Editeurs"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:88
+msgid "Physical description"
+msgstr "Description matérielle"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:99
+msgid "Additional Materials"
+msgstr "Matériel d'accompagnement"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:128
+msgid "Uniform title"
+msgstr "Titre uniforme"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:150
+msgid "Subjects"
+msgstr "Sujet"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:161
+msgid "Notes"
+msgstr "Notes"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:189
+msgid "Online Access"
+msgstr "Accès en ligne"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:203
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:215
+msgid "Source"
+msgstr "Source"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:226
+msgid "Permalink"
+msgstr "Permalien"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:246
+msgid "JSON"
+msgstr "JSON"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:263
+msgid "Items"
+msgstr "Exemplaires"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:267
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:61
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:38
+msgid "Add"
+msgstr "Ajouter"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:282
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:28
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_head.html:15
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:9
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:14
+msgid "Barcode"
+msgstr "Code-barre"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:297
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:53
+msgid "Call Number"
+msgstr "Cote"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:308
+msgid "Library"
+msgstr "Bibliothèque"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:319
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:76
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:33
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:26
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
+msgid "Location"
+msgstr "Localisation"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:332
+msgid "Rank"
+msgstr "Position dans la liste"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:344
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:109
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:50
+msgid "Status"
+msgstr "Statut"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:359
+msgid "Request"
+msgstr "Demander"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:363
+msgid "Available Pickup Locations"
+msgstr "Lieux de retrait disponibles"
+
+#: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:394
+msgid "Export Formats"
+msgstr "Formats d'export"
+
+#: rero_ils/modules/items/views.py:173
+#, python-format
+msgid "The item %s has been requested."
+msgstr "L'exemplaire %s a été demandé."
+
+#: rero_ils/modules/items/views.py:182
+msgid "Something went wrong"
+msgstr "Quelque chose s'est mal passé"
+
+#: rero_ils/modules/items/views.py:191
+#, python-format
+msgid "%(icon)s Circulation"
+msgstr "%(icon)s Prêt et retour"
+
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:45
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:136
+msgid "The barcode is already taken"
+msgstr "Le code-barres est déjà utilisé"
+
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:46
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:137
+msgid "The server cannot verify the barcode"
+msgstr "Le serveur ne peut pas vérifier le code-barres"
+
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:88
+msgid "Standard Loan"
+msgstr "Prêt standard"
+
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:92
+msgid "Short Loan"
+msgstr "Prêt court"
+
+#: rero_ils/modules/items/form_options/items/item-v0.0.1.json:96
+msgid "On Site Consultation"
+msgstr "Consultation sur place"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:4
+msgid "Item"
+msgstr "Exemplaire"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:5
+msgid "JSON schema for an item."
+msgstr "Schéma pour un exemplaire."
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:18
+msgid "Schema to validate item records against."
+msgstr "Schéma pour la validation d'un exemplaire."
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:23
+msgid "Item ID"
+msgstr "ID de l'exemplaire"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:29
+msgid "Barcode of the item."
+msgstr "Code-barres de l'exemplaire."
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:34
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:9
+msgid "Call number"
+msgstr "Cote"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:35
+msgid "Call number of the item."
+msgstr "Cote de l'exemplaire."
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:40
+msgid "Location PID"
+msgstr "PID de la localisation"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:41
+msgid "Location PID of the item."
+msgstr "PID de la localisation de l'exemplaire."
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:46
+msgid "Item type"
+msgstr "Type d'exemplaire"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:56
+msgid "Item availability"
+msgstr "Disponibilité de l'exemplaire"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:85
+msgid "Renewal count"
+msgstr "Nombre de prolongation(s)"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:86
+msgid "Item renewal count."
+msgstr "Nombre de prolongation de l'exemplaire."
+
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:25
+msgid "Document"
+msgstr "Document"
+
+#: rero_ils/modules/items/templates/rero_ils/_item_head.html:41
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:26
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:4
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:102
+msgid "Member"
+msgstr "Membre"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:14
+msgid "In Transit"
+msgstr "En transit"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:22
+msgid "Loaned by"
+msgstr "Emprunté par"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:28
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:65
+msgid "Patron"
+msgstr "Lecteur"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:29
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:63
+msgid "Due date"
+msgstr "Date de retour"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:30
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:70
+msgid "Renewals"
+msgstr "Prolongations"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:59
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:19
+msgid "Pending"
+msgstr "En attente"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:66
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:58
+msgid "Pickup member"
+msgstr "Lieu de retrait"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:67
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:65
+msgid "Reservation date"
+msgstr "Date de la réservation"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:79
+msgid "No patron found!"
+msgstr "Aucun lecteur trouvé !"
+
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:93
+msgid "No Date"
+msgstr "Aucune date"
+
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:35
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:38
+msgid "The code is already taken"
+msgstr "Le code est déjà utilisé"
+
+#: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:36
+#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:39
+msgid "The server cannot verify the code"
+msgstr "Le serveur ne peut pas vérifier le code"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
+msgid "JSON schema for an location"
+msgstr "Schéma pour une institution"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:15
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:15
+msgid "Schema to validate organisation records against."
+msgstr "Schéma de validation des enregistrements d'institutions."
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:21
+msgid "Location ID"
+msgstr "ID de la localisation"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:25
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:24
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:15
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:77
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:55
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:82
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:57
+msgid "Code"
+msgstr "Code"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:26
+msgid "Code of the location."
+msgstr "Code de la localisation."
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
+msgid "Name of the location."
+msgstr "Nom de la localisation."
+
+#: rero_ils/modules/locations/templates/rero_ils/detailed_view_locations.html:14
+msgid "Code:"
+msgstr "Code:"
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:5
+msgid "JSON schema for an member"
+msgstr "Schéma pour un exemplaire"
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:20
+#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:14
+msgid "Member ID"
+msgstr "ID du membre"
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:25
+msgid "Code of the member."
+msgstr "Code du membre."
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:30
+msgid "Name of the member."
+msgstr "Nom du membre."
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:35
+#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:36
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:26
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:31
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:26
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:48
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:14
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:68
+msgid "Address"
+msgstr "Adresse"
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:36
+msgid "Address of the member."
+msgstr "Adresse du membre."
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:41
+#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:47
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:37
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:62
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:79
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:49
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:23
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:46
+msgid "Email"
+msgstr "Email"
+
+#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:42
+msgid "Email of the member."
+msgstr "Email du membre."
+
+#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:25
+msgid "Member code"
+msgstr "Code du membre"
+
+#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:57
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:70
+msgid "Locations"
+msgstr "Localisations"
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
+msgid "JSON schema for an organisation"
+msgstr "Schéma d'une organisation"
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:15
+msgid "Organisation ID"
+msgstr "ID de l'organisation"
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:25
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
+msgid "Required. Name of the organisation."
+msgstr "Obligatoire. Nom de l'organisation."
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:32
+msgid "Address of the organisation."
+msgstr "Adresse de l'organisation."
+
+#: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:35
+msgid "Libraries"
+msgstr "Bibliothèques"
+
+#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:34
+msgid "Members"
+msgstr "Membres"
+
+#: rero_ils/modules/patrons/listener.py:52
+msgid "Document at desk"
+msgstr "Document au bureau de prêt"
+
+#: rero_ils/modules/patrons/views.py:57
+#, python-format
+msgid "%(icon)s Profile"
+msgstr "%(icon)s Mon compte"
+
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:26
+msgid "Personal information"
+msgstr "Données personnelles"
+
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:65
+msgid "Contact information"
+msgstr "Information de contact"
+
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:124
+msgid "Patron information"
+msgstr "Données du compte lecteur/lectrice"
+
+#: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:149
+msgid "Staff information"
+msgstr "Données du professionnel"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
+msgid "patron"
+msgstr "lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:5
+msgid "JSON schema for a patron"
+msgstr "Schéma d'un lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
+msgid "Schema to validate patron records against."
+msgstr "Schéma pour la validation d'un lecteur."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:26
+msgid "Patron ID"
+msgstr "ID du lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:30
+msgid "First name"
+msgstr "Prénom"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:31
+msgid "First Name is required."
+msgstr "Le prénom est obligatoire."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
+msgid "Last Name is required."
+msgstr "Le nom de famille est obligatoire."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:42
+msgid "Date of birth"
+msgstr "Date de naissance"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:46
+msgid "Required. Should be in the ISO 8601, YYYY-MM-DD."
+msgstr "Obligatoire. Doit être au format ISO 8601, AAAA-MM-JJ."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:54
+msgid "Email should have at least one <code>@</code> and one <code>.</code>"
+msgstr "L'email doit comporter au moins un <code>@</code> et un <code>.</code>"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:57
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:20
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:57
+msgid "Street"
+msgstr "Rue"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:58
+msgid "Street and number of the patron's address, separated by a coma."
+msgstr "Rue et n° de l'adresse du lecteur, séparés par une virgule."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:61
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:73
+msgid "Required."
+msgstr "Obligatoire."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:64
+msgid "Postal code"
+msgstr "Code postal"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
+msgid "Required. A valid postal code with a min of 4 characters."
+msgstr "Obligatoire. Code postal valide d'au moins 4 caractères."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:70
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_head.html:37
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:21
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:80
+msgid "City"
+msgstr "Ville"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:76
+msgid "Phone number"
+msgstr "Numéro de téléphone"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:77
+msgid "Phone number with the international prefix, without spaces."
+msgstr "Numéro de téléphone avec l'indicatif international, sans espaces."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:80
+msgid ""
+"Phone number with the international prefix, without spaces, ie "
+"+41221234567."
+msgstr ""
+"Numéro de téléphone avec l'indicatif international, sans espaces, ex: "
+"+41221234567."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:83
+msgid "Patron's type"
+msgstr "Type de lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
+msgid "Patron's barcode or card number"
+msgstr "Code-barres ou numéro de carte du lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
+msgid "The member pid of the appartenance library"
+msgstr "Le PID du membre de la bibliothèque d'appartenance"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
+msgid "Qualify this user as a patron"
+msgstr "Ajouter à cet utilisateur le rôle de lecteur"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:105
+msgid "Qualify this user as a patron."
+msgstr "Ajoute à cet utilisateur le rôle de lecteur."
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:108
+msgid "Qualify this user as a staff member"
+msgstr "Ajouter à cet utilisateur le rôle de professionnel"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:111
+msgid "Qualify this user as a staff member."
+msgstr "Ajouter à cet utilisateur le rôle de professionnel."
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_head.html:26
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:35
+msgid "Birth Date"
+msgstr "Date de naissance"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:5
+msgid "Patron account"
+msgstr "Compte(s) du lecteur"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:22
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:91
+msgid "Phone"
+msgstr "Téléphone"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:33
+msgid "Secondary address"
+msgstr "Adresse secondaire"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:40
+msgid "Edit my personal data"
+msgstr "Modifier mes données personnelles"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:41
+msgid "Change my password"
+msgstr "Modifier mon mot de passe"
+
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:69
+msgid "Postal Code"
+msgstr "Code postal"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:16
+msgid "Loan"
+msgstr "Livre(s) emprunté(s)"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:22
+msgid "Personal data"
+msgstr "Données personnelles"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:30
+msgid "No loan"
+msgstr "Aucun livre emprunté"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:37
+msgid "No pending"
+msgstr "Aucune réservation"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:56
+msgid "Belongs to"
+msgstr "Appartient à"
+
+#: rero_ils/static/templates/rero_ils/count.html:3
+msgid "Found {{$count}} result."
+msgid_plural "Found {{$count}} results."
+msgstr[0] "{{$count}} résultat."
+msgstr[1] "{{$count}} résultats."
+
+#: rero_ils/static/templates/rero_ils/count.html:4
+msgid "No results found."
+msgstr "Aucun résultat."
+
+#: rero_ils/templates/rero_ils/footer.html:10
+msgid "Developed by"
+msgstr "Réalisé par"
+
+#: rero_ils/templates/rero_ils/footer.html:10
+msgid "using"
+msgstr "avec"
+
+#: rero_ils/templates/rero_ils/frontpage.html:21
+#: rero_ils/templates/rero_ils/frontpage.html:27
+msgid "Get into your library"
+msgstr "Entrez dans votre bibliothèque"
+
+#: rero_ils/templates/rero_ils/frontpage.html:22
+#: rero_ils/templates/rero_ils/frontpage.html:28
+msgid "A wealth of knowledge just a click away"
+msgstr "mille et une connaissances à portée de clic"
+
+#: rero_ils/templates/rero_ils/frontpage.html:35
+msgid "What's on your mind?"
+msgstr "À quoi pensez-vous?"
+
+#: rero_ils/templates/rero_ils/frontpage.html:45
+msgid "Software under development"
+msgstr "Logiciel en cours de développement"
+
+#: rero_ils/templates/rero_ils/frontpage.html:45
+msgid "This is a prototype"
+msgstr "Ceci est un prototype"
+
+#: rero_ils/templates/rero_ils/frontpage.html:77
+msgid "How to use this demo"
+msgstr "Comment utiliser cette démo"
+
+#: rero_ils/templates/rero_ils/frontpage.html:79
+msgid "See the"
+msgstr "Consultez la"
+
+#: rero_ils/templates/rero_ils/frontpage.html:79
+msgid "help page"
+msgstr "page d'aide"
+
+#: rero_ils/templates/rero_ils/frontpage.html:81
+msgid "Follow Us"
+msgstr "Nous suivre"
+
+#: rero_ils/templates/rero_ils/frontpage.html:90
+msgid "Scrum process"
+msgstr "Processus scrum"
+
+#: rero_ils/templates/rero_ils/frontpage.html:90
+msgid "Product Backlog"
+msgstr "Product Backlog"
+
+#: rero_ils/templates/rero_ils/frontpage.html:90
+msgid "Sprint&nbsp;Taskboard"
+msgstr "Sprint&nbsp;Taskboard"
+
+#: rero_ils/templates/rero_ils/frontpage.html:90
+msgid "Wiki"
+msgstr "Wiki"
+
+#: rero_ils/templates/rero_ils/frontpage.html:91
+msgid "on Taiga"
+msgstr "sur Taiga"
+
+#: rero_ils/templates/rero_ils/frontpage.html:99
+msgid "Software source code"
+msgstr "Code source du logiciel"
+
+#: rero_ils/templates/rero_ils/frontpage.html:101
+msgid "on GitHub"
+msgstr "sur GitHub"
+
+#: rero_ils/templates/rero_ils/frontpage.html:101
+msgid "Version"
+msgstr "Version"
+
+#: rero_ils/templates/rero_ils/frontpage.html:115
+msgid "Future"
+msgstr "Futur"
+
+#: rero_ils/templates/rero_ils/frontpage.html:118
+msgid "in"
+msgstr "en"
+
+#: rero_ils/templates/rero_ils/frontpage.html:118
+msgid "or"
+msgstr "ou"
+
+#: rero_ils/templates/rero_ils/frontpage.html:120
+msgid "Present"
+msgstr "Actuel"
+
+#: rero_ils/templates/rero_ils/header.html:15
+msgid "Toggle navigation"
+msgstr "Activer le menu"
+
+#: rero_ils/templates/rero_ils/header.html:37
+msgid "Search"
+msgstr "Recherche"
+
+#: rero_ils/templates/rero_ils/header_login.html:10
+msgid "Log in"
+msgstr "S'identifier"
+
+#: rero_ils/templates/rero_ils/header_login.html:11
+msgid "Sign up"
+msgstr "S'enregistrer"
+
+#: rero_ils/templates/rero_ils/header_login.html:28
+#: rero_ils/templates/rero_ils/header_login.html:32
+msgid "Log out"
+msgstr "Se déconnecter"
+
+#: rero_ils/templates/rero_ils/login_user.html:16
+msgid "Log in to account"
+msgstr "Se connecter à votre compte."
+
+#: rero_ils/templates/rero_ils/login_user.html:25
+msgid "Log In"
+msgstr "S'identifier"
+
+#: rero_ils/templates/rero_ils/login_user.html:33
+#, python-format
+msgid "New to %(sitename)s?"
+msgstr "Pas encore inscrit·e sur %(sitename)s?"
+
+#: rero_ils/templates/rero_ils/login_user.html:33
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+#: rero_ils/templates/rero_ils/login_user.html:40
+msgid "Forgot password?"
+msgstr "Vous avez oublié votre mot de passe?"
+
+#~ msgid "A translation string"
+#~ msgstr "A translation string"
+
