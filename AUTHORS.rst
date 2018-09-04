@@ -24,16 +24,12 @@
 Credits
 =======
 
-* **Developers:**
-
   * Johnny Mariéthoz
   * Igor Milhit
   * Peter Weber
   * Bertrand Zuchuat
   * Aly Badr
   * Gianni Pante
-
-* **Contributors:**
   * Nicolas Labat
   * Miguel Moreira
   * Nicolas Prongué

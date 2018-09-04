@@ -26,15 +26,18 @@
 ==========
 
 .. image:: https://img.shields.io/travis/rero/rero-ils.svg
+        :alt: Travis status 
         :target: https://travis-ci.org/rero/rero-ils
 
 .. image:: https://img.shields.io/coveralls/rero/rero-ils.svg
         :target: https://coveralls.io/r/rero/rero-ils
 
 .. image:: https://img.shields.io/github/tag/rero/rero-ils.svg
-        :target: https://github.com/rero/rero-ils/releases
+        :alt: Release Number
+        :target: https://github.com/rero/rero-ils/releases/latest
 
 .. image:: https://img.shields.io/github/license/rero/rero-ils.svg
+        :alt: License
         :target: https://github.com/rero/rero-ils/blob/master/LICENSE
 
 Integrated Library System flavour of Invenio by RERO.
