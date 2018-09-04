@@ -76,3 +76,6 @@ recursive-include tests *.py
 
 # added by check_manifest.py
 include *.json
+
+# added by check_manifest.py
+recursive-include rero_ils *.css

@@ -63,3 +63,5 @@ target/
 
 # Vim swapfiles
 .*.sw?
+
+celerybeat-schedule

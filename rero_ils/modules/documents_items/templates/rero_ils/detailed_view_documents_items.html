@@ -2,10 +2,12 @@
 {%- block page_body %}
 <div class="container search-page">
     <div class="row">
-         <div class="col-xs-1">
-           <img alt="{{ _(record.type) }}" src="/static/images/icon_{{ record.type }}.png" class="img-responsive icon-document">
-           <span class="icon-document-type">{{ _(record.type) }}</span>
-
+         <div class="col-xs-1" id="thumbnail">
+              <icon-thumbnail class="thumb"
+                              identifiers='{{ record.identifiers|tojson }}'
+                              type="{{ record.type }}"
+                              config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
+              </icon-thumbnail>
         </div>
         <div class="col-xs-11">
           <div>
@@ -411,3 +413,13 @@
 </div>
 
 {%- endblock %}
+
+{%- block css %}
+{{ super() }}
+{% assets "rero_ils_thumbnail_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+{%- endblock css %}
+
+{%- block javascript %}
+{{ super() }}
+{% assets "rero_ils_detailed_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}

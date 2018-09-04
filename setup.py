@@ -102,6 +102,7 @@ setup(
             'messages = rero_ils',
         ],
         'invenio_assets.bundles': [
+            'rero_ils_detailed_js = rero_ils.bundles:detailed_js',
             'rero_ils_search_js = rero_ils.bundles:search_js',
             'rero_ils_item_editor_js =\
                 rero_ils.modules.items.bundles:editor_js',
@@ -116,7 +117,9 @@ setup(
             'rero_ils_member_editor_js =\
                 rero_ils.modules.members_locations.bundles:editor_js',
             'rero_ils_location_editor_js =\
-                rero_ils.modules.locations.bundles:editor_js'
+                rero_ils.modules.locations.bundles:editor_js',
+            'rero_ils_thumbnail_js = rero_ils.bundles:thumbnail_js',
+            'rero_ils_thumbnail_css = rero_ils.bundles:thumbnail_css'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
