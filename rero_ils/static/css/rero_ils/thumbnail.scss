@@ -1,0 +1,30 @@
+.thumb {
+    img {
+        margin-top: 20px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+        max-width: 68px;
+    }
+}
+
+.thumb-brief {
+    img {
+        margin-top: 20px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+        max-width: 50px;
+    }
+}
+
+@media (max-width: 960px) {
+    .thumb {
+        img {
+            max-width: 48px;
+        }
+    }
+    .thumb-brief {
+        img {
+            max-width: 38px;
+        }
+    }
+}

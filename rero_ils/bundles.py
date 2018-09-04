@@ -49,12 +49,41 @@ i18n = GlobBundle(
     # output='gen/translations/rero_ils.js',
 )
 
-js = NpmBundle(
+thumbnail_js = NpmBundle(
+    'js/rero_ils/thumbnail.js',
+    filters='uglifyjs',
+    npm={
+        'jquery': '~1.9.1',
+    },
+    output='gen/rero_ils.thumbnail.%(version)s.js',
+)
+
+_detailed_js = NpmBundle(
     'js/rero_ils/documents_items.js',
-    'js/rero_ils/app.js',
+    'js/rero_ils/detailed_app.js',
+    filters='requirejs',
+    depends=('node_modules/d3/*'),
+    # output='gen/rero_ils.search.%(version)s.js',
+    npm={
+        "almond": "~0.3.1",
+        'angular': '~1.4.10',
+        'angular-loading-bar': '~0.9.0',
+        'd3': '^3.5.17'
+    },
+)
+detailed_js = Bundle(
+    _detailed_js,
+    i18n,
+    thumbnail_js,
+    # filters='jsmin',
+    output='gen/rero_ils.detailed.%(version)s.js',
+)
+
+_search_js = NpmBundle(
+    'js/rero_ils/documents_items.js',
+    'js/rero_ils/search_app.js',
     filters='requirejs',
     depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
-    # output='gen/rero_ils.search.%(version)s.js',
     npm={
         "almond": "~0.3.1",
         'angular': '~1.4.10',
@@ -65,8 +94,15 @@ js = NpmBundle(
 )
 
 search_js = Bundle(
-    js,
+    _search_js,
     i18n,
+    thumbnail_js,
     # filters='jsmin',
     output='gen/rero_ils.search.%(version)s.js',
+)
+
+thumbnail_css = NpmBundle(
+    'css/rero_ils/thumbnail.scss',
+    filters='node-scss,cleancssurl',
+    output='gen/thumbnail.%(version)s.css',
 )

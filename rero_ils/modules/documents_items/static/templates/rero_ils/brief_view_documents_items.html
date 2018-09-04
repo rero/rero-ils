@@ -1,8 +1,7 @@
 <ul class="re-list">
-    <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by record.id">
       <div class="col-xs-1">
-        <img alt="{{ record.metadata.type|translate }}" ng-src="/static/images/icon_{{ record.metadata.type }}.png" class="icon-document">
-        <span class="icon-document-type">{{ record.metadata.type|translate }}</span>
+        <icon-thumbnail class="thumb-brief" identifiers="{{ record.metadata.identifiers }}" type="{{ record.metadata.type }}" config="{{ config }}"></icon-thumbnail>
       </div>
       <div class="col-xs-11">
         <h3><a target="_self" ng-href="/documents/{{ record.id }}">{{ record.metadata.title }}</a></h3>

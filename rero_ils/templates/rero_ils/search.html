@@ -1,4 +1,10 @@
-{% extends "invenio_search_ui/search.html" %}
+{% extends config.SEARCH_UI_BASE_TEMPLATE %}
+
+{%- block css %}
+    {{ super() }}
+    {% assets "invenio_search_ui_search_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+    {% assets "rero_ils_thumbnail_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+{%- endblock css %}
 
 {%- block javascript %}
   {% assets "invenio_theme_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
@@ -8,7 +14,91 @@
   {% assets "rero_ils_search_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 {%- endblock javascript %}
 
-{%- block search_facets %}
+{%- block body_inner %}
+<div id="invenio-search">
+  <invenio-search-config config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
+  <invenio-search
+   search-endpoint="{{ config.SEARCH_UI_SEARCH_API }}"
+   search-extra-params='{% if search_extra_params %}{{search_extra_params|tojson}}{% endif %}'
+   search-hidden-params='{% if search_hidden_params %}{{search_hidden_params|tojson}}{% endif %}'
+   search-headers='{"Accept": "{{ config.SEARCH_UI_SEARCH_MIMETYPE|default('application/json')}}"}'
+  >
+  {{super()}}
+  </invenio-search>
+  </invenio-search-config>
+</div>
+{%- endblock body_inner %}
+
+{%- block page_header %}
+{% include "invenio_search_ui/header.html" %}
+{%- endblock page_header %}
+
+{%- block page_body %}
+<div class="container search-page">
+  <div class="row">
+    {%- block search_body %}
+    <div class="col-xs-12 col-md-9 col-md-push-3">
+      {%- block search_header %}
+      <div class="row">
+        {%- block search_count %}
+        <div class="col-md-3 col-sm-12">
+          <invenio-search-count
+           template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_COUNT) }}">
+          </invenio-search-count>
+        </div>
+        {%- endblock search_count %}
+        {%- block search_pagination_top %}
+        <div class="col-md-6 col-sm-12 text-center">
+          <invenio-search-pagination
+            template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}">
+          </invenio-search-pagination>
+        </div>
+        {%- endblock search_pagination_top %}
+        {%- block search_sort %}
+        {%- set sort_options = config.get('RECORDS_REST_SORT_OPTIONS', {}).get(config.SEARCH_UI_SEARCH_INDEX) %}
+        {%- if sort_options %}
+        <div class="col-md-3 col-sm-12 text-right">
+          {%- block search_sort_select scoped %}
+          {%- endblock search_sort_select %}
+          {%- block search_sort_order scoped %}
+            {%- if current_user | can_edit %}
+                <reroils-export-csv>
+                </reroils-export-csv>
+            {% endif %}
+          {%- endblock search_sort_order %}
+        </div>
+        {%- endif %}
+        {%- endblock search_sort %}
+      </div>
+      <hr class="no-margin-top" />
+      {%- endblock search_header %}
+      {%- block search_error %}
+      <invenio-search-error
+       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"
+       message="{{ _('Search failed.') }}">
+      </invenio-search-error>
+      {%- endblock search_error %}
+      {%- block search_loading %}
+      <invenio-search-loading
+       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_LOADING) }}"
+       message="{{ _('Loading...') }}">
+      </invenio-search-loading>
+      {%- endblock search_loading %}
+      {%- block search_results %}
+      <invenio-search-results
+       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RESULTS) }}">
+      </invenio-search-results>
+      {%- endblock search_results %}
+      {%- block search_pagination_bottom %}
+      <div align="center">
+        <invenio-search-pagination
+         template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}">
+        </invenio-search-pagination>
+      </div>
+      {%- endblock search_pagination_bottom %}
+    </div>
+    {%- endblock search_body %}
+    {%- block search_facets %}
     <div class="col-md-3 col-md-pull-9 col-xs-12">
       {%- block search_range %}
       <invenio-search-range
@@ -20,15 +110,7 @@
        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
       </invenio-search-facets>
     </div>
-{%- endblock search_facets %}
-
-{%- block search_sort_select scoped %}
-{%- endblock search_sort_select %}
-
-
-{%- block search_sort_order scoped %}
-{%- if current_user | can_edit %}
-    <reroils-export-csv>
-    </reroils-export-csv>
-{% endif %}
-{%- endblock search_sort_order %}
+    {%- endblock search_facets %}
+  </div>
+</div>
+{%- endblock page_body -%}

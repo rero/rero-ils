@@ -645,3 +645,6 @@ RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
     '&startRecord=1&query=bib.ean%%20all%%20"%s"'
 
 RERO_ILS_APP_HELP_PAGE = 'https://github.com/rero/rero-ils/wiki/Public-demo-help'
+
+#: Cover service
+RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
