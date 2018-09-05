@@ -119,7 +119,7 @@ MAIL_SUPPRESS_SEND = True
 # Assets
 # ======
 #: Static files collection method (defaults to copying files).
-COLLECT_STORAGE = 'flask_collect.storage.file'
+# COLLECT_STORAGE = 'flask_collect.storage.file'
 
 # Accounts
 # ========
