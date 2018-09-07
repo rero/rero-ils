@@ -105,6 +105,7 @@ SEARCH_UI_SEARCH_TEMPLATE = 'rero_ils/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/rero_ils/facets.html'
 SEARCH_UI_JSTEMPLATE_RANGE = 'templates/rero_ils/range.html'
 SEARCH_UI_JSTEMPLATE_COUNT = 'templates/rero_ils/count.html'
+SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 
 REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'rero_ils/page.html'
 SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
@@ -220,6 +221,8 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -262,10 +265,14 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='organisations',
         search_type=None,
         record_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -287,6 +294,8 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -308,6 +317,8 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -329,6 +340,8 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -350,6 +363,8 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
@@ -361,61 +376,76 @@ RECORDS_REST_ENDPOINTS = dict(
     )
 )
 
+SEARCH_UI_SEARCH_INDEX = 'documents'
 
-RERO_ILS_APP_SORT_FACETS = {
-    'documents': 'language,author,location,status',
-    'patrons': 'roles'
+RERO_ILS_APP_CONFIG_FACETS = {
+    'documents': {
+        'order': ['document_type', 'member', 'author', 'language', 'subject',
+                  'status'],
+        'expand': ['document_type']
+    },
+    'patrons': {
+        'order': ['roles'],
+        'expand': ['roles']
+    }
 }
-
 
 RECORDS_REST_FACETS = {
     'documents': dict(
         aggs=dict(
-            status=dict(
-                terms=dict(
-                    field='itemslist._circulation.status',
-                    size=100
-                )
-            ),
-            location=dict(
-                terms=dict(
-                    field='itemslist.location_name',
-                    size=100000
-                )
-            ),
-            language=dict(
-                terms=dict(
-                    field='languages.language',
-                    size=10000
+            years=dict(
+                date_histogram=dict(
+                    field='publicationYear',
+                    interval='year',
+                    format='yyyy',
                 )
             ),
             document_type=dict(
                 terms=dict(
                     field='type',
-                    size=1000
                 )
+            ),
+            member=dict(
+                terms=dict(
+                    field='itemslist.member_name',
+                ),
+                # aggs=dict(
+                #     location=dict(
+                #         terms=dict(
+                #             field='itemslist.location_name'
+                #         )
+                #     )
+                # )
             ),
             author=dict(
                 terms=dict(
                     field='facet_authors',
-                    size=5
                 )
             ),
-            years=dict(
-                date_histogram=dict(
-                    field='publicationYear',
-                    interval='year',
-                    format='yyyy'
+            language=dict(
+                terms=dict(
+                    field='languages.language',
+                )
+            ),
+            subject=dict(
+                terms=dict(
+                    field='subject',
+                )
+            ),
+            status=dict(
+                terms=dict(
+                    field='itemslist._circulation.status',
                 )
             ),
         ),
         # can be also post_filter
         filters={
-            _('status'): terms_filter('itemslist._circulation.status'),
-            _('location'): terms_filter('itemslist.location_name'),
-            _('language'): terms_filter('languages.language'),
             _('document_type'): terms_filter('type'),
-            _('author'): terms_filter('facet_authors')
+            _('member'): terms_filter('itemslist.member_name'),
+            _('author'): terms_filter('facet_authors'),
+            _('language'): terms_filter('languages.language'),
+            _('subject'): terms_filter('subject'),
+            _('status'): terms_filter('itemslist._circulation.status')
         },
         post_filters={
             _('years'): range_filter(
@@ -430,7 +460,6 @@ RECORDS_REST_FACETS = {
             roles=dict(
                 terms=dict(
                     field='roles',
-                    size=100
                 )
             )
         ),

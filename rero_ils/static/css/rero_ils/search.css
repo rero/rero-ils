@@ -126,10 +126,6 @@ img.reroils-frontpage-rero21 {
     }
 }
 
-invenio-search-facets li {
-    text-transform: capitalize;
-}
-
 /*****************************************
    Size of the search input, in the navbar
    Smaller for medium screens
@@ -151,10 +147,29 @@ invenio-search-facets li {
     }
 }
 
-invenio-search-range .panel-heading h3,
-invenio-search-facets .panel-heading h3 {
-    text-transform: capitalize;
+invenio-search-range .panel-heading h3 a:focus,
+invenio-search-range .panel-heading h3 a:hover,
+invenio-search-facets .panel-heading h3 a:focus,
+invenio-search-facets .panel-heading h3 a:hover {
+    text-decoration: none;
 }
+
+invenio-search-range .panel-heading .toggle:after,
+invenio-search-facets .panel-heading .toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+	font-size: 0.8em;
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+
+invenio-search-range .panel-heading .toggle.collapsed:after,
+invenio-search-facets .panel-heading .toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
 /****************************************
    Colors for availability
   **************************************/
