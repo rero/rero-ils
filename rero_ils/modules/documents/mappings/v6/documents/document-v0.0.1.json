@@ -151,7 +151,7 @@
               "type": "keyword"
             },
             "member_name": {
-              "type": "text"
+              "type": "keyword"
             },
             "requests_count": {
               "type": "integer"
