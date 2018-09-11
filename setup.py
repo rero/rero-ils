@@ -139,7 +139,8 @@ setup(
         'flask.commands': [
             'fixtures = rero_ils.modules.cli:fixtures',
             'utils = rero_ils.modules.cli:utils',
-            'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester'
+            'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
+            'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester'
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
@@ -153,6 +154,8 @@ setup(
             'items = rero_ils.modules.items.models',
             'patrons = rero_ils.modules.patrons.models',
             'transactions = rero_ils.modules.transactions.models',
+            'mef= rero_ils.modules.mef.models',
+            'apiharvester = rero_ils.modules.apiharvester.models'
         ],
         'invenio_pidstore.minters': [
             'organisation_id =\
@@ -165,6 +168,7 @@ setup(
                 rero_ils.modules.documents.minters:document_id_minter',
             'item_id = rero_ils.modules.items.minters:item_id_minter',
             'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
+            'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter'
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id =\
@@ -179,6 +183,8 @@ setup(
                 rero_ils.modules.items.fetchers:item_id_fetcher',
             'patron_id =\
                 rero_ils.modules.patrons.fetchers:patron_id_fetcher',
+            'mef_person_id =\
+                rero_ils.modules.mef.fetchers:mef_person_id_fetcher'
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -187,6 +193,7 @@ setup(
             'documents = rero_ils.modules.documents.jsonschemas',
             'items = rero_ils.modules.items.jsonschemas',
             'patrons = rero_ils.modules.patrons.jsonschemas',
+            'persons = rero_ils.modules.persons.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -195,9 +202,11 @@ setup(
             'documents = rero_ils.modules.documents.mappings',
             'items = rero_ils.modules.items.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
+            'persons = rero_ils.modules.persons.mappings',
         ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
+            'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
         ]
     },
     classifiers=[

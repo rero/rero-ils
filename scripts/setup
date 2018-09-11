@@ -81,5 +81,8 @@ pipenv run invenio fixtures createitems -c 1000 -R
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json
 
-# put OAI configuration
+# OAI configuration
 pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
+
+# API Mef configurations
+pipenv run invenio apiharvester sources ${data_path}/apisources.yml

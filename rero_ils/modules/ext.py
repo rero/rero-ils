@@ -26,10 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_oaiharvester.signals import oaiharvest_finished
-
 from ..filter import format_date_filter, item_status_text, to_pretty_json
-from .ebooks.receivers import publish_harvested_records
 
 
 class REROILSAPP(object):
@@ -63,8 +60,12 @@ class REROILSAPP(object):
 
     def register_signals(self):
         """Register signals."""
-        from .items.signals import item_at_desk
         from .patrons.listener import listener_item_at_desk
+        from .items.signals import item_at_desk
         item_at_desk.connect(listener_item_at_desk)
-        oaiharvest_finished.connect(publish_harvested_records,
-                                    weak=False)
+        from invenio_oaiharvester.signals import oaiharvest_finished
+        from .ebooks.receivers import publish_harvested_records
+        oaiharvest_finished.connect(publish_harvested_records, weak=False)
+        from .apiharvester.signals import apiharvest_part
+        from .mef.receivers import publish_api_harvested_records
+        apiharvest_part.connect(publish_api_harvested_records, weak=False)
