@@ -155,6 +155,12 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
         'kwargs': dict(name='ebooks')
     },
+    'mef-harvester': {
+        'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
+        'schedule': timedelta(minutes=60),
+        'kwargs': dict(name='mef')
+    },
+
 }
 
 # Database
@@ -666,6 +672,10 @@ REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
 
+#: RERO_ILS MEF specificconfigurations.
+RERO_ILS_HARVESTING_MEF_URL = 'http://mef.test.rero.ch/api/mef'
+RERO_ILS_MEF_RESULT_SIZE = 100
+
 
 #: RERO_ILS specific configurations.
 RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
@@ -677,3 +687,5 @@ RERO_ILS_APP_HELP_PAGE = 'https://github.com/rero/rero-ils/wiki/Public-demo-help
 
 #: Cover service
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
+
+RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef-person-v0.0.1.json'

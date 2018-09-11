@@ -29,6 +29,7 @@ from uuid import uuid4
 from elasticsearch.exceptions import NotFoundError
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
@@ -66,11 +67,14 @@ class IlsRecord(Record):
         resolver = Resolver(pid_type=cls.provider.pid_type,
                             object_type=cls.object_type,
                             getter=cls.get_record)
-        persistent_identifier, record = resolver.resolve(str(pid))
-        return super(IlsRecord, cls).get_record(
-            persistent_identifier.object_uuid,
-            with_deleted=with_deleted
-        )
+        try:
+            persistent_identifier, record = resolver.resolve(str(pid))
+            return super(IlsRecord, cls).get_record(
+                persistent_identifier.object_uuid,
+                with_deleted=with_deleted
+            )
+        except PIDDoesNotExistError:
+            return None
 
     @classmethod
     def get_pid_by_id(cls, id):
