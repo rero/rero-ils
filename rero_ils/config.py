@@ -379,7 +379,29 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
+    ),
+    pers=dict(
+        pid_type='pers',
+        pid_minter='mef_person_id',
+        pid_fetcher='mef_person_id',
+        search_class=RecordsSearch,
+        search_index='persons',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/persons/',
+        item_route='/persons/<pid(loc):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:and_search_factory'
     )
+
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -556,7 +578,14 @@ RECORDS_UI_ENDPOINTS = {
         "permission_factory_imp":
             "reroils_record_editor.permissions.cataloguer_permission_factory"
 
+    },
+    "pers": {
+        "pid_type": "pers",
+        "route": "/persons/<pid_value>",
+        "template": "rero_ils/detailed_view_persons.html",
+        "record_class": 'rero_ils.modules.mef.api:MefPerson',
     }
+
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -635,6 +664,10 @@ REROILS_RECORD_EDITOR_OPTIONS = {
         record_class=Location,
         form_options_create_exclude=['pid']
     ),
+    _('pers'): dict(
+        api='/api/persons/',
+        results_template='templates/rero_ils/brief_view_mef_persons.html',
+    ),
 }
 
 # Login Configuration
@@ -688,4 +721,17 @@ RERO_ILS_APP_HELP_PAGE = 'https://github.com/rero/rero-ils/wiki/Public-demo-help
 #: Cover service
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
+#: Persons
 RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef-person-v0.0.1.json'
+RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd']
+RERO_ILS_PERSONS_PERMALINK = {
+    'bnf': 'https://catalogue.bnf.fr/ark:/12148/{pid}',
+    'gnd': 'http://d-nb.info/gnd/{pid}',
+    'rero': 'http://data.rero.ch/02-{pid}'
+}
+
+RERO_ILS_PERSONS_LABEL_ORDER = {
+    'fallback': 'fr',
+    'fr': ['rero', 'bnf', 'gnd'],
+    'de': ['gnd', 'rero', 'bnf']
+}

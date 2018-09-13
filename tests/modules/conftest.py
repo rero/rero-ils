@@ -478,3 +478,58 @@ def db(app):
 
     db_.session.remove()
     db_.drop_all()
+
+
+@pytest.yield_fixture()
+def person_data():
+    """Person data."""
+    yield {
+        "bnf": {
+            "date_of_birth": "1525",
+            "identifier_for_person": "10008312",
+            "variant_name_for_person": [
+                "Cavaleriis, Joannes-Baptista de",
+                "Cavalieri, Giovanni-Battista de'",
+            ]
+        },
+        "gnd": {
+            "date_of_birth": "ca. 1525",
+            "identifier_for_person": "12391664X",
+            "preferred_name_for_person": "Cavalieri, Giovanni Battista",
+            "variant_name_for_person": [
+                "Cavaleriis, Joannes-Baptista de",
+                "Cavaleriis, Joannes Baptista",
+            ]
+        },
+        "pid": "1",
+        "rero": {
+            "date_of_birth": "ca.1525-1601",
+            "identifier_for_person": "A023655346",
+            "variant_name_for_person": [
+                "Cavaleriis, Joannes-Baptista de",
+                "Cavaleriis, Joannes Baptista",
+            ]
+        },
+        "viaf_pid": "66739143"
+    }
+
+
+@pytest.yield_fixture()
+def person_data_result():
+    """Person data result."""
+    yield {
+        'date_of_birth': {
+            '1525': ['bnf'], 'ca. 1525': ['gnd'], 'ca.1525-1601': ['rero']
+        },
+        'identifier_for_person': {
+            '10008312': ['bnf'], '12391664X': ['gnd'], 'A023655346': ['rero']
+        },
+        'variant_name_for_person': {
+            'Cavaleriis, Joannes-Baptista de': ['bnf', 'gnd', 'rero'],
+            "Cavalieri, Giovanni-Battista de'": ['bnf'],
+            'Cavaleriis, Joannes Baptista': ['gnd', 'rero']
+        },
+        'preferred_name_for_person': {
+            'Cavalieri, Giovanni Battista': ['gnd']
+        }
+    }

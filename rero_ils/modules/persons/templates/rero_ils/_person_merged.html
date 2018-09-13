@@ -1,0 +1,11 @@
+{% set data = record.dumps() | person_merge_data_values %}
+
+{{ build_row_merged('Birth date', data.date_of_birth) }}
+{{ build_row_merged('Death date', data.date_of_death) }}
+{{ build_row_merged('Language of person', data.language_of_person) }}
+{{ build_row_merged('Gender', data.gender) }}
+{{ build_row_merged('Biographical information', data.biographical_information) }}
+{{ build_row_permalink_merged('ID', data.pid) }}
+{{ build_row_merged('Name', data.preferred_name_for_person) }}
+{{ build_row_merged('Variant name', data.variant_name_for_person) }}
+{{ build_row_merged('Authorized access point', data.authorized_access_point_representing_a_person) }}

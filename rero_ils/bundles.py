@@ -71,12 +71,18 @@ _detailed_js = NpmBundle(
         'd3': '^3.5.17'
     },
 )
+
 detailed_js = Bundle(
     _detailed_js,
     i18n,
     thumbnail_js,
     # filters='jsmin',
     output='gen/rero_ils.detailed.%(version)s.js',
+)
+
+tab_js = Bundle(
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap/tab.js',
+    output='gen/rero_ils.tab.%(version)s.js'
 )
 
 _search_js = NpmBundle(

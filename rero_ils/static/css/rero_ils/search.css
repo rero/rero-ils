@@ -182,6 +182,34 @@ invenio-search-facets .panel-heading .toggle.collapsed:after {
     color: #d5504d;
 }
 
+.panel-heading {
+	background: lightgray;
+}
+
+.panel-heading a {
+  display: block;
+	width: 100%;
+}
+
+.panel-heading h3 a:focus,
+.panel-heading h3 a:hover {
+    text-decoration: none;
+}
+
+.panel-heading .toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    font-size: 0.8em;
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+
+.panel-heading .toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
 .rero21-import {
     margin-top: 27px;
 }
@@ -200,4 +228,8 @@ invenio-search-facets .panel-heading .toggle.collapsed:after {
     text-align: center;
     margin-top: 4px;
     font-size: 0.9em;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
 }

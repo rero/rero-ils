@@ -1,0 +1,44 @@
+{% if record.rero|length > 0 %}
+<div class="panel-heading">
+  <h3 class="panel-title">
+      <a class="toggle" data-toggle="collapse" href="#collapse-rero">{{ _('RERO') }}</a>
+  </h3>
+</div>
+<div id="collapse-rero" class="panel-collapse collapse in">
+  <div class="panel-body">
+    {% with data=record.rero, source_name='rero' %}
+    {% include('rero_ils/_person_separated_data.html') %}
+    {% endwith %}
+  </div>
+</div>
+{% endif %}
+
+{% if record.gnd|length > 0 %}
+<div class="panel-heading">
+  <h3 class="panel-title">
+      <a class="toggle" data-toggle="collapse" href="#collapse-gnd">{{ _('GND') }}</a>
+  </h3>
+</div>
+<div id="collapse-gnd" class="panel-collapse collapse in">
+  <div class="panel-body">
+    {% with data=record.gnd, source_name='gnd' %}
+    {% include('rero_ils/_person_separated_data.html') %}
+    {% endwith %}
+  </div>
+</div>
+{% endif %}
+
+{% if record.bnf|length > 0 %}
+<div class="panel-heading">
+  <h3 class="panel-title">
+      <a class="toggle" data-toggle="collapse" href="#collapse-bnf">{{ _('BNF') }}</a>
+  </h3>
+</div>
+<div id="collapse-bnf" class="panel-collapse collapse in">
+  <div class="panel-body">
+    {% with data=record.bnf, source_name='bnf' %}
+    {% include('rero_ils/_person_separated_data.html') %}
+    {% endwith %}
+  </div>
+</div>
+{% endif %}
