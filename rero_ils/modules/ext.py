@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
-from ..filter import format_date_filter, item_status_text, to_pretty_json
+from ..filter import format_date_filter, to_pretty_json
 
 
 class REROILSAPP(object):
@@ -38,7 +38,6 @@ class REROILSAPP(object):
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
-            app.add_template_filter(item_status_text, name='item_status_text')
             self.register_signals()
 
     def init_app(self, app):

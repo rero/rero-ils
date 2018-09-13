@@ -28,9 +28,6 @@ import json
 
 import babel
 import dateparser
-from flask_babelex import gettext as _
-
-from .modules.items.models import ItemStatus
 
 
 def format_date_filter(date_str, format='medium', locale='en'):
@@ -58,25 +55,3 @@ def to_pretty_json(value):
         separators=(',', ': '),
         ensure_ascii=False,
     )
-
-
-def item_status_text(item, format='medium', locale='en'):
-    """Text for item status."""
-    if item.available:
-        text = _('available')
-        if item.get('item_type') == "on_site_consultation":
-            text += ' ({0})'.format(_("on_site consultation"))
-    else:
-        text = _('not available')
-        if item.status == ItemStatus.ON_LOAN:
-            due_date = format_date_filter(
-                item.get_item_end_date(),
-                format=format,
-                locale=locale
-            )
-            text += ' ({0} {1})'.format(_('due until'), due_date)
-        elif item.number_of_item_requests() > 0:
-            text += ' ({0})'.format(_('requested'))
-        elif item.status == ItemStatus.IN_TRANSIT:
-            text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
-    return text

@@ -1,0 +1,7 @@
+<ul class='re-list'>
+  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <!-- FIXME find a better way to set the record url -->
+    <h3><a target="_self" ng-href="/persons/{{ record.metadata.pid }}">pid: {{ record.metadata.pid }}</a>
+
+  </li>
+</ul>

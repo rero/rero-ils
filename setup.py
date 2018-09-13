@@ -94,6 +94,8 @@ setup(
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
+            'persons = rero_ils.modules.persons.views:blueprint',
+
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -119,7 +121,8 @@ setup(
             'rero_ils_location_editor_js =\
                 rero_ils.modules.locations.bundles:editor_js',
             'rero_ils_thumbnail_js = rero_ils.bundles:thumbnail_js',
-            'rero_ils_thumbnail_css = rero_ils.bundles:thumbnail_css'
+            'rero_ils_thumbnail_css = rero_ils.bundles:thumbnail_css',
+            'rero_ils_tab_js = rero_ils.bundles:tab_js',
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

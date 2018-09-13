@@ -42,6 +42,7 @@ from ...permissions import request_item_permission
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
 from .api import Item
+from .models import ItemStatus
 from .utils import commit_item, item_from_web_request
 
 blueprint = Blueprint(
@@ -232,3 +233,26 @@ def item_view_method(pid, record, template=None, **kwargs):
         record=record,
         document=document
     )
+
+
+@blueprint.app_template_filter()
+def item_status_text(item, format='medium', locale='en'):
+    """Text for item status."""
+    if item.available:
+        text = _('available')
+        if item.get('item_type') == "on_site_consultation":
+            text += ' ({0})'.format(_("on_site consultation"))
+    else:
+        text = _('not available')
+        if item.status == ItemStatus.ON_LOAN:
+            due_date = format_date_filter(
+                item.get_item_end_date(),
+                format=format,
+                locale=locale
+            )
+            text += ' ({0} {1})'.format(_('due until'), due_date)
+        elif item.number_of_item_requests() > 0:
+            text += ' ({0})'.format(_('requested'))
+        elif item.status == ItemStatus.IN_TRANSIT:
+            text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
+    return text
