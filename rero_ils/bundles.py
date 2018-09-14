@@ -112,3 +112,24 @@ thumbnail_css = NpmBundle(
     filters='node-scss,cleancssurl',
     output='gen/thumbnail.%(version)s.css',
 )
+
+_person_js = NpmBundle(
+    'js/rero_ils/persons.js',
+    'js/rero_ils/invenio_config.js',
+    'js/rero_ils/person_app.js',
+    filters='requirejs',
+    depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
+    npm={
+        "almond": "~0.3.1",
+        'angular': '~1.4.10',
+        'angular-loading-bar': '~0.9.0',
+        'd3': '^3.5.17',
+        'invenio-search-js': '^1.3.1',
+    },
+)
+
+person_js = Bundle(
+    _person_js,
+    i18n,
+    output='gen/rero_ils.person_search.%(version)s.js'
+)

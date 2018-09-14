@@ -40,6 +40,7 @@ from invenio_search import RecordsSearch
 from .modules.documents_items.api import DocumentsWithItems
 from .modules.items.api import Item
 from .modules.locations.api import Location
+from .modules.mef.api import MefPerson
 from .modules.members_locations.api import MemberWithLocations
 from .modules.organisations_members.api import OrganisationWithMembers
 from .modules.patrons.api import Patron
@@ -392,11 +393,13 @@ RECORDS_REST_ENDPOINTS = dict(
                                  ':json_v1_response'),
         },
         search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
         list_route='/persons/',
-        item_route='/persons/<pid(loc):pid_value>',
+        item_route='/persons/<pid(pers):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
@@ -666,7 +669,13 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
     _('pers'): dict(
         api='/api/persons/',
+        search_template='rero_ils/person_search.html',
         results_template='templates/rero_ils/brief_view_mef_persons.html',
+        editor_template='rero_ils/document_editor.html',
+        schema='persons/mef-person-v0.0.1.json',
+        form_options=('rero_ils.modules.documents.form_options',
+                      'persons/mef-person-v0.0.1.json'),
+        record_class=MefPerson,
     ),
 }
 
