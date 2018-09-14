@@ -24,24 +24,29 @@ as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 */
 
-require([
-    'node_modules/d3/d3',
-    'node_modules/angular/angular',
-    'node_modules/angular-loading-bar/build/loading-bar',
-    'node_modules/invenio-search-js/dist/invenio-search-js',
-  ], function() {
-    // When the DOM is ready bootstrap the `invenio-search-js`
+angular.module('reroilsPerson', [])
+  .controller('personController', ['$scope', function($scope) {
 
-    angular.element(document).ready(function() {
-      angular.bootstrap(
-        document.getElementById("invenio-search"), [
-          'angular-loading-bar',
-          'invenioSearch',
-          'reroilsAppTranslations',
-          'reroilsUtils',
-          'reroThumbnails',
-          'reroConfig'
-        ]
-      );
+    $scope.person = null;
+
+    $scope.$watch("record", function(record) {
+       $scope.person = extract_source(record, $scope.config);
     });
-});
+
+    function extract_source(record, config) {
+      var orders = config.label_order;
+      var language = config.language;
+      data = record['metadata'];
+      if (!(language in orders)) {
+        language = orders['fallback'];
+      }
+      order = orders[language];
+      order.some(function(source) {
+        if (source in data) {
+          dataSource = source;
+          return true;
+        }
+      })
+      return data[dataSource];
+    }
+  }]);

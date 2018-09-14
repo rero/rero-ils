@@ -24,8 +24,7 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.filter import format_date_filter, person_id_permalink, \
-    person_label, person_merge_data_values
+from rero_ils.filter import format_date_filter
 
 
 def test_date_filter_format_timestamp_en():
@@ -57,33 +56,3 @@ def test_date_filter_format_full_fr():
     """Test full french date filter."""
     datestring = format_date_filter('1950-01-01', 'full', 'fr')
     assert 'dimanche, 1. janvier 1950' in datestring
-
-
-def test_person_merge_data_values(app, person_data, person_data_result):
-    """Test persons merge data."""
-    app.config['RERO_ILS_PERSONS_SOURCES'] = ['bnf', 'gnd', 'rero']
-    data = person_merge_data_values(person_data)
-    assert data == person_data_result
-
-
-def test_person_label(app, person_data):
-    """Test persons merge data."""
-    app.config['RERO_ILS_PERSONS_LABEL_ORDER'] = {
-        'fallback': 'fr',
-        'fr': ['rero', 'bnf', 'gnd'],
-        'de': ['gnd', 'rero', 'bnf']
-    }
-    label = person_label(person_data, 'fr')
-    assert label == 'Cavalieri, Giovanni Battista'
-    label = person_label(person_data, 'it')
-    assert label == 'Cavalieri, Giovanni Battista'
-
-
-def test_person_id_permalink(app):
-    """Test person id permalink."""
-    app.config['RERO_ILS_PERSONS_PERMALINK'] = {
-        'rero': 'http://data.rero.ch/02-{pid}'
-    }
-    data = {"pid": "A023655346"}
-    permalink = person_id_permalink(data, 'rero')
-    assert permalink == 'http://data.rero.ch/02-A023655346'

@@ -38,9 +38,8 @@ require([
           'angular-loading-bar',
           'invenioSearch',
           'reroilsAppTranslations',
-          'reroilsUtils',
-          'reroThumbnails',
-          'reroConfig'
+          'reroilsPerson',
+          'invenioConfig'
         ]
       );
     });

@@ -104,6 +104,7 @@ setup(
             'messages = rero_ils',
         ],
         'invenio_assets.bundles': [
+            'rero_ils_person_search_js = rero_ils.bundles:person_js',
             'rero_ils_detailed_js = rero_ils.bundles:detailed_js',
             'rero_ils_search_js = rero_ils.bundles:search_js',
             'rero_ils_item_editor_js =\
