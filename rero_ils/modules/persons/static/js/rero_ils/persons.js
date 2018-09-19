@@ -34,7 +34,7 @@ angular.module('reroilsPerson', [])
     });
 
     function extract_source(record, config) {
-      var orders = config.label_order;
+      var orders = config.persons_label_order;
       var language = config.language;
       data = record['metadata'];
       if (!(language in orders)) {

@@ -27,9 +27,25 @@
 from __future__ import absolute_import, print_function
 
 from flask_assets import Bundle
+from invenio_assets import NpmBundle
 
-editor_js = Bundle(
-    'js/rero_ils/document-editor.js',
+from ...bundles import i18n
+
+detailed_js = Bundle(
+    i18n,
+    NpmBundle(
+        'js/rero_ils/translations.js',
+        'js/rero_ils/thumbnail.js',
+        'js/rero_ils/detailed_app.js',
+        filters='requirejs',
+        depends=('node_modules/d3/*'),
+        npm={
+            "almond": "~0.3.1",
+            'angular': '~1.4.10',
+            'angular-loading-bar': '~0.9.0',
+            'd3': '^3.5.17'
+        }
+    ),
     filters='jsmin',
-    output='gen/rero_ils.modules.document-editor_js.%(version)s.js',
+    output='gen/rero_ils.detailed.%(version)s.js',
 )

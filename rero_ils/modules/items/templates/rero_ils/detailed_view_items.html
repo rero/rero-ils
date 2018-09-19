@@ -36,7 +36,9 @@
                 {% set patron_name = patron.first_name + ' ' + patron.last_name + " - " + holding.patron_barcode %}
                 <tr>
                     <td>
-                        <a href="{{ '/items/circulation/checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
+                      <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">
+                        {{ patron_name }}
+                      </a>
                     </td>
                     <td>{{ holding.end_date|format_date(
                             format='short_date',
@@ -74,7 +76,9 @@
                 <tr>
                     <td>
                         {% if patron %}
-                            <a href="{{ '/items/circulation/checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
+                          <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">
+                            {{ patron_name }}
+                          </a>
                         {% else %}
                             {{_('No patron found!')}}
                         {% endif %}
@@ -82,7 +86,6 @@
                     <td>
                         <a href="{{ '/members/' + holding.pickup_member_pid }}">{{ holding.pickup_member_name }}</a>
                     </td>
-                    <!-- TODO task #554 change start_date to request_datetime -->
                     <td>
                       {% if holding.request_datetime %}
                       {{ holding.request_datetime|format_date(
@@ -100,8 +103,3 @@
 {% endif %}
 </div>
 {%- endblock %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
-{%- endblock javascript %}

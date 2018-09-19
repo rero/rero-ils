@@ -1,4 +1,4 @@
-angular.module('documentEditor', ['schemaForm'])
+angular.module('customEditor')
     .controller('ImportDocument', function($scope, $http, $window) {
 
         // to move to document
@@ -29,4 +29,4 @@ angular.module('documentEditor', ['schemaForm'])
                   $scope.params.model['$schema'] = schema;
           });
         }
-    })
+    });

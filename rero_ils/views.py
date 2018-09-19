@@ -26,7 +26,13 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, redirect, render_template
+from functools import partial
+
+from flask import Blueprint, current_app, redirect, render_template, request
+from flask_babelex import gettext as _
+from flask_login import current_user
+from flask_menu import current_menu
+from invenio_i18n.ext import current_i18n
 
 from .version import __version__
 
@@ -36,6 +42,80 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.before_app_first_request
+def init_menu():
+    """Create the header menus."""
+    item = current_menu.submenu('main.menu')
+    item.register(
+        endpoint=None,
+        text=_(
+            '%(icon)s <span class="visible-md-inline visible-lg-inline">'
+            'Menu</span>',
+            icon='<i class="fa fa-bars"></i>'),
+        order=0)
+
+    order = 10
+
+    def return_language(lang):
+        return dict(lang_code=lang)
+
+    def hide_language(lang):
+        return current_i18n.language != lang
+
+    for language_item in current_i18n.get_locales():
+        item = current_menu.submenu(
+            'main.menu.lang_{language}'.format(
+                language=language_item.language))
+        item.register(
+            endpoint='invenio_i18n.set_lang',
+            endpoint_arguments_constructor=partial(
+                return_language, language_item.language),
+            text=_(
+                '%(icon)s %(language)s',
+                icon='<i class="fa fa-language"></i>',
+                language=language_item.language),
+            visible_when=partial(hide_language, language_item.language),
+            order=order)
+        order += 1
+
+    item = current_menu.submenu('main.menu.help')
+    item.register(
+        endpoint='rero_ils.help',
+        text=_('%(icon)s Help', icon='<i class="fa fa-info"></i>'),
+        order=100)
+
+    item = current_menu.submenu('main.profile')
+    item.register(
+        endpoint=None,
+        text=_(
+            '%(icon)s <span class="visible-md-inline visible-lg-inline">My '
+            'Account</span>',
+            icon='<i class="fa fa-user"></i>'),
+        order=1)
+
+    item = current_menu.submenu('main.profile.signup')
+    item.register(
+        endpoint='security.register',
+        visible_when=lambda: not current_user.is_authenticated,
+        text=_('%(icon)s Sign Up', icon='<i class="fa fa-user-plus"></i>'),
+        order=0)
+
+    item = current_menu.submenu('main.profile.login')
+    item.register(
+        endpoint='security.login',
+        endpoint_arguments_constructor=lambda: dict(next=request.path),
+        visible_when=lambda: not current_user.is_authenticated,
+        text=_('%(icon)s Login', icon='<i class="fa fa-sign-in"></i>'),
+        order=1)
+
+    item = current_menu.submenu('main.profile.logout')
+    item.register(
+        endpoint='security.logout',
+        visible_when=lambda: current_user.is_authenticated,
+        text=_('%(icon)s Logout', icon='<i class="fa fa-sign-out"></i>'),
+        order=1)
 
 
 @blueprint.route('/ping', methods=['HEAD', 'GET'])

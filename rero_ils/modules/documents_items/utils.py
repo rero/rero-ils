@@ -25,61 +25,45 @@
 """Utilities functions for rero-ils."""
 
 from flask import url_for
+from invenio_indexer.api import RecordIndexer
 
 from ..documents_items.api import DocumentsWithItems
 from ..items.api import Item
+from ..utils import clean_dict_keys
 
 
-def delete_item(record_type, pid, record_indexer, parent_pid):
+def delete_item(record_type, record_class, pid):
     """Remove an item from a document.
 
     The item is marked as deleted in the db, his pid as well.
     The document is reindexed.
     """
-    item = Item.get_record_by_pid(pid)
-    document = get_document(parent_pid, item.id)
-    persistent_identifier = item.persistent_identifier
-    if document:
-        document.remove_item(item, delindex=True)
-        _next = url_for('invenio_records_ui.doc', pid_value=document.pid)
-    else:
-        item.delete(delindex=True)
-        _next = url_for('invenio_records_ui')
-    return _next, persistent_identifier
+    item = record_class.get_record_by_pid(pid)
+    document = DocumentsWithItems.get_document_by_itemid(item.id)
+    item.delete(delindex=False)
+    document.remove_item(item, delindex=True)
+    RecordIndexer().client.indices.flush()
+    _next = url_for('invenio_records_ui.doc', pid_value=document.pid)
+    return _next, item.pid
 
 
-def save_item(data, record_type, fetcher, minter,
-              record_indexer, record_class, parent_pid):
+def save_item(data, record_type, record_class, parent_pid):
     """Save a record into the db and index it.
 
-    If the item does not exists, it well be created
+    If the item does not exists, it will be created
     and attached to the parent document.
     """
-    item_pid = data.get('pid')
-    document = None
-    if item_pid:
-        item = Item.get_record_by_pid(item_pid)
-        document = get_document(parent_pid, item.id)
-        item.update(data, dbcommit=True)
+    pid = data.get('pid')
+    data = clean_dict_keys(data)
+    if pid:
+        item = record_class.get_record_by_pid(pid)
+        item.update(data, dbcommit=False)
+        document = DocumentsWithItems.get_document_by_itemid(item.id)
     else:
-        item = Item.create(data, dbcommit=True)
-        document = get_document(parent_pid, item.id)
-        if document:
-            document.add_item(item, dbcommit=True)
-    if document:
-        document.reindex()
-    if parent_pid:
-        _next = url_for('invenio_records_ui.doc', pid_value=parent_pid)
-    else:
-        _next = url_for('invenio_records_ui.item', pid_value=item.pid)
-    return _next, item.persistent_identifier
-
-
-def get_document(document_pid, item_id):
-    """Get document from document or item pid."""
-    if document_pid:
-        return DocumentsWithItems.get_record_by_pid(document_pid)
-    elif item_id:
-        return DocumentsWithItems.get_document_by_itemid(item_id)
-    else:
-        return None
+        item = Item.create(data, dbcommit=False)
+        document = DocumentsWithItems.get_record_by_pid(parent_pid)
+        document.add_item(item, dbcommit=False, reindex=False)
+    document.dbcommit(reindex=True)
+    RecordIndexer().client.indices.flush()
+    _next = url_for('invenio_records_ui.doc', pid_value=document.pid)
+    return _next, item.pid

@@ -26,48 +26,49 @@
 
 from flask import url_for
 from flask_login import current_user
+from invenio_indexer.api import RecordIndexer
 
-from ..members_locations.api import MemberWithLocations
-from ..organisations_members.api import OrganisationWithMembers
 from ..patrons.api import Patron
+from ..utils import clean_dict_keys
+from .api import OrganisationWithMembers
 
 
-def delete_member(record_type, pid, record_indexer, parent_pid):
+def delete_member(record_type, record_class, pid):
     """Remove an member from an organisation.
 
     If the location does not exists, it well be created
     and attached to the parent member.
     """
-    member = MemberWithLocations.get_record_by_pid(pid)
-    persistent_identifier = member.persistent_identifier
+    member = record_class.get_record_by_pid(pid)
     organisation = OrganisationWithMembers.get_organisation_by_memberid(
         member.id
     )
-    organisation.remove_member(member, delindex=True)
+    member.delete(delindex=True)
+    organisation.remove_member(member, delindex=False)
+    RecordIndexer().client.indices.flush()
+    _next = url_for('memb.index_view')
+    return _next, member.pid
 
-    _next = url_for('reroils_record_editor.search_memb')
-    return _next, persistent_identifier
 
-
-def save_member(data, record_type, fetcher, minter,
-                record_indexer, record_class, parent_pid):
+def save_member(data, record_type, record_class, parent_pid=None):
     """Save a record into the db and index it.
 
     If the item does not exists, it well be created
     and attached to the parent document.
     """
+    pid = data.get('pid')
+    data = clean_dict_keys(data)
     patron = Patron.get_patron_by_user(current_user)
     organisation = OrganisationWithMembers.get_record_by_pid(
         patron.organisation_pid
     )
-    pid = data.get('pid')
     if pid:
-        member = MemberWithLocations.get_record_by_pid(pid)
-        member.update(data, dbcommit=True, reindex=True)
+        member = record_class.get_record_by_pid(pid)
+        member.update(data, dbcommit=False, reindex=False)
     else:
-        member = MemberWithLocations.create(data, dbcommit=True, reindex=True)
+        member = record_class.create(data, dbcommit=False, reindex=False)
         organisation.add_member(member)
-    organisation.dbcommit(reindex=True)
-
+    member.dbcommit(reindex=True)
+    RecordIndexer().client.indices.flush()
     _next = url_for('invenio_records_ui.memb', pid_value=member.pid)
-    return _next, member.persistent_identifier
+    return _next, member.pid

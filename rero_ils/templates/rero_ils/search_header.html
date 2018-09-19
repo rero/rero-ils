@@ -1,0 +1,25 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of Invenio.
+  Copyright (C) 2015-2018 CERN.
+  Copyright (C) 2018 RERO.
+
+  Invenio is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Public License; see LICENSE file for more details.
+#}
+
+{% extends config.THEME_HEADER_TEMPLATE %}
+
+{%- block navbar_search %}
+<div class="col-xs-12 col-sm-12 col-md-6 col-md-pull-3">
+  <invenio-search-bar
+   template="{{ url_for('static', filename=config.REROILS_SEARCHBAR_TEMPLATE) }}"
+   {%- if record_type %}
+    placeholder="{{ _(record_type) }}: {{ search_input_placeholder|default(_('Search')) }}"
+    {%- else %}
+    placeholder="{{ _('Search') }}"
+    {%- endif %}
+    >
+  </invenio-search-bar>
+</div>
+{%- endblock navbar_search %}

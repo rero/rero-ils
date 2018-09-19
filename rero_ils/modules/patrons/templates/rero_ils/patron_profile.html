@@ -1,12 +1,5 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
-{%- block css %}
-    {{ super () }}
-    {%- assets "rero_ils_patron_profile_css" %}
-        <link href="{{ ASSET_URL }}" rel="stylesheet">
-    {% endassets %}
-{%- endblock css %}
-
 {%- block page_body %}
 {% include('rero_ils/_patron_profile_head.html') %}
 

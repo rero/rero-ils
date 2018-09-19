@@ -22,24 +22,31 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""JS/CSS bundles for theme.
+"""Invenio-admin views."""
 
-You include one of the bundles in a page like the example below (using ``js``
-bundle as an example):
+from flask_admin import BaseView, expose
+from invenio_admin.permissions import \
+    admin_permission_factory as default_admin_permission_factory
 
-.. code-block:: html
+from ...permissions import can_edit
 
-    {%- asset "invenio_theme.bundles:js" %}
-    <script src="{{ASSET_URL}}"  type="text/javascript"></script>
-    {%- end asset %}
-"""
 
-from __future__ import absolute_import, print_function
+class CirculationManager(BaseView):
+    """Flask-Admin Circulation view."""
 
-from flask_assets import Bundle
+    @expose('/')
+    @expose('/<path:path>')
+    def index(self, path=None):
+        """Angular Circulation view."""
+        return self.render('rero_ils/circulation_ui.html')
 
-editor_js = Bundle(
-    'js/rero_ils/location-editor.js',
-    filters='jsmin',
-    output='gen/rero_ils.modules.location-editor_js.%(version)s.js',
-)
+    def is_accessible(self):
+        """Access control."""
+        return (can_edit() or default_admin_permission_factory(self).can())
+
+
+circulation_adminview = {
+    'view_class': CirculationManager,
+    'kwargs': dict(name='Circulation', endpoint='circulation',
+                   menu_icon_type='fa', menu_icon_value='fa-barcode'),
+}

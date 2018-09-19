@@ -79,17 +79,20 @@ setup(
         'console_scripts': [
             'rero-ils = invenio_app.cli:cli',
         ],
+        'babel.extractors': [
+            'json = rero_ils.modules.babel_extractors:extract_json'
+        ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             'rero-ils = rero_ils.modules.ext:REROILSAPP'
         ],
         'invenio_base.blueprints': [
             'rero_ils = rero_ils.views:blueprint',
-            'organisations =\
+            'organisations = \
                 rero_ils.modules.organisations_members.views:blueprint',
             'members = rero_ils.modules.members_locations.views:blueprint',
             'locations = rero_ils.modules.locations.views:blueprint',
-            'documents_items =\
+            'documents_items = \
                 rero_ils.modules.documents_items.views:blueprint',
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
@@ -103,28 +106,20 @@ setup(
         'invenio_i18n.translations': [
             'messages = rero_ils',
         ],
+        'invenio_admin.views': [
+            'rero_ils_circulation = \
+                rero_ils.modules.items.admin:circulation_adminview',
+        ],
         'invenio_assets.bundles': [
-            'rero_ils_tooltips_js = rero_ils.bundles:tooltips_js',
-            'rero_ils_person_search_js = rero_ils.bundles:person_js',
-            'rero_ils_detailed_js = rero_ils.bundles:detailed_js',
+            'rero_ils_detailed_documents_items_js = \
+                rero_ils.modules.documents_items.bundles:detailed_js',
             'rero_ils_search_js = rero_ils.bundles:search_js',
-            'rero_ils_item_editor_js =\
-                rero_ils.modules.items.bundles:editor_js',
-            'rero_ils_item_circulation_ui_js =\
+            'rero_ils_item_circulation_ui_js = \
                 rero_ils.modules.items.bundles:circulation_ui_js',
-            'rero_ils_document_editor_js =\
-                rero_ils.modules.documents.bundles:editor_js',
-            'rero_ils_patron_profile_css =\
-                rero_ils.modules.patrons.bundles:profile_css',
-            'rero_ils_patron_editor_js =\
-                rero_ils.modules.patrons.bundles:editor_js',
-            'rero_ils_member_editor_js =\
-                rero_ils.modules.members_locations.bundles:editor_js',
-            'rero_ils_location_editor_js =\
-                rero_ils.modules.locations.bundles:editor_js',
-            'rero_ils_thumbnail_js = rero_ils.bundles:thumbnail_js',
-            'rero_ils_thumbnail_css = rero_ils.bundles:thumbnail_css',
-            'rero_ils_tab_js = rero_ils.bundles:tab_js',
+            'rero_ils_editor_js = \
+               rero_ils.bundles:editor_js',
+            'rero_ils_main_css = rero_ils.bundles:main_css',
+            'rero_ils_main_js = rero_ils.bundles:js'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
@@ -134,11 +129,11 @@ setup(
             'pjson = rero_ils.modules.dojson.dump:pretty_json_dump',
         ],
         'dojson.cli.rule': [
-            'marc21tojson =\
+            'marc21tojson = \
                 rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson',
-            'marc21toebooks =\
+            'marc21toebooks = \
                 rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
-            'unimarctojson =\
+            'unimarctojson = \
                 rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
@@ -149,7 +144,7 @@ setup(
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
-            'organisations_members =\
+            'organisations_members = \
                 rero_ils.modules.organisations_members.models',
             'members = rero_ils.modules.members.models',
             'members_locations = rero_ils.modules.members_locations.models'
@@ -163,32 +158,32 @@ setup(
             'apiharvester = rero_ils.modules.apiharvester.models'
         ],
         'invenio_pidstore.minters': [
-            'organisation_id =\
+            'organisation_id = \
                 rero_ils.modules.organisations.minters:organisation_id_minter',
-            'member_id =\
+            'member_id = \
                 rero_ils.modules.members.minters:member_id_minter',
-            'location_id =\
+            'location_id = \
                 rero_ils.modules.locations.minters:location_id_minter',
-            'document_id =\
+            'document_id = \
                 rero_ils.modules.documents.minters:document_id_minter',
             'item_id = rero_ils.modules.items.minters:item_id_minter',
             'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
             'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter'
         ],
         'invenio_pidstore.fetchers': [
-            'organisation_id =\
+            'organisation_id = \
                 rero_ils.modules.organisations.fetchers:organisation_id_fetcher',
-            'member_id =\
+            'member_id = \
                 rero_ils.modules.members.fetchers:member_id_fetcher',
-            'location_id =\
+            'location_id = \
                 rero_ils.modules.locations.fetchers:location_id_fetcher',
-            'document_id =\
+            'document_id = \
                 rero_ils.modules.documents.fetchers:document_id_fetcher',
-            'item_id =\
+            'item_id = \
                 rero_ils.modules.items.fetchers:item_id_fetcher',
-            'patron_id =\
+            'patron_id = \
                 rero_ils.modules.patrons.fetchers:patron_id_fetcher',
-            'mef_person_id =\
+            'mef_person_id = \
                 rero_ils.modules.mef.fetchers:mef_person_id_fetcher'
         ],
         'invenio_jsonschemas.schemas': [

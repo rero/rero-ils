@@ -1,0 +1,191 @@
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2015-2018 CERN
+ * Copyright (C) 2018 RERO.
+ *
+ * Invenio is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
+
+@import "variables";
+
+// Setting the path to fonts files.
+// Glyphicons are commented, to be replaced by font-awesome.
+// $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "/static/node_modules/font-awesome/fonts";
+$icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+
+@import "../invenio_theme/type";
+@import "../invenio_theme/navbar";
+@import "../invenio_theme/body";
+@import "../invenio_theme/cover";
+@import "../invenio_theme/header";
+@import "../invenio_theme/footer";
+@import "../invenio_theme/input-icon";
+@import "header";
+@import "search";
+@import "thumbnail";
+@import "frontpage";
+@import "patrons_profile";
+
+// CSS code to allow `ng-csp="no-inline-css"`
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
+}
+
+ng\:form {
+  display: block;
+}
+
+.ng-animate-shim {
+  visibility:hidden;
+}
+
+.ng-anchor {
+  position:absolute;
+}
+
+/**********************************
+
+                DETAILED VIEW
+
+ *********************************/
+.search-page {
+  h1 {
+    margin: 0;
+  }
+}
+.rero-ils-person {
+
+  .tab-content {
+    margin-top: 20px;
+  }
+  ul.nav {
+    margin-top: 20px;
+  }
+}
+
+.re-list {
+    h3 {
+        margin: 0;
+    }
+}
+
+/**********************************
+
+                FOOTER
+
+ *********************************/
+
+#footer {
+    min-height: 80px;
+}
+
+#re-copyright {
+    color: $gray-light;
+    padding-top: 20px;
+}
+
+
+/*
+   SIDEBAR
+*/
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+// #sidebar .navbar {
+//   padding: 15px 10px;
+//   // background: #fff;
+//   // border: none;
+//   // border-radius: 0;
+//   // margin-bottom: 40px;
+//   // box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+// }
+
+
+// #sidebar .line {
+//   width: 100%;
+//   height: 1px;
+//   border-bottom: 1px dashed #ddd;
+//   margin: 40px 0;
+// }
+
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+
+#sidebar {
+  min-width: 200px;
+  max-width: 200px;
+  background: $navbar-default-bg;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+// #sidebar a,
+// #sidebar a:hover,
+// #sidebar a:focus {
+//   color: inherit;
+// }
+
+// #sidebar.active {
+//   margin-left: -250px;
+// }
+
+// #sidebar ul.components {
+//   padding: 20px 0;
+//   // border-bottom: 1px solid #47748b;
+// }
+
+// #sidebar ul p {
+//   color: #fff;
+//   padding: 10px;
+// }
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+// #sidebar ul li a:hover {
+//   color: #7386D5;
+//   background: #fff;
+// }
+
+// #sidebar ul li.active > a,
+// a[aria-expanded="true"] {
+//   color: #fff;
+//   background: $navbar-default-bg;
+// }
+
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  #sidebarCollapse span {
+    display: none;
+  }
+}

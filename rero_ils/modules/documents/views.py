@@ -26,14 +26,15 @@
 
 from __future__ import absolute_import, print_function
 
+import sys
 from urllib.request import urlopen
 
 import six
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import gettext as _
-from reroils_record_editor.permissions import record_edit_permission
 
+from ...permissions import record_edit_permission
 from .dojson.contrib.unimarctojson import unimarctojson
 
 blueprint = Blueprint(
@@ -80,22 +81,20 @@ def import_bnf_ean(ean):
     # no record found!
     except StopIteration:
         response = {
-                'record': {},
-                'type': 'warning',
-                'content': _('EAN (%(ean)s) not found on the BNF server.',
-                             ean=ean),
-                'title': _('Warning:')
-            }
+            'record': {},
+            'type': 'warning',
+            'content': _('EAN (%(ean)s) not found on the BNF server.',
+                         ean=ean),
+            'title': _('Warning:')
+        }
         return jsonify(response), 404
     # other errors
-    except Exception as e:
-        import sys
-        print(e)
+    except Exception:
         sys.stdout.flush()
         response = {
-                'record': {},
-                'type': 'danger',
-                'content': _('An error occured on the BNF server.'),
-                'title': _('Error:')
-            }
+            'record': {},
+            'type': 'danger',
+            'content': _('An error occured on the BNF server.'),
+            'title': _('Error:')
+        }
         return jsonify(response), 500

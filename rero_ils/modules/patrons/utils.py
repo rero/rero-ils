@@ -31,22 +31,25 @@ from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
+from invenio_indexer.api import RecordIndexer
 from werkzeug.local import LocalProxy
 
+from ..utils import clean_dict_keys
 from .api import Patron
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
-def save_patron(data, record_type, fetcher, minter,
-                record_indexer, record_class, parent_pid):
+def save_patron(data, record_type, record_class, parent_pid):
     """Save a record into the db and index it.
 
     If the user does not exists, it well be created
     and attached to the patron.
     """
     email = data.get('email')
+    data = clean_dict_keys(data)
     data = clean_patron_fields(data)
+    # TODO: add the else case
     if email:
         find_user = datastore.find_user(email=email)
         if find_user is None:
@@ -63,12 +66,11 @@ def save_patron(data, record_type, fetcher, minter,
                 send_reset_password_instructions(user)
                 confirm_user(user)
 
-        patron = Patron.get_patron_by_email(email)
+        patron = record_class.get_patron_by_email(email)
         if patron:
-            patron = Patron(data, model=patron.model)
-            patron.update(data, dbcommit=True, reindex=True)
+            patron.update(data, dbcommit=True, reindex=False)
         else:
-            patron = Patron.create(data, dbcommit=True, reindex=True)
+            patron = record_class.create(data, dbcommit=True, reindex=False)
         if patron.get('is_patron', False):
             patron.add_role('patrons')
         else:
@@ -82,10 +84,11 @@ def save_patron(data, record_type, fetcher, minter,
             patron.remove_role('cataloguer')
             # TODO: cataloguer role
             patron.remove_role('staff')
-        patron.reindex()
+        patron.dbcommit(reindex=True)
+        RecordIndexer().client.indices.flush()
 
-    _next = url_for('invenio_records_ui.ptrn', pid_value=patron.pid)
-    return _next, patron.persistent_identifier
+        _next = url_for('invenio_records_ui.ptrn', pid_value=patron.pid)
+        return _next, patron.pid
 
 
 def clean_patron_fields(data):

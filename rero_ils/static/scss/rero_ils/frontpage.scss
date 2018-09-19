@@ -1,0 +1,75 @@
+.reroils-frontpage-bullet {
+    margin-bottom: 10px;
+    min-height: 48px;
+}
+
+.reroils-frontpage-bullet-logo {
+    width: 48px;
+    float: left;
+    vertical-align: top;
+}
+
+.reroils-frontpage-bullet-text {
+    width: 300px;
+    display: block;
+}
+
+.reroils-service-logo {
+    background-color: #204b73;
+    padding: 5px 20px;
+    margin-bottom: 8px;
+    margin-left: 1px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.reroils-frontpage-lower h3 {
+    color: #1B4464;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+img.reroils-frontpage-rero21 {
+    width: 65px;
+    margin-left: 2px;
+    margin-right: 9px;
+    margin-bottom: 6px;
+}
+
+.rero-ils-frontpage {
+    position: relative;
+    .input-group {
+      width: 100%;
+    }
+    .rero-ils-front-title {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: ceil(($grid-gutter-width / 2));
+        right: floor(($grid-gutter-width / 2));
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+    .label-danger {
+      margin-top: 6px;
+    }
+    form {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+}
+
+.reroils-frontpage-upper {
+    margin-top: -20px;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .reroils-frontpage-upper {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -48,7 +48,7 @@ blueprint = Blueprint(
 @login_required
 @register_menu(
     blueprint,
-    'main.profile',
+    'main.profile.profile',
     _('%(icon)s Profile', icon='<i class="fa fa-user fa-fw"></i>'),
     visible_when=user_has_patron
 )

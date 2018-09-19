@@ -1,55 +1,52 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 {%- block page_body %}
-<div class="container search-page">
+<div class="container search-page rero-ils-person">
   <div class="row">
+
     <div class="col-xs-1">
       <i class="fa fa-user fa-5x" aria-hidden="true"></i>
       <span class="icon-document-type">{{ _('Person') }}</span>
     </div>
-    <div class="col-xs-11">
-      <div>
-        <div class="row">
-          <div class="col-xs-11">
-            <h1>{{ record | person_label(current_i18n.language) }}</h1>
-            {{ build_row('MEF ID', record.pid) }}
-          </div>
-        </div>
-        <div class="clearfix margin-bottom-20">
-          <ul class="nav nav-pills pull-right" role="tablist">
-            <li role="presentation" class="active">
-              <a href="#merged" data-toggle="tab"><i class="fa fa-list-ul"></i></a>
-            </li>
-            <li role="presentation">
-              <a href="#separated" data-toggle="tab"><i class="fa fa-bars"></i></a>
-            </li>
-          </ul>
-        </div>
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="merged">
-            {% include('rero_ils/_person_merged.html') %}
-          </div>
-          <div role="tabpanel" class="tab-pane" id="separated">
-            {% include('rero_ils/_person_separated.html') %}
-          </div>
-        </div>
 
+    <div class="col-xs-11">
+      <ul class="nav nav-pills pull-right" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#merged" data-toggle="tab"><i class="fa fa-list-ul"></i></a>
+        </li>
+        <li role="presentation">
+          <a href="#separated" data-toggle="tab"><i class="fa fa-bars"></i></a>
+        </li>
+      </ul>
+      <h1>{{ record | person_label(current_i18n.language) }}</h1>
+      {{ build_row('MEF ID', record.pid) }}
+
+    </div>
+
+  <div class="col-xs-12">
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="merged">
+        {% include('rero_ils/_person_merged.html') %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="separated">
+        {% include('rero_ils/_person_separated.html') %}
+      </div>
+    </div>
+  </div>
         <!-- JSON -->
         {%- if current_user | can_edit %}
-        <div class="row">
+
           <div class="col-sm-12">
             <div class="btn-group  pull-right" role="group" aria-label="...">
               <a href="#source-{{ record.id }}" data-toggle="collapse" type="button" class="btn btn-info">
-                              <i class="fa fa-search-plus  fa-fw"></i> {{_('JSON')}}
-                          </a>
+                <i class="fa fa-search-plus  fa-fw"></i> {{_('JSON')}}
+              </a>
             </div>
           </div>
         </div>
         <div id="source-{{ record.id }}" class="collapse">
           <pre>{{ record.dumps() | tojson_pretty }}</pre>
-        </div>
         {% endif %}
       </div>
-    </div>
   </div>
 </div>
 {%- endblock %}
@@ -78,7 +75,7 @@
 
 {% macro build_row_merged(name, value) %}
 {% if value %}
-<div class="row margin-bottom-20">
+<div class="row">
   <div class="col-xs-2">
     {{name}}
   </div>
@@ -112,7 +109,7 @@
 {% endmacro %}
 
 {% macro build_row_permalink_merged(name, record) %}
-    <div class="row margin-bottom-20">
+    <div class="row">
       <div class="col-xs-2">
         {{ _(name) }}
       </div>
@@ -133,7 +130,6 @@
 
 {% block javascript %}
 {{ super() }}
-{% assets "rero_ils_tab_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 <script type="text/javascript">
 $(document).ready(function(){
     /* Store state of view tab */

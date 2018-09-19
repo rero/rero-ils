@@ -67,7 +67,3 @@
 -e git+https://github.com/inveniosoftware/invenio-db.git#egg=invenio-db[postgresql,versioning]
 # cache
 -e git+https://github.com/inveniosoftware/invenio-cache.git#egg=invenio-cache
-
-
-# RERO
-#-e git+https://github.com/rero/reroils-record-editor.git@app-data-merge#egg=reroils-record-editor

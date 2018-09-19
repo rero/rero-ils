@@ -54,7 +54,6 @@ class TextSerializer(object):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        print('++++>', record, flush=True)
         return self.format_record(record)
 
     def serialize_search(self, pid_fetcher, search_result, links=None,

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a6f1e361eeecc57afc90c429c69b2587dc9e3f8c6d39b7f164abf944008aa925"
+            "sha256": "8df77a2315ded83ffb585b529ea49aba58932d41a3c83ec6e25868783400d355"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1015,10 +1015,6 @@
         "rero-ils": {
             "editable": true,
             "path": "."
-        },
-        "reroils-record-editor": {
-            "git": "https://github.com/rero/reroils-record-editor.git",
-            "ref": "f497b662baa0607d3974b4ce65c6fbc923ff65eb"
         },
         "simplegeneric": {
             "hashes": [

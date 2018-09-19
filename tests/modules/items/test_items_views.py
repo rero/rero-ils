@@ -272,27 +272,28 @@ def test_view_request_item(url_for, reindex, record_indexer,
     assert item.number_of_item_requests() == 1
 
 
-@mock.patch('rero_ils.modules.items.views.render_template')
+@mock.patch('rero_ils.modules.items.admin.CirculationManager.render')
 def test_view_circulation(render_template, minimal_patron_record,
                           db, http_client):
     """Test circulation items using a http post request."""
     # hack the return value
     render_template.return_value = 'hello world'
 
-    res = http_client.get('/items/circulation')
-    assert res.status_code == 401
+    res = http_client.get('/admin/circulation/')
+    assert res.status_code == 302
+    assert 'Redirecting' in res.get_data(as_text=True)
 
-    res = http_client.get('/test/login')
-    res = http_client.get('/items/circulation')
-    assert res.status_code == 403
-    http_client.get('/test/logout')
+    # res = http_client.get('/test/login')
+    # res = http_client.get('/admin/circulation/')
+    # assert res.status_code == 403
+    # http_client.get('/test/logout')
 
-    res = http_client.get('/test/login?role=patrons')
-    res = http_client.get('/items/circulation')
-    assert res.status_code == 403
-    http_client.get('/test/logout')
+    # res = http_client.get('/test/login?role=patrons')
+    # res = http_client.get('/admin/circulation')
+    # assert res.status_code == 403
+    # http_client.get('/test/logout')
 
     res = http_client.get('/test/login?role=cataloguer')
 
-    res = http_client.get('/items/circulation')
+    res = http_client.get('/admin/circulation/')
     assert res.status_code == 200

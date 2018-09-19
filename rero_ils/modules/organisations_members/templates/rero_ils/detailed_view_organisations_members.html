@@ -20,12 +20,12 @@
     {% endif %}
 
     {% with
-        href_update=url_for('reroils_record_editor.update_org', pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_org', pid=record.pid),
+        href_update=url_for('org.edit_view', pid=record.pid),
+        href_delete=url_for('org.delete_view', pid=record.pid),
         json=record,
         message=_("Organisation cannot be deleted: there are still libraries linked to this organisation.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 
     <!-- Members -->
@@ -34,7 +34,7 @@
         <div class="col-sm-12">
             <h3>{{_('Members')}}
                 {%- if current_user | can_edit %}
-                <a href="{{ url_for('reroils_record_editor.create_memb',
+                <a href="{{ url_for('memb.create_view',
                 parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
                     <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
                 </a>
@@ -86,12 +86,12 @@
     {% endif %}
 
     {% with
-        href_update=url_for('reroils_record_editor.update_memb', pid=member.pid, parent_pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_memb', pid=member.pid, parent_pid=record.pid),
+        href_update=url_for('memb.edit_view', pid=member.pid, parent_pid=record.pid),
+        href_delete=url_for('memb.delete_view', pid=member.pid, parent_pid=record.pid),
         json=member,
         message=_("Library cannot be deleted: there are still locations linked to this library.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 
     <hr/>
@@ -101,8 +101,3 @@
   {%- endblock %}
 </div>
 {%- endblock %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
-{%- endblock javascript %}

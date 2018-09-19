@@ -1,4 +1,4 @@
-angular.module('memberEditor', ['reroilsEditor'])
+angular.module('customEditor')
     .controller('MemberValidator', function($scope, $http, $window) {
 
         $scope.member = $scope.params.model;
