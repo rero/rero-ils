@@ -96,18 +96,13 @@
     {%- endblock %}
 
     {% with
-        href_update=url_for('reroils_record_editor.update_org', pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_org', pid=record.pid),
+        href_update=url_for('org.edit_view', pid=record.pid),
+        href_delete=url_for('org.delete_view', pid=record.pid),
         json=record,
         message=_("Organisation cannot be deleted: there are still libraries linked to this organisation.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 
 </div>
 {%- endblock %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
-{%- endblock javascript %}

@@ -27,7 +27,8 @@ set -e
 
 script_path=$(dirname "$0")
 
-FLASK_ENV=development
+export FLASK_DEBUG=True
+export FLASK_ENV=development
 # Start Worker and Server
 pipenv run celery worker -A invenio_app.celery -l INFO & pid_celery=$!
 

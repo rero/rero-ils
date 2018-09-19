@@ -73,14 +73,18 @@ I18N_LANGUAGES = [
 # ==============
 #: Global base template.
 BASE_TEMPLATE = 'rero_ils/page.html'
+THEME_BASE_TEMPLATE = BASE_TEMPLATE
 #: Cover page base template (used for e.g. login/sign-up).
-COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+COVER_TEMPLATE = 'rero_ils/page_cover.html'
+THEME_COVER_TEMPLATE = COVER_TEMPLATE
 #: Footer base template.
-FOOTER_TEMPLATE = 'invenio_theme/footer.html'
+THEME_FOOTER_TEMPLATE = 'rero_ils/footer.html'
 #: Header base template.
 HEADER_TEMPLATE = 'rero_ils/header.html'
-#: Settings base template.
-SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+#: Header base template.
+THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
+#: Settings page template used for e.g. display user settings views.
+THEME_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 
 # Theme configuration
 # ===================
@@ -93,11 +97,11 @@ THEME_FRONTPAGE_TITLE = _('rero-ils')
 #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'rero_ils/frontpage.html'
 
-THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 THEME_HEADER_LOGIN_TEMPLATE = 'rero_ils/header_login.html'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
-THEME_FOOTER_TEMPLATE = 'rero_ils/footer.html'
+THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
+#: Brand logo.
 THEME_LOGO = 'images/logo_rero_ils.png'
 
 SEARCH_UI_JSTEMPLATE_RESULTS = \
@@ -108,7 +112,9 @@ SEARCH_UI_JSTEMPLATE_RANGE = 'templates/rero_ils/range.html'
 SEARCH_UI_JSTEMPLATE_COUNT = 'templates/rero_ils/count.html'
 SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 
-REROILS_RECORD_EDITOR_BASE_TEMPLATE = 'rero_ils/page.html'
+SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
+REROILS_SEARCHBAR_TEMPLATE = 'templates/rero_ils/searchbar.html'
+RERO_ILS_EDITOR_TEMPLATE = 'rero_ils/editor.html'
 SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 
 # Email configuration
@@ -132,6 +138,8 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _(
     "Welcome to RERO-ILS!")
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
+# Disable User Profiles
+USERPROFILES = False
 
 # Celery configuration
 # ====================
@@ -191,7 +199,38 @@ SECRET_KEY = 'CHANGE_ME'
 #: Max upload size for form data via application/mulitpart-formdata.
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 #: For dev. Set to false when testing on localhost in no debug mode
-APP_ENABLE_SECURE_HEADERS = False
+APP_ENABLE_SECURE_HEADERS = True
+APP_DEFAULT_SECURE_HEADERS = {
+    'force_https': True,
+    'force_https_permanent': False,
+    'force_file_save': False,
+    'frame_options': 'sameorigin',
+    'frame_options_allow_from': None,
+    'strict_transport_security': True,
+    'strict_transport_security_preload': False,
+    'strict_transport_security_max_age': 31556926,  # One year in seconds
+    'strict_transport_security_include_subdomains': True,
+    'content_security_policy': {
+        'default-src': ['*']
+        # 'default-src': ["'self'"],
+        # 'script-src': [
+        #     "'self'",
+        #     "'unsafe-inline'",
+        #     '*.rero.ch',
+        #     'https://www.googletagmanager.com',
+        #     'https://www.google-analytics.com'
+        # ],
+        # 'img-src': [
+        #     "'self'",
+        #     'https://www.google-analytics.com',
+        #     'http://images.amazon.com'
+        # ]
+    },
+    'content_security_policy_report_uri': None,
+    'content_security_policy_report_only': False,
+    'session_cookie_secure': True,
+    'session_cookie_http_only': True
+}
 #: Sets cookie with the secure flag by default
 SESSION_COOKIE_SECURE = False
 #: Since HAProxy and Nginx route all requests no matter the host header
@@ -561,7 +600,7 @@ RECORDS_UI_ENDPOINTS = {
         "record_class":
             "rero_ils.modules.organisations_members.api:OrganisationWithMembers",
         "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
+            "rero_ils.permissions.cataloguer_permission_factory"
     },
     "memb": {
         "pid_type": "memb",
@@ -570,7 +609,7 @@ RECORDS_UI_ENDPOINTS = {
         "record_class":
             "rero_ils.modules.members_locations.api:MemberWithLocations",
         "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
+            "rero_ils.permissions.cataloguer_permission_factory"
     },
     "loc": {
         "pid_type": "loc",
@@ -578,7 +617,7 @@ RECORDS_UI_ENDPOINTS = {
         "template": "rero_ils/detailed_view_locations.html",
         "record_class": 'rero_ils.modules.locations.api:Location',
         "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
+            "rero_ils.permissions.cataloguer_permission_factory"
     },
     "item": {
         "pid_type": "item",
@@ -587,7 +626,7 @@ RECORDS_UI_ENDPOINTS = {
         "view_imp": "rero_ils.modules.items.views.item_view_method",
         "record_class": 'rero_ils.modules.items.api:Item',
         "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
+            "rero_ils.permissions.cataloguer_permission_factory"
     },
     "ptrn": {
         "pid_type": "ptrn",
@@ -595,7 +634,7 @@ RECORDS_UI_ENDPOINTS = {
         "template": "rero_ils/detailed_view_patrons.html",
         "record_class": 'rero_ils.modules.patrons.api:Patron',
         "permission_factory_imp":
-            "reroils_record_editor.permissions.cataloguer_permission_factory"
+            "rero_ils.permissions.cataloguer_permission_factory"
 
     },
     "pers": {
@@ -620,10 +659,10 @@ RECORDS_UI_EXPORT_FORMATS = {
 
 # Editor Configuration
 # =====================
-REROILS_RECORD_EDITOR_OPTIONS = {
+
+RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
     _('doc'): dict(
         api='/api/documents/',
-        search_template='reroils_record_editor/search.html',
         results_template='templates/rero_ils/brief_view_documents_items.html',
         editor_template='rero_ils/document_editor.html',
         schema='documents/document-v0.0.1.json',
@@ -649,7 +688,6 @@ REROILS_RECORD_EDITOR_OPTIONS = {
                       'patrons/patron-v0.0.1.json'),
         save_record='rero_ils.modules.patrons.utils:save_patron',
         editor_template='rero_ils/patron_editor.html',
-        search_template='reroils_record_editor/search.html',
         results_template='templates/rero_ils/brief_view_patrons.html',
         record_class=Patron,
     ),
@@ -662,7 +700,6 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
     _('memb'): dict(
         api='/api/members/',
-        search_template='reroils_record_editor/search.html',
         results_template='templates/rero_ils/brief_view_members_locations.html',
         editor_template='rero_ils/member_editor.html',
         schema='members/member-v0.0.1.json',
@@ -685,13 +722,13 @@ REROILS_RECORD_EDITOR_OPTIONS = {
     ),
     _('pers'): dict(
         api='/api/persons/',
-        search_template='rero_ils/person_search.html',
         results_template='templates/rero_ils/brief_view_mef_persons.html',
         editor_template='rero_ils/document_editor.html',
         schema='persons/mef-person-v0.0.1.json',
         form_options=('rero_ils.modules.documents.form_options',
                       'persons/mef-person-v0.0.1.json'),
         record_class=MefPerson,
+        can_create=lambda: False
     ),
 }
 
@@ -722,7 +759,7 @@ SEARCH_UI_SEARCH_API = '/api/documents/'
 
 # RERO Specific Configuration
 # ===========================
-REROILS_RECORD_EDITOR_TRANSLATE_JSON_KEYS = [
+RERO_ILS_BABEL_TRANSLATE_JSON_KEYS = [
     'title', 'description', 'placeholder',
     'validationMessage', 'name', 'add', '403'
 ]
@@ -755,3 +792,6 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
     'fr': ['rero', 'bnf', 'gnd'],
     'de': ['gnd', 'rero', 'bnf']
 }
+
+ADMIN_PERMISSION_FACTORY = 'rero_ils.permissions.admin_permission_factory'
+ADMIN_BASE_TEMPLATE = BASE_TEMPLATE

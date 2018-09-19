@@ -28,6 +28,8 @@
 from flask_login import current_user
 from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
+from invenio_admin.permissions import \
+    admin_permission_factory as default_admin_permission_factory
 
 request_item_permission = DynamicPermission(RoleNeed('patrons'))
 
@@ -37,3 +39,30 @@ def can_request(user=None):
     if not user:
         user = current_user
     return user.is_authenticated and request_item_permission.can()
+
+
+record_edit_permission = DynamicPermission(RoleNeed('cataloguer'))
+
+
+def can_edit(user=None):
+    """User has editor role."""
+    if not user:
+        user = current_user
+    return user.is_authenticated and record_edit_permission.can()
+
+
+def cataloguer_permission_factory(record, *args, **kwargs):
+    """User has editor role."""
+    return record_edit_permission
+
+
+def admin_permission_factory(admin_view):
+    """."""
+    class FreeAccess(object):
+        def can(self):
+            return True
+    # TODO: remove this bad hacks!
+    if admin_view.name in ['Circulation'] \
+       or admin_view.category in ['Resources']:
+        return FreeAccess()
+    return default_admin_permission_factory(admin_view)

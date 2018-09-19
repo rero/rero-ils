@@ -37,8 +37,11 @@ from flask_menu import Menu
 from flask_security.utils import hash_password
 from invenio_access import InvenioAccess
 from invenio_accounts import InvenioAccounts
+from invenio_admin import InvenioAdmin
 from invenio_db import InvenioDB
 from invenio_jsonschemas import InvenioJSONSchemas
+from invenio_oauth2server import InvenioOAuth2Server
+from invenio_oauthclient import InvenioOAuthClient
 from invenio_pidstore import InvenioPIDStore
 from invenio_records import InvenioRecords
 from invenio_records_ui import InvenioRecordsUI
@@ -419,12 +422,15 @@ def app(request):
     InvenioPIDStore(app)
     InvenioRecords(app)
     InvenioAccounts(app)
-    REROILSAPP(app)
     InvenioAccess(app)
+    InvenioOAuth2Server(app)
     InvenioJSONSchemas(app)
     InvenioRecordsUI(app)
+    InvenioAdmin(app)
+    InvenioOAuthClient(app)
     Menu(app)
     Babel(app)
+    REROILSAPP(app)
     app.register_blueprint(item_blueprint)
 
     @app.route('/test/login')
@@ -440,7 +446,7 @@ def app(request):
         login_user(user)
         return "Logged In"
 
-    @app.route('/test/login')
+    @app.route('/test/logout')
     def logout():
         from flask_security import logout_user
         logout_user()

@@ -1,0 +1,15 @@
+<form role="search">
+  <div class="input-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="{{placeholder}}"
+      ng-model="vm.userQuery"
+      ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
+      ng-keyup="$event.keyCode == 13 && updateQuery()"
+    >
+      <span class="input-group-btn">
+        <button ng-click="updateQuery()" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+      </span>
+  </div>
+</form>

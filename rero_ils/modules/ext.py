@@ -26,7 +26,12 @@
 
 from __future__ import absolute_import, print_function
 
-from ..filter import format_date_filter, to_pretty_json
+from invenio_admin import current_admin
+
+from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
+    resource_can_create, to_pretty_json
+from ..permissions import can_edit
+from .admin import ResourceView
 
 
 class REROILSAPP(object):
@@ -38,12 +43,34 @@ class REROILSAPP(object):
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
+            app.add_template_filter(can_edit, name='can_edit')
+            app.add_template_filter(jsondumps, name='jsondumps')
+            app.add_template_filter(
+                resource_can_create,
+                name='resource_can_create')
+            app.add_template_filter(
+                admin_menu_is_visible,
+                name='admin_menu_is_visible'
+            )
             self.register_signals()
 
     def init_app(self, app):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['rero-ils'] = self
+
+        @app.before_first_request
+        def lazy_admin_view():
+            adm = app.extensions['invenio-admin']
+            config = app.config.get('RERO_ILS_RESOURCES_ADMIN_OPTIONS', {})
+            for rec_type in config.keys():
+                adm.register_view(ResourceView, **dict(
+                    name=rec_type, category='Resources',
+                    menu_icon_type='fa', menu_icon_value='fa-pencil-square-o',
+                    endpoint=rec_type)
+                )
+        app.context_processor(lambda: dict(
+            admin_root_menu=current_admin.admin.menu()))
 
     def init_config(self, app):
         """Initialize configuration."""

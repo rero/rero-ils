@@ -1,0 +1,34 @@
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2015-2018 CERN.
+ * Copyright (C) 2018 RERO.
+ *
+ * Invenio is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
+
+$navbar-height: 60px;
+$brand-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$brand-font-size: 30px;
+
+$color1: #1B4464;
+$color1-gradient: lighten($color1, 15%);
+$color2: #90C5A9;
+$color3: #7A9A95;
+$color4: #EF6D3B;
+$color5: #FA8B60;
+
+$navbar-default-toggle-icon-bar-bg: white;
+$navbar-brand-padding-vertical: 10px;
+$navbar-default-bg: $color1;
+$navbar-default-brand-color: white;
+$navbar-default-border: darken($navbar-default-bg, 10%);
+
+$text-white: #fff;
+$state-danger-text: #d5504d;
+$state-success-text: #439544;
+
+$font-size-base: 14px;
+$font-size-extra-small: ceil(($font-size-base * 0.6));
+$brand-danger: #ba1319;

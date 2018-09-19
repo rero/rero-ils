@@ -1,4 +1,4 @@
-angular.module('locationEditor', ['reroilsEditor'])
+angular.module('customEditor')
     .controller('LocationValidator', function($scope, $http, $window) {
 
         $scope.location = $scope.params.model;

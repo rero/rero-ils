@@ -29,7 +29,8 @@ from __future__ import absolute_import, print_function
 import os
 
 from flask_assets import Bundle
-from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
+from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle, \
+    RequireJSFilter
 from pkg_resources import resource_filename
 
 
@@ -43,101 +44,90 @@ def catalog(domain):
     )
 
 
+main_css = NpmBundle(
+    'scss/rero_ils/styles.scss',
+    depends=('scss/invenio_theme/*.scss', 'scss/rero_ils/*.scss'),
+    filters='node-scss,cleancssurl',
+    output='gen/rero_ils_main.%(version)s.css',
+    npm={
+        'almond': '~0.3.1',
+        'bootstrap-sass': '~3.3.5',
+        'font-awesome': '~4.4.0',
+        'jquery': '~1.9.1',
+    }
+)
+"""Main CSS bundle with Bootstrap and Font-Awesome."""
+
 i18n = GlobBundle(
     catalog('messages'),
     filters=AngularGettextFilter(catalog_name='reroilsAppTranslations'),
     # output='gen/translations/rero_ils.js',
 )
 
-thumbnail_js = NpmBundle(
-    'js/rero_ils/thumbnail.js',
-    filters='uglifyjs',
+js = NpmBundle(
+    'node_modules/almond/almond.js',
+    'js/rero_ils/rero_ils.js',
+    filters='requirejs',
     npm={
+        'almond': '~0.3.1',
+        'angular': '~1.4.9',
+        'bootstrap-sass': '~3.3.5',
+        'angular-gettext': '~2.3.8',
         'jquery': '~1.9.1',
     },
-    output='gen/rero_ils.thumbnail.%(version)s.js',
-)
-
-_detailed_js = NpmBundle(
-    'js/rero_ils/documents_items.js',
-    'js/rero_ils/invenio_config.js',
-    'js/rero_ils/detailed_app.js',
-    filters='requirejs',
-    depends=('node_modules/d3/*'),
-    # output='gen/rero_ils.search.%(version)s.js',
-    npm={
-        "almond": "~0.3.1",
-        'angular': '~1.4.10',
-        'angular-loading-bar': '~0.9.0',
-        'd3': '^3.5.17'
-    },
-)
-
-detailed_js = Bundle(
-    _detailed_js,
-    i18n,
-    thumbnail_js,
-    # filters='jsmin',
-    output='gen/rero_ils.detailed.%(version)s.js',
-)
-
-tab_js = Bundle(
-    'node_modules/bootstrap-sass/assets/javascripts/bootstrap/tab.js',
-    output='gen/rero_ils.tab.%(version)s.js'
-)
-
-tooltips_js = Bundle(
-    'node_modules/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
-    'js/rero_ils/tooltips.js',
-    output='gen/rero_ils.tooltip.%(version)s.js'
-)
-
-_search_js = NpmBundle(
-    'js/rero_ils/documents_items.js',
-    'js/rero_ils/invenio_config.js',
-    'js/rero_ils/search_app.js',
-    filters='requirejs',
-    depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
-    npm={
-        "almond": "~0.3.1",
-        'angular': '~1.4.10',
-        'angular-loading-bar': '~0.9.0',
-        'd3': '^3.5.17',
-        'invenio-search-js': '^1.3.1',
-    },
+    output='gen/rero_ils.main.%(version)s.js'
 )
 
 search_js = Bundle(
-    _search_js,
     i18n,
-    thumbnail_js,
-    # filters='jsmin',
+    NpmBundle(
+        'js/rero_ils/invenio_config.js',
+        'js/rero_ils/translations.js',
+        'js/rero_ils/documents_items.js',
+        'js/rero_ils/persons.js',
+        'js/rero_ils/thumbnail.js',
+        'js/rero_ils/search_app.js',
+        filters='requirejs',
+        depends=(
+            'node_modules/invenio-search-js/dist/*.js',
+            'node_modules/d3/*'
+        ),
+        npm={
+            "almond": "~0.3.1",
+            'angular': '~1.4.10',
+            'angular-loading-bar': '~0.9.0',
+            'd3': '^3.5.17',
+            'invenio-search-js': '^1.3.1',
+        }),
+    filters='jsmin',
     output='gen/rero_ils.search.%(version)s.js',
 )
 
-thumbnail_css = NpmBundle(
-    'css/rero_ils/thumbnail.scss',
-    filters='node-scss,cleancssurl',
-    output='gen/thumbnail.%(version)s.css',
-)
-
-_person_js = NpmBundle(
-    'js/rero_ils/persons.js',
-    'js/rero_ils/invenio_config.js',
-    'js/rero_ils/person_app.js',
-    filters='requirejs',
-    depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
+schema_form_js = NpmBundle(
+    'node_modules/angular/angular.js',
+    'node_modules/angular-sanitize/angular-sanitize.min.js',
+    'node_modules/tv4/tv4.js',
+    'node_modules/objectpath/lib/ObjectPath.js',
+    'node_modules/angular-schema-form/dist/schema-form.js',
+    'node_modules/angular-schema-form/dist/bootstrap-decorator.js',
     npm={
-        "almond": "~0.3.1",
-        'angular': '~1.4.10',
-        'angular-loading-bar': '~0.9.0',
-        'd3': '^3.5.17',
-        'invenio-search-js': '^1.3.1',
-    },
+        'angular': '~1.6.9',
+        'angular-sanitize': '~1.6.9',
+        'tv4': '^1.3.0',
+        'objectpath': '^1.2.1',
+        'angular-schema-form': '0.8.13'
+    }
 )
 
-person_js = Bundle(
-    _person_js,
-    i18n,
-    output='gen/rero_ils.person_search.%(version)s.js'
+editor_js = Bundle(
+    schema_form_js,
+    'js/rero_ils/editor.js',
+    'js/rero_ils/document-editor.js',
+    'js/rero_ils/member-editor.js',
+    'js/rero_ils/item-editor.js',
+    'js/rero_ils/patron-editor.js',
+    'js/rero_ils/location-editor.js',
+    'js/rero_ils/editor-app.js',
+    filters='jsmin',
+    output='gen/rero_ils.editor_js.%(version)s.js',
 )

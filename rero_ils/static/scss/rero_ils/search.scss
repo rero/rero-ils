@@ -1,0 +1,79 @@
+
+/****************************************
+
+                General Search
+
+  **************************************/
+
+.re-list {
+  list-style-type: none;
+}
+
+.search-page ul {
+
+    margin: 0;
+}
+
+.list-inline > li {
+    padding-right: 0;
+}
+
+.search-page {
+  margin-top: 30px;
+}
+
+
+/****************************************
+
+        Panels such as facets, autorities
+
+  **************************************/
+
+
+.panel-heading h3 a:focus,
+.panel-heading h3 a:hover {
+    text-decoration: none;
+}
+
+.panel-heading .toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'FontAwesome';
+    font-size: 0.8em;
+    content: "\f0d7";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    // color: $text-color;         /* adjust as needed */
+}
+
+.panel-heading .toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f0da";    /* adjust as needed, taken from bootstrap.css */
+}
+
+/****************************************
+
+                MEF Person labels
+
+  **************************************/
+
+.re-list .label,
+.rero-ils-person .panel .label {
+    font-size: $font-size-extra-small;
+    vertical-align: top;
+}
+
+
+
+/****************************************
+
+          Not categorized yet
+
+  **************************************/
+
+.rero21-import {
+    margin-top: 27px;
+}
+
+
+.reroils-circulation {
+    margin-top: 10px;
+}

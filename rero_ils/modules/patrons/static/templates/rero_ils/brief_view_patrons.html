@@ -6,7 +6,7 @@
     <small ng-repeat="role in record.metadata.roles | filter : 'patrons'" class="inline-headers">
       &mdash;
       <i class="fa fa-barcode fa-fw" aria-hidden="true"></i>
-      <a ng-href="/items/circulation/checkinout?patron={{ record.metadata.barcode }}">
+      <a ng-href="/admin/circulation/checkinout?patron={{ record.metadata.barcode }}">
         circulation
       </a>
     </small>

@@ -1,0 +1,49 @@
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2018 RERO.
+ *
+ * Invenio is free software; you can redistribute it and/or modify it
+ * under the terms of the MIT License; see LICENSE file for more details.
+ */
+
+
+.rero-ils-logo {
+    max-width: 60px;
+}
+
+.navbar {
+    height: 100px;
+}
+
+header .input-group {
+  width: 100%;
+}
+
+.rero-ils-content-push-down {
+    height: 100px;
+}
+
+.rero-ils-top-menu {
+    font-size: $font-size-large;
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        height: 60px;
+    }
+    .rero-ils-content-push-down {
+        height: 60px;
+    }
+}
+
+.rero-ils-equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a:hover {
+    text-decoration: none;
+}

@@ -1,6 +1,6 @@
-{%- extends config.BASE_TEMPLATE %}
-{%- block head_meta %}
-    <base href="/items/circulation">
+{%- extends 'admin/master.html' %}
+  {%- block head_meta %}
+    <base href="{{ url_for('circulation.index') }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +11,13 @@
     <meta name="google-site-verification" content="{{google_id}}"/>
       {%- endfor %}
     {%- endif %}
-    {%- endblock head_meta %}
+  {%- endblock head_meta %}
 
-{%- block page_body %}
+{%- block body %}
 <div class="container">
     <reroils-circulation-root></reroils-circulation-root>
 </div>
-{%- endblock page_body %}
+{%- endblock body %}
 
 {%- block javascript %}
     {% assets "rero_ils_item_circulation_ui_js" %}

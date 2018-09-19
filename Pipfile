@@ -13,7 +13,6 @@ isbnlib = ">=3.9.1"
 PyYAML = ">=3.13"
 rero-ils = {editable = true, path = "."}
 uwsgi = ">=2.0"
-reroils-record-editor = {ref = "master", git = "https://github.com/rero/reroils-record-editor.git"}
 invenio-oaiharvester = {ref = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
 pip = "<=18.0"
 pipenv = "*"

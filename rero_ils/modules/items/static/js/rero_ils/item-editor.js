@@ -1,4 +1,4 @@
-angular.module('itemEditor', ['reroilsEditor'])
+angular.module('customEditor')
     .controller('ItemValidator', function($scope, $http, $window) {
 
         $scope.item = $scope.params.model;

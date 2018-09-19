@@ -43,12 +43,12 @@
    {% endif %}
 
    {% with
-        href_update=url_for('reroils_record_editor.update_memb', pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_memb', pid=record.pid),
+        href_update=url_for('memb.edit_view', pid=record.pid),
+        href_delete=url_for('memb.delete_view', pid=record.pid),
         json=record,
         message=_("Library cannot be deleted: there are still locations linked to this library.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 
     <!-- Locations -->
@@ -57,8 +57,7 @@
         <div class="col-sm-12">
             <h3>{{_('Locations')}}
                 {%- if current_user | can_edit %}
-                <a href="{{ url_for('reroils_record_editor.create_loc',
-                parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
+                <a href="{{ url_for('loc.create_view', parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
                     <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Add')}}
                 </a>
                 {% endif %}
@@ -84,12 +83,12 @@
     {% endif %}
 
     {% with
-        href_update=url_for('reroils_record_editor.update_loc', pid=record.pid, parent_pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_loc', pid=record.pid, parent_pid=record.pid),
+        href_update=url_for('loc.edit_view', pid=location.pid),
+        href_delete=url_for('loc.delete_view', pid=location.pid),
         json=location,
         message=_("Location cannot be deleted: there are still items linked to this location.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 
     <hr/>
@@ -98,8 +97,3 @@
 
 </div>
 {%- endblock %}
-
-{%- block javascript %}
-{{ super() }}
-{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
-{%- endblock javascript %}

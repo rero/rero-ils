@@ -28,6 +28,7 @@ import json
 
 import babel
 import dateparser
+from flask import current_app
 
 
 def format_date_filter(date_str, format='medium', locale='en'):
@@ -55,3 +56,34 @@ def to_pretty_json(value):
         separators=(',', ': '),
         ensure_ascii=False,
     )
+
+
+def jsondumps(data):
+    """Override the default tojson filter to avoid escape simple quote."""
+    return json.dumps(data, indent=4)
+
+
+def resource_can_create(record_type):
+    """Evaluate if the resource can be created."""
+    adm = current_app.extensions['invenio-admin'].admin
+
+    def get_admin_view(record_type, menus):
+        """."""
+        for v in menus:
+            if v.is_category():
+                returned_view = get_admin_view(record_type, v.get_children())
+                if returned_view:
+                    return returned_view
+            elif v._view.endpoint == record_type:
+                return v._view
+        return None
+
+    admin_view = get_admin_view(record_type, adm.menu())
+    if admin_view:
+        return admin_view.can_create
+    return False
+
+
+def admin_menu_is_visible(admin_menu):
+    """Evaluate if the menu is visible for a user."""
+    return any(m.is_accessible() for m in admin_menu)

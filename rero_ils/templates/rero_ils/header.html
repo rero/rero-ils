@@ -1,74 +1,71 @@
-<header>
-    {%- block navbar %}
-    <nav class="navbar navbar-inverse navbar-default navbar-static-top">
+{# -*- coding: utf-8 -*-
 
-        <div class="container">
-            {%- block navbar_header %}
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">{{_('Toggle navigation')}}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                {%- block brand %}
-                {%- if config.THEME_LOGO %}
-                <a href="/"><img class="navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
-                {%- else %}
-                <a class="navbar-brand" href="/">{{_(config.THEME_SITENAME)}}</a>
-                {%- endif %}
-                {%- endblock %}
+  This file is part of RERO ILS.
+  Copyright (C) 2018 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License;
+  see LICENSE file for more details.
+#}
+<div class="rero-ils-content-push-down">
+</div>
+<header>
+
+    {%- block navbar %}
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+
+      <div class="row">
+
+        <div class="navbar container rero-ils-equal">
+
+
+          {%- block navbar_brand %}
+            <div class="col-xs-2 col-sm-2 col-md-3">
+              {%- if config.THEME_LOGO %}
+                <a href="/"><img class="rero-ils-logo" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
+              {%- else %}
+                <a href="/">{{_(config.THEME_SITENAME)}}</a>
+              {%- endif %}
             </div>
-            {%- endblock navbar_header %}
-            {%- block navbar_inner %}
-            <div id="navbar" class="navbar-collapse collapse">
-               {%- block navbar_nav %}
-               {%- if config.THEME_SEARCHBAR %}
-                {%- block navbar_search %}
-                <form class="navbar-form navbar-left" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-                    <div class="form-group rero21-search-form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="q" placeholder="{{_('Search')}}">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                {%- endblock navbar_search %}
-                {%- endif %}
-                {%- endblock navbar_nav %}
-                {%- block navbar_right %}
-                {%- include config.THEME_HEADER_LOGIN_TEMPLATE %}
-                <ul class="nav navbar-nav navbar-right">
-                    {%- if config.I18N_LANGUAGES %}
-                    {% for language_item in current_i18n.get_locales() %}
-                    {% if current_i18n.language != language_item.language  %}
-                    <li>
-                        <a href="{{ url_for('invenio_i18n.set_lang', lang_code=language_item.language) }}">{{ language_item.language|upper }}</a>
-                    </li>
-                    {%- endif %}
-                    {% endfor %}
-                    {%- endif %}
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
-                    {%- if item.children %}
+          {%- endblock %}
+
+          {%- block navbar_menus %}
+            <div class="col-xs-10 col-sm-10 col-md-3 col-md-push-6">
+              <ul class="list-inline pull-right rero-ils-top-menu">
+                {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
+                  {%- if item.children %}
                     <li class="dropdown{{ ' active' if item.active else ''}}">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">{{ loop(item.children|sort(attribute='order')) }}</ul>
+                        <ul class="dropdown-menu dropdown-menu-right">{{ loop(item.children|sort(attribute='order')) }}</ul>
                     </li>
                     {%- else %}
                     <li{{ ' class="active"'|safe if item.active and loop.depth == 1 else '' }}><a href="{{ item.url }}">{{ item.text|safe }}</a></li>
-                    {%- endif %}
-                    {%- endfor %}
-                </ul>
-
-                {%- endblock navbar_right %}
+                  {%- endif %}
+                {%- endfor %}
+              </ul>
             </div>
-            {%- endblock navbar_inner %}
+          {%- endblock %}
+
+          {%- block navbar_search %}
+          {%- if config.THEME_SEARCHBAR %}
+          <div class="col-xs-12 col-sm-12 col-md-6 col-md-pull-3">
+            <form action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" name="q" placeholder="{{_('Search')}}">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+            </form>
+          </div>
+          {%- endif %}
+          {%- endblock %}
+
         </div>
+      </div>
+
     </nav>
+
     {%- endblock navbar %}
     {%- block flashmessages %}
         {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
@@ -77,4 +74,5 @@
     {%- block breadcrumbs %}
         {%- include "invenio_theme/breadcrumbs.html" %}
     {%- endblock breadcrumbs %}
-    </header>
+
+</header>

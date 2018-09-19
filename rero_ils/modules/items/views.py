@@ -34,12 +34,10 @@ from flask import Blueprint, current_app, flash, jsonify, redirect, \
     render_template, request, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
-from flask_menu import register_menu
 from invenio_records_ui.signals import record_viewed
-from reroils_record_editor.permissions import record_edit_permission
 
 from ...filter import format_date_filter
-from ...permissions import request_item_permission
+from ...permissions import record_edit_permission, request_item_permission
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
 from .api import Item
@@ -188,27 +186,13 @@ def request_item(pid_value, member):
         flash(_('The item %s has been requested.' % pid_value), 'success')
         return_value = redirect(
             url_for('invenio_records_ui.doc', pid_value=doc['pid'])
-            )
+        )
         return redirect(
             url_for('invenio_records_ui.doc', pid_value=doc['pid'])
         )
     except Exception as e:
         return jsonify({'status': 'error: %s' % e}), 500
         flash(_('Something went wrong'), 'danger')
-
-
-@blueprint.route("/circulation")
-@blueprint.route("/circulation/<path:path>")
-@check_authentication
-@register_menu(
-    blueprint,
-    'main.manage.circulation',
-    _('%(icon)s Circulation', icon='<i class="fa fa-barcode fa-fw"></i>'),
-    order=-1
-)
-def circulation_ui(path=None):
-    """Angular circulation application."""
-    return render_template('rero_ils/circulation_ui.html')
 
 
 def item_view_method(pid, record, template=None, **kwargs):

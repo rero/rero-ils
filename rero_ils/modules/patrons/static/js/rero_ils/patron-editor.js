@@ -1,4 +1,4 @@
-angular.module('patronEditor', ['reroilsEditor'])
+angular.module('customEditor')
     .controller('PatronValidator', function($scope, $http, $window) {
 
         $scope.patron = $scope.params.model;

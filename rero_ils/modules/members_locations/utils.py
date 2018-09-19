@@ -25,50 +25,45 @@
 """Utilities functions for rero-ils."""
 
 from flask import url_for
+from invenio_indexer.api import RecordIndexer
 
 from ..locations.api import Location
 from ..members_locations.api import MemberWithLocations
-from ..organisations_members.api import OrganisationWithMembers
+from ..utils import clean_dict_keys
 
 
-def delete_location(record_type, pid, record_indexer, parent_pid):
+def delete_location(record_type, record_class, pid):
     """Save a record into the db and index it.
 
     If the location does not exists, it well be created
     and attached to the parent member.
     """
-    location = Location.get_record_by_pid(pid)
-    persistent_identifier = location.persistent_identifier
-    member = MemberWithLocations.get_record_by_pid(parent_pid)
-    organisation = OrganisationWithMembers.get_organisation_by_memberid(
-        member.id
-    )
+    location = record_class.get_record_by_pid(pid)
+    member = MemberWithLocations.get_member_by_locationid(location.id)
+    location.delete(delindex=False)
     member.remove_location(location, delindex=True)
-    organisation.reindex()
+    RecordIndexer().client.indices.flush()
+    _next = url_for('invenio_records_ui.memb', pid_value=member.pid)
+    return _next, location.pid
 
-    _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
-    return _next, persistent_identifier
 
-
-def save_location(data, record_type, fetcher, minter,
-                  record_indexer, record_class, parent_pid):
+def save_location(data, record_type, record_class, parent_pid=None):
     """Save a record into the db and index it.
 
     If the item does not exists, it well be created
     and attached to the parent document.
     """
-    member = MemberWithLocations.get_record_by_pid(parent_pid)
     pid = data.get('pid')
+    data = clean_dict_keys(data)
     if pid:
         location = Location.get_record_by_pid(pid)
-        location.update(data, dbcommit=True, reindex=True)
+        location.update(data, dbcommit=False)
+        member = MemberWithLocations.get_member_by_locationid(location.id)
     else:
-        location = Location.create(data, dbcommit=True, reindex=True)
-        member.add_location(location, dbcommit=True, reindex=True)
-    organisation = OrganisationWithMembers.get_organisation_by_memberid(
-        member.id
-    )
-    organisation.reindex()
-
-    _next = url_for('invenio_records_ui.memb', pid_value=parent_pid)
-    return _next, location.persistent_identifier
+        location = Location.create(data, dbcommit=False)
+        member = MemberWithLocations.get_record_by_pid(parent_pid)
+        member.add_location(location, dbcommit=False)
+    member.dbcommit(reindex=True)
+    RecordIndexer().client.indices.flush()
+    _next = url_for('invenio_records_ui.memb', pid_value=member.pid)
+    return _next, location.pid

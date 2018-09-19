@@ -1,8 +1,3 @@
-angular.module('reroilsAppTranslations')
-  .run(['gettextCatalog', function (gettextCatalog) {
-     gettextCatalog.setCurrentLanguage(document.documentElement.lang);
-  }]);
-
 angular.module('reroThumbnails', [])
   .controller('thumbnailController', ['$scope', '$log', '$http', '$sce', function($scope, $log, $http, $sce) {
     $scope.thumbnail_url = '/static/images/icon_'+$scope.type+'.png';

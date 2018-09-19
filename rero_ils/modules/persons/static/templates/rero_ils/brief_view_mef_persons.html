@@ -1,9 +1,9 @@
 <ul class='re-list'>
     <li ng-controller="personController" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
-      <h3><a class="person-name" target="_self" ng-href="/persons/{{ record.id }}">{{ person.preferred_name_for_person }}</a></h3>
-      <div class="clearfix label-source">
+      <h3>
+        <a target="_self" ng-href="/persons/{{ record.id }}">{{ person.preferred_name_for_person }}</a>
         <span ng-repeat="source in record.metadata.sources" class="label label-default text-uppercase">{{ source }}</span>
-      </div>
+      </h3>
       <div ng-if="person.date_of_birth">{{ person.date_of_birth }}</div>
       <div ng-repeat="info in person.biographical_information">{{info}}{{$last ? '' : ', '}}</div>
       <hr />

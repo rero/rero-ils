@@ -1,12 +1,21 @@
 {% set record = record.dumps() %}
 {% set data = record | person_merge_data_values %}
 
-{{ build_row_merged(_('Birth date'), data.date_of_birth) }}
-{{ build_row_merged(_('Death date'), data.date_of_death) }}
-{{ build_row_merged(_('Language of person'), data.language_of_person) }}
-{{ build_row_merged(_('Gender'), data.gender) }}
-{{ build_row_merged(_('Biographical information'), data.biographical_information) }}
-{{ build_row_permalink_merged(_('ID'), record) }}
-{{ build_row_merged(_('Name'), data.preferred_name_for_person) }}
-{{ build_row_merged(_('Variant name'), data.variant_name_for_person) }}
-{{ build_row_merged(_('Authorized access point'), data.authorized_access_point_representing_a_person) }}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+        {{ _('All the Sources') }}
+    </h3>
+  </div>
+  <div class="panel-body">
+    {{ build_row_merged(_('Birth date'), data.date_of_birth) }}
+    {{ build_row_merged(_('Death date'), data.date_of_death) }}
+    {{ build_row_merged(_('Language of person'), data.language_of_person) }}
+    {{ build_row_merged(_('Gender'), data.gender) }}
+    {{ build_row_merged(_('Biographical information'), data.biographical_information) }}
+    {{ build_row_permalink_merged(_('ID'), record) }}
+    {{ build_row_merged(_('Name'), data.preferred_name_for_person) }}
+    {{ build_row_merged(_('Variant name'), data.variant_name_for_person) }}
+    {{ build_row_merged(_('Authorized access point'), data.authorized_access_point_representing_a_person) }}
+  </div>
+</div>

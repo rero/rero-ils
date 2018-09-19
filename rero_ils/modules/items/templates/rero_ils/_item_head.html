@@ -55,11 +55,11 @@
     </div>
     {% endif %}
     {% with
-        href_update=url_for('reroils_record_editor.update_item', pid=record.pid),
-        href_delete=url_for('reroils_record_editor.delete_item', pid=record.pid),
+        href_update=url_for('item.edit_view', pid=record.pid),
+        href_delete=url_for('item.delete_view', pid=record.pid),
         json=record,
         message=_("Item cannot be deleted: there are still transactions linked to this item.")
     %}
-        {% include 'reroils_record_editor/_button_actions.html' %}
+        {% include 'rero_ils/_editor_button_actions.html' %}
     {% endwith %}
 </div>

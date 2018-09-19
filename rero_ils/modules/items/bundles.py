@@ -28,12 +28,6 @@ from __future__ import absolute_import, print_function
 
 from flask_assets import Bundle
 
-editor_js = Bundle(
-    'js/rero_ils/item-editor.js',
-    filters='jsmin',
-    output='gen/rero_ils.modules.item-editor_js.%(version)s.js',
-)
-
 circulation_ui_js = Bundle(
     'js/rero_ils/circulation_ui/inline.bundle.js',
     'js/rero_ils/circulation_ui/polyfills.bundle.js',
