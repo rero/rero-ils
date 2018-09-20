@@ -98,39 +98,37 @@
 {% endif %}
 {% endmacro %}
 
-{% macro build_row_permalink(name, data, source_name) %}
+{% macro build_row_permalink(name, data) %}
 {% if data.pid %}
 <div class="row">
   <div class="col-xs-2">
     {{_(name)}}
   </div>
   <div class="col-xs-9">
-    <a target="_blank" href="{{ data | person_id_permalink(source_name) }}">{{ data.pid }}</a>
+    <a target="_blank" href="{{ data.identifier_for_person }}">{{ data.pid }}</a>
   </div>
 </div>
 {% endif %}
 {% endmacro %}
 
-{% macro build_row_permalink_merged(name, values) %}
-{% if values %}
-<div class="row margin-bottom-20">
-  <div class="col-xs-2">
-    {{_(name)}}
-  </div>
-  <div class="col-xs-9">
-    <ul class="list-unstyled">
-      {% for element in values %}
-      <li>
-        {% for source in values[element] %}
-        <a target="_blank" href="{{ {'pid': element} | person_id_permalink(source) }}">{{ element }}</a>
-        <span class="label label-default text-uppercase">{{ source }}</span>
-        {% endfor %}
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-{% endif %}
+{% macro build_row_permalink_merged(name, record) %}
+    <div class="row margin-bottom-20">
+      <div class="col-xs-2">
+        {{ _(name) }}
+      </div>
+      <div class="col-xs-9">
+        <ul class="list-unstyled">
+          {% for source in config.RERO_ILS_PERSONS_SOURCES %}
+            {% if record[source] %}
+            <li>
+              <a target="_blank" href="{{ record[source].identifier_for_person }}">{{ record[source].pid }}</a>
+                <span class="label label-default text-uppercase">{{ source }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
 {% endmacro %}
 
 {% block javascript %}
