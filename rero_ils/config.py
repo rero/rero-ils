@@ -418,7 +418,11 @@ RERO_ILS_APP_CONFIG_FACETS = {
     'patrons': {
         'order': ['roles'],
         'expand': ['roles']
-    }
+    },
+    'persons': {
+        'order': ['sources'],
+        'expand': ['sources']
+    },
 }
 
 RECORDS_REST_FACETS = {
@@ -496,6 +500,18 @@ RECORDS_REST_FACETS = {
         ),
         filters={
             _('roles'): terms_filter('roles')
+        }
+    ),
+    'persons': dict(
+        aggs=dict(
+            sources=dict(
+                terms=dict(
+                    field='sources',
+                )
+            )
+        ),
+        filters={
+            _('sources'): terms_filter('sources')
         }
     )
 }

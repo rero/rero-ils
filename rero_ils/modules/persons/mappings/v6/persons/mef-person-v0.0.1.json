@@ -122,6 +122,9 @@
         },
         "_updated": {
           "type": "date"
+        },
+        "sources": {
+          "type": "keyword"
         }
       }
     }
