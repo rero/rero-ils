@@ -749,11 +749,6 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 #: Persons
 RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef-person-v0.0.1.json'
 RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd']
-RERO_ILS_PERSONS_PERMALINK = {
-    'bnf': 'https://catalogue.bnf.fr/ark:/12148/{pid}',
-    'gnd': 'http://d-nb.info/gnd/{pid}',
-    'rero': 'http://data.rero.ch/02-{pid}'
-}
 
 RERO_ILS_PERSONS_LABEL_ORDER = {
     'fallback': 'fr',

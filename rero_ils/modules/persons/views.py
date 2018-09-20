@@ -67,13 +67,3 @@ def person_label(data, language):
         if label:
             return label
     return '-'
-
-
-@blueprint.app_template_filter()
-def person_id_permalink(data, source_name):
-    """Create permalink."""
-    permalinks = current_app.config.get('RERO_ILS_PERSONS_PERMALINK', [])
-    permalink = permalinks.get(source_name, None)
-    if permalink:
-        permalink = permalink.format(**data)
-    return permalink

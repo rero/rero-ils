@@ -24,7 +24,7 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.modules.persons.views import person_id_permalink, person_label, \
+from rero_ils.modules.persons.views import person_label, \
     person_merge_data_values
 
 
@@ -46,13 +46,3 @@ def test_person_label(app, person_data):
     assert label == 'Cavalieri, Giovanni Battista'
     label = person_label(person_data, 'it')
     assert label == 'Cavalieri, Giovanni Battista'
-
-
-def test_person_id_permalink(app):
-    """Test person id permalink."""
-    app.config['RERO_ILS_PERSONS_PERMALINK'] = {
-        'rero': 'http://data.rero.ch/02-{pid}'
-    }
-    data = {"pid": "A023655346"}
-    permalink = person_id_permalink(data, 'rero')
-    assert permalink == 'http://data.rero.ch/02-A023655346'
