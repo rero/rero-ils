@@ -233,3 +233,15 @@ invenio-search-facets .panel-heading .toggle.collapsed:after {
 .margin-bottom-20 {
   margin-bottom: 20px;
 }
+
+.person-name {
+  float: left
+}
+
+.label-source {
+  font-size: small;
+}
+
+.label {
+  margin-left: 4px;
+}

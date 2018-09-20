@@ -70,6 +70,13 @@ pipenv run invenio fixtures importusers ${data_path}/users.json -v
 # create the organisations with members and locations
 pipenv run invenio fixtures importorganisations ${data_path}/organisations-members-locations.json -v
 
+# OAI configuration
+pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
+
+# API Mef configurations and harvest
+pipenv run invenio apiharvester sources ${data_path}/apisources.yml
+pipenv run invenio apiharvester harvest -n mef
+
 # create the bib records
 pipenv run dojson -i ${data_path}/10k.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | pipenv run invenio records create --pid-minter document_id
 pipenv run invenio index reindex --yes-i-know --pid-type doc
@@ -80,9 +87,3 @@ pipenv run invenio fixtures createitems -c 1000 -R
 
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json
-
-# OAI configuration
-pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
-
-# API Mef configurations
-pipenv run invenio apiharvester sources ${data_path}/apisources.yml
