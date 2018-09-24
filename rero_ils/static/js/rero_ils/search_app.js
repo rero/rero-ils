@@ -37,10 +37,10 @@ require([
         document.getElementById("invenio-search"), [
           'angular-loading-bar',
           'invenioSearch',
+          'invenioConfig',
           'reroilsAppTranslations',
           'reroilsUtils',
-          'reroThumbnails',
-          'reroConfig'
+          'reroThumbnails'
         ]
       );
     });
