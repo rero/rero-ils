@@ -3,28 +3,6 @@ angular.module('reroilsAppTranslations')
      gettextCatalog.setCurrentLanguage(document.documentElement.lang);
   }]);
 
-angular.module('reroConfig', [])
-  .controller('configController', ['$scope', '$log', '$http', '$sce', function($scope, $log, $http, $sce) {
-    $scope.config = {
-        thumbnail_service_url: undefined
-    };
-    $scope.$on('config.init', configInit);
-    function configInit(init, config){
-        $scope.config = angular.fromJson(config);
-    };
-  }])
-  .directive('invenioSearchConfig', ['$log', function($log) {
-      return {
-        restrict: 'E',
-        controller: 'configController',
-        link: function (scope, element, attrs) {
-            scope.$broadcast(
-                'config.init', attrs.config
-            );
-        }
-      };
-  }])
-
 angular.module('reroThumbnails', [])
   .controller('thumbnailController', ['$scope', '$log', '$http', '$sce', function($scope, $log, $http, $sce) {
     $scope.thumbnail_url = '/static/images/icon_'+$scope.type+'.png';

@@ -60,6 +60,7 @@ thumbnail_js = NpmBundle(
 
 _detailed_js = NpmBundle(
     'js/rero_ils/documents_items.js',
+    'js/rero_ils/invenio_config.js',
     'js/rero_ils/detailed_app.js',
     filters='requirejs',
     depends=('node_modules/d3/*'),
@@ -87,6 +88,7 @@ tab_js = Bundle(
 
 _search_js = NpmBundle(
     'js/rero_ils/documents_items.js',
+    'js/rero_ils/invenio_config.js',
     'js/rero_ils/search_app.js',
     filters='requirejs',
     depends=('node_modules/invenio-search-js/dist/*.js', 'node_modules/d3/*'),
