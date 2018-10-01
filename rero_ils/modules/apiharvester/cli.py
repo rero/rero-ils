@@ -47,15 +47,15 @@ def apiharvester():
 
 @apiharvester.command('source')
 @click.argument('name')
-@click.argument('url')
+@click.option('-U', '--url', default='', help='Url')
 @click.option('-m', '--mimetype', default='', help='Mimetype')
-@click.option('-s', '--size', default=100, help='Size')
+@click.option('-s', '--size', default=-1, type=int, help='Size')
 @click.option('-c', '--comment', default='', help='Comment')
 @click.option(
     '-u', '--update', is_flag=True, default=False, help='Update config'
 )
 @with_appcontext
-def api_source_config(name, url, size, mimetype, comment, update):
+def api_source_config(name, url, mimetype, size, comment, update):
     """Add or Update ApiHarvestConfig."""
     click.echo('ApiHarvesterConfig: {0} '.format(name), nl=False)
     msg = api_source(
@@ -79,7 +79,7 @@ def api_source_config_from_file(configfile, update):
     """Add or update ApiHarvestConfigs from file."""
     configs = yaml.load(configfile)
     for name, values in sorted(configs.items()):
-        url = values['url']
+        url = values.get('url', '')
         mimetype = values.get('mimetype', '')
         size = values.get('size', 100)
         comment = values.get('comment', '')
@@ -99,18 +99,22 @@ def api_source_config_from_file(configfile, update):
 
 @apiharvester.command('harvest')
 @click.option('-n', '--name', default=None,
-              help="Name of persistent configuration to use.")
+              help='Name of persistent configuration to use.')
 @click.option('-f', '--from-date', default=None,
-              help="The lower bound date for the harvesting (optional).")
+              help='The lower bound date for the harvesting (optional).')
 @click.option('-u', '--url', default=None,
-              help="The upper bound date for the harvesting (optional).")
+              help='The upper bound date for the harvesting (optional).')
 @click.option('-k', '--enqueue', is_flag=True, default=False,
-              help="Enqueue harvesting and return immediately.")
-@click.option('-s', '--size', default=100,
-              help="Size of chunks (optional).")
+              help='Enqueue harvesting and return immediately.')
+@click.option('--signals/--no-signals', default=True,
+              help='Signals sent with Api harvesting results.')
+@click.option('-s', '--size', type=int, default=100,
+              help='Size of chunks (optional).')
+@click.option('-m', '--max', type=int, default=0,
+              help='maximum of records to harvest (optional).')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @with_appcontext
-def harvest(name, from_date, url, enqueue, size, verbose):
+def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
     """Harvest api."""
     if name:
         click.secho('Harvest api: {0}'.format(name), fg='green')
@@ -119,9 +123,11 @@ def harvest(name, from_date, url, enqueue, size, verbose):
     size = current_app.config.get('RERO_ILS_MEF_RESULT_SIZE', 100)
     if enqueue:
         harvest_records.delay(url=url, name=name, from_date=from_date,
-                              size=size,  verbose=verbose)
+                              signals=signals, size=size,  max=max,
+                              verbose=verbose)
     else:
-        harvest_records(url=url, name=name, from_date=from_date, size=size,
+        harvest_records(url=url, name=name, from_date=from_date,
+                        signals=signals, size=size, max=max,
                         verbose=verbose)
 
 

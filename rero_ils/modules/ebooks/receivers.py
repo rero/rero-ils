@@ -34,6 +34,10 @@ from .tasks import create_records
 def publish_harvested_records(sender=None, records=[], *args, **kwargs):
     """Create, index the harvested records."""
     # name = kwargs['name']
+    max = kwargs.get('max', None)
+    records = list(records)
+    if max:
+        records = records[:int(max)]
     converted_records = []
     for record in records:
         if record.deleted:
@@ -44,8 +48,10 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
         rec.setdefault('identifiers', {})['oai'] = record.header.identifier
         converted_records.append(rec)
     if records:
-        current_app.logger.info('publish_harvester: received {} records'
-                                .format(len(converted_records)))
+        current_app.logger.info(
+            'publish_harvester: received {0} records'
+            .format(len(converted_records))
+        )
         create_records(converted_records)
     else:
         current_app.logger.info('publish_harvester: nothing to do')
