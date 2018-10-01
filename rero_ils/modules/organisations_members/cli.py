@@ -38,10 +38,13 @@ from ..organisations_members.api import OrganisationWithMembers
 
 @click.command('importorganisations')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.argument('infile', 'Json organisation file', type=click.File('r'))
+@click.argument('infile', type=click.File('r'))
 @with_appcontext
 def import_organisations(infile, verbose):
-    """Import organisation."""
+    """Import organisation.
+
+    infile: Json organisation file
+    """
     click.secho(
         'Import organisations:',
         fg='green'

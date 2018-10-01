@@ -42,10 +42,13 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 @click.command('importusers')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.argument('infile', 'Json patron file', type=click.File('r'))
+@click.argument('infile', type=click.File('r'))
 @with_appcontext
 def import_users(infile, verbose):
-    """Import users."""
+    """Import users.
+
+    infile: Json organisation file
+    """
     click.secho('Import users:', fg='green')
 
     data = json.load(infile)

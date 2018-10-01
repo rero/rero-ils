@@ -79,7 +79,7 @@ def utils():
     """Misc management commands."""
 
 
-@utils.command()
+@utils.command('show')
 @click.argument('pid_value', nargs=1)
 @click.option('-t', '--pid-type', 'pid-type, default(document_id)',
               default='document_id')
@@ -92,7 +92,7 @@ def show(pid_value, pid_type):
     click.echo(json.dumps(recitem.dumps(), indent=2))
 
 
-@utils.command()
+@utils.command('check_json')
 @click.argument('paths', nargs=-1)
 @click.option(
     '-r', '--replace', 'replace', is_flag=True, default=False,
@@ -150,3 +150,13 @@ def check_json(paths, replace, indent, sort_keys):
 
         tot_error_cnt += error_cnt
     return tot_error_cnt
+
+
+@utils.command('schedules')
+@with_appcontext
+def schedules():
+    """List harvesting schedules."""
+    celery_ext = current_app.extensions.get('invenio-celery')
+    for key, value in celery_ext.celery.conf.beat_schedule.items():
+        click.echo(key + '\t', nl=False)
+        click.echo(value)

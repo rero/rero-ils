@@ -25,7 +25,7 @@
 
 # OAI-PMH harvester configuration.
 ebooks:
-    baseurl: http://ebooks.test.rero.ch:8000/oai2d
+    baseurl: https://ebooks.test.rero.ch:8443/oai2d
     metadataprefix: marc21
     comment: ''
     setspecs: ''
