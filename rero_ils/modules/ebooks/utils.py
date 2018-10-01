@@ -30,10 +30,11 @@ from invenio_oaiharvester.models import OAIHarvestConfig
 
 
 def add_oai_source(name, baseurl, metadataprefix='marc21',
-                   setspecs='', comment=''):
+                   setspecs='', comment='', update=False):
     """Add OAIHarvestConfig."""
     with current_app.app_context():
-        if OAIHarvestConfig.query.filter_by(name=name).count() == 0:
+        source = OAIHarvestConfig.query.filter_by(name=name).first()
+        if not source:
             source = OAIHarvestConfig(
                 name=name,
                 baseurl=baseurl,
@@ -43,6 +44,15 @@ def add_oai_source(name, baseurl, metadataprefix='marc21',
             )
             source.save()
             db.session.commit()
-            return True
-        else:
-            return False
+            return 'Added'
+        elif update:
+            source.name = name
+            source.baseurl = baseurl
+            source.metadataprefix = metadataprefix
+            if setspecs != '':
+                source.setspecs = setspecs
+            if comment != '':
+                source.comment = comment
+            db.session.commit()
+            return 'Updated'
+        return 'Not Updated'

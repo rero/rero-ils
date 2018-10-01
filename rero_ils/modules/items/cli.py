@@ -49,10 +49,13 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 @click.command('createcirctransactions')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.argument('infile', 'Json transactions file', type=click.File('r'))
+@click.argument('infile', type=click.File('r'))
 @with_appcontext
 def create_circ_transactions(infile, verbose):
-    """Create circulation transactions."""
+    """Create circulation transactions.
+
+    infile: Json transactions file
+    """
     click.secho('Create circulation transactions:', fg='green')
     data = json.load(infile)
     for patron_data in data:

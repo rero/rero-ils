@@ -28,8 +28,10 @@ from __future__ import absolute_import, print_function
 
 import click
 import yaml
+from flask import current_app
 from flask.cli import with_appcontext
 from invenio_oaiharvester.cli import oaiharvester
+from invenio_oaiharvester.models import OAIHarvestConfig
 
 from .utils import add_oai_source
 
@@ -43,26 +45,32 @@ from .utils import add_oai_source
               help='The ‘set’ criteria for the harvesting')
 @click.option('-c', '--comment', default='',
               help='Comment')
+@click.option(
+    '-u', '--update', is_flag=True, default=False, help='Update config'
+)
 @with_appcontext
-def add_oai_source_config(name, baseurl, metadataprefix, setspecs, comment):
+def add_oai_source_config(name, baseurl, metadataprefix, setspecs, comment,
+                          update):
     """Add OAIHarvestConfig."""
     click.echo('Add OAIHarvestConfig: {0} '.format(name), nl=False)
-    if add_oai_source(
+    msg = add_oai_source(
         name=name,
         baseurl=baseurl,
         metadataprefix=metadataprefix,
         setspecs=setspecs,
-        comment=comment
-    ):
-        click.secho('Ok', fg='green')
-    else:
-        click.secho('Exist', fg='red')
+        comment=comment,
+        update=update
+    )
+    click.echo(msg)
 
 
 @oaiharvester.command('initconfig')
 @click.argument('configfile', type=click.File('rb'))
+@click.option(
+    '-u', '--update', is_flag=True, default=False, help='Update config'
+)
 @with_appcontext
-def init_oai_harvest_config(configfile):
+def init_oai_harvest_config(configfile, update):
     """Init OAIHarvestConfig."""
     configs = yaml.load(configfile)
     for name, values in sorted(configs.items()):
@@ -73,13 +81,27 @@ def init_oai_harvest_config(configfile):
         click.echo(
             'Add OAIHarvestConfig: {0} {1} '.format(name, baseurl), nl=False
         )
-        if add_oai_source(
+        msg = add_oai_source(
             name=name,
             baseurl=baseurl,
             metadataprefix=metadataprefix,
             setspecs=setspecs,
-            comment=comment
-        ):
-            click.secho('Ok', fg='green')
-        else:
-            click.secho('Exist', fg='red')
+            comment=comment,
+            update=update
+        )
+        click.echo(msg)
+
+
+@oaiharvester.command('info')
+@with_appcontext
+def info():
+    """List infos for tasks."""
+    oais = OAIHarvestConfig.query.all()
+    for oai in oais:
+        click.echo(oai.name)
+        click.echo('\tlastrun       : ', nl=False)
+        click.echo(oai.lastrun)
+        click.echo('\tbaseurl       : ' + oai.baseurl)
+        click.echo('\tmetadataprefix: ' + oai.metadataprefix)
+        click.echo('\tcomment       : ' + oai.comment)
+        click.echo('\tsetspecs      : ' + oai.setspecs)
