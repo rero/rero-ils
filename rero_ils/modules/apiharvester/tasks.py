@@ -33,8 +33,8 @@ from .utils import get_records
 
 
 @shared_task(ignore_result=True)
-def harvest_records(url=None, name=None, from_date=None, size=0,
-                    verbose=False):
+def harvest_records(url=None, name=None, from_date=None, signals=True, size=0,
+                    max=0, verbose=False):
     """Harvest records."""
     config = ApiHarvestConfig.query.filter_by(name=name).first()
     if config:
@@ -46,10 +46,8 @@ def harvest_records(url=None, name=None, from_date=None, size=0,
         if size == 0:
             size = config.size
 
-    # TODO signal or yield
     for next, records in get_records(
-        url=url, name=name, from_date=from_date, size=size,
-        signals=True, verbose=verbose
+        url=url, name=name, from_date=from_date, size=size, max=max,
+        signals=signals, verbose=verbose
     ):
-        # TODO signal was false and we have to process records here
         pass

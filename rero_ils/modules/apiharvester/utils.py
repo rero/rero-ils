@@ -35,7 +35,7 @@ from .models import ApiHarvestConfig
 from .signals import apiharvest_part
 
 
-def api_source(name, url, mimetype='', size=100, comment='', update=False):
+def api_source(name, url='', mimetype='', size=100, comment='', update=False):
     """Add ApiHarvesterConfig."""
     with current_app.app_context():
         source = ApiHarvestConfig.query.filter_by(name=name).first()
@@ -44,7 +44,7 @@ def api_source(name, url, mimetype='', size=100, comment='', update=False):
                 name=name,
                 url=url,
                 mimetype=mimetype,
-                size=size,
+                size=100,
                 comment=comment
             )
             source.save()
@@ -52,14 +52,21 @@ def api_source(name, url, mimetype='', size=100, comment='', update=False):
             return 'Added'
         elif update:
             source.name = name
-            source.url = url
-            source.size = size
+            msg = []
+            if url != '':
+                source.url = url
+                msg.append('url:{}'.format(url))
             if mimetype != '':
                 source.mimetype = mimetype
+                msg.append('mimetype:{}'.format(mimetype))
+            if size != -1:
+                source.size = size
+                msg.append('size:{}'.format(size))
             if comment != '':
                 source.comment = comment
+                msg.append('comment:{}'.format(comment))
             db.session.commit()
-            return 'Updated'
+            return 'Updated: {}'.format(', '.join(msg))
         return 'Not Updated'
 
 
@@ -76,8 +83,8 @@ def extract_records(data):
     return records
 
 
-def get_records(url=None, name=None, from_date=None, size=100, signals=True,
-                verbose=False, **kwargs):
+def get_records(url=None, name=None, from_date=None, max=0, size=100,
+                signals=True, verbose=False, **kwargs):
     """Harvest multiple records from invenio api."""
     url += '/?size={0}'.format(size)
     if from_date:
@@ -92,6 +99,7 @@ def get_records(url=None, name=None, from_date=None, size=100, signals=True,
         current_app.logger.info('Get records from {0}'.format(url))
 
     try:
+        count = 0
         request = requests.get(url)
         data = request.json()
 
@@ -100,8 +108,12 @@ def get_records(url=None, name=None, from_date=None, size=100, signals=True,
             'API records found: {0}'.format(total)
         )
         next = data.get('links', {}).get('self', True)
-        while next:
+        while next and (count < max or max == 0):
             records = extract_records(data)
+            count += len(records)
+
+            if count-max > 0 and max != 0:
+                records = records[:max]
 
             request = requests.get(next)
             data = request.json()

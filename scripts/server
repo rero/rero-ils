@@ -29,7 +29,7 @@ script_path=$(dirname "$0")
 
 FLASK_ENV=development
 # Start Worker and Server
-pipenv run celery worker -A invenio_app.celery --beat -l INFO & pid_celery=$!
+pipenv run celery worker -A invenio_app.celery -l INFO & pid_celery=$!
 
 pipenv run invenio run \
        --cert "$script_path"/../docker/nginx/test.crt \

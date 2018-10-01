@@ -25,6 +25,10 @@
 
 set -e
 
+RED='\033[0;31m'
+GREEN='\033[0;0;32m'
+NC='\033[0m' # No Color
+
 data_path=$(pipenv --where)/data
 
 # Clean redis
@@ -35,7 +39,7 @@ pipenv run invenio index destroy --force --yes-i-know
 pipenv run invenio index init --force
 pipenv run invenio index queue init purge
 
-# Create admin role to rectict access
+# Create admin role to restrict access
 pipenv run invenio roles create admin
 pipenv run invenio access allow superuser-access role admin
 
@@ -70,12 +74,15 @@ pipenv run invenio fixtures importusers ${data_path}/users.json -v
 # create the organisations with members and locations
 pipenv run invenio fixtures importorganisations ${data_path}/organisations-members-locations.json -v
 
-# OAI configuration
-pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
-
 # API Mef configurations and harvest
 pipenv run invenio apiharvester sources ${data_path}/apisources.yml
-pipenv run invenio apiharvester harvest -n mef
+if [ "$1" = "--deployment" ]
+then
+    # start api harvesting asynchrone: beats must be running
+    pipenv run invenio apiharvester harvest -n mef -k
+else
+    pipenv run invenio apiharvester harvest -n mef -m 1000
+fi
 
 # create the bib records
 pipenv run dojson -i ${data_path}/10k.json reverse schema http://ils.test.rero.ch/schema/documents/document-v0.0.1.json | pipenv run invenio records create --pid-minter document_id
@@ -87,3 +94,13 @@ pipenv run invenio fixtures createitems -c 1000 -R
 
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json
+
+# OAI configuration
+pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
+if [ "$1" = "--deployment" ]
+then
+    # start oai harvesting asynchrone: beats must be running
+    pipenv run invenio oaiharvester harvest -n ebooks -q -k
+else
+    echo -e ${GREEN}For ebooks harvesting run:${NC} pipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q
+fi
