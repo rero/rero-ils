@@ -1,9 +1,9 @@
-{{ build_row('Birth date', data.date_of_birth) }}
-{{ build_row('Death date', data.date_of_death) }}
-{{ build_row('Language of person', data.language_of_person) }}
-{{ build_row('Gender', data.gender) }}
-{{ build_row('Biographical information', data.biographical_information) }}
-{{ build_row_permalink('ID', data) }}
-{{ build_row('Name', data.preferred_name_for_person) }}
-{{ build_row('Variant name', data.variant_name_for_person) }}
-{{ build_row('Authorized access point', data.authorized_access_point_representing_a_person) }}
+{{ build_row(_('Birth date'), data.date_of_birth) }}
+{{ build_row(_('Death date'), data.date_of_death) }}
+{{ build_row(_('Language of person'), data.language_of_person) }}
+{{ build_row(_('Gender'), data.gender) }}
+{{ build_row(_('Biographical information'), data.biographical_information) }}
+{{ build_row_permalink(_('ID'), data) }}
+{{ build_row(_('Name'), data.preferred_name_for_person) }}
+{{ build_row(_('Variant name'), data.variant_name_for_person) }}
+{{ build_row(_('Authorized access point'), data.authorized_access_point_representing_a_person) }}

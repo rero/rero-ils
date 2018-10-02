@@ -36,3 +36,8 @@ _('journal')
 _('score')
 _('sound')
 _('video')
+
+
+_('gnd')
+_('bnf')
+_('rero')
