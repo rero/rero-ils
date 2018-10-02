@@ -45,6 +45,8 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
+.pytest_cache/
+test.db
 
 # end-to-end testing
 .e2e_screenshots
@@ -65,3 +67,6 @@ target/
 .*.sw?
 
 celerybeat-schedule
+
+# Environment variables
+.env
