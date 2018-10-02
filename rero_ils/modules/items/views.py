@@ -38,6 +38,7 @@ from flask_menu import register_menu
 from invenio_records_ui.signals import record_viewed
 from reroils_record_editor.permissions import record_edit_permission
 
+from ...filter import format_date_filter
 from ...permissions import request_item_permission
 from ..documents_items.api import DocumentsWithItems
 from ..patrons.api import Patron
