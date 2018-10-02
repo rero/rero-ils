@@ -235,7 +235,8 @@
     {% with
       href_update=url_for('reroils_record_editor.update_doc', pid=record.pid),
       href_delete=url_for('reroils_record_editor.delete_doc', pid=record.pid),
-      json=record
+      json=record,
+      message=_("Document cannot be deleted: there are still items linked to this document.")
     %}
       {% include 'reroils_record_editor/_button_actions.html' %}
     {% endwith %}
@@ -377,7 +378,8 @@
             {% with
                 href_update=url_for('reroils_record_editor.update_item', pid=item.pid, parent_pid=record.pid),
                 href_delete=url_for('reroils_record_editor.delete_item', pid=item.pid, parent_pid=record.pid),
-                json=item
+                json=item,
+                message=_("Item cannot be deleted: there are still transactions linked to this item.")
             %}
                 {% include 'reroils_record_editor/_button_actions.html' %}
             {% endwith %}
@@ -422,4 +424,5 @@
 {%- block javascript %}
 {{ super() }}
 {% assets "rero_ils_detailed_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 {%- endblock javascript %}

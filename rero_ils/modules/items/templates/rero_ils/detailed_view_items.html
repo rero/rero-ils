@@ -100,3 +100,8 @@
 {% endif %}
 </div>
 {%- endblock %}
+
+{%- block javascript %}
+{{ super() }}
+{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}

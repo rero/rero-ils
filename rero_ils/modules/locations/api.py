@@ -25,12 +25,22 @@
 """API for manipulating locations."""
 
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
 from ..members_locations.models import MembersLocationsMetadata
 from .fetchers import location_id_fetcher
 from .minters import location_id_minter
 from .providers import LocationProvider
+
+
+class LocationsSearch(RecordsSearch):
+    """RecordsSearch for borrowed documents."""
+
+    class Meta:
+        """Search only on documents index."""
+
+        index = 'documents'
 
 
 class Location(IlsRecord):
@@ -60,3 +70,20 @@ class Location(IlsRecord):
             locs_id.append(pid.pid_value)
 
         return locs_id
+
+    def get_all_items_pids(self):
+        """Get all items pids."""
+        items_with_location = LocationsSearch().filter(
+            "term", **{"itemslist.location_pid": self.pid}
+        ).source(includes=['itemslist.pid']).scan()
+        pids = []
+        for document in items_with_location:
+            for items in document['itemslist']:
+                item = items.to_dict()
+                pids.append(item.get('pid'))
+        return sorted(pids, key=int)
+
+    @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return len(self.get_all_items_pids()) == 0

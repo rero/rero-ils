@@ -110,9 +110,15 @@
     {% with
         href_update=url_for('reroils_record_editor.update_ptrn', pid=record.pid),
         href_delete=url_for('reroils_record_editor.delete_ptrn', pid=record.pid),
-        json=record
+        json=record,
+        message=_("Patron cannot be deleted: there are still transactions or fees linked to this patron.")
     %}
         {% include 'reroils_record_editor/_button_actions.html' %}
     {% endwith %}
 </div>
 {%- endblock %}
+
+{%- block javascript %}
+{{ super() }}
+{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}
