@@ -387,6 +387,11 @@ class Item(IlsRecord):
         return self.status == ItemStatus.ON_SHELF and\
             self.number_of_item_requests() == 0
 
+    @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return self.available
+
     # ??? name ???
     @check_status(statuses=[ItemStatus.ON_LOAN])
     def extend_loan(

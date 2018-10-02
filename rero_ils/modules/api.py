@@ -150,6 +150,11 @@ class IlsRecord(Record):
             pass
 
     @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return True
+
+    @property
     def pid(self):
         """Get ils record pid value."""
         return self.get('pid')
@@ -219,6 +224,11 @@ class RecordWithElements(IlsRecord):
         # reindex record
         self.reindex(forceindex=True)
         return to_return
+
+    @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return len(self.elements) == 0
 
     @property
     def elements(self):

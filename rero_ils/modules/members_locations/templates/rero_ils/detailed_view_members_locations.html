@@ -45,7 +45,8 @@
    {% with
         href_update=url_for('reroils_record_editor.update_memb', pid=record.pid),
         href_delete=url_for('reroils_record_editor.delete_memb', pid=record.pid),
-        json=record
+        json=record,
+        message=_("Library cannot be deleted: there are still locations linked to this library.")
     %}
         {% include 'reroils_record_editor/_button_actions.html' %}
     {% endwith %}
@@ -85,7 +86,8 @@
     {% with
         href_update=url_for('reroils_record_editor.update_loc', pid=record.pid, parent_pid=record.pid),
         href_delete=url_for('reroils_record_editor.delete_loc', pid=record.pid, parent_pid=record.pid),
-        json=location
+        json=location,
+        message=_("Location cannot be deleted: there are still items linked to this location.")
     %}
         {% include 'reroils_record_editor/_button_actions.html' %}
     {% endwith %}
@@ -96,3 +98,8 @@
 
 </div>
 {%- endblock %}
+
+{%- block javascript %}
+{{ super() }}
+{% assets "rero_ils_tooltips_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}

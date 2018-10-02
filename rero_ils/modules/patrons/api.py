@@ -122,12 +122,13 @@ class Patron(IlsRecord):
 
     def get_borrowed_documents_pids(self):
         """Get pid values borrowed documents for given patron."""
-        pids = [p.pid for p in BorrowedDocumentsSearch().filter(
-            'term',
-            itemslist___circulation__holdings__patron_barcode=self.get(
-                'barcode'
-            )
-        ).source(includes=['id', 'pid']).scan()]
+        pids = []
+        barcode = self.get('barcode')
+        if barcode:
+            pids = [p.pid for p in BorrowedDocumentsSearch().filter(
+                'term',
+                itemslist___circulation__holdings__patron_barcode=barcode
+            ).source(includes=['id', 'pid']).scan()]
         return pids
 
     def get_borrowed_documents(self):
@@ -179,6 +180,11 @@ class Patron(IlsRecord):
             data.get('first_name', '')
         ))
         return data
+
+    @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return len(self.get_borrowed_documents_pids()) == 0
 
     @property
     def roles(self):

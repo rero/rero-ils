@@ -44,19 +44,8 @@ class TextSerializer(object):
 
         bib_fields.append(str(record.get('publicationYear', '')))
         bib_str = ','.join(['"%s"' % v for v in bib_fields])
-        items = []
-        for citem in record.get('citems', []):
-            item_fields = []
-            item_fields.append(str(citem.get('barcode')))
-            item_fields.append(str(citem.get('call_number')))
-            item_fields.append(str(citem.get('location')))
-            item_fields.append(
-                str(citem.get('_circulation', {}).get('status'))
-            )
-            item_str = ','.join(['"%s"' % v for v in item_fields])
-            items.append(','.join((bib_str, item_str)))
 
-        return '\n'.join(items)
+        return bib_str
 
     def serialize(self, pid, record, links_factory=None):
         """Serialize a single record and persistent identifier.
@@ -65,6 +54,7 @@ class TextSerializer(object):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
+        print('++++>', record, flush=True)
         return self.format_record(record)
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
@@ -80,6 +70,7 @@ class TextSerializer(object):
             records.append(self.format_record(record=hit['_source']))
 
         return "\n".join(records)
+
 
 documents_items_csv_v1 = TextSerializer()
 documents_items_csv_v1_response = record_responsify(

@@ -225,7 +225,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
+                                 ':json_v1_response')
         },
         search_serializers={
             'application/rero+json': ('rero_ils.modules.serializers'

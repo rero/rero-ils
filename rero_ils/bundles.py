@@ -86,6 +86,12 @@ tab_js = Bundle(
     output='gen/rero_ils.tab.%(version)s.js'
 )
 
+tooltips_js = Bundle(
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js',
+    'js/rero_ils/tooltips.js',
+    output='gen/rero_ils.tooltip.%(version)s.js'
+)
+
 _search_js = NpmBundle(
     'js/rero_ils/documents_items.js',
     'js/rero_ils/invenio_config.js',
