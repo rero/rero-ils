@@ -1,11 +1,10 @@
+{% from 'rero_ils/macros/person.html' import build_row_merged, build_row_permalink_merged %}
 {% set record = record.dumps() %}
-{% set data = record | person_merge_data_values %}
+{% set data = record|person_merge_data_values %}
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">
-        {{ _('All the Sources') }}
-    </h3>
+    <h3 class="panel-title">{{ _('All the Sources') }}</h3>
   </div>
   <div class="panel-body">
     {{ build_row_merged(_('Birth date'), data.date_of_birth) }}

@@ -29,6 +29,8 @@ from __future__ import absolute_import, print_function
 import pytest
 from flask import url_for
 
+from rero_ils.views import nl2br
+
 
 @pytest.mark.skip(reason="will erase ES index")
 def test_ping(client):
@@ -36,3 +38,8 @@ def test_ping(client):
     resp = client.get(url_for('rero_ils.ping'))
     assert resp.status_code == 200
     assert resp.get_data(as_text=True) == 'OK'
+
+
+def test_nl2br():
+    """Test nl2br function view."""
+    assert 'foo<br>Bar' == nl2br('foo\nBar')

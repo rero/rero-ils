@@ -2,10 +2,10 @@
   <div ng-if="aggr.value.buckets.length > 0 && aggr.key !== 'years'" class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <a class="toggle {{aggr.value.expand ? '' : 'collapsed'}}" data-toggle="collapse" href="#collapse-{{ aggr.key }}">{{ aggr.key | translate }}</a>
+        <a class="toggle {{ aggr.value.expand ? '' : 'collapsed' }}" data-toggle="collapse" href="#collapse-{{ aggr.key }}">{{ aggr.key | translate }}</a>
       </h3>
     </div>
-    <div id="collapse-{{ aggr.key }}" class="panel-collapse collapse {{aggr.value.expand ? 'in' : ''}}">
+    <div id="collapse-{{ aggr.key }}" class="panel-collapse collapse {{ aggr.value.expand ? 'in' : '' }}">
       <div class="panel-body">
         <ul class="list-unstyled" ng-init="values=getValues(aggr.key)" ng-repeat="item in aggr.value.buckets">
           <li>

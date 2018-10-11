@@ -26,6 +26,8 @@
 
 from __future__ import absolute_import, print_function
 
+import re
+
 from flask import Blueprint, current_app, render_template
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
@@ -87,6 +89,59 @@ def patron_request_rank(item):
             patron_barcode = patron.get('barcode')
             return Item.patron_request_rank(item, patron_barcode)
     return False
+
+
+@blueprint.app_template_filter()
+def authors_format(authors):
+    """Format authors for template."""
+    output = []
+    for author in authors:
+        line = []
+        line.append(author.get('name'))
+        if author.get('qualifier'):
+            line.append(author.get('qualifier'))
+        if author.get('date'):
+            line.append(author.get('date'))
+        output.append(', '.join(str(x) for x in line))
+    return '; '.join(str(x) for x in output)
+
+
+@blueprint.app_template_filter()
+def publishers_format(publishers):
+    """Format publishers for template."""
+    output = []
+    for publisher in publishers:
+        line = []
+        places = publisher.get('place', [])
+        if len(places) > 0:
+            line.append('; '.join(str(x) for x in places)+': ')
+        names = publisher.get('name')
+        line.append('; '.join(str(x) for x in names))
+        output.append(''.join(str(x) for x in line))
+    return '; '.join(str(x) for x in output)
+
+
+@blueprint.app_template_filter()
+def series_format(series):
+    """Format series for template."""
+    output = []
+    for serie in series:
+        line = []
+        if serie.get('name'):
+            line.append(serie.get('name'))
+        if serie.get('number'):
+            line.append(', '+serie.get('number'))
+        output.append(''.join(str(x) for x in line))
+    return '; '.join(str(x) for x in output)
+
+
+@blueprint.app_template_filter()
+def abstracts_format(abstracts):
+    """Format abstracts for template."""
+    output = []
+    for abstract in abstracts:
+        output.append(re.sub(r'\n+', "\n", abstract))
+    return "\n".join(str(x) for x in output)
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):

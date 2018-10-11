@@ -31,6 +31,8 @@ from invenio_records.models import RecordMetadata
 
 from rero_ils.modules.documents_items.api import DocumentsWithItems
 from rero_ils.modules.documents_items.models import DocumentsItemsMetadata
+from rero_ils.modules.documents_items.views import abstracts_format, \
+    authors_format, publishers_format, series_format
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.members_locations.api import MemberWithLocations
@@ -110,3 +112,27 @@ def test_delete_document(reindex, db,
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()
+
+
+def test_authors_format(document_data_authors):
+    """Test authors format."""
+    result = 'Foo; Bar, prof, 2018'
+    assert result == authors_format(document_data_authors)
+
+
+def test_publishers_format(document_data_publishers):
+    """Test publishers format."""
+    result = 'Foo; place1; place2: Foo; Bar'
+    assert result == publishers_format(document_data_publishers)
+
+
+def test_series_format(document_data_series):
+    """Test series format."""
+    result = 'serie 1; serie 2, 2018'
+    assert result == series_format(document_data_series)
+
+
+def test_abstracts_format(document_data_abstracts):
+    """Test series format."""
+    result = 'line1\nline2\nline3'
+    assert result == abstracts_format(document_data_abstracts)

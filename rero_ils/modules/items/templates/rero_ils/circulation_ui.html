@@ -15,13 +15,13 @@
 
 {%- block body %}
 <div class="container">
-    <reroils-circulation-root></reroils-circulation-root>
+  <reroils-circulation-root></reroils-circulation-root>
 </div>
 {%- endblock body %}
 
 {%- block javascript %}
-    {% assets "rero_ils_item_circulation_ui_js" %}
-        <script src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    <script src="{{ url_for('static', filename='js/rero_ils/circulation_ui/main.bundle_%s.js' % current_i18n.language)}}"></script>
+  {% assets "rero_ils_item_circulation_ui_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+  <script src="{{ url_for('static', filename='js/rero_ils/circulation_ui/main.bundle_%s.js' % current_i18n.language)}}"></script>
 {%- endblock javascript %}

@@ -1,20 +1,20 @@
-{%- if current_user | can_edit %}
+{%- if current_user|can_edit %}
 <div class="modal fade" id="confirm-{{ json.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">{{_('Confirm Delete')}}</h4>
+        <h4 class="modal-title" id="myModalLabel">{{ _('Confirm Delete') }}</h4>
       </div>
 
       <div class="modal-body">
-        <p>{{_('You are about to delete one record, this procedure is irreversible.')}}</p>
-        <p>{{_('Do you want to proceed?')}}</p>
+        <p>{{ _('You are about to delete one record, this procedure is irreversible.') }}</p>
+        <p>{{ _('Do you want to proceed?') }}</p>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a href="{{ href_delete }}" class="btn btn-danger btn-ok">Delete</a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('Cancel') }}</button>
+        <a href="{{ href_delete }}" class="btn btn-danger btn-ok">{{ _('Delete') }}</a>
       </div>
     </div>
   </div>
@@ -24,10 +24,10 @@
   <div class="col-sm-12">
     <div class="btn-group  pull-right" role="group" aria-label="...">
       <a href="#source-{{ json.id }}" data-toggle="collapse" type="button" class="btn btn-info">
-        <i class="fa fa-search-plus  fa-fw"></i> {{_('JSON')}}
+        <i class="fa fa-search-plus  fa-fw"></i> {{ _('JSON') }}
       </a>
       <a href="{{ href_update }}" type="button" class="btn btn-success">
-        <i class="fa fa-pencil-square-o fa-fw"></i> {{_('Edit')}}
+        <i class="fa fa-pencil-square-o fa-fw"></i> {{ _('Edit') }}
       </a>
       <a
       {% if json.can_delete %}href="#confirm-{{ json.id }}"{% endif %}
@@ -35,12 +35,12 @@
       data-toggle="{% if json.can_delete %}modal{% else %}tooltip{% endif %}"
       {% if not json.can_delete %}disabled {% endif %}{%if message and not json.can_delete %} title="{{ message }}"{% endif %}
       >
-        <i class="fa fa-trash-o fa-fw"></i> {{_('Delete')}}
+        <i class="fa fa-trash-o fa-fw"></i> {{ _('Delete') }}
       </a>
     </div>
   </div>
 </div>
 <div id="source-{{ json.id }}" class="collapse">
-  <pre>{{ json.dumps() | tojson_pretty }}</pre>
+  <pre>{{ json.dumps()|tojson_pretty }}</pre>
 </div>
 {% endif %}

@@ -8,30 +8,30 @@ angular.module('reroThumbnails', [])
     $scope.thumbnail_service_url = undefined;
 
     $scope.$on('thumbnail.init', thumbnailInit);
-    function thumbnailInit(init, identifiers, type, config){
-        var thumbnail_service_url =  angular.fromJson(config).thumbnail_service_url;
-        $scope.thumbnail_service_url = $sce.trustAsResourceUrl(thumbnail_service_url);
-        $scope.type = type;
-        $scope.identifiers = angular.fromJson(identifiers);
+    function thumbnailInit(init, identifiers, type, config) {
+      var thumbnail_service_url =  angular.fromJson(config).thumbnail_service_url;
+      $scope.thumbnail_service_url = $sce.trustAsResourceUrl(thumbnail_service_url);
+      $scope.type = type;
+      $scope.identifiers = angular.fromJson(identifiers);
     };
     $scope.$watch(
         "identifiers",
         function handleIdentifiers( identifiers ) {
           if(identifiers) {
-              getThumbnailUrl(identifiers);
+            getThumbnailUrl(identifiers);
           }
         },
         true
     );
-    function getThumbnailUrl(identifiers){
+    function getThumbnailUrl(identifiers) {
       var isbn = identifiers.isbn;
       if(isbn) {
         var config = {
-            jsonpCallbackParam: 'callback',
-            type: 'isbn',
-            value: isbn,
-            width: '60px',
-            height: '60px'
+          jsonpCallbackParam: 'callback',
+          type: 'isbn',
+          value: isbn,
+          width: '60px',
+          height: '60px'
         }
         $http.jsonp($scope.thumbnail_service_url, {params: config})
         .then(function(response){

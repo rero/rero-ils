@@ -24,6 +24,7 @@
 
 """API for manipulating items associated to a document."""
 
+from flask import current_app
 from invenio_search.api import RecordsSearch
 
 from ..api import RecordWithElements
@@ -106,6 +107,26 @@ class DocumentsWithItems(RecordWithElements):
         data = super(DocumentsWithItems, self).dumps(**kwargs)
         data['available'] = self.available
         return data
+
+    @property
+    def source(self):
+        """Return link source."""
+        identifiers = self.get('identifiers')
+        if 'reroID' in identifiers:
+            return current_app \
+                .config.get('RERO_ILS_PERMALINK_RERO_URL') \
+                .format(identifier=identifiers['reroID'])
+        elif 'bnfID' in identifiers:
+            return current_app \
+                .config.get('RERO_ILS_PERMALINK_BNF_URL') \
+                .format(identifier=identifiers['bnfID'])
+        return None
+
+    @property
+    def can_edit(self):
+        """Return a boolean for can_edit resource."""
+        # TODO: Make this condition on data
+        return 'ebook' != self.get('type')
 
     @classmethod
     def get_document_by_itemid(cls, id_, with_deleted=False):
