@@ -24,4 +24,7 @@ require([
     //         $('#language-code-form').submit();
     //     });
     // });
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  });
 });

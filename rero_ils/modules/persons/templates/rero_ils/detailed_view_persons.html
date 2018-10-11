@@ -1,8 +1,10 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+{% from 'rero_ils/macros/person.html' import build_row %}
+{% from 'rero_ils/macros/macro.html' import div_json %}
+
 {%- block page_body %}
 <div class="container search-page rero-ils-person">
   <div class="row">
-
     <div class="col-xs-1">
       <i class="fa fa-user fa-5x" aria-hidden="true"></i>
       <span class="icon-document-type">{{ _('Person') }}</span>
@@ -32,113 +34,25 @@
       </div>
     </div>
   </div>
-        <!-- JSON -->
-        {%- if current_user | can_edit %}
-
-          <div class="col-sm-12">
-            <div class="btn-group  pull-right" role="group" aria-label="...">
-              <a href="#source-{{ record.id }}" data-toggle="collapse" type="button" class="btn btn-info">
-                <i class="fa fa-search-plus  fa-fw"></i> {{_('JSON')}}
-              </a>
-            </div>
-          </div>
-        </div>
-        <div id="source-{{ record.id }}" class="collapse">
-          <pre>{{ record.dumps() | tojson_pretty }}</pre>
-        {% endif %}
-      </div>
+    <!-- JSON -->
+    {%- if current_user|can_edit %}
+      {{ div_json(_('JSON'), record.dumps()) }}
+    {% endif %}
   </div>
 </div>
 {%- endblock %}
 
-
-{% macro build_row(name, value) %}
-{% if value %}
-<div class="row">
-  <div class="col-xs-2">
-    {{name}}
-  </div>
-  <div class="col-xs-9">
-    {% if value is string %}
-    {{ value }}
-    {% else %}
-    <ul class="list-unstyled">
-      {% for element in value %}
-      <li>{{ element }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </div>
-</div>
-{% endif %}
-{% endmacro %}
-
-{% macro build_row_merged(name, value) %}
-{% if value %}
-<div class="row">
-  <div class="col-xs-2">
-    {{name}}
-  </div>
-  <div class="col-xs-9">
-    <ul class="list-unstyled">
-      {% for element in value %}
-      <li>
-        {{ element }}
-        {% for source in value[element] %}
-        <span class="label label-default text-uppercase">{{ source }}</span>
-        {% endfor %}
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
-{% endif %}
-{% endmacro %}
-
-{% macro build_row_permalink(name, data) %}
-{% if data.pid %}
-<div class="row">
-  <div class="col-xs-2">
-    {{_(name)}}
-  </div>
-  <div class="col-xs-9">
-    <a target="_blank" href="{{ data.identifier_for_person }}">{{ data.pid }}</a>
-  </div>
-</div>
-{% endif %}
-{% endmacro %}
-
-{% macro build_row_permalink_merged(name, record) %}
-    <div class="row">
-      <div class="col-xs-2">
-        {{ _(name) }}
-      </div>
-      <div class="col-xs-9">
-        <ul class="list-unstyled">
-          {% for source in config.RERO_ILS_PERSONS_SOURCES %}
-            {% if record[source] %}
-            <li>
-              <a target="_blank" href="{{ record[source].identifier_for_person }}">{{ record[source].pid }}</a>
-                <span class="label label-default text-uppercase">{{ source }}</span>
-            </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-{% endmacro %}
-
 {% block javascript %}
 {{ super() }}
 <script type="text/javascript">
-$(document).ready(function(){
+$(document).ready(function() {
     /* Store state of view tab */
     $('a[data-toggle="tab"]').on('click', function(e) {
-        localStorage.setItem('activeTab', $(this).attr('href'));
+      localStorage.setItem('activeTab', $(this).attr('href'));
     });
     var activeTab = localStorage.getItem('activeTab');
-    if(activeTab){
-        $('.nav-pills a[href="' + activeTab + '"]').tab('show');
+    if(activeTab) {
+      $('.nav-pills a[href="' + activeTab + '"]').tab('show');
     }
 });
 </script>

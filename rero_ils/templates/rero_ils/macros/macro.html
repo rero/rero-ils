@@ -1,0 +1,36 @@
+{% macro div_row(title, content) %}
+  <div class="row">
+    <div class="col-xs-2 col-xs-offset-2">
+      {{ title }}:
+    </div>
+    <div class="col-xs-8">
+      {{ content|safe }}
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro div_row_xs3_xs9(title, content) %}
+<div class="row">
+    <div class="col-xs-3 col-sm-2">
+        {{ title }}:
+    </div>
+    <div class="col-xs-9 col-sm-10">
+        {{ content|safe }}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro div_json(title, data) %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="btn-group pull-right" role="group">
+      <a href="#source-{{ data.id }}" data-toggle="collapse" type="button" class="btn btn-info">
+        <i class="fa fa-search-plus fa-fw"></i> {{ title }}
+      </a>
+    </div>
+  </div>
+</div>
+<div id="source-{{ data.id }}" class="collapse">
+  <pre>{{ data|tojson_pretty }}</pre>
+</div>
+{% endmacro %}

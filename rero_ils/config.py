@@ -764,8 +764,8 @@ RERO_ILS_BABEL_TRANSLATE_JSON_KEYS = [
     'validationMessage', 'name', 'add', '403'
 ]
 
-RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/'
-RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/'
+RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
+RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
 #: RERO_ILS MEF specificconfigurations.
 RERO_ILS_HARVESTING_MEF_URL = 'http://mef.test.rero.ch/api/mef'

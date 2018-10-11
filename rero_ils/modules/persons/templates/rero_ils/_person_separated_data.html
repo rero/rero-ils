@@ -1,3 +1,5 @@
+{% from 'rero_ils/macros/person.html' import build_row, build_row_permalink %}
+
 {{ build_row(_('Birth date'), data.date_of_birth) }}
 {{ build_row(_('Death date'), data.date_of_death) }}
 {{ build_row(_('Language of person'), data.language_of_person) }}

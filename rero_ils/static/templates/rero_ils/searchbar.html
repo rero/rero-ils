@@ -3,7 +3,7 @@
     <input
       type="text"
       class="form-control"
-      placeholder="{{placeholder}}"
+      placeholder="{{ placeholder }}"
       ng-model="vm.userQuery"
       ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"
       ng-keyup="$event.keyCode == 13 && updateQuery()"

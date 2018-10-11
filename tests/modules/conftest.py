@@ -539,3 +539,63 @@ def person_data_result():
             'Cavalieri, Giovanni Battista': ['gnd']
         }
     }
+
+
+@pytest.yield_fixture()
+def document_data_authors():
+    """Document with authors."""
+    yield [
+        {
+            'name': 'Foo'
+        },
+        {
+            'name': 'Bar',
+            'qualifier': 'prof',
+            'date': '2018'
+        }
+    ]
+
+
+@pytest.yield_fixture()
+def document_data_publishers():
+    """Document with publishers."""
+    yield [
+        {
+            'name': [
+                'Foo'
+            ]
+        },
+        {
+            'place': [
+                'place1',
+                'place2'
+            ],
+            'name': [
+                'Foo',
+                'Bar'
+            ]
+        }
+    ]
+
+
+@pytest.yield_fixture()
+def document_data_series():
+    """Document with series."""
+    yield [
+        {
+            'name': 'serie 1'
+        },
+        {
+            'name': 'serie 2',
+            'number': '2018'
+        }
+    ]
+
+
+@pytest.yield_fixture()
+def document_data_abstracts():
+    """Document with abstracts."""
+    yield [
+        'line1\n\n\nline2',
+        'line3'
+    ]

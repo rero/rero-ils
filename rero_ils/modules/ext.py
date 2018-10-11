@@ -52,6 +52,7 @@ class REROILSAPP(object):
                 admin_menu_is_visible,
                 name='admin_menu_is_visible'
             )
+            app.jinja_env.add_extension('jinja2.ext.do')
             self.register_signals()
 
     def init_app(self, app):

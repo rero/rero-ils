@@ -137,3 +137,9 @@ def help():
     return redirect(
         current_app.config.get('RERO_ILS_APP_HELP_PAGE'),
         code=302)
+
+
+@blueprint.app_template_filter()
+def nl2br(string):
+    r"""Replace \n to <br>."""
+    return string.replace("\n", "<br>")
