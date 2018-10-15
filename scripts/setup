@@ -95,6 +95,9 @@ pipenv run invenio fixtures createitems -c 1000 -R
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json
 
+# create patron types
+pipenv run invenio fixtures importpatronstypes ${data_path}/patrons_types.json
+
 # OAI configuration
 pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml
 if [ "$1" = "--deployment" ]

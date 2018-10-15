@@ -1,0 +1,19 @@
+<ul class='re-list'>
+  <li ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+    <h3><a target="_self" ng-href="/patrons_types/{{ record.metadata.pid }}">{{ record.metadata.name }}</a></h3>
+    <p>{{ record.metadata.description }}</p>
+    <div class="text-right">
+      <ul class="list-inline">
+        <li>
+          <a ng-click="showSource=!showSource">
+            JSON
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div ng-hide="!showSource">
+      <pre>{{ record | json }}</pre>
+    </div>
+    <hr />
+  </li>
+</ul>

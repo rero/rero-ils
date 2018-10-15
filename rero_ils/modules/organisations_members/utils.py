@@ -60,7 +60,7 @@ def save_member(data, record_type, record_class, parent_pid=None):
     data = clean_dict_keys(data)
     patron = Patron.get_patron_by_user(current_user)
     organisation = OrganisationWithMembers.get_record_by_pid(
-        patron.organisation_pid
+        patron.organisation.pid
     )
     if pid:
         member = record_class.get_record_by_pid(pid)

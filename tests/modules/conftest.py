@@ -599,3 +599,15 @@ def document_data_abstracts():
         'line1\n\n\nline2',
         'line3'
     ]
+
+
+@pytest.yield_fixture()
+def minimal_patron_type_record():
+    """Patron Type minimal record."""
+    yield {
+        '$schema': url_schema + '/patrons_types/patron_type-v0.0.1.json',
+        'pid': '1',
+        'name': 'Patron Type Name',
+        'description': 'Patron Type Description',
+        'organisation_pid': '1'
+    }
