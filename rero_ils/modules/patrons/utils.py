@@ -69,8 +69,10 @@ def save_patron(data, record_type, record_class, parent_pid):
         patron = record_class.get_patron_by_email(email)
         if patron:
             patron.update(data, dbcommit=True, reindex=False)
+            patron = record_class.get_patron_by_email(email)
         else:
             patron = record_class.create(data, dbcommit=True, reindex=False)
+
         if patron.get('is_patron', False):
             patron.add_role('patrons')
         else:

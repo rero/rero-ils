@@ -78,22 +78,28 @@ def save_record(data, record_type, record_class, parent_pid=None):
 
 def clean_dict_keys(data):
     """Remove key having useless values."""
-    # retrun a new list with defined value only
+    # return a new list with defined value only
     if isinstance(data, list):
         to_return = []
         for item in data:
-            tmp = clean_dict_keys(item)
-            if tmp:
-                to_return.append(tmp)
+            if item is False:
+                to_return.append(item)
+            else:
+                tmp = clean_dict_keys(item)
+                if tmp:
+                    to_return.append(tmp)
         return to_return
 
-    # retrun a new dict with defined value only
+    # return a new dict with defined value only
     if isinstance(data, dict):
         to_return = {}
         for k, v in data.items():
-            tmp = clean_dict_keys(v)
-            if tmp:
-                to_return[k] = tmp
+            if v is False:
+                to_return[k] = v
+            else:
+                tmp = clean_dict_keys(v)
+                if tmp:
+                    to_return[k] = tmp
         return to_return
 
     return data
