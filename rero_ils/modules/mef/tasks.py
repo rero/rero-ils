@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import click
 from celery import shared_task
 from flask import current_app
 
@@ -33,7 +34,7 @@ from .api import MefPerson
 
 
 @shared_task(ignore_result=True)
-def create_mef_records(records):
+def create_mef_records(records, verbose=False):
     """Records creation and indexing."""
     for record in records:
         rec, status = MefPerson.create_or_update(
@@ -41,22 +42,27 @@ def create_mef_records(records):
             dbcommit=True,
             reindex=True
         )
-        current_app.logger.info(
-            'record uuid: {0} | {1}'.format(rec.id, status)
-        )
+        if verbose:
+            click.echo(
+                'record uuid: {id} | {status}'.format(id=rec.id, status=status)
+            )
     return len(records)
 
 
 @shared_task(ignore_result=True)
-def delete_records(records, force=False, delindex=True):
+def delete_records(records, force=False, delindex=True, verbose=False):
     """Records deletion and indexing."""
     for record in records:
         status = MefPerson.delete(record, force=force, delindex=delindex)
         current_app.logger.info(
-            'record: {0} | DELETED {1}'.format(record, status)
+            'record: {id} | DELETED {status}'.format(
+                id=record.id,
+                status=status
+            )
         )
         # TODO bulk update and reindexing
-    current_app.logger.info(
-        'records deleted: {0}'.format(len(records))
-    )
+    if verbose:
+        click.echo(
+            'records deleted: {count}'.format(count=len(records))
+        )
     return len(records)

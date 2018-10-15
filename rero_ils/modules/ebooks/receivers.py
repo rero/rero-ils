@@ -49,8 +49,8 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
         converted_records.append(rec)
     if records:
         current_app.logger.info(
-            'publish_harvester: received {0} records'
-            .format(len(converted_records))
+            'publish_harvester: received {count} records'
+            .format(count=len(converted_records))
         )
         create_records(converted_records)
     else:

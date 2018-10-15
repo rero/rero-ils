@@ -108,7 +108,7 @@ def api_source_config_from_file(configfile, update):
               help='Enqueue harvesting and return immediately.')
 @click.option('--signals/--no-signals', default=True,
               help='Signals sent with Api harvesting results.')
-@click.option('-s', '--size', type=int, default=100,
+@click.option('-s', '--size', type=int, default=0,
               help='Size of chunks (optional).')
 @click.option('-m', '--max', type=int, default=0,
               help='maximum of records to harvest (optional).')
@@ -120,7 +120,6 @@ def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
         click.secho('Harvest api: {0}'.format(name), fg='green')
     elif url:
         click.secho('Harvest api: {0}'.format(url), fg='green')
-    size = current_app.config.get('RERO_ILS_MEF_RESULT_SIZE', 100)
     if enqueue:
         harvest_records.delay(url=url, name=name, from_date=from_date,
                               signals=signals, size=size,  max=max,

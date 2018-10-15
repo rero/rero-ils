@@ -27,4 +27,4 @@
 mef:
     url: http://mef.test.rero.ch/api/mef
     comment: 'mef persons'
-    size: 100
+    size: 1000
