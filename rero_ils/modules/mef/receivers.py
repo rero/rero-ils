@@ -24,6 +24,7 @@
 
 """Signals connections for ebooks document."""
 
+import click
 from flask import current_app
 
 from .tasks import create_mef_records
@@ -33,6 +34,7 @@ def publish_api_harvested_records(sender=None, records=[], *args, **kwargs):
     """Create, index the harvested records."""
     name = kwargs['name']
     url = kwargs['url']
+    verbose = kwargs.get('verbose', False)
     if name == 'mef':
         converted_records = []
         js = current_app.extensions.get('invenio-jsonschemas')
@@ -42,11 +44,13 @@ def publish_api_harvested_records(sender=None, records=[], *args, **kwargs):
             record['$schema'] = url
             converted_records.append(record)
         if records:
-            current_app.logger.info(
-                'mef harvester: received {0} records: {1}'.format(
-                    len(records), url
+            click.echo(
+                'mef harvester: received {count} records: {url}'.format(
+                    count=len(records),
+                    url=url
                 )
             )
-            create_mef_records(converted_records)
+
+            create_mef_records(converted_records, verbose)
         else:
             current_app.logger.info('publish_harvester: nothing to do')

@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+import click
 import requests
 from dateutil import parser
 from flask import current_app
@@ -93,10 +94,11 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
         from_date = from_date.isoformat()
         # we have to urlencode the : from the time with \:
         from_date = from_date.replace(':', '%5C:')
-        url += '&q=_updated:>{0}'.format(from_date)
+        url += '&q=_updated:>{from_date}'.format(from_date=from_date)
+    url += '&size={size}'.format(size=size)
 
     if verbose:
-        current_app.logger.info('Get records from {0}'.format(url))
+        click.echo('Get records from {url}'.format(url=url))
 
     try:
         count = 0
@@ -104,9 +106,10 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
         data = request.json()
 
         total = data.get('hits', {}).get('total', 0)
-        current_app.logger.info(
-            'API records found: {0}'.format(total)
+        click.echo(
+            'API records found: {total}'.format(total=total)
         )
+
         next = data.get('links', {}).get('self', True)
         while next and (count < max or max == 0):
             records = extract_records(data)
@@ -118,13 +121,18 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
             request = requests.get(next)
             data = request.json()
             if signals:
-                apiharvest_part.send(records=records, name=name,
-                                     url=next, **kwargs)
+                apiharvest_part.send(
+                    records=records,
+                    name=name,
+                    url=next,
+                    verbose=verbose,
+                    **kwargs)
             else:
                 yield next, records
             next = data.get('links', {}).get('next', None)
     except Exception as e:
-        current_app.logger.error(
-            'Harvesting API ConnectionRefusedError: {0}'.format(e)
+        click.secho(
+            'Harvesting API ConnectionRefusedError: {e}'.format(e=e),
+            fg='red'
         )
         return 0, url, []
