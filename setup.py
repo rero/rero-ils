@@ -100,6 +100,7 @@ setup(
             'patrons = rero_ils.modules.patrons.views:blueprint',
             'patrons_types = rero_ils.modules.patrons_types.views:blueprint',
             'persons = rero_ils.modules.persons.views:blueprint',
+            'circ_policies = rero_ils.modules.circ_policies.views:blueprint',
 
         ],
         'invenio_config.module': [
@@ -160,7 +161,8 @@ setup(
             'patrons_types = rero_ils.modules.patrons_types.models',
             'transactions = rero_ils.modules.transactions.models',
             'mef= rero_ils.modules.mef.models',
-            'apiharvester = rero_ils.modules.apiharvester.models'
+            'apiharvester = rero_ils.modules.apiharvester.models',
+            'circ_policies = rero_ils.modules.circ_policies.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = \
@@ -177,7 +179,8 @@ setup(
             'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
             'patron_type_id = \
                 rero_ils.modules.patrons_types.minters:patron_type_id_minter',
-            'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter'
+            'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter',
+            'circ_policy_id = rero_ils.modules.circ_policies.minters:circ_policy_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
@@ -197,7 +200,8 @@ setup(
             'patron_type_id = \
                 rero_ils.modules.patrons_types.fetchers:patron_type_id_fetcher',
             'mef_person_id = \
-                rero_ils.modules.mef.fetchers:mef_person_id_fetcher'
+                rero_ils.modules.mef.fetchers:mef_person_id_fetcher',
+            'circ_policy_id = rero_ils.modules.circ_policies.fetchers:circ_policy_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -209,6 +213,8 @@ setup(
             'patrons = rero_ils.modules.patrons.jsonschemas',
             'patrons_types = rero_ils.modules.patrons_types.jsonschemas',
             'persons = rero_ils.modules.persons.jsonschemas',
+            'circ_policies = rero_ils.modules.circ_policies.jsonschemas',
+
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -220,6 +226,7 @@ setup(
             'patrons = rero_ils.modules.patrons.mappings',
             'patrons_types = rero_ils.modules.patrons_types.mappings',
             'persons = rero_ils.modules.persons.mappings',
+            'circ_policies = rero_ils.modules.circ_policies.mappings',
         ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',

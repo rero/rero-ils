@@ -60,6 +60,23 @@ url_schema = 'http://ils.test.rero.ch/schema'
 
 
 @pytest.yield_fixture()
+def minimal_circ_policy_record():
+    """Simple patron record."""
+    yield {
+        '$schema': url_schema + '/circ_policies/circ_policy-v0.0.1.json',
+        'pid': '1',
+        'name': 'standard',
+        'description': 'default standard circulation policy',
+        'organisation_pid': '1',
+        'allow_checkout': True,
+        'checkout_duration': 30,
+        'allow_requests': True,
+        'number_renewals': 3,
+        'renewal_duration': 30
+    }
+
+
+@pytest.yield_fixture()
 def minimal_patron_record():
     """Simple patron record."""
     yield {

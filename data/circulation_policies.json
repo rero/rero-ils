@@ -1,0 +1,35 @@
+[
+  {
+    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "standard",
+    "description": "Default standard circulation policy.",
+    "organisation_pid": "1",
+    "allow_checkout": true,
+    "checkout_duration": 30,
+    "allow_requests": true,
+    "number_renewals": 3,
+    "renewal_duration": 30
+  },
+  {
+    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "short",
+    "description": "Short circulation policy.",
+    "organisation_pid": "1",
+    "allow_checkout": true,
+    "checkout_duration": 10,
+    "allow_requests": true,
+    "number_renewals": 1,
+    "renewal_duration": 10
+  },
+  {
+    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "on-site",
+    "description": "On-site circulation policy.",
+    "organisation_pid": "1",
+    "allow_checkout": false,
+    "checkout_duration": 0,
+    "allow_requests": false,
+    "number_renewals": 0,
+    "renewal_duration": 0
+  }
+]

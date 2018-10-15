@@ -74,6 +74,9 @@ pipenv run invenio fixtures importusers ${data_path}/users.json -v
 # create the organisations with members and locations
 pipenv run invenio fixtures importorganisations ${data_path}/organisations-members-locations.json -v
 
+# create circulation policies
+pipenv run invenio fixtures importcircpolicies ${data_path}/circulation_policies.json
+
 # API Mef configurations and harvest
 pipenv run invenio apiharvester sources ${data_path}/apisources.yml
 if [ "$1" = "--deployment" ]

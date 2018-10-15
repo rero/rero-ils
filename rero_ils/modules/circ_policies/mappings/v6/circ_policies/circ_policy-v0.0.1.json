@@ -1,0 +1,51 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "circ_policy-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "name": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "keyword"
+        },
+        "organisation_pid": {
+          "type": "keyword"
+        },
+        "allow_checkout": {
+          "type": "boolean"
+        },
+        "checkout_duration": {
+          "type": "integer"
+        },
+        "allow_requests": {
+          "type": "boolean"
+        },
+        "number_renewals": {
+          "type": "integer"
+        },
+        "renewal_duration": {
+          "type": "integer"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

@@ -37,6 +37,7 @@ from datetime import timedelta
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 
+from .modules.circ_policies.api import CircPolicy
 from .modules.documents_items.api import DocumentsWithItems
 from .modules.items.api import Item
 from .modules.items_types.api import ItemType
@@ -490,8 +491,30 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
+    ),
+    cipo=dict(
+        pid_type='cipo',
+        pid_minter='circ_policy_id',
+        pid_fetcher='circ_policy_id',
+        search_class=RecordsSearch,
+        search_index='circ_policies',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/circ_policies/',
+        item_route='/circ_policies/<pid(cipo):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:and_search_factory'
     )
-
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -706,8 +729,15 @@ RECORDS_UI_ENDPOINTS = {
         "route": "/persons/<pid_value>",
         "template": "rero_ils/detailed_view_persons.html",
         "record_class": 'rero_ils.modules.mef.api:MefPerson',
+    },
+    'cipo': {
+        'pid_type': 'cipo',
+        'route': '/circ_policies/<pid_value>',
+        'template': 'rero_ils/detailed_view_circ_policies.html',
+        'record_class': 'rero_ils.modules.circ_policies.api:CircPolicy',
+        'permission_factory_imp':
+            'rero_ils.permissions.cataloguer_permission_factory'
     }
-
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -815,6 +845,17 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
                       'persons/mef-person-v0.0.1.json'),
         record_class=MefPerson,
         can_create=lambda: False
+    ),
+    _('cipo'): dict(
+        api='/api/circ_policies/',
+        schema='circ_policies/circ_policy-v0.0.1.json',
+        form_options=('rero_ils.modules.circ_policies.form_options',
+                      'circ_policies/circ_policy-v0.0.1.json'),
+        save_record='rero_ils.modules.circ_policies.utils:save_circ_policy',
+        editor_template='rero_ils/circ_policy_editor.html',
+        results_template='templates/rero_ils/brief_view_circ_policies.html',
+        record_class=CircPolicy,
+        form_options_create_exclude=['pid', 'organisation_pid']
     ),
 }
 
