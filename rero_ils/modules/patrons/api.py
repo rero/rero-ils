@@ -25,6 +25,7 @@
 """API for manipulating patrons."""
 
 from flask import current_app
+from flask_login import current_user
 from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 
@@ -37,6 +38,8 @@ from .minters import patron_id_minter
 from .providers import PatronProvider
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+
+current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
 
 
 class BorrowedDocumentsSearch(RecordsSearch):
@@ -201,11 +204,14 @@ class Patron(IlsRecord):
         return [v.name for v in self.roles]
 
     @property
-    def organisation_pid(self):
-        """Get Organisation pid of the logged in patron."""
+    def member(self):
+        """Get member."""
         member_pid = self.get('member_pid')
-        member = Member.get_record_by_pid(member_pid)
-        organisation = OrganisationWithMembers.get_organisation_by_memberid(
-            member.id
+        return Member.get_record_by_pid(member_pid)
+
+    @property
+    def organisation(self):
+        """Get organisation."""
+        return OrganisationWithMembers.get_organisation_by_memberid(
+            self.member.id
         )
-        return organisation.pid

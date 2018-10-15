@@ -97,6 +97,7 @@ setup(
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
+            'patrons_types = rero_ils.modules.patrons_types.views:blueprint',
             'persons = rero_ils.modules.persons.views:blueprint',
 
         ],
@@ -153,6 +154,7 @@ setup(
             'documents_items = rero_ils.modules.documents_items.models',
             'items = rero_ils.modules.items.models',
             'patrons = rero_ils.modules.patrons.models',
+            'patrons_types = rero_ils.modules.patrons_types.models',
             'transactions = rero_ils.modules.transactions.models',
             'mef= rero_ils.modules.mef.models',
             'apiharvester = rero_ils.modules.apiharvester.models'
@@ -168,6 +170,8 @@ setup(
                 rero_ils.modules.documents.minters:document_id_minter',
             'item_id = rero_ils.modules.items.minters:item_id_minter',
             'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
+            'patron_type_id = \
+                rero_ils.modules.patrons_types.minters:patron_type_id_minter',
             'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter'
         ],
         'invenio_pidstore.fetchers': [
@@ -183,6 +187,8 @@ setup(
                 rero_ils.modules.items.fetchers:item_id_fetcher',
             'patron_id = \
                 rero_ils.modules.patrons.fetchers:patron_id_fetcher',
+            'patron_type_id = \
+                rero_ils.modules.patrons_types.fetchers:patron_type_id_fetcher',
             'mef_person_id = \
                 rero_ils.modules.mef.fetchers:mef_person_id_fetcher'
         ],
@@ -193,6 +199,7 @@ setup(
             'documents = rero_ils.modules.documents.jsonschemas',
             'items = rero_ils.modules.items.jsonschemas',
             'patrons = rero_ils.modules.patrons.jsonschemas',
+            'patrons_types = rero_ils.modules.patrons_types.jsonschemas',
             'persons = rero_ils.modules.persons.jsonschemas',
         ],
         'invenio_search.mappings': [
@@ -202,6 +209,7 @@ setup(
             'documents = rero_ils.modules.documents.mappings',
             'items = rero_ils.modules.items.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
+            'patrons_types = rero_ils.modules.patrons_types.mappings',
             'persons = rero_ils.modules.persons.mappings',
         ],
         'invenio_celery.tasks': [

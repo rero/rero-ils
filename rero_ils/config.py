@@ -44,6 +44,7 @@ from .modules.mef.api import MefPerson
 from .modules.members_locations.api import MemberWithLocations
 from .modules.organisations_members.api import OrganisationWithMembers
 from .modules.patrons.api import Patron
+from .modules.patrons_types.api import PatronType
 
 
 def _(x):
@@ -374,6 +375,29 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
     ),
+    ptty=dict(
+        pid_type='ptty',
+        pid_minter='patron_type_id',
+        pid_fetcher='patron_type_id',
+        search_class=RecordsSearch,
+        search_index='patrons_types',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/patrons_types/',
+        item_route='/patrons_types/<pid(ptty):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:and_search_factory'
+    ),
     memb=dict(
         pid_type='memb',
         pid_minter='member_id',
@@ -637,6 +661,14 @@ RECORDS_UI_ENDPOINTS = {
             "rero_ils.permissions.cataloguer_permission_factory"
 
     },
+    "ptty": {
+        'pid_type': 'ptty',
+        'route': '/patrons_types/<pid_value>',
+        'template': 'rero_ils/detailed_view_patrons_types.html',
+        'record_class': 'rero_ils.modules.patrons_types.api:PatronType',
+        'permission_factory_imp':
+            'rero_ils.permissions.cataloguer_permission_factory'
+    },
     "pers": {
         "pid_type": "pers",
         "route": "/persons/<pid_value>",
@@ -690,6 +722,17 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         editor_template='rero_ils/patron_editor.html',
         results_template='templates/rero_ils/brief_view_patrons.html',
         record_class=Patron,
+    ),
+    _('ptty'): dict(
+        api='/api/patrons_types/',
+        schema='patrons_types/patron_type-v0.0.1.json',
+        form_options=('rero_ils.modules.patrons_types.form_options',
+                      'patrons_types/patron_type-v0.0.1.json'),
+        save_record='rero_ils.modules.patrons_types.utils:save_patron_type',
+        editor_template='rero_ils/patron_type_editor.html',
+        results_template='templates/rero_ils/brief_view_patrons_types.html',
+        record_class=PatronType,
+        form_options_create_exclude=['pid', 'organisation_pid']
     ),
     _('org'): dict(
         schema='organisations/organisation-v0.0.1.json',
