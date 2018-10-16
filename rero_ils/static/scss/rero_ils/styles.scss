@@ -11,8 +11,6 @@
 @import "variables";
 
 // Setting the path to fonts files.
-// Glyphicons are commented, to be replaced by font-awesome.
-// $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 $fa-font-path: "/static/node_modules/font-awesome/fonts";
 $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
@@ -30,6 +28,7 @@ $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "thumbnail";
 @import "frontpage";
 @import "patrons_profile";
+@import "circulation_ui";
 
 // CSS code to allow `ng-csp="no-inline-css"`
 [ng\:cloak],
@@ -56,7 +55,7 @@ ng\:form {
 
 /**********************************
 
-                DETAILED VIEW
+          DETAILED VIEW
 
  *********************************/
 .search-page {
@@ -80,9 +79,13 @@ ng\:form {
     }
 }
 
+.rero-ils-source-json {
+  margin-top: 20px;
+}
+
 /**********************************
 
-                FOOTER
+          FOOTER
 
  *********************************/
 
@@ -96,89 +99,46 @@ ng\:form {
 }
 
 
-/*
-   SIDEBAR
-*/
+/**********************************
+
+         SIDEBAR
+
+ *********************************/
+
+ // TODO: should be refactor with the AdminLTE classes!
+
 .wrapper {
   display: flex;
   align-items: stretch;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  z-index: 1000; // To hide the content under the sidebar. Not satisfying at all!
 }
-
-// #sidebar .navbar {
-//   padding: 15px 10px;
-//   // background: #fff;
-//   // border: none;
-//   // border-radius: 0;
-//   // margin-bottom: 40px;
-//   // box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-// }
-
-
-// #sidebar .line {
-//   width: 100%;
-//   height: 1px;
-//   border-bottom: 1px dashed #ddd;
-//   margin: 40px 0;
-// }
-
-
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
-
 
 #sidebar {
-  min-width: 200px;
-  max-width: 200px;
+  min-width: 10em;
+  max-width: 10em;
   background: $navbar-default-bg;
-  color: #fff;
+  color: $text-white;
   transition: all 0.3s;
+  padding-top: 4em;
 }
-
-// #sidebar a,
-// #sidebar a:hover,
-// #sidebar a:focus {
-//   color: inherit;
-// }
-
-// #sidebar.active {
-//   margin-left: -250px;
-// }
-
-// #sidebar ul.components {
-//   padding: 20px 0;
-//   // border-bottom: 1px solid #47748b;
-// }
-
-// #sidebar ul p {
-//   color: #fff;
-//   padding: 10px;
-// }
 
 #sidebar ul li a {
   padding: 10px;
-  font-size: 1.1em;
+//  font-size: $font-size-large;
   display: block;
 }
 
-// #sidebar ul li a:hover {
-//   color: #7386D5;
-//   background: #fff;
-// }
 
-// #sidebar ul li.active > a,
-// a[aria-expanded="true"] {
-//   color: #fff;
-//   background: $navbar-default-bg;
-// }
+/**********************************
 
+         MEDIA QUERIES
 
+ *********************************/
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   #sidebar {
     margin-left: -250px;
   }

@@ -37,7 +37,11 @@ img.reroils-frontpage-rero21 {
 }
 
 .rero-ils-frontpage {
-    position: relative;
+    padding: 0;
+    margin-top: -3em; //Glue the top to the header on the frontpage
+    @media (min-width: 992px) {
+      margin-top: 0; //Glue the top to the header on the frontpage
+    }
     .input-group {
       width: 100%;
     }
@@ -51,6 +55,26 @@ img.reroils-frontpage-rero21 {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        footer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 1em;
+          p {
+            margin: .3em 0;
+          }
+        }
+        @media (min-width: 992px) {
+          hgroup {
+            margin-bottom: 2em;
+          }
+          footer {
+            margin-top: 2em;
+            p {
+              margin: .5em 0;
+            }
+          }
+        }
     }
     .label-danger {
       margin-top: 6px;
@@ -72,4 +96,8 @@ img.reroils-frontpage-rero21 {
         padding-left: 0;
         padding-right: 0;
     }
+}
+
+.rero-ils-rero-link {
+  font-size: $font-size-large;
 }

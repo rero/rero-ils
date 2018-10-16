@@ -10,6 +10,7 @@
 require([
     "node_modules/jquery/jquery",
     "node_modules/bootstrap-sass/assets/javascripts/bootstrap",
+    "node_modules/bootstrap-autohide-navbar/dist/bootstrap-autohide-navbar.js",
     "node_modules/angular/angular",
     "node_modules/angular-gettext/dist/angular-gettext"
 ], function() {

@@ -8,31 +8,62 @@
 
 
 .rero-ils-logo {
-    max-width: 60px;
+    max-width: 5em;
+    margin: 7px 0;
 }
 
 .navbar {
-    height: 100px;
+    min-height: 4em;
+}
+
+
+// Had to implement these colors, but couldn't understand why.
+// These rules set the sidebar links colors too.
+
+.navbar-inverse a {
+  color: $navbar-inverse-link-color;
+  text-decoration: none;
+}
+
+.navbar-inverse a:hover {
+  color: $navbar-inverse-link-hover-color;
+  background-color: $navbar-inverse-link-hover-bg;
+}
+
+.navbar-inverse a:active {
+  color: $navbar-inverse-link-active-color;
+}
+
+.rero-ils-content-push-down {
+    height:   7em;
+    @media (min-width: 992px) {
+      height: 4em;
+    }
 }
 
 header .input-group {
   width: 100%;
-}
-
-.rero-ils-content-push-down {
-    height: 100px;
+  margin-bottom: 1em;
+  @media (min-width: 992px) {
+    margin-bottom: 0;
+  }
 }
 
 .rero-ils-top-menu {
-    font-size: $font-size-large;
+  margin: 0;
+  li {
+    margin-left: 10px;
+  }
+}
+
+rero-ils-frontpage-align {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (min-width: 992px) {
     .navbar {
-        height: 60px;
-    }
-    .rero-ils-content-push-down {
-        height: 60px;
+        height: 4em;
     }
 }
 
@@ -46,4 +77,8 @@ header .input-group {
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover {
     text-decoration: none;
+}
+
+header .alert {
+  margin-top: 0;
 }
