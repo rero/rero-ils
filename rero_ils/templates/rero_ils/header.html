@@ -7,20 +7,19 @@
   under the terms of the GNU General Public License;
   see LICENSE file for more details.
 #}
-<div class="rero-ils-content-push-down">
-</div>
+
 <header>
 
     {%- block navbar %}
-    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
 
       <div class="row">
 
-        <div class="navbar container rero-ils-equal">
+        <div class="container rero-ils-equal">
 
 
           {%- block navbar_brand %}
-            <div class="col-xs-2 col-sm-2 col-md-3">
+            <div class="col-xs-2 col-sm-2 col-md-3 rero-ils-frontpage-align">
               {%- if config.THEME_LOGO %}
                 <a href="/"><img class="rero-ils-logo" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
               {%- else %}
@@ -30,7 +29,7 @@
           {%- endblock %}
 
           {%- block navbar_menus %}
-            <div class="col-xs-10 col-sm-10 col-md-3 col-md-push-6">
+            <div class="col-xs-10 col-sm-10 col-md-3 col-md-push-6 rero-ils-frontpage-align">
               <ul class="list-inline pull-right rero-ils-top-menu">
                 {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
                   {%- if item.children %}

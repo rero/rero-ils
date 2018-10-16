@@ -8,16 +8,18 @@
  * See license file for more details.
  */
 
-$navbar-height: 60px;
+$navbar-height: 50px;
 $brand-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $brand-font-size: 30px;
 
-$color1: #1B4464;
+$color1: #1B4464; // dark blue
 $color1-gradient: lighten($color1, 15%);
-$color2: #90C5A9;
-$color3: #7A9A95;
-$color4: #EF6D3B;
-$color5: #FA8B60;
+$color2: #90C5A9; // light green
+$color3: #7A9A95; // greenish gray
+$color4: #EF6D3B; // orange
+$color5: #FA8B60; // lighter orange
+$brand-danger: #ba1319;
+$nav-link-hover-bg: rgba(40, 159, 204, .8);
 
 $navbar-default-toggle-icon-bar-bg: white;
 $navbar-brand-padding-vertical: 10px;
@@ -29,6 +31,13 @@ $text-white: #fff;
 $state-danger-text: #d5504d;
 $state-success-text: #439544;
 
-$font-size-base: 14px;
-$font-size-extra-small: ceil(($font-size-base * 0.6));
-$brand-danger: #ba1319;
+$font-size-base: 16px;
+$font-size-large: ($font-size-base * 1.25) !default;  // 20px
+$font-size-small: ($font-size-base * .875) !default;  // 14px
+$font-size-extra-small: ($font-size-base * 0.625);    // 10px
+$font-size-h1: $font-size-base * 2.5 !default;        // 40px
+$font-size-h2: $font-size-base * 2 !default;          // 32px
+$font-size-h3: $font-size-base * 1.75 !default;       // 28px
+$font-size-h4: $font-size-base * 1.5 !default;        // 24px
+$font-size-h5: $font-size-base * 1.25 !default;       // 20px
+$font-size-h6: $font-size-base !default;              // 16px

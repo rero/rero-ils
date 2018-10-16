@@ -1,10 +1,11 @@
+<div class="row">
 <ul class="re-list">
   <li ng-controller="recordController" ng-init="rec=record" ng-repeat="record in vm.invenioSearchResults.hits.hits track by record.id">
     <div class="col-xs-2">
       <icon-thumbnail class="thumb-brief" identifiers="{{ record.metadata.identifiers || {} }}" type="{{ record.metadata.type }}" config="{{ config }}"></icon-thumbnail>
     </div>
-    <div class="col-xs-10">
-      <h3><a target="_self" ng-href="/documents/{{ record.id }}">{{ record.metadata.title }}</a></h3>
+    <article class="col-xs-10">
+      <h4><a target="_self" ng-href="/documents/{{ record.id }}">{{ record.metadata.title }}</a></h4>
 
       <!-- author -->
       <ul class="list-inline" ng-show='record.metadata.authors.length > 0'>
@@ -37,6 +38,7 @@
         <span>{{ status|translate }}</span>
       </div>
       <hr />
-    </div>
+    </article>
   </li>
 </ul>
+</div>

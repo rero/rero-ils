@@ -95,13 +95,6 @@ def init_menu():
             icon='<i class="fa fa-user"></i>'),
         order=1)
 
-    item = current_menu.submenu('main.profile.signup')
-    item.register(
-        endpoint='security.register',
-        visible_when=lambda: not current_user.is_authenticated,
-        text=_('%(icon)s Sign Up', icon='<i class="fa fa-user-plus"></i>'),
-        order=0)
-
     item = current_menu.submenu('main.profile.login')
     item.register(
         endpoint='security.login',
@@ -116,6 +109,13 @@ def init_menu():
         visible_when=lambda: current_user.is_authenticated,
         text=_('%(icon)s Logout', icon='<i class="fa fa-sign-out"></i>'),
         order=1)
+
+    item = current_menu.submenu('main.profile.signup')
+    item.register(
+        endpoint='security.register',
+        visible_when=lambda: not current_user.is_authenticated,
+        text=_('%(icon)s Sign Up', icon='<i class="fa fa-user-plus"></i>'),
+        order=2)
 
 
 @blueprint.route('/ping', methods=['HEAD', 'GET'])

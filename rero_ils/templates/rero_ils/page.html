@@ -12,45 +12,45 @@
 <!DOCTYPE html>
 <html{% if html_css_classes %} class="{{ html_css_classes|join(' ') }}"{% endif %} lang="{{ current_i18n.locale.language|safe }}" dir="{{ current_i18n.locale.text_direction }}">
   <head>
-   {%- block head %}
-    {%- block head_meta %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {%- if description %}<meta name="description" content="{{ description }}" />{% endif %}
-    {%- if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
-    {%- if config.get('THEME_GOOGLE_SITE_VERIFICATION', None) %}
-      {%- for google_id in config.THEME_GOOGLE_SITE_VERIFICATION %}
-    <meta name="google-site-verification" content="{{google_id}}"/>
-      {%- endfor %}
-    {%- endif %}
-    {%- endblock head_meta %}
-    {%- block head_title %}
-    {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
-    <title>{{title}}</title>
-    {%- endblock head_title %}
-    {%- block head_links %}
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
-    {%- if keywords %}<link rel="canonical" href="{{ canonical_url }}"/>{% endif %}
-    {%- block head_links_langs %}
-      {%- if alternate_urls %}
-        {%- for alt_ln, alternate_url in alternate_urls.items() %}
-    <link rel="alternate" hreflang="{{ alt_ln }}" href="{{ alternate_url }}"/>
+    {%- block head %}
+      {%- block head_meta %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {%- if description %}<meta name="description" content="{{ description }}" />{% endif %}
+        {%- if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+        {%- if config.get('THEME_GOOGLE_SITE_VERIFICATION', None) %}
+          {%- for google_id in config.THEME_GOOGLE_SITE_VERIFICATION %}
+        <meta name="google-site-verification" content="{{google_id}}"/>
+          {%- endfor %}
+        {%- endif %}
+      {%- endblock head_meta %}
+      {%- block head_title %}
+        {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
+        <title>{{title}}</title>
+        {%- endblock head_title %}
+      {%- block head_links %}
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+        {%- if keywords %}<link rel="canonical" href="{{ canonical_url }}"/>{% endif %}
+        {%- block head_links_langs %}
+          {%- if alternate_urls %}
+            {%- for alt_ln, alternate_url in alternate_urls.items() %}
+        <link rel="alternate" hreflang="{{ alt_ln }}" href="{{ alternate_url }}"/>
+            {%- endfor %}
+          {%- endif %}
+        {%- endblock %}
+        {%- block head_apple_icons %}
+        {%- for size in [144, 114, 72, 57] %}
+          {%- set icon_name = 'apple-touch-icon-%d-precomposed.png' | format(size) %}
+        <link rel="apple-touch-icon-precomposed" sizes="{{ size }}x{{ size }}" href="{{ url_for('static', filename=icon_name) }}"/>
         {%- endfor %}
-      {%- endif %}
-    {%- endblock %}
-    {%- block head_apple_icons %}
-    {%- for size in [144, 114, 72, 57] %}
-      {%- set icon_name = 'apple-touch-icon-%d-precomposed.png' | format(size) %}
-    <link rel="apple-touch-icon-precomposed" sizes="{{ size }}x{{ size }}" href="{{ url_for('static', filename=icon_name) }}"/>
-    {%- endfor %}
-    {%- endblock head_apple_icons %}
-    {%- endblock head_links %}
-    {%- block header %}{% endblock header %}
-    {%- block css %}
+        {%- endblock head_apple_icons %}
+      {%- endblock head_links %}
+      {%- block header %}{% endblock header %}
+      {%- block css %}
         {% assets "rero_ils_main_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
-    {%- endblock css %}
-  {%- endblock head %}
+      {%- endblock css %}
+    {%- endblock head %}
   </head>
   <body ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}"{% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target">
     {%- block outer_body %}
@@ -60,28 +60,30 @@
     <![endif]-->
     {%- endblock browserupgrade %}
     {%- block body_inner %}
+      <!-- In order to push the content down -->
+      <div class="rero-ils-content-push-down"></div>
     {%- block page_header %}
       {% include config.THEME_HEADER_TEMPLATE %}
     {%- endblock page_header %}
     {%- block body_sidebar %}
-    <div class="wrapper">
-      {%- block sidebar %}
-        {% include "rero_ils/sidebar.html" %}
-      {%- endblock sidebar %}
-      {%- block page_body %}
-      <div class="container">
-        <div class="row">
-        {%- block body %}
-        {%- endblock body %}
-        {% include "invenio_theme/body.html" %}
-        </div>
+      <div class="wrapper">
+        {%- block sidebar %}
+          {% include "rero_ils/sidebar.html" %}
+        {%- endblock sidebar %}
       </div>
-      {%- endblock page_body %}
-    </div>
     {%- endblock body_sidebar %}
+    {%- block page_body %}
+        <div class="container">
+          <div class="row">
+          {%- block body %}
+          {%- endblock body %}
+          {% include "invenio_theme/body.html" %}
+          </div>
+        </div>
+        {%- endblock page_body %}
 
     {%- block page_footer %}
-{% include config.THEME_FOOTER_TEMPLATE %}
+      {% include config.THEME_FOOTER_TEMPLATE %}
     {%- endblock page_footer %}
     {%- endblock body_inner %}
     {%- block javascript %}

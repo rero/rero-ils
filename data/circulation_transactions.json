@@ -56,20 +56,6 @@
     }
   },
   {
-    "barcode": "2030155308",
-    "loans": {
-      "active": 4,
-      "extended": 1,
-      "overdue": 4,
-      "requested_by_others": 1
-    },
-    "requests": {
-      "rank_1": 1,
-      "rank_2": 1,
-      "requests": 2
-    }
-  },
-  {
     "barcode": "2030124287",
     "loans": {
       "active": 2,

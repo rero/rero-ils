@@ -6,16 +6,20 @@
 
 {%- block page_body %}
 <div class="container rero-ils-frontpage">
+
   <div class="row">
     <section class="text-center col-md-12">
       <img src="{{ url_for('static', filename='images/homepage_image_bleu.jpg') }}" class="img-responsive">
 
       <!-- Central slogan for large screens -->
       <div class="rero-ils-front-title">
-        <h1 class="hidden-xs">{{ _('Get into your library') }}</h1>
-        <p class="hidden-xs">{{ _('A wealth of knowledge just a click away') }}</p>
+        <hgroup>
+          <!-- If we can hide it on xs, then it may be not useful -->
+          <h1 class="hidden-xs">{{ _('Get into your library') }}</h1>
+          <h2 class="hidden-xs">{{ _('A wealth of knowledge just a click away') }}</h2>
+        </hgroup>
 
-        <form class="visible-lg-block visible-md-block" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
+        <form class="visible-md-block visible-lg-block" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
           <div class="input-group input-group-lg">
             <input type="text" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}">
             <span class="input-group-btn">
@@ -25,7 +29,7 @@
         </form>
 
         <form class="visible-xs-block visible-sm-block" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-          <div class="input-group">
+          <div class="input-group input-group-sm">
             <input type="text" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -33,16 +37,19 @@
           </div>
         </form>
 
-      <span class="label-danger">
-          {{ _('Software under development') }}
-      </span>
-    </div>
+        <footer class="label-danger">
+        <p>
+            {{ _('Software under development') }}
+        </p>
+      </footer>
+
+      </div>
     </section>
+  </div>
 
-
+  <div class="row">
     <section class="container reroils-frontpage-lower">
 
-      <div class="row">
         <div class="col-md-4">
           <h3>RERO ILS</h3>
           {% if current_i18n.language == 'en' %}
@@ -66,10 +73,6 @@
         </div>
 
         <div class="col-md-4">
-            <h3>{{ _('How to use this demo') }}?</h3>
-            <div class="reroils-frontpage-bullet">
-                {{ _('See the') }} <a href="{{ url_for('rero_ils.help') }}">{{ _('help page') }}</a>.
-            </div>
             <h3>{{ _('Follow Us') }}</h3>
             <div class="reroils-frontpage-bullet">
                 <div class="reroils-frontpage-bullet-logo">
@@ -79,7 +82,7 @@
                     </a>
                 </div>
                 <div class="reroils-frontpage-bullet-text">
-                    {{_('Scrum process')}}: {{_('Product Backlog')}}, {{_('Sprint&nbsp;Taskboard')}}, {{_('Wiki')}},
+                    {{_('Scrum process')}}
                       <a href="https://tree.taiga.io/project/rero21-reroils/backlog" target="_blank">{{_('on Taiga')}}</a>
                 </div>
             </div>
@@ -88,9 +91,9 @@
                     <a href="https://github.com/rero/rero-ils" target="_blank"><img src="{{ url_for('static', filename='images/GitHub-Mark-120px-plus.png') }}" width="32"></a>
                 </div>
                 <div class="reroils-frontpage-bullet-text">
-                    {{_('Software source code')}}: <a
+                    {{_('Software source code')}} <a
                         href="https://github.com/rero/rero-ils"
-                        target="_blank">rero-ils {{_('on GitHub')}}</a>, {{ _('Version') }}
+                        target="_blank">{{_('on GitHub')}}</a>, {{ _('version') }}
                         <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}">{{ version }}
                 </div>
             </div>
@@ -102,7 +105,7 @@
                     <a href="http://twitter.com/rero_centrale" target="_blank">@rero_centrale</a>
                 </div>
             </div>
-        </div>
+          </div>
         <div class="col-md-4">
           <h3>{{ _('Future') }}</h3>
           <div>
@@ -112,11 +115,12 @@
           <h3>{{ _('Present') }}</h3>
           <div class="reroils-service-logo"><a href="https://explore.rero.ch" target="blank"><img src="{{ url_for('static', filename='images/logo_explore_height_119.png') }}" height=" 55"></a></div>
           <div class="reroils-service-logo"><a href="http://doc.rero.ch/" target="blank"><img src="{{ url_for('static', filename='images/logo_rerodoc_height_119.png') }}" height="55"> </a></div>
-          <div class="h4"><a href="http://www.rero.ch" target="_blank">www.rero.ch</a></div>
+          <div><a class="rero-ils-rero-link" href="http://www.rero.ch" target="_blank">www.rero.ch</a></div>
         </div>
       </div>
 
     </section>
   </div>
+
 </div>
 {%- endblock page_body %}
