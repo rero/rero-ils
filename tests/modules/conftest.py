@@ -611,3 +611,15 @@ def minimal_patron_type_record():
         'description': 'Patron Type Description',
         'organisation_pid': '1'
     }
+
+
+@pytest.yield_fixture()
+def minimal_item_type_record():
+    """Item Type minimal record."""
+    yield {
+        '$schema': url_schema + '/items_types/item_type-v0.0.1.json',
+        'pid': '1',
+        'name': 'Item Type Name',
+        'description': 'Item Type Description',
+        'organisation_pid': '1'
+    }

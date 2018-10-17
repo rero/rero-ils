@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(patron_type_schema, minimal_patron_type_record):
-    """Test required for patron jsonschema."""
+    """Test required for patron jsonschemas."""
     validate(minimal_patron_type_record, patron_type_schema)
 
     with pytest.raises(ValidationError):
@@ -41,7 +41,7 @@ def test_required(patron_type_schema, minimal_patron_type_record):
 
 
 def test_pid(patron_type_schema, minimal_patron_type_record):
-    """Test pid for patron type jsonschema."""
+    """Test pid for patron type jsonschemas."""
     validate(minimal_patron_type_record, patron_type_schema)
 
     with pytest.raises(ValidationError):
@@ -50,7 +50,7 @@ def test_pid(patron_type_schema, minimal_patron_type_record):
 
 
 def test_name(patron_type_schema, minimal_patron_type_record):
-    """Test name for patron type jsonschema."""
+    """Test name for patron type jsonschemas."""
     validate(minimal_patron_type_record, patron_type_schema)
 
     with pytest.raises(ValidationError):
@@ -59,7 +59,7 @@ def test_name(patron_type_schema, minimal_patron_type_record):
 
 
 def test_description(patron_type_schema, minimal_patron_type_record):
-    """Test description for patron type jsonschema."""
+    """Test description for patron type jsonschemas."""
     validate(minimal_patron_type_record, patron_type_schema)
 
     with pytest.raises(ValidationError):
@@ -68,7 +68,7 @@ def test_description(patron_type_schema, minimal_patron_type_record):
 
 
 def test_organisation_pid(patron_type_schema, minimal_patron_type_record):
-    """Test organisation_pid for patron type jsonschema."""
+    """Test organisation_pid for patron type jsonschemas."""
     validate(minimal_patron_type_record, patron_type_schema)
 
     with pytest.raises(ValidationError):

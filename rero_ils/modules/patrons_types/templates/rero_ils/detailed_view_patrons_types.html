@@ -2,19 +2,19 @@
 
 {%- block page_body %}
 <div class="container search-page">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>{{ record.name }}</h1>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{ record.name }}</h1>
     </div>
-    <div class="row">
-        <div class="col-xs-3 col-sm-2">
-            {{_('Description')}}:
-        </div>
-        <div class="col-xs-9 col-sm-10">
-            {{ record.description }}
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3 col-sm-2">
+      {{_('Description')}}:
     </div>
+    <div class="col-xs-9 col-sm-10">
+      {{ record.description }}
+    </div>
+  </div>
 
   {% with
     href_update=url_for('ptty.edit_view', pid=record.pid),
@@ -24,6 +24,5 @@
   %}
     {% include 'rero_ils/_editor_button_actions.html' %}
   {% endwith %}
-
 </div>
 {%- endblock %}

@@ -125,6 +125,7 @@ editor_js = Bundle(
     'js/rero_ils/document-editor.js',
     'js/rero_ils/member-editor.js',
     'js/rero_ils/item-editor.js',
+    'js/rero_ils/item-type-editor.js',
     'js/rero_ils/patron-editor.js',
     'js/rero_ils/patron-type-editor.js',
     'js/rero_ils/location-editor.js',

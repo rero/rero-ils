@@ -96,6 +96,7 @@ setup(
                 rero_ils.modules.documents_items.views:blueprint',
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
+            'items_types = rero_ils.modules.items_types.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
             'patrons_types = rero_ils.modules.patrons_types.views:blueprint',
             'persons = rero_ils.modules.persons.views:blueprint',
@@ -130,12 +131,13 @@ setup(
             'pjson = rero_ils.modules.dojson.dump:pretty_json_dump',
         ],
         'dojson.cli.rule': [
-            'marc21tojson = \
-                rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson',
+            'marc21tojson = rero_ils.modules.documents.dojson'
+            '.contrib.marc21tojson:marc21tojson',
             'marc21toebooks = \
                 rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
-            'unimarctojson = \
-                rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarctojson',
+            'unimarctojson = '
+            'rero_ils.modules.documents.dojson'
+            '.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
             'fixtures = rero_ils.modules.cli:fixtures',
@@ -153,6 +155,7 @@ setup(
             'documents = rero_ils.modules.documents.models',
             'documents_items = rero_ils.modules.documents_items.models',
             'items = rero_ils.modules.items.models',
+            'items_types = rero_ils.modules.items_types.models',
             'patrons = rero_ils.modules.patrons.models',
             'patrons_types = rero_ils.modules.patrons_types.models',
             'transactions = rero_ils.modules.transactions.models',
@@ -169,14 +172,16 @@ setup(
             'document_id = \
                 rero_ils.modules.documents.minters:document_id_minter',
             'item_id = rero_ils.modules.items.minters:item_id_minter',
+            'item_type_id = \
+                rero_ils.modules.items_types.minters:item_type_id_minter',
             'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
             'patron_type_id = \
                 rero_ils.modules.patrons_types.minters:patron_type_id_minter',
             'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter'
         ],
         'invenio_pidstore.fetchers': [
-            'organisation_id = \
-                rero_ils.modules.organisations.fetchers:organisation_id_fetcher',
+            'organisation_id = rero_ils.modules.organisations'
+            '.fetchers:organisation_id_fetcher',
             'member_id = \
                 rero_ils.modules.members.fetchers:member_id_fetcher',
             'location_id = \
@@ -185,6 +190,8 @@ setup(
                 rero_ils.modules.documents.fetchers:document_id_fetcher',
             'item_id = \
                 rero_ils.modules.items.fetchers:item_id_fetcher',
+            'item_type_id = \
+                rero_ils.modules.items_types.fetchers:item_type_id_fetcher',
             'patron_id = \
                 rero_ils.modules.patrons.fetchers:patron_id_fetcher',
             'patron_type_id = \
@@ -198,6 +205,7 @@ setup(
             'locations = rero_ils.modules.locations.jsonschemas',
             'documents = rero_ils.modules.documents.jsonschemas',
             'items = rero_ils.modules.items.jsonschemas',
+            'items_types = rero_ils.modules.items_types.jsonschemas',
             'patrons = rero_ils.modules.patrons.jsonschemas',
             'patrons_types = rero_ils.modules.patrons_types.jsonschemas',
             'persons = rero_ils.modules.persons.jsonschemas',
@@ -208,6 +216,7 @@ setup(
             'locations = rero_ils.modules.locations.mappings',
             'documents = rero_ils.modules.documents.mappings',
             'items = rero_ils.modules.items.mappings',
+            'items_types = rero_ils.modules.items_types.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
             'patrons_types = rero_ils.modules.patrons_types.mappings',
             'persons = rero_ils.modules.persons.mappings',
