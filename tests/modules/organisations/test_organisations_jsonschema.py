@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(organisation_schema, minimal_organisation_record):
-    """Test required for organisation jsonschema."""
+    """Test required for organisation jsonschemas."""
     validate(minimal_organisation_record, organisation_schema)
 
     with pytest.raises(ValidationError):
@@ -41,7 +41,7 @@ def test_required(organisation_schema, minimal_organisation_record):
 
 
 def test_pid(organisation_schema, minimal_organisation_record):
-    """Test pid for organisation jsonschema."""
+    """Test pid for organisation jsonschemas."""
     validate(minimal_organisation_record, organisation_schema)
 
     with pytest.raises(ValidationError):
@@ -50,7 +50,7 @@ def test_pid(organisation_schema, minimal_organisation_record):
 
 
 def test_name(organisation_schema, minimal_organisation_record):
-    """Test name for organisation jsonschema."""
+    """Test name for organisation jsonschemas."""
     validate(minimal_organisation_record, organisation_schema)
 
     with pytest.raises(ValidationError):
@@ -60,7 +60,7 @@ def test_name(organisation_schema, minimal_organisation_record):
 
 def test_address(organisation_schema,
                  minimal_organisation_record):
-    """Test address for organisation jsonschema."""
+    """Test address for organisation jsonschemas."""
     validate(minimal_organisation_record, organisation_schema)
 
     with pytest.raises(ValidationError):

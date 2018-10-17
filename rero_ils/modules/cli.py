@@ -42,6 +42,7 @@ from werkzeug.local import LocalProxy
 
 from .documents_items.cli import create_items
 from .items.cli import create_circ_transactions
+from .items_types.cli import import_items_types
 from .organisations_members.cli import import_organisations
 from .patrons.cli import import_users
 from .patrons_types.cli import import_patrons_type
@@ -59,6 +60,7 @@ fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 fixtures.add_command(create_circ_transactions)
 fixtures.add_command(import_patrons_type)
+fixtures.add_command(import_items_types)
 
 
 @users.command('confirm')

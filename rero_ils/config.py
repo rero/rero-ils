@@ -39,6 +39,7 @@ from invenio_search import RecordsSearch
 
 from .modules.documents_items.api import DocumentsWithItems
 from .modules.items.api import Item
+from .modules.items_types.api import ItemType
 from .modules.locations.api import Location
 from .modules.mef.api import MefPerson
 from .modules.members_locations.api import MemberWithLocations
@@ -352,6 +353,29 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
     ),
+    itty=dict(
+        pid_type='itty',
+        pid_minter='item_type_id',
+        pid_fetcher='item_type_id',
+        search_class=RecordsSearch,
+        search_index='items_types',
+        search_type=None,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/rero+json': ('rero_ils.modules.serializers'
+                                      ':json_v1_search'),
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/items_types/',
+        item_route='/items_types/<pid(itty):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:and_search_factory'
+    ),
     ptrn=dict(
         pid_type='ptrn',
         pid_minter='patron_id',
@@ -652,6 +676,14 @@ RECORDS_UI_ENDPOINTS = {
         "permission_factory_imp":
             "rero_ils.permissions.cataloguer_permission_factory"
     },
+    "itty": {
+        'pid_type': 'itty',
+        'route': '/items_types/<pid_value>',
+        'template': 'rero_ils/detailed_view_items_types.html',
+        'record_class': 'rero_ils.modules.items_types.api:ItemType',
+        'permission_factory_imp':
+            'rero_ils.permissions.cataloguer_permission_factory'
+    },
     "ptrn": {
         "pid_type": "ptrn",
         "route": "/patrons/<pid_value>",
@@ -712,6 +744,17 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         delete_record='rero_ils.modules.documents_items.utils:delete_item',
         record_class=Item,
         form_options_create_exclude=['pid']
+    ),
+    _('itty'): dict(
+        api='/api/items_types/',
+        schema='items_types/item_type-v0.0.1.json',
+        form_options=('rero_ils.modules.items_types.form_options',
+                      'items_types/item_type-v0.0.1.json'),
+        save_record='rero_ils.modules.items_types.utils:save_item_type',
+        editor_template='rero_ils/item_type_editor.html',
+        results_template='templates/rero_ils/brief_view_items_types.html',
+        record_class=ItemType,
+        form_options_create_exclude=['pid', 'organisation_pid']
     ),
     _('ptrn'): dict(
         api='/api/patrons/',

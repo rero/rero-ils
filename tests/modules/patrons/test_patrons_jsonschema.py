@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(patron_schema, minimal_patron_record):
-    """Test required for patron jsonschema."""
+    """Test required for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -41,7 +41,7 @@ def test_required(patron_schema, minimal_patron_record):
 
 
 def test_pid(patron_schema, minimal_patron_record):
-    """Test pid for patron jsonschema."""
+    """Test pid for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -50,7 +50,7 @@ def test_pid(patron_schema, minimal_patron_record):
 
 
 def test_first_name(patron_schema, minimal_patron_record):
-    """Test first_name for patron jsonschema."""
+    """Test first_name for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -59,7 +59,7 @@ def test_first_name(patron_schema, minimal_patron_record):
 
 
 def test_last_name(patron_schema, minimal_patron_record):
-    """Test last_name for patron jsonschema."""
+    """Test last_name for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -68,7 +68,7 @@ def test_last_name(patron_schema, minimal_patron_record):
 
 
 def test_street(patron_schema, minimal_patron_record):
-    """Test street for patron jsonschema."""
+    """Test street for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -77,7 +77,7 @@ def test_street(patron_schema, minimal_patron_record):
 
 
 def test_postal_code(patron_schema, minimal_patron_record):
-    """Test postal_code for patron jsonschema."""
+    """Test postal_code for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -86,7 +86,7 @@ def test_postal_code(patron_schema, minimal_patron_record):
 
 
 def test_city(patron_schema, minimal_patron_record):
-    """Test city for patron jsonschema."""
+    """Test city for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -95,7 +95,7 @@ def test_city(patron_schema, minimal_patron_record):
 
 
 def test_barcode(patron_schema, minimal_patron_record):
-    """Test barcode for patron jsonschema."""
+    """Test barcode for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -104,7 +104,7 @@ def test_barcode(patron_schema, minimal_patron_record):
 
 
 def test_birth_date(patron_schema, minimal_patron_record):
-    """Test birth date for patron jsonschema."""
+    """Test birth date for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -113,7 +113,7 @@ def test_birth_date(patron_schema, minimal_patron_record):
 
 
 def test_email(patron_schema, minimal_patron_record):
-    """Test email for patron jsonschema."""
+    """Test email for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -122,7 +122,7 @@ def test_email(patron_schema, minimal_patron_record):
 
 
 def test_phone(patron_schema, minimal_patron_record):
-    """Test phone for patron jsonschema."""
+    """Test phone for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
@@ -131,7 +131,7 @@ def test_phone(patron_schema, minimal_patron_record):
 
 
 def test_patron_type(patron_schema, minimal_patron_record):
-    """Test patron_type for patron jsonschema."""
+    """Test patron_type for patron jsonschemas."""
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):

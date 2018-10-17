@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(document_schema, minimal_document_record):
-    """Test required for jsonschema."""
+    """Test required for jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -40,7 +40,7 @@ def test_required(document_schema, minimal_document_record):
 
 
 def test_pid(document_schema, minimal_document_record):
-    """Test pid for jsonschema."""
+    """Test pid for jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -49,7 +49,7 @@ def test_pid(document_schema, minimal_document_record):
 
 
 def test_title(document_schema, minimal_document_record):
-    """Test title for jsonschema."""
+    """Test title for jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -58,7 +58,7 @@ def test_title(document_schema, minimal_document_record):
 
 
 def test_titlesProper(document_schema, minimal_document_record):
-    """Test titlesProper for jsonschema."""
+    """Test titlesProper for jsonschemas."""
     minimal_document_record['titlesProper'] = ['RERO21 pour les nuls']
 
     validate(minimal_document_record, document_schema)
@@ -69,7 +69,7 @@ def test_titlesProper(document_schema, minimal_document_record):
 
 
 def test_type(document_schema, minimal_document_record):
-    """Test type for document jsonschema."""
+    """Test type for document jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -82,7 +82,7 @@ def test_type(document_schema, minimal_document_record):
 
 
 def test_is_part_of(document_schema, minimal_document_record):
-    """Test type for document jsonschema."""
+    """Test type for document jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -91,7 +91,7 @@ def test_is_part_of(document_schema, minimal_document_record):
 
 
 def test_languages(document_schema, minimal_document_record):
-    """Test languages for jsonschema."""
+    """Test languages for jsonschemas."""
     validate(minimal_document_record, document_schema)
 
     with pytest.raises(ValidationError):
@@ -104,7 +104,7 @@ def test_languages(document_schema, minimal_document_record):
 
 
 def test_translatedFrom(document_schema, minimal_document_record):
-    """Test translatedFrom for jsonschema."""
+    """Test translatedFrom for jsonschemas."""
     minimal_document_record['translatedFrom'] = ['eng']
 
     validate(minimal_document_record, document_schema)
@@ -115,7 +115,7 @@ def test_translatedFrom(document_schema, minimal_document_record):
 
 
 def test_authors(document_schema, minimal_document_record):
-    """Test authors for jsonschema."""
+    """Test authors for jsonschemas."""
     minimal_document_record['authors'] = [
         {
             'name': 'Dumont, Jean',
@@ -157,7 +157,7 @@ def test_authors(document_schema, minimal_document_record):
 
 
 def test_publishers(document_schema, minimal_document_record):
-    """Test publishers for jsonschema."""
+    """Test publishers for jsonschemas."""
     minimal_document_record['publishers'] = [
         {
             'name': ['Editions de la Centrale'],
@@ -177,7 +177,7 @@ def test_publishers(document_schema, minimal_document_record):
 
 
 def test_publicationYear(document_schema, minimal_document_record):
-    """Test publicationYear for jsonschema."""
+    """Test publicationYear for jsonschemas."""
     minimal_document_record['publicationYear'] = 2017
 
     validate(minimal_document_record, document_schema)
@@ -188,7 +188,7 @@ def test_publicationYear(document_schema, minimal_document_record):
 
 
 def test_freeFormedPublicationDate(document_schema, minimal_document_record):
-    """Test freeFormedPublicationDate for jsonschema."""
+    """Test freeFormedPublicationDate for jsonschemas."""
     minimal_document_record['freeFormedPublicationDate'] = '2017'
 
     validate(minimal_document_record, document_schema)
@@ -199,7 +199,7 @@ def test_freeFormedPublicationDate(document_schema, minimal_document_record):
 
 
 def test_extent(document_schema, minimal_document_record):
-    """Test extent for jsonschema."""
+    """Test extent for jsonschemas."""
     minimal_document_record['extent'] = '117'
 
     validate(minimal_document_record, document_schema)
@@ -211,7 +211,7 @@ def test_extent(document_schema, minimal_document_record):
 
 def test_otherMaterialCharacteristics(
         document_schema, minimal_document_record):
-    """Test otherMaterialCharacteristics for jsonschema."""
+    """Test otherMaterialCharacteristics for jsonschemas."""
     minimal_document_record['otherMaterialCharacteristics'] = 'ill.'
 
     validate(minimal_document_record, document_schema)
@@ -222,7 +222,7 @@ def test_otherMaterialCharacteristics(
 
 
 def test_formats(document_schema, minimal_document_record):
-    """Test formats for jsonschema."""
+    """Test formats for jsonschemas."""
     minimal_document_record['formats'] = ['15 x 22 cm']
 
     validate(minimal_document_record, document_schema)
@@ -233,7 +233,7 @@ def test_formats(document_schema, minimal_document_record):
 
 
 def test_additionalMaterials(document_schema, minimal_document_record):
-    """Test additionalMaterials for jsonschema."""
+    """Test additionalMaterials for jsonschemas."""
     minimal_document_record['additionalMaterials'] = '1 CD-ROM'
 
     validate(minimal_document_record, document_schema)
@@ -244,7 +244,7 @@ def test_additionalMaterials(document_schema, minimal_document_record):
 
 
 def test_series(document_schema, minimal_document_record):
-    """Test series for jsonschema."""
+    """Test series for jsonschemas."""
     minimal_document_record['series'] = [
         {
             'name': 'Les débuts de la suite',
@@ -268,7 +268,7 @@ def test_series(document_schema, minimal_document_record):
 
 
 def test_notes(document_schema, minimal_document_record):
-    """Test notes for jsonschema."""
+    """Test notes for jsonschemas."""
     minimal_document_record['notes'] = ["Photo de l'auteur sur le 4e de couv."]
 
     validate(minimal_document_record, document_schema)
@@ -279,7 +279,7 @@ def test_notes(document_schema, minimal_document_record):
 
 
 def test_abstracts(document_schema, minimal_document_record):
-    """Test abstracts for jsonschema."""
+    """Test abstracts for jsonschemas."""
     minimal_document_record['abstracts'] = ["This document is about..."]
 
     validate(minimal_document_record, document_schema)
@@ -290,7 +290,7 @@ def test_abstracts(document_schema, minimal_document_record):
 
 
 def test_identifiers(document_schema, minimal_document_record):
-    """Test identifiers for jsonschema."""
+    """Test identifiers for jsonschemas."""
     minimal_document_record['identifiers'] = {
         "reroID": "R004567655",
         "isbn": "9782082015769",
@@ -323,7 +323,7 @@ def test_identifiers(document_schema, minimal_document_record):
 
 
 def test_subjects(document_schema, minimal_document_record):
-    """Test subjects for jsonschema."""
+    """Test subjects for jsonschemas."""
     minimal_document_record['subjects'] = [
         'ILS',
         'informatique',

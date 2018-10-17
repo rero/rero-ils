@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(location_schema, minimal_location_record):
-    """Test required for location jsonschema."""
+    """Test required for location jsonschemas."""
     validate(minimal_location_record, location_schema)
 
     with pytest.raises(ValidationError):
@@ -41,7 +41,7 @@ def test_required(location_schema, minimal_location_record):
 
 
 def test_pid(location_schema, minimal_location_record):
-    """Test pid for location jsonschema."""
+    """Test pid for location jsonschemas."""
     validate(minimal_location_record, location_schema)
 
     with pytest.raises(ValidationError):
@@ -50,7 +50,7 @@ def test_pid(location_schema, minimal_location_record):
 
 
 def test_name(location_schema, minimal_location_record):
-    """Test name for location jsonschema."""
+    """Test name for location jsonschemas."""
     validate(minimal_location_record, location_schema)
 
     with pytest.raises(ValidationError):

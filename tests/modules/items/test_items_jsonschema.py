@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(item_schema, minimal_item_record):
-    """Test required for item jsonschema."""
+    """Test required for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
@@ -40,7 +40,7 @@ def test_required(item_schema, minimal_item_record):
 
 
 def test_pid(item_schema, minimal_item_record):
-    """Test pid for item jsonschema."""
+    """Test pid for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
@@ -49,7 +49,7 @@ def test_pid(item_schema, minimal_item_record):
 
 
 def test_barcode(item_schema, minimal_item_record):
-    """Test barcode for item jsonschema."""
+    """Test barcode for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
@@ -58,7 +58,7 @@ def test_barcode(item_schema, minimal_item_record):
 
 
 def test_call_number(item_schema, minimal_item_record):
-    """Test call_number for item jsonschema."""
+    """Test call_number for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
@@ -67,7 +67,7 @@ def test_call_number(item_schema, minimal_item_record):
 
 
 def test_location(item_schema, minimal_item_record):
-    """Test location for item jsonschema."""
+    """Test location for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
@@ -76,7 +76,7 @@ def test_location(item_schema, minimal_item_record):
 
 
 def test_item_type(item_schema, minimal_item_record):
-    """Test location for item jsonschema."""
+    """Test location for item jsonschemas."""
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
