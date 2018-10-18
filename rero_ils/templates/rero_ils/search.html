@@ -14,10 +14,10 @@
       "language": current_i18n.language
     } | tojson }}'>
     <invenio-search
-     search-endpoint="{{ search_api or config.SEARCH_UI_SEARCH_API }}"
-     search-extra-params='{% if search_extra_params %}{{search_extra_params|tojson}}{% endif %}'
-     search-hidden-params='{% if search_hidden_params %}{{search_hidden_params|tojson}}{% endif %}'
-     search-headers='{"Accept": "{{ config.SEARCH_UI_SEARCH_MIMETYPE|default('application/json')}}"}'
+      search-endpoint="{{ search_api or config.SEARCH_UI_SEARCH_API }}"
+      search-extra-params='{% if search_extra_params %}{{search_extra_params|tojson}}{% endif %}'
+      search-hidden-params='{% if search_hidden_params %}{{search_hidden_params|tojson}}{% endif %}'
+      search-headers='{"Accept": "{{ config.SEARCH_UI_SEARCH_MIMETYPE|default('application/json')}}"}'
     >
     {{super()}}
     </invenio-search>
@@ -35,7 +35,7 @@
     {%- block search_body %}
       {%- block search_title %}
         <div class="col-md-offset-3 col-md-9">
-            <h2>{{_(record_type)}}</h2>
+          <h2>{{_(record_type)}}</h2>
         </div>
       {%- endblock %}
     <div class="col-xs-12 col-md-9 col-md-push-3">
@@ -44,7 +44,7 @@
         {%- block search_count %}
         <div class="col-md-3 col-sm-12">
           <invenio-search-count
-           template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_COUNT) }}">
+            template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_COUNT) }}">
           </invenio-search-count>
         </div>
         {%- endblock search_count %}
@@ -62,10 +62,10 @@
           {%- block search_sort_select scoped %}
           {%- endblock search_sort_select %}
           {%- block search_sort_order scoped %}
-          {%- if record_type | resource_can_create and current_user | can_edit %}
+            {%- if record_type | resource_can_create and current_user | can_edit %}
               <a href="{{url_for('%s.create_view' % record_type)}}" type="button" class="btn btn-success">{{_('Create')}}</a>
                 <!-- <reroils-export-csv></reroils-export-csv> -->
-          {% endif %}
+            {% endif %}
           {%- endblock search_sort_order %}
         </div>
         {%- endblock search_sort %}
@@ -75,22 +75,19 @@
       {%- endblock search_header %}
       {%- block search_error %}
       <invenio-search-error
-       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"
-       message="{{ _('Search failed.') }}">
+        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"
+        message="{{ _('Search failed.') }}">
       </invenio-search-error>
       {%- endblock search_error %}
       {%- block search_loading %}
       <invenio-search-loading
-       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_LOADING) }}"
-       message="{{ _('Loading...') }}">
+        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_LOADING) }}"
+        message="{{ _('Loading...') }}">
       </invenio-search-loading>
       {%- endblock search_loading %}
       {%- block search_results %}
       <invenio-search-results
-      {{ search_results_template }}
-       template="{{ url_for('static', filename=search_results_template or config.SEARCH_UI_JSTEMPLATE_RESULTS) }}">
-      }
-      }
+        template="{{ url_for('static', filename=search_results_template or config.SEARCH_UI_JSTEMPLATE_RESULTS) }}">
       </invenio-search-results>
       {%- endblock search_results %}
       {%- block search_pagination_bottom %}
@@ -108,12 +105,12 @@
     <div class="col-md-3 col-md-pull-9 col-xs-12">
       {%- block search_range %}
       <invenio-search-range
-       options='{{ config.SEARCH_UI_JSTEMPLATE_RANGE_OPTIONS | tojson }}'
-       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RANGE) }}">
+        options='{{ config.SEARCH_UI_JSTEMPLATE_RANGE_OPTIONS | tojson }}'
+        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RANGE) }}">
       </invenio-search-range>
       {%- endblock search_range %}
       <invenio-search-facets order="{{ ','.join(config.get('RERO_ILS_APP_CONFIG_FACETS', {}).get(search_index or config.SEARCH_UI_SEARCH_INDEX, {}).get('order', '')) }}"
-       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
+        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
       </invenio-search-facets>
     </div>
     {%- endblock search_facets %}
