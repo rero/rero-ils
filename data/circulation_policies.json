@@ -27,9 +27,6 @@
     "description": "On-site circulation policy.",
     "organisation_pid": "1",
     "allow_checkout": false,
-    "checkout_duration": 0,
-    "allow_requests": false,
-    "number_renewals": 0,
-    "renewal_duration": 0
+    "allow_requests": false
   }
 ]
