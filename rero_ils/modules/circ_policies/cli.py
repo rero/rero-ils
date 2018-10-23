@@ -34,6 +34,7 @@ from flask.cli import with_appcontext
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.circ_policies.api import CircPolicy
+from rero_ils.modules.circ_policies.utils import clean_circ_policy_fields
 from rero_ils.modules.errors import OrganisationDoesNotExist, \
     PolicyNameAlreadyExists
 
@@ -53,6 +54,7 @@ def import_circ_policies(infile, verbose):
     data = json.load(infile)
     for circ_policy in data:
         message = ''
+        circ_policy = clean_circ_policy_fields(circ_policy)
         try:
             record = CircPolicy.create(
                 circ_policy, dbcommit=True, reindex=True

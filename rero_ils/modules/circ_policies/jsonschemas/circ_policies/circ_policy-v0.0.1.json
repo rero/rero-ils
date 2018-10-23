@@ -40,7 +40,7 @@
       "type": "string"
     },
     "allow_checkout": {
-      "title": "Allow Checkout flag",
+      "title": "Allow Checkout",
       "description": "Checkouts are allowed or not.",
       "type": "boolean",
       "default": true
@@ -49,10 +49,11 @@
       "title": "Checkout duration in days",
       "description": "The duration of the checkout in days.",
       "type": "integer",
+      "minimum": 1,
       "default": 7
     },
     "allow_requests": {
-      "title": "Allow patron requests flag",
+      "title": "Allow patron requests",
       "description": "Patron requests are allowed or not.",
       "type": "boolean",
       "default": true
@@ -61,13 +62,14 @@
       "title": "Maximum number of renewals",
       "description": "Maximum number of renewals allowed.",
       "type": "integer",
+      "minimum": 0,
       "default": 0
     },
     "renewal_duration": {
       "title": "Renewal duration in days",
       "description": "The duration of the renewal in days.",
       "type": "integer",
-      "default": 7
+      "minimum": 1
     }
   }
 }
