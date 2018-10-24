@@ -26,8 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
-import pytest
 from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from werkzeug.local import LocalProxy
@@ -36,28 +34,13 @@ from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.utils import save_patron, structure_document
 
 
-@pytest.mark.skip('cannot mock RecordIndexer.flush')
-@mock.patch('rero_ils.modules.patrons.utils.confirm_user')
-@mock.patch(
-    'rero_ils.modules.patrons.utils.send_reset_password_instructions'
-)
-@mock.patch('rero_ils.modules.patrons.utils.url_for')
-@mock.patch('reroils_record_editor.utils.url_for')
-@mock.patch('invenio_indexer.api.RecordIndexer')
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-@mock.patch('rero_ils.modules.patrons.api.Patron._get_uuid_pid_by_email')
-def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
-                     url_for2, send_email, confirm_user, app, db,
+def test_save_patron(app, db,
                      minimal_patron_only_record):
     """Test save patron"""
 
     # Convenient references
-    security = LocalProxy(lambda: app.extensions['security'])
-    datastore = LocalProxy(lambda: security.datastore)
+    datastore = LocalProxy(lambda: app.extensions['security'].datastore)
     datastore.create_role(name='patrons')
-
-    # hack the return value
-    get_uuid_pid_by_email.return_value = None, None
 
     email = 'test_patron@rero.ch'
     u1 = datastore.create_user(
@@ -74,10 +57,7 @@ def test_save_patron(get_uuid_pid_by_email, reindex, record_indexer, url_for1,
 
     save_patron(
         minimal_patron_only_record,
-        Patron.provider.pid_type,
-        Patron.fetcher,
-        Patron.minter,
-        record_indexer,
+        'ptrn',
         Patron,
         None
     )

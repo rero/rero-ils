@@ -71,6 +71,7 @@ class CircPolicy(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, delete_pid=True, **kwargs):
         """Create a new circulation policy record."""
+        record = None
         name = data.get('name')
         organisation_pid = data.get('organisation_pid')
         if Organisation.get_record_by_pid(organisation_pid):

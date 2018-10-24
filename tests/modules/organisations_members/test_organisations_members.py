@@ -26,11 +26,9 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 
-from rero_ils.modules.members.api import Member
 from rero_ils.modules.members_locations.api import MemberWithLocations
 from rero_ils.modules.organisations_members.api import OrganisationWithMembers
 from rero_ils.modules.organisations_members.models import \
@@ -54,8 +52,7 @@ def test_organisation_members_create(db, minimal_organisation_record,
     assert dump['members'][0] == memb.dumps()
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_member(reindex, db,
+def test_delete_member(app,
                        minimal_organisation_record,
                        minimal_member_record):
     """Test OrganisationsMembers delete."""
@@ -95,11 +92,12 @@ def test_delete_member(reindex, db,
     assert org.members[1]['pid'] == '4'
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_organisation(reindex, db,
+def test_delete_organisation(app,
                              minimal_organisation_record,
                              minimal_member_record):
     """Test Organisation delete."""
+    org_count = OrganisationsMembersMetadata.query.count()
+    rec_count = RecordMetadata.query.count()
     org = OrganisationWithMembers.create(
         minimal_organisation_record,
         dbcommit=True
@@ -122,14 +120,14 @@ def test_delete_organisation(reindex, db,
     org.add_member(member1, dbcommit=True)
     org.add_member(member2, dbcommit=True)
     org.add_member(member3, dbcommit=True)
-    assert OrganisationsMembersMetadata.query.count() == 3
-    assert RecordMetadata.query.count() == 4
+    assert OrganisationsMembersMetadata.query.count() == org_count + 3
+    assert RecordMetadata.query.count() == rec_count + 4
     assert pid1.is_registered()
     assert pid2.is_registered()
     assert pid3.is_registered()
     org.delete(force=True)
-    assert OrganisationsMembersMetadata.query.count() == 0
-    assert RecordMetadata.query.count() == 0
+    assert OrganisationsMembersMetadata.query.count() == org_count
+    assert RecordMetadata.query.count() == rec_count
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()

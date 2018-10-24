@@ -29,8 +29,6 @@ from __future__ import absolute_import, print_function
 import copy
 import datetime
 
-import mock
-
 from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.members_locations.api import MemberWithLocations
@@ -65,9 +63,7 @@ def test_extend_item(db, create_minimal_resources_on_loan,
     assert item_no_req['_circulation']['holdings'][0]['end_date'] == end_date
 
 
-@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
-def test_return_item(func_item_at_desk,
-                     db, create_minimal_resources_on_loan,
+def test_return_item(app, db, create_minimal_resources_on_loan,
                      minimal_patron_only_record,
                      minimal_patron_record):
 
@@ -121,16 +117,14 @@ def test_return_item(func_item_at_desk,
     data_req_ext = item_req_ext.dumps()
     assert data_req_ext.get('member_pid') == '1'
 
-    holding_req_ext = item_req_ext.get('_circulation').get('holdings')[1]
+    item_req_ext.get('_circulation').get('holdings')[1]
     assert holding_req['pickup_member_pid'] == '1'
     item_req_ext.return_item(transaction_member_pid='2')
     db.session.commit()
     assert item_req_ext.status == ItemStatus.IN_TRANSIT
 
 
-@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
-def test_validate_item(func_item_at_desk,
-                       db, create_minimal_resources_on_shelf_req,
+def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
                        minimal_patron_only_record,
                        minimal_patron_record):
 
@@ -169,9 +163,7 @@ def test_validate_item(func_item_at_desk,
     assert item_req_intern.status == ItemStatus.AT_DESK
 
 
-@mock.patch('rero_ils.modules.patrons.listener.func_item_at_desk')
-def test_receive_item(func_item_at_desk,
-                      db, create_minimal_resources_in_transit,
+def test_receive_item(app, db, create_minimal_resources_in_transit,
                       minimal_patron_only_record,
                       minimal_patron_record):
 

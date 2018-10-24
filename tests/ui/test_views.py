@@ -26,13 +26,11 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
 from flask import url_for
 
 from rero_ils.views import nl2br
 
 
-@pytest.mark.skip(reason="will erase ES index")
 def test_ping(client):
     """Test the ping view."""
     resp = client.get(url_for('rero_ils.ping'))

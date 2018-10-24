@@ -26,8 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
 from json import loads
 
 import pytest
@@ -54,11 +52,3 @@ def location_schema():
         'locations/location-v0.0.1.json')
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
-
-
-@pytest.yield_fixture()
-def instance_path():
-    """Temporary instance path."""
-    path = tempfile.mkdtemp()
-    yield path
-    shutil.rmtree(path)

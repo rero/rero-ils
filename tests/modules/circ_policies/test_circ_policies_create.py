@@ -26,38 +26,45 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
 import pytest
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.errors import PolicyNameAlreadyExists
 from rero_ils.modules.organisations.api import Organisation
+from rero_ils.test_utils import es_flush_and_refresh
 
 
-@mock.patch('rero_ils.modules.circ_policies.api.CircPolicy.get_pid_by_name')
 def test_circ_policy_create(
-        get_pid_by_name,
-        db,
+        app, es,
         minimal_circ_policy_record,
         minimal_organisation_record
 ):
     """Test circulation policy create."""
     from copy import deepcopy
     org_rec = deepcopy(minimal_organisation_record)
-    org = Organisation.create(minimal_organisation_record)
+    org = Organisation.create(
+        minimal_organisation_record,
+        dbcommit=True,
+        reindex=True
+    )
     assert org_rec == org
     assert org['pid'] == '1'
 
-    # Circulation policy name does not exist
-    get_pid_by_name.return_value = None
     circ_policy_rec = deepcopy(minimal_circ_policy_record)
-    circ_policy = CircPolicy.create(minimal_circ_policy_record)
+    circ_policy = CircPolicy.create(
+        minimal_circ_policy_record,
+        dbcommit=True,
+        reindex=True
+    )
     assert circ_policy_rec == circ_policy
     assert circ_policy['pid'] == '1'
 
-    # Circulation policy name already exist
-    get_pid_by_name.return_value = '1'
+    es_flush_and_refresh()
     circ_policy_rec = deepcopy(minimal_circ_policy_record)
     with pytest.raises(PolicyNameAlreadyExists):
-        circ_policy = CircPolicy.create(minimal_circ_policy_record)
+        circ_policy = CircPolicy.create(
+            minimal_circ_policy_record,
+            dbcommit=True,
+            reindex=True
+        )
         assert not circ_policy
