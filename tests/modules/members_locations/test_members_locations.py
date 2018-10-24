@@ -26,7 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
@@ -51,8 +50,7 @@ def test_members_locations_create(db, minimal_member_record,
     assert dump['locations'][0] == loc.dumps()
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_location(reindex, db,
+def test_delete_location(app,
                          minimal_member_record, minimal_location_record):
     """Test MembersLocations delete."""
     memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
@@ -76,10 +74,11 @@ def test_delete_location(reindex, db,
     assert memb.locations[1]['pid'] == '4'
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_member(reindex, db,
+def test_delete_member(app,
                        minimal_member_record, minimal_location_record):
     """Test Member delete."""
+    memb_count = MembersLocationsMetadata.query.count()
+    rec_count = RecordMetadata.query.count()
     memb = MemberWithLocations.create(minimal_member_record)
     location1 = Location.create(minimal_location_record)
     memb.add_location(location1)
@@ -91,14 +90,14 @@ def test_delete_member(reindex, db,
     memb.add_location(location3)
     pid3 = PersistentIdentifier.get_by_object('loc', 'rec', location3.id)
     memb.dbcommit()
-    assert MembersLocationsMetadata.query.count() == 3
-    assert RecordMetadata.query.count() == 4
+    assert MembersLocationsMetadata.query.count() == memb_count + 3
+    assert RecordMetadata.query.count() == rec_count + 4
     assert pid1.is_registered()
     assert pid2.is_registered()
     assert pid3.is_registered()
     memb.delete(force=True)
-    assert MembersLocationsMetadata.query.count() == 0
-    assert RecordMetadata.query.count() == 0
+    assert MembersLocationsMetadata.query.count() == memb_count
+    assert RecordMetadata.query.count() == rec_count
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()

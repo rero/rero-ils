@@ -97,7 +97,7 @@ class Patron(IlsRecord):
 
     @classmethod
     def _get_uuid_pid_by_email(cls, email):
-        """Get record by email."""
+        """Get uuid pid by email."""
         search = PatronsSearch()
         result = search.filter(
             'term',

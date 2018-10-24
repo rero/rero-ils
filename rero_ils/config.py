@@ -650,94 +650,84 @@ RECORDS_REST_DEFAULT_SORT = {
 # Detailed View Configuration
 # ===========================
 RECORDS_UI_ENDPOINTS = {
-    "doc": {
-        "pid_type": "doc",
-        "route": "/documents/<pid_value>",
-        "template": "rero_ils/detailed_view_documents_items.html",
-        "view_imp": "rero_ils.modules.documents_items.views.doc_item_view_method",
-        "record_class": "rero_ils.modules.documents_items.api:DocumentsWithItems"
-    },
-    "doc_export": {
-        "pid_type": "doc",
-        "route": "/documents/<pid_value>/export/<format>",
-        "view_imp": "invenio_records_ui.views.export",
-        "template": "rero_ils/export_documents_items.html",
-        "record_class": 'rero_ils.modules.documents_items.api:DocumentsWithItems',
-    },
-    "org": {
-        "pid_type": "org",
-        "route": "/organisations/<pid_value>",
-        "template": "rero_ils/detailed_view_organisations_members.html",
-        "record_class":
-            "rero_ils.modules.organisations_members.api:OrganisationWithMembers",
-        "permission_factory_imp":
-            "rero_ils.permissions.cataloguer_permission_factory"
-    },
-    "memb": {
-        "pid_type": "memb",
-        "route": "/members/<pid_value>",
-        "template": "rero_ils/detailed_view_members_locations.html",
-        "record_class":
-            "rero_ils.modules.members_locations.api:MemberWithLocations",
-        "permission_factory_imp":
-            "rero_ils.permissions.cataloguer_permission_factory"
-    },
-    "loc": {
-        "pid_type": "loc",
-        "route": "/locations/<pid_value>",
-        "template": "rero_ils/detailed_view_locations.html",
-        "record_class": 'rero_ils.modules.locations.api:Location',
-        "permission_factory_imp":
-            "rero_ils.permissions.cataloguer_permission_factory"
-    },
-    "item": {
-        "pid_type": "item",
-        "route": "/items/<pid_value>",
-        "template": "rero_ils/detailed_view_items.html",
-        "view_imp": "rero_ils.modules.items.views.item_view_method",
-        "record_class": 'rero_ils.modules.items.api:Item',
-        "permission_factory_imp":
-            "rero_ils.permissions.cataloguer_permission_factory"
-    },
-    "itty": {
-        'pid_type': 'itty',
-        'route': '/items_types/<pid_value>',
-        'template': 'rero_ils/detailed_view_items_types.html',
-        'record_class': 'rero_ils.modules.items_types.api:ItemType',
-        'permission_factory_imp':
-            'rero_ils.permissions.cataloguer_permission_factory'
-    },
-    "ptrn": {
-        "pid_type": "ptrn",
-        "route": "/patrons/<pid_value>",
-        "template": "rero_ils/detailed_view_patrons.html",
-        "record_class": 'rero_ils.modules.patrons.api:Patron',
-        "permission_factory_imp":
-            "rero_ils.permissions.cataloguer_permission_factory"
+    'doc': dict(
+        pid_type='doc',
+        route='/documents/<pid_value>',
+        template='rero_ils/detailed_view_documents_items.html',
+        view_imp='rero_ils.modules.documents_items.views.doc_item_view_method',
+        record_class='rero_ils.modules.documents_items.api:DocumentsWithItems'
+    ),
+    'doc_export': dict(
+        pid_type='doc',
+        route='/documents/<pid_value>/export/<format>',
+        view_imp='invenio_records_ui.views.export',
+        template='rero_ils/export_documents_items.html',
+        record_class='rero_ils.modules.documents_items.api:DocumentsWithItems',
+    ),
+    'org': dict(
+        pid_type='org',
+        route='/organisations/<pid_value>',
+        template='rero_ils/detailed_view_organisations_members.html',
+        record_class='rero_ils.modules.organisations_members.api:OrganisationWithMembers',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'memb': dict(
+        pid_type='memb',
+        route='/members/<pid_value>',
+        template='rero_ils/detailed_view_members_locations.html',
+        record_class='rero_ils.modules.members_locations.api:MemberWithLocations',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'loc': dict(
+        pid_type='loc',
+        route='/locations/<pid_value>',
+        template='rero_ils/detailed_view_locations.html',
+        record_class='rero_ils.modules.locations.api:Location',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'item': dict(
+        pid_type='item',
+        route='/items/<pid_value>',
+        template='rero_ils/detailed_view_items.html',
+        view_imp='rero_ils.modules.items.views.item_view_method',
+        record_class='rero_ils.modules.items.api:Item',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'itty': dict(
+        pid_type='itty',
+        route='/items_types/<pid_value>',
+        template='rero_ils/detailed_view_items_types.html',
+        record_class='rero_ils.modules.items_types.api:ItemType',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'ptrn': dict(
+        pid_type='ptrn',
+        route='/patrons/<pid_value>',
+        template='rero_ils/detailed_view_patrons.html',
+        record_class='rero_ils.modules.patrons.api:Patron',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
 
-    },
-    "ptty": {
-        'pid_type': 'ptty',
-        'route': '/patrons_types/<pid_value>',
-        'template': 'rero_ils/detailed_view_patrons_types.html',
-        'record_class': 'rero_ils.modules.patrons_types.api:PatronType',
-        'permission_factory_imp':
-            'rero_ils.permissions.cataloguer_permission_factory'
-    },
-    "pers": {
-        "pid_type": "pers",
-        "route": "/persons/<pid_value>",
-        "template": "rero_ils/detailed_view_persons.html",
-        "record_class": 'rero_ils.modules.mef.api:MefPerson',
-    },
-    'cipo': {
-        'pid_type': 'cipo',
-        'route': '/circ_policies/<pid_value>',
-        'template': 'rero_ils/detailed_view_circ_policies.html',
-        'record_class': 'rero_ils.modules.circ_policies.api:CircPolicy',
-        'permission_factory_imp':
-            'rero_ils.permissions.cataloguer_permission_factory'
-    }
+    ),
+    'ptty': dict(
+        pid_type='ptty',
+        route='/patrons_types/<pid_value>',
+        template='rero_ils/detailed_view_patrons_types.html',
+        record_class='rero_ils.modules.patrons_types.api:PatronType',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    ),
+    'pers': dict(
+        pid_type='pers',
+        route='/persons/<pid_value>',
+        template='rero_ils/detailed_view_persons.html',
+        record_class='rero_ils.modules.mef.api:MefPerson',
+    ),
+    'cipo': dict(
+        pid_type='cipo',
+        route='/circ_policies/<pid_value>',
+        template='rero_ils/detailed_view_circ_policies.html',
+        record_class='rero_ils.modules.circ_policies.api:CircPolicy',
+        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
+    )
 }
 
 RECORDS_UI_EXPORT_FORMATS = {

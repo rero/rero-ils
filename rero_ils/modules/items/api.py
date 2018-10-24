@@ -453,17 +453,19 @@ class Item(IlsRecord):
         data = super(IlsRecord, self).dumps(**kwargs)
         location_pid = data.get('location_pid')
         location = Location.get_record_by_pid(location_pid)
-        data['location_name'] = location.get('name')
-        member = MemberWithLocations.get_member_by_locationid(location.id)
-        data['member_pid'] = member.pid
-        data['member_name'] = member.get('name')
+        if location:
+            data['location_name'] = location.get('name')
+            member = MemberWithLocations.get_member_by_locationid(location.id)
+            data['member_pid'] = member.pid
+            data['member_name'] = member.get('name')
         data['requests_count'] = self.number_of_item_requests()
         data['available'] = self.available
         for holding in data.get('_circulation', {}).get('holdings', []):
             pickup_member_pid = holding.get('pickup_member_pid')
             if pickup_member_pid:
                 holding_member = Member.get_record_by_pid(pickup_member_pid)
-                holding['pickup_member_name'] = holding_member['name']
+                if holding_member:
+                    holding['pickup_member_name'] = holding_member['name']
         return data
 
     def number_of_item_requests(self):

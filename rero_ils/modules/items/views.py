@@ -89,7 +89,7 @@ def return_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/validate", methods=['POST', 'PUT'])
@@ -103,7 +103,7 @@ def validate_item_request():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/receive", methods=['POST', 'PUT'])
@@ -119,7 +119,7 @@ def receive_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/loan", methods=['POST', 'PUT'])
@@ -133,7 +133,7 @@ def loan_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/return_missing", methods=['POST', 'PUT'])
@@ -147,7 +147,7 @@ def return_missing_item():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/extend", methods=['POST', 'PUT'])
@@ -164,7 +164,7 @@ def extend_loan():
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
+        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
 @blueprint.route("/request/<pid_value>/<member>", methods=['GET'])
@@ -184,15 +184,16 @@ def request_item(pid_value, member):
         )
         commit_item(item)
         flash(_('The item %s has been requested.' % pid_value), 'success')
-        return_value = redirect(
-            url_for('invenio_records_ui.doc', pid_value=doc['pid'])
-        )
         return redirect(
             url_for('invenio_records_ui.doc', pid_value=doc['pid'])
         )
     except Exception as e:
-        return jsonify({'status': 'error: %s' % e}), 500
-        flash(_('Something went wrong'), 'danger')
+        return jsonify({
+            'status': 'error: {error} {patron}'.format(
+                error=e,
+                patron=patron.dumps()
+            )
+        }), 500
 
 
 def item_view_method(pid, record, template=None, **kwargs):

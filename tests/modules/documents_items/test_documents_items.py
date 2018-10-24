@@ -26,7 +26,8 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
+from copy import deepcopy
+
 from invenio_records.models import RecordMetadata
 
 from rero_ils.modules.documents_items.api import DocumentsWithItems
@@ -56,8 +57,7 @@ def test_create(db, minimal_document_record, minimal_item_record,
     assert dump['itemslist'][0] == item.dumps()
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_item(reindex, db,
+def test_delete_item(app,
                      minimal_document_record, minimal_item_record):
     """Test DocumentWithItems item deletion."""
     doc = DocumentsWithItems.create(minimal_document_record)
@@ -86,10 +86,11 @@ def test_delete_item(reindex, db,
     assert doc.itemslist[1]['pid'] == '4'
 
 
-@mock.patch('rero_ils.modules.api.IlsRecord.reindex')
-def test_delete_document(reindex, db,
+def test_delete_document(app,
                          minimal_document_record, minimal_item_record):
     """Test DocumentWithItems deletion."""
+    doc_count = DocumentsItemsMetadata.query.count()
+    rec_count = RecordMetadata.query.count()
     doc = DocumentsWithItems.create(minimal_document_record)
     item1 = Item.create(minimal_item_record, dbcommit=True)
     pid1 = item1.persistent_identifier
@@ -101,14 +102,14 @@ def test_delete_document(reindex, db,
     pid3 = item3.persistent_identifier
     doc.add_item(item3)
     doc.dbcommit()
-    assert DocumentsItemsMetadata.query.count() == 3
-    assert RecordMetadata.query.count() == 4
+    assert DocumentsItemsMetadata.query.count() == doc_count + 3
+    assert RecordMetadata.query.count() == rec_count + 4
     assert pid1.is_registered()
     assert pid2.is_registered()
     assert pid3.is_registered()
     doc.delete(force=True)
-    assert DocumentsItemsMetadata.query.count() == 0
-    assert RecordMetadata.query.count() == 0
+    assert DocumentsItemsMetadata.query.count() == doc_count
+    assert RecordMetadata.query.count() == rec_count
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()

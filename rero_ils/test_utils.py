@@ -22,17 +22,12 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest fixtures and plugins for the UI application."""
+"""Test utils."""
 
-from __future__ import absolute_import, print_function
-
-import pytest
+from invenio_search import current_search
 
 
-@pytest.fixture(scope='module')
-def create_app():
-    """Create test app."""
-    from invenio_app.factory import create_ui
-    create_ui
-    from invenio_app.factory import create_app as create_ui_api
-    return create_ui_api
+def es_flush_and_refresh():
+    """Elasticsearch flush and refresh indexes."""
+    for index in current_search.mappings:
+        current_search.flush_and_refresh(index)
