@@ -66,7 +66,7 @@
       <thead>
         <tr>
           <th class="col-md-4" scope="col">{{ _('Patron') }}</th>
-          <th class="col-md-4" scope="col">{{ _('Pickup member') }}</th>
+          <th class="col-md-4" scope="col">{{ _('Pickup library') }}</th>
           <th class="col-md-2" scope="col">{{ _('Reservation date') }}</th>
         </tr>
       </thead>
@@ -83,7 +83,7 @@
               {% endif %}
             </td>
             <td>
-              <a href="{{ '/members/' + holding.pickup_member_pid }}">{{ holding.pickup_member_name }}</a>
+              <a href="{{ '/libraries/' + holding.pickup_library_pid }}">{{ holding.pickup_library_name }}</a>
             </td>
             <!-- TODO: task #554 change start_date to request_datetime -->
             <td>

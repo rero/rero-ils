@@ -36,8 +36,8 @@ from flask.cli import with_appcontext
 from invenio_indexer.api import RecordIndexer
 
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.members.api import Member
 from rero_ils.modules.patrons.api import Patron
 
 from .api import DocumentsWithItems
@@ -77,7 +77,7 @@ def create_items(verbose, count, itemscount, missing,
     locations_pids = Location.get_all_pids()
     patrons_barcodes = get_patrons_barcodes()
     missing *= len(patrons_barcodes)
-    members_pids = Member.get_all_pids()
+    libraries_pids = Library.get_all_pids()
     with click.progressbar(reversed(uids[:count]), length=count) as bar:
         for id in bar:
             document = DocumentsWithItems.get_record_by_id(id)
@@ -87,7 +87,7 @@ def create_items(verbose, count, itemscount, missing,
                 missing, item = create_random_item(
                     locations_pids=locations_pids,
                     patrons_barcodes=patrons_barcodes,
-                    members_pids=members_pids,
+                    libraries_pids=libraries_pids,
                     missing=missing,
                     verbose=False
                 )
@@ -96,7 +96,7 @@ def create_items(verbose, count, itemscount, missing,
             RecordIndexer().client.indices.flush()
 
 
-def create_random_item(locations_pids, patrons_barcodes, members_pids,
+def create_random_item(locations_pids, patrons_barcodes, libraries_pids,
                        missing, verbose=False):
     """Create items with randomised values."""
     item_types = ['standard_loan', 'short_loan', 'on_site_consultation']
@@ -135,7 +135,7 @@ def get_patrons_barcodes():
     return barcodes
 
 
-def create_loan(patron_barcode, member_pid, short):
+def create_loan(patron_barcode, library_pid, short):
     """Create data dictionary for loan and request of item."""
     n = randint(0, 60)
     current_date = datetime.date.today()
@@ -147,19 +147,19 @@ def create_loan(patron_barcode, member_pid, short):
     end_date = (current_date + datetime.timedelta(days=end)).isoformat()
     request = {
         'patron_barcode': patron_barcode,
-        'pickup_member_pid': member_pid,
+        'pickup_library_pid': library_pid,
         'start_date': start_date,
         'end_date': end_date
     }
     return request
 
 
-def create_request(patron_barcode, member_pid, short):
+def create_request(patron_barcode, library_pid, short):
     """Create data dictionary for loan and request of item."""
     request_datetime = pytz.utc.localize(datetime.datetime.now()).isoformat()
     request = {
         'patron_barcode': patron_barcode,
-        'pickup_member_pid': member_pid,
+        'pickup_library_pid': library_pid,
         'request_datetime': request_datetime
     }
     return request

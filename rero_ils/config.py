@@ -41,10 +41,10 @@ from .modules.circ_policies.api import CircPolicy
 from .modules.documents_items.api import DocumentsWithItems
 from .modules.items.api import Item
 from .modules.items_types.api import ItemType
+from .modules.libraries_locations.api import LibraryWithLocations
 from .modules.locations.api import Location
 from .modules.mef.api import MefPerson
-from .modules.members_locations.api import MemberWithLocations
-from .modules.organisations_members.api import OrganisationWithMembers
+from .modules.organisations_libraries.api import OrganisationWithLibraries
 from .modules.patrons.api import Patron
 from .modules.patrons_types.api import PatronType
 
@@ -423,12 +423,12 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
     ),
-    memb=dict(
-        pid_type='memb',
-        pid_minter='member_id',
-        pid_fetcher='member_id',
+    lib=dict(
+        pid_type='lib',
+        pid_minter='library_id',
+        pid_fetcher='library_id',
         search_class=RecordsSearch,
-        search_index='members',
+        search_index='libraries',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -440,8 +440,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
-        list_route='/members/',
-        item_route='/members/<pid(memb):pid_value>',
+        list_route='/libraries/',
+        item_route='/libraries/<pid(lib):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory'
@@ -521,7 +521,7 @@ SEARCH_UI_SEARCH_INDEX = 'documents'
 
 RERO_ILS_APP_CONFIG_FACETS = {
     'documents': {
-        'order': ['document_type', 'member', 'author', 'language', 'subject',
+        'order': ['document_type', 'library', 'author', 'language', 'subject',
                   'status'],
         'expand': ['document_type']
     },
@@ -550,9 +550,9 @@ RECORDS_REST_FACETS = {
                     field='type',
                 )
             ),
-            member=dict(
+            library=dict(
                 terms=dict(
-                    field='itemslist.member_name',
+                    field='itemslist.library_name',
                 ),
                 # aggs=dict(
                 #     location=dict(
@@ -586,7 +586,7 @@ RECORDS_REST_FACETS = {
         # can be also post_filter
         filters={
             _('document_type'): terms_filter('type'),
-            _('member'): terms_filter('itemslist.member_name'),
+            _('library'): terms_filter('itemslist.library_name'),
             _('author'): terms_filter('facet_authors'),
             _('language'): terms_filter('languages.language'),
             _('subject'): terms_filter('subject'),
@@ -667,15 +667,15 @@ RECORDS_UI_ENDPOINTS = {
     'org': dict(
         pid_type='org',
         route='/organisations/<pid_value>',
-        template='rero_ils/detailed_view_organisations_members.html',
-        record_class='rero_ils.modules.organisations_members.api:OrganisationWithMembers',
+        template='rero_ils/detailed_view_organisations_libraries.html',
+        record_class='rero_ils.modules.organisations_libraries.api:OrganisationWithLibraries',
         permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
     ),
-    'memb': dict(
-        pid_type='memb',
-        route='/members/<pid_value>',
-        template='rero_ils/detailed_view_members_locations.html',
-        record_class='rero_ils.modules.members_locations.api:MemberWithLocations',
+    'lib': dict(
+        pid_type='lib',
+        route='/libraries/<pid_value>',
+        template='rero_ils/detailed_view_libraries_locations.html',
+        record_class='rero_ils.modules.libraries_locations.api:LibraryWithLocations',
         permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory'
     ),
     'loc': dict(
@@ -801,19 +801,19 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         schema='organisations/organisation-v0.0.1.json',
         form_options=('rero_ils.modules.organisations.form_options',
                       'organisations/organisation-v0.0.1.json'),
-        record_class=OrganisationWithMembers,
+        record_class=OrganisationWithLibraries,
         form_options_create_exclude=['pid']
     ),
-    _('memb'): dict(
-        api='/api/members/',
-        results_template='templates/rero_ils/brief_view_members_locations.html',
-        editor_template='rero_ils/member_editor.html',
-        schema='members/member-v0.0.1.json',
-        form_options=('rero_ils.modules.members.form_options',
-                      'members/member-v0.0.1.json'),
-        save_record='rero_ils.modules.organisations_members.utils:save_member',
-        delete_record='rero_ils.modules.organisations_members.utils:delete_member',
-        record_class=MemberWithLocations,
+    _('lib'): dict(
+        api='/api/libraries/',
+        results_template='templates/rero_ils/brief_view_libraries_locations.html',
+        editor_template='rero_ils/library_editor.html',
+        schema='libraries/library-v0.0.1.json',
+        form_options=('rero_ils.modules.libraries.form_options',
+                      'libraries/library-v0.0.1.json'),
+        save_record='rero_ils.modules.organisations_libraries.utils:save_library',
+        delete_record='rero_ils.modules.organisations_libraries.utils:delete_library',
+        record_class=LibraryWithLocations,
         form_options_create_exclude=['pid']
     ),
     _('loc'): dict(
@@ -821,8 +821,8 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         schema='locations/location-v0.0.1.json',
         form_options=('rero_ils.modules.locations.form_options',
                       'locations/location-v0.0.1.json'),
-        save_record='rero_ils.modules.members_locations.utils:save_location',
-        delete_record='rero_ils.modules.members_locations.utils:delete_location',
+        save_record='rero_ils.modules.libraries_locations.utils:save_location',
+        delete_record='rero_ils.modules.libraries_locations.utils:delete_location',
         record_class=Location,
         form_options_create_exclude=['pid']
     ),

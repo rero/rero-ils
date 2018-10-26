@@ -4,7 +4,7 @@ Das Dokument, das Sie bestellt haben, ist jetzt verfügbar. Sie können es an de
 
 {% include 'email/_patron_request_at_desk_data.txt' %}
 
-Abholbibliothek: {{ holding.pickup_member_name }}
+Abholbibliothek: {{ holding.pickup_library_name }}
 
 Freundliche Grüsse
 Ihre Bibliothek

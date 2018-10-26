@@ -27,10 +27,10 @@
         "location_name": {
           "type": "text"
         },
-        "member_pid": {
+        "library_pid": {
           "type": "keyword"
         },
-        "member_name": {
+        "library_name": {
           "type": "text"
         },
         "item_type": {
@@ -58,10 +58,10 @@
                 "end_date": {
                   "type": "date"
                 },
-                "pickup_member_pid": {
+                "pickup_library_pid": {
                   "type": "keyword"
                 },
-                "pickup_member_name": {
+                "pickup_library_name": {
                   "type": "text"
                 }
               }

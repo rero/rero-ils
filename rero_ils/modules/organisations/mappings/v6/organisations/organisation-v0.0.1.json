@@ -21,7 +21,7 @@
         "address": {
           "type": "text"
         },
-        "members": {
+        "libraries": {
           "type": "object",
           "properties": {
             "$schema": {

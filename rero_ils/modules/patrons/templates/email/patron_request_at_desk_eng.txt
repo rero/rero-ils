@@ -4,7 +4,7 @@ The document you requested is now available. You can pick it up at the loan desk
 
 {% include 'email/_patron_request_at_desk_data.txt' %}
 
-Pick up library: {{ holding.pickup_member_name }}
+Pick up library: {{ holding.pickup_library_name }}
 
 Best regards
 Your library

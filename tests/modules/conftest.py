@@ -31,10 +31,11 @@ url_schema = 'http://ils.test.rero.ch/schema'
 
 
 @pytest.fixture(scope='module')
-def app_config(app_config):
-    """Create temporary instance dir for each test."""
-    app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
-    return app_config
+def create_app(instance_path):
+    """Create test app."""
+    from invenio_app.factory import create_app as create_ui_api
+
+    return create_ui_api
 
 
 @pytest.yield_fixture()
@@ -89,7 +90,7 @@ def minimal_staff_only_record():
         'birth_date': '1967-06-07',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
-        'member_pid': '1',
+        'library_pid': '1',
         'is_staff': True,
         'is_patron': False
     }

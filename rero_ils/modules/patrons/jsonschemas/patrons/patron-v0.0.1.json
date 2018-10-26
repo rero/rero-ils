@@ -93,8 +93,8 @@
       "type": "string",
       "minLength": 6
     },
-    "member_pid": {
-      "title": "The member pid of the appartenance library",
+    "library_pid": {
+      "title": "The library pid of the appartenance library",
       "type": "string",
       "default": "1"
     },
@@ -105,10 +105,10 @@
       "description": "Qualify this user as a patron."
     },
     "is_staff": {
-      "title": "Qualify this user as a staff member",
+      "title": "Qualify this user as a staff library",
       "type": "boolean",
       "default": false,
-      "description": "Qualify this user as a staff member."
+      "description": "Qualify this user as a staff library."
     }
   }
 }

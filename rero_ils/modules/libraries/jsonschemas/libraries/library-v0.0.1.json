@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Library",
+  "description": "JSON schema for an library",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate organisation records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Library ID",
+      "type": "string"
+    },
+    "code": {
+      "title": "Code",
+      "description": "Code of the library.",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the library.",
+      "type": "string",
+      "minLength": 1
+    },
+    "address": {
+      "title": "Address",
+      "description": "Address of the library.",
+      "type": "string",
+      "minLength": 1
+    },
+    "email": {
+      "title": "Email",
+      "description": "Email of the library.",
+      "type": "string",
+      "format": "email",
+      "pattern": "^.*?@.*.*$",
+      "minLength": 3
+    }
+  }
+}

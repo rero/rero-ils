@@ -147,10 +147,10 @@
             "location_name": {
               "type": "keyword"
             },
-            "member_pid": {
+            "library_pid": {
               "type": "keyword"
             },
-            "member_name": {
+            "library_name": {
               "type": "keyword"
             },
             "requests_count": {
@@ -175,10 +175,10 @@
                     "end_date": {
                       "type": "date"
                     },
-                    "pickup_member_pid": {
+                    "pickup_library_pid": {
                       "type": "keyword"
                     },
-                    "pickup_member_name": {
+                    "pickup_library_name": {
                       "type": "text"
                     }
                   }

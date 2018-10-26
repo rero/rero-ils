@@ -154,7 +154,7 @@
         "type": "checkbox"
       },
       {
-        "key": "member_pid",
+        "key": "library_pid",
         "htmlClass": "col-xs-6",
         "condition": "model.is_staff == true"
       }

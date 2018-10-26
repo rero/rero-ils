@@ -38,7 +38,7 @@ from invenio_indexer.api import RecordIndexer
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.items.utils import commit_item
-from rero_ils.modules.members.api import Member
+from rero_ils.modules.libraries.api import Library
 
 from ..documents_items.api import DocumentsSearch
 from ..items.api import Item, ItemStatus
@@ -101,10 +101,10 @@ def print_message(barcode, item_barcode, transaction_type):
                .format(transaction_type, barcode, item_barcode))
 
 
-def get_one_member():
-    """Find a qualified member."""
-    members_pids = Member.get_all_pids()
-    return random.choice(members_pids)
+def get_one_library():
+    """Find a qualified library."""
+    libraries_pids = Library.get_all_pids()
+    return random.choice(libraries_pids)
 
 
 def get_loan_dates(transaction_type, item):
@@ -153,7 +153,7 @@ def create_loan(barcode, transaction_type):
         request_datetime = pytz.utc.localize(datetime.now()).isoformat()
         item.request_item(
             patron_barcode=requested_patron['barcode'],
-            pickup_member_pid=get_one_member(),
+            pickup_library_pid=get_one_library(),
             request_datetime=request_datetime
         )
     commit_item(item)
@@ -171,13 +171,13 @@ def create_request(barcode, transaction_type):
             datetime.now() - timedelta(2)).isoformat()
         item.request_item(
             patron_barcode=first_barcode,
-            pickup_member_pid=get_one_member(),
+            pickup_library_pid=get_one_library(),
             request_datetime=request_datetime
         )
     request_datetime = pytz.utc.localize(datetime.now()).isoformat()
     item.request_item(
         patron_barcode=barcode,
-        pickup_member_pid=get_one_member(),
+        pickup_library_pid=get_one_library(),
         request_datetime=request_datetime
     )
     commit_item(item)
