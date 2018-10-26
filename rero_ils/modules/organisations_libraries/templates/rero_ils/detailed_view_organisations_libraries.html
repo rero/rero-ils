@@ -1,0 +1,73 @@
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+{% from 'rero_ils/macros/macro.html' import div_row_xs3_xs9 %}
+
+{%- block page_body %}
+<div class="container search-page">
+  <div class="row">
+      <div class="col-sm-12">
+          <h1>{{ record.name }}</h1>
+      </div>
+  </div>
+  {%- block record_body %}
+    {% if record.address %}
+      {{ div_row_xs3_xs9(_('Address'), record.address) }}
+    {% endif %}
+
+    {% with
+      href_update=url_for('org.edit_view', pid=record.pid),
+      href_delete=url_for('org.delete_view', pid=record.pid),
+      json=record,
+      message=_("Organisation cannot be deleted: there are still libraries linked to this organisation.")
+    %}
+      {% include 'rero_ils/_editor_button_actions.html' %}
+    {% endwith %}
+
+    <!-- Libraries -->
+    <hr>
+    <div class='reroils-libraries row'>
+      <div class="col-sm-12">
+        <h3>{{_('Libraries')}}
+          {%- if current_user|can_edit %}
+            <a href="{{ url_for('lib.create_view',
+            parent_pid=record.pid) }}" type="button" class="btn btn-sm btn-success">
+              <i class="fa fa-pencil-square-o fa-fw"></i> {{ _('Add') }}
+            </a>
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+    {% if record.libraries %}
+      {% for library in record.libraries %}
+        <div class="row">
+          <div class="col-sm-12">
+            <h2>
+              <a target="_self" href="{{ url_for('invenio_records_ui.lib', pid_value=library.pid) }}">{{ library.name }}</a>
+            </h2>
+          </div>
+        </div>
+        {% if library.code %}
+          {{ div_row_xs3_xs9(_('Code'), library.code) }}
+        {% endif %}
+
+        {% if library.address %}
+          {{ div_row_xs3_xs9(_('Address'), library.address) }}
+        {% endif %}
+
+        {% if library.email %}
+          {{ div_row_xs3_xs9(_('Email'), library.email) }}
+        {% endif %}
+
+        {% with
+          href_update=url_for('lib.edit_view', pid=library.pid, parent_pid=record.pid),
+          href_delete=url_for('lib.delete_view', pid=library.pid, parent_pid=record.pid),
+          json=library,
+          message=_("Library cannot be deleted: there are still locations linked to this library.")
+        %}
+          {% include 'rero_ils/_editor_button_actions.html' %}
+        {% endwith %}
+        <hr/>
+      {% endfor %}
+    {% endif %}
+  {%- endblock %}
+</div>
+{%- endblock %}

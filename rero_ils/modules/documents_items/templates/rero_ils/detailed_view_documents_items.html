@@ -159,10 +159,10 @@
         {{ div_row(_('Call Number'), item.call_number) }}
       {% endif %}
 
-      {% if item_dump.member_name %}
+      {% if item_dump.library_name %}
         {{ div_row(
           _('Library'),
-          '<a href="'+ url_for('invenio_records_ui.memb', pid_value=item_dump.member_pid) +'">'+item_dump.member_name+'</a>'
+          '<a href="'+ url_for('invenio_records_ui.lib', pid_value=item_dump.library_pid) +'">'+item_dump.library_name+'</a>'
         ) }}
       {% endif %}
 
@@ -197,10 +197,10 @@
             <ul class="dropdown-menu">
               <li><a>{{ _('Available Pickup Locations') }}</a></li>
               <li role="separator" class="divider"></li>
-              {% for member in members %}
+              {% for library in libraries %}
                 <li>
-                  <a href="{{ url_for('items.request_item', pid_value=item.pid, member=member.pid)}}">
-                    {{ member.name }}
+                  <a href="{{ url_for('items.request_item', pid_value=item.pid, library=library.pid)}}">
+                    {{ library.name }}
                   </a>
                 </li>
               {% endfor %}

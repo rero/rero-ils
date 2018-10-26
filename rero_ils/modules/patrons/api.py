@@ -31,8 +31,8 @@ from werkzeug.local import LocalProxy
 
 from ..api import IlsRecord
 from ..documents_items.api import DocumentsWithItems
-from ..members.api import Member
-from ..organisations_members.api import OrganisationWithMembers
+from ..libraries.api import Library
+from ..organisations_libraries.api import OrganisationWithLibraries
 from .fetchers import patron_id_fetcher
 from .minters import patron_id_minter
 from .providers import PatronProvider
@@ -204,14 +204,14 @@ class Patron(IlsRecord):
         return [v.name for v in self.roles]
 
     @property
-    def member(self):
-        """Get member."""
-        member_pid = self.get('member_pid')
-        return Member.get_record_by_pid(member_pid)
+    def library(self):
+        """Get library."""
+        library_pid = self.get('library_pid')
+        return Library.get_record_by_pid(library_pid)
 
     @property
     def organisation(self):
         """Get organisation."""
-        return OrganisationWithMembers.get_organisation_by_memberid(
-            self.member.id
+        return OrganisationWithLibraries.get_organisation_by_libraryid(
+            self.library.id
         )

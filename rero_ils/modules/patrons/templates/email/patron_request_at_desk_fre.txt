@@ -4,7 +4,7 @@ Le document que vous avez demandé est maintenant disponible. Vous pouvez venir 
 
 {% include 'email/_patron_request_at_desk_data.txt' %}
 
-Bibliothèque de retrait : {{ holding.pickup_member_name }}
+Bibliothèque de retrait : {{ holding.pickup_library_name }}
 
 Meilleures salutations
 Votre bibliothèque

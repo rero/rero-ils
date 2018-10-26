@@ -44,7 +44,7 @@ from .circ_policies.cli import import_circ_policies
 from .documents_items.cli import create_items
 from .items.cli import create_circ_transactions
 from .items_types.cli import import_items_types
-from .organisations_members.cli import import_organisations
+from .organisations_libraries.cli import import_organisations
 from .patrons.cli import import_users
 from .patrons_types.cli import import_patrons_type
 

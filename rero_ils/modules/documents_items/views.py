@@ -33,7 +33,7 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from ..items.api import Item
-from ..members.api import Member
+from ..libraries.api import Library
 from ..patrons.api import Patron
 
 blueprint = Blueprint(
@@ -160,10 +160,10 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         pid=pid,
         record=record,
     )
-    members = Member.get_all_members()
+    libraries = Library.get_all_libraries()
     return render_template(
         template,
         pid=pid,
         record=record,
-        members=members
+        libraries=libraries
     )

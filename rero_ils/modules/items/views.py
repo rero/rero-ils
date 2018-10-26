@@ -85,7 +85,7 @@ def return_item():
         data = request.get_json()
         item = item_from_web_request(data)
         patron = Patron.get_patron_by_email(current_user.email)
-        item.return_item(patron['member_pid'])
+        item.return_item(patron['library_pid'])
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
@@ -113,9 +113,9 @@ def receive_item():
     try:
         data = request.get_json()
         patron = Patron.get_patron_by_email(current_user.email)
-        member_pid = patron['member_pid']
+        library_pid = patron['library_pid']
         item = item_from_web_request(data)
-        item.receive_item(member_pid, **data)
+        item.receive_item(library_pid, **data)
         commit_item(item)
         return jsonify({'status': 'ok'})
     except Exception as e:
@@ -167,9 +167,9 @@ def extend_loan():
         return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 
 
-@blueprint.route("/request/<pid_value>/<member>", methods=['GET'])
+@blueprint.route("/request/<pid_value>/<library>", methods=['GET'])
 @check_authentication_for_request
-def request_item(pid_value, member):
+def request_item(pid_value, library):
     """HTTP GET request for Item request action."""
     try:
         patron = Patron.get_patron_by_email(current_user.email)
@@ -179,7 +179,7 @@ def request_item(pid_value, member):
         request_datetime = pytz.utc.localize(datetime.now()).isoformat()
         item.request_item(
             patron_barcode=patron_barcode,
-            pickup_member_pid=member,
+            pickup_library_pid=library,
             request_datetime=request_datetime
         )
         commit_item(item)

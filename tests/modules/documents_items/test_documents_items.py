@@ -35,16 +35,16 @@ from rero_ils.modules.documents_items.models import DocumentsItemsMetadata
 from rero_ils.modules.documents_items.views import abstracts_format, \
     authors_format, publishers_format, series_format
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.members_locations.api import MemberWithLocations
 
 
 def test_create(db, minimal_document_record, minimal_item_record,
-                minimal_member_record, minimal_location_record):
+                minimal_library_record, minimal_location_record):
     """Test DocumentWithItems creation."""
-    memb = MemberWithLocations.create(minimal_member_record, dbcommit=True)
+    lib = LibraryWithLocations.create(minimal_library_record, dbcommit=True)
     loc = Location.create(minimal_location_record, dbcommit=True)
-    memb.add_location(loc, dbcommit=True)
+    lib.add_location(loc, dbcommit=True)
     minimal_item_record['location_pid'] = loc.pid
     item = Item.create(minimal_item_record, dbcommit=True)
     doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)

@@ -3,6 +3,12 @@
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
 #
+# Translators:
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2018
+# Nicolas Prongué <n.prongue@outlook.com>, 2018
+# iGor milhit <igor.milhit@rero.ch>, 2018
+# Nicolas Labat <n-labat@hotmail.com>, 2018
+# Peter Weber <peter.weber@rero.ch>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a19\n"
@@ -48,8 +54,8 @@ msgid "document_type"
 msgstr "Dokumenttyp"
 
 #: rero_ils/config.py:589
-msgid "member"
-msgstr "Mitglied"
+msgid "library"
+msgstr "Bibliothek"
 
 #: rero_ils/config.py:590
 msgid "author"
@@ -104,8 +110,8 @@ msgid "org"
 msgstr "Organisationen"
 
 #: rero_ils/config.py:817
-msgid "memb"
-msgstr "Mitglieder"
+msgid "lib"
+msgstr "Bibliotheken"
 
 #: rero_ils/config.py:829
 msgid "loc"
@@ -340,10 +346,10 @@ msgstr "Der Datensatz kann nicht abgerufen werden (%s)."
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:127
 #: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:12
 #: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:57
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:12
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:60
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:12
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:54
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:12
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:60
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:12
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:50
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:12
@@ -362,10 +368,10 @@ msgstr "Abbrechen"
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:133
 #: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:18
 #: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:63
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:18
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:66
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:18
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:60
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:18
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:66
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:18
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:56
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:18
@@ -405,8 +411,8 @@ msgstr "JSON Schema für eine Ausleihpolitik"
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:14
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:17
 #: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:15
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:15
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:14
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
 #: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:16
@@ -495,8 +501,8 @@ msgstr "Die Dauer einer Verlängerung in Tagen"
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:179
 #: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:26
 #: rero_ils/modules/items_types/templates/rero_ils/detailed_view_items_types.html:12
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:29
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:29
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:24
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:41
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:76
@@ -1136,8 +1142,8 @@ msgid "Items"
 msgstr "Exemplare"
 
 #: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:139
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:40
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:33
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:40
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:33
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -1155,6 +1161,9 @@ msgid "Call Number"
 msgstr "Signatur"
 
 #: rero_ils/modules/documents_items/templates/rero_ils/detailed_view_documents_items.html:164
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:26
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
+#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:49
 msgid "Library"
 msgstr "Bibliothek"
 
@@ -1334,7 +1343,7 @@ msgstr "Bestellungen"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:69
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:51
-msgid "Pickup member"
+msgid "Pickup library"
 msgstr "Abholungsort"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:70
@@ -1394,13 +1403,13 @@ msgstr ""
 "Der Exemplartyp kann nicht gelöscht werden: bestehende Exemplare sind "
 "noch mit ihm verbunden."
 
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:38
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:35
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:38
 msgid "The code is already taken"
 msgstr "Der Barcode ist bereits vergeben"
 
+#: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:39
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:36
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:39
 msgid "The server cannot verify the code"
 msgstr "Der Server kann den Code nicht verifizieren"
 
@@ -1408,8 +1417,8 @@ msgstr "Der Server kann den Code nicht verifizieren"
 msgid "JSON schema for an location"
 msgstr "JSON Schema für einen Standort"
 
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:15
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:15
 msgid "Schema to validate organisation records against."
 msgstr "Schema zur Validierung von Einrichtungen."
@@ -1418,14 +1427,14 @@ msgstr "Schema zur Validierung von Einrichtungen."
 msgid "Location ID"
 msgstr "Standorts ID"
 
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:24
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:13
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:54
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:25
 #: rero_ils/modules/locations/templates/rero_ils/detailed_view_locations.html:13
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:24
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:13
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:54
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:55
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:82
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:49
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:49
 msgid "Code"
 msgstr "Code"
 
@@ -1437,72 +1446,66 @@ msgstr "Standortcode"
 msgid "Name of the location."
 msgstr "Standortname"
 
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:61
 #: rero_ils/modules/locations/templates/rero_ils/detailed_view_locations.html:20
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:61
 msgid "Location cannot be deleted: there are still items linked to this location."
 msgstr ""
 "Der Standort kann nicht gelöscht werden: bestehende Exemplare sind noch "
 "mit ihm verbunden."
 
-#: rero_ils/modules/members/form_options/members/member-v0.0.1.json:26
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:4
-#: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:49
-msgid "Member"
-msgstr "Mitglied"
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
+msgid "JSON schema for an library"
+msgstr "JSON Schema für eine Bibliothek"
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:5
-msgid "JSON schema for an member"
-msgstr "JSON Schema für ein Mitglied"
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:20
+#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:14
+msgid "Library ID"
+msgstr "Bibliotheks ID"
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:20
-#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:14
-msgid "Member ID"
-msgstr "Mitglieds ID"
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:25
+msgid "Code of the library."
+msgstr "Bibliothekscode."
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:25
-msgid "Code of the member."
-msgstr "Mitgliedscode."
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:30
+msgid "Name of the library."
+msgstr "Bibliotheksname."
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:30
-msgid "Name of the member."
-msgstr "Mitgliedsname."
-
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:35
-#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:36
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:17
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:35
+#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:36
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:17
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:31
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:26
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:48
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:13
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:53
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:13
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:53
 msgid "Address"
 msgstr "Adresse"
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:36
-msgid "Address of the member."
-msgstr "Mitgliedsaddresse."
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:36
+msgid "Address of the library."
+msgstr "Bibliotheksaddresse."
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:41
-#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:47
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:21
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:41
+#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:47
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:21
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:62
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:57
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:57
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:49
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:23
 #: rero_ils/modules/patrons/templates/rero_ils/detailed_view_patrons.html:28
 msgid "Email"
 msgstr "E-Mail"
 
-#: rero_ils/modules/members/jsonschemas/members/member-v0.0.1.json:42
-msgid "Email of the member."
-msgstr "E-Mail des Mitglieds."
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:42
+msgid "Email of the library."
+msgstr "E-Mail der Bibliothek."
 
-#: rero_ils/modules/members/templates/rero_ils/detailed_view_members.html:25
-msgid "Member code"
-msgstr "Mitgliedscode "
+#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:25
+msgid "Library code"
+msgstr "Bibliothekscode "
 
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:28
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:64
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:28
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:64
 msgid ""
 "Library cannot be deleted: there are still locations linked to this "
 "library."
@@ -1510,7 +1513,7 @@ msgstr ""
 "Die Bibliothek kann nicht gelöscht werden: bestehende Standorte sind noch"
 " mit ihr verbunden."
 
-#: rero_ils/modules/members_locations/templates/rero_ils/detailed_view_members_locations.html:37
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:37
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:70
 msgid "Locations"
 msgstr "Standorte"
@@ -1529,21 +1532,18 @@ msgid "Address of the organisation."
 msgstr "Einrichtungsadresse."
 
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:35
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:29
 msgid "Libraries"
 msgstr "Bibliotheken"
 
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:102
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:20
+#: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:20
 msgid ""
 "Organisation cannot be deleted: there are still libraries linked to this "
 "organisation."
 msgstr ""
 "Die Organisation kann nicht gelöscht werden: bestehende Bibliotheken sind"
 " noch mit ihr verbunden."
-
-#: rero_ils/modules/organisations_members/templates/rero_ils/detailed_view_organisations_members.html:29
-msgid "Members"
-msgstr "Mitglieder"
 
 #: rero_ils/modules/patrons/listener.py:51
 msgid "Document at desk"
@@ -1671,8 +1671,8 @@ msgid "Patron's barcode or card number"
 msgstr "Lesers Barcode oder Kartennummer"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
-msgid "The member pid of the appartenance library"
-msgstr "Mitglieds pid der Appartenance-Bibliothek"
+msgid "The library pid of the appartenance library"
+msgstr "Bibliotheks pid der Appartenance-Bibliothek"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
 msgid "Qualify this user as a patron"
@@ -1683,11 +1683,11 @@ msgid "Qualify this user as a patron."
 msgstr "Diesen Benutzer als Leser qualifizieren"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:108
-msgid "Qualify this user as a staff member"
+msgid "Qualify this user as a staff library"
 msgstr "Diesen Benutzer als Mitarbeiter qualifizieren"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:111
-msgid "Qualify this user as a staff member."
+msgid "Qualify this user as a staff library."
 msgstr "Diesen Benutzer als Mitarbeiter qualifizieren"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_head.html:26

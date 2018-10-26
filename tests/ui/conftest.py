@@ -32,7 +32,7 @@ import pytest
 @pytest.fixture(scope='module')
 def create_app():
     """Create test app."""
+    # from invenio_app.factory import create_ui
+    # create_ui
     from invenio_app.factory import create_ui
-    create_ui
-    from invenio_app.factory import create_app as create_ui_api
-    return create_ui_api
+    return create_ui

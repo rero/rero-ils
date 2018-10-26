@@ -41,9 +41,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_continuum import version_class
 
 from ..api import IlsRecord
+from ..libraries.api import Library
+from ..libraries_locations.api import LibraryWithLocations
 from ..locations.api import Location
-from ..members.api import Member
-from ..members_locations.api import MemberWithLocations
 from ..transactions.api import CircTransaction
 from .fetchers import item_id_fetcher
 from .minters import item_id_minter
@@ -222,17 +222,17 @@ class Item(IlsRecord):
             yield result
 
     @check_status(statuses=[ItemStatus.IN_TRANSIT])
-    def receive_item(self, transaction_member_pid, **kwargs):
+    def receive_item(self, transaction_library_pid, **kwargs):
         """Receive an item."""
         item = self.dumps()
         id = str(uuid4())
-        item_member_pid = item['member_pid']
+        item_library_pid = item['library_pid']
         first_request = self.get_first_request()
         has_requests = self.number_of_item_requests() > 0
-        if not has_requests and item_member_pid == transaction_member_pid:
+        if not has_requests and item_library_pid == transaction_library_pid:
             self['_circulation']['status'] = ItemStatus.ON_SHELF
         elif (has_requests and
-              first_request['pickup_member_pid'] == transaction_member_pid):
+              first_request['pickup_library_pid'] == transaction_library_pid):
             self['_circulation']['status'] = ItemStatus.AT_DESK
             item_at_desk.send(
                 current_app._get_current_object(),
@@ -249,12 +249,13 @@ class Item(IlsRecord):
         id = str(uuid4())
         if self.number_of_item_requests():
             first_request = self.get_first_request()
-            pickup_member_pid = first_request['pickup_member_pid']
+            pickup_library_pid = first_request['pickup_library_pid']
             location_pid = self.get('location_pid')
             location = Location.get_record_by_pid(location_pid)
-            member = MemberWithLocations.get_member_by_locationid(location.id)
-            member_pid = member.pid
-            if member_pid == pickup_member_pid:
+            library =\
+                LibraryWithLocations.get_library_by_locationid(location.id)
+            library_pid = library.pid
+            if library_pid == pickup_library_pid:
                 self['_circulation']['status'] = ItemStatus.AT_DESK
                 item_at_desk.send(
                     current_app._get_current_object(),
@@ -310,16 +311,16 @@ class Item(IlsRecord):
         CircTransaction.create(self.build_data(-1, 'add_item_request'), id=id)
 
     @check_status(statuses=[ItemStatus.ON_LOAN])
-    def return_item(self, transaction_member_pid, **kwargs):
+    def return_item(self, transaction_library_pid, **kwargs):
         """Return given item."""
         item = self.dumps()
-        item_member_pid = item['member_pid']
+        item_library_pid = item['library_pid']
         first_request = self.get_first_request()
         has_requests = self.number_of_item_requests() > 0
-        if not has_requests and item_member_pid == transaction_member_pid:
+        if not has_requests and item_library_pid == transaction_library_pid:
             self['_circulation']['status'] = ItemStatus.ON_SHELF
         elif (has_requests and
-              first_request['pickup_member_pid'] == transaction_member_pid):
+              first_request['pickup_library_pid'] == transaction_library_pid):
             self['_circulation']['status'] = ItemStatus.AT_DESK
             item_at_desk.send(
                 current_app._get_current_object(),
@@ -455,17 +456,18 @@ class Item(IlsRecord):
         location = Location.get_record_by_pid(location_pid)
         if location:
             data['location_name'] = location.get('name')
-            member = MemberWithLocations.get_member_by_locationid(location.id)
-            data['member_pid'] = member.pid
-            data['member_name'] = member.get('name')
+            library =\
+                LibraryWithLocations.get_library_by_locationid(location.id)
+            data['library_pid'] = library.pid
+            data['library_name'] = library.get('name')
         data['requests_count'] = self.number_of_item_requests()
         data['available'] = self.available
         for holding in data.get('_circulation', {}).get('holdings', []):
-            pickup_member_pid = holding.get('pickup_member_pid')
-            if pickup_member_pid:
-                holding_member = Member.get_record_by_pid(pickup_member_pid)
-                if holding_member:
-                    holding['pickup_member_name'] = holding_member['name']
+            pickup_library_pid = holding.get('pickup_library_pid')
+            if pickup_library_pid:
+                holding_library = Library.get_record_by_pid(pickup_library_pid)
+                if holding_library:
+                    holding['pickup_library_name'] = holding_library['name']
         return data
 
     def number_of_item_requests(self):

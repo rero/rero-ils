@@ -30,20 +30,20 @@ import copy
 import datetime
 
 from rero_ils.modules.items.api import Item, ItemStatus
+from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.members_locations.api import MemberWithLocations
 
 
 def test_extend_item(db, create_minimal_resources_on_loan,
                      minimal_patron_only_record,
                      minimal_patron_record):
 
-    doc, item, member, location = create_minimal_resources_on_loan
-    assert member
+    doc, item, library, location = create_minimal_resources_on_loan
+    assert library
     assert item
     assert location
     assert doc
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -67,12 +67,12 @@ def test_return_item(app, db, create_minimal_resources_on_loan,
                      minimal_patron_only_record,
                      minimal_patron_record):
 
-    doc, item, member, location = create_minimal_resources_on_loan
-    assert member
+    doc, item, library, location = create_minimal_resources_on_loan
+    assert library
     assert item
     assert location
     assert doc
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -80,8 +80,8 @@ def test_return_item(app, db, create_minimal_resources_on_loan,
     assert item_no_req.status == ItemStatus.ON_LOAN
     assert item_no_req.number_of_item_requests() == 0
     data_no_req = item_no_req.dumps()
-    assert data_no_req.get('member_pid') == '1'
-    item_no_req.return_item(transaction_member_pid='1')
+    assert data_no_req.get('library_pid') == '1'
+    item_no_req.return_item(transaction_library_pid='1')
     db.session.commit()
     assert item_no_req.status == ItemStatus.ON_SHELF
 
@@ -90,36 +90,36 @@ def test_return_item(app, db, create_minimal_resources_on_loan,
     assert item_req.number_of_item_requests() == 0
     item_req.request_item(
         patron_barcode=patron_barcode,
-        pickup_member_pid='1'
+        pickup_library_pid='1'
     )
     db.session.commit()
     assert item_req.number_of_item_requests() == 1
     data_req = item_req.dumps()
-    assert data_req.get('member_pid') == '1'
+    assert data_req.get('library_pid') == '1'
 
     holding_req = item_req.get('_circulation').get('holdings')[1]
-    assert holding_req['pickup_member_pid'] == '1'
-    item_req.return_item(transaction_member_pid='1')
+    assert holding_req['pickup_library_pid'] == '1'
+    item_req.return_item(transaction_library_pid='1')
     db.session.commit()
     assert item_req.status == ItemStatus.AT_DESK
 
-    # item is requested and pickup <> transaction member
+    # item is requested and pickup <> transaction library
 
     item_req_ext = copy.deepcopy(item)
     assert item_req_ext.status == ItemStatus.ON_LOAN
     assert item_req_ext.number_of_item_requests() == 0
     item_req_ext.request_item(
         patron_barcode=patron_barcode,
-        pickup_member_pid='1'
+        pickup_library_pid='1'
     )
     db.session.commit()
     assert item_req_ext.number_of_item_requests() == 1
     data_req_ext = item_req_ext.dumps()
-    assert data_req_ext.get('member_pid') == '1'
+    assert data_req_ext.get('library_pid') == '1'
 
     item_req_ext.get('_circulation').get('holdings')[1]
-    assert holding_req['pickup_member_pid'] == '1'
-    item_req_ext.return_item(transaction_member_pid='2')
+    assert holding_req['pickup_library_pid'] == '1'
+    item_req_ext.return_item(transaction_library_pid='2')
     db.session.commit()
     assert item_req_ext.status == ItemStatus.IN_TRANSIT
 
@@ -128,12 +128,12 @@ def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
                        minimal_patron_only_record,
                        minimal_patron_record):
 
-    doc, item, member, location = create_minimal_resources_on_shelf_req
-    assert member
+    doc, item, library, location = create_minimal_resources_on_shelf_req
+    assert library
     assert item
     assert location
     assert doc
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -141,12 +141,12 @@ def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
     assert item_req.status == ItemStatus.ON_SHELF
     assert item_req.number_of_item_requests() == 1
     data_req = item_req.dumps()
-    assert data_req.get('member_pid') == '1'
+    assert data_req.get('library_pid') == '1'
     holding = item_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_member_pid'] == '1'
-    item_req['_circulation']['holdings'][0]['pickup_member_pid'] = '2'
+    assert holding['pickup_library_pid'] == '1'
+    item_req['_circulation']['holdings'][0]['pickup_library_pid'] = '2'
     holding = item_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_member_pid'] == '2'
+    assert holding['pickup_library_pid'] == '2'
     item_req.validate_item_request()
     db.session.commit()
     assert item_req.status == ItemStatus.IN_TRANSIT
@@ -155,9 +155,9 @@ def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
     assert item_req_intern.status == ItemStatus.ON_SHELF
     assert item_req_intern.number_of_item_requests() == 1
     data_req = item_req_intern.dumps()
-    assert data_req.get('member_pid') == '1'
+    assert data_req.get('library_pid') == '1'
     holding = item_req_intern.get('_circulation').get('holdings')[0]
-    assert holding['pickup_member_pid'] == '1'
+    assert holding['pickup_library_pid'] == '1'
     item_req_intern.validate_item_request()
     db.session.commit()
     assert item_req_intern.status == ItemStatus.AT_DESK
@@ -167,12 +167,12 @@ def test_receive_item(app, db, create_minimal_resources_in_transit,
                       minimal_patron_only_record,
                       minimal_patron_record):
 
-    doc, item, member, location = create_minimal_resources_in_transit
-    assert member
+    doc, item, library, location = create_minimal_resources_in_transit
+    assert library
     assert item
     assert location
     assert doc
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -180,8 +180,8 @@ def test_receive_item(app, db, create_minimal_resources_in_transit,
     assert item_in_transit.status == ItemStatus.IN_TRANSIT
     assert item_in_transit.number_of_item_requests() == 0
     data_in_transit = item_in_transit.dumps()
-    assert data_in_transit.get('member_pid') == '1'
-    item_in_transit.receive_item(transaction_member_pid='1')
+    assert data_in_transit.get('library_pid') == '1'
+    item_in_transit.receive_item(transaction_library_pid='1')
     db.session.commit()
     assert item_in_transit.status == ItemStatus.ON_SHELF
 
@@ -190,14 +190,14 @@ def test_receive_item(app, db, create_minimal_resources_in_transit,
     assert item_in_transit_req.number_of_item_requests() == 0
     item_in_transit_req.request_item(
         patron_barcode=patron_barcode,
-        pickup_member_pid='1'
+        pickup_library_pid='1'
     )
     db.session.commit()
     assert item_in_transit_req.status == ItemStatus.IN_TRANSIT
     assert item_in_transit_req.number_of_item_requests() == 1
     holding = item_in_transit_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_member_pid'] == '1'
-    item_in_transit_req.receive_item(transaction_member_pid='1')
+    assert holding['pickup_library_pid'] == '1'
+    item_in_transit_req.receive_item(transaction_library_pid='1')
     db.session.commit()
     assert item_in_transit_req.status == ItemStatus.AT_DESK
 
@@ -205,8 +205,8 @@ def test_receive_item(app, db, create_minimal_resources_in_transit,
     assert item_in_transit_ext.status == ItemStatus.IN_TRANSIT
     assert item_in_transit_ext.number_of_item_requests() == 0
     data_in_transit_ext = item_in_transit_ext.dumps()
-    assert data_in_transit_ext.get('member_pid') == '1'
-    item_in_transit_ext.receive_item(transaction_member_pid='2')
+    assert data_in_transit_ext.get('library_pid') == '1'
+    item_in_transit_ext.receive_item(transaction_library_pid='2')
     db.session.commit()
     assert item_in_transit_ext.status == ItemStatus.IN_TRANSIT
 
@@ -215,12 +215,12 @@ def test_request_item(db, create_minimal_resources_on_shelf,
                       minimal_patron_only_record,
                       minimal_patron_record):
 
-    doc, item, member, location = create_minimal_resources_on_shelf
-    assert member
+    doc, item, library, location = create_minimal_resources_on_shelf
+    assert library
     assert item
     assert location
     assert doc
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -229,7 +229,7 @@ def test_request_item(db, create_minimal_resources_on_shelf,
     assert item_on_shelf.number_of_item_requests() == 0
     item_on_shelf.request_item(
         patron_barcode=patron_barcode,
-        pickup_member_pid='1'
+        pickup_library_pid='1'
     )
     db.session.commit()
     assert item_on_shelf.status == ItemStatus.ON_SHELF
@@ -241,7 +241,7 @@ def test_request_item(db, create_minimal_resources_on_shelf,
     assert item_on_shelf.number_of_item_requests() == 1
     item_on_shelf.request_item(
         patron_barcode=patron_barcode_2,
-        pickup_member_pid='1'
+        pickup_library_pid='1'
     )
     db.session.commit()
     assert item_on_shelf.status == ItemStatus.ON_SHELF
@@ -251,13 +251,13 @@ def test_request_item(db, create_minimal_resources_on_shelf,
 def test_loan_item(db, create_minimal_resources_on_shelf,
                    minimal_patron_only_record):
 
-    doc, item, member, location = create_minimal_resources_on_shelf
-    assert member
+    doc, item, library, location = create_minimal_resources_on_shelf
+    assert library
     assert item
     assert location
     assert doc
     assert doc.available
-    assert member.locations
+    assert library.locations
     patron_barcode = minimal_patron_only_record['barcode']
     assert patron_barcode
 
@@ -292,20 +292,22 @@ def test_nb_item_requests(db, minimal_item_record, minimal_patron_only_record):
     assert number_requests == 2
 
 
-def test_member_name(db, minimal_member_record, minimal_item_record,
-                     minimal_location_record):
-    """Test member names."""
-    member = MemberWithLocations.create(minimal_member_record, dbcommit=True)
-    assert member
+def test_library_name(db, minimal_library_record, minimal_item_record,
+                      minimal_location_record):
+    """Test library names."""
+    library = LibraryWithLocations.create(
+        minimal_library_record, dbcommit=True
+    )
+    assert library
     location = Location.create(minimal_location_record, dbcommit=True)
     assert location
-    member.add_location(location, dbcommit=True)
-    assert member.locations
+    library.add_location(location, dbcommit=True)
+    assert library.locations
     item = Item.create({})
     item.update(minimal_item_record, dbcommit=True)
     assert item
     data = item.dumps()
-    assert data.get('member_pid') == '1'
-    assert data.get('member_name') == 'MV Sion'
+    assert data.get('library_pid') == '1'
+    assert data.get('library_name') == 'MV Sion'
     holding = data.get('_circulation').get('holdings')[1]
-    assert holding['pickup_member_name'] == 'MV Sion'
+    assert holding['pickup_library_name'] == 'MV Sion'

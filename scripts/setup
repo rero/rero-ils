@@ -57,7 +57,7 @@ pipenv run invenio roles create -d "Cataloguer" cataloguer
 # create a role for users qualified as a patron
 pipenv run invenio roles create -d "Patron" patrons
 
-# create a role for users qualified as a staff member
+# create a role for users qualified as a staff library
 pipenv run invenio roles create -d "Staff" staff
 
 # grant accesses to action roles
@@ -71,8 +71,8 @@ pipenv run invenio roles add admin@rero.ch superusers
 # create the patron records
 pipenv run invenio fixtures importusers ${data_path}/users.json -v
 
-# create the organisations with members and locations
-pipenv run invenio fixtures importorganisations ${data_path}/organisations-members-locations.json -v
+# create the organisations with libraries and locations
+pipenv run invenio fixtures importorganisations ${data_path}/organisations-libraries-locations.json -v
 
 # create circulation policies
 pipenv run invenio fixtures importcircpolicies ${data_path}/circulation_policies.json

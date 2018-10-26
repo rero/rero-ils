@@ -109,8 +109,8 @@ def clean_patron_fields(data):
         if 'patron_type' in data:
             del(data['patron_type'])
     if not data.get('is_staff', False):
-        if 'member_pid' in data:
-            del(data['member_pid'])
+        if 'library_pid' in data:
+            del(data['library_pid'])
     return data
 
 

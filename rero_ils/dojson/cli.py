@@ -31,7 +31,7 @@ from flask import current_app
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents_items.cli import create_items
-from rero_ils.modules.organisations_members.cli import import_organisations
+from rero_ils.modules.organisations_libraries.cli import import_organisations
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 

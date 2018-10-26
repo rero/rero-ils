@@ -48,7 +48,7 @@
                   {% if 'loan' == type %}
                     {{ _('Belongs to') }}
                   {% else %}
-                    {{ _('Pickup member') }}
+                    {{ _('Pickup library') }}
                   {% endif %}
                 </th>
                 <th class="col-md-2" scope="col">
@@ -72,9 +72,9 @@
                 <td>{{ document.item.call_number }}</td>
                 <td>
                     {% if 'loan' == type %}
-                      {{ document.item.member_name}}
+                      {{ document.item.library_name}}
                     {% else %}
-                        {{ document.item.holding.pickup_member_name }}
+                        {{ document.item.holding.pickup_library_name }}
                     {% endif %}
                 </td>
                 <td>

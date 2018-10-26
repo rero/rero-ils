@@ -28,7 +28,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
-from ..members_locations.models import MembersLocationsMetadata
+from ..libraries_locations.models import LibrariesLocationsMetadata
 from .fetchers import location_id_fetcher
 from .minters import location_id_minter
 from .providers import LocationProvider
@@ -60,12 +60,12 @@ class Location(IlsRecord):
     @classmethod
     def get_all_pids(cls):
         """Get all location pids."""
-        members_locations = MembersLocationsMetadata.query.all()
+        libraries_locations = LibrariesLocationsMetadata.query.all()
 
         locs_id = []
 
-        for member_location in members_locations:
-            loc_id = member_location.location_id
+        for library_location in libraries_locations:
+            loc_id = library_location.location_id
             pid = PersistentIdentifier.get_by_object('loc', 'rec', loc_id)
             locs_id.append(pid.pid_value)
 

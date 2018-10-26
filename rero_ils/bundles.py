@@ -29,8 +29,7 @@ from __future__ import absolute_import, print_function
 import os
 
 from flask_assets import Bundle
-from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle, \
-    RequireJSFilter
+from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
 from pkg_resources import resource_filename
 
 
@@ -125,7 +124,7 @@ editor_js = Bundle(
     schema_form_js,
     'js/rero_ils/editor.js',
     'js/rero_ils/document-editor.js',
-    'js/rero_ils/member-editor.js',
+    'js/rero_ils/library-editor.js',
     'js/rero_ils/item-editor.js',
     'js/rero_ils/item-type-editor.js',
     'js/rero_ils/patron-editor.js',

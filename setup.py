@@ -89,8 +89,8 @@ setup(
         'invenio_base.blueprints': [
             'rero_ils = rero_ils.views:blueprint',
             'organisations = \
-                rero_ils.modules.organisations_members.views:blueprint',
-            'members = rero_ils.modules.members_locations.views:blueprint',
+                rero_ils.modules.organisations_libraries.views:blueprint',
+            'libraries = rero_ils.modules.libraries_locations.views:blueprint',
             'locations = rero_ils.modules.locations.views:blueprint',
             'documents_items = \
                 rero_ils.modules.documents_items.views:blueprint',
@@ -148,10 +148,10 @@ setup(
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
-            'organisations_members = \
-                rero_ils.modules.organisations_members.models',
-            'members = rero_ils.modules.members.models',
-            'members_locations = rero_ils.modules.members_locations.models'
+            'organisations_libraries = \
+                rero_ils.modules.organisations_libraries.models',
+            'libraries = rero_ils.modules.libraries.models',
+            'libraries_locations = rero_ils.modules.libraries_locations.models'
             'locations = rero_ils.modules.locations.models',
             'documents = rero_ils.modules.documents.models',
             'documents_items = rero_ils.modules.documents_items.models',
@@ -167,8 +167,8 @@ setup(
         'invenio_pidstore.minters': [
             'organisation_id = \
                 rero_ils.modules.organisations.minters:organisation_id_minter',
-            'member_id = \
-                rero_ils.modules.members.minters:member_id_minter',
+            'library_id = \
+                rero_ils.modules.libraries.minters:library_id_minter',
             'location_id = \
                 rero_ils.modules.locations.minters:location_id_minter',
             'document_id = \
@@ -185,8 +185,8 @@ setup(
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
             '.fetchers:organisation_id_fetcher',
-            'member_id = \
-                rero_ils.modules.members.fetchers:member_id_fetcher',
+            'library_id = \
+                rero_ils.modules.libraries.fetchers:library_id_fetcher',
             'location_id = \
                 rero_ils.modules.locations.fetchers:location_id_fetcher',
             'document_id = \
@@ -205,7 +205,7 @@ setup(
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
-            'members = rero_ils.modules.members.jsonschemas',
+            'libraries = rero_ils.modules.libraries.jsonschemas',
             'locations = rero_ils.modules.locations.jsonschemas',
             'documents = rero_ils.modules.documents.jsonschemas',
             'items = rero_ils.modules.items.jsonschemas',
@@ -218,7 +218,7 @@ setup(
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
-            'members = rero_ils.modules.members.mappings',
+            'libraries = rero_ils.modules.libraries.mappings',
             'locations = rero_ils.modules.locations.mappings',
             'documents = rero_ils.modules.documents.mappings',
             'items = rero_ils.modules.items.mappings',
