@@ -215,3 +215,26 @@ class Patron(IlsRecord):
         return OrganisationWithLibraries.get_organisation_by_libraryid(
             self.library.id
         )
+
+    @property
+    def name(self):
+        """Return the full name of the patron."""
+        my_name = '{first_name} {last_name}'.format(
+            first_name=self['first_name'],
+            last_name=self['last_name']
+        )
+        return my_name
+
+    @property
+    def initial(self):
+        """Return the initials of the patron first name."""
+        initial = ''
+        firsts = self['first_name'].split(' ')
+        for first in firsts:
+            initial += first[0]
+        lasts = self['last_name'].split(' ')
+        for last in lasts:
+            if last[0].isupper():
+                initial += last[0]
+
+        return initial

@@ -34,6 +34,9 @@ from flask_login import current_user
 from flask_menu import current_menu
 from invenio_i18n.ext import current_i18n
 
+from rero_ils.modules.patrons.api import Patron
+
+from .utils import i18n_to_str
 from .version import __version__
 
 blueprint = Blueprint(
@@ -44,17 +47,19 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.before_app_first_request
+@blueprint.before_app_request
 def init_menu():
     """Create the header menus."""
     item = current_menu.submenu('main.menu')
     item.register(
         endpoint=None,
-        text=_(
-            '%(icon)s <span class="visible-md-inline visible-lg-inline">'
-            'Menu</span>',
-            icon='<i class="fa fa-bars"></i>'),
-        order=0)
+        text='{icon} <span class="{visible}">{menu}'.format(
+            icon='<i class="fa fa-bars"></i>',
+            visible='visible-md-inline visible-lg-inline',
+            menu=_('Menu')
+        ),
+        order=0
+    )
 
     order = 10
 
@@ -72,50 +77,74 @@ def init_menu():
             endpoint='invenio_i18n.set_lang',
             endpoint_arguments_constructor=partial(
                 return_language, language_item.language),
-            text=_(
-                '%(icon)s %(language)s',
+            text='{icon} {language}'.format(
                 icon='<i class="fa fa-language"></i>',
-                language=language_item.language),
+                language=_(i18n_to_str(language_item.language))
+            ),
             visible_when=partial(hide_language, language_item.language),
-            order=order)
+            order=order
+        )
         order += 1
 
     item = current_menu.submenu('main.menu.help')
     item.register(
         endpoint='rero_ils.help',
-        text=_('%(icon)s Help', icon='<i class="fa fa-info"></i>'),
-        order=100)
+        text='{icon} {help}'.format(
+            icon='<i class="fa fa-info"></i>',
+            help=_('Help')
+        ),
+        order=100
+    )
 
     item = current_menu.submenu('main.profile')
+    if current_user.is_authenticated:
+        patron = Patron.get_patron_by_email(current_user.email)
+        account = patron.initial
+    else:
+        account = _('My Account')
     item.register(
         endpoint=None,
-        text=_(
-            '%(icon)s <span class="visible-md-inline visible-lg-inline">My '
-            'Account</span>',
-            icon='<i class="fa fa-user"></i>'),
-        order=1)
+        text='{icon} <span class="{visible}">{account}</span>'.format(
+            icon='<i class="fa fa-user"></i>',
+            visible='visible-md-inline visible-lg-inline',
+            account=account
+        ),
+        order=1
+    )
 
     item = current_menu.submenu('main.profile.login')
     item.register(
         endpoint='security.login',
         endpoint_arguments_constructor=lambda: dict(next=request.path),
         visible_when=lambda: not current_user.is_authenticated,
-        text=_('%(icon)s Login', icon='<i class="fa fa-sign-in"></i>'),
-        order=1)
+        text='{icon} {login}'.format(
+            icon='<i class="fa fa-sign-in"></i>',
+            login=_('Login')
+        ),
+        order=1
+    )
 
     item = current_menu.submenu('main.profile.logout')
     item.register(
         endpoint='security.logout',
         visible_when=lambda: current_user.is_authenticated,
-        text=_('%(icon)s Logout', icon='<i class="fa fa-sign-out"></i>'),
-        order=1)
+        text='{icon} {logout}'.format(
+            icon='<i class="fa fa-sign-out"></i>',
+            logout=_('Logout')
+        ),
+        order=1
+    )
 
     item = current_menu.submenu('main.profile.signup')
     item.register(
         endpoint='security.register',
         visible_when=lambda: not current_user.is_authenticated,
-        text=_('%(icon)s Sign Up', icon='<i class="fa fa-user-plus"></i>'),
-        order=2)
+        text='{icon} {signup}'.format(
+            icon='<i class="fa fa-user-plus"></i>',
+            signup=_('Sign Up')
+        ),
+        order=2
+    )
 
 
 @blueprint.route('/ping', methods=['HEAD', 'GET'])

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a19\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2018-10-18 11:22+0200\n"
+"POT-Creation-Date: 2018-10-30 11:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Nicolas Labat <n-labat@hotmail.com>, 2018\n"
 "Language: fr\n"
@@ -84,43 +84,43 @@ msgstr "rôles"
 msgid "sources"
 msgstr "sources"
 
-#: rero_ils/config.py:758
+#: rero_ils/config.py:748
 msgid "doc"
 msgstr "Documents"
 
-#: rero_ils/config.py:768
+#: rero_ils/config.py:758
 msgid "item"
 msgstr "Exemplaires"
 
-#: rero_ils/config.py:778
+#: rero_ils/config.py:768
 msgid "itty"
 msgstr "Types d'exemplaire"
 
-#: rero_ils/config.py:789
+#: rero_ils/config.py:779
 msgid "ptrn"
 msgstr "Utilisateurs"
 
-#: rero_ils/config.py:799
+#: rero_ils/config.py:789
 msgid "ptty"
 msgstr "Types de lecteur"
 
-#: rero_ils/config.py:810
+#: rero_ils/config.py:800
 msgid "org"
 msgstr "Organisations"
 
-#: rero_ils/config.py:817
+#: rero_ils/config.py:807
 msgid "lib"
 msgstr "Bibliothèques"
 
-#: rero_ils/config.py:829
+#: rero_ils/config.py:819
 msgid "loc"
 msgstr "Localisations"
 
-#: rero_ils/config.py:839
+#: rero_ils/config.py:829
 msgid "pers"
 msgstr "Personnes"
 
-#: rero_ils/config.py:849
+#: rero_ils/config.py:839
 msgid "cipo"
 msgstr "Politiques de prêt"
 
@@ -268,44 +268,29 @@ msgstr "BNF"
 msgid "rero"
 msgstr "RERO"
 
-#: rero_ils/views.py:53
-#, python-format
-msgid "%(icon)s <span class=\"visible-md-inline visible-lg-inline\">Menu</span>"
-msgstr "%(icon)s<span class=\"visible-md-inline visible-lg-inline\">Menu</span>"
-
-#: rero_ils/views.py:75
-#, python-format
-msgid "%(icon)s %(language)s"
-msgstr "%(icon)s %(language)s"
-
-#: rero_ils/views.py:86
-#, python-format
-msgid "%(icon)s Help"
-msgstr "%(icon)s Aide"
+#: rero_ils/views.py:57
+msgid "Menu"
+msgstr "Menu"
 
 #: rero_ils/views.py:92
-#, python-format
-msgid ""
-"%(icon)s <span class=\"visible-md-inline visible-lg-inline\">My "
-"Account</span>"
-msgstr ""
-"%(icon)s <span class=\"visible-md-inline visible-lg-inline\">Mon "
-"compte</span>"
+msgid "Help"
+msgstr "Aide"
 
-#: rero_ils/views.py:103
-#, python-format
-msgid "%(icon)s Login"
-msgstr "%(icon)s S'identifier"
+#: rero_ils/views.py:102
+msgid "My Account"
+msgstr "Mon compte"
 
-#: rero_ils/views.py:110
-#, python-format
-msgid "%(icon)s Logout"
-msgstr "%(icon)s Se déconnecter"
+#: rero_ils/views.py:120
+msgid "Login"
+msgstr "Se connecter"
 
-#: rero_ils/views.py:117
-#, python-format
-msgid "%(icon)s Sign Up"
-msgstr "%(icon)s S'inscrire"
+#: rero_ils/views.py:131
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: rero_ils/templates/rero_ils/login_user.html:27 rero_ils/views.py:142
+msgid "Sign Up"
+msgstr "S'inscrire"
 
 #: rero_ils/modules/admin.py:149 rero_ils/modules/admin.py:196
 #: rero_ils/modules/admin.py:229
@@ -454,8 +439,8 @@ msgid "The PID of the organisation in which this circulation policy applies."
 msgstr "Le PID de l'organisation à laquelle s'applique la politique de prêt."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
-msgid "Allow Checkout flag"
-msgstr "Autoriser le prêt"
+msgid "Allow Checkout"
+msgstr "Autorise les prêts"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:44
 msgid "Checkouts are allowed or not."
@@ -469,27 +454,27 @@ msgstr "Durée du prêt en jours"
 msgid "The duration of the checkout in days."
 msgstr "La durée du prêt en jours."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:55
-msgid "Allow patron requests flag"
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:56
+msgid "Allow patron requests"
 msgstr "Autoriser les demandes"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:56
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:57
 msgid "Patron requests are allowed or not."
 msgstr "Les demandes par les lecteurs sont autorisées ou ne le sont pas."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:61
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:62
 msgid "Maximum number of renewals"
 msgstr "Nombre maximal de prolongations"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:62
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:63
 msgid "Maximum number of renewals allowed."
 msgstr "Nombre maximal de prolongations autorisées."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:67
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 msgid "Renewal duration in days"
 msgstr "Durée de la prolongation en jours"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:68
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
 msgid "The duration of the renewal in days."
 msgstr "Durée de la prolongation en jours."
 
@@ -536,6 +521,11 @@ msgstr "Autorise les prêts"
 #: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:54
 msgid "Checkout Duration"
 msgstr "Durée du prêt"
+
+#: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:57
+#: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:77
+msgid "day(s)"
+msgstr "jour(s)"
 
 #: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:64
 msgid "Number Renewals"
@@ -1208,27 +1198,23 @@ msgstr "Formats d'export"
 msgid "The item %s has been requested."
 msgstr "L'exemplaire %s a été demandé."
 
-#: rero_ils/modules/items/views.py:195
-msgid "Something went wrong"
-msgstr "Quelque chose s'est mal passé"
-
-#: rero_ils/modules/items/views.py:227
+#: rero_ils/modules/items/views.py:228
 msgid "available"
 msgstr "disponible"
 
-#: rero_ils/modules/items/views.py:229
+#: rero_ils/modules/items/views.py:230
 msgid "on_site consultation"
 msgstr "consultation sur place"
 
-#: rero_ils/modules/items/views.py:231
+#: rero_ils/modules/items/views.py:232
 msgid "not available"
 msgstr "non disponible"
 
-#: rero_ils/modules/items/views.py:238
+#: rero_ils/modules/items/views.py:239
 msgid "due until"
 msgstr "à rendre le"
 
-#: rero_ils/modules/items/views.py:240
+#: rero_ils/modules/items/views.py:241
 msgid "requested"
 msgstr "demandé"
 
@@ -1411,9 +1397,9 @@ msgstr "Le code est déjà utilisé"
 msgid "The server cannot verify the code"
 msgstr "Le serveur ne peut pas vérifier le code"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
-msgid "JSON schema for an location"
-msgstr "Schéma pour une institution"
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
+msgid "JSON schema for an library"
+msgstr "Schéma JSON pour un exemplaire"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:15
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
@@ -1421,9 +1407,10 @@ msgstr "Schéma pour une institution"
 msgid "Schema to validate organisation records against."
 msgstr "Schéma pour la validation des institutions."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:21
-msgid "Location ID"
-msgstr "ID de la localisation"
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:20
+#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:14
+msgid "Library ID"
+msgstr "ID de la bibliothèque."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:24
 #: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:13
@@ -1435,30 +1422,6 @@ msgstr "ID de la localisation"
 #: rero_ils/modules/organisations_libraries/templates/rero_ils/detailed_view_organisations_libraries.html:49
 msgid "Code"
 msgstr "Code"
-
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:26
-msgid "Code of the location."
-msgstr "Code de la localisation."
-
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
-msgid "Name of the location."
-msgstr "Nom de la localisation."
-
-#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:61
-#: rero_ils/modules/locations/templates/rero_ils/detailed_view_locations.html:20
-msgid "Location cannot be deleted: there are still items linked to this location."
-msgstr ""
-"La localisation ne peut être supprimée : des exemplaires lui sont encore "
-"attachées."
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
-msgid "JSON schema for an library"
-msgstr "Schéma JSON pour un exemplaire"
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:20
-#: rero_ils/modules/libraries/templates/rero_ils/detailed_view_libraries.html:14
-msgid "Library ID"
-msgstr "ID de la bibliothèque."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:25
 msgid "Code of the library."
@@ -1515,6 +1478,29 @@ msgstr ""
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:70
 msgid "Locations"
 msgstr "Localisations"
+
+#: rero_ils/modules/libraries_locations/templates/rero_ils/detailed_view_libraries_locations.html:61
+#: rero_ils/modules/locations/templates/rero_ils/detailed_view_locations.html:20
+msgid "Location cannot be deleted: there are still items linked to this location."
+msgstr ""
+"La localisation ne peut être supprimée : des exemplaires lui sont encore "
+"attachées."
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:5
+msgid "JSON schema for an location"
+msgstr "Schéma pour une institution"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:21
+msgid "Location ID"
+msgstr "ID de la localisation"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:26
+msgid "Code of the location."
+msgstr "Code de la localisation."
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
+msgid "Name of the location."
+msgstr "Nom de la localisation."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -1989,10 +1975,6 @@ msgstr "S'identifier"
 #, python-format
 msgid "New to %(sitename)s?"
 msgstr "Pas encore inscrit·e sur %(sitename)s?"
-
-#: rero_ils/templates/rero_ils/login_user.html:27
-msgid "Sign Up"
-msgstr "S'inscrire"
 
 #: rero_ils/templates/rero_ils/login_user.html:34
 msgid "Forgot password?"
