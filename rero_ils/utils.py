@@ -51,3 +51,12 @@ def send_mail(subject, recipients, template, language, **context):
 
     mail = current_app.extensions.get('mail')
     mail.send(msg)
+
+
+def i18n_to_str(language):
+    """Transform i18n languages to string."""
+    i18n_languages = current_app.config['I18N_LANGUAGES']
+    for i18n_language in i18n_languages:
+        if language in i18n_language:
+            return i18n_language[1]
+    return 'English'

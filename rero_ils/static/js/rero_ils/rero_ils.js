@@ -27,5 +27,17 @@ require([
     // });
     $(document).ready(function(){
       $('[data-toggle="tooltip"]').tooltip();
+      /* Enable the sticky autohide header */
+
+      $(function () {
+        'use strict';
+
+        $('.navbar').bootstrapAutoHideNavbar({
+          disableAutoHide: false,
+          delta: 5,
+          duration: 250,
+          shadow: false
+        });
+      });
+    });
   });
-});
