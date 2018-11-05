@@ -42,6 +42,7 @@ from rero_ils.modules.libraries.api import Library
 
 from ..documents_items.api import DocumentsSearch
 from ..items.api import Item, ItemStatus
+from ..items_types.api import ItemType
 from ..patrons.api import Patron, PatronsSearch
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -196,9 +197,12 @@ def get_one_item(barcode, transaction_type):
             item = items.to_dict()
             if (
                 transaction_type in (
-                    'active', 'overdue', 'extended', 'requested_by_others') and
+                    'active', 'overdue', 'extended', 'requested_by_others'
+                ) and
                 item['_circulation']['status'] == ItemStatus.ON_SHELF and
-                item['item_type'] != 'on_site_consultation' and
+                item['item_type_pid'] != ItemType.get_pid_by_name(
+                    'on-site'
+                ) and
                 item['requests_count'] == 0
             ):
                 return Item.get_record_by_pid(pid=item['pid'])

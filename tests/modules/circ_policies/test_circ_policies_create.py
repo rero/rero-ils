@@ -31,7 +31,7 @@ import pytest
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.errors import PolicyNameAlreadyExists
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.test_utils import es_flush_and_refresh
+from rero_ils.utils_test import es_flush_and_refresh
 
 
 def test_circ_policy_create(

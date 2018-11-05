@@ -29,6 +29,8 @@ from __future__ import absolute_import, print_function
 import copy
 import datetime
 
+import pytest
+
 from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
@@ -163,6 +165,7 @@ def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
     assert item_req_intern.status == ItemStatus.AT_DESK
 
 
+@pytest.mark.skip(reason="will be changet with invenio_circulation")
 def test_receive_item(app, db, create_minimal_resources_in_transit,
                       minimal_patron_only_record,
                       minimal_patron_record):

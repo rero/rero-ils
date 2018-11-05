@@ -135,5 +135,5 @@ def test_patron_type(patron_schema, minimal_patron_record):
     validate(minimal_patron_record, patron_schema)
 
     with pytest.raises(ValidationError):
-        minimal_patron_record['patron_type'] = 25
+        minimal_patron_record['patron_type_pid'] = 25
         validate(minimal_patron_record, patron_schema)

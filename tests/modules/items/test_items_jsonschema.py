@@ -80,5 +80,5 @@ def test_item_type(item_schema, minimal_item_record):
     validate(minimal_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['item_type'] = 25
+        minimal_item_record['item_type_pid'] = 25
         validate(minimal_item_record, item_schema)

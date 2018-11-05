@@ -30,7 +30,7 @@ from elasticsearch.exceptions import NotFoundError
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
 from invenio_records.errors import MissingModelError
@@ -97,19 +97,25 @@ class IlsRecord(Record):
         )
 
     @classmethod
-    def get_all_pids(cls):
+    def get_all_pids(cls, with_deleted=False):
         """Get all records pids."""
-        pids = [n.pid_value for n in PersistentIdentifier.query.filter_by(
+        query = PersistentIdentifier.query.filter_by(
             pid_type=cls.provider.pid_type
-        )]
+        )
+        if not with_deleted:
+            query = query.filter_by(status=PIDStatus.REGISTERED)
+        pids = [n.pid_value for n in query]
         return pids
 
     @classmethod
-    def get_all_ids(cls):
+    def get_all_ids(cls, with_deleted=False):
         """Get all records uuids."""
-        uuids = [n.object_uuid for n in PersistentIdentifier.query.filter_by(
+        query = PersistentIdentifier.query.filter_by(
             pid_type=cls.provider.pid_type
-        )]
+        )
+        if not with_deleted:
+            query = query.filter_by(status=PIDStatus.REGISTERED)
+        uuids = [n.object_uuid for n in query]
         return uuids
 
     def delete(self, force=False, delindex=False):
@@ -148,11 +154,6 @@ class IlsRecord(Record):
             RecordIndexer().delete(self)
         except NotFoundError:
             pass
-
-    @property
-    def can_delete(self):
-        """Record can be deleted."""
-        return True
 
     @property
     def pid(self):

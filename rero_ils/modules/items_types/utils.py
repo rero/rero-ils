@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Utilities functions for patrons_types."""
+"""Utilities functions for items_types."""
 
 
 from __future__ import absolute_import, print_function
@@ -50,5 +50,5 @@ def save_item_type(data, record_type, record_class, parent_pid):
         item_type = record_class.create(data, dbcommit=True, reindex=True)
     RecordIndexer().client.indices.flush()
 
-    _next = url_for('invenio_records_ui.ptty', pid_value=item_type.pid)
+    _next = url_for('invenio_records_ui.itty', pid_value=item_type.pid)
     return _next, item_type.pid

@@ -36,11 +36,13 @@ from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDInvalidAction
 from invenio_records.models import RecordMetadata
+from invenio_search.api import RecordsSearch
 from sqlalchemy import BOOLEAN, DATE, INTEGER, cast, func, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_continuum import version_class
 
 from ..api import IlsRecord
+from ..items_types.api import ItemType
 from ..libraries.api import Library
 from ..libraries_locations.api import LibraryWithLocations
 from ..locations.api import Location
@@ -50,6 +52,15 @@ from .minters import item_id_minter
 from .models import ItemStatus
 from .providers import ItemProvider
 from .signals import item_at_desk
+
+
+class ItemsSearch(RecordsSearch):
+    """ItemsSearch."""
+
+    class Meta:
+        """Search only on item index."""
+
+        index = 'items'
 
 
 def check_status(method=None, statuses=None):
@@ -145,7 +156,7 @@ class Item(IlsRecord):
     default_duration = 30
 
     durations = {
-        'short_loan': 15
+        ItemType.get_pid_by_name('short'): 15
     }
 
     @property
@@ -227,6 +238,8 @@ class Item(IlsRecord):
         item = self.dumps()
         id = str(uuid4())
         item_library_pid = item['library_pid']
+        item_type = ItemType.get_record_by_pid(item['item_type_pid'])
+        item['item_type_pid'] = item_type.pid
         first_request = self.get_first_request()
         has_requests = self.number_of_item_requests() > 0
         if not has_requests and item_library_pid == transaction_library_pid:
@@ -368,7 +381,7 @@ class Item(IlsRecord):
     @property
     def duration(self):
         """Get loan/extend duration based on item type."""
-        return self.durations.get(self['item_type'], self.default_duration)
+        return self.durations.get(self['item_type_pid'], self.default_duration)
 
     @property
     def requests(self):

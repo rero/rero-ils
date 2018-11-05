@@ -28,6 +28,7 @@ from __future__ import absolute_import, print_function
 
 import json
 
+import pytest
 from flask import url_for
 from flask_security import url_for_security
 
@@ -66,7 +67,7 @@ def logout_user(client):
 #     assert list(LibrariesSearch().filter("match_all").source().scan()) != []
 
 
-def test_view_return_item(app, es, user_patron,  user_staff,
+def test_view_return_item(app, user_patron,  user_staff,
                           create_minimal_resources):
     """Test return items using a http post request."""
     with app.test_client() as client:

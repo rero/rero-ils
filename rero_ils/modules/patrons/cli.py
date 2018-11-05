@@ -36,6 +36,7 @@ from invenio_accounts.ext import hash_password
 from werkzeug.local import LocalProxy
 
 from ..patrons.api import Patron
+from ..patrons_types.api import PatronType
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -50,9 +51,12 @@ def import_users(infile, verbose):
     infile: Json organisation file
     """
     click.secho('Import users:', fg='green')
+    patron_types_pids = PatronType.get_all_pids()
 
     data = json.load(infile)
     for patron_data in data:
+        if patron_data.get('is_patron', False):
+            assert patron_data.get('patron_type_pid') in patron_types_pids
         email = patron_data.get('email')
         if email is None:
             click.secho('\tUser email not defined!', fg='red')

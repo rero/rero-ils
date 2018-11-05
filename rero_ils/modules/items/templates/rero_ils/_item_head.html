@@ -16,7 +16,7 @@
   '<a href="'+ url_for('invenio_records_ui.loc', pid_value=location_pid) +'">' + item_dumps.location_name +'</a>')
 }}
 {{ div_row_xs3_xs9(
-  _('Location'),
+  _('Library'),
   '<a href="'+ url_for('invenio_records_ui.lib', pid_value=item_dumps.library_pid) +'">' + item_dumps.library_name +'</a>')
 }}
 {% if record._circulation.status %}
@@ -31,4 +31,3 @@
 %}
     {% include 'rero_ils/_editor_button_actions.html' %}
 {% endwith %}
-

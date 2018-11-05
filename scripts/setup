@@ -68,13 +68,24 @@ pipenv run invenio access allow superuser-access role superusers
 pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
-# create the patron records
-pipenv run invenio fixtures importusers ${data_path}/users.json -v
 
 # create the organisations with libraries and locations
 pipenv run invenio fixtures importorganisations ${data_path}/organisations-libraries-locations.json -v
 
+# create patron types
+# NEEDS organisations !!!
+pipenv run invenio fixtures importpatronstypes ${data_path}/patrons_types.json
+
+# create item types
+# NEEDS organisations !!!
+pipenv run invenio fixtures importitemstypes ${data_path}/items_types.json
+
+# create the patron records
+# NEEDS patron type !!!
+pipenv run invenio fixtures importusers ${data_path}/users.json -v
+
 # create circulation policies
+# NEEDS organisation !!!
 pipenv run invenio fixtures importcircpolicies ${data_path}/circulation_policies.json
 
 # API Mef configurations and harvest
@@ -93,16 +104,11 @@ pipenv run invenio index reindex --yes-i-know --pid-type doc
 pipenv run invenio index run -c 4
 
 # create items
+# NEEDS item type !!!
 pipenv run invenio fixtures createitems -c 1000 -R
 
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json
-
-# create patron types
-pipenv run invenio fixtures importpatronstypes ${data_path}/patrons_types.json
-
-# create item types
-pipenv run invenio fixtures importitemstypes ${data_path}/items_types.json
 
 # OAI configuration
 pipenv run invenio oaiharvester initconfig ${data_path}/oaisources.yml

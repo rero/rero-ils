@@ -28,6 +28,7 @@ import pytest
 
 from rero_ils.modules.documents_items.api import DocumentsWithItems
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items_types.api import ItemType
 from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
 
@@ -39,7 +40,10 @@ url_schema = 'http://ils.test.rero.ch/schema'
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
+    app_config['CACHE_TYPE'] = 'simple'
     app_config['SEARCH_ELASTIC_HOSTS'] = None
+    app_config['JSONSCHEMAS_HOST'] = 'ils.test.rero.ch'
+    app_config['JSONSCHEMAS_ENDPOINT'] = '/schema'
     return app_config
 
 
@@ -76,7 +80,7 @@ def minimal_item_record():
         'barcode': '10000000000',
         'call_number': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan',
+        'item_type_pid': '1',
         '_circulation': {
             'holdings': [{
                 'patron_barcode': '123456',
@@ -115,7 +119,7 @@ def item_record_on_shelf_requested():
         'barcode': '10000000000',
         'call_number': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan',
+        'item_type_pid': '1',
         '_circulation': {
             'holdings': [{
                 'patron_barcode': '654321',
@@ -137,7 +141,7 @@ def item_record_in_transit():
         'barcode': '10000000000',
         'call_number': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan',
+        'item_type_pid': '1',
         '_circulation': {
             'holdings': [],
             'status': 'in_transit'
@@ -154,7 +158,7 @@ def item_record_on_shelf():
         'barcode': '10000000000',
         'call_number': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan',
+        'item_type_pid': '1',
         '_circulation': {
             'holdings': [],
             'status': 'on_shelf'
@@ -171,7 +175,7 @@ def item_record_on_loan():
         'barcode': '10000000000',
         'call_number': 'PA-41234',
         'location_pid': '1',
-        'item_type': 'standard_loan',
+        'item_type_pid': '1',
         '_circulation': {
             'holdings': [{
                 'patron_barcode': '123456',
@@ -200,24 +204,54 @@ def minimal_patron_record():
         'library_pid': '1',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
-        'patron_type': 'standard_user'
+        'patron_type_pid': '1'
     }
 
 
 @pytest.yield_fixture()
-def create_minimal_resources(db, minimal_library_record,
-                             minimal_location_record, minimal_item_record,
-                             minimal_document_record):
+def minimal_patron_type_record():
+    """Patron Type minimal record."""
+    yield {
+        '$schema': url_schema + '/patrons_types/patron_type-v0.0.1.json',
+        'pid': '1',
+        'name': 'Patron Type Name',
+        'description': 'Patron Type Description',
+        'organisation_pid': '1'
+    }
+
+
+@pytest.yield_fixture()
+def minimal_item_type_record():
+    """Item Type minimal record."""
+    yield {
+        '$schema': url_schema + '/items_types/item_type-v0.0.1.json',
+        'pid': '1',
+        'name': 'Item Type Name',
+        'description': 'Item Type Description',
+        'organisation_pid': '1'
+    }
+
+
+@pytest.yield_fixture()
+def create_minimal_resources(db, es, minimal_library_record,
+                             minimal_location_record,
+                             minimal_item_record,
+                             minimal_document_record,
+                             minimal_item_type_record):
     """Minimal resources."""
-    library = LibraryWithLocations.create(
-        minimal_library_record, dbcommit=True
-    )
-    location = Location.create(minimal_location_record, dbcommit=True)
+    ItemType.create(minimal_item_type_record,
+                    dbcommit=True, reindex=True)
+    library = LibraryWithLocations.create(minimal_library_record,
+                                          dbcommit=True, reindex=True)
+    location = Location.create(minimal_location_record,
+                               dbcommit=True, reindex=True)
     library.add_location(location)
-    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
-    item = Item.create({})
-    item.update(minimal_item_record, dbcommit=True)
-    doc.add_item(item, dbcommit=True)
+    doc = DocumentsWithItems.create(minimal_document_record,
+                                    dbcommit=True, reindex=True)
+    item = Item.create(minimal_item_record,
+                       dbcommit=True, reindex=True)
+    doc.add_item(item,
+                 dbcommit=True, reindex=True)
     db.session.commit()
     yield doc, item, library, location
 
@@ -226,8 +260,11 @@ def create_minimal_resources(db, minimal_library_record,
 def create_minimal_resources_on_shelf(db, minimal_library_record,
                                       minimal_location_record,
                                       item_record_on_shelf,
-                                      minimal_document_record):
+                                      minimal_document_record,
+                                      minimal_item_type_record):
     """Minimal resources on_shelf."""
+    ItemType.create(minimal_item_type_record,
+                    dbcommit=True, reindex=True)
     library = LibraryWithLocations.create(
         minimal_library_record, dbcommit=True
     )
@@ -245,8 +282,11 @@ def create_minimal_resources_on_shelf(db, minimal_library_record,
 def create_minimal_resources_on_shelf_req(db, minimal_library_record,
                                           minimal_location_record,
                                           item_record_on_shelf_requested,
-                                          minimal_document_record):
+                                          minimal_document_record,
+                                          minimal_item_type_record):
     """Minimal resources on_shelf req."""
+    ItemType.create(minimal_item_type_record,
+                    dbcommit=True, reindex=True)
     library = LibraryWithLocations.create(
         minimal_library_record, dbcommit=True
     )
@@ -264,8 +304,11 @@ def create_minimal_resources_on_shelf_req(db, minimal_library_record,
 def create_minimal_resources_in_transit(db, minimal_library_record,
                                         minimal_location_record,
                                         item_record_in_transit,
-                                        minimal_document_record):
+                                        minimal_document_record,
+                                        minimal_item_type_record):
     """Minimal resources in_transit."""
+    ItemType.create(minimal_item_type_record,
+                    dbcommit=True, reindex=True)
     library = LibraryWithLocations.create(
         minimal_library_record, dbcommit=True
     )
@@ -283,8 +326,11 @@ def create_minimal_resources_in_transit(db, minimal_library_record,
 def create_minimal_resources_on_loan(db, minimal_library_record,
                                      minimal_location_record,
                                      item_record_on_loan,
-                                     minimal_document_record):
+                                     minimal_document_record,
+                                     minimal_item_type_record):
     """Minimal resources on_loan."""
+    ItemType.create(minimal_item_type_record,
+                    dbcommit=True, reindex=True)
     library = LibraryWithLocations.create(
         minimal_library_record, dbcommit=True
     )

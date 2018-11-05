@@ -32,15 +32,18 @@ from werkzeug.local import LocalProxy
 
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.utils import save_patron, structure_document
+from rero_ils.modules.patrons_types.api import PatronType
 
 
 def test_save_patron(app, db,
-                     minimal_patron_only_record):
+                     minimal_patron_only_record, minimal_patron_type_record):
     """Test save patron"""
 
     # Convenient references
     datastore = LocalProxy(lambda: app.extensions['security'].datastore)
     datastore.create_role(name='patrons')
+
+    PatronType.create(minimal_patron_type_record, dbcommit=True, reindex=True)
 
     email = 'test_patron@rero.ch'
     u1 = datastore.create_user(

@@ -34,7 +34,6 @@ url_schema = 'http://ils.test.rero.ch/schema'
 def create_app(instance_path):
     """Create test app."""
     from invenio_app.factory import create_app as create_ui_api
-
     return create_ui_api
 
 
@@ -70,7 +69,7 @@ def minimal_patron_only_record():
         'birth_date': '1967-06-07',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
-        'patron_type': 'standard_user',
+        'patron_type_pid': '1',
         'is_staff': False,
         'is_patron': True
     }
@@ -112,7 +111,7 @@ def minimal_staff_patron_record():
         'birth_date': '1967-06-07',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
-        'patron_type': 'standard_user',
+        'patron_type_pid': '1',
         'is_staff': True,
         'is_patron': True
     }
@@ -245,24 +244,36 @@ def document_data_abstracts():
 
 
 @pytest.yield_fixture()
-def minimal_patron_type_record():
-    """Patron Type minimal record."""
-    yield {
-        '$schema': url_schema + '/patrons_types/patron_type-v0.0.1.json',
-        'pid': '1',
-        'name': 'Patron Type Name',
-        'description': 'Patron Type Description',
-        'organisation_pid': '1'
-    }
+def form_locations_pids_names():
+    """Form options with resolve: form_locations_pids_names."""
+    form = [{
+        'items': [{
+            'key': 'location_pid',
+            'populate': 'locations_pids_names',
+        }]
+    }]
+    yield form
 
 
 @pytest.yield_fixture()
-def minimal_item_type_record():
-    """Item Type minimal record."""
-    yield {
-        '$schema': url_schema + '/items_types/item_type-v0.0.1.json',
-        'pid': '1',
-        'name': 'Item Type Name',
-        'description': 'Item Type Description',
-        'organisation_pid': '1'
-    }
+def form_item_types_names_descriptions():
+    """Form options with resolve: item_types_names_descriptions."""
+    form = [{
+        'items': [{
+            'key': 'item_type_pid',
+            'populate': 'item_types_names_descriptions',
+        }]
+    }]
+    yield form
+
+
+@pytest.yield_fixture()
+def form_patron_names_descriptions():
+    """Form options with resolve: patron_names_descriptions."""
+    form = [{
+        'items': [{
+            'key': 'patron_type_pid',
+            'populate': 'patron_names_descriptions',
+        }]
+    }]
+    yield form
