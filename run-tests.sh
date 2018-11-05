@@ -35,8 +35,6 @@ fi
 
 set -e
 
-# TODO: remove exception once is fixed
-pipenv check -i 36437
 pipenv run flask utils check_json
 pipenv run pydocstyle rero_ils tests docs
 pipenv run isort -rc -c -df
