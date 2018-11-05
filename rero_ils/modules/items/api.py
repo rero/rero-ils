@@ -527,3 +527,13 @@ class Item(IlsRecord):
                     if holding['patron_barcode'] == patron_barcode:
                         return True
         return False
+
+    @classmethod
+    def item_location_retriever(cls, item_pid, **kwargs):
+        """Get item location."""
+        location_pid = ''
+        if cls.get_record_by_pid(item_pid):
+            item = cls.get_record_by_pid(item_pid)
+            if item.get('location_pid'):
+                location_pid = item.get('location_pid')
+        return location_pid

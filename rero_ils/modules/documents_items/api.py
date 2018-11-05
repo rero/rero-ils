@@ -134,3 +134,22 @@ class DocumentsWithItems(RecordWithElements):
         return super(DocumentsWithItems, cls).get_record_by_elementid(
             id_, with_deleted
         )
+
+    @classmethod
+    def document_retriever(cls, item_pid, **kwargs):
+        """Retrieve document pid from item pid."""
+        document_pid = ''
+        if Item.get_record_by_pid(item_pid):
+            id = Item.get_record_by_pid(item_pid).id
+            document_pid = cls.get_document_by_itemid(id).pid
+        return document_pid
+
+    @classmethod
+    def items_retriever(cls, document_pid):
+        """Retrieve item pids by document pid."""
+        item_pids = []
+        if cls.get_record_by_pid(document_pid):
+            document = cls.get_record_by_pid(document_pid)
+            for item in document.itemslist:
+                item_pids.append(item.get('pid'))
+        return item_pids

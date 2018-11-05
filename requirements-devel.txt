@@ -27,6 +27,7 @@
 # base bundle
 -e git+https://github.com/inveniosoftware/invenio-admin.git#egg=invenio-admin
 -e git+git://github.com/inveniosoftware/invenio-assets.git#egg=invenio-assets
+-e git+git://github.com/inveniosoftware/invenio-circulation.git#egg=invenio-circulation
 -e git+git://github.com/inveniosoftware/invenio-formatter.git#egg=invenio-formatter
 -e git+git://github.com/inveniosoftware/invenio-logging.git#egg=invenio-logging
 -e git+https://github.com/inveniosoftware/invenio-mail.git#egg=invenio-mail

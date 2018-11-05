@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "81155b5229a2dd162e8310ed008fcdbfe3414ba71311f0a226c2ea7c63d8ed87"
+            "sha256": "26e453991138dd4b8491c1aaecdd53328e4e3988e0f964a8e6fca09814646a37"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -486,6 +486,10 @@
                 "sha256:24aa29459b2d3f9d01f9f251bea55b0dc2b21316d30e6ff0d3501a01dbaccfcd"
             ],
             "version": "==1.0.0"
+        },
+        "invenio-circulation": {
+            "git": "https://github.com/inveniosoftware/invenio-circulation.git",
+            "ref": "3e144794bc636d3c2eceb13125975259a5b5c8a1"
         },
         "invenio-config": {
             "hashes": [
@@ -1029,17 +1033,17 @@
         },
         "regex": {
             "hashes": [
-                "sha256:384c78351ceb08b9f04e28552edea9af837d05ad4fda9a187a7bbd82759f29b6",
-                "sha256:41b70db2608726396de185e7571a70391507ab47a64b564f59861ff13f2c50a5",
-                "sha256:50f4b57696883fdbb0494cf1ff1cf6e04790d5e1848dff0b2cf28a2b97614351",
-                "sha256:81515123132f9ab0cc8128d035ba7db7783206e4616bdabd3faba335b9add185",
-                "sha256:91e965833a9f93b3e6abfef815026ccb8a9abe12c0958c723fc6c0d396384602",
-                "sha256:9cb058e53c2488b6cba85a7e6ce6d659b3f33ebe00f613dc9fda46de788a1298",
-                "sha256:b41a81228c3994789d4785d9fef96770f9a6b564a30c10af671bd5a4078da6f4",
-                "sha256:cf20d6539e00021793df23c2a98d57aff84f9402f81ac5896fffb4f8c8a08897",
-                "sha256:f937fdbcdb1e455c23709f5cf6df91a0ecfe8c23268f601606173232958daa8d"
+                "sha256:1ce9b1e31d34554a7c3c3edb524453e6521ae0fbd37e0c26299e05ae38bd9814",
+                "sha256:5d7e8ad4a4ac4c3ca96e8b32d32530913e3eb15dd368c838d3faa151a1b68d85",
+                "sha256:7bfb6e13ed8195513160550c3a82c49da8bbc6df5d149089cd37f51f36eddd39",
+                "sha256:80bbc5851f707a780d51a92df9eff885a43a44b611f3c1d745022827d4015285",
+                "sha256:8a6fc7e8da98f87a6659f0800ecb6a701afb9506d6c484db810b730eb268a644",
+                "sha256:ac72e3189c401d8d4397149ea1911f6b47a74875468951f48ca9b6c03acdd382",
+                "sha256:b5750b4eec5b64adf66098d922f8cf65b5306ad7a84d58a03f79cda1d2948d62",
+                "sha256:c0dd9b50bc9238ca53466ef1780bcdc5126b181594f1528d2d469d571861fb3f",
+                "sha256:e13fe1f764206e42643e51aff19479685531c0ce728b4828b048867eb3a8e53d"
             ],
-            "version": "==2018.11.6"
+            "version": "==2018.11.7"
         },
         "requests": {
             "hashes": [
