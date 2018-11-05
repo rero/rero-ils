@@ -30,9 +30,11 @@ from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 
 from ..api import IlsRecord
+from ..documents.api import DocumentsSearch
 from ..documents_items.api import DocumentsWithItems
 from ..libraries.api import Library
 from ..organisations_libraries.api import OrganisationWithLibraries
+from ..patrons_types.api import PatronType
 from .fetchers import patron_id_fetcher
 from .minters import patron_id_minter
 from .providers import PatronProvider
@@ -42,17 +44,8 @@ _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
 
 
-class BorrowedDocumentsSearch(RecordsSearch):
-    """RecordsSearch for borrowed documents."""
-
-    class Meta:
-        """Search only on documents index."""
-
-        index = 'documents'
-
-
 class PatronsSearch(RecordsSearch):
-    """RecordsSearch for borrowed documents."""
+    """PatronsSearch."""
 
     class Meta:
         """Search only on patrons index."""
@@ -128,7 +121,7 @@ class Patron(IlsRecord):
         pids = []
         barcode = self.get('barcode')
         if barcode:
-            pids = [p.pid for p in BorrowedDocumentsSearch().filter(
+            pids = [p.pid for p in DocumentsSearch().filter(
                 'term',
                 itemslist___circulation__holdings__patron_barcode=barcode
             ).source(includes=['id', 'pid']).scan()]
@@ -182,6 +175,9 @@ class Patron(IlsRecord):
             data.get('last_name', ''),
             data.get('first_name', '')
         ))
+        if data.get('is_patron', False):
+            patron_type = PatronType.get_record_by_pid(data['patron_type_pid'])
+            data['patron_type'] = patron_type.get('name')
         return data
 
     @property

@@ -36,6 +36,7 @@ from flask.cli import with_appcontext
 from invenio_indexer.api import RecordIndexer
 
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items_types.api import ItemType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
@@ -99,13 +100,14 @@ def create_items(verbose, count, itemscount, missing,
 def create_random_item(locations_pids, patrons_barcodes, libraries_pids,
                        missing, verbose=False):
     """Create items with randomised values."""
-    item_types = ['standard_loan', 'short_loan', 'on_site_consultation']
+    item_types_pids = ItemType.get_all_pids()
+
     data = {
         '$schema': 'https://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': '????',
         'call_number': '????',
         'location_pid': random.choice(locations_pids),
-        'item_type': random.choice(item_types)
+        'item_type_pid': random.choice(item_types_pids)
     }
     item = Item.create(data)
 

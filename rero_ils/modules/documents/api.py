@@ -24,10 +24,21 @@
 
 """API for manipulating documents."""
 
+from invenio_search.api import RecordsSearch
+
 from ..api import IlsRecord
 from .fetchers import document_id_fetcher
 from .minters import document_id_minter
 from .providers import DocumentProvider
+
+
+class DocumentsSearch(RecordsSearch):
+    """DocumentsSearch."""
+
+    class Meta:
+        """Search only on documents index."""
+
+        index = 'documents'
 
 
 class Document(IlsRecord):

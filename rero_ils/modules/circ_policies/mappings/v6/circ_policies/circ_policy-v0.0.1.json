@@ -16,6 +16,10 @@
           "type": "keyword"
         },
         "name": {
+          "type": "text",
+          "copy_to": "circ_policy_name"
+        },
+        "circ_policy_name": {
           "type": "keyword"
         },
         "description": {

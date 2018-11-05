@@ -35,10 +35,10 @@ from .providers import ItemTypeProvider
 
 
 class ItemTypeSearch(RecordsSearch):
-    """PatronTypeSearch."""
+    """ItemTypeSearch."""
 
     class Meta:
-        """Search only on patrons index."""
+        """Search only on items_types index."""
 
         index = 'items_types'
 
@@ -53,19 +53,39 @@ class ItemType(IlsRecord):
     @property
     def can_delete(self):
         """Record can be deleted."""
-        return True
+        from ..documents_items.api import DocumentsSearch
+        count = len(list(DocumentsSearch().filter(
+            'term',
+            **{"itemslist.item_type_pid": self.pid}
+        ).source().scan()))
+        return count == 0
+
+    @classmethod
+    def get_pid_by_name(cls, name):
+        """Get pid by name."""
+        pid = None
+        try:
+            pids = [n.pid for n in ItemTypeSearch().filter(
+                'term', **{"name": name}
+            ).source(includes=['pid']).scan()]
+            if len(pids) > 0:
+                pid = pids[0]
+        except Exception as e:
+            pass
+            # needs app_context to work, but is called before
+        return pid
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique on organisation."""
-        patron_type = ItemTypeSearch().filter(
+        item_type = ItemTypeSearch().filter(
             'term',
-            **{"name": name}
+            **{"item_type_name": name}
         ).filter(
             'term',
             **{"organisation_pid": organisation_pid}
         ).source().scan()
-        result = list(patron_type)
+        result = list(item_type)
         if len(result) > 0:
             return result.pop(0)
         else:

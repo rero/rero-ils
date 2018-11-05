@@ -38,6 +38,7 @@ from invenio_records_rest.utils import obj_or_import_string
 from pkg_resources import resource_string
 
 from ..permissions import can_edit
+from ..utils import resolve_relations
 from .babel_extractors import translate
 from .utils import delete_record, get_schema, get_schema_url, remove_pid, \
     save_record
@@ -124,8 +125,12 @@ class ResourceView(BaseView):
 
             for key_to_remove in cfg.get('form_options_create_exclude', []):
                 remove_pid(form_options, key_to_remove)
+
+            form_options = resolve_relations(form_options)
+
             keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
             form_options = translate(form_options, keys=keys)
+
         return render_template(
             template,
             form=form_options or ['*'],
@@ -163,6 +168,8 @@ class ResourceView(BaseView):
         if form_options:
             options_in_bytes = resource_string(*form_options)
             form_options = loads(options_in_bytes.decode('utf8'))
+
+            form_options = resolve_relations(form_options)
 
             keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
             form_options = translate(form_options, keys=keys)

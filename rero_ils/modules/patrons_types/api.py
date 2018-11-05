@@ -53,14 +53,19 @@ class PatronType(IlsRecord):
     @property
     def can_delete(self):
         """Record can be deleted."""
-        return True
+        from ..patrons.api import PatronsSearch
+        count = len(list(PatronsSearch().filter(
+            'term',
+            **{"patron_type_pid": self.pid}
+        ).source().scan()))
+        return count == 0
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique on organisation."""
         patron_type = PatronTypeSearch().filter(
             'term',
-            **{"name": name}
+            **{"patron_type_name": name}
         ).filter(
             'term',
             **{"organisation_pid": organisation_pid}

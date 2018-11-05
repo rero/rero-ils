@@ -33,4 +33,4 @@ class EbookSearch(RecordsSearch):
     class Meta:
         """Search only on documents index."""
 
-        index = 'documents-ebook-v0.0.1'
+        index = 'documents'

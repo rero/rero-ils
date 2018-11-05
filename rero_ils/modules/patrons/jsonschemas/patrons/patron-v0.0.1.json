@@ -79,14 +79,9 @@
       "pattern": "^\\+[0-9]*$",
       "validationMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
     },
-    "patron_type": {
-      "title": "Patron's type",
-      "type": "string",
-      "enum": [
-        "standard_user",
-        "with_privileges"
-      ],
-      "default": "standard_user"
+    "patron_type_pid": {
+      "title": "Patron type",
+      "type": "string"
     },
     "barcode": {
       "title": "Patron's barcode or card number",
@@ -94,7 +89,7 @@
       "minLength": 6
     },
     "library_pid": {
-      "title": "The library pid of the appartenance library",
+      "title": "The library of the appartenance library",
       "type": "string",
       "default": "1"
     },

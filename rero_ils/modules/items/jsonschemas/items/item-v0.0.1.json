@@ -10,7 +10,7 @@
     "barcode",
     "call_number",
     "location_pid",
-    "item_type"
+    "item_type_pid"
   ],
   "properties": {
     "$schema": {
@@ -37,20 +37,15 @@
       "minLength": 4
     },
     "location_pid": {
-      "title": "Location PID",
-      "description": "Location PID of the item.",
+      "title": "Location",
+      "description": "Location of the item.",
       "type": "string",
       "minLength": 1
     },
-    "item_type": {
+    "item_type_pid": {
       "title": "Item type",
-      "type": "string",
-      "default": "standard_loan",
-      "enum": [
-        "standard_loan",
-        "short_loan",
-        "on_site_consultation"
-      ]
+      "description": "Item type of the item.",
+      "type": "string"
     },
     "available": {
       "title": "Item availability",

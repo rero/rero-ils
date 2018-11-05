@@ -138,9 +138,11 @@
         }
       },
       {
-        "key": "patron_type",
+        "key": "patron_type_pid",
         "condition": "model.is_patron == true",
-        "htmlClass": "col-xs-6"
+        "htmlClass": "col-xs-6",
+        "populate": "patron_names_descriptions",
+        "type": "select"
       }
     ]
   },
@@ -156,7 +158,9 @@
       {
         "key": "library_pid",
         "htmlClass": "col-xs-6",
-        "condition": "model.is_staff == true"
+        "condition": "model.is_staff == true",
+        "populate": "locations_pids_names",
+        "type": "select"
       }
     ]
   },

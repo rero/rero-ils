@@ -27,6 +27,7 @@
 from __future__ import absolute_import, print_function
 
 from rero_ils.modules.items_types.api import ItemType, ItemTypeSearch
+from rero_ils.utils_test import es_flush_and_refresh
 
 
 def test_item_type_search():
@@ -39,16 +40,23 @@ def test_can_delete():
     assert ItemType.can_delete
 
 
-# TODO: Issue #45
-# def test_exist_name_and_organisation_pid(app, db,
-#                                          minimal_item_type_record):
-#     """Test for exist name and organisation pid."""
-#     item_type = ItemType.create(
-#         minimal_item_type_record,
-#         dbcommit=True,
-#         reindex=True
-#     )
-#
-#    result = ItemType.exist_name_and_organisation_pid(
-#        "Item Type Name", "1"
-#    )
+def test_exist_name_and_organisation_pid(app, minimal_item_type_record):
+    """Test for exist name and organisation pid."""
+    item_type = ItemType.create(
+        minimal_item_type_record,
+        dbcommit=True,
+        reindex=True
+    )
+    es_flush_and_refresh()
+
+    result = ItemType.exist_name_and_organisation_pid(
+        item_type.get('name'),
+        item_type.get('organisation_pid')
+    )
+    assert result
+
+    result = ItemType.exist_name_and_organisation_pid(
+        'NEW NAME',
+        '1'
+    )
+    assert result is None

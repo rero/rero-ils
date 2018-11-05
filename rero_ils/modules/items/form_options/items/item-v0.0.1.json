@@ -73,29 +73,19 @@
         "items": [
           {
             "key": "location_pid",
-            "title": "Location"
+            "title": "Location",
+            "populate": "locations_pids_names",
+            "type": "select"
           },
           {
             "type": "section",
             "htmlClass": "col-xs-6",
             "items": [
               {
-                "key": "item_type",
+                "key": "item_type_pid",
                 "title": "Type",
-                "titleMap": [
-                  {
-                    "value": "standard_loan",
-                    "name": "Standard Loan"
-                  },
-                  {
-                    "value": "short_loan",
-                    "name": "Short Loan"
-                  },
-                  {
-                    "value": "on_site_consultation",
-                    "name": "On Site Consultation"
-                  }
-                ]
+                "populate": "item_types_names_descriptions",
+                "type": "select"
               }
             ]
           },

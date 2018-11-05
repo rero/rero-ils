@@ -55,7 +55,7 @@
     "is_staff": false,
     "last_name": "Casalini",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "1",
     "phone": "+39324993585",
     "postal_code": "11100",
     "street": "Via Croix Noire 3"
@@ -71,7 +71,7 @@
     "is_staff": false,
     "last_name": "de Figueiredo Santos",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "2",
     "postal_code": "11100",
     "street": "Panoramica Collinare, 47"
   },
@@ -101,7 +101,7 @@
     "is_staff": false,
     "last_name": "Monnet",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "3",
     "postal_code": "1950",
     "street": "Rue du Nord 7"
   },
@@ -116,7 +116,7 @@
     "is_staff": false,
     "last_name": "John",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "4",
     "phone": "+1408492280015",
     "postal_code": "95054",
     "street": "520 Scott Blvd"
@@ -132,7 +132,7 @@
     "is_staff": false,
     "last_name": "Premand",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "1",
     "phone": "+41795762233",
     "postal_code": "1892",
     "street": "Route du Village 6"
@@ -148,7 +148,7 @@
     "is_staff": false,
     "last_name": "Broglio",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "1",
     "phone": "+41918264239",
     "postal_code": "6500",
     "street": "Piazza Collegiata 12"
@@ -164,7 +164,7 @@
     "is_staff": false,
     "last_name": "Carron",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "1",
     "phone": "+41792001020",
     "postal_code": "1920",
     "street": "Gare 45"
@@ -180,7 +180,7 @@
     "is_staff": false,
     "last_name": "Rard",
     "password": "123456",
-    "patron_type": "standard_user",
+    "patron_type_pid": "1",
     "phone": "+41792500512",
     "postal_code": "1926",
     "street": "Vignettes 25"

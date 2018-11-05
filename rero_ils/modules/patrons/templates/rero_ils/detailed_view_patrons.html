@@ -14,7 +14,7 @@
       _('Barcode'),
       '<a href="'+ url_for('circulation.index') + 'checkinout?patron=' + record.barcode +'">'+ record.barcode +'</a>'
     ) }}
-    {{ div_row_xs3_xs9(_('Type'), record.patron_type) }}
+    {{ div_row_xs3_xs9(_('Type'), record.dumps().patron_type) }}
   {% endif %}
 
   {% if record.birth_date %}

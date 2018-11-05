@@ -16,6 +16,10 @@
           "type": "keyword"
         },
         "name": {
+          "type": "text",
+          "copy_to": "item_type_name"
+        },
+        "item_type_name": {
           "type": "keyword"
         },
         "description": {

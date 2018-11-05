@@ -95,7 +95,7 @@ class CircPolicy(IlsRecord):
         """Check if the name is unique on organisation."""
         circ_policy = CircPoliciesSearch().filter(
             'term',
-            **{"name": name}
+            **{"circ_policy_name": name}
         ).filter(
             'term',
             **{"organisation_pid": organisation_pid}
