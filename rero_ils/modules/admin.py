@@ -259,3 +259,34 @@ class ResourceView(BaseView):
                 'content': msg
             }
             return jsonify(response), 500
+
+
+class ILSManager(BaseView):
+    """Flask-Admin Circulation view."""
+
+    @expose('/')
+    @expose('/<path:path>')
+    def index(self, path=None):
+        """Angular Circulation view."""
+        # return "hello"
+        return self.render('rero_ils/admin/page.html')
+
+    def is_accessible(self):
+        """Access control."""
+        return (can_edit() or default_admin_permission_factory(self).can())
+
+
+circulation_settings = {
+    'view_class': ILSManager,
+    'kwargs': dict(name='Circulation Settings',
+                   endpoint='circulation_settings',
+                   menu_icon_type='fa',
+                   menu_icon_value='fa-barcode'),
+}
+
+
+library_settings = {
+    'view_class': ILSManager,
+    'kwargs': dict(name='Library Settings', endpoint='library_settings',
+                   menu_icon_type='fa', menu_icon_value='fa-barcode'),
+}

@@ -1,0 +1,80 @@
+{% macro menu_icon(item) -%}
+{% set icon_type = item.get_icon_type() %}
+{%- if icon_type %}
+  {% set icon_value = item.get_icon_value() %}
+  {% if icon_type == 'glyph' %}
+    <i class="glyphicon {{ icon_value }}"></i>
+  {% elif icon_type == 'fa' %}
+    <i class="fa {{ icon_value }}"></i>
+  {% elif icon_type == 'image' %}
+    <img src="{{ url_for('static', filename=icon_value) }}" alt="menu image">
+  {% elif icon_type == 'image-url' %}
+    <img src="{{ icon_value }}" alt="menu image">
+  {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro menu(menu_root=None) %}
+  {% if menu_root is none %}{% set menu_root = admin_root_menu %}{% endif %}
+<ul class="nav flex-column lp-10">
+      {%- for item in admin_root_menu %}
+      {%- if item.is_category() -%}
+      {% set children = item.get_children() %}
+      {%- if children %}
+        {% set class_name = item.get_class_name() %}
+        <li class="dropdown {{ class_name if class_name }}">
+        {% set item_id =  item.name.replace(' ', '-').lower() %}
+          <a data-toggle="collapse"
+             class="dropdown-toggle collapsed"
+             href="#{{ item_id }}"
+             aria-controls="{{ item_id }}"
+             aria-expanded="false"
+          >
+            {{ _(item.name) }}
+          </a>
+          <ul class="collapse list-unstyled pl-2" id="{{ item_id }}">
+          {%- for child in children -%}
+            {% set class_name = child.get_class_name() %}
+            <li class="{{class_name if class_name}}">
+              <a href="{{ child.get_url() }}"
+                 {% if child.target %}
+                 target="{{ child.target }}"
+                 {% endif %}
+                 {% if item.is_active(admin_view) %}
+                 class="active"
+                 {% endif %}
+              >
+                {{ menu_icon(child) }}{{ _(child.name) }}
+              </a>
+            </li>
+          {%- endfor %}
+          </ul>
+        </li>
+      {% endif %}
+    {%- else %}
+      {%- if item.is_accessible() and item.is_visible() and item._view.endpoint != 'admin' -%}
+      {% set class_name = item.get_class_name() %}
+      <li class="nav-item {{ class_name if class_name }}">
+        <a href="{{ item.get_url() }}"
+           {% if item.target %}
+           target="{{ item.target }}"
+           {% endif %}
+           {% if item.is_active(admin_view) %}
+           class="active"
+           {% endif %}
+        >
+          {{ menu_icon(item) }}{{ item.name }}
+        </a>
+      </li>
+      {%- endif -%}
+    {%- endif -%}
+    {%- endfor %}
+    </ul>
+{% endmacro %}
+
+<div class="sidebar d-sm-block d-none border-right border-light bg-dark align-self-stretch">
+  <h5 class="text-light pl-2 pt-2">Admin</h5>
+  <nav class="pt-2 pl-2 nav">
+   {{ menu(admin_root_menu) }}
+ </nav>
+</div>

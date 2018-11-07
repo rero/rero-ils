@@ -42,6 +42,18 @@ def catalog(domain):
         '{0}.po'.format(domain),
     )
 
+admin_css = NpmBundle(
+    'scss/rero_ils/admin/styles.scss',
+    depends=('scss/rero_ils/admin/*.scss'),
+    filters='node-scss,cleancssurl',
+    output='gen/rero_ils_admin.%(version)s.css',
+    npm={
+        'almond': '~0.3.1',
+        'bootstrap': '~4.1.3',
+        'font-awesome': '~4.4.0',
+        'jquery': '~1.9.1',
+    }
+)
 
 main_css = NpmBundle(
     'scss/rero_ils/styles.scss',
@@ -118,6 +130,18 @@ schema_form_js = NpmBundle(
         'angular-schema-form': '0.8.13'
     }
 )
+
+admin_js = Bundle(
+    'js/rero_ils/admin/runtime.js',
+    'js/rero_ils/admin/polyfills.js',
+    'js/rero_ils/admin/styles.js',
+    'js/rero_ils/admin/vendor.js',
+    'js/rero_ils/admin/main.js',
+    'node_modules/jquery/jquery.min.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+    output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
+)
+
 
 editor_js = Bundle(
     schema_form_js,

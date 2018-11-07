@@ -69,7 +69,7 @@ before_install:
   # Chrome webdriver for Selenium
   - "PATH=$PATH:$HOME/webdrivers"
   - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
-  - "nvm install 6; nvm use 6"
+  - "nvm install 8; nvm use 8"
   - "travis_retry pip install --upgrade pip setuptools py pipenv"
   - "travis_retry pip install twine wheel coveralls"
 

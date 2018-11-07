@@ -55,7 +55,7 @@ def init_menu():
         endpoint=None,
         text='{icon} <span class="{visible}">{menu}'.format(
             icon='<i class="fa fa-bars"></i>',
-            visible='visible-md-inline visible-lg-inline',
+            visible='d-none d-md-inline visible-md-inline visible-lg-inline',
             menu=_('Menu')
         ),
         order=0
@@ -106,7 +106,7 @@ def init_menu():
         endpoint=None,
         text='{icon} <span class="{visible}">{account}</span>'.format(
             icon='<i class="fa fa-user"></i>',
-            visible='visible-md-inline visible-lg-inline',
+            visible='d-none d-md-inline visible-md-inline visible-lg-inline',
             account=account
         ),
         order=1
