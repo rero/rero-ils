@@ -1,0 +1,62 @@
+/*
+ * This file is part of Invenio.
+ * Copyright (C) 2015-2018 CERN
+ * Copyright (C) 2018 RERO.
+ *
+ * Invenio is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
+
+@import "variables";
+
+// Setting the path to fonts files.
+$fa-font-path: "/static/node_modules/font-awesome/fonts";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../node_modules/font-awesome/scss/font-awesome";
+
+@media (max-width: 576px) {
+  .rero-ils-search {
+    flex-basis: 100%;
+  }
+}
+.rero-ils-logo {
+  max-height: $navbar-brand-height;
+  margin: 7px 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+header {
+  position: relative;
+}
+
+.sidebar {
+  width: $sidebar-width;
+  /*background: red;*/
+  /*display: none;*/
+  nav {
+    // margin-top: 60px;
+  }
+
+  .dropdown a.collapsed, .nav a, .nav-item a:hover {
+    color: $navbar-dark-color;
+    text-decoration: none;
+  }
+  .dropdown a:active, .dropdown > a, nav a.active {
+    color: $navbar-dark-active-color;
+  }
+}
+
+.rero-ils-content {
+  height: calc(100vh - 0px);
+  overflow: auto;
+}
+
+.rero-ils-header.navbar-expand {
+  .container {
+    flex-wrap: wrap;
+  }
+}

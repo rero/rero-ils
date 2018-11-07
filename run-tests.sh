@@ -35,12 +35,10 @@ fi
 
 set -e
 
-pipenv run flask utils check_json
+pipenv check -i 36437
+pipenv run flask utils check_json tests rero_ils data
 pipenv run pydocstyle rero_ils tests docs
-pipenv run isort -rc -c -df
-pipenv run check-manifest --ignore ".travis-*,docs/_build*"
+pipenv run isort -rc -c -df --skip ui
+pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/admin/node_modules*,rero_ils/static/js/rero_ils/admin*"
 pipenv run sphinx-build -qnNW docs docs/_build/html
-
-# workaround see: https://github.com/inveniosoftware/invenio-app/issues/31
-FLASK_DEBUG=False pipenv run test
-#pipenv run test
+pipenv run test

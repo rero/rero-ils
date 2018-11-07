@@ -1,0 +1,68 @@
+ <header>
+  <!-- Fixed navbar -->
+  {%- block navbar %}
+  <nav class="navbar navbar-expand navbar-dark flex-wrap bg-dark rero-ils-header">
+    <div class="container ">
+
+      {%- block navbar_brand %}
+      {%- if config.THEME_LOGO %}
+      <a href="/" class="navbar-brand pr-2"><img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
+      {%- else %}
+      <a href="/" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
+      {%- endif %}
+      {%- endblock navbar_brand %}
+
+      {%- block navbar_search %}
+      {%- if config.THEME_SEARCHBAR %}
+      <div class=" flex-sm-grow-1 rero-ils-search order-2 order-sm-1">
+        <form action="{{config.THEME_SEARCH_ENDPOINT}}" class="form-inline">
+          <div class="input-group input-group-sm w-100">
+            <input class="form-control" type="text" name="q" placeholder="{{_('Search')}}"" aria-label="Search" aria-describedby="button-search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-search"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {%- endif %}
+      {%- endblock navbar_search %}
+
+      {%- block navbar_menus %}
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="rero-ils-menu collapse navbar-collapse pl-2 order-1 order-sm-2 flex-sm-grow-0" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
+          {%- if item.children %}
+          <li class="nav-item dropdown{{ ' active' if item.active else ''}}">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="{{ item.url }}" id="{{ item.name }}">{{ item.text|safe }}</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              {%- for child in item.children if child.visible %}
+              <a class="dropdown-item" href="{{ child.url }}">{{ child.text|safe }}</a>
+              {%- endfor %}
+            </div>
+          </li>
+          {%- else %}
+          <li class="nav-item{{ ' active' if item.active else ''}}">
+            <a href="{{ item.url }}">{{ item.text|safe }}</a>
+          </li>
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endblock navbar_menus %}
+
+    </div>
+  </nav>
+  {%- endblock navbar %}
+
+  {%- block flashmessages %}
+  {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
+  {{ flashed_messages() }}
+  {%- endblock %}
+  {%- block breadcrumbs %}
+  {%- include "invenio_theme/breadcrumbs.html" %}
+  {%- endblock breadcrumbs %}
+</header>

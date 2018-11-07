@@ -48,6 +48,7 @@ include *.rst
 include *.sh
 include *.txt
 include *.yml
+include ui/admin/src/browserslist
 include LICENSE
 include Pipfile
 include babel.ini
@@ -79,3 +80,16 @@ include *.json
 
 # added by check_manifest.py
 recursive-include rero_ils *.css
+
+# added by check_manifest.py
+recursive-include rero_ils *.ico
+recursive-include rero_ils *.map
+recursive-include ui *.editorconfig
+recursive-include ui *.gitkeep
+recursive-include ui *.html
+recursive-include ui *.ico
+recursive-include ui *.js
+recursive-include ui *.json
+recursive-include ui *.md
+recursive-include ui *.scss
+recursive-include ui *.ts

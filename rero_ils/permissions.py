@@ -62,7 +62,10 @@ def admin_permission_factory(admin_view):
         def can(self):
             return True
     # TODO: remove this bad hacks!
-    if admin_view.name in ['Circulation'] \
+    if admin_view.name in [
+        'Circulation',
+        'Circulation Settings',
+        'Library Settings'] \
        or admin_view.category in ['Resources']:
         return FreeAccess()
     return default_admin_permission_factory(admin_view)

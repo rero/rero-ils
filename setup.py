@@ -112,6 +112,10 @@ setup(
         'invenio_admin.views': [
             'rero_ils_circulation = \
                 rero_ils.modules.items.admin:circulation_adminview',
+            'rero_ils_admin_circulation_settings = \
+                rero_ils.modules.admin:circulation_settings',
+            'rero_ils_admin_library_settings = \
+                rero_ils.modules.admin:library_settings',
         ],
         'invenio_assets.bundles': [
             'rero_ils_detailed_documents_items_js = \
@@ -122,7 +126,11 @@ setup(
             'rero_ils_editor_js = \
                rero_ils.bundles:editor_js',
             'rero_ils_main_css = rero_ils.bundles:main_css',
-            'rero_ils_main_js = rero_ils.bundles:js'
+            'rero_ils_main_js = rero_ils.bundles:js',
+            'rero_ils_admin_ui_js = \
+                rero_ils.bundles:admin_js',
+            'rero_ils_admin_css = rero_ils.bundles:admin_css'
+
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

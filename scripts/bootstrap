@@ -52,14 +52,22 @@ fi
 pipenv install ${flags[@]}
 
 # install assets utils
-npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
+npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
+
 
 # collect static files and compile html/css assets
 CWD=`pwd`
+# build the angular ui application
+cd ui/admin; npm i; pipenv run npm run deploy
+
+# install the npm dependencies
+cd ${CWD}
 pipenv run invenio npm
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 cd $static_folder
 npm install
 cd ${CWD}
+
+# build the web assets
 pipenv run invenio collect -v
 pipenv run invenio assets build
