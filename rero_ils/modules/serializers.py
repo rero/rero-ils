@@ -27,11 +27,25 @@
 from flask import current_app, json
 from invenio_records_rest.schemas import RecordSchemaJSONV1
 from invenio_records_rest.serializers.json import JSONSerializer
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
 
 class ReroIlsSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
+
+    def serialize(self, pid, record, links_factory=None, **kwargs):
+        """Serialize a single record and persistent identifier.
+
+        :param pid: Persistent identifier instance.
+        :param record: Record instance.
+        :param links_factory: Factory function for record links.
+        """
+        rec = self.transform_record(
+            pid, record, links_factory, **kwargs
+        ).get('metadata', {})
+        rec['id'] = record.get('pid')
+        return json.dumps(rec, **self._format_args())
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
                          item_links_factory=None, **kwargs):
@@ -77,3 +91,4 @@ json_v1 = ReroIlsSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
 json_v1_search = search_responsify(json_v1, 'application/rero+json')
+json_v1_response = record_responsify(json_v1, 'application/rero+json')

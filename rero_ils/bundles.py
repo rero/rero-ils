@@ -135,7 +135,6 @@ admin_js = Bundle(
     'js/rero_ils/admin/runtime.js',
     'js/rero_ils/admin/polyfills.js',
     'js/rero_ils/admin/styles.js',
-    'js/rero_ils/admin/vendor.js',
     'js/rero_ils/admin/main.js',
     'node_modules/jquery/jquery.min.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',

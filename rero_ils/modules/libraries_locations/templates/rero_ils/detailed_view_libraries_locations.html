@@ -21,8 +21,19 @@
     {{ div_row_xs3_xs9(_('Email'), record.email) }}
   {% endif %}
 
+  <!-- Library settings -->
+  <h4>Opening hours and holidays</h4>
+  <div class="row">
+    <div class="col-md-6">
+      {% include('rero_ils/_opening_hours.html') %}
+    </div>
+    <div class="col-md-6">
+      <b>Exceptions (holidays, etc.)</b>
+    </div>
+  </div>
+
   {% with
-    href_update=url_for('lib.edit_view', pid=record.pid),
+    href_update= url_for('libraries.index', path=record.pid),
     href_delete=url_for('lib.delete_view', pid=record.pid),
     json=record,
     message=_("Library cannot be deleted: there are still locations linked to this library.")

@@ -114,8 +114,10 @@ setup(
                 rero_ils.modules.items.admin:circulation_adminview',
             'rero_ils_admin_circulation_settings = \
                 rero_ils.modules.admin:circulation_settings',
-            'rero_ils_admin_library_settings = \
-                rero_ils.modules.admin:library_settings',
+            'rero_ils_admin_libraries = \
+                rero_ils.modules.admin:library',
+            'rero_ils_admin_my_library = \
+                rero_ils.modules.admin:my_library'
         ],
         'invenio_assets.bundles': [
             'rero_ils_detailed_documents_items_js = \

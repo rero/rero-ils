@@ -108,7 +108,6 @@ def minimal_staff_patron_record():
         'postal_code': '2300',
         'city': 'La Chaux-de-Fonds',
         'birth_date': '1967-06-07',
-        'birth_date': '1967-06-07',
         'email': 'simolibri07@gmail.com',
         'phone': '+41324993585',
         'patron_type_pid': '1',

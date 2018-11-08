@@ -52,6 +52,7 @@ from .modules.mef.api import MefPerson
 from .modules.organisations_libraries.api import OrganisationWithLibraries
 from .modules.patrons.api import Patron
 from .modules.patrons_types.api import PatronType
+from .permissions import cataloguer_permission_factory
 
 
 def _(x):
@@ -455,6 +456,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='libraries',
         search_type=None,
         record_serializers={
+            'application/rero+json': (
+                'rero_ils.modules.serializers' ':json_v1_response'
+            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
             )
@@ -472,6 +476,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
+        update_permission_factory_imp=cataloguer_permission_factory
     ),
     loc=dict(
         pid_type='loc',

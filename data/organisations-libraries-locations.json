@@ -29,7 +29,59 @@
           }
         ],
         "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site d'Aoste",
-        "pid": "1"
+        "pid": "1",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "tuesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "wednesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "thursday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "friday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "saturday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "sunday",
+            "is_open": false,
+            "times": []
+          }
+        ]
       },
       {
         "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -45,7 +97,59 @@
           }
         ],
         "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site de Pont-Saint-Martin",
-        "pid": "2"
+        "pid": "2",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "tuesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "wednesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "thursday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "friday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "saturday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "sunday",
+            "is_open": false,
+            "times": []
+          }
+        ]
       },
       {
         "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -79,7 +183,54 @@
           }
         ],
         "name": "Biblioth\u00e8que communale et scolaire d'Avise",
-        "pid": "3"
+        "pid": "3",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "tuesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "wednesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "thursday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "friday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "saturday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "sunday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          }
+        ]
       },
       {
         "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -101,7 +252,54 @@
           }
         ],
         "name": "Biblioth\u00e8que du Lyc\u00e9e de la Vall\u00e9e d'Aoste",
-        "pid": "4"
+        "pid": "4",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "tuesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "wednesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "thursday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "friday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "saturday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "sunday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          }
+        ]
       }
     ],
     "name": "R\u00e9seau des biblioth\u00e8ques du Canton d'Aoste",
