@@ -269,14 +269,31 @@ class ResourceView(BaseView):
 
 
 class ILSManager(BaseView):
-    """Flask-Admin Circulation view."""
+    """Flask-Admin Ils view."""
 
     @expose('/')
     @expose('/<path:path>')
     def index(self, path=None):
         """Angular Circulation view."""
-        # return "hello"
         return self.render('rero_ils/admin/page.html')
+
+    def is_accessible(self):
+        """Access control."""
+        return (can_edit() or default_admin_permission_factory(self).can())
+
+
+class LibraryManager(BaseView):
+    """Flask-Admin Library view."""
+
+    @expose('/')
+    @expose('/<path:path>')
+    def index(self, path=None):
+        """Index."""
+        return self.render('rero_ils/admin/page.html')
+
+    def is_visible(self):
+        """Visible control."""
+        return False
 
     def is_accessible(self):
         """Access control."""
@@ -288,12 +305,25 @@ circulation_settings = {
     'kwargs': dict(name='Circulation Settings',
                    endpoint='circulation_settings',
                    menu_icon_type='fa',
-                   menu_icon_value='fa-barcode'),
+                   menu_icon_value='fa-barcode')
 }
 
-
-library_settings = {
+my_library = {
     'view_class': ILSManager,
-    'kwargs': dict(name='Library Settings', endpoint='library_settings',
-                   menu_icon_type='fa', menu_icon_value='fa-barcode'),
+    'kwargs': dict(
+        name='My Library',
+        endpoint='mylibrary',
+        menu_icon_type='fa',
+        menu_icon_value='fa-university'
+    )
+}
+
+library = {
+    'view_class': LibraryManager,
+    'kwargs': dict(
+        name='Libraries',
+        endpoint='libraries',
+        menu_icon_type='fa',
+        menu_icon_value='fa-barcode'
+    )
 }

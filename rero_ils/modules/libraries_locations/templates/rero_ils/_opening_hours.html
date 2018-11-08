@@ -1,0 +1,20 @@
+<b>Default opening hours</b>
+{{ record.openinghours }}
+<ul class="list-unstyled">
+  {% for day in record.opening_hours %}
+  <li>
+    <div class="col-md-4 nopadding">
+      {{ day.day|title }}
+    </div>
+    <div class="col-md-8">
+      {% if day.is_open %}
+        {% for time in day.times %}
+        {{ time.start_time }} - {{ time.end_time }}{{ "," if not loop.last }}
+        {% endfor %}
+      {% else %}
+        {{ _('Closed') }}
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>

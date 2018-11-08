@@ -56,7 +56,69 @@ def minimal_library_record():
         'code': 'vsmvvs',
         'name': 'MV Sion',
         'address': 'Rue Pratifori',
-        'email': 'info@mv.ch'
+        'email': 'info@mv.ch',
+        'opening_hours': [
+            {
+                'day': 'monday',
+                'is_open': True,
+                'time': [
+                    {
+                        'start_time': '07:00',
+                        'end_time': '19:00'
+                    }
+                ]
+            },
+            {
+                'day': 'tuesday',
+                'is_open': True,
+                'time': [
+                    {
+                        'start_time': '07:00',
+                        'end_time': '19:00'
+                    }
+                ]
+            },
+            {
+                'day': 'wednesday',
+                'is_open': True,
+                'time': [
+                    {
+                        'start_time': '07:00',
+                        'end_time': '19:00'
+                    }
+                ]
+            },
+            {
+                'day': 'thursday',
+                'is_open': True,
+                'time': [
+                    {
+                        'start_time': '07:00',
+                        'end_time': '19:00'
+                    }
+                ]
+            },
+            {
+                'day': 'friday',
+                'is_open': True,
+                'time': [
+                    {
+                        'start_time': '07:00',
+                        'end_time': '19:00'
+                    }
+                ]
+            },
+            {
+                'day': 'saturday',
+                'is_open': False,
+                'time': []
+            },
+            {
+                'day': 'sunday',
+                'is_open': False,
+                'time': []
+            }
+        ]
     }
 
 

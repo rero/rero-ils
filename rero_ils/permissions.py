@@ -65,7 +65,8 @@ def admin_permission_factory(admin_view):
     if admin_view.name in [
         'Circulation',
         'Circulation Settings',
-        'Library Settings'] \
+        'Libraries',
+        'My Library'] \
        or admin_view.category in ['Resources']:
         return FreeAccess()
     return default_admin_permission_factory(admin_view)

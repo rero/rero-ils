@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MylibraryComponent } from './mylibrary/mylibrary.component';
 
 const routes: Routes = [
   {
-    path: 'library_settings',
-    loadChildren: './library-settings/library-settings.module#LibrarySettingsModule'
+    path: 'mylibrary',
+    component: MylibraryComponent
+  },
+  {
+    path: 'libraries',
+    loadChildren: './libraries/libraries.module#LibrariesModule'
   }, {
     path: 'circulation_settings',
     loadChildren: './circulation-settings/circulation-settings.module#CirculationSettingsModule'
   }
-
 ];
 
 @NgModule({

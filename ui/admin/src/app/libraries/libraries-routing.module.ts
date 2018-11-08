@@ -4,7 +4,7 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':pid',
     component: MainComponent
   }
 ];
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LibrarySettingsRoutingModule { }
+export class LibrariesRoutingModule { }

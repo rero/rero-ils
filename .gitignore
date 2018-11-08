@@ -73,3 +73,6 @@ celerybeat-schedule
 
 # Project specific
 rero_ils/static/js/rero_ils/admin
+
+# Virtual studio pref
+.vscode

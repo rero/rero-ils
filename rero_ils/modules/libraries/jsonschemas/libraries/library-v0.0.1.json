@@ -7,7 +7,8 @@
   "required": [
     "$schema",
     "pid",
-    "name"
+    "name",
+    "opening_hours"
   ],
   "properties": {
     "$schema": {
@@ -44,6 +45,48 @@
       "format": "email",
       "pattern": "^.*?@.*.*$",
       "minLength": 3
+    },
+    "opening_hours": {
+      "title": "Opening Hours",
+      "description": "Weekly opening hours",
+      "required": [
+        "day",
+        "is_open",
+        "times"
+      ],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "day": {
+            "title": "Day",
+            "description": "Day of week",
+            "type": "string"
+          },
+          "is_open": {
+            "title": "Is open",
+            "type": "boolean"
+          },
+          "times": {
+            "type": "array",
+            "required": [
+              "start_time",
+              "end_time"
+            ],
+            "items": {
+              "type": "object",
+              "properties": {
+                "start_time": {
+                  "type": "string"
+                },
+                "end_time": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
