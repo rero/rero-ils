@@ -131,6 +131,7 @@
       {
         "key": "barcode",
         "condition": "model.is_patron == true",
+        "required": true,
         "htmlClass": "col-xs-6",
         "validationMessage": {
           "alreadyTakenMessage": "The barcode is already taken",
@@ -140,6 +141,7 @@
       {
         "key": "patron_type_pid",
         "condition": "model.is_patron == true",
+        "required": true,
         "htmlClass": "col-xs-6",
         "populate": "patron_names_descriptions",
         "type": "select"
@@ -159,6 +161,7 @@
         "key": "library_pid",
         "htmlClass": "col-xs-6",
         "condition": "model.is_staff == true",
+        "required": true,
         "populate": "locations_pids_names",
         "type": "select"
       }
