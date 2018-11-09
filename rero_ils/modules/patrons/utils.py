@@ -67,6 +67,8 @@ def save_patron(data, record_type, record_class, parent_pid):
                 confirm_user(user)
 
         patron = record_class.get_patron_by_email(email)
+        data['is_patron'] = data.get('is_patron', False)
+        data['is_staff'] = data.get('is_staff', False)
         if patron:
             patron.update(data, dbcommit=True, reindex=False)
             patron = record_class.get_patron_by_email(email)
