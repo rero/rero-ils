@@ -13,10 +13,10 @@
     <div class="col-xs-11">
       <ul class="nav nav-pills pull-right" role="tablist">
         <li role="presentation" class="active">
-          <a href="#merged" data-toggle="tab"><i class="fa fa-list-ul"></i></a>
+          <a href="#merged" data-toggle="tab" title="{{ _('All sources') }}"><i class="fa fa-list-ul"></i></a>
         </li>
         <li role="presentation">
-          <a href="#separated" data-toggle="tab"><i class="fa fa-bars"></i></a>
+          <a href="#separated" data-toggle="tab" title="{{ _('By source') }}"><i class="fa fa-bars"></i></a>
         </li>
       </ul>
       <h1>{{ record | person_label(current_i18n.language) }}</h1>
