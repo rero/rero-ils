@@ -46,8 +46,7 @@ def publish_api_harvested_records(sender=None, records=[], *args, **kwargs):
         if records:
             click.echo(
                 'mef harvester: received {count} records: {url}'.format(
-                    count=len(records),
-                    url=url
+                    count=len(records), url=url
                 )
             )
 

@@ -37,7 +37,7 @@ def organisation_schema():
     """Organisation Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.organisations.jsonschemas',
-        'organisations/organisation-v0.0.1.json'
+        'organisations/organisation-v0.0.1.json',
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema

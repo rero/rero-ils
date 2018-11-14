@@ -30,9 +30,9 @@ from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 
 from ..api import IlsRecord
-from ..documents.api import DocumentsSearch
 from ..documents_items.api import DocumentsWithItems
 from ..libraries.api import Library
+from ..loans.api import get_loans_by_patron_pid
 from ..organisations_libraries.api import OrganisationWithLibraries
 from ..patrons_types.api import PatronType
 from .fetchers import patron_id_fetcher
@@ -116,18 +116,16 @@ class Patron(IlsRecord):
             datastore.delete_user(user)
             datastore.commit()
 
-    def get_borrowed_documents_pids(self):
-        """Get pid values borrowed documents for given patron."""
-        pids = []
-        barcode = self.get('barcode')
-        if barcode:
-            pids = [p.pid for p in DocumentsSearch().filter(
-                'term',
-                itemslist___circulation__holdings__patron_barcode=barcode
-            ).source(includes=['id', 'pid']).scan()]
-        return pids
+    # def get_borrowed_documents_pids(self):
+    #     """Get pid values borrowed documents for given patron."""
 
-    def get_borrowed_documents(self):
+    #     loans = get_loans_by_patron_pid(self.pid)
+    #     pids = []
+    #     if loans:
+    #         pids = [loan.document_pid for loan in loans]
+    #     return pids
+
+    def get_loaned_documents(self):
         """Get borrowed documents."""
         pids = self.get_borrowed_documents_pids()
         to_return = []
@@ -167,6 +165,14 @@ class Patron(IlsRecord):
         # role = _datastore.find_role(role_name)
         return user.has_role(role_name)
 
+    def get_one_pickup_location(self):
+        """Find a qualified pickup location."""
+        library_pid = self.get('library_pid')
+        from ..libraries_locations.api import LibraryWithLocations
+        library = LibraryWithLocations.get_record_by_pid(library_pid)
+        locations = library.pickup_locations
+        return locations[0]['pid']
+
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
         data = super(IlsRecord, self).dumps(**kwargs)
@@ -175,6 +181,8 @@ class Patron(IlsRecord):
             data.get('last_name', ''),
             data.get('first_name', '')
         ))
+        if data.get('is_staff', True):
+            data['circulation_location_pid'] = self.get_one_pickup_location()
         if data.get('is_patron', False):
             patron_type = PatronType.get_record_by_pid(data['patron_type_pid'])
             data['patron_type'] = patron_type.get('name')

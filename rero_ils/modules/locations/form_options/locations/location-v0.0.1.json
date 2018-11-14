@@ -43,6 +43,23 @@
   },
   {
     "type": "fieldset",
+    "title": "Pickup information",
+    "items": [
+      {
+        "key": "is_pickup",
+        "description": "",
+        "type": "checkbox"
+      },
+      {
+        "key": "pickup_name",
+        "htmlClass": "col-xs-6",
+        "condition": "model.is_pickup == true",
+        "required": true
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
     "items": [
       {
         "type": "actions",

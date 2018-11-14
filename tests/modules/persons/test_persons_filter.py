@@ -40,7 +40,7 @@ def test_person_label(app, person_data):
     app.config['RERO_ILS_PERSONS_LABEL_ORDER'] = {
         'fallback': 'fr',
         'fr': ['rero', 'bnf', 'gnd'],
-        'de': ['gnd', 'rero', 'bnf']
+        'de': ['gnd', 'rero', 'bnf'],
     }
     label = person_label(person_data, 'fr')
     assert label == 'Cavalieri, Giovanni Battista'

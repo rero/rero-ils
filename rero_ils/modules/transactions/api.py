@@ -28,7 +28,6 @@ from uuid import uuid4
 
 from invenio_db import db
 from invenio_records.api import Record
-from invenio_records.models import RecordMetadata
 
 from rero_ils.modules.transactions.models import CircTransactions
 

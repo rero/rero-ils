@@ -47,23 +47,19 @@ from .api import DocumentsWithItems
 @click.command('createitems')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option(
-    '-c', '--count', 'count', type=click.INT, default=-1,
-    help='default=for all records'
+    '-c', '--count', 'count',
+    type=click.INT, default=-1, help='default=for all records'
 )
 @click.option(
-    '-i', '--itemscount', 'itemscount', type=click.INT, default=5,
-    help='default=5'
+    '-i', '--itemscount', 'itemscount',
+    type=click.INT, default=1, help='default=1'
 )
 @click.option(
-    '-m', '--missing', 'missing', type=click.INT, default=5,
-    help='default=10'
+    '-m', '--missing', 'missing', type=click.INT, default=5, help='default=10'
 )
-@click.option(
-    '-R', '--reindex', 'reindex', is_flag=True, default=False
-)
+@click.option('-R', '--reindex', 'reindex', is_flag=True, default=False)
 @with_appcontext
-def create_items(verbose, count, itemscount, missing,
-                 reindex):
+def create_items(verbose, count, itemscount, missing, reindex):
     """Create circulation items."""
     uids = DocumentsWithItems.get_all_ids()
 
@@ -73,7 +69,8 @@ def create_items(verbose, count, itemscount, missing,
     click.secho(
         'Starting generating {0} items, random {1} ...'.format(
             count, itemscount),
-        fg='green')
+        fg='green',
+    )
 
     locations_pids = Location.get_all_pids()
     patrons_barcodes = get_patrons_barcodes()
@@ -90,15 +87,22 @@ def create_items(verbose, count, itemscount, missing,
                     patrons_barcodes=patrons_barcodes,
                     libraries_pids=libraries_pids,
                     missing=missing,
-                    verbose=False
+                    document=document,
+                    verbose=False,
                 )
-                document.add_item(item, dbcommit=True)
+                item.dbcommit(reindex=reindex)
             document.dbcommit(reindex=reindex)
             RecordIndexer().client.indices.flush()
 
 
-def create_random_item(locations_pids, patrons_barcodes, libraries_pids,
-                       missing, verbose=False):
+def create_random_item(
+    locations_pids,
+    patrons_barcodes,
+    libraries_pids,
+    missing,
+    document,
+    verbose=False
+):
     """Create items with randomised values."""
     item_types_pids = ItemType.get_all_pids()
 
@@ -106,8 +110,9 @@ def create_random_item(locations_pids, patrons_barcodes, libraries_pids,
         '$schema': 'https://ils.test.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': '????',
         'call_number': '????',
+        'item_status': 'on_shelf',
         'location_pid': random.choice(locations_pids),
-        'item_type_pid': random.choice(item_types_pids)
+        'item_type_pid': random.choice(item_types_pids),
     }
     item = Item.create(data)
 
@@ -115,13 +120,13 @@ def create_random_item(locations_pids, patrons_barcodes, libraries_pids,
     data['barcode'] = str(10000000000 + n)
     data['call_number'] = str(n).zfill(5)
     item.update(data)
+    document.add_item(item, dbcommit=True)
 
     if randint(0, 5) == 0 and missing > 0:
         item.lose_item()
         missing -= 1
     if verbose:
         click.echo(item.id)
-    item.update(data)
     return missing, item
 
 
@@ -143,9 +148,9 @@ def create_loan(patron_barcode, library_pid, short):
     current_date = datetime.date.today()
     start_date = (current_date + datetime.timedelta(days=-n)).isoformat()
     if short:
-        end = 30-n
+        end = 30 - n
     else:
-        end = 45-n
+        end = 45 - n
     end_date = (current_date + datetime.timedelta(days=end)).isoformat()
     request = {
         'patron_barcode': patron_barcode,
@@ -162,6 +167,6 @@ def create_request(patron_barcode, library_pid, short):
     request = {
         'patron_barcode': patron_barcode,
         'pickup_library_pid': library_pid,
-        'request_datetime': request_datetime
+        'request_datetime': request_datetime,
     }
     return request

@@ -33,7 +33,7 @@ from rero_ils.modules.patrons.utils import save_patron
 
 
 def test_patron(app, db, minimal_patron_record, minimal_document_record,
-                minimal_item_record):
+                limited_item_record):
     """Test patron"""
 
     # Convenient references

@@ -35,4 +35,5 @@ def create_app():
     # from invenio_app.factory import create_ui
     # create_ui
     from invenio_app.factory import create_ui
+
     return create_ui

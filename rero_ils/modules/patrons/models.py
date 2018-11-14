@@ -38,5 +38,6 @@ class PatronIdentifier(RecordIdentifier):
 
     recid = db.Column(
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        primary_key=True,
+        autoincrement=True,
     )

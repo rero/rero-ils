@@ -65,6 +65,16 @@ def i18n_to_str(language):
 def resolve_function(function_name):
     """Execute resolve function."""
     result = []
+    if function_name == 'libraries_pids_names':
+        from rero_ils.modules.libraries_locations.api import Library
+        for id in Library.get_all_ids():
+            library = Library.get_record_by_id(id)
+            result.append({
+                'name': '{library}'.format(
+                    library=library.get('name')
+                ),
+                'value': library.pid
+            })
     if function_name == 'locations_pids_names':
         from rero_ils.modules.locations.api import Location
         from rero_ils.modules.libraries_locations.api import \

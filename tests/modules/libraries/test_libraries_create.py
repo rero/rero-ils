@@ -32,6 +32,7 @@ from rero_ils.modules.libraries.api import Library
 def test_libraries_create(db, minimal_library_record):
     """Test library creat."""
     from copy import deepcopy
+
     del minimal_library_record['$schema']
     lib_rec = deepcopy(minimal_library_record)
     lib = Library.create(minimal_library_record)
@@ -41,6 +42,7 @@ def test_libraries_create(db, minimal_library_record):
 def test_libraries_create_pid(db, minimal_library_record):
     """Test library creat with pid."""
     from copy import deepcopy
+
     del minimal_library_record['$schema']
     lib_rec = deepcopy(minimal_library_record)
     lib = Library.create(minimal_library_record)

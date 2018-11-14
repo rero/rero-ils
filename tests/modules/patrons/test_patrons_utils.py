@@ -31,7 +31,7 @@ from invenio_accounts.models import User
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.patrons.utils import save_patron, structure_document
+from rero_ils.modules.patrons.utils import save_patron
 from rero_ils.modules.patrons_types.api import PatronType
 
 
@@ -70,20 +70,3 @@ def test_save_patron(app, db,
     user_ds = datastore.get_user(email)
     assert user_ds
     assert user_ds.email == email
-
-
-def test_structure_document(minimal_item_record):
-    """Test structure document"""
-    class Doc:
-        def dumps(self):
-            return {
-                'itemslist': [
-                    minimal_item_record
-                ]
-            }
-
-    docs = [Doc()]
-    loans, pendings = structure_document(docs, '123456')
-
-    assert len(loans) == 1
-    assert len(pendings) == 0

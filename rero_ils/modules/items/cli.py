@@ -34,15 +34,19 @@ import click
 import pytz
 from flask import current_app
 from flask.cli import with_appcontext
+from invenio_circulation.api import get_loan_for_item
 from invenio_indexer.api import RecordIndexer
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.items.utils import commit_item
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.locations.api import Location
 
-from ..documents_items.api import DocumentsSearch
+from ..documents_items.api import DocumentsSearch, DocumentsWithItems
 from ..items.api import Item, ItemStatus
 from ..items_types.api import ItemType
+from ..libraries_locations.api import LibraryWithLocations
+from ..loans.api import get_request_by_item_pid_by_patron_pid
 from ..patrons.api import Patron, PatronsSearch
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -98,14 +102,34 @@ def create_circ_transactions(infile, verbose):
 
 def print_message(barcode, item_barcode, transaction_type):
     """Print confirmation message."""
-    click.echo('\t {0} created for patron {1} and item {2}'
-               .format(transaction_type, barcode, item_barcode))
+    click.echo(
+        '\t {transaction_type} created for patron {barcode} and item \
+         {item_barcode}'.format(
+            transaction_type=transaction_type,
+            barcode=barcode, item_barcode=item_barcode
+        )
+    )
 
 
 def get_one_library():
     """Find a qualified library."""
     libraries_pids = Library.get_all_pids()
     return random.choice(libraries_pids)
+
+
+def get_one_location():
+    """Find a qualified location."""
+    locations_pids = Location.get_all_pids()
+    return random.choice(locations_pids)
+
+
+def get_one_pickup_location(item_pid):
+    """Find a qualified pickup location."""
+    location_pid = Item.get_record_by_pid(item_pid)['location_pid']
+    location = Location.get_record_by_pid(location_pid)
+    library = LibraryWithLocations.get_library_by_locationid(location.id)
+    locations = library.pickup_locations
+    return locations[0]['pid']
 
 
 def get_loan_dates(transaction_type, item):
@@ -126,9 +150,9 @@ def get_loan_dates(transaction_type, item):
 
 def get_one_patron(input_barcode):
     """Find a qualified patron."""
-    patrons = list(PatronsSearch().filter(
-        "term", **{"is_patron": True}
-    ).source().scan())
+    patrons = list(
+        PatronsSearch().filter('term', **{'is_patron': True}).source().scan()
+    )
     for patron in patrons:
         record = patron.to_dict()
         barcode = record.get('barcode')
@@ -136,26 +160,66 @@ def get_one_patron(input_barcode):
             return Patron.get_patron_by_barcode(barcode=barcode)
 
 
+def get_one_staff_user():
+    """Find a qualified staff user."""
+    patrons = list(
+        PatronsSearch().filter('term', **{'is_staff': True}).source().scan()
+    )
+    for patron in patrons:
+        record = patron.to_dict()
+        patron_pid = record.get('pid')
+        return Patron.get_record_by_pid(patron_pid)
+
+
+def get_one_user_data():
+    """Find a qualified user data."""
+    user = get_one_staff_user().dumps()
+    user_pid = user.get('pid')
+    user_location = user.get('circulation_location_pid')
+    return user_pid, user_location
+
+
 def create_loan(barcode, transaction_type):
     """Create loans transactions."""
     item = get_one_item(barcode, transaction_type)
     start_date, end_date = get_loan_dates(transaction_type, item)
+    patron = Patron.get_patron_by_barcode(barcode=barcode)
+    transaction_date = pytz.utc.localize(datetime.now()).isoformat()
+    user_pid, user_location = get_one_user_data()
     item.loan_item(
-        patron_barcode=barcode,
-        start_date=start_date,
-        end_date=end_date
+        patron_pid=patron.pid,
+        transaction_user_pid=user_pid,
+        transaction_location_pid=user_location,
+        transaction_date=transaction_date,
+        document_pid=DocumentsWithItems.document_retriever(
+            item_pid=item.pid),
+        item_pid=item.pid,
     )
     if transaction_type == 'extended':
+        loan = get_loan_for_item(item.pid)
+        loan_pid = loan['loan_pid']
+        user_pid, user_location = get_one_user_data()
         item.extend_loan(
-            patron_barcode=barcode
+            loan_pid=loan_pid,
+            patron_pid=patron.pid,
+            transaction_location_pid=user_location,
+            transaction_user_pid=user_pid,
+            transaction_date=transaction_date,
+            document_pid=DocumentsWithItems.document_retriever(
+                item_pid=item.pid),
+            item_pid=item.pid,
         )
     if transaction_type == 'requested_by_others':
         requested_patron = get_one_patron(barcode)
-        request_datetime = pytz.utc.localize(datetime.now()).isoformat()
+        user_pid, user_location = get_one_user_data()
         item.request_item(
-            patron_barcode=requested_patron['barcode'],
-            pickup_library_pid=get_one_library(),
-            request_datetime=request_datetime
+            patron_pid=requested_patron.pid,
+            transaction_location_pid=user_location,
+            transaction_user_pid=user_pid,
+            transaction_date=transaction_date,
+            pickup_location_pid=get_one_pickup_location(item.pid),
+            document_pid=DocumentsWithItems.document_retriever(
+                item_pid=item.pid),
         )
     commit_item(item)
     RecordIndexer().client.indices.flush()
@@ -165,21 +229,31 @@ def create_loan(barcode, transaction_type):
 def create_request(barcode, transaction_type):
     """Create request transactions."""
     item = get_one_item(barcode, transaction_type)
+    rank_1_patron = get_one_patron(barcode)
+    patron = Patron.get_patron_by_barcode(barcode)
     if transaction_type == 'rank_2':
-        patron = get_one_patron(barcode)
-        first_barcode = patron['barcode']
-        request_datetime = pytz.utc.localize(
+        transaction_date = pytz.utc.localize(
             datetime.now() - timedelta(2)).isoformat()
+        user_pid, user_location = get_one_user_data()
         item.request_item(
-            patron_barcode=first_barcode,
-            pickup_library_pid=get_one_library(),
-            request_datetime=request_datetime
+            patron_pid=rank_1_patron.pid,
+            transaction_location_pid=user_location,
+            transaction_user_pid=user_pid,
+            transaction_date=transaction_date,
+            pickup_location_pid=get_one_pickup_location(item.pid),
+            document_pid=DocumentsWithItems.document_retriever(
+                item_pid=item.pid),
         )
-    request_datetime = pytz.utc.localize(datetime.now()).isoformat()
+    transaction_date = pytz.utc.localize(datetime.now()).isoformat()
+    user_pid, user_location = get_one_user_data()
     item.request_item(
-        patron_barcode=barcode,
-        pickup_library_pid=get_one_library(),
-        request_datetime=request_datetime
+        patron_pid=patron.pid,
+        transaction_location_pid=user_location,
+        transaction_user_pid=user_pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=get_one_pickup_location(item.pid),
+        document_pid=DocumentsWithItems.document_retriever(
+            item_pid=item.pid),
     )
     commit_item(item)
     RecordIndexer().client.indices.flush()
@@ -188,43 +262,45 @@ def create_request(barcode, transaction_type):
 
 def get_one_item(barcode, transaction_type):
     """Find a qualified item."""
-    document_on_shelf = DocumentsSearch(
-    ).filter(
-        "term", **{"itemslist._circulation.status": "on_shelf"}
-    ).source(includes=['itemslist.*']).scan()
+    document_on_shelf = (
+        DocumentsSearch()
+        .filter('term', **{'itemslist.item_status': 'on_shelf'})
+        .source(includes=['itemslist.*'])
+        .scan()
+    )
+    patron = Patron.get_patron_by_barcode(barcode=barcode)
     for document in document_on_shelf:
         for items in document['itemslist']:
             item = items.to_dict()
             if (
-                transaction_type in (
-                    'active', 'overdue', 'extended', 'requested_by_others'
-                ) and
-                item['_circulation']['status'] == ItemStatus.ON_SHELF and
+                transaction_type
+                in ('active', 'overdue', 'extended', 'requested_by_others') and
+                item['item_status'] == ItemStatus.ON_SHELF and
                 item['item_type_pid'] != ItemType.get_pid_by_name(
-                    'on-site'
-                ) and
+                    'on-site') and
                 item['requests_count'] == 0
             ):
                 return Item.get_record_by_pid(pid=item['pid'])
             if (
-                    transaction_type == 'requests' and
-                    item['_circulation']['status'] != ItemStatus.MISSING and
-                    item['requests_count'] < 3 and
-                    patron_requested(item, barcode) is False
+                transaction_type == 'requests' and
+                item['item_status'] != ItemStatus.MISSING and
+                item['requests_count'] < 3 and
+                patron_requested(item['pid'], patron.pid) is False
             ):
                 return Item.get_record_by_pid(pid=item['pid'])
             if (
-                    transaction_type in ('rank_1', 'rank_2') and
-                    item['_circulation']['status'] != ItemStatus.MISSING and
-                    item['requests_count'] == 0
+                transaction_type in ('rank_1', 'rank_2') and
+                item['item_status'] != ItemStatus.MISSING and
+                item['requests_count'] == 0
             ):
-                    return Item.get_record_by_pid(pid=item['pid'])
+                return Item.get_record_by_pid(pid=item['pid'])
 
 
-def patron_requested(item, patron_barcode):
+def patron_requested(item_pid, patron_pid):
     """Check if the item is requested by a given patron."""
-    for holding in item.get('_circulation', {}).get('holdings', 0):
-        if holding and holding.get('patron_barcode'):
-            if holding['patron_barcode'] == patron_barcode:
-                return True
+    request = get_request_by_item_pid_by_patron_pid(
+        item_pid, patron_pid
+    )
+    if request:
+        return True
     return False

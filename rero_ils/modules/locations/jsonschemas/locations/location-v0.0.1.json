@@ -31,6 +31,17 @@
       "description": "Name of the location.",
       "type": "string",
       "minLength": 1
+    },
+    "is_pickup": {
+      "title": "Designate this location as pickup location",
+      "type": "boolean",
+      "default": false,
+      "description": "Qualify this location as a pickup location."
+    },
+    "pickup_name": {
+      "title": "Name of location if pickup",
+      "type": "string",
+      "description": "Name of the pickup location."
     }
   }
 }

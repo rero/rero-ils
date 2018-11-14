@@ -32,8 +32,12 @@ from flask_login import current_user, login_required
 from flask_menu import register_menu
 from werkzeug.exceptions import NotFound
 
+from ..documents.api import Document
+from ..items.api import Item
+from ..loans.api import get_loans_by_patron_pid
+from ..locations.api import Location
 from .api import Patron
-from .utils import structure_document, user_has_patron
+from .utils import user_has_patron
 
 blueprint = Blueprint(
     'patrons',
@@ -57,14 +61,35 @@ def profile():
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
-    documents = patron.get_borrowed_documents()
-    loans, pendings = structure_document(documents, patron.get('barcode'))
+    loans = get_loans_by_patron_pid(patron.pid)
 
+    checkouts = []
+    requests = []
+    if loans:
+        for loan in loans:
+            document = Document.get_record_by_pid(loan['document_pid'])
+            item = Item.get_record_by_pid(loan['item_pid'])
+            loan['title'] = document['title']
+            loan['call_number'] = item['call_number']
+            loan['library_name'] = item.dumps()['library_name']
+            if loan['state'] == 'ITEM_ON_LOAN':
+                checkouts.append(loan)
+            elif loan['state'] in (
+                    'PENDING',
+                    'ITEM_AT_DESK',
+                    'ITEM_IN_TRANSIT_FOR_PICKUP'
+            ):
+                location = Location.get_record_by_pid(
+                    loan['pickup_location_pid'])
+                loan['pickup_location_name'] = ''
+                if location:
+                    loan['pickup_location_name'] = location.get('name', '')
+                    requests.append(loan)
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
-        loans=loans,
-        pendings=pendings
+        loans=checkouts,
+        pendings=requests
     )
 
 
@@ -82,3 +107,31 @@ def logger_user():
 def get_patron_from_barcode(value):
     """Get patron from barcode."""
     return Patron.get_patron_by_barcode(value)
+
+
+@blueprint.app_template_filter('get_patron_from_checkout_item_pid')
+def get_patron_from_checkout_item_pid(item_pid):
+    """Get patron from a checkout item pid."""
+    from invenio_circulation.api import get_loan_for_item
+    patron_pid = get_loan_for_item(item_pid)['patron_pid']
+    return Patron.get_record_by_pid(patron_pid)
+
+
+@blueprint.app_template_filter('get_checkout_loan_for_item')
+def get_checkout_loan_for_item(item_pid):
+    """Get patron from a checkout item pid."""
+    from invenio_circulation.api import get_loan_for_item
+    return get_loan_for_item(item_pid)
+
+
+@blueprint.app_template_filter('get_patron_from_pid')
+def get_patron_from_pid(patron_pid):
+    """Get patron from pid."""
+    return Patron.get_record_by_pid(patron_pid)
+
+
+@blueprint.app_template_filter('get_location_name_from_pid')
+def get_location_name_from_pid(location_pid):
+    """Get location from pid."""
+    from ..locations.api import Location
+    return Location.get_record_by_pid(location_pid)['name']

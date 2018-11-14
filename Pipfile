@@ -15,7 +15,6 @@ rero-ils = {editable = true, path = "."}
 uwsgi = ">=2.0"
 invenio-oaiharvester = {ref = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
 invenio-circulation = {ref = "master", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
-pip = "<=18.0"
 pipenv = "*"
 requests = ">=2.20.0"
 

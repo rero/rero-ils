@@ -24,7 +24,6 @@
 
 """Utilities functions for rero-ils."""
 
-from copy import deepcopy
 
 from flask import current_app, url_for
 from flask_login import current_user
@@ -55,10 +54,7 @@ def save_patron(data, record_type, record_class, parent_pid):
         if find_user is None:
             password = hash_password(email)
 
-            datastore.create_user(
-                email=email,
-                password=password
-            )
+            datastore.create_user(email=email, password=password)
             datastore.commit()
             # send password reset
             user = datastore.find_user(email=email)
@@ -107,45 +103,13 @@ def clean_patron_fields(data):
 
     if not data.get('is_patron'):
         if 'barcode' in data:
-            del(data['barcode'])
+            del (data['barcode'])
         if 'patron_type_pid' in data:
-            del(data['patron_type_pid'])
+            del (data['patron_type_pid'])
     if not data.get('is_staff', False):
         if 'library_pid' in data:
-            del(data['library_pid'])
+            del (data['library_pid'])
     return data
-
-
-def structure_document(documents, barcode):
-    """Structure document for view."""
-    loans = []
-    pendings = []
-    for document in documents:
-        doc_items = document.dumps()
-        items = doc_items.get('itemslist')
-        doc = deepcopy(doc_items)
-        del doc['itemslist']
-        for item in items:
-            circulation = item.get('_circulation')
-            status = circulation.get('status')
-            holdings = circulation.get('holdings')
-            if holdings:
-                del item['_circulation']['holdings']
-                if holdings[0].get('patron_barcode') == barcode:
-                    item['holding'] = holdings[0]
-                    d = deepcopy(doc)
-                    d['item'] = item
-                    if status == 'on_loan':
-                        loans.append(d)
-                    else:
-                        pendings.append(d)
-                for holding in holdings[1:]:
-                    if holding.get('patron_barcode') == barcode:
-                        item['holding'] = holding
-                        d = deepcopy(doc)
-                        d['item'] = item
-                        pendings.append(d)
-    return loans, pendings
 
 
 def user_has_patron(user=current_user):

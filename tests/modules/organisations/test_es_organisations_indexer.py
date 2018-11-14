@@ -33,7 +33,7 @@ def test_mappings():
 
     mappings_in_bytes = resource_string(
         'rero_ils.modules.organisations.mappings',
-        'v6/organisations/organisation-v0.0.1.json'
+        'v6/organisations/organisation-v0.0.1.json',
     )
     mappings = loads(mappings_in_bytes.decode('utf8'))
     assert mappings.get('mappings').get('organisation-v0.0.1')

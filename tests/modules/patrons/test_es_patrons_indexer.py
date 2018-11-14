@@ -32,8 +32,7 @@ def test_mappings():
     from pkg_resources import resource_string
 
     mappings_in_bytes = resource_string(
-        'rero_ils.modules.patrons.mappings',
-        'v6/patrons/patron-v0.0.1.json'
+        'rero_ils.modules.patrons.mappings', 'v6/patrons/patron-v0.0.1.json'
     )
     mappings = loads(mappings_in_bytes.decode('utf8'))
     assert mappings.get('mappings').get('patron-v0.0.1')

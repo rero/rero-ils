@@ -47,6 +47,7 @@ from .modules.documents_items.api import DocumentsWithItems
 from .modules.items.api import Item
 from .modules.items_types.api import ItemType
 from .modules.libraries_locations.api import LibraryWithLocations
+# from .modules.loans.api import Loan
 from .modules.locations.api import Location
 from .modules.mef.api import MefPerson
 from .modules.organisations_libraries.api import OrganisationWithLibraries
@@ -365,11 +366,37 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/items/',
-        item_route='/items/<pid(org):pid_value>',
+        item_route='/items/<pid(item):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
     ),
+    # loanid=dict(
+    #     pid_type='loanid',
+    #     pid_minter='loan_pid_minter',
+    #     pid_fetcher='loan_pid_fetcher',
+    #     search_class=RecordsSearch,
+    #     search_index='loans',
+    #     search_type=None,
+    #     record_serializers={
+    #         'application/json': (
+    #             'invenio_records_rest.serializers' ':json_v1_response'
+    #         )
+    #     },
+    #     search_serializers={
+    #         'application/rero+json': (
+    #             'rero_ils.modules.serializers' ':json_v1_search'
+    #         ),
+    #         'application/json': (
+    #             'invenio_records_rest.serializers' ':json_v1_search'
+    #         ),
+    #     },
+    #     list_route='/loans/',
+    #     item_route='/loans/<pid(loanid):pid_value>',
+    #     default_media_type='application/json',
+    #     max_result_window=10000,
+    #     search_factory_imp='rero_ils.query:and_search_factory',
+    # ),
     itty=dict(
         pid_type='itty',
         pid_minter='item_type_id',
@@ -598,7 +625,7 @@ RECORDS_REST_FACETS = {
             author=dict(terms=dict(field='facet_authors')),
             language=dict(terms=dict(field='languages.language')),
             subject=dict(terms=dict(field='subject')),
-            status=dict(terms=dict(field='itemslist._circulation.status')),
+            status=dict(terms=dict(field='itemslist.item_status')),
         ),
         # can be also post_filter
         filters={
@@ -607,7 +634,7 @@ RECORDS_REST_FACETS = {
             _('author'): terms_filter('facet_authors'),
             _('language'): terms_filter('languages.language'),
             _('subject'): terms_filter('subject'),
-            _('status'): terms_filter('itemslist._circulation.status'),
+            _('status'): terms_filter('itemslist.item_status'),
         },
         post_filters={
             _('years'): range_filter(
@@ -688,6 +715,11 @@ RECORDS_UI_ENDPOINTS = {
         record_class='rero_ils.modules.items.api:Item',
         permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
     ),
+    # 'loanid': dict(
+    #     pid_type='loanid',
+    #     route='/loans/<pid_value>',
+    #     record_class='rero_ils.modules.loans.api:Loan',
+    # ),
     'itty': dict(
         pid_type='itty',
         route='/items_types/<pid_value>',
@@ -763,6 +795,11 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         record_class=Item,
         form_options_create_exclude=['pid'],
     ),
+    # _('loanid'): dict(
+    #     api='/api/circulation/loans/',
+    #     schema='loans/loan-v0.0.1.json',
+    #     record_class=Loan
+    # ),
     _('itty'): dict(
         api='/api/items_types/',
         schema='items_types/item_type-v0.0.1.json',
@@ -931,21 +968,17 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
 ADMIN_PERMISSION_FACTORY = 'rero_ils.permissions.admin_permission_factory'
 ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
 
-
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid
 CIRCULATION_PATRON_EXISTS = Patron.get_record_by_pid
-CIRCULATION_STATES_ITEM_AVAILABLE = [
-    'ITEM_RETURNED',
-    'CANCELLED',
-    'ITEM_AT_DESK',
-    'PENDING',
-]
+
 CIRCULATION_ITEM_LOCATION_RETRIEVER = Item.item_location_retriever
-CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = (
+CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = \
     DocumentsWithItems.document_retriever
-)
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = DocumentsWithItems.items_retriever
+
+# This is needed for absolute URL
+SERVER_NAME = 'localhost:5000'
 
 CIRCULATION_LOAN_TRANSITIONS = {
     'CREATED': [
@@ -957,55 +990,34 @@ CIRCULATION_LOAN_TRANSITIONS = {
         ),
     ],
     'PENDING': [
-        dict(
-            dest='ITEM_AT_DESK',
-            transition=PendingToItemAtDesk,
-            trigger='validate',
-        ),
-        dict(
-            dest='ITEM_IN_TRANSIT_FOR_PICKUP',
-            transition=PendingToItemInTransitPickup,
-            trigger='validate',
-        ),
-        dict(dest='CANCELLED', trigger='cancel'),
+        dict(dest='ITEM_AT_DESK',
+             transition=PendingToItemAtDesk, trigger='validate'),
+        dict(dest='ITEM_IN_TRANSIT_FOR_PICKUP',
+             transition=PendingToItemInTransitPickup, trigger='validate'),
+        dict(dest='ITEM_ON_LOAN', transition=ToItemOnLoan, trigger='checkout'),
+        dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_AT_DESK': [
-        dict(
-            dest='ITEM_ON_LOAN',
-            transition=ItemAtDeskToItemOnLoan,
-            trigger='checkout',
-        ),
-        dict(dest='CANCELLED', trigger='cancel'),
+        dict(dest='ITEM_ON_LOAN', transition=ItemAtDeskToItemOnLoan, trigger='checkout'),
+        dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [
         dict(dest='ITEM_AT_DESK', trigger='receive'),
-        dict(dest='CANCELLED', trigger='cancel'),
+        dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_ON_LOAN': [
-        dict(
-            dest='ITEM_RETURNED',
-            transition=ItemOnLoanToItemReturned,
-            trigger='checkin',
-        ),
-        dict(
-            dest='ITEM_IN_TRANSIT_TO_HOUSE',
-            transition=ItemOnLoanToItemInTransitHouse,
-            trigger='checkin',
-        ),
-        dict(
-            dest='ITEM_ON_LOAN',
-            transition=ItemOnLoanToItemOnLoan,
-            trigger='extend',
-        ),
-        dict(dest='CANCELLED', trigger='cancel'),
+        dict(dest='ITEM_RETURNED',
+             transition=ItemOnLoanToItemReturned, trigger='checkin'),
+        dict(dest='ITEM_IN_TRANSIT_TO_HOUSE',
+             transition=ItemOnLoanToItemInTransitHouse, trigger='checkin'),
+        dict(dest='ITEM_ON_LOAN', transition=ItemOnLoanToItemOnLoan,
+             trigger='extend'),
+        dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_IN_TRANSIT_TO_HOUSE': [
-        dict(
-            dest='ITEM_RETURNED',
-            transition=ItemInTransitHouseToItemReturned,
-            trigger='checkin',
-        ),
-        dict(dest='CANCELLED', trigger='cancel'),
+        dict(dest='ITEM_RETURNED',
+             transition=ItemInTransitHouseToItemReturned, trigger='receive'),
+        dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_RETURNED': [],
     'CANCELLED': [],

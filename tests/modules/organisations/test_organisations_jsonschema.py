@@ -58,8 +58,7 @@ def test_name(organisation_schema, minimal_organisation_record):
         validate(minimal_organisation_record, organisation_schema)
 
 
-def test_address(organisation_schema,
-                 minimal_organisation_record):
+def test_address(organisation_schema, minimal_organisation_record):
     """Test address for organisation jsonschemas."""
     validate(minimal_organisation_record, organisation_schema)
 

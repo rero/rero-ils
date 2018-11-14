@@ -33,14 +33,15 @@ from rero_ils.utils_test import create_user
 @pytest.fixture()
 def user_staff_patron(app, minimal_patron_type_record):
     """Create staff patron user."""
-    patron_type = PatronType.create(minimal_patron_type_record,
-                                    dbcommit=True, reindex=True)
+    patron_type = PatronType.create(
+        minimal_patron_type_record, dbcommit=True, reindex=True
+    )
     yield create_user(
         app=app,
         name='staff_patron',
         is_patron=True,
         is_staff=True,
-        patron_type_pid=patron_type.pid
+        patron_type_pid=patron_type.pid,
     )
 
 
@@ -53,11 +54,9 @@ def user_staff(app):
 @pytest.fixture()
 def user_patron(app, minimal_patron_type_record):
     """Create patron user."""
-    patron_type = PatronType.create(minimal_patron_type_record,
-                                    dbcommit=True, reindex=True)
+    patron_type = PatronType.create(
+        minimal_patron_type_record, dbcommit=True, reindex=True
+    )
     yield create_user(
-        app=app,
-        name='patron',
-        is_patron=True,
-        patron_type_pid=patron_type.pid
+        app=app, name='patron', is_patron=True, patron_type_pid=patron_type.pid
     )

@@ -179,7 +179,7 @@
         {% endif %}
       {% endif %}
 
-      {% if item._circulation.status %}
+      {% if item.status %}
         {{ div_row(
           _('Status'),
           '<i class="fa fa-circle text-'+ ('success' if item.available else 'danger') +'"></i> '+
@@ -197,10 +197,12 @@
             <ul class="dropdown-menu">
               <li><a>{{ _('Available Pickup Locations') }}</a></li>
               <li role="separator" class="divider"></li>
-              {% for library in libraries %}
+              {% set locations = item.pid|item_library_pikcup_locations %}
+
+              {% for location in locations %}
                 <li>
-                  <a href="{{ url_for('items.request_item', pid_value=item.pid, library=library.pid)}}">
-                    {{ library.name }}
+                  <a href="{{ url_for('items.request_item', item_pid_value=item.pid, location=location.pid)}}">
+                    {{ location.name }}
                   </a>
                 </li>
               {% endfor %}

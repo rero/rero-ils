@@ -54,8 +54,8 @@ class LibraryProvider(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new Library identifier."""
-        assert 'pid_value' not in kwargs
-        kwargs['pid_value'] = str(LibraryIdentifier.next())
+        if not kwargs.get('pid_value'):
+            kwargs['pid_value'] = str(LibraryIdentifier.next())
         kwargs.setdefault('status', cls.default_status)
         if object_type and object_uuid:
             kwargs['status'] = PIDStatus.REGISTERED

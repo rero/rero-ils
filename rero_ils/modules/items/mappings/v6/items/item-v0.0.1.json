@@ -36,41 +36,17 @@
         "item_type": {
           "type": "keyword"
         },
+        "item_type_name": {
+          "type": "keyword"
+        },
         "requests_count": {
           "type": "integer"
         },
-        "_circulation": {
-          "properties": {
-            "holdings": {
-              "properties": {
-                "id": {
-                  "type": "keyword"
-                },
-                "patron_barcode": {
-                  "type": "keyword"
-                },
-                "renewal_count": {
-                  "type": "integer"
-                },
-                "start_date": {
-                  "type": "date"
-                },
-                "end_date": {
-                  "type": "date"
-                },
-                "pickup_library_pid": {
-                  "type": "keyword"
-                },
-                "pickup_library_name": {
-                  "type": "text"
-                }
-              }
-            },
-            "status": {
-              "type": "keyword",
-              "copy_to": "item_status"
-            }
-          }
+        "item_status": {
+          "type": "keyword"
+        },
+        "pending_loans": {
+          "type": "keyword"
         },
         "_created": {
           "type": "date"

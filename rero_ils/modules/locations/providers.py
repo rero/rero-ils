@@ -54,10 +54,11 @@ class LocationProvider(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new Location identifier."""
-        assert 'pid_value' not in kwargs
-        kwargs['pid_value'] = str(LocationIdentifier.next())
+        if not kwargs.get('pid_value'):
+            kwargs['pid_value'] = str(LocationIdentifier.next())
         kwargs.setdefault('status', cls.default_status)
         if object_type and object_uuid:
             kwargs['status'] = PIDStatus.REGISTERED
         return super(LocationProvider, cls).create(
-            object_type=object_type, object_uuid=object_uuid, **kwargs)
+            object_type=object_type, object_uuid=object_uuid, **kwargs
+        )

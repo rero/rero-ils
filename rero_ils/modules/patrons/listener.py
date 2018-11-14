@@ -58,5 +58,6 @@ def func_item_at_desk(sender, *args, **kwargs):
                 template=template,
                 language='eng',
                 document=DocumentsWithItems.get_document_by_itemid(item.id),
-                holding=item.dumps().get('_circulation').get('holdings')[0]
+                # holding=item.dumps().get('_circulation').get('holdings')[0],
+                holding='get loans with state ITEM_AT_DESK, To be implemented',
             )

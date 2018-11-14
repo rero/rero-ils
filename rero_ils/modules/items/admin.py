@@ -42,11 +42,15 @@ class CirculationManager(BaseView):
 
     def is_accessible(self):
         """Access control."""
-        return (can_edit() or default_admin_permission_factory(self).can())
+        return can_edit() or default_admin_permission_factory(self).can()
 
 
 circulation_adminview = {
     'view_class': CirculationManager,
-    'kwargs': dict(name='Circulation', endpoint='circulation',
-                   menu_icon_type='fa', menu_icon_value='fa-barcode'),
+    'kwargs': dict(
+        name='Circulation',
+        endpoint='circulation',
+        menu_icon_type='fa',
+        menu_icon_value='fa-barcode',
+    ),
 }
