@@ -57,6 +57,9 @@
         "library_pid": {
           "type": "text"
         },
+        "circulation_location_pid": {
+          "type": "text"
+        },
         "roles": {
           "type": "keyword"
         },

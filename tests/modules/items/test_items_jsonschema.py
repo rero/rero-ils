@@ -31,54 +31,54 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(item_schema, minimal_item_record):
+def test_required(item_schema, limited_item_record):
     """Test required for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
         validate({}, item_schema)
 
 
-def test_pid(item_schema, minimal_item_record):
+def test_pid(item_schema, limited_item_record):
     """Test pid for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['pid'] = 25
-        validate(minimal_item_record, item_schema)
+        limited_item_record['pid'] = 25
+        validate(limited_item_record, item_schema)
 
 
-def test_barcode(item_schema, minimal_item_record):
+def test_barcode(item_schema, limited_item_record):
     """Test barcode for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['barcode'] = 2
-        validate(minimal_item_record, item_schema)
+        limited_item_record['barcode'] = 2
+        validate(limited_item_record, item_schema)
 
 
-def test_call_number(item_schema, minimal_item_record):
+def test_call_number(item_schema, limited_item_record):
     """Test call_number for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['callNumber'] = 25
-        validate(minimal_item_record, item_schema)
+        limited_item_record['callNumber'] = 25
+        validate(limited_item_record, item_schema)
 
 
-def test_location(item_schema, minimal_item_record):
+def test_location(item_schema, limited_item_record):
     """Test location for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['location'] = 25
-        validate(minimal_item_record, item_schema)
+        limited_item_record['location'] = 25
+        validate(limited_item_record, item_schema)
 
 
-def test_item_type(item_schema, minimal_item_record):
+def test_item_type(item_schema, limited_item_record):
     """Test location for item jsonschemas."""
-    validate(minimal_item_record, item_schema)
+    validate(limited_item_record, item_schema)
 
     with pytest.raises(ValidationError):
-        minimal_item_record['item_type_pid'] = 25
-        validate(minimal_item_record, item_schema)
+        limited_item_record['item_type_pid'] = 25
+        validate(limited_item_record, item_schema)

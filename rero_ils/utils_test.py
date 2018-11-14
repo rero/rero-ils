@@ -42,9 +42,7 @@ def es_flush_and_refresh():
 
 def create_roles(my_app):
     """Create roles."""
-    datastore = LocalProxy(
-        lambda: my_app.extensions['security'].datastore
-    )
+    datastore = LocalProxy(lambda: my_app.extensions['security'].datastore)
     roles = ['patrons', 'staff', 'cataloguer']
     for role in roles:
         if not datastore.find_role(role):
@@ -52,22 +50,25 @@ def create_roles(my_app):
     datastore.commit()
 
 
-def create_user(app, name='name', is_patron=False, is_staff=False,
-                library_pid='1', patron_type_pid='1', barcode='2050124311'):
+def create_user(
+    app,
+    name='name',
+    is_patron=False,
+    is_staff=False,
+    library_pid='library_pid',
+    patron_type_pid='patron_type_pid',
+    barcode='2050124311',
+):
     """Create test user."""
     create_roles(app)
 
-    datastore = LocalProxy(
-        lambda: app.extensions['security'].datastore
-    )
+    datastore = LocalProxy(lambda: app.extensions['security'].datastore)
 
     email = '{name}@rero.ch'.format(name=name)
     user = datastore.find_user(email=email)
     if not user:
         user = datastore.create_user(
-            email=email,
-            active=True,
-            password=hash_password(name),
+            email=email, active=True, password=hash_password(name)
         )
         datastore.commit()
     user = datastore.find_user(email=email)
@@ -92,11 +93,7 @@ def create_user(app, name='name', is_patron=False, is_staff=False,
     if is_patron:
         patron_data['barcode'] = barcode
         patron_data['patron_type_pid'] = patron_type_pid
-    patron = Patron.create(
-        patron_data,
-        dbcommit=True,
-        reindex=True
-    )
+    patron = Patron.create(patron_data, dbcommit=True, reindex=True)
     if is_patron:
         patron.add_role(role_name='patrons')
     if is_staff:

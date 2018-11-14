@@ -32,7 +32,4 @@ from functools import partial
 from ..fetchers import id_fetcher
 from .providers import PatronTypeProvider
 
-patron_type_id_fetcher = partial(
-    id_fetcher,
-    provider=PatronTypeProvider
-)
+patron_type_id_fetcher = partial(id_fetcher, provider=PatronTypeProvider)

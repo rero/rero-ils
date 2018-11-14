@@ -37,7 +37,7 @@ def patron_type_schema():
     """Patron type Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.patrons_types.jsonschemas',
-        '/patrons_types/patron_type-v0.0.1.json'
+        '/patrons_types/patron_type-v0.0.1.json',
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema

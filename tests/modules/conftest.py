@@ -34,6 +34,7 @@ url_schema = 'http://ils.test.rero.ch/schema'
 def create_app(instance_path):
     """Create test app."""
     from invenio_app.factory import create_app as create_ui_api
+
     return create_ui_api
 
 
@@ -50,7 +51,7 @@ def minimal_circ_policy_record():
         'checkout_duration': 30,
         'allow_requests': True,
         'number_renewals': 3,
-        'renewal_duration': 30
+        'renewal_duration': 30,
     }
 
 
@@ -71,7 +72,7 @@ def minimal_patron_only_record():
         'phone': '+41324993585',
         'patron_type_pid': '1',
         'is_staff': False,
-        'is_patron': True
+        'is_patron': True,
     }
 
 
@@ -91,7 +92,7 @@ def minimal_staff_only_record():
         'phone': '+41324993585',
         'library_pid': '1',
         'is_staff': True,
-        'is_patron': False
+        'is_patron': False,
     }
 
 
@@ -112,7 +113,7 @@ def minimal_staff_patron_record():
         'phone': '+41324993585',
         'patron_type_pid': '1',
         'is_staff': True,
-        'is_patron': True
+        'is_patron': True,
     }
 
 
@@ -123,7 +124,7 @@ def minimal_organisation_record():
         '$schema': url_schema + '/organisations/organisation-v0.0.1.json',
         'pid': '1',
         'name': 'MV Sion',
-        'address': 'address'
+        'address': 'address',
     }
 
 
@@ -131,33 +132,33 @@ def minimal_organisation_record():
 def person_data():
     """Person data."""
     yield {
-        "bnf": {
-            "date_of_birth": "1525",
-            "identifier_for_person": "10008312",
-            "variant_name_for_person": [
-                "Cavaleriis, Joannes-Baptista de",
-                "Cavalieri, Giovanni-Battista de'",
-            ]
+        'bnf': {
+            'date_of_birth': '1525',
+            'identifier_for_person': '10008312',
+            'variant_name_for_person': [
+                'Cavaleriis, Joannes-Baptista de',
+                'Cavalieri, Giovanni-Battista de',
+            ],
         },
-        "gnd": {
-            "date_of_birth": "ca. 1525",
-            "identifier_for_person": "12391664X",
-            "preferred_name_for_person": "Cavalieri, Giovanni Battista",
-            "variant_name_for_person": [
-                "Cavaleriis, Joannes-Baptista de",
-                "Cavaleriis, Joannes Baptista",
-            ]
+        'gnd': {
+            'date_of_birth': 'ca. 1525',
+            'identifier_for_person': '12391664X',
+            'preferred_name_for_person': 'Cavalieri, Giovanni Battista',
+            'variant_name_for_person': [
+                'Cavaleriis, Joannes-Baptista de',
+                'Cavaleriis, Joannes Baptista',
+            ],
         },
-        "pid": "1",
-        "rero": {
-            "date_of_birth": "ca.1525-1601",
-            "identifier_for_person": "A023655346",
-            "variant_name_for_person": [
-                "Cavaleriis, Joannes-Baptista de",
-                "Cavaleriis, Joannes Baptista",
-            ]
+        'pid': '1',
+        'rero': {
+            'date_of_birth': 'ca.1525-1601',
+            'identifier_for_person': 'A023655346',
+            'variant_name_for_person': [
+                'Cavaleriis, Joannes-Baptista de',
+                'Cavaleriis, Joannes Baptista',
+            ],
         },
-        "viaf_pid": "66739143"
+        'viaf_pid': '66739143',
     }
 
 
@@ -166,19 +167,21 @@ def person_data_result():
     """Person data result."""
     yield {
         'date_of_birth': {
-            '1525': ['bnf'], 'ca. 1525': ['gnd'], 'ca.1525-1601': ['rero']
+            '1525': ['bnf'],
+            'ca. 1525': ['gnd'],
+            'ca.1525-1601': ['rero'],
         },
         'identifier_for_person': {
-            '10008312': ['bnf'], '12391664X': ['gnd'], 'A023655346': ['rero']
+            '10008312': ['bnf'],
+            '12391664X': ['gnd'],
+            'A023655346': ['rero'],
         },
         'variant_name_for_person': {
             'Cavaleriis, Joannes-Baptista de': ['bnf', 'gnd', 'rero'],
-            "Cavalieri, Giovanni-Battista de'": ['bnf'],
-            'Cavaleriis, Joannes Baptista': ['gnd', 'rero']
+            'Cavalieri, Giovanni-Battista de': ['bnf'],
+            'Cavaleriis, Joannes Baptista': ['gnd', 'rero'],
         },
-        'preferred_name_for_person': {
-            'Cavalieri, Giovanni Battista': ['gnd']
-        }
+        'preferred_name_for_person': {'Cavalieri, Giovanni Battista': ['gnd']},
     }
 
 
@@ -186,14 +189,8 @@ def person_data_result():
 def document_data_authors():
     """Document with authors."""
     yield [
-        {
-            'name': 'Foo'
-        },
-        {
-            'name': 'Bar',
-            'qualifier': 'prof',
-            'date': '2018'
-        }
+        {'name': 'Foo'},
+        {'name': 'Bar', 'qualifier': 'prof', 'date': '2018'}
     ]
 
 
@@ -201,78 +198,55 @@ def document_data_authors():
 def document_data_publishers():
     """Document with publishers."""
     yield [
-        {
-            'name': [
-                'Foo'
-            ]
-        },
-        {
-            'place': [
-                'place1',
-                'place2'
-            ],
-            'name': [
-                'Foo',
-                'Bar'
-            ]
-        }
+        {'name': ['Foo']},
+        {'place': ['place1', 'place2'], 'name': ['Foo', 'Bar']}
     ]
 
 
 @pytest.yield_fixture()
 def document_data_series():
     """Document with series."""
-    yield [
-        {
-            'name': 'serie 1'
-        },
-        {
-            'name': 'serie 2',
-            'number': '2018'
-        }
-    ]
+    yield [{'name': 'serie 1'}, {'name': 'serie 2', 'number': '2018'}]
 
 
 @pytest.yield_fixture()
 def document_data_abstracts():
     """Document with abstracts."""
-    yield [
-        'line1\n\n\nline2',
-        'line3'
-    ]
+    yield ['line1\n\n\nline2', 'line3']
 
 
 @pytest.yield_fixture()
 def form_locations_pids_names():
     """Form options with resolve: form_locations_pids_names."""
-    form = [{
-        'items': [{
-            'key': 'location_pid',
-            'populate': 'locations_pids_names',
-        }]
-    }]
+    form = [
+        {'items': [
+            {'key': 'location_pid', 'populate': 'locations_pids_names'}]}
+    ]
     yield form
 
 
 @pytest.yield_fixture()
 def form_item_types_names_descriptions():
     """Form options with resolve: item_types_names_descriptions."""
-    form = [{
-        'items': [{
-            'key': 'item_type_pid',
-            'populate': 'item_types_names_descriptions',
-        }]
-    }]
+    form = [
+        {
+            'items': [
+                {
+                    'key': 'item_type_pid',
+                    'populate': 'item_types_names_descriptions'
+                }
+            ]
+        }
+    ]
     yield form
 
 
 @pytest.yield_fixture()
 def form_patron_names_descriptions():
     """Form options with resolve: patron_names_descriptions."""
-    form = [{
-        'items': [{
+    form = [
+        {'items': [{
             'key': 'patron_type_pid',
-            'populate': 'patron_names_descriptions',
-        }]
-    }]
+            'populate': 'patron_names_descriptions'}]}
+    ]
     yield form

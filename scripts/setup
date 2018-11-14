@@ -105,7 +105,7 @@ pipenv run invenio index run -c 4
 
 # create items
 # NEEDS item type !!!
-pipenv run invenio fixtures createitems -c 1000 -R
+pipenv run invenio fixtures createitems -c 1000 -i 5 -R
 
 # create circulation transactions
 pipenv run invenio fixtures createcirctransactions ${data_path}/circulation_transactions.json

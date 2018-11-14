@@ -26,291 +26,688 @@
 
 from __future__ import absolute_import, print_function
 
-import copy
-import datetime
+from datetime import datetime
 
-import pytest
+import pytz
+from invenio_circulation.api import get_loan_for_item
 
-from rero_ils.modules.items.api import Item, ItemStatus
-from rero_ils.modules.libraries_locations.api import LibraryWithLocations
-from rero_ils.modules.locations.api import Location
+from rero_ils.modules.items.api import ItemStatus
+from rero_ils.modules.loans.api import get_pending_loan_by_patron_and_item
+from rero_ils.modules.loans.api import \
+    get_request_by_item_pid_by_patron_pid as get_request_item_patron
 
-
-def test_extend_item(db, create_minimal_resources_on_loan,
-                     minimal_patron_only_record,
-                     minimal_patron_record):
-
-    doc, item, library, location = create_minimal_resources_on_loan
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_no_req = copy.deepcopy(item)
-    assert item_no_req.status == ItemStatus.ON_LOAN
-    assert item_no_req.number_of_item_requests() == 0
-    item_no_req.extend_loan(requested_end_date='2018-02-01')
-    end_date = item_no_req['_circulation']['holdings'][0]['end_date']
-    assert end_date == '2018-02-01'
-    item_no_req.extend_loan()
-    current_date = datetime.date.today()
-    end_date = (current_date + datetime.timedelta(days=30)).isoformat()
-    assert item_no_req['_circulation']['holdings'][0]['end_date'] == end_date
-    item_no_req.extend_loan()
-    current_date = datetime.date.today()
-    end_date = (current_date + datetime.timedelta(days=30)).isoformat()
-    assert item_no_req['_circulation']['holdings'][0]['end_date'] == end_date
+current_date = pytz.utc.localize(datetime.now()).isoformat()
 
 
-def test_return_item(app, db, create_minimal_resources_on_loan,
-                     minimal_patron_only_record,
-                     minimal_patron_record):
+def test_request_rankings(
+    app, all_resources_limited, all_resources_limited_2, es_clear
+):
+    """Item rankings."""
 
-    doc, item, library, location = create_minimal_resources_on_loan
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_no_req = copy.deepcopy(item)
-    assert item_no_req.status == ItemStatus.ON_LOAN
-    assert item_no_req.number_of_item_requests() == 0
-    data_no_req = item_no_req.dumps()
-    assert data_no_req.get('library_pid') == '1'
-    item_no_req.return_item(transaction_library_pid='1')
-    db.session.commit()
-    assert item_no_req.status == ItemStatus.ON_SHELF
-
-    item_req = copy.deepcopy(item)
-    assert item_req.status == ItemStatus.ON_LOAN
-    assert item_req.number_of_item_requests() == 0
-    item_req.request_item(
-        patron_barcode=patron_barcode,
-        pickup_library_pid='1'
+    (
+        doc, item, library, location, simonetta, philippe
+    ) = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
     )
-    db.session.commit()
-    assert item_req.number_of_item_requests() == 1
-    data_req = item_req.dumps()
-    assert data_req.get('library_pid') == '1'
-
-    holding_req = item_req.get('_circulation').get('holdings')[1]
-    assert holding_req['pickup_library_pid'] == '1'
-    item_req.return_item(transaction_library_pid='1')
-    db.session.commit()
-    assert item_req.status == ItemStatus.AT_DESK
-
-    # item is requested and pickup <> transaction library
-
-    item_req_ext = copy.deepcopy(item)
-    assert item_req_ext.status == ItemStatus.ON_LOAN
-    assert item_req_ext.number_of_item_requests() == 0
-    item_req_ext.request_item(
-        patron_barcode=patron_barcode,
-        pickup_library_pid='1'
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan_1 = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
     )
-    db.session.commit()
-    assert item_req_ext.number_of_item_requests() == 1
-    data_req_ext = item_req_ext.dumps()
-    assert data_req_ext.get('library_pid') == '1'
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan_1['patron_pid'] == simonetta.pid
+    assert item.patron_request_rank(simonetta.get('barcode')) == 1
+    assert item.dumps().get('pending_loans')[0] == loan_1.pid
 
-    item_req_ext.get('_circulation').get('holdings')[1]
-    assert holding_req['pickup_library_pid'] == '1'
-    item_req_ext.return_item(transaction_library_pid='2')
-    db.session.commit()
-    assert item_req_ext.status == ItemStatus.IN_TRANSIT
-
-
-def test_validate_item(app, db, create_minimal_resources_on_shelf_req,
-                       minimal_patron_only_record,
-                       minimal_patron_record):
-
-    doc, item, library, location = create_minimal_resources_on_shelf_req
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_req = copy.deepcopy(item)
-    assert item_req.status == ItemStatus.ON_SHELF
-    assert item_req.number_of_item_requests() == 1
-    data_req = item_req.dumps()
-    assert data_req.get('library_pid') == '1'
-    holding = item_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_library_pid'] == '1'
-    item_req['_circulation']['holdings'][0]['pickup_library_pid'] = '2'
-    holding = item_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_library_pid'] == '2'
-    item_req.validate_item_request()
-    db.session.commit()
-    assert item_req.status == ItemStatus.IN_TRANSIT
-
-    item_req_intern = copy.deepcopy(item)
-    assert item_req_intern.status == ItemStatus.ON_SHELF
-    assert item_req_intern.number_of_item_requests() == 1
-    data_req = item_req_intern.dumps()
-    assert data_req.get('library_pid') == '1'
-    holding = item_req_intern.get('_circulation').get('holdings')[0]
-    assert holding['pickup_library_pid'] == '1'
-    item_req_intern.validate_item_request()
-    db.session.commit()
-    assert item_req_intern.status == ItemStatus.AT_DESK
-
-
-@pytest.mark.skip(reason="will be changet with invenio_circulation")
-def test_receive_item(app, db, create_minimal_resources_in_transit,
-                      minimal_patron_only_record,
-                      minimal_patron_record):
-
-    doc, item, library, location = create_minimal_resources_in_transit
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_in_transit = copy.deepcopy(item)
-    assert item_in_transit.status == ItemStatus.IN_TRANSIT
-    assert item_in_transit.number_of_item_requests() == 0
-    data_in_transit = item_in_transit.dumps()
-    assert data_in_transit.get('library_pid') == '1'
-    item_in_transit.receive_item(transaction_library_pid='1')
-    db.session.commit()
-    assert item_in_transit.status == ItemStatus.ON_SHELF
-
-    item_in_transit_req = copy.deepcopy(item)
-    assert item_in_transit_req.status == ItemStatus.IN_TRANSIT
-    assert item_in_transit_req.number_of_item_requests() == 0
-    item_in_transit_req.request_item(
-        patron_barcode=patron_barcode,
-        pickup_library_pid='1'
+    new_current_date = pytz.utc.localize(
+        datetime.now()).isoformat()
+    loan_2 = item.request_item(
+        patron_pid=philippe.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=philippe.pid,
+        transaction_date=new_current_date,
+        document_pid=doc.pid,
     )
-    db.session.commit()
-    assert item_in_transit_req.status == ItemStatus.IN_TRANSIT
-    assert item_in_transit_req.number_of_item_requests() == 1
-    holding = item_in_transit_req.get('_circulation').get('holdings')[0]
-    assert holding['pickup_library_pid'] == '1'
-    item_in_transit_req.receive_item(transaction_library_pid='1')
-    db.session.commit()
-    assert item_in_transit_req.status == ItemStatus.AT_DESK
-
-    item_in_transit_ext = copy.deepcopy(item)
-    assert item_in_transit_ext.status == ItemStatus.IN_TRANSIT
-    assert item_in_transit_ext.number_of_item_requests() == 0
-    data_in_transit_ext = item_in_transit_ext.dumps()
-    assert data_in_transit_ext.get('library_pid') == '1'
-    item_in_transit_ext.receive_item(transaction_library_pid='2')
-    db.session.commit()
-    assert item_in_transit_ext.status == ItemStatus.IN_TRANSIT
-
-
-def test_request_item(db, create_minimal_resources_on_shelf,
-                      minimal_patron_only_record,
-                      minimal_patron_record):
-
-    doc, item, library, location = create_minimal_resources_on_shelf
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_on_shelf = copy.deepcopy(item)
-    assert item_on_shelf.status == ItemStatus.ON_SHELF
-    assert item_on_shelf.number_of_item_requests() == 0
-    item_on_shelf.request_item(
-        patron_barcode=patron_barcode,
-        pickup_library_pid='1'
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 2
+    assert loan_2['patron_pid'] == philippe.pid
+    assert loan_1.pid != loan_2.pid
+    assert item.patron_request_rank(philippe.get('barcode')) == 2
+    assert item.dumps().get('pending_loans')[1] == loan_2.pid
+    loan = item.cancel_item_loan(
+        loan_pid=loan_1.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
     )
-    db.session.commit()
-    assert item_on_shelf.status == ItemStatus.ON_SHELF
-    assert item_on_shelf.number_of_item_requests() == 1
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan.pid == loan_1.pid
+    assert item.patron_request_rank(philippe.get('barcode')) == 1
+    assert item.dumps().get('pending_loans')[0] == loan_2.pid
 
-    patron_barcode_2 = minimal_patron_record['barcode']
-    assert patron_barcode_2
+    new_current_date = pytz.utc.localize(
+        datetime.now()).isoformat()
 
-    assert item_on_shelf.number_of_item_requests() == 1
-    item_on_shelf.request_item(
-        patron_barcode=patron_barcode_2,
-        pickup_library_pid='1'
+    loan_4 = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=new_current_date,
+        document_pid=doc.pid,
     )
-    db.session.commit()
-    assert item_on_shelf.status == ItemStatus.ON_SHELF
-    assert item_on_shelf.number_of_item_requests() == 2
+    assert item.number_of_item_requests() == 2
+    assert item.patron_request_rank(philippe.get('barcode')) == 1
+    assert item.patron_request_rank(simonetta.get('barcode')) == 2
+    assert item.dumps().get('pending_loans')[1] == loan_4.pid
 
 
-def test_loan_item(db, create_minimal_resources_on_shelf,
-                   minimal_patron_only_record):
+def test_multiple_requests(
+    app, all_resources_limited, all_resources_limited_2, es_clear
+):
+    """Item multiple requests."""
 
-    doc, item, library, location = create_minimal_resources_on_shelf
-    assert library
-    assert item
-    assert location
-    assert doc
-    assert doc.available
-    assert library.locations
-    patron_barcode = minimal_patron_only_record['barcode']
-    assert patron_barcode
-
-    item_on_shelf = copy.deepcopy(item)
-    assert item_on_shelf.status == ItemStatus.ON_SHELF
-    assert item_on_shelf.available
-    item_on_shelf.loan_item(patron_barcode=patron_barcode)
-    db.session.commit()
-    assert item_on_shelf.status == ItemStatus.ON_LOAN
-    assert not item_on_shelf.available
-
-    item_at_desk = copy.deepcopy(item)
-    assert item_at_desk.status == ItemStatus.ON_SHELF
-    item_at_desk['_circulation']['status'] = ItemStatus.AT_DESK
-    assert item_at_desk.status == ItemStatus.AT_DESK
-    assert not item_at_desk.available
-    item_at_desk.loan_item(patron_barcode=patron_barcode)
-    db.session.commit()
-    assert item_at_desk.status == ItemStatus.ON_LOAN
-
-
-def test_nb_item_requests(db, minimal_item_record, minimal_patron_only_record):
-    """Test number of item requests."""
-    assert minimal_patron_only_record['barcode']
-    patron_barcode = minimal_patron_only_record['barcode']
-    item = Item.create({})
-    item.update(minimal_item_record, dbcommit=True)
-    item.request_item(patron_barcode=patron_barcode)
-    tr_barcode = item['_circulation']['holdings'][2]['patron_barcode']
-    assert tr_barcode == patron_barcode
-    number_requests = item.number_of_item_requests()
-    assert number_requests == 2
-
-
-def test_library_name(db, minimal_library_record, minimal_item_record,
-                      minimal_location_record):
-    """Test library names."""
-    library = LibraryWithLocations.create(
-        minimal_library_record, dbcommit=True
+    (
+        doc, item, library, location, simonetta, philippe
+    ) = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
     )
-    assert library
-    location = Location.create(minimal_location_record, dbcommit=True)
-    assert location
-    library.add_location(location, dbcommit=True)
-    assert library.locations
-    item = Item.create({})
-    item.update(minimal_item_record, dbcommit=True)
-    assert item
-    data = item.dumps()
-    assert data.get('library_pid') == '1'
-    assert data.get('library_name') == 'MV Sion'
-    holding = data.get('_circulation').get('holdings')[1]
-    assert holding['pickup_library_name'] == 'MV Sion'
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan_1 = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan_1['patron_pid'] == simonetta.pid
+
+    loan_2 = item.request_item(
+        patron_pid=philippe.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=philippe.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 2
+    assert loan_2['patron_pid'] == philippe.pid
+    assert loan_1.pid != loan_2.pid
+    loan = item.cancel_item_loan(
+        loan_pid=loan_1.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan.pid == loan_1.pid
+
+
+def test_checkin_transit_house_receive(
+    app, all_resources_limited, all_resources_limited_2, es_clear
+):
+    """Item checkin, in_tranist, in_house receive testing."""
+
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan['patron_pid'] == simonetta.pid
+
+    loan = item.validate_item_request(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert item.number_of_item_requests() == 1
+    loan = item.receive_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.AT_DESK
+    assert item.number_of_item_requests() == 1
+    loan = item.loan_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert item.number_of_item_requests() == 0
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['extension_count'] == 1
+    assert item.number_of_item_requests() == 0
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert item.number_of_item_requests() == 0
+    loan = item.receive_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+
+
+def test_request_in_transit_checkout_extend_checkin(
+    app, all_resources_limited, es_clear, all_resources_limited_2
+):
+    """Item request, validate, checkout, extend, checkin testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    loan_request = get_request_item_patron(item.pid, simonetta.pid)
+    loan_request_pid = loan_request['loan_pid']
+    assert loan_request_pid == loan.pid
+    assert loan['patron_pid'] == simonetta.pid
+
+    loan = item.validate_item_request(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert item.number_of_item_requests() == 1
+    loan = item.receive_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.AT_DESK
+    assert item.number_of_item_requests() == 1
+    loan = item.loan_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location2.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['extension_count'] == 1
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+
+
+def test_request_validate_checkout_extend_checkin(
+    app, all_resources_limited, es_clear
+):
+    """Item request, validate, checkout, extend, checkin testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    assert loan['patron_pid'] == simonetta.pid
+
+    loan = item.validate_item_request(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.AT_DESK
+    assert item.number_of_item_requests() == 1
+
+    loan = item.loan_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['extension_count'] == 1
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+
+
+def test_checkout_extend_checkin(app, all_resources_limited, es_clear):
+    """Item checkout, extend, checkin testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    assert not get_loan_for_item(item.pid)
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['extension_count'] == 1
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+
+
+def test_request_checkout_extend_checkin(app, all_resources_limited, es_clear):
+    """Item request, checkout, extend, checkin testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['extension_count'] == 1
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+
+
+def test_cancel_item_loan(app, all_resources_limited, es_clear):
+    """Cancel item loan testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+
+    loan_req = get_pending_loan_by_patron_and_item(simonetta.pid, item.pid)
+    loan_req_pid = loan_req['loan_pid']
+    assert loan.pid == loan_req_pid
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.cancel_item_loan(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+
+
+def test_validate_item(
+    app, all_resources_limited, all_resources_limited_2, es_clear
+):
+    """Validate item testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.validate_item_request(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert item.number_of_item_requests() == 1
+
+
+def test_receive_item(
+    app, all_resources_limited, all_resources_limited_2, es_clear
+):
+    """Receive item testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    doc2, item2, library2, location2, simonetta2, philippe2 = (
+        all_resources_limited_2
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.validate_item_request(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location2.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert item.number_of_item_requests() == 1
+    loan = item.receive_item(
+        loan_pid=loan.pid,
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.AT_DESK
+    assert item.number_of_item_requests() == 1
+
+
+def test_request_item(app, all_resources_limited, es_clear):
+    """Item request testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    loan_req_1 = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert loan_req_1.pid
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+    loan_req_2 = item.request_item(
+        patron_pid=philippe.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date='2018-02-03',
+        document_pid=doc.pid,
+    )
+    assert loan_req_2.pid
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 2
+
+
+def test_loan_item(app, all_resources_limited, es_clear):
+    """Item checkout testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    assert not get_loan_for_item(item.pid)
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['patron_pid'] == simonetta.pid
+
+
+def test_return_item(app, all_resources_limited, es_clear):
+    """Item checkin testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    assert not get_loan_for_item(item.pid)
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    loan = item.return_item(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert not get_loan_for_item(item.pid)
+
+
+def test_extend_item(app, all_resources_limited, es_clear):
+    """Item renewal testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    assert not get_loan_for_item(item.pid)
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['patron_pid'] == simonetta.pid
+    loan = item.extend_loan(
+        patron_pid=simonetta.pid,
+        loan_pid=loan.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert get_loan_for_item(item.pid)
+    assert loan['extension_count'] == 1
+
+
+def test_pending_to_onloan_item(app, all_resources_limited, es_clear):
+    """Item checkout after a request testing."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 0
+    assert not get_loan_for_item(item.pid)
+    loan = item.request_item(
+        patron_pid=simonetta.pid,
+        pickup_location_pid=location.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_item_requests() == 1
+
+    loan = item.loan_item(
+        patron_pid=simonetta.pid,
+        transaction_location_pid=location.pid,
+        transaction_user_pid=simonetta.pid,
+        transaction_date=current_date,
+        document_pid=doc.pid,
+    )
+    assert item.status == ItemStatus.ON_LOAN
+    assert loan['patron_pid'] == simonetta.pid

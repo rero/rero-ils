@@ -37,7 +37,7 @@ def circ_policy_schema():
     """Patron Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.circ_policies.jsonschemas',
-        'circ_policies/circ_policy-v0.0.1.json'
+        'circ_policies/circ_policy-v0.0.1.json',
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema

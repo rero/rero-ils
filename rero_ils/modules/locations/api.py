@@ -28,6 +28,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
+from ..documents.api import DocumentsSearch
 from ..libraries_locations.models import LibrariesLocationsMetadata
 from .fetchers import location_id_fetcher
 from .minters import location_id_minter
@@ -35,12 +36,12 @@ from .providers import LocationProvider
 
 
 class LocationsSearch(RecordsSearch):
-    """RecordsSearch for borrowed documents."""
+    """RecordsSearch for locations."""
 
     class Meta:
-        """Search only on documents index."""
+        """Search only on locations index."""
 
-        index = 'documents'
+        index = 'locations'
 
 
 class Location(IlsRecord):
@@ -55,6 +56,11 @@ class Location(IlsRecord):
         """Get location."""
         location = cls.get_record_by_pid(pid)
         return location, location
+
+    @classmethod
+    def get_all_locations(cls):
+        """Get all locations."""
+        return list(LocationsSearch().filter('match_all').source().scan())
 
     # TODO make global function
     @classmethod
@@ -73,9 +79,12 @@ class Location(IlsRecord):
 
     def get_all_items_pids(self):
         """Get all items pids."""
-        items_with_location = LocationsSearch().filter(
-            "term", **{"itemslist.location_pid": self.pid}
-        ).source(includes=['itemslist.pid']).scan()
+        items_with_location = (
+            DocumentsSearch()
+            .filter('term', **{'itemslist.location_pid': self.pid})
+            .source(includes=['itemslist.pid'])
+            .scan()
+        )
         pids = []
         for document in items_with_location:
             for items in document['itemslist']:

@@ -32,7 +32,7 @@ def test_mappings():
     from pkg_resources import resource_string
 
     mappings_in_bytes = resource_string(
-        'rero_ils.modules.items.mappings',
-        'v6/items/item-v0.0.1.json')
+        'rero_ils.modules.items.mappings', 'v6/items/item-v0.0.1.json'
+    )
     mappings = loads(mappings_in_bytes.decode('utf8'))
     assert mappings.get('mappings').get('item-v0.0.1')

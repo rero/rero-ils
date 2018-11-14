@@ -58,8 +58,7 @@ def test_name(library_schema, minimal_library_record):
         validate(minimal_library_record, library_schema)
 
 
-def test_address(library_schema,
-                 minimal_library_record):
+def test_address(library_schema, minimal_library_record):
     """Test address for organisation jsonschemas."""
     validate(minimal_library_record, library_schema)
 

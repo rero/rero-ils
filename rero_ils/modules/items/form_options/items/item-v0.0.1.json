@@ -94,7 +94,7 @@
             "htmlClass": "col-xs-6",
             "items": [
               {
-                "key": "_circulation.status",
+                "key": "item_status",
                 "readonly": true,
                 "title": "Status"
               }

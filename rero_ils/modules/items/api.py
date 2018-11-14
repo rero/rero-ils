@@ -24,34 +24,24 @@
 
 """API for manipulating items."""
 
-import collections
-import uuid
-from datetime import datetime, timedelta
-from functools import partial, wraps
-from operator import indexOf
-from uuid import uuid4
 
-import six
-from flask import current_app
-from invenio_db import db
-from invenio_pidstore.errors import PIDInvalidAction
-from invenio_records.models import RecordMetadata
+from invenio_circulation.api import get_loan_for_item, \
+    patron_has_active_loan_on_item
+from invenio_circulation.proxies import current_circulation
 from invenio_search.api import RecordsSearch
-from sqlalchemy import BOOLEAN, DATE, INTEGER, cast, func, type_coerce
-from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy_continuum import version_class
 
 from ..api import IlsRecord
 from ..items_types.api import ItemType
-from ..libraries.api import Library
 from ..libraries_locations.api import LibraryWithLocations
+from ..loans.api import Loan, LoanAction, es_flush, get_checkout_by_item_pid, \
+    get_in_tranist_item_pid, get_loans_by_item_pid, \
+    get_request_by_item_pid_by_patron_pid, get_requests_by_item_pid
 from ..locations.api import Location
 from ..transactions.api import CircTransaction
 from .fetchers import item_id_fetcher
 from .minters import item_id_minter
 from .models import ItemStatus
 from .providers import ItemProvider
-from .signals import item_at_desk
 
 
 class ItemsSearch(RecordsSearch):
@@ -63,89 +53,6 @@ class ItemsSearch(RecordsSearch):
         index = 'items'
 
 
-def check_status(method=None, statuses=None):
-    """Check that the item has a defined status."""
-    if method is None:
-        return partial(check_status, statuses=statuses)
-
-    statuses = statuses or []
-
-    @wraps(method)
-    def wrapper(self, *args, **kwargs):
-        """Check current deposit status."""
-        if self['_circulation']['status'] not in statuses:
-            raise PIDInvalidAction()
-
-        return method(self, *args, **kwargs)
-    return wrapper
-
-
-class Holding(dict):
-    """Holding class to create and maintain holdings."""
-
-    @classmethod
-    def create(cls, id_=None, **kwargs):
-        """Create a valid holding."""
-        return cls(id=id_ or kwargs.pop('id', str(uuid.uuid4())), **kwargs)
-
-
-class HoldingIterator(object):
-    """Data access object to manage holdings associated to an item."""
-
-    def __init__(self, iterable):
-        """Initialize iterator."""
-        self._iterable = iterable
-
-    def __len__(self):
-        """Get number of holdings."""
-        return len(self._iterable)
-
-    def __iter__(self):
-        """Get iterator."""
-        self._it = iter(self._iterable)
-        return self._it
-
-    def next(self):
-        """Python 2.7 compatibility."""
-        return self.__next__()  # pragma: no cover
-
-    def __next__(self):
-        """Get next holding item."""
-        return next(self._it)   # pragma: no cover
-
-    def __contains__(self, id_):
-        """Check if HoldingIterator contains a Holding by id."""
-        return id_ in (x['id'] for x in self)
-
-    def __getitem__(self, key):
-        """Get a specific holding."""
-        return self._iterable[key]  # pragma: no cover
-
-    def __setitem__(self, key, obj):
-        """Add holding inside a deposit."""
-        self._iterable[key] = obj   # pragma: no cover
-
-    def __delitem__(self, id_):
-        """Delete a Holding by id.
-
-        :raises ValueError:
-        """
-        index = indexOf((x['id'] for x in self), str(id_))
-        del self._iterable[index]
-
-    def append(self, obj):
-        """Append a holding to the end."""
-        self._iterable.append(obj)
-
-    def insert(self, index, obj):
-        """Insert a holding before given index."""
-        self._iterable.insert(index, obj)
-
-    def pop(self, index):
-        """Remove and return a holding at index (default is last)."""
-        return self._iterable.pop(index)
-
-
 class Item(IlsRecord):
     """Item class."""
 
@@ -155,228 +62,226 @@ class Item(IlsRecord):
 
     default_duration = 30
 
-    durations = {
-        ItemType.get_pid_by_name('short'): 15
-    }
-
-    @property
-    def holdings(self):
-        """Property of holdings associated with the given item."""
-        return HoldingIterator(self['_circulation']['holdings'])
+    durations = {ItemType.get_pid_by_name('short'): 15}
 
     @property
     def status(self):
-        """Shortcut for circulation status."""
-        return self.get('_circulation', {}).get('status', '')
+        """Shortcut for item status."""
+        return self.get('item_status', '')
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True, **kwargs):
         """Create a new item record."""
-        if not data.get('_circulation'):
-            data['_circulation'] = {
-                'holdings': [],
-                'status': 'on_shelf'
-            }
-        data['_circulation'].setdefault('holdings', [])
         return super(Item, cls).create(
             data, id_=id_, delete_pid=delete_pid, **kwargs
         )
 
-    @classmethod
-    def find_by_holding(cls, **kwargs):
-        """Find item versions based on their holdings information.
-
-        Every given kwarg will be queried as a key-value pair in the items
-        holding.
-
-        :returns: List[(UUID, version_id)] with `version_id` as used by
-                  `RecordMetadata.version_id`.
-        """
-        def _get_filter_clause(obj, key, value):
-            val = obj[key].astext
-            CASTS = {
-                bool: lambda x: cast(x, BOOLEAN),
-                int: lambda x: cast(x, INTEGER),
-                datetime.date: lambda x: cast(x, DATE),
-            }
-            if (not isinstance(value, six.string_types) and
-                    isinstance(value, collections.Sequence)):
-                if len(value) == 2:
-                    return CASTS[type(value[0])](val).between(*value)
-                raise ValueError('Too few/many values for a range query. '
-                                 'Range query requires two values.')
-            return CASTS.get(type(value), lambda x: x)(val) == value
-
-        RecordMetadataVersion = version_class(RecordMetadata)
-
-        data = type_coerce(RecordMetadataVersion.json, JSONB)
-        path = ('_circulation', 'holdings')
-
-        subquery = db.session.query(
-            RecordMetadataVersion.id.label('id'),
-            RecordMetadataVersion.version_id.label('version_id'),
-            func.json_array_elements(data[path]).label('obj')
-        ).subquery()
-
-        obj = type_coerce(subquery.c.obj, JSONB)
-
-        query = db.session.query(
-            RecordMetadataVersion.id,
-            RecordMetadataVersion.version_id
-        ).filter(
-            RecordMetadataVersion.id == subquery.c.id,
-            RecordMetadataVersion.version_id == subquery.c.version_id,
-            *(_get_filter_clause(obj, k, v) for k, v in kwargs.items())
-        )
-
-        for result in query:
-            yield result
-
-    @check_status(statuses=[ItemStatus.IN_TRANSIT])
-    def receive_item(self, transaction_library_pid, **kwargs):
-        """Receive an item."""
-        item = self.dumps()
-        id = str(uuid4())
-        item_library_pid = item['library_pid']
-        item_type = ItemType.get_record_by_pid(item['item_type_pid'])
-        item['item_type_pid'] = item_type.pid
-        first_request = self.get_first_request()
-        has_requests = self.number_of_item_requests() > 0
-        if not has_requests and item_library_pid == transaction_library_pid:
-            self['_circulation']['status'] = ItemStatus.ON_SHELF
-        elif (has_requests and
-              first_request['pickup_library_pid'] == transaction_library_pid):
-            self['_circulation']['status'] = ItemStatus.AT_DESK
-            item_at_desk.send(
-                current_app._get_current_object(),
-                item=self
-            )
+    def item_status_update(self):
+        """Update item status."""
+        statuses = {
+            'ITEM_ON_LOAN': 'on_loan',
+            'ITEM_AT_DESK': 'at_desk',
+            'ITEM_IN_TRANSIT_FOR_PICKUP': 'in_transit',
+            'ITEM_IN_TRANSIT_TO_HOUSE': 'in_transit',
+        }
+        loan = get_loan_for_item(self.pid)
+        if loan:
+            self['item_status'] = statuses[loan.get('state')]
         else:
-            self['_circulation']['status'] = ItemStatus.IN_TRANSIT
-        data = self.build_data(0, 'receive_item_request')
-        CircTransaction.create(data, id=id)
+            if self['item_status'] != ItemStatus.MISSING:
+                self['item_status'] = ItemStatus.ON_SHELF
 
-    @check_status(statuses=[ItemStatus.ON_SHELF])
+        self.commit()
+        self.dbcommit(reindex=True, forceindex=True)
+
+        from ..documents_items.api import DocumentsWithItems
+
+        document = DocumentsWithItems.get_document_by_itemid(self.id)
+        document.reindex()
+
+    @classmethod
+    def get_item_by_barcode(cls, barcode=None):
+        """Get item by barcode."""
+        search = ItemsSearch()
+        result = (
+            search.filter('term', barcode=barcode)
+            .source(includes='pid')
+            .execute()
+            .to_dict()
+        )
+        try:
+            result = result['hits']['hits'][0]
+            return super(IlsRecord, cls).get_record(result['_id'])
+        except Exception:
+            return None
+
+    def cancel_item_loan(self, **kwargs):
+        """Cancel a given item loan for a patron."""
+        loan_pid = kwargs.get('loan_pid')
+        prev_loan = Loan.get_record_by_pid(loan_pid)
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='cancel')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
+    def loan_item(self, **kwargs):
+        """Checkout item to the user."""
+        if kwargs.get('loan_pid'):
+            loan_pid = kwargs.get('loan_pid')
+            prev_loan = Loan.get_record_by_pid(loan_pid)
+        else:
+            prev_loan = Loan.initiate()
+            prev_loan['item_pid'] = self.pid
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='checkout')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
+    def automatic_checkin(self, **kwargs):
+        """Apply circ transactions for item."""
+        return_rec = {'action_applied': {}}
+        # transaction_location_pid = kwargs.get('transaction_location_pid')
+        item_status = self.get('item_status')
+
+        if item_status == ItemStatus.ON_LOAN:
+            checkout_loan = get_checkout_by_item_pid(self.pid)
+            params = dict(loan_pid=checkout_loan['loan_pid'])
+            loan = self.return_item(**params)
+            return_rec['action_applied'][LoanAction.CHECKIN] = loan.get(
+                'loan_pid'
+            )
+            # TODO: automatic validation
+            # requests = self.dumps().get('pending_loans')
+            # if len(requests):
+            #     next_loan = Loan.get_record_by_pid(requests[0])
+            #     pickup_location_pid = next_loan.get('pickup_location_pid')
+            #     if transaction_location_pid == pickup_location_pid:
+            #         params = dict(next_loan, **kwargs)
+            #         next_loan = current_circulation.circulation.trigger(
+            #             next_loan, **dict(params, trigger='validate')
+            #         )
+            #         return_rec['action_applied'][
+            #             LoanAction.VALIDATE] = next_loan.get(
+            #             'loan_pid'
+            #         )
+
+        elif item_status == ItemStatus.IN_TRANSIT:
+            in_transit_loan = get_in_tranist_item_pid(self.pid)
+            params = dict(loan_pid=in_transit_loan['loan_pid'])
+            loan = self.receive_item(**params)
+            return_rec['action_applied'][LoanAction.RECEIVE] = loan.get(
+                'loan_pid'
+            )
+        elif item_status == ItemStatus.MISSING:
+            self.return_missing_item(**kwargs)
+            return_rec['action_applied'] = LoanAction.RETURN_MISSING
+        else:
+            return_rec = self
+        return return_rec
+
+    def receive_item(self, **kwargs):
+        """Receive an item."""
+        loan_pid = kwargs.get('loan_pid')
+        prev_loan = Loan.get_record_by_pid(loan_pid)
+        if not kwargs.get('item_pid'):
+            kwargs['item_pid'] = self.pid
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='receive')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
+    def return_item(self, **kwargs):
+        """Checkin a given item."""
+        loan_pid = kwargs.get('loan_pid')
+        prev_loan = Loan.get_record_by_pid(loan_pid)
+        if not kwargs.get('item_pid'):
+            kwargs['item_pid'] = self.pid
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='checkin')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
+    def request_item(self, **kwargs):
+        """Request item for the user."""
+        if kwargs.get('loan_pid'):
+            loan_pid = kwargs.get('loan_pid')
+            prev_loan = Loan.get_record_by_pid(loan_pid)
+        else:
+            prev_loan = Loan.initiate()
+            prev_loan['item_pid'] = self.pid
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='request')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
+    def extend_loan(self, **kwargs):
+        """Renew a given item."""
+        loan_pid = kwargs.get('loan_pid')
+        prev_loan = Loan.get_record_by_pid(loan_pid)
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='extend')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
+
     def validate_item_request(self, **kwargs):
         """Validate item request."""
-        id = str(uuid4())
-        if self.number_of_item_requests():
-            first_request = self.get_first_request()
-            pickup_library_pid = first_request['pickup_library_pid']
-            location_pid = self.get('location_pid')
-            location = Location.get_record_by_pid(location_pid)
-            library =\
-                LibraryWithLocations.get_library_by_locationid(location.id)
-            library_pid = library.pid
-            if library_pid == pickup_library_pid:
-                self['_circulation']['status'] = ItemStatus.AT_DESK
-                item_at_desk.send(
-                    current_app._get_current_object(),
-                    item=self
-                )
-            else:
-                self['_circulation']['status'] = ItemStatus.IN_TRANSIT
-            data = self.build_data(0, 'validate_item_request')
-            CircTransaction.create(data, id=id)
-        else:
-            raise PIDInvalidAction()
+        loan_pid = kwargs.get('loan_pid')
+        prev_loan = Loan.get_record_by_pid(loan_pid)
+        params = dict(prev_loan, **kwargs)
+        loan = current_circulation.circulation.trigger(
+            prev_loan, **dict(params, trigger='validate')
+        )
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
+        return loan
 
-    @check_status(statuses=[ItemStatus.ON_SHELF, ItemStatus.AT_DESK])
-    def loan_item(self, **kwargs):
-        """Loan item to the user.
-
-        Adds a loan to *_circulation.holdings*.
-
-        :param user: Invenio-Accounts user.
-        :param start_date: Start date of the loan. Must be today.
-        :param end_date: End date of the loan.
-        :param waitlist: If the desired dates are not available, the item will
-                         be put on a waitlist.
-        :param delivery: 'pickup' or 'mail'
-        """
-        id = str(uuid4())
-        self['_circulation']['status'] = ItemStatus.ON_LOAN
-        holdings = self.holdings
-        if holdings and \
-           holdings[0]['patron_barcode'] == kwargs.get('patron_barcode'):
-            self.holdings.pop(0)
-        self.holdings.insert(0, Holding.create(id=id, **kwargs))
-        CircTransaction.create(self.build_data(0, 'add_item_loan'), id=id)
-
-    @check_status(statuses=[ItemStatus.ON_LOAN,
-                            ItemStatus.ON_SHELF,
-                            ItemStatus.AT_DESK,
-                            ItemStatus.IN_TRANSIT])
-    def request_item(self, **kwargs):
-        """Request item for the user.
-
-        Adds a request to *_circulation.holdings*.
-
-        :param user: Invenio-Accounts user.
-        :param request_datetime: Start date of the loan.
-                                 Must be today or a future date.
-        :param waitlist: If the desired dates are not available, the item will
-                         be put on a waitlist.
-        :param delivery: 'pickup' or 'mail'
-        """
-        id = str(uuid4())
-        self.holdings.append(Holding.create(id=id, **kwargs))
-        CircTransaction.create(self.build_data(-1, 'add_item_request'), id=id)
-
-    @check_status(statuses=[ItemStatus.ON_LOAN])
-    def return_item(self, transaction_library_pid, **kwargs):
-        """Return given item."""
-        item = self.dumps()
-        item_library_pid = item['library_pid']
-        first_request = self.get_first_request()
-        has_requests = self.number_of_item_requests() > 0
-        if not has_requests and item_library_pid == transaction_library_pid:
-            self['_circulation']['status'] = ItemStatus.ON_SHELF
-        elif (has_requests and
-              first_request['pickup_library_pid'] == transaction_library_pid):
-            self['_circulation']['status'] = ItemStatus.AT_DESK
-            item_at_desk.send(
-                current_app._get_current_object(),
-                item=self
-            )
-        else:
-            self['_circulation']['status'] = ItemStatus.IN_TRANSIT
-        data = self.build_data(0, 'add_item_return')
-        self.holdings.pop(0)
-        CircTransaction.create(data)
-
-    @check_status(statuses=[ItemStatus.ON_LOAN,
-                            ItemStatus.ON_SHELF,
-                            ItemStatus.AT_DESK,
-                            ItemStatus.IN_TRANSIT])
     def lose_item(self):
         """Lose the given item.
 
         This sets the status to ItemStatus.MISSING.
         All existing holdings will be canceled.
         """
-        self['_circulation']['status'] = ItemStatus.MISSING
+        for loan in get_loans_by_item_pid(self.pid):
+            loan_pid = loan['loan_pid']
+            self.cancel_item_loan(loan_pid=loan_pid)
 
-        for holding in self.holdings:
-            self.cancel_hold(holding['id'])
+        self['item_status'] = ItemStatus.MISSING
+        self.item_status_update()
 
-    @check_status(statuses=[ItemStatus.MISSING])
     def return_missing_item(self, **kwargs):
         """Return the missing item.
 
         The item's status will be set to ItemStatus.ON_SHELF.
         """
-        data = self.build_data(0, 'add_item_return_missing')
-        self['_circulation']['status'] = ItemStatus.ON_SHELF
-        CircTransaction.create(data)
-
-    def cancel_hold(self, id_):
-        """Cancel the identified hold.
-
-        The item's corresponding hold information wil be removed.
-        This action updates the waitlist.
-        """
-        del self.holdings[id_]
+        self['item_status'] = ItemStatus.ON_SHELF
+        self.item_status_update()
+        self.commit()
+        self.dbcommit(reindex=True, forceindex=True)
 
     @property
     def duration(self):
@@ -386,159 +291,129 @@ class Item(IlsRecord):
     @property
     def requests(self):
         """Get the list of requests."""
-        circulation = self.dumps().get('_circulation', None)
-        if circulation:
-            if circulation.get('status') == ItemStatus.ON_LOAN:
-                return circulation.get('holdings', [])[1:]
-            else:
-                return circulation.get('holdings', [])
-        else:
-            return []
+        request_list = []
+        requests = get_requests_by_item_pid(self.pid)
+        if requests:
+            for request in requests:
+                request_list.append(request)
+        return request_list
 
     @property
     def available(self):
         """Get availability for loan."""
-        return self.status == ItemStatus.ON_SHELF and\
+        return (
+            self.status == ItemStatus.ON_SHELF and
             self.number_of_item_requests() == 0
+        )
 
     @property
     def can_delete(self):
         """Record can be deleted."""
         return self.available
 
-    # ??? name ???
-    @check_status(statuses=[ItemStatus.ON_LOAN])
-    def extend_loan(
-            self, requested_end_date=None, renewal_count=None, **kwargs
-    ):
-        """Request a new end date for the active loan.
-
-        A possible status ItemStatus.OVERDUE will be removed.
-        """
-        id = str(uuid4())
-        if not renewal_count:
-            renewal_count = self.get_renewal_count() + 1
-        if not requested_end_date:
-            request_date = datetime.today() + timedelta(self.duration)
-            requested_end_date = datetime.strftime(request_date, '%Y-%m-%d')
-        self.holdings[0]['end_date'] = requested_end_date
-        self.holdings[0]['renewal_count'] = renewal_count
-        CircTransaction.create(self.build_data(0, 'extend_item_loan'), id=id)
-
     def get_item_end_date(self):
         """Get item due date a given item."""
-        circulation = self.get('_circulation', {})
-        if circulation:
-            holdings = circulation.get('holdings', [])
-            if holdings:
-                if self.status == ItemStatus.ON_LOAN:
-                    if holdings[0].get('end_date'):
-                        end_date_str = holdings[0].get('end_date')
-                        end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
-                        return end_date
+        loan = get_loan_for_item(self.pid)
+        if loan:
+            end_date = loan['end_date']
+            # due_date = datetime.strptime(end_date, '%Y-%m-%d')
+            from ...filter import format_date_filter
+            from invenio_i18n.ext import current_i18n
+
+            due_date = format_date_filter(
+                end_date,
+                format='short_date',
+                locale=current_i18n.locale.language,
+            )
+            return due_date
         return None
 
     def get_renewal_count(self):
         """Get item renewal count."""
-        circulation = self.get('_circulation', {})
-        if circulation:
-            holdings = circulation.get('holdings', [])
-            if holdings:
-                if self.status == ItemStatus.ON_LOAN:
-                    if holdings[0].get('renewal_count'):
-                        renewal_count = holdings[0].get('renewal_count')
-                        return renewal_count
+        loan = get_loan_for_item(self.pid)
+        if loan:
+            renewal_count = loan['extension_count']
+            if renewal_count:
+                return renewal_count
         return 0
-
-    def build_data(self, record, _type):
-        """Build transaction json data."""
-        b_code = ''
-        if self['_circulation']['holdings']:
-            b_code = self['_circulation']['holdings'][record]['patron_barcode']
-        data = {
-            'transaction_type': _type,
-            'item_barcode': self['barcode'],
-            'patron_barcode': b_code
-        }
-        return data
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
         data = super(IlsRecord, self).dumps(**kwargs)
         location_pid = data.get('location_pid')
         location = Location.get_record_by_pid(location_pid)
+        from ..documents_items.api import DocumentsWithItems
+
+        if DocumentsWithItems.document_retriever(self.pid):
+            document_pid = DocumentsWithItems.document_retriever(self.pid)
+            data['document_pid'] = document_pid
         if location:
             data['location_name'] = location.get('name')
-            library =\
-                LibraryWithLocations.get_library_by_locationid(location.id)
+            library = LibraryWithLocations.get_library_by_locationid(
+                location.id
+            )
             data['library_pid'] = library.pid
             data['library_name'] = library.get('name')
         data['requests_count'] = self.number_of_item_requests()
         data['available'] = self.available
-        for holding in data.get('_circulation', {}).get('holdings', []):
-            pickup_library_pid = holding.get('pickup_library_pid')
-            if pickup_library_pid:
-                holding_library = Library.get_record_by_pid(pickup_library_pid)
-                if holding_library:
-                    holding['pickup_library_name'] = holding_library['name']
+        item_type_name = ItemType.get_record_by_pid(data.get('item_type_pid'))[
+            'name'
+        ]
+        data['item_type_name'] = item_type_name
+        requests = get_requests_by_item_pid(self.pid)
+        pending_loans = []
+        if requests:
+            for request in requests:
+                pending_loans.append(request.get('loan_pid'))
+        data['pending_loans'] = pending_loans
         return data
 
     def number_of_item_requests(self):
         """Get number of requests for a given item."""
-        circulation = self.get('_circulation', {})
         number_requests = 0
-        if circulation:
-            holdings = circulation.get('holdings', [])
-            if holdings:
-                if self.status == ItemStatus.ON_LOAN:
-                        number_requests = len(holdings) - 1
-                else:
-                    number_requests = len(holdings)
-        return number_requests
+        for loan in get_requests_by_item_pid(self.pid):
+            number_requests += 1
 
-    def get_first_request(self):
-        """Get item first request."""
-        first_request = []
-        if self.number_of_item_requests() > 0:
-            circulation = self.get('_circulation', {})
-            holdings = circulation.get('holdings', [])
-            if self.status == ItemStatus.ON_LOAN:
-                first_request = holdings[1]
-            else:
-                first_request = holdings[0]
-        return first_request
+        return number_requests
 
     def patron_request_rank(self, patron_barcode):
         """Get the rank of patron in list of requests on this item."""
-        holdings = self.get('_circulation', {}).get('holdings', [])
-        if self.status == ItemStatus.ON_LOAN:
-            start_pos = 1
-        else:
-            start_pos = 0
-        rank = 1
-        for i_holding in range(start_pos, len(holdings)):
-            holding = holdings[i_holding]
-            if holding and holding.get('patron_barcode'):
-                if holding['patron_barcode'] == patron_barcode:
-                    return rank
-            rank += 1
+        from ..patrons.api import Patron
+
+        patron = Patron.get_patron_by_barcode(patron_barcode)
+        if patron:
+            rank = 0
+            requests = get_requests_by_item_pid(self.pid)
+            if requests:
+                for request in requests:
+                    rank += 1
+                    if request['patron_pid'] == patron.pid:
+                        return rank
         return False
 
     def requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
-        for holding in self.get('_circulation', {}).get('holdings', []):
-            if holding and holding.get('patron_barcode'):
-                if holding['patron_barcode'] == patron_barcode:
-                    return True
+        from ..patrons.api import Patron
+
+        patron = Patron.get_patron_by_barcode(patron_barcode)
+        if patron:
+            request = get_request_by_item_pid_by_patron_pid(
+                item_pid=self.pid, patron_pid=patron.pid
+            )
+            if request:
+                return True
         return False
 
     def loaned_to_patron(self, patron_barcode):
         """Check if the item is loaned by a given patron."""
-        for holding in self.get('_circulation', {}).get('holdings', []):
-            if self.status == ItemStatus.ON_LOAN:
-                if holding and holding.get('patron_barcode'):
-                    if holding['patron_barcode'] == patron_barcode:
-                        return True
+        from ..patrons.api import Patron
+
+        patron = Patron.get_patron_by_barcode(patron_barcode)
+        if patron:
+            patron_pid = patron.pid
+            checkout = patron_has_active_loan_on_item(patron_pid, self.pid)
+            if checkout:
+                return True
         return False
 
     @classmethod

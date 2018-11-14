@@ -162,7 +162,7 @@
         "htmlClass": "col-xs-6",
         "condition": "model.is_staff == true",
         "required": true,
-        "populate": "locations_pids_names",
+        "populate": "libraries_pids_names",
         "type": "select"
       }
     ]

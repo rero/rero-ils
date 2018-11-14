@@ -26,8 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-from copy import deepcopy
-
 from invenio_records.models import RecordMetadata
 
 from rero_ils.modules.documents_items.api import DocumentsWithItems
@@ -35,35 +33,23 @@ from rero_ils.modules.documents_items.models import DocumentsItemsMetadata
 from rero_ils.modules.documents_items.views import abstracts_format, \
     authors_format, publishers_format, series_format
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.libraries_locations.api import LibraryWithLocations
-from rero_ils.modules.locations.api import Location
 
 
-def test_create(db, minimal_document_record, minimal_item_record,
-                minimal_library_record, minimal_location_record):
+def test_create(
+    app,
+    all_resources_limited,
+    es_clear
+):
     """Test DocumentWithItems creation."""
-    lib = LibraryWithLocations.create(minimal_library_record, dbcommit=True)
-    loc = Location.create(minimal_location_record, dbcommit=True)
-    lib.add_location(loc, dbcommit=True)
-    minimal_item_record['location_pid'] = loc.pid
-    item = Item.create(minimal_item_record, dbcommit=True)
-    doc = DocumentsWithItems.create(minimal_document_record, dbcommit=True)
-    assert doc.itemslist == []
-
-    doc.add_item(item, dbcommit=True)
+    doc, item, library, location, simonetta, philippe = all_resources_limited
     assert doc.itemslist[0] == item
-
     dump = doc.dumps()
     assert dump['itemslist'][0] == item.dumps()
 
 
-def test_delete_item(app,
-                     minimal_document_record, minimal_item_record):
+def test_delete_item(app, all_resources_limited):
     """Test DocumentWithItems item deletion."""
-    doc = DocumentsWithItems.create(minimal_document_record)
-    item = Item.create(minimal_item_record)
-    doc.add_item(item)
-    doc.dbcommit()
+    doc, item, library, location, simonetta, philippe = all_resources_limited
     pid = item.persistent_identifier
     assert pid.is_registered()
     doc.remove_item(item, force=True)
@@ -72,44 +58,41 @@ def test_delete_item(app,
     assert pid.is_deleted()
     assert doc.itemslist == []
 
-    item1 = Item.create(minimal_item_record)
+    item1 = Item.create(item)
     doc.add_item(item1)
-    item2 = Item.create(minimal_item_record)
+    item2 = Item.create(item)
     doc.add_item(item2)
-    item3 = Item.create(minimal_item_record)
+    item3 = Item.create(item)
     doc.add_item(item3)
     doc.dbcommit()
     doc.remove_item(item2, force=True)
     doc.dbcommit()
     assert len(doc.itemslist) == 2
-    assert doc.itemslist[0]['pid'] == '2'
-    assert doc.itemslist[1]['pid'] == '4'
+    assert doc.itemslist[0]['pid'] == '1'
+    assert doc.itemslist[1]['pid'] == '3'
 
 
-def test_delete_document(app,
-                         minimal_document_record, minimal_item_record):
+def test_delete_document(app, all_resources_limited):
     """Test DocumentWithItems deletion."""
+    doc, item, library, location, simonetta, philippe = all_resources_limited
     doc_count = DocumentsItemsMetadata.query.count()
     rec_count = RecordMetadata.query.count()
-    doc = DocumentsWithItems.create(minimal_document_record)
-    item1 = Item.create(minimal_item_record, dbcommit=True)
-    pid1 = item1.persistent_identifier
-    doc.add_item(item1)
-    item2 = Item.create(minimal_item_record, dbcommit=True)
+    pid1 = item.persistent_identifier
+    item2 = Item.create(item, dbcommit=True)
     pid2 = item2.persistent_identifier
     doc.add_item(item2)
-    item3 = Item.create(minimal_item_record, dbcommit=True)
+    item3 = Item.create(item, dbcommit=True)
     pid3 = item3.persistent_identifier
     doc.add_item(item3)
     doc.dbcommit()
-    assert DocumentsItemsMetadata.query.count() == doc_count + 3
-    assert RecordMetadata.query.count() == rec_count + 4
+    assert DocumentsItemsMetadata.query.count() == doc_count + 2
+    assert RecordMetadata.query.count() == rec_count + 2
     assert pid1.is_registered()
     assert pid2.is_registered()
     assert pid3.is_registered()
     doc.delete(force=True)
-    assert DocumentsItemsMetadata.query.count() == doc_count
-    assert RecordMetadata.query.count() == rec_count
+    assert DocumentsItemsMetadata.query.count() == 0
+    assert RecordMetadata.query.count() == 6
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()

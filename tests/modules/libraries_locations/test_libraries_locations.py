@@ -36,8 +36,9 @@ from rero_ils.modules.libraries_locations.models import \
 from rero_ils.modules.locations.api import Location
 
 
-def test_libraries_locations_create(db, minimal_library_record,
-                                    minimal_location_record):
+def test_libraries_locations_create(
+    db, minimal_library_record, minimal_location_record
+):
     """Test organisation with libraries creation."""
     lib = LibraryWithLocations.create(minimal_library_record)
     loc = Record.create(minimal_location_record)
@@ -51,8 +52,7 @@ def test_libraries_locations_create(db, minimal_library_record,
     assert dump['locations'][0] == loc.dumps()
 
 
-def test_delete_location(app,
-                         minimal_library_record, minimal_location_record):
+def test_delete_location(app, minimal_library_record, minimal_location_record):
     """Test LibrariesLocations delete."""
     lib = LibraryWithLocations.create(minimal_library_record, dbcommit=True)
     location = Location.create(minimal_location_record, dbcommit=True)

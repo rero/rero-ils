@@ -44,10 +44,7 @@ def import_patrons_type(infile, verbose):
 
     infile: Json patrons_types file
     """
-    click.secho(
-        'Import patron types:',
-        fg='green'
-    )
+    click.secho('Import patron types:', fg='green')
 
     data = json.load(infile)
     for patron_type_data in data:
@@ -63,5 +60,5 @@ def import_patrons_type(infile, verbose):
                 'Organisation PID not found: {pid}'.format(
                     pid=patron_type_data['organisation_pid']
                 ),
-                fg='red'
+                fg='red',
             )

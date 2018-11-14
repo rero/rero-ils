@@ -64,6 +64,9 @@
     {% if location.code %}
       {{ div_row_xs3_xs9(_('Code'), location.code) }}
     {% endif %}
+    {% if location.is_pickup %}
+      {{ div_row_xs3_xs9(_('Is pickup location'), location.is_pickup) }}
+    {% endif %}
 
     {% with
       href_update=url_for('loc.edit_view', pid=location.pid),

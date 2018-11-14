@@ -33,14 +33,13 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from ..items.api import Item
-from ..libraries.api import Library
+from ..libraries_locations.api import LibraryWithLocations
+from ..locations.api import Location
 from ..patrons.api import Patron
 
 blueprint = Blueprint(
-    'documents_items',
-    __name__,
-    template_folder='templates',
-    static_folder='static',
+    'documents_items', __name__,
+    template_folder='templates', static_folder='static'
 )
 
 
@@ -52,7 +51,7 @@ def can_request(item):
         if patron:
             if patron.has_role('patrons'):
                 patron_barcode = patron.get('barcode')
-                item_status = item.get('_circulation', {}).get('status')
+                item_status = item.get('item_status')
                 if item_status != 'missing':
                     loan = Item.loaned_to_patron(item, patron_barcode)
                     request = Item.requested_by_patron(item, patron_barcode)
@@ -66,11 +65,11 @@ def requested_this_item(item):
     """Check if the current user has requested a given item."""
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
-        if patron:
+        if patron and patron['is_patron']:
             patron_barcode = patron.get('barcode')
             request = Item.requested_by_patron(item, patron_barcode)
             if request:
-                    return True
+                return True
     return False
 
 
@@ -114,7 +113,7 @@ def publishers_format(publishers):
         line = []
         places = publisher.get('place', [])
         if len(places) > 0:
-            line.append('; '.join(str(x) for x in places)+': ')
+            line.append('; '.join(str(x) for x in places) + ': ')
         names = publisher.get('name')
         line.append('; '.join(str(x) for x in names))
         output.append(''.join(str(x) for x in line))
@@ -130,7 +129,7 @@ def series_format(series):
         if serie.get('name'):
             line.append(serie.get('name'))
         if serie.get('number'):
-            line.append(', '+serie.get('number'))
+            line.append(', ' + serie.get('number'))
         output.append(''.join(str(x) for x in line))
     return '; '.join(str(x) for x in output)
 
@@ -140,8 +139,8 @@ def abstracts_format(abstracts):
     """Format abstracts for template."""
     output = []
     for abstract in abstracts:
-        output.append(re.sub(r'\n+', "\n", abstract))
-    return "\n".join(str(x) for x in output)
+        output.append(re.sub(r'\n+', '\n', abstract))
+    return '\n'.join(str(x) for x in output)
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -156,14 +155,32 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     :returns: The rendered template.
     """
     record_viewed.send(
-        current_app._get_current_object(),
-        pid=pid,
-        record=record,
-    )
-    libraries = Library.get_all_libraries()
+        current_app._get_current_object(), pid=pid, record=record)
+    # libraries = Library.get_all_libraries()
+    locations = Location.get_all_locations()
     return render_template(
         template,
         pid=pid,
         record=record,
-        libraries=libraries
+        locations=locations
     )
+
+
+@blueprint.app_template_filter()
+def item_library_locations(item_pid):
+    """Get the locations of the library of the given item."""
+    location_pid = Item.get_record_by_pid(item_pid)['location_pid']
+    location = Location.get_record_by_pid(location_pid)
+    library = LibraryWithLocations.get_library_by_locationid(location.id)
+    locations = library.locations
+    return locations
+
+
+@blueprint.app_template_filter()
+def item_library_pikcup_locations(item_pid):
+    """Get the pickup locations of the library of the given item."""
+    location_pid = Item.get_record_by_pid(item_pid)['location_pid']
+    location = Location.get_record_by_pid(location_pid)
+    library = LibraryWithLocations.get_library_by_locationid(location.id)
+    locations = library.pickup_locations
+    return locations

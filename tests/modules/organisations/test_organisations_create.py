@@ -32,6 +32,7 @@ from rero_ils.modules.organisations.api import Organisation
 def test_organisation_create(db, minimal_organisation_record):
     """Test organisation creat."""
     from copy import deepcopy
+
     org_rec = deepcopy(minimal_organisation_record)
     org = Organisation.create(minimal_organisation_record)
     assert org_rec == org

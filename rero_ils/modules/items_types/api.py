@@ -54,10 +54,15 @@ class ItemType(IlsRecord):
     def can_delete(self):
         """Record can be deleted."""
         from ..documents_items.api import DocumentsSearch
-        count = len(list(DocumentsSearch().filter(
-            'term',
-            **{"itemslist.item_type_pid": self.pid}
-        ).source().scan()))
+
+        count = len(
+            list(
+                DocumentsSearch()
+                .filter('term', **{'itemslist.item_type_pid': self.pid})
+                .source()
+                .scan()
+            )
+        )
         return count == 0
 
     @classmethod
@@ -65,9 +70,13 @@ class ItemType(IlsRecord):
         """Get pid by name."""
         pid = None
         try:
-            pids = [n.pid for n in ItemTypeSearch().filter(
-                'term', **{"name": name}
-            ).source(includes=['pid']).scan()]
+            pids = [
+                n.pid
+                for n in ItemTypeSearch()
+                .filter('term', **{'name': name})
+                .source(includes=['pid'])
+                .scan()
+            ]
             if len(pids) > 0:
                 pid = pids[0]
         except Exception as e:
@@ -78,13 +87,13 @@ class ItemType(IlsRecord):
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique on organisation."""
-        item_type = ItemTypeSearch().filter(
-            'term',
-            **{"item_type_name": name}
-        ).filter(
-            'term',
-            **{"organisation_pid": organisation_pid}
-        ).source().scan()
+        item_type = (
+            ItemTypeSearch()
+            .filter('term', **{'item_type_name': name})
+            .filter('term', **{'organisation_pid': organisation_pid})
+            .source()
+            .scan()
+        )
         result = list(item_type)
         if len(result) > 0:
             return result.pop(0)

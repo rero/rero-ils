@@ -24,12 +24,15 @@
 
 """E2E test of the front page."""
 
-import pytest
 from flask import url_for
 
 
 def test_frontpage(live_server, browser):
     """Test retrieval of front page."""
     browser.get(url_for('rero_ils.index', _external=True))
-    assert "Get into your library" == browser.find_element_by_class_name(
-        'rero-ils-front-title').find_element_by_tag_name('h1').text
+    assert (
+        'Get into your library' ==
+        browser.find_element_by_class_name('rero-ils-front-title')
+        .find_element_by_tag_name('h1')
+        .text
+    )

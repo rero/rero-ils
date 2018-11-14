@@ -68,6 +68,15 @@ class LibraryWithLocations(RecordWithElements):
         """Locations."""
         return self.elements
 
+    @property
+    def pickup_locations(self):
+        """Pickup Locations."""
+        locations = []
+        for location in self.elements:
+            if location.get('is_pickup'):
+                locations.append(location)
+        return locations
+
     def add_location(self, location, dbcommit=False, reindex=False):
         """Add an location."""
         super(LibraryWithLocations, self).add_element(

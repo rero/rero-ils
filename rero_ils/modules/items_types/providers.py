@@ -35,7 +35,7 @@ from .models import ItemTypeIdentifier
 class ItemTypeProvider(BaseProvider):
     """ItemType identifier provider."""
 
-    pid_type = 'itty'
+    pid_type = "itty"
     """Type of persistent identifier."""
 
     pid_identifier = ItemTypeIdentifier.__tablename__
@@ -51,10 +51,11 @@ class ItemTypeProvider(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new ItemType identifier."""
-        assert 'pid_value' not in kwargs
-        kwargs['pid_value'] = str(ItemTypeIdentifier.next())
-        kwargs.setdefault('status', cls.default_status)
+        if not kwargs.get('pid_value'):
+            kwargs["pid_value"] = str(ItemTypeIdentifier.next())
+        kwargs.setdefault("status", cls.default_status)
         if object_type and object_uuid:
-            kwargs['status'] = PIDStatus.REGISTERED
+            kwargs["status"] = PIDStatus.REGISTERED
         return super(ItemTypeProvider, cls).create(
-            object_type=object_type, object_uuid=object_uuid, **kwargs)
+            object_type=object_type, object_uuid=object_uuid, **kwargs
+        )

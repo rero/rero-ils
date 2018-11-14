@@ -13,7 +13,9 @@
             "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
             "code": "AOSTE-CANT1-PUB",
             "name": "Espaces publics",
-            "pid": "1"
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE CANT1: Espaces publics"
           },
           {
             "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
@@ -93,7 +95,9 @@
             "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
             "code": "AOSTE-CANT2-PUB",
             "name": "Espaces publics",
-            "pid": "1"
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE CANT2: Espaces publics"
           }
         ],
         "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site de Pont-Saint-Martin",
@@ -149,41 +153,7 @@
             "is_open": false,
             "times": []
           }
-        ],
-        "exception_dates": [{
-          "title": "Vacances de Noël",
-          "is_open": false,
-          "start_date": "2018-12-22",
-          "end_date": "2019-01-06"
-        },
-        {
-          "title": "8 février après-midi",
-          "is_open": false,
-          "start_date": "2019-02-08",
-          "times": [{
-            "start_time": "12:00",
-            "end_time": "18:00"
-          }]
-        },
-        {
-          "title": "Dimanche du livre",
-          "is_open": true,
-          "start_date": "2019-05-24T10:00:00.000Z",
-          "times": [{
-            "start_time": "10:00",
-            "end_time": "16:00"
-          }]
-        },
-        {
-          "title": "1er août",
-          "is_open": false,
-          "start_date": "2019-08-01",
-          "repeat":{
-            "interval": 1,
-            "period": "yearly",
-            "data":[8]
-          }
-        }]
+        ]
       },
       {
         "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -214,6 +184,14 @@
             "code": "AOSTE-AVISE-MUL",
             "name": "Section multim\u00e9dia",
             "pid": "4"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-PUB",
+            "name": "Espaces publics",
+            "pid": "5",
+            "is_pickup": true,
+            "pickup_name": "AOSTE-AVISE-PUB: Espaces publics"
           }
         ],
         "name": "Biblioth\u00e8que communale et scolaire d'Avise",
@@ -276,7 +254,9 @@
             "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
             "code": "AOSTE-LYCEE-PUB",
             "name": "Espaces publics",
-            "pid": "1"
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE-LYCEE: Espaces publics"
           },
           {
             "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",

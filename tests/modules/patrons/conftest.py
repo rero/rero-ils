@@ -36,8 +36,7 @@ from pkg_resources import resource_string
 def patron_schema():
     """Patron Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.patrons.jsonschemas',
-        '/patrons/patron-v0.0.1.json'
+        'rero_ils.modules.patrons.jsonschemas', '/patrons/patron-v0.0.1.json'
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema

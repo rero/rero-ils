@@ -29,15 +29,12 @@ from __future__ import absolute_import, print_function, unicode_literals
 from .providers import MefPersonProvider
 
 
-def mef_person_id_minter(record_uuid, data, pid_key='pid',
-                         object_type='rec'):
+def mef_person_id_minter(record_uuid, data, pid_key='pid', object_type='rec'):
     """RERIOLS Organisationid minter."""
     assert pid_key in data
     pid_value = data[pid_key]
     provider = MefPersonProvider.create(
-        object_type=object_type,
-        object_uuid=record_uuid,
-        pid_value=pid_value
+        object_type=object_type, object_uuid=record_uuid, pid_value=pid_value
     )
     pid = provider.pid
     data[pid_key] = pid.pid_value

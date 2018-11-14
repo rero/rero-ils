@@ -54,9 +54,9 @@ def and_search_factory(self, search, query_parser=None):
         search = search.query(query_parser(query_string))
     except SyntaxError:
         current_app.logger.debug(
-            "Failed parsing query: {0}".format(
-                request.values.get('q', '')),
-            exc_info=True)
+            'Failed parsing query: {0}'.format(request.values.get('q', '')),
+            exc_info=True,
+        )
         raise InvalidQueryRESTError()
 
     search_index = search._index[0]

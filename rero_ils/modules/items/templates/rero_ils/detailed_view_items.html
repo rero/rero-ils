@@ -6,8 +6,8 @@
 <div class="container search-page">
   {% include('rero_ils/_item_head.html') %}
 <!-- Circulations -->
-{% if record._circulation %}
-  {% if record._circulation.status == 'in_transit' %}
+{% if record.item_status %}
+  {% if record.item_status == 'in_transit' %}
   <div class='reroils-items row'>
     <div class="col-sm-12">
       <hr>
@@ -16,7 +16,7 @@
   </div>
   {% endif %}
 
-  {% if record._circulation.status == 'on_loan' %}
+  {% if record.item_status == 'on_loan' %}
   <div class='reroils-items row'>
     <div class="col-sm-12">
       <hr>
@@ -32,9 +32,9 @@
       </tr>
     </thead>
     <tbody>
-      {% set patron = record._circulation.holdings[0].patron_barcode|get_patron_from_barcode %}
-      {% set holding = record.dumps()._circulation.holdings[0] %}
-      {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + holding.patron_barcode %}
+      {% set patron = record.pid|get_patron_from_checkout_item_pid %}
+      {% set holding = record.pid|get_checkout_loan_for_item %}
+      {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
       <tr>
         <td>
           <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
@@ -45,8 +45,8 @@
             locale=current_i18n.locale.language
           ) }}
         </td>
-        {% if holding.renewal_count %}
-            <td>{{ holding.renewal_count }}</td>
+        {% if holding.extension_count %}
+            <td>{{ holding.extension_count }}</td>
         {% else %}
             <td>0</td>
         {% endif %}
@@ -72,8 +72,9 @@
       </thead>
       <tbody>
         {% for holding in record.requests %}
-          {% set patron = holding.patron_barcode|get_patron_from_barcode %}
-          {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + holding.patron_barcode %}
+          {% set patron = holding.patron_pid|get_patron_from_pid %}
+          {% set location_name = holding.pickup_location_pid|get_location_name_from_pid %}
+          {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
           <tr>
             <td>
               {% if patron %}
@@ -83,12 +84,12 @@
               {% endif %}
             </td>
             <td>
-              <a href="{{ '/libraries/' + holding.pickup_library_pid }}">{{ holding.pickup_library_name }}</a>
+              <a href="{{ '/locations/' + holding.pickup_location_pid }}">{{ location_name }}</a>
             </td>
             <!-- TODO: task #554 change start_date to request_datetime -->
             <td>
-              {% if holding.request_datetime %}
-                {{ holding.request_datetime|format_date(
+              {% if holding.transaction_date %}
+                {{ holding.transaction_date|format_date(
                   format='short_date',
                   locale=current_i18n.locale.language
                 ) }}

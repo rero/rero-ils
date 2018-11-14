@@ -31,7 +31,4 @@ from functools import partial
 from ..minters import id_minter
 from .providers import PatronTypeProvider
 
-patron_type_id_minter = partial(
-    id_minter,
-    provider=PatronTypeProvider
-)
+patron_type_id_minter = partial(id_minter, provider=PatronTypeProvider)

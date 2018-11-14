@@ -25,61 +25,70 @@
 """Utils tests."""
 
 
-from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.patrons_types.api import PatronType
 from rero_ils.utils import resolve_relations
 
 
-def test_resolve_locations_pids_names(app, create_minimal_resources,
-                                      form_locations_pids_names):
+def test_resolve_locations_pids_names(
+    app, all_resources_limited, form_locations_pids_names
+):
     """Test resolve locations_pids_names."""
-    result = [{
-        'items':
-        [{
-            'key': 'location_pid',
-            'titleMap':
-            [{
-                'name': 'MV Sion: Store Base', 'value': '1'
-            }]
-        }]
-    }]
+    result = [
+        {
+            'items': [
+                {
+                    'key': 'location_pid',
+                    'titleMap': [
+                        {
+                            'name': 'MV Sion: Store Base',
+                            'value': 'location_pid'}
+                    ],
+                }
+            ]
+        }
+    ]
     resolve = resolve_relations(form_locations_pids_names)
     assert resolve == result
 
 
-def test_relations_locations_pids_names(app, create_minimal_resources,
-                                        form_item_types_names_descriptions):
+def test_relations_locations_pids_names(
+    app, all_resources_limited, form_item_types_names_descriptions
+):
     """Test resolve item_types_names_descriptions."""
-    result = [{
-        'items':
-        [{
-            'key': 'item_type_pid',
-            'titleMap':
-            [{
-                'name': 'Item Type Name',
-                'value': '1'
-            }]
-        }]
-    }]
+    result = [
+        {
+            'items': [
+                {
+                    'key': 'item_type_pid',
+                    'titleMap': [{
+                        'name': 'Item Type Name',
+                        'value': 'item_type_pid'
+                    }],
+                }
+            ]
+        }
+    ]
     resolve = resolve_relations(form_item_types_names_descriptions)
     assert resolve == result
 
 
-def test_relations_patron_names_descriptions(app, minimal_patron_record,
-                                             minimal_patron_type_record,
-                                             form_patron_names_descriptions):
+def test_relations_patron_names_descriptions(
+    app, all_resources_limited, form_patron_names_descriptions
+):
     """Test resolve patron_names_descriptions."""
-    PatronType.create(minimal_patron_type_record, dbcommit=True, reindex=True)
-    Patron.create(minimal_patron_record, dbcommit=True, reindex=True)
-    result = [{
-        'items':
-        [{
-            'key': 'patron_type_pid',
-            'titleMap': [{
-                'name': 'Patron Type Name',
-                'value': '1'
-            }]
-        }]
-    }]
+    doc, item, library, location, simonetta, philippe = all_resources_limited
+    result = [
+        {
+            'items': [
+                {
+                    'key': 'patron_type_pid',
+                    'titleMap': [
+                        {
+                            'name': 'Patron Type Name',
+                            'value': 'patron_type_pid'}
+                    ],
+                }
+            ]
+        }
+    ]
     resolve = resolve_relations(form_patron_names_descriptions)
     assert resolve == result

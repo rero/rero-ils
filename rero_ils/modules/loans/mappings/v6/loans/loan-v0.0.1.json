@@ -1,0 +1,112 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "loan-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "loan_pid": {
+          "type": "keyword"
+        },
+        "transaction_date": {
+          "type": "date"
+        },
+        "patron_pid": {
+          "type": "keyword"
+        },
+        "document_pid": {
+          "type": "keyword"
+        },
+        "item_pid": {
+          "type": "keyword"
+        },
+        "end_date": {
+          "type": "date"
+        },
+        "state": {
+          "type": "keyword"
+        },
+        "start_date": {
+          "type": "date"
+        },
+        "request_expire_date": {
+          "type": "date"
+        },
+        "pickup_location_pid": {
+          "type": "keyword"
+        },
+        "transaction_location_pid": {
+          "type": "keyword"
+        },
+        "transaction_user_pid": {
+          "type": "keyword"
+        },
+        "item_location_pid": {
+          "type": "keyword"
+        },
+        "item_location_name": {
+          "type": "keyword"
+        },
+        "item_library_name": {
+          "type": "keyword"
+        },
+        "item_library_pid": {
+          "type": "keyword"
+        },
+        "transaction_location_name": {
+          "type": "keyword"
+        },
+        "transaction_library_name": {
+          "type": "keyword"
+        },
+        "transaction_library_pid": {
+          "type": "keyword"
+        },
+        "pickup_location_name": {
+          "type": "keyword"
+        },
+        "user_library_name": {
+          "type": "keyword"
+        },
+        "user_library_pid": {
+          "type": "keyword"
+        },
+        "document_authors": {
+          "type": "keyword"
+        },
+        "document_title": {
+          "type": "keyword"
+        },
+        "item_barcode": {
+          "type": "keyword"
+        },
+        "item_call_number": {
+          "type": "keyword"
+        },
+        "patron_barcode": {
+          "type": "keyword"
+        },
+        "patron_name": {
+          "type": "keyword"
+        },
+        "links": {
+          "type": "keyword"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+

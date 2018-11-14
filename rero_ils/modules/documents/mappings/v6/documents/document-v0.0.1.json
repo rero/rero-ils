@@ -56,9 +56,6 @@
             }
           }
         },
-        "item_status": {
-          "type": "keyword"
-        },
         "facet_authors": {
           "type": "keyword"
         },
@@ -159,35 +156,8 @@
             "item_type": {
               "type": "keyword"
             },
-            "_circulation": {
-              "properties": {
-                "holdings": {
-                  "properties": {
-                    "id": {
-                      "type": "keyword"
-                    },
-                    "patron_barcode": {
-                      "type": "keyword"
-                    },
-                    "start_date": {
-                      "type": "date"
-                    },
-                    "end_date": {
-                      "type": "date"
-                    },
-                    "pickup_library_pid": {
-                      "type": "keyword"
-                    },
-                    "pickup_library_name": {
-                      "type": "text"
-                    }
-                  }
-                },
-                "status": {
-                  "type": "keyword",
-                  "copy_to": "item_status"
-                }
-              }
+            "item_status": {
+              "type": "keyword"
             },
             "_created": {
               "type": "date"

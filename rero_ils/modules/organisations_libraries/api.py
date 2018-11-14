@@ -71,17 +71,13 @@ class OrganisationWithLibraries(RecordWithElements):
     def add_library(self, library, dbcommit=False, reindex=False):
         """Add an library."""
         super(OrganisationWithLibraries, self).add_element(
-            library,
-            dbcommit=dbcommit,
-            reindex=reindex
+            library, dbcommit=dbcommit, reindex=reindex
         )
 
     def remove_library(self, library, force=False, delindex=False):
         """Remove an library."""
         super(OrganisationWithLibraries, self).remove_element(
-            library,
-            force=force,
-            delindex=delindex
+            library, force=force, delindex=delindex
         )
 
     @classmethod

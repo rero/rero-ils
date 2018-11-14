@@ -21,6 +21,12 @@
         "name": {
           "type": "keyword"
         },
+        "is_pickup": {
+          "type": "boolean"
+        },
+        "pickup_name": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },
