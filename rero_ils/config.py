@@ -34,11 +34,11 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
-from invenio_circulation.transitions.transitions import CreatedToItemOnLoan, \
-    CreatedToPending, ItemAtDeskToItemOnLoan, \
-    ItemInTransitHouseToItemReturned, ItemOnLoanToItemInTransitHouse, \
-    ItemOnLoanToItemOnLoan, ItemOnLoanToItemReturned, PendingToItemAtDesk, \
-    PendingToItemInTransitPickup
+from invenio_circulation.transitions.transitions import CreatedToPending, \
+    ItemAtDeskToItemOnLoan, ItemInTransitHouseToItemReturned, \
+    ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
+    ItemOnLoanToItemReturned, PendingToItemAtDesk, \
+    PendingToItemInTransitPickup, ToItemOnLoan
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_search import RecordsSearch
 
@@ -948,7 +948,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(
             dest='ITEM_ON_LOAN',
             trigger='checkout',
-            transition=CreatedToItemOnLoan,
+            transition=ToItemOnLoan,
         ),
     ],
     'PENDING': [
