@@ -751,7 +751,7 @@ RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
         form_options_create_exclude=['pid'],
     ),
     _('item'): dict(
-        api='/api/items/',
+        # api='/api/items/',
         editor_template='rero_ils/item_editor.html',
         schema='items/item-v0.0.1.json',
         form_options=(

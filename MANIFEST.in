@@ -64,7 +64,6 @@ recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
-recursive-include rero_ils *.css
 recursive-include rero_ils *.gitkeep
 recursive-include rero_ils *.html
 recursive-include rero_ils *.jpg
@@ -79,11 +78,7 @@ recursive-include tests *.py
 include *.json
 
 # added by check_manifest.py
-recursive-include rero_ils *.css
-
-# added by check_manifest.py
 recursive-include rero_ils *.ico
-recursive-include rero_ils *.map
 recursive-include ui *.editorconfig
 recursive-include ui *.gitkeep
 recursive-include ui *.html
