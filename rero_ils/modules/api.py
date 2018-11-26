@@ -135,6 +135,15 @@ class IlsRecord(Record):
             self.dbcommit(reindex)
         return self
 
+    def replace(self, data, dbcommit=False, reindex=False):
+        """Replace data in record."""
+        self.clear()
+        super(IlsRecord, self).update(data)
+        super(IlsRecord, self).commit()
+        if dbcommit:
+            self.dbcommit(reindex)
+        return self
+
     def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
         db.session.commit()
