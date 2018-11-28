@@ -177,7 +177,7 @@ def item_library_locations(item_pid):
 
 
 @blueprint.app_template_filter()
-def item_library_pikcup_locations(item_pid):
+def item_library_pickup_locations(item_pid):
     """Get the pickup locations of the library of the given item."""
     location_pid = Item.get_record_by_pid(item_pid)['location_pid']
     location = Location.get_record_by_pid(location_pid)

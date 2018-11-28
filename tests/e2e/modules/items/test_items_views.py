@@ -27,18 +27,16 @@
 from __future__ import absolute_import, print_function
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
-import pytz
 from flask import url_for
 from flask_security import url_for_security
 from invenio_circulation.api import get_loan_for_item
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import Loan
 
-current_date = pytz.utc.localize(datetime.now()).isoformat()
+current_date = datetime.now(timezone.utc).isoformat()
 
 
 def login_user(test_user, client):
@@ -54,6 +52,113 @@ def login_user(test_user, client):
 def logout_user(client):
     """Logout user."""
     client.get(url_for_security('logout'))
+
+
+def test_view_automatic_checkin_barcode_not_found(
+    app,
+    es,
+    all_resources_limited,
+    all_resources_limited_2,
+    user_patron,
+    user_staff,
+    es_clear,
+):
+    """Test automatic_checkin multiple loans."""
+    with app.test_client() as client:
+        (
+            doc,
+            item,
+            organisation,
+            library,
+            location,
+            simonetta,
+            philippe,
+        ) = all_resources_limited
+        login_user(user_staff, client)
+        res = client.post(
+            '/items/loan/automatic_checkin',
+            data=json.dumps(dict(item_barcode='barcode_does_not_exist_in_db')),
+            content_type='application/json',
+        )
+        assert res.status_code == 404
+
+
+def test_view_automatic_double_receive(
+    app,
+    es,
+    all_resources_limited,
+    all_resources_limited_2,
+    user_patron,
+    user_staff,
+    es_clear,
+):
+    """Test automatic_checkin item receive to in-house."""
+    with app.test_client() as client:
+        (
+            doc,
+            item,
+            organisation,
+            library,
+            location,
+            simonetta,
+            philippe,
+        ) = all_resources_limited
+        (
+            doc2,
+            item2,
+            organisation2,
+            library2,
+            location2,
+            simonetta2,
+            philippe2,
+        ) = all_resources_limited_2
+
+        loan = item.loan_item(
+            patron_pid=simonetta.pid,
+            transaction_location_pid=location.pid,
+            transaction_user_pid=simonetta.pid,
+            transaction_date=current_date,
+            document_pid=doc.pid,
+        )
+        assert item.status == ItemStatus.ON_LOAN
+        assert get_loan_for_item(item.pid)
+        assert loan['patron_pid'] == simonetta.pid
+
+        loan = item.return_item(
+            patron_pid=simonetta.pid,
+            loan_pid=loan.pid,
+            transaction_location_pid=location2.pid,
+            transaction_user_pid=simonetta.pid,
+            transaction_date=current_date,
+            document_pid=doc.pid,
+        )
+        assert item.status == ItemStatus.IN_TRANSIT
+        assert item.number_of_item_requests() == 0
+
+        login_user(user_staff, client)
+        res = client.post(
+            '/items/loan/automatic_checkin',
+            data=json.dumps(dict(item_barcode=item.get('barcode'))),
+            content_type='application/json',
+        )
+        assert res.status_code == 200
+        data = json.loads(res.get_data(as_text=True))
+
+        actions = data.get('action_applied')
+        assert 'receive' in actions
+        item = Item.get_record_by_pid(item.pid)
+        assert item.status == ItemStatus.ON_SHELF
+
+        login_user(user_staff, client)
+        res = client.post(
+            '/items/loan/automatic_checkin',
+            data=json.dumps(dict(item_barcode=item.get('barcode'))),
+            content_type='application/json',
+        )
+        assert res.status_code == 200
+        data = json.loads(res.get_data(as_text=True))
+
+        assert not json.loads(res.get_data(as_text=True)).get('action_applied')
 
 
 def test_view_automatic_checkin_multiple_loans(
@@ -87,7 +192,7 @@ def test_view_automatic_checkin_multiple_loans(
         assert get_loan_for_item(item.pid)
         assert loan_1['patron_pid'] == simonetta.pid
 
-        new_current_date = pytz.utc.localize(datetime.now()).isoformat()
+        new_current_date = datetime.now(timezone.utc).isoformat()
 
         loan_2 = item.request_item(
             patron_pid=philippe.pid,
@@ -109,8 +214,9 @@ def test_view_automatic_checkin_multiple_loans(
         )
         assert res.status_code == 200
         data = json.loads(res.get_data(as_text=True))
-        assert 'checkin' in data.get('action_applied')
-        loan_pid = data.get('action_applied').get('checkin')
+        actions = data.get('action_applied')
+        assert 'checkin' in actions
+        loan_pid = actions.get('checkin').get('loan_pid')
         assert loan_pid == loan_1.pid
         item = Item.get_record_by_pid(item.pid)
         assert item.status == ItemStatus.ON_SHELF
@@ -150,7 +256,7 @@ def test_view_item_requested_loans_to_ignore(
     assert item.status == ItemStatus.ON_SHELF
     assert item.number_of_item_requests() == 1
 
-    new_current_date = pytz.utc.localize(datetime.now()).isoformat()
+    new_current_date = datetime.now(timezone.utc).isoformat()
 
     item.request_item(
         patron_pid=philippe.pid,
@@ -242,7 +348,7 @@ def test_view_item_requested_loans_to_validate(
     assert item.status == ItemStatus.ON_SHELF
     assert item.number_of_item_requests() == 1
 
-    new_current_date = pytz.utc.localize(datetime.now()).isoformat()
+    new_current_date = datetime.now(timezone.utc).isoformat()
 
     item.request_item(
         patron_pid=philippe.pid,
@@ -278,7 +384,7 @@ def test_view_item_requested_loans_to_validate(
     assert item.status == ItemStatus.ON_SHELF
     assert item.number_of_item_requests() == 1
 
-    new_current_date = pytz.utc.localize(datetime.now()).isoformat()
+    new_current_date = datetime.now(timezone.utc).isoformat()
 
     loan_1 = item.request_item(
         patron_pid=simonetta.pid,
@@ -323,7 +429,10 @@ def test_view_automatic_checkin_missing(
         )
         assert res.status_code == 200
         data = json.loads(res.get_data(as_text=True))
-        assert 'return_missing' in data.get('action_applied')
+
+        actions = data.get('action_applied')
+        assert 'return_missing' in actions
+
         item = Item.get_record_by_pid(item.pid)
         assert item.status == ItemStatus.ON_SHELF
 
@@ -388,7 +497,9 @@ def test_view_automatic_checkin_receive_for_inhouse(
         )
         assert res.status_code == 200
         data = json.loads(res.get_data(as_text=True))
-        assert 'receive' in data.get('action_applied')
+
+        actions = data.get('action_applied')
+        assert 'receive' in actions
         item = Item.get_record_by_pid(item.pid)
         assert item.status == ItemStatus.ON_SHELF
 
@@ -455,7 +566,10 @@ def test_view_automatic_checkin_receive_for_pickup(
         )
         assert res.status_code == 200
         data = json.loads(res.get_data(as_text=True))
-        assert 'receive' in data.get('action_applied')
+
+        actions = data.get('action_applied')
+        assert 'receive' in actions
+
         item = Item.get_record_by_pid(item.pid)
         assert item.status == ItemStatus.AT_DESK
 
@@ -494,7 +608,10 @@ def test_view_automatic_checkin_checkin(
         )
         assert res.status_code == 200
         data = json.loads(res.get_data(as_text=True))
-        assert 'checkin' in data.get('action_applied')
+
+        actions = data.get('action_applied')
+        assert 'checkin' in actions
+
         item = Item.get_record_by_pid(item.pid)
         assert item.status == ItemStatus.ON_SHELF
 

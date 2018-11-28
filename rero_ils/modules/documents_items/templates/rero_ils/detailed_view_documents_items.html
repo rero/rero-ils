@@ -197,7 +197,7 @@
             <ul class="dropdown-menu">
               <li><a>{{ _('Available Pickup Locations') }}</a></li>
               <li role="separator" class="divider"></li>
-              {% set locations = item.pid|item_library_pikcup_locations %}
+              {% set locations = item.pid|item_library_pickup_locations %}
 
               {% for location in locations %}
                 <li>

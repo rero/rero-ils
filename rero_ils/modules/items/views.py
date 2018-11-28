@@ -26,10 +26,9 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import wraps
 
-import pytz
 from flask import Blueprint, current_app, flash, jsonify, redirect, \
     render_template, request, url_for
 from flask_babelex import gettext as _
@@ -39,7 +38,7 @@ from invenio_records_ui.signals import record_viewed
 from ...filter import format_date_filter
 from ...permissions import record_edit_permission, request_item_permission
 from ..documents_items.api import DocumentsWithItems
-from ..patrons.api import Patron, current_patron
+from ..patrons.api import Patron
 from .api import Item
 from .models import ItemStatus
 
@@ -81,13 +80,16 @@ def check_authentication(func):
 @blueprint.route('/request/<item_pid_value>/<location>', methods=['GET'])
 @check_authentication_for_request
 def request_item(item_pid_value, location):
-    """HTTP GET request for Item request action."""
+    """HTTP GET request for Item request action...
+
+    required_parameters: item_pid_value, location
+    """
     try:
         patron = Patron.get_patron_by_email(current_user.email)
         item = Item.get_record_by_pid(item_pid_value)
         location_pid = item.get('location_pid')
         doc = DocumentsWithItems.get_document_by_itemid(item.id)
-        transaction_date = pytz.utc.localize(datetime.now()).isoformat()
+        transaction_date = datetime.now(timezone.utc).isoformat()
         item.request_item(
             patron_pid=patron.pid,
             pickup_location_pid=location,
@@ -115,7 +117,10 @@ def request_item(item_pid_value, location):
 @blueprint.route('/checkout', methods=['POST', 'PUT'])
 @check_authentication
 def loan_item():
-    """HTTP request for Item checkout action."""
+    """HTTP request for Item checkout action.
+
+    required_parameters: patron_pid, item_pid
+    """
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))
@@ -128,33 +133,33 @@ def loan_item():
 @blueprint.route('/automatic_checkin', methods=['POST', 'PUT'])
 @check_authentication
 def automatic_checkin():
-    """HTTP request for Item circulation actions."""
-    try:
-        patron = current_patron.dumps()
-        data = request.get_json()
-        item = Item.get_item_by_barcode(data.get('item_barcode'))
-        params = dict(patron=patron)
-        params['transaction_user_pid'] = patron.get(
-            'pid'
-        )
-        params['transaction_location_pid'] = patron.get(
-            'circulation_location_pid'
-        )
-        loan = item.automatic_checkin(**params)
-        return jsonify(loan)
-    except Exception as e:
-        return jsonify({'status': 'error: {error}'.format(error=e)}), 500
+    """HTTP request for Item circulation actions.
+
+    required_parameters: item_barcode
+    """
+    data = request.get_json()
+    item = Item.get_item_by_barcode(data.get('item_barcode'))
+    if item:
+        try:
+            loan = item.automatic_checkin(**data)
+            return jsonify(loan)
+        except Exception as e:
+            return jsonify({'status': 'error: {error}'.format(error=e)}), 500
+    return jsonify({'status': 'error: {error}'.format(
+        error='item not found')}), 404
 
 
 @blueprint.route("/checkin", methods=['POST', 'PUT'])
 @check_authentication
 def return_item():
-    """HTTP request for Item return action."""
+    """HTTP request for Item return action.
+
+    required_parameters: item_pid
+    """
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))
-        params = dict(loan_pid=data['loan_pid'])
-        loan = item.return_item(**params)
+        loan = item.return_item(**data)
         return jsonify(loan.dumps())
     except Exception as e:
         return jsonify({'status': 'error: {error}'.format(error=e)}), 500
@@ -180,7 +185,10 @@ def cancel():
 @blueprint.route('/validate', methods=['POST', 'PUT'])
 @check_authentication
 def validate_item_request():
-    """HTTP request for Item request validation action."""
+    """HTTP request for Item request validation action..
+
+    required_parameters: item_pid
+    """
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))
@@ -193,12 +201,14 @@ def validate_item_request():
 @blueprint.route('/receive', methods=['POST', 'PUT'])
 @check_authentication
 def receive_item():
-    """HTTP request for receive item action."""
+    """HTTP HTTP request for receive item action..
+
+    required_parameters: item_pid
+    """
     try:
         data = request.get_json()
-        params = dict(loan_pid=data['loan_pid'])
         item = Item.get_record_by_pid(data.get('item_pid'))
-        loan = item.receive_item(**params)
+        loan = item.receive_item(**data)
         return jsonify(loan.dumps())
     except Exception as e:
         return jsonify({'status': 'error: {error}'.format(error=e)}), 500
@@ -207,7 +217,10 @@ def receive_item():
 @blueprint.route('/return_missing', methods=['POST', 'PUT'])
 @check_authentication
 def return_missing_item():
-    """HTTP request for Item return_missing action."""
+    """HTTP request for Item return_missing action..
+
+    required_parameters: item_pid
+    """
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))
@@ -220,7 +233,10 @@ def return_missing_item():
 @blueprint.route('/extend', methods=['POST', 'PUT'])
 @check_authentication
 def extend_loan():
-    """HTTP request for Item due date extend action."""
+    """HTTP request for Item due date extend action..
+
+    required_parameters: item_pid
+    """
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))

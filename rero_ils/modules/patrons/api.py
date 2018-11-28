@@ -32,7 +32,6 @@ from werkzeug.local import LocalProxy
 from ..api import IlsRecord
 from ..documents_items.api import DocumentsWithItems
 from ..libraries.api import Library
-from ..loans.api import get_loans_by_patron_pid
 from ..organisations_libraries.api import OrganisationWithLibraries
 from ..patrons_types.api import PatronType
 from .fetchers import patron_id_fetcher
@@ -203,6 +202,11 @@ class Patron(IlsRecord):
         if user:
             return user.roles
         return []
+
+    @property
+    def barcode(self):
+        """Return user barcode."""
+        return self.get('barcode')
 
     @property
     def role_names(self):

@@ -31,7 +31,6 @@ import random
 from random import randint
 
 import click
-import pytz
 from flask.cli import with_appcontext
 from invenio_indexer.api import RecordIndexer
 
@@ -163,7 +162,7 @@ def create_loan(patron_barcode, library_pid, short):
 
 def create_request(patron_barcode, library_pid, short):
     """Create data dictionary for loan and request of item."""
-    request_datetime = pytz.utc.localize(datetime.datetime.now()).isoformat()
+    request_datetime = datetime.now(timezone.utc).isoformat()
     request = {
         'patron_barcode': patron_barcode,
         'pickup_library_pid': library_pid,

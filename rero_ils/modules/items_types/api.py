@@ -55,15 +55,13 @@ class ItemType(IlsRecord):
         """Record can be deleted."""
         from ..documents_items.api import DocumentsSearch
 
-        count = len(
-            list(
-                DocumentsSearch()
-                .filter('term', **{'itemslist.item_type_pid': self.pid})
-                .source()
-                .scan()
-            )
+        search = (
+            DocumentsSearch()
+            .filter('term', **{'itemslist.item_type_pid': self.pid})
+            .source()
+            .scan()
         )
-        return count == 0
+        return search.count() == 0
 
     @classmethod
     def get_pid_by_name(cls, name):
@@ -73,7 +71,7 @@ class ItemType(IlsRecord):
             pids = [
                 n.pid
                 for n in ItemTypeSearch()
-                .filter('term', **{'name': name})
+                .filter('term', name=name)
                 .source(includes=['pid'])
                 .scan()
             ]
