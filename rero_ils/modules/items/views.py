@@ -211,8 +211,8 @@ def return_missing_item():
     try:
         data = request.get_json()
         item = Item.get_record_by_pid(data.get('item_pid'))
-        item.return_missing_item()
-        return jsonify({'status': 'ok'})
+        loan = item.return_missing_item()
+        return jsonify(loan)
     except Exception as e:
         return jsonify({'status': 'error: {error}'.format(error=e)}), 500
 

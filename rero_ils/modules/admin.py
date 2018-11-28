@@ -300,10 +300,17 @@ class LibraryManager(BaseView):
         return (can_edit() or default_admin_permission_factory(self).can())
 
 
-circulation_settings = {
+# circulation_settings = {
+#     'view_class': ILSManager,
+#     'kwargs': dict(name='Circulation Settings',
+#                    endpoint='circulation_settings',
+#                    menu_icon_type='fa',
+#                    menu_icon_value='fa-barcode')
+# }
+circulation = {
     'view_class': ILSManager,
-    'kwargs': dict(name='Circulation Settings',
-                   endpoint='circulation_settings',
+    'kwargs': dict(name='Circulation',
+                   endpoint='circulation',
                    menu_icon_type='fa',
                    menu_icon_value='fa-barcode')
 }

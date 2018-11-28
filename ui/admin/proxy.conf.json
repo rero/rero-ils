@@ -1,47 +1,47 @@
 {
   "/api/*": {
-    "target": "https://localhost:5000",
+    "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/api": "https://localhost:5000/api"
+      "^/api": "http://localhost:5000/api"
     }
   },
   "/documents/*": {
-    "target": "https://localhost:5000",
+    "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/documents": "https://localhost:5000/documents"
+      "^/documents": "http://localhost:5000/documents"
     }
   },
   "/items/*": {
-    "target": "https://localhost:5000",
+    "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/items": "https://localhost:5000/items"
+      "^/items": "http://localhost:5000/items"
     }
   },
   "/patrons/*": {
-    "target": "https://localhost:5000",
+    "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/items": "https://localhost:5000/patrons"
+      "^/items": "http://localhost:5000/patrons"
     }
   },
   "/static/*": {
-    "target": "https://localhost:5000",
+    "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/static": "https://localhost:5000/static"
+      "^/static": "http://localhost:5000/static"
     }
   }
 }

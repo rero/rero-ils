@@ -28,11 +28,25 @@
             ],
             "styles": [
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/datatables.net-bs/js/dataTables.bootstrap.js"
+            ]
           },
           "configurations": {
+            "proxy": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "aot": true,
+              "i18nLocale": "fr"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -56,6 +70,34 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "fr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "extractCss": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "i18nLocale": "fr",
+              "deployUrl": "/static/js/rero_ils/admin/",
+              "sourceMap": false,
+              "outputPath": "../../rero_ils/static/js/rero_ils/admin"
             }
           }
         },
@@ -67,6 +109,13 @@
           "configurations": {
             "production": {
               "browserTarget": "admin:build:production"
+            },
+            "fr": {
+              "browserTarget": "admin:build:fr"
+            },
+            "proxy": {
+              "browserTarget": "admin:build:proxy",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },

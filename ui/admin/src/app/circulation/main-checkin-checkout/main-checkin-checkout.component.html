@@ -1,0 +1,41 @@
+<app-confirm-window
+[confirm_changes]="confirm_changes"
+(confirm)="confirmRemovePatron($event)"
+></app-confirm-window>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>{{ 'Checkin / Checkout' | translate }}</h2>
+      <app-search-input
+      [placeholder]="placeholder"
+      [searchText]="searchText"
+      (search)="searchValueUpdated($event)"
+      ></app-search-input>
+    </div>
+    <div *ngIf="patron" class="col-md-6">
+      <app-patron-detailed
+      [patron]="patron"
+      [info]="false"
+      (clearPatron)="clearPatron($event)"
+      ></app-patron-detailed>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col-md-12">
+      <div *ngFor="let alert of alerts">
+        <alert [dismissible]="true" [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{ alert.msg | translate }}</alert>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <app-loans-list
+      [loans]="loans"
+      [patron]="patron"
+      (removeLoan)="removeLoan($event)"
+      (applyLoans)="applyLoans($event)"
+      ></app-loans-list>
+    </div>
+  </div>
+</section>

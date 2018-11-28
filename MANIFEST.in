@@ -73,6 +73,7 @@ recursive-include rero_ils *.png
 recursive-include rero_ils *.scss
 recursive-include rero_ils *.txt
 recursive-include tests *.py
+recursive-include ui *.py
 
 # added by check_manifest.py
 include *.json

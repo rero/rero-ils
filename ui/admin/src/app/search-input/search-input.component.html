@@ -1,0 +1,18 @@
+<div class="input-group mb-3">
+  <input
+    #searchinput
+    autofocus
+    type="text"
+    class="form-control"
+    placeholder="{{ placeholder | translate }}"
+    attr.aria-label="{{ placeholder | translate }}"
+    aria-describedby="button-search"
+    [value]="searchText"
+    (keyup.enter)="doSearch(searchinput.value)"
+  >
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" id="button-search" (click)="doSearch(searchinput.value)">
+      <span class="fa fa-search" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>

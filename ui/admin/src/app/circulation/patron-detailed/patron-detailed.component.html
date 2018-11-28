@@ -1,0 +1,41 @@
+<div m-0 *ngIf="patron">
+  <div class="row">
+    <div class="col-md-2 user-icon">
+      <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+      <div class="col-md-10">
+      <h3>
+        <span *ngIf="patron.last_name">{{ patron.last_name }}</span>,
+        <span *ngIf="patron.first_name">{{ patron.first_name }} </span>
+      </h3>
+    </div>
+    <div *ngIf="!info" class="col-md-2">
+      <button type="button" class="btn btn-danger pull-right" (click)="clear()">
+        <i class="fa fa-close" aria-hidden="true"></i>
+      </button>
+    </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <span *ngIf="patron.birth_date">{{ patron.birth_date | date :'shortDate' }}</span>
+          </div>
+          <div>
+            <span *ngIf="patron.city">{{ patron.city}}</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <span *ngIf="patron.patron_type">{{ patron.patron_type | translate}}</span>
+          </div>
+          <div>
+            <span *ngIf="patron.barcode">
+              <a [routerLink]="['/circulation/checkinout']" [queryParams]="{ patron: patron.barcode }">{{ patron.barcode }}</a>
+            </span>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
