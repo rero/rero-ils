@@ -76,6 +76,46 @@ export class InMemoryLibrariesDataService implements InMemoryDbService {
             'is_open': false,
             'times': []
           }
+        ],
+        'exception_dates': [
+          {
+            'title': 'Vacances de Noël',
+            'is_open': false,
+            'start_date': '2018-12-22',
+            'end_date': '2019-01-06'
+          },
+          {
+            'title': '8 février après-midi',
+            'is_open': false,
+            'start_date': '2019-02-08',
+            'times': [{
+              'start_time': '12:00',
+              'end_time': '18:00'
+            }]
+          },
+          {
+            'title': 'Dimanche du livre',
+            'is_open': true,
+            'start_date': '2019-05-24',
+            'times': [{
+              'start_time': '10:00',
+              'end_time': '12:00'
+            },
+            {
+              'start_time': '13:00',
+              'end_time': '16:00'
+            }]
+          },
+          {
+            'title': '1er août',
+            'is_open': false,
+            'start_date': '2019-08-01',
+            'repeat': {
+              'interval': 1,
+              'period': 'yearly',
+              'data': [8]
+            }
+          }
         ]
       },
       {

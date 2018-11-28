@@ -4,9 +4,24 @@ export interface OpeningHours {
   times: Array<Hours>;
 }
 
+export interface Repeat {
+  interval: number;
+  period: string;
+  data: Array<number>;
+}
+
 export interface Hours {
   start_time: string;
   end_time: string;
+}
+
+export interface ExceptionDates {
+  title: string;
+  is_open: boolean;
+  start_date: string;
+  end_date?: string;
+  times?: Array<Hours>;
+  repeat?: Repeat;
 }
 
 export class Library {
@@ -18,9 +33,10 @@ export class Library {
   address: string;
   code: string;
   opening_hours: Array<OpeningHours>;
+  exception_dates?: Array<ExceptionDates>;
 
   constructor(obj?: any) {
-    Object.assign(this, obj);
+    this.update(obj);
     this.opening_hours = this.populateTimes(this.opening_hours);
   }
 
@@ -32,4 +48,36 @@ export class Library {
     }
     return openinghours;
   }
+
+  update(obj) {
+    Object.assign(this, obj);
+  }
+
+  deleteException(index) {
+    this.exception_dates.splice(index, 1);
+  }
+
+  sortExceptions() {
+    this.exception_dates.sort(function(a, b) {
+        const keyA = new Date(a.start_date);
+        const keyB = new Date(b.start_date);
+        // Compare the 2 dates
+        if (keyA < keyB) { return -1; }
+        if (keyA > keyB) { return 1; }
+        return 0;
+    });
+  }
+
+  addException(data) {
+    if (!('exception_dates' in this)) {
+      this.exception_dates = [];
+    }
+    this.exception_dates.push(data);
+    this.sortExceptions();
+  }
+
+  updateException(index, data) {
+    this.exception_dates[index] = data;
+  }
+
 }

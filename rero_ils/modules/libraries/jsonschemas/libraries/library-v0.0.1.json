@@ -87,6 +87,72 @@
           }
         }
       }
+    },
+    "exception_dates": {
+      "title": "Exception Hours",
+      "description": "Exception opening hours",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "is_open",
+          "start_date"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "is_open": {
+            "type": "boolean"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "times": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "start_time": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "end_time": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "repeat": {
+            "type": "object",
+            "properties": {
+              "interval": {
+                "type": "integer"
+              },
+              "period": {
+                "type": "string",
+                "enum": [
+                  "daily",
+                  "weekly",
+                  "monthly",
+                  "yearly"
+                ]
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

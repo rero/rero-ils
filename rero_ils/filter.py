@@ -44,6 +44,8 @@ def format_date_filter(date_str, format='medium', locale='en'):
         format = "dd.MM.y"
     elif format == 'timestamp':
         format = "dd.MM.y HH:mm"
+    elif format == 'day_month':
+        format = "dd.MM"
     return babel.dates.format_datetime(form_date, format, locale=locale)
 
 

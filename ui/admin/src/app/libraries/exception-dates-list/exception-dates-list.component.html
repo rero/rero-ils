@@ -1,0 +1,48 @@
+<div class="mt-2 mb-2 btn-group float-right" role="group">
+  <button
+    type="submit"
+    class="btn btn-success"
+    (click)="addException()"
+  ><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+</div>
+<table class="table table-striped" *ngIf="library">
+  <tbody>
+    <tr *ngFor="let exception of library.exception_dates; let i=index">
+      <td>
+        {{ exception.start_date | date:'longDate' }}
+        <div *ngIf="exception.end_date"> - {{ exception.end_date | date:'longDate' }}</div>
+      </td>
+      <td>
+        <div *ngIf="exception.is_open; else elseOpen">OPEN</div>
+        <ng-template #elseOpen>CLOSED</ng-template>
+      </td>
+      <td>
+        {{ exception.title }}
+      </td>
+      <td>
+        <div *ngFor="let time of exception.times">
+          {{ time.start_time }}-{{ time.end_time }}
+        </div>
+        <!-- <div *ngIf="exception.repeat; else elseRepeat">
+          {{ exception.repeat.period }}={{ exception.repeat.interval }}
+        </div>
+        <ng-template #elseRepeat>unique</ng-template> -->
+        <div *ngIf="exception.repeat">
+          <i class="fa fa-repeat" aria-hidden="true" title="repeated"></i> {{ exception.repeat.period }}={{ exception.repeat.interval }}
+        </div>
+      </td>
+      <td class="text-right">
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="editException(i, library.exception_dates[i])"
+        ><i class="fa fa-pencil-square-o"></i></button>
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="deleteException(i)"
+        ><i class="fa fa-trash-o"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

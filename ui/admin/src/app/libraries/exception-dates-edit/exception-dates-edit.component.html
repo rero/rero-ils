@@ -1,0 +1,144 @@
+    <div class="modal-body">
+        <form [formGroup]="exceptionForm" (ngSubmit)="onSubmit(index)">
+        <div class="form-group">
+          <h3 class="modal-title">{{ index != null ? 'Edit' : 'Add' }}</h3>
+        </div>
+        <!-- Title -->
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input
+              class="form-control"
+              formControlName="title"
+              id="title"
+              required>
+          </div>
+        </div>
+        <!-- Date -->
+        <div class="form-group row">
+          <label for="title" class="col-sm-2 col-form-label">Days period</label>
+          <div class="col-sm-10">
+            <ui-switch
+              formControlName="is_period"
+              [checked]="is_period"
+              size="small"
+              checkedLabel="one day"
+              uncheckedLabel="period of several days"
+              defaultBgColor="red"
+              (change)="onPeriodChange($event)">
+            </ui-switch>
+          </div>
+        </div>
+        <!-- one Date -->
+        <div class="form-group row" *ngIf="!is_period.value">
+          <label for="date" class="col-sm-2 col-form-label">Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input type="text"
+                class="form-control"
+                formControlName="date"
+                #dp="bsDatepicker"
+                bsDatepicker
+                [bsValue]="bsValue"
+                [bsConfig]="{ containerClass: 'theme-default' }">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2" (click)="dp.toggle()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2 mt-2">
+            <ui-switch
+              formControlName="is_open"
+              [checked]="is_open"
+              size="small"
+              defaultBgColor="red"
+              (change)="onIsOpenChange($event)">
+            </ui-switch>
+          </div>
+          <div class="col-sm-10 mt-2">
+            <span class="mb-2">
+              {{ exceptionForm.value.is_open? 'Opened on': 'Closed on'}} {{ exceptionForm.value.date | date : 'EEEE' }}
+            </span>
+            <div class="col-sm-12">
+              <button
+                type="button"
+                *ngIf="times.length == 0"
+                class="btn btn-light"(click)="addTime(0)"
+              ><i class="fa fa-plus" aria-hidden="true"></i> period</button>
+              <ul class="list-unstyled mb-0">
+                <li formArrayName="times" *ngFor="let time of times.controls; let t=index">
+                  <div [formGroupName]="t">
+                    <input type="text" class="mr-2" formControlName="start_time">
+                    <input type="text" formControlName="end_time">
+                    <button
+                      type="button"
+                      class="btn btn-light"
+                      (click)="deleteTime(t)"
+                    ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    <button
+                      type="button"
+                      *ngIf="times.length == 1"
+                      class="btn btn-light"(click)="addTime(i)"
+                    ><i class="fa fa-plus" aria-hidden="true"></i> period</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        <!-- Period -->
+        </div>
+        <div class="form-group row" *ngIf="is_period.value">
+          <label for="date" class="col-sm-2 col-form-label">Start-End Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input type="text"
+                class="form-control"
+                formControlName="dates"
+                #dp="bsDaterangepicker"
+                bsDaterangepicker
+                [bsValue]="bsValue"
+                [bsConfig]="{ containerClass: 'theme-default' }">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon2" (click)="dp.toggle()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- Repeat -->
+        <div class="form-group row">
+          <label for="repeat" class="col-sm-2 col-form-label">Repeat</label>
+          <div class="col-sm-10">
+            <ui-switch
+              formControlName="repeat"
+              [checked]="repeat"
+              size="small"
+              defaultBgColor="red"
+              checkedLabel="repeat"
+              uncheckedLabel="no repeat"
+              (change)="onRepeatChange($event)">
+            </ui-switch>
+            <div class="ml-2 d-inline" *ngIf="repeat.value">
+              <select formControlName="period">
+                <option value="daily">daily</option>
+                <option value="weekly">weekly</option>
+                <option value="monthly">monthly</option>
+                <option value="yearly">yearly</option>
+              </select>
+              <input class="ml-2" formControlName="interval">
+            </div>
+          </div>
+        </div>
+        <!-- <hr>
+        {{ exceptionForm.value | json }}
+        <hr> -->
+        <div class="btn-group float-right mb-4" role="group" aria-label="Basic example">
+          <button type="cancel" class="btn btn-warning" (click)="onCancel()">Cancel</button>
+          <button type="submit" class="btn btn-success" [disabled]="exceptionForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>

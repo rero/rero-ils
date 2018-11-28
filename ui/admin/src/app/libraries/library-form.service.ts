@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
   FormArray } from '@angular/forms';
@@ -24,7 +25,7 @@ export class LibraryFormService {
       address: ['', Validators.minLength(4)],
       email: ['', Validators.email],
       code: [''],
-      opening_hours: this.fb.array([this.buildOpeningHours()])
+      opening_hours: this.fb.array([this.buildOpeningHours()]),
     });
   }
 
@@ -42,6 +43,7 @@ export class LibraryFormService {
       end_time: ['00:00', [ Validators.required ]]
     });
   }
+
 
   populate(library: Library) {
     this.form.patchValue({
