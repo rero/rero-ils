@@ -24,9 +24,12 @@
 
 """API for manipulating items."""
 
+from datetime import datetime, timezone
+from functools import wraps
 
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
+from invenio_circulation.errors import TransitionConditionsFailed
 from invenio_circulation.proxies import current_circulation
 from invenio_search.api import RecordsSearch
 
@@ -34,14 +37,68 @@ from ..api import IlsRecord
 from ..items_types.api import ItemType
 from ..libraries_locations.api import LibraryWithLocations
 from ..loans.api import Loan, LoanAction, es_flush, get_checkout_by_item_pid, \
-    get_in_tranist_item_pid, get_loans_by_item_pid, \
-    get_request_by_item_pid_by_patron_pid, get_requests_by_item_pid
+    get_in_tranist_item_pid, get_loan_by_item_pid_by_patron_pid, \
+    get_loans_by_item_pid, get_request_by_item_pid_by_patron_pid, \
+    get_requests_by_item_pid
 from ..locations.api import Location
 from ..transactions.api import CircTransaction
 from .fetchers import item_id_fetcher
 from .minters import item_id_minter
 from .models import ItemStatus
 from .providers import ItemProvider
+
+
+def add_missing_action_params(function):
+    """Add missing action parameters."""
+    @wraps(function)
+    def wrapper(item, *args, **kwargs):
+        kwargs['item_pid'] = item.pid
+        kwargs['document_pid'] = item.dumps().get('document_pid')
+
+        action_required_params = item.action_required_params.copy()
+        from ..patrons.api import current_patron
+        loan = None
+        loan_pid = kwargs.get('loan_pid')
+
+        if loan_pid:
+            loan = Loan.get_record_by_pid(loan_pid)
+        else:
+            patron_pid = kwargs.get('patron_pid')
+            if patron_pid:
+                prev_loan = get_loan_by_item_pid_by_patron_pid(
+                    item.pid, patron_pid)
+                if prev_loan:
+                    loan = prev_loan
+                else:
+                    if function.__name__ in ('loan_item', 'request_item'):
+                        loan = Loan.initiate()
+                        loan['item_pid'] = item.pid
+                        loan['patron_pid'] = patron_pid
+
+        if loan:
+            kwargs['current_loan'] = loan
+            kwargs['patron_pid'] = loan.get('patron_pid')
+            kwargs['loan_pid'] = loan.get('loan_pid')
+        missing = [
+            p
+            for p in action_required_params
+            if p not in kwargs
+        ]
+        if missing:
+            if 'patron_pid' in missing:
+                raise TransitionConditionsFailed('patron pid not found')
+            if 'transaction_date' in missing:
+                kwargs['transaction_date'] = datetime.now(
+                    timezone.utc).isoformat()
+            if 'transaction_user_pid' in missing:
+                user = current_patron
+                kwargs['transaction_user_pid'] = user.pid
+            if 'transaction_location_pid' in missing:
+                user = current_patron.dumps()
+                kwargs['transaction_location_pid'] = user.get(
+                    'circulation_location_pid')
+        return function(item, *args, **kwargs)
+    return wrapper
 
 
 class ItemsSearch(RecordsSearch):
@@ -62,7 +119,19 @@ class Item(IlsRecord):
 
     default_duration = 30
 
-    durations = {ItemType.get_pid_by_name('short'): 15}
+    action_required_params = [
+        'patron_pid',
+        'transaction_location_pid',
+        'transaction_user_pid',
+        'transaction_date',
+        'item_pid',
+        'document_pid',
+    ]
+
+    def __post_loan_process(self, loan):
+        es_flush()
+        self.item_status_update()
+        CircTransaction.create(loan)
 
     @property
     def status(self):
@@ -115,30 +184,12 @@ class Item(IlsRecord):
         except Exception:
             return None
 
+    @add_missing_action_params
     def cancel_item_loan(self, **kwargs):
         """Cancel a given item loan for a patron."""
-        loan_pid = kwargs.get('loan_pid')
-        prev_loan = Loan.get_record_by_pid(loan_pid)
-        params = dict(prev_loan, **kwargs)
+        current_loan = kwargs.pop('current_loan', None)
         loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='cancel')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
-
-    def loan_item(self, **kwargs):
-        """Checkout item to the user."""
-        if kwargs.get('loan_pid'):
-            loan_pid = kwargs.get('loan_pid')
-            prev_loan = Loan.get_record_by_pid(loan_pid)
-        else:
-            prev_loan = Loan.initiate()
-            prev_loan['item_pid'] = self.pid
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='checkout')
+            current_loan, **dict(kwargs, trigger='cancel')
         )
         es_flush()
         self.item_status_update()
@@ -147,7 +198,8 @@ class Item(IlsRecord):
 
     def automatic_checkin(self, **kwargs):
         """Apply circ transactions for item."""
-        return_rec = {'action_applied': {}}
+        return_rec = self.dumps()
+        return_rec['action_applied'] = {}
         # transaction_location_pid = kwargs.get('transaction_location_pid')
         item_status = self.get('item_status')
 
@@ -155,9 +207,8 @@ class Item(IlsRecord):
             checkout_loan = get_checkout_by_item_pid(self.pid)
             params = dict(loan_pid=checkout_loan['loan_pid'])
             loan = self.return_item(**params)
-            return_rec['action_applied'][LoanAction.CHECKIN] = loan.get(
-                'loan_pid'
-            )
+            return_rec['action_applied'][LoanAction.CHECKIN] = loan.dumps()
+
             # TODO: automatic validation
             # requests = self.dumps().get('pending_loans')
             # if len(requests):
@@ -177,88 +228,14 @@ class Item(IlsRecord):
             in_transit_loan = get_in_tranist_item_pid(self.pid)
             params = dict(loan_pid=in_transit_loan['loan_pid'])
             loan = self.receive_item(**params)
-            return_rec['action_applied'][LoanAction.RECEIVE] = loan.get(
-                'loan_pid'
-            )
+            return_rec['action_applied'][LoanAction.RECEIVE] = loan.dumps()
+
         elif item_status == ItemStatus.MISSING:
             self.return_missing_item(**kwargs)
-            return_rec['action_applied'] = LoanAction.RETURN_MISSING
-        else:
-            return_rec = self
+            return_rec['action_applied'][
+                LoanAction.RETURN_MISSING] = {}
+
         return return_rec
-
-    def receive_item(self, **kwargs):
-        """Receive an item."""
-        loan_pid = kwargs.get('loan_pid')
-        prev_loan = Loan.get_record_by_pid(loan_pid)
-        if not kwargs.get('item_pid'):
-            kwargs['item_pid'] = self.pid
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='receive')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
-
-    def return_item(self, **kwargs):
-        """Checkin a given item."""
-        loan_pid = kwargs.get('loan_pid')
-        prev_loan = Loan.get_record_by_pid(loan_pid)
-        if not kwargs.get('item_pid'):
-            kwargs['item_pid'] = self.pid
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='checkin')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
-
-    def request_item(self, **kwargs):
-        """Request item for the user."""
-        if kwargs.get('loan_pid'):
-            loan_pid = kwargs.get('loan_pid')
-            prev_loan = Loan.get_record_by_pid(loan_pid)
-        else:
-            prev_loan = Loan.initiate()
-            prev_loan['item_pid'] = self.pid
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='request')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
-
-    def extend_loan(self, **kwargs):
-        """Renew a given item."""
-        loan_pid = kwargs.get('loan_pid')
-        prev_loan = Loan.get_record_by_pid(loan_pid)
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='extend')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
-
-    def validate_item_request(self, **kwargs):
-        """Validate item request."""
-        loan_pid = kwargs.get('loan_pid')
-        prev_loan = Loan.get_record_by_pid(loan_pid)
-        params = dict(prev_loan, **kwargs)
-        loan = current_circulation.circulation.trigger(
-            prev_loan, **dict(params, trigger='validate')
-        )
-        es_flush()
-        self.item_status_update()
-        CircTransaction.create(loan)
-        return loan
 
     def lose_item(self):
         """Lose the given item.
@@ -282,11 +259,6 @@ class Item(IlsRecord):
         self.item_status_update()
         self.commit()
         self.dbcommit(reindex=True, forceindex=True)
-
-    @property
-    def duration(self):
-        """Get loan/extend duration based on item type."""
-        return self.durations.get(self['item_type_pid'], self.default_duration)
 
     @property
     def requests(self):
@@ -345,8 +317,10 @@ class Item(IlsRecord):
         from ..documents_items.api import DocumentsWithItems
 
         if DocumentsWithItems.document_retriever(self.pid):
-            document_pid = DocumentsWithItems.document_retriever(self.pid)
-            data['document_pid'] = document_pid
+            document = DocumentsWithItems.get_document_by_itemid(self.id)
+            data['document_pid'] = document.pid
+            data['document_title'] = document.get('title')
+            data['document_authors'] = document.get('authors')
         if location:
             data['location_name'] = location.get('name')
             library = LibraryWithLocations.get_library_by_locationid(
@@ -425,3 +399,69 @@ class Item(IlsRecord):
             if item.get('location_pid'):
                 location_pid = item.get('location_pid')
         return location_pid
+
+    @add_missing_action_params
+    def validate_item_request(self, **kwargs):
+        """Validate item request."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='validate')
+        )
+        self.__post_loan_process(loan)
+        return loan
+
+    @add_missing_action_params
+    def extend_loan(self, **kwargs):
+        """Extend checkout duration for this item."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='extend')
+        )
+        self.__post_loan_process(loan)
+        return loan
+
+    @add_missing_action_params
+    def request_item(self, **kwargs):
+        """Request item for the user."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='request')
+        )
+        self.__post_loan_process(loan)
+        return loan
+
+    @add_missing_action_params
+    def receive_item(self, **kwargs):
+        """Receive an item."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='receive')
+        )
+        self.__post_loan_process(loan)
+        return loan
+
+    @add_missing_action_params
+    def return_item(self, **kwargs):
+        """Checkin a given item."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='checkin')
+        )
+        self.__post_loan_process(loan)
+        return loan
+
+    @add_missing_action_params
+    def loan_item(self, **kwargs):
+        """Checkout item to the user."""
+        current_loan = kwargs.pop('current_loan', None)
+
+        loan = current_circulation.circulation.trigger(
+            current_loan, **dict(kwargs, trigger='checkout')
+        )
+        self.__post_loan_process(loan)
+        return loan

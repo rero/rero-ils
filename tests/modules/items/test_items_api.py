@@ -26,9 +26,8 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime
+from datetime import datetime, timezone
 
-import pytz
 from invenio_circulation.api import get_loan_for_item
 
 from rero_ils.modules.items.api import ItemStatus
@@ -36,7 +35,7 @@ from rero_ils.modules.loans.api import get_pending_loan_by_patron_and_item
 from rero_ils.modules.loans.api import \
     get_request_by_item_pid_by_patron_pid as get_request_item_patron
 
-current_date = pytz.utc.localize(datetime.now()).isoformat()
+current_date = datetime.now(timezone.utc).isoformat()
 
 
 def test_request_rankings(
@@ -77,8 +76,7 @@ def test_request_rankings(
     assert item.patron_request_rank(simonetta.get('barcode')) == 1
     assert item.dumps().get('pending_loans')[0] == loan_1.pid
 
-    new_current_date = pytz.utc.localize(
-        datetime.now()).isoformat()
+    new_current_date = datetime.now(timezone.utc).isoformat()
     loan_2 = item.request_item(
         patron_pid=philippe.pid,
         pickup_location_pid=location.pid,
@@ -107,8 +105,7 @@ def test_request_rankings(
     assert item.patron_request_rank(philippe.get('barcode')) == 1
     assert item.dumps().get('pending_loans')[0] == loan_2.pid
 
-    new_current_date = pytz.utc.localize(
-        datetime.now()).isoformat()
+    new_current_date = datetime.now(timezone.utc).isoformat()
 
     loan_4 = item.request_item(
         patron_pid=simonetta.pid,

@@ -293,14 +293,6 @@ def get_requests_by_item_pid(item_pid):
     for result in search.scan():
         yield Loan.get_record_by_pid(result[Loan.pid_field])
 
-    # search = search_by_pid(
-    #     item_pid=item_pid,
-    #     filter_states=[
-    #         'PENDING', 'ITEM_AT_DESK', 'ITEM_IN_TRANSIT_FOR_PICKUP'],
-    # )
-    # for result in search.sort({'transaction_date': {'order': 'asc'}}).scan():
-    #     yield Loan.get_record_by_pid(result[Loan.pid_field])
-
 
 def get_pendings_by_library_pid(library_pid):
     """Retrieve loans attached to a given library."""
@@ -325,3 +317,24 @@ def item_has_active_loans(item_pid):
     if len(hits):
         return True
     return False
+
+
+def get_loan_by_item_pid_by_patron_pid(item_pid, patron_pid):
+    """Get loan for item, patron."""
+    search_result = search_by_patron_item(
+        patron_pid=patron_pid,
+        item_pid=item_pid,
+        filter_states=[
+            'PENDING',
+            'ITEM_AT_DESK',
+            'ITEM_IN_TRANSIT_FOR_PICKUP',
+            'ITEM_IN_TRANSIT_TO_HOUSE',
+            'ITEM_ON_LOAN',
+        ],
+    ).execute()
+    results = search_result.hits.total
+    if results == 1:
+        loan_pid = search_result.hits.hits[0]['_source']['loan_pid']
+        return Loan.get_record_by_pid(loan_pid)
+    else:
+        return {}

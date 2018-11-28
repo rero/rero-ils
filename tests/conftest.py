@@ -35,6 +35,7 @@ from rero_ils.modules.organisations_libraries.api import \
     OrganisationWithLibraries
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons_types.api import PatronType
+from rero_ils.utils_test import es_flush_and_refresh
 
 # TODO: get url dynamiclly
 url_schema = 'http://ils.test.rero.ch/schema'
@@ -297,6 +298,7 @@ def all_resources_limited(
     doc.add_item(item, dbcommit=True, reindex=True)
     item.dbcommit(reindex=True)
     db.session.commit()
+    es_flush_and_refresh()
     yield doc, item, organisation, library, location, simonetta, philippe
 
 
@@ -544,6 +546,7 @@ def all_resources_limited_2(
     doc.add_item(item, dbcommit=True, reindex=True)
     item.dbcommit(reindex=True)
     db.session.commit()
+    es_flush_and_refresh()
     yield doc, item, organisation, library, location, simonetta, philippe
 
 
