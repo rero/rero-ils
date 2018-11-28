@@ -1,0 +1,29 @@
+<b>Exceptions (holidays, etc.)</b>
+{% if record.exception_dates %}
+  <ul class="list-unstyled">
+    {% for exception in record.exception_dates %}
+    <li>
+      <div class="col-md-1 nopadding">
+        <i
+          class="fa fa-{{ 'check' if exception.is_open else 'times' }} text-{{ 'success' if exception.is_open else 'danger' }}"
+          aria-hidden="true"
+          title="{{ _('opened') if exception.is_open else _('closed') }}">
+        </i>
+        {% if exception.repeat %}
+          <i class="fa fa-repeat" aria-hidden="true" title="{{ _('repeated') }}"></i>
+        {% endif %}
+      </div>
+      <div class="col-md-4 nopadding">
+        {{ exception.start_date|format_date('short_date') }}
+
+        {% if exception.end_date %}
+          - {{ exception.end_date|format_date('short_date') }}
+        {% endif %}
+      </div>
+      <div class="col-md-7">
+        {{ exception.title }}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}

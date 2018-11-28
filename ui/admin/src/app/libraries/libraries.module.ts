@@ -4,24 +4,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { InMemoryLibrariesDataService } from './in-memory-libraries-data.service';
 import { LibrariesRoutingModule } from './libraries-routing.module';
 import { LibraryComponent } from './library/library.component';
 import { LibraryFormService } from './library-form.service';
+import { LibraryExceptionFormService } from './library-exception-form.service';
+
 import { LibrariesService } from './libraries.service';
 import { MainComponent } from './main/main.component';
 
 import { environment } from '../../environments/environment';
+import { ExceptionDatesListComponent } from './exception-dates-list/exception-dates-list.component';
+import { ExceptionDatesEditComponent } from './exception-dates-edit/exception-dates-edit.component';
 
 @NgModule({
   providers: [
     LibrariesService,
-    LibraryFormService
+    LibraryFormService,
+    LibraryExceptionFormService
   ],
-  declarations: [LibraryComponent, MainComponent],
+  declarations: [LibraryComponent, MainComponent, ExceptionDatesListComponent, ExceptionDatesEditComponent],
   imports: [
     CommonModule,
     LibrariesRoutingModule,
@@ -36,7 +43,10 @@ import { environment } from '../../environments/environment';
     ),
     ReactiveFormsModule,
     TabsModule.forRoot(),
-    UiSwitchModule
-  ]
+    UiSwitchModule,
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
+  ],
+  entryComponents: [ ExceptionDatesEditComponent ],
 })
 export class LibrariesModule { }
