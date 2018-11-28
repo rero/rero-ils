@@ -1,0 +1,19 @@
+<div *ngIf="!loading && !permission_denied" class="row">
+  <div class="col-md-12">
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/checkinout']">Checkin/Checkout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/requests']">Requests</a>
+      </li>
+    </ul>
+    <div class="mt-4">
+    <router-outlet></router-outlet>
+  </div>
+  </div>
+</div>
+<span *ngIf="loading">loading...</span>
+
+<span *ngIf="!loading && permission_denied">permission denied</span>

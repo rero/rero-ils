@@ -1,0 +1,66 @@
+<div *ngIf="loans.length === 0 && patron">
+  <span translate>No loan for the current patron.</span>
+</div>
+<div *ngIf="loans.length">
+  <table class="table table-bordered">
+    <tr>
+      <th scope="col">{{ 'Document' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Item' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Location' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Status' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Item infos' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Due Date' | translate }}</th>
+      <th scope="col" class="text-center" *ngIf="patron">{{ 'Action' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Action done' | translate }}</th>
+    </tr>
+    <tr *ngFor="let loan of loans"
+        [ngClass]="{
+          'success': loan.isActionLoan(patron),
+          'warning': loan.isActionReturn(patron)
+        }"
+    >
+      <td><a href="/documents/{{ loan.document_pid }}" target="_blank">{{ loan.document_title }}</a></td>
+      <td class="text-right"><a href="/items/{{ loan.item_pid }}" target="_blank">{{ loan.item_barcode }}</a></td>
+      <td class="text-right">{{ loan.item_location_name }}</td>
+      <td class="text-right">{{ loan.state | translate}}</td>
+      <td class="text-right">
+        <div *ngIf="loan.requestedPosition(patron)">
+          <i *ngIf="warningRequests(loan)" class="fa text-danger fa-exclamation-triangle">&nbsp;</i>
+          {{ loan.requestedPosition(patron) }}
+        </div>
+        <span *ngIf="loan.item.pending_loans && loan.item.pending_loans.length">
+          {{ 'Requests' | translate }}: {{ loan.item.pending_loans.length }}
+        </span>
+        <span *ngIf="loan.extension_count">
+          {{ 'Extension' |translate }}: {{ loan.extension_count }}
+        </span>
+    </td>
+      <td class="text-right">
+        <span [ngClass]="{'text-danger': loan.expired}"
+              *ngIf="loan.dueDate">
+          {{ loan.dueDate | date :'longDate' }}
+        </span>
+      </td>
+      <td class="text-right" *ngIf="patron">
+        <div class="dropdown" *ngIf="loan.getActions(patron).length">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"        aria-expanded="false" [ngClass]="{'disabled': (loan.getActions(patron).length < 2)}">
+            {{ loan.currentAction | translate }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="loan.currentAction = action" *ngFor="let action of loan.getActions(patron)">{{ action | translate }}</a>
+          </div>
+        </div>
+    </td>
+    <td class="text-right">
+      <span *ngIf="loan.actionDone">{{ loan.actionDone | translate }} <i class="fa fa-check text-success"></i> </span>
+    </td>
+    </tr>
+  </table>
+  <button *ngIf="patron"
+          [disabled]="!hasPendingActions()"
+          type="button"
+          class="btn btn-success pull-right"
+          (click)="apply(loans)">
+      {{ 'Apply' | translate }}
+  </button>
+</div>

@@ -110,10 +110,10 @@ setup(
             'messages = rero_ils',
         ],
         'invenio_admin.views': [
-            'rero_ils_circulation = \
-                rero_ils.modules.items.admin:circulation_adminview',
-            'rero_ils_admin_circulation_settings = \
-                rero_ils.modules.admin:circulation_settings',
+            # 'rero_ils_admin_circulation_settings = \
+            #     rero_ils.modules.admin:circulation_settings',
+            'rero_ils_admin_circulation = \
+                rero_ils.modules.admin:circulation',
             'rero_ils_admin_libraries = \
                 rero_ils.modules.admin:library',
             'rero_ils_admin_my_library = \
@@ -123,8 +123,6 @@ setup(
             'rero_ils_detailed_documents_items_js = \
                 rero_ils.modules.documents_items.bundles:detailed_js',
             'rero_ils_search_js = rero_ils.bundles:search_js',
-            'rero_ils_item_circulation_ui_js = \
-                rero_ils.modules.items.bundles:circulation_ui_js',
             'rero_ils_editor_js = \
                rero_ils.bundles:editor_js',
             'rero_ils_main_css = rero_ils.bundles:main_css',

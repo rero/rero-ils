@@ -17,7 +17,7 @@ const httpOptions = {
 @Injectable()
 export class LibrariesService {
 
-  private librariesUrl = 'api/libraries';
+  private librariesUrl = '/api/libraries';
 
   currentLibrary: Subject<Library> = new BehaviorSubject<Library>(null);
 

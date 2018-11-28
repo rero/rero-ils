@@ -1,0 +1,48 @@
+<table datatable [dtOptions]="dtOptions"
+       [dtTrigger]="dtTrigger"
+       class="table table-responsive table-sm table-border table-hover"
+       [ngClass]="{'hide': !loans || loans.length === 0}"
+>
+<!-- *ngIf is not supported by angular-datatable, use hide class instead -->
+  <thead>
+    <tr>
+      <th scope="col">{{ 'Document' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Item' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Location' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Requested by' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Pick-up Location' | translate }}</th>
+      <th scope="col" class="text-center">{{ 'Request date' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="loans && loans.length">
+    <tr [ngClass]="{'table-success': loan.state !== 'PENDING'}"
+        *ngFor="let loan of loans">
+      <td><span *ngIf="loan.document_title">{{ loan.document_title }}</span></td>
+      <td class="text-right">
+        {{ loan.item_barcode }}
+      </td>
+      <td class="text-right">
+        {{ loan.item_location_name }} /
+        {{ loan.item_call_number }}
+      </td>
+      <td class="text-right">
+        <span *ngIf="loan.patron_name">
+          <a [routerLink]="['/circulation/checkinout']"
+          [queryParams]="{ patron: loan.patron_barcode }"
+          >
+            {{ loan.patron_name }}
+          </a>
+        </span>
+      </td>
+      <td class="text-right">
+        {{ loan.pickup_location_name }}
+      </td>
+      <td class="text-right">
+        {{ loan.transaction_date | date :'medium' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="loans === null">
+  <i class="fa fa-spinner fa-spin fa-fw"></i>
+</div>
