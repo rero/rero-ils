@@ -1,3 +1,12 @@
+{% macro dl(title, content) %}
+  <dt class="col-sm-3 offset-sm-2 offset-md-1">
+    {{ title }}:
+  </dt>
+  <dd class="col-sm-7 col-md-8">
+    {{ content|safe }}
+  </dd>
+{% endmacro %}
+
 {% macro div_row(title, content) %}
   <div class="row">
     <div class="col-xs-2 col-xs-offset-2">
@@ -21,16 +30,13 @@
 {% endmacro %}
 
 {% macro div_json(title, data) %}
-<div class="row">
-  <div class="col-sm-12">
-    <div class="btn-group pull-right" role="group">
-      <a href="#source-{{ data.id }}" data-toggle="collapse" type="button" class="btn btn-info">
-        <i class="fa fa-search-plus fa-fw"></i> {{ title }}
-      </a>
-    </div>
-  </div>
+<div class="align-self-end">
+  <a href="#source-{{ data.id }}" data-toggle="collapse" type="button" role="button" class="btn btn-info" aria-expanded="false" aria-controls="JSON display">
+    <i class="fa fa-search-plus fa-fw"></i> {{ title }}
+  </a>
 </div>
-<div id="source-{{ data.id }}" class="collapse rero-ils-source-json">
+
+<div id="source-{{ data.id }}" class="card bg-light collapse rero-ils-source-json">
   <pre>{{ data|tojson_pretty }}</pre>
 </div>
 {% endmacro %}

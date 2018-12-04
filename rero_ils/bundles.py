@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""JS/CSS bundles for theme."""
+"""JS/CSS bundles for RERO ILS theme."""
 
 from __future__ import absolute_import, print_function
 
@@ -42,6 +42,7 @@ def catalog(domain):
         '{0}.po'.format(domain),
     )
 
+
 admin_css = NpmBundle(
     'scss/rero_ils/admin/styles.scss',
     depends=('scss/rero_ils/admin/*.scss'),
@@ -57,13 +58,13 @@ admin_css = NpmBundle(
 
 main_css = NpmBundle(
     'scss/rero_ils/styles.scss',
-    depends=('scss/invenio_theme/*.scss', 'scss/rero_ils/*.scss'),
+    depends=('scss/rero_ils/*.scss'),
     filters='node-scss,cleancssurl',
     output='gen/rero_ils_main.%(version)s.css',
     npm={
         'almond': '~0.3.1',
-        'bootstrap-sass': '~3.3.5',
-        'font-awesome': '~4.4.0',
+        'bootstrap': '~4.1.3',
+        'font-awesome': '~4.7.0',
         'jquery': '~1.9.1',
     }
 )
@@ -83,7 +84,9 @@ js = NpmBundle(
         'almond': '~0.3.1',
         'angular': '~1.4.9',
         'bootstrap-autohide-navbar': '~1.0.0',
-        'bootstrap-sass': '~3.3.5',
+        # 'popper.js': '~1.14.3',
+        'bootstrap': '~4.1.3',
+        # 'bootstrap-sass': '~3.3.5',
         'angular-gettext': '~2.3.8',
         'jquery': '~1.9.1',
     },
@@ -138,6 +141,7 @@ admin_js = Bundle(
     'js/rero_ils/admin/scripts.js',
     'js/rero_ils/admin/main.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+    'node_modules/jquery/jquery.min.js',
     output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
 )
 

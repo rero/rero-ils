@@ -223,15 +223,16 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_max_age': 31556926,  # One year in seconds
     'strict_transport_security_include_subdomains': True,
     'content_security_policy': {
-        'default-src': ['*']
+        'default-src': ['*'],
         # 'default-src': ["'self'"],
-        # 'script-src': [
-        #     "'self'",
-        #     "'unsafe-inline'",
-        #     '*.rero.ch',
-        #     'https://www.googletagmanager.com',
-        #     'https://www.google-analytics.com'
-        # ],
+        'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            # '*.rero.ch',
+            'https://www.googletagmanager.com',
+            'https://www.google-analytics.com',
+            'https://services.test.rero.ch'
+        ],
         # 'img-src': [
         #     "'self'",
         #     'https://www.google-analytics.com',

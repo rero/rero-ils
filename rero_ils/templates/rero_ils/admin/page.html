@@ -21,53 +21,70 @@
   <meta name="google-site-verification" content="{{google_id}}"/>
   {%- endfor %}
   {%- endif %}
+  {%- block head_title %}
+    {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
+    <title>{{title}}</title>
+  {%- endblock head_title %}
+  {%- block head_links %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+    {%- if keywords %}<link rel="canonical" href="{{ canonical_url }}"/>{% endif %}
+    {%- block head_links_langs %}
+      {%- if alternate_urls %}
+        {%- for alt_ln, alternate_url in alternate_urls.items() %}
+    <link rel="alternate" hreflang="{{ alt_ln }}" href="{{ alternate_url }}"/>
+        {%- endfor %}
+      {%- endif %}
+    {%- endblock %}
+    {%- block head_apple_icons %}
+      {# TODO: generate the appropriate files #}
+    {%- for size in [144, 114, 72, 57] %}
+      {%- set icon_name = 'apple-touch-icon-%d-precomposed.png' | format(size) %}
+    <link rel="apple-touch-icon-precomposed" sizes="{{ size }}x{{ size }}" href="{{ url_for('static', filename=icon_name) }}"/>
+    {%- endfor %}
+    {%- endblock head_apple_icons %}
+  {%- endblock head_links %}
   {%- block css %}
   {% assets "rero_ils_admin_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
   {%- endblock css %}
 </head>
-<body ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}"{% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target">
-  <div class="d-flex">
-    {%- block outer_body %}
-      <div class="flex-grow-1">
-        {%- block browserupgrade %}
-        <!--[if lt IE 8]>
-          <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a   href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        {%- endblock browserupgrade %}
-        {%- block page_header %}
-          {% include 'rero_ils/admin/header.html' %}
-        {%- endblock page_header %}
-        {%- block body_inner %}
-          <div class="rero-ils-content container">
-            {%- block page_body %}
-              <div class="rero-ils-page-body">
-                {%- block body %}
-                <div class="col-12">
-                  <app-root></app-root>
-                </div>
-                {%- endblock body %}
-              </div>
-            {%- endblock page_body %}
-            {%- block page_footer %}
-              <footer class="container text-center">
-                {{ _('Developed by') }} <a href="https://www.rero.ch" target="_blank">RERO</a>
-                 {{ _('using') }} <a href="https://inveniosoftware.org" target="_blank">Invenio</a>
-              </footer>
-            {%- endblock page_footer %}
+<body class="d-flex flex-column" ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }} d-flex"{% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target">
+  {%- block browserupgrade %}
+  <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgradebrowser</a> to improve your experience.</p>
+  <![endif]-->
+  {%- endblock browserupgrade %}
+  {%- block page_header %}
+    {% include 'rero_ils/admin/header.html' %}
+  {%- endblock page_header %}
+  {%- block body_inner %} {# Why not block body_main ?#}
+    <div class="rero-ils-content container">
+      {%- block page_body %}
+        <div class="flex-grow-1 rero-ils-page-body">
+          {%- block body %}
+          <div class="col-12">
+            <app-root></app-root>
           </div>
-        {%- endblock body_inner %}
-        {%- block trackingcode %}
-          {% include config.THEME_TRACKINGCODE_TEMPLATE %}
-        {%- endblock %}
-      </div>
-    {%- endblock outer_body %}
-    {%- block javascript %}
+          {%- endblock body %}
+        </div>
+      {%- endblock page_body %}
+  }
+  {%- endblock body_inner %}
+      {%- block page_footer %}
+        <footer class="container text-center">
+          {{ _('Developed by') }} <a href="https://www.rero.ch" target="_blank">RERO</a>
+           {{ _('using') }} <a href="https://inveniosoftware.org" target="_blank">Invenio</a>
+        </footer>
+      {%- endblock page_footer %}
+    </div>
+  {%- block trackingcode %}
+  {% include config.THEME_TRACKINGCODE_TEMPLATE %}
+    {%- endblock %}
+  {%- block javascript %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity=" sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="  sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     {% assets "rero_ils_admin_ui_js" %}
-    <script src="{{ ASSET_URL }}"></script>
+      <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
-    {%- endblock javascript %}
-  </div>
+  {%- endblock javascript %}
 </body>
