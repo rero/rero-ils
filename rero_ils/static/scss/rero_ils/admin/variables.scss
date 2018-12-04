@@ -9,37 +9,10 @@
  */
 
 $font-family-base: "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-// $navbar-brand-font-size: 30px;
 
 $dark-blue: #1B4464; // dark blue
-// $dark-blue-gradient: lighten($dark-blue, 15%);
-// $color2: #90C5A9; // light green
-// $color3: #7A9A95; // greenish gray
-// $color4: #EF6D3B; // orange
-// $color5: #FA8B60; // lighter orange
-
-// $primary:       $blue !default;
-// $secondary:     $gray-600 !default;
-// $success:       $green !default;
-// $info:          $cyan !default;
-// $warning:       $yellow !default;
-// $danger:        $red !default;
-// $light:         $gray-100 !default;
 $dark:          $dark-blue;
 
 $font-size-base:              1rem !default;
 $navbar-brand-font-size: ($font-size-base * 1.5);
 $sidebar-width: 160px;
-
-// $brand-danger: #ba1319;
-// $nav-link-hover-bg: rgba(40, 159, 204, .8);
-
-// $navbar-default-toggle-icon-bar-bg: white;
-// $navbar-brand-padding-vertical: 10px;
-// $navbar-default-bg: $color1;
-// $navbar-default-brand-color: white;
-// $navbar-default-border: darken($navbar-default-bg, 10%);
-
-// $text-white: #fff;
-// $state-danger-text: #d5504d;
-// $state-success-text: #439544;

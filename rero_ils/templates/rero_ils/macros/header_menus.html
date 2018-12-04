@@ -1,0 +1,121 @@
+{% macro menu_icon(item) -%}
+  {% set icon_type = item.get_icon_type() %}
+    {%- if icon_type %}
+      {% set icon_value = item.get_icon_value() %}
+      {% if icon_type == 'fa' %}
+        <i class="fa {{ icon_value }}"></i>
+      {% elif icon_type == 'image' %}
+        <img src="{{ url_for('static', filename=icon_value) }}" alt="menu image">
+      {% elif icon_type == 'image-url' %}
+        <img src="{{ icon_value }}" alt="menu image">
+      {% endif %}
+    {% endif %}
+{%- endmacro %}
+
+{% macro menu(menu_root=None) %}
+    <ul class="navbar-nav flex-wrap">
+      {%- for item in menu_root %}
+        {%- if item.is_category() -%}
+        {% set children = item.get_children() %}
+          {%- if children %}
+          {% set class_name = item.get_class_name() %}
+            <li class="nav-item {{ class_name if class_name }}">
+            {% set item_id =  item.name.replace(' ', '-').lower() %}
+              <a data-toggle="collapse"
+                 class="nav-link collapsed"
+                 href="#{{ item_id }}"
+                 role="button"
+                 aria-controls="collapseExample"
+                 aria-expanded="false">
+                {{ menu_icon(item) }} {{ _(item.name) }}
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </a>
+            </li>
+          {% endif %}
+          {%- else %}
+          {%- if item.is_accessible() and item.is_visible() and item._view.endpoint != 'admin' -%}
+            {% set class_name = item.get_class_name() %}
+            <li class="nav-item {{ class_name if class_name }}">
+              <a class="nav-link" href="{{ item.get_url() }}"
+                 {% if item.target %}
+                 target="{{ item.target }}"
+                 {% endif %}
+                 {% if item.is_active(admin_view) %}
+                 class="nav-link active"
+                 {% endif %}
+              >
+                {{ menu_icon(item) }} {{ _(item.name) }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro submenu(menu_root=None) %}
+      {%- for item in menu_root %}
+        {%- if item.is_category() -%}
+        {% set children = item.get_children() %}
+          {%- if children %}
+          {% set item_id =  item.name.replace(' ', '-').lower() %}
+            <div class="rero-ils-admin-submenu collapse flex-grow-1 w-100" id="{{ item_id }}" data-parent="#navbarHide">
+              <ul class="navbar-nav">
+              {%- for child in children -%}
+              {% set class_name = child.get_class_name() %}
+                <li class="nav-item {{class_name if class_name}}">
+                  <a class="nav-link" href="{{ child.get_url() }}"
+                     {% if child.target %}
+                     target="{{ child.target }}"
+                     {% endif %}
+                     {% if item.is_active(admin_view) %}
+                     class="nav-link active"
+                     {% endif %}
+                  >
+                    {{ menu_icon(child) }} {{ _(child.name) }}
+                  </a>
+                </li>
+              {%- endfor %}
+              </ul>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor %}
+{% endmacro %}
+
+{% macro mobile_menu(menu_root=None) %}
+  {% if menu_root is none %}{% set menu_root = admin_root_menu %}{% endif %}
+  <ul class="navbar-nav navbar-collapse align-items-start list-group list-group-flush">
+    {%- for item in menu_root -%}
+      {%- if item.is_category() -%}
+        {% set children = item.get_children() %}
+        {%- if children -%}
+          {% set class_name = item.get_class_name() %}
+          <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
+          {% set item_id =  item.name.replace(' ', '-').lower() %}
+            <a data-toggle="collapse" class="nav-link collapsed" role="button" href="#{{ item_id }}" aria-controls="collapseExample" aria-expanded="false">{{ _(item.name) }} <i class="fa fa-caret-down float-right" aria-hidden="true"></i></a>
+            <ul class="nav collapse pl-2" data-parent="#mobileHide" id="{{ item_id }}">
+            {%- for child in children -%}
+              {% set class_name = child.get_class_name() %}
+              <li class="nav-item {{class_name if class_name}} w-100">
+                <a href="{{ child.get_url() }}" class="nav-link" {%- if child.target -%} target="{{ child.target }}" {%- endif -%} {%- if item.is_active(admin_view) -%} class="nav-link active" {%- endif -%}>
+                  {{ menu_icon(child) }}{{ _(child.name) }}
+                </a>
+              </li>
+            {%- endfor %}
+            </ul>
+          </li>
+        {%- endif -%}
+      {%- else -%}
+        {%- if item.is_accessible() and item.is_visible() and item._view.endpoint != 'admin' -%}
+        {% set class_name = item.get_class_name() %}
+        <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
+          <a href="{{ item.get_url() }}" class="nav-link" {%- if item.target -%} target="{{ item.target }}" {%- endif -%} {%- if item.is_active(admin_view) -%} class="nav-link active" {% endif %}>
+            {{ menu_icon(item) }}{{ item.name }}
+          </a>
+        </li>
+        {%- endif -%}
+      {%- endif -%}
+      {%- endfor -%}
+  </ul>
+{% endmacro %}

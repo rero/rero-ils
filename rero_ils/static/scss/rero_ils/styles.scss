@@ -13,17 +13,18 @@
 // Setting the path to fonts files.
 $fa-font-path: "/static/node_modules/font-awesome/fonts";
 $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/font-awesome/scss/font-awesome";
 
-@import "../invenio_theme/type";
+/*@import "../invenio_theme/type";
 @import "../invenio_theme/navbar";
 @import "../invenio_theme/body";
 @import "../invenio_theme/cover";
 @import "../invenio_theme/header";
 @import "../invenio_theme/footer";
-@import "../invenio_theme/input-icon";
+@import "../invenio_theme/input-icon"; */
 @import "header";
+@import "footer";
 @import "search";
 @import "thumbnail";
 @import "frontpage";
@@ -52,17 +53,22 @@ ng\:form {
   position:absolute;
 }
 
-.nopadding {
-   padding: 0 !important;
-   margin: 0 !important;
+
+// TODO: to correct a display bug with webkit browsers
+
+html [type=button] {
+  -webkit-appearance: none;
 }
 
 
-/**********************************
+/*
+ *********************************
 
           DETAILED VIEW
 
- *********************************/
+ ********************************
+*/
+
 .search-page {
   h1 {
     margin: 0;
@@ -84,73 +90,16 @@ ng\:form {
     }
 }
 
-.rero-ils-source-json {
-  margin-top: 20px;
-}
-
-/**********************************
-
-          FOOTER
-
- *********************************/
-
-#footer {
-    min-height: 80px;
-}
-
-#re-copyright {
-    color: $gray-light;
-    padding-top: 20px;
-}
-
-
-/**********************************
-
-         SIDEBAR
-
- *********************************/
-
- // TODO: should be refactor with the AdminLTE classes!
-
-.wrapper {
-  display: flex;
-  align-items: stretch;
-  position: fixed;
-  top: 0;
-  height: 100%;
-  z-index: 1000; // To hide the content under the sidebar. Not satisfying at all!
-}
-
-#sidebar {
-  min-width: 10em;
-  max-width: 10em;
-  background: $navbar-default-bg;
-  color: $text-white;
-  transition: all 0.3s;
-  padding-top: 4em;
-}
-
-#sidebar ul li a {
-  padding: 10px;
-//  font-size: $font-size-large;
-  display: block;
-}
-
-
-/**********************************
-
-         MEDIA QUERIES
-
- *********************************/
-
-@media (max-width: 992px) {
-  #sidebar {
-    margin-left: -250px;
-  }
-  #sidebar.active {
-    margin-left: 0;
-  }
-  #sidebarCollapse span {
-    display: none;
+.rero-ils-dl {
+  margin-bottom: 0;
+  dd {
+    margin-bottom: 0;
   }
 }
+
+.rero-ils-detailed-view-footer {
+  h3:after {
+    content: ': ';
+  }
+}
+
