@@ -1,0 +1,54 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+{%- block head %}
+  {%- block head_base %}
+    {% if admin_page %}
+      <base href="/admin">
+    {% endif %}
+  {%- endblock head_base %}
+  {%- block head_meta %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {%- if description %}<meta name="description" content="{{ description }}" />{% endif %}
+    {%- if keywords %}<meta name="keywords" content="{{ keywords }}" />{% endif %}
+    {%- if config.get('THEME_GOOGLE_SITE_VERIFICATION', None) %}
+    {%- for google_id in config.THEME_GOOGLE_SITE_VERIFICATION %}
+    <meta name="google-site-verification" content="{{google_id}}"/>
+    {%- endfor %}
+    {%- endif %}
+  {%- endblock head_meta %}
+  {%- block head_title %}
+  {%- set title = title or _(config.THEME_SITENAME) or _('Invenio') %}
+    <title>{{title}}</title>
+  {%- endblock head_title %}
+  {%- block head_links %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+    {%- if keywords %}<link rel="canonical" href="{{ canonical_url }}"/>{% endif %}
+    {%- block head_links_langs %}
+    {%- if alternate_urls %}
+    {%- for alt_ln, alternate_url in alternate_urls.items() %}
+    <link rel="alternate" hreflang="{{ alt_ln }}" href="{{ alternate_url }}"/>
+    {%- endfor %}
+    {%- endif %}
+    {%- endblock %}
+    {%- block head_apple_icons %}
+    {# TODO: generate the appropriate files #}
+    {%- for size in [144, 114, 72, 57] %}
+    {%- set icon_name = 'apple-touch-icon-%d-precomposed.png' | format(size) %}
+    <link rel="apple-touch-icon-precomposed" sizes="{{ size }}x{{ size }}" href="{{ url_for('static', filename=icon_name) }}"/>
+    {%- endfor %}
+    {%- endblock head_apple_icons %}
+  {%- endblock head_links %}
+  {%- block header %}{% endblock header %}
+  {%- block css %}
+    {% assets "rero_ils_main_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+  {%- endblock css %}
+{%- endblock head %}

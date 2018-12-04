@@ -1,11 +1,15 @@
-<ul class='re-list'>
-  <li ng-controller="personController" ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
-    <h4>
-      <a target="_self" ng-href="/persons/{{ record.id }}">{{ person.preferred_name_for_person }}</a>
-      <span ng-repeat="source in record.metadata.sources" class="label label-default text-uppercase">{{ source }}</span>
-    </h4>
-    <div ng-if="person.date_of_birth">{{ person.date_of_birth }}</div>
-    <div ng-repeat="info in person.biographical_information">{{info}}{{$last ? '' : ', '}}</div>
-    <hr />
-  </li>
-</ul>
+<article class="rero-ils-person card border-0 flex-row mb-2"
+         ng-controller="personController"
+         ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+  <div class="card-body w-100 py-2 px-0">
+  <h4 class="card-title d-inline-block">
+    <a target="_self" ng-href="/persons/{{ record.id }}">{{ person.preferred_name_for_person }}</a>
+    <small ng-repeat="source in record.metadata.sources" class="badge badge-secondary text-uppercase mr-2">
+      {{ source }}
+    </small>
+  </h4>
+  <article class="card-text">
+  <div ng-if="person.date_of_birth">{{ person.date_of_birth }}</div>
+  <div ng-repeat="info in person.biographical_information">{{info}}{{$last ? '' : ', '}}</div>
+  </div>
+</article>

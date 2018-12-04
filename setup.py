@@ -129,8 +129,6 @@ setup(
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_admin_ui_js = \
                 rero_ils.bundles:admin_js',
-            'rero_ils_admin_css = rero_ils.bundles:admin_css'
-
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

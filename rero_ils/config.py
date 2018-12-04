@@ -97,6 +97,15 @@ HEADER_TEMPLATE = 'rero_ils/header.html'
 THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 #: Settings page template used for e.g. display user settings views.
 THEME_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+#: Template for security pages.
+SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
+SECURITY_REGISTER_USER_TEMPLATE = 'rero_ils/register_user.html'
+SECURITY_FORGOT_PASSWORD_TEMPLATE = 'rero_ils/forgot_password.html'
+SECURITY_RESET_PASSWORD_TEMPLATE = 'rero_ils/reset_password.html'
+#: Template for error pages.
+THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
+#: Template for tombstone page.
+RECORDS_UI_TOMBSTONE_TEMPLATE = "rero_ils/tombstone.html"
 
 # Theme configuration
 # ===================
@@ -123,6 +132,7 @@ SEARCH_UI_SEARCH_TEMPLATE = 'rero_ils/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/rero_ils/facets.html'
 SEARCH_UI_JSTEMPLATE_RANGE = 'templates/rero_ils/range.html'
 SEARCH_UI_JSTEMPLATE_COUNT = 'templates/rero_ils/count.html'
+SEARCH_UI_JSTEMPLATE_PAGINATION = 'templates/rero_ils/pagination.html'
 SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 
 SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
@@ -223,15 +233,16 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_max_age': 31556926,  # One year in seconds
     'strict_transport_security_include_subdomains': True,
     'content_security_policy': {
-        'default-src': ['*']
+        'default-src': ['*'],
         # 'default-src': ["'self'"],
-        # 'script-src': [
-        #     "'self'",
-        #     "'unsafe-inline'",
-        #     '*.rero.ch',
-        #     'https://www.googletagmanager.com',
-        #     'https://www.google-analytics.com'
-        # ],
+        'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            # '*.rero.ch',
+            'https://www.googletagmanager.com',
+            'https://www.google-analytics.com',
+            'https://services.test.rero.ch'
+        ],
         # 'img-src': [
         #     "'self'",
         #     'https://www.google-analytics.com',
@@ -582,25 +593,13 @@ RERO_ILS_APP_CONFIG_FACETS = {
 RECORDS_REST_FACETS = {
     'documents': dict(
         aggs=dict(
-            years=dict(
-                date_histogram=dict(
-                    field='publicationYear', interval='year', format='yyyy'
-                )
-            ),
             document_type=dict(terms=dict(field='type')),
             library=dict(
                 terms=dict(field='itemslist.library_name'),
-                # aggs=dict(
-                #     location=dict(
-                #         terms=dict(
-                #             field='itemslist.location_name'
-                #         )
-                #     )
-                # )
             ),
             author=dict(terms=dict(field='facet_authors')),
             language=dict(terms=dict(field='languages.language')),
-            subject=dict(terms=dict(field='subject')),
+            subject=dict(terms=dict(field='facet_subjects')),
             status=dict(terms=dict(field='itemslist.item_status')),
         ),
         # can be also post_filter
@@ -609,13 +608,8 @@ RECORDS_REST_FACETS = {
             _('library'): terms_filter('itemslist.library_name'),
             _('author'): terms_filter('facet_authors'),
             _('language'): terms_filter('languages.language'),
-            _('subject'): terms_filter('subject'),
+            _('subject'): terms_filter('facet_subjects'),
             _('status'): terms_filter('itemslist.item_status'),
-        },
-        post_filters={
-            _('years'): range_filter(
-                'publicationYear', format='yyyy', end_date_math='/y'
-            )
         },
     ),
     'patrons': dict(

@@ -1,45 +1,22 @@
-<div id="patron_profile" class="container">
-    <div class="col-md-1 visible-lg visible-md">
-        <i aria-hidden="true" class="fa fa-user fa-4x"></i>
-    </div>
-    <div class="col-md-11">
-        <div class="row">
-            <div class="col-md-12">
-                <h3>{{record.last_name}}, {{record.first_name}}</h3>
-            </div>
-        </div>
+{# -*- coding: utf-8 -*-
 
-        {% if record.barcode %}
-        <div class="row">
-            <div class="col-md-2">
-                {{_('Barcode')}}:
-            </div>
-            <div class="col-md-10">
-                {{record.barcode}}
-            </div>
-        </div>
-        {% endif %}
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
 
-        {% if record.birth_date %}
-        <div class="row">
-            <div class="col-md-2">
-                {{_('Birth Date')}}:
-            </div>
-            <div class="col-md-10">
-                {{record.birth_date | format_date(format='medium_date', locale=current_i18n.locale.language) }}
-            </div>
-        </div>
-        {% endif %}
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
 
-        {% if record.city %}
-        <div class="row">
-            <div class="col-md-2">
-                {{_('City')}}:
-            </div>
-            <div class="col-md-10">
-                {{record.city}}
-            </div>
-        </div>
-        {% endif %}
-    </div>
-</div>
+#}
+<header class="row">
+  <div class="rero-ils-person-icon col-sm-2 col-lg-1">
+    <i class="fa fa-user fa-5x"></i>
+  </div>
+  <hgroup class="col-sm-10 col-lg-11 align-self-end">
+    <h1 class="mb-0">{{ record.first_name }} {{ record.last_name }}</h1>
+    {% if record.birth_date %}
+      <p>
+        {{ record.birth_date | format_date(format='medium_date', locale=current_i18n.locale.language)}}
+      </p>
+    {% endif %}
+  </hgroup>
+</header>

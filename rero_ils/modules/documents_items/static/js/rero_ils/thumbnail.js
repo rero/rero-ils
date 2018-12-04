@@ -49,7 +49,9 @@ angular.module('reroThumbnails', [])
       scope: {
         type: '@'
       },
-      template: '<img class="img-responsive icon-document" ng-src="{{ thumbnail_url }}"><span class="icon-document-type">{{ type | translate }}</span>',
+      template: '<figure class="mb-0"><img class="img-responsive border border-light" ng-src="{{ thumbnail_url }}"> \
+                  <figcaption class="text-center">{{ type | translate }}</figcaption> \
+                 </figure>',
       link: function (scope, element, attrs) {
         scope.$broadcast(
             'thumbnail.init', attrs.identifiers, attrs.type, attrs.config

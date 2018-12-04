@@ -70,6 +70,7 @@ recursive-include rero_ils *.jpg
 recursive-include rero_ils *.js
 recursive-include rero_ils *.json
 recursive-include rero_ils *.png
+recursive-include rero_ils *.svg
 recursive-include rero_ils *.scss
 recursive-include rero_ils *.txt
 recursive-include tests *.py

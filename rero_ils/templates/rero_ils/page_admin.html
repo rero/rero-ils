@@ -1,0 +1,22 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
+{% extends 'rero_ils/page.html' %}
+{%- set admin_page=1 %}
+
+{%- block body %}
+  <app-root></app-root>
+{%- endblock body %}
+
+{%- block javascript %}
+  {% assets "rero_ils_admin_ui_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+{%- endblock javascript %}

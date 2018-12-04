@@ -321,6 +321,7 @@ class Item(IlsRecord):
             data['document_pid'] = document.pid
             data['document_title'] = document.get('title')
             data['document_authors'] = document.get('authors')
+            data['document_type'] = document.get('type')
         if location:
             data['location_name'] = location.get('name')
             library = LibraryWithLocations.get_library_by_locationid(

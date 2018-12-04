@@ -8,63 +8,46 @@
   under the terms of the GNU General Public License License; see LICENSE file for more details.
 #}
 
-{% extends config.THEME_BASE_TEMPLATE %}
-
-{%- set html_css_classes=['cover-page'] %}
-{%- set body_css_classes=['cover-page'] %}
+{% extends 'rero_ils/page.html' %}
+{%- set body_css_classes=['bg-dark', 'd-flex', 'flex-column'] %}
 
 {%- block outer_body %}
-{%- block browserupgrade %}
-<!--[if lt IE 8]>
-  <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-{%- endblock browserupgrade %}
-<div class="site-wrapper">
-{%- block flashmessages %}
-{%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
-{{ flashed_messages() }}
-{%- endblock flashmessages %}
+  {%- block browserupgrade %}
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade  your   browser</a> to improve your experience.</p>
+    <![endif]-->
+  {%- endblock browserupgrade %}
+  {%- block flashmessages %}
+    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
+    {{ flashed_messages() }}
+  {%- endblock flashmessages %}
+  <div class="d-flex flex-column flex-grow-1 align-items-center justify-content-center">
   {% block page_header %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        {%- block brand %}
-          {%- if config.THEME_LOGO %}
-            <a href="/">
-              <img class="text-center masthead-brand"
-                   src="{{ url_for('static', filename=config.THEME_LOGO)}}"
-                   alt="{{ _(config.THEME_SITENAME) }}" width="250px"/>
-            </a>
+    <header class="">
+      {%- block brand %}
+        {%- if config.THEME_LOGO %}
+          <a href="/">
+            <img class="text-center rero-ils-cover-logo"
+            src="{{ url_for('static', filename=config.THEME_LOGO)}}"
+            alt="{{ _(config.THEME_SITENAME) }}" />
+          </a>
           {%- elif config.THEME_SITENAME %}
-            <a href="/" class="text-center masthead-brand">
-              {{ _(config.THEME_SITENAME) }}
-            </a>
-          {% endif %}
-        {%- endblock %}
-      </div>
-    </div>
-  </div>
+          <a href="/" class="text-center mb-4">
+            {{ _(config.THEME_SITENAME) }}
+        </a>
+        {% endif %}
+      {%- endblock brand %}
+    </header>
   {% endblock page_header%}
-  {%- block page_body %}
-  <div class="container">
-    <div class="row panel-container">
+  {% block page_body%}
+    <section class="text-center">
       {% block panel %}
-      <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            {% block panel_content %}
-            <h3 class="text-center panel-free-title">{{ panel_title }}</h3>
-            {% endblock panel_content %}
-          </div>
-        </div>
-      </div>
       {% endblock panel %}
-    </div>
-  </div>
-  {%- endblock page_body %}
+    </section>
+  {% endblock page_body%}
   {% block page_footer %}
   {% endblock page_footer %}
 </div>
-{%- block javascript %}{% include config.THEME_JAVASCRIPT_TEMPLATE %}{% endblock javascript %}
-{%- block trackingcode %}{% include config.THEME_TRACKINGCODE_TEMPLATE %}{% endblock %}
+  {%- block javascript %}{% include config.THEME_JAVASCRIPT_TEMPLATE %}{% endblock javascript %}
+  {%- block trackingcode %}{% include config.THEME_TRACKINGCODE_TEMPLATE %}{% endblock %}
 {%- endblock outer_body %}

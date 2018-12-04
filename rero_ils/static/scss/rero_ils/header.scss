@@ -6,79 +6,38 @@
  * under the terms of the MIT License; see LICENSE file for more details.
  */
 
-
 .rero-ils-logo {
-    max-width: 5em;
-    margin: 7px 0;
+  max-height: $navbar-brand-height;
+  margin: 7px 0;
 }
 
-.navbar {
-    min-height: 4em;
+header {
+  position: relative;
 }
 
-
-// Had to implement these colors, but couldn't understand why.
-// These rules set the sidebar links colors too.
-
-.navbar-inverse a {
-  color: $navbar-inverse-link-color;
-  text-decoration: none;
+.rero-ils-page-body {
+  height: calc(100vh - 0px);
+  overflow: auto;
 }
 
-.navbar-inverse a:hover {
-  color: $navbar-inverse-link-hover-color;
-  background-color: $navbar-inverse-link-hover-bg;
+.nav-link, .navbar-toggler:focus {
+  outline: 0;
 }
 
-.navbar-inverse a:active {
-  color: $navbar-inverse-link-active-color;
+.nav-item a.collapsed .fa-caret-down {
+  transform: rotate(-90deg);
 }
 
-.rero-ils-content-push-down {
-    height:   7em;
-    @media (min-width: 992px) {
-      height: 4em;
-    }
+.list-group-item:last-child {     //TODO: understand why it's needed, it shouldn't
+  border-bottom: 0;
 }
 
-header .input-group {
-  width: 100%;
-  margin-bottom: 1em;
-  @media (min-width: 992px) {
-    margin-bottom: 0;
+@media (min-width: 768px) {
+  #mobileHide {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 60%;
+    border: solid lightgray 1px;
   }
-}
-
-.rero-ils-top-menu {
-  margin: 0;
-  li {
-    margin-left: 10px;
-  }
-}
-
-rero-ils-frontpage-align {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-@media (min-width: 992px) {
-    .navbar {
-        height: 4em;
-    }
-}
-
-.rero-ils-equal {
-  display: flex;
-  display: -webkit-flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.navbar-default .navbar-nav > li > a:focus,
-.navbar-default .navbar-nav > li > a:hover {
-    text-decoration: none;
-}
-
-header .alert {
-  margin-top: 0;
 }

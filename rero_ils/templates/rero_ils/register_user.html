@@ -11,7 +11,42 @@
 {% from "rero_ils/macros/macro.html" import render_field, form_errors %}
 
 {% block panel %}
-  <div class="card text-center m-4">
+{%- with form = register_user_form %}
+<div class="card text-center m-4">
+  {%- block form_header %}
+    <h3 class="text-center my-4">
+      {% trans sitename=config.ACCOUNTS_SITENAME %}Sign up for a {{ sitename }} account!{% endtrans %}
+    </h3>
+  {%- endblock form_header %}
+  <div class="card-body">
+    <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+      {{ form_errors(form) }}
+      {{ form.hidden_tag() }}
+      {%- block registration_form_fields scoped %}
+        {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False) }}
+        {{ render_field(form.password, icon="fa fa-lock", errormsg=False) }}
+        {%- if form.password_confirm %}
+          {{ render_field(form.password_confirm, icon="fa fa-lock", errormsg=False) }}
+        {%- endif %}
+      {%- endblock registration_form_fields %}
+      {%- if form.recaptcha %}
+        <div class="input-group input-group-lg">{{ form.recaptcha() }}</div>
+      {%- endif %}
+      <button type="submit" class="btn btn-warning btn-lg btn-block text-white"><i class="fa fa-edit"></i> {{ _('Sign Up') }}</button>
+    </form>
+  </div>
+    <div class="card-footer text-center">
+      <h4 class="text-muted my-2">
+        {{ _('Already have an account?') }}
+        <a href="{{ url_for_security('login') }}">{{ _('Log In') }}</a>
+      </h4>
+    </div>
+</div>
+{%- endwith %}
+{% endblock panel %}
+{#
+{% block panel %}
+  <div class="card text-center mb-4">
    {%- block form_header %}
     <h3 class="card-title my-4">{{_('Log in to account') }}</h3>
   {%- endblock form_header %}
@@ -42,4 +77,4 @@
   {%- endif %}
   {%- endblock recoverable %}
 {% endblock panel %}
-
+ #}

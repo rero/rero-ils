@@ -1,103 +1,36 @@
-.reroils-frontpage-bullet {
-    margin-bottom: 10px;
-    min-height: 48px;
+/*
+ * This file is part of RERO ILS.
+ * Copyright (C) 2018-2019 RERO.
+ *
+ * RERO ILS is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
+
+ .rero-ils-frontpage {
+  height: 70vh;
+  max-height: 25em;
+  background-image: url(#{$static-images}/homepage_image_bleu.jpg);
+  background-size: cover;
+  form {
+    margin: 0 auto;
+    width: 80%;
+  }
 }
 
-.reroils-frontpage-bullet-logo {
-    width: 48px;
-    float: left;
-    vertical-align: top;
+.rero-ils-list-logo {
+  width: 28px;
 }
 
-.reroils-frontpage-bullet-text {
-    width: 300px;
-    display: block;
+.rero-ils-rero21-logo {
+  width: 80px;
+}
+.rero-ils-rero-logo {
+  img {
+    width: 160px;
+  }
 }
 
-.reroils-service-logo {
-    background-color: #204b73;
-    padding: 5px 20px;
-    margin-bottom: 8px;
-    margin-left: 1px;
-    border-radius: 5px;
-    display: inline-block;
-}
-
-.reroils-frontpage-lower h3 {
-    color: #1B4464;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-img.reroils-frontpage-rero21 {
-    width: 65px;
-    margin-left: 2px;
-    margin-right: 9px;
-    margin-bottom: 6px;
-}
-
-.rero-ils-frontpage {
-    padding: 0;
-    margin-top: -3em; //Glue the top to the header on the frontpage
-    @media (min-width: 992px) {
-      margin-top: 0; //Glue the top to the header on the frontpage
-    }
-    .input-group {
-      width: 100%;
-    }
-    .rero-ils-front-title {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: ceil(($grid-gutter-width / 2));
-        right: floor(($grid-gutter-width / 2));
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        footer {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 1em;
-          p {
-            margin: .3em 0;
-          }
-        }
-        @media (min-width: 992px) {
-          hgroup {
-            margin-bottom: 2em;
-          }
-          footer {
-            margin-top: 2em;
-            p {
-              margin: .5em 0;
-            }
-          }
-        }
-    }
-    .label-danger {
-      margin-top: 6px;
-    }
-    form {
-      width: 80%;
-      margin: 0 auto;
-    }
-
-}
-
-.reroils-frontpage-upper {
-    margin-top: -20px;
-    position: relative;
-}
-
-@media (max-width: 768px) {
-    .reroils-frontpage-upper {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-.rero-ils-rero-link {
-  font-size: $font-size-large;
+.btn-rero {
+  background-color: $rero-blue-dark;
 }

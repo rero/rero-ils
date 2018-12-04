@@ -1,9 +1,9 @@
 /*
- * This file is part of Invenio.
+ * This file is part of RERO ILS.
  * Copyright (C) 2015-2018 CERN
  * Copyright (C) 2018 RERO.
  *
- * Invenio is free software; you can redistribute it and/or modify it
+ * RERO ILS is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License;
  * See license file for more details.
  */
@@ -13,21 +13,19 @@
 // Setting the path to fonts files.
 $fa-font-path: "/static/node_modules/font-awesome/fonts";
 $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/font-awesome/scss/font-awesome";
 
-@import "../invenio_theme/type";
-@import "../invenio_theme/navbar";
-@import "../invenio_theme/body";
-@import "../invenio_theme/cover";
-@import "../invenio_theme/header";
-@import "../invenio_theme/footer";
-@import "../invenio_theme/input-icon";
+@import "page";
 @import "header";
+@import "footer";
 @import "search";
+@import "detailed_views";
 @import "thumbnail";
+@import "person";
 @import "frontpage";
 @import "patrons_profile";
+@import "cover";
 
 // CSS code to allow `ng-csp="no-inline-css"`
 [ng\:cloak],
@@ -52,24 +50,45 @@ ng\:form {
   position:absolute;
 }
 
-.nopadding {
-   padding: 0 !important;
-   margin: 0 !important;
+
+// TODO: to correct a display bug with webkit browsers
+
+html [type=button] {
+  -webkit-appearance: none;
+}
+
+/*
+ *********************************
+
+         GLOBAL
+
+ ********************************
+*/
+
+.rero-ils-external-link:after {
+  font-family: 'FontAwesome';
+  font-size: $font-size-very-small;
+  vertical-align: top;
+  content: " \f08e";
 }
 
 
-/**********************************
+/*
+ *********************************
 
           DETAILED VIEW
 
- *********************************/
+ ********************************
+*/
+
 .search-page {
   h1 {
     margin: 0;
   }
 }
-.rero-ils-person {
 
+// TODO: to be replaced by a bootstrap class;
+.rero-ils-person {
   .tab-content {
     margin-top: 20px;
   }
@@ -78,79 +97,3 @@ ng\:form {
   }
 }
 
-.re-list {
-    h3 {
-        margin: 0;
-    }
-}
-
-.rero-ils-source-json {
-  margin-top: 20px;
-}
-
-/**********************************
-
-          FOOTER
-
- *********************************/
-
-#footer {
-    min-height: 80px;
-}
-
-#re-copyright {
-    color: $gray-light;
-    padding-top: 20px;
-}
-
-
-/**********************************
-
-         SIDEBAR
-
- *********************************/
-
- // TODO: should be refactor with the AdminLTE classes!
-
-.wrapper {
-  display: flex;
-  align-items: stretch;
-  position: fixed;
-  top: 0;
-  height: 100%;
-  z-index: 1000; // To hide the content under the sidebar. Not satisfying at all!
-}
-
-#sidebar {
-  min-width: 10em;
-  max-width: 10em;
-  background: $navbar-default-bg;
-  color: $text-white;
-  transition: all 0.3s;
-  padding-top: 4em;
-}
-
-#sidebar ul li a {
-  padding: 10px;
-//  font-size: $font-size-large;
-  display: block;
-}
-
-
-/**********************************
-
-         MEDIA QUERIES
-
- *********************************/
-
-@media (max-width: 992px) {
-  #sidebar {
-    margin-left: -250px;
-  }
-  #sidebar.active {
-    margin-left: 0;
-  }
-  #sidebarCollapse span {
-    display: none;
-  }
-}
