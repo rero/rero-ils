@@ -7,20 +7,6 @@
  * See license file for more details.
  */
 
-
-.thumb,
-.thumb-brief {
-  img {
-    max-height: 90px;
-    width: 58px;
-  }
-}
-
-@media (max-width: 960px) {
-  .thumb,
-  .thumb-brief {
-    img {
-      max-width: 48px;
-    }
-  }
+.rero-ils-person small {
+  @include rero-ils-badge();
 }

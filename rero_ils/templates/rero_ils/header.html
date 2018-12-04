@@ -7,71 +7,130 @@
   under the terms of the GNU General Public License;
   see LICENSE file for more details.
 #}
-
+{%- from "rero_ils/macros/header_menus.html" import menu, submenu, mobile_menu -%}
 <header>
-
-    {%- block navbar %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-
-      <div class="row">
-
-        <div class="container rero-ils-equal">
-
-
-          {%- block navbar_brand %}
-            <div class="col-xs-2 col-sm-2 col-md-3 rero-ils-frontpage-align">
-              {%- if config.THEME_LOGO %}
-                <a href="/"><img class="rero-ils-logo" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}}" /></a>
+  {%- block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rero-ils-header">
+      <div class="container">
+        {%- block navbar_brand %}
+          {%- if config.THEME_LOGO %}
+            <div class="align-self-center d-flex w-100 justify-content-between">
+              <a href="/" class="navbar-brand pr-2"><img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}} logo"></a>
               {%- else %}
-                <a href="/">{{_(config.THEME_SITENAME)}}</a>
-              {%- endif %}
+              <a href="/" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
             </div>
-          {%- endblock %}
-
-          {%- block navbar_menus %}
-            <div class="col-xs-10 col-sm-10 col-md-3 col-md-push-6 rero-ils-frontpage-align">
-              <ul class="list-inline pull-right rero-ils-top-menu">
-                {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible recursive %}
-                  {%- if item.children %}
-                    <li class="dropdown{{ ' active' if item.active else ''}}">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="{{ item.url }}">{{ item.text|safe }} <b class="caret"></b></a>
-                        <ul class="dropdown-menu dropdown-menu-right">{{ loop(item.children|sort(attribute='order')) }}</ul>
-                    </li>
-                    {%- else %}
-                    <li{{ ' class="active"'|safe if item.active and loop.depth == 1 else '' }}><a href="{{ item.url }}">{{ item.text|safe }}</a></li>
-                  {%- endif %}
+          {%- endif %}
+        {%- endblock navbar_brand %}
+        {%- block navbar_search %}
+          {%- if config.THEME_SEARCHBAR %}
+            <div class="align-self-center pr-2 flex-grow-1">
+              <form action="{{config.THEME_SEARCH_ENDPOINT}}" class="form-inline">
+                <div class="input-group input-group-sm w-100">
+                  <input class="form-control" type="search" name="q" placeholder="{{_('Search')}}" aria-label="Search" aria-describedby="button-search">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-search"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          {%- endif %}
+        {%- endblock navbar_search %}
+        {%- block navbar_menus %}
+          <div class="align-self-center">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="fa fa-bars"></span>
+            </button>
+          </div>
+        {%- endblock navbar_menus %}
+      </div>
+    </nav>
+    <!-- Main menus - visible only on large screens -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rero-ils-first-menu py-0 d-none d-lg-block">
+      <div class="container">
+        <!-- Admin menus -->
+        <div class="collapse navbar-collapse">
+          {{ menu(admin_root_menu) }}
+        </div>
+        <!-- User menus -->
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav flex-wrap">
+            {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
+            {%- if item.children %}
+            <li class="nav-item{{ ' active' if item.active else ''}}">
+              <a class="nav-link collapsed" data-toggle="collapse" role="button"
+                 aria-controls="collapseExample" aria-expanded="false"
+                 href="#{{ item.name }}"
+              >
+               {{ item.text|safe }}
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </a>
+            </li>
+            {%- else %}
+            <li class="nav-item{{ ' active' if item.active else ''}}">
+              <a href="{{ item.url }}">{{ item.text|safe }}</a>
+            </li>
+            {%- endif %}
+            {%- endfor %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Submenus -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white rero-ils-second-menu py-0 d-none d-lg-block">
+      <div class="container flex-column" id="navbarHide">
+        <!-- admin submenus -->
+          {{ submenu(admin_root_menu) }}
+        <!-- user submenus -->
+          {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
+            {%- if item.children %}
+            <div class="collapse rero-ils-collapse-menu flex-grow-1 w-100" data-parent="#navbarHide" id="{{ item.name }}">
+              <ul class="navbar-nav justify-content-end">
+                {%- for child in item.children if child.visible %}
+                  <li class="nav-item {{class_name if class_name}}">
+                    <a class="nav-link" href="{{ child.url }}">{{ child.text|safe }}</a>
+                  </li>
                 {%- endfor %}
               </ul>
             </div>
-          {%- endblock %}
-
-          {%- block navbar_search %}
-          {%- if config.THEME_SEARCHBAR %}
-          <div class="col-xs-12 col-sm-12 col-md-6 col-md-pull-3">
-            <form action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-            <div class="input-group">
-              <input type="text" class="form-control" name="q" placeholder="{{_('Search')}}">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-            </form>
-          </div>
-          {%- endif %}
-          {%- endblock %}
-
-        </div>
+            {% endif %}
+          {% endfor %}
       </div>
-
     </nav>
-
-    {%- endblock navbar %}
-    {%- block flashmessages %}
-        {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
-        {{ flashed_messages() }}
-    {%- endblock %}
-    {%- block breadcrumbs %}
-        {%- include "invenio_theme/breadcrumbs.html" %}
-    {%- endblock breadcrumbs %}
-
+    <!-- Menus - visible from medium to extra small screens -->
+    <nav class="navbar-light bg-light d-lg-none d-xl-none navbarSupportedContent collapse border-bottom" id="mobileHide">
+      <div class="container">
+        <!-- Admin menus -->
+        {{ mobile_menu(admin_root_menu) }}
+        <!-- User menus -->
+        <ul class="navbar-nav navbar-collapse align-items-start list-group list-group-flush">
+          {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
+            {%- if item.children %}
+              <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
+                <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false">{{ item.text|safe }} <i class="fa fa-caret-down float-right" aria-hidden="true"></i></a>
+                <ul class="nav collapse pl-2" id="{{ item.name }}" data-parent="#mobileHide">
+                  {%- for child in item.children if child.visible %}
+                    <li class="nav-item {{class_name if class_name}} w-100">
+                      <a class="nav-link" href="{{ child.url }}">{{ child.text|safe }}</a>
+                    </li>
+                  {%- endfor %}
+                </ul>
+              </li>
+            {%- else %}
+              <li class="nav-item{{ ' active' if item.active else ''}}">
+                <a href="{{ item.url }}" class="nav-link">{{ item.text|safe }}</a>
+              </li>
+            {%- endif %}
+          {%- endfor %}
+        </ul>
+      </div>
+    </nav>
+  {%- endblock navbar %}
+  {%- block flashmessages %}
+    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
+      {{ flashed_messages() }}
+  {%- endblock flashmessages %}
+  {%- block breadcrumbs %}
+    {# TODO: to be served by RERO ILS #}
+    {%- include "invenio_theme/breadcrumbs.html" %}
+  {%- endblock breadcrumbs %}
 </header>

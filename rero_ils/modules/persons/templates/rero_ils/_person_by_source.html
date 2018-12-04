@@ -1,0 +1,66 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
+{% if record.rero %}
+<article class="card m-md-4 m-2">
+  <a class="card-link" data-toggle="collapse" data-target="#collapse-rero" aria-expanded="true">
+    <header class="card-header">
+      <h4 class="card-title mb-0">
+        {{ _('RERO') }} <i class="fa fa-caret-down"></i>
+      </h4>
+    </header>
+  </a>
+  <article id="collapse-rero" class="card-body collapse show">
+    <dl class="row">
+      {% with data=record.rero, source_name='rero' %}
+      {% include('rero_ils/_person_by_source_data.html') %}
+      {% endwith %}
+    </dl>
+  </article>
+</article>
+{% endif %}
+
+{% if record.gnd %}
+<article class="card m-md-4 m-2">
+  <a class="card-link" data-toggle="collapse" data-target="#collapse-gnd" aria-expanded="true">
+    <header class="card-header">
+      <h4 class="card-title mb-0">
+        {{ _('GND') }} <i class="fa fa-caret-down"></i>
+      </h4>
+    </header>
+  </a>
+  <article id="collapse-gnd" class="card-body collapse show">
+    <dl class="row">
+      {% with data=record.gnd, source_name='gnd' %}
+      {% include('rero_ils/_person_by_source_data.html') %}
+      {% endwith %}
+    </dl>
+  </article>
+</article>
+{% endif %}
+
+{% if record.bnf %}
+<article class="card m-md-4 m-2">
+  <a class="card-link" data-toggle="collapse" data-target="#collapse-bnf" aria-expanded="true">
+    <header class="card-header">
+      <h4 class="card-title mb-0">
+        {{ _('BNF') }} <i class="fa fa-caret-down"></i>
+      </h4>
+    </header>
+  </a>
+  <article id="collapse-bnf" class="card-body collapse show">
+    <dl class="row">
+      {% with data=record.bnf, source_name='bnf' %}
+      {% include('rero_ils/_person_by_source_data.html') %}
+      {% endwith %}
+    </dl>
+  </article>
+</article>
+{% endif %}

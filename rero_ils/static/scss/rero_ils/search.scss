@@ -1,73 +1,39 @@
+/*
+ * This file is part of RERO ILS.
+ * Copyright (C) 2018-2019 RERO.
+ *
+ * RERO ILS is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
 
-/****************************************
+/*
+ ****************************************
 
-                General Search
+  Cards (Facets, autorities, brief views)
 
-  **************************************/
+ ****************************************
+ */
 
-.re-list {
-  list-style-type: none;
+.card {
+  icon-thumnail {
+    flex-basis: 10%;
+  }
+  a .fa-caret-down {
+    float: right;
+  }
+  a.collapsed .fa-caret-down {
+    transform: rotate(-90deg);
+  }
 }
 
-.search-page ul {
-    margin: 0;
-}
-
-.list-inline > li {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.search-page {
-  margin-top: 30px;
-}
-
-
-/****************************************
-
-        Panels such as facets, autorities
-
-  **************************************/
-
-
-.panel-heading h3 a:focus,
-.panel-heading h3 a:hover {
-    text-decoration: none;
-}
-
-.panel-heading .toggle:after {
-    /* symbol for "opening" panels */
-    font-family: 'FontAwesome';
-    font-size: 0.8em;
-    content: "\f0d7";    /* adjust as needed, taken from bootstrap.css */
-    float: right;        /* adjust as needed */
-    // color: $text-color;         /* adjust as needed */
-}
-
-.panel-heading .toggle.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\f0da";    /* adjust as needed, taken from bootstrap.css */
-}
-
-/****************************************
-
-                MEF Person labels
-
-  **************************************/
-
-.re-list .label,
-.rero-ils-person .panel .label {
-    font-size: $font-size-extra-small;
-    vertical-align: top;
-}
-
-
-
-/****************************************
+/*
+ ***************************************
 
           Not categorized yet
 
-  **************************************/
+ ***************************************
+ */
 
 .rero21-import {
     margin-top: 27px;
