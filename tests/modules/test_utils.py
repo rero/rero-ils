@@ -75,7 +75,15 @@ def test_relations_patron_names_descriptions(
     app, all_resources_limited, form_patron_names_descriptions
 ):
     """Test resolve patron_names_descriptions."""
-    doc, item, library, location, simonetta, philippe = all_resources_limited
+    (
+        doc,
+        item,
+        organisation,
+        library,
+        location,
+        simonetta,
+        philippe,
+    ) = all_resources_limited
     result = [
         {
             'items': [

@@ -13,8 +13,12 @@
         <div *ngIf="exception.end_date"> - {{ exception.end_date | date:'longDate' }}</div>
       </td>
       <td>
-        <div *ngIf="exception.is_open; else elseOpen">OPEN</div>
-        <ng-template #elseOpen>CLOSED</ng-template>
+        <div *ngIf="exception.is_open; else elseOpen">
+          <i class="fa fa-check text-success"></i> Open
+        </div>
+        <ng-template #elseOpen>
+            <i class="fa fa-times text-danger"></i> Closed
+          </ng-template>
       </td>
       <td>
         {{ exception.title }}
@@ -34,7 +38,7 @@
       <td class="text-right">
         <button
           type="button"
-          class="btn btn-light"
+          class="btn btn-light mr-1"
           (click)="editException(i, library.exception_dates[i])"
         ><i class="fa fa-pencil-square-o"></i></button>
         <button

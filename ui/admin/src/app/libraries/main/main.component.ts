@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { LibrariesService } from '../libraries.service';
 import { Library } from '../library';
 
-import { BrowserService } from '../../browser.service';
-
 @Component({
   selector: 'libraries-main',
   templateUrl: './main.component.html',
@@ -18,12 +16,11 @@ export class MainComponent implements OnInit {
   private pid;
 
   constructor(
-    private browser: BrowserService,
     private route: ActivatedRoute,
     public librariesService: LibrariesService
   ) {
     this.librariesService.currentLibrary.subscribe(
-      library => this.library = library
+      library => {this.library = library; }
     );
   }
 

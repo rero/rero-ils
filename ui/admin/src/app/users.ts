@@ -16,8 +16,10 @@ export class User {
   postal_code: string;
   roles: [];
   street: string;
+  organisation_pid: string;
   barcode?: string;
   loans?: Loan[];
+
   constructor(obj?: any) {
     Object.assign(this, obj);
   }

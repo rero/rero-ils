@@ -6,6 +6,10 @@ import { environment } from '../../environments/environment';
 
 import { Library } from './library';
 import { BrowserService } from '../browser.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UserService } from '../user.service';
+import { User } from '../users';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,12 +23,17 @@ export class LibrariesService {
 
   private librariesUrl = '/api/libraries';
 
-  currentLibrary: Subject<Library> = new BehaviorSubject<Library>(null);
+  private loggedUser: User;
+
+  currentLibrary: BehaviorSubject<Library> = new BehaviorSubject<Library>(null);
 
   constructor(
     private client: HttpClient,
-    private browser: BrowserService
-  ) { }
+    private browser: BrowserService,
+    private user: UserService
+  ) {
+    this.user.loggedUser.subscribe(loggedUser => this.loggedUser = loggedUser);
+  }
 
   loadLibrary(pid: number) {
     this.client.get<Library>(this.librariesUrl + '/' + pid, httpOptions).subscribe(library => {
@@ -34,6 +43,22 @@ export class LibrariesService {
 
   setCurrentLibrary(library: Library) {
     this.currentLibrary.next(new Library(library));
+  }
+
+  checkIfCodeAlreadyTaken(code: string): Observable<Boolean> {
+    return this.client.get<any>(
+        this.librariesUrl + '/?q=code:' + code +
+        '&libraries.code:' + this.loggedUser.organisation_pid +
+        '&size=0'
+      ).pipe(map(response => {
+        if (
+          this.currentLibrary === null
+          || this.currentLibrary.getValue().code !== code
+        ) {
+          return response.hits.total >= 1;
+        }
+      }
+    ));
   }
 
   save(library: Library, redirectUrl?) {

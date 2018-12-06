@@ -25,10 +25,15 @@ import { ExceptionDatesEditComponent } from './exception-dates-edit/exception-da
 @NgModule({
   providers: [
     LibrariesService,
-    LibraryFormService,
-    LibraryExceptionFormService
+    LibraryExceptionFormService,
+    LibraryFormService
   ],
-  declarations: [LibraryComponent, MainComponent, ExceptionDatesListComponent, ExceptionDatesEditComponent],
+  declarations: [
+    ExceptionDatesEditComponent,
+    ExceptionDatesListComponent,
+    LibraryComponent,
+    MainComponent
+  ],
   imports: [
     CommonModule,
     LibrariesRoutingModule,

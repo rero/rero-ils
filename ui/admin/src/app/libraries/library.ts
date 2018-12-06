@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export interface OpeningHours {
   day: string;
   is_open: boolean;
@@ -59,12 +61,7 @@ export class Library {
 
   sortExceptions() {
     this.exception_dates.sort(function(a, b) {
-        const keyA = new Date(a.start_date);
-        const keyB = new Date(b.start_date);
-        // Compare the 2 dates
-        if (keyA < keyB) { return -1; }
-        if (keyA > keyB) { return 1; }
-        return 0;
+      return moment(a.start_date).diff(moment(b.end_date));
     });
   }
 
@@ -79,5 +76,4 @@ export class Library {
   updateException(index, data) {
     this.exception_dates[index] = data;
   }
-
 }

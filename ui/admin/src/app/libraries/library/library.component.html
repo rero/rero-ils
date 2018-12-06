@@ -1,10 +1,10 @@
 <h1>Library</h1>
 <form [formGroup]="libForm" (ngSubmit)="onSubmit()">
   <div class="form-group row">
-    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <label for="name" class="col-sm-2 col-form-label required">Name</label>
     <div class="col-sm-10">
-      <input class="form-control-plaintext" id="name" class="form-control" formControlName="name" required>
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+      <input class="form-control" id="name" formControlName="name" required>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
         <div *ngIf="name.errors.required">
           Name is required.
         </div>
@@ -18,19 +18,18 @@
     <label for="address" class="col-sm-2 col-form-label">Address</label>
     <div class="col-sm-10">
       <input id="address" class="form-control" formControlName="address">
-      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
         <div *ngIf="address.errors.minlength">
           Address must be at least 4 characters long.
         </div>
       </div>
     </div>
   </div>
-
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
       <input id="email" class="form-control" formControlName="email" required>
-      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
         <div *ngIf="email.errors.email">
           Email format is not correct.
         </div>
@@ -38,9 +37,15 @@
     </div>
   </div>
   <div class="form-group row">
-    <label for="email" class="col-sm-2 col-form-label">Code</label>
+    <label for="email" class="col-sm-2 col-form-label required">Code</label>
     <div class="col-sm-10">
       <input id="code" class="form-control" formControlName="code">
+      <div *ngIf="code.invalid && (code.dirty || code.touched)" class="text-danger">
+        <div *ngIf="code.errors.isTaken">
+          Code is already taken.
+        </div>
+        <div *ngIf="code.pending">Validating...</div>
+      </div>
     </div>
   </div>
 
@@ -57,22 +62,62 @@
               <ul class="list-unstyled mb-0">
                 <li formArrayName="times" *ngFor="let time of day.controls.times.controls; let t=index">
                   <div [formGroupName]="t">
-                    <input class="mr-2" formControlName="start_time" [readonly]="!day.value.is_open">
-                    <input formControlName="end_time" [readonly]="!day.value.is_open">
-                    <button
-                      type="button"
-                      *ngIf="day.controls.times.controls.length > 1"
-                      class="btn btn-light"
-                      (click)="deleteTime(i, t)"
-                    ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    <button
-                      type="button"
-                      *ngIf="day.controls.times.controls.length == 1"
-                      class="btn btn-light"(click)="addTime(i)"
-                    ><i class="fa fa-plus" aria-hidden="true"></i> period</button>
+                    <div class="form-row">
+                      <div class="col-3">
+                        <input class="form-control mr-2 mb-1" formControlName="start_time" [readonly]="!day.value.is_open">
+                      </div>
+                      <div class="col-3">
+                        <input class="form-control mb-1" formControlName="end_time" [readonly]="!day.value.is_open">
+                      </div>
+                      <div class="col-6">
+                        <button
+                          type="button"
+                          *ngIf="day.value.is_open && day.controls.times.controls.length > 1"
+                          class="btn btn-light btn-sm"
+                          (click)="deleteTime(i, t)"
+                        ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button
+                          type="button"
+                          *ngIf="day.value.is_open && day.controls.times.controls.length == 1"
+                          class="btn btn-light btn-sm"(click)="addTime(i)"
+                        ><i class="fa fa-plus" aria-hidden="true"></i> period</button>
+                      </div>
+                    </div>
+                    <div
+                        *ngIf="time.controls.start_time.invalid && (time.controls.start_time.dirty || time.controls.start_time.touched)"
+                        class="text-danger"
+                      >
+                      <div *ngIf="time.controls.start_time.errors.required">
+                        Start Time is required.
+                      </div>
+                      <div *ngIf="time.controls.start_time.errors.pattern">
+                        Start Time format is not correct.
+                      </div>
+                    </div>
+                    <div
+                        *ngIf="time.controls.end_time.invalid && (time.controls.end_time.dirty || time.controls.end_time.touched)"
+                        class="text-danger"
+                      >
+                      <div *ngIf="time.controls.end_time.errors.required">
+                        End time is required.
+                      </div>
+                      <div *ngIf="time.controls.end_time.errors.pattern">
+                        End time format is not correct.
+                      </div>
+                    </div>
+                    <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger">
+                      <div *ngIf="time.errors && time.errors.lessThan">
+                        End time is less than start time.
+                      </div>
+                    </div>
                   </div>
                 </li>
               </ul>
+              <div *ngIf="day.invalid  && (day.dirty || day.touched)" class="text-danger">
+                <div *ngIf="day.errors && day.errors.rangeLessThan">
+                  The two periods are overlapping.
+                </div>
+              </div>
             </div>
           </div>
         </div>

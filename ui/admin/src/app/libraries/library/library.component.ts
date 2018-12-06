@@ -34,6 +34,7 @@ export class LibraryComponent {
   get name() { return this.libraryForm.name; }
   get address() { return this.libraryForm.address; }
   get email() { return this.libraryForm.email; }
+  get code() { return this.libraryForm.code; }
   get openingHours() { return <FormArray>this.libraryForm.opening_hours; }
 
   onSubmit() {
@@ -54,5 +55,9 @@ export class LibraryComponent {
 
   deleteTime(day_index, time_index): void {
     this.libraryForm.deleteTime(day_index, time_index);
+  }
+
+  log(data) {
+    console.log(data);
   }
 }

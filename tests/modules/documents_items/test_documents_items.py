@@ -41,7 +41,15 @@ def test_create(
     es_clear
 ):
     """Test DocumentWithItems creation."""
-    doc, item, library, location, simonetta, philippe = all_resources_limited
+    (
+        doc,
+        item,
+        organisation,
+        library,
+        location,
+        simonetta,
+        philippe,
+    ) = all_resources_limited
     assert doc.itemslist[0] == item
     dump = doc.dumps()
     assert dump['itemslist'][0] == item.dumps()
@@ -49,7 +57,15 @@ def test_create(
 
 def test_delete_item(app, all_resources_limited):
     """Test DocumentWithItems item deletion."""
-    doc, item, library, location, simonetta, philippe = all_resources_limited
+    (
+        doc,
+        item,
+        organisation,
+        library,
+        location,
+        simonetta,
+        philippe,
+    ) = all_resources_limited
     pid = item.persistent_identifier
     assert pid.is_registered()
     doc.remove_item(item, force=True)
@@ -74,7 +90,15 @@ def test_delete_item(app, all_resources_limited):
 
 def test_delete_document(app, all_resources_limited):
     """Test DocumentWithItems deletion."""
-    doc, item, library, location, simonetta, philippe = all_resources_limited
+    (
+        doc,
+        item,
+        organisation,
+        library,
+        location,
+        simonetta,
+        philippe,
+    ) = all_resources_limited
     doc_count = DocumentsItemsMetadata.query.count()
     rec_count = RecordMetadata.query.count()
     pid1 = item.persistent_identifier
@@ -92,7 +116,7 @@ def test_delete_document(app, all_resources_limited):
     assert pid3.is_registered()
     doc.delete(force=True)
     assert DocumentsItemsMetadata.query.count() == 0
-    assert RecordMetadata.query.count() == 6
+    assert RecordMetadata.query.count() == 7
     assert pid1.is_deleted()
     assert pid2.is_deleted()
     assert pid3.is_deleted()
