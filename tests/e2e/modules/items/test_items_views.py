@@ -70,6 +70,7 @@ def test_view_automatic_checkin_multiple_loans(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -129,6 +130,7 @@ def test_view_item_requested_loans_to_ignore(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -211,6 +213,7 @@ def test_view_item_requested_loans_to_validate(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -219,6 +222,7 @@ def test_view_item_requested_loans_to_validate(
         (
             doc2,
             item2,
+            organisation2,
             library2,
             location2,
             simonetta2,
@@ -301,6 +305,7 @@ def test_view_automatic_checkin_missing(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -337,6 +342,7 @@ def test_view_automatic_checkin_receive_for_inhouse(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -345,6 +351,7 @@ def test_view_automatic_checkin_receive_for_inhouse(
         (
             doc2,
             item2,
+            organisation2,
             library2,
             location2,
             simonetta2,
@@ -400,6 +407,7 @@ def test_view_automatic_checkin_receive_for_pickup(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -408,6 +416,7 @@ def test_view_automatic_checkin_receive_for_pickup(
         (
             doc2,
             item2,
+            organisation2,
             library2,
             location2,
             simonetta2,
@@ -459,6 +468,7 @@ def test_view_automatic_checkin_checkin(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -497,6 +507,7 @@ def test_view_automatic_checkin_no_actions(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -536,6 +547,7 @@ def test_view_return_item(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -590,6 +602,7 @@ def test_view_validate_item(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -652,6 +665,7 @@ def test_view_receive_item(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -660,6 +674,7 @@ def test_view_receive_item(
         (
             doc2,
             item2,
+            organisation2,
             library2,
             location2,
             simonetta2,
@@ -726,6 +741,7 @@ def test_view_loan_item(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -780,6 +796,7 @@ def test_view_extend_loan(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -845,6 +862,7 @@ def test_view_request_item(
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,
@@ -881,6 +899,7 @@ def test_view_circulation(app, all_resources_limited, user_staff, es_clear):
         (
             doc,
             item,
+            organisation,
             library,
             location,
             simonetta,

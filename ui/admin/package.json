@@ -33,7 +33,7 @@
     "datatables.net-bs": "^1.10.19",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
-    "ngx-bootstrap": "^3.1.1",
+    "ngx-bootstrap": "3.0.1",
     "ngx-toggle-switch": "^2.0.5",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"

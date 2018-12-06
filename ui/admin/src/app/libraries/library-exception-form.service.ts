@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 
+import { TimeValidator } from '../shared/time-validator';
+
 @Injectable()
 export class LibraryExceptionFormService {
 
@@ -23,16 +25,36 @@ export class LibraryExceptionFormService {
       is_open: [false, [ Validators.required ]],
       times: this.fb.array([]),
       repeat: [false],
-      interval: [null],
+      interval: ['1', [
+        Validators.required,
+        Validators.min(1),
+        Validators.pattern('^[0-9]*$'),
+      ]],
       period: [null],
       data: this.fb.array([])
+    }, {
+      validator: [TimeValidator.RangePeriodValidator()]
     });
   }
 
   buildTimes(start_time = '00:00', end_time = '00:00'): FormGroup {
     return this.fb.group({
-      start_time: [start_time, [ Validators.required ]],
-      end_time: [end_time, [ Validators.required ]]
+      start_time: [start_time, {
+        validators: [
+          Validators.required,
+          Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
+        ],
+        updateOn: 'blur'
+      }],
+      end_time: [end_time, {
+        validators: [
+          Validators.required,
+          Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
+        ],
+        updateOn: 'blur'
+      }]
+    }, {
+      validator: TimeValidator.greaterThanValidator('start_time', 'end_time')
     });
   }
 
@@ -81,5 +103,4 @@ export class LibraryExceptionFormService {
   get interval() { return this.form.get('interval'); }
   get period() { return this.form.get('period'); }
   get data() { return this.form.get('data'); }
-
 }

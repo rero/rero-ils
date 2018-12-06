@@ -107,6 +107,10 @@
             "browserTarget": "admin:build"
           },
           "configurations": {
+            "proxy": {
+              "browserTarget": "admin:build:proxy",
+              "proxyConfig": "proxy.conf.json"
+            },
             "production": {
               "browserTarget": "admin:build:production"
             },

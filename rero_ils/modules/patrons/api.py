@@ -70,7 +70,7 @@ class Patron(IlsRecord):
         """Get patron by email."""
         uuid, pid_value = cls._get_uuid_pid_by_email(email)
         if uuid:
-            return super(IlsRecord, cls).get_record(uuid)
+            return super(Patron, cls).get_record(uuid)
         else:
             return None
 
@@ -84,7 +84,7 @@ class Patron(IlsRecord):
         ).source(includes='pid').execute().to_dict()
         try:
             result = result['hits']['hits'][0]
-            return super(IlsRecord, cls).get_record(result['_id'])
+            return super(Patron, cls).get_record(result['_id'])
         except Exception:
             return None
 
@@ -175,7 +175,7 @@ class Patron(IlsRecord):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        data = super(IlsRecord, self).dumps(**kwargs)
+        data = super(Patron, self).dumps(**kwargs)
         data['roles'] = self.role_names
         data['name'] = ', '.join((
             data.get('last_name', ''),
@@ -186,6 +186,8 @@ class Patron(IlsRecord):
         if data.get('is_patron', False):
             patron_type = PatronType.get_record_by_pid(data['patron_type_pid'])
             data['patron_type'] = patron_type.get('name')
+        if (self.organisation):
+            data['organisation_pid'] = self.organisation.pid
         return data
 
     @property
@@ -216,9 +218,11 @@ class Patron(IlsRecord):
     @property
     def organisation(self):
         """Get organisation."""
-        return OrganisationWithLibraries.get_organisation_by_libraryid(
-            self.library.id
-        )
+        if (self.library):
+            return OrganisationWithLibraries.get_organisation_by_libraryid(
+                self.library.id
+            )
+        return None
 
     @property
     def name(self):

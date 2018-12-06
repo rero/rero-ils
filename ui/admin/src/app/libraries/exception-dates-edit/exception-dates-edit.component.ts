@@ -61,9 +61,6 @@ export class ExceptionDatesEditComponent implements OnInit {
     }
   }
 
-  onIsOpenChange(isopen) {
-  }
-
   onRepeatChange(repeat) {
     if (repeat) {
       this.form.interval.setValue(1);
@@ -119,10 +116,10 @@ export class ExceptionDatesEditComponent implements OnInit {
   get is_period() { return this.form.is_period; }
   get is_open() { return this.form.is_open; }
   get date() { return this.form.date; }
+  get dates() { return this.form.dates; }
   get times() { return <FormArray>this.form.times; }
   get repeat() { return this.form.repeat; }
   get interval() { return this.form.interval; }
   get period() { return this.form.period; }
   get data() { return <FormArray>this.data; }
-
 }

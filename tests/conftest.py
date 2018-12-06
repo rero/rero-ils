@@ -31,11 +31,35 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items_types.api import ItemType
 from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations_libraries.api import \
+    OrganisationWithLibraries
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons_types.api import PatronType
 
 # TODO: get url dynamiclly
 url_schema = 'http://ils.test.rero.ch/schema'
+
+
+@pytest.yield_fixture()
+def limited_organisation_record():
+    """Simple organisation record."""
+    yield {
+        '$schema': url_schema + '/organisations/organisation-v0.0.1.json',
+        'pid': 'organisation_pid_1',
+        'name': 'MV Sion',
+        'address': 'address',
+    }
+
+
+@pytest.yield_fixture()
+def limited_organisation_record_2():
+    """Simple organisation record."""
+    yield {
+        '$schema': url_schema + '/organisations/organisation-v0.0.1.json',
+        'pid': 'organisation_pid_2',
+        'name': 'MV Martigny',
+        'address': 'address',
+    }
 
 
 @pytest.yield_fixture()
@@ -222,6 +246,7 @@ def limited_item_type_record():
 @pytest.yield_fixture()
 def all_resources_limited(
     db,
+    limited_organisation_record,
     limited_library_record,
     limited_location_record,
     limited_item_record,
@@ -249,6 +274,15 @@ def all_resources_limited(
         limited_location_record, dbcommit=True, reindex=True, delete_pid=False
     )
     library.add_location(location, dbcommit=True, reindex=True)
+
+    organisation = OrganisationWithLibraries.create(
+        limited_organisation_record,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=False
+    )
+    organisation.add_library(library)
+
     simonetta = Patron.create(
         limited_patron_simonetta, dbcommit=True, reindex=True, delete_pid=False
     )
@@ -263,7 +297,7 @@ def all_resources_limited(
     doc.add_item(item, dbcommit=True, reindex=True)
     item.dbcommit(reindex=True)
     db.session.commit()
-    yield doc, item, library, location, simonetta, philippe
+    yield doc, item, organisation, library, location, simonetta, philippe
 
 
 @pytest.yield_fixture()
@@ -450,6 +484,7 @@ def limited_item_type_record_2():
 @pytest.yield_fixture()
 def all_resources_limited_2(
     db,
+    limited_organisation_record_2,
     limited_library_record_2,
     limited_location_record_2,
     limited_item_record_2,
@@ -481,6 +516,15 @@ def all_resources_limited_2(
         dbcommit=True, reindex=True, delete_pid=False
     )
     library.add_location(location, dbcommit=True, reindex=True)
+
+    organisation = OrganisationWithLibraries.create(
+        limited_organisation_record_2,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=False
+    )
+    organisation.add_library(library)
+
     simonetta = Patron.create(
         limited_patron_simonetta_2,
         dbcommit=True,
@@ -500,7 +544,7 @@ def all_resources_limited_2(
     doc.add_item(item, dbcommit=True, reindex=True)
     item.dbcommit(reindex=True)
     db.session.commit()
-    yield doc, item, library, location, simonetta, philippe
+    yield doc, item, organisation, library, location, simonetta, philippe
 
 
 @pytest.fixture(scope='module')

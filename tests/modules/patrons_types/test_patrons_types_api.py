@@ -28,6 +28,8 @@ from __future__ import absolute_import, print_function
 
 from rero_ils.modules.libraries_locations.api import LibraryWithLocations
 from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations_libraries.api import \
+    OrganisationWithLibraries
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons_types.api import PatronType, PatronTypeSearch
 from rero_ils.utils_test import es_flush_and_refresh
@@ -40,6 +42,7 @@ def test_patron_type_search():
 
 def test_can_delete(
     app,
+    limited_organisation_record,
     limited_patron_type_record,
     limited_patron_simonetta,
     limited_library_record,
@@ -68,6 +71,15 @@ def test_can_delete(
         limited_location_record, dbcommit=True, reindex=True, delete_pid=False
     )
     library.add_location(location, dbcommit=True, reindex=True)
+
+    organisation = OrganisationWithLibraries.create(
+        limited_organisation_record,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=False
+    )
+    organisation.add_library(library)
+
     simonetta = Patron.create(
         limited_patron_simonetta, dbcommit=True, reindex=True, delete_pid=False
     )

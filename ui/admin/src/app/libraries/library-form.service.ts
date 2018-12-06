@@ -1,19 +1,30 @@
 import { Injectable } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
   FormArray } from '@angular/forms';
+
 import { Library } from './library';
+import { TimeValidator } from '../shared/time-validator';
+import { LibraryCodeUniqueValidator } from '../shared/library-code-unique-validator';
+import { LibrariesService } from './libraries.service';
 
 @Injectable()
 export class LibraryFormService {
 
   public form;
 
-  constructor(private fb: FormBuilder) {
-    this.build();
+  private libraryCodeUniqueValidator;
+
+  constructor(
+    private fb: FormBuilder,
+    private librariesService: LibrariesService
+    ) {
+      this.libraryCodeUniqueValidator = new LibraryCodeUniqueValidator(
+        this.librariesService
+      );
+      this.build();
   }
 
   build() {
@@ -24,23 +35,56 @@ export class LibraryFormService {
       ]],
       address: ['', Validators.minLength(4)],
       email: ['', Validators.email],
-      code: [''],
-      opening_hours: this.fb.array([this.buildOpeningHours()]),
+      code: ['', {
+        validators: [
+          Validators.required
+        ],
+        asyncValidators: [
+          this.libraryCodeUniqueValidator.validate.bind(this.libraryCodeUniqueValidator)
+        ],
+        updateOn: 'blur'
+      }],
+      opening_hours: this.fb.array(this.createOpeningHours())
     });
   }
 
-  buildOpeningHours(): FormGroup {
+  createOpeningHours() {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const openings = [];
+    for (let step = 0; step < 7; step++) {
+      openings.push(this.buildOpeningHours(false, days[step], [this.buildTimes()]));
+    }
+    return openings;
+  }
+
+  buildOpeningHours(is_open, day, times): FormGroup {
     return this.fb.group({
-      is_open: [''],
-      day: [''],
-      times: this.fb.array([this.buildTimes()])
+      is_open: [is_open],
+      day: [day],
+      times: times
+    }, {
+      validator: [TimeValidator.RangePeriodValidator()]
     });
   }
 
-  buildTimes(): FormGroup {
+  buildTimes(start_time = '00:00', end_time = '00:00'): FormGroup {
     return this.fb.group({
-      start_time: ['00:00', [ Validators.required ]],
-      end_time: ['00:00', [ Validators.required ]]
+      start_time: [start_time, {
+        validators: [
+          Validators.required,
+          Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
+        ],
+        updateOn: 'blur'
+      }],
+      end_time: [end_time, {
+        validators: [
+          Validators.required,
+          Validators.pattern('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')
+        ],
+        updateOn: 'blur'
+      }]
+    }, {
+      validator: TimeValidator.greaterThanValidator('start_time', 'end_time')
     });
   }
 
@@ -63,16 +107,10 @@ export class LibraryFormService {
         });
       }
       opening.times.forEach(time => {
-        hours.push(this.fb.group({
-          start_time: time.start_time,
-          end_time: time.end_time
-        }));
+        hours.push(this.buildTimes(time.start_time, time.end_time));
       });
-      openings.push(this.fb.group({
-        day: opening.day,
-        is_open: opening.is_open,
-        times: hours
-      }));
+
+      openings.push(this.buildOpeningHours(opening.is_open, opening.day, hours));
     });
     this.form.setControl('opening_hours', openings);
   }
@@ -84,6 +122,7 @@ export class LibraryFormService {
   get name() { return this.form.get('name'); }
   get address() { return this.form.get('address'); }
   get email() { return this.form.get('email'); }
+  get code() { return this.form.get('code'); }
   get opening_hours() {
     return <FormArray>this.form.get('opening_hours');
   }
