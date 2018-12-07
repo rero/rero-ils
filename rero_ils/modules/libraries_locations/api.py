@@ -34,8 +34,8 @@ from ..locations.api import Location
 from .models import LibrariesLocationsMetadata
 
 
-class LibraryWithLocations(RecordWithElements):
-    """Api for Documents with Items."""
+class LibraryWithLocations(RecordWithElements, Library):
+    """Api for Library with Location."""
 
     record = Library
     element = Location

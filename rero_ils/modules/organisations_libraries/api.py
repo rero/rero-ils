@@ -33,7 +33,7 @@ from ..organisations.providers import OrganisationProvider
 from .models import OrganisationsLibrariesMetadata
 
 
-class OrganisationWithLibraries(RecordWithElements):
+class OrganisationWithLibraries(RecordWithElements, Organisation):
     """Api for Documents with Items."""
 
     record = Organisation

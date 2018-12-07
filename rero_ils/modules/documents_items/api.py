@@ -45,7 +45,7 @@ class DocumentsSearch(RecordsSearch):
         index = 'documents'
 
 
-class DocumentsWithItems(RecordWithElements):
+class DocumentsWithItems(RecordWithElements, Document):
     """Api for Documents with Items."""
 
     record = Document

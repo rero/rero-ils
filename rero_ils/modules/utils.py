@@ -24,6 +24,8 @@
 
 """Utilities for rero-ils editor."""
 
+from datetime import time
+
 from flask import current_app, url_for
 from invenio_indexer.api import RecordIndexer
 
@@ -124,3 +126,12 @@ def remove_pid(editor_options, pid_value):
         if isinstance(option, list):
             editor_options = remove_pid(option, pid_value)
     return editor_options
+
+
+def strtotime(strtime):
+    """String to datetime."""
+    splittime = strtime.split(':')
+    return time(
+        hour=int(splittime[0]),
+        minute=int(splittime[1])
+    )

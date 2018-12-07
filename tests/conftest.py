@@ -572,65 +572,68 @@ def minimal_library_record():
             {
                 'day': 'monday',
                 'is_open': True,
-                'time': [
-                    {
-                        'start_time': '07:00',
-                        'end_time': '19:00'
-                    }
-                ]
+                'times': [{'start_time': '07:00', 'end_time': '19:00'}]
             },
             {
                 'day': 'tuesday',
                 'is_open': True,
-                'time': [
-                    {
-                        'start_time': '07:00',
-                        'end_time': '19:00'
-                    }
-                ]
+                'times': [{'start_time': '07:00', 'end_time': '19:00'}]
             },
             {
                 'day': 'wednesday',
                 'is_open': True,
-                'time': [
-                    {
-                        'start_time': '07:00',
-                        'end_time': '19:00'
-                    }
-                ]
+                'times': [{'start_time': '07:00', 'end_time': '19:00'}]
             },
             {
                 'day': 'thursday',
                 'is_open': True,
-                'time': [
-                    {
-                        'start_time': '07:00',
-                        'end_time': '19:00'
-                    }
-                ]
+                'times': [{'start_time': '07:00', 'end_time': '19:00'}]
             },
             {
                 'day': 'friday',
                 'is_open': True,
-                'time': [
-                    {
-                        'start_time': '07:00',
-                        'end_time': '19:00'
-                    }
-                ]
+                'times': [{'start_time': '07:00', 'end_time': '19:00'}]
             },
             {
                 'day': 'saturday',
                 'is_open': False,
-                'time': []
+                'times': []
             },
             {
                 'day': 'sunday',
                 'is_open': False,
                 'time': []
             }
-        ]
+        ],
     }
+
+
+@pytest.yield_fixture()
+def exception_dates():
+    """Simple exception dates."""
+    yield [
+        {
+            'end_date': '2019-01-06',
+            'is_open': False,
+            'start_date': '2018-12-22',
+            'title': 'Vacances de Noël'
+        },
+        {
+            'is_open': True,
+            'start_date': '2018-12-15',
+            'times': [{'end_time': '16:00', 'start_time': '10:00'}],
+            'title': 'Samdi du livre'
+        },
+        {
+            'is_open': False,
+            'repeat': {
+                'interval': 1,
+                'period': 'yearly'
+            },
+            'start_date': '2019-08-01',
+            'title': '1er août'
+        }
+    ]
 
 
 @pytest.yield_fixture()
