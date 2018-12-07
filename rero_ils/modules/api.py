@@ -186,7 +186,7 @@ class RecordWithElements(IlsRecord):
 
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
-        data = super(RecordWithElements, self).dumps(**kwargs)
+        data = self.record.dumps(self, **kwargs)
         data[self.elements_list_name] = \
             [element.dumps() for element in self.elements]
         return data
