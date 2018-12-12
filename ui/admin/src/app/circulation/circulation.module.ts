@@ -7,18 +7,18 @@ import { MainRequestComponent } from './main-request/main-request.component';
 import { MainCheckinCheckoutComponent } from './main-checkin-checkout/main-checkin-checkout.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared.module';
-import { RequestedLoansListComponent } from './requested-loans-list/requested-loans-list.component';
+import { RequestedItemsListComponent } from './requested-items-list/requested-items-list.component';
 import { PatronDetailedComponent } from './patron-detailed/patron-detailed.component';
-import { LoansListComponent } from './loans-list/loans-list.component';
+import { ItemsListComponent } from './items-list/items-list.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     MainRequestComponent,
     MainCheckinCheckoutComponent,
-    RequestedLoansListComponent,
+    RequestedItemsListComponent,
     PatronDetailedComponent,
-    LoansListComponent
+    ItemsListComponent
   ],
   imports: [
     CommonModule,

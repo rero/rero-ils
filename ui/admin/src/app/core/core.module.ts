@@ -10,12 +10,17 @@ import { PatronTypeTool } from './patron-type/patron-type-tool';
 import { OrganisationService } from './organisation/organisation.service';
 import { ApiService } from './api/api.service';
 import { UniqueValidator } from './validator/unique.validator';
+import { AlertsComponent } from './alerts/alerts.component';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [],
+  declarations: [AlertsComponent],
   imports: [
     CommonModule,
     HttpClientModule,
+    AlertModule.forRoot(),
+    TranslateModule.forChild({}),
   ],
   providers: [
     ApiService,
@@ -26,6 +31,9 @@ import { UniqueValidator } from './validator/unique.validator';
     PatronTypeTool,
     ItemTypeTool,
     UniqueValidator
+  ],
+  exports: [
+    AlertsComponent
   ]
 })
 export class CoreModule {

@@ -37,18 +37,12 @@ from werkzeug.utils import cached_property
 
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
+from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
 from .models import PatronIdentifier
 
 # from ..patron_types.api import PatronType
-
-# from ..documents_items.api import DocumentsWithItems
-# from ..documents.api import Document
-# from ..libraries.api import Library
-# from ..organisations_libraries.api import OrganisationWithLibraries
-# from ..organisations.api import Organisation
-
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -166,6 +160,16 @@ class Patron(IlsRecord):
             return None
 
     @classmethod
+    def get_librarian_pickup_location_pid(cls):
+        """."""
+        if 'librarian' in current_patron['roles']:
+            library = Library.get_record_by_pid(
+                current_patron.replace_refs()['library']['pid']
+            )
+            return library.get_pickup_location_pid()
+        return None
+
+    @classmethod
     def get_patron_by_barcode(cls, barcode=None):
         """Get patron by barcode."""
         search = PatronsSearch()
@@ -179,39 +183,6 @@ class Patron(IlsRecord):
         except StopIteration:
             return None
 
-    # @classmethod
-    # def delete_by_email(cls, email, deluser=False, delindex=False):
-    #     """Delete user by email."""
-    #     patron = cls.get_patron_by_email(email)
-    #     if patron:
-    #         patron.delete(delindex)
-    #     datastore = LocalProxy(
-    #         lambda: current_app.extensions['security'].datastore
-    #     )
-    #     user = datastore.find_user(email=email)
-    #     if user:
-    #         datastore.delete_user(user)
-    #         datastore.commit()
-
-    # def get_borrowed_documents_pids(self):
-    #     """Get pid values borrowed documents for given patron."""
-
-    #     loans = get_loans_by_patron_pid(self.pid)
-    #     pids = []
-    #     if loans:
-    #         pids = [loan.document_pid for loan in loans]
-    #     return pids
-
-    # def get_loaned_documents(self):
-    #     """Get borrowed documents."""
-    #     pids = self.get_borrowed_documents_pids()
-    #     to_return = []
-    #     for pid_value in pids:
-    #         rec = Document.get_record_by_pid(pid_value)
-    #         # rec = DocumentsWithItems.get_record_by_pid(pid_value)
-    #         to_return.append(rec)
-    #     return to_return
-
     def add_role(self, role_name):
         """Add a given role to a user."""
         role = _datastore.find_role(role_name)
@@ -223,87 +194,6 @@ class Patron(IlsRecord):
         role = _datastore.find_role(role_name)
         _datastore.remove_role_from_user(self.user, role)
         _datastore.commit()
-
-    # def has_role(self, role_name):
-    #     """Check if a user has a given role."""
-    #     email = self.get('email')
-    #     user = _datastore.find_user(email=email)
-    #     # role = _datastore.find_role(role_name)
-    #     return user.has_role(role_name)
-
-    # def get_one_pickup_location(self):
-    #     """Find a qualified pickup location."""
-    #     library_pid = self.get('library_pid')
-    #     from ..libraries.api import Library
-    #     library = Library.get_record_by_pid(library_pid)
-    #     locations = library.pickup_locations
-    #     return locations[0]['pid']
-
-    # def dumps(self, **kwargs):
-    #     """Return pure Python dictionary with record metadata."""
-    #     data = super(Patron, self).dumps(**kwargs)
-    #     data['roles'] = self.role_names
-    #     data['name'] = ', '.join((
-    #         data.get('last_name', ''),
-    #         data.get('first_name', '')
-    #     ))
-    #     if data.get('is_patron', True):
-    #         data['circulation_location_pid'] = self.get_one_pickup_location()
-    #     if data.get('is_patron', False):
-    #         patron_type = PatronType.get_record_by_pid(
-    #            data['patron_type_pid'])
-    #         data['patron_type'] = patron_type.get('name')
-    #     if (self.organisation):
-    #         data['organisation_pid'] = self.organisation.pid
-    #     return data
-
-    # @property
-    # def can_delete(self):
-    #     """Record can be deleted."""
-    #     return len(self.get_borrowed_documents_pids()) == 0
-
-    # @property
-    # def roles(self):
-    #     """Return user roles."""
-    #     email = self.get('email')
-    #     user = _datastore.find_user(email=email)
-    #     if user:
-    #         return user.roles
-    #     return []
-
-    # @property
-    # def barcode(self):
-    #     """Return user barcode."""
-    #     return self.get('barcode')
-
-    # @property
-    # def role_names(self):
-    #     """Return user role names."""
-    #     return [v.name for v in self.roles]
-
-    # @property
-    # def library(self):
-    #     """Get library."""
-    #     library_pid = self.get('library_pid')
-    #     return Library.get_record_by_pid(library_pid)
-
-    # @property
-    # def organisation(self):
-    #     """Get organisation."""
-    #     if self.library:
-    #         return Organisation.get_organisation_by_libraryid(
-    #             self.library.id
-    #         )
-    #     return None
-
-    # @property
-    # def name(self):
-    #     """Return the full name of the patron."""
-    #     my_name = '{first_name} {last_name}'.format(
-    #         first_name=self['first_name'],
-    #         last_name=self['last_name']
-    #     )
-    #     return my_name
 
     @property
     def initial(self):

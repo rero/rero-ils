@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { EditorComponent } from './editor/editor.component';
 import { CirculationPolicyComponent } from './custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
+import { LibraryComponent } from './custom-editor/libraries/library.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,14 @@ const routes: Routes = [
   {
     path: 'circ_policies/:pid',
     component: CirculationPolicyComponent
+  },
+  {
+    path: 'libraries/new',
+    component: LibraryComponent
+  },
+  {
+    path: 'libraries/:pid',
+    component: LibraryComponent
   },
   {
     path: ':recordType/new',

@@ -1,5 +1,3 @@
-import { Loan } from './circulation/loans';
-
 export interface Library {
   pid: string;
   organisation: Organisation;
@@ -7,6 +5,11 @@ export interface Library {
 
 export interface Organisation {
   pid: string;
+}
+
+export interface PatronType {
+  pid: string;
+  name?: string;
 }
 
 export class User {
@@ -21,12 +24,15 @@ export class User {
   name: string;
   phone: string;
   pid: string;
+  circulation_location_pid?: string;
   postal_code: string;
   roles: [];
   street: string;
   organisation_pid: string;
   barcode?: string;
-  loans?: Loan[];
+  settings: UserSettings;
+  items?: any[];
+  patron_type?: PatronType;
 
   constructor(obj?: any) {
     Object.assign(this, obj);

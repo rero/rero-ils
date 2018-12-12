@@ -19,12 +19,12 @@ export class ItemTypeService {
 
   getApiEntryPointRecord(pid: string) {
     return this.apiService
-      .getApiEntryPointByType('item-type', true) + pid;
+      .getApiEntryPointByType('item_types', true) + pid;
   }
 
   itemTypes() {
     return this.http.get(
-      this.apiService.getApiEntryPointByType('item-type'),
+      this.apiService.getApiEntryPointByType('item_types'),
       httpOptions
     );
   }

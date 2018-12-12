@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../users';
 
 @Component({
@@ -6,15 +6,12 @@ import { User } from '../../users';
   templateUrl: './patron-detailed.component.html',
   styleUrls: ['./patron-detailed.component.scss']
 })
-export class PatronDetailedComponent implements OnInit {
+export class PatronDetailedComponent {
   @Input() patron: User;
   @Output() clearPatron = new EventEmitter<User>();
   @Input() info: boolean;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   clear() {
     if (this.patron) {

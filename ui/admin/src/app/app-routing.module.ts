@@ -7,14 +7,6 @@ const routes: Routes = [
     path: 'mylibrary',
     component: MylibraryComponent
   },
-  // {
-  //   path: 'libraries',
-  //   loadChildren: './libraries/libraries.module#LibrariesModule'
-  // },
-  /* {
-    path: 'circulation_settings',
-    loadChildren: './circulation-settings/circulation-settings.module#CirculationSettingsModule'
-  },  */
   {
     path: 'circulation',
     loadChildren: './circulation/circulation.module#CirculationModule'

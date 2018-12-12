@@ -28,11 +28,14 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, abort, jsonify
 from flask import request as flask_request
 from flask_login import current_user
+from invenio_circulation.api import get_loan_for_item
+from werkzeug.exceptions import NotFound
 
 from ...permissions import librarian_permission
+from ..loans.api import Loan
 from .api import Item
 
 api_blueprint = Blueprint(
@@ -61,7 +64,10 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        except NotFound as e:
+            raise(e)
         except Exception as e:
+            # raise(e)
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 
@@ -78,12 +84,21 @@ def jsonify_action(func):
             else:
                 item_barcode = data.pop('item_barcode')
                 item = Item.get_item_by_barcode(item_barcode)
+            if not item:
+                abort(404)
             item_data, action_applied = func(item, data, *args, **kwargs)
+            for action, loan in action_applied.items():
+                if loan:
+                    action_applied[action] = loan.dumps_for_circulation()
+
             return jsonify({
-                'metadata': item_data,
+                'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
+        except NotFound as e:
+            raise(e)
         except Exception as e:
+            # raise(e)
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 
@@ -181,7 +196,7 @@ def return_missing(item, data=None):
     return item.return_missing()
 
 
-@api_blueprint.route('/extend', methods=['POST'])
+@api_blueprint.route('/extend_loan', methods=['POST'])
 @check_authentication
 @jsonify_action
 def extend_loan(item, data):
@@ -201,12 +216,51 @@ def requested_loans(library_pid):
     metadata = []
     for item, loan in items_loans:
         metadata.append({
-            'item': item,
-            'loan': loan
+            'item': item.dumps_for_circulation(),
+            'loan': loan.dumps_for_circulation()
         })
     return jsonify({
         'hits': {
             'total': len(metadata),
             'hits': metadata
+        }
+    })
+
+
+@api_blueprint.route('/loans/<patron_pid>', methods=['GET'])
+@check_authentication
+@jsonify_error
+def loans(patron_pid):
+    """HTTP GET request for requested loans for a library."""
+    items_loans = Item.get_checked_out_items(patron_pid)
+    metadata = []
+    for item, loan in items_loans:
+        metadata.append({
+            'item': item.dumps_for_circulation(),
+            'loan': loan.dumps_for_circulation()
+        })
+    return jsonify({
+        'hits': {
+            'total': len(metadata),
+            'hits': metadata
+        }
+    })
+
+
+@api_blueprint.route('/barcode/<item_barcode>', methods=['GET'])
+@check_authentication
+@jsonify_error
+def item(item_barcode):
+    """HTTP GET request for requested loans for a library."""
+    item = Item.get_item_by_barcode(item_barcode)
+    if not item:
+        abort(404)
+    loan = get_loan_for_item(item.pid)
+    if loan:
+        loan = Loan.get_record_by_pid(loan['loan_pid']).dumps_for_circulation()
+    return jsonify({
+        'metadata': {
+            'item': item.dumps_for_circulation(),
+            'loan': loan
         }
     })

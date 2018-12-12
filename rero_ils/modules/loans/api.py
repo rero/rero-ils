@@ -35,6 +35,8 @@ from invenio_circulation.search.api import search_by_patron_item
 from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
+from ..locations.api import Location
+from ..patrons.api import Patron
 
 
 class LoanAction(object):
@@ -49,6 +51,7 @@ class LoanAction(object):
     EXTEND = 'extend'
     CANCEL = 'cancel'
     LOSE = 'lose'
+    NO = 'no'
 
 
 class Loan(IlsRecord):
@@ -76,6 +79,25 @@ class Loan(IlsRecord):
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
         return record
+
+    def dumps_for_circulation(self):
+        """."""
+        loan = self.replace_refs()
+        data = loan.dumps()
+
+        patron = Patron.get_record_by_pid(loan['patron_pid'])
+        ptrn_data = patron.dumps()
+        data['patron'] = {}
+        data['patron']['barcode'] = ptrn_data['barcode']
+        data['patron']['name'] = ', '.join((
+            ptrn_data['first_name'], ptrn_data['last_name']))
+
+        if loan.get('pickup_location_pid'):
+            location = Location.get_record_by_pid(loan['pickup_location_pid'])
+            loc_data = location.dumps()
+            data['pickup_location'] = {}
+            data['pickup_location']['name'] = loc_data['name']
+        return data
 
     def build_url_action_for_pid(self, action):
         """Build urls for Loan actions."""

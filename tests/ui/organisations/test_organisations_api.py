@@ -31,6 +31,11 @@ from rero_ils.modules.organisations.api import \
     organisation_id_fetcher as fetcher
 
 
+def test_organisation_libararies(organisation, library):
+    """Test libraries retrival."""
+    assert list(organisation.get_libraries()) == [library]
+
+
 def test_organisation_create(base_app, db, organisation_data):
     """Test organisation creation."""
     org = Organisation.create(organisation_data, delete_pid=True)

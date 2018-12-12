@@ -1,12 +1,12 @@
-<div *ngIf="!circulationForm || librariesOrg.length == 0">
-  {{ 'Loading…' | translate }}
+<div *ngIf="!circulationForm || librariesOrg.length == 0" translate>
+  Loading…
 </div>
 
 <div *ngIf="circulationForm && librariesOrg">
-<h1>{{ 'Circulation Policy' | translate }}</h1>
+<h1 translate>Circulation Policy</h1>
 <form [formGroup]="circulationForm" (ngSubmit)="onSubmit()">
   <div class="form-group row">
-    <label for="name" class="col-sm-2 col-form-label required">{{ 'Name' | translate }}</label>
+    <label for="name" class="col-sm-2 col-form-label required" translate>Name</label>
     <div class="col-sm-10">
       <input
         class="form-control"
@@ -16,20 +16,20 @@
         required
       >
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
-        <div *ngIf="name.errors.required">
-          {{ 'Name is required.' | translate }}
+        <div *ngIf="name.errors.required" translate>
+          Name is required.
         </div>
-        <div *ngIf="name.errors.minlength">
-          {{ 'Name must be at least 2 characters long.' | translate }}
+        <div *ngIf="name.errors.minlength" translate>
+          Name must be at least 2 characters long.
         </div>
-        <div *ngIf="name.errors.alreadyTakenMessage">
-          {{ 'Name is already taken.' | translate }}
+        <div *ngIf="name.errors.alreadyTakenMessage" translate>
+          Name is already taken.
         </div>
       </div>
     </div>
   </div>
   <div class="form-group row">
-    <label for="description" class="col-sm-2 col-form-label required">{{ 'Description' | translate }}</label>
+    <label for="description" class="col-sm-2 col-form-label required" translate>Description</label>
     <div class="col-sm-10">
       <input
         class="form-control"
@@ -38,37 +38,32 @@
         required
       >
       <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
-        <div *ngIf="description.errors.required">
-          {{ 'Description is required.' | translate }}
+        <div *ngIf="description.errors.required" translate>
+          Description is required.
         </div>
       </div>
     </div>
   </div>
   <div class="form-group row">
-    <label for="allowRequests" class="col-sm-2 col-form-label required">{{ 'Allow requests' | translate }}</label>
+    <div class="col-sm-2" translate>Allow</div>
     <div class="col-sm-10">
-      <input
-        type="checkbox"
-        class="form-control"
-        id="allow_requests"
-        formControlName="allow_requests"
-      >
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="allowCheckout" class="col-sm-2 col-form-label required">{{ 'Allow checkout' | translate }}</label>
-    <div class="col-sm-10">
-      <input
-        type="checkbox"
-        class="form-control"
-        id="allow_checkout"
-        formControlName="allow_checkout"
-        (click)="allowCheckoutCheckbox($event.target.checked)"
-      >
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="allow_requests" formControlName="allow_requests">
+        <label for="allow_requests" class="form-check-label" translate>
+          requests
+        </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="allow_checkout" (click)="allowCheckoutCheckbox($event.target.checked)" formControlName="allow_checkout">
+        <label for="allow_checkout" class="form-check-label" translate>
+          checkout
+        </label>
+      </div>
     </div>
   </div>
   <div class="form-group row" *ngIf="allow_checkout.value">
-    <label for="checkoutDuration" class="col-sm-2 col-form-label required">{{ 'Checkout duration' | translate }}</label>
+    <label for="checkoutDuration" class="col-sm-2 col-form-label required" translate>Checkout duration</label>
     <div class="col-sm-10">
       <input
         type="number"
@@ -77,17 +72,17 @@
         formControlName="checkout_duration"
       >
       <div *ngIf="checkout_duration.invalid && (checkout_duration.dirty || checkout_duration.touched)" class="text-danger">
-        <div *ngIf="checkout_duration.errors.required">
-          {{ 'Checkout duration is required.' | translate }}
+        <div *ngIf="checkout_duration.errors.required" translate>
+          Checkout duration is required.
         </div>
-        <div *ngIf="checkout_duration.errors.min">
-          {{ 'Checkout duration must be great than 1.' | translate }}
+        <div *ngIf="checkout_duration.errors.min" translate>
+          Checkout duration must be great than 1.
         </div>
       </div>
     </div>
   </div>
   <div class="form-group row" *ngIf="allow_checkout.value">
-    <label for="numberRenewals" class="col-sm-2 col-form-label required">{{ 'Number renewals' | translate }}</label>
+    <label for="numberRenewals" class="col-sm-2 col-form-label required" translate>Number renewals</label>
     <div class="col-sm-10">
       <input
         type="number"
@@ -97,17 +92,17 @@
         (blur)="numberRenewalsCheck()"
       >
       <div *ngIf="number_renewals.invalid && (number_renewals.dirty || number_renewals.touched)" class="text-danger">
-        <div *ngIf="number_renewals.errors.required">
-          {{ 'Checkout duration is required.' | translate }}
+        <div *ngIf="number_renewals.errors.required" translate>
+          Checkout duration is required.
         </div>
-        <div *ngIf="number_renewals.errors.min">
-          {{ 'Checkout duration must be great than 0.' | translate }}
+        <div *ngIf="number_renewals.errors.min" translate>
+          Checkout duration must be great than 0.
         </div>
       </div>
     </div>
   </div>
   <div class="form-group row" *ngIf="allow_checkout.value && number_renewals.value > 0">
-    <label for="renewalDuration" class="col-sm-2 col-form-label required">{{ 'Renewal duration' | translate }}</label>
+    <label for="renewalDuration" class="col-sm-2 col-form-label required" translate>Renewal duration</label>
     <div class="col-sm-10">
       <input
         type="number"
@@ -116,11 +111,11 @@
         formControlName="renewal_duration"
       >
       <div *ngIf="renewal_duration.invalid && (renewal_duration.dirty || renewal_duration.touched)" class="text-danger">
-        <div *ngIf="renewal_duration.errors.required">
-          {{ 'Renewal duration is required.' | translate }}
+        <div *ngIf="renewal_duration.errors.required" translate>
+          Renewal duration is required.
         </div>
-        <div *ngIf="renewal_duration.errors.min">
-          {{ 'Checkout duration must be great than 1.' | translate }}
+        <div *ngIf="renewal_duration.errors.min" translate>
+          Checkout duration must be great than 1.
         </div>
       </div>
     </div>
@@ -129,7 +124,7 @@
   <div *ngIf="is_default.value === false">
     <!-- start: library -->
     <div class="form-group row">
-      <label for="policyLibraryLevel" class="col-sm-2 col-form-label required">{{ 'Level' || translate }}</label>
+      <label for="policyLibraryLevel" class="col-sm-2 col-form-label required" translate>Level</label>
       <div class="col-sm-10">
         <div class="form-check-inline">
           <label class="form-check-label">
@@ -139,7 +134,8 @@
                 formControlName="policy_library_level"
                 [value]=false
                 (click)="policyLevelEvent(0)"
-              > {{ 'Organisation' | translate }}
+                translate
+              > Organisation
           </label>
         </div>
         <div class="form-check-inline">
@@ -150,7 +146,8 @@
                 formControlName="policy_library_level"
                 [value]=true
                 (click)="policyLevelEvent(1)"
-              > {{ 'Library' | translate }}
+                translate
+              > Library
           </label>
         </div>
       </div>
@@ -173,7 +170,7 @@
 
     <!-- start: settings -->
     <div class="form-group row">
-      <label for="policySettings" class="col-sm-2 col-form-label required">{{ 'Applies to patron types' | translate }}</label>
+      <label for="policySettings" class="col-sm-2 col-form-label required" translate>Applies to patron types</label>
       <div class="col-sm-10">
         <div *ngFor="let patronType of patronTypes()">
           <input
@@ -185,7 +182,7 @@
             (click)="patronTypeClickEvent($event.target.checked, patronType.id)"
           > <span [ngClass]="isPatronTypeDisabled(patronType.id) ? 'text-muted' : ''">{{ patronType.name }}</span>
           <div *ngIf="isPatronTypeChecked(patronType.id)" class="ml-3">
-          {{ 'Item types' | translate }}:
+          <span translate>Item types</span>:
           <ul class="d-inline list-inline mb-0">
             <li class="list-inline-item" *ngFor="let itemType of itemTypes()">
               <input
@@ -207,8 +204,8 @@
 
   <div class="clearfix">
     <div class="btn-group float-right" role="group" aria-label="Form Button">
-      <button type="cancel" class="btn btn-warning" (click)="onCancel()">{{ 'Cancel' | translate }}</button>
-      <button type="submit" class="btn btn-success" [disabled]="circulationForm.invalid">{{ 'Submit' | translate }}</button>
+      <button type="cancel" class="btn btn-warning" (click)="onCancel()" translate>Cancel</button>
+      <button type="submit" class="btn btn-success" [disabled]="circulationForm.invalid" translate>Submit</button>
     </div>
   </div>
 </form>

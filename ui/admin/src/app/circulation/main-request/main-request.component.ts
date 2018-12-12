@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Loan } from '../loans';
-import { LoansService } from '../loans.service';
+import { ItemsService } from '../items.service';
 import { UserService } from '../../user.service';
 import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
 import { TranslateStringService } from '../../translate-string.service';
+import { AlertsService } from '@app/core/alerts/alerts.service';
 
 export function _(str: string) {
   return str;
@@ -18,62 +18,53 @@ export class MainRequestComponent implements OnInit {
 
   public placeholder: string = _('Please enter an item barcode.');
   public searchText = '';
-  public loans: Loan[] = null;
+  public items: any[] = null;
   private library_pid: string;
-  public alerts: any[] = [];
 
   constructor (
-    private currentUser: UserService,
-    private loansService: LoansService,
-    private translate: TranslateStringService
+    private userService: UserService,
+    private itemsService: ItemsService,
+    private translate: TranslateStringService,
+    private alertsService: AlertsService
+
   ) {}
 
-  onAlertClosed(dismissedAlert: AlertComponent): void {
-    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
-  }
-
   ngOnInit() {
-    this.currentUser.loggedUser.subscribe(user => {
+    this.userService.loggedUser.subscribe(user => {
       if (user && user.library.pid) {
         this.library_pid = user.library.pid;
-        this.loans = null;
+        this.items = null;
         this.getRequestedLoans();
       }
     });
   }
 
   getRequestedLoans() {
-    this.loansService.getRequestedLoans(this.library_pid).subscribe(loans => {
-      this.loans = loans;
+    this.itemsService.getRequestedLoans(this.library_pid).subscribe(items => {
+      this.items = items;
     });
   }
 
   searchValueUpdated(search_text: string) {
+    if (! search_text) {
+      return null;
+    }
     this.searchText = search_text;
-    const loan = this.loans.find(l => l.item_barcode === search_text);
-    if (loan === undefined) {
-      this.alerts.push({
-        type: 'danger',
-        msg: _('request not found'),
-        timeout: 5000
-      });
+    const item = this.items.find(currItem => currItem.barcode === search_text);
+    if (item === undefined) {
+      this.alertsService.addAlert('warning', _('No request corresponding to the given item has been found.'));
     } else {
-      const loans = this.loans;
-      this.loans = null;
-      this.loansService.doValidateRequest(loan).subscribe(
-        newLoan => {
-          newLoan = newLoan;
-          this.loans = loans.map(l => {
-            if (l.loan_pid === newLoan.loan_pid) {
-              return new Loan(newLoan);
+      const items = this.items;
+      this.items = null;
+      this.itemsService.doValidateRequest(item).subscribe(
+        newItem => {
+          this.items = items.map(currItem => {
+            if (currItem.pid === newItem.pid) {
+              return newItem;
             }
-            return l;
+            return currItem;
           });
-          this.alerts.push({
-            type: 'info',
-            msg: this.translate.trans(_('The item is ')) + this.translate.trans(newLoan.state),
-            timeout: 5000
-          });
+          this.alertsService.addAlert('warning', this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status));
           this.searchText = '';
         }
       );

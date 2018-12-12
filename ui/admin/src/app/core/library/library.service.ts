@@ -19,12 +19,12 @@ export class LibraryService {
 
   getApiEntryPointRecord(pid: string) {
     return this.apiService
-      .getApiEntryPointByType('library', true) + pid;
+      .getApiEntryPointByType('libraries', true) + pid;
   }
 
   libraries() {
     return this.http.get(
-      this.apiService.getApiEntryPointByType('library'),
+      this.apiService.getApiEntryPointByType('libraries'),
       httpOptions
     );
   }

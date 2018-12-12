@@ -264,7 +264,7 @@ APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # OAI-PMH
 # =======
-OAISERVER_ID_PREFIX = 'oai:ils.test.rero.ch:'
+OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
 
 # Debug
 # =====
@@ -303,7 +303,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -333,7 +333,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=ItemsIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -361,7 +361,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -389,7 +389,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -417,7 +417,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -444,11 +444,8 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
-            ),
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -478,11 +475,8 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
-            ),
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -499,7 +493,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
-        delete_permission_factory_imp=deny_all
+        # delete_permission_factory_imp=deny_all
     ),
     loc=dict(
         pid_type='loc',
@@ -511,7 +505,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -538,7 +532,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers' ':json_v1_response'
             )
         },
         search_serializers={
@@ -574,8 +568,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers' ':json_v1_response'
             ),
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
-            ),
+                'rero_ils.modules.serializers' ':json_v1_response'
+            )
+
         },
         search_serializers={
             'application/rero+json': (
@@ -848,9 +843,10 @@ CIRCULATION_LOAN_TRANSITIONS = {
     ],
     'PENDING': [
         dict(dest='ITEM_AT_DESK',
-             transition=PendingToItemAtDesk, trigger='validate'),
+             transition=PendingToItemAtDesk, trigger='validate_request'),
         dict(dest='ITEM_IN_TRANSIT_FOR_PICKUP',
-             transition=PendingToItemInTransitPickup, trigger='validate'),
+             transition=PendingToItemInTransitPickup,
+             trigger='validate_request'),
         dict(dest='ITEM_ON_LOAN', transition=ToItemOnLoan, trigger='checkout'),
         dict(dest='CANCELLED', trigger='cancel')
     ],

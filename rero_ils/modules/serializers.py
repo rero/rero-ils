@@ -24,7 +24,7 @@
 
 """Record serialization."""
 
-from flask import current_app, json
+from flask import current_app, json, request
 from invenio_records_rest.schemas import RecordSchemaJSONV1
 from invenio_records_rest.serializers.json import JSONSerializer
 from invenio_records_rest.serializers.response import record_responsify, \
@@ -41,10 +41,11 @@ class ReroIlsSerializer(JSONSerializer):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        rec = self.transform_record(
-            pid, record, links_factory, **kwargs
-        ).get('metadata', {})
-        return json.dumps(rec, **self._format_args())
+        if request and request.args.get('resolve'):
+            record = record.replace_refs()
+        return super(
+            ReroIlsSerializer, self).serialize(
+                pid, record, links_factory, **kwargs)
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
                          item_links_factory=None, **kwargs):

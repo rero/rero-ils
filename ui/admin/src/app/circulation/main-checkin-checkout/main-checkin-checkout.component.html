@@ -2,11 +2,9 @@
 [confirm_changes]="confirm_changes"
 (confirm)="confirmRemovePatron($event)"
 ></app-confirm-window>
-
 <section class="content">
   <div class="row">
     <div class="col-md-6">
-      <h2>{{ 'Checkin / Checkout' | translate }}</h2>
       <app-search-input
       [placeholder]="placeholder"
       [searchText]="searchText"
@@ -20,22 +18,22 @@
       (clearPatron)="clearPatron($event)"
       ></app-patron-detailed>
     </div>
-  </div>
-    <div class="row">
-    <div class="col-md-12">
-      <div *ngFor="let alert of alerts">
-        <alert [dismissible]="true" [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{ alert.msg | translate }}</alert>
-      </div>
+    <div *ngIf="patronInfo" class="col-md-6 text-muted">
+      <app-patron-detailed
+      [patron]="patronInfo"
+      [info]="true"
+      (clearPatron)="clearPatron($event)"
+      ></app-patron-detailed>
     </div>
+
   </div>
   <div class="row">
     <div class="col-md-12">
-      <app-loans-list
-      [loans]="loans"
+      <app-items-list
+      [items]="items"
       [patron]="patron"
-      (removeLoan)="removeLoan($event)"
-      (applyLoans)="applyLoans($event)"
-      ></app-loans-list>
+      (applyItems)="applyItems($event)"
+      ></app-items-list>
     </div>
   </div>
 </section>

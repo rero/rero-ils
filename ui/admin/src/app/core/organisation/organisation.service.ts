@@ -10,6 +10,6 @@ export class OrganisationService {
 
   getApiEntryPointRecord(pid: string) {
     return this.apiService
-      .getApiEntryPointByType('organisation', true) + pid;
+      .getApiEntryPointByType('organisations', true) + pid;
   }
 }

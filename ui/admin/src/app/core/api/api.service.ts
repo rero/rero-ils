@@ -4,13 +4,16 @@ import { Injectable } from '@angular/core';
 export class ApiService {
 
   private entryPoints = {
-    'circulation-policy': '/api/circ_policies/',
-    'item': '/api/item/',
-    'item-type': '/api/item_types/',
-    'library': '/api/libraries/',
-    'organisation': '/api/organisations/',
-    'patron-type': '/api/patron_types/',
-    'user': '/api/users/'
+    'circ_policies': '/api/circ_policies/',
+    'items': '/api/items/',
+    'item_types': '/api/item_types/',
+    'libraries': '/api/libraries/',
+    'locations': '/api/locations/',
+    'organisations': '/api/organisations/',
+    'patron_types': '/api/patron_types/',
+    'patrons': '/api/patrons/',
+    'persons': '/api/persons/',
+    'loans': '/api/loans/'
   };
 
   private baseUrl: string = null;

@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-12">
+    <div *ngFor="let alert of alerts">
+      <alert [dismissible]="true"
+      [type]="alert.type"
+      [dismissOnTimeout]="alert.timeout"
+      (onClosed)="onAlertClosed(alert)"
+      >{{ alert.message | translate }}</alert>
+    </div>
+  </div>
+</div>

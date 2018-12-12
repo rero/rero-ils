@@ -9,13 +9,9 @@
 
   <div *ngIf="total>0" class="col-12 mt-4">
     <h5>
-      {{total}} {{recordType}} results
+      {{total}} {{recordType}} {{ 'results' | translate }}
       <a *ngIf="recordType !== 'persons'" class="ml-2 float-right text-secondary" routerLinkActive="active" [routerLink]="['/records', recordType, 'new']"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </h5>
-  </div>
-
-  <div *ngIf="total===0" class="col-12">
-    No result found.
   </div>
 
   <div class="col-12">
@@ -38,10 +34,4 @@
     [maxSize]="5">
   </pagination>
 </div>
-</div>
-
-<div *ngIf="notFound" class="row">
-  <div class="col-12">
-    not found
-  </div>
 </div>

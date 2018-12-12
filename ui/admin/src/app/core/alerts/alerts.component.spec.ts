@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExceptionDatesComponent } from './exception-dates.component';
+import { AlertsComponent } from './alerts.component';
 
-describe('ExceptionDatesComponent', () => {
-  let component: ExceptionDatesComponent;
-  let fixture: ComponentFixture<ExceptionDatesComponent>;
+describe('AlertsComponent', () => {
+  let component: AlertsComponent;
+  let fixture: ComponentFixture<AlertsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExceptionDatesComponent ]
+      declarations: [ AlertsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExceptionDatesComponent);
+    fixture = TestBed.createComponent(AlertsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

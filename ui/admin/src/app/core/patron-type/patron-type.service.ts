@@ -19,12 +19,12 @@ export class PatronTypeService {
 
   getApiEntryPointRecord(pid: string) {
     return this.apiService
-      .getApiEntryPointByType('patron-type', true) + pid;
+      .getApiEntryPointByType('patron_types', true) + pid;
   }
 
   patronTypes() {
     return this.http.get(
-      this.apiService.getApiEntryPointByType('patron-type'),
+      this.apiService.getApiEntryPointByType('patron_types'),
       httpOptions
     );
   }

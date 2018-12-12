@@ -45,3 +45,4 @@ python_version = "3.6"
 [scripts]
 test = "python setup.py test"
 build_sphinx = "python setup.py build_sphinx"
+dev = "pytest --no-cov -vs tests"

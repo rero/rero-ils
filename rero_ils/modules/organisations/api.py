@@ -29,6 +29,7 @@ from functools import partial
 
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
+from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
 from .models import OrganisationIdentifier
@@ -51,3 +52,11 @@ class Organisation(IlsRecord):
     minter = organisation_id_minter
     fetcher = organisation_id_fetcher
     provider = OrganisationProvider
+
+    def get_libraries(self):
+        """Get all libraries related to the organisation."""
+        results = LibrariesSearch().source(['pid'])\
+            .filter('term', organisation__pid=self.pid)\
+            .scan()
+        for library in results:
+            yield Library.get_record_by_pid(library.pid)

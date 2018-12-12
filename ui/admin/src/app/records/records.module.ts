@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RecordsRoutingModule } from './records-routing.module';
 import { MainComponent } from './main/main.component';
 import { SearchComponent } from './search/search.component';
+
 import { SharedModule } from '../shared.module';
+
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
+
 import { EditorComponent } from './editor/editor.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RemoteSelectComponent } from './editor/remote-select/remote-select.component';
 import { RemoteInputComponent } from './editor/remote-input/remote-input.component';
 import { BriefViewDirective } from './search/brief-view/brief-view.directive';
@@ -23,17 +27,18 @@ import { LocationsBriefViewComponent } from './search/brief-view/locations-brief
 import { LibrariesBriefViewComponent } from './search/brief-view/libraries-brief-view.component';
 import { ItemsBriefViewComponent } from './search/brief-view/items-brief-view.component';
 import { DocumentsBriefViewComponent } from './search/brief-view/documents-brief-view.component';
-import { OpeningHoursComponent } from './editor/opening-hours/opening-hours.component';
-import { ExceptionDatesComponent } from './editor/exception-dates/exception-dates.component';
-import { ExceptionDatesEditComponent } from './editor/exception-dates/exception-dates-edit.component';
+import { ExceptionDatesListComponent } from './custom-editor/libraries/exception-dates-list/exception-dates-list.component';
+import { ExceptionDatesEditComponent } from './custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { LibraryExceptionFormService } from './editor/exception-dates/library-exception-form.service';
+import { LibraryExceptionFormService } from './custom-editor/libraries/library-exception-form.service';
 import { MefTitlePipe } from './search/brief-view/mef-title.pipe';
 import { CirculationPolicyComponent } from './custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
 import { CirculationPolicyService } from './custom-editor/circulation-settings/circulation-policy.service';
 import { CirculationPolicyFormService } from './custom-editor/circulation-settings/circulation-policy-form.service';
 import { CirculationMappingService } from './custom-editor/circulation-settings/circulation-mapping.service';
+import { LibraryComponent } from './custom-editor/libraries/library.component';
+import { LibraryFormService } from './custom-editor/libraries/library-form.service';
 
 @NgModule({
   declarations: [
@@ -53,12 +58,12 @@ import { CirculationMappingService } from './custom-editor/circulation-settings/
     LibrariesBriefViewComponent,
     ItemsBriefViewComponent,
     DocumentsBriefViewComponent,
-    OpeningHoursComponent,
-    ExceptionDatesComponent,
+    ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent,
     MefTitlePipe,
-    CirculationPolicyComponent
+    CirculationPolicyComponent,
+    LibraryComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +74,7 @@ import { CirculationMappingService } from './custom-editor/circulation-settings/
     UiSwitchModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),
 
   ],
   entryComponents: [
@@ -83,8 +89,7 @@ import { CirculationMappingService } from './custom-editor/circulation-settings/
     LibrariesBriefViewComponent,
     ItemsBriefViewComponent,
     DocumentsBriefViewComponent,
-    OpeningHoursComponent,
-    ExceptionDatesComponent,
+    ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent
   ],
@@ -92,7 +97,8 @@ import { CirculationMappingService } from './custom-editor/circulation-settings/
     LibraryExceptionFormService,
     CirculationPolicyService,
     CirculationPolicyFormService,
-    CirculationMappingService
+    CirculationMappingService,
+    LibraryFormService
   ]
 })
 export class RecordsModule { }

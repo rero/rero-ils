@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from './users';
 import { UserService } from './user.service';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -10,6 +11,8 @@ import { ApiService } from './core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  loggedUser: User;
 
   constructor(
     private userService: UserService,

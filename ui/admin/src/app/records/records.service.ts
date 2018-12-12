@@ -21,8 +21,9 @@ export class RecordsService {
     );
   }
 
-  getRecord(record_type: string, pid: string) {
-    const url = `/api/${record_type}/${pid}`;
+
+  getRecord(record_type: string, pid: string, resolve = 0) {
+    const url = `/api/${record_type}/${pid}?resolve=${resolve}`;
     return this.http.get<any>(url).pipe(
       catchError(e => {
         if (e.status === 404) {

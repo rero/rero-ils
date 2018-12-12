@@ -105,7 +105,7 @@ def create_items(output, count, itemscount, missing):
         item_types_pids = ItemType.get_all_pids()
         patrons_barcodes = get_patrons_barcodes()
         missing *= len(patrons_barcodes)
-        item_pid = ItemIdentifier.max()
+        item_pid = ItemIdentifier.max() + 1
         with click.progressbar(
                 reversed(documents_pids[:count]), length=count) as bar:
             for document_pid in bar:
@@ -121,6 +121,7 @@ def create_items(output, count, itemscount, missing):
                         item_types_pids=item_types_pids,
                         document_pid=document_pid
                     )
+                    item_pid += 1
                     yield item
     for chunk in json.JSONEncoder()\
             .iterencode(StreamArray(generate(count, itemscount, missing))):
@@ -140,7 +141,6 @@ def create_random_item(
     if randint(0, 5) == 0 and missing > 0:
         status = ItemStatus.MISSING
         missing -= 1
-        print(missing, status)
     url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
     item = {
         # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',

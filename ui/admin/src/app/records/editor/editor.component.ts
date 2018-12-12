@@ -4,10 +4,12 @@ import { RecordsService } from '../records.service';
 import { RemoteSelectComponent } from './remote-select/remote-select.component';
 import { RemoteInputComponent } from './remote-input/remote-input.component';
 import { WidgetLibraryService } from 'angular6-json-schema-form';
-import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
-import { ExceptionDatesComponent } from './exception-dates/exception-dates.component';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiService, AlertsService } from '@app/core';
+export function _(str: string) {
+  return str;
+}
 
 @Component({
   selector: 'app-editor',
@@ -27,12 +29,12 @@ export class EditorComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private recordsService: RecordsService,
-    private widgetLibrary: WidgetLibraryService
+    private widgetLibrary: WidgetLibraryService,
+    private alertsService: AlertsService,
+    private apiService: ApiService
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
-    this.widgetLibrary.registerWidget('opening-hours', OpeningHoursComponent);
-    this.widgetLibrary.registerWidget('exception-dates', ExceptionDatesComponent);
   }
 
   importFromEan(ean) {
@@ -42,9 +44,8 @@ export class EditorComponent implements OnInit {
         if (record) {
           record.metadata['$schema'] = this.schemaForm.schema.properties['$schema'].default;
           this.schemaForm['data'] = record.metadata;
-          console.log(this.schemaForm);
         } else {
-          this.message = 'EAN not found!';
+          this.alertsService.addAlert('warning', _('EAN not found!'));
         }
       }
       );
@@ -70,7 +71,9 @@ export class EditorComponent implements OnInit {
           this.schemaForm = schemaForm;
           if (this.recordType === 'items' && query.document) {
             this.redirectRecordType = 'documents';
-            this.schemaForm.schema.properties.document.properties['$ref']['default'] = 'http://ils.rero.ch/api/documents/' + query.document;
+            const urlPerfix = this.apiService.getApiEntryPointByType('documents', true);
+            this.schemaForm.schema.properties.document
+              .properties['$ref']['default'] = urlPerfix + query.document;
           }
         });
       } else {
@@ -92,12 +95,12 @@ export class EditorComponent implements OnInit {
   save(record) {
     if (this.pid) {
       this.recordsService.update(this.recordType, record).subscribe(res => {
-        this.message = 'Record Updated';
+        this.alertsService.addAlert('info', _('Record Updated!'));
         this.router.navigate(['/records', this.redirectRecordType]);
       });
     } else {
       this.recordsService.create(this.recordType, record).subscribe(res => {
-        this.message = `Record Created with pid: ${record['metadata']['pid']}`;
+        this.alertsService.addAlert('info', _('Record Created with pid: ') + res['metadata']['pid']);
         this.router.navigate(['/records', this.redirectRecordType]);
       });
     }

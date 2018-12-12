@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../user.service';
 import { User } from '../../users';
-import { Loan, LoanAction } from '../loans';
+import { Item, ItemAction, ItemStatus } from '../items';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
-import { LoansService } from '../loans.service';
-import { Observable, forkJoin } from 'rxjs';
+import { ItemsService } from '../items.service';
+import { Observable, forkJoin, of } from 'rxjs';
+import * as moment from 'moment';
+import { TranslateStringService } from '../../translate-string.service';
+import { AlertsService } from '@app/core/alerts/alerts.service';
 
 export function _(str: string) {
   return str;
+}
+
+export interface NoPendingChange {
+    noPendingChange(): boolean | Observable<boolean>;
 }
 
 @Component({
@@ -16,59 +22,165 @@ export function _(str: string) {
   templateUrl: './main-checkin-checkout.component.html',
   styleUrls: ['./main-checkin-checkout.component.scss']
 })
-export class MainCheckinCheckoutComponent implements OnInit {
+export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
 
   public placeholder: string = _('Please enter a patron card number or an item barcode.');
   public searchText = '';
   private library_pid: string;
-  public alerts: any[] = [];
   public patron: User;
+  public patronInfo: User;
   public confirm_changes = false;
-  private alertTimeout = 5000;
 
-  public get loans() {
+
+  private loggedUser: User;
+  private _items = [];
+  private _noPendingChange: Observable<boolean>;
+
+  public get items() {
     if (this.patron) {
-      return this.patron.loans;
+      return this.patron.items;
+    } else {
+      return this._items;
     }
     return [];
   }
+
   constructor(
     private userService: UserService,
-    private loansService: LoansService,
+    private itemsService: ItemsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translate: TranslateStringService,
+    private alertsService: AlertsService
     ) {
     route.queryParamMap.subscribe(
-      params => this.getPatron(params.get('patron'))
+      params => {
+        const barcode = params.get('patron');
+        if (!this.patron || (barcode !== this.patron.barcode)) {
+          this.getPatronOrItem(barcode);
+        }
+      }
     );
+    this._noPendingChange = of(true);
   }
 
   ngOnInit() {
+    this.userService.loggedUser.subscribe(user => {
+      this.loggedUser = user;
+    });
   }
 
-  searchValueUpdated(search_text: string) {
-    this.getPatron(search_text);
+  searchValueUpdated(searchText: string) {
+    if (!searchText) {
+      return null;
+    }
+    this.searchText = searchText;
+    if (this.patron) {
+      this.getItem(searchText);
+    } else {
+      this.getPatronOrItem(searchText);
+    }
   }
 
-  onAlertClosed(dismissedAlert: AlertComponent): void {
-    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+  automaticCheckinCheckout(item_barcode) {
+    this.itemsService.automaticCheckin(item_barcode).subscribe(item => {
+      // TODO: remove this when policy will be in place
+      if (item === null) {
+          this.alertsService.addAlert('info', _('item not found!'));
+          return;
+        }
+      if (item.loan) {
+        this.getPatronInfo(item.loan.patron_pid);
+      }
+      if (item.hasRequests) {
+          this.alertsService.addAlert('info', _('The item contains requests'));
+      }
+      switch (item.actionDone) {
+        case ItemAction.return_missing:
+          this.alertsService.addAlert('warning', _('the item has been returned from missing'));
+          break;
+        default:
+          break;
+      }
+      this._items.unshift(item);
+      this.searchText = '';
+    });
   }
 
-  getPatron(barcode: string) {
+  getItem(barcode: string) {
+    const item = this.items.find(currItem => currItem.barcode === barcode);
+    if (item) {
+      if (this.patron) {
+        item.currentAction = ItemAction.checkin;
+        this.searchText = '';
+      } else {
+        this.alertsService.addAlert('info', _('The item is already in the list.'));
+      }
+    } else {
+      this.itemsService.getItem(barcode).subscribe(
+        (newItem) => {
+          if (newItem === null) {
+            this.alertsService.addAlert('info', _('item not found!'));
+          } else {
+            if (newItem.canLoan(this.patron) === false) {
+              this.alertsService.addAlert('info', _('item is unavailable!'));
+            } else {
+              newItem.currentAction = ItemAction.checkout;
+              this.items.unshift(newItem);
+              this.searchText = '';
+            }
+          }
+        },
+        (error) => this.alertsService.addAlert('danger', error.message),
+        () => console.log('loan success')
+      );
+    }
+  }
+
+  getPatronInfo(patronPID) {
+    if (patronPID) {
+      this.userService.getUser(patronPID).subscribe(
+        (patron) => this.patronInfo = patron,
+        (error) => this.alertsService.addAlert('danger', error.message),
+        () => console.log('patron by pid success')
+      );
+    } else {
+      this.patronInfo = null;
+    }
+  }
+
+  getPatronOrItem(barcode: string) {
     if (barcode) {
       this.userService.getPatron(barcode).subscribe(
         (patron) => {
           if (patron === null) {
-            this.addAlert('info', _('patron not found!'));
+            const newItem = this.items.find(item => item.barcode === barcode);
+            if (newItem) {
+              this.alertsService.addAlert('info', _('The item is already in the list.'));
+            } else {
+              this.automaticCheckinCheckout(barcode);
+            }
           } else {
+            let loanableItems = [];
+            if (this._items.length) {
+              loanableItems = this._items.filter(item => item.canLoan(patron));
+            }
+            this.patronInfo = null;
             this.patron = patron;
+            if (loanableItems.length) {
+              const item = loanableItems[0];
+              item.currentAction = ItemAction.checkout;
+              item.actionDone = undefined;
+              this.patron.items.unshift(item);
+            }
             this.router.navigate([], { queryParams: {
               patron: this.patron.barcode
             }});
+            this.searchText = '';
           }
         },
-        (error) => this.addAlert('danger', error.message),
-        () => console.log('success')
+        (error) => this.alertsService.addAlert('danger', error.message),
+        () => console.log('patron success')
       );
     }
   }
@@ -84,15 +196,17 @@ export class MainCheckinCheckoutComponent implements OnInit {
   confirmRemovePatron(ok: boolean) {
     if (ok === true) {
       this.doClearPatron();
+      this._noPendingChange = of(true);
     } else {
-      console.log('ko');
       this.confirm_changes = false;
+      this._noPendingChange = of(false);
     }
 
   }
+
   hasPendingActions() {
     if (this.patron) {
-      if (this.loans.filter(loan => loan.currentAction !== LoanAction.no).length > 0) {
+      if (this.items.filter(item => item.currentAction !== ItemAction.no).length > 0) {
         return true;
       }
     }
@@ -103,38 +217,42 @@ export class MainCheckinCheckoutComponent implements OnInit {
     this.patron = null;
     this.placeholder = _('Please enter a patron card number or an item barcode.');
     this.searchText = '';
+    this._items = [];
     this.router.navigate([], { queryParams: {}});
   }
 
-  removeLoan(loan: Loan) {}
-
-  applyLoans(loans: Loan[]) {
+  applyItems(items: Item[]) {
     const observables = [];
-    for (const loan of loans) {
-      if (loan.currentAction !== LoanAction.no) {
-        observables.push(this.loansService.doAction(loan));
+    for (const item of items) {
+      if (item.currentAction !== ItemAction.no) {
+        observables.push(this.itemsService.doAction(item, this.patron.pid));
       }
     }
     forkJoin(observables).subscribe(
-      (newLoans) => {
-        this.patron.loans = this.patron.loans.map(loan => {
-          const newLoan = newLoans.filter(l => l.loan_pid === loan.loan_pid).pop();
-          if (newLoan) {
-            newLoan.item = loan.item;
-            return newLoan;
+      (newItems) => {
+        this.patron.items = this.patron.items.map(item => {
+          const newItem = newItems.filter(currItem => currItem.pid === item.pid).pop();
+          if (newItem) {
+            if (newItem.status === ItemStatus.IN_TRANSIT) {
+                this.alertsService.addAlert('info',
+                  this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status)
+                );
+            }
+            return newItem;
           }
-          return loan;
-        });
+          return item;
+        }).filter(item => item.status === ItemStatus.ON_LOAN);
       },
-      (err) => this.addAlert('danger', _('an error occurs on the server: ' + err))
+      (err) => this.alertsService.addAlert('danger', _('an error occurs on the server: ' + err))
     );
   }
 
-  addAlert(type, message) {
-    this.alerts.push({
-      type: type,
-      msg: message,
-      timeout: this.alertTimeout
-    });
+  noPendingChange(): Observable<boolean> {
+    if (!this.hasPendingActions()) {
+      return of(true);
+    }
+    this.confirm_changes = true;
+    return this._noPendingChange;
   }
+
 }

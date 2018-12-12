@@ -96,7 +96,6 @@ def jsonify_error(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            raise(e)
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 

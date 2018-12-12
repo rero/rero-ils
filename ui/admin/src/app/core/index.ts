@@ -8,3 +8,4 @@ export * from './patron-type/patron-type.service';
 export * from './patron-type/patron-type-tool';
 export * from './validator/unique.validator';
 export * from './utils';
+export * from './alerts/alerts.service';

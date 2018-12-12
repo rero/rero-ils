@@ -3,15 +3,15 @@
 
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/checkinout']">Checkin/Checkout</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/checkinout']" translate>Checkin/Checkout</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/requests']">Requests</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/circulation/requests']" translate>Requests</a>
       </li>
     </ul>
     <div class="mt-4">
-    <router-outlet></router-outlet>
-  </div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
 <span *ngIf="loading">loading...</span>

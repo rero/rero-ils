@@ -22,7 +22,6 @@ import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
 
 
-
 export function HttpLoaderFactory(http: HttpClient) {
     let assets_prefix = '/';
     if (environment.production) {
@@ -39,7 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    MylibraryComponent,
+    MylibraryComponent
     // ConfirmWindowComponent
   ],
   imports: [
