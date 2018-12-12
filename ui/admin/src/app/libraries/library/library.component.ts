@@ -42,7 +42,7 @@ export class LibraryComponent {
     this.libraryForm.setLibraryPid(this.library.id);
     this.libraryForm.setSchema(this.library.$schema);
     this.library.update(this.libraryForm.getValues());
-    this.librariesService.save(this.library, '/libraries/' + this.library.pid);
+    this.librariesService.save(this.library);
   }
 
   onCancel() {

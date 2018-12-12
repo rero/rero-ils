@@ -4,6 +4,10 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {
+    path: 'new',
+    component: MainComponent
+  },
+  {
     path: ':pid',
     component: MainComponent
   }

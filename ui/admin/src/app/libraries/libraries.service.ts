@@ -61,16 +61,17 @@ export class LibrariesService {
     ));
   }
 
-  save(library: Library, redirectUrl?) {
-    const library_id = library['id'];
+  save(library: Library) {
+    const baseUpdate = '/admin/lib/ajax/update/';
+    const baseRedirect = '/libraries/';
     if (environment.production) {
       delete library['id'];
     }
-    this.client.put<Library>(this.librariesUrl + '/' + library_id, library, httpOptions).subscribe(
+    this.client.post<Library>(baseUpdate, library, httpOptions).subscribe(
       lib => {
         this.setCurrentLibrary(lib);
-        if (environment.production && redirectUrl) {
-          this.browser.redirect(redirectUrl);
+        if (environment.production) {
+          this.browser.redirect(baseRedirect + lib.pid);
         }
       }
     );
