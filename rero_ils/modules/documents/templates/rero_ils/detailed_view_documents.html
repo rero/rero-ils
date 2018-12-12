@@ -196,12 +196,13 @@
                   </a>
                   <!-- TODO: Style the dropdown header -->
                   <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <h6 class="dropdown-item">{{ _('Available Pickup Locations') }}</h6>
-                    {% set locations = item.pid|item_library_pickup_locations %}
+                    <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
+                    <div class="dropdown-divider"></div>
+                    {% set locations = item|item_library_pickup_locations %}
                     {% for location in locations %}
                       <a class="dropdown-item"
-                         href="{{ url_for('item.patron_request', item_pid_value=item.pid, pickup_location_pid=location.pid)}}">
-                          {{ location.name }}
+                         href="{{ url_for('item.patron_request', item_pid=item.pid, pickup_location_pid=location.pid)}}">
+                          {{ location.get_library().name }}
                       </a>
                     {% endfor %}
                   </div>

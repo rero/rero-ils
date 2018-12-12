@@ -74,6 +74,12 @@ def location_data(data):
 
 
 @pytest.fixture(scope="module")
+def store_location_data(data):
+    """."""
+    return deepcopy(data.get('loc2'))
+
+
+@pytest.fixture(scope="module")
 def circ_policy_data(data):
     """."""
     return deepcopy(data.get('cipo1'))
@@ -208,6 +214,18 @@ def location(app, library, location_data):
     """."""
     loc = Location.create(
         data=location_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def store_location(location, store_location_data):
+    """."""
+    loc = Location.create(
+        data=store_location_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

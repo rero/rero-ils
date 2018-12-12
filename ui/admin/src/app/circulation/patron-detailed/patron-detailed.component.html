@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-6">
           <div>
-            <span *ngIf="patron.patron_type">{{ patron.patron_type | translate}}</span>
+            <span *ngIf="patron.patron_type">{{ patron.patron_type.name | translate}}</span>
           </div>
           <div>
             <span *ngIf="patron.barcode">

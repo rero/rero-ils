@@ -117,6 +117,15 @@
     "is_pickup": true,
     "pickup_name": "AOSTE CANT1: Espaces publics"
   },
+  "loc2": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "loc2",
+    "code": "AOSTE-CANT1-BIBLIOGR",
+    "name": "Bibliographie vald\u00f4taine",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    }
+  },
   "cipo1": {
     "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo1",
@@ -365,5 +374,21 @@
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
     "status": "on_shelf"
+  },
+  "item3": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item3",
+    "barcode": "12345",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "00004",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc2"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_loan"
   }
 }

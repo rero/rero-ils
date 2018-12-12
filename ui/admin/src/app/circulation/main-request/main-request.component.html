@@ -1,8 +1,5 @@
-
 <section class="content-header">
-  <h2>{{ 'Requests' | translate }}</h2>
 </section>
-
 <section class="content">
   <div class="row">
     <div class="col-md-4">
@@ -15,25 +12,17 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div *ngFor="let alert of alerts">
-        <alert [dismissible]="true" [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onAlertClosed(alert)">{{ alert.msg | translate }}</alert>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h3>{{ 'Requested Items' | translate }}</h3>
-        <app-requested-loans-list
-      [loans]="loans"
-      ></app-requested-loans-list>
+        <app-requested-items-list
+      [items]="items"
+      ></app-requested-items-list>
     </div>
   </div>
 </section>
-<section *ngIf="loans && loans.length === 0" class="content">
+<section *ngIf="items && items.length === 0" class="content">
   <div class="row">
     <div class="col-md-12">
-      <alert type="info">
-        {{ 'no request to validate' | translate }}
+      <alert type="info" translate>
+        no request to validate
       </alert>
     </div>
   </div>

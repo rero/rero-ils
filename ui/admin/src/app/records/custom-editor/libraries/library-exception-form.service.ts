@@ -4,7 +4,9 @@ import * as moment from 'moment';
 
 import { TimeValidator } from '../../../shared/time-validator';
 
-@Injectable()
+@Injectable({
+   providedIn: 'root'
+})
 export class LibraryExceptionFormService {
 
   public form;
@@ -92,6 +94,7 @@ export class LibraryExceptionFormService {
       // this.data.setValue(exception.repeat.data)
     }
   }
+
   getValue() {
     return this.formatDateException(this.form.value);
   }
@@ -99,18 +102,7 @@ export class LibraryExceptionFormService {
   formatDateException(data) {
     const data_exception = {
       title: data.title,
-      is_open: data.is_open,
-      start_date: null,
-      end_date: null,
-      times: [{
-        start_time: null,
-        end_time: null
-      }],
-      repeat: {
-        interval: null,
-        period: null,
-        data: null
-      }
+      is_open: data.is_open
     };
     if (data.is_period) {
       data_exception['start_date'] = moment(data.dates[0]).format('YYYY-MM-DD');
@@ -124,8 +116,7 @@ export class LibraryExceptionFormService {
     if (data.repeat) {
       data_exception['repeat'] = {
         interval: data.interval,
-        period: data.period,
-        data: null
+        period: data.period
       };
     }
     return data_exception;

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordsService } from '../records.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertsService } from '@app/core/alerts/alerts.service';
+
+export function _(str: string) {
+  return str;
+}
 
 @Component({
   selector: 'app-search',
@@ -20,7 +25,8 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private recordsService: RecordsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertsService: AlertsService
   ) {}
 
   ngOnInit() {
@@ -40,12 +46,16 @@ export class SearchComponent implements OnInit {
     ).subscribe(data => {
         if (data === null) {
           this.notFound = true;
+          this.alertsService.addAlert('info', _('No result found.'));
         } else {
           this.records = data.hits.hits;
           this.total = data.hits.total;
           if (this.records.length === 0 && this.currentPage > 1) {
             this.currentPage -= 1;
             this.getRecords();
+          }
+          if (data.hits.total === 0) {
+            this.alertsService.addAlert('info', _('No result found.'));
           }
         }
       });
@@ -70,6 +80,7 @@ export class SearchComponent implements OnInit {
 
     deleteRecord(pid) {
       this.recordsService.delete(this.recordType, pid).subscribe(record => {
+        this.alertsService.addAlert('warning', _('Record deleted.'));
         this.getRecords();
       });
     }

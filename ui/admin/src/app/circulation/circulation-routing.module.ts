@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { MainRequestComponent } from './main-request/main-request.component';
 import { MainCheckinCheckoutComponent } from './main-checkin-checkout/main-checkin-checkout.component';
+import { ModificationsGuard } from './modifications.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       component: MainRequestComponent
     }, {
       path: 'checkinout',
-      component: MainCheckinCheckoutComponent
+      component: MainCheckinCheckoutComponent,
+      canDeactivate: [ModificationsGuard]
     }
     ]
   }

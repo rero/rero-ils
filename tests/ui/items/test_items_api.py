@@ -31,6 +31,17 @@ from utils import get_mapping
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 
 
+def test_item_item_location_retriever(item_on_shelf, location, store_location):
+    """Test location retriever for invenio-circulation."""
+    assert item_on_shelf.item_location_retriever(
+        item_on_shelf.pid) == location.pid
+
+
+def test_item_get_items_pid_by_document_pid(document, item_on_shelf):
+    """."""
+    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
+
+
 def test_item_create(db, es_clear, item_on_loan_data_tmp):
     """Test itemanisation creation."""
     item = Item.create(item_on_loan_data_tmp, delete_pid=True)
@@ -58,8 +69,3 @@ def test_item_es_mapping(es_clear, db, document, location, item_type,
         delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
-
-
-def test_item_get_items_pid_by_document_pid(document, item_on_shelf):
-    """."""
-    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1

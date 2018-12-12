@@ -1,21 +1,18 @@
 <div class="row">
-    <div class="col-12">
-        <alert *ngIf="message" type="success">{{ message }}</alert>
-    </div>
     <div *ngIf="recordType === 'documents'" class="col-4">
         <div class="form-group">
-            <label class="control-label" >Import record from BNF</label>
+            <label class="control-label" translate>Import record from BNF</label>
 
             <div  class="input-group input-group-sm">
                 <input #searchinput (keyup.enter)="importFromEan(searchinput.value)" type="text" class="form-control" placeholder="Enter an EAN" aria-label="Enter an EAN" aria-describedby="button-import">
                 <div class="input-group-append">
-                    <button (click)="importFromEan(searchinput.value)" class="btn btn-outline-info" type="button" id="button-import">Import</button>
+                    <button (click)="importFromEan(searchinput.value)" class="btn btn-outline-info" type="button" id="button-import" translate>Import</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-8">
-        <button (click)="cancel()" class="float-right btn btn-info btn-sm">Cancel</button>
+        <button (click)="cancel()" class="float-right btn btn-info btn-sm" translate>Cancel</button>
     </div>
     <div class="col-12">
         <json-schema-form *ngIf="schemaForm"

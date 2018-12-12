@@ -109,7 +109,7 @@ export class CirculationPolicyFormService {
   private unserializeLibraries(libraries) {
     const ulibraries = [];
     const librariesRegex = new RegExp(
-      this.apiService.getApiEntryPointByType('library', true) + '(.+)$'
+      this.apiService.getApiEntryPointByType('libraries', true) + '(.+)$'
     );
     libraries.forEach(element => {
       ulibraries.push(
@@ -121,7 +121,7 @@ export class CirculationPolicyFormService {
 
   private serializeLibraries(libraries) {
     const libraryEntryPoint = this.apiService
-      .getApiEntryPointByType('library', true);
+      .getApiEntryPointByType('libraries', true);
     const slibraries = [];
     libraries.forEach(element => {
       slibraries.push({
@@ -133,10 +133,10 @@ export class CirculationPolicyFormService {
 
   private unserializeSettings(settings) {
     const itemTypeRegex = new RegExp(
-      this.apiService.getApiEntryPointByType('item-type', true) + '(.+)$'
+      this.apiService.getApiEntryPointByType('item_types', true) + '(.+)$'
     );
     const patronTypeRegex = new RegExp(
-      this.apiService.getApiEntryPointByType('patron-type', true) + '(.+)$'
+      this.apiService.getApiEntryPointByType('patron_types', true) + '(.+)$'
     );
     const mapping = [];
     settings.forEach(element => {
@@ -155,9 +155,9 @@ export class CirculationPolicyFormService {
 
   private serializeSettings(settings) {
     const patronTypeentrypoint = this.apiService
-      .getApiEntryPointByType('patron-type', true);
+      .getApiEntryPointByType('patron_types', true);
     const itemTypeentrypoint = this.apiService
-      .getApiEntryPointByType('item-type', true);
+      .getApiEntryPointByType('item_types', true);
     const mapping = [];
     Object.keys(settings).forEach(function(key) {
       settings[key].forEach(element => {

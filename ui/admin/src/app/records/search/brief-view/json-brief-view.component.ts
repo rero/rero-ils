@@ -4,7 +4,7 @@ import { BriefView } from './brief-view';
 @Component({
   selector: 'app-json-brief-view',
   template: `
-  {{ record | json }}
+  <div>{{ record | json }}</div>
   `,
   styles: []
 })

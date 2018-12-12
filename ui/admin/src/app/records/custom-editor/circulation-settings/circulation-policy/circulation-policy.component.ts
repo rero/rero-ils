@@ -47,8 +47,7 @@ export class CirculationPolicyComponent implements OnInit {
               .subscribe((circulation: CirculationPolicy) => {
                 circulation['organisation']['$ref'] = this.organisationService
                 .getApiEntryPointRecord(user.library.organisation.pid);
-                this.circulationPolicy = (pid) ?
-                new CirculationPolicy(circulation) : circulation;
+                this.circulationPolicy = circulation;
 
                 // Load all required elements
                 this.circulationPolicyService

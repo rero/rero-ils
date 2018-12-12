@@ -5,7 +5,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 
-import { LibraryExceptionFormService } from './library-exception-form.service';
+import { LibraryExceptionFormService } from '../library-exception-form.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -31,12 +31,10 @@ export class ExceptionDatesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.exceptionDate) {
       this.form.populate(this.exceptionDate);
     }
   }
-
 
   onSubmit() {
     this.bsModalRef.hide();
@@ -67,8 +65,6 @@ export class ExceptionDatesEditComponent implements OnInit {
     }
   }
 
-
-
   addTime(): void {
     this.form.times.push(this.form.buildTimes());
   }
@@ -76,7 +72,6 @@ export class ExceptionDatesEditComponent implements OnInit {
   deleteTime(time_index): void {
     this.form.times.removeAt(time_index);
   }
-
 
   get title() { return this.form.title; }
   get is_period() { return this.form.is_period; }

@@ -34,11 +34,15 @@ then
 fi
 
 set -e
-
 pipenv check -i 36759
 pipenv run flask utils check_json tests rero_ils/modules data
 pipenv run pydocstyle rero_ils tests docs
 pipenv run isort -rc -c -df --skip ui
+
+# syntax check for typescript
+CWD=`pwd`
+cd ui/admin; pipenv run npm run lint; cd -
+
 pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/admin/node_modules*,rero_ils/static/js/rero_ils/admin*"
 pipenv run sphinx-build -qnNW docs docs/_build/html
 pipenv run test

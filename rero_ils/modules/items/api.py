@@ -27,6 +27,7 @@
 from datetime import datetime, timezone
 from functools import partial, wraps
 
+from flask import current_app
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
 from invenio_circulation.errors import CirculationException, \
@@ -138,9 +139,9 @@ def add_loans_parameters_and_flush_indexes(function):
                 'transaction_location_pid', kwargs.get('pickup_location_pid'))
         elif not kwargs.get('transaction_location_pid'):
             kwargs.setdefault(
-                'transaction_location_pid', Library.get_record_by_pid(
-                    current_patron.replace_refs()['library']['pid']
-                ).get_pickup_location_pid())
+                'transaction_location_pid',
+                Patron.get_librarian_pickup_location_pid()
+            )
 
         item, action_applied = function(item, loan, *args, **kwargs)
 
@@ -161,7 +162,33 @@ class Item(IlsRecord):
     fetcher = item_id_fetcher
     provider = ItemProvider
 
-    default_duration = 30
+    statuses = {
+        'ITEM_ON_LOAN': 'on_loan',
+        'ITEM_AT_DESK': 'at_desk',
+        'ITEM_IN_TRANSIT_FOR_PICKUP': 'in_transit',
+        'ITEM_IN_TRANSIT_TO_HOUSE': 'in_transit',
+    }
+
+    def dumps_for_circulation(self):
+        """."""
+        item = self.replace_refs()
+        data = item.dumps()
+
+        document = Document.get_record_by_pid(item['document']['pid'])
+        doc_data = document.dumps()
+        data['document']['title'] = doc_data['title']
+
+        location = Location.get_record_by_pid(item['location']['pid'])
+        loc_data = location.dumps()
+        data['location']['name'] = loc_data['name']
+        data['actions'] = list(self.actions)
+        data['available'] = self.available
+        # data['number_of_requests'] = self.number_of_requests()
+        for loan in self.get_requests():
+            data.setdefault('pending_loans',
+                            []).append(loan.dumps_for_circulation())
+
+        return data
 
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
@@ -226,7 +253,7 @@ class Item(IlsRecord):
         # check library exists
         lib = Library.get_record_by_pid(library_pid)
         if not lib:
-            raise Exception(msg='Invalid Library PID')
+            raise Exception('Invalid Library PID')
 
         results = current_circulation.loan_search\
             .source(['loan_pid'])\
@@ -237,6 +264,37 @@ class Item(IlsRecord):
             .scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.loan_pid)
+
+    @classmethod
+    def get_checked_out_loans(cls, patron_pid):
+        """."""
+        # check library exists
+        patron = Patron.get_record_by_pid(patron_pid)
+        if not patron:
+            raise Exception('Invalid Patron PID')
+
+        results = current_circulation.loan_search\
+            .source(['loan_pid'])\
+            .params(preserve_order=True)\
+            .filter('term', state='ITEM_ON_LOAN')\
+            .filter('term', patron_pid=patron_pid)\
+            .sort({'transaction_date': {'order': 'asc'}})\
+            .scan()
+        for loan in results:
+            yield Loan.get_record_by_pid(loan.loan_pid)
+
+    @classmethod
+    def get_checked_out_items(cls, patron_pid):
+        """."""
+        loans = cls.get_checked_out_loans(patron_pid)
+        returned_item_pids = []
+        for loan in loans:
+            item_pid = loan.get('item_pid')
+            item = Item.get_record_by_pid(item_pid)
+            if item.status == ItemStatus.ON_LOAN and \
+                    item_pid not in returned_item_pids:
+                returned_item_pids.append(item_pid)
+                yield item, loan
 
     def get_requests(self):
         """Return any pending, item_on_transit, item_at_desk loans."""
@@ -278,6 +336,41 @@ class Item(IlsRecord):
         """Shortcut for item status."""
         return self.get('status', '')
 
+    @property
+    def actions(self):
+        """Get all available actions."""
+        transitions = current_app.config.get('CIRCULATION_LOAN_TRANSITIONS')
+        loan = get_loan_for_item(self.pid)
+        actions = set()
+        if loan:
+            for transition in transitions.get(loan.get('state')):
+                action = transition.get('trigger')
+                actions.add(action)
+        # default actions
+        if not loan:
+            for transition in transitions.get('CREATED'):
+                action = transition.get('trigger')
+                actions.add(action)
+        # remove unsupported action
+        for action in ['cancel', 'request']:
+            try:
+                actions.remove(action)
+                # not yet supported
+                # actions.add('cancel_loan')
+            except KeyError:
+                pass
+        # rename
+        try:
+            actions.remove('extend')
+            actions.add('extend_loan')
+        except KeyError:
+            pass
+        # if self['status'] == ItemStatus.MISSING:
+        #     actions.add('return_missing')
+        # else:
+        #     actions.add('lose')
+        return actions
+
     def reindex(self, forceindex=False):
         """Reindex record."""
         if forceindex:
@@ -287,15 +380,9 @@ class Item(IlsRecord):
 
     def status_update(self, dbcommit=False, reindex=False, forceindex=False):
         """Update item status."""
-        statuses = {
-            'ITEM_ON_LOAN': 'on_loan',
-            'ITEM_AT_DESK': 'at_desk',
-            'ITEM_IN_TRANSIT_FOR_PICKUP': 'in_transit',
-            'ITEM_IN_TRANSIT_TO_HOUSE': 'in_transit',
-        }
         loan = get_loan_for_item(self.pid)
         if loan:
-            self['status'] = statuses[loan.get('state')]
+            self['status'] = self.statuses[loan.get('state')]
         else:
             if self['status'] != ItemStatus.MISSING:
                 self['status'] = ItemStatus.ON_SHELF
@@ -378,17 +465,18 @@ class Item(IlsRecord):
     @classmethod
     def item_location_retriever(cls, item_pid, **kwargs):
         """Get item location."""
-        location_pid = ''
-        item = cls.get_record_by_pid(item_pid).replace_refs()
+        # TODO: for requests we probably need the transation_location_pid
+        #       to deal with multiple pickup locations for a library
+        item = cls.get_record_by_pid(item_pid)
         if item:
-            location_pid = item.get('location', {}).get('pid')
-        return location_pid
+            library = item.get_library()
+            return library.get_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
         """Validate item request."""
         loan = current_circulation.circulation.trigger(
-            current_loan, **dict(kwargs, trigger='validate')
+            current_loan, **dict(kwargs, trigger='validate_request')
         )
         return self, {
             LoanAction.VALIDATE: loan
@@ -454,6 +542,11 @@ class Item(IlsRecord):
             LoanAction.CANCEL: loan
         }
 
+    def get_owning_pickup_location_pid(self):
+        """."""
+        library = self.get_library()
+        return library.get_pickup_location_pid()
+
     def automatic_checkin(self):
         """Apply circ transactions for item."""
         if self.status == ItemStatus.ON_LOAN:
@@ -461,11 +554,29 @@ class Item(IlsRecord):
             return self.checkin(loan_pid=loan_pid)
 
         elif self.status == ItemStatus.IN_TRANSIT:
+            do_receive = False
             loan_pid = self.get_loan_pid_with_item_in_transit(self.pid)
-            return self.receive(loan_pid=loan_pid)
+            loan = Loan.get_record_by_pid(loan_pid)
+            transaction_location_pid = \
+                Patron.get_librarian_pickup_location_pid()
+            if loan['state'] == 'ITEM_IN_TRANSIT_FOR_PICKUP' and \
+                    loan['pickup_location_pid'] == transaction_location_pid:
+                do_receive = True
+            if loan['state'] == 'ITEM_IN_TRANSIT_TO_HOUSE' and \
+                    self.get_owning_pickup_location_pid() \
+                    == transaction_location_pid:
+                do_receive = True
+            if do_receive:
+                return self.receive(loan_pid=loan_pid)
+            return self, {
+                LoanAction.NO: None
+            }
 
         elif self.status == ItemStatus.MISSING:
             return self.return_missing()
+        return self, {
+            LoanAction.NO: None
+        }
 
     def lose(self):
         """Lose the given item.

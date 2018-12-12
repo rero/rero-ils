@@ -1,4 +1,4 @@
-<div 
+<div
     [class]="options?.htmlClass || ''">
     <label *ngIf="options?.title"
     [attr.for]="'control' + layoutNode?._id"
@@ -31,7 +31,7 @@
 [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
 [attr.readonly]="options?.readonly ? 'readonly' : null"
 [attr.required]="options?.required"
-[class]="options?.fieldHtmlClass || ''"
+[class]="options?.labelHtmlClass || ''"
 [disabled]="controlDisabled || options?.readonly"
 [id]="'control' + layoutNode?._id"
 [name]="controlName"

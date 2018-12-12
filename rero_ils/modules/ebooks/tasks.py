@@ -40,7 +40,7 @@ def create_records(records):
     n_created = 0
     for record in records:
         record['$schema'] = \
-            'http://ils.test.rero.ch/schema/documents/ebook-v0.0.1.json'
+            'https://ils.rero.ch/schema/documents/ebook-v0.0.1.json'
 
         # check if already harvested
         oai_id = record.get('identifiers').get('oai')

@@ -43,6 +43,7 @@ from ...permissions import login_and_librarian
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
+from ..organisations.api import Organisation
 from ..patrons.api import Patron
 from .dojson.contrib.unimarctojson import unimarctojson
 
@@ -256,8 +257,15 @@ def item_library_pickup_locations(item):
     location_pid = item.replace_refs()['location']['pid']
     location = Location.get_record_by_pid(location_pid)
     library_pid = location.replace_refs()['library']['pid']
-    library = Library.get_record_by_pid(library_pid)
-    return [Location.get_record_by_pid(library.get_pickup_location_pid())]
+    library = Library.get_record_by_pid(library_pid).replace_refs()
+    organisation = Organisation.get_record_by_pid(
+        library['organisation']['pid'])
+    locations = []
+    for library in organisation.get_libraries():
+        location = Location.get_record_by_pid(
+            library.get_pickup_location_pid())
+        locations.append(location)
+    return locations
 
 
 @blueprint.app_template_filter()

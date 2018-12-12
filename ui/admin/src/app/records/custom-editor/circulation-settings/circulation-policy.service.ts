@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
-
+import { forkJoin, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CirculationPolicy } from './circulation-policy';
 import { ItemTypeService, PatronTypeService, ApiService, cleanDictKeys } from '@app/core';
 import { RecordsService } from '@app/records/records.service';
@@ -28,20 +28,20 @@ export class CirculationPolicyService {
 
   loadOrCreateCirculationPolicy(pid: number = null) {
     if (pid) {
-      return this.client.get<CirculationPolicy>(
-        this.apiService.getApiEntryPointByType('circulation-policy') + pid,
+      return this.client.get<any>(
+        this.apiService.getApiEntryPointByType('circ_policies') + pid,
         httpOptions
+      ).pipe(
+        map(data => new CirculationPolicy(data.metadata))
       );
     } else {
-      return Observable.create(observer => {
-        observer.next(new CirculationPolicy());
-      });
+      return of(new CirculationPolicy());
     }
   }
 
   loadAllCirculationPolicy() {
     return this.client.get(
-      this.apiService.getApiEntryPointByType('circulation-policy'),
+      this.apiService.getApiEntryPointByType('circ_policies'),
       httpOptions
     );
   }

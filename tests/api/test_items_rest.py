@@ -219,8 +219,7 @@ def test_items_simple_loan(client, user_librarian_no_email,
     assert not item.is_loaned_to_patron(user_patron_no_email.get('barcode'))
     assert item.can_delete
     assert item.available
-    # document_item_url = url_for(
-    # 'invenio_records_rest.doc_item', pid_value='1')
+
     # checkout
     res = client.post(
         url_for('api_item.checkout'),
@@ -243,6 +242,15 @@ def test_items_simple_loan(client, user_librarian_no_email,
     assert item.is_loaned_to_patron(user_patron_no_email.get('barcode'))
     assert not item.available
     assert not item.can_delete
+
+    # get loans for the patron
+    res = client.get(
+        url_for('api_item.loans', patron_pid=patron_pid)
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data.get('hits').get('total') == 1
+
     # checkin
     res = client.post(
         url_for('api_item.checkin'),
@@ -759,6 +767,7 @@ def test_items_automatic_checkin(client, user_librarian_no_email,
         ),
         content_type='application/json',
     )
+
     assert res.status_code == 200
     data = get_json(res)
     item_data = data.get('metadata')
