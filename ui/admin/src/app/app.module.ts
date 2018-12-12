@@ -20,7 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     if (environment.production) {
       assets_prefix = '/static/js/rero_ils/admin/';
     }
-    return new TranslateHttpLoader(http, assets_prefix+'assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, assets_prefix + 'assets/i18n/', '.json');
 }
 
 

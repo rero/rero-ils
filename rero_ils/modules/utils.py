@@ -82,7 +82,7 @@ def clean_dict_keys(data):
     if isinstance(data, list):
         to_return = []
         for item in data:
-            if item is False:
+            if item is False or item == []:
                 to_return.append(item)
             else:
                 tmp = clean_dict_keys(item)
@@ -94,7 +94,7 @@ def clean_dict_keys(data):
     if isinstance(data, dict):
         to_return = {}
         for k, v in data.items():
-            if v is False:
+            if v is False or v == []:
                 to_return[k] = v
             else:
                 tmp = clean_dict_keys(v)

@@ -36,7 +36,7 @@ fi
 set -e
 
 pipenv check -i 36437
-pipenv run flask utils check_json tests rero_ils data
+pipenv run flask utils check_json tests rero_ils/modules data
 pipenv run pydocstyle rero_ils tests docs
 pipenv run isort -rc -c -df --skip ui
 pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/admin/node_modules*,rero_ils/static/js/rero_ils/admin*"

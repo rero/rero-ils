@@ -52,7 +52,7 @@ export class LibraryFormService {
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
     const openings = [];
     for (let step = 0; step < 7; step++) {
-      openings.push(this.buildOpeningHours(false, days[step], [this.buildTimes()]));
+      openings.push(this.buildOpeningHours(false, days[step], this.fb.array([this.buildTimes()])));
     }
     return openings;
   }
@@ -88,31 +88,14 @@ export class LibraryFormService {
     });
   }
 
-
   populate(library: Library) {
     this.form.patchValue({
       name: library.name,
       address:  library.address,
       email: library.email,
-      code: library.code
+      code: library.code,
+      opening_hours: library.opening_hours
     });
-
-    const openings = new FormArray([]);
-    library.opening_hours.forEach(opening => {
-      const hours = new FormArray([]);
-      if (opening.times.length === 0) {
-        opening.times.push({
-          start_time: '00:00',
-          end_time: '00:00'
-        });
-      }
-      opening.times.forEach(time => {
-        hours.push(this.buildTimes(time.start_time, time.end_time));
-      });
-
-      openings.push(this.buildOpeningHours(opening.is_open, opening.day, hours));
-    });
-    this.form.setControl('opening_hours', openings);
   }
 
   setId(id) { this.form.value.id = id; }

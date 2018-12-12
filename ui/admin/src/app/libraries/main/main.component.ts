@@ -20,14 +20,18 @@ export class MainComponent implements OnInit {
     public librariesService: LibrariesService
   ) {
     this.librariesService.currentLibrary.subscribe(
-      library => {this.library = library; }
+      library => { this.library = library; }
     );
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
         this.pid = params.pid;
+        if (params.pid !== undefined) {
+          this.librariesService.loadLibrary(this.pid);
+        } else {
+          this.librariesService.setCurrentLibrary(new Library());
+        }
     });
-    this.librariesService.loadLibrary(this.pid);
   }
 }

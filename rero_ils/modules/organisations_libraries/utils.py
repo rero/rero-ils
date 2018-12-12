@@ -66,16 +66,6 @@ def save_library(data, record_type, record_class, parent_pid=None):
         library = record_class.get_record_by_pid(pid)
         library.update(data, dbcommit=False, reindex=False)
     else:
-        if 'opening_hours' not in data:
-            data['opening_hours'] = [
-                {"day": "monday", "is_open": False, "times": []},
-                {"day": "tuesday", "is_open": False, "times": []},
-                {"day": "wednesday", "is_open": False, "times": []},
-                {"day": "thursday", "is_open": False, "times": []},
-                {"day": "friday", "is_open": False, "times": []},
-                {"day": "saturday", "is_open": False, "times": []},
-                {"day": "sunday", "is_open": False, "times": []}
-            ]
         library = record_class.create(data, dbcommit=False, reindex=False)
         organisation.add_library(library)
     library.dbcommit(reindex=True)

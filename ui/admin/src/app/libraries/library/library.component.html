@@ -3,7 +3,7 @@
   <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label required">Name</label>
     <div class="col-sm-10">
-      <input class="form-control" id="name" formControlName="name" required>
+      <input class="form-control" id="name" formControlName="name" placeholder="Please insert a name" required>
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
         <div *ngIf="name.errors.required">
           Name is required.
@@ -28,7 +28,7 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">Email</label>
     <div class="col-sm-10">
-      <input id="email" class="form-control" formControlName="email" required>
+      <input id="email" class="form-control" formControlName="email">
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
         <div *ngIf="email.errors.email">
           Email format is not correct.
@@ -39,7 +39,7 @@
   <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label required">Code</label>
     <div class="col-sm-10">
-      <input id="code" class="form-control" formControlName="code">
+      <input id="code" class="form-control" formControlName="code" placeholder="Please insert a code" required>
       <div *ngIf="code.invalid && (code.dirty || code.touched)" class="text-danger">
         <div *ngIf="code.errors.isTaken">
           Code is already taken.
@@ -61,13 +61,13 @@
             <div class="col-10">
               <ul class="list-unstyled mb-0">
                 <li formArrayName="times" *ngFor="let time of day.controls.times.controls; let t=index">
-                  <div [formGroupName]="t">
+                  <div [formGroupName]="t" class="mb-1">
                     <div class="form-row">
                       <div class="col-3">
-                        <input class="form-control mr-2 mb-1" formControlName="start_time" [readonly]="!day.value.is_open">
+                        <input class="form-control mr-2" formControlName="start_time" [readonly]="!day.value.is_open">
                       </div>
                       <div class="col-3">
-                        <input class="form-control mb-1" formControlName="end_time" [readonly]="!day.value.is_open">
+                        <input class="form-control" formControlName="end_time" [readonly]="!day.value.is_open">
                       </div>
                       <div class="col-6">
                         <button

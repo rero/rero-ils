@@ -63,7 +63,12 @@
           {%- endblock search_sort_select %}
           {%- block search_sort_order scoped %}
             {%- if record_type | resource_can_create and current_user | can_edit %}
-              <a href="{{url_for('%s.create_view' % record_type)}}" type="button" class="btn btn-success">{{_('Create')}}</a>
+              {# TODO: Change this to local template resource to customize the link #}
+              {%- if record_type == 'lib' %}
+                <a href="{{ url_for('libraries.index', path='new') }}" type="button" class="btn btn-success">{{_('Create')}}</a>
+              {% else %}
+                <a href="{{url_for('%s.create_view' % record_type)}}" type="button" class="btn btn-success">{{_('Create')}}</a>
+              {% endif %}
                 <!-- <reroils-export-csv></reroils-export-csv> -->
             {% endif %}
           {%- endblock search_sort_order %}

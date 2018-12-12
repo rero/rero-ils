@@ -27,32 +27,59 @@ export interface ExceptionDates {
 }
 
 export class Library {
-  $schema: string;
-  id: number;
-  pid: number;
-  name: string;
-  email: string;
-  address: string;
-  code: string;
+  $schema: string = null;
+  id: number = null;
+  pid: number = null;
+  name: string = null;
+  email: string = null;
+  address: string = null;
+  code: string = null;
   opening_hours: Array<OpeningHours>;
   exception_dates?: Array<ExceptionDates>;
 
   constructor(obj?: any) {
-    this.update(obj);
-    this.opening_hours = this.populateTimes(this.opening_hours);
-  }
-
-  populateTimes(openinghours) {
-    for (const hours in openinghours) {
-      if (openinghours[hours].times.length === 0) {
-        openinghours[hours].times.push({'start_time': '00:00', 'end_time': '00:00'});
-      }
+    this.$schema = 'https://ils.test.rero.ch/schema/libraries/library-v0.0.1.json';
+    this.createOpeningHours();
+    if (obj) {
+      this.update(obj);
     }
-    return openinghours;
   }
 
   update(obj) {
     Object.assign(this, obj);
+    this.cleanOpeningHours(this.opening_hours);
+  }
+
+  createOpeningHours() {
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const openings = [];
+    let step = 0;
+    for (step = 0; step < 7; step++) {
+      openings.push({
+        'day': days[step],
+        'is_open': false,
+        'times': []
+      });
+    }
+    this.opening_hours = openings;
+  }
+
+  cleanOpeningHours(openingHours) {
+    openingHours.forEach(opening => {
+      const times = [];
+      for (let step = 0; step < opening.times.length; step++) {
+        if (
+          opening.times[step].start_time !== '00:00'
+          && opening.times[step].end_time !== '00:00'
+        ) {
+          times.push(opening.times[step]);
+        }
+      }
+      if (times.length === 0) {
+        opening.is_open = false;
+      }
+      opening.times = times;
+    });
   }
 
   deleteException(index) {
