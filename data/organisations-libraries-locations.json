@@ -39,6 +39,10 @@
             "times": [
               {
                 "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
                 "end_time": "19:00"
               }
             ]
@@ -49,6 +53,10 @@
             "times": [
               {
                 "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
                 "end_time": "19:00"
               }
             ]
@@ -65,13 +73,31 @@
           },
           {
             "day": "thursday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "19:00"
+              }
+            ]
           },
           {
             "day": "friday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "21:00"
+              }
+            ]
           },
           {
             "day": "saturday",
@@ -82,6 +108,37 @@
             "day": "sunday",
             "is_open": false,
             "times": []
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Vacances de No\u00ebl",
+            "is_open": false,
+            "start_date": "2018-12-22",
+            "end_date": "2019-01-06"
+          },
+          {
+            "title": "Vacances de Carnaval",
+            "is_open": false,
+            "start_date": "2019-03-01",
+            "end_date": "2019-03-11"
+          },
+          {
+            "title": "1er mai",
+            "is_open": false,
+            "start_date": "2019-05-01",
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "title": "Vacances d'\u00e9t\u00e9",
+            "is_open": false,
+            "start_date": "2019-07-15",
+            "end_date": "2019-08-15"
           }
         ]
       },
@@ -110,16 +167,21 @@
           },
           {
             "day": "tuesday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "12:00"
+              }
+            ]
           },
           {
             "day": "wednesday",
             "is_open": true,
             "times": [
               {
-                "start_time": "07:00",
-                "end_time": "19:00"
+                "start_time": "09:00",
+                "end_time": "12:00"
               }
             ]
           },
@@ -128,8 +190,8 @@
             "is_open": true,
             "times": [
               {
-                "start_time": "07:00",
-                "end_time": "19:00"
+                "start_time": "09:00",
+                "end_time": "12:00"
               }
             ]
           },
@@ -138,8 +200,8 @@
             "is_open": true,
             "times": [
               {
-                "start_time": "07:00",
-                "end_time": "19:00"
+                "start_time": "09:00",
+                "end_time": "17:00"
               }
             ]
           },
@@ -241,48 +303,98 @@
         "opening_hours": [
           {
             "day": "monday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
           },
           {
             "day": "tuesday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
           },
           {
             "day": "wednesday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
           },
           {
             "day": "thursday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
           },
           {
             "day": "friday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              }
+            ]
           },
           {
             "day": "saturday",
             "is_open": true,
             "times": [
               {
-                "start_time": "07:00",
-                "end_time": "19:00"
+                "start_time": "09:00",
+                "end_time": "11:00"
               }
             ]
           },
           {
             "day": "sunday",
-            "is_open": true,
-            "times": [
-              {
-                "start_time": "07:00",
-                "end_time": "19:00"
-              }
-            ]
+            "is_open": false,
+            "times": []
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Inventaire mensuel",
+            "is_open": false,
+            "start_date": "2019-01-03",
+            "repeat": {
+              "interval": 1,
+              "period": "monthly",
+              "data": [
+                8
+              ]
+            }
           }
         ]
       },
@@ -312,8 +424,13 @@
         "opening_hours": [
           {
             "day": "monday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
           },
           {
             "day": "tuesday",
@@ -327,8 +444,13 @@
           },
           {
             "day": "thursday",
-            "is_open": false,
-            "times": []
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
           },
           {
             "day": "friday",
@@ -337,23 +459,49 @@
           },
           {
             "day": "saturday",
-            "is_open": true,
-            "times": [
-              {
-                "start_time": "07:00",
-                "end_time": "19:00"
-              }
-            ]
+            "is_open": false,
+            "times": []
           },
           {
             "day": "sunday",
             "is_open": true,
             "times": [
               {
-                "start_time": "07:00",
-                "end_time": "19:00"
+                "start_time": "14:00",
+                "end_time": "18:00"
               }
             ]
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Vacances de No\u00ebl",
+            "is_open": false,
+            "start_date": "2018-12-22",
+            "end_date": "2019-01-15"
+          },
+          {
+            "title": "Vacances de Carnaval",
+            "is_open": false,
+            "start_date": "2019-03-01",
+            "end_date": "2019-03-11"
+          },
+          {
+            "title": "Assembl\u00e9e annuelle",
+            "is_open": true,
+            "start_date": "2019-09-15",
+            "times": [
+              {
+                "start_time": "14:00",
+                "end_time": "16:00"
+              }
+            ]
+          },
+          {
+            "title": "Vacances d'\u00e9t\u00e9",
+            "is_open": false,
+            "start_date": "2019-07-01",
+            "end_date": "2019-08-22"
           }
         ]
       }
