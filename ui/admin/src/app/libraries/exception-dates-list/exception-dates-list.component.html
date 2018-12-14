@@ -3,7 +3,7 @@
     type="submit"
     class="btn btn-success"
     (click)="addException()"
-  ><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+  ><i class="fa fa-plus" aria-hidden="true"></i> {{ 'Add' | translate }}</button>
 </div>
 <table class="table table-striped" *ngIf="library">
   <tbody>
@@ -14,10 +14,10 @@
       </td>
       <td>
         <div *ngIf="exception.is_open; else elseOpen">
-          <i class="fa fa-check text-success"></i> Open
+          <i class="fa fa-check text-success"></i> {{ 'Open' | translate }}
         </div>
         <ng-template #elseOpen>
-            <i class="fa fa-times text-danger"></i> Closed
+            <i class="fa fa-times text-danger"></i> {{ 'Closed' | translate }}
           </ng-template>
       </td>
       <td>
@@ -27,10 +27,6 @@
         <div *ngFor="let time of exception.times">
           {{ time.start_time }}-{{ time.end_time }}
         </div>
-        <!-- <div *ngIf="exception.repeat; else elseRepeat">
-          {{ exception.repeat.period }}={{ exception.repeat.interval }}
-        </div>
-        <ng-template #elseRepeat>unique</ng-template> -->
         <div *ngIf="exception.repeat">
           <i class="fa fa-repeat" aria-hidden="true" title="repeated"></i> {{ exception.repeat.period }}={{ exception.repeat.interval }}
         </div>

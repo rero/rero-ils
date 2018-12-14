@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { WeekDays } from '../shared/week-days';
 
 export interface OpeningHours {
   day: string;
@@ -38,7 +39,6 @@ export class Library {
   exception_dates?: Array<ExceptionDates>;
 
   constructor(obj?: any) {
-    this.$schema = 'https://ils.test.rero.ch/schema/libraries/library-v0.0.1.json';
     this.createOpeningHours();
     if (obj) {
       this.update(obj);
@@ -51,10 +51,9 @@ export class Library {
   }
 
   createOpeningHours() {
-    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const days = Object.keys(WeekDays);
     const openings = [];
-    let step = 0;
-    for (step = 0; step < 7; step++) {
+    for (let step = 0; step < 7; step++) {
       openings.push({
         'day': days[step],
         'is_open': false,
