@@ -1,19 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, Inject, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MylibraryComponent } from './mylibrary/mylibrary.component';
-
-import { UserService } from './user.service';
-
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as moment from 'moment';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { deLocale, enGbLocale, frLocale, itLocale } from 'ngx-bootstrap/locale';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { MylibraryComponent } from './mylibrary/mylibrary.component';
+import { UserService } from './user.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
     let assets_prefix = '/';
@@ -26,35 +27,50 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-  AppComponent,
-  MylibraryComponent,
-  // ConfirmWindowComponent
+    AppComponent,
+    MylibraryComponent,
+    // ConfirmWindowComponent
   ],
   imports: [
-  BrowserModule,
-  AppRoutingModule,
-  HttpClientModule,
-  ModalModule.forRoot(),
-  AlertModule.forRoot(),
-  TranslateModule.forRoot({
-    loader: {
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
            provide: TranslateLoader,
            useFactory: HttpLoaderFactory,
            deps: [HttpClient]
-    }
-  })
+      }
+    })
   ],
   providers: [
-  UserService
+    UserService,
+    BsLocaleService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
+  languages = {
+    'de': deLocale,
+    'en': enGbLocale,
+    'fr': frLocale,
+    'it': itLocale
+  };
+
   constructor(
     private translate: TranslateService,
-    @Inject(LOCALE_ID) locale) {
+    private localeService: BsLocaleService,
+    @Inject(LOCALE_ID) locale
+  ) {
       moment.locale(locale);
       translate.setDefaultLang('en');
       translate.use(locale);
+      for (const [key, value] of Object.entries(this.languages)) {
+        defineLocale(key, value);
+      }
   }
 }

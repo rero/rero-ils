@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { LibraryFormService } from '../library-form.service';
 import { LibrariesService } from '../libraries.service';
 import { Library } from '../library';
 import { BrowserService } from '../../browser.service';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'libraries-library',
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
-export class LibraryComponent {
+export class LibraryComponent implements OnInit {
 
   public library: Library;
 
@@ -20,15 +21,20 @@ export class LibraryComponent {
   constructor(
     private browser: BrowserService,
     public librariesService: LibrariesService,
-    public libraryForm: LibraryFormService
-  ) {
-    this.librariesService.currentLibrary.subscribe(
-      library => {
-        this.library = library;
-        this.libraryForm.populate(library);
-        this.libForm = this.libraryForm.form;
-      }
-    );
+    public libraryForm: LibraryFormService,
+    public userService: UserService
+  ) { }
+
+  ngOnInit() {
+    this.userService.loggedUser.subscribe(user => {
+      this.librariesService.currentLibrary.subscribe(
+        library => {
+          this.library = library;
+          this.libraryForm.populate(library);
+          this.libForm = this.libraryForm.form;
+        }
+      );
+    });
   }
 
   get name() { return this.libraryForm.name; }
@@ -55,9 +61,5 @@ export class LibraryComponent {
 
   deleteTime(day_index, time_index): void {
     this.libraryForm.deleteTime(day_index, time_index);
-  }
-
-  log(data) {
-    console.log(data);
   }
 }

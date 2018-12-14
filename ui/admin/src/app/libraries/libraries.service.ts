@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
@@ -46,19 +46,21 @@ export class LibrariesService {
   }
 
   checkIfCodeAlreadyTaken(code: string): Observable<Boolean> {
-    return this.client.get<any>(
-        this.librariesUrl + '/?q=code:' + code +
-        '&libraries.code:' + this.loggedUser.organisation_pid +
-        '&size=0'
-      ).pipe(map(response => {
-        if (
-          this.currentLibrary === null
-          || this.currentLibrary.getValue().code !== code
-        ) {
-          return response.hits.total >= 1;
+    if (this.loggedUser) {
+      return this.client.get<any>(
+          this.librariesUrl + '/?q=code:' + code +
+          '&libraries.code:' + this.loggedUser.organisation_pid +
+          '&size=0'
+        ).pipe(map(response => {
+          if (
+            this.currentLibrary === null
+            || this.currentLibrary.getValue().code !== code
+          ) {
+            return response.hits.total >= 1;
+          }
         }
-      }
-    ));
+      ));
+    }
   }
 
   save(library: Library) {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, LOCALE_ID, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { FormArray, FormGroup } from '@angular/forms';
@@ -23,11 +23,12 @@ export class ExceptionDatesEditComponent implements OnInit {
       public localeService: BsLocaleService,
       public bsModalRef: BsModalRef,
       public form: LibraryExceptionFormService,
-      public librariesService: LibrariesService
+      public librariesService: LibrariesService,
+      @Inject(LOCALE_ID) locale
   ) {
     this.form.build();
     this.exceptionForm = this.form.form;
-    this.localeService.use('en');
+    this.localeService.use(locale);
   }
 
   ngOnInit() {

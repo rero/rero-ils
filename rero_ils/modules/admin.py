@@ -231,6 +231,14 @@ class ResourceView(BaseView):
         record_type = self.endpoint
         record_class = cfg.get('record_class')
         parent_pid = request.args.get('parent_pid')
+        data = request.get_json()
+        if data['$schema'] is None:
+            data['$schema'] = 'http://{jsonhost}{jsonpath}/{libschema}'.format(
+                jsonhost=current_app.config['JSONSCHEMAS_HOST'],
+                jsonpath=current_app.config['JSONSCHEMAS_ENDPOINT'],
+                libschema=current_app.config
+                ['RERO_ILS_RESOURCES_ADMIN_OPTIONS'][record_type]['schema']
+            )
         if not record_class:
             flash(
                 _('Record class configuration does not exists for %s.' %
@@ -242,7 +250,7 @@ class ResourceView(BaseView):
             cfg.get('save_record', save_record))
         try:
             _next, pid = _save_record(
-                request.get_json(), record_type, record_class, parent_pid)
+                data, record_type, record_class, parent_pid)
             message = {
                 'pid': pid,
                 'next': _next
