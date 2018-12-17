@@ -1,107 +1,169 @@
-{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+{# -*- coding: utf-8 -*-
 
-{%- block page_body %}
-{% set item_dumps = record.dumps() %}
+  This file is part of RERO ILS.
+  Copyright (C) 2018 RERO.
 
-<div class="container search-page">
-  {% include('rero_ils/_item_head.html') %}
-<!-- Circulations -->
-{% if record.item_status %}
-  {% if record.item_status == 'in_transit' %}
-  <div class='reroils-items row'>
-    <div class="col-sm-12">
-      <hr>
-      <h4>{{ _('In Transit') }}</h4>
-    </div>
-  </div>
-  {% endif %}
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
 
-  {% if record.item_status == 'on_loan' %}
-  <div class='reroils-items row'>
-    <div class="col-sm-12">
-      <hr>
-      <h4>{{ _('Loaned by') }}</h4>
-    </div>
-  </div>
-  <table class="table table-striped table-sm">
-    <thead>
-      <tr>
-        <th class="col-md-8" scope="col">{{ _('Patron') }}</th>
-        <th class="col-md-2" scope="col">{{ _('Due date') }}</th>
-        <th class="col-md-2" scope="col">{{ _('Renewals') }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% set patron = record.pid|get_patron_from_checkout_item_pid %}
-      {% set holding = record.pid|get_checkout_loan_for_item %}
-      {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
-      <tr>
-        <td>
-          <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
-        </td>
-        <td>
-          {{ holding.end_date|format_date(
-            format='short_date',
-            locale=current_i18n.locale.language
-          ) }}
-        </td>
-        {% if holding.extension_count %}
-            <td>{{ holding.extension_count }}</td>
-        {% else %}
-            <td>0</td>
-        {% endif %}
-      </tr>
-    </tbody>
-  </table>
-  {% endif %}
-
-  {% if item_dumps.requests_count > 0 %}
-    <div class='reroils-items row'>
-      <div class="col-sm-12">
-        <hr>
-        <h4>{{ _('Pending') }} ({{ item_dumps.requests_count }})</h4>
+#}
+{% from 'rero_ils/macros/macro.html' import dl %}
+{%- extends 'rero_ils/page.html' %}
+{% set data = record.dumps() %}
+{%- block body %}
+  <header class="row">
+    <!-- TODO: Add cover -->
+    <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
+      <div class="thumb">
+        <figure class="mb-0">
+          <img class="img-responsive border border-light" src="{{ url_for('static', filename='images/icon_') }}{{ data.document_type }}.png">
+          <figcaption class="text-center">{{ _(data.document_type) }}</figcaption>
+        </figure>
       </div>
     </div>
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th class="col-md-4" scope="col">{{ _('Patron') }}</th>
-          <th class="col-md-4" scope="col">{{ _('Pickup library') }}</th>
-          <th class="col-md-2" scope="col">{{ _('Reservation date') }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for holding in record.requests %}
-          {% set patron = holding.patron_pid|get_patron_from_pid %}
-          {% set location_name = holding.pickup_location_pid|get_location_name_from_pid %}
-          {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
-          <tr>
-            <td>
-              {% if patron %}
-                <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
-              {% else %}
-                {{ _('No patron found!') }}
-              {% endif %}
-            </td>
-            <td>
-              <a href="{{ '/locations/' + holding.pickup_location_pid }}">{{ location_name }}</a>
-            </td>
-            <!-- TODO: task #554 change start_date to request_datetime -->
-            <td>
-              {% if holding.transaction_date %}
-                {{ holding.transaction_date|format_date(
-                  format='short_date',
-                  locale=current_i18n.locale.language
-                ) }}
-              {% else %}
-                {{ _('No Date') }}
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endif %}
-{% endif %}
-</div>
-{%- endblock %}
+   <h1 class="col-sm-11 col-md-11">{{ _('Barcode') }} {{ data.barcode }}</h1>
+  </header>
+  <section>
+    <!-- Item data -->
+    <section class="py-4">
+      <article>
+        <dl class="row mb-0">
+          {{ dl(_('Call number'), data.call_number) }}
+          {{ dl(_('Type'), data.item_type_name) }}
+          {{ dl(
+            _('Document'),
+            '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
+          }}
+          {{ dl(
+            _('Location'),
+            '<a href="'+ url_for('invenio_records_ui.loc', pid_value=data.location_pid) +'">' + data.location_name +'</a>')
+          }}
+          {{ dl(
+            _('Library'),
+            '<a href="'+ url_for('invenio_records_ui.lib', pid_value=data.library_pid) +'">' + data.library_name +'</a>')
+          }}
+          {% if record.item_status %}
+            {{ dl(_('Status'), _(record.item_status)) }}
+          {% endif %}
+        </dl>
+      </article>
+      <footer class="d-flex flex-column pt-2">
+        {% with
+          href_update=url_for('item.edit_view', pid=record.pid),
+          href_delete=url_for('item.delete_view', pid=record.pid),
+          json=record,
+          message=_("Item cannot be deleted: there are still transactions linked to this item.")
+        %}
+          {% include 'rero_ils/_editor_button_actions.html' %}
+        {% endwith %}
+      </footer>
+    </section>
+    <!-- Transactions data -->
+    {% if record.item_status == ('on_loan' or 'in_transit') or data.requests_count > 0 %}
+      <section class="pt-4 border-top">
+        <header>
+          <h3>{{ _('Transactions') }}</h3>
+        </header>
+        {% if record.item_status == 'in_transit' %}
+          <section class="pb-2">
+            <header class="row mt-2">
+              <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('In Transit') }}</h4>
+            </header>
+          </section>
+        {% endif %}
+        {% if record.item_status == 'on_loan' %}
+          <section>
+            <header class="row mt-2">
+              <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Borrowed by') }}</h4>
+            </header>
+            <article class="row">
+              <div class="col-xs-12 col-sm-10 col-md-11 offset-sm-2 offset-md-1 table-responsive">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th class="col-6" scope="col">{{ _('Patron') }}</th>
+                      <th class="col-3" scope="col">{{ _('Due date') }}</th>
+                      <th class="col-3" scope="col">{{ _('Renewals') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% set patron = record.pid|get_patron_from_checkout_item_pid %}
+                    {% set holding = record.pid|get_checkout_loan_for_item %}
+                    {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
+                    <tr>
+                      <td>
+                        <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</ a>
+                      </td>
+                      <td>
+                        {{ holding.end_date|format_date(
+                          format='short_date',
+                          locale=current_i18n.locale.language
+                        ) }}
+                      </td>
+                      <td>
+                        {% if holding.extension_count %}
+                          {{ holding.extension_count }}
+                        {% else %}
+                          0
+                        {% endif %}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        {% endif %}
+        {% if data.requests_count > 0 %}
+          <section>
+            <header class="row mt-2">
+              <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Pending') }} ({{ data.requests_count }})</h4>
+            </header>
+            <article class="row">
+              <div class="col-xs-12 col-sm-10 col-md-11 offset-sm-2 offset-md-1 table-responsive">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th class="col-6" scope="col">{{ _('Patron') }}</th>
+                      <th class="col-3" scope="col">{{ _('Pickup library') }}</th>
+                      <th class="col-3" scope="col">{{ _('Reservation date') }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for holding in record.requests %}
+                      {% set patron = holding.patron_pid|get_patron_from_pid %}
+                      {% set location_name = holding.pickup_location_pid|get_location_name_from_pid %}
+                      {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
+                      <tr>
+                        <td>
+                          {% if patron %}
+                            <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
+                          {% else %}
+                            {{ _('No patron found!') }}
+                          {% endif %}
+                        </td>
+                        <td>
+                          <a href="{{ '/locations/' + holding.pickup_location_pid }}">{{ location_name }}</a>
+                        </td>
+                        <td>
+                          {% if holding.transaction_date %}
+                            {{ holding.transaction_date|format_date(
+                              format='short_date',
+                              locale=current_i18n.locale.language
+                            ) }}
+                          {% else %}
+                            {{ _('No Date') }}
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </section>
+        {% endif %}
+      </section>
+    {% endif %}
+  </section>
+{%- endblock body %}

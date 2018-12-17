@@ -2,7 +2,7 @@
   <dt class="col-sm-3 offset-sm-2 offset-md-1">
     {{ title }}:
   </dt>
-  <dd class="col-sm-7 col-md-8">
+  <dd class="col-sm-7 col-md-8 mb-0">
     {{ content|safe }}
   </dd>
 {% endmacro %}
@@ -36,7 +36,7 @@
   </a>
 </div>
 
-<div id="source-{{ data.id }}" class="card bg-light collapse rero-ils-source-json">
-  <pre>{{ data|tojson_pretty }}</pre>
+<div id="source-{{ data.id }}" class="card bg-light collapse mt-2">
+  <pre class="text-muted p-2 mb-0" >{{ data|tojson_pretty }}</pre>
 </div>
 {% endmacro %}

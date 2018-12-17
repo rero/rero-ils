@@ -22,7 +22,7 @@
       <!-- Document -->
       <section class="py-4 border-bottom">
         <article class="">
-            <dl class="row rero-ils-dl">
+            <dl class="row mb-0">
             <!-- AUTHORS -->
             {% if data.authors|length > 0 %}
               {{ dl(_('Author'), data.authors|authors_format) }}
@@ -159,15 +159,23 @@
               {% endif %}
             </header>
             <article>
-              <dl class="row rero-ils-dl">
+              <dl class="row mb-0">
                 {% if item.call_number %}
                   {{ dl(_('Call Number'), item.call_number) }}
                 {% endif %}
                 {% if item_dump.library_name %}
-                  {{ dl(_('Library'),'<a href="'+ url_for('invenio_records_ui.lib', pid_value=item_dump.library_pid) +'">'+item_dump.library_name+'</a>') }}
+                  {% if current_user|can_edit %}
+                    {{ dl(_('Library'),'<a href="'+ url_for('invenio_records_ui.lib', pid_value=item_dump.library_pid) +'">'+item_dump.library_name+'</a>') }}
+                  {% else %}
+                    {{ dl(_('Library'), item_dump.library_name)}}
+                  {% endif %}
                 {% endif %}
                 {% if item_dump.location_name %}
-                  {{ dl(_('Location'),'<a href="'+ url_for('invenio_records_ui.loc', pid_value=item.location_pid) +'">'+item_dump.location_name+'</a> ') }}
+                  {% if current_user|can_edit %}
+                    {{ dl(_('Location'),'<a href="'+ url_for('invenio_records_ui.loc', pid_value=item.location_pid) +'">'+item_dump.location_name+'</a> ') }}
+                  {% else %}
+                    {{ dl(_('Location'), item_dump.location_name)}}
+                  {% endif %}
                 {% endif %}
                 {% if item|number_of_requests > 0 %}
                   {% if item|requested_this_item %}
@@ -224,7 +232,7 @@
         <h3 class="d-inline-block">{{ _('Export Formats') }}</h3>
         <ul class="list-inline d-inline-block">
         {%- for slug, fmt in formats %}
-          <li pt-2>
+          <li>
             <a href="{{ url_for('invenio_records_ui.doc_export', pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
               {{ fmt.title }}
             </a>

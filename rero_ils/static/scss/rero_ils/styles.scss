@@ -16,16 +16,11 @@ $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "../../node_modules/font-awesome/scss/font-awesome";
 
-/*@import "../invenio_theme/type";
-@import "../invenio_theme/navbar";
-@import "../invenio_theme/body";
-@import "../invenio_theme/cover";
-@import "../invenio_theme/header";
-@import "../invenio_theme/footer";
-@import "../invenio_theme/input-icon"; */
+@import "page";
 @import "header";
 @import "footer";
 @import "search";
+@import "detailed_views";
 @import "thumbnail";
 @import "frontpage";
 @import "patrons_profile";
