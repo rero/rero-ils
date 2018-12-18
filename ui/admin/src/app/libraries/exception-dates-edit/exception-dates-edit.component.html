@@ -71,11 +71,11 @@
       <div class="col-sm-10 mt-2">
         <span class="mb-2" *ngIf="exceptionForm.value.is_open">
           {{ 'Opened on' | translate }}
-          {{ exceptionForm.value.date | date : 'EEEE' }}
+          {{ exceptionForm.value.date | date : 'EEEE' | lowercase | translate }}
         </span>
         <span class="mb-2" *ngIf="!exceptionForm.value.is_open">
           {{ 'Closed on' | translate }}
-          {{ exceptionForm.value.date | date : 'EEEE' }}
+          {{ exceptionForm.value.date | date : 'EEEE' | lowercase | translate }}
         </span>
         <div class="mb-2">
           <em *ngIf="exceptionForm.value && exceptionForm.value.is_open">
@@ -111,7 +111,7 @@
                       type="button"
                       *ngIf="times.length == 1"
                       class="btn btn-light btn-sm"(click)="addTime()"
-                    ><i class="fa fa-plus" aria-hidden="true"></i> {{ 'period' || translate }}</button>
+                    ><i class="fa fa-plus" aria-hidden="true"></i> {{ 'period' | translate }}</button>
                   </div>
                 </div>
                 <div

@@ -28,7 +28,7 @@
           {{ time.start_time }}-{{ time.end_time }}
         </div>
         <div *ngIf="exception.repeat">
-          <i class="fa fa-repeat" aria-hidden="true" title="repeated"></i> {{ exception.repeat.period }}={{ exception.repeat.interval }}
+          <i class="fa fa-repeat" aria-hidden="true" title="repeated"></i> {{ exception.repeat.period | translate }}={{ exception.repeat.interval }}
         </div>
       </td>
       <td class="text-right">

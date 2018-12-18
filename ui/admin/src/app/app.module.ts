@@ -1,10 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, Inject, NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import * as moment from 'moment';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
@@ -21,7 +20,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     if (environment.production) {
       assets_prefix = '/static/js/rero_ils/admin/';
     }
-    return new TranslateHttpLoader(http, assets_prefix + 'assets/i18n/', '.json');
+    return new TranslateHttpLoader(
+      http,
+      assets_prefix + 'assets/i18n/',
+      '.json?cacheBuster=' + environment.cacheBusterHash
+    );
 }
 
 
@@ -39,15 +42,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     AlertModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
-           provide: TranslateLoader,
-           useFactory: HttpLoaderFactory,
-           deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
   ],
   providers: [
     UserService,
-    BsLocaleService
+    BsLocaleService,
+    TranslateService,
+    {
+      provide: LOCALE_ID,
+      deps: [TranslateService],
+      useFactory: (translate) => translate.currentLang
+    }
   ],
   bootstrap: [
     AppComponent
@@ -63,12 +72,9 @@ export class AppModule {
 
   constructor(
     private translate: TranslateService,
-    private localeService: BsLocaleService,
-    @Inject(LOCALE_ID) locale
+    private localeService: BsLocaleService
   ) {
-      moment.locale(locale);
       translate.setDefaultLang('en');
-      translate.use(locale);
       for (const [key, value] of Object.entries(this.languages)) {
         defineLocale(key, value);
       }
