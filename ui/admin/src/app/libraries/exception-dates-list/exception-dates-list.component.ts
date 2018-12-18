@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, LOCALE_ID } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ExceptionDatesEditComponent } from '../exception-dates-edit/exception-dates-edit.component';
 
@@ -13,7 +13,10 @@ export class ExceptionDatesListComponent implements OnInit {
 
   @Input() library;
 
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService,
+    @Inject(LOCALE_ID) locale: string
+    ) { }
 
   ngOnInit() {
   }

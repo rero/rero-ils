@@ -93,6 +93,7 @@
   "Address must be at least 4 characters long.": "Address must be at least 4 characters long.",
   "Email": "Email",
   "Email format is not correct.": "Email format is not correct.",
+  "Code": "Code",
   "Please insert a code": "Please insert a code",
   "Code is already taken.": "Code is already taken.",
   "Validating\u2026": "Validating\u2026",

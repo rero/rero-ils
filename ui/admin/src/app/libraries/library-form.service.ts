@@ -9,6 +9,7 @@ import { Library } from './library';
 import { TimeValidator } from '../shared/time-validator';
 import { LibraryCodeUniqueValidator } from '../shared/library-code-unique-validator';
 import { LibrariesService } from './libraries.service';
+import { WeekDays } from '../shared/week-days';
 
 @Injectable()
 export class LibraryFormService {
@@ -40,7 +41,8 @@ export class LibraryFormService {
           Validators.required
         ],
         asyncValidators: [
-          this.libraryCodeUniqueValidator.validate.bind(this.libraryCodeUniqueValidator)
+          // TODO: Debug multiple call on request
+          // this.libraryCodeUniqueValidator.validate.bind(this.libraryCodeUniqueValidator)
         ],
         updateOn: 'blur'
       }],
@@ -49,7 +51,7 @@ export class LibraryFormService {
   }
 
   createOpeningHours() {
-    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    const days = Object.keys(WeekDays);
     const openings = [];
     for (let step = 0; step < 7; step++) {
       openings.push(this.buildOpeningHours(false, days[step], this.fb.array([this.buildTimes()])));

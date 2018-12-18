@@ -93,6 +93,7 @@
 	"Address must be at least 4 characters long.": "",
 	"Email": "",
 	"Email format is not correct.": "",
+	"Code": "",
 	"Please insert a code": "",
 	"Code is already taken.": "",
 	"Validating…": "",

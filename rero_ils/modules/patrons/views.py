@@ -30,6 +30,7 @@ from flask import Blueprint, jsonify, render_template
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
+from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
 from ..documents.api import Document
@@ -100,7 +101,12 @@ def logger_user():
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
-    return jsonify(patron.dumps())
+    patronDumps = patron.dumps()
+    # TODO: Find a better way to transfert user settings
+    patronDumps['settings'] = {
+        'language': current_i18n.locale.language
+    }
+    return jsonify(patronDumps)
 
 
 @blueprint.app_template_filter('get_patron_from_barcode')

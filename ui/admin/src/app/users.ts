@@ -18,9 +18,14 @@ export class User {
   street: string;
   organisation_pid: string;
   barcode?: string;
+  settings: UserSettings;
   loans?: Loan[];
 
   constructor(obj?: any) {
     Object.assign(this, obj);
   }
+}
+
+export interface UserSettings {
+  language: string;
 }
