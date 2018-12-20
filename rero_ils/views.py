@@ -97,11 +97,11 @@ def init_menu():
     )
 
     item = current_menu.submenu('main.profile')
+    account = _('My Account')
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_email(current_user.email)
-        account = patron.initial
-    else:
-        account = _('My Account')
+        if patron:
+            account = patron.initial
     item.register(
         endpoint=None,
         text='{icon} <span class="{visible}">{account}</span>'.format(
