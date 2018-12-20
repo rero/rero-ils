@@ -17,6 +17,7 @@ invenio-oaiharvester = {ref = "v1.0.0a4", git = "https://github.com/inveniosoftw
 invenio-circulation = {ref = "master", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
 pipenv = "*"
 requests = ">=2.20.0"
+flask-oauthlib = "*"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
