@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -9,11 +10,17 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, enGbLocale, frLocale, itLocale } from 'ngx-bootstrap/locale';
+import localeDe from '@angular/common/locales/de';
+import localeEn from '@angular/common/locales/en';
+import localeFr from '@angular/common/locales/fr';
+import localeIt from '@angular/common/locales/it';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
+
+
 
 export function HttpLoaderFactory(http: HttpClient) {
     let assets_prefix = '/';
@@ -64,10 +71,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class AppModule {
   languages = {
-    'de': deLocale,
-    'en': enGbLocale,
-    'fr': frLocale,
-    'it': itLocale
+    'de': { ngx: deLocale,    angular: localeDe },
+    'en': { ngx: enGbLocale,  angular: localeEn },
+    'fr': { ngx: frLocale,    angular: localeFr },
+    'it': { ngx: itLocale,    angular: localeIt }
   };
 
   constructor(
@@ -76,7 +83,8 @@ export class AppModule {
   ) {
       translate.setDefaultLang('en');
       for (const [key, value] of Object.entries(this.languages)) {
-        defineLocale(key, value);
+        defineLocale(key, value.ngx);
+        registerLocaleData(value.angular, key);
       }
   }
 }

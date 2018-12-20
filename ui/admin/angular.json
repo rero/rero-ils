@@ -44,8 +44,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "aot": false,
-              "i18nLocale": "fr"
+              "aot": false
             },
             "production": {
               "fileReplacements": [
@@ -70,7 +69,6 @@
                   "maximumError": "5mb"
                 }
               ],
-              "i18nLocale": "en",
               "deployUrl": "/static/js/rero_ils/admin/",
               "outputPath": "../../rero_ils/static/js/rero_ils/admin"
             }
@@ -91,10 +89,6 @@
             },
             "fr": {
               "browserTarget": "admin:build:fr"
-            },
-            "proxy": {
-              "browserTarget": "admin:build:proxy",
-              "proxyConfig": "proxy.conf.json"
             }
           }
         },
