@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { UiSwitchModule } from 'ngx-toggle-switch';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { InMemoryLibrariesDataService } from './in-memory-libraries-data.service';
