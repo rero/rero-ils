@@ -1,9 +1,11 @@
 [
   {
-    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
     "name": "standard",
     "description": "Default standard circulation policy.",
-    "organisation_pid": "1",
+    "organisation": {
+      "$ref": "http://ils.rero.ch/api/organisations/1"
+    },
     "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
@@ -18,17 +20,21 @@
     ]
   },
   {
-    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
     "name": "short",
     "description": "Short circulation policy.",
-    "organisation_pid": "1",
+    "organisation": {
+      "$ref": "http://ils.rero.ch/api/organisations/1"
+    },
     "allow_checkout": true,
     "checkout_duration": 10,
     "allow_requests": true,
     "number_renewals": 1,
     "renewal_duration": 10,
     "policy_library_level": true,
-    "libraries": ["1"],
+    "libraries": [
+      "1"
+    ],
     "settings": [
       {
         "patron_type": "1",
@@ -37,10 +43,12 @@
     ]
   },
   {
-    "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
     "name": "on-site",
     "description": "On-site circulation policy.",
-    "organisation_pid": "1",
+    "organisation": {
+      "$ref": "http://ils.rero.ch/api/organisations/1"
+    },
     "allow_checkout": false,
     "allow_requests": false,
     "policy_library_level": false

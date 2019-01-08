@@ -17,7 +17,7 @@ export class MylibraryComponent implements OnInit {
   ngOnInit() {
     this.currentUser.loggedUser.subscribe(user => {
       if (user) {
-        this.router.navigate(['/libraries', user.library_pid]);
+        this.router.navigate(['/records/libraries', user.library.pid]);
       }
     });
   }

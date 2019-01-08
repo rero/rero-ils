@@ -25,16 +25,24 @@
 """API for manipulating libraries."""
 
 from datetime import datetime, timedelta
+from functools import partial
 
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
+from ..fetchers import id_fetcher
+from ..locations.api import LocationsSearch
+from ..minters import id_minter
 from ..utils import strtotime
-from .fetchers import library_id_fetcher
-from .minters import library_id_minter
 from .providers import LibraryProvider
+
+# minter
+library_id_minter = partial(id_minter, provider=LibraryProvider)
+
+# fetcher
+library_id_fetcher = partial(id_fetcher, provider=LibraryProvider)
 
 
 # define Python user-defined exceptions
@@ -60,16 +68,15 @@ class Library(IlsRecord):
     fetcher = library_id_fetcher
     provider = LibraryProvider
 
-    @classmethod
-    def get_all_library_names(cls):
-        """Get all library names."""
-        return [n.name for n in LibrariesSearch().filter(
-                "match_all").source(includes=['name']).scan()]
-
-    @classmethod
-    def get_all_libraries(cls):
-        """Get all libraries."""
-        return list(LibrariesSearch().filter("match_all").source().scan())
+    def get_pickup_location_pid(self):
+        """."""
+        results = LocationsSearch().filter(
+            'term', library__pid=self.pid).filter(
+            'term', is_pickup=True).source(['pid']).scan()
+        try:
+            return next(results).pid
+        except StopIteration:
+            return None
 
     def _is_betweentimes(self, time_to_test, times):
         """Test if time is between times."""
@@ -114,14 +121,14 @@ class Library(IlsRecord):
                     return True
         return datetime_to_test.date() == start_date
 
-    def _has_exception(self, open, date, exception_dates,
+    def _has_exception(self, _open, date, exception_dates,
                        day_only=False):
         """Test the day has an exception."""
-        exception = open
+        exception = _open
         for exception_date in exception_dates:
             start_date = parser.parse(exception_date['start_date'])
             repeat = exception_date.get('repeat')
-            if open:
+            if _open:
                 # test for exceptios closed
                 if not exception_date['is_open']:
                     has_period, is_in_period = self._is_in_period(
@@ -162,23 +169,23 @@ class Library(IlsRecord):
 
     def is_open(self, date=datetime.now(), day_only=False):
         """Test library is open."""
-        open = False
+        _open = False
         if isinstance(date, str):
             date = parser.parse(date)
         day_name = date.strftime("%A").lower()
         for opening_hour in self['opening_hours']:
             if day_name == opening_hour['day']:
-                open = opening_hour['is_open']
+                _open = opening_hour['is_open']
                 hours = opening_hour.get('times', [])
                 break
-        times_open = open
-        if open and not day_only:
+        times_open = _open
+        if _open and not day_only:
             times_open = self._is_betweentimes(date.time(), hours)
         # test the exceptions
         exception_dates = self.get('exception_dates')
         if exception_dates:
             exception = self._has_exception(
-                open=times_open,
+                _open=times_open,
                 date=date,
                 exception_dates=exception_dates,
                 day_only=day_only

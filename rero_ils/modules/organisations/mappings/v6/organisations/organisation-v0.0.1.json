@@ -21,46 +21,6 @@
         "address": {
           "type": "text"
         },
-        "libraries": {
-          "type": "object",
-          "properties": {
-            "$schema": {
-              "type": "keyword"
-            },
-            "address": {
-              "type": "text"
-            },
-            "code": {
-              "type": "keyword"
-            },
-            "email": {
-              "type": "keyword"
-            },
-            "locations": {
-              "type": "object",
-              "properties": {
-                "$schema": {
-                  "type": "keyword"
-                },
-                "code": {
-                  "type": "keyword"
-                },
-                "name": {
-                  "type": "text"
-                },
-                "pid": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "type": "text"
-            },
-            "pid": {
-              "type": "keyword"
-            }
-          }
-        },
         "_created": {
           "type": "date"
         },

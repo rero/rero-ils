@@ -11,12 +11,19 @@ import { Loan, Item } from './circulation/loans';
 export class UserService {
 
   loggedUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  userSettings: BehaviorSubject<any>= new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {
-    this.http.get<User>('/patrons/logged_user')
-    .subscribe(user => {
-      this.loggedUser.next(new User(user));
+    this.http.get<any>('/patrons/logged_user?resolve')
+    .subscribe(data => {
+      console.log(new User(data.metadata));
+      this.loggedUser.next(new User(data.metadata));
+      this.userSettings.next(new User(data.settings));
     });
+  }
+
+  importRecordFromBNF(ean) {
+    return this.http.get<any>(`/api/import/bnf/ean/${ean}`);
   }
 
   getPatron(card_number: string): Observable<any> {

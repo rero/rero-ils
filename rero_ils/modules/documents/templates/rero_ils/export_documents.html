@@ -1,0 +1,23 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
+{%- extends "rero_ils/detailed_view_documents.html" %}
+{%- set canonical_url = url_for('invenio_records_ui.doc', pid_value=pid.pid_value) %}
+
+{% block record_body %}
+  <section class="mt-4">
+    <header>
+      <h3 itemprop="name"> {{ format_title }} Export</h3>
+    </header>
+     <article class="card bg-light mb-4">
+      <pre class="mb-0 p-2 text-muted">{{ data|tojson_pretty }}</pre>
+    </article>
+  </section>
+{% endblock record_body %}

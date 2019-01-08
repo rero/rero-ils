@@ -26,12 +26,11 @@
 
 from __future__ import absolute_import, print_function
 
+import json
+
 import click
 from flask import current_app
 from werkzeug.local import LocalProxy
-
-from rero_ils.modules.documents_items.cli import create_items
-from rero_ils.modules.organisations_libraries.cli import import_organisations
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -39,10 +38,6 @@ _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 @click.group()
 def fixtures():
     """Fixtures management commands."""
-
-
-fixtures.add_command(import_organisations)
-fixtures.add_command(create_items)
 
 
 @click.command('reverse')
@@ -71,3 +66,8 @@ def head(max):
             yield item
 
     return processor
+
+
+def pretty_json_dump(iterator):
+    """Dump JSON from iteraror."""
+    return json.dumps(list(iterator), indent=4)

@@ -1,0 +1,71 @@
+<div  class="mt-3" *ngFor="let day of formControl.controls; let i=index">
+  <div class="form-group row" [formGroup]="day">
+
+    <div class="col-2">
+      <ui-switch formControlName="is_open" size="small" defaultBgColor="red"></ui-switch>
+      {{ day.value.day | translate | titlecase }}
+    </div>
+
+    <div class="col-10">
+
+      <ul class="list-unstyled mb-0">
+        <li formArrayName="times" *ngFor="let time of day.controls.times.controls; let t=index">
+          <div [formGroup]="time" class="form-row">
+            <div class="col-3">
+              <input class="form-control mr-2" formControlName="start_time" [readonly]="!day.value.is_open">
+            </div>
+            <div class="col-3">
+              <input class="form-control" formControlName="end_time" [readonly]="!day.value.is_open">
+            </div>
+            <div class="col-6">
+              <button
+              type="button"
+              *ngIf="day.value.is_open && day.controls.times.controls.length > 1"
+              class="btn btn-light btn-sm"
+              (click)="deleteTime(i, t)"
+              ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+              <button
+              type="button"
+              *ngIf="day.value.is_open && day.controls.times.controls.length == 1"
+              class="btn btn-light btn-sm"(click)="addTime(i)"
+              ><i class="fa fa-plus" aria-hidden="true"></i> {{ 'period' | translate }}</button>
+            </div>
+            <div
+            *ngIf="time.controls.start_time.invalid && (time.controls.start_time.dirty || time.controls.start_time.touched)"
+            class="text-danger"
+            >
+              <div *ngIf="time.controls.start_time.errors.required">
+                {{ 'Start Time is required.' | translate }}
+              </div>
+              <div *ngIf="time.controls.start_time.errors.pattern">
+                {{ 'Start Time format is not correct.' | translate }}
+              </div>
+            </div>
+            <div
+            *ngIf="time.controls.end_time.invalid && (time.controls.end_time.dirty ||   time.controls.end_time.touched)"
+            class="text-danger"
+            >
+              <div *ngIf="time.controls.end_time.errors.required">
+                {{ 'End time is required.' | translate }}
+              </div>
+              <div *ngIf="time.controls.end_time.errors.pattern">
+                {{ 'End time format is not correct.' | translate }}
+              </div>
+            </div>
+            <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger">
+              <div *ngIf="time.errors && time.errors.lessThan">
+                {{ 'End time is less than start time.' | translate }}
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="day.invalid  && (day.dirty || day.touched)" class="text-danger">
+        <div *ngIf="day.errors && day.errors.rangeLessThan">
+          {{ 'The two periods are overlapping.' | translate }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

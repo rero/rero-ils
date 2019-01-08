@@ -86,22 +86,24 @@ setup(
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             'rero-ils = rero_ils.modules.ext:REROILSAPP'
         ],
+        'invenio_base.api_apps': [
+            'rero-ils = rero_ils.modules.ext:REROILSAPP'
+        ],
         'invenio_base.blueprints': [
             'rero_ils = rero_ils.views:blueprint',
-            'organisations = \
-                rero_ils.modules.organisations_libraries.views:blueprint',
-            'libraries = rero_ils.modules.libraries_locations.views:blueprint',
-            'locations = rero_ils.modules.locations.views:blueprint',
-            'documents_items = \
-                rero_ils.modules.documents_items.views:blueprint',
+            'libraries = rero_ils.modules.libraries.views:blueprint',
+            'patrons = rero_ils.modules.patrons.views:blueprint',
+            'mef_persons = rero_ils.modules.mef_persons.views:blueprint',
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
-            'items_types = rero_ils.modules.items_types.views:blueprint',
-            'patrons = rero_ils.modules.patrons.views:blueprint',
-            'patrons_types = rero_ils.modules.patrons_types.views:blueprint',
-            'persons = rero_ils.modules.persons.views:blueprint',
+        ],
+        'invenio_base.api_blueprints': [
             'circ_policies = rero_ils.modules.circ_policies.views:blueprint',
-
+            'item_types = rero_ils.modules.item_types.views:blueprint',
+            'patron_types = rero_ils.modules.patron_types.views:blueprint',
+            'patrons = rero_ils.modules.patrons.views:api_blueprint',
+            'api_documents = rero_ils.modules.documents.views:api_blueprint',
+            'items = rero_ils.modules.items.api_views:api_blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -114,28 +116,44 @@ setup(
             #     rero_ils.modules.admin:circulation_settings',
             'rero_ils_admin_circulation = \
                 rero_ils.modules.admin:circulation',
-            'rero_ils_admin_libraries = \
+            'rero_ils_admin_library = \
                 rero_ils.modules.admin:library',
             'rero_ils_admin_my_library = \
-                rero_ils.modules.admin:my_library'
+                rero_ils.modules.admin:my_library',
+            'rero_ils_admin_item_types = \
+                rero_ils.modules.admin:item_types',
+            'rero_ils_admin_patron_types = \
+                rero_ils.modules.admin:patron_types',
+            'rero_ils_admin_patrons = \
+                rero_ils.modules.admin:patrons',
+            'rero_ils_admin_circ_policies = \
+                rero_ils.modules.admin:circ_policies',
+            'rero_ils_admin_locations = \
+                rero_ils.modules.admin:locations',
+            'rero_ils_admin_libraries = \
+                rero_ils.modules.admin:libraries',
+            'rero_ils_admin_items = \
+                rero_ils.modules.admin:items',
+            'rero_ils_admin_documents = \
+                rero_ils.modules.admin:documents',
+            'rero_ils_admin_persons = \
+                rero_ils.modules.admin:persons'
         ],
         'invenio_assets.bundles': [
-            'rero_ils_detailed_documents_items_js = \
-                rero_ils.modules.documents_items.bundles:detailed_js',
             'rero_ils_search_js = rero_ils.bundles:search_js',
-            'rero_ils_editor_js = \
-               rero_ils.bundles:editor_js',
             'rero_ils_main_css = rero_ils.bundles:main_css',
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_admin_ui_js = \
                 rero_ils.bundles:admin_js',
+            'rero_ils_documents_detailed_js = \
+                rero_ils.modules.documents.bundles:detailed_js'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
             'head = rero_ils.dojson.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = rero_ils.modules.dojson.dump:pretty_json_dump',
+            'pjson = rero_ils.dojson.cli:pretty_json_dump',
         ],
         'dojson.cli.rule': [
             'marc21tojson = rero_ils.modules.documents.dojson'
@@ -154,60 +172,59 @@ setup(
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
-            'organisations_libraries = \
-                rero_ils.modules.organisations_libraries.models',
             'libraries = rero_ils.modules.libraries.models',
-            'libraries_locations = rero_ils.modules.libraries_locations.models'
             'locations = rero_ils.modules.locations.models',
             'documents = rero_ils.modules.documents.models',
-            'documents_items = rero_ils.modules.documents_items.models',
             'items = rero_ils.modules.items.models',
-            'items_types = rero_ils.modules.items_types.models',
+            'item_types = rero_ils.modules.item_types.models',
             'patrons = rero_ils.modules.patrons.models',
-            'patrons_types = rero_ils.modules.patrons_types.models',
+            'patron_types = rero_ils.modules.patron_types.models',
             'transactions = rero_ils.modules.transactions.models',
-            'mef= rero_ils.modules.mef.models',
+            'mef = rero_ils.modules.mef_persons.models',
             'apiharvester = rero_ils.modules.apiharvester.models',
             'circ_policies = rero_ils.modules.circ_policies.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = \
-                rero_ils.modules.organisations.minters:organisation_id_minter',
+                rero_ils.modules.organisations.api:organisation_id_minter',
             'library_id = \
-                rero_ils.modules.libraries.minters:library_id_minter',
+                rero_ils.modules.libraries.api:library_id_minter',
             'location_id = \
-                rero_ils.modules.locations.minters:location_id_minter',
+                rero_ils.modules.locations.api:location_id_minter',
             'document_id = \
-                rero_ils.modules.documents.minters:document_id_minter',
-            'item_id = rero_ils.modules.items.minters:item_id_minter',
+                rero_ils.modules.documents.api:document_id_minter',
+            'item_id = rero_ils.modules.items.api:item_id_minter',
             'item_type_id = \
-                rero_ils.modules.items_types.minters:item_type_id_minter',
-            'patron_id = rero_ils.modules.patrons.minters:patron_id_minter',
+                rero_ils.modules.item_types.api:item_type_id_minter',
+            'patron_id = rero_ils.modules.patrons.api:patron_id_minter',
             'patron_type_id = \
-                rero_ils.modules.patrons_types.minters:patron_type_id_minter',
-            'mef_person_id = rero_ils.modules.mef.minters:mef_person_id_minter',
-            'circ_policy_id = rero_ils.modules.circ_policies.minters:circ_policy_id_minter',
+                rero_ils.modules.patron_types.api:patron_type_id_minter',
+            'mef_person_id = rero_ils.modules.mef_persons.api'
+            ':mef_person_id_minter',
+            'circ_policy_id = rero_ils.modules.circ_policies.api'
+            ':circ_policy_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
-            '.fetchers:organisation_id_fetcher',
+            '.api:organisation_id_fetcher',
             'library_id = \
-                rero_ils.modules.libraries.fetchers:library_id_fetcher',
+                rero_ils.modules.libraries.api:library_id_fetcher',
             'location_id = \
-                rero_ils.modules.locations.fetchers:location_id_fetcher',
+                rero_ils.modules.locations.api:location_id_fetcher',
             'document_id = \
-                rero_ils.modules.documents.fetchers:document_id_fetcher',
+                rero_ils.modules.documents.api:document_id_fetcher',
             'item_id = \
-                rero_ils.modules.items.fetchers:item_id_fetcher',
+                rero_ils.modules.items.api:item_id_fetcher',
             'item_type_id = \
-                rero_ils.modules.items_types.fetchers:item_type_id_fetcher',
+                rero_ils.modules.item_types.api:item_type_id_fetcher',
             'patron_id = \
-                rero_ils.modules.patrons.fetchers:patron_id_fetcher',
+                rero_ils.modules.patrons.api:patron_id_fetcher',
             'patron_type_id = \
-                rero_ils.modules.patrons_types.fetchers:patron_type_id_fetcher',
+                rero_ils.modules.patron_types.api:patron_type_id_fetcher',
             'mef_person_id = \
-                rero_ils.modules.mef.fetchers:mef_person_id_fetcher',
-            'circ_policy_id = rero_ils.modules.circ_policies.fetchers:circ_policy_id_fetcher',
+                rero_ils.modules.mef_persons.api:mef_person_id_fetcher',
+            'circ_policy_id = rero_ils.modules.circ_policies.api'
+            ':circ_policy_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -215,12 +232,12 @@ setup(
             'locations = rero_ils.modules.locations.jsonschemas',
             'documents = rero_ils.modules.documents.jsonschemas',
             'items = rero_ils.modules.items.jsonschemas',
-            'items_types = rero_ils.modules.items_types.jsonschemas',
+            'item_types = rero_ils.modules.item_types.jsonschemas',
             'patrons = rero_ils.modules.patrons.jsonschemas',
-            'patrons_types = rero_ils.modules.patrons_types.jsonschemas',
-            'persons = rero_ils.modules.persons.jsonschemas',
+            'patron_types = rero_ils.modules.patron_types.jsonschemas',
+            'persons = rero_ils.modules.mef_persons.jsonschemas',
             'circ_policies = rero_ils.modules.circ_policies.jsonschemas',
-
+            'loans = rero_ils.modules.loans.jsonschemas'
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -228,15 +245,24 @@ setup(
             'locations = rero_ils.modules.locations.mappings',
             'documents = rero_ils.modules.documents.mappings',
             'items = rero_ils.modules.items.mappings',
-            'items_types = rero_ils.modules.items_types.mappings',
+            'item_types = rero_ils.modules.item_types.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
-            'patrons_types = rero_ils.modules.patrons_types.mappings',
-            'persons = rero_ils.modules.persons.mappings',
+            'patron_types = rero_ils.modules.patron_types.mappings',
+            'persons = rero_ils.modules.mef_persons.mappings',
             'circ_policies = rero_ils.modules.circ_policies.mappings',
+            'loans = rero_ils.modules.loans.mappings',
         ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
             'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
+        ],
+        'invenio_records.jsonresolver': [
+            'organisations = rero_ils.modules.organisations.jsonresolver',
+            'locations = rero_ils.modules.locations.jsonresolver',
+            'libraries = rero_ils.modules.libraries.jsonresolver',
+            'patron_types = rero_ils.modules.patron_types.jsonresolver',
+            'item_types = rero_ils.modules.item_types.jsonresolver',
+            'documents = rero_ils.modules.documents.jsonresolver'
         ]
     },
     classifiers=[

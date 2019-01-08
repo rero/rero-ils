@@ -1,0 +1,47 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Item",
+    "items": [
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "barcode",
+            "htmlClass": "px-2",
+            "validationMessage": {
+              "alreadyTakenMessage": "The barcode is already taken",
+              "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+            },
+            "remoteRecordType": "items"
+          },
+          {
+            "htmlClass": "px-2",
+            "key": "call_number"
+          }
+        ]
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "location.$ref",
+            "title": "Location",
+            "htmlClass": "px-2",
+            "remoteRecordType": "locations",
+            "type": "select"
+          },
+          {
+            "key": "item_type.$ref",
+            "title": "Type",
+            "htmlClass": "px-2",
+            "remoteRecordType": "item_types",
+            "type": "select"
+          }
+        ]
+      }
+    ]
+  }
+]

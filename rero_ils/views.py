@@ -26,16 +26,22 @@
 
 from __future__ import absolute_import, print_function
 
+import copy
+import re
 from functools import partial
 
-from flask import Blueprint, current_app, redirect, render_template, request
+from flask import Blueprint, current_app, jsonify, redirect, render_template, \
+    request
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
 from invenio_i18n.ext import current_i18n
+from invenio_jsonschemas import current_jsonschemas
+from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.patrons.api import Patron
 
+from .modules.babel_extractors import translate
 from .utils import i18n_to_str
 from .version import __version__
 
@@ -172,3 +178,45 @@ def help():
 def nl2br(string):
     r"""Replace \n to <br>."""
     return string.replace("\n", "<br>")
+
+
+def prepare_jsonschema(schema):
+    """."""
+    schema = copy.deepcopy(schema)
+    del schema['$schema']
+    schema['required'].remove('pid')
+    return translate(schema)
+
+
+def prepare_form_option(form_option):
+    """."""
+    form_option = copy.deepcopy(form_option)
+    return translate(form_option)
+
+
+@blueprint.route('/schemaform/<document_type>')
+def schemaform(document_type):
+    """Return schema and form options for the editor."""
+    doc_type = document_type
+    doc_type = re.sub('ies$', 'y', doc_type)
+    doc_type = re.sub('s$', '', doc_type)
+    data = {}
+    schema = None
+    schema_name = None
+    try:
+        current_jsonschemas.get_schema.cache_clear()
+        schema_name = '{}/{}-v0.0.1.json'.format(document_type, doc_type)
+        schema = current_jsonschemas.get_schema(schema_name)
+        # del data['jsonschema']['$schema']
+    except JSONSchemaNotFound:
+        pass
+    data['schema'] = prepare_jsonschema(schema)
+
+    try:
+        form = current_jsonschemas.get_schema(
+            'form_{}/{}-v0.0.1.json'.format(document_type, doc_type))
+        data['layout'] = prepare_form_option(form)
+    except JSONSchemaNotFound as e:
+        raise(e)
+        pass
+    return jsonify(data)

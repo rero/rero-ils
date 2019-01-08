@@ -82,7 +82,7 @@ class ReroIlsSerializer(JSONSerializer):
                     results['aggregations'][aggregation]['expand'] = False
                     if aggregation in facet_config_type_expand:
                         results['aggregations'][aggregation]['expand'] = True
-            except:
+            except Exception:
                 pass
         return json.dumps(results, **self._format_args())
 

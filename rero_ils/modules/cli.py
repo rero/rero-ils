@@ -40,13 +40,9 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
-from .circ_policies.cli import import_circ_policies
-from .documents_items.cli import create_items
-from .items.cli import create_circ_transactions
-from .items_types.cli import import_items_types
-from .organisations_libraries.cli import import_organisations
+from .items.cli import create_items, reindex_items
+from .loans.cli import create_loans
 from .patrons.cli import import_users
-from .patrons_types.cli import import_patrons_type
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -56,13 +52,10 @@ def fixtures():
     """Fixtures management commands."""
 
 
-fixtures.add_command(import_organisations)
 fixtures.add_command(import_users)
 fixtures.add_command(create_items)
-fixtures.add_command(create_circ_transactions)
-fixtures.add_command(import_patrons_type)
-fixtures.add_command(import_items_types)
-fixtures.add_command(import_circ_policies)
+fixtures.add_command(reindex_items)
+fixtures.add_command(create_loans)
 
 
 @users.command('confirm')

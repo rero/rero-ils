@@ -24,8 +24,6 @@
 
 """RERO ILS data module."""
 
-from __future__ import absolute_import, print_function
-
 from .ext import REROILSAPP
 
 

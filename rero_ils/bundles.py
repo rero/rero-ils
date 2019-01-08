@@ -49,8 +49,8 @@ main_css = NpmBundle(
     filters='node-scss,cleancssurl',
     output='gen/rero_ils_main.%(version)s.css',
     npm={
-        'almond': '~0.3.1',
-        'bootstrap': '~4.1.3',
+        'almond': '~0.3.3',
+        'bootstrap': '~4.2.1',
         'font-awesome': '~4.7.0',
         'jquery': '~1.9.1',
     }
@@ -60,7 +60,6 @@ main_css = NpmBundle(
 i18n = GlobBundle(
     catalog('messages'),
     filters=AngularGettextFilter(catalog_name='reroilsAppTranslations'),
-    # output='gen/translations/rero_ils.js',
 )
 
 js = NpmBundle(
@@ -68,24 +67,24 @@ js = NpmBundle(
     'js/rero_ils/rero_ils.js',
     filters='requirejs',
     npm={
-        'almond': '~0.3.1',
-        'angular': '~1.4.9',
-        'bootstrap-autohide-navbar': '~1.0.0',
-        'popper.js': '~1.14.3',
-        'bootstrap': '~4.1.3',
+        'almond': '~0.3.3',
+        'angular': '~1.6.9',
+        'bootstrap': '~4.2.1',
         'angular-gettext': '~2.3.8',
         'jquery': '~1.9.1',
     },
     output='gen/rero_ils.main.%(version)s.js'
 )
 
+
 search_js = Bundle(
     i18n,
     NpmBundle(
+        'node_modules/almond/almond.js',
+        'js/rero_ils/documents.js',
+        'js/rero_ils/mef_persons.js',
         'js/rero_ils/invenio_config.js',
         'js/rero_ils/translations.js',
-        'js/rero_ils/documents_items.js',
-        'js/rero_ils/persons.js',
         'js/rero_ils/thumbnail.js',
         'js/rero_ils/search_app.js',
         filters='requirejs',
@@ -94,30 +93,14 @@ search_js = Bundle(
             'node_modules/d3/*'
         ),
         npm={
-            "almond": "~0.3.1",
+            'almond': '~0.3.1',
             'angular': '~1.4.10',
             'angular-loading-bar': '~0.9.0',
             'd3': '^3.5.17',
-            'invenio-search-js': '^1.3.1',
+            'invenio-search-js': '^1.5.4',
         }),
     filters='jsmin',
     output='gen/rero_ils.search.%(version)s.js',
-)
-
-schema_form_js = NpmBundle(
-    'node_modules/angular/angular.js',
-    'node_modules/angular-sanitize/angular-sanitize.min.js',
-    'node_modules/tv4/tv4.js',
-    'node_modules/objectpath/lib/ObjectPath.js',
-    'node_modules/angular-schema-form/dist/schema-form.js',
-    'node_modules/angular-schema-form/dist/bootstrap-decorator.js',
-    npm={
-        'angular': '~1.6.9',
-        'angular-sanitize': '~1.6.9',
-        'tv4': '^1.3.0',
-        'objectpath': '^1.2.1',
-        'angular-schema-form': '0.8.13'
-    }
 )
 
 admin_js = Bundle(
@@ -128,23 +111,5 @@ admin_js = Bundle(
     'js/rero_ils/admin/scripts.js',
     'js/rero_ils/admin/main.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-    'node_modules/bootstrap-autohide-navbar/dist/bootstrap-autohide-navbar.js',
     output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
-)
-
-
-editor_js = Bundle(
-    schema_form_js,
-    'js/rero_ils/editor.js',
-    'js/rero_ils/document-editor.js',
-    'js/rero_ils/library-editor.js',
-    'js/rero_ils/item-editor.js',
-    'js/rero_ils/item-type-editor.js',
-    'js/rero_ils/patron-editor.js',
-    'js/rero_ils/patron-type-editor.js',
-    'js/rero_ils/circ-policy-editor.js',
-    'js/rero_ils/location-editor.js',
-    'js/rero_ils/editor-app.js',
-    filters='jsmin',
-    output='gen/rero_ils.editor_js.%(version)s.js',
 )

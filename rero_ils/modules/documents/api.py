@@ -24,12 +24,20 @@
 
 """API for manipulating documents."""
 
+from functools import partial
+
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
-from .fetchers import document_id_fetcher
-from .minters import document_id_minter
+from ..fetchers import id_fetcher
+from ..minters import id_minter
 from .providers import DocumentProvider
+
+# minter
+document_id_minter = partial(id_minter, provider=DocumentProvider)
+
+# fetcher
+document_id_fetcher = partial(id_fetcher, provider=DocumentProvider)
 
 
 class DocumentsSearch(RecordsSearch):
@@ -47,3 +55,9 @@ class Document(IlsRecord):
     minter = document_id_minter
     fetcher = document_id_fetcher
     provider = DocumentProvider
+
+    @property
+    def can_edit(self):
+        """Return a boolean for can_edit resource."""
+        # TODO: Make this condition on data
+        return 'ebook' != self.get('type')

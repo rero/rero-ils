@@ -15,7 +15,8 @@
       "title": "Schema",
       "description": "Schema to validate document against.",
       "type": "string",
-      "minLength": 7
+      "minLength": 7,
+      "default": "http://ils.rero.ch/schema/documents/document-v0.0.1.json"
     },
     "pid": {
       "title": "Document ID",
@@ -304,11 +305,6 @@
         "type": "string",
         "minLength": 1
       }
-    },
-    "available": {
-      "title": "Document availability",
-      "type": "boolean",
-      "default": false
     }
   }
 }

@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+#
+# This file is part of RERO ILS.
+# Copyright (C) 2017 RERO.
+#
+# RERO ILS is free software; you can redistribute it
+# and/or modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
+#
+# RERO ILS is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with RERO ILS; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA 02111-1307, USA.
+#
+# In applying this license, RERO does not
+# waive the privileges and immunities granted to it by virtue of its status
+# as an Intergovernmental Organization or submit itself to any jurisdiction.
+
+"""CircPolicy Record tests."""
+
+from __future__ import absolute_import, print_function
+
+from utils import get_mapping
+
+from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
+    item_type_id_fetcher
+
+
+def test_item_type_create(db, item_type_data_tmp):
+    """Test ittyanisation creation."""
+    itty = ItemType.create(item_type_data_tmp)
+    assert itty == item_type_data_tmp
+    assert itty.get('pid') == '1'
+
+    itty = ItemType.get_record_by_pid('1')
+    assert itty == item_type_data_tmp
+
+    fetched_pid = item_type_id_fetcher(itty.id, itty)
+    assert fetched_pid.pid_value == '1'
+    assert fetched_pid.pid_type == 'itty'
+    assert not ItemType.get_pid_by_name('no exists')
+
+
+def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
+    """."""
+    search = ItemTypesSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    ItemType.create(item_type_data_tmp, dbcommit=True, reindex=True)
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_item_type_exist_name_and_organisation_pid(item_type):
+    """."""
+    itty = item_type.replace_refs()
+    assert ItemType.exist_name_and_organisation_pid(
+        itty.get('name'), itty.get('organisation', {}).get('pid'))
+    assert not ItemType.exist_name_and_organisation_pid(
+        'not exists yet', itty.get('organisation', {}).get('pid'))
+
+
+def test_item_type_get_pid_by_name(item_type):
+    """."""
+    assert not ItemType.get_pid_by_name('no exists')
+    assert ItemType.get_pid_by_name('standard') == 'itty1'

@@ -36,12 +36,11 @@ from invenio_accounts.ext import hash_password
 from werkzeug.local import LocalProxy
 
 from ..patrons.api import Patron
-from ..patrons_types.api import PatronType
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
-@click.command('importusers')
+@click.command('import_users')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
@@ -51,12 +50,9 @@ def import_users(infile, verbose):
     infile: Json organisation file
     """
     click.secho('Import users:', fg='green')
-    patron_types_pids = PatronType.get_all_pids()
 
     data = json.load(infile)
     for patron_data in data:
-        if patron_data.get('is_patron', False):
-            assert patron_data.get('patron_type_pid') in patron_types_pids
         email = patron_data.get('email')
         if email is None:
             click.secho('\tUser email not defined!', fg='red')
@@ -70,15 +66,9 @@ def import_users(infile, verbose):
             else:
                 if verbose:
                     click.echo('\tUser: ' + email)
-                patron = Patron.create(
-                    patron_data,
-                    dbcommit=True,
-                    reindex=True
-                )
 
                 # create user
                 user = datastore.find_user(email=email)
-                confirm = False
                 if user:
                     click.secho('\tUser exist: ' + email, fg='yellow')
                 else:
@@ -90,21 +80,11 @@ def import_users(infile, verbose):
                     )
                     datastore.commit()
                     user = datastore.find_user(email=email)
-                    confirm = confirm_user(user)
+                    confirm_user(user)
                     datastore.commit()
-                    if not confirm:
-                        click.secho(
-                            '\tUser not confirmed!' + email,
-                            fg='yellow'
-                        )
-                    # else:
-                    #     click.secho('\tUser confirmed!', fg='green')
-                patron = Patron(patron, model=patron.model)
-                if patron_data.get('is_patron', False):
-                    patron.add_role(role_name='patrons')
-
-                if patron_data.get('is_staff', False):
-                    patron.add_role(role_name='staff')
-                    # TODO: staff role
-                    patron.add_role(role_name='cataloguer')
+                patron = Patron.create(
+                    patron_data,
+                    dbcommit=True,
+                    reindex=True
+                )
                 patron.reindex()

@@ -1,0 +1,32 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Item Type",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations"
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "name",
+            "htmlClass": "px-2",
+            "validationMessage": {
+              "alreadyTakenMessage": "The item type name is already taken"
+            },
+            "remoteRecordType": "item_types"
+          },
+          {
+            "htmlClass": "px-2",
+            "key": "description"
+          }
+        ]
+      }
+    ]
+  }
+]

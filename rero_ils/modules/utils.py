@@ -26,24 +26,8 @@
 
 from datetime import time
 
-from flask import current_app, url_for
+from flask import url_for
 from invenio_indexer.api import RecordIndexer
-
-from .babel_extractors import translate
-
-
-def get_schema(schema):
-    """Return jsonschemas dictionary."""
-    ext = current_app.extensions.get('invenio-jsonschemas')
-    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
-    ext.get_schema.cache_clear()
-    return translate(ext.get_schema(schema), keys=keys)
-
-
-def get_schema_url(schema):
-    """Return jsonschemas url path."""
-    ext = current_app.extensions.get('invenio-jsonschemas')
-    return ext.path_to_url(schema)
 
 
 def delete_record(record_type, record_class, pid):
@@ -54,78 +38,6 @@ def delete_record(record_type, record_class, pid):
     RecordIndexer().client.indices.flush()
     _next = url_for('%s.index_view' % record_type)
     return _next, record.pid
-
-
-def save_record(data, record_type, record_class, parent_pid=None):
-    """Save a record into the db and index it."""
-    # load and clean dirty data provided by angular-schema-form
-    pid = data.get('pid')
-    data = clean_dict_keys(data)
-    # update an existing record
-    if pid:
-        record = record_class.get_record_by_pid(pid)
-        record.update(data, dbcommit=False, reindex=False)
-    # create a new record
-    else:
-        # create a new record
-        record = record_class.create(data, dbcommit=False)
-    record.dbcommit(reindex=True)
-    RecordIndexer().client.indices.flush()
-
-    _next = url_for('invenio_records_ui.%s' % record_type,
-                    pid_value=record.pid)
-
-    return _next, record.pid
-
-
-def clean_dict_keys(data):
-    """Remove key having useless values."""
-    # return a new list with defined value only
-    if isinstance(data, list):
-        to_return = []
-        for item in data:
-            if item is False or item == []:
-                to_return.append(item)
-            else:
-                tmp = clean_dict_keys(item)
-                if tmp:
-                    to_return.append(tmp)
-        return to_return
-
-    # return a new dict with defined value only
-    if isinstance(data, dict):
-        to_return = {}
-        for k, v in data.items():
-            if v is False or v == []:
-                to_return[k] = v
-            else:
-                tmp = clean_dict_keys(v)
-                if tmp:
-                    to_return[k] = tmp
-        return to_return
-
-    return data
-
-
-def remove_pid(editor_options, pid_value):
-    """Remove PID in the editor option for new record."""
-    for option in reversed(editor_options):
-        if isinstance(option, str):
-            if option == pid_value:
-                editor_options.remove(option)
-        if isinstance(option, dict):
-            items = option.get('items')
-            if option.get('key') == pid_value:
-                editor_options.remove(option)
-            elif isinstance(items, list):
-                new_items = remove_pid(items, pid_value)
-                if new_items:
-                    option['items'] = new_items
-                else:
-                    editor_options.remove(option)
-        if isinstance(option, list):
-            editor_options = remove_pid(option, pid_value)
-    return editor_options
 
 
 def strtotime(strtime):

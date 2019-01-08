@@ -27,7 +27,7 @@
 from flask_babelex import gettext as _
 
 from ...utils import send_mail
-from ..documents_items.api import DocumentsWithItems
+from ..documents.api import Document
 from ..patrons.api import Patron
 
 
@@ -57,7 +57,7 @@ def func_item_at_desk(sender, *args, **kwargs):
                 recipients=recipients,
                 template=template,
                 language='eng',
-                document=DocumentsWithItems.get_document_by_itemid(item.id),
+                document=Document.get_document_by_itemid(item.id),
                 # holding=item.dumps().get('_circulation').get('holdings')[0],
                 holding='get loans with state ITEM_AT_DESK, To be implemented',
             )

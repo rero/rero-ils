@@ -25,8 +25,12 @@
         "description": {
           "type": "keyword"
         },
-        "organisation_pid": {
-          "type": "keyword"
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "allow_checkout": {
           "type": "boolean"

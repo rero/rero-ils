@@ -13,7 +13,6 @@ export class TimeValidator {
         if (startDate.format('HH:mm') !== '00:00' || endDate.format('HH:mm') !== '00:00') {
           isLessThan = startDate.diff(endDate) >= 0;
         }
-
         return isLessThan ? { lessThan: { value: isLessThan }} : null;
       }
     };
@@ -31,8 +30,7 @@ export class TimeValidator {
           const lastStartDate = moment(lastStartTime.value, 'HH:mm');
           isRangeLessThan = lastStartDate.diff(firstEndDate) <= 0;
         }
-
-        return isRangeLessThan ? { rangeLessThan: { value: isRangeLessThan }} : null;
+        return isRangeLessThan ? { rangeLessThan: { value: isRangeLessThan} } : null;
       }
     };
   }
