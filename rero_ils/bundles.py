@@ -42,6 +42,7 @@ def catalog(domain):
         '{0}.po'.format(domain),
     )
 
+
 admin_css = NpmBundle(
     'scss/rero_ils/admin/styles.scss',
     depends=('scss/rero_ils/admin/*.scss'),
@@ -49,7 +50,8 @@ admin_css = NpmBundle(
     output='gen/rero_ils_admin.%(version)s.css',
     npm={
         'almond': '~0.3.1',
-        'bootstrap': '~4.1.3',
+        'bootstrap': '~4.2.1',
+        'popper.js': '~1.14.6',
         'font-awesome': '~4.4.0',
         'jquery': '~1.9.1',
     }

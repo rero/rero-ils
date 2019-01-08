@@ -52,7 +52,7 @@ fi
 pipenv install ${flags[@]}
 
 # install assets utils
-npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
+npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.11.0 clean-css@4.2.1 uglify-js@3.4.9 requirejs@2.3.6 @angular/cli@7.1.4
 
 
 # collect static files and compile html/css assets
