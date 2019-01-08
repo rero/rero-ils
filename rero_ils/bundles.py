@@ -42,6 +42,7 @@ def catalog(domain):
         '{0}.po'.format(domain),
     )
 
+
 admin_css = NpmBundle(
     'scss/rero_ils/admin/styles.scss',
     depends=('scss/rero_ils/admin/*.scss'),
@@ -95,8 +96,6 @@ search_js = Bundle(
     NpmBundle(
         'js/rero_ils/invenio_config.js',
         'js/rero_ils/translations.js',
-        'js/rero_ils/documents_items.js',
-        'js/rero_ils/persons.js',
         'js/rero_ils/thumbnail.js',
         'js/rero_ils/search_app.js',
         filters='requirejs',
@@ -115,22 +114,6 @@ search_js = Bundle(
     output='gen/rero_ils.search.%(version)s.js',
 )
 
-schema_form_js = NpmBundle(
-    'node_modules/angular/angular.js',
-    'node_modules/angular-sanitize/angular-sanitize.min.js',
-    'node_modules/tv4/tv4.js',
-    'node_modules/objectpath/lib/ObjectPath.js',
-    'node_modules/angular-schema-form/dist/schema-form.js',
-    'node_modules/angular-schema-form/dist/bootstrap-decorator.js',
-    npm={
-        'angular': '~1.6.9',
-        'angular-sanitize': '~1.6.9',
-        'tv4': '^1.3.0',
-        'objectpath': '^1.2.1',
-        'angular-schema-form': '0.8.13'
-    }
-)
-
 admin_js = Bundle(
     'js/rero_ils/admin/runtime.js',
     'js/rero_ils/admin/polyfills.js',
@@ -139,21 +122,4 @@ admin_js = Bundle(
     'js/rero_ils/admin/main.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
     output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
-)
-
-
-editor_js = Bundle(
-    schema_form_js,
-    'js/rero_ils/editor.js',
-    'js/rero_ils/document-editor.js',
-    'js/rero_ils/library-editor.js',
-    'js/rero_ils/item-editor.js',
-    'js/rero_ils/item-type-editor.js',
-    'js/rero_ils/patron-editor.js',
-    'js/rero_ils/patron-type-editor.js',
-    'js/rero_ils/circ-policy-editor.js',
-    'js/rero_ils/location-editor.js',
-    'js/rero_ils/editor-app.js',
-    filters='jsmin',
-    output='gen/rero_ils.editor_js.%(version)s.js',
 )

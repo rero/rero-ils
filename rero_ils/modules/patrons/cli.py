@@ -35,8 +35,8 @@ from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
 from werkzeug.local import LocalProxy
 
+from ..patron_types.api import PatronType
 from ..patrons.api import Patron
-from ..patrons_types.api import PatronType
 
 datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -103,8 +103,8 @@ def import_users(infile, verbose):
                 if patron_data.get('is_patron', False):
                     patron.add_role(role_name='patrons')
 
-                if patron_data.get('is_staff', False):
+                if patron_data.get('is_patron', False):
                     patron.add_role(role_name='staff')
                     # TODO: staff role
-                    patron.add_role(role_name='cataloguer')
+                    patron.add_role(role_name='librarian')
                 patron.reindex()

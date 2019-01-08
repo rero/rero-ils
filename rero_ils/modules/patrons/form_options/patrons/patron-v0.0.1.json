@@ -153,14 +153,14 @@
     "title": "Staff information",
     "items": [
       {
-        "key": "is_staff",
+        "key": "is_patron",
         "description": "",
         "type": "checkbox"
       },
       {
         "key": "library_pid",
         "htmlClass": "col-xs-6",
-        "condition": "model.is_staff == true",
+        "condition": "model.is_patron == true",
         "required": true,
         "populate": "libraries_pids_names",
         "type": "select"

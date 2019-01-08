@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "ItemType",
+  "description": "JSON schema for item_type.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name",
+    "description",
+    "organisation"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate item_type records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "ItemType ID.",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the ItemType.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the ItemType.",
+      "type": "string",
+      "minLength": 1
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}

@@ -27,11 +27,39 @@
 from __future__ import absolute_import, print_function
 
 import pytest
+from utils import flush_index
+
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.locations.api import Location, LocationsSearch
 
 
 @pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
-    from invenio_app.factory import create_app as create_ui_api
+    from invenio_app.factory import create_api
 
-    return create_ui_api
+    return create_api
+
+
+@pytest.fixture(scope="module")
+def library(app, organisation, library_data):
+    """."""
+    lib = Library.create(
+        data=library_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
+def location(library, location_data):
+    """."""
+    loc = Location.create(
+        data=location_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc

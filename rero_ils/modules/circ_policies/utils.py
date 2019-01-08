@@ -27,29 +27,6 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import url_for
-from invenio_indexer.api import RecordIndexer
-
-from ..patrons.api import current_patron
-from ..utils import clean_dict_keys
-
-
-def save_circ_policy(data, record_type, record_class, parent_pid):
-    """Save a record into the db and index it."""
-    data = clean_dict_keys(data)
-    data = clean_circ_policy_fields(data)
-    circ_policy_pid = data.get('pid')
-    if circ_policy_pid:
-        circ_policy = record_class.get_record_by_pid(circ_policy_pid)
-        circ_policy.clear()
-        circ_policy.update(data, dbcommit=True, reindex=True)
-    else:
-        data['organisation_pid'] = current_patron.organisation.pid
-        circ_policy = record_class.create(data, dbcommit=True, reindex=True)
-    RecordIndexer().client.indices.flush()
-    _next = url_for('invenio_records_ui.cipo', pid_value=circ_policy.pid)
-    return _next, circ_policy.pid
-
 
 def clean_circ_policy_fields(data):
     """Clean circ policy fields."""

@@ -7,7 +7,6 @@ export class User {
   email: string;
   first_name: string;
   is_patron: boolean;
-  is_staff: boolean;
   last_name: string;
   library_pid: string;
   name: string;

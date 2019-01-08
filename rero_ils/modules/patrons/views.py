@@ -26,6 +26,8 @@
 
 from __future__ import absolute_import, print_function
 
+from functools import wraps
+
 from flask import Blueprint, jsonify, render_template
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
@@ -33,12 +35,48 @@ from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
+from ...permissions import login_and_librarian
 from ..documents.api import Document
 from ..items.api import Item
 from ..loans.api import get_loans_by_patron_pid
 from ..locations.api import Location
 from .api import Patron
 from .utils import user_has_patron
+
+api_blueprint = Blueprint(
+    'api_patrons',
+    __name__,
+    url_prefix='/patrons',
+    template_folder='templates',
+    static_folder='static',
+)
+
+
+def check_permission(fn):
+    """."""
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        """."""
+        login_and_librarian()
+        return fn(*args, **kwargs)
+    return decorated_view
+
+
+@api_blueprint.route('/logged_user', methods=['GET'])
+@check_permission
+def logged_user():
+    """Current logged user informations in JSON."""
+    patron = Patron.get_patron_by_user(current_user)
+    if patron is None:
+        raise NotFound()
+    data = {
+        'metadata': patron.dumps(),
+        'settings': {
+            'language': current_i18n.locale.language
+        }
+    }
+    return jsonify(data)
+
 
 blueprint = Blueprint(
     'patrons',
@@ -92,21 +130,6 @@ def profile():
         loans=checkouts,
         pendings=requests
     )
-
-
-@blueprint.route('/logged_user', methods=['GET'])
-@login_required
-def logger_user():
-    """Current logged user informations in JSON."""
-    patron = Patron.get_patron_by_user(current_user)
-    if patron is None:
-        raise NotFound()
-    patronDumps = patron.dumps()
-    # TODO: Find a better way to transfert user settings
-    patronDumps['settings'] = {
-        'language': current_i18n.locale.language
-    }
-    return jsonify(patronDumps)
 
 
 @blueprint.app_template_filter('get_patron_from_barcode')

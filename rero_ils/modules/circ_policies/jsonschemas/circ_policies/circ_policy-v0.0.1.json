@@ -9,7 +9,7 @@
     "pid",
     "name",
     "description",
-    "organisation_pid"
+    "organisation"
   ],
   "properties": {
     "$schema": {
@@ -34,10 +34,15 @@
       "description": "The description of the circulation policy.",
       "type": "string"
     },
-    "organisation_pid": {
-      "title": "Organisation ID",
-      "description": "The PID of the organisation in which this circulation policy applies.",
-      "type": "string"
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
     },
     "allow_checkout": {
       "title": "Allow Checkout",

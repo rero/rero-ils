@@ -24,15 +24,23 @@
 
 """API for manipulating locations."""
 
-from invenio_pidstore.models import PersistentIdentifier
+from functools import partial
+
+from invenio_db import db
+from invenio_records.models import RecordMetadata
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
-from ..documents.api import DocumentsSearch
-from ..libraries_locations.models import LibrariesLocationsMetadata
-from .fetchers import location_id_fetcher
-from .minters import location_id_minter
+from ..fetchers import id_fetcher
+from ..minters import id_minter
 from .providers import LocationProvider
+
+# from sqlalchemy import JSONB
+
+
+location_id_minter = partial(id_minter, provider=LocationProvider)
+
+location_id_fetcher = partial(id_fetcher, provider=LocationProvider)
 
 
 class LocationsSearch(RecordsSearch):
@@ -52,47 +60,46 @@ class Location(IlsRecord):
     provider = LocationProvider
 
     @classmethod
-    def get_location(cls, pid):
-        """Get location."""
-        location = cls.get_record_by_pid(pid)
-        return location, location
+    def get_all_pickup_locations(cls):
+        """."""
+        with db.session.no_autoflush:
+            query = RecordMetadata.query
+            # .filter(
+            #     RecordMetadata.json['is_pickup'].cast(sqlalchemy.Boolean).is_(True)
+            # )
+            return [cls(obj.json, model=obj) for obj in query.all()]
+        # return []
+    # # TODO make global function
+    # @classmethod
+    # def get_all_pids(cls):
+    #     """Get all location pids."""
+    #     libraries_locations = LibrariesLocationsMetadata.query.all()
 
-    @classmethod
-    def get_all_locations(cls):
-        """Get all locations."""
-        return list(LocationsSearch().filter('match_all').source().scan())
+    #     locs_id = []
 
-    # TODO make global function
-    @classmethod
-    def get_all_pids(cls):
-        """Get all location pids."""
-        libraries_locations = LibrariesLocationsMetadata.query.all()
+    #     for library_location in libraries_locations:
+    #         loc_id = library_location.location_id
+    #         pid = PersistentIdentifier.get_by_object('loc', 'rec', loc_id)
+    #         locs_id.append(pid.pid_value)
 
-        locs_id = []
+    #     return locs_id
 
-        for library_location in libraries_locations:
-            loc_id = library_location.location_id
-            pid = PersistentIdentifier.get_by_object('loc', 'rec', loc_id)
-            locs_id.append(pid.pid_value)
+    # def get_all_items_pids(self):
+    #     """Get all items pids."""
+    #     items_with_location = (
+    #         DocumentsSearch()
+    #         .filter('term', **{'itemslist.location_pid': self.pid})
+    #         .source(includes=['itemslist.pid'])
+    #         .scan()
+    #     )
+    #     pids = []
+    #     for document in items_with_location:
+    #         for items in document['itemslist']:
+    #             item = items.to_dict()
+    #             pids.append(item.get('pid'))
+    #     return sorted(pids, key=int)
 
-        return locs_id
-
-    def get_all_items_pids(self):
-        """Get all items pids."""
-        items_with_location = (
-            DocumentsSearch()
-            .filter('term', **{'itemslist.location_pid': self.pid})
-            .source(includes=['itemslist.pid'])
-            .scan()
-        )
-        pids = []
-        for document in items_with_location:
-            for items in document['itemslist']:
-                item = items.to_dict()
-                pids.append(item.get('pid'))
-        return sorted(pids, key=int)
-
-    @property
-    def can_delete(self):
-        """Record can be deleted."""
-        return len(self.get_all_items_pids()) == 0
+    # @property
+    # def can_delete(self):
+    #     """Record can be deleted."""
+    #     return len(self.get_all_items_pids()) == 0

@@ -25,13 +25,23 @@
 """Permissions for this module."""
 
 
+from flask import abort
 from flask_login import current_user
 from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
-request_item_permission = DynamicPermission(RoleNeed('patrons'))
+request_item_permission = DynamicPermission(RoleNeed('patron'))
+
+
+def login_and_librarian():
+    """."""
+    if not current_user.is_authenticated:
+        print('current', current_user)
+        abort(401)
+        if not librarian_permission.can():
+            abort(403)
 
 
 def can_request(user=None):
@@ -41,19 +51,19 @@ def can_request(user=None):
     return user.is_authenticated and request_item_permission.can()
 
 
-record_edit_permission = DynamicPermission(RoleNeed('cataloguer'))
+librarian_permission = DynamicPermission(RoleNeed('librarian'))
 
 
 def can_edit(user=None):
     """User has editor role."""
     if not user:
         user = current_user
-    return user.is_authenticated and record_edit_permission.can()
+    return user.is_authenticated and librarian_permission.can()
 
 
-def cataloguer_permission_factory(record, *args, **kwargs):
+def librarian_permission_factory(record, *args, **kwargs):
     """User has editor role."""
-    return record_edit_permission
+    return librarian_permission
 
 
 def admin_permission_factory(admin_view):

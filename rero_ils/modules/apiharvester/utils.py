@@ -115,7 +115,7 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
             records = extract_records(data)
             count += len(records)
 
-            if count-max > 0 and max != 0:
+            if count - max > 0 and max != 0:
                 records = records[:max]
 
             request = requests.get(next)
