@@ -24,17 +24,78 @@
 
 """API for manipulating records."""
 
+from copy import deepcopy
 from uuid import uuid4
 
 from elasticsearch.exceptions import NotFoundError
 from invenio_db import db
+from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_pidstore.resolver import Resolver
 from invenio_records.api import Record
-from invenio_records.errors import MissingModelError
-from invenio_records.models import RecordMetadata
+from invenio_search import current_search
+from invenio_search.api import RecordsSearch
+from sqlalchemy.orm.exc import NoResultFound
+
+
+class IlsRecordError:
+    """Base class for errors in the IlsRecordClass."""
+
+    class Deleted(Exception):
+        """IlsRecord is deleted."""
+
+        pass
+
+    class NotDeleted(Exception):
+        """IlsRecord is not deleted."""
+
+        pass
+
+    class PidMissing(Exception):
+        """IlsRecord pid missing."""
+
+        pass
+
+    class PidChange(Exception):
+        """IlsRecord pid change."""
+
+        pass
+
+
+class IlsRecordsSearch(RecordsSearch):
+    """."""
+
+    class Meta:
+        """Search only on item index."""
+
+        index = 'records'
+
+    @classmethod
+    def flush(cls):
+        """."""
+        current_search.flush_and_refresh(cls.Meta.index)
+
+
+class IlsRecordIndexer(RecordIndexer):
+    """."""
+
+    def index(self, record):
+        """."""
+        return_value = super(IlsRecordIndexer, self).index(record)
+        index_name, doc_type = current_record_to_index(record)
+        current_search.flush_and_refresh(index_name)
+        return return_value
+
+    def delete(self, record):
+        """Delete a record.
+
+        :param record: Record instance.
+        """
+        return_value = super(IlsRecordIndexer, self).delete(record)
+        index_name, doc_type = current_record_to_index(record)
+        current_search.flush_and_refresh(index_name)
+        return return_value
 
 
 class IlsRecord(Record):
@@ -64,15 +125,17 @@ class IlsRecord(Record):
     def get_record_by_pid(cls, pid, with_deleted=False):
         """Get ils record by pid value."""
         assert cls.provider
-        resolver = Resolver(pid_type=cls.provider.pid_type,
-                            object_type=cls.object_type,
-                            getter=cls.get_record)
         try:
-            persistent_identifier, record = resolver.resolve(str(pid))
+            persistent_identifier = PersistentIdentifier.get(
+                cls.provider.pid_type,
+                pid
+            )
             return super(IlsRecord, cls).get_record(
                 persistent_identifier.object_uuid,
                 with_deleted=with_deleted
             )
+        except NoResultFound:
+            return None
         except PIDDoesNotExistError:
             return None
 
@@ -118,30 +181,69 @@ class IlsRecord(Record):
         uuids = [n.object_uuid for n in query]
         return uuids
 
-    def delete(self, force=False, delindex=False):
+    def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
         persistent_identifier = self.get_persistent_identifier(self.id)
         persistent_identifier.delete()
-        result = super(IlsRecord, self).delete(force=force)
+        self = super(IlsRecord, self).delete(force=force)
+        if dbcommit:
+            self.dbcommit()
         if delindex:
             self.delete_from_index()
-        return result
+        return self
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
+        pid = data.get('pid')
+        if pid:
+            db_record = IlsRecord.get_record_by_id(self.id)
+            if pid != db_record.pid:
+                raise IlsRecordError.PidChange(
+                    'changed pid from {old_pid} to {new_pid}'.format(
+                        old_pid=self.pid,
+                        new_pid=pid
+                    )
+                )
+
         super(IlsRecord, self).update(data)
-        super(IlsRecord, self).commit()
         if dbcommit:
+            self = super(IlsRecord, self).commit()
             self.dbcommit(reindex)
         return self
 
     def replace(self, data, dbcommit=False, reindex=False):
         """Replace data in record."""
+        new_data = deepcopy(data)
+        pid = new_data.get('pid')
+        if not pid:
+            raise IlsRecordError.PidMissing(
+                'missing pid={pid}'.format(pid=self.pid)
+            )
         self.clear()
-        super(IlsRecord, self).update(data)
-        super(IlsRecord, self).commit()
-        if dbcommit:
-            self.dbcommit(reindex)
+        self = self.update(new_data, dbcommit=dbcommit, reindex=reindex)
+        return self
+
+    def revert(self, revision_id, reindex=False):
+        """Revert the record to a specific revision."""
+        persistent_identifier = self.get_persistent_identifier(self.id)
+        if persistent_identifier.is_deleted():
+            raise IlsRecordError.Deleted()
+        self = super(IlsRecord, self).revert(revision_id=revision_id)
+        if reindex:
+            self.reindex(forceindex=False)
+        return self
+
+    def undelete(self, reindex=False):
+        """Undelete the record."""
+        persistent_identifier = self.get_persistent_identifier(self.id)
+        if persistent_identifier.is_deleted():
+            with db.session.begin_nested():
+                persistent_identifier.status = PIDStatus.REGISTERED
+                db.session.add(persistent_identifier)
+        else:
+            raise IlsRecordError.NotDeleted()
+
+        self = self.revert(self.revision_id - 2, reindex=reindex)
         return self
 
     def dbcommit(self, reindex=False, forceindex=False):
@@ -173,108 +275,3 @@ class IlsRecord(Record):
     def persistent_identifier(self):
         """Get Persistent Identifier."""
         return self.get_persistent_identifier(self.id)
-
-
-class RecordWithElements(IlsRecord):
-    """Define API for ILSREcords with elements."""
-
-    record = None
-    element = None
-    elements_list_name = 'elements'
-    metadata = None
-    model = None
-
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        data = self.record.dumps(self, **kwargs)
-        data[self.elements_list_name] = \
-            [element.dumps() for element in self.elements]
-        return data
-
-    def delete(self, force=False, delindex=False):
-        """Delete record and all the related elements."""
-        assert self.element
-        assert self.record
-        for element in self.elements:
-            self.remove_element(
-                element,
-                force=force,
-                delindex=delindex
-            )
-        super(RecordWithElements, self).delete(
-            force=force,
-            delindex=delindex
-        )
-
-    def add_element(self, element, dbcommit=False, reindex=False):
-        """Add an element."""
-        assert self.metadata
-        assert self.element
-        self.metadata.create(self.model, element.model)
-        if dbcommit:
-            self.dbcommit()
-            if reindex:
-                self.reindex(forceindex=True)
-
-    def remove_element(self, element, force=False, delindex=False):
-        """Remove an element."""
-        assert self.record
-        assert self.element
-        # TODO nested db operation
-        # delete from joining table
-        element_id = self.element.provider.pid_identifier
-        record_id = self.record.provider.pid_identifier
-        sql_model = self.metadata.query.filter_by(
-            **{element_id: element.id, record_id: self.id}
-        ).first()
-        db.session.delete(sql_model)
-        db.session.commit()
-        # delete element
-        to_return = element.delete(force=force, delindex=delindex)
-        # reindex record
-        self.reindex(forceindex=True)
-        return to_return
-
-    @property
-    def can_delete(self):
-        """Record can be deleted."""
-        return len(self.elements) == 0
-
-    @property
-    def elements(self):
-        """Return an array of elements."""
-        if self.model is None:
-            raise MissingModelError()
-
-        # retrive all elements in the relation table
-        # sorted by elements creation date
-        record_id = self.record.provider.pid_identifier
-        child = self.metadata.get_child()
-        record_elements = self.metadata.query\
-            .filter_by(**{record_id: self.id})\
-            .join(child)\
-            .order_by(RecordMetadata.created)
-        to_return = []
-        for rec_elem in record_elements:
-            element = self.element.get_record_by_id(rec_elem.child_id)
-            to_return.append(element)
-        return to_return
-
-    @classmethod
-    def get_record_by_elementid(cls, id_, with_deleted=False):
-        """Retrieve the record by element uuid.
-
-        Raise a database exception if the record does not exist.
-
-        :param id_: record ID.
-        :param with_deleted: If `True` then it includes deleted records.
-        :returns: The :class:`Record` instance.
-        """
-        assert cls.element
-        element_id = cls.element.provider.pid_identifier
-        record_element = cls.metadata.query.filter_by(
-            **{element_id: id_}
-        ).one()
-        return super(RecordWithElements, cls).get_record(
-            record_element.parent_id
-        )

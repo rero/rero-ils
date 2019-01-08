@@ -21,32 +21,32 @@
         "call_number": {
           "type": "keyword"
         },
-        "location_pid": {
-          "type": "keyword"
+        "location": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
-        "location_name": {
-          "type": "text"
-        },
-        "library_pid": {
-          "type": "keyword"
-        },
-        "library_name": {
-          "type": "text"
+        "document": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "item_type": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "status": {
           "type": "keyword"
         },
-        "item_type_name": {
-          "type": "keyword"
-        },
-        "requests_count": {
-          "type": "integer"
-        },
-        "item_status": {
-          "type": "keyword"
-        },
-        "pending_loans": {
-          "type": "keyword"
+        "available": {
+          "type": "boolean"
         },
         "_created": {
           "type": "date"

@@ -28,7 +28,6 @@ from __future__ import absolute_import, print_function
 
 import click
 import yaml
-from flask import current_app
 from flask.cli import with_appcontext
 from invenio_oaiharvester.cli import oaiharvester
 from invenio_oaiharvester.models import OAIHarvestConfig

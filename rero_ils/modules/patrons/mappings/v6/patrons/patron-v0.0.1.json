@@ -43,19 +43,21 @@
           "type": "text"
         },
         "patron_type": {
-          "type": "text"
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "barcode": {
           "type": "text"
         },
-        "is_staff": {
-          "type": "boolean"
-        },
-        "is_patron": {
-          "type": "boolean"
-        },
-        "library_pid": {
-          "type": "text"
+        "library": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "circulation_location_pid": {
           "type": "text"

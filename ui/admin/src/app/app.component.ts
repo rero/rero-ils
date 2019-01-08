@@ -16,10 +16,10 @@ export class AppComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.userService.loggedUser.subscribe(user => {
-      if (user) {
-        moment.locale(user.settings.language);
-        this.translate.use(user.settings.language);
+    this.userService.userSettings.subscribe(settings => {
+      if (settings) {
+        moment.locale(settings.language);
+        this.translate.use(settings.language);
       }
     });
   }

@@ -17,6 +17,15 @@
       "^/documents": "http://localhost:5000/documents"
     }
   },
+  "/persons/*": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/documents": "http://localhost:5000/persons"
+    }
+  },
   "/items/*": {
     "target": "http://localhost:5000",
     "secure": false,
@@ -51,6 +60,24 @@
     "changeOrigin": true,
     "pathRewrite": {
       "^/static": "http://localhost:5000/admin/lib"
+    }
+  },
+  "/schema/*": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/static": "http://localhost:5000/schema"
+    }
+  },
+    "/schemaform/*": {
+    "target": "http://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/static": "http://localhost:5000/schemaform"
     }
   }
 }

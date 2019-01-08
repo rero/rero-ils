@@ -9,48 +9,48 @@
 #}
 {% from 'rero_ils/macros/macro.html' import dl %}
 {%- extends 'rero_ils/page.html' %}
-{% set data = record.dumps() %}
 {%- block body %}
   <header class="row">
     <!-- TODO: Add cover -->
     <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
       <div class="thumb">
         <figure class="mb-0">
-          <img class="img-responsive border border-light" src="{{ url_for('static', filename='images/icon_') }}{{ data.document_type }}.png">
-          <figcaption class="text-center">{{ _(data.document_type) }}</figcaption>
+          <img class="img-responsive border border-light" src="{{ url_for('static', filename='images/icon_') }}{{ document.type }}.png">
+          <figcaption class="text-center">{{ _(document.type) }}</figcaption>
         </figure>
       </div>
     </div>
-   <h1 class="col-sm-11 col-md-11">{{ _('Barcode') }} {{ data.barcode }}</h1>
+   <h1 class="col-sm-11 col-md-11">{{ _('Barcode') }} {{ record.barcode }}</h1>
   </header>
   <section>
     <!-- Item data -->
     <section class="py-4">
       <article>
         <dl class="row mb-0">
-          {{ dl(_('Call number'), data.call_number) }}
-          {{ dl(_('Type'), data.item_type_name) }}
+          {{ dl(_('Call number'), record.call_number) }}
+          {{ dl(_('Type'), item_type.name) }}
           {{ dl(
             _('Document'),
             '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
           }}
           {{ dl(
             _('Location'),
-            '<a href="'+ url_for('invenio_records_ui.loc', pid_value=data.location_pid) +'">' + data.location_name +'</a>')
+            location.name)
           }}
           {{ dl(
             _('Library'),
-            '<a href="'+ url_for('invenio_records_ui.lib', pid_value=data.library_pid) +'">' + data.library_name +'</a>')
+            library.name)
           }}
-          {% if record.item_status %}
-            {{ dl(_('Status'), _(record.item_status)) }}
+          {% if record.status %}
+            {{ dl(_('Status'), _(record.status)) }}
           {% endif %}
         </dl>
       </article>
       <footer class="d-flex flex-column pt-2">
+          <!-- TODO: delete button -->
         {% with
-          href_update=url_for('item.edit_view', pid=record.pid),
-          href_delete=url_for('item.delete_view', pid=record.pid),
+          href_update=url_for('records/items.index', path=record.pid + '?document=' + document.pid),
+          href_delete='/api/items/' + record.pid,
           json=record,
           message=_("Item cannot be deleted: there are still transactions linked to this item.")
         %}
@@ -59,19 +59,19 @@
       </footer>
     </section>
     <!-- Transactions data -->
-    {% if record.item_status == ('on_loan' or 'in_transit') or data.requests_count > 0 %}
+    {% if record.status in ['on_loan', 'in_transit'] or record.number_of_requests() %}
       <section class="pt-4 border-top">
         <header>
           <h3>{{ _('Transactions') }}</h3>
         </header>
-        {% if record.item_status == 'in_transit' %}
+        {% if record.status == 'in_transit' %}
           <section class="pb-2">
             <header class="row mt-2">
               <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('In Transit') }}</h4>
             </header>
           </section>
         {% endif %}
-        {% if record.item_status == 'on_loan' %}
+        {% if record.status == 'on_loan' %}
           <section>
             <header class="row mt-2">
               <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Borrowed by') }}</h4>
@@ -92,7 +92,7 @@
                     {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
                     <tr>
                       <td>
-                        <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</ a>
+                        <a href="{{ url_for('circulation.index', path='checkinout?patron=' + patron.get('barcode')) }}">{{ patron_name }}</ a>
                       </td>
                       <td>
                         {{ holding.end_date|format_date(
@@ -101,8 +101,8 @@
                         ) }}
                       </td>
                       <td>
-                        {% if holding.extension_count %}
-                          {{ holding.extension_count }}
+                        {% if holding.get_extension_count %}
+                          {{ holding.get_extension_count }}
                         {% else %}
                           0
                         {% endif %}
@@ -114,10 +114,10 @@
             </article>
           </section>
         {% endif %}
-        {% if data.requests_count > 0 %}
+        {% if record.number_of_requests() %}
           <section>
             <header class="row mt-2">
-              <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Pending') }} ({{ data.requests_count }})</h4>
+              <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Pending') }} ({{ record.number_of_requests() }})</h4>
             </header>
             <article class="row">
               <div class="col-xs-12 col-sm-10 col-md-11 offset-sm-2 offset-md-1 table-responsive">
@@ -130,20 +130,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% for holding in record.requests %}
+                    {% for holding in record.get_requests() %}
+                    {{ holding|tojson}}
                       {% set patron = holding.patron_pid|get_patron_from_pid %}
                       {% set location_name = holding.pickup_location_pid|get_location_name_from_pid %}
                       {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
                       <tr>
                         <td>
                           {% if patron %}
-                            <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode') }}">{{ patron_name }}</a>
+                            <a href="{{ url_for('circulation.index', path='checkinout?patron=' + patron.get('barcode')) }}">{{ patron_name }}</a>
                           {% else %}
                             {{ _('No patron found!') }}
                           {% endif %}
                         </td>
                         <td>
-                          <a href="{{ '/locations/' + holding.pickup_location_pid }}">{{ location_name }}</a>
+                          {{ location_name }}
                         </td>
                         <td>
                           {% if holding.transaction_date %}
@@ -166,4 +167,5 @@
       </section>
     {% endif %}
   </section>
+
 {%- endblock body %}

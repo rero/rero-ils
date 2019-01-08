@@ -26,19 +26,42 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, jsonify, render_template
+from functools import wraps
+
+from flask import Blueprint, jsonify, render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
+from ...permissions import login_and_librarian
 from ..documents.api import Document
 from ..items.api import Item
+from ..libraries.api import Library
 from ..loans.api import get_loans_by_patron_pid
 from ..locations.api import Location
 from .api import Patron
 from .utils import user_has_patron
+
+api_blueprint = Blueprint(
+    'api_patrons',
+    __name__,
+    url_prefix='/patrons',
+    template_folder='templates',
+    static_folder='static',
+)
+
+
+def check_permission(fn):
+    """."""
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        """."""
+        login_and_librarian()
+        return fn(*args, **kwargs)
+    return decorated_view
+
 
 blueprint = Blueprint(
     'patrons',
@@ -47,6 +70,24 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.route('/logged_user', methods=['GET'])
+@check_permission
+def logged_user():
+    """Current logged user informations in JSON."""
+    patron = Patron.get_patron_by_user(current_user)
+    if patron is None:
+        raise NotFound()
+    if 'resolve' in request.args:
+        patron = patron.replace_refs()
+    data = {
+        'metadata': patron,
+        'settings': {
+            'language': current_i18n.locale.language
+        }
+    }
+    return jsonify(data)
 
 
 @blueprint.route('/profile')
@@ -68,11 +109,15 @@ def profile():
     requests = []
     if loans:
         for loan in loans:
-            document = Document.get_record_by_pid(loan['document_pid'])
-            item = Item.get_record_by_pid(loan['item_pid'])
+            item_pid = loan.get('item_pid')
+            item = Item.get_record_by_pid(item_pid).replace_refs()
+            location = Location.get_record_by_pid(
+                item['location']['pid']).replace_refs()
+            library = Library.get_record_by_pid(location['library']['pid'])
+            document = Document.get_record_by_pid(item['document']['pid'])
             loan['title'] = document['title']
             loan['call_number'] = item['call_number']
-            loan['library_name'] = item.dumps()['library_name']
+            loan['library'] = library['name']
             if loan['state'] == 'ITEM_ON_LOAN':
                 checkouts.append(loan)
             elif loan['state'] in (
@@ -80,33 +125,16 @@ def profile():
                     'ITEM_AT_DESK',
                     'ITEM_IN_TRANSIT_FOR_PICKUP'
             ):
-                location = Location.get_record_by_pid(
+                pickup_loc = Location.get_record_by_pid(
                     loan['pickup_location_pid'])
-                loan['pickup_location_name'] = ''
-                if location:
-                    loan['pickup_location_name'] = location.get('name', '')
-                    requests.append(loan)
+                loan['pickup_location_name'] = pickup_loc.get('name', '')
+                requests.append(loan)
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
         loans=checkouts,
         pendings=requests
     )
-
-
-@blueprint.route('/logged_user', methods=['GET'])
-@login_required
-def logger_user():
-    """Current logged user informations in JSON."""
-    patron = Patron.get_patron_by_user(current_user)
-    if patron is None:
-        raise NotFound()
-    patronDumps = patron.dumps()
-    # TODO: Find a better way to transfert user settings
-    patronDumps['settings'] = {
-        'language': current_i18n.locale.language
-    }
-    return jsonify(patronDumps)
 
 
 @blueprint.app_template_filter('get_patron_from_barcode')

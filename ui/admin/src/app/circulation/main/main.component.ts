@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.currentUser.loggedUser.subscribe(user => {
       if (user) {
-        if (user.library_pid) {
+        if (user.roles.some(role => role === 'librarian')) {
           this.permission_denied = false;
         }
         this.loading = false;

@@ -6,6 +6,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [SearchInputComponent, ConfirmWindowComponent],
@@ -15,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AlertModule,
     ModalModule,
     TranslateModule.forChild({}),
+    PaginationModule.forRoot()
   ],
   exports: [
     TranslateModule,
@@ -22,7 +24,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     DataTablesModule,
     SearchInputComponent,
     ModalModule,
-    ConfirmWindowComponent
+    ConfirmWindowComponent,
+    PaginationModule
   ]
 })
 export class SharedModule { }

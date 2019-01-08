@@ -20,7 +20,8 @@
       "title": "Schema",
       "description": "Schema to validate patron records against.",
       "type": "string",
-      "minLength": 9
+      "minLength": 9,
+      "default": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json"
     },
     "pid": {
       "title": "Patron ID",
@@ -79,31 +80,47 @@
       "pattern": "^\\+[0-9]*$",
       "validationMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
     },
-    "patron_type_pid": {
-      "title": "Patron type",
-      "type": "string"
+    "patron_type": {
+      "title": "Patron Type",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Patron Type URI",
+          "type": "string",
+          "pattern": "^http://ils.rero.ch/api/patron_types/.*?$"
+        }
+      }
     },
     "barcode": {
       "title": "Patron's barcode or card number",
       "type": "string",
       "minLength": 6
     },
-    "library_pid": {
-      "title": "The library of the appartenance library",
-      "type": "string",
-      "default": "1"
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^http://ils.rero.ch/api/libraries/.*?$"
+        }
+      }
     },
-    "is_patron": {
-      "title": "Qualify this user as a patron",
-      "type": "boolean",
-      "default": false,
-      "description": "Qualify this user as a patron."
-    },
-    "is_staff": {
-      "title": "Qualify this user as a staff library",
-      "type": "boolean",
-      "default": false,
-      "description": "Qualify this user as a staff library."
+    "roles": {
+      "title": "Role",
+      "description": "Qualify this user as a patron and/or a librarian.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "maxItems": 2,
+      "items": {
+        "type": "string",
+        "enum": [
+          "librarian",
+          "patron"
+        ]
+      }
     }
   }
 }

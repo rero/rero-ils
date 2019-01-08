@@ -1,0 +1,32 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Patron Type",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations"
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "name",
+            "htmlClass": "px-2",
+            "validationMessage": {
+              "alreadyTakenMessage": "The patron type name is already taken"
+            },
+            "remoteRecordType": "patron_types"
+          },
+          {
+            "htmlClass": "px-2",
+            "key": "description"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -25,8 +25,6 @@
 
 """MARC21 RERO to JSON."""
 
-from __future__ import absolute_import
-
 from .model import marc21tojson
 
 __all__ = ('marc21tojson')

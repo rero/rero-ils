@@ -18,6 +18,7 @@ invenio-circulation = {ref = "master", git = "https://github.com/inveniosoftware
 pipenv = "*"
 requests = ">=2.20.0"
 flask-oauthlib = "*"
+# invenio-admin = {version = ">=1.1.1"}
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"

@@ -23,5 +23,3 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 """Loans."""
-
-from __future__ import absolute_import, print_function

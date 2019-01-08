@@ -52,13 +52,13 @@ fi
 pipenv install ${flags[@]}
 
 # install assets utils
-npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
+npm i npm@latest -g --prefix `pipenv --venv` && pipenv run npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
 
 
 # collect static files and compile html/css assets
 CWD=`pwd`
 # build the angular ui application
-cd ui/admin; npm i; pipenv run npm run deploy
+cd ui/admin; npm ci; pipenv run npm run deploy
 
 # install the npm dependencies
 cd ${CWD}

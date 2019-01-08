@@ -1,0 +1,247 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
+{%- extends 'rero_ils/page.html' %}
+{% from 'rero_ils/macros/macro.html' import dl, div_json %}
+
+{%- block body %}
+  <header class="row">
+    <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
+     <icon-thumbnail class="thumb"
+          {% if record.identifiers %}
+            identifiers='{{ (record.identifiers or {})|tojson }}'
+          {% else %}
+            identifiers=""
+          {% endif %}
+          type="{{ record.type }}"
+          config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
+        </icon-thumbnail>
+    </div>
+    <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
+  </header>
+  {%- block record_body %}
+    <section>
+      <!-- Document -->
+      <section class="py-4 border-bottom">
+        <article class="">
+            <dl class="row mb-0">
+            <!-- AUTHORS -->
+            {% if record.authors|length > 0 %}
+              {{ dl(_('Author'), record.authors|authors_format) }}
+            {% endif %}
+
+            <!-- PUBLISHERS -->
+            {% if record.publishers|length > 0 %}
+              {{ dl(_('Publisher'), record.publishers|publishers_format) }}
+            {% endif %}
+
+            <!-- PUBLICATION YEAR -->
+            {% if record.publicationYear %}
+              {{ dl(_('Date'),
+                 record.freeFormedPublicationDate if record.freeFormedPublicationDate
+                 else record.publicationYear) }}
+            {% endif %}
+
+            <!-- ABSTRACT -->
+            {% if record.abstracts|length > 0 %}
+              {{ dl(_('Abstract'), record.abstracts|abstracts_format|nl2br) }}
+            {% endif %}
+
+            <!-- PHYSICAL DESCRIPTION -->
+            {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
+              {% set formats = ', '.join(record.formats) %}
+              {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats]|select) %}
+              {{ dl(_('Physical description'), description) }}
+            {% endif %}
+
+            <!-- ADDITIONAL MATERIALS -->
+            {% if record.additionalMaterials %}
+              {{ dl(_('Additional Materials'), record.additionalMaterials) }}
+            {% endif %}
+
+            <!-- SERIES -->
+            {% if record.series|length > 0 %}
+              {{ dl(_('Series'), record.series|series_format) }}
+            {% endif %}
+
+            <!-- UNIFORM TITLE -->
+            {% if record.titlesProper|length > 0 %}
+              {{ dl(_('Uniform title'), record.titlesProper|join('; ')) }}
+            {% endif %}
+
+            <!-- IS PART OF -->
+            {% if record.is_part_of %}
+              {{ dl(_('Is part of'), record.is_part_of) }}
+            {% endif %}
+
+            <!-- SUBJECTS -->
+            {% if record.subjects|length > 0 %}
+              {{ dl(_('Subjects'), record.subjects|join('; ')) }}
+            {% endif %}
+
+            <!-- NOTES -->
+            {% if record.notes|length > 0 %}
+              {{ dl(_('Notes'), notes|abstracts_format|nl2br) }}
+            {% endif %}
+
+            {% if record.identifiers %}
+              {% if record.identifiers.isbn %}
+                {{ dl(_('ISBN'), record.identifiers.isbn) }}
+              {% endif %}
+            {% endif %}
+
+            {% if record.electronic_location|length > 0 %}
+              {% set uris = [] %}
+              {% for resource in record.electronic_location %}
+                {% do uris.append('<a href="'+ resource.uri +'"><i class="fa fa-lock fa-fw"></i> '+ resource.uri +'</a>') %}
+              {% endfor %}
+              {{ dl(_('Online Access'), uris|join(', ')) }}
+            {% endif %}
+
+            {% if record.source %}
+              {{ dl(
+                _('Source'),
+                '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>'
+              ) }}
+            {% endif %}
+            <dt class="col-sm-3 offset-sm-2 offset-md-1">
+              {{ _('Permalink') }}
+            </dt>
+            <dd class="col-sm-7 col-md-8">
+              {{ url_for('invenio_records_ui.doc', pid_value=record.pid, _external=True) }}
+            </dd>
+            </dl>
+        </article>
+        <footer class="d-flex flex-column pt-2">
+            {% if record.can_edit and current_user|can_edit %}
+              {% with
+                href_update=url_for('records/documents.index', path=record.pid),
+                href_delete='/api/documents/' + record.pid,
+                json=record,
+                message=_("Document cannot be deleted: there are still items linked to this document.")
+              %}
+                {% include 'rero_ils/_editor_button_actions.html' %}
+              {% endwith %}
+            {% else %}
+              {% if current_user|can_edit %}
+                {{ div_json(_('JSON'), data) }}
+              {% endif %}
+            {% endif %}
+        </footer>
+      </section>
+      <!-- Items -->
+      {%- if items or ( current_user|can_edit and record.can_edit) %}
+        <section class="py-4 border-bottom">
+          <header class="mb-4">
+            <h3>{{ _('Items') }}
+              {%- if current_user|can_edit %}
+                <a href="{{ url_for('records/items.index', path='new' + '?document=' + record.pid) }}"
+                   type="button" class="btn btn-sm btn-success">
+                  <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
+                </a>
+              {% endif %}
+            </h3>
+          </header>
+      {% endif %}
+        {% for item in items %}
+          <!-- Item -->
+          <section class="pb-2">
+            <header class="row mt-2">
+              {% if item.barcode %}
+                <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Barcode') }}
+                  {% if current_user|can_edit %}
+                    <a href="{{ url_for('invenio_records_ui.item', pid_value=item.pid) }}">{{ item.barcode }}</a>
+                  {% else %}
+                    {{ item.barcode }}
+                  {% endif %}
+                </h4>
+              {% endif %}
+            </header>
+            <article>
+              <dl class="row mb-0">
+                {% set location = item.get_location() %}
+                {% set library = item.get_library() %}
+                {% if item.call_number %}
+                  {{ dl(_('Call Number'), item.call_number) }}
+                {% endif %}
+                {% if library.name %}
+                    {{ dl(_('Library'), library.name)}}
+                {% endif %}
+                {% if location.name %}
+                    {{ dl(_('Location'), location.name)}}
+                {% endif %}
+                {% if item.number_of_requests() %}
+                  {% if item|requested_this_item %}
+                    {{ dl(_('Rank'), item|patron_request_rank) }}
+                  {% endif %}
+                {% endif %}
+                {% if item.status %}
+                  {{ dl(_('Status'),'<i class="fa fa-circle text-'+ ('success' if item.available else 'danger') +'"></i> ' + item|item_status_text(format='short_date', locale=current_i18n.locale.language)) }}
+                {% endif %}
+              </dl>
+            </article>
+            <footer class="row flex-wrap justify-content-between pt-2">
+              <div class="dropdown col-12 col-sm-1 col-md-2 offset-sm-2 offset-md-1">
+                {% if item|can_request %}
+                  <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenu">
+                    {{ _('Request') }}
+                    <i class="fa fa-caret-down fa-fw"></i>
+                  </a>
+                  <!-- TODO: Style the dropdown header -->
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <h6 class="dropdown-item">{{ _('Available Pickup Locations') }}</h6>
+                    {% set locations = item.pid|item_library_pickup_locations %}
+                    {% for location in locations %}
+                      <a class="dropdown-item"
+                         href="{{ url_for('item.patron_request', item_pid_value=item.pid, pickup_location_pid=location.pid)}}">
+                          {{ location.name }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="col-12 col-sm-9 d-flex flex-column">
+                {% if current_user|can_edit %}
+                  {% with
+                    href_update=url_for('records/items.index', path=item.pid + '?document=' + record.pid),
+                    json=item
+                  %}
+                    {% include 'rero_ils/_editor_button_actions.html' %}
+                  {% endwith %}
+                {% endif %}
+              </div>
+            </footer>
+          </section>
+        {% endfor %}
+      </section>
+    </section>
+  <footer class="pt-4 rero-ils-detailed-view-footer">
+    {%- set formats = export_formats(pid.pid_type) %}
+      {%- if formats %}
+        <h3 class="d-inline-block">{{ _('Export Formats') }}:</h3>
+        <ul class="list-inline d-inline-block">
+        {%- for slug, fmt in formats %}
+          <li>
+            <a href="{{ url_for('invenio_records_ui.doc_export', pid_value=pid.pid_value, format=slug) }}">
+              {{ fmt.title }}
+            </a>
+          </li>
+        {%- endfor %}
+        </ul>
+      {%- endif %}
+  </footer>
+  {%- endblock record_body %}
+{%- endblock body %}
+
+{%- block javascript %}
+  {{ super() }}
+  {% assets "rero_ils_documents_detailed_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+
+{%- endblock javascript %}

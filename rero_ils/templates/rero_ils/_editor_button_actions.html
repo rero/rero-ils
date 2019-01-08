@@ -1,4 +1,4 @@
-<div class="modal fade" id="confirm-{{ json.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" data-modal="deleteRecord" id="confirm-{{ json.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,7 +13,7 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{ _('Cancel') }}</button>
-        <a href="{{ href_delete }}" class="btn btn-danger btn-ok">{{ _('Delete') }}</a>
+        <button data-delete-url="{{ href_delete }}" type="button" class="btn btn-danger btn-ok delete">{{ _('Delete') }}</button>
       </div>
     </div>
   </div>
@@ -39,3 +39,5 @@
 <div id="source-{{ json.id }}" class="card bg-light collapse mt-2">
   <pre class="mb-0 p-2 text-muted">{{ json.dumps()|tojson_pretty }}</pre>
 </div>
+
+

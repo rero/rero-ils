@@ -1,0 +1,52 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Location",
+    "items": [
+      {
+        "title": "Library",
+        "key": "library.$ref",
+        "type": "select",
+        "remoteRecordType": "libraries"
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "code",
+            "htmlClass": "px-2",
+            "validationMessage": {
+              "alreadyTakenMessage": "The code is already taken",
+              "cannotBeVerifiedMessage": "The server cannot verify the code"
+            },
+            "remoteRecordType": "locations"
+          },
+          {
+            "key": "name",
+            "htmlClass": "px-2"
+          }
+        ]
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "title": "mark this location as pickup",
+            "key": "is_pickup",
+            "htmlClass": "px-2",
+            "description": "",
+            "type": "checkbox"
+          },
+          {
+            "key": "pickup_name",
+            "title": "display name as pickup",
+            "htmlClass": "px-2",
+            "condition": "model.is_pickup"
+          }
+        ]
+      }
+    ]
+  }
+]

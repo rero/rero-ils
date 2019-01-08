@@ -1,5 +1,9 @@
 import { Loan } from './circulation/loans';
 
+export interface Library {
+  pid: string;
+}
+
 export class User {
   $schema: string;
   birth_date: string;
@@ -7,9 +11,8 @@ export class User {
   email: string;
   first_name: string;
   is_patron: boolean;
-  is_staff: boolean;
   last_name: string;
-  library_pid: string;
+  library: Library;
   name: string;
   phone: string;
   pid: string;

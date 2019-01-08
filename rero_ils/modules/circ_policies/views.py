@@ -26,9 +26,11 @@
 
 from __future__ import absolute_import, print_function
 
+from functools import wraps
+
 from flask import Blueprint, jsonify
 
-from ...permissions import record_edit_permission
+from ...permissions import login_and_librarian
 from ..circ_policies.api import CircPolicy
 from ..patrons.api import current_patron
 
@@ -40,20 +42,29 @@ blueprint = Blueprint(
 )
 
 
+def check_permission(fn):
+    """."""
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        """."""
+        login_and_librarian()
+        return fn(*args, **kwargs)
+    return decorated_view
+
+
 @blueprint.route('/circ_policies/name/validate/<name>', methods=["GET"])
-@record_edit_permission.require()
+@check_permission
 def name_validate(name):
     """Circ policy name Validate."""
     response = {
         'name': None
     }
-    if current_patron:
-        circ_policy = CircPolicy.exist_name_and_organisation_pid(
-            name,
-            current_patron.organisation.pid
-        )
-        if circ_policy:
-            response = {
-                'name': circ_policy.name
-            }
+    circ_policy = CircPolicy.exist_name_and_organisation_pid(
+        name,
+        current_patron.organisation.pid
+    )
+    if circ_policy:
+        response = {
+            'name': circ_policy.name
+        }
     return jsonify(response)

@@ -328,8 +328,8 @@ msgstr "La notice (%s) ne peut pas être trouvée."
 #: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:275
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:12
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:127
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:12
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:57
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:12
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:57
 #: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:12
 #: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:60
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:12
@@ -338,8 +338,8 @@ msgstr "La notice (%s) ne peut pas être trouvée."
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:50
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:12
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:173
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:12
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:57
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:12
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:57
 #: rero_ils/templates/rero_ils/_editor_button_actions.html:16
 msgid "Cancel"
 msgstr "Annuler"
@@ -350,8 +350,8 @@ msgstr "Annuler"
 #: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:281
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:18
 #: rero_ils/modules/items/form_options/items/item-v0.0.1.json:133
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:18
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:63
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:18
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:63
 #: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:18
 #: rero_ils/modules/libraries/form_options/libraries/library-v0.0.1.json:66
 #: rero_ils/modules/locations/form_options/locations/location-v0.0.1.json:18
@@ -360,8 +360,8 @@ msgstr "Annuler"
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:56
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:18
 #: rero_ils/modules/patrons/form_options/patrons/patron-v0.0.1.json:179
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:18
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:63
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:18
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:63
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -394,12 +394,12 @@ msgstr "JSON schema pour une politique de prêt."
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:14
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:17
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:15
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:15
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:16
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:16
 msgid "Schema"
 msgstr "Schéma"
 
@@ -430,7 +430,7 @@ msgstr "La description de la politique de prêt."
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:38
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:20
 #: rero_ils/modules/organisations/templates/rero_ils/detailed_view_organisations.html:15
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:38
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:38
 msgid "Organisation ID"
 msgstr "ID de l'organisation"
 
@@ -483,8 +483,8 @@ msgstr "Durée de la prolongation en jours."
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:161
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:142
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:179
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:26
-#: rero_ils/modules/items_types/templates/rero_ils/detailed_view_items_types.html:12
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:26
+#: rero_ils/modules/item_types/templates/rero_ils/detailed_view_item_types.html:12
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:29
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:24
@@ -496,15 +496,15 @@ msgid "Name"
 msgstr "Nom"
 
 #: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:21
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:32
-#: rero_ils/modules/items_types/templates/rero_ils/detailed_view_items_types.html:20
-#: rero_ils/modules/patrons_types/templates/rero_ils/detailed_view_patrons_types.html:12
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:32
+#: rero_ils/modules/item_types/templates/rero_ils/detailed_view_item_types.html:20
+#: rero_ils/modules/patron_types/templates/rero_ils/detailed_view_patron_types.html:12
 msgid "Description"
 msgstr "Description"
 
 #: rero_ils/modules/circ_policies/templates/rero_ils/detailed_view_circ_policies.html:29
 #: rero_ils/modules/documents/form_options/documents/document-v0.0.1.json:112
-#: rero_ils/modules/items_types/templates/rero_ils/detailed_view_items_types.html:28
+#: rero_ils/modules/item_types/templates/rero_ils/detailed_view_item_types.html:28
 #: rero_ils/modules/organisations/form_options/organisations/organisation-v0.0.1.json:26
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 msgid "Organisation"
@@ -1343,43 +1343,43 @@ msgstr "Aucun lecteur trouvé !"
 msgid "No Date"
 msgstr "Aucune date"
 
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:26
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:26
 msgid "Item Type"
 msgstr "Type d'exemplaire"
 
-#: rero_ils/modules/items_types/form_options/items_types/item_type-v0.0.1.json:35
+#: rero_ils/modules/item_types/form_options/item_types/item_type-v0.0.1.json:35
 msgid "The item type name is already taken"
 msgstr "Le nom du type d'exemplaire est déjà utilisé"
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:4
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:4
 msgid "ItemType"
 msgstr "Type d'exemplaire"
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:5
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:5
 msgid "JSON schema for item_type."
 msgstr "JSON schema pour un type d'exemplaire."
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:16
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:16
 msgid "Schema to validate item_type records against."
 msgstr "Schéma pour la validation des types d'exemplaires."
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:21
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
 msgid "ItemType ID."
 msgstr "ID du type d'exemplaire"
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:27
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:27
 msgid "Name of the ItemType."
 msgstr "Nom du type d'exemplaire"
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:33
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:33
 msgid "Description of the ItemType."
 msgstr "Description du type d'exemplaire."
 
-#: rero_ils/modules/items_types/jsonschemas/items_types/item_type-v0.0.1.json:38
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:38
 msgid "Organisation ID."
 msgstr "ID de l'organisation."
 
-#: rero_ils/modules/items_types/templates/rero_ils/detailed_view_items_types.html:39
+#: rero_ils/modules/item_types/templates/rero_ils/detailed_view_item_types.html:39
 msgid ""
 "Item type cannot be deleted: there are still items linked to this item "
 "type."
@@ -1730,47 +1730,47 @@ msgstr "Aucune réservation"
 msgid "Belongs to"
 msgstr "Appartient à"
 
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:26
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:26
 msgid "Patron Type"
 msgstr "Type de lecteur"
 
-#: rero_ils/modules/patrons_types/form_options/patrons_types/patron_type-v0.0.1.json:35
+#: rero_ils/modules/patron_types/form_options/patron_types/patron_type-v0.0.1.json:35
 msgid "The patron type name is already taken"
 msgstr "Le type de lecteur est déjà utilisé"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:4
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
 msgstr "Type de lecteur"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:5
-msgid "JSON schema for patrons_types."
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:5
+msgid "JSON schema for patron_types."
 msgstr "JSON schema pour un type de lecteur."
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:17
-msgid "Schema to validate patrons_types records against."
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:17
+msgid "Schema to validate patron_types records against."
 msgstr "Schéma pour la validation des types de lecteurs."
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:22
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:22
 msgid "Patron type ID"
 msgstr "ID du type de lecteur"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:27
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:27
 msgid "Patron type name"
 msgstr "Nom du type de lecteur"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:28
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:28
 msgid "a short name of the Patron type"
 msgstr "un court intitulé du type de lecteur"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:33
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
 msgid "Patron type description"
 msgstr "Description du type de lecteur"
 
-#: rero_ils/modules/patrons_types/jsonschemas/patrons_types/patron_type-v0.0.1.json:34
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:34
 msgid "The description of the Patron type"
 msgstr "La description du type de lecteur"
 
-#: rero_ils/modules/patrons_types/templates/rero_ils/detailed_view_patrons_types.html:23
+#: rero_ils/modules/patron_types/templates/rero_ils/detailed_view_patron_types.html:23
 msgid ""
 "Patron type cannot be deleted: there are still patrons linked to this "
 "patron type."

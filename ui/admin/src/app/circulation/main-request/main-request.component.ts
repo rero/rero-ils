@@ -34,8 +34,8 @@ export class MainRequestComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser.loggedUser.subscribe(user => {
-      if (user && user.library_pid) {
-        this.library_pid = user.library_pid;
+      if (user && user.library.pid) {
+        this.library_pid = user.library.pid;
         this.loans = null;
         this.getRequestedLoans();
       }

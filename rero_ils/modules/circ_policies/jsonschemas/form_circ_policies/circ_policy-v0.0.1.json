@@ -1,0 +1,69 @@
+[
+  {
+    "type": "fieldset",
+    "title": "Patron Type",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations"
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "name",
+            "htmlClass": "px-2",
+            "validationMessage": {
+              "alreadyTakenMessage": "The circulation policy name is already taken."
+            },
+            "remoteRecordType": "patron_types"
+          },
+          {
+            "htmlClass": "px-2",
+            "key": "description"
+          }
+        ]
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "title": "Request Parameters",
+            "key": "allow_requests",
+            "htmlClass": "px-2 form"
+          },
+          {
+            "title": "Checkout/Renewal Parameters",
+            "key": "allow_checkout",
+            "htmlClass": "px-2"
+          }
+        ]
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "htmlClass": "px-2",
+            "condition": "model.allow_checkout",
+            "key": "checkout_duration"
+          },
+          {
+            "htmlClass": "px-2",
+            "condition": "model.allow_checkout",
+            "key": "number_renewals"
+          },
+          {
+            "htmlClass": "px-2",
+            "condition": "model.number_renewals",
+            "key": "renewal_duration"
+          }
+        ]
+      }
+    ]
+  }
+]
