@@ -8,7 +8,8 @@
     "$schema",
     "pid",
     "code",
-    "name"
+    "name",
+    "library"
   ],
   "properties": {
     "$schema": {
@@ -42,6 +43,16 @@
       "title": "Name of location if pickup",
       "type": "string",
       "description": "Name of the pickup location."
+    },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "pattern": "^http://ils.rero.ch/api/libraries/.*?$"
+        }
+      }
     }
   }
 }

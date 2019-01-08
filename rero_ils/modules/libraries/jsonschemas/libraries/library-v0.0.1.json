@@ -8,7 +8,8 @@
     "$schema",
     "pid",
     "name",
-    "opening_hours"
+    "opening_hours",
+    "organisation"
   ],
   "properties": {
     "$schema": {
@@ -20,6 +21,16 @@
     "pid": {
       "title": "Library ID",
       "type": "string"
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
     },
     "code": {
       "title": "Code",

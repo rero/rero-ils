@@ -1,24 +1,24 @@
 [
   {
-    "$schema": "https://ils.test.rero.ch/schema/items_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.test.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "standard",
     "description": "standard checkout",
     "organisation_pid": "1"
   },
   {
-    "$schema": "https://ils.test.rero.ch/schema/items_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.test.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "short",
     "description": "short checkout",
     "organisation_pid": "1"
   },
   {
-    "$schema": "https://ils.test.rero.ch/schema/items_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.test.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "on-site",
     "description": "on-site checkout",
     "organisation_pid": "1"
   },
   {
-    "$schema": "https://ils.test.rero.ch/schema/items_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.test.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "no-checkout",
     "description": "no checkout",
     "organisation_pid": "1"

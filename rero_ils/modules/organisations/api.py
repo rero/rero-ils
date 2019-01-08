@@ -25,10 +25,15 @@
 """API for manipulating organisation."""
 
 
+from functools import partial
+
 from ..api import IlsRecord
-from .fetchers import organisation_id_fetcher
-from .minters import organisation_id_minter
+from ..fetchers import id_fetcher
+from ..minters import id_minter
 from .providers import OrganisationProvider
+
+organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
+organisation_id_fetcher = partial(id_fetcher, provider=OrganisationProvider)
 
 
 class Organisation(IlsRecord):

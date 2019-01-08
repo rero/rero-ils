@@ -1,0 +1,42 @@
+.thumb {
+  img {
+    margin-bottom: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90px;
+    max-height: 90px;
+  }
+}
+
+.thumb-brief {
+  img {
+    margin-bottom: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90px;
+    max-height: 90px;
+  }
+}
+
+.icon-document {
+  border: 1px solid $gray-lighter;
+}
+
+.icon-document-type {
+  display: block;
+  text-align: center;
+  font-size: $font-size-small;
+}
+
+@media (max-width: 960px) {
+  .thumb {
+    img {
+      max-width: 48px;
+    }
+  }
+  .thumb-brief {
+    img {
+      max-width: 38px;
+    }
+  }
+}

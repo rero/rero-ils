@@ -27,6 +27,13 @@
         "pickup_name": {
           "type": "keyword"
         },
+        "library": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

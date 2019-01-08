@@ -26,24 +26,8 @@
 
 from datetime import time
 
-from flask import current_app, url_for
+from flask import url_for
 from invenio_indexer.api import RecordIndexer
-
-from .babel_extractors import translate
-
-
-def get_schema(schema):
-    """Return jsonschemas dictionary."""
-    ext = current_app.extensions.get('invenio-jsonschemas')
-    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
-    ext.get_schema.cache_clear()
-    return translate(ext.get_schema(schema), keys=keys)
-
-
-def get_schema_url(schema):
-    """Return jsonschemas url path."""
-    ext = current_app.extensions.get('invenio-jsonschemas')
-    return ext.path_to_url(schema)
 
 
 def delete_record(record_type, record_class, pid):

@@ -9,8 +9,9 @@
     "pid",
     "barcode",
     "call_number",
-    "location_pid",
-    "item_type_pid"
+    "location",
+    "item_type",
+    "document"
   ],
   "properties": {
     "$schema": {
@@ -36,23 +37,38 @@
       "type": "string",
       "minLength": 4
     },
-    "location_pid": {
+    "location": {
       "title": "Location",
-      "description": "Location of the item.",
-      "type": "string",
-      "minLength": 1
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Location URI",
+          "pattern": "^http://ils.rero.ch/api/locations/.*?$"
+        }
+      }
     },
-    "item_type_pid": {
-      "title": "Item type",
+    "document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Document URI",
+          "pattern": "^http://ils.rero.ch/api/documents/.*?$"
+        }
+      }
+    },
+    "item_type": {
+      "title": "Item Type",
       "description": "Item type of the item.",
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Item Type URI",
+          "pattern": "^http://ils.rero.ch/api/item_types/.*?$"
+        }
+      }
     },
-    "available": {
-      "title": "Item availability",
-      "type": "boolean",
-      "default": false
-    },
-    "item_status": {
+    "status": {
       "type": "string",
       "default": "on_shelf",
       "enum": [

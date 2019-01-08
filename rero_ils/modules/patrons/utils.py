@@ -64,7 +64,7 @@ def save_patron(data, record_type, record_class, parent_pid):
 
         patron = record_class.get_patron_by_email(email)
         data['is_patron'] = data.get('is_patron', False)
-        data['is_staff'] = data.get('is_staff', False)
+        data['is_patron'] = data.get('is_patron', False)
         if patron:
             patron.update(data, dbcommit=True, reindex=False)
             patron = record_class.get_patron_by_email(email)
@@ -76,13 +76,13 @@ def save_patron(data, record_type, record_class, parent_pid):
         else:
             patron.remove_role('patrons')
 
-        if patron.get('is_staff', False):
+        if patron.get('is_patron', False):
             patron.add_role('staff')
-            # TODO: cataloguer role
-            patron.add_role('cataloguer')
+            # TODO: librarian role
+            patron.add_role('librarian')
         else:
-            patron.remove_role('cataloguer')
-            # TODO: cataloguer role
+            patron.remove_role('librarian')
+            # TODO: librarian role
             patron.remove_role('staff')
         patron.dbcommit(reindex=True)
         RecordIndexer().client.indices.flush()
@@ -106,7 +106,7 @@ def clean_patron_fields(data):
             del (data['barcode'])
         if 'patron_type_pid' in data:
             del (data['patron_type_pid'])
-    if not data.get('is_staff', False):
+    if not data.get('is_patron', False):
         if 'library_pid' in data:
             del (data['library_pid'])
     return data

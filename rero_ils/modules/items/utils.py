@@ -33,7 +33,7 @@ from flask import request
 
 from rero_ils.modules.items.api import Item
 
-from ..documents_items.api import DocumentsWithItems
+from ..documents.api import Document
 
 
 def commit_item(item):
@@ -42,7 +42,7 @@ def commit_item(item):
         raise TypeError
     item.commit()
     item.dbcommit(reindex=True, forceindex=True)
-    document = DocumentsWithItems.get_document_by_itemid(item.id)
+    document = Document.get_document_by_itemid(item.id)
     document.reindex()
 
 

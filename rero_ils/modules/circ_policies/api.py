@@ -26,14 +26,20 @@
 
 from __future__ import absolute_import, print_function
 
+from functools import partial
+
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
-from ..errors import OrganisationDoesNotExist, PolicyNameAlreadyExists
-from ..organisations.api import Organisation
-from .fetchers import circ_policy_id_fetcher
-from .minters import circ_policy_id_minter
+from ..fetchers import id_fetcher
+from ..minters import id_minter
 from .providers import CircPolicyProvider
+
+# minter
+circ_policy_id_minter = partial(id_minter, provider=CircPolicyProvider)
+
+# fetcher
+circ_policy_id_fetcher = partial(id_fetcher, provider=CircPolicyProvider)
 
 
 class CircPoliciesSearch(RecordsSearch):
@@ -53,55 +59,16 @@ class CircPolicy(IlsRecord):
     provider = CircPolicyProvider
 
     @classmethod
-    def get_pid_by_name(cls, name, organisation_pid):
-        """Get circulation policy by name."""
-        search = CircPoliciesSearch()
-        result = (
-            search.filter('term', name=name).filter(
-                'term', organisation_pid=organisation_pid
-            )
-            .source(includes=['pid'])
-            .scan()
-        )
-        try:
-            return next(result).pid
-        except StopIteration:
-            return None
-
-    @classmethod
-    def create(cls, data, id_=None, delete_pid=True, **kwargs):
-        """Create a new circulation policy record."""
-        record = None
-        name = data.get('name')
-        organisation_pid = data.get('organisation_pid')
-        if Organisation.get_record_by_pid(organisation_pid):
-            if not cls.get_pid_by_name(name, organisation_pid):
-                record = super(CircPolicy, cls).create(
-                    data, id_=id_, delete_pid=delete_pid, **kwargs
-                )
-            else:
-                raise PolicyNameAlreadyExists
-        else:
-            raise OrganisationDoesNotExist
-        return record
-
-    @property
-    def can_delete(self):
-        """Record can be deleted."""
-        return True
-
-    @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique on organisation."""
-        circ_policy = CircPoliciesSearch().filter(
+        result = CircPoliciesSearch().filter(
             'term',
-            **{"circ_policy_name": name}
+            circ_policy_name=name
         ).filter(
             'term',
-            **{"organisation_pid": organisation_pid}
+            organisation__pid=organisation_pid
         ).source().scan()
-        result = list(circ_policy)
-        if len(result) > 0:
-            return result.pop(0)
-        else:
+        try:
+            return next(result)
+        except StopIteration:
             return None

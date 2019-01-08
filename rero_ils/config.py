@@ -34,28 +34,27 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
+from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
+    CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
+from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemAtDeskToItemOnLoan, ItemInTransitHouseToItemReturned, \
     ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToItemOnLoan
 from invenio_records_rest.facets import range_filter, terms_filter
+from invenio_records_rest.utils import allow_all, deny_all
 from invenio_search import RecordsSearch
 
-from .modules.circ_policies.api import CircPolicy
-from .modules.documents_items.api import DocumentsWithItems
+from rero_ils.modules.api import IlsRecordIndexer
+from rero_ils.modules.loans.api import Loan
+
 from .modules.items.api import Item
-from .modules.items_types.api import ItemType
-from .modules.libraries_locations.api import LibraryWithLocations
 from .modules.loans.utils import get_default_extension_duration, \
     get_default_extension_max_count, get_default_loan_duration, \
     is_item_available_for_checkout, is_loan_duration_valid
-from .modules.locations.api import Location
-from .modules.mef.api import MefPerson
-from .modules.organisations_libraries.api import OrganisationWithLibraries
 from .modules.patrons.api import Patron
-from .modules.patrons_types.api import PatronType
-from .permissions import cataloguer_permission_factory
+from .permissions import librarian_permission_factory
 
 
 def _(x):
@@ -197,7 +196,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = 'ils.test.rero.ch'
+JSONSCHEMAS_HOST = 'ils.rero.ch'
 JSONSCHEMAS_ENDPOINT = '/schema'
 
 # Flask configuration
@@ -266,6 +265,21 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # REST API Configuration
 # ======================
+RECORDS_REST_DEFAULT_CREATE_PERMISSION_FACTORY = librarian_permission_factory
+"""Default create permission factory: reject any request."""
+
+RECORDS_REST_DEFAULT_LIST_PERMISSION_FACTORY = librarian_permission_factory
+"""Default list permission factory: allow all requests"""
+
+RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = librarian_permission_factory
+"""Default read permission factory: check if the record exists."""
+
+RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_permission_factory
+"""Default update permission factory: reject any request."""
+
+RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_permission_factory
+"""Default delete permission factory: reject any request."""
+
 RECORDS_REST_ENDPOINTS = dict(
     doc=dict(
         pid_type='doc',
@@ -274,6 +288,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='documents',
         search_type=None,
+        indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
@@ -292,60 +307,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
-    ),
-    doc_csv=dict(
-        pid_type='doc',
-        pid_minter='document_id',
-        pid_fetcher='document_id',
-        search_class=RecordsSearch,
-        search_index='documents',
-        search_type=None,
-        record_serializers={
-            'text/csv': (
-                'rero_ils.modules.documents_items.serializers'
-                ':documents_items_csv_v1_response'
-            )
-        },
-        search_serializers={
-            'text/csv': (
-                'rero_ils.modules.documents_items.serializers'
-                ':documents_items_csv_v1_search'
-            )
-        },
-        list_route='/export/documents/csv/',
-        item_route='/export/documents/csv/<pid(doc):pid_value>',
-        default_media_type='text/csv',
-        max_result_window=20000,
-        search_factory_imp='rero_ils.query:and_search_factory',
-    ),
-    org=dict(
-        pid_type='org',
-        pid_minter='organisation_id',
-        pid_fetcher='organisation_id',
-        search_class=RecordsSearch,
-        search_index='organisations',
-        search_type=None,
-        record_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
-            'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
-            ),
-        },
-        search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
-            'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-        },
-        list_route='/organisations/',
-        item_route='/organisations/<pid(org):pid_value>',
-        default_media_type='application/json',
-        max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all
     ),
     item=dict(
         pid_type='item',
@@ -354,6 +317,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='items',
         search_type=None,
+        indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
@@ -378,7 +342,8 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='item_type_id',
         pid_fetcher='item_type_id',
         search_class=RecordsSearch,
-        search_index='items_types',
+        search_index='item_types',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/json': (
@@ -393,8 +358,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 'invenio_records_rest.serializers' ':json_v1_search'
             ),
         },
-        list_route='/items_types/',
-        item_route='/items_types/<pid(itty):pid_value>',
+        list_route='/item_types/',
+        item_route='/item_types/<pid(itty):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
@@ -405,6 +370,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='patron_id',
         search_class=RecordsSearch,
         search_index='patrons',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/json': (
@@ -430,8 +396,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='patron_type_id',
         pid_fetcher='patron_type_id',
         search_class=RecordsSearch,
-        search_index='patrons_types',
+        search_index='patron_types',
         search_type=None,
+        indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
@@ -445,8 +412,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 'invenio_records_rest.serializers' ':json_v1_search'
             ),
         },
-        list_route='/patrons_types/',
-        item_route='/patrons_types/<pid(ptty):pid_value>',
+        list_route='/patron_types/',
+        item_route='/patron_types/<pid(ptty):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
@@ -457,6 +424,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='library_id',
         search_class=RecordsSearch,
         search_index='libraries',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/rero+json': (
@@ -479,7 +447,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
-        update_permission_factory_imp=cataloguer_permission_factory
+        delete_permission_factory_imp=deny_all
     ),
     loc=dict(
         pid_type='loc',
@@ -487,6 +455,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='location_id',
         search_class=RecordsSearch,
         search_index='locations',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/json': (
@@ -532,6 +501,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all
     ),
     cipo=dict(
         pid_type='cipo',
@@ -539,6 +513,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='circ_policy_id',
         search_class=RecordsSearch,
         search_index='circ_policies',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/json': (
@@ -590,20 +565,12 @@ RECORDS_REST_FACETS = {
             document_type=dict(terms=dict(field='type')),
             library=dict(
                 terms=dict(field='itemslist.library_name'),
-                # aggs=dict(
-                #     location=dict(
-                #         terms=dict(
-                #             field='itemslist.location_name'
-                #         )
-                #     )
-                # )
             ),
             author=dict(terms=dict(field='facet_authors')),
             language=dict(terms=dict(field='languages.language')),
             subject=dict(terms=dict(field='subject')),
             status=dict(terms=dict(field='itemslist.item_status')),
         ),
-        # can be also post_filter
         filters={
             _('document_type'): terms_filter('type'),
             _('library'): terms_filter('itemslist.library_name'),
@@ -651,80 +618,22 @@ RECORDS_UI_ENDPOINTS = {
     'doc': dict(
         pid_type='doc',
         route='/documents/<pid_value>',
-        template='rero_ils/detailed_view_documents_items.html',
-        view_imp='rero_ils.modules.documents_items.views.doc_item_view_method',
-        record_class='rero_ils.modules.documents_items.api:DocumentsWithItems',
+        template='rero_ils/detailed_view_documents.html',
+        record_class='rero_ils.modules.documents.api:Document',
     ),
     'doc_export': dict(
         pid_type='doc',
         route='/documents/<pid_value>/export/<format>',
         view_imp='invenio_records_ui.views.export',
         template='rero_ils/export_documents_items.html',
-        record_class='rero_ils.modules.documents_items.api:DocumentsWithItems',
-    ),
-    'org': dict(
-        pid_type='org',
-        route='/organisations/<pid_value>',
-        template='rero_ils/detailed_view_organisations_libraries.html',
-        record_class='rero_ils.modules.organisations_libraries.api:OrganisationWithLibraries',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'lib': dict(
-        pid_type='lib',
-        route='/libraries/<pid_value>',
-        template='rero_ils/detailed_view_libraries_locations.html',
-        record_class='rero_ils.modules.libraries_locations.api:LibraryWithLocations',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'loc': dict(
-        pid_type='loc',
-        route='/locations/<pid_value>',
-        template='rero_ils/detailed_view_locations.html',
-        record_class='rero_ils.modules.locations.api:Location',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'item': dict(
-        pid_type='item',
-        route='/items/<pid_value>',
-        template='rero_ils/detailed_view_items.html',
-        view_imp='rero_ils.modules.items.views.item_view_method',
-        record_class='rero_ils.modules.items.api:Item',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'itty': dict(
-        pid_type='itty',
-        route='/items_types/<pid_value>',
-        template='rero_ils/detailed_view_items_types.html',
-        record_class='rero_ils.modules.items_types.api:ItemType',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'ptrn': dict(
-        pid_type='ptrn',
-        route='/patrons/<pid_value>',
-        template='rero_ils/detailed_view_patrons.html',
-        record_class='rero_ils.modules.patrons.api:Patron',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
-    'ptty': dict(
-        pid_type='ptty',
-        route='/patrons_types/<pid_value>',
-        template='rero_ils/detailed_view_patrons_types.html',
-        record_class='rero_ils.modules.patrons_types.api:PatronType',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
+        record_class='rero_ils.modules.documents.api:Document',
     ),
     'pers': dict(
         pid_type='pers',
         route='/persons/<pid_value>',
         template='rero_ils/detailed_view_persons.html',
-        record_class='rero_ils.modules.mef.api:MefPerson',
-    ),
-    'cipo': dict(
-        pid_type='cipo',
-        route='/circ_policies/<pid_value>',
-        template='rero_ils/detailed_view_circ_policies.html',
-        record_class='rero_ils.modules.circ_policies.api:CircPolicy',
-        permission_factory_imp='rero_ils.permissions.cataloguer_permission_factory',
-    ),
+        record_class='rero_ils.modules.mef_persons.api:MefPerson',
+    )
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -737,134 +646,6 @@ RECORDS_UI_EXPORT_FORMATS = {
     }
 }
 
-# Editor Configuration
-# =====================
-
-RERO_ILS_RESOURCES_ADMIN_OPTIONS = {
-    _('doc'): dict(
-        api='/api/documents/',
-        results_template='templates/rero_ils/brief_view_documents_items.html',
-        editor_template='rero_ils/document_editor.html',
-        schema='documents/document-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.documents.form_options',
-            'documents/document-v0.0.1.json',
-        ),
-        record_class=DocumentsWithItems,
-        form_options_create_exclude=['pid'],
-    ),
-    _('item'): dict(
-        # api='/api/items/',
-        editor_template='rero_ils/item_editor.html',
-        schema='items/item-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.items.form_options',
-            'items/item-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.documents_items.utils:save_item',
-        delete_record='rero_ils.modules.documents_items.utils:delete_item',
-        record_class=Item,
-        form_options_create_exclude=['pid'],
-    ),
-    _('itty'): dict(
-        api='/api/items_types/',
-        schema='items_types/item_type-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.items_types.form_options',
-            'items_types/item_type-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.items_types.utils:save_item_type',
-        editor_template='rero_ils/item_type_editor.html',
-        results_template='templates/rero_ils/brief_view_items_types.html',
-        record_class=ItemType,
-        form_options_create_exclude=['pid', 'organisation_pid'],
-    ),
-    _('ptrn'): dict(
-        api='/api/patrons/',
-        schema='patrons/patron-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.patrons.form_options',
-            'patrons/patron-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.patrons.utils:save_patron',
-        editor_template='rero_ils/patron_editor.html',
-        results_template='templates/rero_ils/brief_view_patrons.html',
-        record_class=Patron,
-    ),
-    _('ptty'): dict(
-        api='/api/patrons_types/',
-        schema='patrons_types/patron_type-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.patrons_types.form_options',
-            'patrons_types/patron_type-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.patrons_types.utils:save_patron_type',
-        editor_template='rero_ils/patron_type_editor.html',
-        results_template='templates/rero_ils/brief_view_patrons_types.html',
-        record_class=PatronType,
-        form_options_create_exclude=['pid', 'organisation_pid'],
-    ),
-    _('org'): dict(
-        schema='organisations/organisation-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.organisations.form_options',
-            'organisations/organisation-v0.0.1.json',
-        ),
-        record_class=OrganisationWithLibraries,
-        form_options_create_exclude=['pid'],
-    ),
-    _('lib'): dict(
-        api='/api/libraries/',
-        results_template='templates/rero_ils/brief_view_libraries_locations.html',
-        editor_template='rero_ils/library_editor.html',
-        schema='libraries/library-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.libraries.form_options',
-            'libraries/library-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.organisations_libraries.utils:save_library',
-        delete_record='rero_ils.modules.organisations_libraries.utils:delete_library',
-        record_class=LibraryWithLocations,
-        form_options_create_exclude=['pid'],
-    ),
-    _('loc'): dict(
-        editor_template='rero_ils/location_editor.html',
-        schema='locations/location-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.locations.form_options',
-            'locations/location-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.libraries_locations.utils:save_location',
-        delete_record='rero_ils.modules.libraries_locations.utils:delete_location',
-        record_class=Location,
-        form_options_create_exclude=['pid'],
-    ),
-    _('pers'): dict(
-        api='/api/persons/',
-        results_template='templates/rero_ils/brief_view_mef_persons.html',
-        editor_template='rero_ils/document_editor.html',
-        schema='persons/mef-person-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.documents.form_options',
-            'persons/mef-person-v0.0.1.json',
-        ),
-        record_class=MefPerson,
-        can_create=lambda: False,
-    ),
-    _('cipo'): dict(
-        api='/api/circ_policies/',
-        schema='circ_policies/circ_policy-v0.0.1.json',
-        form_options=(
-            'rero_ils.modules.circ_policies.form_options',
-            'circ_policies/circ_policy-v0.0.1.json',
-        ),
-        save_record='rero_ils.modules.circ_policies.utils:save_circ_policy',
-        editor_template='rero_ils/circ_policy_editor.html',
-        results_template='templates/rero_ils/brief_view_circ_policies.html',
-        record_class=CircPolicy,
-        form_options_create_exclude=['pid', 'organisation_pid'],
-    ),
-}
 
 # Login Configuration
 # ===================
@@ -887,7 +668,7 @@ SECURITY_SEND_REGISTER_EMAIL = True
 SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
 
 # Misc
-INDEXER_REPLACE_REFS = False
+INDEXER_REPLACE_REFS = True
 
 SEARCH_UI_SEARCH_API = '/api/documents/'
 
@@ -912,7 +693,10 @@ RERO_ILS_MEF_RESULT_SIZE = 100
 
 
 #: RERO_ILS specific configurations.
-RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?' 'version=1.2&operation=searchRetrieve' '&recordSchema=unimarcxchange&maximumRecords=1' '&startRecord=1&query=bib.ean%%20all%%20"%s"'
+RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
+                              'version=1.2&operation=searchRetrieve'\
+                              '&recordSchema=unimarcxchange&maximumRecords=1'\
+                              '&startRecord=1&query=bib.ean%%20all%%20"%s"'
 
 RERO_ILS_APP_HELP_PAGE = (
     'https://github.com/rero/rero-ils/wiki/Public-demo-help'
@@ -940,11 +724,47 @@ CIRCULATION_PATRON_EXISTS = Patron.get_record_by_pid
 
 CIRCULATION_ITEM_LOCATION_RETRIEVER = Item.item_location_retriever
 CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = \
-    DocumentsWithItems.document_retriever
-CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = DocumentsWithItems.items_retriever
+    Item.get_document_pid_by_item_pid
+CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = Item.get_items_pid_by_document_pid
 
 # This is needed for absolute URL (url_for)
 SERVER_NAME = 'localhost:5000'
+# CIRCULATION_REST_ENDPOINTS = {}
+"""Default circulation policies when performing an action on a Loan."""
+
+_LOANID_CONVERTER = 'pid(loanid,record_class="invenio_circulation.api:Loan")'
+"""Loan PID url converter."""
+
+CIRCULATION_REST_ENDPOINTS = dict(
+    loanid=dict(
+        pid_type=CIRCULATION_LOAN_PID_TYPE,
+        pid_minter=CIRCULATION_LOAN_MINTER,
+        pid_fetcher=CIRCULATION_LOAN_FETCHER,
+        search_class=LoansSearch,
+        search_type=None,
+        record_class=Loan,
+        record_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_response'),
+        },
+        search_serializers={
+            'application/json': ('invenio_records_rest.serializers'
+                                 ':json_v1_search'),
+        },
+        list_route='/circulation/loans/',
+        item_route='/circulation/loans/<{0}:pid_value>'.format(
+            _LOANID_CONVERTER),
+        default_media_type='application/json',
+        max_result_window=10000,
+        error_handlers=dict(),
+        read_permission_factory_imp=deny_all,
+        list_permission_factory_imp=deny_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all
+    )
+)
+"""Disable Circulation REST API."""
 
 CIRCULATION_LOAN_TRANSITIONS = {
     'CREATED': [
@@ -964,7 +784,11 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_AT_DESK': [
-        dict(dest='ITEM_ON_LOAN', transition=ItemAtDeskToItemOnLoan, trigger='checkout'),
+        dict(
+            dest='ITEM_ON_LOAN',
+            transition=ItemAtDeskToItemOnLoan,
+            trigger='checkout'
+        ),
         dict(dest='CANCELLED', trigger='cancel')
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [

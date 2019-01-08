@@ -30,8 +30,8 @@ import click
 from flask import current_app
 from werkzeug.local import LocalProxy
 
-from rero_ils.modules.documents_items.cli import create_items
-from rero_ils.modules.organisations_libraries.cli import import_organisations
+# from rero_ils.modules.documents_items.cli import create_items
+# from rero_ils.modules.organisations_libraries.cli import import_organisations
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -41,8 +41,8 @@ def fixtures():
     """Fixtures management commands."""
 
 
-fixtures.add_command(import_organisations)
-fixtures.add_command(create_items)
+# fixtures.add_command(import_organisations)
+# fixtures.add_command(create_items)
 
 
 @click.command('reverse')

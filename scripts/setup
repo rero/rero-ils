@@ -74,11 +74,11 @@ pipenv run invenio fixtures importorganisations ${data_path}/organisations-libra
 
 # create patron types
 # NEEDS organisations !!!
-pipenv run invenio fixtures importpatronstypes ${data_path}/patrons_types.json
+pipenv run invenio fixtures importpatronstypes ${data_path}/patron_types.json
 
 # create item types
 # NEEDS organisations !!!
-pipenv run invenio fixtures importitemstypes ${data_path}/items_types.json
+pipenv run invenio fixtures importitemstypes ${data_path}/item_types.json
 
 # create the patron records
 # NEEDS patron type !!!

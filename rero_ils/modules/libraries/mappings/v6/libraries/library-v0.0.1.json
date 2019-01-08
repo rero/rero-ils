@@ -27,6 +27,69 @@
         "email": {
           "type": "keyword"
         },
+        "exception_dates": {
+          "properties": {
+            "start_date": {
+              "type": "date"
+            },
+            "end_date": {
+              "type": "date"
+            },
+            "is_open": {
+              "type": "boolean"
+            },
+            "repeat": {
+              "properties": {
+                "interval": {
+                  "type": "long"
+                },
+                "period": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "times": {
+              "properties": {
+                "start_time": {
+                  "type": "keyword"
+                },
+                "end_time": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "title": {
+              "type": "text"
+            }
+          }
+        },
+        "opening_hours": {
+          "properties": {
+            "day": {
+              "type": "keyword"
+            },
+            "is_open": {
+              "type": "boolean"
+            },
+            "times": {
+              "properties": {
+                "start_time": {
+                  "type": "keyword"
+                },
+                "end_time": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

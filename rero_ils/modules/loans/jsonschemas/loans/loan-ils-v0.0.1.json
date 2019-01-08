@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Schema for loan",
+  "type": "object",
+  "required": [
+    "loan_pid",
+    "$schema",
+    "state"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "title": "Schema"
+    },
+    "extension_count": {
+      "type": "integer",
+      "title": "Loan extension count"
+    },
+    "loan_pid": {
+      "type": "string",
+      "title": "Loan ID"
+    },
+    "transaction_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Loan date"
+    },
+    "patron_pid": {
+      "type": "string",
+      "title": "Patron ID"
+    },
+    "document_pid": {
+      "type": "string",
+      "title": "Document ID"
+    },
+    "item_pid": {
+      "type": "string",
+      "title": "Item ID"
+    },
+    "transaction_user_pid": {
+      "type": "string",
+      "title": "Transaction user ID"
+    },
+    "transaction_location_pid": {
+      "type": "string",
+      "title": "Transaction location ID"
+    },
+    "pickup_location_pid": {
+      "type": "string",
+      "title": "Request pickup location ID"
+    },
+    "request_expire_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Request expire date"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Transaction start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Transaction end date"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "CREATED",
+        "PENDING",
+        "ITEM_ON_LOAN",
+        "ITEM_RETURNED",
+        "ITEM_IN_TRANSIT_FOR_PICKUP",
+        "ITEM_IN_TRANSIT_TO_HOUSE",
+        "ITEM_AT_DESK",
+        "CANCELLED"
+      ],
+      "title": "State name"
+    },
+    "trigger": {
+      "type": "string",
+      "title": "The name of the explicit action that triggered the transition to current state"
+    }
+  }
+}

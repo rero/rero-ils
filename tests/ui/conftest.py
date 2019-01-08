@@ -22,11 +22,32 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Pytest fixtures and plugins for the UI application."""
+"""Common pytest fixtures and plugins."""
 
-from __future__ import absolute_import, print_function
 
 import pytest
+from invenio_search import current_search_client
+
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patron_types.api import PatronType
+
+
+@pytest.fixture(scope="function")
+def tmp_organisation(db, organisation_data):
+    """."""
+    org = Organisation.create(
+        data=organisation_data,
+        dbcommit=True)
+    return org
+
+
+@pytest.fixture(scope="function")
+def tmp_patron_type(db, patron_type_data):
+    """."""
+    org = PatronType.create(
+        data=patron_type_data,
+        dbcommit=True)
+    return org
 
 
 @pytest.fixture(scope='module')
@@ -37,3 +58,36 @@ def create_app():
     from invenio_app.factory import create_ui
 
     return create_ui
+
+
+@pytest.fixture()
+def ils_record():
+    """Ils Record test record."""
+    yield {
+        'pid': 'ilsrecord_pid',
+        'name': 'IlsRecord Name',
+    }
+
+
+@pytest.fixture()
+def ils_record_2():
+    """Ils Record test record 2."""
+    yield {
+        'pid': 'ilsrecord_pid_2',
+        'name': 'IlsRecord Name 2',
+    }
+
+
+@pytest.fixture(scope='module')
+def es_default_index(es):
+    """."""
+    current_search_client.indices.create(
+        index='records-record-v1.0.0',
+        body={},
+        ignore=[400]
+    )
+    yield es
+    current_search_client.indices.delete(
+        index='records-record-v1.0.0',
+        ignore=[400, 404]
+    )

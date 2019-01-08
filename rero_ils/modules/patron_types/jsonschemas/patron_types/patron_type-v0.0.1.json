@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "PatronType",
+  "description": "JSON schema for patron_types.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name",
+    "description",
+    "organisation"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate patron_types records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Patron type ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Patron type name",
+      "description": "a short name of the Patron type",
+      "type": "string",
+      "minLength": 2
+    },
+    "description": {
+      "title": "Patron type description",
+      "description": "The description of the Patron type",
+      "type": "string"
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}

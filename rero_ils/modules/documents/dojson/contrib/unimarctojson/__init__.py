@@ -25,8 +25,6 @@
 
 """UNIMARC RERO to JSON."""
 
-from __future__ import absolute_import
-
 from .model import unimarctojson
 
 __all__ = ('unimarctojson')
