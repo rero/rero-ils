@@ -70,6 +70,40 @@
       "description": "The duration of the renewal in days.",
       "type": "integer",
       "minimum": 1
+    },
+    "policy_library_level": {
+      "title": "Library level policy",
+      "type": "boolean",
+      "default": false
+    },
+    "libraries": {
+      "title": "List of libraries",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "settings": {
+      "title": "Patron + Item types links",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "patron_type",
+          "item_type"
+        ],
+        "properties": {
+          "patron_type": {
+            "title": "Patron type",
+            "type": "string"
+          },
+          "item_type": {
+            "title": "Item type",
+            "type": "string"
+          }
+        }
+      }
     }
   }
 }
