@@ -1,24 +1,28 @@
 [
   {
     "$schema": "https://ils.test.rero.ch/schema/patrons_types/patron_type-v0.0.1.json",
+    "pid": "1",
     "name": "standard",
     "description": "standard patron",
     "organisation_pid": "1"
   },
   {
     "$schema": "https://ils.test.rero.ch/schema/patrons_types/patron_type-v0.0.1.json",
+    "pid": "2",
     "name": "student",
     "description": "standard student patron",
     "organisation_pid": "1"
   },
   {
     "$schema": "https://ils.test.rero.ch/schema/patrons_types/patron_type-v0.0.1.json",
+    "pid": "3",
     "name": "children1",
     "description": "children patron, 4-10 years old",
     "organisation_pid": "1"
   },
   {
     "$schema": "https://ils.test.rero.ch/schema/patrons_types/patron_type-v0.0.1.json",
+    "pid": "4",
     "name": "children2",
     "description": "children patron, 12-15 years old",
     "organisation_pid": "1"

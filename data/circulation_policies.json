@@ -8,7 +8,14 @@
     "checkout_duration": 30,
     "allow_requests": true,
     "number_renewals": 3,
-    "renewal_duration": 30
+    "renewal_duration": 30,
+    "policy_library_level": false,
+    "settings": [
+      {
+        "patron_type": "1",
+        "item_type": "1"
+      }
+    ]
   },
   {
     "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
@@ -19,7 +26,15 @@
     "checkout_duration": 10,
     "allow_requests": true,
     "number_renewals": 1,
-    "renewal_duration": 10
+    "renewal_duration": 10,
+    "policy_library_level": true,
+    "libraries": ["1"],
+    "settings": [
+      {
+        "patron_type": "1",
+        "item_type": "1"
+      }
+    ]
   },
   {
     "$schema": "https://ils.test.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
@@ -27,6 +42,7 @@
     "description": "On-site circulation policy.",
     "organisation_pid": "1",
     "allow_checkout": false,
-    "allow_requests": false
+    "allow_requests": false,
+    "policy_library_level": false
   }
 ]
