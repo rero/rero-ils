@@ -20,7 +20,7 @@
       "description": "Schema to validate item records against.",
       "type": "string",
       "minLength": 9,
-      "default": "http://ils.rero.ch/schema/items/item-v0.0.1.json"
+      "default": "https://ils.rero.ch/schema/items/item-v0.0.1.json"
     },
     "pid": {
       "title": "Item ID",
@@ -46,7 +46,7 @@
         "$ref": {
           "title": "Location URI",
           "type": "string",
-          "pattern": "^http://ils.rero.ch/api/locations/.+?$"
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$"
         }
       }
     },
@@ -57,8 +57,8 @@
         "$ref": {
           "title": "Document URI",
           "type": "string",
-          "pattern": "^http://ils.rero.ch/api/documents/.+?$",
-          "default": "http://ils.rero.ch/api/documents/"
+          "pattern": "^https://ils.rero.ch/api/documents/.+?$",
+          "default": "https://ils.rero.ch/api/documents/"
         }
       }
     },
@@ -70,7 +70,7 @@
         "$ref": {
           "title": "Item Type URI",
           "type": "string",
-          "pattern": "^http://ils.rero.ch/api/item_types/.+?$"
+          "pattern": "^https://ils.rero.ch/api/item_types/.+?$"
         }
       }
     },

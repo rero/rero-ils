@@ -17,6 +17,7 @@ import localeIt from '@angular/common/locales/it';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { CoreModule } from '@app/core';
 import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
 
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     // ConfirmWindowComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

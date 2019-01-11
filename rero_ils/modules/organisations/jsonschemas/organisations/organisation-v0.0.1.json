@@ -14,7 +14,8 @@
       "title": "Schema",
       "description": "Schema to validate organisation records against.",
       "type": "string",
-      "minLength": 9
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json"
     },
     "pid": {
       "title": "Organisation ID",

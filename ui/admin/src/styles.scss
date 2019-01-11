@@ -1,15 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables.scss';
 
-input.ng-valid {
+input.ng-valid,
+textarea.ng-valid {
   border-left: 5px solid $form_valid;
 }
 
-input.ng-invalid {
+input.ng-invalid,
+textarea.ng-invalid {
   border-left: 5px solid $form_error; /* red */
 }
 
 .required::after {
   content: " *";
   color: $form_required;
+}
+
+form .text-danger {
+  margin-top: 6px;
 }

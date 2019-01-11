@@ -26,6 +26,7 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
 from utils import get_mapping
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
@@ -44,6 +45,12 @@ def test_circ_policy_create(db, circ_policy_data_tmp):
     fetched_pid = circ_policy_id_fetcher(cipo.id, cipo)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'cipo'
+
+    circ_policy = deepcopy(circ_policy_data_tmp)
+    del circ_policy['$schema']
+    cipo = CircPolicy.create(circ_policy, delete_pid=True)
+    assert cipo.get('$schema')
+    assert cipo.get('pid') == '2'
 
 
 def test_circ_policy_es_mapping(es, db, organisation, circ_policy_data_tmp):

@@ -114,15 +114,13 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     record_1 = RecordTest.create(
         data=ils_record,
         dbcommit=True,
-        reindex=True,
-        delete_pid=False
+        reindex=True
     )
     assert record_1.pid == 'ilsrecord_pid'
     record_2 = RecordTest.create(
         data=ils_record_2,
         dbcommit=True,
         reindex=True,
-        delete_pid=False
     )
     assert record_2.pid == 'ilsrecord_pid_2'
     record_created_pid = RecordTest.create(
@@ -136,8 +134,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
         RecordTest.create(
             data=ils_record,
             dbcommit=True,
-            reindex=True,
-            delete_pid=False
+            reindex=True
         )
     flush_index(SearchTest.Meta.index)
 

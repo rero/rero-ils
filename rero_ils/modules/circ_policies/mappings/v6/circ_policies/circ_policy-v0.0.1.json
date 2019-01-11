@@ -47,6 +47,37 @@
         "renewal_duration": {
           "type": "integer"
         },
+        "is_default": {
+          "type": "boolean"
+        },
+        "policy_library_level": {
+          "type": "boolean"
+        },
+        "libraries": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "settings": {
+          "properties": {
+            "patron_type": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "item_type": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

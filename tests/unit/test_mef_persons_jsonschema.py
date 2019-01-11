@@ -52,7 +52,7 @@ def test_required(mef_persons_schema, mef_person_data_tmp):
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'http://ils.rero.ch/schema/persons/'
+            '$schema': 'https://ils.rero.ch/schema/persons/'
                        'mef-person-v0.0.1.json',
             'viaf_pid': '56597999',
             'sources': [
@@ -64,7 +64,7 @@ def test_required(mef_persons_schema, mef_person_data_tmp):
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'http://ils.rero.ch/schema/persons/'
+            '$schema': 'https://ils.rero.ch/schema/persons/'
                        'mef-person-v0.0.1.json',
             'pid': 'pers1',
             'sources': [
@@ -76,7 +76,7 @@ def test_required(mef_persons_schema, mef_person_data_tmp):
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'http://ils.rero.ch/schema/persons/'
+            '$schema': 'https://ils.rero.ch/schema/persons/'
                        'mef-person-v0.0.1.json',
             'pid': 'pers1',
             'viaf_pid': '56597999'
