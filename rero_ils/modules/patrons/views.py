@@ -28,7 +28,7 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, current_app, jsonify, render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
@@ -81,10 +81,22 @@ def logged_user():
         raise NotFound()
     if 'resolve' in request.args:
         patron = patron.replace_refs()
+        patron = patron.dumps()
+        if patron.get('library'):
+            library = Library.get_record_by_pid(
+                patron['library']['pid']
+            ).replace_refs()
+            patron['library']['organisation'] = {
+                'pid': library['organisation']['pid']
+            }
     data = {
         'metadata': patron,
         'settings': {
-            'language': current_i18n.locale.language
+            'language': current_i18n.locale.language,
+            'baseUrl': current_app.config.get(
+                'RERO_ILS_APP_BASE_URL',
+                ''
+            )
         }
     }
     return jsonify(data)

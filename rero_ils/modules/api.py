@@ -28,6 +28,7 @@ from copy import deepcopy
 from uuid import uuid4
 
 from elasticsearch.exceptions import NotFoundError
+from flask import current_app
 from invenio_db import db
 from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
@@ -111,8 +112,23 @@ class IlsRecord(Record):
                dbcommit=False, reindex=False, **kwargs):
         """Create a new ils record."""
         assert cls.minter
+        if '$schema' not in data:
+            type = cls.provider.pid_type
+            schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+            if type in schemas:
+                data_schema = {
+                    'base_url': current_app.config.get(
+                        'RERO_ILS_APP_BASE_URL'
+                    ),
+                    'schema_endpoint': current_app.config.get(
+                        'JSONSCHEMAS_ENDPOINT'
+                    ),
+                    'schema': schemas[type]
+                }
+                data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
+                    .format(**data_schema)
         if delete_pid and data.get('pid'):
-            del(data['pid'])
+            del data['pid']
         if not id_:
             id_ = uuid4()
         cls.minter(id_, data)

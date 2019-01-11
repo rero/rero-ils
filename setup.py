@@ -112,8 +112,6 @@ setup(
             'messages = rero_ils',
         ],
         'invenio_admin.views': [
-            # 'rero_ils_admin_circulation_settings = \
-            #     rero_ils.modules.admin:circulation_settings',
             'rero_ils_admin_circulation = \
                 rero_ils.modules.admin:circulation',
             'rero_ils_admin_library = \

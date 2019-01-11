@@ -47,15 +47,15 @@ def test_person_merge_data_values(app, mef_person_data):
     data = person_merge_data_values(mef_person_data)
     assert data == {
         "$schema": {
-            "http://mef.test.rero.ch/schemas/authorities/"
+            "https://mef.test.rero.ch/schemas/authorities/"
             "bnf-person-v0.0.1.json": [
                 "bnf"
             ],
-            "http://mef.test.rero.ch/schemas/authorities/"
+            "https://mef.test.rero.ch/schemas/authorities/"
             "gnd-person-v0.0.1.json": [
                 "gnd"
             ],
-            "http://mef.test.rero.ch/schemas/authorities/"
+            "https://mef.test.rero.ch/schemas/authorities/"
             "rero-person-v0.0.1.json": [
                 "rero"
             ]

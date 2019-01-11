@@ -30,6 +30,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LibraryExceptionFormService } from './editor/exception-dates/library-exception-form.service';
 import { MefTitlePipe } from './search/brief-view/mef-title.pipe';
+import { CirculationPolicyComponent } from './custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
+import { CirculationPolicyService } from './custom-editor/circulation-settings/circulation-policy.service';
+import { CirculationPolicyFormService } from './custom-editor/circulation-settings/circulation-policy-form.service';
+import { CirculationMappingService } from './custom-editor/circulation-settings/circulation-mapping.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,8 @@ import { MefTitlePipe } from './search/brief-view/mef-title.pipe';
     ExceptionDatesComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent,
-    MefTitlePipe
+    MefTitlePipe,
+    CirculationPolicyComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +89,10 @@ import { MefTitlePipe } from './search/brief-view/mef-title.pipe';
     PersonsBriefViewComponent
   ],
   providers: [
-    LibraryExceptionFormService
+    LibraryExceptionFormService,
+    CirculationPolicyService,
+    CirculationPolicyFormService,
+    CirculationMappingService
   ]
 })
 export class RecordsModule { }

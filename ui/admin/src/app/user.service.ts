@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, forkJoin } from 'rxjs';
 import { map, concatAll, mergeMap } from 'rxjs/operators';
-import { User } from './users';
+import { User, UserSettings } from './users';
 import { Loan, Item } from './circulation/loans';
 
 @Injectable({
@@ -11,14 +11,13 @@ import { Loan, Item } from './circulation/loans';
 export class UserService {
 
   loggedUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  userSettings: BehaviorSubject<any>= new BehaviorSubject(null);
+  userSettings: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) {
     this.http.get<any>('/patrons/logged_user?resolve')
     .subscribe(data => {
-      console.log(new User(data.metadata));
       this.loggedUser.next(new User(data.metadata));
-      this.userSettings.next(new User(data.settings));
+      this.userSettings.next(<UserSettings>data.settings);
     });
   }
 

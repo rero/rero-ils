@@ -1,34 +1,34 @@
 [
   {
-    "$schema": "http://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "standard",
     "description": "standard checkout",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "short",
     "description": "short checkout",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "on-site",
     "description": "on-site checkout",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "no-checkout",
     "description": "no checkout",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   }
 ]

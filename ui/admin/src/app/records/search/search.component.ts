@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
     }
 
     deleteRecord(pid) {
-      this.recordsService.deleteRecord(this.recordType, pid).subscribe(record => {
+      this.recordsService.delete(this.recordType, pid).subscribe(record => {
         this.getRecords();
       });
     }

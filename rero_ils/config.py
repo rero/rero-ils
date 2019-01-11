@@ -570,9 +570,12 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
+            'application/rero+json': (
+                'rero_ils.modules.serializers' ':json_v1_response'
+            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
-            )
+            ),
         },
         search_serializers={
             'application/rero+json': (
@@ -587,7 +590,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/circ_policies/<pid(cipo, record_class="rero_ils.modules.circ_policies.api:CircPolicy"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:and_search_factory'
     ),
 )
 
@@ -700,6 +703,18 @@ RECORDS_UI_EXPORT_FORMATS = {
     }
 }
 
+RECORDS_JSON_SCHEMA = {
+    'cipo': '/circ_policies/circ_policy-v0.0.1.json',
+    'doc': '/documents/document-v0.0.1.json',
+    'item': '/items/item-v0.0.1.json',
+    'itty': '/item_types/item_type-v0.0.1.json',
+    'lib': '/libraries/library-v0.0.1.json',
+    'loc': '/locations/location-v0.0.1.json',
+    'org': '/organisations/organisation-v0.0.1.json',
+    'ptrn': '/patrons/patron-v0.0.1.json',
+    'ptty': '/patron_types/patron_type-v0.0.1.json'
+}
+
 
 # Login Configuration
 # ===================
@@ -737,6 +752,8 @@ RERO_ILS_BABEL_TRANSLATE_JSON_KEYS = [
     'add',
     '403',
 ]
+
+RERO_ILS_APP_BASE_URL = 'https://ils.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'

@@ -1,34 +1,34 @@
 [
   {
-    "$schema": "http://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "name": "standard",
     "description": "standard patron",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "name": "student",
     "description": "standard student patron",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "name": "children1",
     "description": "children patron, 4-10 years old",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "name": "children2",
     "description": "children patron, 12-15 years old",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   }
 ]

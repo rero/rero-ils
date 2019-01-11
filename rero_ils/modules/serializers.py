@@ -44,7 +44,6 @@ class ReroIlsSerializer(JSONSerializer):
         rec = self.transform_record(
             pid, record, links_factory, **kwargs
         ).get('metadata', {})
-        rec['id'] = record.get('pid')
         return json.dumps(rec, **self._format_args())
 
     def serialize_search(self, pid_fetcher, search_result, links=None,

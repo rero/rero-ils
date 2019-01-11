@@ -129,3 +129,13 @@ def test_circ_policy_number_renewals(
     with pytest.raises(ValidationError):
         circ_policy_data_tmp['number_renewals'] = '25'
         validate(circ_policy_data_tmp, circ_policy_schema)
+
+
+def test_circ_policy_is_default(
+    circ_policy_schema, circ_policy_data_tmp
+):
+    """Test is_default for circ policy jsonschema."""
+    validate(circ_policy_data_tmp, circ_policy_schema)
+    with pytest.raises(ValidationError):
+        circ_policy_data_tmp['is_default'] = 25
+        validate(circ_policy_data_tmp, circ_policy_schema)

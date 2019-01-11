@@ -1,10 +1,10 @@
 [
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "standard",
-    "description": "Default standard circulation policy.",
+    "name": "Default",
+    "description": "Default circulation policy.",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "allow_checkout": true,
     "checkout_duration": 30,
@@ -12,10 +12,30 @@
     "number_renewals": 3,
     "renewal_duration": 30,
     "policy_library_level": false,
+    "is_default": true
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "standard",
+    "description": "Standard circulation policy.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 30,
+    "allow_requests": true,
+    "number_renewals": 3,
+    "renewal_duration": 30,
+    "policy_library_level": false,
+    "is_default": false,
     "settings": [
       {
-        "patron_type": "1",
-        "item_type": "1"
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/1"
+        }
       }
     ]
   },
@@ -24,21 +44,23 @@
     "name": "short",
     "description": "Short circulation policy.",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "allow_checkout": true,
     "checkout_duration": 10,
     "allow_requests": true,
     "number_renewals": 1,
     "renewal_duration": 10,
-    "policy_library_level": true,
-    "libraries": [
-      "1"
-    ],
+    "policy_library_level": false,
+    "is_default": false,
     "settings": [
       {
-        "patron_type": "1",
-        "item_type": "1"
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/2"
+        }
       }
     ]
   },
@@ -47,10 +69,11 @@
     "name": "on-site",
     "description": "On-site circulation policy.",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "allow_checkout": false,
     "allow_requests": false,
-    "policy_library_level": false
+    "policy_library_level": false,
+    "is_default": false
   }
 ]
