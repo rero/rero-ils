@@ -1,0 +1,215 @@
+<div *ngIf="!circulationForm || librariesOrg.length == 0">
+  {{ 'Loading…' | translate }}
+</div>
+
+<div *ngIf="circulationForm && librariesOrg">
+<h1>{{ 'Circulation Policy' | translate }}</h1>
+<form [formGroup]="circulationForm" (ngSubmit)="onSubmit()">
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label required">{{ 'Name' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="{{ 'Please insert a name' | translate }}"
+        required
+      >
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+        <div *ngIf="name.errors.required">
+          {{ 'Name is required.' | translate }}
+        </div>
+        <div *ngIf="name.errors.minlength">
+          {{ 'Name must be at least 2 characters long.' | translate }}
+        </div>
+        <div *ngIf="name.errors.alreadyTakenMessage">
+          {{ 'Name is already taken.' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="description" class="col-sm-2 col-form-label required">{{ 'Description' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        id="description"
+        formControlName="description"
+        required
+      >
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+        <div *ngIf="description.errors.required">
+          {{ 'Description is required.' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="allowRequests" class="col-sm-2 col-form-label required">{{ 'Allow requests' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        type="checkbox"
+        class="form-control"
+        id="allow_requests"
+        formControlName="allow_requests"
+      >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="allowCheckout" class="col-sm-2 col-form-label required">{{ 'Allow checkout' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        type="checkbox"
+        class="form-control"
+        id="allow_checkout"
+        formControlName="allow_checkout"
+        (click)="allowCheckoutCheckbox($event.target.checked)"
+      >
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="allow_checkout.value">
+    <label for="checkoutDuration" class="col-sm-2 col-form-label required">{{ 'Checkout duration' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        id="checkoutDuration"
+        formControlName="checkout_duration"
+      >
+      <div *ngIf="checkout_duration.invalid && (checkout_duration.dirty || checkout_duration.touched)" class="text-danger">
+        <div *ngIf="checkout_duration.errors.required">
+          {{ 'Checkout duration is required.' | translate }}
+        </div>
+        <div *ngIf="checkout_duration.errors.min">
+          {{ 'Checkout duration must be great than 1.' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="allow_checkout.value">
+    <label for="numberRenewals" class="col-sm-2 col-form-label required">{{ 'Number renewals' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        id="numberRenewals"
+        formControlName="number_renewals"
+        (blur)="numberRenewalsCheck()"
+      >
+      <div *ngIf="number_renewals.invalid && (number_renewals.dirty || number_renewals.touched)" class="text-danger">
+        <div *ngIf="number_renewals.errors.required">
+          {{ 'Checkout duration is required.' | translate }}
+        </div>
+        <div *ngIf="number_renewals.errors.min">
+          {{ 'Checkout duration must be great than 0.' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row" *ngIf="allow_checkout.value && number_renewals.value > 0">
+    <label for="renewalDuration" class="col-sm-2 col-form-label required">{{ 'Renewal duration' | translate }}</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        id="renewalDuration"
+        formControlName="renewal_duration"
+      >
+      <div *ngIf="renewal_duration.invalid && (renewal_duration.dirty || renewal_duration.touched)" class="text-danger">
+        <div *ngIf="renewal_duration.errors.required">
+          {{ 'Renewal duration is required.' | translate }}
+        </div>
+        <div *ngIf="renewal_duration.errors.min">
+          {{ 'Checkout duration must be great than 1.' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="is_default.value === false">
+    <!-- start: library -->
+    <div class="form-group row">
+      <label for="policyLibraryLevel" class="col-sm-2 col-form-label required">{{ 'Level' || translate }}</label>
+      <div class="col-sm-10">
+        <div class="form-check-inline">
+          <label class="form-check-label">
+              <input
+                type="radio"
+                class="form-check-input"
+                formControlName="policy_library_level"
+                [value]=false
+                (click)="policyLevelEvent(0)"
+              > {{ 'Organisation' | translate }}
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+              <input
+                type="radio"
+                class="form-check-input"
+                formControlName="policy_library_level"
+                [value]=true
+                (click)="policyLevelEvent(1)"
+              > {{ 'Library' | translate }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="policy_library_level.value == true">
+      <label for="policyLibrary" class="col-sm-2 col-form-label">&nbsp;</label>
+      <div class="col-sm-10">
+        <div *ngFor="let library of librariesOrg">
+          <input
+            type="checkbox"
+            value="{{ library.id }}"
+            [checked]="libraryCheck(library.id)"
+            (click)="libraryClickEvent($event.target.checked, library.id)"
+          >
+          {{ library.name }}
+        </div>
+      </div>
+    </div>
+    <!-- end: library -->
+
+    <!-- start: settings -->
+    <div class="form-group row">
+      <label for="policySettings" class="col-sm-2 col-form-label required">{{ 'Applies to patron types' | translate }}</label>
+      <div class="col-sm-10">
+        <div *ngFor="let patronType of patronTypes()">
+          <input
+            type="checkbox"
+            class="mr-1"
+            [checked]="isPatronTypeChecked(patronType.id)"
+            [disabled]="isPatronTypeDisabled(patronType.id)"
+            [indeterminate]="isPatronTypeDisabled(patronType.id)"
+            (click)="patronTypeClickEvent($event.target.checked, patronType.id)"
+          > <span [ngClass]="isPatronTypeDisabled(patronType.id) ? 'text-muted' : ''">{{ patronType.name }}</span>
+          <div *ngIf="isPatronTypeChecked(patronType.id)" class="ml-3">
+          {{ 'Item types' | translate }}:
+          <ul class="d-inline list-inline mb-0">
+            <li class="list-inline-item" *ngFor="let itemType of itemTypes()">
+              <input
+                class="mr-1"
+                type="checkbox"
+                [checked]="isItemTypeChecked(patronType.id, itemType.id)"
+                [disabled]="isItemTypeDisabled(patronType.id, itemType.id)"
+                [indeterminate]="isItemTypeDisabled(patronType.id, itemType.id)"
+                (click)="itemTypeClickEvent($event.target.checked, patronType.id, itemType.id)"
+              > <span [ngClass]="isItemTypeDisabled(patronType.id, itemType.id) ? 'text-muted' : ''">{{ itemType.name }}</span>
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: settings -->
+  </div>
+
+  <div class="clearfix">
+    <div class="btn-group float-right" role="group" aria-label="Form Button">
+      <button type="cancel" class="btn btn-warning" (click)="onCancel()">{{ 'Cancel' | translate }}</button>
+      <button type="submit" class="btn btn-success" [disabled]="circulationForm.invalid">{{ 'Submit' | translate }}</button>
+    </div>
+  </div>
+</form>
+</div>

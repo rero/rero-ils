@@ -1,12 +1,12 @@
 [
   {
-    "$schema": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "address": "Via Challand 132, 11100 Aosta",
     "code": "AOSTE-CANT1",
     "email": "reroilstest+aoste1@gmail.com",
     "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site d'Aoste",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -119,13 +119,13 @@
     ]
   },
   {
-    "$schema": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "address": "Viale Carlo Viola 931, 11026 Pont-Saint-Martin",
     "code": "AOSTE-CANT2",
     "email": "reroilstest+aoste2@gmail.com",
     "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site de Pont-saint-Martin",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -228,13 +228,13 @@
     ]
   },
   {
-    "$schema": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "address": "Avise 345, 11010 Avise",
     "code": "AOSTE-AVISE",
     "email": "reroilstest+aoste3@gmail.com",
     "name": "Biblioth\u00e8que communale et scolaire d'Avise",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {
@@ -335,13 +335,13 @@
     ]
   },
   {
-    "$schema": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "address": "Via Piave 3, 11027 Saint-Vincent",
     "code": "AOSTE-LYCEE",
     "email": "reroilstest+aoste4@gmail.com",
     "name": "Biblioth\u00e8que du Lyc\u00e9e de la Vall\u00e9e d'Aoste",
     "organisation": {
-      "$ref": "http://ils.rero.ch/api/organisations/1"
+      "$ref": "https://ils.rero.ch/api/organisations/1"
     },
     "opening_hours": [
       {

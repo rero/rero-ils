@@ -17,7 +17,7 @@
       "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
-      "default": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json"
+      "default": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json"
     },
     "pid": {
       "title": "Library ID",
@@ -30,7 +30,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
         }
       }
     },

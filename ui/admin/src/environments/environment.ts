@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  adminEntryPoint: '',
   production: false,
   cacheBusterHash: 'da39a3ee5e6b4b0d3255bfef95601890afd80711'
 };

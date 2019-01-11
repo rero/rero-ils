@@ -9,7 +9,8 @@
     "pid",
     "name",
     "description",
-    "organisation"
+    "organisation",
+    "is_default"
   ],
   "properties": {
     "$schema": {
@@ -17,7 +18,7 @@
       "description": "Schema to validate circulation policies records against.",
       "type": "string",
       "minLength": 9,
-      "default": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json"
+      "default": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json"
     },
     "pid": {
       "title": "Circulation policy ID",
@@ -42,7 +43,7 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string",
-          "pattern": "^http://ils.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
         }
       }
     },
@@ -78,6 +79,11 @@
       "type": "integer",
       "minimum": 1
     },
+    "is_default": {
+      "title": "Mark as default policy",
+      "type": "boolean",
+      "default": false
+    },
     "policy_library_level": {
       "title": "Library level policy",
       "type": "boolean",
@@ -87,7 +93,18 @@
       "title": "List of libraries",
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$ref"
+        ],
+        "properties": {
+          "$ref": {
+            "title": "Libary URI",
+            "type": "string",
+            "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          }
+        }
       }
     },
     "settings": {
@@ -103,11 +120,33 @@
         "properties": {
           "patron_type": {
             "title": "Patron type",
-            "type": "string"
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "$ref"
+            ],
+            "properties": {
+              "$ref": {
+                "title": "Patron type URI",
+                "type": "string",
+                "pattern": "^https://ils.rero.ch/api/patron_types/.*?$"
+              }
+            }
           },
           "item_type": {
             "title": "Item type",
-            "type": "string"
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "$ref"
+            ],
+            "properties": {
+              "$ref": {
+                "title": "Item type URI",
+                "type": "string",
+                "pattern": "^https://ils.rero.ch/api/item_types/.*?$"
+              }
+            }
           }
         }
       }

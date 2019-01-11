@@ -1,6 +1,6 @@
 [
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1989-05-14",
     "city": "Aosta",
     "email": "reroilstest@gmail.com",
@@ -10,7 +10,7 @@
     ],
     "last_name": "M\u00fcller",
     "library": {
-      "$ref": "http://ils.rero.ch/api/libraries/4"
+      "$ref": "https://ils.rero.ch/api/libraries/4"
     },
     "password": "123456",
     "phone": "+39324993597",
@@ -18,7 +18,7 @@
     "street": "Viale Rue Gran Paradiso, 44"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1974-03-21",
     "city": "Fribourg",
     "email": "reroilstest+jean@gmail.com",
@@ -28,7 +28,7 @@
     ],
     "last_name": "Dupont",
     "library": {
-      "$ref": "http://ils.rero.ch/api/libraries/2"
+      "$ref": "https://ils.rero.ch/api/libraries/2"
     },
     "password": "123456",
     "phone": "+41261234567",
@@ -36,7 +36,7 @@
     "street": "Avenue de la Gare, 80"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1992-11-23",
     "city": "Lugano",
     "email": "reroilstest+elena@gmail.com",
@@ -46,7 +46,7 @@
     ],
     "last_name": "Rodriguez",
     "library": {
-      "$ref": "http://ils.rero.ch/api/libraries/3"
+      "$ref": "https://ils.rero.ch/api/libraries/3"
     },
     "password": "123456",
     "phone": "+41911234567",
@@ -54,7 +54,7 @@
     "street": "Viale Carlo Cattaneo, 52"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2050124311",
     "birth_date": "1969-06-07",
     "city": "Aosta",
@@ -66,14 +66,14 @@
     "last_name": "Casalini",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/1"
+      "$ref": "https://ils.rero.ch/api/patron_types/1"
     },
     "phone": "+39324993585",
     "postal_code": "11100",
     "street": "Via Croix Noire 3"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2030124287",
     "birth_date": "2004-10-11",
     "city": "Aosta",
@@ -85,13 +85,13 @@
     "last_name": "de Figueiredo Santos",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/2"
+      "$ref": "https://ils.rero.ch/api/patron_types/2"
     },
     "postal_code": "11100",
     "street": "Panoramica Collinare, 47"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1969-02-01",
     "city": "Avise",
     "email": "reroilstest+virgile@gmail.com",
@@ -101,7 +101,7 @@
       "librarian"
     ],
     "library": {
-      "$ref": "http://ils.rero.ch/api/libraries/4"
+      "$ref": "https://ils.rero.ch/api/libraries/4"
     },
     "password": "123456",
     "phone": "+39244857275",
@@ -109,7 +109,7 @@
     "street": "Frazione Plan"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "reroils1",
     "birth_date": "2001-12-12",
     "city": "Sion",
@@ -121,13 +121,13 @@
     "last_name": "Monnet",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/3"
+      "$ref": "https://ils.rero.ch/api/patron_types/3"
     },
     "postal_code": "1950",
     "street": "Rue du Nord 7"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2000000001",
     "birth_date": "1970-05-25",
     "city": "Santa Clara",
@@ -139,14 +139,14 @@
     "last_name": "John",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/4"
+      "$ref": "https://ils.rero.ch/api/patron_types/4"
     },
     "phone": "+1408492280015",
     "postal_code": "95054",
     "street": "520 Scott Blvd"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "10000001",
     "birth_date": "1976-09-07",
     "city": "Lavey",
@@ -158,14 +158,14 @@
     "last_name": "Premand",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/1"
+      "$ref": "https://ils.rero.ch/api/patron_types/1"
     },
     "phone": "+41795762233",
     "postal_code": "1892",
     "street": "Route du Village 6"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2050124312",
     "birth_date": "1961-11-24",
     "city": "Bellinzona",
@@ -177,14 +177,14 @@
     "last_name": "Broglio",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/1"
+      "$ref": "https://ils.rero.ch/api/patron_types/1"
     },
     "phone": "+41918264239",
     "postal_code": "6500",
     "street": "Piazza Collegiata 12"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "kad001",
     "birth_date": "1980-10-01",
     "city": "Martigny",
@@ -196,14 +196,14 @@
     "last_name": "Carron",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/1"
+      "$ref": "https://ils.rero.ch/api/patron_types/1"
     },
     "phone": "+41792001020",
     "postal_code": "1920",
     "street": "Gare 45"
   },
   {
-    "$schema": "http://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "kad002",
     "birth_date": "1965-02-10",
     "city": "Fully",
@@ -215,7 +215,7 @@
     "last_name": "Rard",
     "password": "123456",
     "patron_type": {
-      "$ref": "http://ils.rero.ch/api/patron_types/1"
+      "$ref": "https://ils.rero.ch/api/patron_types/1"
     },
     "phone": "+41792500512",
     "postal_code": "1926",

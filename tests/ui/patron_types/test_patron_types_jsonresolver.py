@@ -32,7 +32,7 @@ from jsonref import JsonRefError
 def test_patron_types_jsonresolver(tmp_patron_type):
     """."""
     rec = Record.create({
-        'patron_type': {'$ref': 'http://ils.rero.ch/api/patron_types/1'}
+        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}
     })
     assert rec.replace_refs().get('patron_type') == {'pid': '1'}
 
@@ -43,7 +43,7 @@ def test_patron_types_jsonresolver(tmp_patron_type):
 
     # non existing record
     rec = Record.create({
-        'patron_type': {'$ref': 'http://ils.rero.ch/api/patron_types/n_e'}
+        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

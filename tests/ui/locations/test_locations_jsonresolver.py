@@ -32,7 +32,7 @@ from jsonref import JsonRefError
 def test_locations_jsonresolver(location):
     """."""
     rec = Record.create({
-        'location': {'$ref': 'http://ils.rero.ch/api/locations/loc1'}
+        'location': {'$ref': 'https://ils.rero.ch/api/locations/loc1'}
     })
     assert rec.replace_refs().get('location') == {'pid': 'loc1'}
 
@@ -43,7 +43,7 @@ def test_locations_jsonresolver(location):
 
     # non existing record
     rec = Record.create({
-        'location': {'$ref': 'http://ils.rero.ch/api/locations/n_e'}
+        'location': {'$ref': 'https://ils.rero.ch/api/locations/n_e'}
     })
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()

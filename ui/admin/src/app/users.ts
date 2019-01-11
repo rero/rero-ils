@@ -2,6 +2,11 @@ import { Loan } from './circulation/loans';
 
 export interface Library {
   pid: string;
+  organisation: Organisation;
+}
+
+export interface Organisation {
+  pid: string;
 }
 
 export class User {
@@ -21,7 +26,6 @@ export class User {
   street: string;
   organisation_pid: string;
   barcode?: string;
-  settings: UserSettings;
   loans?: Loan[];
 
   constructor(obj?: any) {
@@ -31,4 +35,5 @@ export class User {
 
 export interface UserSettings {
   language: string;
+  baseUrl: string;
 }

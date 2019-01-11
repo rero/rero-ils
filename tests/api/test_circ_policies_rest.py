@@ -102,8 +102,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
     post_url = url_for('invenio_records_rest.cipo_list')
     list_url = url_for('invenio_records_rest.cipo_list', q='pid:1')
-
-    circ_policy_data['pid'] = '1'
+    del circ_policy_data['pid']
     res = client.post(
         post_url,
         data=json.dumps(circ_policy_data),
@@ -113,6 +112,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
 
     # Check that the returned record matches the given data
     data = get_json(res)
+    circ_policy_data['pid'] = '1'
     assert data['metadata'] == circ_policy_data
 
     res = client.get(item_url)
