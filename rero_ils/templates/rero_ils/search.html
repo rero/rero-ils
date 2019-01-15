@@ -1,4 +1,4 @@
-{% extends config.SEARCH_UI_BASE_TEMPLATE %}
+{% extends 'rero_ils/page.html' %}
 
 {%- block javascript %}
   {% include config.THEME_JAVASCRIPT_TEMPLATE %}
@@ -14,6 +14,7 @@
       "language": current_i18n.language
     } | tojson }}'>
     <invenio-search
+      class="d-flex flex-column"
       search-endpoint="{{ search_api or config.SEARCH_UI_SEARCH_API }}"
       search-extra-params='{% if search_extra_params %}{{search_extra_params|tojson}}{% endif %}'
       search-hidden-params='{% if search_hidden_params %}{{search_hidden_params|tojson}}{% endif %}'
@@ -26,99 +27,117 @@
 {%- endblock body_inner %}
 
 {%- block page_header %}
-  {% include config.SEARCH_UI_HEADER_TEMPLATE %}
+  {% include 'rero_ils/search_header.html' %}
 {%- endblock page_header %}
 
 {%- block page_body %}
-<div class="container search-page">
-  <div class="row">
-    {%- block search_body %}
-      {%- block search_title %}
-        <div class="col-md-offset-3 col-md-9">
-          <h2>{{_(record_type)}}</h2>
-        </div>
-      {%- endblock %}
-    <div class="col-xs-12 col-md-9 col-md-push-3">
-      {%- block search_header %}
-      <div class="row">
-        {%- block search_count %}
-        <div class="col-md-3 col-sm-12">
-          <invenio-search-count
-            template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_COUNT) }}">
-          </invenio-search-count>
-        </div>
-        {%- endblock search_count %}
-        {%- block search_pagination_top %}
-        <div class="col-md-6 col-sm-12 text-center">
-          <invenio-search-pagination
-            template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}">
-          </invenio-search-pagination>
-        </div>
-        {%- endblock search_pagination_top %}
-
-        {%- block search_sort %}
-        {%- set sort_options = config.get('RECORDS_REST_SORT_OPTIONS', {}).get(config.SEARCH_UI_SEARCH_INDEX) %}
-        <div class="col-md-3 col-sm-12 text-right">
-          {%- block search_sort_select scoped %}
-          {%- endblock search_sort_select %}
-          {%- block search_sort_order scoped %}
-            {%- if record_type | resource_can_create and current_user | can_edit %}
-              {# TODO: Change this to local template resource to customize the link #}
-              {%- if record_type == 'lib' %}
-                <a href="{{ url_for('libraries.index', path='new') }}" type="button" class="btn btn-success">{{_('Create')}}</a>
-              {% else %}
-                <a href="{{url_for('%s.create_view' % record_type)}}" type="button" class="btn btn-success">{{_('Create')}}</a>
-              {% endif %}
-                <!-- <reroils-export-csv></reroils-export-csv> -->
-            {% endif %}
-          {%- endblock search_sort_order %}
-        </div>
-        {%- endblock search_sort %}
-
-      </div>
-      <hr class="no-margin-top" />
-      {%- endblock search_header %}
-      {%- block search_error %}
-      <invenio-search-error
-        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"
-        message="{{ _('Search failed.') }}">
-      </invenio-search-error>
-      {%- endblock search_error %}
-      {%- block search_loading %}
-      <invenio-search-loading
-        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_LOADING) }}"
-        message="{{ _('Loading...') }}">
-      </invenio-search-loading>
-      {%- endblock search_loading %}
-      {%- block search_results %}
-      <invenio-search-results
-        template="{{ url_for('static', filename=search_results_template or config.SEARCH_UI_JSTEMPLATE_RESULTS) }}">
-      </invenio-search-results>
-      {%- endblock search_results %}
-      {%- block search_pagination_bottom %}
-      <div align="center">
-        <invenio-search-pagination
-          show-go-to-first-last='true'
-          template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}"
-        >
-        </invenio-search-pagination>
-      </div>
-      {%- endblock search_pagination_bottom %}
-    </div>
-    {%- endblock search_body %}
-    {%- block search_facets %}
-    <div class="col-md-3 col-md-pull-9 col-xs-12">
-      {%- block search_range %}
-      <invenio-search-range
-        options='{{ config.SEARCH_UI_JSTEMPLATE_RANGE_OPTIONS | tojson }}'
-        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RANGE) }}">
-      </invenio-search-range>
-      {%- endblock search_range %}
-      <invenio-search-facets order="{{ ','.join(config.get('RERO_ILS_APP_CONFIG_FACETS', {}).get(search_index or config.SEARCH_UI_SEARCH_INDEX, {}).get('order', '')) }}"
-        template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
-      </invenio-search-facets>
-    </div>
-    {%- endblock search_facets %}
+{# <div class="container flex-grow-1 mt-4 d-flex flex-column-reverse flex-lg-row"> #}
+<div class="flex-grow-1">
+  <div class="container">
+    <main class="row mt-4">
+      {%- block search_facets %}
+        <aside class="col-md-4 col-lg-3 order-12 order-md-0">
+          {# {%- block search_range %}
+            <invenio-search-range
+              options='{{ config.SEARCH_UI_JSTEMPLATE_RANGE_OPTIONS | tojson }}'
+              template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_RANGE) }}">
+            </invenio-search-range>
+          {%- endblock search_range %} #}
+          <invenio-search-facets order="{{ ','.join(config.get('RERO_ILS_APP_CONFIG_FACETS', {}).get(search_index or        config.SEARCH_UI_SEARCH_INDEX, {}).get('order', '')) }}"
+            template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_FACETS) }}">
+          </invenio-search-facets>
+        </aside>
+      {%- endblock search_facets %}
+      {%- block search_body %}
+        <section class="col-md-8 col-lg-9">
+          {%- block search_header %}
+            <header class="d-flex flex-wrap flex-md-nowrap pb-4">
+              {%- block search_title %}
+                <div class="d-flex flex-column">
+                  <h2>{{_(record_type)}}</h2>
+                  <invenio-search-count
+                    template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_COUNT) }}">
+                  </invenio-search-count>
+                </div>
+              {%- endblock search_title %}
+              {%- block search_pagination_top %}
+                <invenio-search-pagination
+                  class="flex-grow-1 align-self-end d-flex justify-content-center"
+                  template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}">
+                </invenio-search-pagination>
+              {%- endblock search_pagination_top %}
+              <div class="d-flex flex-column justify-content-lg-end">
+              {%- block search_admin_buttons %}
+                {%- if record_type | resource_can_create and current_user | can_edit %}
+                  {# TODO: Change this to local template resource to customize the link #}
+                  {%- if record_type == 'lib' %}
+                    <a href="{{ url_for('libraries.index', path='new') }}" type="button" class="btn btn-success btn-sm">
+                      <i class="fa fa-plus-square-o"></i> {{_('Create')}}
+                    </a>
+                  {% else %}
+                    <a href="{{url_for('%s.create_view' % record_type)}}" type="button" class="btn btn-success btn-sm">
+                      <i class="fa fa-plus-square-o"></i> {{_('Create')}}
+                    </a>
+                  {% endif %}
+                  {# TODO: export button should be fixed #}
+                  {# <reroils-export-csv></reroils-export-csv> #}
+                {% endif %}
+              {%- endblock search_admin_buttons %}
+              {# TODO: maybe we should reactivate results sorting #}
+              {# {%- block search_sort %}
+                <div>
+                {%- set sort_options = config.get('RECORDS_REST_SORT_OPTIONS', {}).get(config.SEARCH_UI_SEARCH_INDEX) %}
+                  {%- if sort_options %}
+                    {%- block search_sort_select scoped %}
+                    Sort by:
+                    <invenio-search-select-box
+                       sort-key="sort"
+                       available-options='{{ sort_options|format_sortoptions|safe }}'
+                       template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_SELECT_BOX) }}"
+                      >
+                    </invenio-search-select-box>
+                    {%- endblock search_sort_select %}
+                    {%- block search_sort_order scoped %}
+                    <invenio-search-sort-order
+                     sort-key="sort"
+                     template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_SORT_ORDER) }}"
+                    >
+                    </invenio-search-sort-order>
+                    {%- endblock search_sort_order %}
+                  {%- endif %}
+                </div>
+              {%- endblock search_sort %} #}
+            </header>
+          {%- endblock search_header %}
+          <article class="pb-4">
+            {%- block search_error %}
+            <invenio-search-error
+              template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"
+              message="{{ _('Search failed.') }}">
+            </invenio-search-error>
+            {%- endblock search_error %}
+            {%- block search_loading %}
+            <invenio-search-loading
+              template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_LOADING) }}"
+              message="{{ _('Loading...') }}">
+            </invenio-search-loading>
+            {%- endblock search_loading %}
+            {%- block search_results %}
+            <invenio-search-results
+              template="{{ url_for('static', filename=search_results_template or config.SEARCH_UI_JSTEMPLATE_RESULTS) }}">
+            </invenio-search-results>
+            {%- endblock search_results %}
+            {%- block search_pagination_bottom %}
+                <invenio-search-pagination
+                  class="d-flex justify-content-center pt-2"
+                  show-go-to-first-last='true'
+                  template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_PAGINATION) }}">
+                </invenio-search-pagination>
+            {%- endblock search_pagination_bottom %}
+          </article>
+        </section>
+      {%- endblock search_body %}
+    </main>
   </div>
 </div>
 {%- endblock page_body -%}

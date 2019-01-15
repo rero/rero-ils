@@ -1,34 +1,38 @@
+/*
+ * This file is part of RERO ILS.
+ * Copyright (C) 2018-2019 RERO.
+ *
+ * RERO ILS is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License;
+ * See license file for more details.
+ */
 
 /****************************************
 
-                General Search
+        Search results
 
   **************************************/
 
-.re-list {
-  list-style-type: none;
+.card {
+  icon-thumnail {
+    flex-basis: 10%;
+  }
 }
-
-.search-page ul {
-    margin: 0;
-}
-
-.list-inline > li {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.search-page {
-  margin-top: 30px;
-}
-
 
 /****************************************
 
-        Panels such as facets, autorities
+    Cards for Facets and autorities
 
   **************************************/
 
+.card {
+  a .fa-caret-down {
+    float: right;
+  }
+  a.collapsed .fa-caret-down {
+    transform: rotate(-90deg);
+  }
+}
 
 .panel-heading h3 a:focus,
 .panel-heading h3 a:hover {

@@ -8,8 +8,9 @@
  * See license file for more details.
  */
 
-$font-family-base:    "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-size-base:      1rem !default;
+$font-family-base:          "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-size-base:            1rem !default;
+$font-size-very-small:      $font-size-base * .725  !default;
 
 
 $color1:              #1B4464;                  // dark blue
@@ -37,3 +38,5 @@ $nav-link-hover-bg:                   rgba(40, 159, 204, .8);
 $navbar-brand-padding-vertical:       10px;
 
 $footer-height:                       $navbar-height;
+
+$form-check-input-margin-y:           .2rem !default;

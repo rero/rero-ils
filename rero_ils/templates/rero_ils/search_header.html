@@ -8,18 +8,17 @@
   under the terms of the GNU Public License; see LICENSE file for more details.
 #}
 
-{% extends config.THEME_HEADER_TEMPLATE %}
-
+{% extends 'rero_ils/header.html' %}
 {%- block navbar_search %}
-<div class="col-xs-12 col-sm-12 col-md-6 col-md-pull-3">
-  <invenio-search-bar
-   template="{{ url_for('static', filename=config.REROILS_SEARCHBAR_TEMPLATE) }}"
-   {%- if record_type %}
-    placeholder="{{ _(record_type) }}: {{ search_input_placeholder|default(_('Search')) }}"
-    {%- else %}
-    placeholder="{{ _('Search') }}"
-    {%- endif %}
-    >
-  </invenio-search-bar>
-</div>
+  <div class="align-self-center pr-2 flex-grow-1">
+    <invenio-search-bar
+     template="{{ url_for('static', filename=config.REROILS_SEARCHBAR_TEMPLATE) }}"
+     {%- if record_type %}
+      placeholder="{{ _(record_type) }}: {{ search_input_placeholder|default(_('Search')) }}"
+      {%- else %}
+      placeholder="{{ _('Search') }}"
+      {%- endif %}
+      >
+    </invenio-search-bar>
+  </div>
 {%- endblock navbar_search %}

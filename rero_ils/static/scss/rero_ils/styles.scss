@@ -1,9 +1,9 @@
 /*
- * This file is part of Invenio.
+ * This file is part of RERO ILS.
  * Copyright (C) 2015-2018 CERN
  * Copyright (C) 2018 RERO.
  *
- * Invenio is free software; you can redistribute it and/or modify it
+ * RERO ILS is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License;
  * See license file for more details.
  */
@@ -22,6 +22,7 @@ $icon-font-path: "/static/node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import "search";
 @import "detailed_views";
 @import "thumbnail";
+@import "person";
 @import "frontpage";
 @import "patrons_profile";
 
