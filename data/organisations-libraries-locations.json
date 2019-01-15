@@ -1,0 +1,512 @@
+[
+  {
+    "$schema": "http://ils.test.rero.ch/schema/organisations/organisation-v0.0.1.json",
+    "address": "Via Challand 132, 11100 Aosta",
+    "libraries": [
+      {
+        "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
+        "address": "Via Challand 132, 11100 Aosta",
+        "code": "AOSTE-CANT1",
+        "email": "reroilstest+aoste1@gmail.com",
+        "locations": [
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-CANT1-PUB",
+            "name": "Espaces publics",
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE CANT1: Espaces publics"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-CANT1-BIBLIOGR",
+            "name": "Bibliographie vald\u00f4taine",
+            "pid": "2"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-CANT1-MAGA",
+            "name": "Magasin A",
+            "pid": "2"
+          }
+        ],
+        "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site d'Aoste",
+        "pid": "1",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "tuesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "wednesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "thursday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "friday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "12:00"
+              },
+              {
+                "start_time": "13:00",
+                "end_time": "21:00"
+              }
+            ]
+          },
+          {
+            "day": "saturday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "sunday",
+            "is_open": false,
+            "times": []
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Vacances de No\u00ebl",
+            "is_open": false,
+            "start_date": "2018-12-22",
+            "end_date": "2019-01-06"
+          },
+          {
+            "title": "Vacances de Carnaval",
+            "is_open": false,
+            "start_date": "2019-03-01",
+            "end_date": "2019-03-11"
+          },
+          {
+            "title": "1er mai",
+            "is_open": false,
+            "start_date": "2019-05-01",
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "title": "Vacances d'\u00e9t\u00e9",
+            "is_open": false,
+            "start_date": "2019-07-15",
+            "end_date": "2019-08-15"
+          }
+        ]
+      },
+      {
+        "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
+        "address": "Viale Carlo Viola 93, 11026 Pont-Saint-Martin",
+        "code": "AOSTE-CANT2",
+        "email": "reroilstest+aoste2@gmail.com",
+        "locations": [
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-CANT2-PUB",
+            "name": "Espaces publics",
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE CANT2: Espaces publics"
+          }
+        ],
+        "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site de Pont-Saint-Martin",
+        "pid": "2",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "tuesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "12:00"
+              }
+            ]
+          },
+          {
+            "day": "wednesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "12:00"
+              }
+            ]
+          },
+          {
+            "day": "thursday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "12:00"
+              }
+            ]
+          },
+          {
+            "day": "friday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "17:00"
+              }
+            ]
+          },
+          {
+            "day": "saturday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "sunday",
+            "is_open": false,
+            "times": []
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Vacances de No\u00ebl",
+            "is_open": false,
+            "start_date": "2018-12-22",
+            "end_date": "2019-01-06"
+          },
+          {
+            "title": "8 f\u00e9vrier apr\u00e8s-midi",
+            "is_open": false,
+            "start_date": "2019-02-08",
+            "times": [
+              {
+                "start_time": "12:00",
+                "end_time": "18:00"
+              }
+            ]
+          },
+          {
+            "title": "Dimanche du livre",
+            "is_open": true,
+            "start_date": "2019-05-24T10:00:00.000Z",
+            "times": [
+              {
+                "start_time": "10:00",
+                "end_time": "16:00"
+              }
+            ]
+          },
+          {
+            "title": "1er ao\u00fbt",
+            "is_open": false,
+            "start_date": "2019-08-01",
+            "repeat": {
+              "interval": 1,
+              "period": "yearly",
+              "data": [
+                8
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
+        "address": "Avise 345, 11010 Avise",
+        "code": "AOSTE-AVISE",
+        "email": "reroilstest+aoste3@gmail.com",
+        "locations": [
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-FIC",
+            "name": "Section fiction",
+            "pid": "1"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-DOC",
+            "name": "Section documentaires",
+            "pid": "2"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-ENF",
+            "name": "Section enfants",
+            "pid": "3"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-MUL",
+            "name": "Section multim\u00e9dia",
+            "pid": "4"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-AVISE-PUB",
+            "name": "Espaces publics",
+            "pid": "5",
+            "is_pickup": true,
+            "pickup_name": "AOSTE-AVISE-PUB: Espaces publics"
+          }
+        ],
+        "name": "Biblioth\u00e8que communale et scolaire d'Avise",
+        "pid": "3",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
+          },
+          {
+            "day": "tuesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
+          },
+          {
+            "day": "wednesday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
+          },
+          {
+            "day": "thursday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              },
+              {
+                "start_time": "15:00",
+                "end_time": "18:00"
+              }
+            ]
+          },
+          {
+            "day": "friday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              }
+            ]
+          },
+          {
+            "day": "saturday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "09:00",
+                "end_time": "11:00"
+              }
+            ]
+          },
+          {
+            "day": "sunday",
+            "is_open": false,
+            "times": []
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Inventaire mensuel",
+            "is_open": false,
+            "start_date": "2019-01-03",
+            "repeat": {
+              "interval": 1,
+              "period": "monthly",
+              "data": [
+                8
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "$schema": "http://ils.test.rero.ch/schema/libraries/library-v0.0.1.json",
+        "address": "Via Piave 3, 11027 Saint-Vincent",
+        "code": "AOSTE-LYCEE",
+        "email": "reroilstest+aoste4@gmail.com",
+        "locations": [
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-LYCEE-PUB",
+            "name": "Espaces publics",
+            "pid": "1",
+            "is_pickup": true,
+            "pickup_name": "AOSTE-LYCEE: Espaces publics"
+          },
+          {
+            "$schema": "http://ils.test.rero.ch/schema/locations/location-v0.0.1.json",
+            "code": "AOSTE-LYCEE-MAT",
+            "name": "Travaux de maturit\u00e9",
+            "pid": "2"
+          }
+        ],
+        "name": "Biblioth\u00e8que du Lyc\u00e9e de la Vall\u00e9e d'Aoste",
+        "pid": "4",
+        "opening_hours": [
+          {
+            "day": "monday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "tuesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "wednesday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "thursday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "07:00",
+                "end_time": "19:00"
+              }
+            ]
+          },
+          {
+            "day": "friday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "saturday",
+            "is_open": false,
+            "times": []
+          },
+          {
+            "day": "sunday",
+            "is_open": true,
+            "times": [
+              {
+                "start_time": "14:00",
+                "end_time": "18:00"
+              }
+            ]
+          }
+        ],
+        "exception_dates": [
+          {
+            "title": "Vacances de No\u00ebl",
+            "is_open": false,
+            "start_date": "2018-12-22",
+            "end_date": "2019-01-15"
+          },
+          {
+            "title": "Vacances de Carnaval",
+            "is_open": false,
+            "start_date": "2019-03-01",
+            "end_date": "2019-03-11"
+          },
+          {
+            "title": "Assembl\u00e9e annuelle",
+            "is_open": true,
+            "start_date": "2019-09-15",
+            "times": [
+              {
+                "start_time": "14:00",
+                "end_time": "16:00"
+              }
+            ]
+          },
+          {
+            "title": "Vacances d'\u00e9t\u00e9",
+            "is_open": false,
+            "start_date": "2019-07-01",
+            "end_date": "2019-08-22"
+          }
+        ]
+      }
+    ],
+    "name": "R\u00e9seau des biblioth\u00e8ques du Canton d'Aoste",
+    "pid": "1"
+  }
+]
