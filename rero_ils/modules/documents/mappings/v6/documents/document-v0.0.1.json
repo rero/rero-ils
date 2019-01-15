@@ -121,7 +121,11 @@
           }
         },
         "subjects": {
-          "type": "text"
+          "type": "text",
+          "copy_to": "facet_subjects"
+        },
+        "facet_subjects": {
+          "type": "keyword"
         },
         "itemslist": {
           "type": "object",

@@ -123,6 +123,7 @@ SEARCH_UI_SEARCH_TEMPLATE = 'rero_ils/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/rero_ils/facets.html'
 SEARCH_UI_JSTEMPLATE_RANGE = 'templates/rero_ils/range.html'
 SEARCH_UI_JSTEMPLATE_COUNT = 'templates/rero_ils/count.html'
+SEARCH_UI_JSTEMPLATE_PAGINATION = 'templates/rero_ils/pagination.html'
 SEARCH_UI_SEARCH_MIMETYPE = 'application/rero+json'
 
 SEARCH_UI_HEADER_TEMPLATE = 'rero_ils/search_header.html'
@@ -583,25 +584,13 @@ RERO_ILS_APP_CONFIG_FACETS = {
 RECORDS_REST_FACETS = {
     'documents': dict(
         aggs=dict(
-            years=dict(
-                date_histogram=dict(
-                    field='publicationYear', interval='year', format='yyyy'
-                )
-            ),
             document_type=dict(terms=dict(field='type')),
             library=dict(
                 terms=dict(field='itemslist.library_name'),
-                # aggs=dict(
-                #     location=dict(
-                #         terms=dict(
-                #             field='itemslist.location_name'
-                #         )
-                #     )
-                # )
             ),
             author=dict(terms=dict(field='facet_authors')),
             language=dict(terms=dict(field='languages.language')),
-            subject=dict(terms=dict(field='subject')),
+            subject=dict(terms=dict(field='facet_subjects')),
             status=dict(terms=dict(field='itemslist.item_status')),
         ),
         # can be also post_filter
@@ -610,13 +599,8 @@ RECORDS_REST_FACETS = {
             _('library'): terms_filter('itemslist.library_name'),
             _('author'): terms_filter('facet_authors'),
             _('language'): terms_filter('languages.language'),
-            _('subject'): terms_filter('subject'),
+            _('subject'): terms_filter('facet_subjects'),
             _('status'): terms_filter('itemslist.item_status'),
-        },
-        post_filters={
-            _('years'): range_filter(
-                'publicationYear', format='yyyy', end_date_math='/y'
-            )
         },
     ),
     'patrons': dict(

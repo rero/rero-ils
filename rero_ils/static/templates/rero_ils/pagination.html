@@ -1,0 +1,41 @@
+<!--
+  This file is part of RERO ILS.
+  Copyright (C) 2016-2018 CERN.
+  Copyright (C) 2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+-->
+<nav aria-label="Search results pages">
+  <ul class="pagination pagination-sm mb-0" ng-if="vm.invenioSearchResults.hits.total">
+    <li ng-show="showGoToFirstLast" ng-class="paginationHelper.getFirstClass()" class="page-item">
+      <a href="#" ng-click="paginationHelper.changePage(1)" aria-label="First" class="page-link">
+        <span aria-hidden="true"><i class="fa fa-angle-double-left"></i><span>
+        <span class="sr-only">First<span>
+      </a>
+    </li>
+    <li ng-class="paginationHelper.getPrevClass()" class="page-item">
+      <a href="#" ng-click="paginationHelper.changePage(paginationHelper.previous())" aria-label="Previous" class="page-link">
+        <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+        <span class="sr-only">Previous<span>
+      </a>
+    </li>
+    <li ng-class="paginationHelper.getPageClass(page.value)" ng-repeat="page in paginatePages" class="page-item">
+      <a href="#" ng-click="paginationHelper.changePage(page.value)" alt="{{ page.title }}" class="page-link">
+        {{ page.value }}
+      </a>
+    </li>
+    <li ng-class="paginationHelper.getNextClass()" class="page-item">
+      <a href="#" ng-click="paginationHelper.changePage(paginationHelper.next())" aria-label="Next" class="page-link">
+        <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+        <span class="sr-only">Next<span>
+      </a>
+    </li>
+    <li ng-show="showGoToFirstLast" ng-class="paginationHelper.getLastClass()" class="page-item">
+      <a href="#" ng-click="paginationHelper.changePage(paginationHelper.total())" aria-label="Last" class="page-link">
+        <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+        <span class="sr-only">Last<span>
+      </a>
+    </li>
+  </ul>
+</nav>

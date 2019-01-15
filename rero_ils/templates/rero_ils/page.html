@@ -16,17 +16,13 @@
   </head>
   <body class="d-flex flex-column" ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}"{% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target">
     {%- block outer_body %}
-      {# {% include 'rero_ils/main_body.html' %} #}
       {%- block browserupgrade %}
         <!--[if lt IE 8]>
           <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your   browser</a> to improve your experience.</p>
         <![endif]-->
       {%- endblock browserupgrade %}
       {%- block body_inner %}
-        <!-- In order to push the content down -->
-        {# <div class="rero-ils-content-push-down"></div> #}
         {%- block page_header %}
-          {# <!-- {% include config.THEME_HEADER_TEMPLATE %} --> #}
           {% include 'rero_ils/header.html' %}
         {%- endblock page_header %}
         {%- block page_body %}
@@ -40,10 +36,10 @@
         {%- endblock page_footer %}
       {%- endblock body_inner %}
       {%- block javascript %}
-        {% include config.THEME_JAVASCRIPT_TEMPLATE %}
+        {% include 'rero_ils/javascript.html' %}
       {%- endblock javascript %}
       {%- block trackingcode %}
-        {% include config.THEME_TRACKINGCODE_TEMPLATE %}
+        {% include 'rero_ils/trackingcode.html' %}
       {%- endblock %}
     {%- endblock outer_body %}
   </body>
