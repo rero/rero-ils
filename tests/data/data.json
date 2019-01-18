@@ -7,14 +7,14 @@
   },
   "lib1": {
     "$schema": "http://ils.rero.ch/schema/libraries/library-v0.0.1.json",
-    "pid": "lib1",
+    "address": "Via Challand 132, 11100 Aosta",
+    "code": "AOSTE-CANT1",
+    "email": "reroilstest+aoste1@gmail.com",
+    "name": "Biblioth\u00e8que cantonale vald\u00f4taine, site d'Aoste",
     "organisation": {
       "$ref": "http://ils.rero.ch/api/organisations/org1"
     },
-    "code": "vsmvvs",
-    "name": "MV Sion",
-    "address": "Rue Pratifori",
-    "email": "info@mv.ch",
+    "pid": "lib1",
     "opening_hours": [
       {
         "day": "monday",
@@ -108,13 +108,14 @@
   },
   "loc1": {
     "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT1-PUB",
+    "name": "Espaces publics",
     "pid": "loc1",
-    "code": "net2-store-base",
-    "name": "Store Base",
-    "is_pickup": true,
     "library": {
       "$ref": "http://ils.rero.ch/api/libraries/lib1"
-    }
+    },
+    "is_pickup": true,
+    "pickup_name": "AOSTE CANT1: Espaces publics"
   },
   "cipo1": {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
@@ -167,8 +168,7 @@
       "$ref": "http://ils.rero.ch/api/patron_types/ptty1"
     },
     "roles": [
-      "librarian",
-      "patron"
+      "librarian"
     ]
   },
   "ptrn2": {

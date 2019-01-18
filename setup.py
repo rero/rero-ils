@@ -127,15 +127,16 @@ setup(
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_admin_ui_js = \
                 rero_ils.bundles:admin_js',
-            'rero_ils_admin_css = rero_ils.bundles:admin_css'
-
+            'rero_ils_admin_css = rero_ils.bundles:admin_css',
+            'rero_ils_documents_detailed_js = \
+                rero_ils.modules.documents.bundles:detailed_js',
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
             'head = rero_ils.dojson.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = rero_ils.modules.dojson.dump:pretty_json_dump',
+            'pjson = rero_ils.dojson.cli:pretty_json_dump',
         ],
         'dojson.cli.rule': [
             'marc21tojson = rero_ils.modules.documents.dojson'

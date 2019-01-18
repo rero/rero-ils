@@ -32,25 +32,25 @@ from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 
 
-def test_patron_create(base_app, roles, user_librarian_patron_data_tmp,
+def test_patron_create(base_app, roles, user_librarian_data_tmp,
                        mailbox):
     """Test Patron creation."""
     ds = base_app.extensions['invenio-accounts'].datastore
-    email = user_librarian_patron_data_tmp.get('email')
+    email = user_librarian_data_tmp.get('email')
     assert not ds.find_user(email=email)
     assert len(mailbox) == 0
-    ptrn = Patron.create(user_librarian_patron_data_tmp, dbcommit=True)
+    ptrn = Patron.create(user_librarian_data_tmp, dbcommit=True)
     user = ds.find_user(email=email)
     assert user
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(ptrn.get('roles'))
     assert len(mailbox) == 1
     assert ptrn.get('email') in mailbox[0].recipients
-    assert ptrn == user_librarian_patron_data_tmp
+    assert ptrn == user_librarian_data_tmp
     assert ptrn.get('pid') == '1'
 
     ptrn = Patron.get_record_by_pid('1')
-    assert ptrn == user_librarian_patron_data_tmp
+    assert ptrn == user_librarian_data_tmp
 
     fetched_pid = patron_id_fetcher(ptrn.id, ptrn)
     assert fetched_pid.pid_value == '1'
@@ -80,20 +80,22 @@ def test_patron_create(base_app, roles, user_librarian_patron_data_tmp,
 
 
 def test_patron_es_mapping(
-        roles, es_clear, library, patron_type, user_librarian_patron_data_tmp):
+        roles, es_clear, library, patron_type, user_librarian_data_tmp):
     """."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Patron.create(user_librarian_patron_data_tmp, dbcommit=True, reindex=True)
+    Patron.create(user_librarian_data_tmp, dbcommit=True, reindex=True)
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_get_patron(user_librarian_patron):
+def test_get_patron(user_librarian):
     """."""
-    patron = user_librarian_patron
+    patron = user_librarian
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
+    assert Patron.get_patron_by_barcode('2050124311') == patron
+    assert not Patron.get_patron_by_barcode('not exists')
 
     class user:
         email = patron.get('email')

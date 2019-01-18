@@ -64,11 +64,6 @@ class REROILSAPP(object):
     def init_config(self, app):
         """Initialize configuration."""
         # Use theme's base template if theme is installed
-        if 'BASE_TEMPLATE' in app.config:
-            app.config.setdefault(
-                'RERO_ILS_APP_BASE_TEMPLATE',
-                app.config['BASE_TEMPLATE'],
-            )
         for k in dir(app.config):
             if k.startswith('RERO_ILS_APP_'):
                 app.config.setdefault(k, getattr(app.config, k))
