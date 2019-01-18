@@ -38,8 +38,9 @@ include scripts/update
 prune docs/_build
 recursive-include rero_ils *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
-include deployment/jenkins/Dockerfile
-include deployment/jenkins/Jenkinsfile_deployment
+recursive-include deployment *.sh
+recursive-include deployment *.tmpl
+recursive-include deployment *.yaml
 
 # added by check_manifest.py
 include *.base
@@ -57,7 +58,6 @@ recursive-include data *.json
 recursive-include tests *.json
 recursive-include data *.xml
 recursive-include data *.yml
-recursive-include deployment *.yml
 recursive-include doc *.graffle
 recursive-include doc *.pdf
 recursive-include docs *.bat
