@@ -31,7 +31,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
-def test_patrons_permissions(client, user_librarian_patron_no_email,
+def test_patrons_permissions(client, user_librarian_no_email,
                              json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value='ptrn1')
@@ -62,9 +62,9 @@ def test_patrons_permissions(client, user_librarian_patron_no_email,
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patrons_get(client, user_librarian_patron_no_email):
+def test_patrons_get(client, user_librarian_no_email):
     """Test record retrieval."""
-    patron = user_librarian_patron_no_email
+    patron = user_librarian_no_email
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value='ptrn1')
     list_url = url_for('invenio_records_rest.ptrn_list', q='pid:ptrn1')
 
@@ -100,23 +100,23 @@ def test_patrons_get(client, user_librarian_patron_no_email):
         current_i18n
     ):
 
-        login_user_via_session(client, user_librarian_patron_no_email.user)
+        login_user_via_session(client, user_librarian_no_email.user)
         res = client.get(url_for('api_patrons.logged_user'))
         assert res.status_code == 200
         data = get_json(res)
-        assert data.get('metadata') == user_librarian_patron_no_email
+        assert data.get('metadata') == user_librarian_no_email
         assert data.get('settings').get('language') == 'fr'
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patrons_post_put_delete(client, library, patron_type,
-                                 user_librarian_patron_data, json_header):
+                                 user_librarian_data, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value='1')
     post_url = url_for('invenio_records_rest.ptrn_list')
     list_url = url_for('invenio_records_rest.ptrn_list', q='pid:1')
-    patron_data = user_librarian_patron_data
+    patron_data = user_librarian_data
 
     # Create record / POST
     patron_data['pid'] = '1'

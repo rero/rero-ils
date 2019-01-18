@@ -26,8 +26,6 @@
 
 from functools import partial
 
-from invenio_db import db
-from invenio_records.models import RecordMetadata
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
@@ -60,46 +58,11 @@ class Location(IlsRecord):
     provider = LocationProvider
 
     @classmethod
-    def get_all_pickup_locations(cls):
+    def get_pickup_location_pids(cls, patron_pid=None):
         """."""
-        with db.session.no_autoflush:
-            query = RecordMetadata.query
-            # .filter(
-            #     RecordMetadata.json['is_pickup'].cast(sqlalchemy.Boolean).is_(True)
-            # )
-            return [cls(obj.json, model=obj) for obj in query.all()]
-        # return []
-    # # TODO make global function
-    # @classmethod
-    # def get_all_pids(cls):
-    #     """Get all location pids."""
-    #     libraries_locations = LibrariesLocationsMetadata.query.all()
-
-    #     locs_id = []
-
-    #     for library_location in libraries_locations:
-    #         loc_id = library_location.location_id
-    #         pid = PersistentIdentifier.get_by_object('loc', 'rec', loc_id)
-    #         locs_id.append(pid.pid_value)
-
-    #     return locs_id
-
-    # def get_all_items_pids(self):
-    #     """Get all items pids."""
-    #     items_with_location = (
-    #         DocumentsSearch()
-    #         .filter('term', **{'itemslist.location_pid': self.pid})
-    #         .source(includes=['itemslist.pid'])
-    #         .scan()
-    #     )
-    #     pids = []
-    #     for document in items_with_location:
-    #         for items in document['itemslist']:
-    #             item = items.to_dict()
-    #             pids.append(item.get('pid'))
-    #     return sorted(pids, key=int)
-
-    # @property
-    # def can_delete(self):
-    #     """Record can be deleted."""
-    #     return len(self.get_all_items_pids()) == 0
+        # TODO: filter by patron libraries or organisations
+        locations = LocationsSearch()\
+            .filter('term', is_pickup=True)\
+            .source(['pid']).scan()
+        for location in locations:
+            yield location.pid

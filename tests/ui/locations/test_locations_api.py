@@ -55,7 +55,7 @@ def test_location_es_mapping(es, db, library, location_data):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_location_get_all_pickup_locations(db, library, location):
+def test_location_get_all_pickup_locations(es, db, library, location):
     """."""
-    locations = Location.get_all_pickup_locations()
-    assert locations
+    locations = Location.get_pickup_location_pids()
+    assert list(locations)[0] == location.pid

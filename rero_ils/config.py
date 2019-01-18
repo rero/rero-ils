@@ -116,7 +116,7 @@ THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
 THEME_LOGO = 'images/logo_rero_ils.png'
 
 SEARCH_UI_JSTEMPLATE_RESULTS = (
-    'templates/rero_ils/brief_view_documents_items.html'
+    'templates/rero_ils/brief_view_documents.html'
 )
 SEARCH_UI_SEARCH_TEMPLATE = 'rero_ils/search.html'
 SEARCH_UI_JSTEMPLATE_FACETS = 'templates/rero_ils/facets.html'
@@ -625,7 +625,7 @@ RECORDS_UI_ENDPOINTS = {
         pid_type='doc',
         route='/documents/<pid_value>/export/<format>',
         view_imp='invenio_records_ui.views.export',
-        template='rero_ils/export_documents_items.html',
+        template='rero_ils/export_documents.html',
         record_class='rero_ils.modules.documents.api:Document',
     ),
     'pers': dict(
@@ -706,7 +706,7 @@ RERO_ILS_APP_HELP_PAGE = (
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
 #: Persons
-RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef-person-v0.0.1.json'
+RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef_person-v0.0.1.json'
 RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd']
 
 RERO_ILS_PERSONS_LABEL_ORDER = {

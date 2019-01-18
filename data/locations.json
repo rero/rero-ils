@@ -1,0 +1,109 @@
+[
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT1-PUB",
+    "name": "Espaces publics",
+    "pid": "1",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/1"
+    },
+    "is_pickup": true,
+    "pickup_name": "AOSTE CANT1: Espaces publics"
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT1-BIBLIOGR",
+    "name": "Bibliographie vald\u00f4taine",
+    "pid": "2",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/1"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT1-MAGA",
+    "name": "Magasin A",
+    "pid": "3",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/1"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT2-PUB",
+    "name": "Espaces publics",
+    "pid": "4",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/2"
+    },
+    "is_pickup": true,
+    "pickup_name": "AOSTE CANT2: Espaces publics"
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-FIC",
+    "name": "Section fiction",
+    "pid": "5",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-DOC",
+    "name": "Section documentaires",
+    "pid": "6",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-ENF",
+    "name": "Section enfants",
+    "pid": "7",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-MUL",
+    "name": "Section multim\u00e9dia",
+    "pid": "8",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-PUB",
+    "name": "Espaces publics",
+    "pid": "9",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/3"
+    },
+    "is_pickup": true,
+    "pickup_name": "AOSTE-AVISE-PUB: Espaces publics"
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-LYCEE-PUB",
+    "name": "Espaces publics",
+    "pid": "10",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/4"
+    },
+    "is_pickup": true,
+    "pickup_name": "AOSTE-LYCEE: Espaces publics"
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-LYCEE-MAT",
+    "name": "Travaux de maturit\u00e9",
+    "pid": "11",
+    "library": {
+      "$ref": "http://ils.rero.ch/api/libraries/4"
+    }
+  }
+]

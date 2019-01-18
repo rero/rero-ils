@@ -101,15 +101,16 @@ def add_loans_parameters_and_flush_indexes(function):
         kwargs['loan_pid'] = loan.get('loan_pid')
         kwargs.setdefault(
             'transaction_date', datetime.now(timezone.utc).isoformat())
-        kwargs.setdefault(
-            'transaction_user_pid', current_patron.pid)
+        if not kwargs.get('transaction_user_pid'):
+            kwargs.setdefault(
+                'transaction_user_pid', current_patron.pid)
         kwargs.setdefault(
             'document_pid', item.replace_refs().get('document', {}).get('pid'))
         # TODO: change when it will be fixed in circulation
         if web_request:
             kwargs.setdefault(
                 'transaction_location_pid', kwargs.get('pickup_location_pid'))
-        else:
+        elif not kwargs.get('transaction_location_pid'):
             kwargs.setdefault(
                 'transaction_location_pid', Library.get_record_by_pid(
                     current_patron.replace_refs()['library']['pid']

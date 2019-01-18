@@ -122,7 +122,7 @@ def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
         click.secho('Harvest api: {0}'.format(url), fg='green')
     if enqueue:
         harvest_records.delay(url=url, name=name, from_date=from_date,
-                              signals=signals, size=size,  max=max,
+                              signals=signals, size=size, max=max,
                               verbose=verbose)
     else:
         harvest_records(url=url, name=name, from_date=from_date,

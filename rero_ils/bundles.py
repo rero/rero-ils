@@ -94,6 +94,8 @@ js = NpmBundle(
 search_js = Bundle(
     i18n,
     NpmBundle(
+        'js/rero_ils/documents.js',
+        'js/rero_ils/mef_persons.js',
         'js/rero_ils/invenio_config.js',
         'js/rero_ils/translations.js',
         'js/rero_ils/thumbnail.js',

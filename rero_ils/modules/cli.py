@@ -32,24 +32,19 @@ from collections import OrderedDict
 from glob import glob
 
 import click
+from flask import current_app
+from flask.cli import with_appcontext
+from flask_security.confirmable import confirm_user
+from invenio_accounts.cli import commit, users
+from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.api import Record
+from werkzeug.local import LocalProxy
 
-# from flask import current_app
-# from flask.cli import with_appcontext
-# from flask_security.confirmable import confirm_user
-# from invenio_accounts.cli import commit, users
-# from invenio_pidstore.models import PersistentIdentifier
-# from invenio_records.api import Record
-# from werkzeug.local import LocalProxy
+from .items.cli import create_items
+from .loans.cli import create_loans
+from .patrons.cli import import_users
 
-# from .circ_policies.cli import import_circ_policies
-# from .documents_items.cli import create_items
-# from .items.cli import create_circ_transactions
-# from .item_types.cli import import_item_types
-# from .organisations_libraries.cli import import_organisations
-# from .patrons.cli import import_users
-# from .patron_types.cli import import_patrons_type
-
-# _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+_datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 
 @click.group()
@@ -57,28 +52,24 @@ def fixtures():
     """Fixtures management commands."""
 
 
-# fixtures.add_command(import_organisations)
-# fixtures.add_command(import_users)
-# fixtures.add_command(create_items)
-# fixtures.add_command(create_circ_transactions)
-# fixtures.add_command(import_patrons_type)
-# fixtures.add_command(import_item_types)
-# fixtures.add_command(import_circ_policies)
+fixtures.add_command(import_users)
+fixtures.add_command(create_items)
+fixtures.add_command(create_loans)
 
 
-# @users.command('confirm')
-# @click.argument('user')
-# @with_appcontext
-# @commit
-# def manual_confirm_user(user):
-#     """Confirm a user."""
-#     user_obj = _datastore.get_user(user)
-#     if user_obj is None:
-#         raise click.UsageError('ERROR: User not found.')
-#     if confirm_user(user_obj):
-#         click.secho('User "%s" has been confirmed.' % user, fg='green')
-#     else:
-#         click.secho('User "%s" was already confirmed.' % user, fg='yellow')
+@users.command('confirm')
+@click.argument('user')
+@with_appcontext
+@commit
+def manual_confirm_user(user):
+    """Confirm a user."""
+    user_obj = _datastore.get_user(user)
+    if user_obj is None:
+        raise click.UsageError('ERROR: User not found.')
+    if confirm_user(user_obj):
+        click.secho('User "%s" has been confirmed.' % user, fg='green')
+    else:
+        click.secho('User "%s" was already confirmed.' % user, fg='yellow')
 
 
 @click.group()
@@ -86,17 +77,17 @@ def utils():
     """Misc management commands."""
 
 
-# @utils.command('show')
-# @click.argument('pid_value', nargs=1)
-# @click.option('-t', '--pid-type', 'pid-type, default(document_id)',
-#               default='document_id')
-# @with_appcontext
-# def show(pid_value, pid_type):
-#     """Show records."""
-#     record = PersistentIdentifier.query.filter_by(pid_type=pid_type,
-#                                                   pid_value=pid_value).first()
-#     recitem = Record.get_record(record.object_uuid)
-#     click.echo(json.dumps(recitem.dumps(), indent=2))
+@utils.command('show')
+@click.argument('pid_value', nargs=1)
+@click.option('-t', '--pid-type', 'pid-type, default(document_id)',
+              default='document_id')
+@with_appcontext
+def show(pid_value, pid_type):
+    """Show records."""
+    record = PersistentIdentifier.query.filter_by(pid_type=pid_type,
+                                                  pid_value=pid_value).first()
+    recitem = Record.get_record(record.object_uuid)
+    click.echo(json.dumps(recitem.dumps(), indent=2))
 
 
 @utils.command('check_json')
@@ -159,11 +150,11 @@ def check_json(paths, replace, indent, sort_keys):
     return tot_error_cnt
 
 
-# @utils.command('schedules')
-# @with_appcontext
-# def schedules():
-#     """List harvesting schedules."""
-#     celery_ext = current_app.extensions.get('invenio-celery')
-#     for key, value in celery_ext.celery.conf.beat_schedule.items():
-#         click.echo(key + '\t', nl=False)
-#         click.echo(value)
+@utils.command('schedules')
+@with_appcontext
+def schedules():
+    """List harvesting schedules."""
+    celery_ext = current_app.extensions.get('invenio-celery')
+    for key, value in celery_ext.celery.conf.beat_schedule.items():
+        click.echo(key + '\t', nl=False)
+        click.echo(value)

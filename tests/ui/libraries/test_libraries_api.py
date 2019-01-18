@@ -33,7 +33,7 @@ from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
 
 
-def test_library_create(library, db, library_data):
+def test_library_create(db, library_data):
     """Test libanisation creation."""
     lib = Library.create(library_data)
     assert lib == library_data
@@ -47,7 +47,7 @@ def test_library_create(library, db, library_data):
     assert fetched_pid.pid_type == 'lib'
 
 
-def test_library_es_mapping(es, db, library_data, organisation):
+def test_library_es_mapping(es_clear, db, library_data, organisation):
     """."""
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)

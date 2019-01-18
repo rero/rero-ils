@@ -30,8 +30,8 @@ from invenio_circulation.errors import CirculationException
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
-from invenio_circulation.search.api import search_by_patron_item, \
-    search_by_patron_pid
+from invenio_circulation.proxies import current_circulation
+from invenio_circulation.search.api import search_by_patron_item
 from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
@@ -144,7 +144,12 @@ def get_loans_by_patron_pid(patron_pid):
     """Return all checkout for patron."""
     if not patron_pid:
         raise CirculationException('Patron PID not specified')
+    results = current_circulation.loan_search\
+        .source(['loan_pid'])\
+        .params(preserve_order=True)\
+        .filter('term', patron_pid=patron_pid)\
+        .sort({'transaction_date': {'order': 'asc'}})\
+        .scan()
 
-    search = search_by_patron_pid(patron_pid=patron_pid)
-    for result in search.sort('transaction_date', {'order': 'asc'}).scan():
-        yield Loan.get_record_by_pid(result[Loan.pid_field])
+    for loan in results:
+        yield Loan.get_record_by_pid(loan.loan_pid)

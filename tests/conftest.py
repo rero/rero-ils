@@ -38,9 +38,9 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.locations.api import Location
+from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
@@ -122,7 +122,7 @@ def document_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def user_librarian_patron_data(data):
+def user_librarian_data(data):
     """."""
     return deepcopy(data.get('ptrn1'))
 
@@ -134,7 +134,7 @@ def user_patron_data(data):
 
 
 @pytest.fixture(scope="function")
-def user_librarian_patron_data_tmp(data):
+def user_librarian_data_tmp(data):
     """."""
     return deepcopy(data.get('ptrn1'))
 
@@ -192,22 +192,26 @@ def organisation(database, organisation_data):
 
 
 @pytest.fixture(scope="module")
-def library(organisation, library_data):
+def library(app, organisation, library_data):
     """."""
     lib = Library.create(
         data=library_data,
         delete_pid=False,
-        dbcommit=True)
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
     return lib
 
 
 @pytest.fixture(scope="module")
-def location(library, location_data):
+def location(app, library, location_data):
     """."""
     loc = Location.create(
         data=location_data,
         delete_pid=False,
-        dbcommit=True)
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
     return loc
 
 
@@ -257,11 +261,11 @@ def roles(base_app, database):
 
 
 @pytest.fixture(scope="module")
-def user_librarian_patron(app, roles, library, patron_type,
-                          user_librarian_patron_data):
+def user_librarian(app, roles, library, patron_type,
+                   user_librarian_data):
     """."""
     ptrn = Patron.create(
-        data=user_librarian_patron_data,
+        data=user_librarian_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -270,7 +274,7 @@ def user_librarian_patron(app, roles, library, patron_type,
 
 
 @pytest.fixture(scope="module")
-def user_patron(app, roles, library, user_librarian_patron_type,
+def user_patron(app, roles, library, user_librarian_type,
                 user_patron_data):
     """."""
     ptrn = Patron.create(
@@ -296,11 +300,11 @@ def mef_person(app, mef_person_data):
 
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def user_librarian_patron_no_email(app, roles, library, patron_type,
-                                   user_librarian_patron_data):
+def user_librarian_no_email(app, roles, library, patron_type,
+                            user_librarian_data):
     """."""
     ptrn = Patron.create(
-        data=user_librarian_patron_data,
+        data=user_librarian_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

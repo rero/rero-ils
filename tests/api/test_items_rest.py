@@ -161,11 +161,11 @@ def test_items_post_put_delete(client, document, location, item_type,
     assert res.status_code == 410
 
 
-def test_items_failed_actions(client, user_librarian_patron_no_email,
+def test_items_failed_actions(client, user_librarian_no_email,
                               user_patron_no_email, location, item_type,
                               item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -208,11 +208,11 @@ def test_items_failed_actions(client, user_librarian_patron_no_email,
     assert res.status_code == 500
 
 
-def test_items_simple_loan(client, user_librarian_patron_no_email,
+def test_items_simple_loan(client, user_librarian_no_email,
                            user_patron_no_email, location, item_type,
                            item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -260,16 +260,16 @@ def test_items_simple_loan(client, user_librarian_patron_no_email,
     assert actions.get(LoanAction.CHECKIN)
 
 
-def test_items_requests(client, user_librarian_patron_no_email,
+def test_items_requests(client, user_librarian_no_email,
                         user_patron_no_email, location, item_type,
                         item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron = user_patron_no_email
     patron_pid = patron.pid
-    library_pid = user_librarian_patron_no_email\
+    library_pid = user_librarian_no_email\
         .replace_refs()['library']['pid']
 
     assert not item.patron_request_rank(patron.get('barcode'))
@@ -420,11 +420,11 @@ def test_items_requests(client, user_librarian_patron_no_email,
     assert actions.get(LoanAction.CHECKIN)
 
 
-def test_items_cancel_request(client, user_librarian_patron_no_email,
+def test_items_cancel_request(client, user_librarian_no_email,
                               user_patron_no_email, location, item_type,
                               item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -468,11 +468,11 @@ def test_items_cancel_request(client, user_librarian_patron_no_email,
     assert actions.get(LoanAction.CANCEL)
 
 
-def test_items_extend(client, user_librarian_patron_no_email,
+def test_items_extend(client, user_librarian_no_email,
                       user_patron_no_email, location, item_type,
                       item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -527,11 +527,11 @@ def test_items_extend(client, user_librarian_patron_no_email,
     assert res.status_code == 200
 
 
-def test_items_lose(client, user_librarian_patron_no_email,
+def test_items_lose(client, user_librarian_no_email,
                     user_patron_no_email, location, item_type,
                     item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -612,11 +612,11 @@ def test_items_lose(client, user_librarian_patron_no_email,
     assert res.status_code == 200
 
 
-def test_items_receive(client, user_librarian_patron_no_email,
+def test_items_receive(client, user_librarian_no_email,
                        user_patron_no_email, location, item_type,
                        item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
@@ -679,11 +679,11 @@ def test_items_receive(client, user_librarian_patron_no_email,
     assert actions.get(LoanAction.RECEIVE)
 
 
-def test_items_automatic_checkin(client, user_librarian_patron_no_email,
+def test_items_automatic_checkin(client, user_librarian_no_email,
                                  user_patron_no_email, location, item_type,
                                  item_on_shelf, json_header):
     """."""
-    login_user_via_session(client, user_librarian_patron_no_email.user)
+    login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
     patron_pid = user_patron_no_email.pid
