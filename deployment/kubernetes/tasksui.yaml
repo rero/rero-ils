@@ -1,0 +1,21 @@
+# -*- coding: utf-8 -*-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-tasksui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ils
+        tier: tasksui
+    spec:
+      containers:
+      - name: ils-taskui
+        image: mher/flower
+        args: ["--broker=amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-worker:$(ILS_MQ_SERVICE_PORT_WORKER)/", "--broker_api=http://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-worker:$(ILS_MQ_SERVICE_PORT_UI)/api/"]
+        imagePullPolicy: Always
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns

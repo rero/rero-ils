@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ils
+data:
+  INVENIO_APP_ALLOWED_HOSTS: 'None'
+  INVENIO_DB_VERSIONING: 'False'
+  INVENIO_MAIL_SUPPRESS_SEND: 'False'
+  GET_HOSTS_FROM: 'dns'
+  INVENIO_CACHE_TYPE: 'redis'
+  INVENIO_WSGI_PROXIES: '2'
+  INVENIO_INSTANCE_PATH: '/invenio/instance'

@@ -1,0 +1,41 @@
+# -*- coding: utf-8 -*-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-mq
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ils
+        tier: mq
+    spec:
+      containers:
+      - name: ils-mq
+        image: rabbitmq:3-management
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: ils
+              key: RABBITMQ_DEFAULT_USER
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: ils
+              key: RABBITMQ_DEFAULT_PASS
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 5672
+          name: worker
+        - containerPort: 15672
+          name: ui
+        volumeMounts:
+          - mountPath: /var/lib/rabbitmq/mnesia
+            name: ils-mq
+      volumes:
+      - name: ils-mq
+        persistentVolumeClaim:
+          claimName: ils-claim-mq

@@ -1,0 +1,161 @@
+# -*- coding: utf-8 -*-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ils
+        tier: frontend
+    spec:
+      volumes:
+      - name: invenio-static
+        emptyDir: {}
+      initContainers:
+      - name: copy-assets
+        image: rero/rero-ils:test
+        command: ["sh", "-c", "cp -r /invenio/var/instance/* ${INVENIO_INSTANCE_PATH}"]
+        imagePullPolicy: Always
+        env:
+        - name: INVENIO_INSTANCE_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: ils
+              key: INVENIO_INSTANCE_PATH
+        volumeMounts:
+        - mountPath: /invenio/instance
+          name: invenio-static
+
+      containers:
+      - name: frontend
+        image: rero/rero-ils-nginx:test
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http
+        - containerPort: 443
+          name: https
+        volumeMounts:
+        - mountPath: /invenio/instance
+          readOnly: true
+          name: invenio-static
+      - name: ui
+        image: rero/rero-ils:test
+        command: ["pipenv", "run", "uwsgi", "/invenio/var/instance/uwsgi_ui.ini"]
+        imagePullPolicy: Always
+        env:
+        - name: INVENIO_ACCOUNTS_SESSION_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/1
+        - name: INVENIO_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CACHE_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/0
+        - name: INVENIO_CELERY_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CELERY_RESULT_BACKEND
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/2
+        - name: INVENIO_SEARCH_ELASTIC_HOSTS
+          value: ils-indexer:$(ILS_INDEXER_SERVICE_PORT_API)
+        - name: INVENIO_SQLALCHEMY_DATABASE_URI
+          value: postgresql+psycopg2://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@ils-db:$(ILS_DB_SERVICE_PORT_DB)/$(POSTGRES_DB)
+        - name: INVENIO_RATELIMIT_STORAGE_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/3
+        envFrom:
+         - configMapRef:
+             name: ils
+         - secretRef:
+             name: ils
+        volumeMounts:
+        - mountPath: /invenio/instance
+          name: invenio-static
+
+      - name: rest
+        image: rero/rero-ils:test
+        command: ["pipenv", "run", "uwsgi", "/invenio/var/instance/uwsgi_rest.ini"]
+        imagePullPolicy: Always
+        env:
+        - name: INVENIO_ACCOUNTS_SESSION_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/1
+        - name: INVENIO_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CACHE_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/0
+        - name: INVENIO_CELERY_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CELERY_RESULT_BACKEND
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/2
+        - name: INVENIO_SEARCH_ELASTIC_HOSTS
+          value: ils-indexer:$(ILS_INDEXER_SERVICE_PORT_API)
+        - name: INVENIO_SQLALCHEMY_DATABASE_URI
+          value: postgresql+psycopg2://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@ils-db:$(ILS_DB_SERVICE_PORT_DB)/$(POSTGRES_DB)
+        - name: INVENIO_RATELIMIT_STORAGE_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/3
+        envFrom:
+         - configMapRef:
+             name: ils
+         - secretRef:
+             name: ils
+        volumeMounts:
+        - mountPath: /invenio/instance
+          name: invenio-static
+      - name: worker
+        image: rero/rero-ils:test
+        command: ["pipenv", "run", "celery", "worker", "-A", "invenio_app.celery", "--loglevel=INFO"]
+        imagePullPolicy: Always
+        env:
+        - name: INVENIO_ACCOUNTS_SESSION_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/1
+        - name: INVENIO_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CACHE_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/0
+        - name: INVENIO_CELERY_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CELERY_RESULT_BACKEND
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/2
+        - name: INVENIO_SEARCH_ELASTIC_HOSTS
+          value: ils-indexer:$(ILS_INDEXER_SERVICE_PORT_API)
+        - name: INVENIO_SQLALCHEMY_DATABASE_URI
+          value: postgresql+psycopg2://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@ils-db:$(ILS_DB_SERVICE_PORT_DB)/$(POSTGRES_DB)
+        - name: INVENIO_RATELIMIT_STORAGE_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/3
+        envFrom:
+         - configMapRef:
+             name: ils
+         - secretRef:
+             name: ils
+        volumeMounts:
+        - mountPath: /invenio/instance
+          name: invenio-static
+      - name: scheduler
+        image: rero/rero-ils:test
+        command: ["pipenv", "run", "celery", "beat", "-A", "invenio_app.celery", "--loglevel=INFO"]
+        imagePullPolicy: Always
+        env:
+        - name: INVENIO_ACCOUNTS_SESSION_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/1
+        - name: INVENIO_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CACHE_REDIS_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/0
+        - name: INVENIO_CELERY_BROKER_URL
+          value: amqp://$(RABBITMQ_DEFAULT_USER):$(RABBITMQ_DEFAULT_PASS)@ils-mq:$(ILS_MQ_SERVICE_PORT_WORKER)//
+        - name: INVENIO_CELERY_RESULT_BACKEND
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/2
+        - name: INVENIO_SEARCH_ELASTIC_HOSTS
+          value: ils-indexer:$(ILS_INDEXER_SERVICE_PORT_API)
+        - name: INVENIO_SQLALCHEMY_DATABASE_URI
+          value: postgresql+psycopg2://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@ils-db:$(ILS_DB_SERVICE_PORT_DB)/$(POSTGRES_DB)
+        - name: INVENIO_RATELIMIT_STORAGE_URL
+          value: redis://ils-cache:$(ILS_CACHE_SERVICE_PORT_CACHE)/3
+        envFrom:
+         - configMapRef:
+             name: ils
+         - secretRef:
+             name: ils
+        volumeMounts:
+        - mountPath: /invenio/instance
+          name: invenio-static

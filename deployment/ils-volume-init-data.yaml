@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+kind: Pod
+apiVersion: v1
+metadata:
+  name: init-data
+spec:
+  restartPolicy: Never
+  volumes:
+  - name: vol
+    persistentVolumeClaim:
+      claimName: ils-claim-data
+  containers:
+  - name: copy-data
+    image: ubuntu
+    command: [
+        "/bin/bash",
+        "-ec",
+        "ls /data; apt-get update; apt-get install rsync ssh -y; while :; do echo '.'; sleep 5 ; done"
+    ]
+    volumeMounts:
+    - name: vol
+      mountPath: /claim

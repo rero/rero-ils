@@ -1,0 +1,44 @@
+# -*- coding: utf-8 -*-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ils
+        tier: db
+    spec:
+      containers:
+      - name: ils-db
+        image: postgres:9.6
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: ils
+              key: POSTGRES_USER
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: ils
+              key: POSTGRES_DB
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ils
+              key: POSTGRES_PASSWORD
+        ports:
+        - containerPort: 5432
+          name: db
+        volumeMounts:
+          - mountPath: /var/lib/postgresql
+            name: ils-db-data
+      volumes:
+      - name: ils-db-data
+        persistentVolumeClaim:
+          claimName: ils-claim-db

@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ils-indexer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ils
+        tier: indexer
+    spec:
+      initContainers:
+        - name: init-sysctl
+          image: busybox:1.27.2
+          command:
+            - sysctl
+            - -w
+            - vm.max_map_count=262144
+          securityContext:
+            privileged: true
+        - name: volume-mount-hack
+          image: busybox:1.27.2
+          command:
+            - /bin/sh
+            - -c
+            - chown -R 1000:100 /usr/share/elasticsearch/data
+          volumeMounts:
+          - mountPath: /usr/share/elasticsearch/data
+            name: ils-indexer-data
+      containers:
+      - name: ils-indexer
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+        resources:
+          requests:
+            memory: 1Gi
+        ports:
+        - containerPort: 9300
+          name: api
+        - containerPort: 9200
+          name: cluster
+        env:
+          - name: cluster.name
+            value: ils
+          - name: ES_JAVA_OPTS
+            value: -Xms512m -Xmx512m
+        volumeMounts:
+          - mountPath: /invenio/elasticsearch/data
+            name: ils-indexer-data
+      volumes:
+      - name: ils-indexer-data
+        persistentVolumeClaim:
+          claimName: ils-claim-es

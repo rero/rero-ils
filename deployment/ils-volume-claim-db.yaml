@@ -1,0 +1,13 @@
+# -*- coding: utf-8 -*-
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ils-claim-db
+  annotations:
+    volume.beta.kubernetes.io/storage-class: thin-disk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi

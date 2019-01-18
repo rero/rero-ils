@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: ils-limits
+spec:
+  limits:
+  - default:
+      memory: 2Gi
+    defaultRequest:
+      memory: 128Mi
+    type: Container

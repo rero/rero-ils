@@ -772,7 +772,7 @@ CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = \
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = Item.get_items_pid_by_document_pid
 
 # This is needed for absolute URL (url_for)
-SERVER_NAME = 'localhost:5000'
+# SERVER_NAME = 'localhost:5000'
 # CIRCULATION_REST_ENDPOINTS = {}
 """Default circulation policies when performing an action on a Loan."""
 

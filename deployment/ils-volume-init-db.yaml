@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+kind: Pod
+apiVersion: v1
+metadata:
+  name: init-db
+spec:
+  restartPolicy: Never
+  volumes:
+  - name: vol
+    persistentVolumeClaim:
+      claimName: ils-claim-db
+  containers:
+  - name: create-dir
+    image: "k8s.gcr.io/busybox"
+    command: ["/bin/sh", "-c", "mkdir /claim/data"]
+    volumeMounts:
+    - name: vol
+      mountPath: /claim
