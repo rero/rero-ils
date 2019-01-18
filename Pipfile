@@ -18,7 +18,9 @@ invenio-circulation = {ref = "master", git = "https://github.com/inveniosoftware
 pipenv = "*"
 requests = ">=2.20.0"
 flask-oauthlib = "*"
-# invenio-admin = {version = ">=1.1.1"}
+requests-oauthlib = "==1.1"
+node-semver = "<0.2.0,>=0.1.1"
+lxml = "==4.2.5"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
@@ -38,6 +40,8 @@ pytest-runner = ">=3.0.0,<5"
 transifex-client = ">=0.12.5"
 requests = ">=2.20.0"
 rero-ils = {editable = true, path = "."}
+requests-oauthlib = "==1.1"
+node-semver = "<0.2.0,>=0.1.1"
 
 [requires]
 python_version = "3.6"

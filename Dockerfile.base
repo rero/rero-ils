@@ -32,8 +32,10 @@ RUN pip install --upgrade setuptools wheel pip pipenv
 # # uwsgi uwsgitop uwsgi-tools
 
 # Install Node
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install --no-install-recommends -y nodejs && rm -rf /var/lib/apt/lists/*
+RUN npm install --silent node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
+
 # RUN npm update
 
 # RUN python -m site
