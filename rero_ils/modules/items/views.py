@@ -28,12 +28,44 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-from flask import Blueprint, flash, jsonify, redirect, url_for
+from flask import Blueprint, current_app, flash, jsonify, redirect, \
+    render_template, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
+from invenio_records_ui.signals import record_viewed
 
 from ...permissions import request_item_permission
+from ..documents.api import Document
+from ..item_types.api import ItemType
+from ..libraries.api import Library
+from ..locations.api import Location
 from .api import Item
+
+
+def item_view_method(pid, record, template=None, **kwargs):
+    r"""Display default view.
+
+    Sends record_viewed signal and renders template.
+    :param pid: PID object.
+    :param record: Record object.
+    :param template: Template to render.
+    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :returns: The rendered template.
+    """
+    record_viewed.send(
+        current_app._get_current_object(), pid=pid, record=record
+    )
+    document = Document.get_record_by_pid(
+        record.replace_refs()['document']['pid'])
+    item = record.replace_refs()
+    location = Location.get_record_by_pid(item['location']['pid'])
+    library = Library.get_record_by_pid(
+        location.replace_refs()['library']['pid'])
+    item_type = ItemType.get_record_by_pid(item['item_type']['pid'])
+    return render_template(
+        template, pid=pid, record=record, document=document, location=location,
+        library=library, item_type=item_type)
+
 
 blueprint = Blueprint(
     'item',

@@ -70,9 +70,11 @@ class REROILSAPP(object):
 
     def register_signals(self):
         """Register signals."""
-        from .loans.listener import enrich_loan_data
         from invenio_indexer.signals import before_record_index
+        from .loans.listener import enrich_loan_data
         before_record_index.connect(enrich_loan_data)
+        from .documents.listener import enrich_document_data
+        before_record_index.connect(enrich_document_data)
 
         from .patrons.listener import listener_item_at_desk
         from .items.signals import item_at_desk

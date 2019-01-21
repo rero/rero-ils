@@ -123,47 +123,20 @@
         "subjects": {
           "type": "text"
         },
-        "itemslist": {
+        "items": {
           "type": "object",
           "properties": {
-            "$schema": {
-              "type": "keyword"
-            },
             "pid": {
               "type": "keyword"
             },
             "barcode": {
               "type": "keyword"
             },
-            "call_number": {
-              "type": "keyword"
-            },
-            "location_pid": {
-              "type": "keyword"
-            },
-            "location_name": {
-              "type": "keyword"
-            },
             "library_pid": {
               "type": "keyword"
             },
-            "library_name": {
+            "status": {
               "type": "keyword"
-            },
-            "requests_count": {
-              "type": "integer"
-            },
-            "item_type": {
-              "type": "keyword"
-            },
-            "item_status": {
-              "type": "keyword"
-            },
-            "_created": {
-              "type": "date"
-            },
-            "_updated": {
-              "type": "date"
             }
           }
         },

@@ -35,6 +35,7 @@ from flask.cli import with_appcontext
 
 from ..documents.api import Document
 from ..item_types.api import ItemType
+from ..items.api import Item
 from ..locations.api import Location
 from ..patrons.api import Patron
 from .models import ItemIdentifier, ItemStatus
@@ -60,6 +61,17 @@ class StreamArray(list):
         return self._len
 
 
+@click.command('reindex_items')
+@with_appcontext
+def reindex_items():
+    """."""
+    ids = Item.get_all_ids()
+    with click.progressbar(ids, length=len(ids)) as bar:
+        for uuid in bar:
+            item = Item.get_record_by_id(uuid)
+            item.reindex()
+
+
 @click.command('create_items')
 @click.option(
     '-c', '--count', 'count',
@@ -70,7 +82,7 @@ class StreamArray(list):
     type=click.INT, default=1, help='default=1'
 )
 @click.option(
-    '-m', '--missing', 'missing', type=click.INT, default=5, help='default=10'
+    '-m', '--missing', 'missing', type=click.INT, default=5, help='default=5'
 )
 @click.argument('output', type=click.File('w'))
 @with_appcontext
@@ -128,6 +140,7 @@ def create_random_item(
     if randint(0, 5) == 0 and missing > 0:
         status = ItemStatus.MISSING
         missing -= 1
+        print(missing, status)
     url_api = 'http://ils.rero.ch/api/{doc_type}/{pid}'
     item = {
         # '$schema': 'http://ils.rero.ch/schema/items/item-v0.0.1.json',

@@ -47,7 +47,7 @@ def test_document_create(db, document_data_tmp):
 
 
 def test_document_es_mapping(es_clear, db, organisation,
-                             document_data_tmp):
+                             document_data_tmp, item_on_loan):
     """."""
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)

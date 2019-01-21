@@ -55,3 +55,9 @@ class Document(IlsRecord):
     minter = document_id_minter
     fetcher = document_id_fetcher
     provider = DocumentProvider
+
+    @property
+    def can_edit(self):
+        """Return a boolean for can_edit resource."""
+        # TODO: Make this condition on data
+        return 'ebook' != self.get('type')

@@ -71,6 +71,19 @@ def api_source(name, url='', mimetype='', size=100, comment='', update=False):
         return 'Not Updated'
 
 
+def extract_records(data):
+    """Extract a record from REST data."""
+    records = []
+    hits = data.get('hits', {}).get('hits', {})
+    for hit in hits:
+        # pid = data.get('id', '')
+        # updated = data.get('updated', '')
+        # links = data.get('links', {}).get('self', '')
+        record = hit.get('metadata', '')
+        records.append(record)
+    return records
+
+
 def get_records(url=None, name=None, from_date=None, max=0, size=100,
                 signals=True, verbose=False, **kwargs):
     """Harvest multiple records from invenio api."""

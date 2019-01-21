@@ -1,5 +1,4 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
-{% set data = record.dumps() %}
 {% from 'rero_ils/macros/macro.html' import div_row, div_json %}
 
 {%- block page_body %}
@@ -17,89 +16,89 @@
       </icon-thumbnail>
     </div>
     <div class="col-xs-10">
-      <h1>{{ data.title }}</h1>
+      <h1>{{ record.title }}</h1>
     </div>
   </div>
   {%- block record_body %}
 
   <!-- AUTHORS -->
-  {% if data.authors|length > 0 %}
-    {{ div_row(_('Author'), data.authors|authors_format) }}
+  {% if record.authors|length > 0 %}
+    {{ div_row(_('Author'), record.authors|authors_format) }}
   {% endif %}
 
   <!-- PUBLISHERS -->
-  {% if data.publishers|length > 0 %}
-  {{ div_row(_('Publisher'), data.publishers|publishers_format) }}
+  {% if record.publishers|length > 0 %}
+  {{ div_row(_('Publisher'), record.publishers|publishers_format) }}
   {% endif %}
 
   <!-- PUBLICATION YEAR -->
-  {% if data.publicationYear %}
+  {% if record.publicationYear %}
   {{ div_row(
     _('Date'),
-    data.freeFormedPublicationDate if data.freeFormedPublicationDate else data.publicationYear
+    record.freeFormedPublicationDate if record.freeFormedPublicationDate else record.publicationYear
   ) }}
   {% endif %}
 
   <!-- ABSTRACT -->
-  {% if data.abstracts|length > 0 %}
-    {{ div_row(_('Abstract'), data.abstracts|abstracts_format|nl2br) }}
+  {% if record.abstracts|length > 0 %}
+    {{ div_row(_('Abstract'), record.abstracts|abstracts_format|nl2br) }}
   {% endif %}
 
   <!-- PHYSICAL DESCRIPTION -->
-  {% if data.extent or data.otherMaterialCharacteristics or data.formats %}
-    {% set formats = ', '.join(data.formats) %}
-    {% set description = ', '.join([data.extent, data.otherMaterialCharacteristics, formats]|select) %}
+  {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
+    {% set formats = ', '.join(record.formats) %}
+    {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats]|select) %}
     {{ div_row(_('Physical description'), description) }}
   {% endif %}
 
   <!-- ADDITIONAL MATERIALS -->
-  {% if data.additionalMaterials %}
-    {{ div_row(_('Additional Materials'), data.additionalMaterials) }}
+  {% if record.additionalMaterials %}
+    {{ div_row(_('Additional Materials'), record.additionalMaterials) }}
   {% endif %}
 
   <!-- SERIES -->
-  {% if data.series|length > 0 %}
-    {{ div_row(_('Series'), data.series|series_format) }}
+  {% if record.series|length > 0 %}
+    {{ div_row(_('Series'), record.series|series_format) }}
   {% endif %}
 
   <!-- UNIFORM TITLE -->
-  {% if data.titlesProper|length > 0 %}
-    {{ div_row(_('Uniform title'), data.titlesProper|join('; ')) }}
+  {% if record.titlesProper|length > 0 %}
+    {{ div_row(_('Uniform title'), record.titlesProper|join('; ')) }}
   {% endif %}
 
   <!-- IS PART OF -->
-  {% if data.is_part_of %}
-    {{ div_row(_('Is part of'), data.is_part_of) }}
+  {% if record.is_part_of %}
+    {{ div_row(_('Is part of'), record.is_part_of) }}
   {% endif %}
 
   <!-- SUBJECTS -->
-  {% if data.subjects|length > 0 %}
-    {{ div_row(_('Subjects'), data.subjects|join('; ')) }}
+  {% if record.subjects|length > 0 %}
+    {{ div_row(_('Subjects'), record.subjects|join('; ')) }}
   {% endif %}
 
   <!-- NOTES -->
-  {% if data.notes|length > 0 %}
-  {{ div_row(_('Notes'), notes|abstracts_format|nl2br) }}
+  {% if record.notes|length > 0 %}
+  {{ div_row(_('Notes'), record.notes|abstracts_format|nl2br) }}
   {% endif %}
 
-  {% if data.identifiers %}
-    {% if data.identifiers.isbn %}
-      {{ div_row(_('ISBN'), data.identifiers.isbn) }}
+  {% if record.identifiers %}
+    {% if record.identifiers.isbn %}
+      {{ div_row(_('ISBN'), record.identifiers.isbn) }}
     {% endif %}
   {% endif %}
 
-  {% if data.electronic_location|length > 0 %}
+  {% if record.electronic_location|length > 0 %}
     {% set uris = [] %}
-    {% for resource in data.electronic_location %}
+    {% for resource in record.electronic_location %}
       {% do uris.append('<a href="'+ resource.uri +'"><i class="fa fa-lock fa-fw"></i> '+ resource.uri +'</a>') %}
     {% endfor %}
     {{ div_row(_('Online Access'), uris|join(', ')) }}
   {% endif %}
 
-  {% if data.source %}
+  {% if record.source %}
     {{ div_row(
       _('Source'),
-      '<a href="'+ data.source +'" target="_blank">'+ data.source +'</a>'
+      '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>'
     ) }}
   {% endif %}
 
@@ -108,44 +107,23 @@
         {{ _('Permalink') }}:
     </div>
     <div class="col-xs-8">
-      {{ url_for('invenio_records_ui.doc', pid_value=data.pid, _external=True) }}
+      {{ url_for('invenio_records_ui.doc', pid_value=record.pid, _external=True) }}
     </div>
   </div>
-  {% if record.can_edit %}
-    {% with
-      href_update=url_for('doc.edit_view', pid=data.pid),
-      href_delete=url_for('doc.delete_view', pid=data.pid),
-      json=record,
-      message=_("Document cannot be deleted: there are still items linked to this document.")
-    %}
-      {% include 'rero_ils/_editor_button_actions.html' %}
-    {% endwith %}
-  {% else %}
-    {%- if current_user|can_edit %}
-      {{ div_json(_('JSON'), data) }}
-    {% endif %}
-  {% endif %}
+
   <hr/>
 
   <!-- Items -->
-  {% if record.can_edit %}
-    {%- if current_user|can_edit or data.itemslist %}
+  <!-- {% if record.can_edit %} -->
+    {%- if current_user|can_edit or items %}
     <div class='reroils-items row'>
       <div class="col-sm-12">
         <h3>{{ _('Items') }}
-          {%- if current_user|can_edit %}
-          <a href="{{ url_for('item.create_view',
-          parent_pid=data.pid) }}" type="button" class="btn btn-sm btn-success">
-            <i class="fa fa-pencil-square-o fa-fw"></i> {{ _('Add') }}
-          </a>
-          {% endif %}
         </h3>
       </div>
     </div>
     {% endif %}
-
-    {% if record.itemslist %}
-      {% for item in record.itemslist %}
+      {% for item in items %}
       {% set item_dump = item.dumps() %}
 
       {% if item.barcode %}
@@ -197,11 +175,11 @@
             <ul class="dropdown-menu">
               <li><a>{{ _('Available Pickup Locations') }}</a></li>
               <li role="separator" class="divider"></li>
-              {% set locations = item.pid|item_library_pickup_locations %}
+              {% set locations = item|item_library_pickup_locations %}
 
               {% for location in locations %}
                 <li>
-                  <a href="{{ url_for('items.request_item', item_pid_value=item.pid, location=location.pid)}}">
+                  <a href="{{ url_for('item.patron_request', item_pid=item.pid, pickup_location_pid=location.pid)}}">
                     {{ location.name }}
                   </a>
                 </li>
@@ -210,20 +188,12 @@
           {% endif %}
         </div>
         <div class="col-sm-9">
-          {% with
-            href_update=url_for('item.edit_view', pid=item.pid),
-            href_delete=url_for('item.delete_view', pid=item.pid),
-            json=item,
-            message=_("Item cannot be deleted: there are still transactions linked to this item.")
-          %}
-            {% include 'rero_ils/_editor_button_actions.html' %}
-          {% endwith %}
+
         </div>
       </div>
       <hr/>
       {% endfor %}
-    {% endif %}
-  {% endif %}
+    <!-- {% endif %} -->
 
   {%- set formats = export_formats(pid.pid_type) %}
   {%- if formats %}

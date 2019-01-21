@@ -38,6 +38,7 @@ from werkzeug.exceptions import NotFound
 from ...permissions import login_and_librarian
 from ..documents.api import Document
 from ..items.api import Item
+from ..libraries.api import Library
 from ..loans.api import get_loans_by_patron_pid
 from ..locations.api import Location
 from .api import Patron
@@ -106,11 +107,15 @@ def profile():
     requests = []
     if loans:
         for loan in loans:
-            document = Document.get_record_by_pid(loan['document_pid'])
-            item = Item.get_record_by_pid(loan['item_pid'])
+            item_pid = loan.get('item_pid')
+            item = Item.get_record_by_pid(item_pid).replace_refs()
+            location = Location.get_record_by_pid(
+                item['location']['pid']).replace_refs()
+            library = Library.get_record_by_pid(location['library']['pid'])
+            document = Document.get_record_by_pid(item['document']['pid'])
             loan['title'] = document['title']
             loan['call_number'] = item['call_number']
-            loan['library_name'] = item.dumps()['library_name']
+            loan['library'] = library['name']
             if loan['state'] == 'ITEM_ON_LOAN':
                 checkouts.append(loan)
             elif loan['state'] in (
@@ -118,12 +123,10 @@ def profile():
                     'ITEM_AT_DESK',
                     'ITEM_IN_TRANSIT_FOR_PICKUP'
             ):
-                location = Location.get_record_by_pid(
+                pickup_loc = Location.get_record_by_pid(
                     loan['pickup_location_pid'])
-                loan['pickup_location_name'] = ''
-                if location:
-                    loan['pickup_location_name'] = location.get('name', '')
-                    requests.append(loan)
+                loan['pickup_location_name'] = pickup_loc.get('name', '')
+                requests.append(loan)
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,

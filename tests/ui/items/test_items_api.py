@@ -53,3 +53,8 @@ def test_item_es_mapping(es_clear, db, document, location, item_type,
     assert mapping
     Item.create(item_on_loan_data_tmp, dbcommit=True, reindex=True)
     assert mapping == get_mapping(search.Meta.index)
+
+
+def test_item_get_items_pid_by_document_pid(document, item_on_shelf):
+    """."""
+    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1

@@ -304,11 +304,6 @@
         "type": "string",
         "minLength": 1
       }
-    },
-    "available": {
-      "title": "Document availability",
-      "type": "boolean",
-      "default": false
     }
   }
 }

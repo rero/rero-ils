@@ -9,7 +9,8 @@
       <div class="panel-body">
         <ul class="list-unstyled" ng-init="values=getValues(aggr.key)" ng-repeat="item in aggr.value.buckets">
           <li>
-            <input type="checkbox" ng-checked="values.indexOf(item.key) > -1" ng-click="handleClick(aggr.key, item.key)" /> {{ item.key | translate }} ({{ item.doc_count }})
+            <input type="checkbox" ng-checked="values.indexOf(item.key) > -1" ng-click="handleClick(aggr.key, item.key)" />
+            <span ng-if="item.name">{{ item.name | translate }}</span><span ng-if="!item.name">{{ item.key | translate }}</span> ({{ item.doc_count }})
             <small>
               <a
                 ng-init="tree_more[item.key]=false;tree[item.key]=(values.indexOf(item.key) > -1) ? true : false"
@@ -28,7 +29,10 @@
                      ng-init="tree[item.key]=(subValues.indexOf(subFacets.key) > -1 || tree[item.key])"
                      type="checkbox"
                      ng-checked="subValues.indexOf(subFacets.key) > -1"
-                     ng-click="handleClick(subKey, subFacets.key)" /> {{ subFacets.key | translate }} ({{ subFacets.doc_count }})
+                     ng-click="handleClick(subKey, subFacets.key)" />
+                       <span ng-if="item.name">{{ subFacets.name | translate }}</span>
+                       <span ng-if="!item.name">{{ subFacets.key | translate }}</span>
+                       ({{ subFacets.doc_count }})
                   </li>
                 </ul>
               </div>

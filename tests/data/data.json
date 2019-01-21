@@ -317,8 +317,7 @@
       "reroID": "1047078"
     },
     "publicationYear": 1889,
-    "freeFormedPublicationDate": "[ca 1889]",
-    "available": false
+    "freeFormedPublicationDate": "[ca 1889]"
   },
   "loan1": {
     "$schema": "http://ils.rero.ch/schema/loans/loan-ils-v0.0.1.json",

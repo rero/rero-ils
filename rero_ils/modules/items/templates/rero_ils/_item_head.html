@@ -1,0 +1,24 @@
+{% from 'rero_ils/macros/macro.html' import div_row_xs3_xs9 %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>{{ item.barcode }}</a></h3>
+  </div>
+</div>
+{{ div_row_xs3_xs9(_('Call number'), record.call_number) }}
+{{ div_row_xs3_xs9(_('Type'), item_type.name) }}
+{{ div_row_xs3_xs9(
+  _('Document'),
+  '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
+}}
+{{ div_row_xs3_xs9(
+  _('Location'),
+  location.name)
+}}
+{{ div_row_xs3_xs9(
+  _('Library'),
+  library.name)
+}}
+{% if record.status %}
+  {{ div_row_xs3_xs9(_('Status'), _(item.status)) }}
+{% endif %}

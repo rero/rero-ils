@@ -49,7 +49,7 @@ from invenio_search import RecordsSearch
 from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 
-from .modules.items.api import Item
+from .modules.items.api import Item, ItemsIndexer
 from .modules.loans.utils import get_default_extension_duration, \
     get_default_extension_max_count, get_default_loan_duration, \
     is_item_available_for_checkout, is_loan_duration_valid
@@ -296,10 +296,10 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
+                'rero_ils.modules.documents.serializers:json_doc_search'
             ),
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
+                'invenio_records_rest.serializers:json_v1_search'
             ),
         },
         list_route='/documents/',
@@ -317,7 +317,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='items',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class=ItemsIndexer,
         record_serializers={
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_response'
@@ -564,20 +564,20 @@ RECORDS_REST_FACETS = {
             ),
             document_type=dict(terms=dict(field='type')),
             library=dict(
-                terms=dict(field='itemslist.library_name'),
+                terms=dict(field='items.library_pid'),
             ),
             author=dict(terms=dict(field='facet_authors')),
             language=dict(terms=dict(field='languages.language')),
             subject=dict(terms=dict(field='subject')),
-            status=dict(terms=dict(field='itemslist.item_status')),
+            status=dict(terms=dict(field='items.status')),
         ),
         filters={
             _('document_type'): terms_filter('type'),
-            _('library'): terms_filter('itemslist.library_name'),
+            _('library'): terms_filter('items.library_pid'),
             _('author'): terms_filter('facet_authors'),
             _('language'): terms_filter('languages.language'),
             _('subject'): terms_filter('subject'),
-            _('status'): terms_filter('itemslist.item_status'),
+            _('status'): terms_filter('items.status'),
         },
         post_filters={
             _('years'): range_filter(
@@ -620,6 +620,8 @@ RECORDS_UI_ENDPOINTS = {
         route='/documents/<pid_value>',
         template='rero_ils/detailed_view_documents.html',
         record_class='rero_ils.modules.documents.api:Document',
+        view_imp='rero_ils.modules.documents.views.doc_item_view_method',
+
     ),
     'doc_export': dict(
         pid_type='doc',
@@ -627,6 +629,15 @@ RECORDS_UI_ENDPOINTS = {
         view_imp='invenio_records_ui.views.export',
         template='rero_ils/export_documents.html',
         record_class='rero_ils.modules.documents.api:Document',
+    ),
+    'item': dict(
+        pid_type='item',
+        route='/items/<pid_value>',
+        template='rero_ils/detailed_view_items.html',
+        view_imp='rero_ils.modules.items.views.item_view_method',
+        record_class='rero_ils.modules.items.api:Item',
+        permission_factory_imp='rero_ils.permissions.'
+                               'librarian_permission_factory',
     ),
     'pers': dict(
         pid_type='pers',

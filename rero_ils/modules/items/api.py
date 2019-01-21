@@ -35,7 +35,8 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search
 
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
+from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..loans.api import Loan, LoanAction, get_request_by_item_pid_by_patron_pid
@@ -50,6 +51,18 @@ item_id_minter = partial(id_minter, provider=ItemProvider)
 
 # fetcher
 item_id_fetcher = partial(id_fetcher, provider=ItemProvider)
+
+
+class ItemsIndexer(IlsRecordIndexer):
+    """."""
+
+    def index(self, record):
+        """."""
+        return_value = super(ItemsIndexer, self).index(record)
+        document_pid = record.replace_refs()['document']['pid']
+        document = Document.get_record_by_pid(document_pid)
+        document.reindex()
+        return return_value
 
 
 class ItemsSearch(IlsRecordsSearch):
@@ -144,11 +157,13 @@ class Item(IlsRecord):
         return item.get('document', {}).get('pid')
 
     @classmethod
-    def get_items_pid_by_document_pid(document_pid):
+    def get_items_pid_by_document_pid(cls, document_pid):
         """."""
-        results = ItemsSearch().filter(
-            'term', document__pid=document_pid).source(['pid']).scan()
-        return [r.pid for r in results]
+        results = ItemsSearch()\
+            .filter('term', document__pid=document_pid)\
+            .source(['pid']).scan()
+        for r in results:
+            yield r.pid
 
     @classmethod
     def get_loans_by_item_pid(cls, item_pid):
@@ -240,6 +255,13 @@ class Item(IlsRecord):
     def status(self):
         """Shortcut for item status."""
         return self.get('status', '')
+
+    def reindex(self, forceindex=False):
+        """Reindex record."""
+        if forceindex:
+            ItemsIndexer(version_type="external_gte").index(self)
+        else:
+            ItemsIndexer().index(self)
 
     def status_update(self, dbcommit=False, reindex=False, forceindex=False):
         """Update item status."""

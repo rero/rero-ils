@@ -33,16 +33,43 @@ from urllib.request import urlopen
 
 import six
 from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import Blueprint, abort, current_app, jsonify
+from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask_babelex import gettext as _
 from flask_login import current_user
+from invenio_records_ui.signals import record_viewed
 
+from ...filter import format_date_filter
 from ...permissions import login_and_librarian
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..patrons.api import Patron
 from .dojson.contrib.unimarctojson import unimarctojson
+
+
+def doc_item_view_method(pid, record, template=None, **kwargs):
+    r"""Display default view.
+
+    Sends record_viewed signal and renders template.
+    :param pid: PID object.
+    :param record: Record object.
+    :param template: Template to render.
+    :param \*\*kwargs: Additional view arguments based on URL rule.
+    :returns: The rendered template.
+    """
+    record_viewed.send(
+        current_app._get_current_object(), pid=pid, record=record)
+    items = [
+        Item.get_record_by_pid(item_pid)
+        for item_pid in Item.get_items_pid_by_document_pid(pid.pid_value)
+    ]
+    return render_template(
+        template,
+        pid=pid,
+        record=record,
+        items=items
+    )
+
 
 api_blueprint = Blueprint(
     'api_documents',
@@ -119,13 +146,13 @@ def can_request(item):
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
         if patron:
-            if patron.has_role('patrons'):
+            if 'patron' in patron.get('roles'):
                 patron_barcode = patron.get('barcode')
                 item_status = item.get('status')
                 if item_status != 'missing':
-                    loan = Item.loaned_to_patron(item, patron_barcode)
-                    request = Item.requested_by_patron(item, patron_barcode)
-                    if not (request or loan):
+                    loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
+                    request = item.is_requested_by_patron(patron_barcode)
+                    if not (request or loaned_to_patron):
                         return True
     return False
 
@@ -135,9 +162,9 @@ def requested_this_item(item):
     """Check if the current user has requested a given item."""
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
-        if patron and patron['is_patron']:
+        if patron and 'patron' in patron.get('roles'):
             patron_barcode = patron.get('barcode')
-            request = Item.requested_by_patron(item, patron_barcode)
+            request = item.is_requested_by_patron(patron_barcode)
             if request:
                 return True
     return False
@@ -146,7 +173,7 @@ def requested_this_item(item):
 @blueprint.app_template_filter()
 def number_of_requests(item):
     """Get number of requests for a given item."""
-    return Item.number_of_item_requests(item)
+    return item.number_of_requests()
 
 
 @blueprint.app_template_filter()
@@ -224,13 +251,13 @@ def item_library_locations(item_pid):
 
 
 @blueprint.app_template_filter()
-def item_library_pickup_locations(item_pid):
+def item_library_pickup_locations(item):
     """Get the pickup locations of the library of the given item."""
-    location_pid = Item.get_record_by_pid(item_pid)['location_pid']
+    location_pid = item.replace_refs()['location']['pid']
     location = Location.get_record_by_pid(location_pid)
-    library = Library.get_library_by_locationid(location.id)
-    locations = library.pickup_locations
-    return locations
+    library_pid = location.replace_refs()['library']['pid']
+    library = Library.get_record_by_pid(library_pid)
+    return [Location.get_record_by_pid(library.get_pickup_location_pid())]
 
 
 @blueprint.app_template_filter()
@@ -247,7 +274,7 @@ def item_status_text(item, format='medium', locale='en'):
                 item.get_item_end_date(), format=format, locale=locale
             )
             text += ' ({0} {1})'.format(_('due until'), due_date)
-        elif item.number_of_item_requests() > 0:
+        elif item.number_of_requests() > 0:
             text += ' ({0})'.format(_('requested'))
         elif item.status == ItemStatus.IN_TRANSIT:
             text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))

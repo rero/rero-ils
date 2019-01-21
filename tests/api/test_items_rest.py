@@ -219,6 +219,8 @@ def test_items_simple_loan(client, user_librarian_no_email,
     assert not item.is_loaned_to_patron(user_patron_no_email.get('barcode'))
     assert item.can_delete
     assert item.available
+    # document_item_url = url_for(
+    # 'invenio_records_rest.doc_item', pid_value='1')
     # checkout
     res = client.post(
         url_for('api_item.checkout'),
