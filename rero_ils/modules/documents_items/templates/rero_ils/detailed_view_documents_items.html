@@ -38,7 +38,6 @@
               {{ dl(_('Date'),
                  data.freeFormedPublicationDate if data.freeFormedPublicationDate
                  else data.publicationYear) }}
-              </dd>
             {% endif %}
 
             <!-- ABSTRACT -->
@@ -229,7 +228,7 @@
   <footer class="pt-4 rero-ils-detailed-view-footer">
     {%- set formats = export_formats(pid.pid_type) %}
       {%- if formats %}
-        <h3 class="d-inline-block">{{ _('Export Formats') }}</h3>
+        <h3 class="d-inline-block">{{ _('Export Formats') }}:</h3>
         <ul class="list-inline d-inline-block">
         {%- for slug, fmt in formats %}
           <li>

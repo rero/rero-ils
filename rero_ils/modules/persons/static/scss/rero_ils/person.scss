@@ -7,7 +7,6 @@
  * See license file for more details.
  */
 
-.rero-ils-person-brief small {
-    font-size: $font-size-very-small;
-    vertical-align: top;
+.rero-ils-person small {
+  @include rero-ils-badge();
 }
