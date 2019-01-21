@@ -1,0 +1,25 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
+{% from 'rero_ils/macros/person.html' import dl, dl_permalink %}
+{% set record = record.dumps() %}
+{% set data = record|person_merge_data_values %}
+
+<dl class="row">
+  {{ dl(_('Birth date'), data.date_of_birth) }}
+  {{ dl(_('Death date'), data.date_of_death) }}
+  {{ dl(_('Language of person'), data.language_of_person) }}
+  {{ dl(_('Gender'), data.gender) }}
+  {{ dl(_('Biographical information'), data.biographical_information) }}
+  {{ dl_permalink(_('ID'), record) }}
+  {{ dl(_('Name'), data.preferred_name_for_person) }}
+  {{ dl(_('Variant name'), data.variant_name_for_person) }}
+  {{ dl(_('Authorized access point'), data.authorized_access_point_representing_a_person) }}
+</dl>

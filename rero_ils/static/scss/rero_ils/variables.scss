@@ -10,7 +10,7 @@
 
 $font-family-base:          "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-size-base:            1rem !default;
-$font-size-very-small:      $font-size-base * .725  !default;
+$font-size-very-small:      $font-size-base * .525  !default;
 
 
 $color1:              #1B4464;                  // dark blue
@@ -40,3 +40,17 @@ $navbar-brand-padding-vertical:       10px;
 $footer-height:                       $navbar-height;
 
 $form-check-input-margin-y:           .2rem !default;
+
+
+/*
+ **************************************************
+
+              Mixin
+
+ **************************************************
+ */
+
+@mixin rero-ils-badge() {
+    font-size: $font-size-very-small;
+    vertical-align: top;
+}

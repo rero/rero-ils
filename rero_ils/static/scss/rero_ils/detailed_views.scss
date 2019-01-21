@@ -7,25 +7,3 @@
  * See license file for more details.
  */
 
-
-.rero-ils-person {
-
-  .tab-content {
-    margin-top: 20px;
-  }
-  ul.nav {
-    margin-top: 20px;
-  }
-}
-
-.re-list {
-    h3 {
-        margin: 0;    // TODO: replace by a bootstrap class;
-    }
-}
-
-.rero-ils-detailed-view-footer {
-  h3:after {
-    content: ': ';
-  }
-}
