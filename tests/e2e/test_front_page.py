@@ -32,7 +32,6 @@ def test_frontpage(live_server, browser):
     browser.get(url_for('rero_ils.index', _external=True))
     assert (
         'Get into your library' ==
-        browser.find_element_by_class_name('rero-ils-front-title')
-        .find_element_by_tag_name('h1')
+        browser.find_element_by_tag_name('h1')
         .text
     )

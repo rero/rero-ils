@@ -1,126 +1,121 @@
-{%- extends config.THEME_BASE_TEMPLATE %}
+{%- extends 'rero_ils/page.html' %}
 
 {%- block page_header %}
 {%- include "rero_ils/header_frontpage.html" %}
 {%- endblock page_header %}
 
 {%- block page_body %}
-<div class="container rero-ils-frontpage">
-
-  <div class="row">
-    <section class="text-center col-md-12">
-      <img src="{{ url_for('static', filename='images/homepage_image_bleu.jpg') }}" class="img-responsive">
-
-      <!-- Central slogan for large screens -->
-      <div class="rero-ils-front-title">
-        <hgroup>
-          <!-- If we can hide it on xs, then it may be not useful -->
-          <h1 class="hidden-xs">{{ _('Get into your library') }}</h1>
-          <h2 class="hidden-xs">{{ _('A wealth of knowledge just a click away') }}</h2>
-        </hgroup>
-
-        <form class="visible-md-block visible-lg-block" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-          <div class="input-group input-group-lg">
-            <input type="text" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </span>
-          </div>
-        </form>
-
-        <form class="visible-xs-block visible-sm-block" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </span>
-          </div>
-        </form>
-
-        <footer class="label-danger">
-        <p>
-            {{ _('Software under development') }}
-        </p>
-      </footer>
-
-      </div>
-    </section>
-  </div>
-
-  <div class="row">
-    <section class="container reroils-frontpage-lower">
-
-        <div class="col-md-4">
-          <h3>RERO ILS</h3>
-          {% if current_i18n.language == 'en' %}
-          <p>The RERO ILS project aims at creating the future RERO Integrated Library System, using components of the <a href="http://invenio-software.org" target="_blank">Invenio 3</a> framework. This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
-          <p>This project is developed using Agile principles, namely <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, pair programming and continuous integration.</p>
-          {% endif  %}
-          {% if current_i18n.language == 'fr' %}
-          <p>Le projet RERO ILS a pour but de créer le futur système de gestion de bibliothèque de RERO basé sur le framework <a href="http://invenio-software.org" target="_blank">Invenio 3</a>. Ce site propose une instance publique et permanente du logiciel en cours de développement, avec une intégration continue des nouvelles fonctionnalités.</p>
-          <p>Ce projet est développé selon des principes agiles, à savoir <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, en programmation par paires et en intégration continue.</p>
-          {% endif  %}
-
-          {% if current_i18n.language == 'de' %}
-          <p>Das Projekt RERO ILS zielt darauf ab, das zukünftige Bibliotheksverwaltungssystem von RERO auf der Basis des <a href="http://invenio-software.org" target="_blank">Invenio 3</a> Frameworks zu erschaffen. Diese Website bietet eine permanente, öffentliche Demonstration der Software in Entwicklung an. Neue Funktionen werden täglich integriert.</p>
-          <p>Das Projekt ist nach agilen Prinzipien (<a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>), in Peer Programming und mit kontinuierlicher Integration, entwickelt.</p>
-          {% endif  %}
-
-          {% if current_i18n.language == 'it' %}
-          <p>Il progetto RERO ILS mira a creare il futuro Sistema di Biblioteca Integrato RERO, utilizzando componenti del framework <a href="http://invenio-software.org" target="_blank">Invenio 3</a>. Questo sito fornisce una dimostrazione permanente e pubblica delsoftware in fase di sviluppo, con integrazione quotidiana di nuove funzionalità.</p>
-          <p>Il progetto è sviluppato utilizzando i principi Agile, cioè <a href="http://www.scrumguides.org/scrum-guide.html" target="_blank">Scrum</a>, programmazione di coppia e integrazione continua.</p>
-          {% endif  %}
+<div class="flex-grow-1">
+{%- block body %}
+  <header class="rero-ils-frontpage d-flex flex-column justify-content-end text-white">
+    <header class="container text-center pb-2 pb-lg-4">
+      <h1>{{ _('Get into your library') }}</h1>
+      <h2>{{ _('A wealth of knowledge just a click away') }}</h2>
+    </header>
+    <div class="container d-none d-md-block pt-2 pt-lg-4">
+      <form class="input-group input-group-lg" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
+        <input type="search" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}" aria-label="Search" aria-describedby="button-search">
+        <div class="input-group-append">
+          <button type="submit" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
         </div>
-
-        <div class="col-md-4">
-            <h3>{{ _('Follow Us') }}</h3>
-            <div class="reroils-frontpage-bullet">
-                <div class="reroils-frontpage-bullet-logo">
-                    <a href="https://tree.taiga.io/project/rero21-reroils/backlog"
-                       target="_blank">
-                        <img src="{{ url_for('static', filename='images/logo-taiga-color.png') }}" width="32">
-                    </a>
-                </div>
-                <div class="reroils-frontpage-bullet-text">
-                    {{_('Scrum process')}}
-                      <a href="https://tree.taiga.io/project/rero21-reroils/backlog" target="_blank">{{_('on Taiga')}}</a>
-                </div>
-            </div>
-            <div class="reroils-frontpage-bullet">
-                <div class="reroils-frontpage-bullet-logo">
-                    <a href="https://github.com/rero/rero-ils" target="_blank"><img src="{{ url_for('static', filename='images/GitHub-Mark-120px-plus.png') }}" width="32"></a>
-                </div>
-                <div class="reroils-frontpage-bullet-text">
-                    {{_('Software source code')}} <a
-                        href="https://github.com/rero/rero-ils"
-                        target="_blank">{{_('on GitHub')}}</a>, {{ _('version') }}
-                        <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}">{{ version }}
-                </div>
-            </div>
-            <div class="reroils-frontpage-bullet">
-                <div class="reroils-frontpage-bullet-logo">
-                    <a href="http://twitter.com/rero_centrale" target="_blank"><img src="{{ url_for('static', filename='images/Twitter_Logo_Blue.png') }}" width="32"></a>
-                </div>
-                <div class="reroils-frontpage-bullet-text">
-                    <a href="http://twitter.com/rero_centrale" target="_blank">@rero_centrale</a>
-                </div>
-            </div>
-          </div>
-        <div class="col-md-4">
-          <h3>{{ _('Future') }}</h3>
-          <div>
-            <img src="{{ url_for('static', filename='images/logo_rero_21_inline.png') }}" class="reroils-frontpage-rero21">
-            {{_('in')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-fr-20161027" target="blank">{{ _('French') }}</a>   {{_('or')}} <a href="https://www.rero.ch/page.php?section=communique&pageid=centre-competences-de-20161027" target="blank">{{ _('German') }}</a>
-          </div>
-          <h3>{{ _('Present') }}</h3>
-          <div class="reroils-service-logo"><a href="https://explore.rero.ch" target="blank"><img src="{{ url_for('static', filename='images/logo_explore_height_119.png') }}" height=" 55"></a></div>
-          <div class="reroils-service-logo"><a href="http://doc.rero.ch/" target="blank"><img src="{{ url_for('static', filename='images/logo_rerodoc_height_119.png') }}" height="55"> </a></div>
-          <div><a class="rero-ils-rero-link" href="http://www.rero.ch" target="_blank">www.rero.ch</a></div>
+      </form>
+    </div>
+    <div class="container d-block d-md-none pt-2 pt-lg-4">
+      <form class="input-group" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
+        <input type="search" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}" aria-label="Search" aria-describedby="button-search">
+        <div class="input-group-append">
+          <button type="submit" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
         </div>
-      </div>
+      </form>
+    </div>
+    <footer class="text-center bg-danger text-white mt-4">
+      <p class="py-2 mb-0">
+        {{ _('Software under development') }}
+      </p>
+    </footer>
+  </header>
+  <div class="container">
+  <article class="row my-4">
+    <section class="col-md-4">
+      <h3>RERO ILS</h3>
+      {% if current_i18n.language == 'en' %}
+      <p>The RERO ILS project aims at creating the future RERO Integrated Library System, using components of the <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a> framework. This site provides a permanent, public demonstration instance of the software under development, with daily integration of new features.</p>
+      <p>This project is developed using Agile principles, namely <a href="https://www.scrumguides.org/scrum-guide.html" class="rero-ils-external-link">Scrum</a>, pair programming and continuous integration.</p>
+      {% endif  %}
+      {% if current_i18n.language == 'fr' %}
+      <p>Le projet RERO ILS a pour but de créer le futur système de gestion de bibliothèque de RERO basé sur le framework <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a>. Ce site propose une instance publique et permanente du logiciel en cours de développement, avec une intégration continue des nouvelles fonctionnalités.</p>
+      <p>Ce projet est développé selon des principes agiles, à savoir <a href="https://www.scrumguides.org/scrum-guide.html" class="rero-ils-external-link">Scrum</a>, en programmation par paires et en intégration continue.</p>
+      {% endif  %}
 
+      {% if current_i18n.language == 'de' %}
+      <p>Das Projekt RERO ILS zielt darauf ab, das zukünftige Bibliotheksverwaltungssystem von RERO auf der Basis des <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a> Frameworks zu erschaffen. Diese Website bietet eine permanente, öffentliche Demonstration der Software in Entwicklung an. Neue Funktionen werden täglich integriert.</p>
+      <p>Das Projekt ist nach agilen Prinzipien (<a href="https://www.scrumguides.org/scrum-guide.html" class="rero-ils-external-link">Scrum</a>), in Peer Programming und mit kontinuierlicher Integration, entwickelt.</p>
+      {% endif  %}
+
+      {% if current_i18n.language == 'it' %}
+      <p>Il progetto RERO ILS mira a creare il futuro Sistema di Biblioteca Integrato RERO, utilizzando componenti del framework <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a>. Questo sito fornisce una dimostrazione permanente e pubblica delsoftware in fase di sviluppo, con integrazione quotidiana di nuove funzionalità.</p>
+      <p>Il progetto è sviluppato utilizzando i principi Agile, cioè <a href="https://www.scrumguides.org/scrum-guide.html" class="rero-ils-external-link">Scrum</a>, programmazione di coppia e integrazione continua.</p>
+      {% endif  %}
     </section>
-  </div>
-
+    <section class="col-md-4">
+      <section class="mb-4">
+        <h3>{{ _('Follow Us') }}</h3>
+        <section class="d-flex flex-row mb-2">
+         <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="align-self-center" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">
+           <img class="card-img-top rero-ils-list-logo" src="{{ url_for('static', filename='images/logo-taiga-color.png') }}" alt="Taiga logo, star made of different greens">
+         </a>
+         <p class="card-text pl-2 align-self-center">
+           {{_('Scrum process')}}
+           <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">{{_('on Taiga')}}</a>
+         </p>
+        </section>
+        <section class="d-flex flex-row">
+          <a href="https://github.com/rero/rero-ils" class="align-self-center" title="{{ _('Link to the RERO ILS code source on GitHub') }}">
+            <i class="fa fa-2x fa-github card-img-top text-dark"></i>
+          </a>
+          <p class="card-text pl-2 align-self-center">
+            {{_('Software source code')}}
+            <a href="https://github.com/rero/rero-ils" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub') }}">{{_('on GitHub')}}</a>, {{ _('version') }}
+            <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, last released version') }}">{{ version }}</a>
+          </p>
+        </section>
+        <section class="d-flex flex-row">
+          <a href="http://twitter.com/rero_centrale" class="align-self-center" title="{{ _('Link to the RERO Twitter account') }}">
+            <i class="fa fa-2x fa-twitter card-img-top text-dark"></i>
+          </a>
+          <p class="card-text pl-2 align-self-center">
+            <a href="http://twitter.com/rero_centrale" class="rero-ils-external-link" title="{{ _('Link to the RERO Twitter account') }}">@rero_centrale</a>
+          </p>
+        </section>
+      </section>
+      <section>
+        <h3>{{_('Help')}}</h3>
+        <p>{{_('See the')}} <a href="{{ url_for('rero_ils.help') }}" class="rero-ils-external-link" title="{{ _('Link to the help page for this demonstration Website') }}">{{_('help page')}}</a></p>
+      </section>
+    </section>
+    <section class="col-md-4">
+      <section class="mb-4">
+        <h3 class="mb-0">{{ _('Future') }}</h3>
+        <a href="https://rero21.ch" class="mb-2" title="{{ _('Link to the RERO 21 blog') }}">
+          <img src="{{ url_for('static', filename='images/rero21.svg') }}" alt="RERO 21 logo" class="rero-ils-rero21-logo">
+        </a>
+      </section>
+      <section class="mt-2 rero-ils-rero-logo">
+        <h3 class="mb-0">{{ _('Present') }}</h3>
+        <a href="https://explore.rero.ch" class="btn btn-rero btn-lg mb-2" title="{{ _('Link to RERO Explore') }}">
+          <img src="{{ url_for('static', filename='images/logo_explore_height_119.png') }}" alt="RERO Explore logo">
+        </a>
+        <a href="https://doc.rero.ch" class="btn btn-rero btn-lg mb-2" title="{{ _('Link to RERO DOC') }}">
+          <img src="{{ url_for('static', filename='images/logo_rerodoc_height_119.png') }}" alt="RERO DOC logo">
+        </a>
+        <h4>
+          <a href="https://rero.ch" class="rero-ils-external-link" title="{{ _('Link to the rero Website') }}">
+          www.rero.ch</a>
+        </h4>
+      </section>
+    </section>
+  </article>
+</div>
+{%- endblock body %}
 </div>
 {%- endblock page_body %}
