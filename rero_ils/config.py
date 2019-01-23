@@ -97,6 +97,15 @@ HEADER_TEMPLATE = 'rero_ils/header.html'
 THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
 #: Settings page template used for e.g. display user settings views.
 THEME_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+#: Template for security pages.
+SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
+SECURITY_REGISTER_USER_TEMPLATE = 'rero_ils/register_user.html'
+SECURITY_FORGOT_PASSWORD_TEMPLATE = 'rero_ils/forgot_password.html'
+SECURITY_RESET_PASSWORD_TEMPLATE = 'rero_ils/reset_password.html'
+#: Template for error pages.
+THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
+#: Template for tombstone page.
+RECORDS_UI_TOMBSTONE_TEMPLATE = "rero_ils/tombstone.html"
 
 # Theme configuration
 # ===================

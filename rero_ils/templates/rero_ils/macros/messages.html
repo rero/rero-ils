@@ -1,0 +1,23 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2015-2018 CERN.
+  Copyright (C) 2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+{%- macro flashed_messages() -%}
+  {%- block messages %}
+    {%- for category, msg in get_flashed_messages(with_categories=True) %}
+      {%- set category = 'info' if category not in ['info', 'danger', 'warning', 'success'] else category %}
+      <div class="alert alert-{{ category }} sticky-top mb-0">
+        <div class="container">
+          <a class="close" data-dismiss="alert" href="#">&times;</a>
+            {{ msg }}
+        </div>
+      </div>
+    {%- endfor %}
+  {%- endblock messages %}
+{%- endmacro %}
