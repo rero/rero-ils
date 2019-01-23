@@ -7,8 +7,6 @@ import {
 
 import { Library } from './library';
 import { TimeValidator } from '../shared/time-validator';
-import { LibraryCodeUniqueValidator } from '../shared/library-code-unique-validator';
-import { LibrariesService } from './libraries.service';
 import { WeekDays } from '../shared/week-days';
 
 @Injectable()
@@ -16,15 +14,9 @@ export class LibraryFormService {
 
   public form;
 
-  private libraryCodeUniqueValidator;
-
   constructor(
-    private fb: FormBuilder,
-    private librariesService: LibrariesService
+    private fb: FormBuilder
     ) {
-      this.libraryCodeUniqueValidator = new LibraryCodeUniqueValidator(
-        this.librariesService
-      );
       this.build();
   }
 
@@ -39,10 +31,6 @@ export class LibraryFormService {
       code: ['', {
         validators: [
           Validators.required
-        ],
-        asyncValidators: [
-          // TODO: Debug multiple call on request
-          // this.libraryCodeUniqueValidator.validate.bind(this.libraryCodeUniqueValidator)
         ],
         updateOn: 'blur'
       }],

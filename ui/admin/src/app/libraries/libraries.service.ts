@@ -6,10 +6,6 @@ import { environment } from '../../environments/environment';
 
 import { Library } from './library';
 import { BrowserService } from '../browser.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserService } from '../user.service';
-import { User } from '../users';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -21,22 +17,17 @@ const httpOptions = {
 @Injectable()
 export class LibrariesService {
 
-  private librariesUrl = '/api/libraries';
-
-  private loggedUser: User;
+  private librariesUrl = '/api/libraries/';
 
   currentLibrary: BehaviorSubject<Library> = new BehaviorSubject<Library>(null);
 
   constructor(
     private client: HttpClient,
-    private browser: BrowserService,
-    private user: UserService
-  ) {
-    this.user.loggedUser.subscribe(loggedUser => this.loggedUser = loggedUser);
-  }
+    private browser: BrowserService
+  ) { }
 
   loadLibrary(pid: number) {
-    this.client.get<Library>(this.librariesUrl + '/' + pid, httpOptions).subscribe(library => {
+    this.client.get<Library>(this.librariesUrl + pid, httpOptions).subscribe(library => {
       this.setCurrentLibrary(library);
     });
   }
@@ -45,22 +36,11 @@ export class LibrariesService {
     this.currentLibrary.next(new Library(library));
   }
 
-  checkIfCodeAlreadyTaken(code: string): Observable<Boolean> {
-    if (this.loggedUser) {
-      return this.client.get<any>(
-          this.librariesUrl + '/?q=code:' + code +
-          '&libraries.code:' + this.loggedUser.organisation_pid +
-          '&size=0'
-        ).pipe(map(response => {
-          if (
-            this.currentLibrary === null
-            || this.currentLibrary.getValue().code !== code
-          ) {
-            return response.hits.total >= 1;
-          }
-        }
-      ));
-    }
+  checkIfCodeAlreadyTaken(organisationId: string, code: string) {
+    // TODO: Missing OrganisationId on json schema library to check organisation
+    return this.client.get(
+      this.librariesUrl + '?q=code:' + code
+    );
   }
 
   save(library: Library) {

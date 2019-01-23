@@ -6,6 +6,7 @@ import { LibrariesService } from '../libraries.service';
 import { Library } from '../library';
 import { BrowserService } from '../../browser.service';
 import { UserService } from 'src/app/user.service';
+import { ValidateUniqueCode } from '../validators/validate-unique-code.validator';
 
 @Component({
   selector: 'libraries-library',
@@ -32,6 +33,13 @@ export class LibraryComponent implements OnInit {
           this.library = library;
           this.libraryForm.populate(library);
           this.libForm = this.libraryForm.form;
+          this.libForm.controls['code'].setAsyncValidators(
+            ValidateUniqueCode.createValidator(
+              this.librariesService,
+              user.organisation_pid,
+              library.code
+            )
+          );
         }
       );
     });
