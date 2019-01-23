@@ -28,7 +28,7 @@
                 <div class="input-group input-group-sm w-100">
                   <input class="form-control" type="search" name="q" placeholder="{{_('Search')}}" aria-label="Search" aria-describedby="button-search">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-search"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-outline-secondary" type="submit" id="button-search"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
               </form>
@@ -126,10 +126,11 @@
     </nav>
   {%- endblock navbar %}
   {%- block flashmessages %}
-    {%- from "invenio_theme/macros/messages.html" import flashed_messages with context -%}
+    {%- from "rero_ils/macros/messages.html" import flashed_messages with context -%}
       {{ flashed_messages() }}
   {%- endblock flashmessages %}
   {%- block breadcrumbs %}
+    {# TODO: to be served by RERO ILS #}
     {%- include "invenio_theme/breadcrumbs.html" %}
   {%- endblock breadcrumbs %}
 </header>
