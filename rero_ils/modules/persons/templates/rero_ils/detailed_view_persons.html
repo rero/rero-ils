@@ -12,18 +12,18 @@
 
 {%- block body %}
 <header class="row">
-  <div class="rero-ils-person-icon col-sm-2 col-md-1">
+  <div class="rero-ils-person-icon col-sm-2 col-lg-1">
     <i class="fa fa-user fa-5x"></i>
     <span class="icon-document-type">{{ _('Person') }}</span>
   </div>
-  <hgroup class="col-sm-10 col-md-11 align-self-end">
+  <hgroup class="col-sm-10 col-lg-11 align-self-end">
     <h1 class="mb-0">{{ record | person_label(current_i18n.language) }}</h1>
     <small>MEF ID: {{ record.pid }}</small>
   </hgroup>
 </header>
 <article class="mt-4">
   <header>
-    <nav class="">
+    <nav>
       <ul class="nav nav-tabs" id="nav-tab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" href="#all-sources" data-toggle="tab"
@@ -46,7 +46,7 @@
     <section class="tab-pane show active p-4" id="all-sources" role="tabpanel" aria-labelledby="all-sources-tab">
       {% include('rero_ils/_person_unified.html') %}
     </section>
-    <section class="tab-pane" id="by-source" role="tabpanel" aria-labelledby="by-source-tab">
+    <section class="tab-pane row" id="by-source" role="tabpanel" aria-labelledby="by-source-tab">
       {% include('rero_ils/_person_by_source.html') %}
     </section>
   </article>
