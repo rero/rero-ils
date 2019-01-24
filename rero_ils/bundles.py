@@ -43,19 +43,6 @@ def catalog(domain):
     )
 
 
-admin_css = NpmBundle(
-    'scss/rero_ils/admin/styles.scss',
-    depends=('scss/rero_ils/admin/*.scss'),
-    filters='node-scss,cleancssurl',
-    output='gen/rero_ils_admin.%(version)s.css',
-    npm={
-        'almond': '~0.3.1',
-        'bootstrap': '~4.1.3',
-        'font-awesome': '~4.4.0',
-        'jquery': '~1.9.1',
-    }
-)
-
 main_css = NpmBundle(
     'scss/rero_ils/styles.scss',
     depends=('scss/rero_ils/*.scss'),
@@ -134,13 +121,14 @@ schema_form_js = NpmBundle(
 )
 
 admin_js = Bundle(
+    'node_modules/jquery/jquery.js',
     'js/rero_ils/admin/runtime.js',
     'js/rero_ils/admin/polyfills.js',
     'js/rero_ils/admin/styles.js',
     'js/rero_ils/admin/scripts.js',
     'js/rero_ils/admin/main.js',
-    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
-    'node_modules/jquery/jquery.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+    'node_modules/bootstrap-autohide-navbar/dist/bootstrap-autohide-navbar.js',
     output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
 )
 

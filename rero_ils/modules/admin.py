@@ -283,7 +283,7 @@ class ILSManager(BaseView):
     @expose('/<path:path>')
     def index(self, path=None):
         """Angular Circulation view."""
-        return self.render('rero_ils/admin/page.html')
+        return self.render('rero_ils/page_admin.html')
 
     def is_accessible(self):
         """Access control."""
@@ -297,7 +297,7 @@ class LibraryManager(BaseView):
     @expose('/<path:path>')
     def index(self, path=None):
         """Index."""
-        return self.render('rero_ils/admin/page.html')
+        return self.render('rero_ils/page_admin.html')
 
     def is_visible(self):
         """Visible control."""

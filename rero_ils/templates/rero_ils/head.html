@@ -8,6 +8,11 @@
 
 #}
 {%- block head %}
+  {%- block head_base %}
+    {% if admin_page %}
+      <base href="/admin">
+    {% endif %}
+  {%- endblock head_base %}
   {%- block head_meta %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

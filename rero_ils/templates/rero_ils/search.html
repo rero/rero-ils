@@ -109,7 +109,7 @@
               {%- endblock search_sort %} #}
             </header>
           {%- endblock search_header %}
-          <article class="pb-4">
+          <article>
             {%- block search_error %}
             <invenio-search-error
               template="{{ url_for('static', filename=config.SEARCH_UI_JSTEMPLATE_ERROR) }}"

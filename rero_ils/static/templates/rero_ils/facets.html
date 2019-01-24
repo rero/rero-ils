@@ -6,7 +6,7 @@
   RERO ILS is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License License; see LICENSE file for more details.
 -->
-<section class="card mb-4" ng-init="tree=[];tree_more=[]" ng-repeat="aggr in orderedAggs track by $index">
+<section class="card mb-4" ng-init="tree=[];tree_more=[]" ng-repeat="aggr in orderedAggs track by $index" ng-if="aggr.value.buckets.length">
   <div ng-if="aggr.value.buckets.length > 0 && aggr.key !== 'years'">
     <a class="card-link {{ aggr.value.expand ? '' : 'collapsed' }}" data-toggle="collapse" data-target="#collapse-{{ aggr.key }}" aria-expanded="true" translate>
       <header class="card-header">
