@@ -1,3 +1,13 @@
+{# -*- coding: utf-8 -*-
+
+  This file is part of RERO ILS.
+  Copyright (C) 2018-2019 RERO.
+
+  RERO ILS is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License License; see LICENSE file for more details.
+
+#}
+
 {%- extends 'rero_ils/page.html' %}
 {% set data = record.dumps() %}
 {% from 'rero_ils/macros/macro.html' import dl, div_json %}
@@ -224,7 +234,6 @@
       {% endif %}
       </section>
     </section>
-  {%- endblock record_body %}
   <footer class="pt-4 rero-ils-detailed-view-footer">
     {%- set formats = export_formats(pid.pid_type) %}
       {%- if formats %}
@@ -232,7 +241,7 @@
         <ul class="list-inline d-inline-block">
         {%- for slug, fmt in formats %}
           <li>
-            <a href="{{ url_for('invenio_records_ui.doc_export', pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
+            <a href="{{ url_for('invenio_records_ui.doc_export', pid_value=pid.pid_value, format=slug) }}">
               {{ fmt.title }}
             </a>
           </li>
@@ -240,6 +249,7 @@
         </ul>
       {%- endif %}
   </footer>
+  {%- endblock record_body %}
 {%- endblock body %}
 
 {%- block javascript %}
