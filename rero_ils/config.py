@@ -186,11 +186,11 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
         'kwargs': dict(name='ebooks'),
     },
-    'mef-harvester': {
-        'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
-        'schedule': timedelta(minutes=60),
-        'kwargs': dict(name='mef'),
-    },
+    # 'mef-harvester': {
+    #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
+    #     'schedule': timedelta(minutes=60),
+    #     'kwargs': dict(name='mef'),
+    # },
 }
 
 # Database
