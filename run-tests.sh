@@ -35,7 +35,7 @@ fi
 
 set -e
 
-pipenv check -i 36759
+pipenv check -i 36759 36810
 pipenv run flask utils check_json tests rero_ils/modules data
 pipenv run pydocstyle rero_ils tests docs
 pipenv run isort -rc -c -df --skip ui
