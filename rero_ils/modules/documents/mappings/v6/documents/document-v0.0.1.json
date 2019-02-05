@@ -53,6 +53,23 @@
             },
             "qualifier": {
               "type": "keyword"
+            },
+            "mefidentifiers": {
+              "type": "object",
+              "properties": {
+                "reroID": {
+                  "type": "keyword"
+                },
+                "bnfID": {
+                  "type": "keyword"
+                },
+                "gndID": {
+                  "type": "keyword"
+                },
+                "mefID": {
+                  "type": "keyword"
+                }
+              }
             }
           }
         },

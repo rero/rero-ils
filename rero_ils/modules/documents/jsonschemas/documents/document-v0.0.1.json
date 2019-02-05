@@ -116,11 +116,48 @@
       "items": {
         "type": "object",
         "required": [
-          "name",
           "type"
         ],
         "additionalProperties": false,
         "properties": {
+          "$ref": {
+            "title": "MEF person ref",
+            "type": "string",
+            "pattern": "^https://mef.test.rero.ch/api/mef/.*?$"
+          },
+          "identifiers": {
+            "title": "Identifiers",
+            "description": "Persistent identifiers of the MEF resource",
+            "type": "object",
+            "additionalProperties": false,
+            "minProperties": 1,
+            "properties": {
+              "reroID": {
+                "title": "reroID",
+                "description": "Corresponding reroID of the MEF RERO record.",
+                "type": "string",
+                "minLength": 1
+              },
+              "bnfID": {
+                "title": "bnfID",
+                "description": "Corresponding bnfID of the MEF BNF record.",
+                "type": "string",
+                "minLength": 1
+              },
+              "gndID": {
+                "title": "gndID",
+                "description": "Corresponding bnfID of the MEF GND record.",
+                "type": "string",
+                "minLength": 1
+              },
+              "mefID": {
+                "title": "mefID",
+                "description": "Corresponding bnfID of the MEF record.",
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
           "name": {
             "title": "Name",
             "description": "Person's or organisation's name.",

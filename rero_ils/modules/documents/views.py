@@ -44,6 +44,7 @@ from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..patrons.api import Patron
+from .api import Document
 from .dojson.contrib.unimarctojson import unimarctojson
 
 
@@ -188,17 +189,29 @@ def patron_request_rank(item):
 
 
 @blueprint.app_template_filter()
-def authors_format(authors):
+def authors_format(pid):
     """Format authors for template."""
+    doc = Document.get_record_by_pid(pid)
+    doc = doc.replace_refs()
     output = []
-    for author in authors:
+    for author in doc.get('authors', []):
         line = []
         line.append(author.get('name'))
         if author.get('qualifier'):
             line.append(author.get('qualifier'))
         if author.get('date'):
             line.append(author.get('date'))
-        output.append(', '.join(str(x) for x in line))
+        mef_pid = author.get('Identifiers', {}).get('mefID')
+        if mef_pid:
+            # add link <a href="url">link text</a>
+            line = '<a href="/persons/{pid}">{text}</a>'.format(
+                pid=mef_pid,
+                text=', '.join(str(x) for x in line)
+            )
+        else:
+            line = ', '.join(str(x) for x in line)
+        output.append(line)
+
     return '; '.join(str(x) for x in output)
 
 

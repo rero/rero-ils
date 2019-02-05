@@ -682,12 +682,6 @@ RECORDS_UI_ENDPOINTS = {
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
     ),
-    'pers': dict(
-        pid_type='pers',
-        route='/persons/<pid_value>',
-        template='rero_ils/detailed_view_persons.html',
-        record_class='rero_ils.modules.mef_persons.api:MefPerson',
-    )
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -742,7 +736,7 @@ RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
 #: RERO_ILS MEF specificconfigurations.
-RERO_ILS_HARVESTING_MEF_URL = 'http://mef.test.rero.ch/api/mef'
+RERO_ILS_MEF_URL = 'https://mef.test.rero.ch/api/'
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 

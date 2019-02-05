@@ -25,17 +25,16 @@
 """Document filters tests."""
 
 
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import abstracts_format, \
     authors_format, publishers_format, series_format
 
 
-def test_authors_format():
+def test_authors_format(db, document_data):
     """Test authors format."""
-    result = 'Foo; Bar, prof, 2018'
-    assert result == authors_format([
-        {'name': 'Foo'},
-        {'name': 'Bar', 'qualifier': 'prof', 'date': '2018'}
-    ])
+    result = 'Vincent, Sophie'
+    doc = Document.create(document_data, delete_pid=True)
+    assert result == authors_format(doc.pid)
 
 
 def test_publishers_format():

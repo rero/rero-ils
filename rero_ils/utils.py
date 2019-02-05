@@ -24,7 +24,8 @@
 
 """Utilities functions for rero-ils."""
 
-from flask import current_app, render_template
+import requests
+from flask import Response, current_app, render_template, request
 from flask_mail import Message
 from flask_security.utils import config_value
 

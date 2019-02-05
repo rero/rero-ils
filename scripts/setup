@@ -85,17 +85,6 @@ pipenv run invenio index run --raise-on-error
 
 pipenv run invenio fixtures import_users ${data_path}/users.json -v
 
-
-## API Mef configurations and harvest
-pipenv run invenio apiharvester sources ${data_path}/apisources.yml
-if [ "$1" = "--deployment" ]
-then
-   # start api harvesting asynchrone: beats must be running
-   pipenv run invenio apiharvester harvest -n mef -k
-else
-    pipenv run invenio apiharvester harvest -n mef -m 1000
-fi
-
 # # create the bib records
 pipenv run dojson -i data/10k.json schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' | pipenv run invenio records create --pid-minter document_id
 
