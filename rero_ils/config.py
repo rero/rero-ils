@@ -657,13 +657,21 @@ RECORDS_REST_FACETS = {
         },
     ),
     'patrons': dict(
-        aggs=dict(roles=dict(terms=dict(field='roles'))),
-        filters={_('roles'): terms_filter('roles')},
+        aggs=dict(
+            roles=dict(terms=dict(field='roles'))
+        ),
+        filters={
+            _('roles'): terms_filter('roles')
+        },
     ),
     'persons': dict(
-        aggs=dict(sources=dict(terms=dict(field='sources'))),
-        filters={_('sources'): terms_filter('sources')},
-    ),
+        aggs=dict(
+            sources=dict(terms=dict(field='sources'))
+        ),
+        filters={
+            _('sources'): terms_filter('sources')
+        }
+    )
 }
 
 # sort
@@ -710,12 +718,6 @@ RECORDS_UI_ENDPOINTS = {
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
     ),
-    'pers': dict(
-        pid_type='pers',
-        route='/persons/<pid_value>',
-        template='rero_ils/detailed_view_persons.html',
-        record_class='rero_ils.modules.mef_persons.api:MefPerson',
-    )
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -784,7 +786,8 @@ RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
 #: RERO_ILS MEF specificconfigurations.
-RERO_ILS_HARVESTING_MEF_URL = 'http://mef.test.rero.ch/api/mef'
+RERO_ILS_MEF_HOST = 'mef.rero.ch'
+RERO_ILS_MEF_URL = 'https://{host}/api/'.format(host=RERO_ILS_MEF_HOST)
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 

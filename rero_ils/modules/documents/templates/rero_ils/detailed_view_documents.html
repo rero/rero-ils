@@ -34,7 +34,7 @@
             <dl class="row mb-0">
             <!-- AUTHORS -->
             {% if record.authors|length > 0 %}
-              {{ dl(_('Author'), record.authors|authors_format) }}
+              {{ dl(_('Author'), record.pid|authors_format) }}
             {% endif %}
 
             <!-- PUBLISHERS -->

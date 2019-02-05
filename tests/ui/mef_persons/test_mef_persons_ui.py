@@ -24,13 +24,18 @@
 """Tests UI view for patrons."""
 
 
+import mock
 from flask import url_for
+from utils import mock_response
 
 
-def test_mef_persons_detailed_view(client, mef_person):
+@mock.patch('requests.get')
+def test_mef_persons_detailed_view(mock_get, client, mef_person_data):
     """."""
+    json_data = {'metadata': mef_person_data}
+    mock_get.return_value = mock_response(json_data=json_data)
     # check redirection
-    res = client.get(url_for('invenio_records_ui.pers', pid_value='pers1'))
+    res = client.get(url_for('mef_persons.persons_detailed_view', pid='pers1'))
     assert res.status_code == 200
 
 # TODO: add search view

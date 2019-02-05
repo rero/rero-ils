@@ -9,7 +9,7 @@
 #}
 
 {% from 'rero_ils/macros/person.html' import dl, dl_permalink %}
-{% set record = record.dumps() %}
+{% set record = record %}
 {% set data = record|person_merge_data_values %}
 
 <dl class="row">

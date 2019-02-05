@@ -24,6 +24,13 @@
 
 """."""
 
+from flask import current_app
+from invenio_indexer.api import RecordIndexer
+from invenio_jsonschemas import current_jsonschemas
+from invenio_search import current_search
+from requests import codes as requests_codes
+from requests import get as requests_get
+
 from ..documents.api import DocumentsSearch
 from ..items.api import Item
 from ..locations.api import Location
@@ -58,3 +65,109 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         if items:
             json['items'] = items
             json['available'] = available
+
+
+def mef_person_insert(sender, *args, **kwargs):
+    """Insert Signal."""
+    mef_person_update_index(sender, *args, **kwargs)
+
+
+def mef_person_update(sender, *args, **kwargs):
+    """Update signal."""
+    mef_person_update_index(sender, *args, **kwargs)
+
+
+def mef_person_revert(sender, *args, **kwargs):
+    """Revert signal."""
+    mef_person_update_index(sender, *args, **kwargs)
+
+
+def mef_person_update_index(sender, *args, **kwargs):
+    """Index MEF person in ES."""
+    record = kwargs['record']
+    if 'documents' in record.get('$schema', ''):
+        authors = record.get('authors', [])
+        for author in authors:
+            mef_url = author.get('$ref')
+            if mef_url:
+                mef_url = mef_url.replace(
+                    'mef.rero.ch',
+                    current_app.config['RERO_ILS_MEF_HOST']
+                )
+                request = requests_get(url=mef_url, params=dict(
+                    resolve=1,
+                    sources=1
+                ))
+                if request.status_code == requests_codes.ok:
+                    data = request.json()
+                    id = data['id']
+                    data = data.get('metadata')
+                    if data:
+                        data['id'] = id
+                        data['$schema'] = current_jsonschemas.path_to_url(
+                            current_app.config[
+                                'RERO_ILS_PERSONS_MEF_SCHEMA'
+                            ]
+                        )
+                        indexer = RecordIndexer()
+                        index, doc_type = indexer.record_to_index(data)
+                        indexer.client.index(
+                            id=id,
+                            index=index,
+                            doc_type=doc_type,
+                            body=data,
+                        )
+                        current_search.flush_and_refresh(index)
+                else:
+                    current_app.logger.error(
+                        'Mef resolver request error: {result} {url}'.format(
+                            result=request.status_code,
+                            url=mef_url
+                        )
+                    )
+                    raise Exception('unable to resolve')
+
+
+def mef_person_delete(sender, *args, **kwargs):
+    """Delete signal."""
+    record = kwargs['record']
+    if 'documents' in record.get('$schema', ''):
+        authors = record.get('authors', [])
+        for author in authors:
+            mef_url = author.get('$ref')
+            if mef_url:
+                mef_url = mef_url.replace(
+                    'mef.rero.ch',
+                    current_app.config['RERO_ILS_MEF_HOST']
+                )
+                request = requests_get(url=mef_url, params=dict(
+                    resolve=1,
+                    sources=1
+                ))
+                if request.status_code == requests_codes.ok:
+                    data = request.json()
+                    id = data['id']
+                    data = data.get('metadata')
+                    if data:
+                        search = DocumentsSearch()
+                        count = search.filter(
+                            'match',
+                            authors__pid=id
+                        ).execute().hits.total
+                        if count == 1:
+                            indexer = RecordIndexer()
+                            index, doc_type = indexer.record_to_index(data)
+                            indexer.client.delete(
+                                id=id,
+                                index=index,
+                                doc_type=doc_type
+                            )
+                            current_search.flush_and_refresh(index)
+                else:
+                    current_app.logger.error(
+                        'Mef resolver request error: {result} {url}'.format(
+                            result=request.status_code,
+                            url=mef_url
+                        )
+                    )
+                    raise Exception('unable to resolve')

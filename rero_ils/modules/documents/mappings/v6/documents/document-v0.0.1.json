@@ -53,6 +53,9 @@
             },
             "qualifier": {
               "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
             }
           }
         },

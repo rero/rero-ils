@@ -444,6 +444,39 @@
     "publicationYear": 1889,
     "freeFormedPublicationDate": "[ca 1889]"
   },
+  "doc2": {
+    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "pid": "doc2",
+    "type": "book",
+    "languages": [
+      {
+        "language": "ara"
+      }
+    ],
+    "identifiers": {
+      "isbn": "9786039012641",
+      "reroID": "R007153123"
+    },
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/mef/pers1"
+      }
+    ],
+    "title": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b",
+    "publicationYear": 2011,
+    "publishers": [
+      {
+        "place": [
+          "al-Riy\u0101\u1e0d"
+        ],
+        "name": [
+          "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+        ]
+      }
+    ],
+    "extent": "560 p."
+  },
   "loan1": {
     "$schema": "https://ils.rero.ch/schema/loans/loan-ils-v0.0.1.json",
     "loan_pid": "loan1",

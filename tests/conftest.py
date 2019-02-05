@@ -24,7 +24,6 @@
 
 """Common pytest fixtures and plugins."""
 
-
 import json
 from copy import deepcopy
 from os.path import dirname, join
@@ -32,7 +31,7 @@ from os.path import dirname, join
 import mock
 import pytest
 from invenio_circulation.proxies import current_circulation
-from utils import flush_index
+from utils import flush_index, mock_response
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.documents.api import Document, DocumentsSearch
@@ -185,6 +184,12 @@ def document_data(data):
 def document_data_tmp(data):
     """."""
     return deepcopy(data.get('doc1'))
+
+
+@pytest.fixture(scope="module")
+def document_data_ref(data):
+    """."""
+    return deepcopy(data.get('doc2'))
 
 
 @pytest.fixture(scope="module")
@@ -539,6 +544,37 @@ def document(app, document_data):
     """."""
     doc = Document.create(
         data=document_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+def mef_person_response_data(mef_person_data):
+    """."""
+    json_data = {
+        'id': mef_person_data['pid'],
+        'metadata': mef_person_data
+    }
+    return json_data
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.documents.listener.requests_get')
+@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
+def document_ref(mock_resolver_get, mock_listener_get,
+                 app, document_data_ref, mef_person_response_data):
+    """."""
+    mock_resolver_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    mock_listener_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    doc = Document.create(
+        data=document_data_ref,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

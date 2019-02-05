@@ -260,7 +260,9 @@ setup(
             'libraries = rero_ils.modules.libraries.jsonresolver',
             'patron_types = rero_ils.modules.patron_types.jsonresolver',
             'item_types = rero_ils.modules.item_types.jsonresolver',
-            'documents = rero_ils.modules.documents.jsonresolver'
+            'documents = rero_ils.modules.documents.jsonresolver',
+            'documents_mef_person = \
+                rero_ils.modules.documents.jsonresolver_mef_person'
         ]
     },
     classifiers=[

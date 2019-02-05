@@ -66,7 +66,11 @@ def test_locations_get(client, location):
     list_url = url_for(
         'invenio_records_rest.loc_list', q='pid:' + location.pid)
     item_url_with_resolve = url_for(
-        'invenio_records_rest.loc_item', pid_value=location.pid, resolve=1)
+        'invenio_records_rest.loc_item',
+        pid_value=location.pid,
+        resolve=1,
+        sources=1
+    )
 
     res = client.get(item_url)
     assert res.status_code == 200

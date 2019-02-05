@@ -21,6 +21,10 @@
       "title": "Library ID",
       "type": "string"
     },
+    "id": {
+      "title": "Library ID",
+      "type": "string"
+    },
     "viaf_pid": {
       "title": "VIAF ID",
       "type": "string"
