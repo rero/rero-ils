@@ -26,15 +26,57 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app
+import requests
+from flask import Blueprint, abort, current_app, render_template
+
+from ..documents.api import DocumentsSearch
+
+# from invenio_records_ui.signals import record_viewed
 
 blueprint = Blueprint(
     'mef_persons',
     __name__,
-    url_prefix='/mef_persons',
+    url_prefix='/persons',
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.route('/<pid>')
+def persons_detailed_view(pid):
+    """Display default view.
+
+    Sends record_viewed signal and renders template.
+    :param pid: PID object.
+    """
+    # record_viewed.send(
+    #     current_app._get_current_object(), pid=pid, record=record)
+    mef_url = '{url}mef/{pid}'.format(
+        url=current_app.config.get('RERO_ILS_MEF_URL'),
+        pid=pid
+    )
+    response = requests.get(url=mef_url, params=dict(
+        resolve=1,
+        sources=1
+    ))
+    if response.status_code != requests.codes.ok:
+        abort(response.status_code)
+    record = response.json()
+    record = record.get('metadata')
+    search = DocumentsSearch()
+    results = search.filter(
+        'match',
+        authors__pid=pid
+    ).execute().hits.hits
+    documents = []
+    for result in results:
+        documents.append(result.get('_source'))
+    if documents:
+        record['documents'] = documents
+    return render_template(
+        'rero_ils/detailed_view_persons.html',
+        record=record
+    )
 
 
 @blueprint.app_template_filter()

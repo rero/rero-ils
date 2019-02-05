@@ -117,11 +117,21 @@
       "items": {
         "type": "object",
         "required": [
-          "name",
           "type"
         ],
         "additionalProperties": false,
         "properties": {
+          "$ref": {
+            "title": "MEF person ref",
+            "type": "string",
+            "pattern": "^https://mef.rero.ch/api/mef/.*?$"
+          },
+          "pid": {
+            "title": "pid",
+            "description": "Corresponding pid of the MEF record.",
+            "type": "string",
+            "minLength": 1
+          },
           "name": {
             "title": "Name",
             "description": "Person's or organisation's name.",

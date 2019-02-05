@@ -25,9 +25,10 @@
 """rero-ils MARC21 model definition."""
 
 import re
+import sys
 
+import requests
 from dojson import Overdo, utils
-from dojson.utils import force_list
 
 marc21tojson = Overdo()
 
@@ -48,6 +49,44 @@ def remove_punctuation(data):
     except Exception:
         pass
     return data
+
+
+def get_mef_person_link(id, key, value):
+    """Get mef person link."""
+    # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
+    PROD_HOST = 'mef.rero.ch'
+    DEV_HOST = 'mefdev.test.rero.ch'
+    mef_url = None
+    if id:
+        identifier = id[1:].split(')')
+        url = "{mef}/?q={org}.{org}_pid:{pid}".format(
+            mef="https://{host}/api/mef".format(host=DEV_HOST),
+            org=identifier[0].lower(),
+            pid=identifier[1]
+        )
+        request = requests.get(url=url)
+        if request.status_code == requests.codes.ok:
+            data = request.json()
+            hits = data.get('hits', {}).get('hits')
+            if hits:
+                mef_url = hits[0].get('links').get('self')
+                mef_url = mef_url.replace(DEV_HOST, PROD_HOST)
+            else:
+                print(
+                    'ERROR: MEF person not found',
+                    url,
+                    key,
+                    value,
+                    file=sys.stderr
+                )
+        else:
+            print(
+                'ERROR: MEF request',
+                url,
+                request.status_code,
+                file=sys.stderr
+            )
+    return mef_url
 
 
 # @marc21tojson.over('__order__', '__order__')
@@ -183,21 +222,27 @@ def marc21_to_author(self, key, value):
     authors.qualifier: 100 $c or 700 $c (facultatif)
     authors.type: if 100 or 700 then person, if 710 then organisation
     """
-    if not (key[4] == '2' and (key[:3] == '710' or key[:3] == '700')):
+    if not (key[4] == '2'):
         author = {}
         author['type'] = 'person'
-        author['name'] = remove_punctuation(value.get('a'))
-        author_subs = utils.force_list(value.get('b'))
-        if author_subs:
-            for author_sub in author_subs:
-                author['name'] += ' ' + remove_punctuation(author_sub)
-        if key[:3] == '710':
-            author['type'] = 'organisation'
-        else:
-            if value.get('c'):
-                author['qualifier'] = remove_punctuation(value.get('c'))
-            if value.get('d'):
-                author['date'] = remove_punctuation(value.get('d'))
+        if value.get('0'):
+            ref = get_mef_person_link(value.get('0'), key, value)
+            if ref:
+                author['$ref'] = ref
+        # we do not have a $ref
+        if not author.get('$ref'):
+            author['name'] = remove_punctuation(value.get('a'))
+            author_subs = utils.force_list(value.get('b'))
+            if author_subs:
+                for author_sub in author_subs:
+                    author['name'] += ' ' + remove_punctuation(author_sub)
+            if key[:3] == '710':
+                author['type'] = 'organisation'
+            else:
+                if value.get('c'):
+                    author['qualifier'] = remove_punctuation(value.get('c'))
+                if value.get('d'):
+                    author['date'] = remove_punctuation(value.get('d'))
         return author
     else:
         return None

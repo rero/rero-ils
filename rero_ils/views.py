@@ -30,7 +30,8 @@ import copy
 import re
 from functools import partial
 
-from flask import Blueprint, abort, current_app, jsonify, redirect, \
+import requests
+from flask import Blueprint, Response, abort, current_app, jsonify, redirect, \
     render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user
@@ -222,3 +223,33 @@ def schemaform(document_type):
         raise(e)
         pass
     return jsonify(data)
+
+
+@blueprint.route('/mef/', defaults={'path': ''})
+@blueprint.route('/mef/<path:path>')
+def mef_proxy(*args, **kwargs):
+    """Proxy to mef server."""
+    resp = requests.request(
+        method=request.method,
+        url=request.url.replace(
+            request.host_url,
+            current_app.config.get('RERO_ILS_MEF_URL')
+        ),
+        headers={
+            key: value for (key, value) in request.headers if key != 'Host'
+        },
+        data=request.get_data(),
+        cookies=request.cookies,
+        allow_redirects=True
+    )
+    excluded_headers = ['content-encoding', 'content-length',
+                        'transfer-encoding', 'connection']
+    headers = [
+        (name, value) for (name, value) in resp.raw.headers.items()
+        if name.lower() not in excluded_headers
+    ]
+
+    response = Response(resp.content, resp.status_code, headers)
+    if response.status_code != requests.codes.ok:
+        abort(response.status_code)
+    return response
