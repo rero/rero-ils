@@ -33,7 +33,7 @@ from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 
 def test_item_create(db, es_clear, item_on_loan_data_tmp):
     """Test itemanisation creation."""
-    item = Item.create(item_on_loan_data_tmp)
+    item = Item.create(item_on_loan_data_tmp, delete_pid=True)
     assert item == item_on_loan_data_tmp
     assert item.get('pid') == '1'
 
@@ -51,7 +51,12 @@ def test_item_es_mapping(es_clear, db, document, location, item_type,
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Item.create(item_on_loan_data_tmp, dbcommit=True, reindex=True)
+    Item.create(
+        item_on_loan_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 

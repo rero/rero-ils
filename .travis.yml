@@ -72,6 +72,8 @@ before_install:
   - "nvm install 8; nvm use 8"
   - "travis_retry pip install --upgrade pip setuptools py pipenv==2018.10.9"
   - "travis_retry pip install twine wheel coveralls"
+  # patch default version of travis which is mark as unsave by pipenv check
+  - "travis_retry pip install --upgrade numpy"
 
 install:
   - "./scripts/bootstrap --ci"

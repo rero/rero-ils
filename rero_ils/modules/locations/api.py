@@ -31,13 +31,18 @@ from invenio_search.api import RecordsSearch
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from .providers import LocationProvider
+from ..providers import Provider
+from .models import LocationIdentifier
 
-# from sqlalchemy import JSONB
-
-
+# provider
+LocationProvider = type(
+    'LocationProvider',
+    (Provider,),
+    dict(identifier=LocationIdentifier, pid_type='loc')
+)
+# minter
 location_id_minter = partial(id_minter, provider=LocationProvider)
-
+# fetcher
 location_id_fetcher = partial(id_fetcher, provider=LocationProvider)
 
 

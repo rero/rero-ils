@@ -34,7 +34,7 @@ from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch, \
 
 def test_patron_type_create(db, patron_type_data_tmp):
     """Test pttyanisation creation."""
-    ptty = PatronType.create(patron_type_data_tmp)
+    ptty = PatronType.create(patron_type_data_tmp, delete_pid=True)
     assert ptty == patron_type_data_tmp
     assert ptty.get('pid') == '1'
 
@@ -52,7 +52,12 @@ def test_patron_type_es_mapping(es_clear, db, organisation,
     search = PatronTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    PatronType.create(patron_type_data_tmp, dbcommit=True, reindex=True)
+    PatronType.create(
+        patron_type_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 

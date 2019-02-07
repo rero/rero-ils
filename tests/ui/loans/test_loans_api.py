@@ -36,7 +36,7 @@ from rero_ils.modules.loans.api import Loan
 
 def test_loans_create(db, loan_data_tmp):
     """Test loananisation creation."""
-    loan = Loan.create(loan_data_tmp)
+    loan = Loan.create(loan_data_tmp, delete_pid=True)
     assert loan == loan_data_tmp
     assert loan.get('loan_pid') == '1'
     assert loan.get('state') == 'ITEM_ON_LOAN'
@@ -55,5 +55,5 @@ def test_loan_es_mapping(es_clear, db, loan_data_tmp, item_on_loan, location,
     search = current_circulation.loan_search
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Loan.create(loan_data_tmp, dbcommit=True, reindex=True)
+    Loan.create(loan_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)

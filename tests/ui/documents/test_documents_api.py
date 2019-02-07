@@ -34,7 +34,7 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch, \
 
 def test_document_create(db, document_data_tmp):
     """Test pttyanisation creation."""
-    ptty = Document.create(document_data_tmp)
+    ptty = Document.create(document_data_tmp, delete_pid=True)
     assert ptty == document_data_tmp
     assert ptty.get('pid') == '1'
 
@@ -52,5 +52,10 @@ def test_document_es_mapping(es_clear, db, organisation,
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Document.create(document_data_tmp, dbcommit=True, reindex=True)
+    Document.create(
+        document_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)

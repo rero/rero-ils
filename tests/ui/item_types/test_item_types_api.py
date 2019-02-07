@@ -34,7 +34,7 @@ from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
 
 def test_item_type_create(db, item_type_data_tmp):
     """Test ittyanisation creation."""
-    itty = ItemType.create(item_type_data_tmp)
+    itty = ItemType.create(item_type_data_tmp, delete_pid=True)
     assert itty == item_type_data_tmp
     assert itty.get('pid') == '1'
 
@@ -52,7 +52,12 @@ def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
     search = ItemTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    ItemType.create(item_type_data_tmp, dbcommit=True, reindex=True)
+    ItemType.create(
+        item_type_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 

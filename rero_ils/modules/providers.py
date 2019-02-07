@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of RERO ILS.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2018 RERO.
 #
 # RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -26,39 +26,44 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.base import BaseProvider
 
-from .models import ItemIdentifier
 
+class Provider(BaseProvider):
+    """CircPolicy identifier provider.
 
-class ItemProvider(BaseProvider):
-    """Item identifier provider."""
+    'identifier' and 'pid_type' must be set as following example
+    OrganisationProvider = type(
+        'OrganisationProvider',
+        (Provider,),
+        dict(identifier=OrganisationIdentifier, pid_type='org')
+    )
+    """
 
-    pid_type = 'item'
+    identifier = None
+
+    pid_type = None
     """Type of persistent identifier."""
-
-    pid_identifier = ItemIdentifier.__tablename__
-    """Identifier for table name"""
 
     pid_provider = None
     """Provider name.
-
     The provider name is not recorded in the PID since the provider does not
-    provide any additional features besides creation of Item ids.
+    provide any additional features besides creation of CircPolicy ids.
     """
-
-    default_status = PIDStatus.REGISTERED
-    """Item IDs are by default registered immediately."""
 
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
-        """Create a new Item identifier."""
+        """Create a new CircPolicy identifier."""
         if not kwargs.get('pid_value'):
-            kwargs['pid_value'] = str(ItemIdentifier.next())
-        kwargs.setdefault('status', cls.default_status)
-        if object_type and object_uuid:
-            kwargs['status'] = PIDStatus.REGISTERED
-        return super(ItemProvider, cls).create(
-            object_type=object_type, object_uuid=object_uuid, **kwargs
-        )
+            kwargs['pid_value'] = str(cls.identifier.next())
+        try:
+            return cls.get(kwargs['pid_value'], cls.pid_type)
+        except PIDDoesNotExistError:
+            kwargs.setdefault('status', cls.default_status)
+            if object_type and object_uuid:
+                kwargs['status'] = PIDStatus.REGISTERED
+            return super(Provider, cls).create(
+                object_type=object_type, object_uuid=object_uuid, **kwargs
+            )

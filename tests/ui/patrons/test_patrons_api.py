@@ -39,7 +39,11 @@ def test_patron_create(base_app, roles, user_librarian_data_tmp,
     email = user_librarian_data_tmp.get('email')
     assert not ds.find_user(email=email)
     assert len(mailbox) == 0
-    ptrn = Patron.create(user_librarian_data_tmp, dbcommit=True)
+    ptrn = Patron.create(
+        user_librarian_data_tmp,
+        dbcommit=True,
+        delete_pid=True
+    )
     user = ds.find_user(email=email)
     assert user
     user_roles = [r.name for r in user.roles]
@@ -85,7 +89,12 @@ def test_patron_es_mapping(
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Patron.create(user_librarian_data_tmp, dbcommit=True, reindex=True)
+    Patron.create(
+        user_librarian_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 

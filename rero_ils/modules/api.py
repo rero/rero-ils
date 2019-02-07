@@ -107,7 +107,7 @@ class IlsRecord(Record):
     object_type = 'rec'
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=True,
+    def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create a new ils record."""
         assert cls.minter
