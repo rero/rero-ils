@@ -30,9 +30,18 @@ from functools import partial
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from .providers import OrganisationProvider
+from ..providers import Provider
+from .models import OrganisationIdentifier
 
+# provider
+OrganisationProvider = type(
+    'OrganisationProvider',
+    (Provider,),
+    dict(identifier=OrganisationIdentifier, pid_type='org')
+)
+# minter
 organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
+# fetcher
 organisation_id_fetcher = partial(id_fetcher, provider=OrganisationProvider)
 
 

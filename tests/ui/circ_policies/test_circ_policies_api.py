@@ -34,7 +34,7 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
 
 def test_circ_policy_create(db, circ_policy_data_tmp):
     """Test cipoanisation creation."""
-    cipo = CircPolicy.create(circ_policy_data_tmp)
+    cipo = CircPolicy.create(circ_policy_data_tmp, delete_pid=True)
     assert cipo == circ_policy_data_tmp
     assert cipo.get('pid') == '1'
 
@@ -51,7 +51,12 @@ def test_circ_policy_es_mapping(es, db, organisation, circ_policy_data_tmp):
     search = CircPoliciesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    CircPolicy.create(circ_policy_data_tmp, dbcommit=True, reindex=True)
+    CircPolicy.create(
+        circ_policy_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 

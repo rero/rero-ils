@@ -128,7 +128,8 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     record_created_pid = RecordTest.create(
         data=ils_record,
         reindex=True,
-        dbcommit=True
+        dbcommit=True,
+        delete_pid=True
     )
     assert record_created_pid.pid == '1'
     with pytest.raises(PIDAlreadyExists):

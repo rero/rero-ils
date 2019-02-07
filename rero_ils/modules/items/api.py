@@ -43,13 +43,18 @@ from ..loans.api import Loan, LoanAction, get_request_by_item_pid_by_patron_pid
 from ..locations.api import Location
 from ..minters import id_minter
 from ..patrons.api import Patron, current_patron
+from ..providers import Provider
 from ..transactions.api import CircTransaction
-from .models import ItemStatus
-from .providers import ItemProvider
+from .models import ItemIdentifier, ItemStatus
 
+# provider
+ItemProvider = type(
+    'ItemProvider',
+    (Provider,),
+    dict(identifier=ItemIdentifier, pid_type='item')
+)
 # minter
 item_id_minter = partial(id_minter, provider=ItemProvider)
-
 # fetcher
 item_id_fetcher = partial(id_fetcher, provider=ItemProvider)
 

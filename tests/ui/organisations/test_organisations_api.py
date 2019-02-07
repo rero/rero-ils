@@ -33,7 +33,7 @@ from rero_ils.modules.organisations.api import \
 
 def test_organisation_create(base_app, db, organisation_data):
     """Test organisation creation."""
-    org = Organisation.create(organisation_data)
+    org = Organisation.create(organisation_data, delete_pid=True)
     assert org == organisation_data
     assert org.get('pid') == '1'
 

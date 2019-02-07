@@ -38,8 +38,10 @@ from werkzeug.utils import cached_property
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
+from ..providers import Provider
+from .models import PatronIdentifier
+
 # from ..patron_types.api import PatronType
-from .providers import PatronProvider
 
 # from ..documents_items.api import DocumentsWithItems
 # from ..documents.api import Document
@@ -52,9 +54,14 @@ _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 current_patron = LocalProxy(lambda: Patron.get_patron_by_user(current_user))
 
+# provider
+PatronProvider = type(
+    'PatronProvider',
+    (Provider,),
+    dict(identifier=PatronIdentifier, pid_type='ptrn')
+)
 # minter
 patron_id_minter = partial(id_minter, provider=PatronProvider)
-
 # fetcher
 patron_id_fetcher = partial(id_fetcher, provider=PatronProvider)
 

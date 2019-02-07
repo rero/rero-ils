@@ -31,9 +31,18 @@ from invenio_search.api import RecordsSearch
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from .providers import MefPersonProvider
+from ..providers import Provider
+from .models import MefPersonIdentifier
 
+# provider
+MefPersonProvider = type(
+    'MefPersonProvider',
+    (Provider,),
+    dict(identifier=MefPersonIdentifier, pid_type='pers')
+)
+# minter
 mef_person_id_minter = partial(id_minter, provider=MefPersonProvider)
+# fetcher
 mef_person_id_fetcher = partial(id_fetcher, provider=MefPersonProvider)
 
 
@@ -60,7 +69,7 @@ class MefPerson(IlsRecord):
         id_=None,
         dbcommit=False,
         reindex=False,
-        delete_pid=True,
+        delete_pid=False,
         **kwargs
     ):
         """Create or update mef person record."""

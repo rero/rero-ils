@@ -35,12 +35,18 @@ from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
+from ..providers import Provider
 from ..utils import strtotime
-from .providers import LibraryProvider
+from .models import LibraryIdentifier
 
+# provider
+LibraryProvider = type(
+    'LibraryProvider',
+    (Provider,),
+    dict(identifier=LibraryIdentifier, pid_type='lib')
+)
 # minter
 library_id_minter = partial(id_minter, provider=LibraryProvider)
-
 # fetcher
 library_id_fetcher = partial(id_fetcher, provider=LibraryProvider)
 

@@ -37,7 +37,8 @@ def tmp_organisation(db, organisation_data):
     """."""
     org = Organisation.create(
         data=organisation_data,
-        dbcommit=True)
+        dbcommit=True,
+        delete_pid=True)
     return org
 
 
@@ -46,7 +47,8 @@ def tmp_patron_type(db, patron_type_data):
     """."""
     org = PatronType.create(
         data=patron_type_data,
-        dbcommit=True)
+        dbcommit=True,
+        delete_pid=True)
     return org
 
 

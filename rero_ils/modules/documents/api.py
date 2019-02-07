@@ -31,11 +31,17 @@ from invenio_search.api import RecordsSearch
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from .providers import DocumentProvider
+from ..providers import Provider
+from .models import DocumentIdentifier
 
+# provider
+DocumentProvider = type(
+    'DocumentProvider',
+    (Provider,),
+    dict(identifier=DocumentIdentifier, pid_type='doc')
+)
 # minter
 document_id_minter = partial(id_minter, provider=DocumentProvider)
-
 # fetcher
 document_id_fetcher = partial(id_fetcher, provider=DocumentProvider)
 

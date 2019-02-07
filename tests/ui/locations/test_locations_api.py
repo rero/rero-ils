@@ -34,7 +34,7 @@ from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 def test_location_create(db, location_data):
     """Test locanisation creation."""
-    loc = Location.create(location_data)
+    loc = Location.create(location_data, delete_pid=True)
     assert loc == location_data
     assert loc.get('pid') == '1'
 
@@ -51,7 +51,12 @@ def test_location_es_mapping(es, db, library, location_data):
     search = LocationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Location.create(location_data, dbcommit=True, reindex=True)
+    Location.create(
+        location_data,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
     assert mapping == get_mapping(search.Meta.index)
 
 
