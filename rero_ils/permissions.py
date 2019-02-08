@@ -25,7 +25,7 @@
 """Permissions for this module."""
 
 
-from flask import abort
+from flask import abort, jsonify
 from flask_login import current_user
 from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
@@ -64,6 +64,13 @@ def can_edit(user=None):
 def librarian_permission_factory(record, *args, **kwargs):
     """User has editor role."""
     return librarian_permission
+
+
+def librarian_delete_permission_factory(record, *args, **kwargs):
+    """User can delete record."""
+    if record.can_delete:
+        return librarian_permission
+    return abort(403)
 
 
 def admin_permission_factory(admin_view):

@@ -54,7 +54,8 @@ from .modules.loans.utils import get_default_extension_duration, \
     get_default_extension_max_count, get_default_loan_duration, \
     is_item_available_for_checkout, is_loan_duration_valid
 from .modules.patrons.api import Patron
-from .permissions import librarian_permission_factory
+from .permissions import librarian_delete_permission_factory, \
+    librarian_permission_factory
 
 
 def _(x):
@@ -289,7 +290,7 @@ RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = librarian_permission_factory
 RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_permission_factory
 """Default update permission factory: reject any request."""
 
-RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_permission_factory
+RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_delete_permission_factory
 """Default delete permission factory: reject any request."""
 
 RECORDS_REST_ENDPOINTS = dict(
@@ -303,15 +304,18 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.documents.serializers:json_doc_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.documents.serializers:json_doc_search'
             ),
         },
         list_route='/documents/',
@@ -333,15 +337,18 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=ItemsIndexer,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/items/',
@@ -361,15 +368,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/item_types/',
@@ -389,15 +399,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/patrons/',
@@ -417,15 +430,18 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/patron_types/',
@@ -445,15 +461,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/organisations/',
@@ -476,15 +495,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/libraries/',
@@ -505,15 +527,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/locations/',
@@ -532,15 +557,18 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
+                'invenio_records_rest.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/persons/',
@@ -564,20 +592,20 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
-            ),
             'application/json': (
                 'rero_ils.modules.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
 
         },
         search_serializers={
-            'application/rero+json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
             'application/json': (
                 'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
         list_route='/circ_policies/',

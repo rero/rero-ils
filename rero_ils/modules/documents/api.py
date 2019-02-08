@@ -26,6 +26,7 @@
 
 from functools import partial
 
+from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
@@ -67,3 +68,41 @@ class Document(IlsRecord):
         """Return a boolean for can_edit resource."""
         # TODO: Make this condition on data
         return 'ebook' != self.get('type')
+
+    def get_number_of_items(self):
+        """Get number of items."""
+        from ..items.api import ItemsSearch
+        results = ItemsSearch().filter(
+            'term', document__pid=self.pid).source().count()
+        return results
+
+    def get_number_of_loans(self):
+        """Get number of document loans."""
+        search = search_by_pid(
+            document_pid=self.pid,
+            exclude_states=[
+                'CANCELLED',
+                'ITEM_RETURNED',
+            ]
+        )
+        results = search.source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        items = self.get_number_of_items()
+        if items:
+            links['items'] = items
+        loans = self.get_number_of_loans()
+        if loans:
+            links['loans'] = loans
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

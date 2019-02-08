@@ -29,7 +29,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_patron_types_jsonresolver(tmp_patron_type):
+def test_patron_types_jsonresolver(app, tmp_patron_type):
     """."""
     rec = Record.create({
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}

@@ -87,3 +87,9 @@ def test_libraries_is_open(library):
     ) == parser.parse('2018-12-17')
 
     assert not library.is_open(date=saturday)
+
+
+def test_library_can_delete(library):
+    """Test can  delete"""
+    assert library.get_links_to_me() == {}
+    assert library.can_delete

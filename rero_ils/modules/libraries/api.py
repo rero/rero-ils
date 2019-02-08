@@ -239,3 +239,36 @@ class Library(IlsRecord):
             counting += 1
             date = self.next_open(date=date)
         return date
+
+    def get_number_of_librarians(self):
+        """Get number of librarians."""
+        from ..patrons.api import PatronsSearch
+        results = PatronsSearch().filter(
+            'term', library__pid=self.pid).filter(
+            'term', roles='librarian').source().count()
+        return results
+
+    def get_number_of_locations(self):
+        """Get number of locations."""
+        results = LocationsSearch().filter(
+            'term', library__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        locations = self.get_number_of_locations()
+        if locations:
+            links['locations'] = locations
+        librarians = self.get_number_of_librarians()
+        if librarians:
+            links['patrons'] = librarians
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

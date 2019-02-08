@@ -29,7 +29,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_organisations_jsonresolver(tmp_organisation):
+def test_organisations_jsonresolver(app, tmp_organisation):
     """."""
     rec = Record.create({
         'organisation': {'$ref': 'https://ils.rero.ch/api/organisations/1'}

@@ -29,11 +29,15 @@
 import json
 
 import mock
+import pytest
 from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
+from rero_ils.modules.api import IlsRecordError
 
-def test_circ_policies_permissions(client, circ_policy, json_header):
+
+def test_circ_policies_permissions(
+        client, circ_policy, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
     post_url = url_for('invenio_records_rest.cipo_list')
@@ -55,7 +59,7 @@ def test_circ_policies_permissions(client, circ_policy, json_header):
     )
 
     res = client.delete(item_url)
-    assert res.status_code == 401
+    assert res.status_code == 403
 
     res = client.get(url_for('circ_policies.name_validate', name='standard'))
     assert res.status_code == 401
@@ -82,7 +86,8 @@ def test_circ_policies_get(client, circ_policy):
     # Check self links
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
-    assert data == get_json(res)
+    json = get_json(res)
+    assert data == json
     assert circ_policy.dumps() == data['metadata']
 
     list_url = url_for('invenio_records_rest.cipo_list', pid='cipo1')
@@ -96,7 +101,7 @@ def test_circ_policies_get(client, circ_policy):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
-                                       json_header):
+                                       json_header, can_delete_json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
@@ -113,6 +118,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     # Check that the returned record matches the given data
     data = get_json(res)
     circ_policy_data['pid'] = '1'
+
     assert data['metadata'] == circ_policy_data
 
     res = client.get(item_url)
@@ -126,7 +132,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     res = client.put(
         item_url,
         data=json.dumps(data),
-        headers=json_header
+        headers=can_delete_json_header
     )
     assert res.status_code == 200
     # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
@@ -148,11 +154,12 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     assert data['metadata']['name'] == 'Test Name'
 
     # Delete record/DELETE
-    res = client.delete(item_url)
-    assert res.status_code == 204
+    with pytest.raises(IlsRecordError.NotDeleted):
+        res = client.delete(item_url)
+    assert res.status_code == 200
 
     res = client.get(item_url)
-    assert res.status_code == 410
+    assert res.status_code == 200
 
 
 @mock.patch('rero_ils.modules.circ_policies.views.login_and_librarian',

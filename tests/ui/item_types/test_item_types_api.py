@@ -74,3 +74,17 @@ def test_item_type_get_pid_by_name(item_type):
     """."""
     assert not ItemType.get_pid_by_name('no exists')
     assert ItemType.get_pid_by_name('standard') == 'itty1'
+
+
+def test_item_type_can_not_delete(item_type, item_on_shelf):
+    """Test can not delete"""
+    links = item_type.get_links_to_me()
+    assert links['items'] == 1
+    assert not item_type.can_delete
+
+
+def test_item_type_can_delete(app, item_type_data_tmp):
+    """Test can delete"""
+    itty = ItemType.create(item_type_data_tmp, delete_pid=True)
+    assert itty.get_links_to_me() == {}
+    assert itty.can_delete

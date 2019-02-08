@@ -396,11 +396,6 @@ class Item(IlsRecord):
         return (self.status == ItemStatus.ON_SHELF) and \
             self.number_of_requests() == 0
 
-    @property
-    def can_delete(self):
-        """Record can be deleted."""
-        return self.available
-
     def get_item_end_date(self):
         """Get item due date a given item."""
         loan = get_loan_for_item(self.pid)
@@ -607,3 +602,31 @@ class Item(IlsRecord):
         return self, {
             LoanAction.RETURN_MISSING: None
         }
+
+    def get_number_of_loans(self):
+        """Get number of loans."""
+        search = search_by_pid(
+            item_pid=self.pid,
+            exclude_states=[
+                'CANCELLED',
+                'ITEM_RETURNED',
+            ]
+        )
+        results = search.source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        loans = self.get_number_of_loans()
+        if loans:
+            links['loans'] = loans
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete
