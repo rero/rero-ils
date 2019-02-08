@@ -12,7 +12,6 @@ import { ItemsBriefViewComponent } from '../brief-view/items-brief-view.componen
 import { DocumentsBriefViewComponent } from '../brief-view/documents-brief-view.component';
 import { PersonsBriefViewComponent } from '../brief-view/persons-brief-view.component';
 
-
 @Component({
   selector: 'app-result',
   templateUrl: './result.component.html',
@@ -38,23 +37,22 @@ export class ResultComponent implements OnInit {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver
-    ) { }
+  ) { }
 
   ngOnInit() {
-      this.loadBriefView();
+    this.loadBriefView();
   }
 
   loadBriefView() {
     let component = this.defaultBriefView;
     if (this.briefViews[this.recordType]) {
-        component = this.briefViews[this.recordType];
+      component = this.briefViews[this.recordType];
     }
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    let viewContainerRef = this.briefView.viewContainerRef;
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const viewContainerRef = this.briefView.viewContainerRef;
     viewContainerRef.clear();
 
-    let componentRef = viewContainerRef.createComponent(componentFactory);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
     (<BriefView>componentRef.instance).record = this.record;
   }
-
 }

@@ -1,21 +1,15 @@
-import { AbstractControl, FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { JsonSchemaFormService } from 'angular6-json-schema-form';
-import { of } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-import { RecordsService } from '../../records.service';
 import { TimeValidator } from '../../../shared/time-validator';
-import { WeekDays } from '../../../shared/week-days';
-
-
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'app-opening-hours',
   templateUrl: './opening-hours.component.html',
   styleUrls: ['./opening-hours.component.scss']
 })
 export class OpeningHoursComponent implements OnInit {
+
   formControl: FormArray;
   controlName: string;
   controlValue: any[];
@@ -28,8 +22,7 @@ export class OpeningHoursComponent implements OnInit {
 
   constructor(
     private jsf: JsonSchemaFormService,
-    private fb: FormBuilder,
-    private recordsService: RecordsService
+    private fb: FormBuilder
     ) { }
 
   ngOnInit() {
@@ -53,11 +46,10 @@ export class OpeningHoursComponent implements OnInit {
         });
         day.setValidators([TimeValidator.RangePeriodValidator()]);
     });
-    console.log(this);
   }
 
   addTime(i: number) {
-    let timesCtrl = this.formControl.controls[i].get('times') as FormArray;
+    const timesCtrl = this.formControl.controls[i].get('times') as FormArray;
     timesCtrl.push(this.buildTimes());
   }
 
@@ -83,9 +75,7 @@ export class OpeningHoursComponent implements OnInit {
       validator: TimeValidator.greaterThanValidator('start_time', 'end_time')
     });
   }
-  debug(data) {
-    console.log(data);
-  }
+
   deleteTime(day_index, time_index): void {
     this.getTimesByDayIndex(day_index).removeAt(time_index);
   }
