@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';

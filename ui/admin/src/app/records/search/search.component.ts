@@ -10,19 +10,19 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
 
-  public records :Object[]=[];
-  public total=0;
-  public nPerPage=10;
-  public currentPage=1;
-  public recordType=undefined;
-  public query='';
-  public placeholder='';
+  public records: Object[] = [];
+  public total = 0;
+  public nPerPage = 10;
+  public currentPage = 1;
+  public recordType = undefined;
+  public query = '';
+  public placeholder = '';
   public notFound = false;
 
   constructor(
     private recordsService: RecordsService,
     private route: ActivatedRoute
-    ) {}
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit {
             this.getRecords();
           }
         }
-      })
+      });
     }
     showPagination() {
       if (this.total > this.nPerPage) {
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
       this.getRecords();
     }
 
-    searchValueUpdated(searchValue: string){
+    searchValueUpdated(searchValue: string) {
       this.query = searchValue;
       this.getRecords();
     }

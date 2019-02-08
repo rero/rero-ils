@@ -1,18 +1,16 @@
 import { AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { JsonSchemaFormService } from 'angular6-json-schema-form';
-import { of } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import { RecordsService } from '../../records.service';
 
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'app-remote-input',
   templateUrl: './remote-input.component.html',
   styleUrls: ['./remote-input.component.scss']
 })
 export class RemoteInputComponent implements OnInit {
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: string;
@@ -33,9 +31,9 @@ export class RemoteInputComponent implements OnInit {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
     if (this.options.remoteRecordType) {
-        this.formControl.setAsyncValidators([
-            this.valueAlreadyTaken.bind(this, this.options.remoteRecordType)
-        ]);
+      this.formControl.setAsyncValidators([
+        this.valueAlreadyTaken.bind(this, this.options.remoteRecordType)
+      ]);
     }
   }
 
@@ -46,7 +44,8 @@ export class RemoteInputComponent implements OnInit {
   valueAlreadyTaken(recordType: string, control: AbstractControl) {
     const pid = control.root.value.pid;
     return this.recordsService.valueAlreadyExists(
-        recordType, this.controlName, control.value, pid);
+      recordType, this.controlName, control.value, pid
+    );
   }
 
 }

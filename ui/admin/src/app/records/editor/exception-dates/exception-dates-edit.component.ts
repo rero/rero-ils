@@ -1,8 +1,7 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { FormArray, FormGroup } from '@angular/forms';
-import * as moment from 'moment';
 import { Subject } from 'rxjs';
 
 import { LibraryExceptionFormService } from './library-exception-form.service';
@@ -31,7 +30,6 @@ export class ExceptionDatesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (this.exceptionDate) {
       this.form.populate(this.exceptionDate);
     }
