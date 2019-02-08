@@ -36,11 +36,14 @@ def test_organisation_libararies(organisation, library):
     assert list(organisation.get_libraries()) == [library]
 
 
-def test_organisation_create(base_app, db, organisation_data):
+def test_organisation_create(app, db, organisation_data):
     """Test organisation creation."""
     org = Organisation.create(organisation_data, delete_pid=True)
     assert org == organisation_data
     assert org.get('pid') == '1'
+
+    assert org.get_links_to_me() == {}
+    assert org.can_delete
 
     org = Organisation.get_record_by_pid('1')
     assert org == organisation_data

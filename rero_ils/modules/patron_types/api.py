@@ -31,8 +31,10 @@ from functools import partial
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
+from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
+from ..patrons.api import PatronsSearch
 from ..providers import Provider
 from .models import PatronTypeIdentifier
 
@@ -94,3 +96,34 @@ class PatronType(IlsRecord):
             return result.pop(0)
         else:
             return None
+
+    def get_number_of_patrons(self):
+        """Get number of patrons."""
+        results = PatronsSearch().filter(
+            'term', patron_type__pid=self.pid).source().count()
+        return results
+
+    def get_number_of_circ_policies(self):
+        """Get number of circulation policies."""
+        results = CircPoliciesSearch().filter(
+            'term', settings__item_type__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        patrons = self.get_number_of_patrons()
+        if patrons:
+            links['patrons'] = patrons
+        circ_policies = self.get_number_of_circ_policies()
+        if circ_policies:
+            links['circ_policies'] = circ_policies
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

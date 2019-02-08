@@ -47,6 +47,7 @@ def test_item_create(db, es_clear, item_on_loan_data_tmp):
     item = Item.create(item_on_loan_data_tmp, delete_pid=True)
     assert item == item_on_loan_data_tmp
     assert item.get('pid') == '1'
+    assert item.can_delete
 
     item = Item.get_record_by_pid('1')
     assert item == item_on_loan_data_tmp
@@ -69,3 +70,9 @@ def test_item_es_mapping(es_clear, db, document, location, item_type,
         delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
+
+
+def test_item_can_delete(item_on_shelf):
+    """Test can delete"""
+    assert item_on_shelf.get_links_to_me() == {}
+    assert item_on_shelf.can_delete

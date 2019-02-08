@@ -400,6 +400,15 @@ def json_header():
     ]
 
 
+@pytest.fixture(scope="session")
+def can_delete_json_header():
+    """."""
+    return [
+        ('Accept', 'application/can-delete+json'),
+        ('Content-Type', 'application/json')
+    ]
+
+
 @pytest.fixture(scope='module')
 def app_config(app_config):
     """Create temporary instance dir for each test."""

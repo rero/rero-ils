@@ -64,3 +64,9 @@ def test_location_get_all_pickup_locations(es, db, library, location):
     """."""
     locations = Location.get_pickup_location_pids()
     assert list(locations)[0] == location.pid
+
+
+def test_location_can_delete(location):
+    """Test can delete"""
+    assert location.get_links_to_me() == {}
+    assert location.can_delete

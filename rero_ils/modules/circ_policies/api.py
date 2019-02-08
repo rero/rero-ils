@@ -78,3 +78,30 @@ class CircPolicy(IlsRecord):
             return next(result)
         except StopIteration:
             return None
+
+    def get_non_link_reasons_to_not_delete(self):
+        """Get reasons other than links not to delete a record."""
+        others = {}
+        is_default = self.get('is_default')
+        if is_default:
+            others['is_default'] = is_default
+        has_settings = self.get('settings')
+        if has_settings:
+            others['has_settings'] = has_settings
+        return others
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        others = self.get_non_link_reasons_to_not_delete()
+        links = self.get_links_to_me()
+        if others:
+            cannot_delete['others'] = others
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

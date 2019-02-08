@@ -31,6 +31,7 @@ from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
+from invenio_circulation.proxies import current_circulation
 from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
@@ -208,3 +209,28 @@ class Patron(IlsRecord):
                 initial += last[0]
 
         return initial
+
+    def get_number_of_loans(self):
+        """Get number of loans."""
+        search = current_circulation.loan_search
+        search = search.filter("term", patron_pid=self.pid)
+        exclude_states = ['CANCELLED', 'ITEM_RETURNED']
+        search = search.exclude("terms", state=exclude_states)
+        results = search.source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        loans = self.get_number_of_loans()
+        if loans:
+            links['loans'] = loans
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

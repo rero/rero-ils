@@ -77,3 +77,26 @@ class Location(IlsRecord):
         from ..libraries.api import Library
         library_pid = self.replace_refs()['library']['pid']
         return Library.get_record_by_pid(library_pid)
+
+    def get_number_of_items(self):
+        """Get number of items."""
+        from ..items.api import ItemsSearch
+        results = ItemsSearch().filter(
+            'term', location__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        items = self.get_number_of_items()
+        if items:
+            links['items'] = items
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

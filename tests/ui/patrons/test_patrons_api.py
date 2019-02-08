@@ -32,10 +32,10 @@ from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 
 
-def test_patron_create(base_app, roles, user_librarian_data_tmp,
+def test_patron_create(app, roles, user_librarian_data_tmp,
                        mailbox):
     """Test Patron creation."""
-    ds = base_app.extensions['invenio-accounts'].datastore
+    ds = app.extensions['invenio-accounts'].datastore
     email = user_librarian_data_tmp.get('email')
     assert not ds.find_user(email=email)
     assert len(mailbox) == 0
@@ -109,3 +109,9 @@ def test_get_patron(user_librarian):
     class user:
         email = patron.get('email')
     assert Patron.get_patron_by_user(user) == patron
+
+
+def test_user_librarian_can_delete(user_librarian):
+    """Test can  delete"""
+    assert user_librarian.get_links_to_me() == {}
+    assert user_librarian.can_delete

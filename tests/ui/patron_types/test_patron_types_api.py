@@ -68,3 +68,9 @@ def test_patron_type_exist_name_and_organisation_pid(patron_type):
         ptty.get('name'), ptty.get('organisation', {}).get('pid'))
     assert not PatronType.exist_name_and_organisation_pid(
         'not exists yet', ptty.get('organisation', {}).get('pid'))
+
+
+def test_patron_type_can_delete(patron_type):
+    """Test can delete"""
+    assert patron_type.get_links_to_me() == {}
+    assert patron_type.can_delete

@@ -31,6 +31,7 @@ from functools import partial
 from invenio_search.api import RecordsSearch
 
 from ..api import IlsRecord
+from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -111,3 +112,35 @@ class ItemType(IlsRecord):
             return result.pop(0)
         else:
             return None
+
+    def get_number_of_items(self):
+        """Get number of items."""
+        from ..items.api import ItemsSearch
+        results = ItemsSearch().filter(
+            'term', item_type__pid=self.pid).source().count()
+        return results
+
+    def get_number_of_circ_policies(self):
+        """Get number of circulation policies."""
+        results = CircPoliciesSearch().filter(
+            'term', settings__patron_type__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        items = self.get_number_of_items()
+        if items:
+            links['items'] = items
+        circ_policies = self.get_number_of_circ_policies()
+        if circ_policies:
+            links['loans'] = circ_policies
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

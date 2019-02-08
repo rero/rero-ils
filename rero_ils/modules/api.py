@@ -199,14 +199,17 @@ class IlsRecord(Record):
 
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
-        persistent_identifier = self.get_persistent_identifier(self.id)
-        persistent_identifier.delete()
-        self = super(IlsRecord, self).delete(force=force)
-        if dbcommit:
-            self.dbcommit()
-        if delindex:
-            self.delete_from_index()
-        return self
+        if self.can_delete:
+            persistent_identifier = self.get_persistent_identifier(self.id)
+            persistent_identifier.delete()
+            self = super(IlsRecord, self).delete(force=force)
+            if dbcommit:
+                self.dbcommit()
+            if delindex:
+                self.delete_from_index()
+            return self
+        else:
+            raise IlsRecordError.NotDeleted()
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
@@ -291,3 +294,16 @@ class IlsRecord(Record):
     def persistent_identifier(self):
         """Get Persistent Identifier."""
         return self.get_persistent_identifier(self.id)
+
+    def get_links_to_me(self):
+        """Record links."""
+        return {}
+
+    def reasons_not_to_delete(self):
+        """Record deletion reasons."""
+        return {}
+
+    @property
+    def can_delete(self):
+        """Record can be deleted."""
+        return len(self.reasons_not_to_delete()) == 0

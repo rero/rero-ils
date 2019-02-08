@@ -59,3 +59,17 @@ def test_document_es_mapping(es_clear, db, organisation,
         delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
+
+
+def test_document_can_not_delete(document, item_on_shelf):
+    """Test can not delete"""
+    links = document.get_links_to_me()
+    assert links['items'] == 1
+    assert not document.can_delete
+
+
+def test_document_can_delete(app, document_data_tmp):
+    """Test can delete"""
+    document = Document.create(document_data_tmp, delete_pid=True)
+    assert document.get_links_to_me() == {}
+    assert document.can_delete

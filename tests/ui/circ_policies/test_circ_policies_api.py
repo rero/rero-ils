@@ -74,3 +74,18 @@ def test_circ_policy_exist_name_and_organisation_pid(circ_policy):
         cipo.get('name'), cipo.get('organisation', {}).get('pid'))
     assert not CircPolicy.exist_name_and_organisation_pid(
         'not exists yet', cipo.get('organisation', {}).get('pid'))
+
+
+def test_circ_policy_can_not_delete(circ_policy):
+    """Test can not delete"""
+    others = circ_policy.get_non_link_reasons_to_not_delete()
+    assert others['is_default']
+    assert not circ_policy.can_delete
+
+
+def test_circ_policy_can_delete(app, circ_policy_data_tmp):
+    """Test can delete"""
+    circ_policy_data_tmp['is_default'] = False
+    cipo = CircPolicy.create(circ_policy_data_tmp, delete_pid=True)
+    assert cipo.get_links_to_me() == {}
+    assert cipo.can_delete

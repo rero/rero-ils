@@ -60,3 +60,25 @@ class Organisation(IlsRecord):
             .scan()
         for library in results:
             yield Library.get_record_by_pid(library.pid)
+
+    def get_number_of_libraries(self):
+        """Get number of libraries."""
+        results = LibrariesSearch().filter(
+            'term', organisation__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        libraries = self.get_number_of_libraries()
+        if libraries:
+            links['libraries'] = libraries
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete
