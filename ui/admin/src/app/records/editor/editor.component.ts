@@ -22,28 +22,29 @@ export class EditorComponent implements OnInit {
   public message = undefined;
   public data;
   public redirectRecordType = undefined;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private recordsService: RecordsService,
     private widgetLibrary: WidgetLibraryService
-    ) {
-    widgetLibrary.registerWidget('select', RemoteSelectComponent);
-    widgetLibrary.registerWidget('text', RemoteInputComponent);
-    widgetLibrary.registerWidget('opening-hours', OpeningHoursComponent);
-    widgetLibrary.registerWidget('exception-dates', ExceptionDatesComponent);
+  ) {
+    this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
+    this.widgetLibrary.registerWidget('text', RemoteInputComponent);
+    this.widgetLibrary.registerWidget('opening-hours', OpeningHoursComponent);
+    this.widgetLibrary.registerWidget('exception-dates', ExceptionDatesComponent);
   }
 
   importFromEan(ean) {
     // 9782070541270
     this.recordsService.getRecordFromBNF(ean).subscribe(
       record => {
-        if(record){
+        if (record) {
           record.metadata['$schema'] = this.schemaForm.schema.properties['$schema'].default;
           this.schemaForm['data'] = record.metadata;
           console.log(this.schemaForm);
         } else {
-          this.message = "EAN not found!";
+          this.message = 'EAN not found!';
         }
       }
       );
@@ -67,7 +68,7 @@ export class EditorComponent implements OnInit {
         .getSchemaForm(this.recordType)
         .subscribe(schemaForm => {
           this.schemaForm = schemaForm;
-          if(this.recordType === 'items' && query.document) {
+          if (this.recordType === 'items' && query.document) {
             this.redirectRecordType = 'documents';
             this.schemaForm.schema.properties.document.properties['$ref']['default'] = 'http://ils.rero.ch/api/documents/' + query.document;
           }
@@ -79,7 +80,7 @@ export class EditorComponent implements OnInit {
           .subscribe(schemaForm => {
             this.schemaForm = schemaForm;
             this.schemaForm['data'] = record.metadata;
-            if(this.recordType === 'items') {
+            if (this.recordType === 'items') {
               this.redirectRecordType = 'documents';
             }
           });
@@ -90,19 +91,15 @@ export class EditorComponent implements OnInit {
 
   save(record) {
     if (this.pid) {
-      this.recordsService.update(this.recordType, record).subscribe(record =>
-      {
+      this.recordsService.update(this.recordType, record).subscribe(res => {
         this.message = 'Record Updated';
         this.router.navigate(['/records', this.redirectRecordType]);
-      }
-      );
+      });
     } else {
-      this.recordsService.create(this.recordType, record).subscribe(record =>
-      {
+      this.recordsService.create(this.recordType, record).subscribe(res => {
         this.message = `Record Created with pid: ${record['metadata']['pid']}`;
         this.router.navigate(['/records', this.redirectRecordType]);
-      }
-      );
+      });
     }
   }
 
