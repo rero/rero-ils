@@ -122,6 +122,41 @@
             ]
           }
         ]
+      },
+      {
+        "type": "flex",
+        "flex-flow": "row wrap",
+        "items": [
+          {
+            "key": "communication_channel",
+            "required": true,
+            "htmlClass": "px-2",
+            "titleMap": {
+              "email": "Email",
+              "mail": "Mail"
+            },
+            "placeHolder": "Select…",
+            "condition": {
+              "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
+            }
+          },
+          {
+            "key": "communication_language",
+            "required": true,
+            "htmlClass": "px-2",
+            "type": "select",
+            "titleMap": {
+              "en": "English",
+              "fr": "French",
+              "de": "German",
+              "it": "Italian"
+            },
+            "placeHolder": "Select…",
+            "condition": {
+              "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
+            }
+          }
+        ]
       }
     ]
   }
