@@ -65,6 +65,12 @@
         "roles": {
           "type": "keyword"
         },
+        "communication_channel": {
+          "type": "keyword"
+        },
+        "communication_language": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },

@@ -121,6 +121,24 @@
           "patron"
         ]
       }
+    },
+    "communication_channel": {
+      "title": "Communication channel",
+      "type": "string",
+      "enum": [
+        "email",
+        "mail"
+      ]
+    },
+    "communication_language": {
+      "title": "Communication language",
+      "type": "string",
+      "enum": [
+        "de",
+        "en",
+        "fr",
+        "it"
+      ]
     }
   }
 }

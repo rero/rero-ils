@@ -70,7 +70,9 @@
     },
     "phone": "+39324993585",
     "postal_code": "11100",
-    "street": "Via Croix Noire 3"
+    "street": "Via Croix Noire 3",
+    "communication_channel": "email",
+    "communication_language": "it"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -88,7 +90,9 @@
       "$ref": "https://ils.rero.ch/api/patron_types/2"
     },
     "postal_code": "11100",
-    "street": "Panoramica Collinare, 47"
+    "street": "Panoramica Collinare, 47",
+    "communication_channel": "email",
+    "communication_language": "it"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -124,7 +128,9 @@
       "$ref": "https://ils.rero.ch/api/patron_types/3"
     },
     "postal_code": "1950",
-    "street": "Rue du Nord 7"
+    "street": "Rue du Nord 7",
+    "communication_channel": "email",
+    "communication_language": "fr"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -143,7 +149,9 @@
     },
     "phone": "+1408492280015",
     "postal_code": "95054",
-    "street": "520 Scott Blvd"
+    "street": "520 Scott Blvd",
+    "communication_channel": "email",
+    "communication_language": "en"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -162,7 +170,9 @@
     },
     "phone": "+41795762233",
     "postal_code": "1892",
-    "street": "Route du Village 6"
+    "street": "Route du Village 6",
+    "communication_channel": "email",
+    "communication_language": "fr"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -181,7 +191,9 @@
     },
     "phone": "+41918264239",
     "postal_code": "6500",
-    "street": "Piazza Collegiata 12"
+    "street": "Piazza Collegiata 12",
+    "communication_channel": "email",
+    "communication_language": "it"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -200,7 +212,9 @@
     },
     "phone": "+41792001020",
     "postal_code": "1920",
-    "street": "Gare 45"
+    "street": "Gare 45",
+    "communication_channel": "email",
+    "communication_language": "en"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -219,6 +233,8 @@
     },
     "phone": "+41792500512",
     "postal_code": "1926",
-    "street": "Vignettes 25"
+    "street": "Vignettes 25",
+    "communication_channel": "email",
+    "communication_language": "de"
   }
 ]
