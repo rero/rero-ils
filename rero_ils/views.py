@@ -185,13 +185,15 @@ def prepare_jsonschema(schema):
     schema = copy.deepcopy(schema)
     del schema['$schema']
     schema['required'].remove('pid')
-    return translate(schema)
+    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
+    return translate(schema, keys=keys)
 
 
 def prepare_form_option(form_option):
     """."""
     form_option = copy.deepcopy(form_option)
-    return translate(form_option)
+    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
+    return translate(form_option, keys=keys)
 
 
 @blueprint.route('/schemaform/<document_type>')

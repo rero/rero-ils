@@ -318,7 +318,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class='rero_ils.modules.documents.api:Document',
         item_route='/documents/<pid(doc, record_class="rero_ils.modules.documents.api:Document"):pid_value>',
         default_media_type='application/json',
-        max_result_window=10000,
+        max_result_window=5000000,
         search_factory_imp='rero_ils.query:and_search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all

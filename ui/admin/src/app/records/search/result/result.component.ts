@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { BriefViewDirective } from '../brief-view/brief-view.directive';
 import { BriefView } from '../brief-view/brief-view';
 import { JsonBriefViewComponent } from '../brief-view/json-brief-view.component';
@@ -21,6 +21,8 @@ export class ResultComponent implements OnInit {
 
   @Input() record: any;
   @Input() recordType: any;
+  @Output() deleteRecord = new EventEmitter<string>();
+
   @ViewChild(BriefViewDirective) briefView: BriefViewDirective;
   briefViews = {
       item_types: ItemTypesBriefViewComponent,
@@ -54,5 +56,9 @@ export class ResultComponent implements OnInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<BriefView>componentRef.instance).record = this.record;
+  }
+
+  deleteRecord(pid: string) {
+    this.onDeleteRecord.emit(pid);
   }
 }

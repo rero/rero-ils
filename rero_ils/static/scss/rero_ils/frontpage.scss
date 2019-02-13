@@ -9,12 +9,14 @@
 
  .rero-ils-frontpage {
   height: 70vh;
-  max-height: 25em;
   background-image: url(#{$static-images}/homepage_image_bleu.jpg);
   background-size: cover;
   form {
     margin: 0 auto;
     width: 80%;
+  }
+  @include media-breakpoint-down(md) {
+    height: 60vh;
   }
 }
 
@@ -32,5 +34,5 @@
 }
 
 .btn-rero {
-  background-color: $rero-blue-dark;
+  background-color: $dark;
 }

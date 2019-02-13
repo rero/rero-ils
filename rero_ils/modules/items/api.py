@@ -72,6 +72,18 @@ class ItemsIndexer(IlsRecordIndexer):
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
         return return_value
 
+    def delete(self, record):
+        """Delete a record.
+
+        :param record: Record instance.
+        """
+        return_value = super(ItemsIndexer, self).delete(record)
+        document_pid = record.replace_refs()['document']['pid']
+        document = Document.get_record_by_pid(document_pid)
+        document.reindex()
+        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        return return_value
+
 
 class ItemsSearch(IlsRecordsSearch):
     """ItemsSearch."""

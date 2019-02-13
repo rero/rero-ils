@@ -20,7 +20,9 @@ header {
   overflow: auto;
 }
 
-.nav-link, .navbar-toggler:focus {
+.nav-link,
+.navbar-toggler:focus,
+.navbar-brand {
   outline: 0;
 }
 
@@ -32,8 +34,8 @@ header {
   border-bottom: 0;
 }
 
-@media (min-width: 768px) {
-  #mobileHide {
+#mobileHide {
+  @include media-breakpoint-up(md) {
     position: fixed;
     top: 0;
     z-index: 1000;

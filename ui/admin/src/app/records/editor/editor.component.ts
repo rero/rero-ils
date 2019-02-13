@@ -7,6 +7,8 @@ import { WidgetLibraryService } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService, AlertsService } from '@app/core';
+import { TranslateService } from '@ngx-translate/core';
+
 export function _(str: string) {
   return str;
 }
@@ -24,6 +26,7 @@ export class EditorComponent implements OnInit {
   public message = undefined;
   public data;
   public redirectRecordType = undefined;
+  public currentLocale = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +34,12 @@ export class EditorComponent implements OnInit {
     private recordsService: RecordsService,
     private widgetLibrary: WidgetLibraryService,
     private alertsService: AlertsService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private translateService: TranslateService
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
+    this.currentLocale = translateService.currentLang;
   }
 
   importFromEan(ean) {
@@ -75,6 +80,10 @@ export class EditorComponent implements OnInit {
             this.schemaForm.schema.properties.document
               .properties['$ref']['default'] = urlPerfix + query.document;
           }
+          if (this.recordType === 'locations' && query.library) {
+            this.redirectRecordType = 'libraries';
+            this.schemaForm.schema.properties.library.properties['$ref']['default'] = 'http://ils.rero.ch/api/libraries/' + query.library;
+          }
         });
       } else {
         this.recordsService.getRecord(params.recordType, this.pid).subscribe(record => {
@@ -85,6 +94,9 @@ export class EditorComponent implements OnInit {
             this.schemaForm['data'] = record.metadata;
             if (this.recordType === 'items') {
               this.redirectRecordType = 'documents';
+            }
+            if (this.recordType === 'locations') {
+              this.redirectRecordType = 'libraries';
             }
           });
         });

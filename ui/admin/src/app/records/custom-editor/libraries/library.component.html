@@ -10,7 +10,7 @@
         placeholder="{{ 'Please insert a name' | translate }}"
         required
       >
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger pt-1">
         <div *ngIf="name.errors.required" translate>
           Name is required.
         </div>
@@ -24,7 +24,7 @@
     <label for="address" class="col-sm-2 col-form-label" translate>Address</label>
     <div class="col-sm-10">
       <input id="address" class="form-control" formControlName="address">
-      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger pt-1">
         <div *ngIf="address.errors.minlength" translate>
           Address must be at least 4 characters long.
         </div>
@@ -35,7 +35,7 @@
     <label for="email" class="col-sm-2 col-form-label" translate>Email</label>
     <div class="col-sm-10">
       <input id="email" class="form-control" formControlName="email">
-      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger pt-1">
         <div *ngIf="email.errors.email" translate>
           Email format is not correct.
         </div>
@@ -52,7 +52,7 @@
         placeholder="{{ 'Please insert a code' | translate }}"
         required
       >
-      <div *ngIf="code.invalid && (code.dirty || code.touched)" class="text-danger">
+      <div *ngIf="code.invalid && (code.dirty || code.touched)" class="text-danger pt-1">
         <div *ngIf="code.errors.alreadyTakenMessage" translate>
           Code is already taken.
         </div>
@@ -97,7 +97,7 @@
                     </div>
                     <div
                         *ngIf="time.controls.start_time.invalid && (time.controls.start_time.dirty || time.controls.start_time.touched)"
-                        class="text-danger"
+                        class="text-danger pt-1"
                       >
                       <div *ngIf="time.controls.start_time.errors.required" translate>
                         Start Time is required.
@@ -108,7 +108,7 @@
                     </div>
                     <div
                         *ngIf="time.controls.end_time.invalid && (time.controls.end_time.dirty || time.controls.end_time.touched)"
-                        class="text-danger"
+                        class="text-danger pt-1"
                       >
                       <div *ngIf="time.controls.end_time.errors.required" translate>
                         End time is required.
@@ -117,7 +117,7 @@
                         End time format is not correct.
                       </div>
                     </div>
-                    <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger">
+                    <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger pt-1">
                       <div *ngIf="time.errors && time.errors.lessThan" translate>
                         End time is less than start time.
                       </div>
@@ -125,7 +125,7 @@
                   </div>
                 </li>
               </ul>
-              <div *ngIf="day.invalid  && (day.dirty || day.touched)" class="text-danger">
+              <div *ngIf="day.invalid  && (day.dirty || day.touched)" class="text-danger pt-1">
                 <div *ngIf="day.errors && day.errors.rangeLessThan" translate>
                   The two periods are overlapping.
                 </div>

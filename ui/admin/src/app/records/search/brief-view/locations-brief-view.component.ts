@@ -4,8 +4,10 @@ import { BriefView } from './brief-view';
 @Component({
   selector: 'app-locations-brief-view',
   template: `
-  <h5>{{record.metadata.name}}</h5>
+  <h5 class="mb-0 card-title">{{record.metadata.name}}</h5>
+  <div class="card-text">
   {{record.metadata.code}}
+  </div>
   `,
   styles: []
 })

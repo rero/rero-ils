@@ -1,61 +1,50 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
+import { RecordsService } from '../../records.service';
+
 
 @Component({
   selector: 'app-documents-brief-view',
   template: `
-  <h5><a href="{{'/documents/' + record.metadata.pid}}">{{record.metadata.title}}</a></h5>
-  <span *ngFor="let author of record.metadata.authors; let isLast=last">
-      {{ author.name }} {{isLast ? '' : ', '}}
+  <h5 class="mb-0 card-title"><a href="{{'/documents/' + record.metadata.pid}}">{{record.metadata.title}}</a>
+  <small> {{record.metadata.type}}</small></h5>
+  <div class="card-text">
+  <span *ngFor="let publisher of record.metadata.publishers; let isLast=last">
+      {{ publisher.name }}{{isLast ? '. ' : ', '}}
   </span>
-
-  <p>
-    <a
-      class="btn"
-      data-toggle="collapse"
-      href="#{{'items-'+record.metadata.pid}}"
-      role="button"
-      aria-expanded="false"
-      aria-controls="collapseExample"
-    >
-      <i class="fa fa-caret-down" aria-hidden="true"></i>
-    </a>
-    <span *ngIf="record.metadata.items">{{record.metadata.items.length}}</span> items
-     <a
-      class="ml-3 text-secondary float-right"
-      routerLinkActive="active"
-      [queryParams]="{document: record.metadata.pid}"
-      [routerLink]="['/records/items/new']"
-    >
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
-  </p>
-
-  <div class="collapse" id="{{'items-'+record.metadata.pid}}">
-    <div class="card card-body border-0 py-0">
-      <ul *ngIf="record.metadata.items" class="list-group list-group-flush">
-        <li *ngFor="let item of record.metadata.items "class="list-group-item">
-          <a href="{{'/items/' + item.pid }}">{{item.barcode}} ({{item.status}})</a>
-          <a
-            *ngIf="recordType !== 'persons'"
-            (click)="deleteItem(item.pid)"
-            class="ml-3 float-right text-secondary"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i>
-          </a>
-          <a
-            *ngIf="recordType !== 'persons'"
-            class="ml-3 float-right text-secondary"
-            routerLinkActive="active"
-            [routerLink]="['/records/items', item.pid]"
-            [queryParams]="{document: record.metadata.pid}"
-          >
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+  <span *ngIf="record.metadata.freeFormedPublicationDate; else PublicationYear">
+    {{ record.metadata.freeFormedPublicationDate }}
+    </span>
+    <ng-template #PublicationYear>{{ record.metadata.publicationYear }}</ng-template>
   </div>
+  <section *ngIf="record.metadata.type != 'ebook'">
+    <a class="collapsed text-secondary" data-toggle="collapse" href="#{{'items-'+record.metadata.pid}}"
+       aria-expanded="false" aria-controls="itemsList">
+      <i class="fa fa-caret-down" aria-hidden="true"></i>
+      <span *ngIf="record.metadata.items"> {{record.metadata.items.length}}</span> items
+    </a>
+     <a class="ml-2 text-secondary" routerLinkActive="active"
+        [queryParams]="{document: record.metadata.pid}" [routerLink]="['/records/items/new']">
+      <i class="fa fa-plus" aria-hidden="true"></i> Add
+    </a>
+  </section>
+  <ul *ngIf="record.metadata.items"
+      class="collapse list-group list-group-flush"
+      id="{{'items-'+record.metadata.pid}}">
+    <li *ngFor="let item of record.metadata.items "class="list-group-item p-1">
+      <a href="{{'/items/' + item.pid }}">{{item.barcode}}</a><span> ({{ item.status }})</span>
+      <a *ngIf="recordType !== 'persons'" (click)="deleteItem(item.pid)"
+         class="ml-2 float-right text-secondary">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </a>
+      <a *ngIf="recordType !== 'persons'" class="ml-2 float-right text-secondary"
+         routerLinkActive="active"
+         [routerLink]="['/records/items', item.pid]"
+         [queryParams]="{document: record.metadata.pid}">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
   `,
   styles: []
 })
@@ -63,9 +52,14 @@ export class DocumentsBriefViewComponent implements BriefView {
 
   @Input() record: any;
 
+  constructor(
+    private recordsService: RecordsService
+    ) {}
+
   deleteItem(pid) {
-    // TODO: Not implemented ?
-    console.log(pid);
+    this.recordsService.delete('items', pid).subscribe(record => {
+    this.record.metadata.items = this.record.metadata.items.filter(item => item.pid !== pid);
+    });
   }
 
 }

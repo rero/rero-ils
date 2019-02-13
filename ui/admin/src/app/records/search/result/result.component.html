@@ -1,1 +1,14 @@
-<ng-template appBriefView></ng-template>
+<article class="card flex-row justify-content-between border-0 mb-2">
+  <div class="flex-grow-1">
+    <ng-template appBriefView></ng-template>
+  </div>
+  <a *ngIf="recordType !== 'persons'" class="float-right text-secondary ml-2"
+     routerLinkActive="active"
+     [routerLink]="['/records', recordType, record.metadata.pid]">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+  </a>
+  <a *ngIf="recordType !== 'persons'" (click)="deleteRecord(record.metadata.pid)"
+     class="float-right text-secondary ml-2">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+  </a>
+</article>

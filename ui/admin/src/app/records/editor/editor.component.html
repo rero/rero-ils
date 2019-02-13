@@ -1,26 +1,26 @@
-<div class="row">
-    <div *ngIf="recordType === 'documents'" class="col-4">
-        <div class="form-group">
-            <label class="control-label" translate>Import record from BNF</label>
-
-            <div  class="input-group input-group-sm">
-                <input #searchinput (keyup.enter)="importFromEan(searchinput.value)" type="text" class="form-control" placeholder="Enter an EAN" aria-label="Enter an EAN" aria-describedby="button-import">
-                <div class="input-group-append">
-                    <button (click)="importFromEan(searchinput.value)" class="btn btn-outline-info" type="button" id="button-import" translate>Import</button>
-                </div>
-            </div>
+  <header class="d-flex mb-4">
+    <h3 translate class="mb-0 mr-4">{{ recordType|translate }} editor</h3>
+    <button (click)="cancel()" class="btn btn-info btn-sm">Cancel</button>
+  </header>
+  <div *ngIf="recordType === 'documents'" class="">
+    <div class="form-group w-75">
+      <label class="control-label" >Import record from BNF</label>
+      <div  class="input-group">
+        <input #searchinput (keyup.enter)="importFromEan(searchinput.value)" type="text" class="form-control" placeholder="Enter an EAN" aria-label="Enter an EAN" aria-describedby="button-import">
+        <div class="input-group-append">
+            <button (click)="importFromEan(searchinput.value)" class="btn btn-outline-info" type="button" id="button-import">Import</button>
         </div>
+      </div>
     </div>
-    <div class="col-8">
-        <button (click)="cancel()" class="float-right btn btn-info btn-sm" translate>Cancel</button>
-    </div>
-    <div class="col-12">
-        <json-schema-form *ngIf="schemaForm"
-        [form]="schemaForm"
-        [model]="schemaForm.data"
-        (onSubmit)="save($event)"
-        framework="bootstrap-4"
-        >
+  </div>
+  <div class="d-flex">
+    <json-schema-form *ngIf="schemaForm"
+    class="w-75"
+    [form]="schemaForm"
+    [model]="schemaForm.data"
+    (onSubmit)="save($event)"
+    framework="bootstrap-4"
+    [language]="currentLocale"
+    >
     </json-schema-form>
-</div>
-</div>
+  </div>

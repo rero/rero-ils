@@ -39,6 +39,9 @@ import { CirculationPolicyFormService } from './custom-editor/circulation-settin
 import { CirculationMappingService } from './custom-editor/circulation-settings/circulation-mapping.service';
 import { LibraryComponent } from './custom-editor/libraries/library.component';
 import { LibraryFormService } from './custom-editor/libraries/library-form.service';
+import { BirthDatePipe } from './search/brief-view/birth-date.pipe';
+import { BioInformationsPipe } from './search/brief-view/bio-informations.pipe';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
     PersonsBriefViewComponent,
     MefTitlePipe,
     CirculationPolicyComponent,
-    LibraryComponent
+    LibraryComponent,
+    BirthDatePipe,
+    BioInformationsPipe
   ],
   imports: [
     CommonModule,
@@ -75,7 +80,7 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
-
+    CollapseModule.forRoot()
   ],
   entryComponents: [
     RemoteSelectComponent,

@@ -17,7 +17,7 @@
       <h3 itemprop="name"> {{ format_title }} Export</h3>
     </header>
      <article class="card bg-light mb-4">
-      <pre class="mb-0 p-2 text-muted">{{ data|tojson_pretty }}</pre>
+      <pre class="mb-0 p-2 text-muted">{{ data|safe }}</pre>
     </article>
   </section>
 {% endblock record_body %}
