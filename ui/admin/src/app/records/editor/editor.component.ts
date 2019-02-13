@@ -7,6 +7,7 @@ import { WidgetLibraryService } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService, AlertsService } from '@app/core';
+
 export function _(str: string) {
   return str;
 }

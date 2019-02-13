@@ -4,7 +4,7 @@ import { ApiService } from '../api/api.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Accept': 'application/rero+json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   })
 };

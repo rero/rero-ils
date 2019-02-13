@@ -41,7 +41,7 @@ export class RemoteSelectComponent implements OnInit {
           const urlPrefix = this.apiService.getApiEntryPointByType(remoteRecordType, true);
           this.selectList.push({
             'name': record.metadata['name'],
-            'value': `${urlPrefix}/${record['metadata']['pid']}`
+            'value': `${urlPrefix}${record['metadata']['pid']}`
           });
         });
         this.jsf.initializeControl(this);

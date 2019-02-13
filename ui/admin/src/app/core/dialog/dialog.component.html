@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ title }}</h4>
+</div>
+<div class="modal-body" [innerHtml]="body|nl2br"></div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-light"
+    (click)="decline()"
+  >{{ cancelTitleButton | translate }}</button>
+  <button
+    type="button"
+    class="btn btn-light"
+    (click)="confirm()"
+    *ngIf="confirmButton"
+  >{{ confirmTitleButton | translate }}</button>
+</div>
