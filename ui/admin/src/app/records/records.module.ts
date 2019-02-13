@@ -23,9 +23,7 @@ import { PatronTypesBriefViewComponent } from './search/brief-view/patron-types-
 import { CircPoliciesBriefViewComponent } from './search/brief-view/circ-policies-brief-view.component';
 import { PatronsBriefViewComponent } from './search/brief-view/patrons-brief-view.component';
 import { PersonsBriefViewComponent } from './search/brief-view/persons-brief-view.component';
-import { LocationsBriefViewComponent } from './search/brief-view/locations-brief-view.component';
 import { LibrariesBriefViewComponent } from './search/brief-view/libraries-brief-view.component';
-import { ItemsBriefViewComponent } from './search/brief-view/items-brief-view.component';
 import { DocumentsBriefViewComponent } from './search/brief-view/documents-brief-view.component';
 import { ExceptionDatesListComponent } from './custom-editor/libraries/exception-dates-list/exception-dates-list.component';
 import { ExceptionDatesEditComponent } from './custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
@@ -39,6 +37,9 @@ import { CirculationPolicyFormService } from './custom-editor/circulation-settin
 import { CirculationMappingService } from './custom-editor/circulation-settings/circulation-mapping.service';
 import { LibraryComponent } from './custom-editor/libraries/library.component';
 import { LibraryFormService } from './custom-editor/libraries/library-form.service';
+import { BirthDatePipe } from './search/brief-view/birth-date.pipe';
+import { BioInformationsPipe } from './search/brief-view/bio-informations.pipe';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -54,16 +55,16 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
     PatronTypesBriefViewComponent,
     CircPoliciesBriefViewComponent,
     PatronsBriefViewComponent,
-    LocationsBriefViewComponent,
     LibrariesBriefViewComponent,
-    ItemsBriefViewComponent,
     DocumentsBriefViewComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent,
     MefTitlePipe,
     CirculationPolicyComponent,
-    LibraryComponent
+    LibraryComponent,
+    BirthDatePipe,
+    BioInformationsPipe
   ],
   imports: [
     CommonModule,
@@ -75,7 +76,7 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
-
+    CollapseModule.forRoot()
   ],
   entryComponents: [
     RemoteSelectComponent,
@@ -85,9 +86,7 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
     PatronTypesBriefViewComponent,
     CircPoliciesBriefViewComponent,
     PatronsBriefViewComponent,
-    LocationsBriefViewComponent,
     LibrariesBriefViewComponent,
-    ItemsBriefViewComponent,
     DocumentsBriefViewComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,

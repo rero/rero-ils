@@ -27,6 +27,7 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
+
 from utils import get_mapping
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \

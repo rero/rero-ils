@@ -9,6 +9,7 @@
     [formControl]="formControl"
     [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
     [attr.readonly]="options?.readonly ? 'readonly' : null"
+    [attr.disabled]="options?.readonly ? 'disabled' : null"
     [attr.required]="options?.required"
     [class]="options?.fieldHtmlClass || ''"
     [id]="'control' + layoutNode?._id"

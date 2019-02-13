@@ -25,7 +25,7 @@
 """Permissions for this module."""
 
 
-from flask import abort, jsonify
+from flask import abort
 from flask_login import current_user
 from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
@@ -38,7 +38,6 @@ request_item_permission = DynamicPermission(RoleNeed('patron'))
 def login_and_librarian():
     """."""
     if not current_user.is_authenticated:
-        print('current', current_user)
         abort(401)
         if not librarian_permission.can():
             abort(403)

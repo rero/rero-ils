@@ -4,11 +4,16 @@ import { BriefView } from './brief-view';
 @Component({
   selector: 'app-persons-brief-view',
   template: `
-  <h5><a href="{{'/persons/'+record.metadata.pid}}">{{record.metadata | mefTitle}}</a></h5>
-  <h6>
-    <span *ngIf="record.metadata.rero" class="badge badge-secondary mr-2">RERO</span>
-    <span *ngIf="record.metadata.gnd" class="badge badge-secondary mr-2">GND</span>
-    <span *ngIf="record.metadata.bnf" class="badge badge-secondary">BNF</span></h6>
+  <h5 class="card-title mb-0 rero-ils-person">
+    <a href="{{'/persons/'+record.metadata.pid}}">{{record.metadata | mefTitle}}</a>
+      <small *ngIf="record.metadata.rero" class="badge badge-secondary ml-1">RERO</small>
+      <small *ngIf="record.metadata.gnd" class="badge badge-secondary ml-1">GND</small>
+      <small *ngIf="record.metadata.bnf" class="badge badge-secondary ml-1">BNF</small>
+  </h5>
+  <div class="card-text px-2">
+    <p class="mb-0" *ngIf="record.metadata | birthDate">{{ record.metadata | birthDate }}</p>
+    <p class="mb-0" *ngIf="record.metadata | bioInformations">{{ record.metadata | bioInformations }}</p>
+  </div>
   `,
   styles: []
 })

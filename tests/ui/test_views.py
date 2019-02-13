@@ -41,3 +41,14 @@ def test_ping(client):
 def test_nl2br():
     """Test nl2br function view."""
     assert 'foo<br>Bar' == nl2br('foo\nBar')
+
+
+def test_schemaform(client):
+    """."""
+    result = client.get(url_for(
+        'rero_ils.schemaform', document_type="documents"))
+    assert result.status_code == 200
+
+    result = client.get(url_for(
+        'rero_ils.schemaform', document_type="not_exists"))
+    assert result.status_code == 404

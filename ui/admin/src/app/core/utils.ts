@@ -9,3 +9,7 @@ export function cleanDictKeys(data: any) {
   }
   return data;
 }
+
+export function _(str: string) {
+  return str;
+}

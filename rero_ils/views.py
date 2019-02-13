@@ -30,8 +30,8 @@ import copy
 import re
 from functools import partial
 
-from flask import Blueprint, current_app, jsonify, redirect, render_template, \
-    request
+from flask import Blueprint, abort, current_app, jsonify, redirect, \
+    render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
@@ -183,15 +183,18 @@ def nl2br(string):
 def prepare_jsonschema(schema):
     """."""
     schema = copy.deepcopy(schema)
-    del schema['$schema']
+    if schema.get('$schema'):
+        del schema['$schema']
     schema['required'].remove('pid')
-    return translate(schema)
+    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
+    return translate(schema, keys=keys)
 
 
 def prepare_form_option(form_option):
     """."""
     form_option = copy.deepcopy(form_option)
-    return translate(form_option)
+    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
+    return translate(form_option, keys=keys)
 
 
 @blueprint.route('/schemaform/<document_type>')
@@ -207,10 +210,9 @@ def schemaform(document_type):
         current_jsonschemas.get_schema.cache_clear()
         schema_name = '{}/{}-v0.0.1.json'.format(document_type, doc_type)
         schema = current_jsonschemas.get_schema(schema_name)
-        # del data['jsonschema']['$schema']
+        data['schema'] = prepare_jsonschema(schema)
     except JSONSchemaNotFound:
-        pass
-    data['schema'] = prepare_jsonschema(schema)
+        abort(404)
 
     try:
         form = current_jsonschemas.get_schema(
