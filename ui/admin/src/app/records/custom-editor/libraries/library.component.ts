@@ -3,7 +3,6 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { cleanDictKeys } from '@app/core';
 import { UniqueValidator } from '@app/core';
@@ -51,7 +50,6 @@ export class LibraryComponent implements OnInit {
         this.setAsyncValidator();
       }
     });
-
   }
 
   setAsyncValidator() {
@@ -61,8 +59,8 @@ export class LibraryComponent implements OnInit {
         'libraries',
         'code',
         this.library.pid
-        )
-      ]);
+      )
+    ]);
   }
 
   get name() { return this.libraryForm.name; }

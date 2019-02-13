@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, debounceTime } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -10,9 +10,15 @@ export class RecordsService {
 
   constructor(private http: HttpClient) { }
 
-  getRecords(record_type: string, page: number = 1, size: number = 10, query: string = '') {
+  getRecords(
+    record_type: string,
+    page: number = 1,
+    size: number = 10,
+    query: string = '',
+    mime_type: string = 'application/json'
+  ) {
     const url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
-    return this.http.get<any>(url).pipe(
+    return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
         if (e.status === 404) {
           return of(null);
@@ -21,10 +27,14 @@ export class RecordsService {
     );
   }
 
-
-  getRecord(record_type: string, pid: string, resolve = 0) {
+  getRecord(
+    record_type: string,
+    pid: string,
+    resolve = 0,
+    mime_type: string = 'application/json'
+  ) {
     const url = `/api/${record_type}/${pid}?resolve=${resolve}`;
-    return this.http.get<any>(url).pipe(
+    return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
         if (e.status === 404) {
           return of(null);
@@ -96,5 +106,13 @@ export class RecordsService {
       map(total => total ? { alreadyTakenMessage: value } : null),
       debounceTime(1000)
     );
+  }
+
+  private httpOptions(mime_type: string) {
+    return {
+      headers: new HttpHeaders({
+        'Accept': mime_type
+      })
+    };
   }
 }

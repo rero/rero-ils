@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, forkJoin } from 'rxjs';
-import { map, concatAll, mergeMap } from 'rxjs/operators';
+import { map, concatAll } from 'rxjs/operators';
 import { User, UserSettings } from './users';
 import { Item } from './circulation/items';
 import { RecordsService } from './records/records.service';
@@ -58,7 +58,6 @@ export class UserService {
         switch (response.hits.total) {
           case 0: {
             return of(null);
-            break;
           }
           case 1: {
             const patron = new User(response.hits.hits[0].metadata);
@@ -78,11 +77,9 @@ export class UserService {
                   return newPatron;
                 })
               );
-              break;
             }
             default: {
               throw new Error('too much results');
-              break;
             }
           }
         }

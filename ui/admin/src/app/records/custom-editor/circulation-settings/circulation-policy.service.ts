@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Accept': 'application/rero+json',
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
   })
 };

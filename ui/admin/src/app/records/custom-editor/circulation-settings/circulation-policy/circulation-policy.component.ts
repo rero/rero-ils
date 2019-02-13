@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { BrowserService } from '@app/browser.service';
 import { LibraryService, UniqueValidator } from '@app/core';
 import { UserService } from '@app/user.service';
 import { CirculationPolicyService } from '../circulation-policy.service';
