@@ -147,7 +147,7 @@ persons = {
 }
 
 locations = {
-    'view_class': ILSManager,
+    'view_class': LibraryManager,
     'kwargs': dict(
         name='Locations',
         category='Resources',

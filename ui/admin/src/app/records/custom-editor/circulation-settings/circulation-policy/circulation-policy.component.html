@@ -15,7 +15,7 @@
         placeholder="{{ 'Please insert a name' | translate }}"
         required
       >
-      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger pt-1">
         <div *ngIf="name.errors.required" translate>
           Name is required.
         </div>
@@ -37,7 +37,7 @@
         formControlName="description"
         required
       >
-      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger">
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger pt-1">
         <div *ngIf="description.errors.required" translate>
           Description is required.
         </div>
@@ -71,7 +71,7 @@
         id="checkoutDuration"
         formControlName="checkout_duration"
       >
-      <div *ngIf="checkout_duration.invalid && (checkout_duration.dirty || checkout_duration.touched)" class="text-danger">
+      <div *ngIf="checkout_duration.invalid && (checkout_duration.dirty || checkout_duration.touched)" class="text-danger pt-1">
         <div *ngIf="checkout_duration.errors.required" translate>
           Checkout duration is required.
         </div>
@@ -91,7 +91,7 @@
         formControlName="number_renewals"
         (blur)="numberRenewalsCheck()"
       >
-      <div *ngIf="number_renewals.invalid && (number_renewals.dirty || number_renewals.touched)" class="text-danger">
+      <div *ngIf="number_renewals.invalid && (number_renewals.dirty || number_renewals.touched)" class="text-danger pt-1">
         <div *ngIf="number_renewals.errors.required" translate>
           Checkout duration is required.
         </div>
@@ -110,7 +110,7 @@
         id="renewalDuration"
         formControlName="renewal_duration"
       >
-      <div *ngIf="renewal_duration.invalid && (renewal_duration.dirty || renewal_duration.touched)" class="text-danger">
+      <div *ngIf="renewal_duration.invalid && (renewal_duration.dirty || renewal_duration.touched)" class="text-danger pt-1">
         <div *ngIf="renewal_duration.errors.required" translate>
           Renewal duration is required.
         </div>

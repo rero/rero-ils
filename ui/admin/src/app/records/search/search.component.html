@@ -1,37 +1,46 @@
-<div *ngIf="!notFound" class="row">
-  <div class="col-6">
+<div *ngIf="!notFound">
+  <header>
     <app-search-input
     [placeholder]="placeholder"
     [searchText]="query"
     (search)="searchValueUpdated($event)"
     ></app-search-input>
-  </div>
-
-  <div *ngIf="total>0" class="col-12 mt-4">
-    <h5>
-      {{total}} {{recordType}} {{ 'results' | translate }}
-      <a *ngIf="recordType !== 'persons'" class="ml-2 float-right text-secondary" routerLinkActive="active" [routerLink]="['/records', recordType, 'new']"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    </h5>
-  </div>
-
-  <div class="col-12">
+    <div *ngIf="total>0">
+      <div class="d-flex align-items-start justify-content-between flex-wrap flex-md-nowrap my-4">
+        <h6>
+          {{total}} {{recordType}} {{ 'results' | translate }}
+        </h6>
+        <a *ngIf="recordType !== 'persons'" class="btn btn-success btn-sm" routerLinkActive="active" [routerLink]="['/records', recordType, 'new']">
+          <i class="fa fa-plus" aria-hidden="true"></i> Add
+        </a>
+      </div>
+    </div>
+    <div *ngIf="total===0" class="col-12">
+      No result found.
+    </div>
+  </header>
+  <section>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let record of records">
-        <a *ngIf="recordType !== 'persons'" (click)="deleteRecord(record.metadata.pid)"  class="ml-3 float-right text-secondary"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a *ngIf="recordType !== 'persons'" class="ml-3 float-right text-secondary" routerLinkActive="active" [routerLink]="['/records', recordType, record.metadata.pid]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-        <app-result [record]="record" [recordType]="recordType"></app-result>
+      <li class="list-group-item px-0 py-1" *ngFor="let record of records">
+        <app-result
+        [record]="record"
+        [recordType]="recordType" (deletedRecord)="deleteRecord($event)">
+        </app-result>
       </li>
     </ul>
-  </div>
-
-  <div class="col-12 mt-4">
-    <pagination
-    *ngIf="showPagination()"
-    class="pagination-sm justify-content-center"
-    [totalItems]="total"
-    [itemsPerPage]="nPerPage"
-    (pageChanged)="pageChanged($event)"
-    [maxSize]="5">
-  </pagination>
-</div>
+  </section>
+  <footer class="d-flex flex-grow-1 justify-content-center">
+     <nav class="mt-4">
+      <pagination
+      *ngIf="showPagination()"
+      class="pagination-sm justify-content-center"
+      boundaryLinks=true
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+      [totalItems]="total"
+      [itemsPerPage]="nPerPage"
+      (pageChanged)="pageChanged($event)"
+      [maxSize]="5">
+      </pagination>
+    </nav>
+  </footer>
 </div>

@@ -113,7 +113,7 @@
       "title": "Authors",
       "description": "Author(s) of the resource. Can be either persons or organisations.",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": [

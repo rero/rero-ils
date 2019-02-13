@@ -71,29 +71,3 @@ html [type=button] {
   vertical-align: top;
   content: " \f08e";
 }
-
-
-/*
- *********************************
-
-          DETAILED VIEW
-
- ********************************
-*/
-
-.search-page {
-  h1 {
-    margin: 0;
-  }
-}
-
-// TODO: to be replaced by a bootstrap class;
-.rero-ils-person {
-  .tab-content {
-    margin-top: 20px;
-  }
-  ul.nav {
-    margin-top: 20px;
-  }
-}
-

@@ -16,6 +16,11 @@ textarea.ng-invalid {
   color: $form_required;
 }
 
-form .text-danger {
-  margin-top: 6px;
+a.collapsed i.fa-caret-down {
+  transform: rotate(-90deg);
+}
+
+.rero-ils-person small {
+  font-size: $font-size-very-small;
+  vertical-align: top;
 }

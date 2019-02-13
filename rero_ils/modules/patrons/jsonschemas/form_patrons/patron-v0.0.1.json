@@ -1,101 +1,125 @@
 [
   {
     "type": "fieldset",
-    "title": "Patron",
+    "title": "Personal data",
     "items": [
       {
         "type": "flex",
-        "flex-flow": "row wrap",
+        "flex-direction": "row",
         "items": [
           {
             "key": "first_name",
-            "htmlClass": "px-2"
+            "htmlClass": "mr-2"
           },
           {
-            "key": "last_name",
-            "htmlClass": "px-2"
-          },
-          {
-            "key": "birth_date",
-            "htmlClass": "px-2"
+            "key": "last_name"
           }
         ]
       },
       {
+        "key": "birth_date",
+        "description": "Use the selector or simply type in the input field."
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Address",
+    "items": [
+      {
+        "key": "street"
+      },
+      {
         "type": "flex",
-        "flex-flow": "row wrap",
+        "flex-direction": "row",
         "items": [
           {
-            "key": "street",
-            "htmlClass": "px-2"
-          },
-          {
             "key": "postal_code",
-            "htmlClass": "px-2"
+            "htmlClass": "flex-shrink-1 mr-2"
           },
           {
-            "key": "city",
-            "htmlClass": "px-2"
+            "key": "city"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Contacts",
+    "items": [
       {
         "type": "flex",
-        "flex-flow": "row wrap",
+        "flex-direction": "row",
         "items": [
           {
             "key": "email",
-            "htmlClass": "px-2"
+            "htmlClass": "mr-2"
           },
           {
-            "key": "phone",
-            "htmlClass": "px-2"
+            "key": "phone"
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Roles",
+    "items": [
       {
         "type": "flex",
-        "flex-flow": "row wrap",
+        "flex-direction": "row",
         "items": [
           {
             "key": "roles",
-            "htmlClass": "px-2"
+            "notitle": "true",
+            "description": "Is the user a patron or/and a librarian?",
+            "type": "checkboxes",
+            "htmlClass": "d-inline-block",
+            "orderable": "false",
+            "enum": [
+              "patron",
+              "librarian"
+            ]
           },
           {
-            "key": "patron_type.$ref",
-            "htmlClass": "px-2",
-            "type": "select",
-            "remoteRecordType": "patron_types",
-            "condition": {
-              "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
-            }
-          }
-        ]
-      },
-      {
-        "type": "flex",
-        "flex-flow": "row wrap",
-        "items": [
-          {
-            "key": "library.$ref",
-            "htmlClass": "px-2",
-            "type": "select",
-            "remoteRecordType": "libraries",
-            "condition": {
-              "functionBody": "{return model.roles? model.roles.includes('librarian'): false;}"
-            }
-          },
-          {
-            "key": "barcode",
-            "htmlClass": "px-2",
-            "condition": {
-              "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
-            },
-            "validationMessage": {
-              "alreadyTakenMessage": "The barcode is already taken",
-              "cannotBeVerifiedMessage": "The server cannot verify the barcode"
-            },
-            "remoteRecordType": "patrons"
+            "type": "fieldset",
+            "items": [
+              {
+                "key": "barcode",
+                "required": true,
+                "condition": {
+                  "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
+                },
+                "validationMessage": {
+                  "alreadyTakenMessage": "The barcode is already taken",
+                  "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+                },
+                "remoteRecordType": "patrons"
+              },
+              {
+                "key": "patron_type.$ref",
+                "required": true,
+                "title": "Patron type",
+                "type": "select",
+                "remoteRecordType": "patron_types",
+                "condition": {
+                  "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
+                }
+              },
+              {
+                "key": "library.$ref",
+                "required": true,
+                "title": "Library",
+                "description": "The library where the librarian works.",
+                "type": "select",
+                "remoteRecordType": "libraries",
+                "condition": {
+                  "functionBody": "{return model.roles? model.roles.includes('librarian'): false;}"
+                }
+              }
+            ]
           }
         ]
       }

@@ -19,7 +19,10 @@
   icon-thumnail {
     flex-basis: 10%;
   }
-  a .fa-caret-down {
+  // facets
+  h6 i.fa-caret-down,
+  // detailed view mef persons
+  h4 i.fa-caret-down {
     float: right;
   }
   a.collapsed .fa-caret-down {

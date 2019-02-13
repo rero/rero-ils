@@ -47,7 +47,6 @@ export class RemoteSelectComponent implements OnInit {
         this.jsf.initializeControl(this);
         this.formControl.setValue(null);
         // NOTE: default is not supported yet as it does not make sense
-
         if (this.controlValue) {
           this.formControl.setValue(this.controlValue);
         } else {
@@ -81,7 +80,7 @@ export class RemoteSelectComponent implements OnInit {
       }
     }
     // patch
-    if (this.options.readonly) {
+    if (this.options.readonly && this.formControl) {
       this.formControl.disable();
     }
   }
