@@ -1,5 +1,5 @@
-<div *ngIf="!notFound">
-  <header>
+<div class="row" *ngIf="!notFound">
+  <header class="col-12">
     <app-search-input
     [placeholder]="placeholder"
     [searchText]="query"
@@ -15,11 +15,27 @@
         </a>
       </div>
     </div>
-    <div *ngIf="total===0" class="col-12">
+    <div *ngIf="total===0" class="col-12" translate>
       No result found.
     </div>
   </header>
-  <section>
+  <aside class="col-md-4 col-lg-3 order-12 order-md-0">
+    <div *ngFor="let item of aggregations | keyvalue">
+      <section class="mb-2" *ngIf="item.value.buckets.length" >
+        <h6 class="border-bottom pb-1 font-weight-bold">{{ item.key | translate }}</h6>
+        <ul class="list-unstyled">
+          <li class="form-check" *ngFor="let bucket of item.value.buckets">
+            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.key, bucket.key)" (click)="aggFilter(item.keybucket.key) ">
+            <label class="form-check-label">
+              <span *ngIf="bucket.name">{{ bucket.name | translate }}</span>
+              <span *ngIf="!bucket.name">{{ bucket.key | translate }}</span> ({{ bucket.doc_count }})
+            </label>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </aside>
+  <section class="col-md-8 col-lg-9">
     <ul class="list-group list-group-flush">
       <li class="list-group-item px-0 py-1" *ngFor="let record of records">
         <app-result
@@ -29,10 +45,11 @@
       </li>
     </ul>
   </section>
-  <footer class="d-flex flex-grow-1 justify-content-center">
+  <footer class="d-flex flex-grow-1 justify-content-center col-12">
      <nav class="mt-4">
       <pagination
       *ngIf="showPagination()"
+      [(ngModel)]="currentPage"
       class="pagination-sm justify-content-center"
       boundaryLinks=true
       previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"

@@ -27,9 +27,13 @@ export class RecordsService {
     page: number = 1,
     size: number = 10,
     query: string = '',
-    mime_type: string = 'application/json'
+    mime_type: string = 'application/json',
+    filters = []
   ) {
-    const url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
+    let url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
+    if (filters.length) {
+      url = url + '&' + filters.join('&');
+    }
     return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
         if (e.status === 404) {

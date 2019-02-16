@@ -6,7 +6,7 @@ import { BriefView } from './brief-view';
   template: `
   <h5 class="card-title mb-0">{{ record.metadata.last_name }}, {{ record.metadata.first_name }}
    <small *ngIf="isPatron()">
-      <a href="/admin/circulation/checkinout?patron={{ record.metadata.barcode }}">
+      <a [routerLink]="['/circulation', 'checkinout']" [queryParams]="{ patron: record.metadata.barcode}">
         <i class="fa fa-exchange"></i>
         <span translate>Circulation</span>
       </a>

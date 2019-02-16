@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JsonSchemaFormService } from 'angular6-json-schema-form';
 import { RecordsService } from '../../records.service';
 import { ApiService } from '@app/core';
+import { UserService } from '../../../user.service';
 
 @Component({
   selector: 'app-remote-select',
@@ -27,37 +28,44 @@ export class RemoteSelectComponent implements OnInit {
   constructor(
     private jsf: JsonSchemaFormService,
     private recordsService: RecordsService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private userService: UserService
     ) { }
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     // new option
-
     const remoteRecordType = this.options.remoteRecordType;
     if (remoteRecordType) {
-      this.recordsService.getRecords(remoteRecordType).subscribe(data => {
-        data.hits.hits.map(record => {
-          const urlPrefix = this.apiService.getApiEntryPointByType(remoteRecordType, true);
-          this.selectList.push({
-            'name': record.metadata['name'],
-            'value': `${urlPrefix}${record['metadata']['pid']}`
-          });
-        });
-        this.jsf.initializeControl(this);
-        this.formControl.setValue(null);
-        // NOTE: default is not supported yet as it does not make sense
-        if (this.controlValue) {
-          this.formControl.setValue(this.controlValue);
-        } else {
-          if (this.options.placeHolder) {
-            this.selectList.unshift({
-              name: this.options.placeHolder,
-              value: ''
-            });
-          }
-          this.formControl.setValue(this.selectList[0]['value']);
+      this.userService.loggedUser.subscribe(user => {
+        // TODO: find a cleanest way to do it
+        let query = '';
+        if (this.options.remoteRecordFiltersByOwningLibrary) {
+          query = `library.pid:${user.library.pid}`;
         }
+        this.recordsService.getRecords(remoteRecordType, 1, 30, query).subscribe(data => {
+          data.hits.hits.map(record => {
+            const urlPrefix = this.apiService.getApiEntryPointByType(remoteRecordType, true);
+            this.selectList.push({
+              'name': record.metadata['name'],
+              'value': `${urlPrefix}${record['metadata']['pid']}`
+            });
+          });
+          this.jsf.initializeControl(this);
+          this.formControl.setValue(null);
+          // NOTE: default is not supported yet as it does not make sense
+          if (this.controlValue) {
+            this.formControl.setValue(this.controlValue);
+          } else {
+            if (this.options.placeHolder) {
+              this.selectList.unshift({
+                name: this.options.placeHolder,
+                value: ''
+              });
+            }
+            this.formControl.setValue(this.selectList[0]['value']);
+          }
+        });
       });
     } else {
       this.selectList = buildTitleMap(

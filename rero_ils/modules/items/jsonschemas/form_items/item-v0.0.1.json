@@ -13,8 +13,9 @@
   {
     "key": "location.$ref",
     "title": "Location",
+    "type": "select",
     "remoteRecordType": "locations",
-    "type": "select"
+    "remoteRecordFiltersByOwningLibrary": true
   },
   {
     "key": "item_type.$ref",

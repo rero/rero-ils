@@ -26,6 +26,7 @@
 include .dockerignore
 include .editorconfig
 include .tx/config
+include ui/.tx/config
 include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile

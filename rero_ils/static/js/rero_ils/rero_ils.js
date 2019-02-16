@@ -23,11 +23,12 @@
        /* Enable the sticky autohide header */
 
        $('button.delete').on('click', function (e) {
+        var next = $(this).data('next');
         $.ajax({
          url: $(this).data('delete-url'),
          type: 'DELETE',
          success: function(result) {
-           window.location.replace("/search");
+           window.location.replace(next);
            return false;
          },
          error : function(result, statut, error){
