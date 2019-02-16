@@ -125,6 +125,7 @@
                 href_update=url_for('records/documents.index', path=record.pid),
                 href_delete='/api/documents/' + record.pid,
                 json=record,
+                next=url_for('invenio_search_ui.search'),
                 message=_("Document cannot be deleted: there are still items linked to this document.")
               %}
                 {% include 'rero_ils/_editor_button_actions.html' %}
@@ -142,7 +143,7 @@
           <header class="mb-4">
             <h3>{{ _('Items') }}
               {%- if current_user|can_edit %}
-                <a href="{{ url_for('records/items.index', path='new' + '?document=' + record.pid) }}"
+                <a href="{{ url_for('records/items.index', path='new', document=record.pid) }}"
                    type="button" class="btn btn-sm btn-success">
                   <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
                 </a>
@@ -211,8 +212,10 @@
               <div class="col-12 col-sm-9 d-flex flex-column">
                 {% if current_user|can_edit %}
                   {% with
-                    href_update=url_for('records/items.index', path=item.pid + '?document=' + record.pid),
-                    json=item
+                    href_update=url_for('records/items.index', path=item.pid, document=record.pid),
+                    href_delete='/api/items/' + item.pid,
+                    json=item,
+                    next=url_for('invenio_records_ui.doc', pid_value=record.pid)
                   %}
                     {% include 'rero_ils/_editor_button_actions.html' %}
                   {% endwith %}
