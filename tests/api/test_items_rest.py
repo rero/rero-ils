@@ -1042,3 +1042,42 @@ def test_items_no_extend(client, user_librarian_no_email,
         content_type='application/json',
     )
     assert res.status_code == 200
+
+
+def test_items_deny_requests(client, user_librarian_no_email,
+                             user_patron_no_email, location, item_type,
+                             item_on_shelf, json_header, circ_policy_short):
+    """."""
+    circ_policy_short['allow_requests'] = False
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron = user_patron_no_email
+    patron_pid = patron.pid
+
+    # request
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                pickup_location_pid=location.pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 403
+
+    circ_policy_short['allow_requests'] = True
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    assert circ_policy_short.get('allow_requests')

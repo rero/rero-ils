@@ -41,6 +41,7 @@ from invenio_records_ui.signals import record_viewed
 from .dojson.contrib.unimarctojson import unimarctojson
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
+from ..loans.utils import can_be_requested
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
@@ -148,6 +149,13 @@ def can_request(item):
         patron = Patron.get_patron_by_user(current_user)
         if patron:
             if 'patron' in patron.get('roles'):
+                # TODO: Virtual Loan
+                loan = {
+                    'item_pid': item.pid,
+                    'patron_pid': patron.pid
+                }
+                if not can_be_requested(loan):
+                    return False
                 patron_barcode = patron.get('barcode')
                 item_status = item.get('status')
                 if item_status != 'missing':

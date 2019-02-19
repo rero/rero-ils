@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "efc34673e73db84e380e2399ce6739e15ba8cef91d2ac60c93b89933799ec04d"
+            "sha256": "5e2f893f5e3d436cf716b531f5f258fc147b75c559f07ac0b61c60c0e8d4abb5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -34,6 +34,14 @@
                 "sha256:9ff197829501e994ac962c0b22aba99459dcf7b0018bf6514a0de15796ba37d9"
             ],
             "version": "==0.3"
+        },
+        "appnope": {
+            "hashes": [
+                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
+                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
+            ],
+            "markers": "sys_platform == 'darwin'",
+            "version": "==0.1.0"
         },
         "arrow": {
             "hashes": [
@@ -485,7 +493,7 @@
         },
         "invenio-circulation": {
             "git": "https://github.com/inveniosoftware/invenio-circulation.git",
-            "ref": "51a695313fe7817f9f419b3d7dc7beb4aeb92ae1"
+            "ref": "8be1f0602450121eab575f084fd5ccaf4c1617d4"
         },
         "invenio-config": {
             "hashes": [
@@ -826,10 +834,10 @@
         },
         "marshmallow": {
             "hashes": [
-                "sha256:6eeaf1301a5f5942bfe8ab2c2eaf03feb793072b56d5fae563638bddd7bb62e6",
-                "sha256:f72a206432a3369dd72824564d18d915761e07805c05f00d0dcc7885fac1e385"
+                "sha256:f2668d41a817aaaf6106d9922479bd1a97cae240dfac0eb7e320e0c29148a084",
+                "sha256:f8e51314623247b5c444e460b2bbb04aee102ca1ce7fb27bb16e3107cb81dfe9"
             ],
-            "version": "==2.18.1"
+            "version": "==2.19.0"
         },
         "maxminddb": {
             "hashes": [
