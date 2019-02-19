@@ -80,6 +80,16 @@ class Loan(IlsRecord):
             reindex=reindex, **kwargs)
         return record
 
+    @property
+    def item_pid(self):
+        """Shortcut for item pid."""
+        return self.get('item_pid')
+
+    @property
+    def patron_pid(self):
+        """Shortcut for patron pid."""
+        return self.get('patron_pid')
+
     def dumps_for_circulation(self):
         """."""
         loan = self.replace_refs()

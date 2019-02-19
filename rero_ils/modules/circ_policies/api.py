@@ -79,6 +79,82 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
+    def get_circ_policy_by_LPI(
+        library_pid,
+        patron_type_pid,
+        item_type_pid
+    ):
+        """Check if there is a circ poliy for library/location/item types."""
+        result = CircPoliciesSearch().filter(
+            'term',
+            policy_library_level=True
+        ).filter(
+            'term',
+            settings__patron_type__pid=patron_type_pid
+        ).filter(
+            'term',
+            settings__item_type__pid=item_type_pid
+        ).filter(
+            'term',
+            libraries__pid=library_pid
+        ).source().scan()
+        try:
+            return CircPolicy.get_record_by_pid(next(result).pid)
+        except StopIteration:
+            return None
+
+    def get_circ_policy_by_OPI(
+        patron_type_pid,
+        item_type_pid
+    ):
+        """Check if there is a circ poliy for location/item types."""
+        result = CircPoliciesSearch().filter(
+            'term',
+            policy_library_level=False
+        ).filter(
+            'term',
+            settings__patron_type__pid=patron_type_pid
+        ).filter(
+            'term',
+            settings__item_type__pid=item_type_pid
+        ).source().scan()
+        try:
+            return CircPolicy.get_record_by_pid(next(result).pid)
+        except StopIteration:
+            return None
+
+    def get_default_circ_policy():
+        """Return the default circ policy."""
+        result = CircPoliciesSearch().filter(
+            'term',
+            is_default=True
+        ).source().scan()
+        try:
+            return CircPolicy.get_record_by_pid(next(result).pid)
+        except StopIteration:
+            return None
+
+    def provide_circ_policy(
+        library_pid,
+        patron_type_pid,
+        item_type_pid
+    ):
+        """Return a circ policy for library/patron/item."""
+        LPI_policy = CircPolicy.get_circ_policy_by_LPI(
+            library_pid,
+            patron_type_pid,
+            item_type_pid
+        )
+        if LPI_policy:
+            return LPI_policy
+        PI_policy = CircPolicy.get_circ_policy_by_OPI(
+            patron_type_pid,
+            item_type_pid
+        )
+        if PI_policy:
+            return PI_policy
+        return CircPolicy.get_default_circ_policy()
+
     def get_non_link_reasons_to_not_delete(self):
         """Get reasons other than links not to delete a record."""
         others = {}

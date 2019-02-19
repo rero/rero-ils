@@ -28,11 +28,13 @@
 
 import json
 
+import ciso8601
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json
+from utils import VerifyRecordPermissionPatch, flush_index, get_json
 
+from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.loans.api import LoanAction
 
@@ -192,7 +194,7 @@ def test_items_failed_actions(client, user_librarian_no_email,
         ),
         content_type='application/json',
     )
-    assert res.status_code == 500
+    assert res.status_code == 403
 
     # no pickup
     res = client.post(
@@ -205,12 +207,13 @@ def test_items_failed_actions(client, user_librarian_no_email,
         ),
         content_type='application/json',
     )
-    assert res.status_code == 500
+    assert res.status_code == 403
 
 
-def test_items_simple_loan(client, user_librarian_no_email,
-                           user_patron_no_email, location, item_type,
-                           item_on_shelf, json_header):
+def test_items_simple_checkout(client, user_librarian_no_email,
+                               user_patron_no_email, location, item_type,
+                               item_on_shelf, json_header,
+                               circulation_policies):
     """."""
     login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
@@ -268,6 +271,156 @@ def test_items_simple_loan(client, user_librarian_no_email,
     actions = data.get('action_applied')
     assert item_data.get('status') == ItemStatus.ON_SHELF
     assert actions.get(LoanAction.CHECKIN)
+
+
+def test_checkout_default_policy(client, library,
+                                 user_librarian_no_email_specific,
+                                 user_patron_no_email_specific,
+                                 location, item_type_specific,
+                                 item_specific, json_header,
+                                 circ_policy_short, circ_policy):
+    """Test circ policy parameters"""
+    login_user_via_session(client, user_librarian_no_email_specific.user)
+    item = item_specific
+    item_pid = item.pid
+    patron_pid = user_patron_no_email_specific.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    data = get_json(res)
+
+    actions = data.get('action_applied')
+    loan = actions[LoanAction.CHECKOUT]
+    end_date = loan.get('end_date')
+    start_date = loan.get('start_date')
+    checkout_duration = (ciso8601.parse_datetime(
+        end_date) - ciso8601.parse_datetime(start_date)).days
+
+    assert checkout_duration >= circ_policy.get('checkout_duration')
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan.get('loan_pid')
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+
+def test_checkout_library_level_policy(client, library,
+                                       user_librarian_no_email_specific,
+                                       user_patron_no_email_specific,
+                                       location, item_type_specific,
+                                       item_specific, json_header,
+                                       circ_policy_short_library):
+    """Test circ policy parameters"""
+    login_user_via_session(client, user_librarian_no_email_specific.user)
+    item = item_specific
+    item_pid = item.pid
+    patron_pid = user_patron_no_email_specific.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    data = get_json(res)
+
+    actions = data.get('action_applied')
+    loan = actions[LoanAction.CHECKOUT]
+    end_date = loan.get('end_date')
+    start_date = loan.get('start_date')
+    checkout_duration = (ciso8601.parse_datetime(
+        end_date) - ciso8601.parse_datetime(start_date)).days
+    assert checkout_duration >= circ_policy_short_library.get(
+        'checkout_duration')
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan.get('loan_pid')
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+
+def test_checkout_organisation_policy(client, library,
+                                      user_librarian_no_email,
+                                      user_patron_no_email,
+                                      location, item_type,
+                                      item_on_shelf, json_header,
+                                      circ_policy_short, circ_policy):
+    """Test circ policy parameters"""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron_pid = user_patron_no_email.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    data = get_json(res)
+
+    actions = data.get('action_applied')
+    loan = actions[LoanAction.CHECKOUT]
+    end_date = loan.get('end_date')
+    start_date = loan.get('start_date')
+    checkout_duration = (ciso8601.parse_datetime(
+        end_date) - ciso8601.parse_datetime(start_date)).days
+    assert checkout_duration >= circ_policy_short.get(
+        'checkout_duration')
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan.get('loan_pid')
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
 
 
 def test_items_requests(client, user_librarian_no_email,
@@ -480,7 +633,8 @@ def test_items_cancel_request(client, user_librarian_no_email,
 
 def test_items_extend(client, user_librarian_no_email,
                       user_patron_no_email, location, item_type,
-                      item_on_shelf, json_header):
+                      item_on_shelf, json_header,
+                      circulation_policies):
     """."""
     login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
@@ -522,6 +676,19 @@ def test_items_extend(client, user_librarian_no_email,
     assert item_data.get('status') == ItemStatus.ON_LOAN
     assert actions.get(LoanAction.EXTEND)
     assert item.get_extension_count() == 1
+
+    # second extenion
+    res = client.post(
+        url_for('api_item.extend_loan'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 403
 
     # checkin
     res = client.post(
@@ -804,3 +971,74 @@ def test_items_automatic_checkin(client, user_librarian_no_email,
     actions = data.get('action_applied')
     assert item_data.get('status') == ItemStatus.ON_SHELF
     assert LoanAction.CHECKIN in actions
+
+
+def test_items_no_extend(client, user_librarian_no_email,
+                         user_patron_no_email, location, item_type,
+                         item_on_shelf, json_header,
+                         circ_policy_short):
+    """."""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron_pid = user_patron_no_email.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.CHECKOUT].get('loan_pid')
+    assert not item.get_extension_count()
+
+    circ_policy_short['number_renewals'] = 0
+
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+
+    # extend loan
+    res = client.post(
+        url_for('api_item.extend_loan'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+
+    assert res.status_code == 403
+
+    circ_policy_short['number_renewals'] = 1
+
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200

@@ -30,5 +30,21 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "standard-adult",
+    "description": "standard checkout only for adults (16+)",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "short-adult",
+    "description": "short checkout, only for adults (16+)",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    }
   }
 ]
