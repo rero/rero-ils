@@ -486,7 +486,7 @@
         },
         "invenio-circulation": {
             "git": "https://github.com/inveniosoftware/invenio-circulation.git",
-            "ref": "f8fa669f4e68bdc475bc4b107c10bab2b0d985bf"
+            "ref": "fddd679cc061242fb96c3f08772698ff8097550f"
         },
         "invenio-config": {
             "hashes": [

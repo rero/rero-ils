@@ -139,7 +139,7 @@
     "last_name": "John",
     "password": "123456",
     "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/4"
+      "$ref": "https://ils.rero.ch/api/patron_types/3"
     },
     "phone": "+1408492280015",
     "postal_code": "95054",

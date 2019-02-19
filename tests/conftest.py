@@ -92,6 +92,30 @@ def circ_policy_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
+def circ_policy_data_short(data):
+    """."""
+    return deepcopy(data.get('cipo2'))
+
+
+@pytest.fixture(scope="function")
+def circ_policy_data_tmp_short(data):
+    """."""
+    return deepcopy(data.get('cipo2'))
+
+
+@pytest.fixture(scope="module")
+def circ_policy_data_short_library(data):
+    """."""
+    return deepcopy(data.get('cipo3'))
+
+
+@pytest.fixture(scope="function")
+def circ_policy_data_tmp_short_library(data):
+    """."""
+    return deepcopy(data.get('cipo3'))
+
+
+@pytest.fixture(scope="module")
 def item_type_data(data):
     """."""
     return deepcopy(data.get('itty1'))
@@ -104,6 +128,18 @@ def item_type_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
+def item_type_data_specific(data):
+    """."""
+    return deepcopy(data.get('itty2'))
+
+
+@pytest.fixture(scope="function")
+def item_type_data_tmp_specific(data):
+    """."""
+    return deepcopy(data.get('itty2'))
+
+
+@pytest.fixture(scope="module")
 def patron_type_data(data):
     """."""
     return deepcopy(data.get('ptty1'))
@@ -113,6 +149,18 @@ def patron_type_data(data):
 def patron_type_data_tmp(data):
     """."""
     return deepcopy(data.get('ptty1'))
+
+
+@pytest.fixture(scope="module")
+def patron_type_data_specific(data):
+    """."""
+    return deepcopy(data.get('ptty2'))
+
+
+@pytest.fixture(scope="function")
+def patron_type_data_tmp_specific(data):
+    """."""
+    return deepcopy(data.get('ptty2'))
 
 
 @pytest.fixture(scope="module")
@@ -134,9 +182,21 @@ def user_librarian_data(data):
 
 
 @pytest.fixture(scope="module")
+def user_librarian_data_specific(data):
+    """."""
+    return deepcopy(data.get('ptrn3'))
+
+
+@pytest.fixture(scope="module")
 def user_patron_data(data):
     """."""
     return deepcopy(data.get('ptrn2'))
+
+
+@pytest.fixture(scope="module")
+def user_patron_data_specific(data):
+    """."""
+    return deepcopy(data.get('ptrn3'))
 
 
 @pytest.fixture(scope="function")
@@ -179,6 +239,12 @@ def item_on_loan_data(data):
 def item_on_shelf_data(data):
     """."""
     return deepcopy(data.get('item2'))
+
+
+@pytest.fixture(scope="module")
+def item_specific_data(data):
+    """."""
+    return deepcopy(data.get('item4'))
 
 
 @pytest.fixture(scope="function")
@@ -246,6 +312,42 @@ def circ_policy(app, organisation, circ_policy_data):
 
 
 @pytest.fixture(scope="module")
+def circ_policy_short(
+        circ_policy_data_short, patron_type, patron_type_specific,
+        item_type, item_type_specific):
+    """."""
+    cipo = CircPolicy.create(
+        data=circ_policy_data_short,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
+def circ_policy_short_library(
+    patron_type, patron_type_specific,
+    item_type, item_type_specific,
+    circ_policy_data_short_library, library
+):
+    """."""
+    cipo = CircPolicy.create(
+        data=circ_policy_data_short_library,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
+def circulation_policies(circ_policy, circ_policy_short):
+    """."""
+    return [circ_policy, circ_policy_short, circ_policy_short_library]
+
+
+@pytest.fixture(scope="module")
 def item_type(app, organisation, item_type_data):
     """."""
     itty = ItemType.create(
@@ -258,10 +360,34 @@ def item_type(app, organisation, item_type_data):
 
 
 @pytest.fixture(scope="module")
+def item_type_specific(app, organisation, item_type_data_specific):
+    """."""
+    itty = ItemType.create(
+        data=item_type_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
 def patron_type(app, organisation, patron_type_data):
     """."""
     ptty = PatronType.create(
         data=patron_type_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronTypesSearch.Meta.index)
+    return ptty
+
+
+@pytest.fixture(scope="module")
+def patron_type_specific(app, organisation, patron_type_data_specific):
+    """."""
+    ptty = PatronType.create(
+        data=patron_type_data_specific,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -305,6 +431,19 @@ def user_patron(app, roles, library, user_librarian_type,
 
 
 @pytest.fixture(scope="module")
+def user_patron_specific(app, roles, library, user_librarian_type,
+                         user_patron_data_specific):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def mef_person(app, mef_person_data):
     """."""
     pers = MefPerson.create(
@@ -332,10 +471,38 @@ def user_librarian_no_email(app, roles, library, patron_type,
 
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_librarian_no_email_specific(app, roles, library, patron_type_specific,
+                                     user_librarian_data_specific):
+    """."""
+    ptrn = Patron.create(
+        data=user_librarian_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
 def user_patron_no_email(app, roles, library, patron_type, user_patron_data):
     """."""
     ptrn = Patron.create(
         data=user_patron_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_patron_no_email_specific(
+        app, roles, library, patron_type_specific, user_patron_data_specific):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_specific,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -384,6 +551,19 @@ def item_on_shelf(app, document, item_on_shelf_data, location, item_type):
     """."""
     item = Item.create(
         data=item_on_shelf_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def item_specific(
+        app, document, item_specific_data, location, item_type_specific):
+    """."""
+    item = Item.create(
+        data=item_specific_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

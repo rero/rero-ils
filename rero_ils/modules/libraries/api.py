@@ -176,6 +176,7 @@ class Library(IlsRecord):
     def is_open(self, date=datetime.now(), day_only=False):
         """Test library is open."""
         _open = False
+
         if isinstance(date, str):
             date = parser.parse(date)
         day_name = date.strftime("%A").lower()

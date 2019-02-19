@@ -52,7 +52,7 @@ from rero_ils.modules.loans.api import Loan
 from .modules.items.api import Item, ItemsIndexer
 from .modules.loans.utils import get_default_extension_duration, \
     get_default_extension_max_count, get_default_loan_duration, \
-    is_item_available_for_checkout, is_loan_duration_valid
+    is_item_available_for_checkout, loan_satisfy_circ_policies
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory
@@ -912,7 +912,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=get_default_loan_duration,
-        duration_validate=is_loan_duration_valid,
+        duration_validate=loan_satisfy_circ_policies,
         item_available=is_item_available_for_checkout
     ),
     extension=dict(
