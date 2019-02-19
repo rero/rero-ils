@@ -32,6 +32,7 @@ from flask import Blueprint, abort, jsonify
 from flask import request as flask_request
 from flask_login import current_user
 from invenio_circulation.api import get_loan_for_item
+from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
 from .api import Item
@@ -86,7 +87,9 @@ def jsonify_action(func):
                 item = Item.get_item_by_barcode(item_barcode)
             if not item:
                 abort(404)
+
             item_data, action_applied = func(item, data, *args, **kwargs)
+
             for action, loan in action_applied.items():
                 if loan:
                     action_applied[action] = loan.dumps_for_circulation()
@@ -95,6 +98,8 @@ def jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
+        except CirculationException:
+            abort(403)
         except NotFound as e:
             raise(e)
         except Exception as e:

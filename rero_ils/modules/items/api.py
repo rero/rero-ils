@@ -349,6 +349,24 @@ class Item(IlsRecord):
         return self.get('status', '')
 
     @property
+    def item_type_pid(self):
+        """Shortcut for item type pid."""
+        item_type_pid = self.replace_refs()['item_type']['pid']
+        return item_type_pid
+
+    @property
+    def location_pid(self):
+        """Shortcut for item location pid."""
+        location_pid = self.replace_refs()['location']['pid']
+        return location_pid
+
+    @property
+    def library_pid(self):
+        """Shortcut for item library pid."""
+        location = Location.get_record_by_pid(self.location_pid).replace_refs()
+        return location.get('library').get('pid')
+
+    @property
     def actions(self):
         """Get all available actions."""
         transitions = current_app.config.get('CIRCULATION_LOAN_TRANSITIONS')

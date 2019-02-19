@@ -137,9 +137,67 @@
     "allow_checkout": true,
     "checkout_duration": 30,
     "allow_requests": true,
-    "number_renewals": 3,
+    "number_renewals": 1,
     "renewal_duration": 30,
+    "policy_library_level": false,
     "is_default": true
+  },
+  "cipo2": {
+    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo2",
+    "name": "short",
+    "description": "short circulation policy",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 15,
+    "allow_requests": true,
+    "number_renewals": 1,
+    "renewal_duration": 15,
+    "is_default": false,
+    "policy_library_level": false,
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/itty1"
+        }
+      }
+    ]
+  },
+  "cipo3": {
+    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo3",
+    "name": "short - library level",
+    "description": "short circulation policy for a library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 7,
+    "allow_requests": true,
+    "number_renewals": 1,
+    "renewal_duration": 7,
+    "is_default": false,
+    "policy_library_level": true,
+    "libraries": [
+      {
+        "$ref": "https://ils.rero.ch/api/libraries/lib1"
+      }
+    ],
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/itty2"
+        }
+      }
+    ]
   },
   "itty1": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
@@ -150,11 +208,29 @@
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
+  "itty2": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "specific",
+    "pid": "itty2",
+    "description": "specific checkout",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
   "ptty1": {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty1",
     "name": "standard",
     "description": "standard patron",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "ptty2": {
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "pid": "ptty2",
+    "name": "specific",
+    "description": "specific patron",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
@@ -197,6 +273,28 @@
     "street": "Rue du Nord 7",
     "roles": [
       "patron"
+    ]
+  },
+  "ptrn3": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn3",
+    "barcode": "reroils3",
+    "birth_date": "1974-03-21",
+    "city": "Fribourg",
+    "email": "reroilstest+jean@gmail.com",
+    "first_name": "Jean",
+    "last_name": "Dupont",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+    },
+    "postal_code": "1701",
+    "street": "Rue du Sud 10",
+    "roles": [
+      "patron",
+      "librarian"
     ]
   },
   "pers1": {
@@ -390,5 +488,21 @@
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
     "status": "on_loan"
+  },
+  "item4": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item4",
+    "barcode": "78910",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "00044",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty2"
+    },
+    "status": "on_shelf"
   }
 }

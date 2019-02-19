@@ -210,6 +210,12 @@ class Patron(IlsRecord):
 
         return initial
 
+    @property
+    def patron_type_pid(self):
+        """Shortcut for patron type pid."""
+        patron_type_pid = self.get('patron_type').get('pid')
+        return patron_type_pid
+
     def get_number_of_loans(self):
         """Get number of loans."""
         search = current_circulation.loan_search
