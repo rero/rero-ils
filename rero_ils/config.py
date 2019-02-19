@@ -50,9 +50,10 @@ from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 
 from .modules.items.api import Item, ItemsIndexer
-from .modules.loans.utils import get_default_extension_duration, \
-    get_default_extension_max_count, get_default_loan_duration, \
-    is_item_available_for_checkout, loan_satisfy_circ_policies
+from .modules.loans.utils import can_be_requested, \
+    get_default_extension_duration, get_default_extension_max_count, \
+    get_default_loan_duration, is_item_available_for_checkout, \
+    loan_satisfy_circ_policies
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory
@@ -922,6 +923,6 @@ CIRCULATION_POLICIES = dict(
         max_count=get_default_extension_max_count
     ),
     request=dict(
-        can_request=lambda item_pid, document_pid: True
+        can_be_requested=can_be_requested
     )
 )

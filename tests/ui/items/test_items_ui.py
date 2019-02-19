@@ -32,7 +32,7 @@ from invenio_accounts.testutils import login_user_via_session
 
 
 def test_items_ui_permissions(client, item_on_loan, location,
-                              user_patron_no_email, json_header):
+                              user_patron_no_email, json_header, circ_policy):
     """Test record retrieval."""
     item_pid = item_on_loan.pid
     pickup_location_pid = location.pid

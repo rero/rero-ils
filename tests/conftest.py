@@ -344,7 +344,7 @@ def circ_policy_short_library(
 @pytest.fixture(scope="module")
 def circulation_policies(circ_policy, circ_policy_short):
     """."""
-    return [circ_policy, circ_policy_short, circ_policy_short_library]
+    return [circ_policy, circ_policy_short]
 
 
 @pytest.fixture(scope="module")

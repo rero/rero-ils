@@ -34,11 +34,11 @@ from ..patrons.api import Patron
 
 def get_circ_policy(loan):
     """Return a circ policy for loan."""
-    item = Item.get_record_by_pid(loan.item_pid)
+    item = Item.get_record_by_pid(loan.get('item_pid'))
     item_type_pid = item.item_type_pid
     library_pid = item.library_pid
 
-    patron = Patron.get_record_by_pid(loan.patron_pid).replace_refs()
+    patron = Patron.get_record_by_pid(loan.get('patron_pid')).replace_refs()
     patron_type_pid = patron.patron_type_pid
 
     return CircPolicy.provide_circ_policy(
@@ -103,3 +103,11 @@ def is_item_available_for_checkout(item_pid):
 
     # item type no-checkout
     return item_type_pid != '4'
+
+
+def can_be_requested(loan):
+    """Return if record can be requested."""
+    if not loan.get('item_pid'):
+        raise Exception('Transaction on document is not implemented.')
+    policy = get_circ_policy(loan)
+    return policy.get('allow_requests')
