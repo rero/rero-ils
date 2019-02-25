@@ -85,15 +85,7 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
 
       $ git clone git@github.com:your_name_here/rero-ils.git
 
-3. Install your local copy into a virtualenv. Assuming you have
-   virtualenvwrapper installed, this is how you set up your fork for local
-   development:
-
-   .. code-block:: console
-
-      $ mkvirtualenv rero-ils
-      $ cd rero-ils/
-      $ pip install -e .[all]
+3. Install your local using the `installation procedure`_.
 
 4. Create a branch for local development:
 
@@ -113,7 +105,18 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
    (code style), PEP257 (documentation), flake8 as well as build the Sphinx
    documentation and run doctests.
 
-6. Commit your changes and push your branch to GitHub:
+6. Add the `.gitmessage.txt` to your `git` configuration:
+
+    .. code-block::console
+
+        # globally
+        $ git config --global commit.template /path/.gitmessage.txt
+
+        # locally
+        $ git config --local commit.template .gitmessage.txt
+
+
+7. Commit your changes and push your branch to GitHub:
 
    .. code-block:: console
 
@@ -126,7 +129,7 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
           -m "* Changes something that should not be visible in release notes."
       $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
@@ -139,3 +142,6 @@ Before you submit a pull request, check that it meets these guidelines:
 3. The pull request should work for Python 2.7, 3.3, 3.4 and 3.5. Check
    https://travis-ci.org/rero/rero-ils/pull_requests
    and make sure that the tests pass for all supported Python versions.
+
+.. References:
+.. _installation procedure: INSTALL.rst

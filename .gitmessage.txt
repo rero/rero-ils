@@ -1,0 +1,6 @@
+component: title without verbs (less than 50 chars)
+
+* NEW Adds your new feature.
+* FIX Fixes an existing issue, may closes #issue.
+* BETTER Improves and existing feature.
+* Changes something that should not be visible in release notes.

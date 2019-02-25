@@ -136,7 +136,7 @@ this:
     $ env E2E=yes ./run-tests.sh
 
 For more information about end-to-end testing see `pytest-invenio
-<https://pytest-invenio.readthedocs.io/en/latest/usage.html#running-e2e-tests>`_
+<https://pytest-invenio.readthedocs.io/en/latest/usage.html#running-e2e-tests>`_.
 
 Documentation
 -------------
@@ -174,5 +174,3 @@ In addition to the normal ``docker-compose.yml``, this one will start:
 .. _npm: https://www.npmjs.com/org/rero
 .. _Gitter: https://gitter.im/rero/interne
 .. _Transifex: https://www.transifex.com/rero/reroils
-.. _gitlab.rero.ch: https://gitlab.rero.ch
-.. _invenio documentation: http://invenio.readthedocs.io/en/latest/community/contribution-guide.html?highlight=commit%20message
