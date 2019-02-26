@@ -33,12 +33,12 @@ from random import randint
 import click
 from flask.cli import with_appcontext
 
+from .models import ItemIdentifier, ItemStatus
 from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
 from ..patrons.api import Patron
-from .models import ItemIdentifier, ItemStatus
 
 
 class StreamArray(list):

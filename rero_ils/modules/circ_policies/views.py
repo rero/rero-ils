@@ -30,9 +30,9 @@ from functools import wraps
 
 from flask import Blueprint, jsonify
 
-from ...permissions import login_and_librarian
 from ..circ_policies.api import CircPolicy
 from ..patrons.api import current_patron
+from ...permissions import login_and_librarian
 
 blueprint = Blueprint(
     'circ_policies',

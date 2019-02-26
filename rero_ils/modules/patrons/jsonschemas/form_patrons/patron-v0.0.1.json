@@ -135,7 +135,7 @@
               "email": "Email",
               "mail": "Mail"
             },
-            "placeHolder": "Select…",
+            "placeHolder": "Select\u2026",
             "condition": {
               "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
             }
@@ -151,7 +151,7 @@
               "de": "German",
               "it": "Italian"
             },
-            "placeHolder": "Select…",
+            "placeHolder": "Select\u2026",
             "condition": {
               "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
             }

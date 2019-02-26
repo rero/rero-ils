@@ -30,9 +30,9 @@ from functools import wraps
 
 from flask import Blueprint, jsonify
 
-from ...permissions import login_and_librarian
 from ..patron_types.api import PatronType
 from ..patrons.api import current_patron
+from ...permissions import login_and_librarian
 
 blueprint = Blueprint(
     'patron_types',

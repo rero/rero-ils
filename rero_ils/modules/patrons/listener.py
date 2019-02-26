@@ -26,9 +26,9 @@
 
 from flask_babelex import gettext as _
 
-from ...utils import send_mail
 from ..documents.api import Document
 from ..patrons.api import Patron
+from ...utils import send_mail
 
 
 def listener_item_at_desk(sender, *args, **kwargs):

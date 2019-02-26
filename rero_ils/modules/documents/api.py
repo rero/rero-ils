@@ -29,11 +29,11 @@ from functools import partial
 from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
+from .models import DocumentIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from .models import DocumentIdentifier
 
 # provider
 DocumentProvider = type(

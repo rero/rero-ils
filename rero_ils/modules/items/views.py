@@ -34,12 +34,12 @@ from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
-from ...permissions import request_item_permission
+from .api import Item
 from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
-from .api import Item
+from ...permissions import request_item_permission
 
 
 def item_view_method(pid, record, template=None, **kwargs):

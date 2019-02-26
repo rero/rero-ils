@@ -38,14 +38,14 @@ from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
-from ...filter import format_date_filter
-from ...permissions import login_and_librarian
+from .dojson.contrib.unimarctojson import unimarctojson
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
-from .dojson.contrib.unimarctojson import unimarctojson
+from ...filter import format_date_filter
+from ...permissions import login_and_librarian
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
