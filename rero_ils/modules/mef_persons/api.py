@@ -28,11 +28,11 @@ from functools import partial
 
 from invenio_search.api import RecordsSearch
 
+from .models import MefPersonIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from .models import MefPersonIdentifier
 
 # provider
 MefPersonProvider = type(

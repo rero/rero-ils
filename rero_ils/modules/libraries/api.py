@@ -31,13 +31,13 @@ from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 from invenio_search.api import RecordsSearch
 
+from .models import LibraryIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
 from ..providers import Provider
 from ..utils import strtotime
-from .models import LibraryIdentifier
 
 # provider
 LibraryProvider = type(

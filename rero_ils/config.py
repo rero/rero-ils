@@ -305,7 +305,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -338,7 +338,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=ItemsIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -369,7 +369,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -400,7 +400,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -431,7 +431,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=IlsRecordIndexer,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -462,7 +462,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -496,7 +496,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -528,7 +528,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -558,7 +558,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_response'
@@ -909,6 +909,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
     'CANCELLED': [],
 }
 
+
 CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=get_default_loan_duration,
@@ -920,4 +921,7 @@ CIRCULATION_POLICIES = dict(
         duration_default=get_default_extension_duration,
         max_count=get_default_extension_max_count
     ),
+    request=dict(
+        can_request=lambda item_pid, document_pid: True
+    )
 )

@@ -30,13 +30,13 @@ from functools import partial
 
 from invenio_search.api import RecordsSearch
 
+from .models import PatronTypeIdentifier
 from ..api import IlsRecord
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..patrons.api import PatronsSearch
 from ..providers import Provider
-from .models import PatronTypeIdentifier
 
 # provider
 PatronTypeProvider = type(

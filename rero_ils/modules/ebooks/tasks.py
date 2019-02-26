@@ -29,8 +29,8 @@ from __future__ import absolute_import, print_function
 from celery import shared_task
 from flask import current_app
 
-from ..documents.api import Document
 from .search import EbookSearch
+from ..documents.api import Document
 
 
 @shared_task(ignore_result=True)

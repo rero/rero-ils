@@ -27,12 +27,12 @@
 
 from functools import partial
 
+from .models import OrganisationIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
-from .models import OrganisationIdentifier
 
 # provider
 OrganisationProvider = type(

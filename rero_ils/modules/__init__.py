@@ -26,5 +26,4 @@
 
 from .ext import REROILSAPP
 
-
 __all__ = ('REROILSAPP')

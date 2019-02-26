@@ -36,12 +36,12 @@ from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
 
+from .models import PatronIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
-from .models import PatronIdentifier
 
 # from ..patron_types.api import PatronType
 

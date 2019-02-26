@@ -34,9 +34,9 @@ from flask_login import current_user
 from invenio_circulation.api import get_loan_for_item
 from werkzeug.exceptions import NotFound
 
-from ...permissions import librarian_permission
-from ..loans.api import Loan
 from .api import Item
+from ..loans.api import Loan
+from ...permissions import librarian_permission
 
 api_blueprint = Blueprint(
     'api_item',

@@ -62,8 +62,11 @@ def test_locations_permissions(client, location, json_header):
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_locations_get(client, location):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.loc_item', pid_value='loc1')
-    list_url = url_for('invenio_records_rest.loc_list', q='pid:loc1')
+    item_url = url_for('invenio_records_rest.loc_item', pid_value=location.pid)
+    list_url = url_for(
+        'invenio_records_rest.loc_list', q='pid:' + location.pid)
+    item_url_with_resolve = url_for(
+        'invenio_records_rest.loc_item', pid_value=location.pid, resolve=1)
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -82,6 +85,12 @@ def test_locations_get(client, location):
     assert res.status_code == 200
     assert data == get_json(res)
     assert location.dumps() == data['metadata']
+
+    # check resolve
+    res = client.get(item_url_with_resolve)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert location.replace_refs().dumps() == data['metadata']
 
     res = client.get(list_url)
     assert res.status_code == 200

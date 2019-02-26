@@ -36,6 +36,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search
 
+from .models import ItemIdentifier, ItemStatus
 from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..documents.api import Document, DocumentsSearch
 from ..fetchers import id_fetcher
@@ -46,7 +47,6 @@ from ..minters import id_minter
 from ..patrons.api import Patron, current_patron
 from ..providers import Provider
 from ..transactions.api import CircTransaction
-from .models import ItemIdentifier, ItemStatus
 
 # provider
 ItemProvider = type(

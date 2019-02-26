@@ -35,14 +35,14 @@ from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
-from ...permissions import login_and_librarian
+from .api import Patron
+from .utils import user_has_patron
 from ..documents.api import Document
 from ..items.api import Item
 from ..libraries.api import Library
 from ..loans.api import get_loans_by_patron_pid
 from ..locations.api import Location
-from .api import Patron
-from .utils import user_has_patron
+from ...permissions import login_and_librarian
 
 api_blueprint = Blueprint(
     'api_patrons',
