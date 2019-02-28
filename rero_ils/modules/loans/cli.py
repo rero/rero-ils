@@ -185,8 +185,8 @@ def get_loanable_items():
     """."""
     # TODO: to be replace by circulation policies
     exclude_item_type_pids = [
-        ItemType.get_pid_by_name('no-checkout'),
-        ItemType.get_pid_by_name('on-site')
+        ItemType.get_pid_by_name('No checkout'),
+        ItemType.get_pid_by_name('On-site')
     ]
     loanable_items = ItemsSearch()\
         .filter('term', status=ItemStatus.ON_SHELF)\

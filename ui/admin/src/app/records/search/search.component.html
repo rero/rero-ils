@@ -1,31 +1,35 @@
 <div class="row" *ngIf="!notFound">
   <header class="col-12">
-    <app-search-input
-    [placeholder]="placeholder"
-    [searchText]="query"
-    (search)="searchValueUpdated($event)"
-    ></app-search-input>
+    <div class="col-md-6 px-0">
+      <app-search-input
+      [placeholder]="placeholder"
+      [searchText]="query"
+      (search)="searchValueUpdated($event)"
+      ></app-search-input>
+    </div>
     <div *ngIf="total>0">
       <div class="d-flex align-items-start justify-content-between flex-wrap flex-md-nowrap my-4">
         <h6>
-          {{total}} {{recordType}} {{ 'results' | translate }}
+          {{total}} {{ 'results' | translate }}
         </h6>
-        <a *ngIf="recordType !== 'persons'" class="btn btn-success btn-sm" routerLinkActive="active" [routerLink]="['/records', recordType, 'new']">
+        <a *ngIf="recordType !== 'persons'" class="btn btn-success btn-sm"
+           routerLinkActive="active" [routerLink]="['/records', recordType, 'new']"
+           translate>
           <i class="fa fa-plus" aria-hidden="true"></i> Add
         </a>
       </div>
     </div>
-    <div *ngIf="total===0" class="col-12" translate>
+    <div *ngIf="total===0" class="col-12 mt-4" translate>
       No result found.
     </div>
   </header>
-  <aside class="col-md-4 col-lg-3 order-12 order-md-0">
+  <aside *ngIf="aggregations" class="col-md-4 col-lg-3 order-12 order-md-0">
     <div *ngFor="let item of aggregations | keyvalue">
       <section class="mb-2" *ngIf="item.value.buckets.length" >
         <h6 class="border-bottom pb-1 font-weight-bold">{{ item.key | translate }}</h6>
         <ul class="list-unstyled">
           <li class="form-check" *ngFor="let bucket of item.value.buckets">
-            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.key, bucket.key)" (click)="aggFilter(item.keybucket.key) ">
+            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.key, bucket.key)" (click)="aggFilter(item.key, bucket.key) ">
             <label class="form-check-label">
               <span *ngIf="bucket.name">{{ bucket.name | translate }}</span>
               <span *ngIf="!bucket.name">{{ bucket.key | translate }}</span> ({{ bucket.doc_count }})
@@ -35,7 +39,7 @@
       </section>
     </div>
   </aside>
-  <section class="col-md-8 col-lg-9">
+  <section [ngClass]="(aggregations | json) === '{}' ? 'col-12' : 'col-md-8 col-lg-9'">
     <ul class="list-group list-group-flush">
       <li class="list-group-item px-0 py-1" *ngFor="let record of records">
         <app-result

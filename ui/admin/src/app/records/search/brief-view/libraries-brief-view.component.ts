@@ -30,13 +30,14 @@ import {AlertsService, _ } from '@app/core';
         <ul class="col-lg-6 list-group list-group-flush mb-2">
           <li *ngFor="let opening_hour of record.metadata.opening_hours" class="list-group-item py-0 pr-0 border-0">
             <div *ngIf="opening_hour.is_open" class="row">
-              <span class="col-12 col-md-3">{{ opening_hour.day }}:</span>
+              <span class="col-12 col-md-3" translate>{{ opening_hour.day }}:</span>
               <span *ngFor="let time of opening_hour.times"
                     class="col-6 col-md-4 col-lg-3"> {{ time.start_time }} &mdash; {{ time.end_time }}
               </span>
             </div>
             <div *ngIf="!opening_hour.is_open" class="row">
-              <span class="col-6 col-md-3">{{ opening_hour.day }}:</span><span class="col-3"> <span translate>Closed</span></span>
+              <span class="col-6 col-md-3">{{ opening_hour.day | translate }}:</span>
+              <span class="col-3"> <span translate>Closed</span></span>
             </div>
           </li>
         </ul>
@@ -68,22 +69,23 @@ import {AlertsService, _ } from '@app/core';
     </a>
     <a class="ml-2 text-secondary" routerLinkActive="active"
        [queryParams]="{library: record.metadata.pid}" [routerLink]="['/records/locations/new']">
-      <i class="fa fa-plus" aria-hidden="true"></i> Add
+      <i class="fa fa-plus" aria-hidden="true"></i> {{ 'Add' | translate }}
     </a>
     <div id="collapseBasic" [collapse]="isCollapsed">
       <ul *ngIf="locations.length" class="list-group list-group-flush">
         <li *ngFor="let location of locations;" class="list-group-item p-1">{{ location.metadata.name }}
-          <a class="ml-2 float-right text-secondary" routerLinkActive="active"
-             [routerLink]="['/records/locations', location.metadata.pid]">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </a>
           <a (click)="deleteLocation(location.metadata.pid)"
-          class="float-right text-secondary ml-2">
+          class="float-right text-secondary ml-2" title="{{ 'Delete' | translate }}">
           <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+          <a class="ml-2 float-right text-secondary" routerLinkActive="active"
+             [routerLink]="['/records/locations', location.metadata.pid]"
+             title="{{ 'Edit' | translate }}">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
           </a>
         </li>
       </ul>
-      <div *ngIf="!locations.length" translate>no location</div>
+      <div *ngIf="!locations.length" translate>{{ 'no location' | translate }}</div>
     </div>
   </section>
   `,

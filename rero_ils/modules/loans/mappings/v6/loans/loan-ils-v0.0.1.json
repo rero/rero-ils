@@ -34,7 +34,7 @@
         "start_date": {
           "type": "date"
         },
-        "request_expire_date": {
+        "request_expiry_date": {
           "type": "date"
         },
         "pickup_location_pid": {

@@ -131,7 +131,6 @@
                   </thead>
                   <tbody>
                     {% for holding in record.get_requests() %}
-                    {{ holding|tojson}}
                       {% set patron = holding.patron_pid|get_patron_from_pid %}
                       {% set location_name = holding.pickup_location_pid|get_location_name_from_pid %}
                       {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}

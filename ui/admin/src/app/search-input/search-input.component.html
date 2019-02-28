@@ -1,12 +1,12 @@
-<div class="input-group input-group-sm col-12 col-md-6 px-0">
+<label for="search" class="font-weight-bold">{{ placeholder | translate }}</label>
+<div class="input-group px-0">
   <input
     #searchinput
     autofocus
     type="text"
+    id="search"
     class="form-control"
-    placeholder="{{ placeholder | translate }}"
     attr.aria-label="{{ placeholder | translate }}"
-    aria-describedby="button-search"
     [value]="searchText"
     (keyup.enter)="doSearch(searchinput.value)"
   >

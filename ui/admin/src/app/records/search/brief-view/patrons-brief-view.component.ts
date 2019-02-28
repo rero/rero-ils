@@ -8,25 +8,30 @@ import { BriefView } from './brief-view';
    <small *ngIf="isPatron()">
       <a [routerLink]="['/circulation', 'checkinout']" [queryParams]="{ patron: record.metadata.barcode}">
         <i class="fa fa-exchange"></i>
-        <span translate>Circulation</span>
+        <span translate> Circulation</span>
       </a>
     </small>
   </h5>
   <div class="card-text px-2">
-    <p class="mb-0">{{ record.metadata.birth_date }} &mdash; {{ record.metadata.city }}</p>
-    <p class="mb-0">{{ record.metadata.roles }}
-    <a class="collapsed text-secondary"
-       data-toggle="collapse"
-       href="#{{ 'patron-'+record.metadata.pid }}"
-       aria-expanded="false"
-       aria-controls="patronDetailed"
-    >
+    <p class="mb-0">{{ record.metadata.birth_date | date:'mediumDate' }} &mdash; {{ record.metadata.city }}</p>
+    <p class="mb-0">
+
+      <a class="collapsed text-secondary"
+        data-toggle="collapse"
+        href="#{{ 'patron-'+record.metadata.pid }}"
+        aria-expanded="false"
+        aria-controls="patronDetailed">
         <i class="fa fa-caret-down" aria-hidden="true"></i>
-    </a>
+      </a>
+      <span *ngFor="let role of record.metadata.roles; let isLast=last">
+        {{ role | translate }}{{isLast ? '' : ', '}}</span>
     </p>
     <ul class="collapse list-group list-group-flush" id="{{ 'patron-'+record.metadata.pid }}">
       <li *ngIf="record.metadata.barcode" class="list-group-item p-0 border-0">
         <span translate>Barcode</span>: {{ record.metadata.barcode }}
+      </li>
+      <li *ngIf="isLibrarian()" class="list-group-item p-0 border-0">
+        <span translate>Library</span>: {{ record.metadata.library.pid }}
       </li>
       <li *ngIf="isPatron()" class="list-group-item p-0 border-0">
         <span translate>Type</span>: {{ record.metadata.patron_type.pid }}

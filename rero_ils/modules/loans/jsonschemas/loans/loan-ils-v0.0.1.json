@@ -50,10 +50,10 @@
       "type": "string",
       "title": "Request pickup location ID"
     },
-    "request_expire_date": {
+    "request_expiry_date": {
       "type": "string",
       "format": "date-time",
-      "title": "Request expire date"
+      "title": "Request expiry date"
     },
     "start_date": {
       "type": "string",

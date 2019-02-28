@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit {
         }
       }
 
-      this.placeholder = 'search in' + ` ${this.recordType}`;
+      this.placeholder = 'Search for' + ` ${this.recordType}`;
       this.getRecords();
     });
   }

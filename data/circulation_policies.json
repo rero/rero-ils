@@ -16,8 +16,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "library: short",
-    "description": "library: short loan (7 days)",
+    "name": "Site d'Aoste: short",
+    "description": "Short loan (7 days), applies only at Site d'Aoste.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -46,8 +46,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "short",
-    "description": "short loan (14 days)",
+    "name": "Short",
+    "description": "Short loan (14 days).",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -79,8 +79,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "short-adults",
-    "description": "short loan (14 days), only adults",
+    "name": "Short adults",
+    "description": "Short loan (14 days) for adults only.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -104,8 +104,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "standard-adults",
-    "description": "standard loan (28 days), only adults",
+    "name": "Standard adults",
+    "description": "Standard loan (28 days) for adults.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -129,8 +129,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "extended",
-    "description": "extended loan (3 months)",
+    "name": "Extended",
+    "description": "Extended loan (3 months).",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -194,8 +194,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "on-site",
-    "description": "On-site circulation policy.",
+    "name": "On-site",
+    "description": "On-site consultation.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },
@@ -224,8 +224,8 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
-    "name": "no-checkout",
-    "description": "No checkout",
+    "name": "No checkout",
+    "description": "No checkout.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     },

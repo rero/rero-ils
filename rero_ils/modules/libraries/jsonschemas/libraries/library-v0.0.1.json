@@ -145,7 +145,7 @@
         "properties": {
           "day": {
             "title": "Day",
-            "description": "Day of week",
+            "description": "Weekday.",
             "type": "string"
           },
           "is_open": {
