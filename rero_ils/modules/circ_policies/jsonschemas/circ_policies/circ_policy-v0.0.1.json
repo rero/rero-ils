@@ -100,7 +100,7 @@
         ],
         "properties": {
           "$ref": {
-            "title": "Libary URI",
+            "title": "Library URI",
             "type": "string",
             "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
           }

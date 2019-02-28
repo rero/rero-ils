@@ -1,24 +1,24 @@
 [
   {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
-    "name": "standard",
-    "description": "standard patron",
+    "name": "Standard",
+    "description": "Standard patron.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
-    "name": "extended",
-    "description": "patron with extended rights: staff, professors, supporting members",
+    "name": "Extended rights",
+    "description": "Patron with extended rights: staff, professors, supporting members.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
-    "name": "children",
-    "description": "children and teenagers, > 16 years old",
+    "name": "Children",
+    "description": "Children and teenagers (< 16 years old).",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }

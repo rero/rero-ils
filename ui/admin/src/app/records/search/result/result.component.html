@@ -4,11 +4,13 @@
   </div>
   <a *ngIf="recordType !== 'persons'" class="float-right text-secondary ml-2"
      routerLinkActive="active"
-     [routerLink]="['/records', recordType, record.metadata.pid]">
+     [routerLink]="['/records', recordType, record.metadata.pid]"
+     title="{{ 'Edit' | translate }}">
     <i class="fa fa-pencil" aria-hidden="true"></i>
   </a>
   <a *ngIf="recordType !== 'persons'" (click)="deleteRecord(record.metadata.pid)"
-     class="float-right text-secondary ml-2">
+     class="float-right text-secondary ml-2"
+     title="{{ 'Delete' | translate }}">
     <i class="fa fa-trash" aria-hidden="true"></i>
   </a>
 </article>

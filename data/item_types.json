@@ -1,48 +1,48 @@
 [
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "standard",
-    "description": "standard checkout",
+    "name": "Standard",
+    "description": "Standard checkout.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "short",
-    "description": "short checkout",
+    "name": "Short",
+    "description": "Short checkout.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "on-site",
-    "description": "on-site checkout",
+    "name": "On-site",
+    "description": "On-site consultation.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "no-checkout",
-    "description": "no checkout",
+    "name": "No checkout",
+    "description": "No checkout.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "standard-adult",
-    "description": "standard checkout only for adults (16+)",
+    "name": "Standard adult",
+    "description": "Standard checkout for adults only (16+).",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
   },
   {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "short-adult",
-    "description": "short checkout, only for adults (16+)",
+    "name": "Short adult",
+    "description": "Short checkout for adults only (16+).",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }

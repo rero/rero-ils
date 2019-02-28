@@ -41,15 +41,15 @@
       }
     },
     "rero": {
-      "title": "RERO autorities",
+      "title": "RERO authorities",
       "type": "object"
     },
     "gnd": {
-      "title": "GND autorities",
+      "title": "GND authorities",
       "type": "object"
     },
     "bnf": {
-      "title": "BNF autorities",
+      "title": "BNF authorities",
       "type": "object"
     }
   }

@@ -1,6 +1,6 @@
   <header class="d-flex mb-4">
-    <h3 class="mb-0 mr-4">{{ recordType | translate }} <span translate>editor</span></h3>
-    <button (click)="cancel()" class="btn btn-info btn-sm" translate>Cancel</button>
+    <h3 class="mb-0 mr-4">{{ recordType | translate }}: <span translate>editor</span></h3>
+    <button (click)="cancel()" class="btn btn-warning btn-sm" translate>Cancel</button>
   </header>
   <div *ngIf="recordType === 'documents'" class="">
     <div class="form-group w-75">
