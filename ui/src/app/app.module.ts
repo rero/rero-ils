@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AlertModule } from 'ngx-bootstrap/alert';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, enGbLocale, frLocale, itLocale } from 'ngx-bootstrap/locale';
@@ -20,12 +19,14 @@ import { AppComponent } from './app.component';
 import { CoreModule } from '@app/core';
 import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { AlertModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
     let assets_prefix = '/';
     if (environment.production) {
-      assets_prefix = '/static/js/rero_ils/admin/';
+      assets_prefix = '/static/js/rero_ils/ui/';
     }
     return new TranslateHttpLoader(
       http,
@@ -38,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    MylibraryComponent
+    MylibraryComponent,
+    AutocompleteComponent
     // ConfirmWindowComponent
   ],
   imports: [
@@ -46,8 +48,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
+    TypeaheadModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -68,6 +72,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [
     AppComponent
+  ],
+  entryComponents: [
+    AutocompleteComponent
   ]
 })
 export class AppModule {

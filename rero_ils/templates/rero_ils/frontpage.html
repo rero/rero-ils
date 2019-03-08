@@ -4,6 +4,12 @@
 {%- include "rero_ils/header_frontpage.html" %}
 {%- endblock page_header %}
 
+{%- block javascript %}
+  {% assets "rero_ils_ui_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+{%- endblock javascript %}
+
 {%- block page_body %}
 <div class="flex-grow-1">
 {%- block body %}
@@ -13,20 +19,11 @@
       <h2>{{ _('A wealth of knowledge just a click away') }}</h2>
     </header>
     <div class="container d-none d-md-block pt-2 pt-lg-4">
-      <form class="input-group input-group-lg" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-        <input type="search" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}" aria-label="Search" aria-describedby="button-search">
-        <div class="input-group-append">
-          <button type="submit" id="button-search" class="btn btn-light"><i class="fa fa-search"></i></button>
-        </div>
-      </form>
+    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="large"></search-autocomplete>
+    <app-root></app-root>
     </div>
     <div class="container d-block d-md-none pt-2 pt-lg-4">
-      <form class="input-group" action="{{config.THEME_SEARCH_ENDPOINT}}" role="search">
-        <input type="search" class="form-control" name="q" placeholder="{{ _('What\'s on your mind?') }}" aria-label="Search" aria-describedby="button-search">
-        <div class="input-group-append">
-          <button type="submit" id="button-search" class="btn btn-light"><i class="fa fa-search"></i></button>
-        </div>
-      </form>
+    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}"></search-autocomplete>
     </div>
     <footer class="text-center bg-danger text-white mt-4">
       <p class="py-2 mb-0">

@@ -323,6 +323,15 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route='/documents/',
         record_class='rero_ils.modules.documents.api:Document',
         item_route='/documents/<pid(doc, record_class="rero_ils.modules.documents.api:Document"):pid_value>',
+        # suggesters=dict(
+        #     title={
+        #         'completion': {
+        #             'field': 'title_suggest',
+        #             'size': 10,
+        #             'skip_duplicates': True
+        #         }
+        #     },
+        # ),
         default_media_type='application/json',
         max_result_window=5000000,
         search_factory_imp='rero_ils.query:and_search_factory',

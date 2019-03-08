@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "admin": {
+    "ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/admin",
+            "outputPath": "dist/ui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -55,7 +55,7 @@
               "aot": true,
               "extractLicenses": false,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
@@ -63,33 +63,33 @@
                   "maximumError": "5mb"
                 }
               ],
-              "deployUrl": "/static/js/rero_ils/admin/",
-              "outputPath": "../../rero_ils/static/js/rero_ils/admin"
+              "deployUrl": "/static/js/rero_ils/ui/",
+              "outputPath": "../rero_ils/static/js/rero_ils/ui"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "admin:build"
+            "browserTarget": "ui:build"
           },
           "configurations": {
             "proxy": {
-              "browserTarget": "admin:build:proxy",
+              "browserTarget": "ui:build:proxy",
               "proxyConfig": "proxy.conf.json"
             },
             "production": {
-              "browserTarget": "admin:build:production"
+              "browserTarget": "ui:build:production"
             },
             "fr": {
-              "browserTarget": "admin:build:fr"
+              "browserTarget": "ui:build:fr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "admin:build"
+            "browserTarget": "ui:build"
           }
         },
         "test": {
@@ -125,7 +125,7 @@
         }
       }
     },
-    "admin-e2e": {
+    "ui-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -134,11 +134,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "admin:serve"
+            "devServerTarget": "ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "admin:serve:production"
+              "devServerTarget": "ui:serve:production"
             }
           }
         },
@@ -154,5 +154,5 @@
       }
     }
   },
-  "defaultProject": "admin"
+  "defaultProject": "ui"
 }
