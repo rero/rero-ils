@@ -58,7 +58,7 @@ npm i npm@latest -g --prefix `pipenv --venv` && pipenv run npm install --prefix 
 # collect static files and compile html/css assets
 CWD=`pwd`
 # build the angular ui application
-cd ui/admin; npm ci; pipenv run npm run deploy
+cd ui; npm ci; pipenv run npm run deploy
 
 # install the npm dependencies
 cd ${CWD}

@@ -2,7 +2,26 @@
   "settings": {
     "number_of_shards": 1,
     "number_of_replicas": 0,
-    "max_result_window": 20000
+    "max_result_window": 20000,
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 20
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
   },
   "mappings": {
     "document-v0.0.1": {
@@ -16,7 +35,13 @@
           "type": "keyword"
         },
         "title": {
-          "type": "text"
+          "type": "text",
+          "copy_to": "autocomplete_title"
+        },
+        "autocomplete_title": {
+          "type": "text",
+          "analyzer": "autocomplete",
+          "search_analyzer": "standard"
         },
         "titlesProper": {
           "type": "text"

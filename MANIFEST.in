@@ -48,7 +48,7 @@ include *.rst
 include *.sh
 include *.txt
 include *.yml
-include ui/admin/src/browserslist
+include ui/src/browserslist
 include LICENSE
 include Pipfile
 include babel.ini

@@ -103,13 +103,13 @@ search_js = Bundle(
     output='gen/rero_ils.search.%(version)s.js',
 )
 
-admin_js = Bundle(
+ui_js = Bundle(
     'node_modules/jquery/jquery.js',
-    'js/rero_ils/admin/runtime.js',
-    'js/rero_ils/admin/polyfills.js',
-    'js/rero_ils/admin/styles.js',
-    'js/rero_ils/admin/scripts.js',
-    'js/rero_ils/admin/main.js',
+    'js/rero_ils/ui/runtime.js',
+    'js/rero_ils/ui/polyfills.js',
+    'js/rero_ils/ui/styles.js',
+    'js/rero_ils/ui/scripts.js',
+    'js/rero_ils/ui/main.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-    output='gen/rero_ils.modules.admin_ui_js.%(version)s.js'
+    output='gen/rero_ils.modules.ui_js.%(version)s.js'
 )

@@ -1,0 +1,26 @@
+<ng-template #customItemTemplate let-match="match" let-query="query" let-model="item" let-index="index">
+  <span [innerHtml]="model.text"></span>
+</ng-template>
+<form #form class="input-group" action="{{ action }}"
+      [ngClass]="{'input-group-lg': size === 'large', 'input-group-sm': size === 'small'}"
+      role="search" autocomplete="off">
+  <input
+  name="q"
+  type="search"
+  placeholder="{{ placeholder }}"
+  [(ngModel)]="asyncSelected.query"
+  [typeaheadAsync]="true"
+  [typeahead]="dataSource"
+  (typeaheadLoading)="changeTypeaheadLoading($event)"
+    [typeaheadOptionsLimit]="10"
+  typeaheadOptionField="query"
+  class="form-control"
+  [typeaheadWaitMs]="300"
+  [typeaheadMinLength]="3"
+  [typeaheadItemTemplate]="customItemTemplate"
+  typeaheadGroupField="index"
+  >
+  <div class="input-group-append">
+    <button type="submit" (click)="form.submit()" class="btn btn-light"><i class="fa fa-search"></i></button>
+  </div>
+</form>

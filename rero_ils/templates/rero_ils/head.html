@@ -11,7 +11,9 @@
   {%- block head_base %}
     {% if admin_page %}
       <base href="/admin">
-    {% endif %}
+      {% else %}
+    <base href="/">
+        {% endif %}
   {%- endblock head_base %}
   {%- block head_meta %}
     <meta charset="utf-8">

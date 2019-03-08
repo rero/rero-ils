@@ -43,6 +43,22 @@ export class RecordsService {
     );
   }
 
+  getSuggests(
+    record_type: string,
+    field: string,
+    query: string,
+    mime_type: string = 'application/json'
+  ) {
+    const url = `/api/${record_type}/?q=${field}:${query}`;
+    return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
+      catchError(e => {
+        if (e.status === 404) {
+          return of(null);
+        }
+      })
+    );
+  }
+
   getRecord(
     record_type: string,
     pid: string,

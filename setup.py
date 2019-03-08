@@ -141,8 +141,8 @@ setup(
             'rero_ils_search_js = rero_ils.bundles:search_js',
             'rero_ils_main_css = rero_ils.bundles:main_css',
             'rero_ils_main_js = rero_ils.bundles:js',
-            'rero_ils_admin_ui_js = \
-                rero_ils.bundles:admin_js',
+            'rero_ils_ui_js = \
+                rero_ils.bundles:ui_js',
             'rero_ils_documents_detailed_js = \
                 rero_ils.modules.documents.bundles:detailed_js'
         ],
