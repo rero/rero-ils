@@ -248,7 +248,7 @@ export class RecordsService {
   private othersMessages() {
     return {
       'is_default': this.translateService.instant(_('The default record cannot be deleted')),
-      'has_settings': this.translateService.instant(_('The recording contains settings'))
+      'has_settings': this.translateService.instant(_('The record contains settings'))
     };
   }
 

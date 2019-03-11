@@ -8,7 +8,7 @@
 -->
 <section class="card mb-4" ng-init="tree=[];tree_more=[]" ng-repeat="aggr in orderedAggs track by $index" ng-if="aggr.value.buckets.length">
   <div ng-if="aggr.value.buckets.length > 0 && aggr.key !== 'years'">
-    <a class="card-link {{ aggr.value.expand ? '' : 'collapsed' }}" data-toggle="collapse" data-target="#collapse-{{ aggr.key }}" aria-expanded="true" translate>
+    <a class="card-link {{ aggr.value.expand ? '' : 'collapsed' }}" data-toggle="collapse" data-target="#collapse-{{ aggr.key }}" aria-expanded="true">
       <header class="card-header">
         <h6 class="card-title mb-0">{{ aggr.key | translate }}<i class="fa fa-caret-down"></i></h6>
       </header>
