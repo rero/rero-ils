@@ -41,7 +41,7 @@ class ReroIlsSerializer(JSONSerializer):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        if request and request.args.get('resolve'):
+        if request and request.args.get('resolve') == '1':
             record = record.replace_refs()
 
         return super(
