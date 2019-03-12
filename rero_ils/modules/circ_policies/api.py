@@ -98,10 +98,13 @@ class CircPolicy(IlsRecord):
             'term',
             libraries__pid=library_pid
         ).source().scan()
-        try:
-            return CircPolicy.get_record_by_pid(next(result).pid)
-        except StopIteration:
-            return None
+        # TODO: Better query to search pair in same block
+        for policy in result:
+            for settings in policy.settings:
+                if settings['item_type']['pid'] == item_type_pid and \
+                        settings['patron_type']['pid'] == patron_type_pid:
+                    return CircPolicy.get_record_by_pid(policy.pid)
+        return None
 
     def get_circ_policy_by_OPI(
         patron_type_pid,
@@ -118,10 +121,13 @@ class CircPolicy(IlsRecord):
             'term',
             settings__item_type__pid=item_type_pid
         ).source().scan()
-        try:
-            return CircPolicy.get_record_by_pid(next(result).pid)
-        except StopIteration:
-            return None
+        # TODO: Better query to search pair in same block
+        for policy in result:
+            for settings in policy.settings:
+                if settings['item_type']['pid'] == item_type_pid and \
+                        settings['patron_type']['pid'] == patron_type_pid:
+                    return CircPolicy.get_record_by_pid(policy.pid)
+        return None
 
     def get_default_circ_policy():
         """Return the default circ policy."""
