@@ -29,6 +29,17 @@ import json
 from invenio_search import current_search
 from six.moves.urllib.parse import parse_qs, urlparse
 
+from rero_ils.modules.circ_policies.api import CircPolicy
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patron_types.api import PatronType
+from rero_ils.modules.patrons.api import Patron
+
 
 class VerifyRecordPermissionPatch(object):
     """."""
@@ -62,3 +73,37 @@ def get_mapping(name):
 def flush_index(name):
     """."""
     return current_search.flush_and_refresh(name)
+
+
+def loaded_resources_report():
+    """For debug only: returns a list or count of loaded objects."""
+    objects = {
+        'organisations': Organisation,
+        'libraries': Library,
+        'locations': Location,
+        'circ_policies': CircPolicy,
+        'item_types': ItemType,
+        'patron_types': PatronType,
+        'patrons': Patron,
+        'documents': Document,
+        'loans': Loan,
+        'items': Item
+    }
+    report = {}
+    for object in objects:
+        object_pids = objects[object].get_all_pids()
+        report[object] = len(object_pids)
+        item_details = []
+        if object == 'items':
+            for item in object_pids:
+                item_details.append(
+                    {
+                        'item_pid': item,
+                        'item_status': objects[object].get_record_by_pid(
+                            item).status,
+                        'requests': objects[object].get_record_by_pid(
+                            item).number_of_requests()
+                    }
+                )
+        report['item_details'] = item_details
+    return report

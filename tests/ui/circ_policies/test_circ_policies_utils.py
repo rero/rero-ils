@@ -39,72 +39,46 @@ def test_circ_policy_search(
     circ_policy_short_library
 ):
     """Test Find circ policy"""
-    library_pid = 'lib1'
-    patron_type_pid = 'ptty1'
-    item_type_pid = 'itty1'
-    cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    )
-    assert cipo.pid == 'cipo2'
-    # return library cipo when pair exists.
-    library_pid = 'lib1'
-    patron_type_pid = 'ptty2'
-    item_type_pid = 'itty2'
-    cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    )
-    assert cipo.pid == 'cipo3'
-    # return default cipo when pair does not exists.
-    library_pid = 'lib2'
-    patron_type_pid = 'ptty2'
-    item_type_pid = 'itty2'
-    cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    )
-    assert cipo.pid == 'cipo1'
-    # return default when pair is not set anywhere.
-    library_pid = 'lib1'
-    patron_type_pid = 'ptty3'
-    item_type_pid = 'itty2'
-    cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    )
-    assert cipo.pid == 'cipo1'
-    # return default when pair is not set anywhere.
-    library_pid = 'lib1'
-    patron_type_pid = 'ptty1'
-    item_type_pid = 'itty2'
-    cipo = CircPolicy.provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    )
-    assert cipo.pid == 'cipo1'
+    data = [
+        {
+            'library_pid': 'lib1',
+            'patron_type_pid': 'ptty1',
+            'item_type_pid': 'itty1',
+            'cipo': 'cipo2'
 
-    # Capture error when pair is not correctly set.
-    library_pid = 'lib1'
-    patron_type_pid = 'ptty1'
-    item_type_pid = 'itty2'
-    result = CircPoliciesSearch().filter(
-            'term',
-            policy_library_level=True
-        ).filter(
-            'term',
-            settings__patron_type__pid=patron_type_pid
-        ).filter(
-            'term',
-            settings__item_type__pid=item_type_pid
-        ).filter(
-            'term',
-            libraries__pid=library_pid
-        ).source().scan()
-    with pytest.raises(StopIteration):
-        assert not next(result)
+        },
+        {
+            'library_pid': 'lib1',
+            'patron_type_pid': 'ptty2',
+            'item_type_pid': 'itty2',
+            'cipo': 'cipo3'
+
+        },
+        {
+            'library_pid': 'lib2',
+            'patron_type_pid': 'ptty2',
+            'item_type_pid': 'itty2',
+            'cipo': 'cipo1'
+        },
+        {
+            'library_pid': 'lib1',
+            'patron_type_pid': 'ptty3',
+            'item_type_pid': 'itty2',
+            'cipo': 'cipo1'
+
+        },
+        {
+            'library_pid': 'lib1',
+            'patron_type_pid': 'ptty1',
+            'item_type_pid': 'itty2',
+            'cipo': 'cipo1'
+
+        }
+    ]
+    for row in data:
+        cipo = CircPolicy.provide_circ_policy(
+            row['library_pid'],
+            row['patron_type_pid'],
+            row['item_type_pid']
+        )
+        assert cipo.pid == row['cipo']

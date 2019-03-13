@@ -128,6 +128,18 @@ def item_type_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
+def item_type_data_on_site(data):
+    """."""
+    return deepcopy(data.get('itty3'))
+
+
+@pytest.fixture(scope="function")
+def item_type_data_on_site_tmp(data):
+    """."""
+    return deepcopy(data.get('itty3'))
+
+
+@pytest.fixture(scope="module")
 def item_type_data_specific(data):
     """."""
     return deepcopy(data.get('itty2'))
@@ -314,7 +326,7 @@ def circ_policy(app, organisation, circ_policy_data):
 @pytest.fixture(scope="module")
 def circ_policy_short(
         circ_policy_data_short, patron_type, patron_type_specific,
-        item_type, item_type_specific):
+        item_type, item_type_specific, item_type_on_site):
     """."""
     cipo = CircPolicy.create(
         data=circ_policy_data_short,
@@ -364,6 +376,18 @@ def item_type_specific(app, organisation, item_type_data_specific):
     """."""
     itty = ItemType.create(
         data=item_type_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
+def item_type_on_site(app, organisation, item_type_data_on_site):
+    """."""
+    itty = ItemType.create(
+        data=item_type_data_on_site,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

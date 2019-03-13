@@ -61,6 +61,7 @@
           }
         },
         "settings": {
+          "type": "nested",
           "properties": {
             "patron_type": {
               "properties": {

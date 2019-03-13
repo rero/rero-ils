@@ -165,6 +165,14 @@
         "item_type": {
           "$ref": "https://ils.rero.ch/api/item_types/itty1"
         }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/itty3"
+        }
       }
     ]
   },
@@ -213,6 +221,15 @@
     "name": "specific",
     "pid": "itty2",
     "description": "specific checkout",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "itty3": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "on-site",
+    "pid": "itty3",
+    "description": "on site consultation",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
