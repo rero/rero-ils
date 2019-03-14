@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RecordsService } from '../records.service';
 import { AlertsService, _ } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,67 +13,125 @@ import { map } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
 
+  @Input()
+  set adminMode(value) {
+    if (value !== undefined) {
+      this._adminMode = value;
+      this.getRecords();
+    }
+  }
+  get adminMode() {
+    return this._adminMode;
+  }
+  private _adminMode = undefined;
+
+  @Input()
+  set recordType(value) {
+    if (value !== undefined) {
+      this._recordType = value;
+      this.getRecords();
+    }
+  }
+  get recordType() {
+    return this._recordType;
+  }
+  private _recordType = undefined;
+
+  @Input()
+  set query(value) {
+    if (value !== undefined) {
+      this._query = value;
+      this.getRecords();
+    }
+  }
+  get query() {
+    return this._query;
+  }
+  private _query = '';
+
+  @Input()
+  set nPerPage(value) {
+    if (value !== undefined) {
+      this._nPerPage = value;
+      this.getRecords();
+    }
+  }
+  get nPerPage() {
+    return this._nPerPage;
+  }
+  private _nPerPage = 10;
+
+  @Input()
+  set currentPage(value) {
+    if (value !== undefined) {
+      this._currentPage = value;
+      this.getRecords();
+    }
+  }
+  get currentPage() {
+    return this._currentPage;
+  }
+  private _currentPage = 1;
+
+  @Input()
+  set aggFilters(value) {
+    if (value !== undefined) {
+      this._aggFilters = value;
+      this.getRecords();
+    }
+  }
+  get aggFilters() {
+    return this._aggFilters;
+  }
+  private _aggFilters = [];
+
+  @Input()
+  set showSearchInput(value) {
+    if (value !== undefined) {
+      this._showSearchInput = value;
+      this.getRecords();
+    }
+  }
+  get showSearchInput() {
+    return this._showSearchInput;
+  }
+  private _showSearchInput = false;
+
+  get briefViewName() {
+    if (this._adminMode) {
+      return this._recordType;
+    }
+    return `public_${this._recordType}`;
+  }
   public records: Object[] = [];
   public total = 0;
-  public nPerPage = 10;
-  public currentPage = 1;
-  public recordType = undefined;
-  public query = '';
   public placeholder = '';
   public notFound = false;
   public aggregations = null;
-  public aggFilters = [];
+  public aggsSettings = null;
   public searchMime = 'application/json';
-
+  onInitDone = false;
   constructor(
-    private recordsService: RecordsService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private alertsService: AlertsService
-    ) {}
+    protected recordsService: RecordsService,
+    protected route: ActivatedRoute,
+    protected router: Router,
+    protected alertsService: AlertsService
+   ) {}
 
   ngOnInit() {
-    combineLatest(this.route.params, this.route.queryParamMap)
-    .pipe(map(results => ({params: results[0], query: results[1]})))
-    .subscribe(results => {
-      const params = results.params;
-      const query = results.query;
-      // parse url
-      this.aggFilters = [];
-      this.recordType = params.recordType;
-      if (this.recordType === 'documents') {
-        this.searchMime = 'application/rero+json';
-      }
-      for (const key of query.keys) {
-        switch (key) {
-          case 'q': {
-            this.query = query.get(key);
-            break;
-          }
-          case 'size': {
-            this.nPerPage = +query.get(key);
-            break;
-          }
-          case 'page': {
-            this.currentPage = +query.get(key);
-            break;
-          }
-          default: {
-            for (const value of query.getAll(key)) {
-              const filterValue = `${key}=${value}`;
-              this.aggFilters.push(filterValue);
-            }
-            break;
-          }
-        }
-      }
-
-      this.placeholder = 'Search for' + ` ${this.recordType}`;
-      this.getRecords();
-    });
+    this.onInitDone = true;
+    if (this.recordType === 'documents') {
+      this.searchMime = 'application/rero+json';
+    }
+    this.placeholder = 'Search for' + ` ${this.recordType}`;
+    this.getRecords();
   }
 
+
   getRecords() {
+    if (!this.onInitDone) {
+      return;
+    }
     this.recordsService.getRecords(
       this.recordType,
       this.currentPage,
@@ -87,7 +145,25 @@ export class SearchComponent implements OnInit {
         this.alertsService.addAlert('info', _('No result found.'));
       } else {
         this.records = data.hits.hits;
-        this.aggregations = data.aggregations;
+
+        this.aggregations = [];
+        this.aggsSettings = data.aggregations._settings;
+        if (this.aggsSettings !== undefined) {
+          delete data.aggregations._settings;
+        }
+        let order = [];
+        if (this.aggsSettings) {
+          order = this.aggsSettings.order;
+        }
+        if (!order) {
+          order = Object.keys(data.aggregations);
+        }
+        for (const agg of order) {
+          const agg_value  = data.aggregations[agg];
+          agg_value.title = agg;
+          this.aggregations.push(agg_value);
+        }
+
         this.total = data.hits.total;
         if (this.records.length === 0 && this.currentPage > 1) {
           this.currentPage -= 1;
@@ -155,8 +231,28 @@ export class SearchComponent implements OnInit {
     this.updateRoute();
   }
 
-  isFiltered(term, value) {
-    const filterValue = `${term}=${value}`;
-    return this.aggFilters.some(val => filterValue === val);
+  isFiltered(term, value?) {
+    if (value) {
+      const filterValue = `${term}=${value}`;
+      return this.aggFilters.some(val => filterValue === val);
+    } else {
+      return this.aggFilters.some(val => term === val.split('=')[0]);
+    }
   }
+
+  startOpen(title: string) {
+    if (this.isFiltered(title)) {
+      return true;
+    }
+    if (this.aggsSettings.expand.some(value => value === title)) {
+      return true;
+    }
+    return false;
+  }
+  // isCollapsed(title) {
+  //   return this.startOpen(title);
+  // }
+  // toggleCollapsed(title) {
+  //   return;
+  // }
 }

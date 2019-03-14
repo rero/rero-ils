@@ -8,6 +8,7 @@ import { Observable, forkJoin, of } from 'rxjs';
 import * as moment from 'moment';
 import { TranslateStringService } from '../../translate-string.service';
 import { AlertsService } from '@app/core/alerts/alerts.service';
+import { DialogService } from '@app/core';
 
 export function _(str: string) {
   return str;
@@ -29,12 +30,9 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
   private library_pid: string;
   public patron: User;
   public patronInfo: User;
-  public confirm_changes = false;
-
 
   private loggedUser: User;
   private _items = [];
-  private _noPendingChange: Observable<boolean>;
 
   public get items() {
     if (this.patron) {
@@ -45,13 +43,17 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     return [];
   }
 
+  private confirmConfig: object;
+
+
   constructor(
     private userService: UserService,
     private itemsService: ItemsService,
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateStringService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private dialogService: DialogService
     ) {
     route.queryParamMap.subscribe(
       params => {
@@ -61,7 +63,16 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
         }
       }
     );
-    this._noPendingChange = of(true);
+    this.confirmConfig = {
+      ignoreBackdropClick: true,
+      initialState: {
+        title: this.translate.trans(_('Confirmation')),
+        body: this.translate.trans(_('Exit without saving changes?')),
+        confirmButton: true,
+        confirmTitleButton: _('OK'),
+        cancelTitleButton: _('Cancel')
+      }
+    };
   }
 
   ngOnInit() {
@@ -192,21 +203,15 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
 
   clearPatron(patron: User) {
     if (this.hasPendingActions()) {
-      this.confirm_changes = true;
+
+      this.dialogService.show(this.confirmConfig).subscribe((confirm: boolean) => {
+          if (confirm) {
+           this.doClearPatron();
+          }
+      });
     } else {
       this.doClearPatron();
     }
-  }
-
-  confirmRemovePatron(ok: boolean) {
-    if (ok === true) {
-      this.doClearPatron();
-      this._noPendingChange = of(true);
-    } else {
-      this.confirm_changes = false;
-      this._noPendingChange = of(false);
-    }
-
   }
 
   hasPendingActions() {
@@ -256,8 +261,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     if (!this.hasPendingActions()) {
       return of(true);
     }
-    this.confirm_changes = true;
-    return this._noPendingChange;
+    return this.dialogService.show(this.confirmConfig);
   }
 
 }

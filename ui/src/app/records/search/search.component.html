@@ -2,6 +2,7 @@
   <header class="col-12">
     <div class="col-md-6 px-0">
       <app-search-input
+      *ngIf="showSearchInput"
       [placeholder]="placeholder"
       [searchText]="query"
       (search)="searchValueUpdated($event)"
@@ -12,7 +13,7 @@
         <h6>
           {{total}} {{ 'results' | translate }}
         </h6>
-        <a *ngIf="recordType !== 'persons'" class="btn btn-success btn-sm"
+        <a *ngIf="adminMode && recordType !== 'persons'" class="btn btn-success btn-sm"
            routerLinkActive="active" [routerLink]="['/records', recordType, 'new']"
            translate>
           <i class="fa fa-plus" aria-hidden="true"></i> Add
@@ -23,13 +24,18 @@
       No result found.
     </div>
   </header>
-  <aside *ngIf="aggregations" class="col-md-4 col-lg-3 order-12 order-md-0">
-    <div *ngFor="let item of aggregations | keyvalue">
-      <section class="mb-2" *ngIf="item.value.buckets.length" >
-        <h6 class="border-bottom pb-1 font-weight-bold">{{ item.key | translate }}</h6>
-        <ul class="list-unstyled">
-          <li class="form-check" *ngFor="let bucket of item.value.buckets">
-            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.key, bucket.key)" (click)="aggFilter(item.key, bucket.key) ">
+
+  <aside *ngIf="aggregations && aggregations.length" class="col-md-4 col-lg-3 order-12 order-md-0">
+    <div *ngFor="let item of aggregations">
+      <section class="mb-2" *ngIf="item.buckets.length" >
+        <a class="text-muted" [ngClass]="{'collapsed': !startOpen(item.title)}"
+           data-toggle="collapse" href="#{{'agg_'+item.title }}"
+           aria-expanded="false" aria-controls="libraryData">
+          <h6 class="mb-0 d-inline border-bottom pb-1 font-weight-bold"><i class="fa fa-caret-down" aria-hidden="true"></i> {{ item.title | translate }}</h6>
+        </a>
+        <ul class="list-unstyled collapse" [ngClass]="{'show': startOpen(item.title)}" id="{{'agg_'+item.title }}">
+          <li class="form-check" *ngFor="let bucket of item.buckets">
+            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.title, bucket.key)" (click)="aggFilter(item.title, bucket.key) ">
             <label class="form-check-label">
               <span *ngIf="bucket.name">{{ bucket.name | translate }}</span>
               <span *ngIf="!bucket.name">{{ bucket.key | translate }}</span> ({{ bucket.doc_count }})
@@ -39,12 +45,13 @@
       </section>
     </div>
   </aside>
-  <section [ngClass]="(aggregations | json) === '{}' ? 'col-12' : 'col-md-8 col-lg-9'">
+  <section [ngClass]="aggregations && aggregations.length ? 'col-md-8 col-lg-9' : 'col-12'">
     <ul class="list-group list-group-flush">
       <li class="list-group-item px-0 py-1" *ngFor="let record of records">
         <app-result
         [record]="record"
-        [recordType]="recordType" (deletedRecord)="deleteRecord($event)">
+        [briefViewName]="briefViewName" (deletedRecord)="deleteRecord($event)"
+        [adminMode]="adminMode">
         </app-result>
       </li>
     </ul>

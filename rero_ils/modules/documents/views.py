@@ -26,14 +26,17 @@
 
 from __future__ import absolute_import, print_function
 
+import json
 import re
 import sys
 from functools import wraps
 from urllib.request import urlopen
 
+import requests
 import six
 from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import Blueprint, abort, current_app, jsonify, render_template
+from flask import Blueprint, abort, current_app, jsonify, render_template, \
+    request
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
@@ -88,6 +91,17 @@ def check_permission(fn):
         login_and_librarian()
         return fn(*args, **kwargs)
     return decorated_view
+
+
+@api_blueprint.route('/cover/<isbn>')
+def cover(isbn):
+    """."""
+    cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
+    url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
+                          '&type=isbn&width=60px&callback=thumb&value=' + isbn
+    response = requests.get(
+        url, headers={'referer': request.host_url})
+    return jsonify(json.loads(response.text[len('thumb('):-1]))
 
 
 @api_blueprint.route("/import/bnf/<int:ean>")

@@ -11,13 +11,15 @@ const routes: Routes = [
     path: 'circulation',
     loadChildren: './circulation/circulation.module#CirculationModule'
   }, {
-    path: 'records',
+    path: '',
     loadChildren: './records/records.module#RecordsModule'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(
+    routes
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

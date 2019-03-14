@@ -20,11 +20,11 @@
     </header>
     <div class="container d-none d-md-block pt-2 pt-lg-4">
     <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="large"></search-autocomplete>
-    <app-root></app-root>
     </div>
     <div class="container d-block d-md-none pt-2 pt-lg-4">
-    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}"></search-autocomplete>
+      <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}"></search-autocomplete>
     </div>
+    <app-root></app-root>
     <footer class="text-center bg-danger text-white mt-4">
       <p class="py-2 mb-0">
         {{ _('Software under development') }}

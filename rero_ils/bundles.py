@@ -76,33 +76,6 @@ js = NpmBundle(
     output='gen/rero_ils.main.%(version)s.js'
 )
 
-
-search_js = Bundle(
-    i18n,
-    NpmBundle(
-        'node_modules/almond/almond.js',
-        'js/rero_ils/documents.js',
-        'js/rero_ils/mef_persons.js',
-        'js/rero_ils/invenio_config.js',
-        'js/rero_ils/translations.js',
-        'js/rero_ils/thumbnail.js',
-        'js/rero_ils/search_app.js',
-        filters='requirejs',
-        depends=(
-            'node_modules/invenio-search-js/dist/*.js',
-            'node_modules/d3/*'
-        ),
-        npm={
-            'almond': '~0.3.1',
-            'angular': '~1.4.10',
-            'angular-loading-bar': '~0.9.0',
-            'd3': '^3.5.17',
-            'invenio-search-js': '^1.5.4',
-        }),
-    filters='jsmin',
-    output='gen/rero_ils.search.%(version)s.js',
-)
-
 ui_js = Bundle(
     'node_modules/jquery/jquery.js',
     'js/rero_ils/ui/runtime.js',

@@ -32,7 +32,7 @@ from functools import partial
 
 import requests
 from flask import Blueprint, Response, abort, current_app, jsonify, redirect, \
-    render_template, request
+    render_template, request, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
@@ -173,6 +173,19 @@ def help():
     return redirect(
         current_app.config.get('RERO_ILS_APP_HELP_PAGE'),
         code=302)
+
+
+@blueprint.route('/search')
+@blueprint.route('/search/<path>')
+def search(path=None):
+    """Search page ui."""
+    if not path:
+        q = request.args.get('q', default='')
+        size = request.args.get('size', default='10')
+        page = request.args.get('page', default='1')
+        return redirect(url_for(
+            'rero_ils.search', path='documents', q=q, page=page, size=size))
+    return render_template(current_app.config['SEARCH_UI_SEARCH_TEMPLATE'])
 
 
 @blueprint.app_template_filter()

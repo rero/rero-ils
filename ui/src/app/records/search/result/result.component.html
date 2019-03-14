@@ -2,13 +2,13 @@
   <div class="flex-grow-1">
     <ng-template appBriefView></ng-template>
   </div>
-  <a *ngIf="recordType !== 'persons'" class="float-right text-secondary ml-2"
+  <a *ngIf="adminMode && briefViewName !== 'persons'" class="float-right text-secondary ml-2"
      routerLinkActive="active"
-     [routerLink]="['/records', recordType, record.metadata.pid]"
+     [routerLink]="['/records', briefViewName, record.metadata.pid]"
      title="{{ 'Edit' | translate }}">
     <i class="fa fa-pencil" aria-hidden="true"></i>
   </a>
-  <a *ngIf="recordType !== 'persons'" (click)="deleteRecord(record.metadata.pid)"
+  <a *ngIf="adminMode && briefViewName !== 'persons'" (click)="deleteRecord(record.metadata.pid)"
      class="float-right text-secondary ml-2"
      title="{{ 'Delete' | translate }}">
     <i class="fa fa-trash" aria-hidden="true"></i>

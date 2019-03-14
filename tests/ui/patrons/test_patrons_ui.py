@@ -49,7 +49,10 @@ def test_patrons_profile(client, user_librarian_no_email):
 def test_patrons_logged_user(client, user_librarian_no_email):
     """Test logged user info API."""
     res = client.get(url_for('patrons.logged_user'))
-    assert res.status_code == 401
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+    assert data.get('settings').get('language')
 
     class current_i18n:
         class locale:

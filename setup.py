@@ -138,7 +138,6 @@ setup(
                 rero_ils.modules.admin:persons'
         ],
         'invenio_assets.bundles': [
-            'rero_ils_search_js = rero_ils.bundles:search_js',
             'rero_ils_main_css = rero_ils.bundles:main_css',
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_ui_js = \

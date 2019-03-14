@@ -9,6 +9,8 @@ import { PatronsBriefViewComponent } from '../brief-view/patrons-brief-view.comp
 import { LibrariesBriefViewComponent } from '../brief-view/libraries-brief-view.component';
 import { DocumentsBriefViewComponent } from '../brief-view/documents-brief-view.component';
 import { PersonsBriefViewComponent } from '../brief-view/persons-brief-view.component';
+import { PublicDocumentsBriefViewComponent } from '../brief-view/public-documents-brief-view.component';
+
 
 @Component({
   selector: 'app-result',
@@ -18,7 +20,8 @@ import { PersonsBriefViewComponent } from '../brief-view/persons-brief-view.comp
 export class ResultComponent implements OnInit {
 
   @Input() record: any;
-  @Input() recordType: any;
+  @Input() adminMode: boolean;
+  @Input() briefViewName: any;
   @Output() deletedRecord = new EventEmitter<string>();
 
   @ViewChild(BriefViewDirective) briefView: BriefViewDirective;
@@ -29,7 +32,9 @@ export class ResultComponent implements OnInit {
       patrons: PatronsBriefViewComponent,
       persons: PersonsBriefViewComponent,
       libraries: LibrariesBriefViewComponent,
-      documents: DocumentsBriefViewComponent
+      documents: DocumentsBriefViewComponent,
+      public_documents: PublicDocumentsBriefViewComponent,
+      public_persons: PersonsBriefViewComponent,
   };
   defaultBriefView = JsonBriefViewComponent;
 
@@ -43,8 +48,8 @@ export class ResultComponent implements OnInit {
 
   loadBriefView() {
     let component = this.defaultBriefView;
-    if (this.briefViews[this.recordType]) {
-      component = this.briefViews[this.recordType];
+    if (this.briefViews[this.briefViewName]) {
+      component = this.briefViews[this.briefViewName];
     }
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef = this.briefView.viewContainerRef;
