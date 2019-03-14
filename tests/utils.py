@@ -27,6 +27,7 @@
 import json
 
 import mock
+from invenio_circulation.api import get_loan_for_item
 from invenio_search import current_search
 from six.moves.urllib.parse import parse_qs, urlparse
 
@@ -87,7 +88,6 @@ def loaded_resources_report():
         'patron_types': PatronType,
         'patrons': Patron,
         'documents': Document,
-        'loans': Loan,
         'items': Item
     }
     report = {}
@@ -103,7 +103,8 @@ def loaded_resources_report():
                         'item_status': objects[object].get_record_by_pid(
                             item).status,
                         'requests': objects[object].get_record_by_pid(
-                            item).number_of_requests()
+                            item).number_of_requests(),
+                        'loans': get_loan_for_item(item)
                     }
                 )
         report['item_details'] = item_details

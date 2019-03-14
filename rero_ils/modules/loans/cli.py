@@ -34,6 +34,7 @@ import click
 from flask.cli import with_appcontext
 from invenio_circulation.api import get_loan_for_item
 
+from ..circ_policies.api import CircPolicy
 from ..item_types.api import ItemType
 from ..items.api import Item, ItemsSearch, ItemStatus
 from ..libraries.api import Library
@@ -52,7 +53,6 @@ def create_loans(infile, verbose):
     """
     click.secho('Create circulation transactions:', fg='green')
     data = json.load(infile)
-    loanable_items = get_loanable_items()
     for patron_data in data:
         barcode = patron_data.get('barcode')
         if barcode is None:
@@ -60,6 +60,9 @@ def create_loans(infile, verbose):
         else:
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
+            patron_type_pid = Patron.get_patron_by_barcode(
+                barcode).replace_refs().patron_type_pid
+            loanable_items = get_loanable_items(patron_type_pid)
 
             for transaction in range(loans.get('active', 0)):
                 item_barcode = create_loan(barcode, 'active', loanable_items)
@@ -138,15 +141,21 @@ def create_loan(barcode, transaction_type, loanable_items):
         requested_patron = get_random_patron(barcode)
         user_pid, user_location = \
             get_random_librarian_and_transaction_location()
-        item.request(
-            patron_pid=requested_patron.pid,
-            transaction_location_pid=user_location,
-            transaction_user_pid=user_pid,
-            transaction_date=transaction_date,
-            pickup_location_pid=get_random_pickup_location(
-                requested_patron.pid),
-            document_pid=item.replace_refs()['document']['pid'],
-        )
+        circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                requested_patron.replace_refs().patron_type_pid,
+                item.item_type_pid
+            )
+        if circ_policy.get('allow_requests'):
+            item.request(
+                patron_pid=requested_patron.pid,
+                transaction_location_pid=user_location,
+                transaction_user_pid=user_pid,
+                transaction_date=transaction_date,
+                pickup_location_pid=get_random_pickup_location(
+                    requested_patron.pid),
+                document_pid=item.replace_refs()['document']['pid'],
+            )
     return item['barcode']
 
 
@@ -160,14 +169,22 @@ def create_request(barcode, transaction_type, loanable_items):
             datetime.now(timezone.utc) - timedelta(2)).isoformat()
         user_pid, user_location = \
             get_random_librarian_and_transaction_location()
-        item.request(
-            patron_pid=rank_1_patron.pid,
-            transaction_location_pid=user_location,
-            transaction_user_pid=user_pid,
-            transaction_date=transaction_date,
-            pickup_location_pid=get_random_pickup_location(rank_1_patron.pid),
-            document_pid=item.replace_refs()['document']['pid'],
-        )
+
+        circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                rank_1_patron.replace_refs().patron_type_pid,
+                item.item_type_pid
+            )
+        if circ_policy.get('allow_requests'):
+            item.request(
+                patron_pid=rank_1_patron.pid,
+                transaction_location_pid=user_location,
+                transaction_user_pid=user_pid,
+                transaction_date=transaction_date,
+                pickup_location_pid=get_random_pickup_location(
+                    rank_1_patron.pid),
+                document_pid=item.replace_refs()['document']['pid'],
+            )
     transaction_date = datetime.now(timezone.utc).isoformat()
     user_pid, user_location = get_random_librarian_and_transaction_location()
     item.request(
@@ -181,21 +198,23 @@ def create_request(barcode, transaction_type, loanable_items):
     return item['barcode']
 
 
-def get_loanable_items():
+def get_loanable_items(patron_type_pid):
     """."""
-    # TODO: to be replace by circulation policies
-    exclude_item_type_pids = [
-        ItemType.get_pid_by_name('No checkout'),
-        ItemType.get_pid_by_name('On-site')
-    ]
     loanable_items = ItemsSearch()\
-        .filter('term', status=ItemStatus.ON_SHELF)\
-        .exclude('terms', item_type__pid=exclude_item_type_pids)\
-        .source(['pid']).scan()
+        .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
     for loanable_item in loanable_items:
         item = Item.get_record_by_pid(loanable_item.pid)
-        if not item.number_of_requests():
-            yield item
+        circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                patron_type_pid,
+                item.item_type_pid
+            )
+        if (
+            circ_policy.get('allow_checkout') and
+            circ_policy.get('allow_requests')
+        ):
+            if not item.number_of_requests():
+                yield item
 
 
 def get_random_library():

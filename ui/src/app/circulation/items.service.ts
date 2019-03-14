@@ -42,8 +42,12 @@ export class ItemsService {
     );
   }
 
-  getItem(barcode: string) {
-    return this.http.get<any>(`/api/item/barcode/${barcode}`).pipe(
+  getItem(barcode: string, patron_pid?: string) {
+    let url = `/api/item/barcode/${barcode}`;
+    if (patron_pid) {
+      url = url + `?patron_pid=${patron_pid}`;
+    }
+    return this.http.get<any>(url).pipe(
       map(data => {
         return data.metadata;
       }),

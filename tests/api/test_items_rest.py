@@ -1081,3 +1081,131 @@ def test_items_deny_requests(client, user_librarian_no_email,
         reindex=True)
     flush_index(CircPoliciesSearch.Meta.index)
     assert circ_policy_short.get('allow_requests')
+
+
+def test_extend_possible_actions(client, item_on_shelf,
+                                 user_librarian_no_email,
+                                 user_patron_no_email):
+    """Extend action changes according to params of cipo"""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    patron_pid = user_patron_no_email.pid
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+
+    res = client.get(
+        url_for('api_item.loans', patron_pid=patron_pid)
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data.get('hits').get('total') == 1
+    actions = data.get('hits').get('hits')[0].get('item').get('actions')
+    assert 'extend_loan' in actions
+    assert 'checkin' in actions
+
+    from rero_ils.modules.circ_policies.api import CircPolicy
+    circ_policy = CircPolicy.provide_circ_policy(
+            item.library_pid,
+            'ptty1',
+            'itty1'
+    )
+
+    circ_policy['number_renewals'] = 0
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+    res = client.get(
+        url_for('api_item.loans', patron_pid=patron_pid)
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data.get('hits').get('total') == 1
+    actions = data.get('hits').get('hits')[0].get('item').get('actions')
+    assert 'extend_loan' not in actions
+    assert 'checkin' in actions
+    loan_pid = data.get('hits').get('hits')[0].get('loan').get('loan_pid')
+    # reset used objects
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    circ_policy['number_renewals'] = 1
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+    assert circ_policy['number_renewals'] == 1
+
+
+def test_item_possible_actions(client, item_on_shelf,
+                               user_librarian_no_email,
+                               user_patron_no_email):
+    """Possible action changes according to params of cipo"""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    patron_pid = user_patron_no_email.pid
+    res = client.get(
+        url_for(
+            'api_item.item',
+            item_barcode=item.get('barcode'),
+            patron_pid=patron_pid
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+
+    actions = data.get('metadata').get('item').get('actions')
+    assert 'checkout' in actions
+
+    from rero_ils.modules.circ_policies.api import CircPolicy
+    circ_policy = CircPolicy.provide_circ_policy(
+            item.library_pid,
+            'ptty1',
+            'itty1'
+    )
+
+    circ_policy['allow_checkout'] = False
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+    res = client.get(
+        url_for(
+            'api_item.item',
+            item_barcode=item.get('barcode'),
+            patron_pid=patron_pid
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+
+    actions = data.get('metadata').get('item').get('actions')
+    assert 'checkout' not in actions
+
+    circ_policy['allow_checkout'] = True
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+    assert circ_policy['allow_checkout']
