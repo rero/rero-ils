@@ -171,14 +171,6 @@
           "$ref": "https://ils.rero.ch/api/patron_types/2"
         },
         "item_type": {
-          "$ref": "https://ils.rero.ch/api/item_types/4"
-        }
-      },
-      {
-        "patron_type": {
-          "$ref": "https://ils.rero.ch/api/patron_types/2"
-        },
-        "item_type": {
           "$ref": "https://ils.rero.ch/api/item_types/5"
         }
       },
@@ -237,6 +229,14 @@
       {
         "patron_type": {
           "$ref": "https://ils.rero.ch/api/patron_types/1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/4"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/2"
         },
         "item_type": {
           "$ref": "https://ils.rero.ch/api/item_types/4"

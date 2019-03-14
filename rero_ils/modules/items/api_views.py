@@ -36,7 +36,9 @@ from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
 from .api import Item
+from ..circ_policies.api import CircPolicy
 from ..loans.api import Loan
+from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
 api_blueprint = Blueprint(
@@ -237,11 +239,34 @@ def requested_loans(library_pid):
 @jsonify_error
 def loans(patron_pid):
     """HTTP GET request for requested loans for a library."""
+    patron_type_pid = Patron.get_record_by_pid(
+        patron_pid).replace_refs().patron_type_pid
     items_loans = Item.get_checked_out_items(patron_pid)
     metadata = []
     for item, loan in items_loans:
+        extension_count = loan.get('extension_count', 0)
+        item_dumps = item.dumps_for_circulation()
+        actions = item_dumps.get('actions')
+        circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                patron_type_pid,
+                item.item_type_pid
+        )
+        new_actions = []
+        for action in actions:
+            if action == 'checkout' and circ_policy.get('allow_checkout'):
+                new_actions.append(action)
+            if (
+                action == 'extend_loan' and
+                circ_policy.get('number_renewals') > 0 and
+                extension_count < circ_policy.get('number_renewals')
+            ):
+                new_actions.append(action)
+            if action == 'checkin':
+                new_actions.append(action)
+        item_dumps['actions'] = new_actions
         metadata.append({
-            'item': item.dumps_for_circulation(),
+            'item': item_dumps,
             'loan': loan.dumps_for_circulation()
         })
     return jsonify({
@@ -256,16 +281,34 @@ def loans(patron_pid):
 @check_authentication
 @jsonify_error
 def item(item_barcode):
-    """HTTP GET request for requested loans for a library."""
+    """HTTP GET request for requested loans for a library item and patron."""
     item = Item.get_item_by_barcode(item_barcode)
     if not item:
         abort(404)
     loan = get_loan_for_item(item.pid)
     if loan:
         loan = Loan.get_record_by_pid(loan['loan_pid']).dumps_for_circulation()
+    item_dumps = item.dumps_for_circulation()
+    patron_pid = flask_request.args.get('patron_pid')
+
+    if patron_pid:
+        patron_type_pid = Patron.get_record_by_pid(
+            patron_pid).replace_refs().patron_type_pid
+
+        circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                patron_type_pid,
+                item.item_type_pid
+        )
+        actions = item_dumps.get('actions')
+        new_actions = []
+        for action in actions:
+            if action == 'checkout' and circ_policy.get('allow_checkout'):
+                new_actions.append(action)
+        item_dumps['actions'] = new_actions
     return jsonify({
         'metadata': {
-            'item': item.dumps_for_circulation(),
+            'item': item_dumps,
             'loan': loan
         }
     })

@@ -98,11 +98,8 @@ def loan_satisfy_circ_policies(loan):
 
 def is_item_available_for_checkout(item_pid):
     """Item is available for action CHECKOUT."""
-    item = Item.get_record_by_pid(item_pid).dumps()
-    item_type_pid = item.get('item_type_pid')
-
-    # item type no-checkout
-    return item_type_pid != '4'
+    # TODO: implement item level restrictions not related to cipo here
+    return True
 
 
 def can_be_requested(loan):

@@ -117,7 +117,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
         this.alertsService.addAlert('info', _('The item is already in the list.'));
       }
     } else {
-      this.itemsService.getItem(barcode).subscribe(
+      this.itemsService.getItem(barcode, this.patron.pid).subscribe(
         (newItem) => {
           if (newItem === null) {
             this.alertsService.addAlert('info', _('item not found!'));
@@ -125,9 +125,14 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
             if (newItem.canLoan(this.patron) === false) {
               this.alertsService.addAlert('info', _('item is unavailable!'));
             } else {
-              newItem.currentAction = ItemAction.checkout;
-              this.items.unshift(newItem);
-              this.searchText = '';
+
+              if (newItem.actions === ['no']) {
+                this.alertsService.addAlert('info', _('no action possible on this item!'));
+              } else {
+                newItem.currentAction = ItemAction.checkout;
+                this.items.unshift(newItem);
+                this.searchText = '';
+              }
             }
           }
         },
