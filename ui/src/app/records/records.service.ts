@@ -22,6 +22,17 @@ export class RecordsService {
       new NgLocaleLocalization(this.translateService.currentLang));
   }
 
+  getCover(isbn: string) {
+    const url = `/api/cover/${isbn}`;
+    return this.http.get<any>(url).pipe(
+      catchError(e => {
+        if (e.status === 404) {
+          return of(null);
+        }
+      })
+    );
+  }
+
   getRecords(
     record_type: string,
     page: number = 1,
@@ -49,7 +60,7 @@ export class RecordsService {
     query: string,
     mime_type: string = 'application/json'
   ) {
-    const url = `/api/${record_type}/?q=${field}:${query}`;
+    const url = `/api/${record_type}/?q=${field}:${query}&size=5`;
     return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
         if (e.status === 404) {

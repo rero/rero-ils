@@ -125,7 +125,7 @@
                 href_update=url_for('records/documents.index', path=record.pid),
                 href_delete='/api/documents/' + record.pid,
                 json=record,
-                next=url_for('invenio_search_ui.search'),
+                next=url_for('rero_ils.search'),
                 message=_("Document cannot be deleted: there are still items linked to this document.")
               %}
                 {% include 'rero_ils/_editor_button_actions.html' %}

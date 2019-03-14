@@ -25,6 +25,7 @@ import { PatronsBriefViewComponent } from './search/brief-view/patrons-brief-vie
 import { PersonsBriefViewComponent } from './search/brief-view/persons-brief-view.component';
 import { LibrariesBriefViewComponent } from './search/brief-view/libraries-brief-view.component';
 import { DocumentsBriefViewComponent } from './search/brief-view/documents-brief-view.component';
+import { PublicDocumentsBriefViewComponent } from './search/brief-view/public-documents-brief-view.component';
 import { ExceptionDatesListComponent } from './custom-editor/libraries/exception-dates-list/exception-dates-list.component';
 import { ExceptionDatesEditComponent } from './custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -40,6 +41,10 @@ import { LibraryFormService } from './custom-editor/libraries/library-form.servi
 import { BirthDatePipe } from './search/brief-view/birth-date.pipe';
 import { BioInformationsPipe } from './search/brief-view/bio-informations.pipe';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AdminSearchComponent } from './search/admin-search/admin-search.component';
+import { PublicSearchComponent } from './search/public-search/public-search.component';
+import { DocumentsSearchComponent } from './search/public-search/documents-search.component';
+import { PersonsSearchComponent } from './search/public-search/persons-search.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +62,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     PatronsBriefViewComponent,
     LibrariesBriefViewComponent,
     DocumentsBriefViewComponent,
+    PublicDocumentsBriefViewComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent,
@@ -64,7 +70,11 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     CirculationPolicyComponent,
     LibraryComponent,
     BirthDatePipe,
-    BioInformationsPipe
+    BioInformationsPipe,
+    AdminSearchComponent,
+    PublicSearchComponent,
+    DocumentsSearchComponent,
+    PersonsSearchComponent
   ],
   imports: [
     CommonModule,
@@ -88,6 +98,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     PatronsBriefViewComponent,
     LibrariesBriefViewComponent,
     DocumentsBriefViewComponent,
+    PublicDocumentsBriefViewComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
     PersonsBriefViewComponent

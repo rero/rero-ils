@@ -73,13 +73,11 @@ blueprint = Blueprint(
 
 
 @blueprint.route('/logged_user', methods=['GET'])
-@check_permission
+# @check_permission
 def logged_user():
     """Current logged user informations in JSON."""
     patron = Patron.get_patron_by_user(current_user)
-    if patron is None:
-        raise NotFound()
-    if 'resolve' in request.args:
+    if patron and 'resolve' in request.args:
         patron = patron.replace_refs()
         patron = patron.dumps()
         if patron.get('library'):
@@ -90,7 +88,6 @@ def logged_user():
                 'pid': library['organisation']['pid']
             }
     data = {
-        'metadata': patron,
         'settings': {
             'language': current_i18n.locale.language,
             'baseUrl': current_app.config.get(
@@ -99,6 +96,8 @@ def logged_user():
             )
         }
     }
+    if patron:
+        data['metadata'] = patron
     return jsonify(data)
 
 

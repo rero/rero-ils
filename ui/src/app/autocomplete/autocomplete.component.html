@@ -1,9 +1,11 @@
 <ng-template #customItemTemplate let-match="match" let-query="query" let-model="item" let-index="index">
+  <span *ngIf="model.index === 'persons'"><i  class="fa fa-user" aria-hidden="true"></i>&nbsp;</span>
   <span [innerHtml]="model.text"></span>
 </ng-template>
 <form #form class="input-group" action="{{ action }}"
       [ngClass]="{'input-group-lg': size === 'large', 'input-group-sm': size === 'small'}"
       role="search" autocomplete="off">
+
   <input
   name="q"
   type="search"
@@ -18,8 +20,11 @@
   [typeaheadWaitMs]="300"
   [typeaheadMinLength]="3"
   [typeaheadItemTemplate]="customItemTemplate"
-  typeaheadGroupField="index"
+  typeaheadGroupField="category"
+  (typeaheadOnSelect)="typeaheadOnSelect($event)"
   >
+  <input type="hidden" name="size" value="10">
+  <input type="hidden" name="page" value="1">
   <div class="input-group-append">
     <button type="submit" (click)="form.submit()" class="btn btn-light"><i class="fa fa-search"></i></button>
   </div>

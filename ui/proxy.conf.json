@@ -62,15 +62,6 @@
       "^/static": "http://localhost:5000/admin/lib"
     }
   },
-  "/search": {
-    "target": "http://localhost:5000",
-    "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/static": "http://localhost:5000/search"
-    }
-  },
   "/schema/*": {
     "target": "http://localhost:5000",
     "secure": false,

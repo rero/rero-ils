@@ -314,7 +314,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers:json_v1_search'
+                'rero_ils.modules.serializers:json_v1_search'
             ),
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
@@ -418,7 +418,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
+                'rero_ils.modules.serializers' ':json_v1_search'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_search'
@@ -576,7 +576,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
+                'rero_ils.modules.serializers' ':json_v1_search'
             ),
             'application/can-delete+json': (
                 'rero_ils.modules.serializers' ':can_delete_json_v1_search'

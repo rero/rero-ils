@@ -11,14 +11,8 @@
 {% extends 'rero_ils/header.html' %}
 {%- block navbar_search %}
   <div class="align-self-center pr-2 flex-grow-1">
-    <invenio-search-bar
-     template="{{ url_for('static', filename=config.REROILS_SEARCHBAR_TEMPLATE) }}"
-     {%- if record_type %}
-      placeholder="{{ _(record_type) }}: {{ search_input_placeholder|default(_('Search')) }}"
-      {%- else %}
-      placeholder="{{ _('Search') }}"
-      {%- endif %}
-      >
-    </invenio-search-bar>
+            <div class="align-self-center pr-2 flex-grow-1">
+              <search-autocomplete placeholder="{{ _('Search') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="small"></search-autocomplete>
+            </div>
   </div>
 {%- endblock navbar_search %}

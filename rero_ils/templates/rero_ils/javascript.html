@@ -6,4 +6,6 @@
   RERO ILS is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License License; see LICENSE file for more details.
 #}
+{%- block javascript %}
 {% assets "rero_ils_main_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{%- endblock javascript %}

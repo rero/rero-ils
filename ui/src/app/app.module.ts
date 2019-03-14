@@ -41,7 +41,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     MylibraryComponent,
     AutocompleteComponent
-    // ConfirmWindowComponent
   ],
   imports: [
     CoreModule,

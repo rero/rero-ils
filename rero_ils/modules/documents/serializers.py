@@ -60,23 +60,17 @@ class ReroIlsSerializer(ReroIlsSerializer):
             facet_config = current_app.config.get(
                 'RERO_ILS_APP_CONFIG_FACETS', {}
             )
-            try:
-                type = search_result['hits']['hits'][0]['_index'].split('-')[0]
-                for aggregation in results.get('aggregations'):
-                    facet_config_type = facet_config.get(type, {})
-                    facet_config_type_expand = facet_config_type.get(
-                        'expand', ''
-                    )
-                    results['aggregations'][aggregation]['expand'] = False
-                    if aggregation in facet_config_type_expand:
-                        results['aggregations'][aggregation]['expand'] = True
+            if search_result['hits']['hits']:
+                index_name = \
+                    search_result['hits']['hits'][0]['_index'].split('-')[0]
+                facet_config = facet_config.get(index_name, {})
+                results['aggregations']['_settings'] = facet_config
                 for lib_term in results.get('aggregations', {}).get(
                         'library', {}).get('buckets', []):
                     pid = lib_term.get('key')
                     name = Library.get_record_by_pid(pid).get('name')
                     lib_term['name'] = name
-            except Exception:
-                pass
+
         return json.dumps(results, **self._format_args())
 
 

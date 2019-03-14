@@ -11,9 +11,11 @@
   {%- block head_base %}
     {% if admin_page %}
       <base href="/admin">
-      {% else %}
-    <base href="/">
-        {% endif %}
+    {% elif request.path.startswith('/search') %}
+      <base href="/">
+    {% else %}
+      <base href="{{ request.path }}">
+    {% endif %}
   {%- endblock head_base %}
   {%- block head_meta %}
     <meta charset="utf-8">

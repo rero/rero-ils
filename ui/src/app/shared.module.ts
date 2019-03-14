@@ -4,12 +4,11 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
-import { ConfirmWindowComponent } from './confirm-window/confirm-window.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap';
 
 @NgModule({
-  declarations: [SearchInputComponent, ConfirmWindowComponent],
+  declarations: [SearchInputComponent],
   imports: [
     CommonModule,
     DataTablesModule,
@@ -24,7 +23,6 @@ import { PaginationModule } from 'ngx-bootstrap';
     DataTablesModule,
     SearchInputComponent,
     ModalModule,
-    ConfirmWindowComponent,
     PaginationModule
   ]
 })
