@@ -38,6 +38,8 @@ set -e
 pipenv run invenio index destroy --force --yes-i-know
 pipenv run invenio index init --force
 pipenv run invenio index queue init purge
+# Delete invenio_circulations index
+pipenv run invenio index delete loans-loan-v1.0.0 --force --yes-i-know
 
 # Create admin role to restrict access
 pipenv run invenio roles create admin
