@@ -38,6 +38,8 @@ set -e
 pipenv run invenio index destroy --force --yes-i-know
 pipenv run invenio index init --force
 pipenv run invenio index queue init purge
+# Delete invenio_circulations index
+pipenv run invenio index delete loans-loan-v1.0.0 --force --yes-i-know
 
 # Create admin role to restrict access
 pipenv run invenio roles create admin
@@ -67,38 +69,40 @@ pipenv run invenio access allow superuser-access role superusers
 pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
-
+echo -e ${GREEN}Organisations:${NC}
 pipenv run invenio records create --pid-minter organisation_id ${data_path}/organisations.json
-pipenv run invenio records create --pid-minter library_id ${data_path}/libraries.json
-pipenv run invenio records create --pid-minter location_id ${data_path}/locations.json
-pipenv run invenio records create --pid-minter item_type_id ${data_path}/item_types.json
-pipenv run invenio records create --pid-minter patron_type_id ${data_path}/patron_types.json
-pipenv run invenio records create --pid-minter circ_policy_id ${data_path}/circulation_policies.json
-
 pipenv run invenio index reindex -t org --yes-i-know
+echo -e ${GREEN}Libraries:${NC}
+pipenv run invenio records create --pid-minter library_id ${data_path}/libraries.json
 pipenv run invenio index reindex -t lib --yes-i-know
+echo -e ${GREEN}Locations:${NC}
+pipenv run invenio records create --pid-minter location_id ${data_path}/locations.json
 pipenv run invenio index reindex -t loc --yes-i-know
+echo -e ${GREEN}Item types:${NC}
+pipenv run invenio records create --pid-minter item_type_id ${data_path}/item_types.json
 pipenv run invenio index reindex -t itty --yes-i-know
+echo -e ${GREEN}Patron types:${NC}
+pipenv run invenio records create --pid-minter patron_type_id ${data_path}/patron_types.json
 pipenv run invenio index reindex -t ptty --yes-i-know
+echo -e ${GREEN}Circulation policies:${NC}
+pipenv run invenio records create --pid-minter circ_policy_id ${data_path}/circulation_policies.json
 pipenv run invenio index reindex -t cipo --yes-i-know
 pipenv run invenio index run --raise-on-error
 
 pipenv run invenio fixtures import_users ${data_path}/users.json -v
 
-
-## API Mef configurations and harvest
-pipenv run invenio apiharvester sources ${data_path}/apisources.yml
-pipenv run invenio apiharvester harvest -n mef -m 1000
-
-
-# # create the bib records
+# to generate data file
+# pipenv run invenio fixtures create_items -c 10000 -i 5 ${data_path}/items.json
+# xml to json transformation for rero marcxml records
+# pipenv run dojson -i data/10k.xml -l marcxml -d pjson do marc21tojson > data/10k.json
+echo -e ${GREEN}Documents:${NC}
 pipenv run dojson -i ${data_path}/10k.json schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' | pipenv run invenio records create --pid-minter document_id
-
 
 # create items
 # NEEDS item type !!!
 # to generate data file
 # pipenv run invenio fixtures create_items -c 10000 -i 5 ${data_path}/items.json
+echo -e ${GREEN}Items:${NC}
 if [ "$1" = "--deployment" ]
 then
     pipenv run dojson -i ${data_path}/items.json schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' | pipenv run invenio records create --pid-minter item_id
@@ -111,6 +115,7 @@ pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
 # # create circulation transactions
+echo -e ${GREEN}Circulation transactions:${NC}
 pipenv run invenio fixtures create_loans ${data_path}/loans.json
 
 # # OAI configuration
