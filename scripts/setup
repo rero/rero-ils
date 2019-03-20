@@ -29,12 +29,15 @@ GREEN='\033[0;0;32m'
 NC='\033[0m' # No Color
 
 data_path=$(pipenv --where)/data
-
+# Purge celery
+pipenv run celery purge -A invenio_app.celery -f
 # Clean redis
 pipenv run invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 pipenv run invenio db destroy --yes-i-know
 pipenv run invenio db init create
 set -e
+# We have to delete persons-mef_person-v0.0.1 manualy
+pipenv run invenio index delete persons-mef_person-v0.0.1 --force --yes-i-know
 pipenv run invenio index destroy --force --yes-i-know
 pipenv run invenio index init --force
 pipenv run invenio index queue init purge
@@ -91,9 +94,11 @@ pipenv run invenio index run --raise-on-error
 
 pipenv run invenio fixtures import_users ${data_path}/users.json -v
 
-# to generate data file
+# # to generate data file
 # pipenv run invenio fixtures create_items -c 10000 -i 5 ${data_path}/items.json
-# xml to json transformation for rero marcxml records
+# # Marc to xml transformation
+# yaz-marcdump -o marcxml data/10k.mrc > data/10k.xml
+# # xml to json transformation for rero marcxml records
 # pipenv run dojson -i data/10k.xml -l marcxml -d pjson do marc21tojson > data/10k.json
 echo -e ${GREEN}Documents:${NC}
 pipenv run dojson -i ${data_path}/10k.json schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' | pipenv run invenio records create --pid-minter document_id

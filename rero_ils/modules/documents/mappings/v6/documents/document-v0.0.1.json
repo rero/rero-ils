@@ -68,7 +68,28 @@
           "properties": {
             "name": {
               "type": "text",
-              "copy_to": "facet_authors"
+              "copy_to": [
+                "facet_authors_en",
+                "facet_authors_fr",
+                "facet_authors_de",
+                "facet_authors_it"
+              ]
+            },
+            "name_en": {
+              "type": "text",
+              "copy_to": "facet_authors_en"
+            },
+            "name_fr": {
+              "type": "text",
+              "copy_to": "facet_authors_fr"
+            },
+            "name_de": {
+              "type": "text",
+              "copy_to": "facet_authors_de"
+            },
+            "name_it": {
+              "type": "text",
+              "copy_to": "facet_authors_it"
             },
             "type": {
               "type": "keyword"
@@ -84,7 +105,16 @@
             }
           }
         },
-        "facet_authors": {
+        "facet_authors_en": {
+          "type": "keyword"
+        },
+        "facet_authors_fr": {
+          "type": "keyword"
+        },
+        "facet_authors_de": {
+          "type": "keyword"
+        },
+        "facet_authors_it": {
           "type": "keyword"
         },
         "publishers": {

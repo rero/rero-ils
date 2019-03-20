@@ -60,6 +60,12 @@ def persons_detailed_view(pid):
         sources=1
     ))
     if response.status_code != requests.codes.ok:
+        current_app.logger.info(
+            'Mef Error: {status} {url}'.format(
+                status=response.status_code,
+                url=mef_url
+            )
+        )
         abort(response.status_code)
     record = response.json()
     record = record.get('metadata')

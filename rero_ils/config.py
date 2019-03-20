@@ -68,6 +68,8 @@ def _(x):
 # =============
 #: Storage for ratelimiter.
 RATELIMIT_STORAGE_URL = 'redis://localhost:6379/3'
+RATELIMIT_DEFAULT = '5000/second'
+RATELIMIT_ENABLED = False
 
 # I18N
 # ====
@@ -635,15 +637,28 @@ RERO_ILS_APP_CONFIG_FACETS = {
         'order': [
             'document_type',
             'library',
-            'author',
+            'author__en',
+            'author__fr',
+            'author__de',
+            'author__it',
             'language',
             'subject',
             'status',
         ],
         'expand': ['document_type'],
     },
-    'patrons': {'order': ['roles'], 'expand': ['roles']},
-    'persons': {'order': ['sources'], 'expand': ['sources']},
+    'patrons': {
+        'order': [
+            'roles'
+        ],
+        'expand': ['roles']
+    },
+    'persons': {
+        'order': [
+            'sources'
+        ],
+        'expand': ['sources']
+    },
 }
 
 RECORDS_REST_FACETS = {
@@ -651,7 +666,10 @@ RECORDS_REST_FACETS = {
         aggs=dict(
             document_type=dict(terms=dict(field='type')),
             library=dict(terms=dict(field='items.library_pid')),
-            author=dict(terms=dict(field='facet_authors')),
+            author__en=dict(terms=dict(field='facet_authors_en')),
+            author__fr=dict(terms=dict(field='facet_authors_fr')),
+            author__de=dict(terms=dict(field='facet_authors_de')),
+            author__it=dict(terms=dict(field='facet_authors_it')),
             language=dict(terms=dict(field='languages.language')),
             subject=dict(terms=dict(field='facet_subject')),
             status=dict(terms=dict(field='items.status'))
@@ -659,7 +677,10 @@ RECORDS_REST_FACETS = {
         filters={
             _('document_type'): terms_filter('type'),
             _('library'): terms_filter('items.library_pid'),
-            _('author'): terms_filter('facet_authors'),
+            _('author__en'): terms_filter('facet_authors_en'),
+            _('author__fr'): terms_filter('facet_authors_fr'),
+            _('author__de'): terms_filter('facet_authors_de'),
+            _('author__it'): terms_filter('facet_authors_it'),
             _('language'): terms_filter('languages.language'),
             _('subject'): terms_filter('facet_subject'),
             _('status'): terms_filter('items.status'),

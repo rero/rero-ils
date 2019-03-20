@@ -42,6 +42,26 @@ def get_mef_value(data, key, default=None):
     return value
 
 
+def localized_data(data, key, language):
+    """Get localized data."""
+    order = current_app.config.get('RERO_ILS_PERSONS_LABEL_ORDER', [])
+    source_order = order.get(language, order.get(order['fallback'], []))
+    for source in source_order:
+        value = data.get(source, {}).get(key, None)
+        if value:
+            return value
+    return data.get(key, None)
+
+
+def get_defined_languages():
+    """Get defined languages from config."""
+    languages = [current_app.config.get('BABEL_DEFAULT_LANGUAGE')]
+    i18n_languages = current_app.config.get('I18N_LANGUAGES')
+    for i18n_language in i18n_languages:
+        languages.append(i18n_language[0])
+    return languages
+
+
 # TODO: dynamic route for host configuration in config.py
 @jsonresolver.route('/api/mef/<pid>', host='mef.rero.ch')
 def mef_person_resolver(pid):
@@ -50,60 +70,45 @@ def mef_person_resolver(pid):
         url=current_app.config.get('RERO_ILS_MEF_URL'),
         pid=pid
     )
-    if mef_url:
-        request = requests_get(url=mef_url, params=dict(
-            resolve=1,
-            sources=1
-        ))
-        if request.status_code == requests_codes.ok:
-            data = request.json().get('metadata')
-            if data:
-                author = {
-                    'type': 'person',
-                    'pid': pid
-                }
-                # name
-                name = get_mef_value(data, 'preferred_name_for_person')
-                if name:
-                    author['name'] = name
-                    # date
-                    date_of_birth = get_mef_value(
-                        data,
-                        'date_of_birth',
-                        ''
-                    )
-                    date_of_death = get_mef_value(
-                        data,
-                        'date_of_death',
-                        ''
-                    )
-                    if date_of_birth or date_of_death:
-                        date = '{date_of_birth}-{date_of_death}'.format(
-                            date_of_birth=date_of_birth,
-                            date_of_death=date_of_death
-                        )
-                        author['date'] = date
-                    # qualifier ?????
-                    return author
-                else:
-                    current_app.logger.error(
-                        'Mef resolver no name: {result} {url}'.format(
-                            result=data,
-                            url=mef_url
-                        )
-                    )
-            else:
-                current_app.logger.error(
-                    'Mef resolver no metadata: {result} {url}'.format(
-                        result=request.json(),
-                        url=mef_url
-                    )
+    request = requests_get(url=mef_url, params=dict(
+        resolve=1,
+        sources=1
+    ))
+    if request.status_code == requests_codes.ok:
+        data = request.json().get('metadata')
+        if data:
+            author = {
+                'type': 'person',
+                'pid': pid
+            }
+            for language in get_defined_languages():
+                author[
+                    'name_{language}'.format(language=language)
+                ] = localized_data(
+                    data, 'preferred_name_for_person', language
                 )
+            # date
+            date_of_birth = get_mef_value(data, 'date_of_birth', '')
+            date_of_death = get_mef_value(data, 'date_of_death', '')
+            if date_of_birth or date_of_death:
+                date = '{date_of_birth}-{date_of_death}'.format(
+                    date_of_birth=date_of_birth,
+                    date_of_death=date_of_death
+                )
+                author['date'] = date
+            return author
         else:
             current_app.logger.error(
-                'Mef resolver request error: {result} {url}'.format(
-                    result=request.status_code,
+                'Mef resolver no metadata: {result} {url}'.format(
+                    result=request.json(),
                     url=mef_url
                 )
             )
-    raise Exception('unable to resolve')
+    else:
+        current_app.logger.error(
+            'Mef resolver request error: {result} {url}'.format(
+                result=request.status_code,
+                url=mef_url
+            )
+        )
+        raise Exception('unable to resolve')

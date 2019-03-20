@@ -55,7 +55,7 @@ def get_mef_person_link(id, key, value):
     """Get mef person link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     PROD_HOST = 'mef.rero.ch'
-    DEV_HOST = 'mefdev.test.rero.ch'
+    DEV_HOST = 'mef.test.rero.ch'
     mef_url = None
     if id:
         identifier = id[1:].split(')')

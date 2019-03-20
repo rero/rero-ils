@@ -41,16 +41,16 @@ from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
-from .api import Document
-from .dojson.contrib.unimarctojson import unimarctojson
+from ...filter import format_date_filter
+from ...permissions import login_and_librarian
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
 from ..loans.utils import can_be_requested
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
-from ...filter import format_date_filter
-from ...permissions import login_and_librarian
+from .api import Document
+from .dojson.contrib.unimarctojson import unimarctojson
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -211,19 +211,33 @@ def patron_request_rank(item):
     return False
 
 
+def localized_data_name(data, language):
+    """Get localized name."""
+    name = data.get('name_{language}'.format(language=language))
+    if name:
+        return name
+    name = data.get('name')
+    if name:
+        return name
+    return ''
+
+
 @blueprint.app_template_filter()
-def authors_format(pid):
+def authors_format(pid, language):
     """Format authors for template."""
     doc = Document.get_record_by_pid(pid)
     doc = doc.replace_refs()
     output = []
     for author in doc.get('authors', []):
         line = []
-        line.append(author.get('name'))
-        if author.get('qualifier'):
-            line.append(author.get('qualifier'))
-        if author.get('date'):
-            line.append(author.get('date'))
+        name = localized_data_name(data=author, language=language)
+        line.append(name)
+        qualifier = author.get('qualifier')
+        if qualifier:
+            line.append(qualifier)
+        date = author.get('date')
+        if date:
+            line.append(date)
         mef_pid = author.get('pid')
         if mef_pid:
             # add link <a href="url">link text</a>

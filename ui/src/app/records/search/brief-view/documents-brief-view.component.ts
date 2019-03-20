@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
+import { TranslateService } from '@ngx-translate/core';
 
 import { _, AlertsService } from '@app/core';
 
@@ -12,8 +13,8 @@ import { _, AlertsService } from '@app/core';
   <small> &ndash; {{ record.metadata.type | translate }}</small></h5>
   <div class="card-text">
   <span *ngFor="let publisher of record.metadata.publishers; let isLast=last">
-    <span *ngIf="publisher.name">
-      {{ publisher.name }}{{isLast ? '. ' : ', '}}
+    <span *ngIf="publisherNames()">
+      {{ publisherNames() }}{{isLast ? '. ' : ', '}}
     </span>
   </span>
   <span *ngIf="record.metadata.freeFormedPublicationDate; else PublicationYear">
@@ -61,8 +62,24 @@ export class DocumentsBriefViewComponent implements BriefView {
 
   constructor(
     private recordsService: RecordsService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private translate: TranslateService
     ) {}
+
+  publisherNames() {
+    const name_index = 'name_' + this.translate.currentLang;
+    const publishers = [];
+    for (const publisher of this.record.metadata.publishers) {
+      let name_lng = publisher[name_index];
+      if (!name_lng) {
+        name_lng = publisher['name'];
+      }
+      if (name_lng) {
+        publishers.push(name_lng);
+      }
+    }
+    return publishers;
+  }
 
   deleteItem(pid) {
     this.recordsService.deleteRecord(pid, 'items').subscribe(success => {
