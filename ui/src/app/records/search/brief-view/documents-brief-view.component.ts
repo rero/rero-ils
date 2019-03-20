@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
+import { TranslateService } from '@ngx-translate/core';
 
 import { _, AlertsService } from '@app/core';
 
@@ -11,9 +12,29 @@ import { _, AlertsService } from '@app/core';
   <h5 class="mb-0 card-title"><a href="{{'/documents/' + record.metadata.pid}}">{{record.metadata.title}}</a>
   <small> &ndash; {{ record.metadata.type | translate }}</small></h5>
   <div class="card-text">
+
+  <!-- author -->
+  <ul class="list-inline mb-0" *ngIf="record.metadata.authors && record.metadata.authors.length > 0">
+    <li class="list-inline-item" *ngFor="let author of record.metadata.authors.slice(0,3); let last = last">
+      <span *ngIf="!author.pid">
+        {{ authorName(author) }}
+        {{ author.qualifier ? author.qualifier : '' }}
+        {{ author.date ? author.date : '' }}
+      </span>
+      <a *ngIf="author.pid" href="/persons/{{ author.pid }}">
+        {{ authorName(author) }}
+        {{ author.qualifier ? author.qualifier : '' }}
+        {{ author.date ? author.date : '' }}
+      </a>
+      {{ last ? '' : '; ' }}
+
+    </li>
+    <li *ngIf="record.metadata.authors && record.metadata.authors.length > 3">; …</li>
+  </ul>
+
   <span *ngFor="let publisher of record.metadata.publishers; let isLast=last">
-    <span *ngIf="publisher.name">
-      {{ publisher.name }}{{isLast ? '. ' : ', '}}
+    <span *ngIf="publisherNames()">
+      {{ publisherNames() }}{{isLast ? '. ' : ', '}}
     </span>
   </span>
   <span *ngIf="record.metadata.freeFormedPublicationDate; else PublicationYear">
@@ -61,8 +82,31 @@ export class DocumentsBriefViewComponent implements BriefView {
 
   constructor(
     private recordsService: RecordsService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private translate: TranslateService
     ) {}
+
+  publisherNames() {
+    const name_index = `name_${this.translate.currentLang}`;
+    const publishers = [];
+    for (const publisher of this.record.metadata.publishers) {
+      let name_lng = publisher[name_index];
+      if (!name_lng) {
+        name_lng = publisher['name'];
+      }
+      publishers.push(name_lng);
+    }
+    return publishers;
+  }
+
+  authorName(author) {
+    const name_index = `name_${this.translate.currentLang}`;
+    let name_lng = author[name_index];
+    if (!name_lng) {
+      name_lng = author['name'];
+    }
+    return name_lng;
+  }
 
   deleteItem(pid) {
     this.recordsService.deleteRecord(pid, 'items').subscribe(success => {

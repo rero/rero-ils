@@ -26,6 +26,7 @@
 
 
 import jsonresolver
+from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
@@ -35,4 +36,10 @@ def document_resolver(pid):
     persistent_id = PersistentIdentifier.get('doc', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
+    current_app.logger.error(
+        'Doc resolver error: /api/documents/{pid} {persistent_id}'.format(
+            pid=pid,
+            persistent_id=persistent_id
+        )
+    )
     raise Exception('unable to resolve')

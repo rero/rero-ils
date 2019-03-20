@@ -29,6 +29,14 @@
             ],
             "version": "==2.4.2"
         },
+        "appnope": {
+            "hashes": [
+                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
+                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
+            ],
+            "markers": "sys_platform == 'darwin'",
+            "version": "==0.1.0"
+        },
         "arrow": {
             "hashes": [
                 "sha256:3397e5448952e18e1295bf047014659effa5ae8da6a5371d37ff0ddc46fa6872",
@@ -639,10 +647,10 @@
         },
         "ipython": {
             "hashes": [
-                "sha256:06de667a9e406924f97781bda22d5d76bfb39762b678762d86a466e63f65dc39",
-                "sha256:5d3e020a6b5f29df037555e5c45ab1088d6a7cf3bd84f47e0ba501eeb0c3ec82"
+                "sha256:b038baa489c38f6d853a3cfc4c635b0cda66f2864d136fe8f40c1a6e334e2a6b",
+                "sha256:f5102c1cd67e399ec8ea66bcebe6e3968ea25a8977e53f012963e5affeb1fe38"
             ],
-            "version": "==7.3.0"
+            "version": "==7.4.0"
         },
         "ipython-genutils": {
             "hashes": [
@@ -1223,10 +1231,10 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:590abe38f8be026d78457fe3b5200895b3543e58ac3fc1dd792c6333ea11af64",
-                "sha256:ee11b0f0640c56fb491b43b38356c4b588b3202b415a1e03eacf1c5561c961cf"
+                "sha256:96da23fa8ccecbc3ae832a83df5c722c11547d021637faacb0bec4dd2f4666c8",
+                "sha256:ca5c2dcd367d6c0df87185b9082929d255358f5391923269335782b213d52655"
             ],
-            "version": "==0.15.0"
+            "version": "==0.15.1"
         },
         "whichcraft": {
             "hashes": [
@@ -1711,10 +1719,10 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:590abe38f8be026d78457fe3b5200895b3543e58ac3fc1dd792c6333ea11af64",
-                "sha256:ee11b0f0640c56fb491b43b38356c4b588b3202b415a1e03eacf1c5561c961cf"
+                "sha256:96da23fa8ccecbc3ae832a83df5c722c11547d021637faacb0bec4dd2f4666c8",
+                "sha256:ca5c2dcd367d6c0df87185b9082929d255358f5391923269335782b213d52655"
             ],
-            "version": "==0.15.0"
+            "version": "==0.15.1"
         }
     }
 }

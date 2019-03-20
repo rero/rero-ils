@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
+import { TranslateService } from '@ngx-translate/core';
 
 import { _, AlertsService } from '@app/core';
 
@@ -22,12 +23,12 @@ import { _, AlertsService } from '@app/core';
         <ul class="list-inline mb-0" *ngIf="record.metadata.authors && record.metadata.authors.length > 0">
           <li class="list-inline-item" *ngFor="let author of record.metadata.authors.slice(0,3); let last = last">
             <span *ngIf="!author.pid">
-              {{ author.name }}
+              {{ authorName(author) }}
               {{ author.qualifier ? author.qualifier : '' }}
               {{ author.date ? author.date : '' }}
             </span>
             <a *ngIf="author.pid" href="/persons/{{ author.pid }}">
-              {{ author.name }}
+              {{ authorName(author) }}
               {{ author.qualifier ? author.qualifier : '' }}
               {{ author.date ? author.date : '' }}
             </a>
@@ -98,8 +99,18 @@ export class PublicDocumentsBriefViewComponent implements BriefView {
   coverUrl: string;
 
   constructor(
-    private recordsService: RecordsService
+    private recordsService: RecordsService,
+    private translate: TranslateService
   ) {}
+
+  authorName(author) {
+    const name_index = `name_${this.translate.currentLang}`;
+    let name_lng = author[name_index];
+    if (!name_lng) {
+      name_lng = author['name'];
+    }
+    return name_lng;
+  }
 
   getCover(isbn) {
     this.recordsService.getCover(isbn).subscribe(result => {
