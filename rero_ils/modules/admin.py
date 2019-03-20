@@ -37,7 +37,7 @@ class ILSManager(BaseView):
     @expose('/')
     @expose('/<path:path>')
     def index(self, path=None):
-        """Angular Circulation view."""
+        """Angular professional view."""
         return self.render('rero_ils/page_admin.html')
 
     def is_accessible(self):
@@ -66,15 +66,17 @@ class LibraryManager(BaseView):
 circulation = {
     'view_class': ILSManager,
     'kwargs': dict(name='Circulation',
+                   category='User Services',
                    endpoint='circulation',
                    menu_icon_type='fa',
-                   menu_icon_value='fa-barcode')
+                   menu_icon_value='fa-exchange')
 }
 
 my_library = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='My Library',
+        category='Admin & Monitoring',
         endpoint='mylibrary',
         menu_icon_type='fa',
         menu_icon_value='fa-university'
@@ -85,9 +87,10 @@ library = {
     'view_class': LibraryManager,
     'kwargs': dict(
         name='Libraries',
+        category='Admin & Monitoring',
         endpoint='libraries',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-university'
     )
 }
 
@@ -95,10 +98,10 @@ item_types = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Item Types',
-        category='Resources',
+        category='Admin & Monitoring',
         endpoint='records/item_types',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-file-o'
     )
 }
 
@@ -106,10 +109,10 @@ patron_types = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Patron Types',
-        category='Resources',
+        category='Admin & Monitoring',
         endpoint='records/patron_types',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-users'
     )
 }
 
@@ -117,10 +120,10 @@ circ_policies = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Circulation Policies',
-        category='Resources',
+        category='Admin & Monitoring',
         endpoint='records/circ_policies',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-exchange'
     )
 }
 
@@ -128,10 +131,10 @@ patrons = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Patrons',
-        category='Resources',
+        category='User Services',
         endpoint='records/patrons',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-users'
     )
 }
 
@@ -139,10 +142,10 @@ persons = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Persons',
-        category='Resources',
+        category='Catalogue',
         endpoint='records/persons',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-user'
     )
 }
 
@@ -161,10 +164,10 @@ libraries = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Libraries',
-        category='Resources',
+        category='Admin & Monitoring',
         endpoint='records/libraries',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-university'
     )
 }
 
@@ -172,10 +175,10 @@ documents = {
     'view_class': ILSManager,
     'kwargs': dict(
         name='Documents',
-        category='Resources',
+        category='Catalogue',
         endpoint='records/documents',
         menu_icon_type='fa',
-        menu_icon_value='fa-barcode'
+        menu_icon_value='fa-file-o'
     )
 }
 

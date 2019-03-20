@@ -20,13 +20,17 @@
           {%- if children %}
           {% set class_name = item.get_class_name() %}
             <li class="nav-item {{ class_name if class_name }}">
-            {% set item_id =  item.name.replace(' ', '-').lower() %}
+            {% set item_id =  item.name  | text_to_id %}
+            {% set icon_class = config.get('RERO_ILS_ADMIN_CATEGORY_ICONS', {}).get(item.name) %}
               <a data-toggle="collapse"
                  class="nav-link collapsed"
                  href="#{{ item_id }}"
                  role="button"
                  aria-controls="collapseExample"
                  aria-expanded="false">
+                 {% if icon_class %}
+                  <i class="{{ icon_class }}" aria-hidden="true"></i>
+                 {% endif %}
                 {{ menu_icon(item) }} {{ _(item.name) }}
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
               </a>
@@ -58,7 +62,7 @@
         {%- if item.is_category() -%}
         {% set children = item.get_children() %}
           {%- if children %}
-          {% set item_id =  item.name.replace(' ', '-').lower() %}
+          {% set item_id =  item.name | text_to_id %}
             <div class="rero-ils-admin-submenu collapse flex-grow-1 w-100" id="{{ item_id }}" data-parent="#navbarHide">
               <ul class="navbar-nav">
               {%- for child in children -%}
@@ -92,7 +96,7 @@
         {%- if children -%}
           {% set class_name = item.get_class_name() %}
           <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
-          {% set item_id =  item.name.replace(' ', '-').lower() %}
+          {% set item_id =  item.name  | text_to_id %}
             <a data-toggle="collapse" class="nav-link collapsed" role="button" href="#{{ item_id }}" aria-controls="collapseExample" aria-expanded="false">{{ _(item.name) }} <i class="fa fa-caret-down float-right" aria-hidden="true"></i></a>
             <ul class="nav collapse pl-2" data-parent="#mobileHide" id="{{ item_id }}">
             {%- for child in children -%}
