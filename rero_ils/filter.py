@@ -25,6 +25,7 @@
 """Jinja filters."""
 
 import json
+import re
 
 import babel
 import dateparser
@@ -89,3 +90,8 @@ def resource_can_create(record_type):
 def admin_menu_is_visible(admin_menu):
     """Evaluate if the menu is visible for a user."""
     return any(m.is_accessible() for m in admin_menu)
+
+
+def text_to_id(text):
+    """."""
+    return re.sub(r'\W', '', text)

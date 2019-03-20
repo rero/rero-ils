@@ -825,6 +825,11 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
 
 ADMIN_PERMISSION_FACTORY = 'rero_ils.permissions.admin_permission_factory'
 ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
+RERO_ILS_ADMIN_CATEGORY_ICONS = {
+    "Admin & Monitoring": "fa fa-cogs",
+    "Catalogue": "fa fa-file-o",
+    "User Services": "fa fa-users"
+}
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid
