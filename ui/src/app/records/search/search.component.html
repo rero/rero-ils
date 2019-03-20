@@ -31,7 +31,7 @@
         <a class="text-muted" [ngClass]="{'collapsed': !startOpen(item.title)}"
            data-toggle="collapse" href="#{{'agg_'+item.title }}"
            aria-expanded="false" aria-controls="libraryData">
-          <h6 class="mb-0 d-inline border-bottom pb-1 font-weight-bold"><i class="fa fa-caret-down" aria-hidden="true"></i> {{ item.title | translate }}</h6>
+          <h6 class="mb-0 d-inline border-bottom pb-1 font-weight-bold"><i class="fa fa-caret-down" aria-hidden="true"></i> {{ item.name | translate }}</h6>
         </a>
         <ul class="list-unstyled collapse" [ngClass]="{'show': startOpen(item.title)}" id="{{'agg_'+item.title }}">
           <li class="form-check" *ngFor="let bucket of item.buckets">

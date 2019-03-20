@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RecordsService } from '../records.service';
 import { AlertsService, _ } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -110,16 +111,19 @@ export class SearchComponent implements OnInit {
   public aggregations = null;
   public aggsSettings = null;
   public searchMime = 'application/json';
+  public language = null;
   onInitDone = false;
   constructor(
     protected recordsService: RecordsService,
     protected route: ActivatedRoute,
     protected router: Router,
-    protected alertsService: AlertsService
+    protected alertsService: AlertsService,
+    private translate: TranslateService
    ) {}
 
   ngOnInit() {
     this.onInitDone = true;
+    this.language = this.translate.currentLang;
     if (this.recordType === 'documents') {
       this.searchMime = 'application/rero+json';
     }
@@ -161,7 +165,16 @@ export class SearchComponent implements OnInit {
         for (const agg of order) {
           const agg_value  = data.aggregations[agg];
           agg_value.title = agg;
-          this.aggregations.push(agg_value);
+          agg_value.name = agg;
+          const agg_split = agg.split('__');
+          if (agg_split.length === 2) {
+            if (this.language === agg_split[1]) {
+              agg_value.name = agg_split[0];
+              this.aggregations.push(agg_value);
+            }
+          } else {
+            this.aggregations.push(agg_value);
+          }
         }
 
         this.total = data.hits.total;

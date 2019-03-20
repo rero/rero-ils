@@ -211,19 +211,30 @@ def patron_request_rank(item):
     return False
 
 
+def localized_data_name(data, language):
+    """Get localized name."""
+    return data.get(
+        'name_{language}'.format(language=language),
+        data.get('name', '')
+    )
+
+
 @blueprint.app_template_filter()
-def authors_format(pid):
+def authors_format(pid, language):
     """Format authors for template."""
     doc = Document.get_record_by_pid(pid)
     doc = doc.replace_refs()
     output = []
     for author in doc.get('authors', []):
         line = []
-        line.append(author.get('name'))
-        if author.get('qualifier'):
-            line.append(author.get('qualifier'))
-        if author.get('date'):
-            line.append(author.get('date'))
+        name = localized_data_name(data=author, language=language)
+        line.append(name)
+        qualifier = author.get('qualifier')
+        if qualifier:
+            line.append(qualifier)
+        date = author.get('date')
+        if date:
+            line.append(date)
         mef_pid = author.get('pid')
         if mef_pid:
             # add link <a href="url">link text</a>

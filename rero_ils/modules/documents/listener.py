@@ -120,8 +120,8 @@ def mef_person_update_index(sender, *args, **kwargs):
                         current_search.flush_and_refresh(index)
                 else:
                     current_app.logger.error(
-                        'Mef resolver request error: {result} {url}'.format(
-                            result=request.status_code,
+                        'Mef resolver request error: {stat} {url}'.format(
+                            stat=request.status_code,
                             url=mef_url
                         )
                     )
