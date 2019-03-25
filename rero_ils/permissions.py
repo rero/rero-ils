@@ -82,6 +82,7 @@ def admin_permission_factory(admin_view):
         'Circulation',
         'Circulation Settings',
         'Libraries',
+        'Items',
         'My Library'] \
        or admin_view.category in [
             'Catalogue',
