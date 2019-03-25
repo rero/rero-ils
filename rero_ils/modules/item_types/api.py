@@ -28,6 +28,7 @@ from __future__ import absolute_import, print_function
 
 from functools import partial
 
+from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
 
 from .models import ItemTypeIdentifier
@@ -64,19 +65,6 @@ class ItemType(IlsRecord):
     minter = item_type_id_minter
     fetcher = item_type_id_fetcher
     provider = ItemTypeProvider
-
-    # @property
-    # def can_delete(self):
-    #     """Record can be deleted."""
-    #     from ..documents_items.api import DocumentsSearch
-
-    #     search = (
-    #         DocumentsSearch()
-    #         .filter('term', **{'itemslist.item_type_pid': self.pid})
-    #         .source()
-    #         .scan()
-    #     )
-    #     return search.count() == 0
 
     @classmethod
     def get_pid_by_name(cls, name):
@@ -123,7 +111,18 @@ class ItemType(IlsRecord):
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""
         results = CircPoliciesSearch().filter(
-            'term', settings__patron_type__pid=self.pid).source().count()
+            'nested',
+            path='settings',
+            query=Q(
+                'bool',
+                must=[
+                    Q(
+                        'match',
+                        settings__item_type__pid=self.pid
+                    )
+                ]
+            )
+        ).source().count()
         return results
 
     def get_links_to_me(self):

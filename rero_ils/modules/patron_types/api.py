@@ -28,6 +28,7 @@ from __future__ import absolute_import, print_function
 
 from functools import partial
 
+from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
 
 from .models import PatronTypeIdentifier
@@ -66,21 +67,6 @@ class PatronType(IlsRecord):
     fetcher = patron_type_id_fetcher
     provider = PatronTypeProvider
 
-    # @property
-    # def can_delete(self):
-    #     """Record can be deleted."""
-    #     from ..patrons.api import PatronsSearch
-
-    #     count = len(
-    #         list(
-    #             PatronsSearch()
-    #             .filter('term', **{'patron_type_pid': self.pid})
-    #             .source()
-    #             .scan()
-    #         )
-    #     )
-    #     return count == 0
-
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique on organisation."""
@@ -106,7 +92,18 @@ class PatronType(IlsRecord):
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""
         results = CircPoliciesSearch().filter(
-            'term', settings__item_type__pid=self.pid).source().count()
+            'nested',
+            path='settings',
+            query=Q(
+                'bool',
+                must=[
+                    Q(
+                        'match',
+                        settings__patron_type__pid=self.pid
+                    )
+                ]
+            )
+        ).source().count()
         return results
 
     def get_links_to_me(self):
