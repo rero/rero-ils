@@ -2,7 +2,7 @@
   <span *ngIf="model.index === 'persons'"><i  class="fa fa-user" aria-hidden="true"></i>&nbsp;</span>
   <span [innerHtml]="model.text"></span>
 </ng-template>
-<form #form class="input-group" action="{{ action }}"
+<form #form class="rero-ils-autocomplete input-group" action="{{ action }}"
       [ngClass]="{'input-group-lg': size === 'large', 'input-group-sm': size === 'small'}"
       role="search" autocomplete="off">
 

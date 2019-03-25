@@ -92,7 +92,7 @@
                     {% set patron_name = patron.first_name + ' ' + patron.last_name + ' - ' + patron.barcode %}
                     <tr>
                       <td>
-                        <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode')}}">{{ patron_name }}</a>
+                        <a href="{{ url_for('circulation.index', path='checkinout', patron=patron.get('barcode')) }}">{{ patron_name }}</ a>
                       </td>
                       <td>
                         {{ holding.end_date|format_date(
@@ -137,7 +137,7 @@
                       <tr>
                         <td>
                           {% if patron %}
-                            <a href="{{ url_for('circulation.index') + 'checkinout?patron=' + patron.get('barcode')}}">{{ patron_name }}</a>
+                            <a href="{{ url_for('circulation.index', path='checkinout', patron=patron.get('barcode')) }}">{{ patron_name }}</a>
                           {% else %}
                             {{ _('No patron found!') }}
                           {% endif %}

@@ -13,19 +13,19 @@
 {%- block page_body %}
 <div class="flex-grow-1">
 {%- block body %}
-  <header class="rero-ils-frontpage d-flex flex-column justify-content-end text-white">
-    <header class="container text-center pb-2 pb-lg-4">
+  <header class="rero-ils-frontpage d-flex flex-column justify-content-between text-white pt-4">
+    <header class="container text-center mt-4">
       <h1>{{ _('Get into your library') }}</h1>
       <h2>{{ _('A wealth of knowledge just a click away') }}</h2>
     </header>
-    <div class="container d-none d-md-block pt-2 pt-lg-4">
+    <div class="container d-none d-md-block">
     <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="large"></search-autocomplete>
     </div>
-    <div class="container d-block d-md-none pt-2 pt-lg-4">
+    <div class="container d-block d-md-none">
       <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}"></search-autocomplete>
     </div>
     <app-root></app-root>
-    <footer class="text-center bg-danger text-white mt-4">
+    <footer class="text-center bg-danger text-white">
       <p class="py-2 mb-0">
         {{ _('Software under development') }}
       </p>

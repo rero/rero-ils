@@ -8,14 +8,15 @@
  */
 
  .rero-ils-frontpage {
-  height: 70vh;
+  height: 45vh;
   background-image: url(#{$static-images}/homepage_image_bleu.jpg);
   background-size: cover;
+  background-position: center;
   form {
     margin: 0 auto;
     width: 80%;
   }
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(xs) {
     height: 60vh;
   }
 }
