@@ -25,6 +25,10 @@
             "key": "authors[].type",
             "type": "radiobuttons",
             "notitle": true,
+            "description": "",
+            "condition": {
+              "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.$ref === undefined && author.name === undefined && author.date === undefined &&  author.qualifier === undefined;}"
+            },
             "titleMap": [
               {
                 "value": "person",
@@ -41,18 +45,35 @@
             }
           },
           {
-            "key": "authors[].name"
+            "key": "authors[].$ref",
+            "title": "Name of Person",
+            "condition": {
+              "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.type === 'person';}"
+            },
+            "type": "refAuthority"
+          },
+          {
+            "title": "Name of Organisation",
+            "key": "authors[].name",
+            "description": "",
+            "condition": {
+              "functionBody": "{return model.authors[arrayIndices[0]].type === 'organisation';}"
+            }
           },
           {
             "key": "authors[].date",
+            "title": "Date of birth - date of death",
+            "description": "",
             "condition": {
-              "functionBody": "{return model.authors[arrayIndices[0]].type === 'person';}"
+              "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
             }
           },
           {
             "key": "authors[].qualifier",
+            "title": "Title and other designation associated with person",
+            "description": "",
             "condition": {
-              "functionBody": "{return model.authors[arrayIndices[0]].type === 'person';}"
+              "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
             }
           }
         ]

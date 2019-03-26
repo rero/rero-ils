@@ -45,6 +45,8 @@ import { AdminSearchComponent } from './search/admin-search/admin-search.compone
 import { PublicSearchComponent } from './search/public-search/public-search.component';
 import { DocumentsSearchComponent } from './search/public-search/documents-search.component';
 import { PersonsSearchComponent } from './search/public-search/persons-search.component';
+import { RefAuthorityComponent } from './editor/ref-authority/ref-authority.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { PersonsSearchComponent } from './search/public-search/persons-search.co
     AdminSearchComponent,
     PublicSearchComponent,
     DocumentsSearchComponent,
-    PersonsSearchComponent
+    PersonsSearchComponent,
+    RefAuthorityComponent
   ],
   imports: [
     CommonModule,
@@ -86,11 +89,13 @@ import { PersonsSearchComponent } from './search/public-search/persons-search.co
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   entryComponents: [
     RemoteSelectComponent,
     RemoteInputComponent,
+    RefAuthorityComponent,
     JsonBriefViewComponent,
     ItemTypesBriefViewComponent,
     PatronTypesBriefViewComponent,

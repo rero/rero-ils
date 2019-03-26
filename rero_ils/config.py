@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 #
 # This file is part of RERO_ILS.
@@ -817,7 +818,7 @@ RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
 #: RERO_ILS MEF specificconfigurations.
 RERO_ILS_MEF_HOST = 'mef.rero.ch'
-RERO_ILS_MEF_URL = 'https://{host}/api/'.format(host=RERO_ILS_MEF_HOST)
+RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host=RERO_ILS_MEF_HOST)
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 

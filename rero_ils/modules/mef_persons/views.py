@@ -27,7 +27,8 @@
 from __future__ import absolute_import, print_function
 
 import requests
-from flask import Blueprint, abort, current_app, render_template
+from flask import Blueprint, Response, abort, current_app, render_template, \
+    request
 
 from ..documents.api import DocumentsSearch
 
@@ -51,7 +52,7 @@ def persons_detailed_view(pid):
     """
     # record_viewed.send(
     #     current_app._get_current_object(), pid=pid, record=record)
-    mef_url = '{url}mef/{pid}'.format(
+    mef_url = '{url}{pid}'.format(
         url=current_app.config.get('RERO_ILS_MEF_URL'),
         pid=pid
     )
@@ -115,3 +116,39 @@ def person_label(data, language):
         if label:
             return label
     return '-'
+
+
+api_blueprint = Blueprint(
+    'api_mef_persons',
+    __name__
+)
+
+
+@api_blueprint.route('/mef/', defaults={'path': ''})
+@api_blueprint.route('/mef/<path:path>')
+def mef_proxy(path):
+    """Proxy to mef server."""
+    resp = requests.request(
+        method=request.method,
+        url=request.url.replace(
+            request.base_url.replace(path, ''),
+            current_app.config.get('RERO_ILS_MEF_URL')
+        ),
+        headers={
+            key: value for (key, value) in request.headers if key != 'Host'
+        },
+        data=request.get_data(),
+        cookies=request.cookies,
+        allow_redirects=True
+    )
+    excluded_headers = ['content-encoding', 'content-length',
+                        'transfer-encoding', 'connection']
+    headers = [
+        (name, value) for (name, value) in resp.raw.headers.items()
+        if name.lower() not in excluded_headers
+    ]
+
+    response = Response(resp.content, resp.status_code, headers)
+    if response.status_code != requests.codes.ok:
+        abort(response.status_code)
+    return response
