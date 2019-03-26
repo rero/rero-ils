@@ -29,6 +29,7 @@ invenio-pidstore = ">=1.0.0,<1.1.0"
 invenio-records-rest = ">=1.4.0,<1.5.0"
 invenio-records-ui = ">=1.0.1,<1.1.0"
 invenio-records = ">=1.1.0,<1.2.0"
+Werkzeug = ">=0.15"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"

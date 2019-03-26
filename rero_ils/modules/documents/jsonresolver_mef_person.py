@@ -64,10 +64,11 @@ def get_defined_languages():
 @jsonresolver.route('/api/mef/<pid>', host='mef.rero.ch')
 def mef_person_resolver(pid):
     """MEF person resolver."""
-    mef_url = '{url}/mef/{pid}'.format(
+    mef_url = '{url}{pid}'.format(
         url=current_app.config.get('RERO_ILS_MEF_URL'),
         pid=pid
     )
+
     request = requests_get(url=mef_url, params=dict(
         resolve=1,
         sources=1

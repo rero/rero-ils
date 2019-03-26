@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RecordsService } from '../records.service';
 import { RemoteSelectComponent } from './remote-select/remote-select.component';
 import { RemoteInputComponent } from './remote-input/remote-input.component';
+import { RefAuthorityComponent } from './ref-authority/ref-authority.component';
+
 import { WidgetLibraryService } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -39,6 +41,7 @@ export class EditorComponent implements OnInit {
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
+    this.widgetLibrary.registerWidget('refAuthority', RefAuthorityComponent);
     this.currentLocale = translateService.currentLang;
   }
 

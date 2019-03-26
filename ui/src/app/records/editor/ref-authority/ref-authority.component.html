@@ -1,0 +1,35 @@
+<h4 *ngIf="controlValue"><span class="badge badge-light">
+  {{ asyncSelected.name }}
+</span></h4>
+
+<ng-template #customItemTemplate let-match="match" let-query="query" let-model="item" let-index="index">
+  <span [innerHtml]="model.name"></span>
+</ng-template>
+<form *ngIf="!controlValue" #form class="input-group" action="{{ action }}"
+      [ngClass]="{'input-group-lg': size === 'large', 'input-group-sm': size === 'small'}"
+      role="search" autocomplete="off">
+
+  <input
+  name="q"
+  type="search"
+  placeholder="{{ placeholder }}"
+  [(ngModel)]="asyncSelected.query"
+  [typeaheadAsync]="true"
+  [typeahead]="dataSource"
+  (typeaheadLoading)="changeTypeaheadLoading($event)"
+    [typeaheadOptionsLimit]="10"
+  typeaheadOptionField="ref"
+  class="form-control"
+  [typeaheadWaitMs]="300"
+  [typeaheadMinLength]="0"
+  [typeaheadItemTemplate]="customItemTemplate"
+  (typeaheadOnSelect)="typeaheadOnSelect($event)"
+  typeaheadGroupField="category"
+  (input)="valueChanged($event.target.value)"
+  >
+  <input type="hidden" name="size" value="10">
+  <input type="hidden" name="page" value="1">
+  <div class="input-group-append">
+    <button type="submit" (click)="form.submit()" class="btn btn-light"><i class="fa fa-search"></i></button>
+  </div>
+</form>
