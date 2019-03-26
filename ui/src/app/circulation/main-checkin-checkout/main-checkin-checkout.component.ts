@@ -136,8 +136,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
             if (newItem.canLoan(this.patron) === false) {
               this.alertsService.addAlert('info', _('item is unavailable!'));
             } else {
-
-              if (newItem.actions === ['no']) {
+              if (newItem.actions.length === 1 && newItem.actions.indexOf('no') > -1) {
                 this.alertsService.addAlert('info', _('no action possible on this item!'));
               } else {
                 newItem.currentAction = ItemAction.checkout;
