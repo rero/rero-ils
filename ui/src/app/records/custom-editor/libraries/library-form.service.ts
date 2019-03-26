@@ -77,6 +77,13 @@ export class LibraryFormService {
     });
   }
 
+  reset() {
+    this.build();
+    // TODO: replace by something like this
+    // this.form.reset();
+    // this.createOpeningHours();
+  }
+
   populate(library: Library) {
     this.form.patchValue({
       name: library.name,
