@@ -84,10 +84,12 @@ export class LibraryComponent implements OnInit {
         this.router.navigate(['/records', 'libraries']);
       });
     }
+    this.libraryForm.reset();
   }
 
   onCancel() {
     this.router.navigate(['/records', 'libraries']);
+    this.libraryForm.reset();
   }
 
   addTime(day_index): void {
