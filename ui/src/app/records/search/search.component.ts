@@ -87,6 +87,18 @@ export class SearchComponent implements OnInit {
   private _aggFilters = [];
 
   @Input()
+  set sort(value) {
+    if (value !== undefined) {
+      this._sort = value;
+      this.getRecords();
+    }
+  }
+  get sort() {
+    return this._sort;
+  }
+  private _sort = undefined;
+
+  @Input()
   set showSearchInput(value) {
     if (value !== undefined) {
       this._showSearchInput = value;
@@ -136,13 +148,19 @@ export class SearchComponent implements OnInit {
     if (!this.onInitDone) {
       return;
     }
+    // add sort options only for a non query request
+    let sort;
+    if (!this.query) {
+      sort = this.sort;
+    }
     this.recordsService.getRecords(
       this.recordType,
       this.currentPage,
       this.nPerPage,
       this.query,
       this.searchMime,
-      this.aggFilters
+      this.aggFilters,
+      sort
     ).subscribe(data => {
       if (data === null) {
         this.notFound = true;

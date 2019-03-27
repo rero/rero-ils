@@ -39,11 +39,15 @@ export class RecordsService {
     size: number = 10,
     query: string = '',
     mime_type: string = 'application/json',
-    filters = []
+    filters = [],
+    sort?
   ) {
     let url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
     if (filters.length) {
       url = url + '&' + filters.join('&');
+    }
+    if (sort) {
+      url = url + `&sort=${sort}`;
     }
     return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
