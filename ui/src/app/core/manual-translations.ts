@@ -26,7 +26,7 @@ _('jpn');
 _('chi');
 _('und');
 
-_('patrons');
+_('patron');
 _('librarian');
 _('staff');
 
@@ -51,3 +51,15 @@ _('language');
 _('library');
 _('status');
 _('roles');
+
+_('circ_policies');
+_('documents');
+_('items');
+_('item_types');
+_('loans');
+_('libraries');
+_('locations');
+_('organisations');
+_('patron_types');
+_('patrons');
+_('persons');

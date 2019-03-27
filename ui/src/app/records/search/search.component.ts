@@ -139,7 +139,7 @@ export class SearchComponent implements OnInit {
     if (this.recordType === 'documents') {
       this.searchMime = 'application/rero+json';
     }
-    this.placeholder = 'Search for' + ` ${this.recordType}`;
+    this.placeholder = this.translate.instant(_('Search for')) + ' ' + this.translate.instant(this.recordType);
     this.getRecords();
   }
 

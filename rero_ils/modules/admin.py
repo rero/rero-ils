@@ -29,6 +29,7 @@ from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
 from ..permissions import can_edit
+from flask_babelex import gettext as _
 
 
 class ILSManager(BaseView):
@@ -65,8 +66,8 @@ class LibraryManager(BaseView):
 
 circulation = {
     'view_class': ILSManager,
-    'kwargs': dict(name='Circulation',
-                   category='User Services',
+    'kwargs': dict(name=_('Circulation'),
+                   category=_('User Services'),
                    endpoint='circulation',
                    menu_icon_type='fa',
                    menu_icon_value='fa-exchange')
@@ -75,8 +76,8 @@ circulation = {
 my_library = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='My Library',
-        category='Admin & Monitoring',
+        name=_('My Library'),
+        category=_('Admin & Monitoring'),
         endpoint='mylibrary',
         menu_icon_type='fa',
         menu_icon_value='fa-university'
@@ -86,8 +87,8 @@ my_library = {
 library = {
     'view_class': LibraryManager,
     'kwargs': dict(
-        name='Libraries',
-        category='Admin & Monitoring',
+        name=_('Libraries'),
+        category=_('Admin & Monitoring'),
         endpoint='libraries',
         menu_icon_type='fa',
         menu_icon_value='fa-university'
@@ -97,8 +98,8 @@ library = {
 item_types = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Item Types',
-        category='Admin & Monitoring',
+        name=_('Item Types'),
+        category=_('Admin & Monitoring'),
         endpoint='records/item_types',
         menu_icon_type='fa',
         menu_icon_value='fa-file-o'
@@ -108,8 +109,8 @@ item_types = {
 patron_types = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Patron Types',
-        category='Admin & Monitoring',
+        name=_('Patron Types'),
+        category=_('Admin & Monitoring'),
         endpoint='records/patron_types',
         menu_icon_type='fa',
         menu_icon_value='fa-users'
@@ -119,8 +120,8 @@ patron_types = {
 circ_policies = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Circulation Policies',
-        category='Admin & Monitoring',
+        name=_('Circulation Policies'),
+        category=_('Admin & Monitoring'),
         endpoint='records/circ_policies',
         menu_icon_type='fa',
         menu_icon_value='fa-exchange'
@@ -130,8 +131,8 @@ circ_policies = {
 patrons = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Patrons',
-        category='User Services',
+        name=_('Patrons'),
+        category=_('User Services'),
         endpoint='records/patrons',
         menu_icon_type='fa',
         menu_icon_value='fa-users'
@@ -141,8 +142,8 @@ patrons = {
 persons = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Persons',
-        category='Catalogue',
+        name=_('Persons'),
+        category=_('Catalogue'),
         endpoint='records/persons',
         menu_icon_type='fa',
         menu_icon_value='fa-user'
@@ -163,8 +164,8 @@ locations = {
 libraries = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Libraries',
-        category='Admin & Monitoring',
+        name=_('Libraries'),
+        category=_('Admin & Monitoring'),
         endpoint='records/libraries',
         menu_icon_type='fa',
         menu_icon_value='fa-university'
@@ -174,8 +175,8 @@ libraries = {
 documents = {
     'view_class': ILSManager,
     'kwargs': dict(
-        name='Documents',
-        category='Catalogue',
+        name=_('Documents'),
+        category=_('Catalogue'),
         endpoint='records/documents',
         menu_icon_type='fa',
         menu_icon_value='fa-file-o'
