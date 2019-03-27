@@ -36,4 +36,5 @@ RUN chown -R invenio:invenio ${WORKING_DIR}
 USER 1000
 
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
-RUN ./scripts/bootstrap --deploy
+RUN ./scripts/bootstrap --deploy && rm -fr ui/node_modules
+

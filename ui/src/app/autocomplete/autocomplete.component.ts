@@ -113,7 +113,6 @@ export class AutocompleteComponent implements OnInit {
 
   getPersonName(metadata) {
     for (const source of ['rero', 'bnf', 'gnd']) {
-      console.log(source);
       if (metadata[source] && metadata[source].preferred_name_for_person) {
         return metadata[source].preferred_name_for_person;
       }
