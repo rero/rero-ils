@@ -17,3 +17,4 @@ docker-compose.yml
 docker-compose-dev.yml
 
 Procfile*
+ui/node_modules

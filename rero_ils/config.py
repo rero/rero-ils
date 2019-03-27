@@ -227,8 +227,12 @@ SECRET_KEY = 'CHANGE_ME'
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 #: For dev. Set to false when testing on localhost in no debug mode
 APP_ENABLE_SECURE_HEADERS = True
+
+# TODO: review theses rules for security purposes
 APP_DEFAULT_SECURE_HEADERS = {
-    'force_https': True,
+    # disabled as https is not used by the application:
+    # https is done by the haproxy
+    'force_https': False,
     'force_https_permanent': False,
     'force_file_save': False,
     'frame_options': 'sameorigin',
@@ -239,7 +243,7 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_include_subdomains': True,
     'content_security_policy': {
         'default-src': ['*'],
-        # 'default-src': ["'self'"],
+        'style-src': ['*', "'unsafe-inline'"],
         'script-src': [
             "'self'",
             "'unsafe-inline'",
@@ -248,12 +252,7 @@ APP_DEFAULT_SECURE_HEADERS = {
             'https://www.google-analytics.com',
             'https://services.test.rero.ch',
             'https://services.rero.ch'
-        ],
-        # 'img-src': [
-        #     "'self'",
-        #     'https://www.google-analytics.com',
-        #     'http://images.amazon.com'
-        # ]
+        ]
     },
     'content_security_policy_report_uri': None,
     'content_security_policy_report_only': False,
