@@ -705,22 +705,41 @@ RECORDS_REST_FACETS = {
     )
 }
 
-# sort
-RECORDS_REST_SORT_OPTIONS = {
-    'documents': dict(
+
+# sort options
+indexes = [
+    'documents',
+    'items',
+    'item_types',
+    'patrons',
+    'patron_types',
+    'organisations',
+    'libraries',
+    'locations',
+    'persons',
+    'circ_policies'
+]
+
+RECORDS_REST_SORT_OPTIONS = dict()
+RECORDS_REST_DEFAULT_SORT = dict()
+for index in indexes:
+    RECORDS_REST_SORT_OPTIONS[index] = dict(
         bestmatch=dict(
-            fields=['_score'], title='Best match', default_order='asc'
+            fields=['_score'], title='Best match', default_order='asc',
+            order=1
         ),
         mostrecent=dict(
-            fields=['-_created'], title='Most recent', default_order='desc'
+            fields=['-_created'], title='Most recent', default_order='desc',
+            order=2
+        ),
+        lastupdated=dict(
+            fields=['-_updated'], title='Last updated', default_order='desc',
+            order=3
         ),
     )
-}
+    RECORDS_REST_DEFAULT_SORT[index] = dict(
+        query='bestmatch', noquery='mostrecent')
 
-# default sort
-RECORDS_REST_DEFAULT_SORT = {
-    'documents': dict(query='bestmatch', noquery='mostrecent')
-}
 
 # Detailed View Configuration
 # ===========================

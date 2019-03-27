@@ -10,6 +10,7 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService, AlertsService } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
 
 export function _(str: string) {
   return str;
@@ -27,7 +28,6 @@ export class EditorComponent implements OnInit {
   public pid = undefined;
   public message = undefined;
   public data;
-  public redirectRecordType = undefined;
   public currentLocale = undefined;
 
   constructor(
@@ -37,7 +37,8 @@ export class EditorComponent implements OnInit {
     private widgetLibrary: WidgetLibraryService,
     private alertsService: AlertsService,
     private apiService: ApiService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private location: Location
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
@@ -67,7 +68,6 @@ export class EditorComponent implements OnInit {
       const query = results.query;
 
       this.recordType = params.recordType;
-      this.redirectRecordType = this.recordType;
 
       this.pid = params.pid;
       if (!this.pid) {
@@ -78,14 +78,12 @@ export class EditorComponent implements OnInit {
         .subscribe(schemaForm => {
           this.schemaForm = schemaForm;
           if (this.recordType === 'items' && query.document) {
-            this.redirectRecordType = 'documents';
             const urlPerfix = this.apiService.getApiEntryPointByType('documents', true);
             this.schemaForm.schema.properties.document
               .properties['$ref']['default'] = urlPerfix + query.document;
           }
           if (this.recordType === 'locations' && query.library) {
             const urlPerfix = this.apiService.getApiEntryPointByType('libraries', true);
-            this.redirectRecordType = 'libraries';
             this.schemaForm.schema.properties.library.properties['$ref']['default'] = urlPerfix + query.library;
           }
         });
@@ -96,12 +94,6 @@ export class EditorComponent implements OnInit {
           .subscribe(schemaForm => {
             this.schemaForm = schemaForm;
             this.schemaForm['data'] = record.metadata;
-            if (this.recordType === 'items') {
-              this.redirectRecordType = 'documents';
-            }
-            if (this.recordType === 'locations') {
-              this.redirectRecordType = 'libraries';
-            }
           });
         });
       }
@@ -112,17 +104,17 @@ export class EditorComponent implements OnInit {
     if (this.pid) {
       this.recordsService.update(this.recordType, record).subscribe(res => {
         this.alertsService.addAlert('info', _('Record Updated!'));
-        this.router.navigate(['/records', this.redirectRecordType]);
+        this.location.back();
       });
     } else {
       this.recordsService.create(this.recordType, record).subscribe(res => {
         this.alertsService.addAlert('info', _('Record Created with pid: ') + res['metadata']['pid']);
-        this.router.navigate(['/records', this.redirectRecordType]);
+        this.location.back();
       });
     }
   }
 
   cancel() {
-    this.router.navigate(['/records', this.redirectRecordType]);
+    this.location.back();
   }
 }
