@@ -72,6 +72,7 @@
   "rero": "RERO",
   "author": "Autor",
   "document_type": "Dokumenttyp",
+  "subject": "Schlagwort",
   "language": "Sprache",
   "library": "Bibliothek",
   "status": "Status",
