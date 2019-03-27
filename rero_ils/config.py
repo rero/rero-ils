@@ -671,7 +671,7 @@ RECORDS_REST_FACETS = {
             author__de=dict(terms=dict(field='facet_authors_de')),
             author__it=dict(terms=dict(field='facet_authors_it')),
             language=dict(terms=dict(field='languages.language')),
-            subject=dict(terms=dict(field='facet_subject')),
+            subject=dict(terms=dict(field='facet_subjects')),
             status=dict(terms=dict(field='items.status'))
         ),
         filters={
@@ -682,7 +682,7 @@ RECORDS_REST_FACETS = {
             _('author__de'): terms_filter('facet_authors_de'),
             _('author__it'): terms_filter('facet_authors_it'),
             _('language'): terms_filter('languages.language'),
-            _('subject'): terms_filter('facet_subject'),
+            _('subject'): terms_filter('facet_subjects'),
             _('status'): terms_filter('items.status'),
         },
     ),
