@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "be784bfc2ac4d582d7acc974e8774467059908f421fb5ae4fc19103dc0b9141a"
+            "sha256": "80909088cda7f1f930db39c02a6542d3ff13d40ae1a0b0bac6c961b537f57a2e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -28,6 +28,13 @@
                 "sha256:35a3b5006ca00b21aaeec8ceea07130f07b902dd61bfe42815039835f962f5f1"
             ],
             "version": "==2.4.2"
+        },
+        "angular-gettext-babel": {
+            "hashes": [
+                "sha256:9ff197829501e994ac962c0b22aba99459dcf7b0018bf6514a0de15796ba37d9"
+            ],
+            "index": "pypi",
+            "version": "==0.3"
         },
         "arrow": {
             "hashes": [
