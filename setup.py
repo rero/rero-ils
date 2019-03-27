@@ -80,7 +80,9 @@ setup(
             'rero-ils = invenio_app.cli:cli',
         ],
         'babel.extractors': [
-            'json = rero_ils.modules.babel_extractors:extract_json'
+            'json = rero_ils.modules.babel_extractors:extract_json',
+            # TODO: remove once the thumbnail are done in angular
+            'angular_gettext = angular_gettext_babel.extract:extract_angular'
         ],
         'invenio_base.apps': [
             # 'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
