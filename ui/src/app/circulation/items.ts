@@ -39,7 +39,7 @@ export enum ItemAction {
   receive = _('receive'),
   return_missing = _('return_missing'),
   // cancel_loan = _('cancel_loan'),
-  extend_loan = _('extend'),
+  extend_loan = _('extend_loan'),
   validate_request = _('validate_request'),
   no = _('no')
 }
