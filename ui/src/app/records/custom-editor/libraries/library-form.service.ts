@@ -35,17 +35,41 @@ export class LibraryFormService {
           Validators.required
         ]
       }],
-      opening_hours: this.fb.array(this.createOpeningHours())
+      opening_hours: this.fb.array([])
     });
+    this.initializeOpeningHours();
   }
 
-  createOpeningHours() {
+  initializeOpeningHours(openingHours = []) {
     const days = Object.keys(WeekDays);
-    const openings = [];
+    const hours = this.form.get('opening_hours');
     for (let step = 0; step < 7; step++) {
-      openings.push(this.buildOpeningHours(false, days[step], this.fb.array([this.buildTimes()])));
+      hours.push(this.buildOpeningHours(
+        false,
+        days[step],
+        this.fb.array([])
+      ));
     }
-    return openings;
+    this.setOpeningHours(openingHours);
+  }
+
+  setOpeningHours(openingHours = []) {
+    for (let step = 0; step < 7; step++) {
+      const atimes = this.getTimesByDayIndex(step);
+      const day = openingHours[step];
+      if (day !== undefined) {
+        if (day.times.length > 0) {
+          atimes.removeAt(0);
+          const hours = this.form.get('opening_hours').get(String(step));
+          hours.get('is_open').setValue(day.is_open);
+          day.times.forEach(time => {
+            atimes.push(this.buildTimes(time.start_time, time.end_time));
+          });
+        }
+      } else {
+        atimes.push(this.buildTimes('00:00', '00:00'));
+      }
+    }
   }
 
   buildOpeningHours(is_open, day, times): FormGroup {
@@ -79,9 +103,6 @@ export class LibraryFormService {
 
   reset() {
     this.build();
-    // TODO: replace by something like this
-    // this.form.reset();
-    // this.createOpeningHours();
   }
 
   populate(library: Library) {
@@ -90,8 +111,8 @@ export class LibraryFormService {
       address:  library.address,
       email: library.email,
       code: library.code,
-      opening_hours: library.opening_hours
     });
+    this.setOpeningHours(library.opening_hours);
   }
 
   setId(id) { this.form.value.id = id; }
