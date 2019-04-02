@@ -55,6 +55,7 @@ export class Library {
   update(obj) {
     Object.assign(this, obj);
     this.cleanOpeningHours(this.opening_hours);
+    this.reorderOpeningHours(this.opening_hours);
   }
 
   createOpeningHours() {
@@ -85,6 +86,15 @@ export class Library {
         opening.is_open = false;
       }
       opening.times = times;
+    });
+  }
+
+  reorderOpeningHours(openingHours) {
+    openingHours.forEach(opening => {
+      if (opening.times.length > 1) {
+        opening.times.sort((a, b) =>
+          moment(a.start_time, 'HH:mm').diff(moment(b.start_time, 'HH:mm')));
+      }
     });
   }
 

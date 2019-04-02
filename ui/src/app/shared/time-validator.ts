@@ -24,11 +24,17 @@ export class TimeValidator {
         let isRangeLessThan = false;
         const times = <FormArray>control.get('times');
         if (control.get('is_open').value && times.value.length > 1) {
-          const firstEndTime = times.at(0).get('end_time');
-          const lastStartTime = times.at(1).get('start_time');
-          const firstEndDate = moment(firstEndTime.value, 'HH:mm');
-          const lastStartDate = moment(lastStartTime.value, 'HH:mm');
-          isRangeLessThan = lastStartDate.diff(firstEndDate) <= 0;
+          const firstStartDate = moment(times.at(0).get('start_time').value, 'HH:mm');
+          const firstEndDate = moment(times.at(0).get('end_time').value, 'HH:mm');
+          const lastStartDate = moment(times.at(1).get('start_time').value, 'HH:mm');
+          const lastEndDate = moment(times.at(1).get('end_time').value, 'HH:mm');
+          if (firstStartDate > lastStartDate) {
+            isRangeLessThan = firstStartDate.diff(lastStartDate) <= 0
+              || firstStartDate.diff(lastEndDate) <= 0;
+          } else {
+            isRangeLessThan = lastStartDate.diff(firstEndDate) <= 0
+              || lastStartDate.diff(firstEndDate) <= 0;
+          }
         }
         return isRangeLessThan ? { rangeLessThan: { value: isRangeLessThan} } : null;
       }
