@@ -1,8 +1,7 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { FormArray, FormGroup } from '@angular/forms';
-import * as moment from 'moment';
 import { Subject } from 'rxjs';
 
 import { LibraryExceptionFormService } from '../library-exception-form.service';
@@ -45,14 +44,22 @@ export class ExceptionDatesEditComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
-  onPeriodChange(period) {
-    this.form.is_period.setValue(period);
-    if (period) {
+  onPeriodChange(event) {
+    const target = event.target;
+    const value = target.value === 'true';
+    this.form.is_period.setValue(value);
+    if (value) {
       for (let i = 0; i < this.form.times.length; i++) {
         this.form.times.removeAt(i);
       }
       this.form.is_open.setValue(false);
     }
+  }
+
+  onDateStatusChange(event) {
+    const target = event.target;
+    const value = target.value === 'true';
+    this.form.is_open.setValue(value);
   }
 
   onRepeatChange(repeat) {
