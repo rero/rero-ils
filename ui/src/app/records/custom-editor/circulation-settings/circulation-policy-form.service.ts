@@ -49,9 +49,7 @@ export class CirculationPolicyFormService {
         Validators.required,
         Validators.minLength(2)
       ]],
-      description: [null, [
-        Validators.required
-      ]],
+      description: [],
       allow_requests: [true],
       allow_checkout: [true],
       checkout_duration: [7],
