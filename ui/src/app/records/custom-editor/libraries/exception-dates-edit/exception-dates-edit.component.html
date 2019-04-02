@@ -1,7 +1,7 @@
 <div class="modal-body">
     <form [formGroup]="exceptionForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <h3 class="modal-title" translate>Edit</h3>
+      <h3 class="modal-title" translate>Exception</h3>
     </div>
     <!-- Title -->
     <div class="form-group row">
@@ -21,15 +21,18 @@
     </div>
     <!-- Date -->
     <div class="form-group row">
-      <label for="title" class="col-sm-2 col-form-label" translate>Days period</label>
+      <label for="title" class="col-sm-2 col-form-label">&nbsp;</label>
       <div class="col-sm-10">
-        <ui-switch
-          formControlName="is_period"
-          [checked]="is_period"
-          size="small"
-          defaultBgColor="red"
-          (change)="onPeriodChange($event)">
-        </ui-switch>
+        <div class="form-check-inline">
+          <label class="form-check-label mr-2">
+            <input type="radio" class="form-check-input" name="day-period" value="false" [checked]="is_period.value === false" (change)="onPeriodChange($event)">
+            {{ 'Day' | translate }}
+          </label>
+          <label class="form-check-label" translate>
+            <input type="radio" class="form-check-input" name="day-period" value="true" [checked]="is_period.value === true" (change)="onPeriodChange($event)">
+            {{ 'Period' | translate }}
+          </label>
+        </div>
       </div>
     </div>
     <!-- one Date -->
@@ -59,23 +62,19 @@
         </div>
       </div>
       <div class="col-sm-2 mt-2">
-        <ui-switch
-          formControlName="is_open"
-          [checked]="is_open"
-          size="small"
-          defaultBgColor="red"
-        >
-        </ui-switch>
+        &nbsp;
       </div>
       <div class="col-sm-10 mt-2">
-        <span class="mb-2" *ngIf="exceptionForm.value.is_open">
-          {{ 'Opened on' | translate }}
-          {{ exceptionForm.value.date | date : 'EEEE' | lowercase | translate }}
-        </span>
-        <span class="mb-2" *ngIf="!exceptionForm.value.is_open">
-          {{ 'Closed on' | translate }}
-          {{ exceptionForm.value.date | date : 'EEEE' | lowercase | translate }}
-        </span>
+        <div class="form-check-inline">
+          <label class="form-check-label mr-2">
+            <input type="radio" class="form-check-input" name="date-status" value="false" [checked]="is_open.value === false" (change)="onDateStatusChange($event)">
+            {{ 'Close' | translate }}
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="date-status" value="true" [checked]="is_open.value === true" (change)="onDateStatusChange($event)">
+            {{ 'Open' | translate }}
+          </label>
+        </div>
         <div class="mb-2">
           <em *ngIf="exceptionForm.value && exceptionForm.value.is_open" translate>
             Change the default opening hours for this day
@@ -110,7 +109,7 @@
                       type="button"
                       *ngIf="times.length == 1"
                       class="btn btn-light btn-sm"(click)="addTime()"
-                    ><i class="fa fa-plus" aria-hidden="true"></i> <span>period</span></button>
+                    ><i class="fa fa-plus" aria-hidden="true"></i> <span translate>period</span></button>
                   </div>
                 </div>
                 <div
@@ -181,9 +180,10 @@
     </div>
     <!-- Repeat -->
     <div class="form-group row">
-      <label for="repeat" class="col-sm-2 col-form-label required" translate>Repeat</label>
+      <label for="repeat" class="col-sm-2 col-form-label required" translate>Repetition</label>
       <div class="col-sm-10">
         <ui-switch
+          class="align-middle"
           formControlName="repeat"
           [checked]="repeat"
           size="small"
@@ -191,13 +191,13 @@
           (change)="onRepeatChange($event)">
         </ui-switch>
         <div class="ml-2 d-inline" *ngIf="repeat.value">
-          <select formControlName="period">
-            <option value="daily" translate>daily</option>
-            <option value="weekly" translate>weekly</option>
-            <option value="monthly" translate>monthly</option>
-            <option value="yearly" translate>yearly</option>
+          <label for="interval" class="col-form-label required" translate>Repeat each</label>
+          <input type="number" min="1" step="1" class="ml-2 col-2" formControlName="interval">
+          <select class="col-3 ml-1 form-control d-inline-block" formControlName="period">
+            <option value="weekly" translate>week</option>
+            <option value="monthly" translate>month</option>
+            <option value="yearly" translate>year</option>
           </select>
-          <input type="number" min="1" step="1" class="ml-2" formControlName="interval">
           <div *ngIf="interval.invalid && (interval.dirty || interval.touched)" class="text-danger pt-1">
             <div *ngIf="interval.errors.required" translate>
               Interval is required.
