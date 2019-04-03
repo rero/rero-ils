@@ -38,6 +38,7 @@ from werkzeug.exceptions import NotFound
 from .api import Item
 from ..circ_policies.api import CircPolicy
 from ..loans.api import Loan
+from ..loans.utils import extend_loan_data_is_valid
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
@@ -244,27 +245,8 @@ def loans(patron_pid):
     items_loans = Item.get_checked_out_items(patron_pid)
     metadata = []
     for item, loan in items_loans:
-        extension_count = loan.get('extension_count', 0)
         item_dumps = item.dumps_for_circulation()
         actions = item_dumps.get('actions')
-        circ_policy = CircPolicy.provide_circ_policy(
-                item.library_pid,
-                patron_type_pid,
-                item.item_type_pid
-        )
-        new_actions = []
-        for action in actions:
-            if action == 'checkout' and circ_policy.get('allow_checkout'):
-                new_actions.append(action)
-            if (
-                action == 'extend_loan' and
-                circ_policy.get('number_renewals') > 0 and
-                extension_count < circ_policy.get('number_renewals')
-            ):
-                new_actions.append(action)
-            if action == 'checkin':
-                new_actions.append(action)
-        item_dumps['actions'] = new_actions
         metadata.append({
             'item': item_dumps,
             'loan': loan.dumps_for_circulation()

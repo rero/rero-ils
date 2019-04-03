@@ -366,6 +366,36 @@ class Item(IlsRecord):
         location = Location.get_record_by_pid(self.location_pid).replace_refs()
         return location.get('library').get('pid')
 
+    def action_filter(self, action, loan):
+        """Filter actions."""
+        from ..circ_policies.api import CircPolicy
+        from ..loans.utils import extend_loan_data_is_valid
+        patron_pid = loan.get('patron_pid')
+        patron_type_pid = Patron.get_record_by_pid(
+            patron_pid).replace_refs().patron_type_pid
+        circ_policy = CircPolicy.provide_circ_policy(
+                self.library_pid,
+                patron_type_pid,
+                self.item_type_pid
+        )
+        action_validated = True
+        if action == 'extend':
+            extension_count = loan.get('extension_count', 0)
+            if not (
+                circ_policy.get('number_renewals') > 0 and
+                extension_count < circ_policy.get('number_renewals') and
+                extend_loan_data_is_valid(
+                    loan.get('end_date'),
+                    circ_policy.get('renewal_duration'),
+                    self.library_pid
+                )
+            ):
+                action_validated = False
+        if action == 'checkout':
+            if not circ_policy.get('allow_checkout'):
+                action_validated = False
+        return action_validated
+
     @property
     def actions(self):
         """Get all available actions."""
@@ -375,7 +405,8 @@ class Item(IlsRecord):
         if loan:
             for transition in transitions.get(loan.get('state')):
                 action = transition.get('trigger')
-                actions.add(action)
+                if self.action_filter(action, loan):
+                    actions.add(action)
         # default actions
         if not loan:
             for transition in transitions.get('CREATED'):

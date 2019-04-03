@@ -27,6 +27,7 @@
 # from utils import get_json, to_relative_url
 
 import json
+from datetime import datetime, timedelta
 
 import ciso8601
 import mock
@@ -36,7 +37,8 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item, ItemStatus
-from rero_ils.modules.loans.api import LoanAction
+from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.loans.utils import get_extension_params
 
 
 def test_items_permissions(client, item_on_loan, user_patron_no_email,
@@ -1085,7 +1087,8 @@ def test_items_deny_requests(client, user_librarian_no_email,
 
 def test_extend_possible_actions(client, item_on_shelf,
                                  user_librarian_no_email,
-                                 user_patron_no_email):
+                                 user_patron_no_email,
+                                 circ_policy):
     """Extend action changes according to params of cipo"""
     login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
@@ -1108,14 +1111,13 @@ def test_extend_possible_actions(client, item_on_shelf,
     data = get_json(res)
     assert data.get('hits').get('total') == 1
     actions = data.get('hits').get('hits')[0].get('item').get('actions')
-    assert 'extend_loan' in actions
     assert 'checkin' in actions
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
-            item.library_pid,
-            'ptty1',
-            'itty1'
+        item.library_pid,
+        'ptty1',
+        'itty1'
     )
 
     circ_policy['number_renewals'] = 0
@@ -1178,9 +1180,9 @@ def test_item_possible_actions(client, item_on_shelf,
 
     from rero_ils.modules.circ_policies.api import CircPolicy
     circ_policy = CircPolicy.provide_circ_policy(
-            item.library_pid,
-            'ptty1',
-            'itty1'
+        item.library_pid,
+        'ptty1',
+        'itty1'
     )
 
     circ_policy['allow_checkout'] = False
@@ -1209,3 +1211,156 @@ def test_item_possible_actions(client, item_on_shelf,
         reindex=True
     )
     assert circ_policy['allow_checkout']
+
+
+def test_items_extend_rejected(client, user_librarian_no_email,
+                               user_patron_no_email,
+                               location, item_type,
+                               item_on_shelf, json_header,
+                               circ_policy_short):
+    """."""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron_pid = user_patron_no_email.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.CHECKOUT].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert not item.get_extension_count()
+
+    max_count = get_extension_params(loan=loan, parameter_name='max_count')
+
+    assert circ_policy_short['number_renewals']
+    assert circ_policy_short['renewal_duration'] > 1
+    circ_policy_short['renewal_duration'] = 1
+
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+
+    max_count = get_extension_params(loan=loan, parameter_name='max_count')
+    assert max_count == 0
+
+    # extend loan rejected
+    res = client.post(
+        url_for('api_item.extend_loan'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+
+    assert res.status_code == 403
+
+    circ_policy_short['number_renewals'] = 1
+    circ_policy_short['renewal_duration'] = 15
+
+    circ_policy_short.update(
+        data=circ_policy_short,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+
+def test_items_extend_end_date(client, user_librarian_no_email,
+                               user_patron_no_email,
+                               location, item_type,
+                               item_on_shelf, json_header,
+                               circ_policy_short):
+    """."""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron_pid = user_patron_no_email.pid
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.CHECKOUT].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert not item.get_extension_count()
+
+    max_count = get_extension_params(loan=loan, parameter_name='max_count')
+    renewal_duration = circ_policy_short['renewal_duration']
+    assert renewal_duration == 15
+
+    # extend loan
+    res = client.post(
+        url_for('api_item.extend_loan'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.EXTEND].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    end_date = loan.get('end_date')
+    current_date = datetime.now()
+    calc_date = current_date + timedelta(days=renewal_duration)
+    assert (
+        calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime_as_naive(
+            end_date).strftime('%Y-%m-%d')
+    )
+
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
