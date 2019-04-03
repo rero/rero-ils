@@ -34,6 +34,7 @@ You overwrite and set instance-specific configuration by either:
 from __future__ import absolute_import, print_function
 
 from datetime import timedelta
+from functools import partial
 
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
@@ -51,9 +52,8 @@ from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 
 from .modules.items.api import Item, ItemsIndexer
-from .modules.loans.utils import can_be_requested, \
-    get_default_extension_duration, get_default_extension_max_count, \
-    get_default_loan_duration, is_item_available_for_checkout, \
+from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
+    get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
@@ -975,9 +975,11 @@ CIRCULATION_POLICIES = dict(
         item_available=is_item_available_for_checkout
     ),
     extension=dict(
-        from_end_date=True,
-        duration_default=get_default_extension_duration,
-        max_count=get_default_extension_max_count
+        from_end_date=False,
+        duration_default=partial(
+            get_extension_params, parameter_name='duration_default'),
+        max_count=partial(
+            get_extension_params, parameter_name='max_count'),
     ),
     request=dict(
         can_be_requested=can_be_requested

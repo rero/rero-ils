@@ -26,6 +26,9 @@
 
 from datetime import datetime, timedelta
 
+import ciso8601
+from dateutil.parser import parse
+
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
@@ -66,27 +69,46 @@ def get_default_loan_duration(loan):
     return new_duration.days
 
 
-def get_default_extension_duration(loan):
-    """Return extension duration in number of days."""
+def get_extension_params(loan=None, parameter_name=None):
+    """Return extension parameters."""
     policy = get_circ_policy(loan)
-    # TODO: case when start_date is not sysdate.
-    start_date = datetime.now()
-    library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+    end_date = ciso8601.parse_datetime_as_naive(loan.get('end_date'))
+    params = {
+        'max_count': policy.get('number_renewals'),
+        'duration_default': policy.get('renewal_duration')
+    }
+    current_date = datetime.now()
+
+    library = Library.get_record_by_pid(
+        Item.get_record_by_pid(loan.item_pid).library_pid)
+
+    calculated_due_date = current_date + timedelta(
+        days=policy.get('renewal_duration'))
+
+    first_open_date = library.next_open(
+        date=calculated_due_date - timedelta(days=1))
+
+    if first_open_date.date() < end_date.date():
+        params['max_count'] = 0
+
+    new_duration = first_open_date - current_date
+    params['duration_default'] = new_duration.days
+
+    return params.get(parameter_name)
+
+
+def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
+    """Checks extend loan will be valid ."""
+    end_date = ciso8601.parse_datetime_as_naive(end_date)
+    current_date = datetime.now()
     library = Library.get_record_by_pid(library_pid)
-    # invenio-circulation due_date.
-    due_date = start_date + timedelta(days=policy.get('renewal_duration'))
-    # rero_ils due_date, considering library opening_hours and exception_dates.
-    # next_open: -1 to check first the due date not the days.
-    open_after_due_date = library.next_open(date=due_date - timedelta(days=1))
-    new_duration = open_after_due_date - start_date
-
-    return new_duration.days
-
-
-def get_default_extension_max_count(loan):
-    """Return extensions max count."""
-    policy = get_circ_policy(loan)
-    return policy.get('number_renewals')
+    calculated_due_date = current_date + timedelta(
+        days=renewal_duration)
+    first_open_date = library.next_open(
+        date=calculated_due_date - timedelta(days=1))
+    if first_open_date.date() <= end_date.date():
+        return False
+    return True
 
 
 def loan_satisfy_circ_policies(loan):
