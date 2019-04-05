@@ -12,3 +12,5 @@ export * from './patron-type/patron-type-tool';
 export * from './validator/unique.validator';
 export * from './utils';
 export * from './alerts/alerts.service';
+export * from './toastr-dialog/toastr-dialog.component';
+export * from './pipe/title.pipe';

@@ -32,3 +32,35 @@ typeahead-container {
     padding: .25rem 3rem;
   }
 }
+
+.toast-container {
+  position: absolute;
+  z-index: 9999999;
+  top: 0;
+  right: 0;
+}
+
+.toast {
+  min-width: 350px;
+}
+
+.toast-top-right {
+  top: 12px;
+  right: 24px;
+}
+
+.toast-success .toast-body {
+  background-color: #28a745;
+  color: white;
+}
+
+.toast-warning .toast-body {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.toast-error .toast-body,
+.toast-danger .toast-body {
+  background-color: #dc3545;
+  color: white;
+}

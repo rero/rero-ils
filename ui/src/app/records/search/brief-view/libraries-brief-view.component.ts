@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
-
-import {AlertsService, _ } from '@app/core';
+import { _ } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -100,7 +100,7 @@ export class LibrariesBriefViewComponent implements BriefView {
 
   constructor(
     private recordsService: RecordsService,
-    private alertsService: AlertsService
+    private toastService: ToastrService
   ) {}
 
   toggleCollapse() {
@@ -125,7 +125,7 @@ export class LibrariesBriefViewComponent implements BriefView {
     this.recordsService.deleteRecord(pid, 'locations').subscribe(success => {
       if (success) {
         this.locations = this.locations.filter(location => location.metadata.pid !== pid);
-        this.alertsService.addAlert('warning', _('Record deleted.'));
+        this.toastService.success(_('Record deleted.'), _('locations'));
       }
     });
   }

@@ -5,14 +5,11 @@ import { Item, ItemAction, ItemStatus } from '../items';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from '../items.service';
 import { Observable, forkJoin, of } from 'rxjs';
-import * as moment from 'moment';
 import { TranslateStringService } from '../../translate-string.service';
-import { AlertsService } from '@app/core/alerts/alerts.service';
 import { DialogService } from '@app/core';
+import { _ } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
 
-export function _(str: string) {
-  return str;
-}
 
 export interface NoPendingChange {
     noPendingChange(): boolean | Observable<boolean>;
@@ -40,7 +37,6 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     } else {
       return this._items;
     }
-    return [];
   }
 
   private confirmConfig: object;
@@ -52,8 +48,8 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateStringService,
-    private alertsService: AlertsService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private toastService: ToastrService
     ) {
     route.queryParamMap.subscribe(
       params => {
@@ -97,18 +93,21 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     this.itemsService.automaticCheckin(item_barcode).subscribe(item => {
       // TODO: remove this when policy will be in place
       if (item === null) {
-          this.alertsService.addAlert('info', _('item not found!'));
-          return;
+        this.toastService.warning(_('item not found!'), _('checkin'));
+        return;
         }
       if (item.loan) {
         this.getPatronInfo(item.loan.patron_pid);
       }
       if (item.hasRequests) {
-          this.alertsService.addAlert('info', _('The item contains requests'));
+        this.toastService.warning(_('The item contains requests'), _('checkin'));
       }
       switch (item.actionDone) {
         case ItemAction.return_missing:
-          this.alertsService.addAlert('warning', _('the item has been returned from missing'));
+          this.toastService.warning(
+            _('the item has been returned from missing'),
+            _('checkin')
+          );
           break;
         default:
           break;
@@ -125,19 +124,19 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
         item.currentAction = ItemAction.checkin;
         this.searchText = '';
       } else {
-        this.alertsService.addAlert('info', _('The item is already in the list.'));
+        this.toastService.warning(_('The item is already in the list.'), _('checkin'));
       }
     } else {
       this.itemsService.getItem(barcode, this.patron.pid).subscribe(
         (newItem) => {
           if (newItem === null) {
-            this.alertsService.addAlert('info', _('item not found!'));
+            this.toastService.warning(_('item not found!'), _('checkin'));
           } else {
             if (newItem.canLoan(this.patron) === false) {
-              this.alertsService.addAlert('info', _('item is unavailable!'));
+              this.toastService.warning(_('item is unavailable!'), _('checkin'));
             } else {
               if (newItem.actions.length === 1 && newItem.actions.indexOf('no') > -1) {
-                this.alertsService.addAlert('info', _('no action possible on this item!'));
+                this.toastService.warning(_('no action possible on this item!'), _('checkin'));
               } else {
                 newItem.currentAction = ItemAction.checkout;
                 this.items.unshift(newItem);
@@ -146,8 +145,10 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
             }
           }
         },
-        (error) => this.alertsService.addAlert('danger', error.message),
-        () => console.log('loan success')
+        (error) => this.toastService.error(
+          error.message,
+          _('checkin')
+        ), () => console.log('loan success')
       );
     }
   }
@@ -156,7 +157,10 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     if (patronPID) {
       this.userService.getUser(patronPID).subscribe(
         (patron) => this.patronInfo = patron,
-        (error) => this.alertsService.addAlert('danger', error.message),
+        (error) => this.toastService.error(
+          error.message,
+          _('checkin')
+        ),
         () => console.log('patron by pid success')
       );
     } else {
@@ -171,7 +175,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
           if (patron === null) {
             const newItem = this.items.find(item => item.barcode === barcode);
             if (newItem) {
-              this.alertsService.addAlert('info', _('The item is already in the list.'));
+              this.toastService.warning(_('The item is already in the list.'), _('checkin'));
             } else {
               this.automaticCheckinCheckout(barcode);
             }
@@ -194,8 +198,10 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
             this.searchText = '';
           }
         },
-        (error) => this.alertsService.addAlert('danger', error.message),
-        () => console.log('patron success')
+        (error) => this.toastService.error(
+          error.message,
+          _('checkin')
+        ), () => console.log('patron success')
       );
     }
   }
@@ -243,16 +249,20 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
           const newItem = newItems.filter(currItem => currItem.pid === item.pid).pop();
           if (newItem) {
             if (newItem.status === ItemStatus.IN_TRANSIT) {
-                this.alertsService.addAlert('info',
-                  this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status)
-                );
+              this.toastService.success(
+                this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status),
+                _('checkin')
+              );
             }
             return newItem;
           }
           return item;
         }).filter(item => item.status === ItemStatus.ON_LOAN);
       },
-      (err) => this.alertsService.addAlert('danger', _('an error occurs on the server: ' + err))
+      (err) => this.toastService.error(
+        _('an error occurs on the server: ') + err,
+        _('checkin')
+      )
     );
   }
 

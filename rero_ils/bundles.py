@@ -57,6 +57,19 @@ main_css = NpmBundle(
 )
 """Main CSS bundle with Bootstrap and Font-Awesome."""
 
+ui_css = NpmBundle(
+    'scss/rero_ils/ui/ui.scss',
+    filters='node-scss,cleancssurl',
+    output='gen/rero_ils.ui_css.%(version)s.css',
+    npm={
+        'almond': '~0.3.3',
+        'bootstrap': '~4.2.1',
+        'font-awesome': '~4.7.0',
+        'jquery': '~1.9.1',
+    }
+)
+"""Additional CSS for ui frontend."""
+
 i18n = GlobBundle(
     catalog('messages'),
     filters=AngularGettextFilter(catalog_name='reroilsAppTranslations'),
@@ -84,5 +97,5 @@ ui_js = Bundle(
     'js/rero_ils/ui/scripts.js',
     'js/rero_ils/ui/main.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-    output='gen/rero_ils.modules.ui_js.%(version)s.js'
+    output='gen/rero_ils.ui_js.%(version)s.js'
 )

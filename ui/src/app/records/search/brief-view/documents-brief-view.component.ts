@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
 import { TranslateService } from '@ngx-translate/core';
-
-import { _, AlertsService } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
+import { _ } from '@app/core';
 
 
 @Component({
@@ -82,8 +82,8 @@ export class DocumentsBriefViewComponent implements BriefView {
 
   constructor(
     private recordsService: RecordsService,
-    private alertsService: AlertsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastService: ToastrService
     ) {}
 
   publisherNames() {
@@ -112,7 +112,7 @@ export class DocumentsBriefViewComponent implements BriefView {
     this.recordsService.deleteRecord(pid, 'items').subscribe(success => {
       if (success) {
         this.record.metadata.items = this.record.metadata.items.filter(item => item.pid !== pid);
-        this.alertsService.addAlert('warning', _('Record deleted.'));
+        this.toastService.success(_('Record deleted.'), _('documents'));
       }
     });
   }

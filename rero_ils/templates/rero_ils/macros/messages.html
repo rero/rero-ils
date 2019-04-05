@@ -10,14 +10,18 @@
 #}
 {%- macro flashed_messages() -%}
   {%- block messages %}
-    {%- for category, msg in get_flashed_messages(with_categories=True) %}
-      {%- set category = 'info' if category not in ['info', 'danger', 'warning', 'success'] else category %}
-      <div class="alert alert-{{ category }} sticky-top mb-0">
-        <div class="container">
-          <a class="close" data-dismiss="alert" href="#">&times;</a>
+    {%- set messages = get_flashed_messages(with_categories=True) %}
+    {%- if messages|length > 0 %}
+    <div class="toast-container">
+        {%- for category, msg in messages %}
+        {%- set category = 'info' if category not in ['info', 'danger', 'warning', 'success'] else category %}
+        <div class="toast toast-top-right toast-{{ category }} show">
+          <div class="toast-body">
             {{ msg }}
+          </div>
         </div>
-      </div>
-    {%- endfor %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
   {%- endblock messages %}
 {%- endmacro %}

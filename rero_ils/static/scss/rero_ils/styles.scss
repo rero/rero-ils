@@ -71,3 +71,45 @@ html [type=button] {
   vertical-align: top;
   content: " \f08e";
 }
+
+
+
+/*
+ *********************************
+
+         TOAST
+
+ ********************************
+*/
+
+.toast {
+  min-width: 350px;
+}
+
+.toast-container {
+  position: absolute;
+  z-index: 9999999;
+  top: 0;
+  right: 0;
+}
+
+.toast-top-right {
+  top: 12px;
+  right: 24px;
+}
+
+.toast-success .toast-body {
+  background-color: $green;
+  color: white;
+}
+
+.toast-warning .toast-body {
+  background-color: $orange;
+  color: white;
+}
+
+.toast-error .toast-body,
+.toast-danger .toast-body {
+  background-color: $red;
+  color: white;
+}

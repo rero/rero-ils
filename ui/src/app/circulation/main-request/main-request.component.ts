@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemsService } from '../items.service';
 import { UserService } from '../../user.service';
-import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
 import { TranslateStringService } from '../../translate-string.service';
-import { AlertsService } from '@app/core/alerts/alerts.service';
+import { ToastrService } from 'ngx-toastr';
 
 export function _(str: string) {
   return str;
@@ -25,8 +24,7 @@ export class MainRequestComponent implements OnInit {
     private userService: UserService,
     private itemsService: ItemsService,
     private translate: TranslateStringService,
-    private alertsService: AlertsService
-
+    private toastService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -52,7 +50,10 @@ export class MainRequestComponent implements OnInit {
     this.searchText = search_text;
     const item = this.items.find(currItem => currItem.barcode === search_text);
     if (item === undefined) {
-      this.alertsService.addAlert('warning', _('No request corresponding to the given item has been found.'));
+      this.toastService.warning(
+        _('No request corresponding to the given item has been found.'),
+        _('search')
+      );
     } else {
       const items = this.items;
       this.items = null;
@@ -64,7 +65,10 @@ export class MainRequestComponent implements OnInit {
             }
             return currItem;
           });
-          this.alertsService.addAlert('warning', this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status));
+          this.toastService.warning(
+            this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status),
+            _('search')
+          );
           this.searchText = '';
         }
       );

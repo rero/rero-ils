@@ -15,13 +15,11 @@ import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { CoreModule } from '@app/core';
 import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { AlertModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
-
 
 export function HttpLoaderFactory(http: HttpClient) {
     let assets_prefix = '/';

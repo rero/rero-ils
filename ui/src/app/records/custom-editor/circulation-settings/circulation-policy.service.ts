@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CirculationPolicy } from './circulation-policy';
-import { ItemTypeService, PatronTypeService, ApiService, cleanDictKeys } from '@app/core';
+import { ItemTypeService, PatronTypeService, ApiService, cleanDictKeys, _ } from '@app/core';
 import { RecordsService } from '@app/records/records.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +24,8 @@ export class CirculationPolicyService {
     private client: HttpClient,
     private itemTypeService: ItemTypeService,
     private patronTypeService: PatronTypeService,
-    private recordsService: RecordsService
+    private recordsService: RecordsService,
+    private toastService: ToastrService
   ) { }
 
   loadOrCreateCirculationPolicy(pid: number = null) {
@@ -60,12 +62,20 @@ export class CirculationPolicyService {
       this.recordsService
       .update('circ_policies', circulationPolicy)
       .subscribe((circulation: any) => {
+        this.toastService.success(
+          _('Record Updated!'),
+          _('circ_policies')
+        );
         this.redirect();
       });
     } else {
       this.recordsService
       .create('circ_policies', circulationPolicy)
       .subscribe((circulation: any) => {
+        this.toastService.success(
+          _('Record created!'),
+          _('circ_policies')
+        );
         this.redirect();
       });
     }
