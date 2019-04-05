@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecordsService } from '../records.service';
-import { AlertsService, _ } from '@app/core';
+import { _ } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -129,8 +128,8 @@ export class SearchComponent implements OnInit {
     protected recordsService: RecordsService,
     protected route: ActivatedRoute,
     protected router: Router,
-    protected alertsService: AlertsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toastService: ToastrService
    ) {}
 
   ngOnInit() {
@@ -164,7 +163,6 @@ export class SearchComponent implements OnInit {
     ).subscribe(data => {
       if (data === null) {
         this.notFound = true;
-        this.alertsService.addAlert('info', _('No result found.'));
       } else {
         this.records = data.hits.hits;
 
@@ -199,9 +197,6 @@ export class SearchComponent implements OnInit {
         if (this.records.length === 0 && this.currentPage > 1) {
           this.currentPage -= 1;
           this.updateRoute();
-        }
-        if (data.hits.total === 0) {
-          this.alertsService.addAlert('info', _('No result found.'));
         }
       }
     });
@@ -246,7 +241,7 @@ export class SearchComponent implements OnInit {
   deleteRecord(pid) {
     this.recordsService.deleteRecord(pid, this.recordType).subscribe(success => {
       if (success) {
-        this.alertsService.addAlert('warning', _('Record deleted.'));
+        this.toastService.success('Record deleted.', this.recordType);
         this.getRecords();
       }
     });

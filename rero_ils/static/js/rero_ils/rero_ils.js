@@ -18,10 +18,13 @@
    "node_modules/angular-gettext/dist/angular-gettext"
    ], function() {
 
-     $(document).ready(function(){
-       $('[data-toggle="tooltip"]').tooltip();
-       /* Enable the sticky autohide header */
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+        $('.toast').toast({
+          delay: 5000
+        }).toast('show');
 
+       /* Enable the sticky autohide header */
        $('button.delete').on('click', function (e) {
         var next = $(this).data('next');
         $.ajax({
@@ -47,5 +50,5 @@
        //     shadow: false
        //   });
        // });
-     });
-   });
+    });
+  });

@@ -15,18 +15,30 @@ import { UniqueValidator } from './validator/unique.validator';
 import { AlertsComponent } from './alerts/alerts.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { Nl2br } from './filter/nl2br';
+import { ToastrDialogComponent } from './toastr-dialog/toastr-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TitlePipe } from './pipe/title.pipe';
+import { timeout } from 'q';
 
 @NgModule({
   declarations: [
     AlertsComponent,
     DialogComponent,
-    Nl2br
+    Nl2br,
+    ToastrDialogComponent,
+    TitlePipe
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     AlertModule.forRoot(),
     TranslateModule.forChild({}),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      toastComponent: ToastrDialogComponent,
+      timeOut: 2500
+    })
   ],
   providers: [
     ApiService,
@@ -43,7 +55,8 @@ import { Nl2br } from './filter/nl2br';
     AlertsComponent
   ],
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    ToastrDialogComponent
   ]
 })
 export class CoreModule {

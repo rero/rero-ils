@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { combineLatest } from 'rxjs';
-
-import { cleanDictKeys } from '@app/core';
-import { UniqueValidator } from '@app/core';
+import { ApiService, UniqueValidator, cleanDictKeys, _ } from '@app/core';
 import { LibraryFormService } from './library-form.service';
 import { Library } from './library';
 import { UserService } from 'src/app/user.service';
 import { RecordsService } from '../../records.service';
-import { ApiService } from '@app/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'libraries-library',
@@ -29,7 +26,8 @@ export class LibraryComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -73,6 +71,10 @@ export class LibraryComponent implements OnInit {
     this.library.update(this.libraryForm.getValues());
     if (this.library.pid) {
       this.recordsService.update('libraries', cleanDictKeys(this.library)).subscribe(record => {
+        this.toastService.success(
+          _('Record Updated!'),
+          _('libraries')
+        );
         this.router.navigate(['/records', 'libraries']);
       });
     } else {
@@ -81,6 +83,10 @@ export class LibraryComponent implements OnInit {
       };
       this.library.organisation = organisation;
       this.recordsService.create('libraries', cleanDictKeys(this.library)).subscribe(record => {
+        this.toastService.success(
+          _('Record created!'),
+          _('libraries')
+        );
         this.router.navigate(['/records', 'libraries']);
       });
     }

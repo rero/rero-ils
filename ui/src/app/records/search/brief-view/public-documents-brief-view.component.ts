@@ -3,7 +3,7 @@ import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
 import { TranslateService } from '@ngx-translate/core';
 
-import { _, AlertsService } from '@app/core';
+import { _, } from '@app/core';
 
 
 @Component({

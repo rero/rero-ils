@@ -8,9 +8,10 @@ import { RefAuthorityComponent } from './ref-authority/ref-authority.component';
 import { WidgetLibraryService } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiService, AlertsService } from '@app/core';
+import { ApiService } from '@app/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 export function _(str: string) {
   return str;
@@ -35,10 +36,10 @@ export class EditorComponent implements OnInit {
     private router: Router,
     private recordsService: RecordsService,
     private widgetLibrary: WidgetLibraryService,
-    private alertsService: AlertsService,
     private apiService: ApiService,
     private translateService: TranslateService,
-    private location: Location
+    private location: Location,
+    private toastrService: ToastrService
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
@@ -54,7 +55,10 @@ export class EditorComponent implements OnInit {
           record.metadata['$schema'] = this.schemaForm.schema.properties['$schema'].default;
           this.schemaForm['data'] = record.metadata;
         } else {
-          this.alertsService.addAlert('warning', _('EAN not found!'));
+          this.toastrService.warning(
+            _('EAN not found!'),
+            _('Import')
+          );
         }
       }
       );
@@ -103,12 +107,18 @@ export class EditorComponent implements OnInit {
   save(record) {
     if (this.pid) {
       this.recordsService.update(this.recordType, record).subscribe(res => {
-        this.alertsService.addAlert('info', _('Record Updated!'));
+        this.toastrService.success(
+          _('Record Updated!'),
+          _(this.recordType)
+        );
         this.location.back();
       });
     } else {
       this.recordsService.create(this.recordType, record).subscribe(res => {
-        this.alertsService.addAlert('info', _('Record Created with pid: ') + res['metadata']['pid']);
+        this.toastrService.success(
+          _('Record Created with pid: ') + res['metadata']['pid'],
+          _(this.recordType)
+        );
         this.location.back();
       });
     }

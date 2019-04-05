@@ -35,6 +35,7 @@
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "ngx-bootstrap": "^3.1.4",
+    "ngx-toastr": "^10.0.2",
     "ngx-toggle-switch": "^2.0.5",
     "npm": "^5.7.1",
     "rxjs": "~6.3.3",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.2",
-    "@angular/animations": "^7.2.2",
+    "@angular/animations": "^7.2.12",
     "@angular/cdk": "^7.2.2",
     "@angular/cli": "~7.2.2",
     "@angular/compiler-cli": "~7.2.2",
