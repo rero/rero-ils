@@ -32,15 +32,15 @@ from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 
 
-def test_patron_create(app, roles, user_librarian_data_tmp,
+def test_patron_create(app, roles, librarian_martigny_data_tmp,
                        mailbox):
     """Test Patron creation."""
     ds = app.extensions['invenio-accounts'].datastore
-    email = user_librarian_data_tmp.get('email')
+    email = librarian_martigny_data_tmp.get('email')
     assert not ds.find_user(email=email)
     assert len(mailbox) == 0
     ptrn = Patron.create(
-        user_librarian_data_tmp,
+        librarian_martigny_data_tmp,
         dbcommit=True,
         delete_pid=True
     )
@@ -50,11 +50,11 @@ def test_patron_create(app, roles, user_librarian_data_tmp,
     assert set(user_roles) == set(ptrn.get('roles'))
     assert len(mailbox) == 1
     assert ptrn.get('email') in mailbox[0].recipients
-    assert ptrn == user_librarian_data_tmp
+    assert ptrn == librarian_martigny_data_tmp
     assert ptrn.get('pid') == '1'
 
     ptrn = Patron.get_record_by_pid('1')
-    assert ptrn == user_librarian_data_tmp
+    assert ptrn == librarian_martigny_data_tmp
 
     fetched_pid = patron_id_fetcher(ptrn.id, ptrn)
     assert fetched_pid.pid_value == '1'
@@ -84,23 +84,16 @@ def test_patron_create(app, roles, user_librarian_data_tmp,
 
 
 def test_patron_es_mapping(
-        roles, es_clear, library, patron_type, user_librarian_data_tmp):
+        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
     """."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Patron.create(
-        user_librarian_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_get_patron(user_librarian):
+def test_get_patron(librarian_martigny):
     """."""
-    patron = user_librarian
+    patron = librarian_martigny
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
     assert Patron.get_patron_by_barcode('2050124311') == patron
@@ -111,7 +104,7 @@ def test_get_patron(user_librarian):
     assert Patron.get_patron_by_user(user) == patron
 
 
-def test_user_librarian_can_delete(user_librarian):
+def test_user_librarian_can_delete(librarian_martigny):
     """Test can  delete"""
-    assert user_librarian.get_links_to_me() == {}
-    assert user_librarian.can_delete
+    assert librarian_martigny.get_links_to_me() == {}
+    assert librarian_martigny.can_delete

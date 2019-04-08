@@ -82,5 +82,14 @@
       "rank_2": 1,
       "requests": 2
     }
+  },
+  {
+    "barcode": "3050124311",
+    "loans": {
+      "active": 1
+    },
+    "requests": {
+      "requests": 1
+    }
   }
 ]

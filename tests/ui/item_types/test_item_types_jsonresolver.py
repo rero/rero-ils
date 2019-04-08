@@ -29,7 +29,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_item_types_jsonresolver(item_type):
+def test_item_types_jsonresolver(item_type_standard_martigny):
     """Item type resolver tests."""
     rec = Record.create({
         'item_type': {'$ref': 'https://ils.rero.ch/api/item_types/itty1'}
@@ -37,7 +37,7 @@ def test_item_types_jsonresolver(item_type):
     assert rec.replace_refs().get('item_type') == {'pid': 'itty1'}
 
     # deleted record
-    item_type.delete()
+    item_type_standard_martigny.delete()
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()
 

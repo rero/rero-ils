@@ -32,7 +32,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
 
-def test_patrons_profile(client, user_librarian_no_email):
+def test_patrons_profile(client, librarian_martigny_no_email):
     """."""
     # check redirection
     res = client.get(url_for('patrons.profile'))
@@ -41,12 +41,12 @@ def test_patrons_profile(client, user_librarian_no_email):
         'security.login', next='/patrons/profile'))
 
     # check with logged user
-    login_user_via_session(client, user_librarian_no_email.user)
+    login_user_via_session(client, librarian_martigny_no_email.user)
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 200
 
 
-def test_patrons_logged_user(client, user_librarian_no_email):
+def test_patrons_logged_user(client, librarian_martigny_no_email):
     """Test logged user info API."""
     res = client.get(url_for('patrons.logged_user'))
     assert res.status_code == 200
@@ -62,9 +62,9 @@ def test_patrons_logged_user(client, user_librarian_no_email):
         current_i18n
     ):
 
-        login_user_via_session(client, user_librarian_no_email.user)
+        login_user_via_session(client, librarian_martigny_no_email.user)
         res = client.get(url_for('patrons.logged_user'))
         assert res.status_code == 200
         data = get_json(res)
-        assert data.get('metadata') == user_librarian_no_email
+        assert data.get('metadata') == librarian_martigny_no_email
         assert data.get('settings').get('language') == 'fr'

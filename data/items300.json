@@ -12366,10 +12366,10 @@
     "call_number": "01818",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/2"
@@ -12380,10 +12380,10 @@
     "call_number": "01819",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/1"
@@ -12394,10 +12394,10 @@
     "call_number": "01820",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/1"

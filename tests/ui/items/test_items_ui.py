@@ -31,18 +31,20 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_items_ui_permissions(client, item_on_loan, location,
-                              user_patron_no_email, json_header, circ_policy):
+def test_items_ui_permissions(client, item_lib_martigny,
+                              loc_public_martigny,
+                              patron_martigny_no_email, json_header,
+                              circulation_policies):
     """Test record retrieval."""
-    item_pid = item_on_loan.pid
-    pickup_location_pid = location.pid
+    item_pid = item_lib_martigny.pid
+    pickup_location_pid = loc_public_martigny.pid
     request_url = url_for(
         'item.patron_request', item_pid=item_pid,
         pickup_location_pid=pickup_location_pid)
     res = client.get(request_url)
     assert res.status_code == 401
 
-    login_user_via_session(client, user_patron_no_email.user)
+    login_user_via_session(client, patron_martigny_no_email.user)
     request_url = url_for(
         'item.patron_request', item_pid=item_pid,
         pickup_location_pid=pickup_location_pid)

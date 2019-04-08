@@ -29,7 +29,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_patron_types_jsonresolver(app, tmp_patron_type):
+def test_patron_types_jsonresolver(app, patron_type_tmp):
     """."""
     rec = Record.create({
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}
@@ -37,7 +37,7 @@ def test_patron_types_jsonresolver(app, tmp_patron_type):
     assert rec.replace_refs().get('patron_type') == {'pid': '1'}
 
     # deleted record
-    tmp_patron_type.delete()
+    patron_type_tmp.delete()
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()
 

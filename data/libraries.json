@@ -426,5 +426,108 @@
         "end_date": "2019-08-22"
       }
     ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "address": "Highlands, Scotland, Great Britain",
+    "code": "HOG",
+    "email": "reroilstest+magic1@gmail.com",
+    "name": "Hogwarts Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "09:00",
+            "end_time": "20:00"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "09:00",
+            "end_time": "20:00"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "09:00",
+            "end_time": "20:00"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "09:00",
+            "end_time": "20:00"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "09:00",
+            "end_time": "20:00"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "13:00",
+            "end_time": "17:00"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": false,
+        "times": []
+      }
+    ],
+    "exception_dates": [
+      {
+        "title": "House Cup Ceremony",
+        "is_open": false,
+        "start_date": "2019-06-30",
+        "repeat": {
+          "interval": 1,
+          "period": "yearly",
+          "data": [
+            8
+          ]
+        }
+      },
+      {
+        "title": "Hogwarts Quidditch Cup: final match",
+        "is_open": false,
+        "start_date": "2019-04-15",
+        "repeat": {
+          "interval": 1,
+          "period": "yearly",
+          "data": [
+            8
+          ]
+        }
+      }
+    ]
   }
 ]

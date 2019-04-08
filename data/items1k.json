@@ -39848,10 +39848,10 @@
     "call_number": "02847",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/1"
@@ -39862,10 +39862,10 @@
     "call_number": "02848",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/1"
@@ -39876,10 +39876,10 @@
     "call_number": "02849",
     "status": "on_shelf",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "item_type": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/1"

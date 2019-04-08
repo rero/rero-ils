@@ -67,7 +67,8 @@ def test_description(patron_type_schema, patron_type_data_tmp):
         validate(patron_type_data_tmp, patron_type_schema)
 
 
-def test_organisation_pid(patron_type_schema, patron_type_data_tmp):
+def test_organisation_pid(
+        patron_type_schema, patron_type_data_tmp):
     """Test organisation_pid for patron type jsonschemas."""
     validate(patron_type_data_tmp, patron_type_schema)
 

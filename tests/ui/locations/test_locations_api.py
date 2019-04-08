@@ -32,27 +32,27 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
-def test_location_create(db, location_data):
+def test_location_create(db, loc_public_martigny_data):
     """Test location creation."""
-    loc = Location.create(location_data, delete_pid=True)
-    assert loc == location_data
+    loc = Location.create(loc_public_martigny_data, delete_pid=True)
+    assert loc == loc_public_martigny_data
     assert loc.get('pid') == '1'
 
     loc = Location.get_record_by_pid('1')
-    assert loc == location_data
+    assert loc == loc_public_martigny_data
 
     fetched_pid = fetcher(loc.id, loc)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'loc'
 
 
-def test_location_es_mapping(es, db, library, location_data):
+def test_location_es_mapping(es, db, lib_martigny, loc_public_martigny_data):
     """Test location elasticsearch mapping."""
     search = LocationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     Location.create(
-        location_data,
+        loc_public_martigny_data,
         dbcommit=True,
         reindex=True,
         delete_pid=True
@@ -60,13 +60,14 @@ def test_location_es_mapping(es, db, library, location_data):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_location_get_all_pickup_locations(es, db, library, location):
+def test_location_get_all_pickup_locations(es, db, lib_martigny,
+                                           loc_public_martigny):
     """Test pickup locations retrieval."""
     locations = Location.get_pickup_location_pids()
-    assert list(locations)[0] == location.pid
+    assert list(locations)[0] == loc_public_martigny.pid
 
 
-def test_location_can_delete(location):
+def test_location_can_delete(loc_public_martigny):
     """Test can delete."""
-    assert location.get_links_to_me() == {}
-    assert location.can_delete
+    assert loc_public_martigny.get_links_to_me() == {}
+    assert loc_public_martigny.can_delete
