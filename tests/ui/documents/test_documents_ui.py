@@ -27,7 +27,7 @@
 from flask import url_for
 
 
-def test_documents_detailed_view(client, location, document):
+def test_documents_detailed_view(client, loc_public_martigny, document):
     """."""
     # check redirection
     res = client.get(url_for('invenio_records_ui.doc', pid_value='doc1'))

@@ -39,7 +39,7 @@ def test_loans_create(db, loan_data_tmp):
     loan = Loan.create(loan_data_tmp, delete_pid=True)
     assert loan == loan_data_tmp
     assert loan.get('loan_pid') == '1'
-    assert loan.get('state') == 'ITEM_ON_LOAN'
+    assert loan.get('state') == 'PENDING'
 
     loan = Loan.get_record_by_pid('1')
     assert loan == loan_data_tmp
@@ -48,12 +48,9 @@ def test_loans_create(db, loan_data_tmp):
     assert fetched_pid.pid_value == '1'
 
 
-# @pytest.mark.skip(reason="es mapping is not correct in invenio-circulation")
-def test_loan_es_mapping(es_clear, db, loan_data_tmp, item_on_loan, location,
-                         library):
+def test_loan_es_mapping(es_clear, db, loan_data_tmp, item_lib_martigny,
+                         loc_public_fully, lib_fully):
     """."""
     search = current_circulation.loan_search
     mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Loan.create(loan_data_tmp, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)

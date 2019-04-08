@@ -31,22 +31,22 @@ from rero_ils.modules.organisations.api import \
     organisation_id_fetcher as fetcher
 
 
-def test_organisation_libararies(organisation, library):
+def test_organisation_libararies(org_martigny, lib_martigny):
     """Test libraries retrival."""
-    assert list(organisation.get_libraries()) == [library]
+    assert list(org_martigny.get_libraries()) == [lib_martigny]
 
 
-def test_organisation_create(app, db, organisation_data):
+def test_organisation_create(app, db, org_martigny_data):
     """Test organisation creation."""
-    org = Organisation.create(organisation_data, delete_pid=True)
-    assert org == organisation_data
+    org = Organisation.create(org_martigny_data, delete_pid=True)
+    assert org == org_martigny_data
     assert org.get('pid') == '1'
 
     assert org.get_links_to_me() == {}
     assert org.can_delete
 
     org = Organisation.get_record_by_pid('1')
-    assert org == organisation_data
+    assert org == org_martigny_data
 
     fetched_pid = fetcher(org.id, org)
     assert fetched_pid.pid_value == '1'

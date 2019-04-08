@@ -30,7 +30,8 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
-def test_item_types_permissions(client, item_type, json_header):
+def test_item_types_permissions(client, item_type_standard_martigny,
+                                json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.itty_item', pid_value='itty1')
     post_url = url_for('invenio_records_rest.itty_list')
@@ -60,10 +61,10 @@ def test_item_types_permissions(client, item_type, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_item_types_get(client, item_type):
+def test_item_types_get(client, item_type_standard_martigny):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.itty_item', pid_value='itty1')
-
+    item_type = item_type_standard_martigny
     res = client.get(item_url)
     assert res.status_code == 200
 
@@ -92,7 +93,8 @@ def test_item_types_get(client, item_type):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_item_types_post_put_delete(client, organisation, item_type_data,
+def test_item_types_post_put_delete(client, org_martigny,
+                                    item_type_standard_martigny_data,
                                     json_header):
     """Test record retrieval."""
     # Create record / POST
@@ -100,25 +102,25 @@ def test_item_types_post_put_delete(client, organisation, item_type_data,
     post_url = url_for('invenio_records_rest.itty_list')
     list_url = url_for('invenio_records_rest.itty_list', q='pid:1')
 
-    item_type_data['pid'] = '1'
+    item_type_standard_martigny_data['pid'] = '1'
     res = client.post(
         post_url,
-        data=json.dumps(item_type_data),
+        data=json.dumps(item_type_standard_martigny_data),
         headers=json_header
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata'] == item_type_data
+    assert data['metadata'] == item_type_standard_martigny_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert item_type_data == data['metadata']
+    assert item_type_standard_martigny_data == data['metadata']
 
     # Update record/PUT
-    data = item_type_data
+    data = item_type_standard_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
@@ -154,7 +156,7 @@ def test_item_types_post_put_delete(client, organisation, item_type_data,
 
 @mock.patch('rero_ils.modules.item_types.views.login_and_librarian',
             mock.MagicMock())
-def test_item_types_name_validate(client, item_type):
+def test_item_types_name_validate(client, item_type_standard_martigny):
     """Test record name validation."""
 
     url = url_for('item_types.name_validate', name='standard')
@@ -182,14 +184,15 @@ def test_item_types_name_validate(client, item_type):
         assert get_json(res) == {'name': None}
 
 
-def test_item_types_can_delete(client, item_type, item_on_shelf,
+def test_item_types_can_delete(client, item_type_standard_martigny,
+                               item_lib_martigny,
                                circulation_policies):
     """Test can delete an item type."""
-    links = item_type.get_links_to_me()
+    links = item_type_standard_martigny.get_links_to_me()
     assert 'circ_policies' in links
     assert 'items' in links
 
-    assert not item_type.can_delete
+    assert not item_type_standard_martigny.can_delete
 
-    reasons = item_type.reasons_not_to_delete()
+    reasons = item_type_standard_martigny.reasons_not_to_delete()
     assert 'links' in reasons

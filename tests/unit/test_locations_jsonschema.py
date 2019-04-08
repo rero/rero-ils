@@ -33,29 +33,29 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_locations_required(location_schema, location_data):
+def test_locations_required(location_schema, loc_public_martigny_data):
     """Test required for location jsonschemas."""
-    validate(location_data, location_schema)
+    validate(loc_public_martigny_data, location_schema)
 
     with pytest.raises(ValidationError):
         validate({}, location_schema)
 
 
-def test_locations_pid(location_schema, location_data):
+def test_locations_pid(location_schema, loc_public_martigny_data):
     """Test pid for location jsonschemas."""
-    validate(location_data, location_schema)
+    validate(loc_public_martigny_data, location_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(location_data)
+        data = copy.deepcopy(loc_public_martigny_data)
         data['pid'] = 25
         validate(data, location_schema)
 
 
-def test_locations_name(location_schema, location_data):
+def test_locations_name(location_schema, loc_public_martigny_data):
     """Test name for location jsonschemas."""
-    validate(location_data, location_schema)
+    validate(loc_public_martigny_data, location_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(location_data)
+        data = copy.deepcopy(loc_public_martigny_data)
         data['name'] = 25
         validate(data, location_schema)

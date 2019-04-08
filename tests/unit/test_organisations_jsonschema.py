@@ -33,40 +33,40 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(organisation_schema, organisation_data):
+def test_required(organisation_schema, org_martigny_data):
     """Test required for organisation jsonschemas."""
-    validate(organisation_data, organisation_schema)
+    validate(org_martigny_data, organisation_schema)
 
     with pytest.raises(ValidationError):
         validate({}, organisation_schema)
-        validate(organisation_data, organisation_schema)
+        validate(org_martigny_data, organisation_schema)
 
 
-def test_pid(organisation_schema, organisation_data):
+def test_pid(organisation_schema, org_martigny_data):
     """Test pid for organisation jsonschemas."""
-    validate(organisation_data, organisation_schema)
+    validate(org_martigny_data, organisation_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(organisation_data)
+        data = copy.deepcopy(org_martigny_data)
         data['pid'] = 25
         validate(data, organisation_schema)
 
 
-def test_name(organisation_schema, organisation_data):
+def test_name(organisation_schema, org_martigny_data):
     """Test name for organisation jsonschemas."""
-    validate(organisation_data, organisation_schema)
+    validate(org_martigny_data, organisation_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(organisation_data)
+        data = copy.deepcopy(org_martigny_data)
         data['name'] = 25
         validate(data, organisation_schema)
 
 
-def test_address(organisation_schema, organisation_data):
+def test_address(organisation_schema, org_martigny_data):
     """Test address for organisation jsonschemas."""
-    validate(organisation_data, organisation_schema)
+    validate(org_martigny_data, organisation_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(organisation_data)
+        data = copy.deepcopy(org_martigny_data)
         data['address'] = 25
         validate(data, organisation_schema)

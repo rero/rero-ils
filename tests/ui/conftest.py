@@ -32,26 +32,6 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
 
 
-@pytest.fixture(scope="function")
-def tmp_organisation(db, organisation_data):
-    """."""
-    org = Organisation.create(
-        data=organisation_data,
-        dbcommit=True,
-        delete_pid=True)
-    return org
-
-
-@pytest.fixture(scope="function")
-def tmp_patron_type(db, patron_type_data):
-    """."""
-    org = PatronType.create(
-        data=patron_type_data,
-        dbcommit=True,
-        delete_pid=True)
-    return org
-
-
 @pytest.fixture(scope='module')
 def create_app():
     """Create test app."""

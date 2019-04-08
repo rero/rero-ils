@@ -33,40 +33,40 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(library_schema, library_data):
+def test_required(library_schema, lib_martigny_data):
     """Test required for library jsonschemas."""
-    validate(library_data, library_schema)
+    validate(lib_martigny_data, library_schema)
 
     with pytest.raises(ValidationError):
         validate({}, library_schema)
-        validate(library_data, library_schema)
+        validate(lib_martigny_data, library_schema)
 
 
-def test_pid(library_schema, library_data):
+def test_pid(library_schema, lib_martigny_data):
     """Test pid for library jsonschemas."""
-    validate(library_data, library_schema)
+    validate(lib_martigny_data, library_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(library_data)
+        data = copy.deepcopy(lib_martigny_data)
         data['pid'] = 25
         validate(data, library_schema)
 
 
-def test_name(library_schema, library_data):
+def test_name(library_schema, lib_martigny_data):
     """Test name for library jsonschemas."""
-    validate(library_data, library_schema)
+    validate(lib_martigny_data, library_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(library_data)
+        data = copy.deepcopy(lib_martigny_data)
         data['name'] = 25
         validate(data, library_schema)
 
 
-def test_address(library_schema, library_data):
+def test_address(library_schema, lib_martigny_data):
     """Test address for organisation jsonschemas."""
-    validate(library_data, library_schema)
+    validate(lib_martigny_data, library_schema)
 
     with pytest.raises(ValidationError):
-        data = copy.deepcopy(library_data)
+        data = copy.deepcopy(lib_martigny_data)
         data['address'] = 25
         validate(data, library_schema)

@@ -47,7 +47,7 @@ def test_item_type_create(db, item_type_data_tmp):
     assert not ItemType.get_pid_by_name('no exists')
 
 
-def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
+def test_item_type_es_mapping(es_clear, db, org_martigny, item_type_data_tmp):
     """Test item type elasticsearch mapping."""
     search = ItemTypesSearch()
     mapping = get_mapping(search.Meta.index)
@@ -61,8 +61,10 @@ def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_item_type_exist_name_and_organisation_pid(item_type):
+def test_item_type_exist_name_and_organisation_pid(
+        item_type_standard_martigny):
     """Test item type name uniquness."""
+    item_type = item_type_standard_martigny
     itty = item_type.replace_refs()
     assert ItemType.exist_name_and_organisation_pid(
         itty.get('name'), itty.get('organisation', {}).get('pid'))
@@ -70,17 +72,18 @@ def test_item_type_exist_name_and_organisation_pid(item_type):
         'not exists yet', itty.get('organisation', {}).get('pid'))
 
 
-def test_item_type_get_pid_by_name(item_type):
+def test_item_type_get_pid_by_name(item_type_standard_martigny):
     """Test item type retrival by name."""
     assert not ItemType.get_pid_by_name('no exists')
     assert ItemType.get_pid_by_name('standard') == 'itty1'
 
 
-def test_item_type_can_not_delete(item_type, item_on_shelf):
+def test_item_type_can_not_delete(item_type_standard_martigny,
+                                  item_lib_martigny):
     """Test item type can not delete"""
-    links = item_type.get_links_to_me()
+    links = item_type_standard_martigny.get_links_to_me()
     assert links['items'] == 1
-    assert not item_type.can_delete
+    assert not item_type_standard_martigny.can_delete
 
 
 def test_item_type_can_delete(app, item_type_data_tmp):

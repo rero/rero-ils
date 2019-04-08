@@ -39,27 +39,3 @@ def create_app():
     from invenio_app.factory import create_api
 
     return create_api
-
-
-@pytest.fixture(scope="module")
-def library(app, organisation, library_data):
-    """."""
-    lib = Library.create(
-        data=library_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
-    return lib
-
-
-@pytest.fixture(scope="module")
-def location(library, location_data):
-    """."""
-    loc = Location.create(
-        data=location_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(LocationsSearch.Meta.index)
-    return loc

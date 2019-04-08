@@ -41,33 +41,34 @@ def test_no_default_policy(app):
     assert not cipo
 
 
-def test_circ_policy_create(db, circ_policy_data_tmp):
+def test_circ_policy_create(db, circ_policy_martigny_data_tmp):
     """Test circulation policy creation."""
-    cipo = CircPolicy.create(circ_policy_data_tmp, delete_pid=True)
-    assert cipo == circ_policy_data_tmp
+    cipo = CircPolicy.create(circ_policy_martigny_data_tmp, delete_pid=True)
+    assert cipo == circ_policy_martigny_data_tmp
     assert cipo.get('pid') == '1'
 
     cipo = CircPolicy.get_record_by_pid('1')
-    assert cipo == circ_policy_data_tmp
+    assert cipo == circ_policy_martigny_data_tmp
 
     fetched_pid = circ_policy_id_fetcher(cipo.id, cipo)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'cipo'
 
-    circ_policy = deepcopy(circ_policy_data_tmp)
+    circ_policy = deepcopy(circ_policy_martigny_data_tmp)
     del circ_policy['$schema']
     cipo = CircPolicy.create(circ_policy, delete_pid=True)
     assert cipo.get('$schema')
     assert cipo.get('pid') == '2'
 
 
-def test_circ_policy_es_mapping(es, db, organisation, circ_policy_data_tmp):
+def test_circ_policy_es_mapping(es, db, org_martigny,
+                                circ_policy_martigny_data_tmp):
     """Test circulation policy elasticsearch mapping."""
     search = CircPoliciesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     CircPolicy.create(
-        circ_policy_data_tmp,
+        circ_policy_martigny_data_tmp,
         dbcommit=True,
         reindex=True,
         delete_pid=True
@@ -75,8 +76,10 @@ def test_circ_policy_es_mapping(es, db, organisation, circ_policy_data_tmp):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_circ_policy_exist_name_and_organisation_pid(circ_policy):
+def test_circ_policy_exist_name_and_organisation_pid(
+        circ_policy_default_martigny):
     """Test policy name existance."""
+    circ_policy = circ_policy_default_martigny
     cipo = circ_policy.replace_refs()
     assert CircPolicy.exist_name_and_organisation_pid(
         cipo.get('name'), cipo.get('organisation', {}).get('pid'))
@@ -84,22 +87,23 @@ def test_circ_policy_exist_name_and_organisation_pid(circ_policy):
         'not exists yet', cipo.get('organisation', {}).get('pid'))
 
 
-def test_circ_policy_can_not_delete(circ_policy, circ_policy_short_library):
+def test_circ_policy_can_not_delete(circ_policy_default_martigny,
+                                    circ_policy_short_martigny):
     """Test can not delete a policy."""
-    others = circ_policy.get_non_link_reasons_to_not_delete()
+    others = circ_policy_default_martigny.get_non_link_reasons_to_not_delete()
     assert others['is_default']
-    assert not circ_policy.can_delete
+    assert not circ_policy_default_martigny.can_delete
 
-    others = circ_policy_short_library.get_non_link_reasons_to_not_delete()
+    others = circ_policy_short_martigny.get_non_link_reasons_to_not_delete()
     assert 'is_default' not in others
-    assert not circ_policy.can_delete
+    assert not circ_policy_short_martigny.can_delete
     assert others['has_settings']
 
 
-def test_circ_policy_can_delete(app, circ_policy_data_tmp):
+def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
     """Test can delete a policy."""
-    circ_policy_data_tmp['is_default'] = False
-    cipo = CircPolicy.create(circ_policy_data_tmp, delete_pid=True)
+    circ_policy_martigny_data_tmp['is_default'] = False
+    cipo = CircPolicy.create(circ_policy_martigny_data_tmp, delete_pid=True)
     assert cipo.get_links_to_me() == {}
     assert cipo.can_delete
 

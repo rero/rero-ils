@@ -49,8 +49,8 @@ def test_document_create(db, document_data_tmp):
     assert fetched_pid.pid_type == 'doc'
 
 
-def test_document_es_mapping(es_clear, db, organisation,
-                             document_data_tmp, item_on_loan):
+def test_document_es_mapping(db, org_martigny,
+                             document_data_tmp, item_lib_martigny):
     """."""
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
@@ -64,7 +64,7 @@ def test_document_es_mapping(es_clear, db, organisation,
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_document_can_not_delete(document, item_on_shelf):
+def test_document_can_not_delete(document, item_lib_martigny):
     """Test can not delete"""
     links = document.get_links_to_me()
     assert links['items'] == 1

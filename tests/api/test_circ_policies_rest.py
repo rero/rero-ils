@@ -34,7 +34,7 @@ from rero_ils.modules.api import IlsRecordError
 
 
 def test_circ_policies_permissions(
-        client, circ_policy, json_header):
+        client, circ_policy_default_martigny, json_header):
     """Test policy retrieval."""
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
     post_url = url_for('invenio_records_rest.cipo_list')
@@ -64,8 +64,9 @@ def test_circ_policies_permissions(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_circ_policies_get(client, circ_policy):
+def test_circ_policies_get(client, circ_policy_default_martigny):
     """Test policy retrieval."""
+    circ_policy = circ_policy_default_martigny
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
 
     res = client.get(item_url)
@@ -97,34 +98,35 @@ def test_circ_policies_get(client, circ_policy):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
+def test_circ_policies_post_put_delete(client, org_martigny,
+                                       circ_policy_default_martigny_data,
                                        json_header, can_delete_json_header):
     """Test policy retrieval."""
     # Create policy / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
     post_url = url_for('invenio_records_rest.cipo_list')
     list_url = url_for('invenio_records_rest.cipo_list', q='pid:1')
-    del circ_policy_data['pid']
+    del circ_policy_default_martigny_data['pid']
     res = client.post(
         post_url,
-        data=json.dumps(circ_policy_data),
+        data=json.dumps(circ_policy_default_martigny_data),
         headers=json_header
     )
     assert res.status_code == 201
 
     # Check that the returned policy matches the given data
     data = get_json(res)
-    circ_policy_data['pid'] = '1'
+    circ_policy_default_martigny_data['pid'] = '1'
 
-    assert data['metadata'] == circ_policy_data
+    assert data['metadata'] == circ_policy_default_martigny_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert circ_policy_data == data['metadata']
+    assert circ_policy_default_martigny_data == data['metadata']
 
     # Update policy/PUT
-    data = circ_policy_data
+    data = circ_policy_default_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
@@ -161,9 +163,10 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
 
 @mock.patch('rero_ils.modules.circ_policies.views.login_and_librarian',
             mock.MagicMock())
-def test_circ_policies_name_validate(client, circ_policy):
+def test_circ_policies_name_validate(client, circ_policy_default_martigny):
     """Test policy validation."""
-    url = url_for('circ_policies.name_validate', name='standard')
+    url = url_for('circ_policies.name_validate', name='Default')
+    circ_policy = circ_policy_default_martigny
 
     class current_patron:
         class organisation:
@@ -174,7 +177,7 @@ def test_circ_policies_name_validate(client, circ_policy):
     ):
         res = client.get(url)
         assert res.status_code == 200
-        assert get_json(res) == {'name': 'standard'}
+        assert get_json(res) == {'name': 'Default'}
 
     class current_patron:
         class organisation:

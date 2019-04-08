@@ -33,7 +33,7 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
-def test_libraries_permissions(client, library, json_header):
+def test_libraries_permissions(client, lib_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.lib_item', pid_value='lib1')
     post_url = url_for('invenio_records_rest.lib_list')
@@ -60,7 +60,7 @@ def test_libraries_permissions(client, library, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_libraries_get(client, library):
+def test_libraries_get(client, lib_martigny):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.lib_item', pid_value='lib1')
     list_url = url_for('invenio_records_rest.lib_list', q='pid:lib1')
@@ -68,10 +68,10 @@ def test_libraries_get(client, library):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(library.revision_id)
+    assert res.headers['ETag'] == '"{}"'.format(lib_martigny.revision_id)
 
     data = get_json(res)
-    assert library.dumps() == data['metadata']
+    assert lib_martigny.dumps() == data['metadata']
 
     # Check metadata
     for k in ['created', 'updated', 'metadata', 'links']:
@@ -81,18 +81,18 @@ def test_libraries_get(client, library):
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
     assert data == get_json(res)
-    assert library.dumps() == data['metadata']
+    assert lib_martigny.dumps() == data['metadata']
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
 
-    assert data['hits']['hits'][0]['metadata'] == library.replace_refs()
+    assert data['hits']['hits'][0]['metadata'] == lib_martigny.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_libraries_post_put_delete(client, organisation, library_data,
+def test_libraries_post_put_delete(client, org_martigny, lib_martigny_data,
                                    json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.lib_item', pid_value='1')
@@ -100,10 +100,10 @@ def test_libraries_post_put_delete(client, organisation, library_data,
     list_url = url_for('invenio_records_rest.lib_list', q='pid:1')
 
     # Create record / POST
-    library_data['pid'] = '1'
+    lib_martigny_data['pid'] = '1'
     res = client.post(
         post_url,
-        data=json.dumps(library_data),
+        data=json.dumps(lib_martigny_data),
         headers=json_header
     )
 
@@ -111,15 +111,15 @@ def test_libraries_post_put_delete(client, organisation, library_data,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata'] == library_data
+    assert data['metadata'] == lib_martigny_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert library_data == data['metadata']
+    assert lib_martigny_data == data['metadata']
 
     # Update record/PUT
-    data = library_data
+    data = lib_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
