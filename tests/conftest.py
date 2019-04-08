@@ -61,9 +61,21 @@ def organisation_data(data):
 
 
 @pytest.fixture(scope="module")
+def organisation_data_2(data):
+    """."""
+    return (data.get('org2'))
+
+
+@pytest.fixture(scope="module")
 def library_data(data):
     """."""
     return deepcopy(data.get('lib1'))
+
+
+@pytest.fixture(scope="module")
+def library_data_2(data):
+    """."""
+    return deepcopy(data.get('lib2'))
 
 
 @pytest.fixture(scope="module")
@@ -73,9 +85,21 @@ def location_data(data):
 
 
 @pytest.fixture(scope="module")
+def location_data_21(data):
+    """."""
+    return deepcopy(data.get('loc21'))
+
+
+@pytest.fixture(scope="module")
 def store_location_data(data):
     """."""
     return deepcopy(data.get('loc2'))
+
+
+@pytest.fixture(scope="module")
+def store_location_data_22(data):
+    """."""
+    return deepcopy(data.get('loc22'))
 
 
 @pytest.fixture(scope="module")
@@ -84,10 +108,22 @@ def circ_policy_data(data):
     return deepcopy(data.get('cipo1'))
 
 
+@pytest.fixture(scope="module")
+def circ_policy_data_21(data):
+    """."""
+    return deepcopy(data.get('cipo21'))
+
+
 @pytest.fixture(scope="function")
 def circ_policy_data_tmp(data):
     """."""
     return deepcopy(data.get('cipo1'))
+
+
+@pytest.fixture(scope="function")
+def circ_policy_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('cipo21'))
 
 
 @pytest.fixture(scope="module")
@@ -120,10 +156,22 @@ def item_type_data(data):
     return deepcopy(data.get('itty1'))
 
 
+@pytest.fixture(scope="module")
+def item_type_data_21(data):
+    """."""
+    return deepcopy(data.get('itty21'))
+
+
 @pytest.fixture(scope="function")
 def item_type_data_tmp(data):
     """."""
     return deepcopy(data.get('itty1'))
+
+
+@pytest.fixture(scope="function")
+def item_type_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('itty21'))
 
 
 @pytest.fixture(scope="module")
@@ -132,10 +180,22 @@ def item_type_data_on_site(data):
     return deepcopy(data.get('itty3'))
 
 
+@pytest.fixture(scope="module")
+def item_type_data_on_site_23(data):
+    """."""
+    return deepcopy(data.get('itty23'))
+
+
 @pytest.fixture(scope="function")
 def item_type_data_on_site_tmp(data):
     """."""
     return deepcopy(data.get('itty3'))
+
+
+@pytest.fixture(scope="function")
+def item_type_data_on_site_tmp_33(data):
+    """."""
+    return deepcopy(data.get('itty33'))
 
 
 @pytest.fixture(scope="module")
@@ -144,16 +204,40 @@ def item_type_data_specific(data):
     return deepcopy(data.get('itty2'))
 
 
+@pytest.fixture(scope="module")
+def item_type_data_specific_22(data):
+    """."""
+    return deepcopy(data.get('itty22'))
+
+
 @pytest.fixture(scope="function")
 def item_type_data_tmp_specific(data):
     """."""
     return deepcopy(data.get('itty2'))
 
 
+@pytest.fixture(scope="function")
+def item_type_data_tmp_specific_22(data):
+    """."""
+    return deepcopy(data.get('itty22'))
+
+
+@pytest.fixture(scope="module")
+def patron_type_data_21(data):
+    """."""
+    return deepcopy(data.get('ptty21'))
+
+
 @pytest.fixture(scope="module")
 def patron_type_data(data):
     """."""
     return deepcopy(data.get('ptty1'))
+
+
+@pytest.fixture(scope="function")
+def patron_type_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('ptty21'))
 
 
 @pytest.fixture(scope="function")
@@ -168,10 +252,22 @@ def patron_type_data_specific(data):
     return deepcopy(data.get('ptty2'))
 
 
+@pytest.fixture(scope="module")
+def patron_type_data_specific_22(data):
+    """."""
+    return deepcopy(data.get('ptty22'))
+
+
 @pytest.fixture(scope="function")
 def patron_type_data_tmp_specific(data):
     """."""
     return deepcopy(data.get('ptty2'))
+
+
+@pytest.fixture(scope="function")
+def patron_type_data_tmp_specific_22(data):
+    """."""
+    return deepcopy(data.get('ptty22'))
 
 
 @pytest.fixture(scope="module")
@@ -180,10 +276,22 @@ def document_data(data):
     return deepcopy(data.get('doc1'))
 
 
+@pytest.fixture(scope="module")
+def document_data_21(data):
+    """."""
+    return deepcopy(data.get('doc21'))
+
+
 @pytest.fixture(scope="function")
 def document_data_tmp(data):
     """."""
     return deepcopy(data.get('doc1'))
+
+
+@pytest.fixture(scope="function")
+def document_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('doc21'))
 
 
 @pytest.fixture(scope="module")
@@ -193,9 +301,21 @@ def document_data_ref(data):
 
 
 @pytest.fixture(scope="module")
+def document_data_ref_22(data):
+    """."""
+    return deepcopy(data.get('doc22'))
+
+
+@pytest.fixture(scope="module")
 def user_librarian_data(data):
     """."""
     return deepcopy(data.get('ptrn1'))
+
+
+@pytest.fixture(scope="module")
+def user_librarian_data_21(data):
+    """."""
+    return deepcopy(data.get('ptrn21'))
 
 
 @pytest.fixture(scope="module")
@@ -205,9 +325,21 @@ def user_librarian_data_specific(data):
 
 
 @pytest.fixture(scope="module")
+def user_librarian_data_specific_23(data):
+    """."""
+    return deepcopy(data.get('ptrn23'))
+
+
+@pytest.fixture(scope="module")
 def user_patron_data(data):
     """."""
     return deepcopy(data.get('ptrn2'))
+
+
+@pytest.fixture(scope="module")
+def user_patron_data_22(data):
+    """."""
+    return deepcopy(data.get('ptrn22'))
 
 
 @pytest.fixture(scope="module")
@@ -216,10 +348,22 @@ def user_patron_data_specific(data):
     return deepcopy(data.get('ptrn3'))
 
 
+@pytest.fixture(scope="module")
+def user_patron_data_specific_23(data):
+    """."""
+    return deepcopy(data.get('ptrn23'))
+
+
 @pytest.fixture(scope="function")
 def user_librarian_data_tmp(data):
     """."""
     return deepcopy(data.get('ptrn1'))
+
+
+@pytest.fixture(scope="function")
+def user_librarian_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('ptrn21'))
 
 
 @pytest.fixture(scope="module")
@@ -240,10 +384,22 @@ def loan_data(data):
     return deepcopy(data.get('loan1'))
 
 
+@pytest.fixture(scope="module")
+def loan_data_21(data):
+    """."""
+    return deepcopy(data.get('loan21'))
+
+
 @pytest.fixture(scope="function")
 def loan_data_tmp(data):
     """."""
     return deepcopy(data.get('loan1'))
+
+
+@pytest.fixture(scope="function")
+def loan_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('loan21'))
 
 
 @pytest.fixture(scope="module")
@@ -253,9 +409,21 @@ def item_on_loan_data(data):
 
 
 @pytest.fixture(scope="module")
+def item_on_loan_data_21(data):
+    """."""
+    return deepcopy(data.get('item21'))
+
+
+@pytest.fixture(scope="module")
 def item_on_shelf_data(data):
     """."""
     return deepcopy(data.get('item2'))
+
+
+@pytest.fixture(scope="module")
+def item_on_shelf_data_22(data):
+    """."""
+    return deepcopy(data.get('item22'))
 
 
 @pytest.fixture(scope="module")
@@ -264,10 +432,22 @@ def item_specific_data(data):
     return deepcopy(data.get('item4'))
 
 
+@pytest.fixture(scope="module")
+def item_specific_data_24(data):
+    """."""
+    return deepcopy(data.get('item24'))
+
+
 @pytest.fixture(scope="function")
 def item_on_loan_data_tmp(data):
     """."""
     return deepcopy(data.get('item1'))
+
+
+@pytest.fixture(scope="function")
+def item_on_loan_data_tmp_21(data):
+    """."""
+    return deepcopy(data.get('item21'))
 
 
 @pytest.fixture(scope="module")
@@ -281,10 +461,32 @@ def organisation(database, organisation_data):
 
 
 @pytest.fixture(scope="module")
+def organisation_2(database, organisation_data_2):
+    """."""
+    org = Organisation.create(
+        data=organisation_data_2,
+        delete_pid=False,
+        dbcommit=True)
+    return org
+
+
+@pytest.fixture(scope="module")
 def library(app, organisation, library_data):
     """."""
     lib = Library.create(
         data=library_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
+def library_2(app, organisation, library_data_2):
+    """."""
+    lib = Library.create(
+        data=library_data_2,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -305,6 +507,18 @@ def location(app, library, location_data):
 
 
 @pytest.fixture(scope="module")
+def location_21(app, library, location_data_21):
+    """."""
+    loc = Location.create(
+        data=location_data_21,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
 def store_location(location, store_location_data):
     """."""
     loc = Location.create(
@@ -317,10 +531,34 @@ def store_location(location, store_location_data):
 
 
 @pytest.fixture(scope="module")
+def store_location_22(location, store_location_data_22):
+    """."""
+    loc = Location.create(
+        data=store_location_data_22,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
 def circ_policy(app, organisation, circ_policy_data):
     """."""
     cipo = CircPolicy.create(
         data=circ_policy_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
+def circ_policy_21(app, organisation, circ_policy_data_21):
+    """."""
+    cipo = CircPolicy.create(
+        data=circ_policy_data_21,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -377,10 +615,34 @@ def item_type(app, organisation, item_type_data):
 
 
 @pytest.fixture(scope="module")
+def item_type_21(app, organisation, item_type_data_21):
+    """."""
+    itty = ItemType.create(
+        data=item_type_data_21,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
 def item_type_specific(app, organisation, item_type_data_specific):
     """."""
     itty = ItemType.create(
         data=item_type_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
+def item_type_specific_22(app, organisation, item_type_data_specific_22):
+    """."""
+    itty = ItemType.create(
+        data=item_type_data_specific_22,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -401,6 +663,18 @@ def item_type_on_site(app, organisation, item_type_data_on_site):
 
 
 @pytest.fixture(scope="module")
+def item_type_on_site_23(app, organisation, item_type_data_on_site_23):
+    """."""
+    itty = ItemType.create(
+        data=item_type_data_on_site_23,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
 def patron_type(app, organisation, patron_type_data):
     """."""
     ptty = PatronType.create(
@@ -413,10 +687,34 @@ def patron_type(app, organisation, patron_type_data):
 
 
 @pytest.fixture(scope="module")
+def patron_type_21(app, organisation, patron_type_data_21):
+    """."""
+    ptty = PatronType.create(
+        data=patron_type_data_21,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronTypesSearch.Meta.index)
+    return ptty
+
+
+@pytest.fixture(scope="module")
 def patron_type_specific(app, organisation, patron_type_data_specific):
     """."""
     ptty = PatronType.create(
         data=patron_type_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronTypesSearch.Meta.index)
+    return ptty
+
+
+@pytest.fixture(scope="module")
+def patron_type_specific_22(app, organisation, patron_type_data_specific_22):
+    """."""
+    ptty = PatronType.create(
+        data=patron_type_data_specific_22,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -447,6 +745,19 @@ def user_librarian(app, roles, library, patron_type,
 
 
 @pytest.fixture(scope="module")
+def user_librarian_21(app, roles, library_2, patron_type_21,
+                      user_librarian_data_21):
+    """."""
+    ptrn = Patron.create(
+        data=user_librarian_data_21,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def user_patron(app, roles, library, user_librarian_type,
                 user_patron_data):
     """."""
@@ -460,11 +771,37 @@ def user_patron(app, roles, library, user_librarian_type,
 
 
 @pytest.fixture(scope="module")
+def user_patron_22(app, roles, library_2, user_librarian_type,
+                   user_patron_data_22):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_22,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def user_patron_specific(app, roles, library, user_librarian_type,
                          user_patron_data_specific):
     """."""
     ptrn = Patron.create(
         data=user_patron_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+def user_patron_specific_23(app, roles, library_2, user_librarian_type,
+                            user_patron_data_specific_23):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_specific_23,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -500,11 +837,40 @@ def user_librarian_no_email(app, roles, library, patron_type,
 
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_librarian_no_email_21(app, roles, library_2, patron_type_21,
+                               user_librarian_data_21):
+    """."""
+    ptrn = Patron.create(
+        data=user_librarian_data_21,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
 def user_librarian_no_email_specific(app, roles, library, patron_type_specific,
                                      user_librarian_data_specific):
     """."""
     ptrn = Patron.create(
         data=user_librarian_data_specific,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_librarian_no_email_specific_23(
+        app, roles, library_2, patron_type_specific_22,
+        user_librarian_data_specific_23):
+    """."""
+    ptrn = Patron.create(
+        data=user_librarian_data_specific_23,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -527,6 +893,20 @@ def user_patron_no_email(app, roles, library, patron_type, user_patron_data):
 
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_patron_no_email_22(
+        app, roles, library_2, patron_type_21, user_patron_data_22):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_22,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
 def user_patron_no_email_specific(
         app, roles, library, patron_type_specific, user_patron_data_specific):
     """."""
@@ -540,10 +920,38 @@ def user_patron_no_email_specific(
 
 
 @pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def user_patron_no_email_specific_23(
+        app, roles, library_2, patron_type_specific_22,
+        user_patron_data_specific_23
+):
+    """."""
+    ptrn = Patron.create(
+        data=user_patron_data_specific_23,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def document(app, document_data):
     """."""
     doc = Document.create(
         data=document_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+def document_21(app, document_data_21):
+    """."""
+    doc = Document.create(
+        data=document_data_21,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -583,15 +991,24 @@ def document_ref(mock_resolver_get, mock_listener_get,
 
 
 @pytest.fixture(scope="module")
-def loan(app, item_on_loan, location, library, loan_data):
+@mock.patch('rero_ils.modules.documents.listener.requests_get')
+@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
+def document_ref(mock_resolver_get, mock_listener_get,
+                 app, document_data_ref_22, mef_person_response_data):
     """."""
-    loan = Loan.create(
-        data=loan_data,
-        delete_pid=True,
+    mock_resolver_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    mock_listener_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    doc = Document.create(
+        data=document_data_ref_22,
+        delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(current_circulation.loan_search.Meta.index)
-    return loan
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
 
 
 @pytest.fixture(scope="module")
@@ -599,6 +1016,20 @@ def item_on_loan(app, document, item_on_loan_data, location, item_type):
     """."""
     item = Item.create(
         data=item_on_loan_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def item_on_loan_21(
+        app, document_21, item_on_loan_data_21, location_21, item_type_21
+):
+    """."""
+    item = Item.create(
+        data=item_on_loan_data_21,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -619,6 +1050,20 @@ def item_on_shelf(app, document, item_on_shelf_data, location, item_type):
 
 
 @pytest.fixture(scope="module")
+def item_on_shelf_22(
+        app, document_21, item_on_shelf_data_22, location_21, item_type_21
+):
+    """."""
+    item = Item.create(
+        data=item_on_shelf_data_22,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
 def item_specific(
         app, document, item_specific_data, location, item_type_specific):
     """."""
@@ -629,6 +1074,45 @@ def item_specific(
         reindex=True)
     flush_index(ItemsSearch.Meta.index)
     return item
+
+
+@pytest.fixture(scope="module")
+def item_specific_24(
+        app, document_21, item_specific_data_24, location_21,
+        item_type_specific_22
+):
+    """."""
+    item = Item.create(
+        data=item_type_specific_22,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def loan(app, item_on_loan, location, library, loan_data):
+    """."""
+    loan = Loan.create(
+        data=loan_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    flush_index(current_circulation.loan_search.Meta.index)
+    return loan
+
+
+@pytest.fixture(scope="module")
+def loan_21(app, item_on_loan_21, location_21, library_2, loan_data_21):
+    """."""
+    loan = Loan.create(
+        data=loan_data_21,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    flush_index(current_circulation.loan_search.Meta.index)
+    return loan
 
 
 @pytest.fixture(scope="session")

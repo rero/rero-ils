@@ -5,6 +5,12 @@
     "name": "MV Sion",
     "address": "address"
   },
+  "org2": {
+    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
+    "pid": "org2",
+    "name": "Libraries of the British Ministry of Magic",
+    "address": "address 2"
+  },
   "lib1": {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "address": "Via Challand 132, 11100 Aosta",
@@ -15,6 +21,107 @@
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     },
     "pid": "lib1",
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "sunday",
+        "is_open": false,
+        "times": []
+      }
+    ],
+    "exception_dates": [
+      {
+        "end_date": "2019-01-06",
+        "is_open": false,
+        "start_date": "2018-12-22",
+        "title": "Vacances de No\u00ebl"
+      },
+      {
+        "is_open": true,
+        "start_date": "2018-12-15",
+        "times": [
+          {
+            "end_time": "16:00",
+            "start_time": "10:00"
+          }
+        ],
+        "title": "Samdi du livre"
+      },
+      {
+        "is_open": false,
+        "repeat": {
+          "interval": 1,
+          "period": "yearly"
+        },
+        "start_date": "2019-08-01",
+        "title": "1er ao\u00fbt"
+      }
+    ]
+  },
+  "lib2": {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "address": "Highlands, Scotland, Great Britain",
+    "code": "HOG",
+    "email": "reroilstest+magic1@gmail.com",
+    "name": "Hogwarts Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    },
+    "pid": "lib2",
     "opening_hours": [
       {
         "day": "monday",
@@ -117,6 +224,17 @@
     "is_pickup": true,
     "pickup_name": "AOSTE CANT1: Espaces publics"
   },
+  "loc21": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "HOG-RESTR",
+    "name": "Restricted Section",
+    "pid": "loc21",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "is_pickup": true,
+    "pickup_name": "HOG: Restricted Section"
+  },
   "loc2": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "loc2",
@@ -125,6 +243,31 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     }
+  },
+  "loc22": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "loc22",
+    "code": "HOG-PUBL",
+    "name": "Public Section",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    }
+  },
+  "cipo21": {
+    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo21",
+    "name": "standard",
+    "description": "default standard circulation policy",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 30,
+    "allow_requests": true,
+    "number_renewals": 1,
+    "renewal_duration": 30,
+    "policy_library_level": false,
+    "is_default": true
   },
   "cipo1": {
     "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
@@ -207,6 +350,15 @@
       }
     ]
   },
+  "itty21": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "standard",
+    "pid": "itty21",
+    "description": "standard checkout",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
   "itty1": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "standard",
@@ -225,6 +377,15 @@
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
+  "itty22": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "specific",
+    "pid": "itty22",
+    "description": "specific checkout",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
   "itty3": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "on-site",
@@ -232,6 +393,15 @@
     "description": "on site consultation",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "itty23": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "on-site",
+    "pid": "itty23",
+    "description": "on site consultation",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
   },
   "ptty1": {
@@ -243,6 +413,15 @@
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
+  "ptty21": {
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "pid": "ptty21",
+    "name": "standard",
+    "description": "standard patron",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
   "ptty2": {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty2",
@@ -250,6 +429,15 @@
     "description": "specific patron",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "ptty22": {
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "pid": "ptty22",
+    "name": "specific",
+    "description": "specific patron",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
   },
   "ptrn1": {
@@ -274,6 +462,28 @@
       "librarian"
     ]
   },
+  "ptrn21": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn21",
+    "first_name": "Simonetta",
+    "last_name": "Casalini",
+    "street": "Avenue Leopold-Robert, 132",
+    "postal_code": "2300",
+    "city": "La Chaux-de-Fonds",
+    "barcode": "20501243112",
+    "birth_date": "1967-06-07",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "email": "simolibri072@gmail.com",
+    "phone": "+41324993585",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty21"
+    },
+    "roles": [
+      "librarian"
+    ]
+  },
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn2",
@@ -285,6 +495,24 @@
     "last_name": "Monnet",
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+    },
+    "postal_code": "1950",
+    "street": "Rue du Nord 7",
+    "roles": [
+      "patron"
+    ]
+  },
+  "ptrn22": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn22",
+    "barcode": "reroils12",
+    "birth_date": "2001-12-12",
+    "city": "Sion",
+    "email": "reroilstest+philippe2@gmail.com",
+    "first_name": "Philippe",
+    "last_name": "Monnet",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty21"
     },
     "postal_code": "1950",
     "street": "Rue du Nord 7",
@@ -306,6 +534,28 @@
     },
     "patron_type": {
       "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+    },
+    "postal_code": "1701",
+    "street": "Rue du Sud 10",
+    "roles": [
+      "patron",
+      "librarian"
+    ]
+  },
+  "ptrn23": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn23",
+    "barcode": "reroils32",
+    "birth_date": "1974-03-21",
+    "city": "Fribourg",
+    "email": "reroilstest+jean2@gmail.com",
+    "first_name": "Jean",
+    "last_name": "Dupont",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty22"
     },
     "postal_code": "1701",
     "street": "Rue du Sud 10",
@@ -444,6 +694,51 @@
     "publicationYear": 1889,
     "freeFormedPublicationDate": "[ca 1889]"
   },
+  "doc21": {
+    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "pid": "doc21",
+    "type": "book",
+    "notes": [
+      "La vie est belle"
+    ],
+    "title": "La reine Berthe et son fils",
+    "extent": "191 p.",
+    "series": [
+      {
+        "name": "Biblioth\u00e8que de la jeune fille",
+        "number": "1"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Vincent, Edward",
+        "type": "person"
+      }
+    ],
+    "formats": [
+      "18 cm"
+    ],
+    "languages": [
+      {
+        "language": "fre"
+      }
+    ],
+    "publishers": [
+      {
+        "name": [
+          "H. Mignot"
+        ],
+        "place": [
+          "Lausanne"
+        ]
+      }
+    ],
+    "identifiers": {
+      "reroID": "1047080"
+    },
+    "publicationYear": 1889,
+    "freeFormedPublicationDate": "[ca 1889]"
+  },
   "doc2": {
     "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
     "pid": "doc2",
@@ -477,6 +772,39 @@
     ],
     "extent": "560 p."
   },
+  "doc22": {
+    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "pid": "doc22",
+    "type": "book",
+    "languages": [
+      {
+        "language": "ara"
+      }
+    ],
+    "identifiers": {
+      "isbn": "9786039012642",
+      "reroID": "R0071531232"
+    },
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/mef/pers1"
+      }
+    ],
+    "title": "The Egyption people",
+    "publicationYear": 2011,
+    "publishers": [
+      {
+        "place": [
+          "al-Riy\u0101\u1e0d"
+        ],
+        "name": [
+          "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+        ]
+      }
+    ],
+    "extent": "560 p."
+  },
   "loan1": {
     "$schema": "https://ils.rero.ch/schema/loans/loan-ils-v0.0.1.json",
     "loan_pid": "loan1",
@@ -491,6 +819,20 @@
     "transaction_location_pid": "loc1",
     "transaction_user_pid": "ptrn1"
   },
+  "loan21": {
+    "$schema": "https://ils.rero.ch/schema/loans/loan-ils-v0.0.1.json",
+    "loan_pid": "loan21",
+    "state": "ITEM_ON_LOAN",
+    "trigger": "checkout",
+    "document_pid": "doc21",
+    "item_pid": "item21",
+    "patron_pid": "ptrn21",
+    "start_date": "2019-01-09T08:18:22.576291+00:00",
+    "end_date": "2019-02-08T08:18:22.576291+00:00",
+    "transaction_date": "2019-01-09T08:18:22.576291+00:00",
+    "transaction_location_pid": "loc21",
+    "transaction_user_pid": "ptrn21"
+  },
   "item1": {
     "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
     "pid": "item1",
@@ -504,6 +846,22 @@
     },
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_loan"
+  },
+  "item21": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item21",
+    "barcode": "211234",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc21"
+    },
+    "call_number": "00004",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc21"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty21"
     },
     "status": "on_loan"
   },
@@ -523,6 +881,22 @@
     },
     "status": "on_shelf"
   },
+  "item22": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item22",
+    "barcode": "2278431",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc21"
+    },
+    "call_number": "00005",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc21"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty21"
+    },
+    "status": "on_shelf"
+  },
   "item3": {
     "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
     "pid": "item3",
@@ -539,6 +913,22 @@
     },
     "status": "on_loan"
   },
+  "item23": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item23",
+    "barcode": "2312345",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc21"
+    },
+    "call_number": "00004",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc22"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty21"
+    },
+    "status": "on_loan"
+  },
   "item4": {
     "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
     "pid": "item4",
@@ -552,6 +942,22 @@
     },
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty2"
+    },
+    "status": "on_shelf"
+  },
+  "item24": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item24",
+    "barcode": "2478910",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc21"
+    },
+    "call_number": "00044",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc21"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty22"
     },
     "status": "on_shelf"
   }

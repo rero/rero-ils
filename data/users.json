@@ -236,5 +236,43 @@
     "street": "Vignettes 25",
     "communication_channel": "email",
     "communication_language": "de"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1955-01-30",
+    "city": "Hogsmeade",
+    "email": "reroilstest+irma@gmail.com",
+    "first_name": "Irma",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Pince",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/5"
+    },
+    "password": "123456",
+    "phone": "+01411234567",
+    "postal_code": "0000",
+    "street": "High Street"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "3050124311",
+    "birth_date": "2001-06-07",
+    "city": "London",
+    "email": "reroilstest+harry@gmail.com",
+    "first_name": "Harry",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Potter",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/4"
+    },
+    "postal_code": "55555",
+    "street": "Magic Street 3",
+    "communication_channel": "email",
+    "communication_language": "en"
   }
 ]
