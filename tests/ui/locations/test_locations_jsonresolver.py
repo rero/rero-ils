@@ -29,7 +29,7 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_locations_jsonresolver(location):
+def test_locations_jsonresolver(loc_public_martigny):
     """Test location json resolver."""
     rec = Record.create({
         'location': {'$ref': 'https://ils.rero.ch/api/locations/loc1'}
@@ -37,7 +37,7 @@ def test_locations_jsonresolver(location):
     assert rec.replace_refs().get('location') == {'pid': 'loc1'}
 
     # deleted record
-    location.delete()
+    loc_public_martigny.delete()
     with pytest.raises(JsonRefError):
         rec.replace_refs().dumps()
 

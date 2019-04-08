@@ -32,28 +32,29 @@ from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch, \
     patron_type_id_fetcher
 
 
-def test_patron_type_create(db, patron_type_data_tmp):
+def test_patron_type_create(db, patron_type_children_martigny_data):
     """Test pttyanisation creation."""
-    ptty = PatronType.create(patron_type_data_tmp, delete_pid=True)
-    assert ptty == patron_type_data_tmp
+    ptty = PatronType.create(
+        patron_type_children_martigny_data, delete_pid=True)
+    assert ptty == patron_type_children_martigny_data
     assert ptty.get('pid') == '1'
 
     ptty = PatronType.get_record_by_pid('1')
-    assert ptty == patron_type_data_tmp
+    assert ptty == patron_type_children_martigny_data
 
     fetched_pid = patron_type_id_fetcher(ptty.id, ptty)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'ptty'
 
 
-def test_patron_type_es_mapping(es_clear, db, organisation,
-                                patron_type_data_tmp):
+def test_patron_type_es_mapping(es_clear, db, org_martigny,
+                                patron_type_children_martigny_data):
     """."""
     search = PatronTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     PatronType.create(
-        patron_type_data_tmp,
+        patron_type_children_martigny_data,
         dbcommit=True,
         reindex=True,
         delete_pid=True
@@ -61,16 +62,17 @@ def test_patron_type_es_mapping(es_clear, db, organisation,
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_patron_type_exist_name_and_organisation_pid(patron_type):
+def test_patron_type_exist_name_and_organisation_pid(
+        patron_type_children_martigny):
     """."""
-    ptty = patron_type.replace_refs()
+    ptty = patron_type_children_martigny.replace_refs()
     assert PatronType.exist_name_and_organisation_pid(
         ptty.get('name'), ptty.get('organisation', {}).get('pid'))
     assert not PatronType.exist_name_and_organisation_pid(
         'not exists yet', ptty.get('organisation', {}).get('pid'))
 
 
-def test_patron_type_can_delete(patron_type):
+def test_patron_type_can_delete(patron_type_children_martigny):
     """Test can delete"""
-    assert patron_type.get_links_to_me() == {}
-    assert patron_type.can_delete
+    assert patron_type_children_martigny.get_links_to_me() == {}
+    assert patron_type_children_martigny.can_delete

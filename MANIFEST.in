@@ -33,7 +33,6 @@ include docker/postgres/Dockerfile
 include Dockerfile
 include scripts/bootstrap
 include scripts/console
-include scripts/dojson
 include scripts/server
 include scripts/setup
 include scripts/update

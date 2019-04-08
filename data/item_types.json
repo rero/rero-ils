@@ -46,5 +46,13 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
     }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "Standard",
+    "description": "Standard checkout.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    }
   }
 ]

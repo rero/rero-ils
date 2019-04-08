@@ -32,12 +32,7 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
     CircPolicy, circ_policy_id_fetcher
 
 
-def test_circ_policy_search(
-    app,
-    circ_policy,
-    circ_policy_short,
-    circ_policy_short_library
-):
+def test_circ_policy_search(app, circulation_policies):
     """Test finding a circulation policy."""
     data = [
         {

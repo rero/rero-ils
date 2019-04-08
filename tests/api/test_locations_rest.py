@@ -30,7 +30,7 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
-def test_locations_permissions(client, location, json_header):
+def test_locations_permissions(client, loc_public_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loc_item', pid_value='loc1')
     post_url = url_for('invenio_records_rest.loc_list')
@@ -57,8 +57,9 @@ def test_locations_permissions(client, location, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_locations_get(client, location):
+def test_locations_get(client, loc_public_martigny):
     """Test record retrieval."""
+    location = loc_public_martigny
     item_url = url_for('invenio_records_rest.loc_item', pid_value=location.pid)
     list_url = url_for(
         'invenio_records_rest.loc_list', q='pid:' + location.pid)
@@ -102,13 +103,14 @@ def test_locations_get(client, location):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_locations_post_put_delete(client, library, location_data,
+def test_locations_post_put_delete(client, lib_martigny,
+                                   loc_public_martigny_data,
                                    json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loc_item', pid_value='1')
     post_url = url_for('invenio_records_rest.loc_list')
     list_url = url_for('invenio_records_rest.loc_list', q='pid:1')
-
+    location_data = loc_public_martigny_data
     # Create record / POST
     location_data['pid'] = '1'
     res = client.post(
@@ -162,12 +164,12 @@ def test_locations_post_put_delete(client, library, location_data,
     assert res.status_code == 410
 
 
-def test_location_can_delete(client, item_on_shelf, location):
+def test_location_can_delete(client, item_lib_martigny, loc_public_martigny):
     """Test can delete a location."""
-    links = location.get_links_to_me()
+    links = loc_public_martigny.get_links_to_me()
     assert 'items' in links
 
-    assert not location.can_delete
+    assert not loc_public_martigny.can_delete
 
-    reasons = location.reasons_not_to_delete()
+    reasons = loc_public_martigny.reasons_not_to_delete()
     assert 'links' in reasons

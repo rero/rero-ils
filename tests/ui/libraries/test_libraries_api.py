@@ -33,32 +33,34 @@ from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
 
 
-def test_library_create(db, library_data):
+def test_library_create(db, lib_martigny_data):
     """Test libanisation creation."""
-    lib = Library.create(library_data, delete_pid=True)
-    assert lib == library_data
+    lib = Library.create(lib_martigny_data, delete_pid=True)
+    assert lib == lib_martigny_data
     assert lib.get('pid') == '1'
 
     lib = Library.get_record_by_pid('1')
-    assert lib == library_data
+    assert lib == lib_martigny_data
 
     fetched_pid = fetcher(lib.id, lib)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'lib'
 
 
-def test_library_es_mapping(es_clear, db, library_data, organisation):
+def test_library_es_mapping(es_clear, db, lib_martigny_data, org_martigny):
     """."""
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Library.create(library_data, dbcommit=True, reindex=True, delete_pid=True)
+    Library.create(
+        lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_libraries_is_open(library):
+def test_libraries_is_open(lib_martigny):
     """Test library creat."""
     saturday = '2018-12-15 11:00'
+    library = lib_martigny
     assert library.is_open(date=saturday)
 
     assert not library.is_open(date='2018-8-1')
@@ -89,7 +91,7 @@ def test_libraries_is_open(library):
     assert not library.is_open(date=saturday)
 
 
-def test_library_can_delete(library):
+def test_library_can_delete(lib_martigny):
     """Test can  delete"""
-    assert library.get_links_to_me() == {}
-    assert library.can_delete
+    assert lib_martigny.get_links_to_me() == {}
+    assert lib_martigny.can_delete

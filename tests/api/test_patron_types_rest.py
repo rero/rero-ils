@@ -30,7 +30,8 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
-def test_patron_types_permissions(client, patron_type, json_header):
+def test_patron_types_permissions(client, patron_type_children_martigny,
+                                  json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ptty_item', pid_value='ptty1')
     post_url = url_for('invenio_records_rest.ptty_list')
@@ -60,10 +61,10 @@ def test_patron_types_permissions(client, patron_type, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patron_types_get(client, patron_type):
+def test_patron_types_get(client, patron_type_children_martigny):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ptty_item', pid_value='ptty1')
-
+    patron_type = patron_type_children_martigny
     res = client.get(item_url)
     assert res.status_code == 200
 
@@ -92,7 +93,8 @@ def test_patron_types_get(client, patron_type):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patron_types_post_put_delete(client, organisation, patron_type_data,
+def test_patron_types_post_put_delete(client, org_martigny,
+                                      patron_type_children_martigny_data,
                                       json_header):
     """Test record retrieval."""
     # Create record / POST
@@ -100,25 +102,25 @@ def test_patron_types_post_put_delete(client, organisation, patron_type_data,
     post_url = url_for('invenio_records_rest.ptty_list')
     list_url = url_for('invenio_records_rest.ptty_list', q='pid:1')
 
-    patron_type_data['pid'] = '1'
+    patron_type_children_martigny_data['pid'] = '1'
     res = client.post(
         post_url,
-        data=json.dumps(patron_type_data),
+        data=json.dumps(patron_type_children_martigny_data),
         headers=json_header
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata'] == patron_type_data
+    assert data['metadata'] == patron_type_children_martigny_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert patron_type_data == data['metadata']
+    assert patron_type_children_martigny_data == data['metadata']
 
     # Update record/PUT
-    data = patron_type_data
+    data = patron_type_children_martigny_data
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
@@ -154,10 +156,10 @@ def test_patron_types_post_put_delete(client, organisation, patron_type_data,
 
 @mock.patch('rero_ils.modules.patron_types.views.login_and_librarian',
             mock.MagicMock())
-def test_patron_types_name_validate(client, patron_type):
+def test_patron_types_name_validate(client, patron_type_children_martigny):
     """Test patron type name validation."""
 
-    url = url_for('patron_types.name_validate', name='standard')
+    url = url_for('patron_types.name_validate', name='children')
 
     class current_patron:
         class organisation:
@@ -168,7 +170,7 @@ def test_patron_types_name_validate(client, patron_type):
     ):
         res = client.get(url)
         assert res.status_code == 200
-        assert get_json(res) == {'name': 'standard'}
+        assert get_json(res) == {'name': 'children'}
 
     class current_patron:
         class organisation:
@@ -182,9 +184,11 @@ def test_patron_types_name_validate(client, patron_type):
         assert get_json(res) == {'name': None}
 
 
-def test_patron_types_can_delete(client, patron_type, user_patron_no_email,
+def test_patron_types_can_delete(client, patron_type_children_martigny,
+                                 librarian_martigny_no_email,
                                  circulation_policies):
     """Test can delete a patron type."""
+    patron_type = patron_type_children_martigny
     links = patron_type.get_links_to_me()
     assert 'circ_policies' in links
     assert 'patrons' in links

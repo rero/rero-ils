@@ -31,40 +31,41 @@ from utils import get_mapping
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 
 
-def test_item_item_location_retriever(item_on_shelf, location, store_location):
+def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
+                                      loc_restricted_martigny):
     """Test location retriever for invenio-circulation."""
-    assert item_on_shelf.item_location_retriever(
-        item_on_shelf.pid) == location.pid
+    assert item_lib_martigny.item_location_retriever(
+        item_lib_martigny.pid) == loc_public_martigny.pid
 
 
-def test_item_get_items_pid_by_document_pid(document, item_on_shelf):
+def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
     """."""
     assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
 
 
-def test_item_create(db, es_clear, item_on_loan_data_tmp):
+def test_item_create(db, es_clear, item_lib_martigny_data_tmp):
     """Test itemanisation creation."""
-    item = Item.create(item_on_loan_data_tmp, delete_pid=True)
-    assert item == item_on_loan_data_tmp
+    item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
+    assert item == item_lib_martigny_data_tmp
     assert item.get('pid') == '1'
     assert item.can_delete
 
     item = Item.get_record_by_pid('1')
-    assert item == item_on_loan_data_tmp
+    assert item == item_lib_martigny_data_tmp
 
     fetched_pid = item_id_fetcher(item.id, item)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'item'
 
 
-def test_item_es_mapping(es_clear, db, document, location, item_type,
-                         item_on_loan_data_tmp):
+def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
+                         item_lib_martigny_data_tmp):
     """."""
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     Item.create(
-        item_on_loan_data_tmp,
+        item_lib_martigny_data_tmp,
         dbcommit=True,
         reindex=True,
         delete_pid=True
@@ -72,7 +73,7 @@ def test_item_es_mapping(es_clear, db, document, location, item_type,
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_item_can_delete(item_on_shelf):
+def test_item_can_delete(item_lib_martigny):
     """Test can delete"""
-    assert item_on_shelf.get_links_to_me() == {}
-    assert item_on_shelf.can_delete
+    assert item_lib_martigny.get_links_to_me() == {}
+    assert item_lib_martigny.can_delete

@@ -94,5 +94,21 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/4"
     }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "HOG-RESTR",
+    "name": "Restricted Section",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/5"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "HOG-PUBL",
+    "name": "Public Section",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/5"
+    }
   }
 ]

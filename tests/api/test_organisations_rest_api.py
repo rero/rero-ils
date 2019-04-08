@@ -14,12 +14,12 @@
 """Tests REST API organisations."""
 
 
-def test_location_can_delete(client, organisation, library):
+def test_location_can_delete(client, org_martigny, lib_martigny):
     """Test can delete an organisation."""
-    links = organisation.get_links_to_me()
+    links = org_martigny.get_links_to_me()
     assert 'libraries' in links
 
-    assert not organisation.can_delete
+    assert not org_martigny.can_delete
 
-    reasons = organisation.reasons_not_to_delete()
+    reasons = org_martigny.reasons_not_to_delete()
     assert 'links' in reasons

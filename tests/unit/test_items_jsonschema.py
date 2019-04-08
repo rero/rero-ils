@@ -31,54 +31,54 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(item_schema, item_on_loan_data_tmp):
+def test_required(item_schema, item_lib_martigny_data_tmp):
     """Test required for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
         validate({}, item_schema)
 
 
-def test_pid(item_schema, item_on_loan_data_tmp):
+def test_pid(item_schema, item_lib_martigny_data_tmp):
     """Test pid for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
-        item_on_loan_data_tmp['pid'] = 25
-        validate(item_on_loan_data_tmp, item_schema)
+        item_lib_martigny_data_tmp['pid'] = 25
+        validate(item_lib_martigny_data_tmp, item_schema)
 
 
-def test_barcode(item_schema, item_on_loan_data_tmp):
+def test_barcode(item_schema, item_lib_martigny_data_tmp):
     """Test barcode for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
-        item_on_loan_data_tmp['barcode'] = 2
-        validate(item_on_loan_data_tmp, item_schema)
+        item_lib_martigny_data_tmp['barcode'] = 2
+        validate(item_lib_martigny_data_tmp, item_schema)
 
 
-def test_call_number(item_schema, item_on_loan_data_tmp):
+def test_call_number(item_schema, item_lib_martigny_data_tmp):
     """Test call_number for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
-        item_on_loan_data_tmp['callNumber'] = 25
-        validate(item_on_loan_data_tmp, item_schema)
+        item_lib_martigny_data_tmp['callNumber'] = 25
+        validate(item_lib_martigny_data_tmp, item_schema)
 
 
-def test_location(item_schema, item_on_loan_data_tmp):
+def test_location(item_schema, item_lib_martigny_data_tmp):
     """Test location for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
-        item_on_loan_data_tmp['location'] = 25
-        validate(item_on_loan_data_tmp, item_schema)
+        item_lib_martigny_data_tmp['location'] = 25
+        validate(item_lib_martigny_data_tmp, item_schema)
 
 
-def test_item_type(item_schema, item_on_loan_data_tmp):
+def test_item_type(item_schema, item_lib_martigny_data_tmp):
     """Test location for item jsonschemas."""
-    validate(item_on_loan_data_tmp, item_schema)
+    validate(item_lib_martigny_data_tmp, item_schema)
 
     with pytest.raises(ValidationError):
-        item_on_loan_data_tmp['item_type_pid'] = 25
-        validate(item_on_loan_data_tmp, item_schema)
+        item_lib_martigny_data_tmp['item_type_pid'] = 25
+        validate(item_lib_martigny_data_tmp, item_schema)

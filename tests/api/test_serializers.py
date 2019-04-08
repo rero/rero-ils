@@ -33,8 +33,8 @@ from utils import VerifyRecordPermissionPatch, get_json
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies(
     client,
-    organisation,
-    circ_policy,
+    org_martigny,
+    circ_policy_default_martigny,
     can_delete_json_header,
     json_header
 ):
@@ -62,7 +62,7 @@ def test_circ_policies(
 def test_documents(
     client,
     document,
-    item_on_shelf,
+    item_lib_martigny,
     can_delete_json_header,
     json_header
 ):
@@ -85,7 +85,7 @@ def test_documents(
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_item_types(
     client,
-    item_type,
+    item_type_standard_martigny,
     can_delete_json_header,
     json_header
 ):
@@ -108,12 +108,12 @@ def test_item_types(
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_items(
     client,
-    item_on_shelf,
+    item_lib_martigny,
     json_header,
     can_delete_json_header
 ):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.item_item', pid_value='item2')
+    item_url = url_for('invenio_records_rest.item_item', pid_value='item1')
 
     res = client.get(item_url, headers=can_delete_json_header)
     assert res.status_code == 200

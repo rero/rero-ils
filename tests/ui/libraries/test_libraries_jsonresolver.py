@@ -29,8 +29,9 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_libraries_jsonresolver(library):
+def test_libraries_jsonresolver(lib_martigny):
     """."""
+    library = lib_martigny
     rec = Record.create({
         'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
     })

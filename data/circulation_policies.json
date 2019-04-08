@@ -16,6 +16,21 @@
   },
   {
     "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "Default",
+    "description": "Default circulation policy.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "allow_checkout": true,
+    "checkout_duration": 30,
+    "allow_requests": true,
+    "number_renewals": 3,
+    "renewal_duration": 30,
+    "policy_library_level": false,
+    "is_default": true
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
     "name": "Site d'Aoste: short",
     "description": "Short loan (7 days), applies only at Site d'Aoste.",
     "organisation": {
