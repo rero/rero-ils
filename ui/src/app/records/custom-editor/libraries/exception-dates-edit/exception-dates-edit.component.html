@@ -212,10 +212,10 @@
         </div>
       </div>
     </div>
-    <div class="btn-group float-right mb-4" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-warning" (click)="onCancel()" translate>Cancel</button>
-      <button type="button" class="btn btn-success" (click)="onSubmit()" [disabled]="exceptionForm.invalid" translate>
-        Submit
+    <div class="float-right mb-4" role="group" aria-label="Buttons">
+      <button type="button" class="btn btn-outline-dark mr-1" (click)="onCancel()" translate>Cancel</button>
+      <button type="button" class="btn btn-outline-dark" (click)="onSubmit()" [disabled]="exceptionForm.invalid" translate>
+        OK
       </button>
     </div>
   </form>
