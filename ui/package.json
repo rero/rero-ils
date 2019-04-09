@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --configuration=production",
+    "deploy": "ng build --configuration=production; pipenv run invenio --help",
     "proxy": "ng serve --configuration=proxy",
     "extract_messages": "ngx-translate-extract -c -i ./src -o ./src/assets/i18n/en*.json -m _ --fi '  '; ./scripts/key2value.py ./src/assets/i18n/en_US.json; ./scripts/key2value.py ./src/assets/i18n/en.json",
     "update_catalog": "ngx-translate-extract -c -i ./src -o ./src/assets/i18n/{it,de,en,fr}.json -m _ --fi '  '"

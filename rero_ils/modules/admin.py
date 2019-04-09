@@ -25,11 +25,11 @@
 """Admin views and actions."""
 
 from flask_admin import BaseView, expose
+from flask_babelex import gettext as _
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
 from ..permissions import can_edit
-from flask_babelex import gettext as _
 
 
 class ILSManager(BaseView):

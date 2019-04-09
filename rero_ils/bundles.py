@@ -78,11 +78,11 @@ js = NpmBundle(
 
 ui_js = Bundle(
     'node_modules/jquery/jquery.js',
-    'js/rero_ils/ui/runtime.js',
-    'js/rero_ils/ui/polyfills.js',
-    'js/rero_ils/ui/styles.js',
-    'js/rero_ils/ui/scripts.js',
-    'js/rero_ils/ui/main.js',
+    'js/rero_ils/ui/runtime.*.js',
+    'js/rero_ils/ui/polyfills.*.js',
+    'js/rero_ils/ui/styles.*.js',
+    'js/rero_ils/ui/scripts.*.js',
+    'js/rero_ils/ui/main.*.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
     output='gen/rero_ils.modules.ui_js.%(version)s.js'
 )
