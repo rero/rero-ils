@@ -28,6 +28,7 @@ _('und');
 
 _('patron');
 _('librarian');
+_('systemlibrarian');
 _('staff');
 
 

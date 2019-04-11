@@ -75,7 +75,7 @@ class Patron(IlsRecord):
     minter = patron_id_minter
     fetcher = patron_id_fetcher
     provider = PatronProvider
-    available_roles = ['librarian', 'patron']
+    available_roles = ['system_librarian', 'librarian', 'patron']
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

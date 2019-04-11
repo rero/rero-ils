@@ -973,6 +973,7 @@
     "email": "simolibri07@gmail.com",
     "phone": "+41324993585",
     "roles": [
+      "system_librarian",
       "librarian",
       "patron"
     ]

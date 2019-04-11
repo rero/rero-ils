@@ -65,6 +65,9 @@ pipenv run invenio roles create -d "Patron" patron
 # create a role for users qualified as a staff library
 pipenv run invenio roles create -d "Librarian" librarian
 
+# create a role for users qualified as a System librarian
+pipenv run invenio roles create -d "System Librarian" system_librarian
+
 # grant accesses to action roles
 pipenv run invenio access allow admin-access role admins
 pipenv run invenio access allow superuser-access role superusers
