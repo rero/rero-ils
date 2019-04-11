@@ -6,6 +6,7 @@
     "email": "reroilstest@gmail.com",
     "first_name": "Astrid",
     "roles": [
+      "system_librarian",
       "librarian"
     ],
     "last_name": "M\u00fcller",
@@ -244,6 +245,7 @@
     "email": "reroilstest+irma@gmail.com",
     "first_name": "Irma",
     "roles": [
+      "system_librarian",
       "librarian"
     ],
     "last_name": "Pince",

@@ -60,6 +60,7 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'ptrn'
 
+    # set librarian
     roles = ['librarian']
     ptrn.update({'roles': roles}, dbcommit=True)
     user_roles = [r.name for r in user.roles]
@@ -68,11 +69,16 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     ptrn.update({'roles': Patron.available_roles}, dbcommit=True)
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(Patron.available_roles)
+
+    # remove patron
     ptrn.delete()
+    # user still exist in the invenio db
     user = ds.find_user(email=email)
     assert user
+    # all roles has been removed
     assert not user.roles
     assert len(mailbox) == 1
+    # patron does not exists anymore
     ptrn = Patron.get_record_by_pid('1')
     assert ptrn is None
     ptrn = Patron.get_record_by_pid('1', with_deleted=True)
@@ -103,6 +109,7 @@ def test_patron_es_mapping(
 def test_get_patron(librarian_martigny):
     """Test patron retrieval."""
     patron = librarian_martigny
+    assert 'system_librarian' in patron.get('roles')
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
     assert Patron.get_patron_by_barcode('2050124311') == patron

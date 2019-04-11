@@ -188,6 +188,7 @@ msgid "patrons"
 msgstr "lettore"
 
 #: rero_ils/manual_translations.txt:28
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:88
 msgid "librarian"
 msgstr "bibliotecario/a"
 
@@ -1090,7 +1091,7 @@ msgstr "Classificazione"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/form_locations/location-v0.0.1.json:3
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:49
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:114
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:124
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:100
 msgid "Library"
 msgstr "Biblioteca"
@@ -1162,12 +1163,12 @@ msgid "The item %s has been requested."
 msgstr "L'esemplare %s è stato richiesto."
 
 #: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:5
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:96
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:106
 msgid "The barcode is already taken"
 msgstr "Il codice a barre è già utilizzato"
 
 #: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:6
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:97
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:107
 msgid "The server cannot verify the barcode"
 msgstr "Il server non può verificare il codice a barre"
 
@@ -1634,16 +1635,21 @@ msgid "Roles"
 msgstr "Ruoli"
 
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:77
-msgid "Is the user a patron or/and a librarian?"
-msgstr "L'utente è un lettore e/o un bibliotecario?"
+msgid "What is/are the role(s) of the user?"
+msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:115
-msgid "The library where the librarian works."
-msgstr "La biblioteca dove il bibliotecario sta lavorando."
-
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:84
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
 msgid "patron"
 msgstr "lettore"
+
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:92
+msgid "system_librarian"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:125
+msgid "The library where the librarian works."
+msgstr "La biblioteca dove il bibliotecario sta lavorando."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:5
 msgid "JSON schema for a patron"
@@ -1744,11 +1750,11 @@ msgstr "Ruolo"
 msgid "Qualify this user as a patron and/or a librarian."
 msgstr "Definire quell'utente come lettore e/o bibliotecario."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:126
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:127
 msgid "Communication channel"
 msgstr "Canali di comunicazione"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:134
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:135
 msgid "Communication language"
 msgstr "Lingua di comunicazione"
 
@@ -1992,4 +1998,3 @@ msgstr "L'esemplare"
 #: rero_ils/templates/rero_ils/tombstone.html:24
 msgid "is deleted."
 msgstr "è stato eliminato."
-
