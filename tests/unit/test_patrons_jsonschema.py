@@ -144,5 +144,5 @@ def test_roles(patron_schema, librarian_martigny_data_tmp):
     validate(librarian_martigny_data_tmp, patron_schema)
 
     with pytest.raises(ValidationError):
-        librarian_martigny_data_tmp['roles'] = 25
+        librarian_martigny_data_tmp['roles'] = 'text'
         validate(librarian_martigny_data_tmp, patron_schema)
