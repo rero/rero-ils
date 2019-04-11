@@ -74,13 +74,23 @@
           {
             "key": "roles",
             "notitle": "true",
-            "description": "Is the user a patron or/and a librarian?",
+            "description": "What is/are the role(s) of the user?",
             "type": "checkboxes",
             "htmlClass": "d-inline-block",
             "orderable": "false",
-            "enum": [
-              "patron",
-              "librarian"
+            "titleMap": [
+              {
+                "value": "patron",
+                "name": "patron"
+              },
+              {
+                "value": "librarian",
+                "name": "librarian"
+              },
+              {
+                "value": "system_librarian",
+                "name": "system librarian"
+              }
             ]
           },
           {

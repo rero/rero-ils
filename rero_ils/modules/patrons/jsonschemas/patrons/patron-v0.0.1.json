@@ -114,10 +114,11 @@
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
-      "maxItems": 2,
+      "maxItems": 3,
       "items": {
         "type": "string",
         "enum": [
+          "system_librarian",
           "librarian",
           "patron"
         ]
