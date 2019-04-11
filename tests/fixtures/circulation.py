@@ -52,6 +52,7 @@ def roles(base_app, database):
     ds = base_app.extensions['invenio-accounts'].datastore
     ds.create_role(name='patron')
     ds.create_role(name='librarian')
+    ds.create_role(name='system_librarian')
     ds.commit()
 
 
