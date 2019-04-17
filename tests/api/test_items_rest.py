@@ -1366,3 +1366,120 @@ def test_items_extend_end_date(client, user_librarian_no_email,
         content_type='application/json',
     )
     assert res.status_code == 200
+
+
+def test_items_in_transit(client, user_librarian_no_email,
+                          user_patron_no_email,
+                          location, item_type, store_location,
+                          item_on_shelf, json_header,
+                          circ_policy):
+    """."""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    item_pid = item.pid
+    patron_pid = user_patron_no_email.pid
+
+    # request to pick at another location
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                pickup_location_pid=store_location.pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.ON_SHELF
+    assert actions.get(LoanAction.REQUEST)
+    loan_pid = actions[LoanAction.REQUEST].get('loan_pid')
+    item = Item.get_record_by_pid(item_pid)
+
+    # validate (send) request
+    res = client.post(
+        url_for('api_item.validate_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.IN_TRANSIT
+    assert actions.get(LoanAction.VALIDATE)
+
+    # checkout action to req patron is possible without the receive action
+    res = client.get(
+        url_for(
+            'api_item.item',
+            item_barcode=item.get('barcode'),
+            patron_pid=patron_pid
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('metadata').get('item').get('actions')
+    assert 'checkout' in actions
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert Item.get_record_by_pid(item_pid).get('status') == ItemStatus.ON_LOAN
+
+    # checkin at location other than item location
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid,
+                transaction_location_pid=store_location.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.IN_TRANSIT
+    assert actions.get(LoanAction.CHECKIN)
+    loan_pid = actions[LoanAction.CHECKIN].get('loan_pid')
+    loan = actions[LoanAction.CHECKIN]
+    assert loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE'
+
+    # a new checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert Item.get_record_by_pid(item_pid).get('status') == ItemStatus.ON_LOAN

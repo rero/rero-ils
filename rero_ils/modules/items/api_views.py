@@ -122,6 +122,25 @@ def librarian_request(item, data):
     return item.request(**data)
 
 
+def prior_checkout_actions(item, data):
+    """Actions executed prior to a checkout."""
+    if data.get('loan_pid'):
+        loan = Loan.get_record_by_pid(data.get('loan_pid'))
+        if (
+            loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
+            loan.get('patron_pid') == data.get('patron_pid')
+        ):
+            item.receive(**data)
+        if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
+            item.cancel_loan(loan_pid=loan.get('loan_pid'))
+            del data['loan_pid']
+    else:
+        loan = get_loan_for_item(item.pid)
+        if loan:
+            item.cancel_loan(loan_pid=loan.get('loan_pid'))
+    return data
+
+
 @api_blueprint.route('/checkout', methods=['POST'])
 @check_authentication
 @jsonify_action
@@ -130,7 +149,8 @@ def checkout(item, data):
 
     required_parameters: patron_pid, item_pid
     """
-    return item.checkout(**data)
+    new_data = prior_checkout_actions(item, data)
+    return item.checkout(**new_data)
 
 
 @api_blueprint.route("/checkin", methods=['POST'])
@@ -286,7 +306,19 @@ def item(item_barcode):
         new_actions = []
         for action in actions:
             if action == 'checkout' and circ_policy.get('allow_checkout'):
-                new_actions.append(action)
+                if item.number_of_requests() > 0:
+                    patron_barcode = Patron.get_record_by_pid(
+                        patron_pid).get('barcode')
+                    if item.patron_request_rank(patron_barcode) == 1:
+                        new_actions.append(action)
+                else:
+                    new_actions.append(action)
+            if (
+                action == 'receive' and
+                circ_policy.get('allow_checkout') and
+                item.number_of_requests() == 0
+            ):
+                new_actions.append('checkout')
         item_dumps['actions'] = new_actions
     return jsonify({
         'metadata': {
