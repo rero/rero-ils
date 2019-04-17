@@ -12,3 +12,7 @@ export * from './patron-type/patron-type-tool';
 export * from './validator/unique.validator';
 export * from './utils';
 export * from './alerts/alerts.service';
+export * from './services/exception.service';
+export * from './exception/exception.component';
+export * from './interceptors/httpError.interceptor';
+export * from './services/response-status.service';

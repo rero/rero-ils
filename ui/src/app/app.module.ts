@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,6 +21,7 @@ import { MylibraryComponent } from './mylibrary/mylibrary.component';
 import { UserService } from './user.service';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { AlertModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     MylibraryComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CoreModule,

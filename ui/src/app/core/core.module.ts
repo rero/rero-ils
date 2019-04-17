@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule, I18nPluralPipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -15,12 +15,17 @@ import { UniqueValidator } from './validator/unique.validator';
 import { AlertsComponent } from './alerts/alerts.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { Nl2br } from './filter/nl2br';
+import { ExceptionService } from './services/exception.service';
+import { ExceptionComponent } from './exception/exception.component';
+import { HttpErrorInterceptor } from './interceptors/httpError.interceptor';
+import { ResponseStatusService } from './services/response-status.service';
 
 @NgModule({
   declarations: [
     AlertsComponent,
     DialogComponent,
-    Nl2br
+    Nl2br,
+    ExceptionComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +42,14 @@ import { Nl2br } from './filter/nl2br';
     PatronTypeTool,
     ItemTypeTool,
     UniqueValidator,
-    I18nPluralPipe
+    I18nPluralPipe,
+    ExceptionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    ResponseStatusService
   ],
   exports: [
     AlertsComponent

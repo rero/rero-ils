@@ -1,0 +1,4 @@
+<div *ngIf="exception.hasOwnProperty('statusCode')" class="text-center">
+  <h1><i class="fa fa-flash"></i> {{ exception.statusText | translate }}</h1>
+  <p>{{ exception.message | translate }}</p>
+</div>
