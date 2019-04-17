@@ -125,11 +125,18 @@ def add_loans_parameters_and_flush_indexes(function):
             if not patron_pid:
                 raise CirculationException(
                     "Patron PID not specified")
-            data = {
-                'item_pid': item.pid,
-                'patron_pid': patron_pid
-            }
-            loan = Loan.create(data, dbcommit=True, reindex=True)
+            if function.__name__ == 'checkout':
+                request = get_request_by_item_pid_by_patron_pid(
+                    item_pid=item.pid, patron_pid=patron_pid)
+                if request:
+                    loan = Loan.get_record_by_pid(request.get('loan_pid'))
+
+            if not loan:
+                data = {
+                    'item_pid': item.pid,
+                    'patron_pid': patron_pid
+                }
+                loan = Loan.create(data, dbcommit=True, reindex=True)
         else:
             raise CirculationException(
                 "Loan PID not specified")
@@ -378,7 +385,10 @@ class Item(IlsRecord):
                 patron_type_pid,
                 self.item_type_pid
         )
-        action_validated = True
+        data = {
+            'action_validated': True,
+            'new_action': None
+        }
         if action == 'extend':
             extension_count = loan.get('extension_count', 0)
             if not (
@@ -390,11 +400,20 @@ class Item(IlsRecord):
                     self.library_pid
                 )
             ):
-                action_validated = False
+                data['action_validated'] = False
         if action == 'checkout':
             if not circ_policy.get('allow_checkout'):
-                action_validated = False
-        return action_validated
+                data['action_validated'] = False
+
+        if action == 'receive':
+            if (
+                circ_policy.get('allow_checkout') and
+                loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
+                loan.get('patron_pid') == patron_pid
+            ):
+                data['action_validated'] = False
+                data['new_action'] = 'checkout'
+        return data
 
     @property
     def actions(self):
@@ -405,8 +424,11 @@ class Item(IlsRecord):
         if loan:
             for transition in transitions.get(loan.get('state')):
                 action = transition.get('trigger')
-                if self.action_filter(action, loan):
+                data = self.action_filter(action, loan)
+                if data.get('action_validated'):
                     actions.add(action)
+                if data.get('new_action'):
+                    actions.add(data.get('new_action'))
         # default actions
         if not loan:
             for transition in transitions.get('CREATED'):
