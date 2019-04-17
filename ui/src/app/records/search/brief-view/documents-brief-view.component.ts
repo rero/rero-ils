@@ -50,10 +50,6 @@ import { _ } from '@app/core';
       <i class="fa fa-caret-down" aria-hidden="true"></i> <span translate> items</span>
     </a>
     <span *ngIf="!(record.metadata.items && record.metadata.items.length)" translate>no item</span>
-     <a class="ml-2 text-secondary" routerLinkActive="active"
-        [queryParams]="{document: record.metadata.pid}" [routerLink]="['/records/items/new']">
-      <i class="fa fa-plus" aria-hidden="true"></i> {{ 'Add' | translate }}
-    </a>
   </section>
   <ul *ngIf="record.metadata.items"
       class="collapse list-group list-group-flush"
