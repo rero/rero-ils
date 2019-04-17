@@ -13,3 +13,11 @@ export function cleanDictKeys(data: any) {
 export function _(str: string) {
   return str;
 }
+
+export const capitalize = (s: string) => {
+  if (typeof s !== 'string') {
+    return '';
+  }
+  s = s.toLowerCase();
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};

@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule, I18nPluralPipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,7 +19,10 @@ import { ToastrDialogComponent } from './toastr-dialog/toastr-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitlePipe } from './pipe/title.pipe';
-import { timeout } from 'q';
+import { ExceptionService } from './services/exception.service';
+import { ExceptionComponent } from './exception/exception.component';
+import { HttpErrorInterceptor } from './interceptors/httpError.interceptor';
+import { ResponseStatusService } from './services/response-status.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { timeout } from 'q';
     DialogComponent,
     Nl2br,
     ToastrDialogComponent,
-    TitlePipe
+    TitlePipe,
+    ExceptionComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,14 @@ import { timeout } from 'q';
     PatronTypeTool,
     ItemTypeTool,
     UniqueValidator,
-    I18nPluralPipe
+    I18nPluralPipe,
+    ExceptionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    ResponseStatusService
   ],
   exports: [
     AlertsComponent
