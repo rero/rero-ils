@@ -96,13 +96,7 @@
             <tr>
                 <td>{{ document.title }}</td>
                 <td>{{ document.call_number }}</td>
-                <td>
-                    {% if 'checkouts' == type %}
-                      {{ document.library_name}}
-                    {% else %}
-                        {{ document.library }}
-                    {% endif %}
-                </td>
+                <td>{{ document.library }}</td>
                 <td>
                     {% if 'checkouts' == type %}
                       {{ document.end_date|format_date(

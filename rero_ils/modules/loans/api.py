@@ -107,6 +107,7 @@ class Loan(IlsRecord):
             loc_data = location.dumps()
             data['pickup_location'] = {}
             data['pickup_location']['name'] = loc_data['name']
+            data['pickup_location']['pickup_name'] = loc_data['pickup_name']
         return data
 
     def build_url_action_for_pid(self, action):
