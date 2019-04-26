@@ -34,7 +34,9 @@ def test_patron_types_jsonresolver(app, tmp_patron_type):
     rec = Record.create({
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}
     })
-    assert rec.replace_refs().get('patron_type') == {'pid': '1'}
+    assert rec.replace_refs().get('patron_type') == {
+        'pid': '1', 'name': 'standard'
+    }
 
     # deleted record
     tmp_patron_type.delete()

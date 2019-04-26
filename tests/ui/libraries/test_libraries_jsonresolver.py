@@ -34,7 +34,10 @@ def test_libraries_jsonresolver(library):
     rec = Record.create({
         'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
     })
-    assert rec.replace_refs().get('library') == {'pid': 'lib1'}
+    assert rec.replace_refs().get('library') == {
+        'pid': 'lib1',
+        'name': 'Bibliothèque cantonale valdôtaine, site d\'Aoste'
+    }
 
     # deleted record
     library.delete()

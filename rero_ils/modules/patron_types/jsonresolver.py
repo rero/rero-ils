@@ -24,15 +24,21 @@
 
 """Organisation resolver."""
 
-
 import jsonresolver
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
+from .api import PatronType
+
 
 @jsonresolver.route('/api/patron_types/<pid>', host='ils.rero.ch')
-def library_resolver(pid):
-    """."""
+def patron_type_resolver(pid):
+    """Resolve patron type."""
     persistent_id = PersistentIdentifier.get('ptty', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        patron_type = PatronType.get_record_by_pid(persistent_id.pid_value)
+        patron_type = patron_type.dumps()
+        return dict(
+            pid=patron_type['pid'],
+            name=patron_type['name']
+        )
     raise Exception('unable to resolve')

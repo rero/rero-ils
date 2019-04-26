@@ -24,15 +24,21 @@
 
 """Organisation resolver."""
 
-
 import jsonresolver
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from .api import Library
 
 
 @jsonresolver.route('/api/libraries/<pid>', host='ils.rero.ch')
 def library_resolver(pid):
-    """."""
+    """Resolve library."""
     persistent_id = PersistentIdentifier.get('lib', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        library = Library.get_record_by_pid(persistent_id.pid_value)
+        library = library.dumps()
+        return dict(
+            pid=library['pid'],
+            name=library['name']
+        )
     raise Exception('unable to resolve')

@@ -31,10 +31,10 @@ import { BriefView } from './brief-view';
         <span translate>Barcode</span>: {{ record.metadata.barcode }}
       </li>
       <li *ngIf="isLibrarian()" class="list-group-item p-0 border-0">
-        <span translate>Library</span>: {{ record.metadata.library.pid }}
+        <span translate>Library</span>: {{ record.metadata.library.name }}
       </li>
       <li *ngIf="isPatron()" class="list-group-item p-0 border-0">
-        <span translate>Type</span>: {{ record.metadata.patron_type.pid }}
+        <span translate>Type</span>: {{ record.metadata.patron_type.name }}
       </li>
       <li *ngIf="record.metadata.phone" class="list-group-item p-0 border-0">
         <span translate>Phone</span>: {{ record.metadata.phone }}

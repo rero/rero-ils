@@ -31,6 +31,9 @@
           "properties": {
             "pid": {
               "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
             }
           }
         },

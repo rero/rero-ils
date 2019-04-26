@@ -46,6 +46,9 @@
           "properties": {
             "pid": {
               "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
             }
           }
         },
@@ -55,6 +58,9 @@
         "library": {
           "properties": {
             "pid": {
+              "type": "keyword"
+            },
+            "name": {
               "type": "keyword"
             }
           }
