@@ -1324,8 +1324,10 @@ def test_items_extend_end_date(client, user_librarian_no_email,
     assert not item.get_extension_count()
 
     max_count = get_extension_params(loan=loan, parameter_name='max_count')
-    renewal_duration = circ_policy_short['renewal_duration']
-    assert renewal_duration == 15
+    renewal_duration_policy = circ_policy_short['renewal_duration']
+    renewal_duration = get_extension_params(
+        loan=loan, parameter_name='duration_default')
+    assert renewal_duration_policy <= renewal_duration
 
     # extend loan
     res = client.post(
