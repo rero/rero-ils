@@ -31,7 +31,7 @@ from invenio_pidstore.models import RecordIdentifier
 
 
 class CircPolicyIdentifier(RecordIdentifier):
-    """Sequence generator for CircPolicy identifiers."""
+    """Sequence generator for circultion policies identifiers."""
 
     __tablename__ = 'circ_policy_id'
     __mapper_args__ = {'concrete': True}
