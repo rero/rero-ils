@@ -399,7 +399,7 @@ class Item(IlsRecord):
                     circ_policy.get('renewal_duration'),
                     self.library_pid
                 )
-            ):
+            ) or self.number_of_requests():
                 data['action_validated'] = False
         if action == 'checkout':
             if not circ_policy.get('allow_checkout'):
