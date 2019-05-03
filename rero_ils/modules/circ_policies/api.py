@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating circ_policies."""
+"""API for manipulating Circulation policies."""
 
 from __future__ import absolute_import, print_function
 
@@ -37,29 +37,29 @@ from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
 
-# provider
+# cipo provider
 CircPolicyProvider = type(
     'CircPolicyProvider',
     (Provider,),
     dict(identifier=CircPolicyIdentifier, pid_type='cipo')
 )
-# minter
+# cipo minter
 circ_policy_id_minter = partial(id_minter, provider=CircPolicyProvider)
-# fetcher
+# cipo fetcher
 circ_policy_id_fetcher = partial(id_fetcher, provider=CircPolicyProvider)
 
 
 class CircPoliciesSearch(RecordsSearch):
-    """RecordsSearch for borrowed documents."""
+    """RecordsSearch for Circulation policies."""
 
     class Meta:
-        """Search only on patrons index."""
+        """Search only on Circulation policies index."""
 
         index = 'circ_policies'
 
 
 class CircPolicy(IlsRecord):
-    """CircPolicy class."""
+    """Circulation policies class."""
 
     minter = circ_policy_id_minter
     fetcher = circ_policy_id_fetcher
@@ -67,7 +67,7 @@ class CircPolicy(IlsRecord):
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
-        """Check if the name is unique on organisation."""
+        """Check if the policy name is unique on organisation."""
         result = CircPoliciesSearch().filter(
             'term',
             circ_policy_name=name
@@ -85,7 +85,7 @@ class CircPolicy(IlsRecord):
         patron_type_pid,
         item_type_pid
     ):
-        """Check if there is a circ poliy for library/location/item types."""
+        """Check if there is a policy for library/location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
             policy_library_level=True
@@ -118,7 +118,7 @@ class CircPolicy(IlsRecord):
         patron_type_pid,
         item_type_pid
     ):
-        """Check if there is a circ poliy for location/item types."""
+        """Check if there is a circ policy for location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
             policy_library_level=False
@@ -177,7 +177,7 @@ class CircPolicy(IlsRecord):
         return CircPolicy.get_default_circ_policy()
 
     def get_non_link_reasons_to_not_delete(self):
-        """Get reasons other than links not to delete a record."""
+        """Get non-links reasons not to delete a policy."""
         others = {}
         is_default = self.get('is_default')
         if is_default:
@@ -188,12 +188,12 @@ class CircPolicy(IlsRecord):
         return others
 
     def get_links_to_me(self):
-        """Get number of links."""
+        """Get number of links to policy."""
         links = {}
         return links
 
     def reasons_not_to_delete(self):
-        """Get reasons not to delete record."""
+        """Get reasons not to delete policy."""
         cannot_delete = {}
         others = self.get_non_link_reasons_to_not_delete()
         links = self.get_links_to_me()

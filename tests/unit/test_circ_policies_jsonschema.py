@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""patron JSON schema tests."""
+"""Circulation policies JSON schema tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -32,7 +32,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(circ_policy_schema, circ_policy_data_tmp):
-    """Test required for circ policy jsonschema."""
+    """Test required for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -41,7 +41,7 @@ def test_required(circ_policy_schema, circ_policy_data_tmp):
 
 
 def test_pid(circ_policy_schema, circ_policy_data_tmp):
-    """Test pid for circ policy jsonschema."""
+    """Test pid for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -50,7 +50,7 @@ def test_pid(circ_policy_schema, circ_policy_data_tmp):
 
 
 def test_circ_policy_name(circ_policy_schema, circ_policy_data_tmp):
-    """Test name for circ policy jsonschema."""
+    """Test name for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -59,7 +59,7 @@ def test_circ_policy_name(circ_policy_schema, circ_policy_data_tmp):
 
 
 def test_circ_policy_desc(circ_policy_schema, circ_policy_data_tmp):
-    """Test description for circ policy jsonschema."""
+    """Test description for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -68,7 +68,7 @@ def test_circ_policy_desc(circ_policy_schema, circ_policy_data_tmp):
 
 
 def test_circ_policy_org(circ_policy_schema, circ_policy_data_tmp):
-    """Test organisation pid for circ policy jsonschema."""
+    """Test organisation pid for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -79,7 +79,7 @@ def test_circ_policy_org(circ_policy_schema, circ_policy_data_tmp):
 def test_circ_policy_renewal_duration(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test renewal_duration for circ policy jsonschema."""
+    """Test renewal_duration for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -90,7 +90,7 @@ def test_circ_policy_renewal_duration(
 def test_circ_policy_allow_checkout(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test allow_checkout for circ policy jsonschema."""
+    """Test allow_checkout for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -101,7 +101,7 @@ def test_circ_policy_allow_checkout(
 def test_circ_policy_checkout_duration(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test checkout_duration for circ policy jsonschema."""
+    """Test checkout_duration for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -112,7 +112,7 @@ def test_circ_policy_checkout_duration(
 def test_circ_policy_allow_requests(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test allow_requests for circ policy jsonschema."""
+    """Test allow_requests for circcirculation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -123,7 +123,7 @@ def test_circ_policy_allow_requests(
 def test_circ_policy_number_renewals(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test number_renewals for circ policy jsonschema."""
+    """Test number_renewals for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
@@ -134,7 +134,7 @@ def test_circ_policy_number_renewals(
 def test_circ_policy_is_default(
     circ_policy_schema, circ_policy_data_tmp
 ):
-    """Test is_default for circ policy jsonschema."""
+    """Test is_default for circulation policy jsonschema."""
     validate(circ_policy_data_tmp, circ_policy_schema)
     with pytest.raises(ValidationError):
         circ_policy_data_tmp['is_default'] = 25

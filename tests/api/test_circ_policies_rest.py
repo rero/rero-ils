@@ -21,10 +21,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Tests REST API circ_policies."""
-
-# import json
-# from utils import get_json, to_relative_url
+"""Tests REST API for circulation policies."""
 
 import json
 
@@ -38,7 +35,7 @@ from rero_ils.modules.api import IlsRecordError
 
 def test_circ_policies_permissions(
         client, circ_policy, json_header):
-    """Test record retrieval."""
+    """Test policy retrieval."""
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
     post_url = url_for('invenio_records_rest.cipo_list')
 
@@ -68,7 +65,7 @@ def test_circ_policies_permissions(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies_get(client, circ_policy):
-    """Test record retrieval."""
+    """Test policy retrieval."""
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
 
     res = client.get(item_url)
@@ -102,8 +99,8 @@ def test_circ_policies_get(client, circ_policy):
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
                                        json_header, can_delete_json_header):
-    """Test record retrieval."""
-    # Create record / POST
+    """Test policy retrieval."""
+    # Create policy / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
     post_url = url_for('invenio_records_rest.cipo_list')
     list_url = url_for('invenio_records_rest.cipo_list', q='pid:1')
@@ -115,7 +112,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     )
     assert res.status_code == 201
 
-    # Check that the returned record matches the given data
+    # Check that the returned policy matches the given data
     data = get_json(res)
     circ_policy_data['pid'] = '1'
 
@@ -126,7 +123,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     data = get_json(res)
     assert circ_policy_data == data['metadata']
 
-    # Update record/PUT
+    # Update policy/PUT
     data = circ_policy_data
     data['name'] = 'Test Name'
     res = client.put(
@@ -137,7 +134,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     assert res.status_code == 200
     # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
 
-    # Check that the returned record matches the given data
+    # Check that the returned policy matches the given data
     data = get_json(res)
     assert data['metadata']['name'] == 'Test Name'
 
@@ -153,7 +150,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
     data = get_json(res)['hits']['hits'][0]
     assert data['metadata']['name'] == 'Test Name'
 
-    # Delete record/DELETE
+    # Delete policy/DELETE
     with pytest.raises(IlsRecordError.NotDeleted):
         res = client.delete(item_url)
     assert res.status_code == 200
@@ -165,7 +162,7 @@ def test_circ_policies_post_put_delete(client, organisation, circ_policy_data,
 @mock.patch('rero_ils.modules.circ_policies.views.login_and_librarian',
             mock.MagicMock())
 def test_circ_policies_name_validate(client, circ_policy):
-
+    """Test policy validation."""
     url = url_for('circ_policies.name_validate', name='standard')
 
     class current_patron:

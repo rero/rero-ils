@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""CircPolicy Record tests."""
+"""Circulation policies tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -38,7 +38,7 @@ def test_circ_policy_search(
     circ_policy_short,
     circ_policy_short_library
 ):
-    """Test Find circ policy"""
+    """Test finding a circulation policy."""
     data = [
         {
             'library_pid': 'lib1',
