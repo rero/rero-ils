@@ -1373,7 +1373,7 @@ def test_items_in_transit(client, user_librarian_no_email,
                           location, item_type, store_location,
                           item_on_shelf, json_header,
                           circ_policy):
-    """."""
+    """Test item in-transit scenarios."""
     login_user_via_session(client, user_librarian_no_email.user)
     item = item_on_shelf
     item_pid = item.pid
