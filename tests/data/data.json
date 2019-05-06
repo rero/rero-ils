@@ -106,6 +106,118 @@
       }
     ]
   },
+  "lib2": {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "address": "Ave de la gare",
+    "code": "RERO-MARTIGNY",
+    "email": "reroilstest+martigny@gmail.com",
+    "name": "RERO-Martigny, Martigny",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "pid": "lib2",
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "sunday",
+        "is_open": false,
+        "times": []
+      }
+    ],
+    "exception_dates": [
+      {
+        "end_date": "2019-01-06",
+        "is_open": false,
+        "start_date": "2018-12-22",
+        "title": "Vacances de No\u00ebl"
+      },
+      {
+        "is_open": true,
+        "start_date": "2018-12-15",
+        "times": [
+          {
+            "end_time": "16:00",
+            "start_time": "10:00"
+          }
+        ],
+        "title": "Samdi du livre"
+      },
+      {
+        "is_open": false,
+        "repeat": {
+          "interval": 1,
+          "period": "yearly"
+        },
+        "start_date": "2019-08-01",
+        "title": "1er ao\u00fbt"
+      }
+    ]
+  },
+  "loc21": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "RERO-MARTIGNY-PUB",
+    "name": "Espaces publics",
+    "pid": "loc21",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "is_pickup": true,
+    "pickup_name": "RERO-MARTIGNY: Espaces publics"
+  },
   "loc1": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-PUB",

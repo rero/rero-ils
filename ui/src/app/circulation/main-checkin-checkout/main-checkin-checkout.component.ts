@@ -253,6 +253,13 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
                 this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status),
                 _('checkin')
               );
+            } else {
+              if (newItem.status === ItemStatus.AT_DESK) {
+                this.toastService.success(
+                  this.translate.trans(_('The item is ')) + this.translate.trans(newItem.status),
+                  _('checkin')
+                );
+              }
             }
             return newItem;
           }

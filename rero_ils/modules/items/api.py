@@ -41,7 +41,9 @@ from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..documents.api import Document, DocumentsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
-from ..loans.api import Loan, LoanAction, get_request_by_item_pid_by_patron_pid
+from ..loans.api import Loan, LoanAction, \
+    get_last_transaction_location_for_item, \
+    get_request_by_item_pid_by_patron_pid
 from ..locations.api import Location
 from ..minters import id_minter
 from ..patrons.api import Patron, current_patron
@@ -350,6 +352,21 @@ class Item(IlsRecord):
         location_pid = self.replace_refs()['location']['pid']
         return Location.get_record_by_pid(location_pid)
 
+    def get_library_of_last_location(self):
+        """Returns the library record of the circulation transaction location.
+
+        of the last loan.
+        """
+        return self.get_last_location().get_library()
+
+    def get_last_location(self):
+        """Returns the location record of the transaction location.
+
+        of the last loan.
+        """
+        location_pid = self.last_location_pid
+        return Location.get_record_by_pid(location_pid)
+
     @property
     def status(self):
         """Shortcut for item status."""
@@ -372,6 +389,17 @@ class Item(IlsRecord):
         """Shortcut for item library pid."""
         location = Location.get_record_by_pid(self.location_pid).replace_refs()
         return location.get('library').get('pid')
+
+    @property
+    def last_location_pid(self):
+        """Returns the location pid of the circulation transaction location.
+
+        of the last loan.
+        """
+        loan_location_pid = get_last_transaction_location_for_item(self.pid)
+        if loan_location_pid:
+            return loan_location_pid
+        return self.location_pid
 
     def action_filter(self, action, loan):
         """Filter actions."""
@@ -542,12 +570,15 @@ class Item(IlsRecord):
 
     @classmethod
     def item_location_retriever(cls, item_pid, **kwargs):
-        """Get item location."""
+        """Get item selflocation or the transaction location of the.
+
+        last loan.
+        """
         # TODO: for requests we probably need the transation_location_pid
         #       to deal with multiple pickup locations for a library
         item = cls.get_record_by_pid(item_pid)
         if item:
-            library = item.get_library()
+            library = item.get_library_of_last_location()
             return library.get_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
@@ -596,9 +627,20 @@ class Item(IlsRecord):
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='checkin')
         )
-        return self, {
-            LoanAction.CHECKIN: loan
-        }
+        actions = {LoanAction.CHECKIN: loan}
+        requests = self.number_of_requests()
+        if requests:
+            request = next(self.get_requests())
+            requested_loan = Loan.get_record_by_pid(request.get('loan_pid'))
+            pickup_location_pid = requested_loan.get('pickup_location_pid')
+            if self.last_location_pid == pickup_location_pid:
+                if loan.is_active:
+                    item, cancel_action = self.cancel_loan(
+                        loan_pid=loan.get('loan_pid'))
+                    actions.update(cancel_action)
+            item, validate_action = self.validate_request(**request)
+            actions.update(validate_action)
+        return self, actions
 
     @add_loans_parameters_and_flush_indexes
     def checkout(self, current_loan, **kwargs):

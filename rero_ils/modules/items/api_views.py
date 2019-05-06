@@ -101,7 +101,7 @@ def jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
-        except CirculationException:
+        except CirculationException as e:
             abort(403)
         except NotFound as e:
             raise(e)
