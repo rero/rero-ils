@@ -43,7 +43,7 @@ blueprint = Blueprint(
 
 
 def check_permission(fn):
-    """."""
+    """Decorate to check permission access."""
     @wraps(fn)
     def decorated_view(*args, **kwargs):
         """."""
@@ -55,7 +55,7 @@ def check_permission(fn):
 @blueprint.route('/patron_types/name/validate/<name>', methods=["GET"])
 @check_permission
 def name_validate(name):
-    """Patron type name Validate."""
+    """Patron type name validation."""
     response = {
         'name': None
     }

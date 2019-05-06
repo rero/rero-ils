@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating patron_types."""
+"""API for manipulating patron types."""
 
 from __future__ import absolute_import, print_function
 
@@ -69,7 +69,7 @@ class PatronType(IlsRecord):
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
-        """Check if the name is unique on organisation."""
+        """Check if the name is unique within organisation."""
         patron_type = (
             PatronTypesSearch()
             .filter('term', patron_type_name=name)

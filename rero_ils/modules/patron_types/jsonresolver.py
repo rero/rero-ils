@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Organisation resolver."""
+"""Patron type resolver."""
 
 
 import jsonresolver
@@ -30,8 +30,8 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
 @jsonresolver.route('/api/patron_types/<pid>', host='ils.rero.ch')
-def library_resolver(pid):
-    """."""
+def patron_type_resolver(pid):
+    """Patron type resolver."""
     persistent_id = PersistentIdentifier.get('ptty', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
