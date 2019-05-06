@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""API for manipulating item_types."""
+"""API for manipulating item types."""
 
 from __future__ import absolute_import, print_function
 
@@ -87,7 +87,7 @@ class ItemType(IlsRecord):
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
-        """Check if the name is unique on organisation."""
+        """Check if the name is unique in organisation."""
         item_type = (
             ItemTypesSearch()
             .filter('term', item_type_name=name)
@@ -133,7 +133,7 @@ class ItemType(IlsRecord):
             links['items'] = items
         circ_policies = self.get_number_of_circ_policies()
         if circ_policies:
-            links['loans'] = circ_policies
+            links['circ_policies'] = circ_policies
         return links
 
     def reasons_not_to_delete(self):
