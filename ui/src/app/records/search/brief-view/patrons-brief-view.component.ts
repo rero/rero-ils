@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BriefView } from './brief-view';
+import { RecordsService } from '../../records.service';
 
 @Component({
   selector: 'app-patrons-brief-view',
@@ -15,26 +16,24 @@ import { BriefView } from './brief-view';
   <div class="card-text px-2">
     <p class="mb-0">{{ record.metadata.birth_date | date:'mediumDate' }} &mdash; {{ record.metadata.city }}</p>
     <p class="mb-0">
-
-      <a class="collapsed text-secondary"
-        data-toggle="collapse"
-        href="#{{ 'patron-'+record.metadata.pid }}"
-        aria-expanded="false"
-        aria-controls="patronDetailed">
-        <i class="fa fa-caret-down" aria-hidden="true"></i>
-      </a>
+    <a class="text-secondary" (click)="toggleCollapse()" [attr.aria-expanded]="!isCollapsed">
+      <i class="fa"
+         [ngClass]="{'fa-caret-down': !isCollapsed, 'fa-caret-right': isCollapsed }" aria-hidden="true">
+      </i>
       <span *ngFor="let role of record.metadata.roles; let isLast=last">
-        {{ role | translate }}{{isLast ? '' : ', '}}</span>
+        {{ role | translate }}{{isLast ? '' : ', '}}
+      </span>
+    </a>
     </p>
-    <ul class="collapse list-group list-group-flush" id="{{ 'patron-'+record.metadata.pid }}">
+    <ul [collapse]="isCollapsed" class="list-group list-group-flush" id="{{ 'patron-'+record.metadata.pid }}">
       <li *ngIf="record.metadata.barcode" class="list-group-item p-0 border-0">
         <span translate>Barcode</span>: {{ record.metadata.barcode }}
       </li>
       <li *ngIf="isLibrarian()" class="list-group-item p-0 border-0">
-        <span translate>Library</span>: {{ record.metadata.library.pid }}
+        <span translate>Library</span>: {{ record.metadata.library.name }}
       </li>
       <li *ngIf="isPatron()" class="list-group-item p-0 border-0">
-        <span translate>Type</span>: {{ record.metadata.patron_type.pid }}
+        <span translate>Type</span>: {{ record.metadata.patron_type.name }}
       </li>
       <li *ngIf="record.metadata.phone" class="list-group-item p-0 border-0">
         <span translate>Phone</span>: {{ record.metadata.phone }}
@@ -56,6 +55,12 @@ import { BriefView } from './brief-view';
 export class PatronsBriefViewComponent implements BriefView {
 
   @Input() record: any;
+  isCollapsed = true;
+
+  constructor(
+    private recordsService: RecordsService
+  ) {
+  }
 
   isPatron() {
     if (this.record && this.record.metadata.roles) {
@@ -69,5 +74,29 @@ export class PatronsBriefViewComponent implements BriefView {
       return this.record.metadata.roles.some(role => role === 'librarian');
     }
     return false;
+  }
+
+  toggleCollapse() {
+    if (this.isCollapsed) {
+      if (this.isPatron()) {
+        const patronTypePid = this.record.metadata.patron_type.pid;
+        this.recordsService
+          .getRecord('patron_types', patronTypePid, 1)
+          .subscribe(data => {
+            this.record.metadata.patron_type = data.metadata;
+            this.isCollapsed = !this.isCollapsed;
+          });
+      } else {
+        const libraryPid = this.record.metadata.library.pid;
+        this.recordsService
+          .getRecord('libraries', libraryPid, 1)
+          .subscribe(data => {
+            this.record.metadata.library = data.metadata;
+            this.isCollapsed = !this.isCollapsed;
+          });
+      }
+    } else {
+      this.isCollapsed = !this.isCollapsed;
+    }
   }
 }
