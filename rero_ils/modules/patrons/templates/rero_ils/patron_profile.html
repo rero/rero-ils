@@ -21,7 +21,7 @@
           <a class="nav-link active" href="#checkouts" data-toggle="tab"
              id="checkouts-tab" title="{{ _('Checkouts') }}" role="tab"
              aria-controls="checkouts" aria-selected="true">
-            {{ _('Checkouts') }} ({{ loans|length }})
+            {{ _('Checkouts') }} ({{ checkouts|length }})
           </a>
         </li>
         <li class="nav-item">
@@ -43,8 +43,8 @@
     </header>
     <article class="tab-content">
       <section class="tab-pane show active py-2" id="checkouts" role="tabpanel" aria-labelledby="checkouts-tab">
-        {% if loans|length > 0 %}
-            {{ build_table('checkouts', loans) }}
+        {% if checkouts|length > 0 %}
+            {{ build_table('checkouts', checkouts) }}
         {% else %}
             <p>{{ _('No loan') }}</p>
         {% endif %}
@@ -63,28 +63,26 @@
   </article>
 {%- endblock body %}
 
-{% macro build_table(type, documents) %}
+{% macro build_table(type, loans) %}
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
             <tr>
                 <th class="col-md-6 border-top-0" scope="col">{{ _('Title') }}</th>
                 <th class="col-md-2 border-top-0" scope="col">{{ _('Call Number') }}</th>
+                {% if type != 'checkouts' %}
                 <th class="col-md-2 border-top-0" scope="col">
-                  {% if 'checkout' == type %}
-                    {{ _('Belongs to') }}
-                  {% else %}
                     {{ _('Pickup library') }}
-                  {% endif %}
                 </th>
+                {% endif %}
                 <th class="col-md-2 border-top-0" scope="col">
-                    {% if 'checkouts' == type %}
+                    {% if type == 'checkouts' %}
                         {{ _('Due date') }}
                     {% else %}
                         {{ _('Reservation date') }}
                     {% endif %}
                 </th>
-                {% if 'checkouts' == type %}
+                {% if type == 'checkouts' %}
                 <th class="col-md-1 border-top-0" scope="col">
                         {{ _('Renewals') }}
                 </th>
@@ -92,33 +90,31 @@
             </tr>
         </thead>
         <tbody>
-            {% for document in documents %}
+            {% for loan in loans %}
             <tr>
-                <td>{{ document.title }}</td>
-                <td>{{ document.call_number }}</td>
+                <td>{{ loan.document_title }}</td>
+                <td>{{ loan.item_call_number }}</td>
+                {% if type != 'checkouts' %}
                 <td>
-                    {% if 'checkouts' == type %}
-                      {{ document.library_name}}
-                    {% else %}
-                        {{ document.library }}
-                    {% endif %}
+                  {{ loan.pickup_library_name }}
                 </td>
+                {% endif %}
                 <td>
-                    {% if 'checkouts' == type %}
-                      {{ document.end_date|format_date(
+                    {% if type == 'checkouts' %}
+                      {{ loan.end_date|format_date(
                           format='short_date',
                           locale=current_i18n.locale.language
                       )}}
                     {% else %}
-                        {{ document.transaction_date|format_date(
+                        {{ loan.transaction_date|format_date(
                           format='short_date',
                           locale=current_i18n.locale.language
                       )}}
                     {% endif %}
                 </td>
-                {% if 'checkouts' == type %}
+                {% if type == 'checkouts' %}
                 <td>
-                    {{ document.extension_count }}
+                    {{ loan.extension_count }}
                 </td>
                 {% endif %}
             </tr>
