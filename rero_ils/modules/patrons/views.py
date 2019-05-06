@@ -128,13 +128,9 @@ def profile():
         for loan in loans:
             item_pid = loan.get('item_pid')
             item = Item.get_record_by_pid(item_pid).replace_refs()
-            location = Location.get_record_by_pid(
-                item['location']['pid']).replace_refs()
-            library = Library.get_record_by_pid(location['library']['pid'])
             document = Document.get_record_by_pid(item['document']['pid'])
-            loan['title'] = document['title']
-            loan['call_number'] = item['call_number']
-            loan['library'] = library['name']
+            loan['document_title'] = document['title']
+            loan['item_call_number'] = item['call_number']
             if loan['state'] == 'ITEM_ON_LOAN':
                 checkouts.append(loan)
             elif loan['state'] in (
@@ -144,12 +140,13 @@ def profile():
             ):
                 pickup_loc = Location.get_record_by_pid(
                     loan['pickup_location_pid'])
-                loan['pickup_location_name'] = pickup_loc.get('name', '')
+                loan['pickup_library_name'] = \
+                    pickup_loc.get_library().get('name')
                 requests.append(loan)
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
-        loans=checkouts,
+        checkouts=checkouts,
         pendings=requests
     )
 

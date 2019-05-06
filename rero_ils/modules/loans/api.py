@@ -104,9 +104,11 @@ class Loan(IlsRecord):
 
         if loan.get('pickup_location_pid'):
             location = Location.get_record_by_pid(loan['pickup_location_pid'])
+            library = location.get_library()
             loc_data = location.dumps()
             data['pickup_location'] = {}
             data['pickup_location']['name'] = loc_data['name']
+            data['pickup_location']['library_name'] = library.get('name')
         return data
 
     def build_url_action_for_pid(self, action):
