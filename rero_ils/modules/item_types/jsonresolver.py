@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Organisation resolver."""
+"""Item type resolver."""
 
 
 import jsonresolver
@@ -31,7 +31,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 @jsonresolver.route('/api/item_types/<pid>', host='ils.rero.ch')
 def item_type_resolver(pid):
-    """."""
+    """Item type resolver."""
     persistent_id = PersistentIdentifier.get('itty', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)

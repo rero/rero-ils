@@ -21,10 +21,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Tests REST API item_types."""
-
-# import json
-# from utils import get_json, to_relative_url
+"""Tests REST API item types."""
 
 import json
 
@@ -158,6 +155,7 @@ def test_item_types_post_put_delete(client, organisation, item_type_data,
 @mock.patch('rero_ils.modules.item_types.views.login_and_librarian',
             mock.MagicMock())
 def test_item_types_name_validate(client, item_type):
+    """Test record name validation."""
 
     url = url_for('item_types.name_validate', name='standard')
 
@@ -182,3 +180,16 @@ def test_item_types_name_validate(client, item_type):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': None}
+
+
+def test_item_types_can_delete(client, item_type, item_on_shelf,
+                               circulation_policies):
+    """Test can delete an item type."""
+    links = item_type.get_links_to_me()
+    assert 'circ_policies' in links
+    assert 'items' in links
+
+    assert not item_type.can_delete
+
+    reasons = item_type.reasons_not_to_delete()
+    assert 'links' in reasons

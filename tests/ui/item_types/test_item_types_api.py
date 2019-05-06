@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""CircPolicy Record tests."""
+"""Item type record tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -33,7 +33,7 @@ from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
 
 
 def test_item_type_create(db, item_type_data_tmp):
-    """Test ittyanisation creation."""
+    """Test item type record creation."""
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
     assert itty == item_type_data_tmp
     assert itty.get('pid') == '1'
@@ -48,7 +48,7 @@ def test_item_type_create(db, item_type_data_tmp):
 
 
 def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
-    """."""
+    """Test item type elasticsearch mapping."""
     search = ItemTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -62,7 +62,7 @@ def test_item_type_es_mapping(es_clear, db, organisation, item_type_data_tmp):
 
 
 def test_item_type_exist_name_and_organisation_pid(item_type):
-    """."""
+    """Test item type name uniquness."""
     itty = item_type.replace_refs()
     assert ItemType.exist_name_and_organisation_pid(
         itty.get('name'), itty.get('organisation', {}).get('pid'))
@@ -71,20 +71,20 @@ def test_item_type_exist_name_and_organisation_pid(item_type):
 
 
 def test_item_type_get_pid_by_name(item_type):
-    """."""
+    """Test item type retrival by name."""
     assert not ItemType.get_pid_by_name('no exists')
     assert ItemType.get_pid_by_name('standard') == 'itty1'
 
 
 def test_item_type_can_not_delete(item_type, item_on_shelf):
-    """Test can not delete"""
+    """Test item type can not delete"""
     links = item_type.get_links_to_me()
     assert links['items'] == 1
     assert not item_type.can_delete
 
 
 def test_item_type_can_delete(app, item_type_data_tmp):
-    """Test can delete"""
+    """Test item type can delete"""
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
     assert itty.get_links_to_me() == {}
     assert itty.can_delete
