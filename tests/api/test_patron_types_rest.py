@@ -21,10 +21,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Tests REST API patron_types."""
-
-# import json
-# from utils import get_json, to_relative_url
+"""Tests REST API patron types."""
 
 import json
 
@@ -158,6 +155,7 @@ def test_patron_types_post_put_delete(client, organisation, patron_type_data,
 @mock.patch('rero_ils.modules.patron_types.views.login_and_librarian',
             mock.MagicMock())
 def test_patron_types_name_validate(client, patron_type):
+    """Test patron type name validation."""
 
     url = url_for('patron_types.name_validate', name='standard')
 
@@ -182,3 +180,16 @@ def test_patron_types_name_validate(client, patron_type):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': None}
+
+
+def test_patron_types_can_delete(client, patron_type, user_patron_no_email,
+                                 circulation_policies):
+    """Test can delete a patron type."""
+    links = patron_type.get_links_to_me()
+    assert 'circ_policies' in links
+    assert 'patrons' in links
+
+    assert not patron_type.can_delete
+
+    reasons = patron_type.reasons_not_to_delete()
+    assert 'links' in reasons
