@@ -90,6 +90,14 @@ class Loan(IlsRecord):
         """Shortcut for patron pid."""
         return self.get('patron_pid')
 
+    @property
+    def is_active(self):
+        """Shortcut to check of loan is active."""
+        states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        if self.get('state') in states:
+            return True
+        return False
+
     def dumps_for_circulation(self):
         """."""
         loan = self.replace_refs()
@@ -187,3 +195,22 @@ def get_loans_by_patron_pid(patron_pid):
 
     for loan in results:
         yield Loan.get_record_by_pid(loan.loan_pid)
+
+
+def get_last_transaction_location_for_item(item_pid):
+    """Return last transaction location for an item."""
+    if not item_pid:
+        raise CirculationException('Item PID not specified')
+    results = current_circulation.loan_search\
+        .source(['loan_pid'])\
+        .params(preserve_order=True)\
+        .filter('term', item_pid=item_pid)\
+        .exclude('terms', state=['PENDING', 'CREATED'])\
+        .sort({'transaction_date': {'order': 'desc'}})\
+        .scan()
+    try:
+        loan_pid = next(results).loan_pid
+        return Loan.get_record_by_pid(
+            loan_pid).get('transaction_location_pid')
+    except StopIteration:
+        return None

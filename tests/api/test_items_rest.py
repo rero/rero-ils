@@ -1483,3 +1483,106 @@ def test_items_in_transit(client, user_librarian_no_email,
     assert res.status_code == 200
     data = get_json(res)
     assert Item.get_record_by_pid(item_pid).get('status') == ItemStatus.ON_LOAN
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.CHECKOUT].get('loan_pid')
+
+    # checkin at the request location
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                loan_pid=loan_pid,
+                transaction_location_pid=location.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+
+def test_multiple_loans_on_item_error(client, user_librarian_no_email,
+                                      user_patron_no_email,
+                                      location, item_type, location_21,
+                                      item_on_shelf, json_header,
+                                      circ_policy,
+                                      user_librarian_no_email_specific):
+    """Test MultipleLoansOnItemError."""
+    login_user_via_session(client, user_librarian_no_email.user)
+    item = item_on_shelf
+    checked_patron = user_librarian_no_email_specific.pid
+    requested_patron = user_patron_no_email.pid
+
+    # checkout to checked_patron
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                patron_pid=checked_patron,
+                transaction_location_pid=location.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert Item.get_record_by_pid(item.pid).get('status') == ItemStatus.ON_LOAN
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.ON_LOAN
+    assert actions.get(LoanAction.CHECKOUT)
+    loan_pid = actions[LoanAction.CHECKOUT].get('loan_pid')
+    item = Item.get_record_by_pid(item.pid)
+
+    # request by requested patron to pick at another location
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                pickup_location_pid=location_21.pid,
+                patron_pid=requested_patron
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.ON_LOAN
+    assert actions.get(LoanAction.REQUEST)
+    req_loan_pid = actions[LoanAction.REQUEST].get('loan_pid')
+    item = Item.get_record_by_pid(item.pid)
+
+    # checkin at the request location
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                loan_pid=loan_pid,
+                transaction_location_pid=location_21.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert Loan.get_record_by_pid(loan_pid).get('state') == 'CANCELLED'
+    assert Loan.get_record_by_pid(
+        req_loan_pid).get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP'
+    assert Item.get_record_by_pid(item.pid).get('status') == 'in_transit'
+    # cancel request
+    res = client.post(
+        url_for('api_item.cancel_loan'),
+        data=json.dumps(
+            dict(
+                item_pid=item.pid,
+                loan_pid=req_loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200

@@ -67,9 +67,21 @@ def library_data(data):
 
 
 @pytest.fixture(scope="module")
+def library_data_2(data):
+    """."""
+    return deepcopy(data.get('lib2'))
+
+
+@pytest.fixture(scope="module")
 def location_data(data):
     """."""
     return deepcopy(data.get('loc1'))
+
+
+@pytest.fixture(scope="module")
+def location_data_21(data):
+    """."""
+    return deepcopy(data.get('loc21'))
 
 
 @pytest.fixture(scope="module")
@@ -293,10 +305,34 @@ def library(app, organisation, library_data):
 
 
 @pytest.fixture(scope="module")
+def library_2(app, organisation, library_data_2):
+    """."""
+    lib = Library.create(
+        data=library_data_2,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
 def location(app, library, location_data):
     """."""
     loc = Location.create(
         data=location_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def location_21(app, library_2, location_data_21):
+    """."""
+    loc = Location.create(
+        data=location_data_21,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
