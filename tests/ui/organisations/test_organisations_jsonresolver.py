@@ -30,7 +30,7 @@ from jsonref import JsonRefError
 
 
 def test_organisations_jsonresolver(app, tmp_organisation):
-    """."""
+    """Test organisation resolver."""
     rec = Record.create({
         'organisation': {'$ref': 'https://ils.rero.ch/api/organisations/1'}
     })
