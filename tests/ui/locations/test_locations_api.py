@@ -33,7 +33,7 @@ from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
 def test_location_create(db, location_data):
-    """Test locanisation creation."""
+    """Test location creation."""
     loc = Location.create(location_data, delete_pid=True)
     assert loc == location_data
     assert loc.get('pid') == '1'
@@ -47,7 +47,7 @@ def test_location_create(db, location_data):
 
 
 def test_location_es_mapping(es, db, library, location_data):
-    """."""
+    """Test location elasticsearch mapping."""
     search = LocationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -61,12 +61,12 @@ def test_location_es_mapping(es, db, library, location_data):
 
 
 def test_location_get_all_pickup_locations(es, db, library, location):
-    """."""
+    """Test pickup locations retrieval."""
     locations = Location.get_pickup_location_pids()
     assert list(locations)[0] == location.pid
 
 
 def test_location_can_delete(location):
-    """Test can delete"""
+    """Test can delete."""
     assert location.get_links_to_me() == {}
     assert location.can_delete

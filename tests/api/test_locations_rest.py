@@ -23,9 +23,6 @@
 
 """Tests REST API locations."""
 
-# import json
-# from utils import get_json, to_relative_url
-
 import json
 
 import mock
@@ -163,3 +160,14 @@ def test_locations_post_put_delete(client, library, location_data,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+def test_location_can_delete(client, item_on_shelf, location):
+    """Test can delete a location."""
+    links = location.get_links_to_me()
+    assert 'items' in links
+
+    assert not location.can_delete
+
+    reasons = location.reasons_not_to_delete()
+    assert 'links' in reasons
