@@ -31,7 +31,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 @jsonresolver.route('/api/organisations/<pid>', host='ils.rero.ch')
 def organisation_resolver(pid):
-    """."""
+    """Organisation resolver."""
     persistent_id = PersistentIdentifier.get('org', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
