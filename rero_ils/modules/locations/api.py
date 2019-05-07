@@ -64,7 +64,7 @@ class Location(IlsRecord):
 
     @classmethod
     def get_pickup_location_pids(cls, patron_pid=None):
-        """."""
+        """Return pickup locations."""
         # TODO: filter by patron libraries or organisations
         locations = LocationsSearch()\
             .filter('term', is_pickup=True)\
