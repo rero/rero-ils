@@ -83,6 +83,18 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     assert ptrn.persistent_identifier.pid_value == '1'
 
 
+def test_patron_organisation_pid(org_martigny, patron_martigny_no_email,
+                                 librarian_martigny_no_email):
+    """Test organisation pid has been added during the indexing."""
+    search = PatronsSearch()
+    librarian = next(search.filter('term',
+                                   pid=librarian_martigny_no_email.pid).scan())
+    patron = next(search.filter('term',
+                                pid=patron_martigny_no_email.pid).scan())
+    assert patron.organisation.pid == org_martigny.pid
+    assert librarian.organisation.pid == org_martigny.pid
+
+
 def test_patron_es_mapping(
         roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
     """."""

@@ -1629,3 +1629,27 @@ def test_multiple_loans_on_item_error(client,
         content_type='application/json',
     )
     assert res.status_code == 200
+
+
+def test_filtered_items_get(
+        client, librarian_martigny_no_email, item_lib_martigny,
+        item_lib_saxon, item_lib_fully,
+        librarian_sion_no_email, item_lib_sion):
+    """Test items filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.item_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 3
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.item_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 1

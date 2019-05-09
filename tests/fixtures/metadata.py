@@ -242,7 +242,7 @@ def item_lib_sion(
         document_sion_items,
         item_lib_sion_data,
         loc_public_sion,
-        item_type_standard_sion):
+        item_type_regular_sion):
     """Create item of sion library."""
     item = Item.create(
         data=item_lib_sion_data,

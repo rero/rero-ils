@@ -28,6 +28,7 @@ import json
 import mock
 import pytest
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
@@ -94,6 +95,30 @@ def test_circ_policies_get(client, circ_policy_default_martigny):
     data = get_json(res)
 
     assert data['hits']['hits'][0]['metadata'] == circ_policy.replace_refs()
+
+
+def test_filtered_circ_policies_get(
+        client, librarian_martigny_no_email, circ_policy_default_martigny,
+        circ_policy_short_martigny, circ_policy_temp_martigny,
+        librarian_sion_no_email, circ_policy_default_sion):
+    """Test circulation policies filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.cipo_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 3
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.cipo_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 1
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
