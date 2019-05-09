@@ -43,13 +43,6 @@ def login_and_librarian():
             abort(403)
 
 
-def can_request(user=None):
-    """User can request items."""
-    if not user:
-        user = current_user
-    return user.is_authenticated and request_item_permission.can()
-
-
 librarian_permission = DynamicPermission(RoleNeed('librarian'))
 
 

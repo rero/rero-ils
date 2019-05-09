@@ -41,9 +41,8 @@ from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
+from ..organisations.api import Organisation
 from ..providers import Provider
-
-# from ..patron_types.api import PatronType
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -242,3 +241,18 @@ class Patron(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def get_organisation(self):
+        """Return organisation."""
+        from ..patron_types.api import PatronType
+
+        patron = self.replace_refs()
+        if self.get('library'):
+            lib = Library.get_record_by_pid(patron['library']['pid'])
+            return Organisation.get_record_by_pid(
+                lib.replace_refs()['organisation']['pid'])
+        if self.get('patron_type'):
+            ptty = PatronType.get_record_by_pid(patron['patron_type']['pid'])
+            return Organisation.get_record_by_pid(
+                ptty.replace_refs()['organisation']['pid'])
+        return None

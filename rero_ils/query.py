@@ -30,6 +30,17 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 
+from .modules.patrons.api import current_patron
+
+
+def organisation_search_factory(self, search, query_parser=None):
+    """Search factory."""
+    search, urlkwargs = and_search_factory(self, search)
+    if current_patron:
+        search = search.filter(
+            'term', organisation__pid=current_patron.get_organisation()['pid'])
+    return (search, urlkwargs)
+
 
 def and_search_factory(self, search, query_parser=None):
     """Parse query using elasticsearch DSL query.

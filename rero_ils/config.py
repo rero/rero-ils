@@ -369,7 +369,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/items/<pid(item, record_class="rero_ils.modules.items.api:Item"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
     itty=dict(
         pid_type='itty',
@@ -400,7 +400,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/item_types/<pid(itty, record_class="rero_ils.modules.item_types.api:ItemType"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -431,7 +431,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/patrons/<pid(ptrn, record_class="rero_ils.modules.patrons.api:Patron"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
     ptty=dict(
         pid_type='ptty',
@@ -462,7 +462,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/patron_types/<pid(ptty, record_class="rero_ils.modules.patron_types.api:PatronType"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
     org=dict(
         pid_type='org',
@@ -527,7 +527,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/libraries/<pid(lib, record_class="rero_ils.modules.libraries.api:Library"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
         # delete_permission_factory_imp=deny_all
     ),
     loc=dict(
@@ -559,7 +559,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/locations/<pid(loc, record_class="rero_ils.modules.locations.api:Location"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
     pers=dict(
         pid_type='pers',
@@ -626,7 +626,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/circ_policies/<pid(cipo, record_class="rero_ils.modules.circ_policies.api:CircPolicy"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory'
+        search_factory_imp='rero_ils.query:organisation_search_factory',
     ),
 )
 
