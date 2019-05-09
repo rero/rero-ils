@@ -27,6 +27,7 @@ import json
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
@@ -196,3 +197,28 @@ def test_item_types_can_delete(client, item_type_standard_martigny,
 
     reasons = item_type_standard_martigny.reasons_not_to_delete()
     assert 'links' in reasons
+
+
+def test_filtered_item_types_get(
+        client, librarian_martigny_no_email, item_type_standard_martigny,
+        item_type_on_site_martigny, item_type_specific_martigny,
+        librarian_sion_no_email, item_type_regular_sion,
+        item_type_internal_sion, item_type_particular_sion):
+    """Test item types filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.itty_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 3
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.itty_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 3

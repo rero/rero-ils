@@ -29,6 +29,7 @@ import mock
 import pytest
 from dateutil import parser
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 from rero_ils.modules.libraries.api import Library, LibraryNeverOpen
@@ -220,3 +221,25 @@ def test_library_can_delete(client, lib_martigny, librarian_martigny_no_email,
 
     reasons = lib_martigny.reasons_not_to_delete()
     assert 'links' in reasons
+
+
+def test_filtered_libraries_get(
+        client, librarian_martigny_no_email, lib_martigny, lib_saxon,
+        lib_fully, librarian_sion_no_email, lib_sion):
+    """Test libraries filter by organisation."""    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.lib_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 3
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.lib_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 1

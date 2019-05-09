@@ -27,6 +27,7 @@ import json
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
@@ -97,8 +98,10 @@ def test_locations_get(client, loc_public_martigny):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-
-    assert data['hits']['hits'][0]['metadata'] == location.replace_refs()
+    result = data['hits']['hits'][0]['metadata']
+    # organisation has been added during the indexing
+    del(result['organisation'])
+    assert result == location.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -173,3 +176,30 @@ def test_location_can_delete(client, item_lib_martigny, loc_public_martigny):
 
     reasons = loc_public_martigny.reasons_not_to_delete()
     assert 'links' in reasons
+
+
+def test_filtered_locations_get(
+        client, librarian_martigny_no_email, loc_public_martigny,
+        loc_restricted_martigny, loc_public_saxon, loc_restricted_saxon,
+        loc_public_fully, loc_restricted_fully,
+        librarian_sion_no_email,
+        loc_public_sion, loc_restricted_sion
+        ):
+    """Test location filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.loc_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 6
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.loc_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 2
