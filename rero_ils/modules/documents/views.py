@@ -163,7 +163,9 @@ def can_request(item):
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
         if patron:
-            if 'patron' in patron.get('roles'):
+            if 'patron' in patron.get('roles') and \
+                patron.get_organisation()['pid'] == \
+                    item.get_library().replace_refs()['organisation']['pid']:
                 # TODO: Virtual Loan
                 loan = {
                     'item_pid': item.pid,

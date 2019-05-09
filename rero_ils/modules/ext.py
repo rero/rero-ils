@@ -36,10 +36,12 @@ from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data, mef_person_delete, \
     mef_person_insert, mef_person_revert, mef_person_update
 from .ebooks.receivers import publish_harvested_records
+from .items.listener import enrich_item_data
 from .items.signals import item_at_desk
 from .loans.listener import enrich_loan_data
+from .locations.listener import enrich_location_data
 from .mef_persons.receivers import publish_api_harvested_records
-from .patrons.listener import listener_item_at_desk
+from .patrons.listener import enrich_patron_data, listener_item_at_desk
 from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
     resource_can_create, text_to_id, to_pretty_json
 from ..permissions import can_edit
@@ -85,6 +87,9 @@ class REROILSAPP(object):
         """Register signals."""
         before_record_index.connect(enrich_loan_data)
         before_record_index.connect(enrich_document_data)
+        before_record_index.connect(enrich_item_data)
+        before_record_index.connect(enrich_patron_data)
+        before_record_index.connect(enrich_location_data)
 
         item_at_desk.connect(listener_item_at_desk)
 

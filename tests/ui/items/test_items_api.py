@@ -58,7 +58,33 @@ def test_item_create(db, es_clear, item_lib_martigny_data_tmp):
     assert fetched_pid.pid_type == 'item'
 
 
+def test_item_organisation_pid(org_martigny, item_lib_martigny):
+    """Test organisation pid has been added during the indexing."""
+    search = ItemsSearch()
+    item = next(search.filter('term', pid=item_lib_martigny.pid).scan())
+    assert item.organisation.pid == org_martigny.pid
+
+
+def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
+                                      loc_restricted_martigny):
+    """Test location retriever for invenio-circulation."""
+    assert item_lib_martigny.item_location_retriever(
+        item_lib_martigny.pid) == loc_public_martigny.pid
+
+
+def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
+    """."""
+    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
+
+
+def test_item_can_delete(item_lib_martigny):
+    """Test can delete"""
+    assert item_lib_martigny.get_links_to_me() == {}
+    assert item_lib_martigny.can_delete
+
+
 def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
+                         item_type_standard_martigny,
                          item_lib_martigny_data_tmp):
     """Test item elasticsearch mapping."""
     search = ItemsSearch()

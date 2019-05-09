@@ -27,6 +27,7 @@ import json
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
@@ -197,3 +198,27 @@ def test_patron_types_can_delete(client, patron_type_children_martigny,
 
     reasons = patron_type.reasons_not_to_delete()
     assert 'links' in reasons
+
+
+def test_filtered_patron_types_get(
+        client, librarian_martigny_no_email, patron_type_children_martigny,
+        patron_type_adults_martigny, librarian_sion_no_email,
+        patron_type_youngsters_sion, patron_type_grown_sion):
+    """Test patron types filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.ptty_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 2
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.ptty_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 2

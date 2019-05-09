@@ -222,9 +222,27 @@ def librarian_sion(
         app,
         roles,
         lib_sion,
-        patron_type_grown_sion,
+        patron_type_youngsters_sion,
         librarian_sion_data):
     """Create sion librarian record."""
+    ptrn = Patron.create(
+        data=librarian_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def librarian_sion_no_email(
+        app,
+        roles,
+        lib_sion,
+        patron_type_youngsters_sion,
+        librarian_sion_data):
+    """Create sion librarian without sending reset password instruction."""
     ptrn = Patron.create(
         data=librarian_sion_data,
         delete_pid=False,
