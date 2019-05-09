@@ -32,7 +32,7 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
-def test_location_create(db, loc_public_martigny_data):
+def test_location_create(db, es_clear, loc_public_martigny_data):
     """Test location creation."""
     loc = Location.create(loc_public_martigny_data, delete_pid=True)
     assert loc == loc_public_martigny_data
@@ -44,6 +44,13 @@ def test_location_create(db, loc_public_martigny_data):
     fetched_pid = fetcher(loc.id, loc)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'loc'
+
+
+def test_location_organisation_pid(org_martigny, loc_public_martigny):
+    """Test organisation pid has been added during the indexing."""
+    search = LocationsSearch()
+    location = next(search.filter('term', pid=loc_public_martigny.pid).scan())
+    assert location.organisation.pid == org_martigny.pid
 
 
 def test_location_es_mapping(es, db, lib_martigny, loc_public_martigny_data):

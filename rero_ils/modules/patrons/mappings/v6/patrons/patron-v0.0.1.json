@@ -59,6 +59,13 @@
             }
           }
         },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "circulation_location_pid": {
           "type": "text"
         },

@@ -26,8 +26,8 @@
 
 from flask_babelex import gettext as _
 
+from .api import Patron, PatronsSearch
 from ..documents.api import Document
-from ..patrons.api import Patron
 from ...utils import send_mail
 
 
@@ -60,3 +60,22 @@ def func_item_at_desk(sender, *args, **kwargs):
                         document=Document.get_record_by_pid(document_pid),
                         holding=request
                     )
+
+
+def enrich_patron_data(sender, json=None, record=None, index=None,
+                       **dummy_kwargs):
+    """Signal sent before a record is indexed.
+
+    Arguments:
+    - ``json``: The dumped record dictionary which can be modified.
+    - ``record``: The record being indexed.
+    - ``index``: The index in which the record will be indexed.
+    - ``doc_type``: The doc_type for the record.
+    """
+    patron_index_name = PatronsSearch.Meta.index
+    if index.startswith(patron_index_name):
+        org_pid = record.get_organisation()['pid']
+        if org_pid:
+            json['organisation'] = {
+                'pid': org_pid
+            }

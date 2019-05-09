@@ -228,6 +228,7 @@ def test_document_can_request_view(client, item_lib_fully,
                                    librarian_martigny_no_email,
                                    item_lib_martigny,
                                    item_lib_saxon,
+                                   item_lib_sion,
                                    loc_public_martigny):
     """Test can request on document view."""
     login_user_via_session(client, patron_martigny_no_email.user)
@@ -244,6 +245,7 @@ def test_document_can_request_view(client, item_lib_fully,
         assert not requested_this_item(item_lib_fully)
         assert number_of_requests(item_lib_fully) == 1
         assert number_of_requests(item_lib_martigny) == 0
+        assert not can_request(item_lib_sion)
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',

@@ -48,6 +48,13 @@
         "available": {
           "type": "boolean"
         },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },
