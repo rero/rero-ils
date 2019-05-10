@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""organisation JSON schema tests."""
+"""Libraries JSON schema tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -63,7 +63,7 @@ def test_name(library_schema, lib_martigny_data):
 
 
 def test_address(library_schema, lib_martigny_data):
-    """Test address for organisation jsonschemas."""
+    """Test address for library jsonschemas."""
     validate(lib_martigny_data, library_schema)
 
     with pytest.raises(ValidationError):

@@ -23,6 +23,7 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 # Check manifest will not automatically add these two files:
+include .coveragerc
 include .dockerignore
 include .editorconfig
 include .tx/config
