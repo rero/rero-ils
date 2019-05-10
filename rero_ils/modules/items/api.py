@@ -34,11 +34,13 @@ from invenio_circulation.errors import CirculationException, \
     NoValidTransitionAvailable
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
+from invenio_i18n.ext import current_i18n
 from invenio_search import current_search
 
 from .models import ItemIdentifier, ItemStatus
 from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..documents.api import Document, DocumentsSearch
+from ..errors import InvalidRecordID
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..loans.api import Loan, LoanAction, \
@@ -63,10 +65,10 @@ item_id_fetcher = partial(id_fetcher, provider=ItemProvider)
 
 
 class ItemsIndexer(IlsRecordIndexer):
-    """."""
+    """Indexing items in Elasticsearch."""
 
     def index(self, record):
-        """."""
+        """Index an item."""
         return_value = super(ItemsIndexer, self).index(record)
         document_pid = record.replace_refs()['document']['pid']
         document = Document.get_record_by_pid(document_pid)
@@ -97,7 +99,7 @@ class ItemsSearch(IlsRecordsSearch):
 
     @classmethod
     def flush(cls):
-        """."""
+        """Flush indexes."""
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
         current_search.flush_and_refresh(cls.Meta.index)
 
@@ -106,7 +108,7 @@ def add_loans_parameters_and_flush_indexes(function):
     """Add missing action parameters."""
     @wraps(function)
     def wrapper(item, *args, **kwargs):
-        """."""
+        """Executed before loan action."""
         loan = None
         web_request = False
         patron_pid = kwargs.get('patron_pid')
@@ -191,7 +193,7 @@ class Item(IlsRecord):
     }
 
     def dumps_for_circulation(self):
-        """."""
+        """Enhance item information for api_views."""
         item = self.replace_refs()
         data = item.dumps()
 
@@ -213,13 +215,13 @@ class Item(IlsRecord):
 
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
-        """."""
+        """Returns document pid from item pid."""
         item = cls.get_record_by_pid(item_pid).replace_refs()
         return item.get('document', {}).get('pid')
 
     @classmethod
     def get_items_pid_by_document_pid(cls, document_pid):
-        """."""
+        """Returns item pisd from document pid."""
         results = ItemsSearch()\
             .filter('term', document__pid=document_pid)\
             .source(['pid']).scan()
@@ -236,7 +238,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_loan_pid_with_item_on_loan(cls, item_pid):
-        """."""
+        """Returns loan pid for checked out item."""
         search = search_by_pid(
             item_pid=item_pid, filter_states=['ITEM_ON_LOAN'])
         results = search.source(['loan_pid']).scan()
@@ -247,7 +249,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_loan_pid_with_item_in_transit(cls, item_pid):
-        """."""
+        """Returns loan pi for in_transit item."""
         search = search_by_pid(
             item_pid=item_pid, filter_states=[
                 "ITEM_IN_TRANSIT_FOR_PICKUP",
@@ -270,7 +272,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_pendings_loans(cls, library_pid):
-        """."""
+        """Returns list of pending loand for a given library."""
         # check library exists
         lib = Library.get_record_by_pid(library_pid)
         if not lib:
@@ -288,12 +290,11 @@ class Item(IlsRecord):
 
     @classmethod
     def get_checked_out_loans(cls, patron_pid):
-        """."""
+        """Returns checked out loans for a given patron."""
         # check library exists
         patron = Patron.get_record_by_pid(patron_pid)
         if not patron:
-            raise Exception('Invalid Patron PID')
-
+            raise InvalidRecordID('Invalid Patron PID')
         results = current_circulation.loan_search\
             .source(['loan_pid'])\
             .params(preserve_order=True)\
@@ -306,7 +307,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_checked_out_items(cls, patron_pid):
-        """."""
+        """Return checked out items for a given patron."""
         loans = cls.get_checked_out_loans(patron_pid)
         returned_item_pids = []
         for loan in loans:
@@ -332,7 +333,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_requests_to_validate(cls, library_pid):
-        """."""
+        """Returns list of requests to validate for a given library."""
         loans = cls.get_pendings_loans(library_pid)
         returned_item_pids = []
         for loan in loans:
@@ -344,11 +345,11 @@ class Item(IlsRecord):
                 yield item, loan
 
     def get_library(self):
-        """Shortcut library."""
+        """Shortcut to the library of the item location."""
         return self.get_location().get_library()
 
     def get_location(self):
-        """Shortcut for item status."""
+        """Shortcut to the location of the item."""
         location_pid = self.replace_refs()['location']['pid']
         return Location.get_record_by_pid(location_pid)
 
@@ -508,13 +509,12 @@ class Item(IlsRecord):
             self.number_of_requests() == 0
 
     def get_item_end_date(self):
-        """Get item due date a given item."""
+        """Get item due date for a given item."""
         loan = get_loan_for_item(self.pid)
         if loan:
             end_date = loan['end_date']
             # due_date = datetime.strptime(end_date, '%Y-%m-%d')
             from ...filter import format_date_filter
-            from invenio_i18n.ext import current_i18n
 
             due_date = format_date_filter(
                 end_date,
@@ -663,7 +663,7 @@ class Item(IlsRecord):
         }
 
     def get_owning_pickup_location_pid(self):
-        """."""
+        """Returns the pickup location for the item owning location."""
         library = self.get_library()
         return library.get_pickup_location_pid()
 
