@@ -23,9 +23,6 @@
 
 """Tests REST API items."""
 
-# import json
-# from utils import get_json, to_relative_url
-
 import json
 from datetime import datetime, timedelta
 
@@ -172,7 +169,7 @@ def test_items_failed_actions(client, patron_martigny_no_email,
                               loc_public_martigny,
                               item_type_standard_martigny,
                               item_lib_martigny, json_header):
-    """."""
+    """Test item failed actions."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -221,7 +218,7 @@ def test_items_simple_checkout(client, librarian_martigny_no_email,
                                item_type_standard_martigny,
                                item_lib_martigny, json_header,
                                circulation_policies):
-    """."""
+    """Test item checkout."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -446,7 +443,7 @@ def test_items_requests(client, librarian_martigny_no_email,
                         item_type_standard_martigny,
                         item_lib_martigny, json_header,
                         circulation_policies):
-    """."""
+    """Test requesting an item and validation."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -609,7 +606,7 @@ def test_items_cancel_request(client, librarian_martigny_no_email,
                               item_type_standard_martigny,
                               item_lib_martigny, json_header,
                               circulation_policies):
-    """."""
+    """Test cancel item request."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -659,7 +656,7 @@ def test_items_extend(client, librarian_martigny_no_email,
                       item_type_standard_martigny,
                       item_lib_martigny, json_header,
                       circulation_policies):
-    """."""
+    """Test item renewal."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -733,7 +730,7 @@ def test_items_lose(client, librarian_martigny_no_email,
                     item_type_standard_martigny,
                     item_lib_martigny, json_header,
                     circulation_policies):
-    """."""
+    """Test item action lose."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -821,7 +818,7 @@ def test_items_receive(client, librarian_martigny_no_email,
                        item_type_standard_martigny,
                        item_lib_martigny, json_header,
                        circulation_policies):
-    """."""
+    """Test item receive."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -892,7 +889,7 @@ def test_items_automatic_checkin(client, librarian_martigny_no_email,
                                  item_type_standard_martigny,
                                  item_lib_martigny, json_header,
                                  circulation_policies):
-    """."""
+    """Test automatic checkin for items."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -1012,7 +1009,7 @@ def test_items_no_extend(client, librarian_martigny_no_email,
                          item_type_standard_martigny,
                          item_lib_martigny, json_header,
                          circ_policy_short_martigny):
-    """."""
+    """Test items when no renewals is possible."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -1085,7 +1082,7 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
                              item_type_standard_martigny,
                              item_lib_martigny, json_header,
                              circ_policy_short_martigny):
-    """."""
+    """Test items when requests are denied."""
     location = loc_public_martigny
     circ_policy_short_martigny['allow_requests'] = False
     circ_policy_short_martigny.update(
@@ -1126,7 +1123,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
                                  librarian_martigny_no_email,
                                  patron_martigny_no_email,
                                  circ_policy_short_martigny):
-    """Extend action changes according to params of cipo"""
+    """Extend action changes according to params of cipo."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     circ_policy = circ_policy_short_martigny
     item = item_lib_martigny
@@ -1200,7 +1197,7 @@ def test_item_possible_actions(client, item_lib_martigny,
                                librarian_martigny_no_email,
                                patron_martigny_no_email,
                                circulation_policies):
-    """Possible action changes according to params of cipo"""
+    """Possible action changes according to params of cipo."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     patron_pid = patron_martigny_no_email.pid
@@ -1258,7 +1255,7 @@ def test_items_extend_rejected(client, librarian_martigny_no_email,
                                item_type_standard_martigny,
                                item_lib_martigny, json_header,
                                circ_policy_short_martigny):
-    """."""
+    """Test items when extend will be rejected."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -1341,7 +1338,7 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
                                item_type_standard_martigny,
                                item_lib_martigny, json_header,
                                circ_policy_short_martigny):
-    """."""
+    """Test correct renewal due date for items."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid

@@ -154,6 +154,24 @@ def librarian_saxon_data(data):
 
 
 @pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def librarian_saxon_no_email(
+        app,
+        roles,
+        lib_saxon,
+        patron_type_children_martigny,
+        librarian_saxon_data):
+    """Create Martigny patron record no email."""
+    ptrn = Patron.create(
+        data=librarian_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def librarian_saxon(
         app,
         roles,

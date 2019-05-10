@@ -35,3 +35,7 @@ class OrganisationDoesNotExist(RecordsError):
 
 class PolicyNameAlreadyExists(RecordsError):
     """Error raised when the name of the new policy record exists."""
+
+
+class InvalidRecordID(RecordsError):
+    """Error raised when the ID of record in invalid."""

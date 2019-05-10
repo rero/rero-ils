@@ -90,7 +90,7 @@ def check_authentication_for_request(func):
 
 
 def jsonify_error(func):
-    """."""
+    """Jsonify the errors."""
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
