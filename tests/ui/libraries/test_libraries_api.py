@@ -34,7 +34,7 @@ from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
 
 
 def test_library_create(db, lib_martigny_data):
-    """Test libanisation creation."""
+    """Test library creation."""
     lib = Library.create(lib_martigny_data, delete_pid=True)
     assert lib == lib_martigny_data
     assert lib.get('pid') == '1'
@@ -48,7 +48,7 @@ def test_library_create(db, lib_martigny_data):
 
 
 def test_library_es_mapping(es_clear, db, lib_martigny_data, org_martigny):
-    """."""
+    """Test library elasticsearch mapping."""
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -58,7 +58,7 @@ def test_library_es_mapping(es_clear, db, lib_martigny_data, org_martigny):
 
 
 def test_libraries_is_open(lib_martigny):
-    """Test library creat."""
+    """Test library creation."""
     saturday = '2018-12-15 11:00'
     library = lib_martigny
     assert library.is_open(date=saturday)
@@ -92,6 +92,6 @@ def test_libraries_is_open(lib_martigny):
 
 
 def test_library_can_delete(lib_martigny):
-    """Test can  delete"""
+    """Test can delete."""
     assert lib_martigny.get_links_to_me() == {}
     assert lib_martigny.can_delete

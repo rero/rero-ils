@@ -30,7 +30,7 @@ from jsonref import JsonRefError
 
 
 def test_libraries_jsonresolver(lib_martigny):
-    """."""
+    """Test library json resolver."""
     library = lib_martigny
     rec = Record.create({
         'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'}
