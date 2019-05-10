@@ -39,7 +39,7 @@ def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
 
 
 def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
-    """."""
+    """Test get items by document pid."""
     assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
 
 
@@ -74,6 +74,6 @@ def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
 
 
 def test_item_can_delete(item_lib_martigny):
-    """Test can delete"""
+    """Test can delete."""
     assert item_lib_martigny.get_links_to_me() == {}
     assert item_lib_martigny.can_delete

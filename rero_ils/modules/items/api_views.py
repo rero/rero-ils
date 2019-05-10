@@ -63,7 +63,7 @@ def check_authentication(func):
 
 
 def jsonify_error(func):
-    """."""
+    """Jsonify errors."""
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
@@ -77,7 +77,7 @@ def jsonify_error(func):
 
 
 def jsonify_action(func):
-    """."""
+    """Jsonify loan actions."""
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:

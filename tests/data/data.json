@@ -993,7 +993,7 @@
     "email": "elena_rodriguez@gmail.com",
     "phone": "+41324993515",
     "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
     },
     "roles": [
       "librarian",
