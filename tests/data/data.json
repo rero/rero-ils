@@ -996,7 +996,8 @@
       "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
     },
     "roles": [
-      "librarian", "patron"
+      "librarian",
+      "patron"
     ]
   },
   "ptrn3": {

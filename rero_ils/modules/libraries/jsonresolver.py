@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Organisation resolver."""
+"""Libraries resolver."""
 
 
 import jsonresolver
@@ -31,7 +31,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 @jsonresolver.route('/api/libraries/<pid>', host='ils.rero.ch')
 def library_resolver(pid):
-    """."""
+    """Library resolver."""
     persistent_id = PersistentIdentifier.get('lib', pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)

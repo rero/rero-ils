@@ -1,0 +1,10 @@
+[run]
+omit =
+    rero_ils/dojson/cli.py
+    rero_ils/modules/loans/cli.py
+    rero_ils/modules/ebooks/cli.py
+    rero_ils/modules/apiharvester/cli.py
+    rero_ils/modules/patrons/cli.py
+    rero_ils/modules/cli.py
+    rero_ils/modules/items/cli.py
+

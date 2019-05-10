@@ -23,14 +23,15 @@
 
 """Tests REST API libraries."""
 
-# import json
-# from utils import get_json, to_relative_url
-
 import json
 
 import mock
+import pytest
+from dateutil import parser
 from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.libraries.api import Library, LibraryNeverOpen
 
 
 def test_libraries_permissions(client, lib_martigny, json_header):
@@ -151,3 +152,71 @@ def test_libraries_post_put_delete(client, org_martigny, lib_martigny_data,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+def test_library_no_pickup(client, lib_sion, loc_restricted_sion):
+    """Test library with no pick_up location."""
+    assert not lib_sion.get_pickup_location_pid()
+
+
+def test_library_never_open(client, lib_sion, lib_martigny):
+    """Test library with no opening hours."""
+    assert lib_sion._has_is_open()
+    assert lib_sion.next_open()
+
+    del lib_sion['opening_hours']
+    lib_sion.update(lib_sion, dbcommit=True, reindex=True)
+
+    assert lib_sion._has_is_open()
+
+    del lib_sion['exception_dates']
+    lib_sion.update(lib_sion, dbcommit=True, reindex=True)
+
+    with pytest.raises(LibraryNeverOpen):
+        assert lib_sion.next_open()
+
+
+def test_library_exceptions(client, lib_martigny):
+    """Test library exceptions."""
+    assert lib_martigny._has_is_open()
+    assert lib_martigny.next_open()
+    assert not lib_martigny.is_open(date=parser.parse('2018-12-15'))
+    assert not lib_martigny.is_open(date=parser.parse('2019-01-06'))
+
+    exception_dates = lib_martigny.get('exception_dates')
+    exception_open_false = lib_martigny._has_exception(
+            _open=False,
+            date=parser.parse('2019-01-06'),
+            exception_dates=exception_dates,
+            day_only=False
+    )
+    exception_open_true = lib_martigny._has_exception(
+            _open=True,
+            date=parser.parse('2019-01-06'),
+            exception_dates=exception_dates,
+            day_only=False
+    )
+    # One of these asserts should fail, this to demonstrate the bug documented
+    # in https://github.com/rero/rero-ils/issues/263
+    assert not exception_open_false
+    assert not exception_open_true
+
+    assert not lib_martigny._has_exception(
+            _open=True,
+            date=parser.parse('2019-08-01'),
+            exception_dates=exception_dates,
+            day_only=False
+    )
+
+
+def test_library_can_delete(client, lib_martigny, librarian_martigny_no_email,
+                            loc_public_martigny):
+    """Test can delete a library."""
+    links = lib_martigny.get_links_to_me()
+    assert 'locations' in links
+    assert 'patrons' in links
+
+    assert not lib_martigny.can_delete
+
+    reasons = lib_martigny.reasons_not_to_delete()
+    assert 'links' in reasons

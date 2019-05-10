@@ -75,7 +75,7 @@ class Library(IlsRecord):
     provider = LibraryProvider
 
     def get_pickup_location_pid(self):
-        """."""
+        """Returns librarys first pickup location."""
         results = LocationsSearch().filter(
             'term', library__pid=self.pid).filter(
             'term', is_pickup=True).source(['pid']).scan()
@@ -163,9 +163,11 @@ class Library(IlsRecord):
 
     def _has_is_open(self):
         """Test if library has opening days."""
-        for opening_hour in self['opening_hours']:
-            if opening_hour['is_open']:
-                return True
+        opening_hours = self.get('opening_hours')
+        if opening_hours:
+            for opening_hour in opening_hours:
+                if opening_hour['is_open']:
+                    return True
         exception_dates = self.get('exception_dates')
         if exception_dates:
             for exception_date in exception_dates:
