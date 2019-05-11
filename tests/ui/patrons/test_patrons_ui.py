@@ -32,8 +32,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
 
-def test_patrons_profile(client, librarian_martigny_no_email):
-    """."""
+def test_patrons_profile(client, librarian_martigny_no_email, loan_pending):
+    """Test patron profile."""
     # check redirection
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 302
@@ -61,7 +61,6 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
         'rero_ils.modules.patrons.views.current_i18n',
         current_i18n
     ):
-
         login_user_via_session(client, librarian_martigny_no_email.user)
         res = client.get(url_for('patrons.logged_user'))
         assert res.status_code == 200

@@ -247,7 +247,7 @@ def loan_data_tmp(data):
 
 
 @pytest.fixture(scope="module")
-def loan_pedning(
+def loan_pending(
         app,
         item_lib_fully,
         loc_public_martigny,

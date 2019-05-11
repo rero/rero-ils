@@ -40,24 +40,23 @@ def func_item_at_desk(sender, *args, **kwargs):
     """Function for signal item_at_desk."""
     item = kwargs['item']
 
-    # Get patron for holding.
-    holdings = item.get('_circulation', {}).get('holdings', [])
-    if holdings:
-        patron_barcode = holdings[0].get('patron_barcode')
-        patron = Patron.get_patron_by_barcode(patron_barcode)
-
-        if patron:
-            # Send at desk mail
-            subject = _('Document at desk')
-            email = patron.get('email')
-            recipients = [email]
-            template = 'patron_request_at_desk'
-            send_mail(
-                subject=subject,
-                recipients=recipients,
-                template=template,
-                language='eng',
-                document=Document.get_document_by_itemid(item.id),
-                # holding=item.dumps().get('_circulation').get('holdings')[0],
-                holding='get loans with state ITEM_AT_DESK, To be implemented',
-            )
+    requests = item.number_of_requests()
+    if requests:
+        for request in item.get_requests():
+            if request.get('state') == 'ITEM_AT_DESK':
+                patron = Patron.get_record_by_pid(request.get('patron_pid'))
+                if patron:
+                    # Send at desk mail
+                    subject = _('Document at desk')
+                    document_pid = request.get('document_pid')
+                    email = patron.get('email')
+                    recipients = [email]
+                    template = 'patron_request_at_desk'
+                    send_mail(
+                        subject=subject,
+                        recipients=recipients,
+                        template=template,
+                        language='eng',
+                        document=Document.get_record_by_pid(document_pid),
+                        holding=request
+                    )

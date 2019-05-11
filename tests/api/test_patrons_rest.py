@@ -27,7 +27,12 @@ import json
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.items.api import ItemStatus
+from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.patrons.utils import user_has_patron
 
 
 def test_patrons_permissions(client, librarian_martigny_no_email,

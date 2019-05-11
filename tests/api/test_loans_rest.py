@@ -31,7 +31,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_loans_permissions(client, loan_pedning, json_header):
+def test_loans_permissions(client, loan_pending, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
     post_url = url_for('invenio_records_rest.loanid_list')
@@ -56,7 +56,7 @@ def test_loans_permissions(client, loan_pedning, json_header):
     assert res.status_code == 401
 
 
-def test_loans_logged_permissions(client, loan_pedning,
+def test_loans_logged_permissions(client, loan_pending,
                                   librarian_martigny_no_email,
                                   json_header):
     """Test record retrieval."""
