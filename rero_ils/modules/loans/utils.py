@@ -43,7 +43,6 @@ def get_circ_policy(loan):
 
     patron = Patron.get_record_by_pid(loan.get('patron_pid')).replace_refs()
     patron_type_pid = patron.patron_type_pid
-
     return CircPolicy.provide_circ_policy(
         library_pid,
         patron_type_pid,
@@ -98,7 +97,7 @@ def get_extension_params(loan=None, parameter_name=None):
 
 
 def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
-    """Checks extend loan will be valid ."""
+    """Checks extend loan will be valid."""
     end_date = ciso8601.parse_datetime_as_naive(end_date)
     current_date = datetime.now()
     library = Library.get_record_by_pid(library_pid)
@@ -125,7 +124,7 @@ def is_item_available_for_checkout(item_pid):
 
 
 def can_be_requested(loan):
-    """Return if record can be requested."""
+    """Check if record can be requested."""
     if not loan.get('item_pid'):
         raise Exception('Transaction on document is not implemented.')
     policy = get_circ_policy(loan)
