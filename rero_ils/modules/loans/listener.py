@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""."""
+"""Signals connector for Loan."""
 
 from invenio_circulation.proxies import current_circulation
 

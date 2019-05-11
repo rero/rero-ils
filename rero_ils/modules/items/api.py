@@ -43,8 +43,7 @@ from ..documents.api import Document, DocumentsSearch
 from ..errors import InvalidRecordID
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
-from ..loans.api import Loan, LoanAction, \
-    get_last_transaction_location_for_item, \
+from ..loans.api import Loan, LoanAction, get_last_transaction_loc_for_item, \
     get_request_by_item_pid_by_patron_pid
 from ..locations.api import Location
 from ..minters import id_minter
@@ -397,7 +396,7 @@ class Item(IlsRecord):
 
         of the last loan.
         """
-        loan_location_pid = get_last_transaction_location_for_item(self.pid)
+        loan_location_pid = get_last_transaction_loc_for_item(self.pid)
         if loan_location_pid:
             return loan_location_pid
         return self.location_pid

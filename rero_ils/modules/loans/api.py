@@ -99,7 +99,7 @@ class Loan(IlsRecord):
         return False
 
     def dumps_for_circulation(self):
-        """."""
+        """Dumps for circulation."""
         loan = self.replace_refs()
         data = loan.dumps()
 
@@ -118,50 +118,6 @@ class Loan(IlsRecord):
             data['pickup_location']['name'] = loc_data['name']
             data['pickup_location']['library_name'] = library.get('name')
         return data
-
-    def build_url_action_for_pid(self, action):
-        """Build urls for Loan actions."""
-        mapping = {
-            'checkout': 'loan_item',
-            'validate': 'validate_item_request',
-            'receive': 'receive_item',
-            'checkin': 'return_item',
-            'request': 'request_item',
-            'extend': 'extend_loan',
-            'cancel': 'cancel',
-        }
-        item_pid_value = self.get('item_pid', '')
-        location = self.get('pickup_location_pid', '')
-        if action != 'request':
-            url = url_for('items.' + mapping[action])
-        else:
-            if self['state'] == 'CREATED':
-                # TODO: find a cleaner way to do this.
-                # request is the only action that requires two parameters
-                action = 'cancel'
-                url = url_for('items.' + mapping[action]).replace(
-                    'cancel', 'request'
-                )
-            else:
-                url = url_for(
-                    'items.' + mapping[action],
-                    item_pid_value=item_pid_value,
-                    location=location,
-                )
-        return url
-
-    def loan_links_factory(self):
-        """Factory for links generation."""
-        links = {}
-        actions = {}
-        transitions_config = current_app.config.get(
-            'CIRCULATION_LOAN_TRANSITIONS', {}
-        )
-        for transition in transitions_config.get(self['state']):
-            action = transition.get('trigger', 'next')
-            actions[action] = self.build_url_action_for_pid(action)
-        links.setdefault('actions', actions)
-        return links
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
@@ -183,24 +139,19 @@ def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
 
 
 def get_loans_by_patron_pid(patron_pid):
-    """Return all checkout for patron."""
-    if not patron_pid:
-        raise CirculationException('Patron PID not specified')
+    """Return all loans for patron."""
     results = current_circulation.loan_search\
         .source(['loan_pid'])\
         .params(preserve_order=True)\
         .filter('term', patron_pid=patron_pid)\
         .sort({'transaction_date': {'order': 'asc'}})\
         .scan()
-
     for loan in results:
         yield Loan.get_record_by_pid(loan.loan_pid)
 
 
-def get_last_transaction_location_for_item(item_pid):
+def get_last_transaction_loc_for_item(item_pid):
     """Return last transaction location for an item."""
-    if not item_pid:
-        raise CirculationException('Item PID not specified')
     results = current_circulation.loan_search\
         .source(['loan_pid'])\
         .params(preserve_order=True)\
