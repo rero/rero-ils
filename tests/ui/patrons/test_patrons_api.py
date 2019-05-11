@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""CircPolicy Record tests."""
+"""Patrons Record tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -92,7 +92,7 @@ def test_patron_es_mapping(
 
 
 def test_get_patron(librarian_martigny):
-    """."""
+    """Test patron retrieval."""
     patron = librarian_martigny
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
@@ -105,6 +105,6 @@ def test_get_patron(librarian_martigny):
 
 
 def test_user_librarian_can_delete(librarian_martigny):
-    """Test can  delete"""
+    """Test can delete a librarian."""
     assert librarian_martigny.get_links_to_me() == {}
     assert librarian_martigny.can_delete

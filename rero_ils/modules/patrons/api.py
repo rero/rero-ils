@@ -81,7 +81,7 @@ class Patron(IlsRecord):
     @classmethod
     def create(cls, data, id_=None, delete_pid=True,
                dbcommit=False, reindex=False, **kwargs):
-        """."""
+        """Patron record creation."""
         record = super(Patron, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         record._update_roles()
@@ -101,7 +101,7 @@ class Patron(IlsRecord):
 
     @cached_property
     def user(self):
-        """."""
+        """Invenio user of a patron."""
         email = self.get('email')
         user = _datastore.find_user(email=email)
         if not user:
@@ -116,7 +116,7 @@ class Patron(IlsRecord):
         return user
 
     def _update_roles(self):
-        """."""
+        """Update user roles."""
         db_roles = self.user.roles
         for role in self.available_roles:
             in_db = role in db_roles
@@ -127,7 +127,7 @@ class Patron(IlsRecord):
                 self.remove_role(role)
 
     def _remove_roles(self):
-        """."""
+        """Remove roles."""
         db_roles = self.user.roles
         for role in self.available_roles:
             if role in db_roles:
@@ -162,7 +162,7 @@ class Patron(IlsRecord):
 
     @classmethod
     def get_librarian_pickup_location_pid(cls):
-        """."""
+        """Returns pickup locations for a librarian."""
         if 'librarian' in current_patron['roles']:
             library = Library.get_record_by_pid(
                 current_patron.replace_refs()['library']['pid']

@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Utilities functions for rero-ils."""
+"""Utilities functions for patrons."""
 
 
 from flask_login import current_user

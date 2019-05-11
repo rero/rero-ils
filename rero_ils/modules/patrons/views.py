@@ -26,8 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
 from flask import Blueprint, current_app, jsonify, render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
@@ -42,7 +40,6 @@ from ..items.api import Item
 from ..libraries.api import Library
 from ..loans.api import get_loans_by_patron_pid
 from ..locations.api import Location
-from ...permissions import login_and_librarian
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -51,16 +48,6 @@ api_blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
-
-
-def check_permission(fn):
-    """."""
-    @wraps(fn)
-    def decorated_view(*args, **kwargs):
-        """."""
-        login_and_librarian()
-        return fn(*args, **kwargs)
-    return decorated_view
 
 
 blueprint = Blueprint(
@@ -121,7 +108,6 @@ def profile():
     if patron is None:
         raise NotFound()
     loans = get_loans_by_patron_pid(patron.pid)
-
     checkouts = []
     requests = []
     if loans:
@@ -159,7 +145,7 @@ def get_patron_from_barcode(value):
 
 @blueprint.app_template_filter('get_patron_from_checkout_item_pid')
 def get_patron_from_checkout_item_pid(item_pid):
-    """Get patron from a checkout item pid."""
+    """Get patron from a checked out item pid."""
     from invenio_circulation.api import get_loan_for_item
     patron_pid = get_loan_for_item(item_pid)['patron_pid']
     return Patron.get_record_by_pid(patron_pid)

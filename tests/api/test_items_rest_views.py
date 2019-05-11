@@ -79,6 +79,10 @@ def test_checkout_no_loan_given(client, librarian_martigny_no_email,
     data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
 
+    from rero_ils.modules.patrons.views import  \
+        get_patron_from_checkout_item_pid
+    assert get_patron_from_checkout_item_pid(item.pid) == patron
+
     res = client.post(
         url_for('api_item.checkin'),
         data=json.dumps(
