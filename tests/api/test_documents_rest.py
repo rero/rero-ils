@@ -30,7 +30,12 @@ import json
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.documents.views import can_request, \
+    item_library_pickup_locations, item_status_text, number_of_requests, \
+    patron_request_rank, requested_this_item
 
 
 def test_documents_permissions(client, document, json_header):
@@ -159,7 +164,7 @@ def test_documents_post_put_delete(client, document_data,
 @mock.patch('rero_ils.modules.documents.views.login_and_librarian',
             mock.MagicMock())
 def test_documents_import_bnf_ean(client):
-    """."""
+    """Test document import from bnf."""
     res = client.get(url_for('api_documents.import_bnf_ean', ean='123'))
     assert res.status_code == 404
     data = get_json(res)
@@ -200,3 +205,62 @@ def test_documents_import_bnf_ean(client):
         'translatedFrom': ['eng'],
         'type': 'book'
     }
+
+
+def test_document_can_delete(client, item_lib_martigny, loan_pending,
+                             document):
+    """Test can delete a document."""
+    links = document.get_links_to_me()
+    assert 'items' in links
+    assert 'loans' in links
+
+    assert not document.can_delete
+
+    reasons = document.reasons_not_to_delete()
+    assert 'links' in reasons
+
+
+def test_document_can_request_view(client, item_lib_fully,
+                                   loan_pending, document,
+                                   patron_martigny_no_email,
+                                   item_type_standard_martigny,
+                                   circulation_policies,
+                                   librarian_martigny_no_email,
+                                   item_lib_martigny,
+                                   item_lib_saxon,
+                                   loc_public_martigny):
+    """Test can request on document view."""
+    login_user_via_session(client, patron_martigny_no_email.user)
+
+    assert loan_pending.patron_pid == librarian_martigny_no_email.pid
+
+    assert not patron_request_rank(item_lib_fully)
+
+    with mock.patch(
+        'rero_ils.modules.documents.views.current_user',
+        patron_martigny_no_email.user
+    ):
+        assert can_request(item_lib_fully)
+        assert not requested_this_item(item_lib_fully)
+        assert number_of_requests(item_lib_fully) == 1
+        assert number_of_requests(item_lib_martigny) == 0
+
+    with mock.patch(
+        'rero_ils.modules.documents.views.current_user',
+        librarian_martigny_no_email.user
+    ):
+        assert not can_request(item_lib_fully)
+        assert requested_this_item(item_lib_fully)
+        assert patron_request_rank(item_lib_fully)
+
+    status = item_status_text(item_lib_fully, format='medium', locale='en')
+    assert status == 'not available (requested)'
+
+    status = item_status_text(item_lib_martigny, format='medium', locale='en')
+    assert status == 'available'
+
+    picks = item_library_pickup_locations(item_lib_fully)
+    assert len(picks) == 3
+
+    picks = item_library_pickup_locations(item_lib_martigny)
+    assert len(picks) == 3

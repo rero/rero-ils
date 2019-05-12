@@ -84,7 +84,7 @@ api_blueprint = Blueprint(
 
 
 def check_permission(fn):
-    """."""
+    """Check user permissions."""
     @wraps(fn)
     def decorated_view(*args, **kwargs):
         """."""
@@ -95,7 +95,7 @@ def check_permission(fn):
 
 @api_blueprint.route('/cover/<isbn>')
 def cover(isbn):
-    """."""
+    """Documenet cover service."""
     cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
     url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
                           '&type=isbn&width=60px&callback=thumb&value=' + isbn
@@ -288,16 +288,6 @@ def abstracts_format(abstracts):
 
 
 @blueprint.app_template_filter()
-def item_library_locations(item_pid):
-    """Get the locations of the library of the given item."""
-    location_pid = Item.get_record_by_pid(item_pid)['location_pid']
-    location = Location.get_record_by_pid(location_pid)
-    library = Library.get_library_by_locationid(location.id)
-    locations = library.locations
-    return locations
-
-
-@blueprint.app_template_filter()
 def item_library_pickup_locations(item):
     """Get the pickup locations of the library of the given item."""
     location_pid = item.replace_refs()['location']['pid']
@@ -319,8 +309,6 @@ def item_status_text(item, format='medium', locale='en'):
     """Text for item status."""
     if item.available:
         text = _('available')
-        if item.dumps().get('item_type') == 'on_site_consultation':
-            text += ' ({0})'.format(_('on_site consultation'))
     else:
         text = _('not available')
         if item.status == ItemStatus.ON_LOAN:
@@ -330,6 +318,6 @@ def item_status_text(item, format='medium', locale='en'):
             text += ' ({0} {1})'.format(_('due until'), due_date)
         elif item.number_of_requests() > 0:
             text += ' ({0})'.format(_('requested'))
-        elif item.status == ItemStatus.IN_TRANSIT:
-            text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
+            if item.status == ItemStatus.IN_TRANSIT:
+                text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
     return text

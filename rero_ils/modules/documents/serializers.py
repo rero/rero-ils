@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Record serialization."""
+"""Document serialization."""
 
 from flask import current_app, json
 from invenio_records_rest.schemas import RecordSchemaJSONV1

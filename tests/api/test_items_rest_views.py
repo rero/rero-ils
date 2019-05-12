@@ -35,6 +35,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
+from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
 from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanAction
@@ -265,6 +266,9 @@ def test_automatic_checkin(client, librarian_martigny_no_email, lib_martigny,
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert item.status == ItemStatus.IN_TRANSIT
 
+    text = item_status_text(item, format='medium', locale='en')
+    assert text == 'not available (requested) (in_transit)'
+
     record, actions = item.automatic_checkin()
     assert 'receive' in actions
 
@@ -361,6 +365,18 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     assert res.status_code == 200
     data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+
+    record = Item.get_record_by_pid(item_lib_martigny.pid)
+
+    class current_i18n:
+        class locale:
+            language = 'en'
+    with mock.patch(
+        'rero_ils.modules.items.api.current_i18n',
+        current_i18n
+    ):
+        text = item_status_text(record, format='medium', locale='en')
+        assert 'due until' in text
 
     res = client.post(
         url_for('api_item.checkin'),

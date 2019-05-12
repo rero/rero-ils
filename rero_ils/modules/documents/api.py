@@ -24,6 +24,7 @@
 
 """API for manipulating documents."""
 
+
 from functools import partial
 
 from invenio_circulation.search.api import search_by_pid
@@ -57,7 +58,7 @@ class DocumentsSearch(RecordsSearch):
 
 
 class Document(IlsRecord):
-    """Location class."""
+    """Document class."""
 
     minter = document_id_minter
     fetcher = document_id_fetcher
@@ -70,7 +71,7 @@ class Document(IlsRecord):
         return 'ebook' != self.get('type')
 
     def get_number_of_items(self):
-        """Get number of items."""
+        """Get number of items for document."""
         from ..items.api import ItemsSearch
         results = ItemsSearch().filter(
             'term', document__pid=self.pid).source().count()
