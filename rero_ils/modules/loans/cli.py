@@ -26,20 +26,30 @@
 
 from __future__ import absolute_import, print_function
 
-import json
-import random
-from datetime import datetime, timedelta, timezone
-
 import click
 from flask.cli import with_appcontext
-from invenio_circulation.api import get_loan_for_item
+from invenio_circulation.proxies import current_circulation
 
-from ..circ_policies.api import CircPolicy
-from ..item_types.api import ItemType
-from ..items.api import Item, ItemsSearch, ItemStatus
-from ..libraries.api import Library
-from ..locations.api import Location
-from ..patrons.api import Patron, PatronsSearch
+from ..items.api import Item
+from ..loans.api import Loan
+
+
+@click.command('reindex_item_with_loans')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def reindex_item_with_loans(verbose):
+    """Reindex items and updated item statueses."""
+    results = current_circulation.loan_search\
+        .source(['loan_pid'])\
+        .params(preserve_order=True)\
+        .exclude('terms', state=['PENDING', 'CREATED', 'CANCELLED'])\
+        .sort({'transaction_date': {'order': 'asc'}})\
+        .scan()
+    for result in results:
+        item_pid = Loan.get_record_by_pid(result.loan_pid).get('item_pid')
+        loan_pid = next(results).loan_pid
+        item = Item.get_record_by_pid(item_pid)
+        item.status_update(dbcommit=True, reindex=True, forceindex=True)
 
 
 @click.command('create_loans')

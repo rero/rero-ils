@@ -127,8 +127,15 @@ pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
 # # create circulation transactions
-echo -e ${GREEN}Circulation transactions:${NC}
-pipenv run invenio fixtures create_loans ${DATA_PATH}/loans.json
+echo -e ${GREEN}Circulation transactions - loans:${NC}
+# # old cli to generate loans
+# # pipenv run invenio fixtures create_loans ${DATA_PATH}/loans_generate.json
+
+pipenv run invenio records create --pid-minter loanid ${DATA_PATH}/loans.json
+pipenv run invenio index reindex -t loan --yes-i-know
+pipenv run invenio index run -c 4 --raise-on-error
+pipenv run invenio fixtures reindex_item_with_loans
+
 
 # # OAI configuration
 pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml

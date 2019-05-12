@@ -41,7 +41,7 @@ from invenio_records.api import Record
 from werkzeug.local import LocalProxy
 
 from .items.cli import create_items, reindex_items
-from .loans.cli import create_loans
+from .loans.cli import create_loans, reindex_item_with_loans
 from .patrons.cli import import_users
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -55,6 +55,7 @@ def fixtures():
 fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 fixtures.add_command(reindex_items)
+fixtures.add_command(reindex_item_with_loans)
 fixtures.add_command(create_loans)
 
 
