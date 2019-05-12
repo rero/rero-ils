@@ -23,12 +23,14 @@
 
 """Tests REST API item_types."""
 
-# import json
-# from utils import get_json, to_relative_url
-
-
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_circulation.errors import CirculationException
+
+from rero_ils.modules.loans.api import get_last_transaction_loc_for_item, \
+    get_loans_by_patron_pid
+from rero_ils.modules.loans.utils import can_be_requested
 
 
 def test_loans_permissions(client, loan_pending, json_header):
@@ -82,3 +84,30 @@ def test_loans_logged_permissions(client, loan_pending,
 
     res = client.delete(item_url)
     assert res.status_code == 403
+
+
+def test_loan_utils(client, librarian_martigny_no_email, lib_martigny,
+                    patron_martigny_no_email, item_lib_martigny,
+                    item_type_standard_martigny,
+                    patron_type_children_martigny,
+                    circulation_policies, loan_pending,
+                    librarian_martigny):
+    """Test loan utils."""
+    loan = {
+        'item_pid': item_lib_martigny.pid,
+        'patron_pid': patron_martigny_no_email.pid
+    }
+    assert can_be_requested(loan)
+
+    del loan['item_pid']
+    with pytest.raises(Exception):
+        assert can_be_requested(loan)
+
+    assert loan_pending.patron_pid == librarian_martigny.pid
+    assert not loan_pending.is_active
+
+    with pytest.raises(TypeError):
+        assert get_loans_by_patron_pid()
+
+    with pytest.raises(TypeError):
+        assert get_last_transaction_loc_for_item()
