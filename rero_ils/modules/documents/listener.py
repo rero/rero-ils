@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""."""
+"""Document listener."""
 
 from flask import current_app
 from invenio_indexer.api import RecordIndexer

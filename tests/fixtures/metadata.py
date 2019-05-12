@@ -196,7 +196,7 @@ def item_lib_saxon(
         document,
         item_lib_saxon_data,
         loc_public_saxon,
-        item_type_standard_saxon):
+        item_type_standard_martigny):
     """Create item of saxon library."""
     item = Item.create(
         data=item_lib_saxon_data,

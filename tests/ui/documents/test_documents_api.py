@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""CircPolicy Record tests."""
+"""Document Record tests."""
 
 from __future__ import absolute_import, print_function
 
@@ -36,7 +36,7 @@ from rero_ils.modules.mef_persons.api import MefPersonsSearch
 
 
 def test_document_create(db, document_data_tmp):
-    """Test pttyanisation creation."""
+    """Test document creation."""
     ptty = Document.create(document_data_tmp, delete_pid=True)
     assert ptty == document_data_tmp
     assert ptty.get('pid') == '1'
@@ -51,7 +51,7 @@ def test_document_create(db, document_data_tmp):
 
 def test_document_es_mapping(db, org_martigny,
                              document_data_tmp, item_lib_martigny):
-    """."""
+    """Test document elasticsearch mapping."""
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -65,14 +65,14 @@ def test_document_es_mapping(db, org_martigny,
 
 
 def test_document_can_not_delete(document, item_lib_martigny):
-    """Test can not delete"""
+    """Test can not delete."""
     links = document.get_links_to_me()
     assert links['items'] == 1
     assert not document.can_delete
 
 
 def test_document_can_delete(app, document_data_tmp):
-    """Test can delete"""
+    """Test can delete."""
     document = Document.create(document_data_tmp, delete_pid=True)
     assert document.get_links_to_me() == {}
     assert document.can_delete
@@ -83,7 +83,7 @@ def test_document_can_delete(app, document_data_tmp):
 def test_document_person_resolve(mock_resolver_get, mock_listener_get,
                                  es_clear, db, document_ref,
                                  mef_person_response_data):
-    """Test document person resolve"""
+    """Test document person resolve."""
     mock_resolver_get.return_value = mock_response(
         json_data=mef_person_response_data
     )
@@ -111,7 +111,7 @@ def test_document_person_resolve(mock_resolver_get, mock_listener_get,
 
 
 def test_document_person_resolve_exception(es_clear, db, document_data_ref):
-    """Test document person resolve"""
+    """Test document person resolve."""
     with pytest.raises(Exception):
         Document.create(
             data=document_data_ref,

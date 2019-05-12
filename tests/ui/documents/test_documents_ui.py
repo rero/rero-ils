@@ -21,14 +21,14 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Tests UI view for patrons."""
+"""Tests UI view for documents."""
 
 
 from flask import url_for
 
 
 def test_documents_detailed_view(client, loc_public_martigny, document):
-    """."""
+    """Test document detailed view."""
     # check redirection
     res = client.get(url_for('invenio_records_ui.doc', pid_value='doc1'))
     assert res.status_code == 200

@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Organisation JSONResolver tests."""
+"""Document JSONResolver tests."""
 
 import pytest
 from invenio_records.api import Record
@@ -30,7 +30,7 @@ from jsonref import JsonRefError
 
 
 def test_documents_jsonresolver(document):
-    """."""
+    """Test document json resolver."""
     rec = Record.create({
         'document': {'$ref': 'https://ils.rero.ch/api/documents/doc1'}
     })
