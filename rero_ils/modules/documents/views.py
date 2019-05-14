@@ -87,7 +87,7 @@ def check_permission(fn):
     """Check user permissions."""
     @wraps(fn)
     def decorated_view(*args, **kwargs):
-        """."""
+        """Decorated view."""
         login_and_librarian()
         return fn(*args, **kwargs)
     return decorated_view

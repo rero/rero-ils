@@ -22,7 +22,7 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Utils tests."""
+"""API tests for non modules."""
 
 
 from functools import partial
@@ -157,6 +157,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
 
     del record['name']
     record = record.replace(record, dbcommit=True)
+    assert record.get_links_to_me() == {}
     assert not record.get('name')
 
     with pytest.raises(IlsRecordError.PidMissing):
@@ -185,12 +186,15 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     record = RecordTest.get_record_by_pid('ilsrecord_pid')
     record.delete(delindex=True)
     assert len(RecordTest.get_all_pids()) == 2
+    assert len(RecordTest.get_all_ids()) == 2
     record = RecordTest.get_record_by_pid('ilsrecord_pid_2')
     record.delete(delindex=True)
     assert len(RecordTest.get_all_pids()) == 1
+    assert len(RecordTest.get_all_ids()) == 1
     record = RecordTest.get_record_by_pid('1')
     record.delete(delindex=True)
     assert len(RecordTest.get_all_pids()) == 0
+    assert len(RecordTest.get_all_ids()) == 0
 
     """Test IlsRecord es search."""
     search_all = list(

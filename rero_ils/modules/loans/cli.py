@@ -199,7 +199,7 @@ def create_request(barcode, transaction_type, loanable_items):
 
 
 def get_loanable_items(patron_type_pid):
-    """Returns items available for loan."""
+    """Reutrns list of loanable items."""
     loanable_items = ItemsSearch()\
         .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
     for loanable_item in loanable_items:

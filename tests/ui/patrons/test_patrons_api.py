@@ -85,7 +85,7 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
 
 def test_patron_es_mapping(
         roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
-    """."""
+    """Test patron elasticsearch mapping."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping == get_mapping(search.Meta.index)

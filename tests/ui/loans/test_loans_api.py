@@ -50,7 +50,7 @@ def test_loans_create(db, loan_data_tmp):
 
 def test_loan_es_mapping(es_clear, db, loan_data_tmp, item_lib_martigny,
                          loc_public_fully, lib_fully):
-    """."""
+    """Test loans elasticsearch mapping."""
     search = current_circulation.loan_search
     mapping = get_mapping(search.Meta.index)
     assert mapping == get_mapping(search.Meta.index)

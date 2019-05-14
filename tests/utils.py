@@ -44,7 +44,7 @@ from rero_ils.modules.patrons.api import Patron
 
 
 class VerifyRecordPermissionPatch(object):
-    """."""
+    """Verify record permissions."""
 
     status_code = 200
 
@@ -68,12 +68,12 @@ def to_relative_url(url):
 
 
 def get_mapping(name):
-    """."""
+    """Returns es mapping."""
     return current_search.client.indices.get_mapping(name)
 
 
 def flush_index(name):
-    """."""
+    """Flush index."""
     return current_search.flush_and_refresh(name)
 
 

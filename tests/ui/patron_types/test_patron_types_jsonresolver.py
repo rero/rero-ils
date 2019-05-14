@@ -30,7 +30,7 @@ from jsonref import JsonRefError
 
 
 def test_patron_types_jsonresolver(app, patron_type_tmp):
-    """."""
+    """Test patron type resolver."""
     rec = Record.create({
         'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/1'}
     })

@@ -194,7 +194,7 @@ def nl2br(string):
 
 
 def prepare_jsonschema(schema):
-    """."""
+    """Json schema prep."""
     schema = copy.deepcopy(schema)
     if schema.get('$schema'):
         del schema['$schema']
@@ -204,7 +204,7 @@ def prepare_jsonschema(schema):
 
 
 def prepare_form_option(form_option):
-    """."""
+    """Option prep."""
     form_option = copy.deepcopy(form_option)
     keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
     return translate(form_option, keys=keys)

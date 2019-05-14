@@ -31,7 +31,7 @@ from utils import mock_response
 
 @mock.patch('requests.get')
 def test_mef_persons_detailed_view(mock_get, client, mef_person_data):
-    """."""
+    """Test mef detailed view."""
     json_data = {'metadata': mef_person_data}
     mock_get.return_value = mock_response(json_data=json_data)
     # check redirection

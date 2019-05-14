@@ -71,7 +71,7 @@ def resource_can_create(record_type):
     adm = current_app.extensions['invenio-admin'].admin
 
     def get_admin_view(record_type, menus):
-        """."""
+        """Get admin view."""
         for v in menus:
             if v.is_category():
                 returned_view = get_admin_view(record_type, v.get_children())
@@ -93,5 +93,5 @@ def admin_menu_is_visible(admin_menu):
 
 
 def text_to_id(text):
-    """."""
+    """Text to id."""
     return re.sub(r'\W', '', text)

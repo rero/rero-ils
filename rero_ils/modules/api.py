@@ -65,7 +65,7 @@ class IlsRecordError:
 
 
 class IlsRecordsSearch(RecordsSearch):
-    """."""
+    """Search Class for ils."""
 
     class Meta:
         """Search only on item index."""
@@ -74,15 +74,15 @@ class IlsRecordsSearch(RecordsSearch):
 
     @classmethod
     def flush(cls):
-        """."""
+        """Flush index."""
         current_search.flush_and_refresh(cls.Meta.index)
 
 
 class IlsRecordIndexer(RecordIndexer):
-    """."""
+    """Indexing class for ils."""
 
     def index(self, record):
-        """."""
+        """Indexing a record."""
         return_value = super(IlsRecordIndexer, self).index(record)
         index_name, doc_type = current_record_to_index(record)
         current_search.flush_and_refresh(index_name)

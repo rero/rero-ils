@@ -61,7 +61,7 @@ def test_mef_person_create(db, mef_person_data_tmp):
 
 
 def test_mef_person_es_mapping(es_clear, db, mef_person_data_tmp):
-    """."""
+    """Test mef elasticsearch mapping."""
     search = MefPersonsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

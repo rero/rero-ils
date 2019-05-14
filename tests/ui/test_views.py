@@ -44,7 +44,7 @@ def test_nl2br():
 
 
 def test_schemaform(client):
-    """."""
+    """Test schema form."""
     result = client.get(url_for(
         'rero_ils.schemaform', document_type="documents"))
     assert result.status_code == 200
