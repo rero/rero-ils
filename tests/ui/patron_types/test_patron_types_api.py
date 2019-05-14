@@ -49,7 +49,7 @@ def test_patron_type_create(db, patron_type_children_martigny_data):
 
 def test_patron_type_es_mapping(es_clear, db, org_martigny,
                                 patron_type_children_martigny_data):
-    """."""
+    """Test patron types es mapping."""
     search = PatronTypesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -64,7 +64,7 @@ def test_patron_type_es_mapping(es_clear, db, org_martigny,
 
 def test_patron_type_exist_name_and_organisation_pid(
         patron_type_children_martigny):
-    """."""
+    """Test patron type name uniquness."""
     ptty = patron_type_children_martigny.replace_refs()
     assert PatronType.exist_name_and_organisation_pid(
         ptty.get('name'), ptty.get('organisation', {}).get('pid'))
@@ -73,6 +73,6 @@ def test_patron_type_exist_name_and_organisation_pid(
 
 
 def test_patron_type_can_delete(patron_type_children_martigny):
-    """Test can delete"""
+    """Test can delete a patron type."""
     assert patron_type_children_martigny.get_links_to_me() == {}
     assert patron_type_children_martigny.can_delete

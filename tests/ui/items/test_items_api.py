@@ -60,7 +60,7 @@ def test_item_create(db, es_clear, item_lib_martigny_data_tmp):
 
 def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
                          item_lib_martigny_data_tmp):
-    """."""
+    """Test item elasticsearch mapping."""
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping

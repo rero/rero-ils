@@ -24,7 +24,7 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.filter import format_date_filter
+from rero_ils.filter import format_date_filter, jsondumps, to_pretty_json
 
 
 def test_date_filter_format_timestamp_en():
@@ -32,6 +32,17 @@ def test_date_filter_format_timestamp_en():
     datestring = format_date_filter('2018-06-06T09:29:55.947149+00:00',
                                     'timestamp')
     assert '06.06.2018 09:29' in datestring
+
+    datestring = format_date_filter('1950-01-01', 'day_month', 'fr')
+    assert '01.01' in datestring
+
+
+def test_to_pretty():
+    """Test json prettx."""
+    data = {'test': '1'}
+    new_data = '{\n    "test": "1"\n}'
+    assert to_pretty_json(data) == new_data
+    assert jsondumps(data) == new_data
 
 
 def test_date_filter_format_default_en():

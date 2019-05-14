@@ -36,7 +36,7 @@ request_item_permission = DynamicPermission(RoleNeed('patron'))
 
 
 def login_and_librarian():
-    """."""
+    """Librarian is logged in."""
     if not current_user.is_authenticated:
         abort(401)
         if not librarian_permission.can():
@@ -73,7 +73,7 @@ def librarian_delete_permission_factory(record, *args, **kwargs):
 
 
 def admin_permission_factory(admin_view):
-    """."""
+    """Admin permission factory."""
     class FreeAccess(object):
         def can(self):
             return True

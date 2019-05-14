@@ -62,7 +62,7 @@ def ils_record_2():
 
 @pytest.fixture(scope='module')
 def es_default_index(es):
-    """."""
+    """ES default index."""
     current_search_client.indices.create(
         index='records-record-v1.0.0',
         body={},

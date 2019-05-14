@@ -64,7 +64,7 @@ class Loan(IlsRecord):
     _schema = "loans/loan-ils-v0.0.1.json"
 
     def __init__(self, data, model=None):
-        """."""
+        """Loan init."""
         self["state"] = current_app.config["CIRCULATION_LOAN_INITIAL_STATE"]
         super(Loan, self).__init__(data, model)
 

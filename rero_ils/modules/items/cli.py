@@ -45,19 +45,19 @@ class StreamArray(list):
     """Converts a generator into a list to be json serialisable."""
 
     def __init__(self, generator):
-        """."""
+        """Streamarray init."""
         self.generator = generator
         self._len = 1
 
     def __iter__(self):
-        """."""
+        """Iterator."""
         self._len = 0
         for item in self.generator:
             yield item
             self._len += 1
 
     def __len__(self):
-        """."""
+        """Record length."""
         return self._len
 
 
