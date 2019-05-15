@@ -243,3 +243,24 @@ def test_filtered_libraries_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 1
+
+
+def test_library_secure_api(client, json_header, lib_martigny,
+                            librarian_martigny_no_email,
+                            librarian_sion_no_email):
+    """Test library secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403

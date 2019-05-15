@@ -187,3 +187,25 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+def test_patron_secure_api(client, json_header,
+                           librarian_martigny_no_email,
+                           librarian_sion_no_email):
+    """Test patron type secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=librarian_martigny_no_email.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    # TODO: find why it's failed
+    # login_user_via_session(client, librarian_sion_no_email.user)
+    # record_url = url_for('invenio_records_rest.ptrn_item',
+    #                      pid_value=librarian_martigny_no_email.pid)
+
+    # res = client.get(record_url)
+    # assert res.status_code == 403

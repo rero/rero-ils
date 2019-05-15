@@ -57,7 +57,7 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     loan_satisfy_circ_policies
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
-    librarian_permission_factory
+    librarian_permission_factory, organisation_access_factory
 
 
 def _(x):
@@ -370,6 +370,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
     itty=dict(
         pid_type='itty',
@@ -401,6 +402,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -432,6 +434,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
     ptty=dict(
         pid_type='ptty',
@@ -463,6 +466,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
     org=dict(
         pid_type='org',
@@ -496,7 +500,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:and_search_factory',
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all
+        delete_permission_factory_imp=deny_all,
+        read_permission_factory_imp=organisation_access_factory,
     ),
     lib=dict(
         pid_type='lib',
@@ -528,7 +533,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        # delete_permission_factory_imp=deny_all
+        read_permission_factory_imp=organisation_access_factory,
     ),
     loc=dict(
         pid_type='loc',
@@ -560,6 +565,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
     pers=dict(
         pid_type='pers',
@@ -627,6 +633,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
     ),
 )
 

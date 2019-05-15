@@ -410,3 +410,22 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     data = {'loan_pid': loan_pid}
     return_data = prior_checkout_actions(item_lib_martigny, data)
     assert return_data == {}
+
+
+def test_item_secure_api(client, json_header, item_lib_martigny,
+                         librarian_martigny_no_email, librarian_sion_no_email):
+    """Test item secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403

@@ -222,3 +222,25 @@ def test_filtered_patron_types_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 2
+
+
+def test_patron_type_secure_api(client, json_header,
+                                patron_type_children_martigny,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email):
+    """Test patron type secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_children_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_children_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403

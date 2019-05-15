@@ -32,6 +32,8 @@ from invenio_access.permissions import DynamicPermission
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
+from .modules.patrons.api import Patron
+
 request_item_permission = DynamicPermission(RoleNeed('patron'))
 
 
@@ -83,3 +85,17 @@ def admin_permission_factory(admin_view):
             'Admin & Monitoring']:
         return FreeAccess()
     return default_admin_permission_factory(admin_view)
+
+
+def organisation_access_factory(record, *args, **kwargs):
+    """User access only records of its organisation."""
+    def can(self):
+        if current_user.is_authenticated:
+            patron = Patron.get_patron_by_user(current_user)
+            if (
+                    patron and 'librarian' in patron.get('roles') and
+                    patron.org_pid == record.org_pid
+            ):
+                    return True
+            return False
+    return type('Check', (), {'can': can})()

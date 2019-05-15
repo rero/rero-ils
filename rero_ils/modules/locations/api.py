@@ -100,3 +100,16 @@ class Location(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @property
+    def library_pid(self):
+        """Get library pid for location."""
+        return self.replace_refs()['library']['pid']
+
+    @property
+    def org_pid(self):
+        """Get organisation pid for location."""
+        from ..libraries.api import Library
+
+        library = Library.get_record_by_pid(self.library_pid)
+        return library.org_pid

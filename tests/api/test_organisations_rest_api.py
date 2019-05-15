@@ -13,6 +13,13 @@
 
 """Tests REST API organisations."""
 
+import json
+
+import mock
+from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
+from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
 
 def test_location_can_delete(client, org_martigny, lib_martigny):
     """Test can delete an organisation."""
@@ -23,3 +30,24 @@ def test_location_can_delete(client, org_martigny, lib_martigny):
 
     reasons = org_martigny.reasons_not_to_delete()
     assert 'links' in reasons
+
+
+def test_organisation_secure_api(client, json_header, org_martigny,
+                                 librarian_martigny_no_email,
+                                 librarian_sion_no_email):
+    """Test organisation secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.org_item',
+                         pid_value=org_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.org_item',
+                         pid_value=org_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403

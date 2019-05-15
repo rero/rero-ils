@@ -214,3 +214,25 @@ def test_circ_policies_name_validate(client, circ_policy_default_martigny):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': None}
+
+
+def test_circ_policy_secure_api(client, json_header,
+                                circ_policy_default_martigny,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email):
+    """Test circulation policies secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_default_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_default_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403

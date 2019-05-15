@@ -212,8 +212,19 @@ class Patron(IlsRecord):
     @property
     def patron_type_pid(self):
         """Shortcut for patron type pid."""
-        patron_type_pid = self.get('patron_type').get('pid')
-        return patron_type_pid
+        from ..patron_types.api import PatronType
+        if self.get('patron_type'):
+            ptty = PatronType.get_record_by_pid(self['patron_type']['pid'])
+            return ptty.pid
+        return None
+
+    @property
+    def library_pid(self):
+        """Shortcut for patron library pid."""
+        if self.get('library'):
+            library_pid = self.replace_refs().get('library').get('pid')
+            return library_pid
+        return None
 
     def get_number_of_loans(self):
         """Get number of loans."""
@@ -253,4 +264,18 @@ class Patron(IlsRecord):
             ptty = PatronType.get_record_by_pid(patron['patron_type']['pid'])
             return Organisation.get_record_by_pid(
                 ptty.replace_refs()['organisation']['pid'])
+        return None
+
+    @property
+    def org_pid(self):
+        """Get organisation pid for patron."""
+        from ..patron_types.api import PatronType
+
+        if self.library_pid:
+            library = Library.get_record_by_pid(self.library_pid)
+            return library.org_pid
+
+        if self.patron_type_pid:
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            return patron_type.org_pid
         return None

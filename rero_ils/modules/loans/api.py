@@ -119,6 +119,14 @@ class Loan(IlsRecord):
             data['pickup_location']['library_name'] = library.get('name')
         return data
 
+    @property
+    def org_pid(self):
+        """Get organisation pid for loan."""
+        from ..items.api import Item
+
+        item = Item.get_record_by_pid(self.get('item_pid'))
+        return item.org_pid
+
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
     """Get pending, item_on_transit, item_at_desk loans for item, patron."""
