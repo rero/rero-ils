@@ -760,3 +760,10 @@ class Item(IlsRecord):
         """Get organisation pid for item."""
         library = Library.get_record_by_pid(self.library_pid)
         return library.org_pid
+
+    def field_org_pid(data):
+        """Get organisation pid for record."""
+        location_pid = data.get(
+            'location')['$ref'].split('locations/', 1)[1]
+        location = Location.get_record_by_pid(location_pid)
+        return location.org_pid

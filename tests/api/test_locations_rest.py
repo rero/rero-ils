@@ -44,7 +44,7 @@ def test_locations_permissions(client, loc_public_martigny, json_header):
         data={},
         headers=json_header
     )
-    assert res.status_code == 401
+    assert res.status_code == 400
 
     res = client.put(
         item_url,
@@ -223,4 +223,32 @@ def test_location_secure_api(client, json_header, loc_public_martigny,
                          pid_value=loc_public_martigny.pid)
 
     res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_location_secure_api_create(client, json_header, loc_public_martigny,
+                                    librarian_martigny_no_email,
+                                    librarian_sion_no_email,
+                                    loc_public_martigny_data):
+    """Test location secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.loc_list')
+
+    del loc_public_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(loc_public_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(loc_public_martigny_data),
+        headers=json_header
+    )
     assert res.status_code == 403

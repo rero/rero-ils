@@ -53,7 +53,7 @@ def test_items_permissions(client, item_lib_martigny,
         data={},
         headers=json_header
     )
-    assert res.status_code == 401
+    assert res.status_code == 400
 
     res = client.put(
         url_for('invenio_records_rest.item_item', pid_value='item1'),

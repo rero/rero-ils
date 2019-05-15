@@ -51,13 +51,21 @@ from invenio_search import RecordsSearch
 from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 
+from .modules.circ_policies.api import CircPolicy
+from .modules.documents.api import Document
+from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
+from .modules.libraries.api import Library
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
+from .modules.locations.api import Location
+from .modules.organisations.api import Organisation
+from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
-    librarian_permission_factory, organisation_access_factory
+    librarian_permission_factory, organisation_access_factory, \
+    organisation_create_factory
 
 
 def _(x):
@@ -371,6 +379,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     itty=dict(
         pid_type='itty',
@@ -403,6 +412,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -435,6 +445,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     ptty=dict(
         pid_type='ptty',
@@ -467,6 +478,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     org=dict(
         pid_type='org',
@@ -498,9 +510,9 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:and_search_factory',
-        create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
+        create_permission_factory_imp=deny_all,
         read_permission_factory_imp=organisation_access_factory,
     ),
     lib=dict(
@@ -534,6 +546,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     loc=dict(
         pid_type='loc',
@@ -566,6 +579,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
     pers=dict(
         pid_type='pers',
@@ -634,6 +648,7 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
     ),
 )
 
@@ -786,18 +801,65 @@ RECORDS_UI_EXPORT_FORMATS = {
     }
 }
 
-RECORDS_JSON_SCHEMA = {
-    'cipo': '/circ_policies/circ_policy-v0.0.1.json',
-    'doc': '/documents/document-v0.0.1.json',
-    'item': '/items/item-v0.0.1.json',
-    'itty': '/item_types/item_type-v0.0.1.json',
-    'lib': '/libraries/library-v0.0.1.json',
-    'loc': '/locations/location-v0.0.1.json',
-    'org': '/organisations/organisation-v0.0.1.json',
-    'ptrn': '/patrons/patron-v0.0.1.json',
-    'ptty': '/patron_types/patron_type-v0.0.1.json'
-}
+# RECORDS_JSON_SCHEMA = {
+#     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
+#     'doc': '/documents/document-v0.0.1.json',
+#     'item': '/items/item-v0.0.1.json',
+#     'itty': '/item_types/item_type-v0.0.1.json',
+#     'lib': '/libraries/library-v0.0.1.json',
+#     'loc': '/locations/location-v0.0.1.json',
+#     'org': '/organisations/organisation-v0.0.1.json',
+#     'ptrn': '/patrons/patron-v0.0.1.json',
+#     'ptty': '/patron_types/patron_type-v0.0.1.json'
+# }
 
+RECORDS_JSON_SCHEMA = [
+    {
+        'pidtype': 'ptty',
+        'schema': '/patron_types/patron_type-v0.0.1.json',
+        'class': PatronType
+    },
+    {
+        'pidtype': 'ptrn',
+        'schema': '/patrons/patron-v0.0.1.json',
+        'class': Patron
+    },
+    {
+        'pidtype': 'org',
+        'schema': '/organisations/organisation-v0.0.1.json',
+        'class': Organisation
+    },
+    {
+        'pidtype': 'loc',
+        'schema': '/locations/location-v0.0.1.json',
+        'class': Location
+    },
+    {
+        'pidtype': 'lib',
+        'schema': '/libraries/library-v0.0.1.json',
+        'class': Library
+    },
+    {
+        'pidtype': 'itty',
+        'schema': '/item_types/item_type-v0.0.1.json',
+        'class': ItemType
+    },
+    {
+        'pidtype': 'cipo',
+        'schema': '/circ_policies/circ_policy-v0.0.1.json',
+        'class': CircPolicy
+    },
+    {
+        'pidtype': 'doc',
+        'schema': '/documents/document-v0.0.1.json',
+        'class': Document
+    },
+    {
+        'pidtype': 'item',
+        'schema': '/items/item-v0.0.1.json',
+        'class': Item
+    },
+]
 
 # Login Configuration
 # ===================

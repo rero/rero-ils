@@ -99,3 +99,26 @@ def organisation_access_factory(record, *args, **kwargs):
                     return True
             return False
     return type('Check', (), {'can': can})()
+
+
+def organisation_create_factory(record, *args, **kwargs):
+    """User create only records of its organisation."""
+    from flask import current_app
+
+    def can(self):
+        if not record:
+            return True
+        if isinstance(record, dict):
+            for type in current_app.config.get('RECORDS_JSON_SCHEMA'):
+                if type['schema'] in record.get('$schema'):
+                    record_class = type['class']
+                    record_org_pid = record_class.field_org_pid(record)
+        if current_user.is_authenticated:
+            patron = Patron.get_patron_by_user(current_user)
+            if (
+                    patron and 'librarian' in patron.get('roles') and
+                    patron.org_pid == record_org_pid
+            ):
+                    return True
+            return False
+    return type('Check', (), {'can': can})()

@@ -73,7 +73,7 @@ def test_patrons_permissions(client, librarian_martigny_no_email,
         data={},
         headers=json_header
     )
-    assert res.status_code == 401
+    assert res.status_code == 400
 
     res = client.put(
         item_url,
@@ -208,4 +208,32 @@ def test_patron_secure_api(client, json_header,
     #                      pid_value=librarian_martigny_no_email.pid)
 
     # res = client.get(record_url)
+    # assert res.status_code == 403
+
+
+def test_patron_secure_api_create(client, json_header,
+                                  patron_martigny_data,
+                                  librarian_martigny_no_email,
+                                  librarian_sion_no_email):
+    """Test patron secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.ptrn_list')
+
+    del patron_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # # Sion
+    # login_user_via_session(client, librarian_sion_no_email.user)
+
+    # res = client.post(
+    #     post_url,
+    #     data=json.dumps(patron_martigny_data),
+    #     headers=json_header
+    # )
     # assert res.status_code == 403

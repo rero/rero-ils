@@ -45,7 +45,7 @@ def test_item_types_permissions(client, item_type_standard_martigny,
         data={},
         headers=json_header
     )
-    assert res.status_code == 401
+    assert res.status_code == 400
 
     res = client.put(
         url_for('invenio_records_rest.itty_item', pid_value='itty1'),
@@ -243,4 +243,33 @@ def test_item_type_secure_api(client, json_header,
                          pid_value=item_type_standard_martigny.pid)
 
     res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_item_type_secure_api_create(client, json_header,
+                                     item_type_standard_martigny,
+                                     librarian_martigny_no_email,
+                                     librarian_sion_no_email,
+                                     item_type_standard_martigny_data):
+    """Test item type secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.itty_list')
+
+    del item_type_standard_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(item_type_standard_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(item_type_standard_martigny_data),
+        headers=json_header
+    )
     assert res.status_code == 403

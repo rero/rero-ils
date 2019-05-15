@@ -45,7 +45,7 @@ def test_patron_types_permissions(client, patron_type_children_martigny,
         data={},
         headers=json_header
     )
-    assert res.status_code == 401
+    assert res.status_code == 400
 
     res = client.put(
         url_for('invenio_records_rest.ptty_item', pid_value='ptty1'),
@@ -243,4 +243,33 @@ def test_patron_type_secure_api(client, json_header,
                          pid_value=patron_type_children_martigny.pid)
 
     res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_patron_type_secure_api_create(client, json_header,
+                                       patron_type_children_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       patron_type_children_martigny_data):
+    """Test patron type secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.ptty_list')
+
+    del patron_type_children_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_type_children_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_type_children_martigny_data),
+        headers=json_header
+    )
     assert res.status_code == 403

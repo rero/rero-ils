@@ -279,3 +279,20 @@ class Patron(IlsRecord):
             patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
             return patron_type.org_pid
         return None
+
+    def field_org_pid(data):
+        """Get organisation pid for record."""
+        from ..patron_types.api import PatronType
+
+        if data.get('library'):
+            library_pid = data.get(
+                'library')['$ref'].split('libraries/', 1)[1]
+            library = Library.get_record_by_pid(library_pid)
+            return library.org_pid
+        if data.get('patron_type'):
+            patron_type_pid = data.get(
+                'patron_type')['$ref'].split('patron_types/', 1)[1]
+            patron_type = PatronType.get_record_by_pid(patron_type_pid)
+            return patron_type.org_pid
+
+        return None

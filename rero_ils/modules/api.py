@@ -115,18 +115,19 @@ class IlsRecord(Record):
         if '$schema' not in data:
             type = cls.provider.pid_type
             schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-            if type in schemas:
-                data_schema = {
-                    'base_url': current_app.config.get(
-                        'RERO_ILS_APP_BASE_URL'
-                    ),
-                    'schema_endpoint': current_app.config.get(
-                        'JSONSCHEMAS_ENDPOINT'
-                    ),
-                    'schema': schemas[type]
-                }
-                data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-                    .format(**data_schema)
+            for rec in schemas:
+                if type == rec['pidtype']:
+                    data_schema = {
+                        'base_url': current_app.config.get(
+                            'RERO_ILS_APP_BASE_URL'
+                        ),
+                        'schema_endpoint': current_app.config.get(
+                            'JSONSCHEMAS_ENDPOINT'
+                        ),
+                        'schema': rec['schema']
+                    }
+                    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
+                        .format(**data_schema)
         if delete_pid and data.get('pid'):
             del data['pid']
         if not id_:
@@ -312,3 +313,9 @@ class IlsRecord(Record):
     def org_pid(self):
         """Get organisation pid for circulation policy."""
         return self.replace_refs()['organisation']['pid']
+
+    def field_org_pid(data):
+        """Get organisation pid for record."""
+        record_org_pid = data.get(
+            'organisation')['$ref'].split('organisations/', 1)[1]
+        return record_org_pid

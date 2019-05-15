@@ -113,3 +113,11 @@ class Location(IlsRecord):
 
         library = Library.get_record_by_pid(self.library_pid)
         return library.org_pid
+
+    def field_org_pid(data):
+        """Get organisation pid for record."""
+        from ..libraries.api import Library
+        library_pid = data.get(
+            'library')['$ref'].split('libraries/', 1)[1]
+        library = Library.get_record_by_pid(library_pid)
+        return library.org_pid

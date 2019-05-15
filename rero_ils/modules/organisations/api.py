@@ -87,3 +87,7 @@ class Organisation(IlsRecord):
     def org_pid(self):
         """Get organisation pid ."""
         return self.pid
+
+    def field_org_pid(data):
+        """Get organisation pid for record."""
+        return data.get('pid')
