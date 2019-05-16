@@ -50,6 +50,34 @@ def remove_punctuation(data):
     return data
 
 
+@marc21.over('languages', '^008')
+@utils.ignore_value
+def marc21_to_languages_from_008(self, key, value):
+    """Get languages.
+
+    languages: 008 and 041 [$a, repetitive]
+    """
+    language = value.strip()[35:38]
+    to_return = [{'language': language}]
+    return to_return
+
+
+@marc21.over('identifiers', '^020..')
+@utils.ignore_value
+def marc21_to_identifier_isbn(self, key, value):
+    """Get identifier isbn.
+
+    identifiers_isbn: 020 $a
+    """
+    isbn13 = EAN13(value.get('a'))
+    if isbn13:
+        identifiers = self.get('identifiers', {})
+        identifiers['isbn'] = isbn13
+        return identifiers
+    else:
+        return None
+
+
 @marc21.over('type', '^0248.$')
 def marc21_to_type(self, key, value):
     """
@@ -69,45 +97,16 @@ def marc21_to_type(self, key, value):
     return None
 
 
-@marc21.over('title', '^245..')
+@marc21.over('identifiers', '^035..')
 @utils.ignore_value
-def marc21_to_title(self, key, value):
-    """Get title.
+def marc21_to_identifier_reroID(self, key, value):
+    """Get identifier reroId.
 
-    title: 245$a
-    without the punctuaction. If there's a $b, then 245$a : $b without the " /"
+    identifiers:reroID: 035$a
     """
-    main_title = remove_punctuation(value.get('a'))
-    sub_title = value.get('b')
-    # responsability = value.get('c')
-    if sub_title:
-        main_title += ' : ' + ' : '.join(
-            utils.force_list(remove_punctuation(sub_title))
-        )
-    return main_title
-
-
-@marc21.over('titlesProper', '^730..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_titlesProper(self, key, value):
-    """Test dojson marc21titlesProper.
-
-    titleProper: 730$a
-    """
-    return value.get('a')
-
-
-@marc21.over('languages', '^008')
-@utils.ignore_value
-def marc21_to_languages(self, key, value):
-    """Get languages.
-
-    languages: 008 and 041 [$a, repetitive]
-    """
-    language = value.strip()[35:38]
-    to_return = [{'language': language}]
-    return to_return
+    identifiers = self.get('identifiers', {})
+    identifiers['reroID'] = value.get('a')
+    return identifiers
 
 
 @marc21.over('translatedFrom', '^041..')
@@ -175,7 +174,25 @@ def marc21_to_author(self, key, value):
         return None
 
 
-@marc21.over('publishers', '^260..')
+@marc21.over('title', '^245..')
+@utils.ignore_value
+def marc21_to_title(self, key, value):
+    """Get title.
+
+    title: 245$a
+    without the punctuaction. If there's a $b, then 245$a : $b without the ' /'
+    """
+    main_title = remove_punctuation(value.get('a'))
+    sub_title = value.get('b')
+    # responsability = value.get('c')
+    if sub_title:
+        main_title += ' : ' + ' : '.join(
+            utils.force_list(remove_punctuation(sub_title))
+        )
+    return main_title
+
+
+@marc21.over('publishers', '^(260..|264.1)')
 @utils.ignore_value
 def marc21_to_publishers_publicationDate(self, key, value):
     """Get publisher.
@@ -237,8 +254,7 @@ def marc21_to_description(self, key, value):
     if value.get('a'):
         if not self.get('extent', None):
             self['extent'] = remove_punctuation(
-                utils.force_list(value.get('a'))[0]
-            )
+                utils.force_list(value.get('a'))[0])
     if value.get('b'):
         if self.get('otherMaterialCharacteristics', []) == []:
             self['otherMaterialCharacteristics'] = remove_punctuation(
@@ -273,6 +289,17 @@ def marc21_to_series(self, key, value):
     return series
 
 
+@marc21.over('notes', '^500..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_notes(self, key, value):
+    """Get  notes.
+
+    note: [500$a repetitive]
+    """
+    return value.get('a')
+
+
 @marc21.over('abstracts', '^520..')
 @utils.for_each_value
 @utils.ignore_value
@@ -286,41 +313,30 @@ def marc21_to_abstracts(self, key, value):
     return ', '.join(utils.force_list(value.get('a')))
 
 
-@marc21.over('identifiers', '^020..')
-@utils.ignore_value
-def marc21_to_identifier_isbn(self, key, value):
-    """Get identifier isbn.
-
-    identifiers:isbn: 020$a
-    """
-    isbn13 = EAN13(value.get('a'))
-    if isbn13:
-        identifiers = self.get('identifiers', {})
-        identifiers['isbn'] = isbn13
-        return identifiers
-    else:
-        return None
-
-
-@marc21.over('identifiers', '^035..')
-@utils.ignore_value
-def marc21_to_identifier_reroID(self, key, value):
-    """Get identifier reroId.
-
-    identifiers:reroID: 035$a
-    """
-    identifiers = self.get('identifiers', {})
-    identifiers['reroID'] = value.get('a')
-    return identifiers
-
-
-@marc21.over('notes', '^500..')
+@marc21.over('subjects', '^6....')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_notes(self, key, value):
-    """Get  notes.
+@utils.ignore_value
+def marc21_to_subjects(self, key, value):
+    """Get subjects.
 
-    note: [500$a repetitive]
+    subjects: 6xx [duplicates could exist between several vocabularies,
+        if possible deduplicate]
+    """
+    subjects = self.get('subjects', [])
+    for subject in utils.force_list(value.get('a')):
+        subjects.append(subject)
+    self['subjects'] = subjects
+    return None
+
+
+@marc21.over('titlesProper', '^730..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_titlesProper(self, key, value):
+    """Test dojson marc21titlesProper.
+
+    titleProper: 730$a
     """
     return value.get('a')
 
@@ -340,21 +356,12 @@ def marc21_to_is_part_of(self, key, value):
 @utils.for_each_value
 @utils.ignore_value
 def marc21_online_resources(self, key, value):
-    """Get series.
+    """Get online_resources data."""
+    res = {'uri': value.get('u')}
 
-    series.name: [490$a repetitive]
-    series.number: [490$v repetitive]
-    """
-    return {'uri': value.get('u')}
-
-
-@marc21.over('subjects', '^6....')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_subjects(self, key, value):
-    """Get subjects.
-
-    subjects: 6xx [duplicates could exist between several vocabularies,
-        if possible deduplicate]
-    """
-    return value.get('a')
+    if value.get('3') == 'Image de couverture':
+        self.setdefault('cover_art', value.get('u'))
+        res = None
+    else:
+        res = {'uri': value.get('u')}
+    return res
