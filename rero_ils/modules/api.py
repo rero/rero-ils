@@ -307,3 +307,10 @@ class IlsRecord(Record):
     def can_delete(self):
         """Record can be deleted."""
         return len(self.reasons_not_to_delete()) == 0
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid for circulation policy."""
+        if self.get('organisation'):
+            return self.replace_refs()['organisation']['pid']
+        return None

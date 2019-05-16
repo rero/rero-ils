@@ -256,3 +256,25 @@ class Patron(IlsRecord):
             return Organisation.get_record_by_pid(
                 ptty.replace_refs()['organisation']['pid'])
         return None
+
+    @property
+    def library_pid(self):
+        """Shortcut for patron library pid."""
+        if self.get('library'):
+            library_pid = self.replace_refs().get('library').get('pid')
+            return library_pid
+        return None
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid for patron."""
+        from ..patron_types.api import PatronType
+
+        if self.library_pid:
+            library = Library.get_record_by_pid(self.library_pid)
+            return library.organisation_pid
+
+        if self.patron_type_pid:
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            return patron_type.organisation_pid
+        return None

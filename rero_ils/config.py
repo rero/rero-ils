@@ -36,6 +36,7 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 from functools import partial
 
+from flask import request
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import LoansSearch
@@ -51,13 +52,21 @@ from invenio_search import RecordsSearch
 from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 
+from .modules.circ_policies.api import CircPolicy
+from .modules.documents.api import Document
+from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
+from .modules.libraries.api import Library
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
+from .modules.locations.api import Location
+from .modules.organisations.api import Organisation
+from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .permissions import librarian_delete_permission_factory, \
-    librarian_permission_factory
+    librarian_permission_factory, organisation_access_factory, \
+    organisation_create_factory
 
 
 def _(x):
@@ -365,11 +374,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/items/',
+        record_loaders={
+            'application/json': lambda: Item(request.get_json()),
+        },
         record_class='rero_ils.modules.items.api:Item',
         item_route='/items/<pid(item, record_class="rero_ils.modules.items.api:Item"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     itty=dict(
         pid_type='itty',
@@ -396,11 +412,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/item_types/',
+        record_loaders={
+            'application/json': lambda: ItemType(request.get_json()),
+        },
         record_class='rero_ils.modules.item_types.api:ItemType',
         item_route='/item_types/<pid(itty, record_class="rero_ils.modules.item_types.api:ItemType"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     ptrn=dict(
         pid_type='ptrn',
@@ -427,11 +450,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/patrons/',
+        record_loaders={
+            'application/json': lambda: Patron(request.get_json()),
+        },
         record_class='rero_ils.modules.patrons.api:Patron',
         item_route='/patrons/<pid(ptrn, record_class="rero_ils.modules.patrons.api:Patron"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     ptty=dict(
         pid_type='ptty',
@@ -458,11 +488,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/patron_types/',
+        record_loaders={
+            'application/json': lambda: PatronType(request.get_json()),
+        },
         record_class='rero_ils.modules.patron_types.api:PatronType',
         item_route='/patron_types/<pid(ptty, record_class="rero_ils.modules.patron_types.api:PatronType"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     org=dict(
         pid_type='org',
@@ -489,6 +526,9 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/organisations/',
+        record_loaders={
+            'application/json': lambda: Organisation(request.get_json()),
+        },
         record_class='rero_ils.modules.organisations.api:Organisation',
         item_route='/organisations/<pid(org, record_class="rero_ils.modules.organisations.api:Organisation"):pid_value>',
         default_media_type='application/json',
@@ -496,7 +536,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:and_search_factory',
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all
+        delete_permission_factory_imp=deny_all,
+        read_permission_factory_imp=organisation_access_factory,
     ),
     lib=dict(
         pid_type='lib',
@@ -523,12 +564,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/libraries/',
+        record_loaders={
+            'application/json': lambda: Library(request.get_json()),
+        },
         record_class='rero_ils.modules.libraries.api:Library',
         item_route='/libraries/<pid(lib, record_class="rero_ils.modules.libraries.api:Library"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        # delete_permission_factory_imp=deny_all
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     loc=dict(
         pid_type='loc',
@@ -555,11 +602,18 @@ RECORDS_REST_ENDPOINTS = dict(
             ),
         },
         list_route='/locations/',
+        record_loaders={
+            'application/json': lambda: Location(request.get_json()),
+        },
         record_class='rero_ils.modules.locations.api:Location',
         item_route='/locations/<pid(loc, record_class="rero_ils.modules.locations.api:Location"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
     pers=dict(
         pid_type='pers',
@@ -621,12 +675,19 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers' ':can_delete_json_v1_search'
             ),
         },
+        record_loaders={
+            'application/json': lambda: CircPolicy(request.get_json()),
+        },
         list_route='/circ_policies/',
         record_class='rero_ils.modules.circ_policies.api:CircPolicy',
         item_route='/circ_policies/<pid(cipo, record_class="rero_ils.modules.circ_policies.api:CircPolicy"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=organisation_access_factory,
+        create_permission_factory_imp=organisation_create_factory,
+        update_permission_factory_imp=organisation_access_factory,
+        delete_permission_factory_imp=organisation_access_factory,
     ),
 )
 

@@ -754,3 +754,9 @@ class Item(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid for item."""
+        library = Library.get_record_by_pid(self.library_pid)
+        return library.organisation_pid

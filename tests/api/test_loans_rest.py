@@ -23,6 +23,8 @@
 
 """Tests REST API item_types."""
 
+from copy import deepcopy
+
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -111,3 +113,10 @@ def test_loan_utils(client, librarian_martigny_no_email, lib_martigny,
 
     with pytest.raises(TypeError):
         assert get_last_transaction_loc_for_item()
+
+    assert loan_pending.organisation_pid
+
+    new_loan = deepcopy(loan_pending)
+    assert new_loan.organisation_pid
+    del new_loan['item_pid']
+    assert not new_loan.organisation_pid
