@@ -98,6 +98,16 @@ class Loan(IlsRecord):
             return True
         return False
 
+    @property
+    def organisation_pid(self):
+        """Get organisation pid for loan."""
+        from ..items.api import Item
+
+        if self.get('item_pid'):
+            item = Item.get_record_by_pid(self.get('item_pid'))
+            return item.organisation_pid
+        return None
+
     def dumps_for_circulation(self):
         """Dumps for circulation."""
         loan = self.replace_refs()

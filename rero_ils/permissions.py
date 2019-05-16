@@ -32,6 +32,8 @@ from invenio_access.permissions import DynamicPermission
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
+from .modules.patrons.api import Patron
+
 request_item_permission = DynamicPermission(RoleNeed('patron'))
 
 
@@ -39,8 +41,8 @@ def login_and_librarian():
     """Librarian is logged in."""
     if not current_user.is_authenticated:
         abort(401)
-        if not librarian_permission.can():
-            abort(403)
+    if not librarian_permission.can():
+        abort(403)
 
 
 librarian_permission = DynamicPermission(RoleNeed('librarian'))
@@ -62,7 +64,7 @@ def librarian_delete_permission_factory(record, *args, **kwargs):
     """User can delete record."""
     if record.can_delete:
         return librarian_permission
-    return abort(403)
+    abort(403)
 
 
 def admin_permission_factory(admin_view):
@@ -83,3 +85,35 @@ def admin_permission_factory(admin_view):
             'Admin & Monitoring']:
         return FreeAccess()
     return default_admin_permission_factory(admin_view)
+
+
+def organisation_access_factory(record, *args, **kwargs):
+    """User access only records of its organisation."""
+    def can(self):
+        if current_user.is_authenticated:
+            patron = Patron.get_patron_by_user(current_user)
+            if (
+                    patron and 'librarian' in patron.get('roles') and
+                    patron.organisation_pid == record.organisation_pid
+            ):
+                    return True
+            return False
+    return type('Check', (), {'can': can})()
+
+
+def organisation_create_factory(record, *args, **kwargs):
+    """User create only records of its organisation."""
+    from flask import current_app
+
+    def can(self):
+        if current_user.is_authenticated:
+            if not record:
+                return True
+            patron = Patron.get_patron_by_user(current_user)
+            if (
+                    patron and 'librarian' in patron.get('roles') and
+                    patron.organisation_pid == record.organisation_pid
+            ):
+                    return True
+            return False
+    return type('Check', (), {'can': can})()

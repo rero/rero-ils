@@ -34,6 +34,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
@@ -413,3 +414,102 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     data = {'loan_pid': loan_pid}
     return_data = prior_checkout_actions(item_lib_martigny, data)
     assert return_data == {}
+
+
+def test_item_secure_api(client, json_header, item_lib_martigny,
+                         librarian_martigny_no_email, librarian_sion_no_email):
+    """Test item secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_item_secure_api_create(client, json_header, item_lib_martigny,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email,
+                                item_lib_martigny_data):
+    """Test item secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.item_list')
+
+    del item_lib_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(item_lib_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(item_lib_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_item_secure_api_update(client, json_header, item_lib_saxon,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email,
+                                item_lib_saxon_data
+                                ):
+    """Test item secure api update."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_saxon.pid)
+
+    data = item_lib_saxon
+    data['call_number'] = 'call_number'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_item_secure_api_delete(client, json_header, item_lib_saxon,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email,
+                                item_lib_saxon_data,
+                                can_delete_json_header):
+    """Test item secure api delete."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_saxon.pid)
+
+    res = client.delete(record_url)
+    assert res.status_code == 204
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 410
