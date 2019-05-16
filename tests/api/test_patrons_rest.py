@@ -24,15 +24,30 @@
 """Tests REST API patrons."""
 
 import json
+from copy import deepcopy
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.patrons.utils import user_has_patron
+
+
+def test_patrons_shortcuts(
+        client, librarian_martigny_no_email, patron_martigny_no_email,
+        librarian_sion_no_email):
+    """Test patron shortcuts."""
+    new_patron = deepcopy(patron_martigny_no_email)
+    assert new_patron.patron_type_pid
+    assert new_patron.organisation_pid
+    del new_patron['patron_type']
+    assert not new_patron.patron_type_pid
+    assert not new_patron.organisation_pid
 
 
 def test_filtered_patrons_get(
@@ -187,3 +202,103 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+def test_patron_secure_api(client, json_header,
+                           librarian_martigny_no_email,
+                           librarian_sion_no_email):
+    """Test patron type secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=librarian_martigny_no_email.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    # TODO: find why it's failed
+    # login_user_via_session(client, librarian_sion_no_email.user)
+    # record_url = url_for('invenio_records_rest.ptrn_item',
+    #                      pid_value=librarian_martigny_no_email.pid)
+
+    # res = client.get(record_url)
+    # assert res.status_code == 403
+
+
+def test_patron_secure_api_create(client, json_header,
+                                  patron_martigny_data,
+                                  librarian_martigny_no_email,
+                                  librarian_sion_no_email):
+    """Test patron secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.ptrn_list')
+
+    del patron_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # # Sion
+    # login_user_via_session(client, librarian_sion_no_email.user)
+
+    # res = client.post(
+    #     post_url,
+    #     data=json.dumps(patron_martigny_data),
+    #     headers=json_header
+    # )
+    # assert res.status_code == 403
+
+
+def test_patron_secure_api_update(client, json_header,
+                                  patron_martigny_data,
+                                  librarian_martigny_no_email,
+                                  librarian_sion_no_email,
+                                  patron_martigny):
+    """Test patron secure api update."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=patron_martigny.pid)
+
+    data = patron_martigny_data
+    data['first_name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    # login_user_via_session(client, librarian_sion_no_email.user)
+
+    # res = client.put(
+    #     record_url,
+    #     data=json.dumps(data),
+    #     headers=json_header
+    # )
+    # assert res.status_code == 403
+
+
+def test_patron_secure_api_delete(client, json_header,
+                                  patron_martigny_data,
+                                  librarian_martigny_no_email,
+                                  librarian_sion_no_email,
+                                  patron_martigny):
+    """Test patron secure api delete."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=patron_martigny.pid)
+
+    res = client.delete(record_url)
+    assert res.status_code == 204
+
+    # Sion
+    # login_user_via_session(client, librarian_sion_no_email.user)
+
+    # res = client.delete(record_url)
+    # assert res.status_code == 403

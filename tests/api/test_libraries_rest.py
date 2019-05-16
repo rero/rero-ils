@@ -243,3 +243,104 @@ def test_filtered_libraries_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 1
+
+
+def test_library_secure_api(client, json_header, lib_martigny,
+                            librarian_martigny_no_email,
+                            librarian_sion_no_email):
+    """Test library secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_library_secure_api_create(client, json_header, lib_martigny,
+                                   librarian_martigny_no_email,
+                                   librarian_sion_no_email,
+                                   lib_martigny_data):
+    """Test library secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.lib_list')
+
+    del lib_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(lib_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(lib_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_library_secure_api_update(client, lib_fully,
+                                   librarian_martigny_no_email,
+                                   librarian_sion_no_email,
+                                   lib_fully_data,
+                                   json_header):
+    """Test library secure api update."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+
+    data = lib_fully_data
+    data['name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_library_secure_api_delete(client, lib_fully,
+                                   librarian_martigny_no_email,
+                                   librarian_sion_no_email,
+                                   lib_fully_data,
+                                   json_header):
+    """Test library secure api delete."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+
+    res = client.delete(record_url)
+    assert res.status_code == 204
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 410

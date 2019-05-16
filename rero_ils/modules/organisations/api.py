@@ -82,3 +82,8 @@ class Organisation(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid ."""
+        return self.pid

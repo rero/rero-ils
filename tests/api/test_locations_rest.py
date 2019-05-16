@@ -26,9 +26,12 @@
 import json
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.api import IlsRecordError
 
 
 def test_locations_permissions(client, loc_public_martigny, json_header):
@@ -203,3 +206,103 @@ def test_filtered_locations_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 2
+
+
+def test_location_secure_api(client, json_header, loc_public_martigny,
+                             librarian_martigny_no_email,
+                             librarian_sion_no_email):
+    """Test location secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_public_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_public_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_location_secure_api_create(client, json_header, loc_public_martigny,
+                                    librarian_martigny_no_email,
+                                    librarian_sion_no_email,
+                                    loc_public_martigny_data):
+    """Test location secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.loc_list')
+
+    del loc_public_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(loc_public_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(loc_public_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_location_secure_api_update(client, loc_restricted_saxon,
+                                    librarian_martigny_no_email,
+                                    librarian_sion_no_email,
+                                    loc_restricted_saxon_data,
+                                    json_header):
+    """Test location secure api update."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_restricted_saxon.pid)
+
+    data = loc_restricted_saxon_data
+    data['name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_location_secure_api_delete(client, loc_restricted_saxon,
+                                    librarian_martigny_no_email,
+                                    librarian_sion_no_email,
+                                    loc_restricted_saxon_data,
+                                    json_header):
+    """Test location secure api delete."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_restricted_saxon.pid)
+    # Martigny
+    res = client.delete(record_url)
+    assert res.status_code == 204
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 410
