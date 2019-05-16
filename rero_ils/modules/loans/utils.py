@@ -41,7 +41,7 @@ def get_circ_policy(loan):
     item_type_pid = item.item_type_pid
     library_pid = item.library_pid
 
-    patron = Patron.get_record_by_pid(loan.get('patron_pid')).replace_refs()
+    patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
     return CircPolicy.provide_circ_policy(
         library_pid,

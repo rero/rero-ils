@@ -407,7 +407,7 @@ class Item(IlsRecord):
         from ..loans.utils import extend_loan_data_is_valid
         patron_pid = loan.get('patron_pid')
         patron_type_pid = Patron.get_record_by_pid(
-            patron_pid).replace_refs().patron_type_pid
+            patron_pid).patron_type_pid
         circ_policy = CircPolicy.provide_circ_policy(
                 self.library_pid,
                 patron_type_pid,

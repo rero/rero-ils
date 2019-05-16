@@ -71,7 +71,7 @@ def create_loans(infile, verbose):
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
             patron_type_pid = Patron.get_patron_by_barcode(
-                barcode).replace_refs().patron_type_pid
+                barcode).patron_type_pid
             loanable_items = get_loanable_items(patron_type_pid)
 
             for transaction in range(loans.get('active', 0)):
@@ -153,7 +153,7 @@ def create_loan(barcode, transaction_type, loanable_items):
             get_random_librarian_and_transaction_location()
         circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,
-                requested_patron.replace_refs().patron_type_pid,
+                requested_patron.patron_type_pid,
                 item.item_type_pid
             )
         if circ_policy.get('allow_requests'):
@@ -182,7 +182,7 @@ def create_request(barcode, transaction_type, loanable_items):
 
         circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,
-                rank_1_patron.replace_refs().patron_type_pid,
+                rank_1_patron.patron_type_pid,
                 item.item_type_pid
             )
         if circ_policy.get('allow_requests'):
