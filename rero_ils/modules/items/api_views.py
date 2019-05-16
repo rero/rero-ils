@@ -261,7 +261,7 @@ def requested_loans(library_pid):
 def loans(patron_pid):
     """HTTP GET request for requested loans for a library."""
     patron_type_pid = Patron.get_record_by_pid(
-        patron_pid).replace_refs().patron_type_pid
+        patron_pid).patron_type_pid
     items_loans = Item.get_checked_out_items(patron_pid)
     metadata = []
     for item, loan in items_loans:
@@ -295,7 +295,7 @@ def item(item_barcode):
 
     if patron_pid:
         patron_type_pid = Patron.get_record_by_pid(
-            patron_pid).replace_refs().patron_type_pid
+            patron_pid).patron_type_pid
 
         circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,

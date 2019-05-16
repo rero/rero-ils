@@ -342,6 +342,9 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     circ_policy_origin = deepcopy(circ_policy_short_martigny)
     circ_policy = circ_policy_short_martigny
 
+    assert librarian_martigny_no_email.patron_type_pid == \
+        patron_type_children_martigny.pid
+
     patron_pid = patron_martigny_no_email.pid
     res = client.get(
         url_for(
