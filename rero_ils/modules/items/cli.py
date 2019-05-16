@@ -101,8 +101,8 @@ def create_items(output, count, itemscount, missing):
             fg='green',
         )
 
-        locations_pids = Location.get_all_pids()
-        item_types_pids = ItemType.get_all_pids()
+        locations_pids = get_locations()
+        item_types_pids = get_item_types()
         patrons_barcodes = get_patrons_barcodes()
         missing *= len(patrons_barcodes)
         item_pid = ItemIdentifier.max() + 1
@@ -123,9 +123,35 @@ def create_items(output, count, itemscount, missing):
                     )
                     item_pid += 1
                     yield item
-    for chunk in json.JSONEncoder()\
+    for chunk in json.JSONEncoder(indent=2)\
             .iterencode(StreamArray(generate(count, itemscount, missing))):
         output.write(chunk)
+
+
+def get_locations():
+    """Get all locations.
+
+    :returns: A dict of list of pids with an organisation pid as key.
+    """
+    to_return = {}
+    for pid in Location.get_all_pids():
+        org_pid = Location.get_record_by_pid(pid).get_library()\
+                          .replace_refs().get('organisation').get('pid')
+        to_return.setdefault(org_pid, []).append(pid)
+    return to_return
+
+
+def get_item_types():
+    """Get all item types.
+
+    :returns: A dict of list of pids with an organisation pid as key.
+    """
+    to_return = {}
+    for pid in ItemType.get_all_pids():
+        org_pid = ItemType.get_record_by_pid(pid)\
+            .replace_refs()['organisation']['pid']
+        to_return.setdefault(org_pid, []).append(pid)
+    return to_return
 
 
 def create_random_item(
@@ -142,6 +168,7 @@ def create_random_item(
         status = ItemStatus.MISSING
         missing -= 1
     url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
+    org = random.choice(list(locations_pids.keys()))
     item = {
         # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
         'barcode': str(10000000000 + item_pid),
@@ -149,11 +176,11 @@ def create_random_item(
         'status': status,
         'location': {
             '$ref': url_api.format(
-                doc_type='locations', pid=random.choice(locations_pids))
+                doc_type='locations', pid=random.choice(locations_pids[org]))
         },
         'item_type': {
             '$ref': url_api.format(
-                doc_type='item_types', pid=random.choice(item_types_pids))
+                doc_type='item_types', pid=random.choice(item_types_pids[org]))
         },
         'document': {
             '$ref': url_api.format(
