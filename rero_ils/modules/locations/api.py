@@ -65,10 +65,19 @@ class Location(IlsRecord):
     @classmethod
     def get_pickup_location_pids(cls, patron_pid=None):
         """Return pickup locations."""
-        # TODO: filter by patron libraries or organisations
-        locations = LocationsSearch()\
-            .filter('term', is_pickup=True)\
-            .source(['pid']).scan()
+        from ..patrons.api import Patron
+        from ..patron_types.api import PatronType
+        search = LocationsSearch()\
+            .filter('term', is_pickup=True)
+        if patron_pid:
+            patron = Patron.get_record_by_pid(patron_pid)
+            ptty_pid = patron.replace_refs()['patron_type']['pid']
+            org_pid = PatronType.get_record_by_pid(
+                ptty_pid).replace_refs()['organisation']['pid']
+            search.filter(
+                'term',
+                organisation__pid=org_pid)
+        locations = search.source(['pid']).scan()
         for location in locations:
             yield location.pid
 
