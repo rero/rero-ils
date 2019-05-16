@@ -26,9 +26,12 @@
 import json
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.api import IlsRecordError
 
 
 def test_item_types_permissions(client, item_type_standard_martigny,
@@ -222,3 +225,109 @@ def test_filtered_item_types_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 3
+
+
+def test_item_type_secure_api(client, json_header,
+                              item_type_standard_martigny,
+                              librarian_martigny_no_email,
+                              librarian_sion_no_email):
+    """Test item type secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.itty_item',
+                         pid_value=item_type_standard_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.itty_item',
+                         pid_value=item_type_standard_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_item_type_secure_api_create(client, json_header,
+                                     item_type_standard_martigny,
+                                     librarian_martigny_no_email,
+                                     librarian_sion_no_email,
+                                     item_type_standard_martigny_data):
+    """Test item type secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.itty_list')
+
+    del item_type_standard_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(item_type_standard_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(item_type_standard_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_item_type_secure_api_update(client, json_header,
+                                     item_type_on_site_martigny,
+                                     librarian_martigny_no_email,
+                                     librarian_sion_no_email,
+                                     item_type_on_site_martigny_data,
+                                     can_delete_json_header):
+    """Test item type secure api update."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.itty_item',
+                         pid_value=item_type_on_site_martigny.pid)
+
+    data = item_type_on_site_martigny
+    data['name'] = 'Test Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=can_delete_json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=can_delete_json_header
+    )
+    assert res.status_code == 403
+
+
+def test_item_type_secure_api_delete(client, json_header,
+                                     item_type_on_site_martigny,
+                                     librarian_martigny_no_email,
+                                     librarian_sion_no_email,
+                                     item_type_on_site_martigny_data,
+                                     can_delete_json_header):
+    """Test item type secure api delete."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.itty_item',
+                         pid_value=item_type_on_site_martigny.pid)
+
+    with pytest.raises(IlsRecordError.NotDeleted):
+        res = client.delete(record_url)
+        assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 403

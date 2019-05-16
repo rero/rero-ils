@@ -24,6 +24,7 @@
 """Tests REST API for circulation policies."""
 
 import json
+from copy import deepcopy
 
 import mock
 import pytest
@@ -57,7 +58,7 @@ def test_circ_policies_permissions(
     )
 
     res = client.delete(item_url)
-    assert res.status_code == 403
+    assert res.status_code == 401
 
     res = client.get(url_for('circ_policies.name_validate', name='standard'))
     assert res.status_code == 401
@@ -214,3 +215,113 @@ def test_circ_policies_name_validate(client, circ_policy_default_martigny):
         res = client.get(url)
         assert res.status_code == 200
         assert get_json(res) == {'name': None}
+
+
+def test_circ_policy_secure_api(client, json_header,
+                                circ_policy_default_martigny,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email):
+    """Test circulation policies secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_default_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_default_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+    org = deepcopy(circ_policy_default_martigny)
+    del org['organisation']
+    assert not org.organisation_pid
+
+
+def test_circ_policy_secure_api_create(client, json_header,
+                                       circ_policy_default_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       circ_policy_default_martigny_data):
+    """Test circulation policies secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.cipo_list')
+
+    del circ_policy_default_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(circ_policy_default_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(circ_policy_default_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_circ_policy_secure_api_update(client, json_header,
+                                       circ_policy_short_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       circ_policy_short_martigny_data,
+                                       can_delete_json_header):
+    """Test circulation policies secure api update."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_short_martigny.pid)
+
+    data = circ_policy_short_martigny_data
+    data['name'] = 'Test Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=can_delete_json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=can_delete_json_header
+    )
+    assert res.status_code == 403
+
+
+def test_circ_policy_secure_api_delete(client, json_header,
+                                       circ_policy_short_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       circ_policy_short_martigny_data,
+                                       can_delete_json_header):
+    """Test circulation policies secure api delete."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.cipo_item',
+                         pid_value=circ_policy_short_martigny.pid)
+
+    with pytest.raises(IlsRecordError.NotDeleted):
+        res = client.delete(record_url)
+        assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 403

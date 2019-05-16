@@ -26,9 +26,12 @@
 import json
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from rero_ils.modules.api import IlsRecordError
 
 
 def test_patron_types_permissions(client, patron_type_children_martigny,
@@ -222,3 +225,105 @@ def test_filtered_patron_types_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 2
+
+
+def test_patron_type_secure_api(client, json_header,
+                                patron_type_children_martigny,
+                                librarian_martigny_no_email,
+                                librarian_sion_no_email):
+    """Test patron type secure api access."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_children_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_children_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 403
+
+
+def test_patron_type_secure_api_create(client, json_header,
+                                       patron_type_children_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       patron_type_children_martigny_data):
+    """Test patron type secure api create."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = url_for('invenio_records_rest.ptty_list')
+
+    del patron_type_children_martigny_data['pid']
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_type_children_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_type_children_martigny_data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_patron_type_secure_api_update(client, json_header,
+                                       patron_type_adults_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       patron_type_adults_martigny_data):
+    """Test patron type secure api create."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_adults_martigny.pid)
+
+    data = patron_type_adults_martigny_data
+    data['name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
+def test_patron_type_secure_api_delete(client, json_header,
+                                       patron_type_adults_martigny,
+                                       librarian_martigny_no_email,
+                                       librarian_sion_no_email,
+                                       patron_type_adults_martigny_data):
+    """Test patron type secure api delete."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.ptty_item',
+                         pid_value=patron_type_adults_martigny.pid)
+
+    with pytest.raises(IlsRecordError.NotDeleted):
+        res = client.delete(record_url)
+        assert res.status_code == 204
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.delete(record_url)
+    assert res.status_code == 403
