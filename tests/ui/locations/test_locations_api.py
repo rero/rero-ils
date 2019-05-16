@@ -67,13 +67,6 @@ def test_location_es_mapping(es, db, lib_martigny, loc_public_martigny_data):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_location_get_all_pickup_locations(es, db, lib_martigny,
-                                           loc_public_martigny):
-    """Test pickup locations retrieval."""
-    locations = Location.get_pickup_location_pids()
-    assert list(locations)[0] == loc_public_martigny.pid
-
-
 def test_location_can_delete(loc_public_martigny):
     """Test can delete."""
     assert loc_public_martigny.get_links_to_me() == {}

@@ -72,6 +72,7 @@ def patron_martigny(
         app,
         roles,
         lib_martigny,
+        patron_type_children_martigny,
         patron_martigny_data):
     """Create Martigny patron record."""
     ptrn = Patron.create(

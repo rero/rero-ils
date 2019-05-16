@@ -258,7 +258,7 @@
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "3050124311",
-    "birth_date": "2001-06-07",
+    "birth_date": "1980-07-31",
     "city": "London",
     "email": "reroilstest+harry@gmail.com",
     "first_name": "Harry",
@@ -272,6 +272,26 @@
     },
     "postal_code": "55555",
     "street": "Magic Street 3",
+    "communication_channel": "email",
+    "communication_language": "en"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "3050124312",
+    "birth_date": "1979-09-19",
+    "city": "London",
+    "email": "reroilstest+hermione@gmail.com",
+    "first_name": "Hermione",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Granger",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/4"
+    },
+    "postal_code": "55555",
+    "street": "Diagon Alley 72",
     "communication_channel": "email",
     "communication_language": "en"
   }
