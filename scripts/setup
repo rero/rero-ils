@@ -123,6 +123,7 @@ pipenv run dojson -i ${ITEMS} schema 'http://ils.rero.ch/schema/items/item-v0.0.
 
 
 pipenv run invenio index reindex -t item --yes-i-know
+pipenv run invenio index run -c 4 --raise-on-error
 pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 

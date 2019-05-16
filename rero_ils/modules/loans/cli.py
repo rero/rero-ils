@@ -39,6 +39,7 @@ from ..item_types.api import ItemType
 from ..items.api import Item, ItemsSearch, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
+from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
 
 
@@ -111,10 +112,11 @@ def print_message(barcode, item_barcode, transaction_type):
 def create_loan(barcode, transaction_type, loanable_items):
     """Create loans transactions."""
     item = next(loanable_items)
-    start_date, end_date = get_loan_dates(transaction_type, item)
     patron = Patron.get_patron_by_barcode(barcode=barcode)
+    start_date, end_date = get_loan_dates(transaction_type, item, patron)
     transaction_date = datetime.now(timezone.utc).isoformat()
-    user_pid, user_location = get_random_librarian_and_transaction_location()
+    user_pid, user_location = get_random_librarian_and_transaction_location(
+        patron)
     item.checkout(
         patron_pid=patron.pid,
         transaction_user_pid=user_pid,
@@ -127,7 +129,7 @@ def create_loan(barcode, transaction_type, loanable_items):
         loan = get_loan_for_item(item.pid)
         loan_pid = loan['loan_pid']
         user_pid, user_location = \
-            get_random_librarian_and_transaction_location()
+            get_random_librarian_and_transaction_location(patron)
         item.extend_loan(
             loan_pid=loan_pid,
             patron_pid=patron.pid,
@@ -140,7 +142,7 @@ def create_loan(barcode, transaction_type, loanable_items):
     if transaction_type == 'requested_by_others':
         requested_patron = get_random_patron(barcode)
         user_pid, user_location = \
-            get_random_librarian_and_transaction_location()
+            get_random_librarian_and_transaction_location(patron)
         circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,
                 requested_patron.patron_type_pid,
@@ -168,7 +170,7 @@ def create_request(barcode, transaction_type, loanable_items):
         transaction_date = (
             datetime.now(timezone.utc) - timedelta(2)).isoformat()
         user_pid, user_location = \
-            get_random_librarian_and_transaction_location()
+            get_random_librarian_and_transaction_location(patron)
 
         circ_policy = CircPolicy.provide_circ_policy(
                 item.library_pid,
@@ -186,7 +188,8 @@ def create_request(barcode, transaction_type, loanable_items):
                 document_pid=item.replace_refs()['document']['pid'],
             )
     transaction_date = datetime.now(timezone.utc).isoformat()
-    user_pid, user_location = get_random_librarian_and_transaction_location()
+    user_pid, user_location = get_random_librarian_and_transaction_location(
+        patron)
     item.request(
         patron_pid=patron.pid,
         transaction_location_pid=user_location,
@@ -199,8 +202,11 @@ def create_request(barcode, transaction_type, loanable_items):
 
 
 def get_loanable_items(patron_type_pid):
-    """Reutrns list of loanable items."""
+    """Get the list of loanable items."""
+    org_pid = PatronType.get_record_by_pid(patron_type_pid)\
+                        .replace_refs()['organisation']['pid']
     loanable_items = ItemsSearch()\
+        .filter('term', organisation__pid=org_pid)\
         .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
     for loanable_item in loanable_items:
         item = Item.get_record_by_pid(loanable_item.pid)
@@ -217,31 +223,20 @@ def get_loanable_items(patron_type_pid):
                 yield item
 
 
-def get_random_library():
-    """Find a qualified library."""
-    libraries_pids = Library.get_all_pids()
-    return random.choice(libraries_pids)
-
-
-def get_random_location():
-    """Find a qualified location."""
-    locations_pids = Location.get_all_pids()
-    return random.choice(locations_pids)
-
-
 def get_random_pickup_location(patron_pid):
     """Find a qualified pickup location."""
     pickup_locations_pids = list(Location.get_pickup_location_pids(patron_pid))
     return random.choice(pickup_locations_pids)
 
 
-def get_loan_dates(transaction_type, item):
+def get_loan_dates(transaction_type, item, patron):
     """Get loan dates."""
-    # TODO: replace by circulation policy
-    if item.replace_refs()['item_type']['pid'] == '2':
-        duration = 15
-    else:
-        duration = 30
+    duration = CircPolicy.provide_circ_policy(
+        item.library_pid,
+        patron.patron_type_pid,
+        item.item_type_pid
+    ).get('checkout_duration')
+
     today = datetime.today()
     start_today = datetime.strftime(today, '%Y-%m-%d')
     end_date_duration = today + timedelta(duration)
@@ -258,24 +253,34 @@ def get_loan_dates(transaction_type, item):
 
 def get_random_patron(exclude_this_barcode):
     """Find a qualified patron other than exclude_this_barcode."""
+    ptrn_to_exclude = Patron.get_patron_by_barcode(exclude_this_barcode)
+    ptty_pid = ptrn_to_exclude.replace_refs()['patron_type']['pid']
+    org_pid = PatronType.get_record_by_pid(
+        ptty_pid).replace_refs()['organisation']['pid']
     patrons = PatronsSearch()\
-        .filter('term', roles='patron').source(['barcode']).scan()
+        .filter('term', roles='patron')\
+        .filter('term', organisation__pid=org_pid)\
+        .source(['barcode']).scan()
     for patron in patrons:
         if patron.barcode != exclude_this_barcode:
             return Patron.get_patron_by_barcode(barcode=patron.barcode)
 
 
-def get_random_librarian():
+def get_random_librarian(patron):
     """Find a qualified staff user."""
+    ptty_pid = patron.replace_refs()['patron_type']['pid']
+    org_pid = PatronType.get_record_by_pid(
+        ptty_pid).replace_refs()['organisation']['pid']
     patrons = PatronsSearch()\
         .filter('term', roles='librarian')\
+        .filter('term', organisation__pid=org_pid)\
         .source(['pid']).scan()
     for patron in patrons:
         return Patron.get_record_by_pid(patron.pid)
 
 
-def get_random_librarian_and_transaction_location():
+def get_random_librarian_and_transaction_location(patron):
     """Find a qualified user data."""
-    user = get_random_librarian().replace_refs()
+    user = get_random_librarian(patron).replace_refs()
     library = Library.get_record_by_pid(user['library']['pid'])
     return user.pid, library.get_pickup_location_pid()
