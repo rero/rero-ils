@@ -334,6 +334,12 @@
       "title": "Document availability",
       "type": "boolean",
       "default": false
+    },
+    "cover_art": {
+      "title": "Cover art",
+      "description": "Vendor cover art URL.",
+      "type": "string",
+      "format": "uri"
     }
   }
 }
