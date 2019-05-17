@@ -77,7 +77,7 @@ def api_source_config(name, url, mimetype, size, comment, update):
 @with_appcontext
 def api_source_config_from_file(configfile, update):
     """Add or update ApiHarvestConfigs from file."""
-    configs = yaml.load(configfile)
+    configs = yaml.load(configfile, Loader=yaml.FullLoader)
     for name, values in sorted(configs.items()):
         url = values.get('url', '')
         mimetype = values.get('mimetype', '')

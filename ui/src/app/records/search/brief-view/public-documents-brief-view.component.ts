@@ -84,7 +84,9 @@ export class PublicDocumentsBriefViewComponent implements BriefView {
     if (value !== undefined) {
       this._record = value;
       this.coverUrl = `/static/images/icon_${value.metadata.type}.png`;
-      if (value.metadata.identifiers) {
+      if (value.metadata.cover_art) {
+        this.coverUrl = value.metadata.cover_art;
+      } else if (value.metadata.identifiers) {
         const isbn = value.metadata.identifiers.isbn;
         if (isbn) {
           this.getCover(isbn);

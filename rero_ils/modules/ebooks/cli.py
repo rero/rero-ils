@@ -71,7 +71,7 @@ def add_oai_source_config(name, baseurl, metadataprefix, setspecs, comment,
 @with_appcontext
 def init_oai_harvest_config(configfile, update):
     """Init OAIHarvestConfig."""
-    configs = yaml.load(configfile)
+    configs = yaml.load(configfile, Loader=yaml.FullLoader)
     for name, values in sorted(configs.items()):
         baseurl = values['baseurl']
         metadataprefix = values.get('metadataprefix', 'marc21')
