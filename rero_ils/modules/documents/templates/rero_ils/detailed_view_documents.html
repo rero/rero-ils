@@ -210,7 +210,7 @@
                 {% endif %}
               </div>
               <div class="col-12 col-sm-9 d-flex flex-column">
-                {% if current_user|can_edit %}
+                {% if current_user |can_access_item(item) %}
                   {% with
                     href_update=url_for('records/items.index', path=item.pid, document=record.pid),
                     href_delete='/api/items/' + item.pid,

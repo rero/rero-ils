@@ -44,7 +44,7 @@ from .mef_persons.receivers import publish_api_harvested_records
 from .patrons.listener import enrich_patron_data, listener_item_at_desk
 from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
     resource_can_create, text_to_id, to_pretty_json
-from ..permissions import can_edit
+from ..permissions import can_access_item, can_edit
 
 
 class REROILSAPP(object):
@@ -57,6 +57,10 @@ class REROILSAPP(object):
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
             app.add_template_filter(can_edit, name='can_edit')
+            app.add_template_filter(
+                can_access_item,
+                name='can_access_item'
+            )
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
             app.add_template_filter(
