@@ -7,13 +7,16 @@ angular.module('reroThumbnails', [])
     };
     $scope.thumbnail_service_url = undefined;
 
+
     $scope.$on('thumbnail.init', thumbnailInit);
-    function thumbnailInit(init, identifiers, type, config) {
+    function thumbnailInit(init, thumbnailurl, identifiers, type, config) {
       var thumbnail_service_url =  angular.fromJson(config).thumbnail_service_url;
       $scope.thumbnail_service_url = $sce.trustAsResourceUrl(thumbnail_service_url);
       $scope.type = type;
       $scope.identifiers = angular.fromJson(identifiers);
+      $scope.thumbnail_url = thumbnailurl
     };
+
     $scope.$watch(
         "identifiers",
         function handleIdentifiers( identifiers ) {
@@ -23,6 +26,17 @@ angular.module('reroThumbnails', [])
         },
         true
     );
+
+    $scope.$watch(
+        "thumbnailurl",
+        function handleThumbnailUrl( thumbnailurl ) {
+          if(thumbnailurl) {
+            $scope.thumbnail_url = thumbnailurl;
+          }
+        },
+        true
+    );
+
     function getThumbnailUrl(identifiers) {
       var isbn = identifiers.isbn;
       if(isbn) {
@@ -42,6 +56,7 @@ angular.module('reroThumbnails', [])
         });
       }
     }
+
   }])
   .directive('iconThumbnail', ['$log', 'gettextCatalog', function($log, gettextCatalog) {
     return {
@@ -55,7 +70,7 @@ angular.module('reroThumbnails', [])
                  </figure>',
       link: function (scope, element, attrs) {
         scope.$broadcast(
-            'thumbnail.init', attrs.identifiers, attrs.type, attrs.config
+            'thumbnail.init', attrs.thumbnailurl, attrs.identifiers, attrs.type, attrs.config
         );
     }
     };
