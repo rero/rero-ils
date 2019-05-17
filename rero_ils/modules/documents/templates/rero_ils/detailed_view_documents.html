@@ -14,15 +14,20 @@
 {%- block body %}
   <header class="row">
     <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
-     <icon-thumbnail class="thumb"
+      <icon-thumbnail class="thumb"
+        {% if record.cover_art %}
+          thumbnailurl='{{ (record.cover_art) }}'
+        {% else %}
+          thumbnailurl=""
           {% if record.identifiers %}
             identifiers='{{ (record.identifiers or {})|tojson }}'
           {% else %}
             identifiers=""
           {% endif %}
-          type="{{ record.type }}"
-          config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
-        </icon-thumbnail>
+        {% endif %}
+        type="{{ record.type }}"
+        config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
+      </icon-thumbnail>
     </div>
     <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
   </header>

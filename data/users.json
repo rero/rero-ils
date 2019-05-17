@@ -6,7 +6,7 @@
     "email": "reroilstest@gmail.com",
     "first_name": "Astrid",
     "roles": [
-      "librarian"
+      "https://github.com/rero/rero-ils/issues/304"
     ],
     "last_name": "M\u00fcller",
     "library": {
