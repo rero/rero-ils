@@ -92,7 +92,6 @@ def patron_martigny_no_email(
         patron_type_children_martigny,
         patron_martigny_data):
     """Create Martigny patron without sending reset password instruction."""
-    patron_martigny_data['roles'] == ['patron']
     ptrn = Patron.create(
         data=patron_martigny_data,
         delete_pid=False,
@@ -111,7 +110,6 @@ def librarian_martigny_no_email(
         patron_type_children_martigny,
         librarian_martigny_data):
     """Create Martigny librarian without sending reset password instruction."""
-    librarian_martigny_data['roles'] == ['librarian']
     ptrn = Patron.create(
         data=librarian_martigny_data,
         delete_pid=False,

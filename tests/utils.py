@@ -27,6 +27,7 @@
 import json
 
 import mock
+from invenio_accounts.testutils import login_user_via_view
 from invenio_circulation.api import get_loan_for_item
 from invenio_search import current_search
 from six.moves.urllib.parse import parse_qs, urlparse
@@ -47,6 +48,12 @@ class VerifyRecordPermissionPatch(object):
     """Verify record permissions."""
 
     status_code = 200
+
+
+def login_user(client, user):
+    """Sign in user."""
+    user.user.password_plaintext = user.get('email')
+    login_user_via_view(client, user=user.user)
 
 
 def get_json(response):
