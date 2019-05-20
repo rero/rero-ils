@@ -6,14 +6,14 @@
 # Translators:
 # Peter Weber <peter.weber@rero.ch>, 2018
 # iGor milhit <igor.milhit@rero.ch>, 2018
-# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Nicolas Labat <n-labat@hotmail.com>, 2019
+# Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Nicolas Prongué <n.prongue@outlook.com>, 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.1.0a20\n"
+"Project-Id-Version: rero-ils 0.1.0a21\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-03-27 14:17+0100\n"
+"POT-Creation-Date: 2019-05-20 17:55+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
 "Language: de\n"
@@ -24,70 +24,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
-#: rero_ils/config.py:83
+#: rero_ils/config.py:92
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:123
 msgid "French"
 msgstr "Französisch"
 
-#: rero_ils/config.py:84
+#: rero_ils/config.py:93
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:127
 msgid "German"
 msgstr "Deutsch"
 
-#: rero_ils/config.py:85
+#: rero_ils/config.py:94
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:135
 msgid "Italian"
 msgstr "Italienisch"
 
-#: rero_ils/config.py:117 rero_ils/config.py:121
+#: rero_ils/config.py:126 rero_ils/config.py:130
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:164
+#: rero_ils/config.py:173
 msgid "Welcome to RERO-ILS!"
 msgstr "Willkommen zu RERO-ILS!"
 
-#: rero_ils/config.py:679
+#: rero_ils/config.py:739
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:680
+#: rero_ils/config.py:740
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:681
+#: rero_ils/config.py:741
 msgid "author__en"
 msgstr "Autoren"
 
-#: rero_ils/config.py:682
+#: rero_ils/config.py:742
 msgid "author__fr"
 msgstr "Autoren"
 
-#: rero_ils/config.py:683
+#: rero_ils/config.py:743
 msgid "author__de"
 msgstr "Autoren"
 
-#: rero_ils/config.py:684
+#: rero_ils/config.py:744
 msgid "author__it"
 msgstr "Autoren"
 
-#: rero_ils/config.py:685
+#: rero_ils/config.py:745
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:686
+#: rero_ils/config.py:746
 msgid "subject"
 msgstr "Schlagwort"
 
-#: rero_ils/config.py:687
+#: rero_ils/config.py:747
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:695
+#: rero_ils/config.py:755
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:703
+#: rero_ils/config.py:763
 msgid "sources"
 msgstr "Quellen"
 
@@ -321,160 +321,156 @@ msgstr "Ausleihpolitik"
 msgid "JSON schema for circulation policies."
 msgstr "JSON Schema für eine Ausleihpolitik"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:17
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:14
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:16
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:15
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:19
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:16
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
 #: rero_ils/modules/mef_persons/jsonschemas/persons/mef_person-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:16
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:15
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:20
 msgid "Schema"
 msgstr "Schema"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:18
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:17
 msgid "Schema to validate circulation policies records against."
 msgstr "Schema zur Validierung von Ausleihpolitiken."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:24
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:23
 msgid "Circulation policy ID"
 msgstr "Ausleihpolitik ID"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:29
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:28
 msgid "Circulation policy name"
 msgstr "Name der Ausleihpolitik"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:30
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:29
 msgid "The name of the circulation policy."
 msgstr "Der Name der Ausleihpolitik"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:35
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:34
 msgid "Circulation policy description"
 msgstr "Beschreibung der Ausleihpolitik"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:36
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:35
 msgid "The description of the circulation policy."
 msgstr "Die Beschreibung der Ausleihpolitik"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:40
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:39
 #: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:3
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:40
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:39
 #: rero_ils/modules/libraries/jsonschemas/form_libraries/library-v0.0.1.json:7
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 #: rero_ils/modules/patron_types/jsonschemas/form_patron_types/patron_type-v0.0.1.json:3
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:39
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:38
 msgid "Organisation"
 msgstr "Einrichtung"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:44
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:44
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:43
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:43
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:42
 msgid "Organisation URI"
 msgstr "URI der Organisation"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:51
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:50
 msgid "Allow Checkout"
 msgstr "Ausleihen erlauben"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:52
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:51
 msgid "Checkouts are allowed or not."
 msgstr "Ausleihen sind erlaubt oder nicht."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:57
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:56
 msgid "Checkout duration in days"
 msgstr "Ausleihdauer in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:58
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:57
 msgid "The duration of the checkout in days."
 msgstr "Die Dauer einer Ausleihe in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:64
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:63
 msgid "Allow patron requests"
 msgstr "Bestellungen erlauben"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:65
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:64
 msgid "Patron requests are allowed or not."
 msgstr "Bestellungen sind für Leser erlaubt oder nicht."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 msgid "Maximum number of renewals"
 msgstr "Maximale Anzahl von Verlängerungen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:71
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
 msgid "Maximum number of renewals allowed."
 msgstr "Maximale Anzahl von Verlängerungen erlaubt."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
 msgid "Renewal duration in days"
 msgstr "Verlängerungsdauer in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:78
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
 msgid "The duration of the renewal in days."
 msgstr "Die Dauer einer Verlängerung in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
 msgid "Mark as default policy"
 msgstr "Als Standardpolitik markieren"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:88
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:87
 msgid "Library level policy"
 msgstr "Politik auf Bibliotheksebene"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:93
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
 msgid "List of libraries"
 msgstr "Liste der Bibliotheken"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:103
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:102
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:53
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:104
 msgid "Library URI"
 msgstr "URI der Bibliothek"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:111
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:110
 msgid "Patron + Item types links"
 msgstr "Links Lesertypen + Exemplartypen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:121
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:104
 msgid "Patron type"
 msgstr "Lesertyp"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:130
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:129
 msgid "Patron type URI"
 msgstr "URI des Lesertyps"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:137
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:136
 msgid "Item type"
 msgstr "Exemplar Typ"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:145
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:144
 msgid "Item type URI"
 msgstr "URI des Exemplartyps"
 
-#: rero_ils/modules/documents/views.py:321
+#: rero_ils/modules/documents/views.py:313
 msgid "available"
 msgstr "verfügbar"
 
-#: rero_ils/modules/documents/views.py:323
-msgid "on_site consultation"
-msgstr "Vor Ort lesbar"
-
-#: rero_ils/modules/documents/views.py:325
+#: rero_ils/modules/documents/views.py:315
 msgid "not available"
 msgstr "nicht verfügbar"
 
-#: rero_ils/modules/documents/views.py:330
+#: rero_ils/modules/documents/views.py:320
 msgid "due until"
 msgstr "Fällig am"
 
-#: rero_ils/modules/documents/views.py:332
+#: rero_ils/modules/documents/views.py:322
 msgid "requested"
 msgstr "Bestellt"
 
@@ -622,7 +618,7 @@ msgstr "Entsprechende PID des MEF-Records"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:173
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:142
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:179
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:28
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:27
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:32
 #: rero_ils/modules/mef_persons/templates/rero_ils/_person_by_source_data.html:19
@@ -1030,7 +1026,7 @@ msgstr "Einheitstitel"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:86
 msgid "Subjects"
-msgstr "Schlagwort"
+msgstr "Schlagworte"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:91
 msgid "Notes"
@@ -1131,23 +1127,23 @@ msgstr "Exemplartyp"
 msgid "JSON schema for item_type."
 msgstr "JSON Schema für einen Exemplartypen"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:17
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:16
 msgid "Schema to validate item_type records against."
 msgstr "Schema zur Validierung von Exemplarentypen."
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:23
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:22
 msgid "ItemType ID."
 msgstr "Exemplartyp ID"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:29
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:28
 msgid "Name of the ItemType."
 msgstr "Name des Exemplartypen"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:34
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:33
 msgid "Description"
 msgstr "Beschreibung"
 
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:35
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:34
 msgid "Description of the ItemType."
 msgstr "Beschreibung des Exemplartypen"
 
@@ -1245,12 +1241,12 @@ msgid "Patron"
 msgstr "Leser"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:85
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:82
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:80
 msgid "Due date"
 msgstr "Fälligkeitsdatum"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:86
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:89
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:87
 msgid "Renewals"
 msgstr "Verlängerungen"
 
@@ -1261,12 +1257,12 @@ msgid "Pending"
 msgstr "Bestellungen"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:128
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:77
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:75
 msgid "Pickup library"
 msgstr "Abholungsort"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:129
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:84
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:82
 msgid "Reservation date"
 msgstr "Bestellungsdatum"
 
@@ -1577,35 +1573,35 @@ msgstr "Lesertyp"
 msgid "JSON schema for patron_types."
 msgstr "JSON Schema für einen Lesertypen"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:17
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:16
 msgid "Schema to validate patron_types records against."
 msgstr "Schema zur Validierung von Lesertypen."
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:23
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:22
 msgid "Patron type ID"
 msgstr "Lesertyp ID"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:28
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:27
 msgid "Patron type name"
 msgstr "Name des Lesertypen"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:29
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:28
 msgid "a short name of the Patron type"
 msgstr "ein Kurzname für den Lesertypen"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:34
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
 msgid "Patron type description"
 msgstr "Beschreibung des Lesertypen"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:35
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:34
 msgid "The description of the Patron type"
 msgstr "Die Beschreibung des Lesertypen"
 
-#: rero_ils/modules/patrons/listener.py:51
+#: rero_ils/modules/patrons/listener.py:50
 msgid "Document at desk"
 msgstr "Dokument an der Ausleihe"
 
-#: rero_ils/modules/patrons/views.py:115
+#: rero_ils/modules/patrons/views.py:102
 #, python-format
 msgid "%(icon)s Profile"
 msgstr "%(icon)s Mein Konto"
@@ -1765,10 +1761,6 @@ msgstr "Keine Ausleihe"
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:56
 msgid "No pending"
 msgstr "Keine Bestellung"
-
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:75
-msgid "Belongs to"
-msgstr "Gehört"
 
 #: rero_ils/static/templates/rero_ils/count.html:11
 msgid "Found {{$count}} result."
