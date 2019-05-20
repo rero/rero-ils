@@ -33,8 +33,8 @@ import { Toast, ToastrService, ToastPackage } from 'ngx-toastr';
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div *ngIf="message && !options.enableHtml" class="toast-body" translate>
-      {{ message }}
+    <div *ngIf="message && !options.enableHtml" class="toast-body">
+      {{ message | translate }}
       <button
         type="button"
         *ngIf="options.closeButton"
