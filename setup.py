@@ -114,30 +114,35 @@ setup(
         'invenio_i18n.translations': [
             'messages = rero_ils',
         ],
+        # TODO: remove this dirty hack when the following PR
+        # (https://github.com/flask-admin/flask-admin/pull/1798)
+        # will be integrated
         'invenio_admin.views': [
-            'rero_ils_admin_circulation = \
+            '100_rero_ils_admin_circulation = \
                 rero_ils.modules.admin:circulation',
             'rero_ils_admin_library = \
                 rero_ils.modules.admin:library',
-            'rero_ils_admin_my_library = \
+            '303_rero_ils_admin_my_library = \
                 rero_ils.modules.admin:my_library',
-            'rero_ils_admin_item_types = \
+            '301_rero_ils_admin_item_types = \
                 rero_ils.modules.admin:item_types',
-            'rero_ils_admin_patron_types = \
+            '302_rero_ils_admin_patron_types = \
                 rero_ils.modules.admin:patron_types',
-            'rero_ils_admin_patrons = \
+            '101_rero_ils_admin_patrons = \
                 rero_ils.modules.admin:patrons',
-            'rero_ils_admin_circ_policies = \
+            '300_rero_ils_admin_circ_policies = \
                 rero_ils.modules.admin:circ_policies',
             'rero_ils_admin_locations = \
                 rero_ils.modules.admin:locations',
-            'rero_ils_admin_libraries = \
+            '304_rero_ils_admin_libraries = \
                 rero_ils.modules.admin:libraries',
             'rero_ils_admin_items = \
                 rero_ils.modules.admin:items',
-            'rero_ils_admin_documents = \
+            '200_rero_ils_admin_documents = \
                 rero_ils.modules.admin:documents',
-            'rero_ils_admin_persons = \
+            '201_rero_ils_admin_documents_create = \
+                rero_ils.modules.admin:documents_create',
+            '299_rero_ils_admin_persons = \
                 rero_ils.modules.admin:persons'
         ],
         'invenio_assets.bundles': [
