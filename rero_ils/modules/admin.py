@@ -183,6 +183,17 @@ documents = {
     )
 }
 
+documents_create = {
+    'view_class': ILSManager,
+    'kwargs': dict(
+        name=_('Create a bibliographic record'),
+        category=_('Catalogue'),
+        endpoint='records/documents/new',
+        menu_icon_type='fa',
+        menu_icon_value='fa-file-o'
+    )
+}
+
 items = {
     'view_class': LibraryManager,
     'kwargs': dict(
