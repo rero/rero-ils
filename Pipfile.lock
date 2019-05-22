@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "794039c3cb00873fbf4ed9a330be605d9febbc91210594ea71ec5793d853f4c5"
+            "sha256": "db242da5f0a23dc91dfbbc9658b72e3666fdaa8c2d2669f7bf0dcf8b6cf8647a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,14 +35,6 @@
             ],
             "index": "pypi",
             "version": "==0.3"
-        },
-        "appnope": {
-            "hashes": [
-                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
-                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
-            ],
-            "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.0"
         },
         "arrow": {
             "hashes": [
@@ -1057,6 +1049,17 @@
             ],
             "index": "pypi",
             "version": "==5.1"
+        },
+        "raven": {
+            "extras": [
+                "flask"
+            ],
+            "hashes": [
+                "sha256:3fa6de6efa2493a7c827472e984ce9b020797d0da16f1db67197bcc23c8fae54",
+                "sha256:44a13f87670836e153951af9a3c80405d36b43097db869a36e92809673692ce4"
+            ],
+            "index": "pypi",
+            "version": "==6.10.0"
         },
         "redis": {
             "hashes": [

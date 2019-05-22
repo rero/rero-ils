@@ -153,10 +153,10 @@ def init_menu():
     )
 
 
-@blueprint.route('/ping', methods=['HEAD', 'GET'])
-def ping():
-    """Load balancer ping view."""
-    return 'OK'
+@blueprint.route('/error')
+def error():
+    """Error to generate exception for test purposes."""
+    raise Exception('this is an error for test purposes')
 
 
 @blueprint.route('/')
