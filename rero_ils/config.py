@@ -120,6 +120,11 @@ THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
 #: Template for tombstone page.
 RECORDS_UI_TOMBSTONE_TEMPLATE = "rero_ils/tombstone.html"
 
+# Logings
+# =======
+LOGGING_SENTRY_LEVEL = "ERROR"
+LOGGING_SENTRY_CELERY = True
+
 # Theme configuration
 # ===================
 #: Site name
