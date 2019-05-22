@@ -76,9 +76,9 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `rero-ils` for local development.
+Ready to contribute? Here's how to set up ``rero-ils`` for local development.
 
-1. Fork the `rero/rero-ils` repo on GitHub.
+1. Fork the ``rero/rero-ils`` repo on GitHub.
 2. Clone your fork locally:
 
    .. code-block:: console
@@ -105,9 +105,9 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
    (code style), PEP257 (documentation), flake8 as well as build the Sphinx
    documentation and run doctests.
 
-6. Add the `.gitmessage.txt` to your `git` configuration:
+6. Add the ``.gitmessage.txt`` file to your ``git`` configuration:
 
-    .. code-block::console
+   .. code-block:: console
 
         # globally
         $ git config --global commit.template /path/.gitmessage.txt
@@ -115,6 +115,9 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
         # locally
         $ git config --local commit.template .gitmessage.txt
 
+   The ``Signed-off-by`` message is not used anymore, so you can avoid ``-s``
+   parameters when committing. But of course, you can modify your own version
+   of the ``.gitcommit.txt`` in order to add you own ``Co-Authored-by`` message.
 
 7. Commit your changes and push your branch to GitHub:
 
@@ -122,11 +125,6 @@ Ready to contribute? Here's how to set up `rero-ils` for local development.
 
       $ git add .
       $ git commit -s
-          -m "component: title without verbs"
-          -m "* NEW Adds your new feature."
-          -m "* FIX Fixes an existing issue."
-          -m "* BETTER Improves and existing feature."
-          -m "* Changes something that should not be visible in release notes."
       $ git push origin name-of-your-bugfix-or-feature
 
 8. Submit a pull request through the GitHub website.
