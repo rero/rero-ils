@@ -57,9 +57,10 @@ def marc21_to_languages_from_008(self, key, value):
 
     languages: 008 and 041 [$a, repetitive]
     """
-    language = value.strip()[35:38]
-    to_return = [{'language': language}]
-    return to_return
+    languages = self.get('languages', [])
+    # put 008 language in first place
+    languages.insert(0, value.strip()[35:38])
+    return languages
 
 
 @marc21.over('identifiers', '^020..')
@@ -91,7 +92,6 @@ def marc21_to_type(self, key, value):
     Sounds: LDR/6: i|j
     E-books (imported from Cantook)
     """
-    self.setdefault('languages', [{'language': 'und'}])
     if value.get('a').find('cantook') > -1:
         return 'ebook'
     return None
@@ -120,19 +120,18 @@ def marc21_to_translatedFrom(self, key, value):
     languages = self.get('languages', [])
     unique_lang = []
     if languages != []:
-        unique_lang.append(languages[0]['language'])
+        for language in languages:
+            unique_lang.append(language)
 
     language = value.get('a')
     if language:
         for lang in utils.force_list(language):
             if lang not in unique_lang:
                 unique_lang.append(lang)
-
-    languages = []
-    for lang in unique_lang:
-        languages.append({'language': lang})
+                languages.append({'language': lang})
 
     self['languages'] = languages
+
     translated = value.get('h')
     if translated:
         return list(utils.force_list(translated))
