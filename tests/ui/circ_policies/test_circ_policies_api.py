@@ -90,11 +90,11 @@ def test_circ_policy_exist_name_and_organisation_pid(
 def test_circ_policy_can_not_delete(circ_policy_default_martigny,
                                     circ_policy_short_martigny):
     """Test can not delete a policy."""
-    others = circ_policy_default_martigny.get_non_link_reasons_to_not_delete()
+    others = circ_policy_default_martigny.reasons_to_keep()
     assert others['is_default']
     assert not circ_policy_default_martigny.can_delete
 
-    others = circ_policy_short_martigny.get_non_link_reasons_to_not_delete()
+    others = circ_policy_short_martigny.reasons_to_keep()
     assert 'is_default' not in others
     assert not circ_policy_short_martigny.can_delete
     assert others['has_settings']

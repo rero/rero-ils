@@ -234,10 +234,25 @@ class Patron(IlsRecord):
             links['loans'] = loans
         return links
 
+    def reasons_to_keep(self):
+        """Reasons aside from record_links to keep a user.
+
+        prevent users with role librarian to delete a system_librarian.
+        """
+        others = {}
+        if current_patron:
+            if not current_patron.is_system_librarian and \
+               self.is_system_librarian:
+                others['permission denied'] = True
+        return others
+
     def reasons_not_to_delete(self):
-        """Get reasons not to delete record."""
+        """Get reasons not to delete policy."""
         cannot_delete = {}
+        others = self.reasons_to_keep()
         links = self.get_links_to_me()
+        if others:
+            cannot_delete['others'] = others
         if links:
             cannot_delete['links'] = links
         return cannot_delete
@@ -264,6 +279,20 @@ class Patron(IlsRecord):
             library_pid = self.replace_refs().get('library').get('pid')
             return library_pid
         return None
+
+    @property
+    def is_librarian(self):
+        """Shortcut to check if user has librarian role."""
+        if 'librarian' in self.get('roles'):
+            return True
+        return False
+
+    @property
+    def is_system_librarian(self):
+        """Shortcut to check if user has system_librarian role."""
+        if 'system_librarian' in self.get('roles'):
+            return True
+        return False
 
     @property
     def organisation_pid(self):
