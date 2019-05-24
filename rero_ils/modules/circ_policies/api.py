@@ -176,8 +176,8 @@ class CircPolicy(IlsRecord):
             return PI_policy
         return CircPolicy.get_default_circ_policy()
 
-    def get_non_link_reasons_to_not_delete(self):
-        """Get non-links reasons not to delete a policy."""
+    def reasons_to_keep(self):
+        """Reasons aside from record_links to keep a circ policy."""
         others = {}
         is_default = self.get('is_default')
         if is_default:
@@ -195,7 +195,7 @@ class CircPolicy(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete policy."""
         cannot_delete = {}
-        others = self.get_non_link_reasons_to_not_delete()
+        others = self.reasons_to_keep()
         links = self.get_links_to_me()
         if others:
             cannot_delete['others'] = others

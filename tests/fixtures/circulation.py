@@ -121,6 +121,27 @@ def librarian_martigny_no_email(
 
 
 @pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def system_librarian_martigny_no_email(
+        app,
+        roles,
+        lib_martigny,
+        patron_type_children_martigny,
+        librarian_martigny_data):
+    """Create Martigny librarian without sending reset password instruction."""
+    data = deepcopy(librarian_martigny_data)
+    del data['roles']
+    data['roles'] = ['system_librarian']
+    ptrn = Patron.create(
+        data=data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
 def librarian_martigny_data(data):
     """Load Martigny librarian data."""
     return deepcopy(data.get('ptrn1'))
@@ -152,6 +173,12 @@ def librarian_martigny(
 @pytest.fixture(scope="module")
 def librarian_saxon_data(data):
     """Load Saxon librarian data."""
+    return deepcopy(data.get('ptrn2'))
+
+
+@pytest.fixture(scope="function")
+def librarian_saxon_data_tmp(data):
+    """Load Saxon librarian data scope function."""
     return deepcopy(data.get('ptrn2'))
 
 
@@ -196,6 +223,12 @@ def librarian_fully_data(data):
     return deepcopy(data.get('ptrn3'))
 
 
+@pytest.fixture(scope="function")
+def librarian_fully_data_tmp(data):
+    """Load fully librarian data scope function."""
+    return deepcopy(data.get('ptrn3'))
+
+
 @pytest.fixture(scope="module")
 def librarian_fully(
         app,
@@ -206,6 +239,27 @@ def librarian_fully(
     """Create Fully librarian record."""
     ptrn = Patron.create(
         data=librarian_fully_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def librarian_only_fully_no_email(
+        app,
+        roles,
+        lib_fully,
+        patron_type_adults_martigny,
+        librarian_fully_data):
+    """Create Fully librarian record."""
+    data = deepcopy(librarian_fully_data)
+    del data['roles']
+    data['roles'] = ['librarian']
+    ptrn = Patron.create(
+        data=data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
