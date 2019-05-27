@@ -13,7 +13,8 @@
     "email",
     "street",
     "postal_code",
-    "city"
+    "city",
+    "roles"
   ],
   "properties": {
     "$schema": {
