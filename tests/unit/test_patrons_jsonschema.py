@@ -137,3 +137,12 @@ def test_patron_type(patron_schema, librarian_martigny_data_tmp):
     with pytest.raises(ValidationError):
         librarian_martigny_data_tmp['patron_type_pid'] = 25
         validate(librarian_martigny_data_tmp, patron_schema)
+
+
+def test_roles(patron_schema, librarian_martigny_data_tmp):
+    """Test roles for patron jsonschemas."""
+    validate(librarian_martigny_data_tmp, patron_schema)
+
+    with pytest.raises(ValidationError):
+        librarian_martigny_data_tmp['roles'] = 25
+        validate(librarian_martigny_data_tmp, patron_schema)

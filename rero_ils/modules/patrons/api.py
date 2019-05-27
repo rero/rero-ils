@@ -78,7 +78,7 @@ class Patron(IlsRecord):
     available_roles = ['librarian', 'patron']
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=True,
+    def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Patron record creation."""
         record = super(Patron, cls).create(
