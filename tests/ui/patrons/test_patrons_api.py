@@ -64,9 +64,6 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     ptrn.update({'roles': roles}, dbcommit=True)
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(roles)
-    del ptrn['roles']
-    ptrn.update({}, dbcommit=True)
-    assert not user.roles
     roles = Patron.available_roles
     ptrn.update({'roles': Patron.available_roles}, dbcommit=True)
     user_roles = [r.name for r in user.roles]
