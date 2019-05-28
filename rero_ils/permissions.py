@@ -50,12 +50,13 @@ librarian_permission = DynamicPermission(RoleNeed('librarian'))
 
 def can_access_item(user=None, item=None):
     """User has librarian role and logged in and in same item organisation."""
-    if not user:
-        user = current_user
     if item:
-        patron = Patron.get_patron_by_user(user)
-        if patron.organisation_pid == item.organisation_pid:
-            return user.is_authenticated and librarian_permission.can()
+        if not user:
+            user = current_user
+            if user.is_authenticated:
+                patron = Patron.get_patron_by_user(user)
+                if patron.organisation_pid == item.organisation_pid:
+                    return librarian_permission.can()
     return False
 
 
