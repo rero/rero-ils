@@ -45,3 +45,10 @@ def test_can_access_item_patron(
     login_user(client, patron_martigny_no_email)
     assert not can_access_item()
     assert not can_access_item(item=item_lib_martigny)
+
+
+def test_can_access_item_no_user(
+        client, json_header, item_lib_martigny):
+    """Test can access an item no user."""
+    assert not can_access_item()
+    assert not can_access_item(item=item_lib_martigny)
