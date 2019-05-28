@@ -77,8 +77,14 @@ class REROILSAPP(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['rero-ils'] = self
-        app.context_processor(lambda: dict(
-            admin_root_menu=current_admin.admin.menu()))
+
+        # invenio-admin is not available for the wsgi_api application
+        def get_admin_menu():
+            if app.extensions.get('invenio-admin'):
+                return dict(admin_root_menu=current_admin.admin.menu())
+            return dict()
+
+        app.context_processor(get_admin_menu)
 
     def init_config(self, app):
         """Initialize configuration."""

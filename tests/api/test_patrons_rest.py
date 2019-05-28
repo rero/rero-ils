@@ -154,14 +154,12 @@ def test_patrons_post_put_delete(client, lib_martigny,
     # Create record / POST
     patron_data['pid'] = '1'
     patron_data['email'] = 'test@rero.ch'
-    with mock.patch('rero_ils.modules.patrons.api.'
-                    'send_reset_password_instructions'):
 
-        res = client.post(
-            post_url,
-            data=json.dumps(patron_data),
-            headers=json_header
-        )
+    res = client.post(
+        post_url,
+        data=json.dumps(patron_data),
+        headers=json_header
+    )
 
     assert res.status_code == 201
     assert len(Patron.get_all_pids()) == pids + 1
