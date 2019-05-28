@@ -28,6 +28,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import os
+import sys
 from collections import OrderedDict
 from glob import glob
 
@@ -38,6 +39,8 @@ from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
+from invenio_search.cli import es_version_check
+from invenio_search.proxies import current_search, current_search_client
 from werkzeug.local import LocalProxy
 
 from .items.cli import create_items, reindex_items
@@ -159,3 +162,24 @@ def schedules():
     for key, value in celery_ext.celery.conf.beat_schedule.items():
         click.echo(key + '\t', nl=False)
         click.echo(value)
+
+
+@utils.command()
+@click.option('--force', is_flag=True, default=False)
+@with_appcontext
+@es_version_check
+def init(force):
+    """Initialize registered templates, aliases and mappings."""
+    # TODO: to remove once it is fixed in invenio-search module
+    click.secho('Putting templates...', fg='green', bold=True, file=sys.stderr)
+    with click.progressbar(
+            current_search.put_templates(ignore=[400] if force else None),
+            length=len(current_search.templates.keys())) as bar:
+        for response in bar:
+            bar.label = response
+    click.secho('Creating indexes...', fg='green', bold=True, file=sys.stderr)
+    with click.progressbar(
+            current_search.create(ignore=[400] if force else None),
+            length=current_search.number_of_indexes) as bar:
+        for name, response in bar:
+            bar.label = name
