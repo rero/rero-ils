@@ -256,6 +256,9 @@ setup(
             'circ_policies = rero_ils.modules.circ_policies.mappings',
             'loans = rero_ils.modules.loans.mappings',
         ],
+        'invenio_search.templates': [
+            'base-record = rero_ils.es_templates:list_es_templates'
+        ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
             'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
