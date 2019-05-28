@@ -1,0 +1,17 @@
+{
+  "index_patterns": "*",
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "global_lowercase_asciifolding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
