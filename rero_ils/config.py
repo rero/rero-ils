@@ -180,6 +180,9 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RERO-ILS!")
 ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 # Disable User Profiles
 USERPROFILES = False
+# make security blueprints available to the REST API
+ACCOUNTS_REGISTER_BLUEPRINT = True
+
 
 # Celery configuration
 # ====================

@@ -143,7 +143,7 @@ def test_patron_listener(client, librarian_martigny_no_email,
                          lib_fully, loc_public_martigny,
                          patron_martigny_no_email,
                          patron_martigny,
-                         loan_pending):
+                         loan_pending, mailbox):
     """Test patron listener."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     requests = item_lib_fully.number_of_requests()
@@ -152,12 +152,8 @@ def test_patron_listener(client, librarian_martigny_no_email,
         item_lib_fully.validate_request(**request)
         item_lib_fully.receive(**loan_pending)
 
-    with mock.patch(
-        'rero_ils.modules.ext.current_admin',
-        {}
-    ):
-        sender = {}
-        data = {'item': item_lib_fully}
-        with mock.patch('rero_ils.utils.send_mail'):
-            with pytest.raises(AttributeError):
-                assert listener_item_at_desk(sender, **data)
+    sender = {}
+    data = {'item': item_lib_fully}
+    n_msg = len(mailbox)
+    listener_item_at_desk(sender, **data)
+    assert len(mailbox) == n_msg + 1
