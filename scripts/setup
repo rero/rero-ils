@@ -38,7 +38,9 @@ pipenv run invenio db init create
 pipenv run invenio index queue purge delete
 set -e
 pipenv run invenio index destroy --force --yes-i-know
-pipenv run invenio index init --force
+# Override index init to load templates before mapping
+pipenv run invenio utils init --force
+# pipenv run invenio index init --force
 pipenv run invenio index queue init
 # Delete invenio_circulations index
 pipenv run invenio index delete loans-loan-v1.0.0 --force --yes-i-know
