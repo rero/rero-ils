@@ -26,7 +26,7 @@
 
 
 import pytest
-from invenio_search import current_search_client
+from invenio_search import current_search, current_search_client
 
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
