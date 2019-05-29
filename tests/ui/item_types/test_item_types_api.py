@@ -47,20 +47,6 @@ def test_item_type_create(db, item_type_data_tmp):
     assert not ItemType.get_pid_by_name('no exists')
 
 
-def test_item_type_es_mapping(es_clear, db, org_martigny, item_type_data_tmp):
-    """Test item type elasticsearch mapping."""
-    search = ItemTypesSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    ItemType.create(
-        item_type_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
 def test_item_type_exist_name_and_organisation_pid(
         item_type_standard_martigny):
     """Test item type name uniquness."""
