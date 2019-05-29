@@ -64,6 +64,9 @@ def es(appctx):
     should used the function-scoped :py:data:`es_clear` fixture to leave the
     indexes clean for the following tests.
     """
+    from elasticsearch.exceptions import RequestError
+    from invenio_search import current_search, current_search_client
+
     try:
         list(current_search.put_templates())
     except RequestError:
