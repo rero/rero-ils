@@ -52,6 +52,39 @@ pytest_plugins = [
 ]
 
 
+@pytest.fixture(scope='module')
+def es(appctx):
+    """Setup and teardown all registered Elasticsearch indices.
+
+    Scope: module
+    This fixture will create all registered indexes in Elasticsearch and remove
+    once done. Fixtures that perform changes (e.g. index or remove documents),
+    should used the function-scoped :py:data:`es_clear` fixture to leave the
+    indexes clean for the following tests.
+    """
+    from elasticsearch.exceptions import RequestError
+    from invenio_search import current_search, current_search_client
+
+    try:
+        list(current_search.put_templates())
+    except RequestError:
+        current_search_client.indices.delete_template('*')
+        list(current_search.put_templates())
+
+    try:
+        list(current_search.create())
+    except RequestError:
+        list(current_search.delete(ignore=[404]))
+        list(current_search.create())
+    current_search_client.indices.refresh()
+
+    try:
+        yield current_search_client
+    finally:
+        current_search_client.indices.delete(index='*')
+        current_search_client.indices.delete_template('*')
+
+
 @pytest.fixture(scope="module")
 def data():
     """Load fixture data file."""
