@@ -26,11 +26,13 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime, timedelta, timezone
 from os.path import dirname, join
 
 import mock
 import pytest
 from invenio_circulation.proxies import current_circulation
+from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, mock_response
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
@@ -41,6 +43,8 @@ from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
@@ -177,6 +181,35 @@ def item_lib_martigny(
     """Create item of martigny library."""
     item = Item.create(
         data=item_lib_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def item2_lib_martigny_data(data):
+    """Load item of martigny library."""
+    return deepcopy(data.get('item5'))
+
+
+@pytest.fixture(scope="function")
+def item2_lib_martigny_data_tmp(data):
+    """Load item of martigny library scope function."""
+    return deepcopy(data.get('item5'))
+
+
+@pytest.fixture(scope="module")
+def item2_lib_martigny(
+        app,
+        document,
+        item2_lib_martigny_data,
+        loc_public_martigny,
+        item_type_standard_martigny):
+    """Create item2 of martigny library."""
+    item = Item.create(
+        data=item2_lib_martigny_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

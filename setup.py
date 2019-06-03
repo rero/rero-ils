@@ -98,11 +98,13 @@ setup(
             'mef_persons = rero_ils.modules.mef_persons.views:blueprint',
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
+            'notifications = rero_ils.modules.notifications.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
             'circ_policies = rero_ils.modules.circ_policies.views:blueprint',
             'item_types = rero_ils.modules.item_types.views:blueprint',
             'patron_types = rero_ils.modules.patron_types.views:blueprint',
+            'notifications = rero_ils.modules.notifications.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:api_blueprint',
             'api_documents = rero_ils.modules.documents.views:api_blueprint',
             'items = rero_ils.modules.items.api_views:api_blueprint',
@@ -187,6 +189,7 @@ setup(
             'mef = rero_ils.modules.mef_persons.models',
             'apiharvester = rero_ils.modules.apiharvester.models',
             'circ_policies = rero_ils.modules.circ_policies.models',
+            'notifications = rero_ils.modules.notifications.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = \
@@ -207,6 +210,8 @@ setup(
             ':mef_person_id_minter',
             'circ_policy_id = rero_ils.modules.circ_policies.api'
             ':circ_policy_id_minter',
+            'notification_id = rero_ils.modules.notifications.api'
+            ':notification_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
@@ -229,6 +234,8 @@ setup(
                 rero_ils.modules.mef_persons.api:mef_person_id_fetcher',
             'circ_policy_id = rero_ils.modules.circ_policies.api'
             ':circ_policy_id_fetcher',
+            'notification_id = rero_ils.modules.notifications.api'
+            ':notification_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -241,7 +248,8 @@ setup(
             'patron_types = rero_ils.modules.patron_types.jsonschemas',
             'persons = rero_ils.modules.mef_persons.jsonschemas',
             'circ_policies = rero_ils.modules.circ_policies.jsonschemas',
-            'loans = rero_ils.modules.loans.jsonschemas'
+            'loans = rero_ils.modules.loans.jsonschemas',
+            'notifications = rero_ils.modules.notifications.jsonschemas'
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -255,6 +263,7 @@ setup(
             'persons = rero_ils.modules.mef_persons.mappings',
             'circ_policies = rero_ils.modules.circ_policies.mappings',
             'loans = rero_ils.modules.loans.mappings',
+            'notifications = rero_ils.modules.notifications.mappings',
         ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
@@ -263,10 +272,13 @@ setup(
         'invenio_records.jsonresolver': [
             'organisations = rero_ils.modules.organisations.jsonresolver',
             'locations = rero_ils.modules.locations.jsonresolver',
+            'items = rero_ils.modules.items.jsonresolver',
+            'patrons = rero_ils.modules.patrons.jsonresolver',
             'libraries = rero_ils.modules.libraries.jsonresolver',
             'patron_types = rero_ils.modules.patron_types.jsonresolver',
             'item_types = rero_ils.modules.item_types.jsonresolver',
             'documents = rero_ils.modules.documents.jsonresolver',
+            'loans = rero_ils.modules.loans.jsonresolver',
             'documents_mef_person = \
                 rero_ils.modules.documents.jsonresolver_mef_person'
         ]

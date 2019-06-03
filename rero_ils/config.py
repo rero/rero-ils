@@ -61,6 +61,7 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
 from .modules.locations.api import Location
+from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
@@ -701,6 +702,44 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
+    notif=dict(
+        pid_type='notif',
+        pid_minter='notification_id',
+        pid_fetcher='notification_id',
+        search_class=RecordsSearch,
+        search_index='notifications',
+        indexer_class=IlsRecordIndexer,
+        search_type=None,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers' ':json_v1_response'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'invenio_records_rest.serializers' ':json_v1_search'
+            ),
+            'application/can-delete+json': (
+                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
+            ),
+        },
+        record_loaders={
+            'application/json': lambda: Notification(request.get_json()),
+        },
+        list_route='/notifications/',
+        record_class='rero_ils.modules.notifications.api:Notification',
+        item_route='/notifications/<pid(notif, record_class="rero_ils.modules.notifications.api:Notification"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -861,7 +900,8 @@ RECORDS_JSON_SCHEMA = {
     'loc': '/locations/location-v0.0.1.json',
     'org': '/organisations/organisation-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
-    'ptty': '/patron_types/patron_type-v0.0.1.json'
+    'ptty': '/patron_types/patron_type-v0.0.1.json',
+    'notif': '/notifications/notification-v0.0.1.json',
 }
 
 
