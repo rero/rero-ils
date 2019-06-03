@@ -41,10 +41,10 @@ from .items.signals import item_at_desk
 from .loans.listener import enrich_loan_data
 from .locations.listener import enrich_location_data
 from .mef_persons.receivers import publish_api_harvested_records
+from .notifications.listener import enrich_notification_data
 from .patrons.listener import enrich_patron_data, listener_item_at_desk
 from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
     resource_can_create, text_to_id, to_pretty_json
-from ..permissions import can_access_item, can_edit
 
 
 class REROILSAPP(object):
@@ -52,6 +52,7 @@ class REROILSAPP(object):
 
     def __init__(self, app=None):
         """RERO ILS App module."""
+        from ..permissions import can_access_item, can_edit
         if app:
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
@@ -100,6 +101,7 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_item_data)
         before_record_index.connect(enrich_patron_data)
         before_record_index.connect(enrich_location_data)
+        before_record_index.connect(enrich_notification_data)
 
         item_at_desk.connect(listener_item_at_desk)
 

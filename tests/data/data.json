@@ -954,6 +954,22 @@
     },
     "status": "on_shelf"
   },
+  "item5": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item5",
+    "barcode": "8712133",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "001313",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_shelf"
+  },
   "ptrn1": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
@@ -1151,5 +1167,14 @@
     "transaction_date": "2019-01-09T08:18:22.576291+00:00",
     "transaction_location_pid": "loc1",
     "transaction_user_pid": "ptrn2"
+  },
+  "dummy_notif": {
+    "$schema": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json",
+    "pid": "notif1",
+    "notification_date": "2019-01-09T08:18:22.576291+00:00",
+    "notification_type": "availability",
+    "loan": {
+      "$ref": "https://ils.rero.ch/api/loans/x"
+    }
   }
 }

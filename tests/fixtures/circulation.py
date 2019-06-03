@@ -26,11 +26,13 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime, timedelta, timezone
 from os.path import dirname, join
 
 import mock
 import pytest
 from invenio_circulation.proxies import current_circulation
+from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, mock_response
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
@@ -41,6 +43,8 @@ from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
@@ -530,7 +534,7 @@ def loan_pending(
         loan_data):
     """Create loan record with state pending.
 
-    item_lib_fully is requested by librarian_martigny(patron).
+    item_lib_fully is requested by patron2_martigny.
     """
     loan = Loan.create(
         data=loan_data,
@@ -539,3 +543,60 @@ def loan_pending(
         reindex=True)
     flush_index(current_circulation.loan_search.Meta.index)
     return loan
+
+
+@pytest.fixture(scope="module")
+def loan_validated(
+        app,
+        document,
+        item2_lib_martigny,
+        loc_public_martigny,
+        item_type_standard_martigny,
+        librarian_martigny_no_email,
+        patron_martigny_no_email,
+        circulation_policies):
+    """Request and validate item to a patron.
+
+    item2_lib_martigny is requested and validated to patron_martigny.
+    """
+    transaction_date = datetime.now(timezone.utc).isoformat()
+
+    item2_lib_martigny.request(
+        patron_pid=patron_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=loc_public_martigny.pid,
+        document_pid=item2_lib_martigny.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(NotificationsSearch.Meta.index)
+
+    loan = list(item2_lib_martigny.get_loans_by_item_pid(
+        item_pid=item2_lib_martigny.pid))[0]
+    item2_lib_martigny.status_update(dbcommit=True)
+    item2_lib_martigny.validate_request(
+        loan_pid=loan.get('loan_pid'),
+        patron_pid=patron_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=loc_public_martigny.pid,
+        document_pid=item2_lib_martigny.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(NotificationsSearch.Meta.index)
+    loan = list(item2_lib_martigny.get_loans_by_item_pid(
+        item_pid=item2_lib_martigny.pid))[0]
+    item2_lib_martigny.status_update(dbcommit=True)
+    return loan
+
+
+# ------------ Notifications ------dummy notification----
+
+@pytest.fixture(scope="function")
+def dummy_notification(data):
+    """Notification data scope function."""
+    return deepcopy(data.get('dummy_notif'))
