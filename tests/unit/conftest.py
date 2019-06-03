@@ -44,6 +44,17 @@ def circ_policy_schema():
 
 
 @pytest.fixture()
+def notification_schema():
+    """Notifications Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.notifications.jsonschemas',
+        '/notifications/notification-v0.0.1.json'
+    )
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
 def item_type_schema():
     """Item type Jsonschema for records."""
     schema_in_bytes = resource_string(

@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Notification",
+  "description": "JSON schema for notifications.",
+  "additionalProperties": true,
+  "required": [
+    "$schema",
+    "pid",
+    "notification_type",
+    "loan"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate notifications records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Notification ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "notification_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Notification creation date"
+    },
+    "loan": {
+      "title": "Loan",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Loan URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/loans/.*?$"
+        }
+      }
+    },
+    "reminder_counter": {
+      "type": "integer",
+      "title": "Current reminder count"
+    },
+    "notification_type": {
+      "title": "Notification type",
+      "description": "The type of the notification.",
+      "type": "string",
+      "enum": [
+        "due_soon",
+        "overdue",
+        "availability",
+        "recall"
+      ]
+    }
+  }
+}

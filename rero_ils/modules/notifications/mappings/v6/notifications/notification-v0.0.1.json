@@ -1,0 +1,43 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "notification-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "notification_date": {
+          "type": "date"
+        },
+        "reminder_counter": {
+          "type": "keyword"
+        },
+        "notification_type": {
+          "type": "keyword"
+        },
+        "loan": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
