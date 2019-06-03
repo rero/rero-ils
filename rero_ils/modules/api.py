@@ -215,7 +215,7 @@ class IlsRecord(Record):
         """Update data for record."""
         pid = data.get('pid')
         if pid:
-            db_record = IlsRecord.get_record_by_id(self.id)
+            db_record = self.get_record_by_id(self.id)
             if pid != db_record.pid:
                 raise IlsRecordError.PidChange(
                     'changed pid from {old_pid} to {new_pid}'.format(
