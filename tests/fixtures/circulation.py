@@ -41,6 +41,8 @@ from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
@@ -539,3 +541,32 @@ def loan_pending(
         reindex=True)
     flush_index(current_circulation.loan_search.Meta.index)
     return loan
+
+
+@pytest.fixture(scope="function")
+def notification_martigny_data_tmp(data):
+    """Notification data scope function."""
+    return deepcopy(data.get('notif1'))
+
+
+@pytest.fixture(scope="module")
+def notification_martigny_data(data):
+    """Notification data."""
+    return deepcopy(data.get('notif1'))
+
+
+@pytest.fixture(scope="module")
+def notification_availabilty_martigny(
+        app,
+        item_lib_fully,
+        notification_martigny_data,
+        system_librarian_martigny_no_email,
+        loc_public_martigny):
+    """Create sion librarian record."""
+    record = Notification.create(
+        data=notification_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(NotificationsSearch.Meta.index)
+    return record

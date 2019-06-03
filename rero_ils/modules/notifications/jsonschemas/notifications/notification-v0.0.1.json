@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Notification",
+  "description": "JSON schema for notifications.",
+  "additionalProperties": true,
+  "required": [
+    "$schema",
+    "pid",
+    "notification_type",
+    "patron",
+    "transaction_location"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate notifications records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Notification ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "notification_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Notification creation date"
+    },
+    "patron": {
+      "title": "Patron",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Patron URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+        }
+      }
+    },
+    "item": {
+      "title": "Item",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Item URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/items/.*?$"
+        }
+      }
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Due date"
+    },
+    "reminder_counter": {
+      "type": "integer",
+      "title": "Current reminder count"
+    },
+    "transaction_location": {
+      "title": "Transaction location",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Transaction location URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/locations/.*?$"
+        }
+      }
+    },
+    "pickup_library": {
+      "title": "Pickup library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Pickup library URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/libaries/.*?$"
+        }
+      }
+    },
+    "notification_type": {
+      "title": "Notification type",
+      "description": "The type of the notification.",
+      "type": "string",
+      "enum": [
+        "due_soon",
+        "overdue",
+        "availability",
+        "recall"
+      ]
+    }
+  }
+}
