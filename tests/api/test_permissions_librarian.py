@@ -42,7 +42,8 @@ def test_librarian_permissions(
         client, system_librarian_martigny_no_email, json_header,
         patron_martigny_no_email,
         librarian_only_fully_no_email,
-        patron_martigny_data_tmp):
+        patron_martigny_data_tmp,
+        lib_saxon):
     """Test librarian permissions."""
     # Login as librarian
     login_user_via_session(client, librarian_only_fully_no_email.user)
@@ -71,7 +72,14 @@ def test_librarian_permissions(
     post_url = url_for('invenio_records_rest.ptrn_list')
     system_librarian = deepcopy(record)
     librarian = deepcopy(record)
+    librarian_saxon = deepcopy(record)
+    librarian_saxon['library'] = \
+        {"$ref": "https://ils.rero.ch/api/libraries/lib2"}
+    librarian['library'] = \
+        {"$ref": "https://ils.rero.ch/api/libraries/lib3"}
     patron = deepcopy(record)
+    patron['library'] = \
+        {"$ref": "https://ils.rero.ch/api/libraries/lib3"}
     counter = 1
     for record in [
         {'data': patron, 'role': 'patron'},
@@ -122,6 +130,25 @@ def test_librarian_permissions(
 
             res = client.delete(record_url)
             assert res.status_code == 204
+
+    # can not create librarians of same libray.
+    counter = 1
+    for record in [
+        {'data': librarian_saxon, 'role': 'librarian'},
+    ]:
+        counter += 1
+        data = record['data']
+        data['roles'] = [record['role']]
+        data['barcode'] = 'barcode' + str(counter)
+        data['email'] = str(counter) + '@domain.com'
+        with mock.patch('rero_ils.modules.patrons.api.'
+                        'send_reset_password_instructions'):
+            res = client.post(
+                post_url,
+                data=json.dumps(data),
+                headers=json_header
+            )
+            assert res.status_code == 403
 
     system_librarian['roles'] = ['system_librarian']
     system_librarian['barcode'] = 'barcode'
