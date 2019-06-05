@@ -70,6 +70,15 @@ def json_header():
 
 
 @pytest.fixture(scope="session")
+def rero_json_header():
+    """Load json headers."""
+    return [
+        ('Accept', 'application/rero+json'),
+        ('Content-Type', 'application/json')
+    ]
+
+
+@pytest.fixture(scope="session")
 def can_delete_json_header():
     """Load can_delete json headers."""
     return [

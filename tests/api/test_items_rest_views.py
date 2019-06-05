@@ -491,11 +491,11 @@ def test_item_secure_api_update(client, json_header, item_lib_saxon,
     assert res.status_code == 403
 
 
-def test_item_secure_api_delete(client, json_header, item_lib_saxon,
+def test_item_secure_api_delete(client, item_lib_saxon,
                                 librarian_martigny_no_email,
                                 librarian_sion_no_email,
                                 item_lib_saxon_data,
-                                can_delete_json_header):
+                                json_header):
     """Test item secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)

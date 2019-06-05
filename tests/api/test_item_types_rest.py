@@ -278,12 +278,12 @@ def test_item_type_secure_api_create(client, json_header,
     assert res.status_code == 403
 
 
-def test_item_type_secure_api_update(client, json_header,
+def test_item_type_secure_api_update(client,
                                      item_type_on_site_martigny,
                                      librarian_martigny_no_email,
                                      librarian_sion_no_email,
                                      item_type_on_site_martigny_data,
-                                     can_delete_json_header):
+                                     json_header):
     """Test item type secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -295,7 +295,7 @@ def test_item_type_secure_api_update(client, json_header,
     res = client.put(
         record_url,
         data=json.dumps(data),
-        headers=can_delete_json_header
+        headers=json_header
     )
     assert res.status_code == 200
 
@@ -305,17 +305,17 @@ def test_item_type_secure_api_update(client, json_header,
     res = client.put(
         record_url,
         data=json.dumps(data),
-        headers=can_delete_json_header
+        headers=json_header
     )
     assert res.status_code == 403
 
 
-def test_item_type_secure_api_delete(client, json_header,
+def test_item_type_secure_api_delete(client,
                                      item_type_on_site_martigny,
                                      librarian_martigny_no_email,
                                      librarian_sion_no_email,
                                      item_type_on_site_martigny_data,
-                                     can_delete_json_header):
+                                     json_header):
     """Test item type secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
