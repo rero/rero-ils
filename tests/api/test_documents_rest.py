@@ -223,6 +223,7 @@ def test_document_can_delete(client, item_lib_martigny, loan_pending,
 def test_document_can_request_view(client, item_lib_fully,
                                    loan_pending, document,
                                    patron_martigny_no_email,
+                                   patron2_martigny_no_email,
                                    item_type_standard_martigny,
                                    circulation_policies,
                                    librarian_martigny_no_email,
@@ -232,8 +233,6 @@ def test_document_can_request_view(client, item_lib_fully,
                                    loc_public_martigny):
     """Test can request on document view."""
     login_user_via_session(client, patron_martigny_no_email.user)
-
-    assert loan_pending.patron_pid == librarian_martigny_no_email.pid
 
     assert not patron_request_rank(item_lib_fully)
 
@@ -249,7 +248,7 @@ def test_document_can_request_view(client, item_lib_fully,
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
-        librarian_martigny_no_email.user
+        patron2_martigny_no_email.user
     ):
         assert not can_request(item_lib_fully)
         assert requested_this_item(item_lib_fully)

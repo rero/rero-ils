@@ -41,12 +41,12 @@ from rero_ils.modules.patrons.utils import user_has_patron
 def test_librarian_permissions(
         client, system_librarian_martigny_no_email, json_header,
         patron_martigny_no_email,
-        librarian_only_fully_no_email,
+        librarian_fully_no_email,
         patron_martigny_data_tmp,
         lib_saxon):
     """Test librarian permissions."""
     # Login as librarian
-    login_user_via_session(client, librarian_only_fully_no_email.user)
+    login_user_via_session(client, librarian_fully_no_email.user)
 
     record = {
         "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
