@@ -30,16 +30,6 @@ from flask import url_for
 from invenio_indexer.api import RecordIndexer
 
 
-def delete_record(record_type, record_class, pid):
-    """Remove a record from the db and the index and his corresponding pid."""
-    record = record_class.get_record_by_pid(pid)
-    record.delete(delindex=True)
-    record.dbcommit(reindex=False)
-    RecordIndexer().client.indices.flush()
-    _next = url_for('%s.index_view' % record_type)
-    return _next, record.pid
-
-
 def strtotime(strtime):
     """String to datetime."""
     splittime = strtime.split(':')

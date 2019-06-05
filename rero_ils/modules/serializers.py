@@ -24,29 +24,129 @@
 
 """Record serialization."""
 
-from flask import current_app, json, request
-from invenio_records_rest.schemas import RecordSchemaJSONV1
-from invenio_records_rest.serializers.json import JSONSerializer
+from flask import current_app, json, request, url_for
+from invenio_records_rest import current_records_rest
+from invenio_records_rest.schemas import \
+    RecordSchemaJSONV1 as _RecordSchemaJSONV1
+from invenio_records_rest.serializers.json import \
+    JSONSerializer as _JSONSerializer
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
+from invenio_records_rest.utils import obj_or_import_string
+from marshmallow import fields
 
 
-class ReroIlsSerializer(JSONSerializer):
+class RecordSchemaJSONV1(_RecordSchemaJSONV1):
+    """Schema for records RERO ILS in JSON.
+
+    Add a permissions field.
+    """
+
+    permissions = fields.Raw()
+
+
+class JSONSerializer(_JSONSerializer):
     """Mixin serializing records as JSON."""
 
-    def serialize(self, pid, record, links_factory=None, **kwargs):
-        """Serialize a single record and persistent identifier.
-
-        :param pid: Persistent identifier instance.
-        :param record: Record instance.
-        :param links_factory: Factory function for record links.
-        """
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization."""
+        rec = record
         if request and request.args.get('resolve') == '1':
-            record = record.replace_refs()
+            rec = record.replace_refs()
+        data = super(JSONSerializer, self).preprocess_record(
+            pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
-        return super(
-            ReroIlsSerializer, self).serialize(
-                pid, record, links_factory, **kwargs)
+        return JSONSerializer.add_item_links_and_permissions(record, data, pid)
+
+    @staticmethod
+    def preprocess_search_hit(pid, record_hit, links_factory=None, **kwargs):
+        """Prepare a record hit from Elasticsearch for serialization."""
+        from invenio_records.api import Record
+        from invenio_pidstore.models import PersistentIdentifier
+        data = super(JSONSerializer, JSONSerializer).preprocess_search_hit(
+                     pid=pid, record_hit=record_hit,
+                     links_factory=links_factory, kwargs=kwargs)
+        record_class = obj_or_import_string(
+            current_app.config
+            .get('RECORDS_REST_ENDPOINTS')
+            .get(pid.pid_type).get('record_class', Record))
+        persistent_identifier = PersistentIdentifier.get(
+            pid.pid_type, pid.pid_value)
+        record = record_class.get_record(persistent_identifier.object_uuid)
+        return JSONSerializer.add_item_links_and_permissions(record, data, pid)
+
+    @staticmethod
+    def add_item_links_and_permissions(record, data, pid):
+        """Update the record with action links and permissions."""
+        actions = [
+            'update',
+            'delete'
+        ]
+        permissions = {}
+        action_links = {}
+        for action in actions:
+            permission = JSONSerializer.get_permission(action, pid.pid_type)
+            if permission:
+                can = permission(record).can()
+                if can:
+                    action_links[action] = url_for(
+                        'invenio_records_rest.{pid_type}_item'.format(
+                            pid_type=pid.pid_type),
+                        pid_value=pid.pid_value, _external=True)
+                else:
+                    action_key = 'cannot_{action}'.format(action=action)
+                    permissions[action_key] = {
+                        'permission': "permission denied"}
+        if not record.can_delete:
+            permissions.setdefault(
+                'cannot_delete',
+                {}
+            ).update(record.reasons_not_to_delete())
+        data['links'].update(action_links)
+        data['permissions'] = permissions
+        return data
+
+    @staticmethod
+    def get_permission(action, pid_type):
+        """Get the permission given an action."""
+        default_action = getattr(
+            current_records_rest,
+            '{action}_permission_factory'.format(action=action))
+        permission = obj_or_import_string(
+            current_app.config
+            .get('RECORDS_REST_ENDPOINTS')
+            .get(pid_type)
+            .get(
+                '{action}_permission_factory_imp'.format(action=action),
+                default_action))
+        return permission
+
+    def post_process_serialize_search(self, results, pid_fetcher):
+        """Post process the search results."""
+        pid_type = pid_fetcher('foo', dict(pid='1')).pid_type
+        # add facet settings
+        facet_config = current_app.config.get(
+            'RERO_ILS_APP_CONFIG_FACETS', {}
+        )
+        facet_config = facet_config.get(pid_type, {})
+        results['aggregations']['_settings'] = facet_config
+
+        # add permissions and links actions
+        permission = self.get_permission('create', pid_type)
+        permissions = {}
+        links = {}
+        if permission:
+            can = permission(record=None).can()
+            if can:
+                links['create'] = url_for(
+                    'invenio_records_rest.{pid_type}_list'.format(
+                        pid_type=pid_type), _external=True)
+            else:
+                permissions['create'] = {
+                    'permission': "permission denied"}
+        results['permissions'] = permissions
+        results['links'].update(links)
+        return results
 
     def serialize_search(self, pid_fetcher, search_result, links=None,
                          item_links_factory=None, **kwargs):
@@ -70,50 +170,13 @@ class ReroIlsSerializer(JSONSerializer):
             aggregations=search_result.get('aggregations', dict()),
         )
 
-        with current_app.app_context():
-            facet_config = current_app.config.get(
-                'RERO_ILS_APP_CONFIG_FACETS', {}
-            )
-            if search_result['hits']['hits']:
-                index_name = \
-                    search_result['hits']['hits'][0]['_index'].split('-')[0]
-                facet_config = facet_config.get(index_name, {})
-                results['aggregations']['_settings'] = facet_config
-
-        return json.dumps(results, **self._format_args())
+        return json.dumps(
+            self.post_process_serialize_search(
+                results, pid_fetcher), **self._format_args())
 
 
-json_v1 = ReroIlsSerializer(RecordSchemaJSONV1)
+json_v1 = JSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
 json_v1_search = search_responsify(json_v1, 'application/json')
 json_v1_response = record_responsify(json_v1, 'application/json')
-
-
-class ReroIlsCanDeleteSerializer(ReroIlsSerializer):
-    """Mixin serializing records as JSON."""
-
-    def serialize(self, pid, record, links_factory=None, **kwargs):
-        """Serialize a single record and persistent identifier.
-
-        :param pid: Persistent identifier instance.
-        :param record: Record instance.
-        :param links_factory: Factory function for record links.
-        """
-        if request and request.args.get('resolve'):
-            record = record.replace_refs()
-        if not record.can_delete:
-            record['cannot_delete'] = record.reasons_not_to_delete()
-
-        return super(
-            ReroIlsCanDeleteSerializer, self).serialize(
-                pid, record, links_factory, **kwargs)
-
-
-can_delete_json_v1 = ReroIlsCanDeleteSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-can_delete_json_v1_search = search_responsify(
-    can_delete_json_v1, 'application/can-delete+json')
-can_delete_json_v1_response = record_responsify(
-    can_delete_json_v1, 'application/can-delete+json')

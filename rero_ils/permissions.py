@@ -62,7 +62,7 @@ def staffer_is_authenticated(user=None):
         user = current_user
     if user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
-        if patron:
+        if patron and (patron.is_librarian or patron.is_system_librarian):
             return patron
     return None
 
@@ -90,19 +90,18 @@ def can_delete_organisation_records_factory(record, *args, **kwargs):
     """
     def can(self):
         patron = staffer_is_authenticated()
-        if patron:
-            if patron.organisation_pid == record.organisation_pid:
-                if patron.is_system_librarian:
-                    return True
-                if patron.is_librarian:
-                    if 'system_librarian' in record.get('roles', []):
-                        return False
-                    if patron.library_pid and \
-                            isinstance(record, Patron) and \
-                            record.library_pid and \
-                            record.library_pid != patron.library_pid:
-                        return False
-                    return True
+        if patron and patron.organisation_pid == record.organisation_pid:
+            if patron.is_system_librarian:
+                return True
+            if patron.is_librarian:
+                if 'system_librarian' in record.get('roles', []):
+                    return False
+                if patron.library_pid and \
+                        isinstance(record, Patron) and \
+                        record.library_pid and \
+                        record.library_pid != patron.library_pid:
+                    return False
+                return True
         return False
     return type('Check', (), {'can': can})()
 
@@ -115,23 +114,22 @@ def can_update_organisation_records_factory(record, *args, **kwargs):
     returns False if a librarian tries to add the system_librarian role.
     """
     def can(self):
-        incoming_record = request.get_json()
+        incoming_record = request.get_json(silent=True) or {}
         patron = staffer_is_authenticated()
-        if patron:
-            if patron.organisation_pid == record.organisation_pid:
-                if not patron.is_system_librarian:
-                    if (
-                        'system_librarian' in incoming_record.get(
-                            'roles', []) or
-                        'system_librarian' in record.get('roles', [])
-                    ):
-                        return False
-                    if patron.library_pid and \
-                            isinstance(record, Patron) and \
-                            record.library_pid and \
-                            record.library_pid != patron.library_pid:
-                        return False
-                return True
+        if patron and patron.organisation_pid == record.organisation_pid:
+            if not patron.is_system_librarian:
+                if (
+                    'system_librarian' in incoming_record.get(
+                        'roles', []) or
+                    'system_librarian' in record.get('roles', [])
+                ):
+                    return False
+                if patron.library_pid and \
+                        isinstance(record, Patron) and \
+                        record.library_pid and \
+                        record.library_pid != patron.library_pid:
+                    return False
+            return True
         return False
     return type('Check', (), {'can': can})()
 
@@ -146,9 +144,7 @@ def can_create_organisation_records_factory(record, *args, **kwargs):
         patron = staffer_is_authenticated()
         if patron and not record:
             return True
-        if not patron:
-            return False
-        if patron.organisation_pid == record.organisation_pid:
+        if patron and patron.organisation_pid == record.organisation_pid:
             if patron.is_system_librarian:
                     return True
             if patron.is_librarian:
@@ -167,14 +163,9 @@ def can_create_organisation_records_factory(record, *args, **kwargs):
 def can_access_organisation_patrons_factory(record, *args, **kwargs):
     """Logged user permissions to access patron records."""
     def can(self):
-        if user_is_authenticated():
-            patron = Patron.get_patron_by_user(current_user)
-            if patron:
-                if patron.is_librarian or patron.is_system_librarian:
-                    if record:
-                        if patron.organisation_pid == record.organisation_pid:
-                            return True
-                    return True
+        patron = staffer_is_authenticated()
+        if patron:
+            return True
         return False
     return type('Check', (), {'can': can})()
 
@@ -187,11 +178,10 @@ def can_access_item(user=None, item=None):
     if item:
         if not user:
             user = current_user
-            if user.is_authenticated:
-                patron = Patron.get_patron_by_user(user)
-                if patron:
-                    if patron.organisation_pid == item.organisation_pid:
-                        return librarian_permission.can()
+        if user.is_authenticated:
+            patron = Patron.get_patron_by_user(user)
+            if patron and patron.organisation_pid == item.organisation_pid:
+                return librarian_permission.can()
     return False
 
 
@@ -209,7 +199,7 @@ def librarian_delete_permission_factory(record, *args, **kwargs):
     """User can delete record."""
     if record.can_delete:
         return librarian_permission
-    abort(403)
+    return type('Check', (), {'can': lambda x: False})()
 
 
 def admin_permission_factory(admin_view):

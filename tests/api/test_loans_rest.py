@@ -107,6 +107,7 @@ def test_loan_utils(client, patron_martigny_no_email,
 
     with pytest.raises(TypeError):
         assert get_loans_by_patron_pid()
+    assert get_loans_by_patron_pid(patron2_martigny_no_email.pid)
 
     with pytest.raises(TypeError):
         assert get_last_transaction_loc_for_item()
