@@ -1036,7 +1036,7 @@
   "ptrn4": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn4",
-    "first_name": "Elena",
+    "first_name": "Eléna",
     "last_name": "Rodriguez",
     "street": "Ave de la gare, 125",
     "postal_code": "1907",
