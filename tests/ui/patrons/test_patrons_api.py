@@ -98,21 +98,12 @@ def test_patron_organisation_pid(org_martigny, patron_martigny_no_email,
     assert librarian.organisation.pid == org_martigny.pid
 
 
-def test_patron_es_mapping(
-        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
-    """Test patron elasticsearch mapping."""
-    search = PatronsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping == get_mapping(search.Meta.index)
-
-
-def test_get_patron(librarian_martigny):
+def test_get_patron(patron_martigny_no_email):
     """Test patron retrieval."""
-    patron = librarian_martigny
-    assert 'system_librarian' in patron.get('roles')
+    patron = patron_martigny_no_email
     assert Patron.get_patron_by_email(patron.get('email')) == patron
     assert not Patron.get_patron_by_email('not exists')
-    assert Patron.get_patron_by_barcode('2050124311') == patron
+    assert Patron.get_patron_by_barcode(patron.get('barcode')) == patron
     assert not Patron.get_patron_by_barcode('not exists')
 
     class user:
@@ -124,3 +115,11 @@ def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
     assert librarian_martigny.get_links_to_me() == {}
     assert librarian_martigny.can_delete
+
+
+def test_patron_es_mapping(
+        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
+    """Test patron elasticsearch mapping."""
+    search = PatronsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping == get_mapping(search.Meta.index)
