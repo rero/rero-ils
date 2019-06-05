@@ -95,6 +95,8 @@ export class CirculationPolicyComponent implements OnInit {
       this.checkout_duration.setValue(null);
       this.number_renewals.setValue(null);
       this.renewal_duration.setValue(null);
+      this.number_of_days_after_due_date.setValue(null);
+      this.number_of_days_before_due_date.setValue(null);
     }
   }
 
@@ -211,6 +213,12 @@ export class CirculationPolicyComponent implements OnInit {
   }
   get allow_checkout() {
     return this.getField('allow_checkout');
+  }
+  get number_of_days_after_due_date() {
+    return this.getField('number_of_days_after_due_date');
+  }
+  get number_of_days_before_due_date() {
+    return this.getField('number_of_days_before_due_date');
   }
   get checkout_duration() {
     return this.getField('checkout_duration');
