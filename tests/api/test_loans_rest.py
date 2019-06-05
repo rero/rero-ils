@@ -88,12 +88,9 @@ def test_loans_logged_permissions(client, loan_pending,
     assert res.status_code == 403
 
 
-def test_loan_utils(client, librarian_martigny_no_email, lib_martigny,
-                    patron_martigny_no_email, item_lib_martigny,
-                    item_type_standard_martigny,
-                    patron_type_children_martigny,
-                    circulation_policies, loan_pending,
-                    librarian_martigny):
+def test_loan_utils(client, patron_martigny_no_email,
+                    patron2_martigny_no_email, circulation_policies,
+                    loan_pending, item_lib_martigny):
     """Test loan utils."""
     loan = {
         'item_pid': item_lib_martigny.pid,
@@ -105,7 +102,7 @@ def test_loan_utils(client, librarian_martigny_no_email, lib_martigny,
     with pytest.raises(Exception):
         assert can_be_requested(loan)
 
-    assert loan_pending.patron_pid == librarian_martigny.pid
+    assert loan_pending.patron_pid == patron2_martigny_no_email.pid
     assert not loan_pending.is_active
 
     with pytest.raises(TypeError):
