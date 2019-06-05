@@ -16,13 +16,12 @@
           "type": "keyword"
         },
         "first_name": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "last_name": {
-          "type": "keyword"
-        },
-        "name": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "birth_date": {
           "type": "date"
@@ -31,13 +30,15 @@
           "type": "keyword"
         },
         "street": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "postal_code": {
           "type": "keyword"
         },
         "city": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "phone": {
           "type": "text"
