@@ -52,7 +52,7 @@ def test_patron_search_mapping(
 
     pids = [r.pid for r in search.query(
          'match', first_name='Eléna').source(['pid']).scan()]
-    assert 'ptrn2' in pids
+    assert 'ptrn4' in pids
 
 
 def test_patron_es_mapping(

@@ -169,6 +169,7 @@ def librarian2_martigny(
     return ptrn
 
 
+# ------------ Org: Martigny, Lib: Saxon, Librarian 1 ----------
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
 def librarian2_martigny_no_email(
@@ -308,6 +309,141 @@ def patron_martigny(
     return ptrn
 
 
+# ------------ Org: Martigny Patron 1 ----------
+@pytest.fixture(scope="module")
+def patron_martigny_data(data):
+    """Load Martigny patron data."""
+    return deepcopy(data.get('ptrn6'))
+
+
+@pytest.fixture(scope="function")
+def patron_martigny_data_tmp(data):
+    """Load Martigny patron data scope function."""
+    return deepcopy(data.get('ptrn6'))
+
+
+@pytest.fixture(scope="module")
+def patron_martigny(
+        app,
+        roles,
+        lib_martigny,
+        patron_type_children_martigny,
+        patron_martigny_data):
+    """Create Martigny patron record."""
+    ptrn = Patron.create(
+        data=patron_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def patron_martigny_no_email(
+        app,
+        roles,
+        patron_type_children_martigny,
+        patron_martigny_data):
+    """Create Martigny patron without sending reset password instruction."""
+    ptrn = Patron.create(
+        data=patron_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+# ------------ Org: Martigny Patron 2 ----------
+@pytest.fixture(scope="module")
+def patron2_martigny_data(data):
+    """Load Martigny patron data."""
+    return deepcopy(data.get('ptrn7'))
+
+
+@pytest.fixture(scope="module")
+def patron2_martigny(
+        app,
+        roles,
+        lib_martigny,
+        patron_type_adults_martigny,
+        patron2_martigny_data):
+    """Create Martigny patron record."""
+    ptrn = Patron.create(
+        data=patron2_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def patron2_martigny_no_email(
+        app,
+        roles,
+        patron_type_adults_martigny,
+        patron2_martigny_data):
+    """Create Martigny patron without sending reset password instruction."""
+    ptrn = Patron.create(
+        data=patron2_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+# ------------ Org: Sion, Lib: Sion, System Librarian ----------
+@pytest.fixture(scope="module")
+def system_librarian_sion_data(data):
+    """Load Sion system librarian data."""
+    return deepcopy(data.get('ptrn8'))
+
+
+@pytest.fixture(scope="function")
+def system_librarian_sion_data_tmp(data):
+    """Load Sion system librarian data scope function."""
+    return deepcopy(data.get('ptrn8'))
+
+
+@pytest.fixture(scope="module")
+def system_librarian_sion(
+        app,
+        roles,
+        lib_sion,
+        system_librarian_sion_data):
+    """Create Sion system librarian record."""
+    ptrn = Patron.create(
+        data=system_librarian_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def system_librarian_sion_no_email(
+        app,
+        roles,
+        lib_sion,
+        system_librarian_sion_data):
+    """Create Sion system librarian without sending reset password."""
+    ptrn = Patron.create(
+        data=system_librarian_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+# ------------ Org: Sion, Lib: Sion, Librarian ----------
 @pytest.fixture(scope="module")
 @mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
 def patron_martigny_no_email(
