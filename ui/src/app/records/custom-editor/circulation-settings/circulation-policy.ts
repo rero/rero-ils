@@ -12,6 +12,8 @@ export class CirculationPolicy {
   allow_requests: boolean = null;
   allow_checkout: boolean = null;
   checkout_duration: number = null;
+  number_of_days_after_due_date: number = null;
+  number_of_days_before_due_date: number = null;
   number_renewals: number = null;
   renewal_duration: number = null;
   policy_library_level: boolean = null;
@@ -30,6 +32,8 @@ export class CirculationPolicy {
     this.allow_requests = true;
     this.allow_checkout = true;
     this.checkout_duration = 7;
+    this.number_of_days_after_due_date = 5;
+    this.number_of_days_before_due_date = 5;
     this.number_renewals = 0;
     this.policy_library_level = false;
     this.is_default = false;
