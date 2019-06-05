@@ -25,6 +25,8 @@ export class CirculationPolicyFormService {
       description: circulation.description,
       allow_checkout: circulation.allow_checkout,
       checkout_duration: circulation.checkout_duration,
+      number_of_days_after_due_date: circulation.number_of_days_after_due_date,
+      number_of_days_before_due_date: circulation.number_of_days_before_due_date,
       allow_requests: circulation.allow_requests,
       number_renewals: circulation.number_renewals,
       renewal_duration: circulation.renewal_duration,
@@ -53,6 +55,8 @@ export class CirculationPolicyFormService {
       allow_requests: [true],
       allow_checkout: [true],
       checkout_duration: [7],
+      number_of_days_after_due_date: [5],
+      number_of_days_before_due_date: [5],
       number_renewals: [0],
       renewal_duration: [null],
       policy_library_level: [false],
@@ -65,6 +69,8 @@ export class CirculationPolicyFormService {
   private validators() {
     const checkoutDurationControl = this.getControlByFieldName('checkout_duration');
     const numberRenewalsControl = this.getControlByFieldName('number_renewals');
+    const daysAfterControl = this.getControlByFieldName('number_of_days_after_due_date');
+    const daysBeforeControl = this.getControlByFieldName('number_of_days_before_due_date');
     this.form.get('allow_checkout').valueChanges.subscribe(checkout => {
       if (checkout) {
         checkoutDurationControl.setValidators([
@@ -75,9 +81,18 @@ export class CirculationPolicyFormService {
           Validators.required,
           Validators.min(0)
         ]);
+        daysAfterControl.setValidators([
+          Validators.required,
+          Validators.min(1)
+        ]);
+        daysBeforeControl.setValidators([
+          Validators.required,
+          Validators.min(1)
+        ]);
       } else {
         checkoutDurationControl.clearValidators();
         numberRenewalsControl.clearValidators();
+        daysAfterControl.clearValidators();
       }
     });
     const renewalDuration = this.getControlByFieldName('renewal_duration');
