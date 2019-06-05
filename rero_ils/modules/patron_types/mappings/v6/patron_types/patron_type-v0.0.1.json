@@ -17,13 +17,15 @@
         },
         "name": {
           "type": "text",
-          "copy_to": "patron_type_name"
+          "copy_to": "patron_type_name",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "patron_type_name": {
           "type": "keyword"
         },
         "description": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "organisation": {
           "properties": {
