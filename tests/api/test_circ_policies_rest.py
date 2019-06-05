@@ -126,7 +126,7 @@ def test_filtered_circ_policies_get(
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_circ_policies_post_put_delete(client, org_martigny,
                                        circ_policy_default_martigny_data,
-                                       json_header, can_delete_json_header):
+                                       json_header):
     """Test policy retrieval."""
     # Create policy / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
@@ -157,7 +157,7 @@ def test_circ_policies_post_put_delete(client, org_martigny,
     res = client.put(
         item_url,
         data=json.dumps(data),
-        headers=can_delete_json_header
+        headers=json_header
     )
     assert res.status_code == 200
     # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
@@ -272,12 +272,12 @@ def test_circ_policy_secure_api_create(client, json_header,
     assert res.status_code == 403
 
 
-def test_circ_policy_secure_api_update(client, json_header,
+def test_circ_policy_secure_api_update(client,
                                        circ_policy_short_martigny,
                                        librarian_martigny_no_email,
                                        librarian_sion_no_email,
                                        circ_policy_short_martigny_data,
-                                       can_delete_json_header):
+                                       json_header):
     """Test circulation policies secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -289,7 +289,7 @@ def test_circ_policy_secure_api_update(client, json_header,
     res = client.put(
         record_url,
         data=json.dumps(data),
-        headers=can_delete_json_header
+        headers=json_header
     )
     assert res.status_code == 200
 
@@ -299,17 +299,17 @@ def test_circ_policy_secure_api_update(client, json_header,
     res = client.put(
         record_url,
         data=json.dumps(data),
-        headers=can_delete_json_header
+        headers=json_header
     )
     assert res.status_code == 403
 
 
-def test_circ_policy_secure_api_delete(client, json_header,
+def test_circ_policy_secure_api_delete(client,
                                        circ_policy_short_martigny,
                                        librarian_martigny_no_email,
                                        librarian_sion_no_email,
                                        circ_policy_short_martigny_data,
-                                       can_delete_json_header):
+                                       json_header):
     """Test circulation policies secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)

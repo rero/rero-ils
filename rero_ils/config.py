@@ -329,9 +329,6 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
@@ -371,18 +368,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/items/',
         record_loaders={
@@ -409,18 +400,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/item_types/',
         record_loaders={
@@ -447,18 +432,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/patrons/',
         record_loaders={
@@ -486,18 +465,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/patron_types/',
         record_loaders={
@@ -524,18 +497,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/organisations/',
         record_loaders={
@@ -562,18 +529,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/libraries/',
         record_loaders={
@@ -584,6 +545,7 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
+        list_permission_factory_imp=can_access_organisation_patrons_factory,
         read_permission_factory_imp=can_access_organisation_records_factory,
         create_permission_factory_imp=can_create_organisation_records_factory,
         update_permission_factory_imp=can_update_organisation_records_factory,
@@ -600,18 +562,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/locations/',
         record_loaders={
@@ -637,18 +593,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         list_route='/persons/',
         record_class='rero_ils.modules.mef_persons.api:MefPerson',
@@ -672,20 +622,13 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             )
-
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         record_loaders={
             'application/json': lambda: CircPolicy(request.get_json()),
@@ -706,7 +649,7 @@ RECORDS_REST_ENDPOINTS = dict(
 SEARCH_UI_SEARCH_INDEX = 'documents'
 
 RERO_ILS_APP_CONFIG_FACETS = {
-    'documents': {
+    'doc': {
         'order': [
             'document_type',
             'library',
@@ -720,13 +663,13 @@ RERO_ILS_APP_CONFIG_FACETS = {
         ],
         'expand': ['document_type'],
     },
-    'patrons': {
+    'ptrn': {
         'order': [
             'roles'
         ],
         'expand': ['roles']
     },
-    'persons': {
+    'pers': {
         'order': [
             'sources'
         ],
