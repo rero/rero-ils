@@ -65,6 +65,20 @@
       "type": "boolean",
       "default": true
     },
+    "number_of_days_before_due_date": {
+      "title": "Number of days before due data.",
+      "description": "Number of days before due date for sending the availability notification.",
+      "type": "integer",
+      "default": 5,
+      "minimum": 1
+    },
+    "number_of_days_after_due_date": {
+      "title": "Number of days after due data.",
+      "description": "Number of days after due date for sending the first overdue notification.",
+      "type": "integer",
+      "default": 5,
+      "minimum": 1
+    },
     "number_renewals": {
       "title": "Maximum number of renewals",
       "description": "Maximum number of renewals allowed.",
