@@ -1544,6 +1544,7 @@ def test_items_in_transit(client, librarian_martigny_no_email,
 
 def test_multiple_loans_on_item_error(client,
                                       patron_martigny_no_email,
+                                      patron2_martigny_no_email,
                                       loc_public_martigny,
                                       item_type_standard_martigny,
                                       item_lib_martigny, json_header,
@@ -1553,7 +1554,7 @@ def test_multiple_loans_on_item_error(client,
     """Test MultipleLoansOnItemError."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
-    checked_patron = librarian_martigny_no_email.pid
+    checked_patron = patron2_martigny_no_email.pid
     requested_patron = patron_martigny_no_email.pid
     location = loc_public_martigny
     # checkout to checked_patron

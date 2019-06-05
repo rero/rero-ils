@@ -283,7 +283,7 @@ class Patron(IlsRecord):
     @property
     def is_librarian(self):
         """Shortcut to check if user has librarian role."""
-        if 'librarian' in self.get('roles'):
+        if self.is_system_librarian or 'librarian' in self.get('roles'):
             return True
         return False
 

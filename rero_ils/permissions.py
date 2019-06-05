@@ -92,6 +92,8 @@ def can_delete_organisation_records_factory(record, *args, **kwargs):
         patron = staffer_is_authenticated()
         if patron:
             if patron.organisation_pid == record.organisation_pid:
+                if patron.is_system_librarian:
+                    return True
                 if patron.is_librarian:
                     if 'system_librarian' in record.get('roles', []):
                         return False
@@ -100,8 +102,6 @@ def can_delete_organisation_records_factory(record, *args, **kwargs):
                             record.library_pid and \
                             record.library_pid != patron.library_pid:
                         return False
-                    return True
-                if patron.is_system_librarian:
                     return True
         return False
     return type('Check', (), {'can': can})()
@@ -114,9 +114,8 @@ def can_update_organisation_records_factory(record, *args, **kwargs):
     returns False if a librarian tries to update a system_librarian.
     returns False if a librarian tries to add the system_librarian role.
     """
-    incoming_record = request.get_json()
-
     def can(self):
+        incoming_record = request.get_json()
         patron = staffer_is_authenticated()
         if patron:
             if patron.organisation_pid == record.organisation_pid:
@@ -144,23 +143,23 @@ def can_create_organisation_records_factory(record, *args, **kwargs):
     returns False if a librarian tries to create a system_librarian.
     """
     def can(self):
-        if user_is_authenticated():
-            if not record:
+        patron = staffer_is_authenticated()
+        if patron and not record:
+            return True
+        if not patron:
+            return False
+        if patron.organisation_pid == record.organisation_pid:
+            if patron.is_system_librarian:
+                    return True
+            if patron.is_librarian:
+                if 'system_librarian' in record.get('roles', []):
+                    return False
+                if patron.library_pid and \
+                        isinstance(record, Patron) and \
+                        record.library_pid and \
+                        record.library_pid != patron.library_pid:
+                    return False
                 return True
-            patron = staffer_is_authenticated()
-            if patron:
-                if patron.organisation_pid == record.organisation_pid:
-                    if patron.is_librarian:
-                        if 'system_librarian' in record.get('roles', []):
-                            return False
-                        if patron.library_pid and \
-                                isinstance(record, Patron) and \
-                                record.library_pid and \
-                                record.library_pid != patron.library_pid:
-                            return False
-                        return True
-                    if patron.is_system_librarian:
-                            return True
         return False
     return type('Check', (), {'can': can})()
 

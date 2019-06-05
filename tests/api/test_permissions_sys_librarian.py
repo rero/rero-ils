@@ -41,7 +41,7 @@ from rero_ils.modules.patrons.utils import user_has_patron
 def test_system_librarian_permissions(
         client, json_header, system_librarian_martigny_no_email,
         patron_martigny_no_email,
-        librarian_only_fully_no_email):
+        librarian_fully_no_email):
     """Test system_librarian permissions."""
     # Login as system_librarian
     login_user_via_session(client, system_librarian_martigny_no_email.user)
@@ -72,13 +72,13 @@ def test_system_librarian_permissions(
     patron = deepcopy(record)
     counter = 1
     for record in [
-        {'data': patron, 'role': 'patron'},
-        {'data': librarian, 'role': 'librarian'},
-        {'data': system_librarian, 'role': 'system_librarian'}
+        {'data': patron, 'role': ['patron']},
+        {'data': librarian, 'role': ['librarian']},
+        {'data': system_librarian, 'role': ['librarian', 'system_librarian']}
     ]:
         counter += 1
         data = record['data']
-        data['roles'] = [record['role']]
+        data['roles'] = record['role']
         data['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
         with mock.patch('rero_ils.modules.patrons.api.'
