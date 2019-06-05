@@ -958,7 +958,6 @@
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
     "first_name": "Simonetta",
-    "barcode": "2050124311",
     "last_name": "Casalini",
     "street": "Avenue Leopold-Robert, 132",
     "postal_code": "1920",
@@ -967,22 +966,53 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
-    },
     "email": "simolibri07@gmail.com",
     "phone": "+41324993585",
     "roles": [
       "system_librarian",
-      "librarian",
-      "patron"
+      "librarian"
     ]
   },
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn2",
+    "first_name": "Marie",
+    "last_name": "Pedronni",
+    "street": "Avenue de la Gare, 3",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1965-02-07",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "email": "mpedronni@gmail.com",
+    "phone": "+41324993578",
+    "roles": [
+      "librarian"
+    ]
+  },
+  "ptrn3": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn3",
+    "first_name": "Marcel",
+    "last_name": "Saudan",
+    "street": "Avenue du Chasseur, 3",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1975-02-07",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "email": "msaudan@gmail.com",
+    "phone": "+41324993541",
+    "roles": [
+      "librarian"
+    ]
+  },
+  "ptrn4": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn4",
     "first_name": "Elena",
-    "barcode": "reroils1",
     "last_name": "Rodriguez",
     "street": "Ave de la gare, 125",
     "postal_code": "1907",
@@ -993,18 +1023,13 @@
     },
     "email": "elena_rodriguez@gmail.com",
     "phone": "+41324993515",
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
-    },
     "roles": [
-      "librarian",
-      "patron"
+      "librarian"
     ]
   },
-  "ptrn3": {
+  "ptrn5": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
-    "pid": "ptrn3",
-    "barcode": "reroils3",
+    "pid": "ptrn5",
     "first_name": "Virgile",
     "last_name": "Charbonnet",
     "street": "Ave de la gare, 111",
@@ -1014,19 +1039,53 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
     },
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
-    },
     "email": "virgile_charbonnet@gmail.com",
     "phone": "+41324111515",
     "roles": [
-      "librarian",
+      "librarian"
+    ]
+  },
+  "ptrn6": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn6",
+    "first_name": "Louis",
+    "barcode": "4098124352",
+    "last_name": "Roduit",
+    "street": "Avenue Leopold-Robert, 13",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1947-06-07",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+    },
+    "email": "lroduit@gmail.com",
+    "phone": "+41324993156",
+    "roles": [
       "patron"
     ]
   },
-  "ptrn4": {
+  "ptrn7": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
-    "pid": "ptrn4",
+    "pid": "ptrn7",
+    "first_name": "Louise",
+    "barcode": "40981212452",
+    "last_name": "Moret",
+    "street": "Avenue de la Gare, 13",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1967-07-07",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+    },
+    "email": "lmoret@gmail.com",
+    "phone": "+41324993151",
+    "roles": [
+      "patron"
+    ]
+  },
+  "ptrn8": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn8",
     "birth_date": "2001-12-12",
     "city": "Sion",
     "email": "reroilstest+philippe@gmail.com",
@@ -1037,29 +1096,43 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
     },
-    "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty3"
-    },
     "roles": [
-      "librarian",
-      "patron"
+      "system_librarian",
+      "librarian"
     ]
   },
-  "ptrn5": {
+  "ptrn9": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
-    "pid": "ptrn5",
+    "pid": "ptrn9",
+    "birth_date": "1990-12-12",
+    "city": "Sion",
+    "email": "ecarron@gmail.com",
+    "first_name": "Eric",
+    "last_name": "Carron",
+    "postal_code": "1950",
+    "street": "Rue du Nord 17",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    },
+    "roles": [
+      "librarian"
+    ]
+  },
+  "ptrn10": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn10",
     "first_name": "Jules",
-    "barcode": "4090124312",
+    "barcode": "4090124789243",
     "last_name": "Rard",
-    "street": "Avenue Leopold-Robert, 132",
-    "postal_code": "1920",
-    "city": "Martigny",
+    "street": "Avenue de la Gare, 132",
+    "postal_code": "1950",
+    "city": "Sion",
     "birth_date": "1967-06-07",
     "patron_type": {
-      "$ref": "https://ils.rero.ch/api/patron_types/ptty1"
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty4"
     },
     "email": "reroilstest+jules@gmail.com",
-    "phone": "+41324993111",
+    "phone": "+41324993673",
     "roles": [
       "patron"
     ]
@@ -1071,12 +1144,12 @@
     "trigger": "request",
     "document_pid": "doc1",
     "item_pid": "item3",
-    "patron_pid": "ptrn1",
+    "patron_pid": "ptrn7",
     "start_date": "2019-01-09T08:18:22.576291+00:00",
     "end_date": "2019-02-08T08:18:22.576291+00:00",
     "pickup_location_pid": "loc1",
     "transaction_date": "2019-01-09T08:18:22.576291+00:00",
     "transaction_location_pid": "loc1",
-    "transaction_user_pid": "ptrn1"
+    "transaction_user_pid": "ptrn2"
   }
 }

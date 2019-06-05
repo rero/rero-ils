@@ -50,11 +50,6 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     patron = patron_martigny_no_email
     location = loc_public_martigny
 
-    assert librarian_martigny_no_email.patron_type_pid == 'ptty1'
-    assert patron_martigny_no_email.patron_type_pid == 'ptty1'
-
-    assert patron_martigny_no_email.organisation_pid == 'org1'
-
     data = deepcopy(patron_martigny_no_email)
     del data['patron_type']
     assert not data.get_organisation()

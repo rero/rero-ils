@@ -189,7 +189,7 @@ def test_patron_types_name_validate(client, patron_type_children_martigny):
 
 
 def test_patron_types_can_delete(client, patron_type_children_martigny,
-                                 librarian_martigny_no_email,
+                                 patron_martigny_no_email,
                                  circulation_policies):
     """Test can delete a patron type."""
     patron_type = patron_type_children_martigny

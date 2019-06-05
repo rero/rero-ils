@@ -41,7 +41,7 @@ from rero_ils.modules.patrons.utils import user_has_patron
 def test_patron_permissions(
         client, json_header, system_librarian_martigny_no_email,
         patron_martigny_no_email,
-        librarian_only_fully_no_email):
+        librarian_fully_no_email):
     """Test patron permissions."""
     # Login as patron
     login_user_via_session(client, patron_martigny_no_email.user)
