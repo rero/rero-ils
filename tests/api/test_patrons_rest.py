@@ -78,7 +78,9 @@ def test_filtered_patrons_get(
 def test_patrons_permissions(client, librarian_martigny_no_email,
                              json_header):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.ptrn_item', pid_value='ptrn1')
+    item_url = url_for(
+        'invenio_records_rest.ptrn_item',
+        pid_value=librarian_martigny_no_email.pid)
     post_url = url_for('invenio_records_rest.ptrn_list')
 
     res = client.get(item_url)
@@ -106,8 +108,12 @@ def test_patrons_permissions(client, librarian_martigny_no_email,
 def test_patrons_get(client, librarian_martigny_no_email):
     """Test record retrieval."""
     patron = librarian_martigny_no_email
-    item_url = url_for('invenio_records_rest.ptrn_item', pid_value='ptrn1')
-    list_url = url_for('invenio_records_rest.ptrn_list', q='pid:ptrn1')
+    item_url = url_for(
+        'invenio_records_rest.ptrn_item',
+        pid_value=librarian_martigny_no_email.pid)
+    list_url = url_for(
+        'invenio_records_rest.ptrn_list',
+        q='pid:{pid}'.format(pid=librarian_martigny_no_email.pid))
 
     res = client.get(item_url)
     assert res.status_code == 200
