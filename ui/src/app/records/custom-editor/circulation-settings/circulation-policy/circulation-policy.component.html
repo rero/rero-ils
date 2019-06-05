@@ -70,11 +70,53 @@
           Checkout duration is required.
         </div>
         <div *ngIf="checkout_duration.errors.min" translate>
-          Checkout duration must be great than 1.
+          Checkout duration must be greater than 1.
         </div>
       </div>
     </div>
   </div>
+
+  <div class="form-group row" *ngIf="allow_checkout.value">
+    <label for="daysAfterControl" class="col-sm-2 col-form-label required" translate>First reminder days</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        id="daysAfterControl"
+        formControlName="number_of_days_after_due_date"
+      >
+      <div *ngIf="number_of_days_after_due_date.invalid && (number_of_days_after_due_date.dirty || number_of_days_after_due_date.touched)" class="text-danger pt-1">
+        <div *ngIf="number_of_days_after_due_date.errors.required" translate>
+          First reminder days is required.
+        </div>
+        <div *ngIf="number_of_days_after_due_date.errors.min" translate>
+          First reminder days must be greater than 0.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group row" *ngIf="allow_checkout.value">
+    <label for="daysBeforeControl" class="col-sm-2 col-form-label required" translate>Days before due date</label>
+    <div class="col-sm-10">
+      <input
+        type="number"
+        class="form-control"
+        id="daysBeforeControl"
+        formControlName="number_of_days_before_due_date"
+      >
+      <div *ngIf="number_of_days_before_due_date.invalid && (number_of_days_before_due_date.dirty || number_of_days_before_due_date.touched)" class="text-danger pt-1">
+        <div *ngIf="number_of_days_before_due_date.errors.required" translate>
+          Days before due date is required.
+        </div>
+        <div *ngIf="number_of_days_before_due_date.errors.min" translate>
+          Days before due date must be greater than 0.
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="form-group row" *ngIf="allow_checkout.value">
     <label for="numberRenewals" class="col-sm-2 col-form-label required" translate>Number of renewals</label>
     <div class="col-sm-10">
@@ -90,7 +132,7 @@
           Checkout duration is required.
         </div>
         <div *ngIf="number_renewals.errors.min" translate>
-          Checkout duration must be great than 0.
+          Checkout duration must be greater than 0.
         </div>
       </div>
     </div>

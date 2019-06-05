@@ -44,6 +44,12 @@
         "number_renewals": {
           "type": "integer"
         },
+        "number_of_days_after_due_date": {
+          "type": "integer"
+        },
+        "number_of_days_before_due_date": {
+          "type": "integer"
+        },
         "renewal_duration": {
           "type": "integer"
         },

@@ -139,3 +139,25 @@ def test_circ_policy_is_default(
     with pytest.raises(ValidationError):
         circ_policy_martigny_data_tmp['is_default'] = 25
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+
+
+def test_circ_policy_number_days_before_due_date(
+    circ_policy_schema, circ_policy_martigny_data_tmp
+):
+    """Test no of days before due date for circulation policy jsonschema."""
+    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+
+    with pytest.raises(ValidationError):
+        circ_policy_martigny_data_tmp['number_of_days_before_due_date'] = '25'
+        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+
+
+def test_circ_policy_number_days_after_due_date(
+    circ_policy_schema, circ_policy_martigny_data_tmp
+):
+    """Test number of days after due date for circulation policy jsonschema."""
+    validate(circ_policy_martigny_data_tmp, circ_policy_schema)
+
+    with pytest.raises(ValidationError):
+        circ_policy_martigny_data_tmp['number_of_days_after_due_date'] = '25'
+        validate(circ_policy_martigny_data_tmp, circ_policy_schema)
