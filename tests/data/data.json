@@ -980,7 +980,7 @@
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn2",
-    "first_name": "Elena",
+    "first_name": "Eléna",
     "barcode": "reroils1",
     "last_name": "Rodriguez",
     "street": "Ave de la gare, 125",
