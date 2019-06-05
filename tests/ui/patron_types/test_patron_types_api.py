@@ -47,21 +47,6 @@ def test_patron_type_create(db, patron_type_children_martigny_data):
     assert fetched_pid.pid_type == 'ptty'
 
 
-def test_patron_type_es_mapping(es_clear, db, org_martigny,
-                                patron_type_children_martigny_data):
-    """Test patron types es mapping."""
-    search = PatronTypesSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    PatronType.create(
-        patron_type_children_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
 def test_patron_type_exist_name_and_organisation_pid(
         patron_type_children_martigny):
     """Test patron type name uniquness."""
