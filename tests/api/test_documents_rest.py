@@ -87,16 +87,36 @@ def test_documents_get(client, document):
     assert data == get_json(res)
     assert document.dumps() == data['metadata']
 
-    list_url = url_for('invenio_records_rest.doc_list', pid='doc1')
+    list_url = url_for('invenio_records_rest.doc_list')
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-
     assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
 
     res = client.get(
         url_for('api_documents.import_bnf_ean', ean='9782070541270'))
     assert res.status_code == 401
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_documents_facets(client, document, item_lib_martigny,
+                          rero_json_header, lib_martigny):
+    """Test record retrieval."""
+    list_url = url_for('invenio_records_rest.doc_list')
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+
+    # check all facets are present
+    for facet in [
+        'document_type', 'library', 'author__en', 'author__fr', 'author__de',
+        'author__it', 'language', 'subject', 'status'
+    ]:
+        assert aggs[facet]
+    # check library name for display
+    assert aggs['library']['buckets'][0]['name'] == lib_martigny['name']
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

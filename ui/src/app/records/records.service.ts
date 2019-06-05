@@ -162,9 +162,9 @@ export class RecordsService {
       recordType,
       pid,
       0,
-      'application/can-delete+json'
+      'application/json'
     ).subscribe(record => {
-      const data = record.metadata;
+      const data = record.permissions;
       const canDeleted = !('cannot_delete' in data);
       const config = {
         ignoreBackdropClick: true,
