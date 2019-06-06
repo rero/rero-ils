@@ -1,17 +1,33 @@
 {
   "index_patterns": "*",
   "settings": {
-    "analysis": {
-      "analyzer": {
-        "global_lowercase_asciifolding": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "asciifolding"
-          ]
-        }
+      "analysis": {
+          "tokenizer": {
+              "char_group_tokenizer": {
+                  "type": "char_group",
+                  "tokenize_on_chars": [
+                      "whitespace",
+                      "punctuation"
+                  ]
+              }
+          },
+          "analyzer": {
+              "global_lowercase_asciifolding": {
+                  "type": "custom",
+                  "tokenizer": "char_group_tokenizer",
+                  "filter": [
+                      "lowercase",
+                      "asciifolding",
+                      "length_min_3"
+                  ]
+              }
+          },
+          "filter": {
+              "length_min_3": {
+                  "type": "length",
+                  "min": 3
+              }
+          }
       }
-    }
   }
 }
