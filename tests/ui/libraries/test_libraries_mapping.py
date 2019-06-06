@@ -22,42 +22,44 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Patron elasticsearch mapping tests."""
+"""Libraries elasticsearch mapping tests."""
 
 from utils import get_mapping
 
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
 
 
-def test_patron_search_mapping(
-    app, patrons_records, librarian_saxon_no_email
+def test_libraries_search_mapping(
+    app, libraries_records
 ):
-    """Test patron search mapping."""
-    search = PatronsSearch()
+    """Test library search mapping."""
+    search = LibrariesSearch()
 
-    c = search.query('query_string', query='Roduit').count()
+    c = search.query('query_string', query='library').count()
+    assert c == 4
+
+    c = search.query('query_string', query='bibliothèque').count()
     assert c == 1
 
-    c = search.query('match', first_name='Eric').count()
+    c = search.query('query_string', query='library AND Martigny').count()
     assert c == 1
 
-    c = search.query('match', last_name='Moret').count()
+    c = search.query('match', name='Sion').count()
     assert c == 1
 
-    c = search.query('match', first_name='Eléna').count()
-    assert c == 1
-
-    c = search.query('match', first_name='Elena').count()
+    c = search.query('match', name='Aproz').count()
     assert c == 1
 
     pids = [r.pid for r in search.query(
-         'match', first_name='Eléna').source(['pid']).scan()]
-    assert librarian_saxon_no_email.pid in pids
+         'match', name='Sion').source(['pid']).scan()]
+    assert 'lib4' in pids
 
 
-def test_patron_es_mapping(
-        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
-    """Test patron elasticsearch mapping."""
-    search = PatronsSearch()
+def test_library_es_mapping(es_clear, db, lib_martigny_data, org_martigny):
+    """Test library elasticsearch mapping."""
+    search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)
+    assert mapping
+    Library.create(
+        lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)

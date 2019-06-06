@@ -47,16 +47,6 @@ def test_library_create(db, lib_martigny_data):
     assert fetched_pid.pid_type == 'lib'
 
 
-def test_library_es_mapping(es_clear, db, lib_martigny_data, org_martigny):
-    """Test library elasticsearch mapping."""
-    search = LibrariesSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Library.create(
-        lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True)
-    assert mapping == get_mapping(search.Meta.index)
-
-
 def test_libraries_is_open(lib_martigny):
     """Test library creation."""
     saturday = '2018-12-15 11:00'
