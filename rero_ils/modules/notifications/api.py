@@ -73,3 +73,11 @@ class Notification(IlsRecord):
         location_pid = self.replace_refs()['transaction_location']['pid']
         location = Location.get_record_by_pid(location_pid)
         return location.organisation_pid
+
+
+def is_recalled(loan):
+    """Check if a recall notification exist already for the given loan."""
+    results = NotificationsSearch().filter(
+        'term', loan_pid=loan.get('loan_pid')
+        ).filter('term', notification_type='recall').source().count()
+    return results > 0

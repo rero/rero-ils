@@ -30,9 +30,12 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.notifications.api import NotificationsSearch, is_recalled
 
 
 def test_notifications_permissions(
@@ -295,3 +298,44 @@ def test_notification_secure_api_delete(
 
     res = client.delete(record_url)
     assert res.status_code == 410
+
+
+def test_recall_notification(client, patron_martigny_no_email,
+                             patron2_martigny_no_email,
+                             item_lib_martigny, librarian_martigny_no_email,
+                             circulation_policies, loc_public_martigny):
+    """Test recall notification."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                patron_pid=patron_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+
+    assert not is_recalled(loan)
+
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                pickup_location_pid=loc_public_martigny.pid,
+                patron_pid=patron2_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    flush_index(NotificationsSearch.Meta.index)
+
+    assert is_recalled(loan)

@@ -1163,7 +1163,7 @@
   "notif1": {
     "$schema": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json",
     "pid": "notif1",
-    "notification_date": "2019-01-09T08:18:22.576291+00:00",
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "notification_type": "availability",
     "item": {
       "$ref": "https://ils.rero.ch/api/items/item3"

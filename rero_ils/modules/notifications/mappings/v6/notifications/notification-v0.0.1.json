@@ -15,14 +15,20 @@
         "pid": {
           "type": "keyword"
         },
-        "notification_date": {
+        "loan_pid": {
+          "type": "keyword"
+        },
+        "creation_date": {
+          "type": "date"
+        },
+        "process_date": {
           "type": "date"
         },
         "due_date": {
           "type": "date"
         },
         "reminder_counter": {
-          "type": "keyword"
+          "type": "integer"
         },
         "notification_type": {
           "type": "text"

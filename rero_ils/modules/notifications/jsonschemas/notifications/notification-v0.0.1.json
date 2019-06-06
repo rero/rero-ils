@@ -3,7 +3,7 @@
   "type": "object",
   "title": "Notification",
   "description": "JSON schema for notifications.",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "required": [
     "$schema",
     "pid",
@@ -24,10 +24,19 @@
       "type": "string",
       "minLength": 1
     },
-    "notification_date": {
+    "loan_pid": {
+      "title": "Checked-out Loan ID for the recall notification.",
+      "type": "string"
+    },
+    "creation_date": {
       "type": "string",
       "format": "date-time",
       "title": "Notification creation date"
+    },
+    "process_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Notification processing date"
     },
     "patron": {
       "title": "Patron",

@@ -602,10 +602,16 @@ class Item(IlsRecord):
 
     @add_loans_parameters_and_flush_indexes
     def request(self, current_loan, **kwargs):
-        """Request item for the user."""
+        """Request item for the user and create notifications."""
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='request')
         )
+
+        checked_out_loan_pid = self.get_loan_pid_with_item_on_loan(self.pid)
+        if checked_out_loan_pid:
+            checked_out_loan = Loan.get_record_by_pid(checked_out_loan_pid)
+            checked_out_loan.create_notification(notification_type='recall')
+
         return self, {
             LoanAction.REQUEST: loan
         }
