@@ -19,7 +19,8 @@
           "type": "keyword"
         },
         "name": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "address": {
           "type": "text"
