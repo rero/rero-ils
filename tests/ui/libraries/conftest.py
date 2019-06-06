@@ -22,17 +22,18 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Common pytest patrons."""
+"""Common pytest libraries."""
 
 import pytest
 
 
 @pytest.yield_fixture(scope='module')
-def patrons_records(
-    patron_martigny_no_email,
-    patron2_martigny_no_email,
-    librarian_sion_no_email,
-    librarian_saxon_no_email
+def libraries_records(
+    lib_martigny,
+    lib_saxon,
+    lib_fully,
+    lib_sion,
+    lib_aproz
 ):
-    """Patrons for test mapping."""
+    """Libraries for test mapping."""
     pass

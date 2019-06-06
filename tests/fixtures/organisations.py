@@ -161,6 +161,24 @@ def lib_sion(app, org_sion, lib_sion_data):
 
 
 @pytest.fixture(scope="module")
+def lib_aproz_data(data):
+    """Aproz library data."""
+    return deepcopy(data.get('lib5'))
+
+
+@pytest.fixture(scope="module")
+def lib_aproz(app, org_sion, lib_aproz_data):
+    """Aproz library."""
+    lib = Library.create(
+        data=lib_aproz_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
 def loc_public_martigny_data(data):
     """Load public space location for Martigny ville."""
     return deepcopy(data.get('loc1'))
