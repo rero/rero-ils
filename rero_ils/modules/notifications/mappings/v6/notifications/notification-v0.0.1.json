@@ -15,11 +15,14 @@
         "pid": {
           "type": "keyword"
         },
-        "notification_date": {
+        "creation_date": {
+          "type": "date"
+        },
+        "process_date": {
           "type": "date"
         },
         "reminder_counter": {
-          "type": "keyword"
+          "type": "integer"
         },
         "notification_type": {
           "type": "keyword"

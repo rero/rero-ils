@@ -602,7 +602,7 @@ class Item(IlsRecord):
 
     @add_loans_parameters_and_flush_indexes
     def request(self, current_loan, **kwargs):
-        """Request item for the user."""
+        """Request item for the user and create notifications."""
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='request')
         )

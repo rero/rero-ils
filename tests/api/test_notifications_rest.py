@@ -30,111 +30,187 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from invenio_circulation.search.api import LoansSearch
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
-
-# def test_notifications_permissions(
-#         client, notification_availabilty_martigny, json_header):
-#     """Test notification permissions."""
-#     item_url = url_for('invenio_records_rest.notif_item', pid_value='notif1')
-#     post_url = url_for('invenio_records_rest.notif_list')
-
-#     res = client.get(item_url)
-#     assert res.status_code == 401
-
-#     res = client.post(
-#         post_url,
-#         data={},
-#         headers=json_header
-#     )
-#     assert res.status_code == 401
-
-#     res = client.put(
-#         item_url,
-#         data={},
-#         headers=json_header
-#     )
-
-#     res = client.delete(item_url)
-#     assert res.status_code == 401
+from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch, get_recall_notification
 
 
-# @mock.patch('invenio_records_rest.views.verify_record_permission',
-#             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-# def test_notifications_get(client, notification_availabilty_martigny):
-#     """Test record retrieval."""
-#     record = notification_availabilty_martigny
-#     item_url = url_for(
-#           'invenio_records_rest.notif_item', pid_value=record.pid)
-#     list_url = url_for(
-#         'invenio_records_rest.notif_list', q='pid:' + record.pid)
-#     item_url_with_resolve = url_for(
-#         'invenio_records_rest.notif_item',
-#         pid_value=record.pid,
-#         resolve=1,
-#         sources=1
-#     )
+def test_notifications_permissions(client, db, es, dummy_notification,
+                                   loan_validated, json_header):
+    """Test notification permissions."""
 
-#     res = client.get(item_url)
-#     assert res.status_code == 200
+    record = deepcopy(dummy_notification)
+    del record['pid']
+    data = {
+        'loan_url': 'https://ils.rero.ch/api/loans/',
+        'pid': loan_validated.get('loan_pid')
+    }
+    loan_ref = '{loan_url}{pid}'.format(**data)
+    record['loan'] = {"$ref": loan_ref}
+    notif = Notification.create(
+        record,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert notif == record
+    assert notif.get('pid') == '1'
 
-#     assert res.headers['ETag'] == '"{}"'.format(record.revision_id)
+    flush_index(NotificationsSearch.Meta.index)
 
-#     data = get_json(res)
-#     assert record.dumps() == data['metadata']
+    pid = notif.get('pid')
+    item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
+    post_url = url_for('invenio_records_rest.notif_list')
 
-#     # Check metadata
-#     for k in ['created', 'updated', 'metadata', 'links']:
-#         assert k in data
+    res = client.get(item_url)
+    assert res.status_code == 401
 
-#     # Check self links
-#     res = client.get(to_relative_url(data['links']['self']))
-#     assert res.status_code == 200
-#     assert data == get_json(res)
-#     assert record.dumps() == data['metadata']
+    res = client.post(
+        post_url,
+        data={},
+        headers=json_header
+    )
+    assert res.status_code == 401
 
-#     # check resolve
-#     res = client.get(item_url_with_resolve)
-#     assert res.status_code == 200
-#     data = get_json(res)
-#     assert record.replace_refs().dumps() == data['metadata']
+    res = client.put(
+        item_url,
+        data={},
+        headers=json_header
+    )
 
-#     res = client.get(list_url)
-#     assert res.status_code == 200
-#     data = get_json(res)
-#     result = data['hits']['hits'][0]['metadata']
-#     # organisation has been added during the indexing
-#     del(result['organisation'])
-#     assert result == record.replace_refs()
+    res = client.delete(item_url)
+    assert res.status_code == 401
+
+    notif.delete(dbcommit=True, delindex=True)
+    flush_index(NotificationsSearch.Meta.index)
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_notifications_get(client, dummy_notification, loan_validated):
+    """Test record retrieval."""
+    del dummy_notification['pid']
+    data = {
+        'loan_url': 'https://ils.rero.ch/api/loans/',
+        'pid': loan_validated.get('loan_pid')
+    }
+    loan_ref = '{loan_url}{pid}'.format(**data)
+    dummy_notification['loan'] = {"$ref": loan_ref}
+    record = Notification.create(
+        dummy_notification,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert record == dummy_notification
+    assert record.get('pid') == '1'
+
+    flush_index(NotificationsSearch.Meta.index)
+
+    pid = record.get('pid')
+
+    item_url = url_for(
+          'invenio_records_rest.notif_item', pid_value=record.pid)
+    list_url = url_for(
+        'invenio_records_rest.notif_list', q='pid:' + record.pid)
+    item_url_with_resolve = url_for(
+        'invenio_records_rest.notif_item',
+        pid_value=record.pid,
+        resolve=1,
+        sources=1
+    )
+
+    res = client.get(item_url)
+    assert res.status_code == 200
+
+    assert res.headers['ETag'] == '"{}"'.format(record.revision_id)
+
+    data = get_json(res)
+    assert record.dumps() == data['metadata']
+
+    # Check metadata
+    for k in ['created', 'updated', 'metadata', 'links']:
+        assert k in data
+
+    # Check self links
+    res = client.get(to_relative_url(data['links']['self']))
+    assert res.status_code == 200
+    assert data == get_json(res)
+    assert record.dumps() == data['metadata']
+
+    # check resolve
+    res = client.get(item_url_with_resolve)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert record.replace_refs().dumps() == data['metadata']
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+
+    result = data['hits']['hits'][0]['metadata']
+    # organisation has been added during the indexing
+    del(result['organisation'])
+    assert result == record.replace_refs()
+
+    record.delete(dbcommit=True, delindex=True)
+    flush_index(NotificationsSearch.Meta.index)
 
 
 # @mock.patch('invenio_records_rest.views.verify_record_permission',
 #             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 # def test_notifications_post_put_delete(
-#         client, notification_martigny_data_tmp, json_header):
+#         client, dummy_notification, loan_validated, json_header):
 #     """Test record delete and update."""
-#     item_url = url_for('invenio_records_rest.notif_item', pid_value='1')
+
+#     record = deepcopy(dummy_notification)
+#     del record['pid']
+#     notif_data = {
+#         'loan_url': 'https://ils.rero.ch/api/loans/',
+#         'pid': loan_validated.get('loan_pid')
+#     }
+#     loan_ref = '{loan_url}{pid}'.format(**notif_data)
+#     record['loan'] = {"$ref": loan_ref}
+#     notif = Notification.create(
+#         record,
+#         dbcommit=True,
+#         reindex=True,
+#         delete_pid=True
+#     )
+#     assert notif == record
+#     flush_index(NotificationsSearch.Meta.index)
+#     pid = notif.get('pid')
+
+#     item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
 #     post_url = url_for('invenio_records_rest.notif_list')
-#     list_url = url_for('invenio_records_rest.notif_list', q='pid:1')
-#     record_data = notification_martigny_data_tmp
+#     list_url = url_for('invenio_records_rest.notif_list', q='pid:pid')
+
+#     new_record = deepcopy(record)
+
 #     # Create record / POST
-#     record_data['pid'] = '1'
+#     new_record['pid'] = 'x'
 #     res = client.post(
 #         post_url,
-#         data=json.dumps(record_data),
+#         data=json.dumps(new_record),
 #         headers=json_header
 #     )
 #     assert res.status_code == 201
 
+#     flush_index(NotificationsSearch.Meta.index)
+
 #     # Check that the returned record matches the given data
 #     data = get_json(res)
-#     assert data['metadata'] == record_data
+#     assert data['metadata'] == new_record
 
 #     res = client.get(item_url)
 #     assert res.status_code == 200
 #     data = get_json(res)
-#     assert record_data == data['metadata']
+#     assert notif == data['metadata']
 
 #     # Update record/PUT
 #     data['notification_type'] = 'due_soon'
@@ -166,18 +242,15 @@ from rero_ils.modules.api import IlsRecordError
 #     res = client.get(item_url)
 #     assert res.status_code == 410
 
-
-# def test_notification_can_delete(
-#         client, notification_availabilty_martigny):
-#     """Test can delete a notification."""
-#     links = notification_availabilty_martigny.get_links_to_me()
+#     links = notif.get_links_to_me()
 #     assert links == {}
 
-#     assert notification_availabilty_martigny.can_delete
+#     assert notif.can_delete
 
-#     reasons = notification_availabilty_martigny.reasons_not_to_delete()
+#     reasons = notif.reasons_not_to_delete()
 #     assert reasons == {}
 
+#     notif.delete(dbcommit=True, delindex=True)
 
 # def test_filtered_notifications_get(
 #         client, notification_availabilty_martigny,
@@ -295,3 +368,46 @@ from rero_ils.modules.api import IlsRecordError
 
 #     res = client.delete(record_url)
 #     assert res.status_code == 410
+
+
+def test_recall_notification(client, patron_martigny_no_email,
+                             patron2_martigny_no_email,
+                             item_lib_martigny, librarian_martigny_no_email,
+                             circulation_policies, loc_public_martigny,
+                             json_header):
+    """Test recall notification."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                patron_pid=patron_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+
+    assert not loan.is_recalled()
+
+    # test notification permissions
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                pickup_location_pid=loc_public_martigny.pid,
+                patron_pid=patron2_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    flush_index(NotificationsSearch.Meta.index)
+
+    assert loan.is_recalled()
