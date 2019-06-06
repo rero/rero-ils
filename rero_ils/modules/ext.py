@@ -27,6 +27,7 @@
 from __future__ import absolute_import, print_function
 
 from invenio_admin import current_admin
+from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_delete, after_record_insert, \
@@ -38,7 +39,7 @@ from .documents.listener import enrich_document_data, mef_person_delete, \
 from .ebooks.receivers import publish_harvested_records
 from .items.listener import enrich_item_data
 from .items.signals import item_at_desk
-from .loans.listener import enrich_loan_data
+from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
 from .mef_persons.receivers import publish_api_harvested_records
 from .notifications.listener import enrich_notification_data
@@ -104,6 +105,8 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_notification_data)
 
         item_at_desk.connect(listener_item_at_desk)
+
+        loan_state_changed.connect(listener_loan_state_changed, weak=False)
 
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
 

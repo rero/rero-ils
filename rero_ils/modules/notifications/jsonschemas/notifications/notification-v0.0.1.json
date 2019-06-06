@@ -3,7 +3,7 @@
   "type": "object",
   "title": "Notification",
   "description": "JSON schema for notifications.",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "required": [
     "$schema",
     "pid",
@@ -23,7 +23,7 @@
       "type": "string",
       "minLength": 1
     },
-    "notification_date": {
+    "creation_date": {
       "type": "string",
       "format": "date-time",
       "title": "Notification creation date"
@@ -38,6 +38,11 @@
           "pattern": "^https://ils.rero.ch/api/loans/.*?$"
         }
       }
+    },
+    "process_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Notification processing date"
     },
     "reminder_counter": {
       "type": "integer",
