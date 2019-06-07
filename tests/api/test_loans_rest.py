@@ -23,15 +23,17 @@
 
 """Tests REST API item_types."""
 
+import json
 from copy import deepcopy
 
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.errors import CirculationException
+from utils import flush_index, get_json
 
-from rero_ils.modules.loans.api import get_last_transaction_loc_for_item, \
-    get_loans_by_patron_pid
+from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
+    get_last_transaction_loc_for_item, get_loans_by_patron_pid
 from rero_ils.modules.loans.utils import can_be_requested
 
 
@@ -117,3 +119,50 @@ def test_loan_utils(client, patron_martigny_no_email,
     assert new_loan.organisation_pid
     del new_loan['item_pid']
     assert not new_loan.organisation_pid
+
+
+def test_due_soon_loans(client, librarian_martigny_no_email,
+                        patron_martigny_no_email, loc_public_martigny,
+                        item_type_standard_martigny,
+                        item_lib_martigny, json_header,
+                        circ_policy_short_martigny):
+    """Test due_soon_loans."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    item = item_lib_martigny
+    item_pid = item.pid
+    patron_pid = patron_martigny_no_email.pid
+    assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
+        'barcode'))
+    assert item.can_delete
+    assert item.available
+
+    from rero_ils.modules.circ_policies.api import CircPolicy
+    circ_policy = CircPolicy.provide_circ_policy(
+        item.library_pid,
+        patron_martigny_no_email.patron_type_pid,
+        item.item_type_pid
+    )
+    circ_policy['number_of_days_before_due_date'] = 6
+    circ_policy['checkout_duration'] = 5
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    due_soon_loans = get_due_soon_loans()
+    assert due_soon_loans[0].get('loan_pid') == loan_pid
