@@ -50,11 +50,11 @@ def test_notification_create(db, es_clear, notification_martigny_data_tmp):
 
 
 def test_notification_organisation_pid(
-        org_martigny, notification_availabilty_martigny):
+        org_martigny, notification_availability_martigny):
     """Test organisation pid has been added during the indexing."""
     search = NotificationsSearch()
     notif = next(search.filter(
-        'term', pid=notification_availabilty_martigny.pid).scan())
+        'term', pid=notification_availability_martigny.pid).scan())
     record = Notification.get_record_by_pid(notif.pid)
     assert record.organisation_pid == org_martigny.pid
 
@@ -73,7 +73,7 @@ def test_notification_es_mapping(es, db, notification_martigny_data_tmp):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_notification_can_delete(notification_availabilty_martigny):
+def test_notification_can_delete(notification_availability_martigny):
     """Test notification can delete."""
-    assert notification_availabilty_martigny.get_links_to_me() == {}
-    assert notification_availabilty_martigny.can_delete
+    assert notification_availability_martigny.get_links_to_me() == {}
+    assert notification_availability_martigny.can_delete

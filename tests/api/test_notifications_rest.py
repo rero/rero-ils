@@ -35,11 +35,12 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.loans.api import Loan, LoanAction
-from rero_ils.modules.notifications.api import NotificationsSearch, is_recalled
+from rero_ils.modules.notifications.api import NotificationsSearch, \
+    is_availability_created, is_recalled
 
 
 def test_notifications_permissions(
-        client, notification_availabilty_martigny, json_header):
+        client, notification_availability_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.notif_item', pid_value='notif1')
     post_url = url_for('invenio_records_rest.notif_list')
@@ -66,9 +67,9 @@ def test_notifications_permissions(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_notifications_get(client, notification_availabilty_martigny):
+def test_notifications_get(client, notification_availability_martigny):
     """Test record retrieval."""
-    record = notification_availabilty_martigny
+    record = notification_availability_martigny
     item_url = url_for('invenio_records_rest.notif_item', pid_value=record.pid)
     list_url = url_for(
         'invenio_records_rest.notif_list', q='pid:' + record.pid)
@@ -171,19 +172,19 @@ def test_notifications_post_put_delete(
 
 
 def test_notification_can_delete(
-        client, notification_availabilty_martigny):
+        client, notification_availability_martigny):
     """Test can delete a notification."""
-    links = notification_availabilty_martigny.get_links_to_me()
+    links = notification_availability_martigny.get_links_to_me()
     assert links == {}
 
-    assert notification_availabilty_martigny.can_delete
+    assert notification_availability_martigny.can_delete
 
-    reasons = notification_availabilty_martigny.reasons_not_to_delete()
+    reasons = notification_availability_martigny.reasons_not_to_delete()
     assert reasons == {}
 
 
 def test_filtered_notifications_get(
-        client, notification_availabilty_martigny,
+        client, notification_availability_martigny,
         librarian_martigny_no_email,
         librarian_sion_no_email):
     """Test notification filter by organisation."""
@@ -207,14 +208,14 @@ def test_filtered_notifications_get(
 
 
 def test_notification_secure_api(client, json_header,
-                                 notification_availabilty_martigny,
+                                 notification_availability_martigny,
                                  librarian_martigny_no_email,
                                  librarian_sion_no_email):
     """Test notification secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.notif_item',
-                         pid_value=notification_availabilty_martigny.pid)
+                         pid_value=notification_availability_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 200
@@ -222,7 +223,7 @@ def test_notification_secure_api(client, json_header,
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
     record_url = url_for('invenio_records_rest.notif_item',
-                         pid_value=notification_availabilty_martigny.pid)
+                         pid_value=notification_availability_martigny.pid)
 
     res = client.get(record_url)
     assert res.status_code == 403
@@ -259,14 +260,14 @@ def test_notification_secure_api_create(client, json_header,
 def test_notification_secure_api_update(client,
                                         librarian_martigny_no_email,
                                         librarian_sion_no_email,
-                                        notification_availabilty_martigny,
+                                        notification_availability_martigny,
                                         json_header):
     """Test notification secure api update."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.notif_item',
-                         pid_value=notification_availabilty_martigny.pid)
+                         pid_value=notification_availability_martigny.pid)
 
-    data = notification_availabilty_martigny
+    data = notification_availability_martigny
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -283,12 +284,12 @@ def test_notification_secure_api_delete(
                                     client,
                                     librarian_martigny_no_email,
                                     librarian_sion_no_email,
-                                    notification_availabilty_martigny,
+                                    notification_availability_martigny,
                                     json_header):
     """Test notification secure api delete."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.notif_item',
-                         pid_value=notification_availabilty_martigny.pid)
+                         pid_value=notification_availability_martigny.pid)
     # Martigny
     res = client.delete(record_url)
     assert res.status_code == 204
@@ -323,7 +324,7 @@ def test_recall_notification(client, patron_martigny_no_email,
 
     assert not is_recalled(loan)
 
-    res = client.post(
+    request = client.post(
         url_for('api_item.librarian_request'),
         data=json.dumps(
             dict(
@@ -334,8 +335,28 @@ def test_recall_notification(client, patron_martigny_no_email,
         ),
         content_type='application/json',
     )
-    assert res.status_code == 200
+    assert request.status_code == 200
+    request_data = get_json(request)
+    loan2_pid = request_data.get(
+        'action_applied')[LoanAction.REQUEST].get('loan_pid')
+
+    loan2 = Loan.get_record_by_pid(loan2_pid)
 
     flush_index(NotificationsSearch.Meta.index)
 
     assert is_recalled(loan)
+    assert not is_availability_created(loan2)
+    # note, action checkin does automatic validation.
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    assert is_recalled(loan)
+    assert is_availability_created(loan2)

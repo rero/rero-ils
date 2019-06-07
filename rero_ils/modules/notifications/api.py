@@ -81,3 +81,11 @@ def is_recalled(loan):
         'term', loan_pid=loan.get('loan_pid')
         ).filter('term', notification_type='recall').source().count()
     return results > 0
+
+
+def is_availability_created(loan):
+    """Check if a availability notification exist already for a loan."""
+    results = NotificationsSearch().filter(
+        'term', loan_pid=loan.get('loan_pid')
+        ).filter('term', notification_type='availability').source().count()
+    return results > 0

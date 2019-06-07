@@ -38,7 +38,8 @@ from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
 from ..locations.api import Location
-from ..notifications.api import Notification, is_recalled
+from ..notifications.api import Notification, is_availability_created, \
+    is_recalled
 from ..patrons.api import Patron
 
 
@@ -135,37 +136,48 @@ class Loan(IlsRecord):
     def create_notification(self, notification_type=None):
         """Creates a recall notification from a checked-out loan."""
         data = {}
-        if notification_type == 'recall':
+        record = {}
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        record['patron'] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='patrons',
+                pid=self.get('patron_pid'))
+        }
+        record['item'] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='items',
+                pid=self.get('item_pid'))
+        }
+        record['transaction_location'] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='locations',
+                pid=self.get('transaction_location_pid'))
+        }
+        creation_date = datetime.now(timezone.utc).isoformat()
+        record['creation_date'] = creation_date
+        record['loan_pid'] = self.get('loan_pid')
+        if notification_type == 'availability' and \
+                not is_availability_created(self):
+                library_pid = Location.get_record_by_pid(
+                    self.get('pickup_location_pid')).library_pid
+                record['pickup_library'] = {
+                    '$ref': url_api.format(
+                        base_url=base_url,
+                        doc_type='libraries',
+                        pid=library_pid)
+                }
+                record['notification_type'] = notification_type
+        elif notification_type == 'recall':
             if self.get('state') == 'ITEM_ON_LOAN' and not is_recalled(self):
-                record = {}
-                creation_date = datetime.now(timezone.utc).isoformat()
-                record['creation_date'] = creation_date
                 record['due_date'] = self.get('end_date')
-                record['notification_type'] = 'recall'
-                record['loan_pid'] = self.get('loan_pid')
-
-                base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-                url_api = '{base_url}/api/{doc_type}/{pid}'
-                record['patron'] = {
-                    '$ref': url_api.format(
-                        base_url=base_url,
-                        doc_type='patrons',
-                        pid=self.get('patron_pid'))
-                }
-                record['item'] = {
-                    '$ref': url_api.format(
-                        base_url=base_url,
-                        doc_type='items',
-                        pid=self.get('item_pid'))
-                }
-                record['transaction_location'] = {
-                    '$ref': url_api.format(
-                        base_url=base_url,
-                        doc_type='locations',
-                        pid=self.get('transaction_location_pid'))
-                }
-                data = Notification.create(
-                    data=record, dbcommit=True, reindex=True)
+                record['notification_type'] = notification_type
+        if record.get('notification_type'):
+            data = Notification.create(
+                data=record, dbcommit=True, reindex=True)
         return data
 
 

@@ -582,10 +582,12 @@ class Item(IlsRecord):
 
     @add_loans_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
-        """Validate item request."""
+        """Validate item request and create availability if necessary."""
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='validate_request')
         )
+        if loan.get('state') == 'ITEM_AT_DESK':
+            loan.create_notification(notification_type='availability')
         return self, {
             LoanAction.VALIDATE: loan
         }

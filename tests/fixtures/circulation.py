@@ -556,7 +556,7 @@ def notification_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def notification_availabilty_martigny(
+def notification_availability_martigny(
         app,
         item_lib_fully,
         notification_martigny_data,
