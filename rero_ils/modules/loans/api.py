@@ -27,6 +27,7 @@
 
 from datetime import datetime, timedelta, timezone
 
+import ciso8601
 from flask import current_app, url_for
 from invenio_circulation.errors import CirculationException
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
@@ -162,7 +163,10 @@ class Loan(IlsRecord):
         elif notification_type == 'availability' and \
                 not self.is_notified(notification_type=notification_type):
             notification_to_create = True
-
+        elif notification_type == 'due_soon':
+            if self.get('state') == 'ITEM_ON_LOAN' and \
+                    not self.is_notified(notification_type=notification_type):
+                notification_to_create = True
         if notification_to_create:
             data = Notification.create(
                 data=record, dbcommit=True, reindex=True)
@@ -214,3 +218,27 @@ def get_last_transaction_loc_for_item(item_pid):
             loan_pid).get('transaction_location_pid')
     except StopIteration:
         return None
+
+
+def get_due_soon_loans():
+    """Return all due_soon loans."""
+    from .utils import get_circ_policy
+    due_soon_loans = []
+    results = current_circulation.loan_search\
+        .source(['loan_pid'])\
+        .params(preserve_order=True)\
+        .filter('term', state='ITEM_ON_LOAN')\
+        .sort({'transaction_date': {'order': 'asc'}})\
+        .scan()
+    for record in results:
+        loan = Loan.get_record_by_pid(record.loan_pid)
+        circ_policy = get_circ_policy(loan)
+        now = datetime.now()
+        end_date = loan.get('end_date')
+        due_date = ciso8601.parse_datetime_as_naive(end_date)
+
+        days_before = circ_policy.get('number_of_days_before_due_date')
+        if now < due_date and \
+                now > due_date - timedelta(days=days_before):
+                    due_soon_loans.append(loan)
+    return due_soon_loans
