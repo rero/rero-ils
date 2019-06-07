@@ -28,7 +28,9 @@ from __future__ import absolute_import, print_function
 
 from functools import partial
 
+from celery import shared_task
 from elasticsearch_dsl import Q
+from flask import current_app
 from invenio_search.api import RecordsSearch
 
 from .models import NotificationIdentifier, NotificationMetadata
@@ -36,7 +38,10 @@ from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..locations.api import Location
 from ..minters import id_minter
+from ..patrons.api import Patron
 from ..providers import Provider
+from ...dispatch import create_dispatch
+from ...utils import send_mail
 
 # notif provider
 NotificationProvider = type(
@@ -74,6 +79,14 @@ class Notification(IlsRecord):
         location = Location.get_record_by_pid(location_pid)
         return location.organisation_pid
 
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=False, reindex=False, **kwargs):
+        """Notification record creation."""
+        record = super(Notification, cls).create(
+            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        # create_dispatch(notification=record, delay=False)
+        return record
 
 def is_recalled(loan):
     """Check if a recall notification exist already for the given loan."""

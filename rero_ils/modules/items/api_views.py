@@ -106,7 +106,7 @@ def jsonify_action(func):
         except NotFound as e:
             raise(e)
         except Exception as e:
-            # raise(e)
+            raise(e)
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 
