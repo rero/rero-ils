@@ -132,33 +132,40 @@ class Loan(IlsRecord):
             data['pickup_location']['library_name'] = library.get('name')
         return data
 
-    def is_recalled(self):
-        """Check if a recall notification exist already for the given loan."""
+    def is_notified(self, notification_type=None):
+        """Check if a notification exist already for a loan by type."""
         results = NotificationsSearch().filter(
             'term', loan__pid=self.get('loan_pid')
-            ).filter('term', notification_type='recall').source().count()
+        ).filter('term', notification_type=notification_type).source().count()
         return results > 0
 
     def create_notification(self, notification_type=None):
         """Creates a recall notification from a checked-out loan."""
         data = {}
+        record = {}
+        creation_date = datetime.now(timezone.utc).isoformat()
+        record['creation_date'] = creation_date
+        record['notification_type'] = notification_type
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        record['loan'] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='loans',
+                pid=self.get('loan_pid'))
+        }
+        notification_to_create = False
         if notification_type == 'recall':
-            if self.get('state') == 'ITEM_ON_LOAN' and not self.is_recalled():
-                record = {}
-                creation_date = datetime.now(timezone.utc).isoformat()
-                record['creation_date'] = creation_date
-                record['notification_type'] = 'recall'
+            if self.get('state') == 'ITEM_ON_LOAN' and \
+                    not self.is_notified(notification_type=notification_type):
+                notification_to_create = True
+        elif notification_type == 'availability' and \
+                not self.is_notified(notification_type=notification_type):
+            notification_to_create = True
 
-                base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-                url_api = '{base_url}/api/{doc_type}/{pid}'
-                record['loan'] = {
-                    '$ref': url_api.format(
-                        base_url=base_url,
-                        doc_type='loans',
-                        pid=self.get('loan_pid'))
-                }
-                data = Notification.create(
-                    data=record, dbcommit=True, reindex=True)
+        if notification_to_create:
+            data = Notification.create(
+                data=record, dbcommit=True, reindex=True)
         return data
 
 

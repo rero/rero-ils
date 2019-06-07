@@ -57,3 +57,5 @@ def listener_loan_state_changed(_, prev_loan, loan, trigger):
         if checkedout_loan_pid:
             checked_out_loan = Loan.get_record_by_pid(checkedout_loan_pid)
             checked_out_loan.create_notification(notification_type='recall')
+    elif loan.get('state') == 'ITEM_AT_DESK':
+        loan.create_notification(notification_type='availability')
