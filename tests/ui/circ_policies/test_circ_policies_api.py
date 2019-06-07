@@ -61,21 +61,6 @@ def test_circ_policy_create(db, circ_policy_martigny_data_tmp):
     assert cipo.get('pid') == '2'
 
 
-def test_circ_policy_es_mapping(es, db, org_martigny,
-                                circ_policy_martigny_data_tmp):
-    """Test circulation policy elasticsearch mapping."""
-    search = CircPoliciesSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    CircPolicy.create(
-        circ_policy_martigny_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
-
-
 def test_circ_policy_exist_name_and_organisation_pid(
         circ_policy_default_martigny):
     """Test policy name existance."""
