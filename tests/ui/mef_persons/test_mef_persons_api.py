@@ -58,17 +58,3 @@ def test_mef_person_create(db, mef_person_data_tmp):
     )
     pers = MefPerson.get_record_by_pid('1')
     assert pers.get('viaf_pid') == '1234'
-
-
-def test_mef_person_es_mapping(es_clear, db, mef_person_data_tmp):
-    """Test mef elasticsearch mapping."""
-    search = MefPersonsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    MefPerson.create(
-        mef_person_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)

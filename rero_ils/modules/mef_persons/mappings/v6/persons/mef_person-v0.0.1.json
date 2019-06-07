@@ -69,18 +69,22 @@
               "type": "keyword"
             },
             "biographical_information": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "authorized_access_point_representing_a_person": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "pid": {
               "type": "keyword"
@@ -111,15 +115,18 @@
               "type": "keyword"
             },
             "biographical_information": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "authorized_access_point_representing_a_person": {
               "type": "text"
@@ -147,15 +154,18 @@
               "type": "keyword"
             },
             "biographical_information": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name"
+              "copy_to": "autocomplete_name",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "authorized_access_point_representing_a_person": {
               "type": "text"
