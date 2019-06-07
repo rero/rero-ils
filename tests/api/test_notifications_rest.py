@@ -59,7 +59,7 @@ def test_notifications_permissions(client, db, es, dummy_notification,
         delete_pid=True
     )
     assert notif == record
-    assert notif.get('pid') == '1'
+    assert notif.get('pid') == '2'
 
     flush_index(NotificationsSearch.Meta.index)
 
@@ -108,7 +108,7 @@ def test_notifications_get(client, dummy_notification, loan_validated):
         delete_pid=True
     )
     assert record == dummy_notification
-    assert record.get('pid') == '1'
+    assert record.get('pid') == '2'
 
     flush_index(NotificationsSearch.Meta.index)
 
@@ -392,7 +392,7 @@ def test_recall_notification(client, patron_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
-    assert not loan.is_recalled()
+    assert not loan.is_notified(notification_type='recall')
 
     # test notification permissions
     res = client.post(
@@ -410,4 +410,4 @@ def test_recall_notification(client, patron_martigny_no_email,
 
     flush_index(NotificationsSearch.Meta.index)
 
-    assert loan.is_recalled()
+    assert loan.is_notified(notification_type='recall')
