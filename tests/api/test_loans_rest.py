@@ -25,7 +25,9 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime, timedelta, timezone
 
+import ciso8601
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -33,7 +35,8 @@ from invenio_circulation.errors import CirculationException
 from utils import flush_index, get_json
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
-    get_last_transaction_loc_for_item, get_loans_by_patron_pid
+    get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
+    get_overdue_loans
 from rero_ils.modules.loans.utils import can_be_requested
 
 
@@ -126,7 +129,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
                         item_type_standard_martigny,
                         item_lib_martigny, json_header,
                         circ_policy_short_martigny):
-    """Test due_soon_loans."""
+    """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
     item_pid = item.pid
@@ -166,3 +169,72 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('loan_pid') == loan_pid
+
+    # checkin the item to put it back to it's original state
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+
+def test_overdue_loans(client, librarian_martigny_no_email,
+                       patron_martigny_no_email, loc_public_martigny,
+                       item_type_standard_martigny,
+                       item_lib_martigny, json_header,
+                       circ_policy_short_martigny):
+    """Test overdue loans."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    item = item_lib_martigny
+    item_pid = item.pid
+    patron_pid = patron_martigny_no_email.pid
+    assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
+        'barcode'))
+    assert item.can_delete
+    assert item.available
+
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                patron_pid=patron_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
+    data = get_json(res)
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    end_date = datetime.now(timezone.utc) - timedelta(days=7)
+    loan['end_date'] = end_date.isoformat()
+    loan.update(
+        loan,
+        dbcommit=True,
+        reindex=True
+    )
+
+    overdue_loans = get_overdue_loans()
+    assert overdue_loans[0].get('loan_pid') == loan_pid
+
+    # checkin the item to put it back to it's original state
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_pid,
+                loan_pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200

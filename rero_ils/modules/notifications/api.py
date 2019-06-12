@@ -118,3 +118,17 @@ def get_recall_notification(loan):
         return Notification.get_record_by_pid(pid)
     except StopIteration:
         return None
+
+
+def number_of_reminder_sent(loan):
+    """Get the number of overdue notifications sent for the given loan."""
+    reminder_count = 0
+    results = NotificationsSearch().filter(
+        'term', loan_pid=loan.get('loan_pid')
+        ).filter('term', notification_type='overdue').source().scan()
+    try:
+        notification = Notification.get_record_by_pid(record.pid)
+        reminder_count = notification.get('reminder_count')
+    except StopIteration:
+        pass
+    return reminder_count
