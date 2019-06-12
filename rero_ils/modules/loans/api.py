@@ -167,6 +167,11 @@ class Loan(IlsRecord):
             if self.get('state') == 'ITEM_ON_LOAN' and \
                     not self.is_notified(notification_type=notification_type):
                 notification_to_create = True
+        elif notification_type == 'overdue':
+            if self.get('state') == 'ITEM_ON_LOAN' and \
+                    number_of_reminder_sent(self) == 0:
+                record['reminder_counter'] = 1
+                notification_to_create = True
         if notification_to_create:
             data = Notification.create(
                 data=record, dbcommit=True, reindex=True)
@@ -242,3 +247,26 @@ def get_due_soon_loans():
                 now > due_date - timedelta(days=days_before):
                     due_soon_loans.append(loan)
     return due_soon_loans
+
+
+def get_overdue_loans():
+    """Return all overdue loans."""
+    from .utils import get_circ_policy
+    overdue_loans = []
+    results = current_circulation.loan_search\
+        .source(['loan_pid'])\
+        .params(preserve_order=True)\
+        .filter('term', state='ITEM_ON_LOAN')\
+        .sort({'transaction_date': {'order': 'asc'}})\
+        .scan()
+    for record in results:
+        loan = Loan.get_record_by_pid(record.loan_pid)
+        circ_policy = get_circ_policy(loan)
+        now = datetime.now()
+        end_date = loan.get('end_date')
+        due_date = ciso8601.parse_datetime_as_naive(end_date)
+
+        days_after = circ_policy.get('number_of_days_after_due_date')
+        if now > due_date + timedelta(days=days_after):
+            overdue_loans.append(loan)
+    return overdue_loans
