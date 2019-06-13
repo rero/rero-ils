@@ -30,7 +30,7 @@ import mock
 import pytest
 from utils import get_mapping, mock_response
 
-from rero_ils.modules.documents.api import Document, DocumentsSearch, \
+from rero_ils.modules.documents.api import Document, \
     document_id_fetcher
 from rero_ils.modules.mef_persons.api import MefPersonsSearch
 
@@ -47,21 +47,6 @@ def test_document_create(db, document_data_tmp):
     fetched_pid = document_id_fetcher(ptty.id, ptty)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'doc'
-
-
-def test_document_es_mapping(db, org_martigny,
-                             document_data_tmp, item_lib_martigny):
-    """Test document elasticsearch mapping."""
-    search = DocumentsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Document.create(
-        document_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
 
 
 def test_document_can_not_delete(document, item_lib_martigny):
