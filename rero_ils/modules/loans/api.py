@@ -143,7 +143,7 @@ class Loan(IlsRecord):
 
     def create_notification(self, notification_type=None):
         """Creates a recall notification from a checked-out loan."""
-        data = {}
+        notification = {}
         record = {}
         creation_date = datetime.now(timezone.utc).isoformat()
         record['creation_date'] = creation_date
@@ -174,9 +174,10 @@ class Loan(IlsRecord):
                 record['reminder_counter'] = 1
                 notification_to_create = True
         if notification_to_create:
-            data = Notification.create(
+            notification = Notification.create(
                 data=record, dbcommit=True, reindex=True)
-        return data
+            notification = notification.dispatch()
+        return notification
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):

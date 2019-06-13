@@ -571,7 +571,6 @@ def loan_validated_martigny(
 
     loan = list(item2_lib_martigny.get_loans_by_item_pid(
         item_pid=item2_lib_martigny.pid))[0]
-    item2_lib_martigny.status_update(dbcommit=True)
     item2_lib_martigny.validate_request(
         loan_pid=loan.get('loan_pid'),
         patron_pid=patron_martigny_no_email.pid,
@@ -586,7 +585,6 @@ def loan_validated_martigny(
     flush_index(NotificationsSearch.Meta.index)
     loan = list(item2_lib_martigny.get_loans_by_item_pid(
         item_pid=item2_lib_martigny.pid))[0]
-    item2_lib_martigny.status_update(dbcommit=True)
     return loan
 
 

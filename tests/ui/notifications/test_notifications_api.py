@@ -25,7 +25,9 @@
 """Notification Record tests."""
 
 from __future__ import absolute_import, print_function
+
 from copy import deepcopy
+
 from utils import get_mapping
 
 from rero_ils.modules.notifications.api import Notification, \
@@ -35,9 +37,8 @@ from rero_ils.modules.notifications.api import \
 
 
 def test_notification_create_and_es_mapping(
-        dummy_notification, loan_validated_martigny):
+        dummy_notification, loan_validated_martigny, mailbox):
     """Test notification creation."""
-
     search = NotificationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
@@ -53,6 +54,7 @@ def test_notification_create_and_es_mapping(
     notification = Notification.create(
         notif, dbcommit=True, delete_pid=True, reindex=True)
     assert notification == notif
+
     pid = notification.get('pid')
 
     notification = Notification.get_record_by_pid(pid)
@@ -63,6 +65,9 @@ def test_notification_create_and_es_mapping(
     fetched_pid = fetcher(notification.id, notification)
     assert fetched_pid.pid_value == pid
     assert fetched_pid.pid_type == 'notif'
+
+    notification.dispatch()
+    assert len(mailbox) == 1
 
 
 def test_notification_organisation_pid(
