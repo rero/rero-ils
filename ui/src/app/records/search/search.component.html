@@ -13,7 +13,8 @@
         <h6>
           {{total}} {{ 'results' | translate }}
         </h6>
-        <a *ngIf="adminMode && recordType !== 'persons'" class="btn btn-success btn-sm"
+        <a *ngIf="adminMode && recordType !== 'persons' && hasPermissionToCreate()"
+           class="btn btn-success btn-sm"
            routerLinkActive="active" [routerLink]="['/records', recordType, 'new']"
            translate>
           <i class="fa fa-plus" aria-hidden="true"></i> Add

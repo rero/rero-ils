@@ -59,6 +59,26 @@ export class ResultComponent implements OnInit {
     (<BriefView>componentRef.instance).record = this.record;
   }
 
+  hasPermissionToDelete() {
+    const record = this.record;
+    if (record.permissions
+      && record.permissions.cannot_delete
+      && record.permissions.cannot_delete.permission) {
+      return false;
+    }
+    return true;
+  }
+
+  hasPermissionToUpdate() {
+    const record = this.record;
+    if (record.permissions
+        && record.permissions.cannot_update
+        && record.permissions.cannot_update.permission) {
+      return false;
+    }
+    return true;
+  }
+
   deleteRecord(pid: string) {
     this.deletedRecord.emit(pid);
   }
