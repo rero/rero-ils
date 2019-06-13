@@ -123,6 +123,7 @@ export class SearchComponent implements OnInit {
   public aggsSettings = null;
   public searchMime = 'application/json';
   public language = null;
+  public permissions = null;
   onInitDone = false;
   constructor(
     protected recordsService: RecordsService,
@@ -165,7 +166,10 @@ export class SearchComponent implements OnInit {
         this.notFound = true;
       } else {
         this.records = data.hits.hits;
-
+        this.permissions = null;
+        if (data.permissions) {
+          this.permissions = data.permissions;
+        }
         this.aggregations = [];
         this.aggsSettings = data.aggregations._settings;
         if (this.aggsSettings !== undefined) {
@@ -275,10 +279,13 @@ export class SearchComponent implements OnInit {
     }
     return false;
   }
-  // isCollapsed(title) {
-  //   return this.startOpen(title);
-  // }
-  // toggleCollapsed(title) {
-  //   return;
-  // }
+
+  hasPermissionToCreate() {
+    if (this.permissions
+        && this.permissions.cannot_create
+        && this.permissions.cannot_create.permission) {
+      return false;
+    }
+    return true;
+  }
 }
