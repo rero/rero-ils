@@ -75,7 +75,7 @@
             "key": "roles",
             "notitle": "true",
             "description": "What is/are the role(s) of the user?",
-            "type": "checkboxes",
+            "type": "rolesCheckboxes",
             "htmlClass": "d-inline-block",
             "orderable": "false",
             "titleMap": [
@@ -125,6 +125,7 @@
                 "description": "The library where the librarian works.",
                 "type": "select",
                 "remoteRecordType": "libraries",
+                "remoteRecordFiltersByOwningLibrary": "pid",
                 "condition": {
                   "functionBody": "{return model.roles? model.roles.includes('librarian'): false;}"
                 }
