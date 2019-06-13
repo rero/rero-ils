@@ -37,6 +37,60 @@ from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
 
 
 @pytest.fixture(scope="module")
+def ebook_1_data(data):
+    """Load ebook 1 data."""
+    return deepcopy(data.get('ebook1'))
+
+
+@pytest.fixture(scope="module")
+def ebook_1(app, ebook_1_data):
+    """Load ebook 1 record."""
+    doc = Document.create(
+        data=ebook_1_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+def ebook_2_data(data):
+    """Load ebook 2 data."""
+    return deepcopy(data.get('ebook2'))
+
+
+@pytest.fixture(scope="module")
+def ebook_2(app, ebook_2_data):
+    """Load document record."""
+    doc = Document.create(
+        data=ebook_2_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+def ebook_3_data(data):
+    """Load ebook 3 data."""
+    return deepcopy(data.get('ebook3'))
+
+
+@pytest.fixture(scope="module")
+def ebook_3(app, ebook_3_data):
+    """Load document record."""
+    doc = Document.create(
+        data=ebook_3_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
 def document_data(data):
     """Load document data."""
     return deepcopy(data.get('doc1'))
