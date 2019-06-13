@@ -25,25 +25,9 @@
 """Common pytest fixtures and plugins."""
 
 import json
-from copy import deepcopy
 from os.path import dirname, join
 
-import mock
 import pytest
-from invenio_circulation.proxies import current_circulation
-from utils import flush_index, mock_response
-
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
-from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
-from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
-from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.locations.api import Location, LocationsSearch
-from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
-from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 pytest_plugins = [
     'fixtures.circulation',
@@ -85,4 +69,8 @@ def app_config(app_config):
     app_config['CACHE_TYPE'] = 'simple'
     app_config['SEARCH_ELASTIC_HOSTS'] = None
     app_config['DB_VERSIONING'] = True
+    app_config['CELERY_CACHE_BACKEND'] = "memory"
+    app_config['CELERY_RESULT_BACKEND'] = "cache"
+    app_config['CELERY_TASK_ALWAYS_EAGER'] = True
+    app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
     return app_config

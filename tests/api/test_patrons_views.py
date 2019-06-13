@@ -27,16 +27,13 @@ import json
 from copy import deepcopy
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import get_json
 
 from rero_ils.modules.items.api import ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction
-from rero_ils.modules.patrons.cli import import_users
-from rero_ils.modules.patrons.listener import func_item_at_desk, \
-    listener_item_at_desk
+from rero_ils.modules.loans.api import LoanAction
+from rero_ils.modules.patrons.listener import listener_item_at_desk
 from rero_ils.modules.patrons.utils import user_has_patron
 
 
