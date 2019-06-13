@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of RERO ILS.
-# Copyright (C) 2017 RERO.
+# Copyright (C) 2019 RERO.
 #
 # RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -27,7 +27,6 @@
 from __future__ import absolute_import, print_function
 
 from celery import shared_task
-from flask import current_app
 
 from ..loans.api import get_due_soon_loans, get_overdue_loans
 

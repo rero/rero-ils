@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of RERO ILS.
-# Copyright (C) 2018 RERO.
+# Copyright (C) 2019 RERO.
 #
 # RERO ILS is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -26,16 +26,20 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+from datetime import datetime
 from functools import partial
 
-from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
 
+from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
 from ..api import IlsRecord
+from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..locations.api import Location
 from ..minters import id_minter
+from ..patrons.api import Patron
 from ..providers import Provider
 
 # notif provider
@@ -67,12 +71,50 @@ class Notification(IlsRecord):
     provider = NotificationProvider
     model_cls = NotificationMetadata
 
-    @property
-    def organisation_pid(self):
-        """Get organisation pid for notification."""
-        location_pid = self.loan.get('transaction_location_pid')
-        location = Location.get_record_by_pid(location_pid)
-        return location.organisation_pid
+    def dispatch(self, delay=True):
+        """Dispatch notification."""
+        self = Dispatcher().dispatch_notification(notification=self)
+        return self
+
+    def update_process_date(self):
+        """Update process date."""
+        self['process_date'] = datetime.now().isoformat()
+        self.update(data=self.dumps(), dbcommit=True, reindex=True)
+        return self
+
+    def replace_pids_and_refs(self):
+        """Dumps data."""
+        try:
+            self.init_loan()
+            data = deepcopy(self.replace_refs())
+            data['loan'] = self.loan
+            data['loan']['item'] = self.item.replace_refs().dumps()
+            # del(data['loan']['item_pid'])
+            data['loan']['patron'] = self.patron.replace_refs().dumps()
+            # del(data['loan']['patron_pid'])
+            data['loan']['transaction_user'] = \
+                self.transaction_user.replace_refs().dumps()
+            # del(data['loan']['transaction_user_pid'])
+            data['loan']['transaction_location'] = \
+                self.transaction_location.replace_refs().dumps()
+            # del(data['loan']['transaction_location_pid'])
+            pickup_location = self.pickup_location
+            if pickup_location:
+                data['loan']['pickup_location'] = \
+                    pickup_location.replace_refs().dumps()
+                # del(data['loan']['pickup_location_pid'])
+            data['loan']['document'] = self.document.replace_refs().dumps()
+            # del(data['loan']['document_pid'])
+            return data
+        except Exception as e:
+            raise(e)
+
+    def init_loan(self):
+        """Set loan of the notification."""
+        if not hasattr(self, 'loan'):
+            from ..loans.api import Loan
+            self.loan = Loan.get_record_by_pid(self.loan_pid)
+        return self.loan
 
     @property
     def loan_pid(self):
@@ -80,20 +122,77 @@ class Notification(IlsRecord):
         return self.replace_refs()['loan']['pid']
 
     @property
+    def organisation_pid(self):
+        """Get organisation pid for notification."""
+        self.init_loan()
+        return self.transaction_location.organisation_pid
+
+    @property
     def item_pid(self):
-        """Shortcut for item pid the notification."""
+        """Shortcut for item pid of the notification."""
+        self.init_loan()
         return self.loan.get('item_pid')
 
     @property
+    def item(self):
+        """Shortcut for item of the notification."""
+        from ..items.api import Item
+        return Item.get_record_by_pid(self.item_pid)
+
+    @property
     def patron_pid(self):
-        """Shortcut for patron pid the notification."""
+        """Shortcut for patron pid of the notification."""
+        self.init_loan()
         return self.loan.get('patron_pid')
 
     @property
-    def loan(self):
-        """Shortcut for loan of the notification."""
-        from ..loans.api import Loan
-        return Loan.get_record_by_pid(self.loan_pid)
+    def patron(self):
+        """Shortcut for patron of the notification."""
+        return Patron.get_record_by_pid(self.patron_pid)
+
+    @property
+    def transaction_user_pid(self):
+        """Shortcut for transaction user pid of the notification."""
+        self.init_loan()
+        return self.loan.get('transaction_user_pid')
+
+    @property
+    def transaction_user(self):
+        """Shortcut for transaction user of the notification."""
+        return Patron.get_record_by_pid(self.transaction_user_pid)
+
+    @property
+    def transaction_location_pid(self):
+        """Shortcut for transaction location pid of the notification."""
+        self.init_loan()
+        return self.loan.get('transaction_location_pid')
+
+    @property
+    def transaction_location(self):
+        """Shortcut for transaction location of the notification."""
+        return Location.get_record_by_pid(self.transaction_location_pid)
+
+    @property
+    def pickup_location_pid(self):
+        """Shortcut for pickup location pid of the notification."""
+        self.init_loan()
+        return self.loan.get('pickup_location_pid')
+
+    @property
+    def pickup_location(self):
+        """Shortcut for pickup location of the notification."""
+        return Location.get_record_by_pid(self.pickup_location_pid)
+
+    @property
+    def document_pid(self):
+        """Shortcut for document pid of the notification."""
+        self.init_loan()
+        return self.loan.get('document_pid')
+
+    @property
+    def document(self):
+        """Shortcut for document of the notification."""
+        return Document.get_record_by_pid(self.document_pid)
 
 
 def get_availability_notification(loan):
