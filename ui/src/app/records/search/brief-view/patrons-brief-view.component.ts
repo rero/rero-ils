@@ -77,26 +77,28 @@ export class PatronsBriefViewComponent implements BriefView {
   }
 
   toggleCollapse() {
-    if (this.isCollapsed) {
+    const isCollapsed = this.isCollapsed;
+    if (isCollapsed) {
       if (this.isPatron()) {
         const patronTypePid = this.record.metadata.patron_type.pid;
         this.recordsService
           .getRecord('patron_types', patronTypePid, 1)
           .subscribe(data => {
             this.record.metadata.patron_type = data.metadata;
-            this.isCollapsed = !this.isCollapsed;
+            this.isCollapsed = isCollapsed;
           });
-      } else {
+      }
+      if (this.isLibrarian()) {
         const libraryPid = this.record.metadata.library.pid;
         this.recordsService
           .getRecord('libraries', libraryPid, 1)
           .subscribe(data => {
             this.record.metadata.library = data.metadata;
-            this.isCollapsed = !this.isCollapsed;
+            this.isCollapsed = !isCollapsed;
           });
       }
     } else {
-      this.isCollapsed = !this.isCollapsed;
+      this.isCollapsed = !isCollapsed;
     }
   }
 }

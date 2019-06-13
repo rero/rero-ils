@@ -4,6 +4,7 @@ import { RecordsService } from '../records.service';
 import { RemoteSelectComponent } from './remote-select/remote-select.component';
 import { RemoteInputComponent } from './remote-input/remote-input.component';
 import { RefAuthorityComponent } from './ref-authority/ref-authority.component';
+import {RolesCheckboxesComponent} from './roles-checkboxes/roles-checkboxes.component';
 
 import { WidgetLibraryService } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
@@ -42,6 +43,7 @@ export class EditorComponent implements OnInit {
     private toastrService: ToastrService
   ) {
     this.widgetLibrary.registerWidget('select', RemoteSelectComponent);
+    this.widgetLibrary.registerWidget('rolesCheckboxes', RolesCheckboxesComponent);
     this.widgetLibrary.registerWidget('text', RemoteInputComponent);
     this.widgetLibrary.registerWidget('refAuthority', RefAuthorityComponent);
     this.currentLocale = translateService.currentLang;

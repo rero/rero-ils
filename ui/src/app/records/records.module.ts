@@ -47,6 +47,7 @@ import { DocumentsSearchComponent } from './search/public-search/documents-searc
 import { PersonsSearchComponent } from './search/public-search/persons-search.component';
 import { RefAuthorityComponent } from './editor/ref-authority/ref-authority.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { RolesCheckboxesComponent } from './editor/roles-checkboxes/roles-checkboxes.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     PublicSearchComponent,
     DocumentsSearchComponent,
     PersonsSearchComponent,
-    RefAuthorityComponent
+    RefAuthorityComponent,
+    RolesCheckboxesComponent
   ],
   imports: [
     CommonModule,
@@ -94,6 +96,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
   ],
   entryComponents: [
     RemoteSelectComponent,
+    RolesCheckboxesComponent,
     RemoteInputComponent,
     RefAuthorityComponent,
     JsonBriefViewComponent,
