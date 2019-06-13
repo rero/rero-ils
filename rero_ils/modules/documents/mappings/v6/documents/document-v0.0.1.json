@@ -36,7 +36,26 @@
         },
         "title": {
           "type": "text",
-          "copy_to": "autocomplete_title"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "autocomplete_title",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "autocomplete_title": {
           "type": "text",
@@ -44,7 +63,26 @@
           "search_analyzer": "standard"
         },
         "titlesProper": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "type": {
           "type": "keyword"
@@ -58,7 +96,26 @@
           }
         },
         "is_part_of": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "translatedFrom": {
           "type": "keyword"
@@ -68,6 +125,7 @@
           "properties": {
             "name": {
               "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
               "copy_to": [
                 "facet_authors_en",
                 "facet_authors_fr",
@@ -77,18 +135,22 @@
             },
             "name_en": {
               "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_en"
             },
             "name_fr": {
               "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_fr"
             },
             "name_de": {
               "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_de"
             },
             "name_it": {
               "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_it"
             },
             "type": {
@@ -121,7 +183,8 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
             },
             "place": {
               "type": "text"
@@ -151,7 +214,26 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "text"
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
             "number": {
               "type": "keyword"
@@ -159,10 +241,48 @@
           }
         },
         "notes": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "abstracts": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "identifiers": {
           "type": "object",
@@ -180,7 +300,26 @@
         },
         "subjects": {
           "type": "text",
-          "copy_to": "facet_subjects"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "facet_subjects",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "facet_subjects": {
           "type": "keyword"
