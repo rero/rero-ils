@@ -27,6 +27,7 @@
 from flask import current_app, render_template
 from flask_mail import Message
 from flask_security.utils import config_value
+from invenio_mail.tasks import send_email as _send_mail
 
 
 def send_mail(subject, recipients, template, language, **context):
@@ -42,15 +43,23 @@ def send_mail(subject, recipients, template, language, **context):
                   sender=sender,
                   recipients=recipients)
 
-    ctx = ('email', template, language)
-
     if config_value('EMAIL_PLAINTEXT'):
-        msg.body = render_template('%s/%s_%s.txt' % ctx, **context)
-    # if config_value('EMAIL_HTML'):
-    #     msg.html = render_template('%s/%s.html' % ctx, **context)
+        msg.body = render_template(
+            'email/{template}_{language}.txt'.format(
+                template=template,
+                language=language
+            ),
+            **context
+        )
+        # msg.html = render_template(
+        #     'email/{template}_{language}.html'.format(
+        #         template=template,
+        #         language=language
+        #     ),
+        #     **context
+        # )
 
-    mail = current_app.extensions.get('mail')
-    mail.send(msg)
+    _send_mail.delay(msg.__dict__)
 
 
 def i18n_to_str(language):

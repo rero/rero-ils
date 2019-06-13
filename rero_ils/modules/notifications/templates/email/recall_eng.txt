@@ -1,0 +1,6 @@
+Document recalled:
+pid: {{ document.pid }}
+title: {{ document.title }}
+
+Best regards
+Your library
