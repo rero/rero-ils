@@ -36,6 +36,7 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 from functools import partial
 
+from celery.schedules import crontab
 from flask import request
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
@@ -211,11 +212,17 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=60),
         'kwargs': dict(name='ebooks'),
     },
+    'notification-creation': {
+        'task':
+            'rero-ils.modules.tasks.create_over_and_due_soon_notifications',
+        'schedule': crontab(hour=4, minute=00)
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
     #     'kwargs': dict(name='mef'),
     # },
+
 }
 CELERY_BROKER_HEARTBEAT = 0
 
