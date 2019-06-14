@@ -1161,21 +1161,6 @@
       "patron"
     ]
   },
-  "loan1": {
-    "$schema": "https://ils.rero.ch/schema/loans/loan-ils-v0.0.1.json",
-    "loan_pid": "loan1",
-    "state": "PENDING",
-    "trigger": "request",
-    "document_pid": "doc1",
-    "item_pid": "item3",
-    "patron_pid": "ptrn7",
-    "start_date": "2019-01-09T08:18:22.576291+00:00",
-    "end_date": "2019-02-08T08:18:22.576291+00:00",
-    "pickup_location_pid": "loc1",
-    "transaction_date": "2019-01-09T08:18:22.576291+00:00",
-    "transaction_location_pid": "loc1",
-    "transaction_user_pid": "ptrn2"
-  },
   "dummy_notif": {
     "$schema": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json",
     "pid": "notif1",

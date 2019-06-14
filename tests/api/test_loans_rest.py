@@ -27,20 +27,21 @@ import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
-import ciso8601
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from invenio_circulation.errors import CirculationException
+from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_json
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
 from rero_ils.modules.loans.utils import can_be_requested
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch, number_of_reminders_sent
 
 
-def test_loans_permissions(client, loan_pending, json_header):
+def test_loans_permissions(client, loan_pending_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
     post_url = url_for('invenio_records_rest.loanid_list')
@@ -65,7 +66,7 @@ def test_loans_permissions(client, loan_pending, json_header):
     assert res.status_code == 401
 
 
-def test_loans_logged_permissions(client, loan_pending,
+def test_loans_logged_permissions(client, loan_pending_martigny,
                                   librarian_martigny_no_email,
                                   json_header):
     """Test record retrieval."""
@@ -95,7 +96,7 @@ def test_loans_logged_permissions(client, loan_pending,
 
 def test_loan_utils(client, patron_martigny_no_email,
                     patron2_martigny_no_email, circulation_policies,
-                    loan_pending, item_lib_martigny):
+                    loan_pending_martigny, item_lib_martigny):
     """Test loan utils."""
     loan = {
         'item_pid': item_lib_martigny.pid,
@@ -107,8 +108,8 @@ def test_loan_utils(client, patron_martigny_no_email,
     with pytest.raises(Exception):
         assert can_be_requested(loan)
 
-    assert loan_pending.patron_pid == patron2_martigny_no_email.pid
-    assert not loan_pending.is_active
+    assert loan_pending_martigny.patron_pid == patron2_martigny_no_email.pid
+    assert not loan_pending_martigny.is_active
 
     with pytest.raises(TypeError):
         assert get_loans_by_patron_pid()
@@ -117,9 +118,9 @@ def test_loan_utils(client, patron_martigny_no_email,
     with pytest.raises(TypeError):
         assert get_last_transaction_loc_for_item()
 
-    assert loan_pending.organisation_pid
+    assert loan_pending_martigny.organisation_pid
 
-    new_loan = deepcopy(loan_pending)
+    new_loan = deepcopy(loan_pending_martigny)
     assert new_loan.organisation_pid
     del new_loan['item_pid']
     assert not new_loan.organisation_pid
@@ -226,6 +227,14 @@ def test_overdue_loans(client, librarian_martigny_no_email,
 
     overdue_loans = get_overdue_loans()
     assert overdue_loans[0].get('loan_pid') == loan_pid
+
+    assert number_of_reminders_sent(loan) == 0
+
+    loan.create_notification(notification_type='overdue')
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+
+    assert number_of_reminders_sent(loan) == 1
 
     # checkin the item to put it back to it's original state
     res = client.post(

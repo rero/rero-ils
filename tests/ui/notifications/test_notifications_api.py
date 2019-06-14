@@ -22,44 +22,57 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-"""Location Record tests."""
+"""Notification Record tests."""
 
 from __future__ import absolute_import, print_function
-
 from copy import deepcopy
-
-from utils import flush_index, get_mapping, mock_response
+from utils import get_mapping
 
 from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, get_availability_notification
+    NotificationsSearch
 from rero_ils.modules.notifications.api import \
     notification_id_fetcher as fetcher
 
 
-def test_notification_create(db, es, dummy_notification,
-                             loan_validated):
-    """Test notification creation, mapping and can_delete."""
-    record = deepcopy(dummy_notification)
-    del record['pid']
-    data = {
+def test_notification_create_and_es_mapping(
+        dummy_notification, loan_validated_martigny):
+    """Test notification creation."""
+
+    search = NotificationsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+
+    notif = deepcopy(dummy_notification)
+    notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated.get('loan_pid')
+        'pid': loan_validated_martigny.get('loan_pid')
     }
-    loan_ref = '{loan_url}{pid}'.format(**data)
-    record['loan'] = {"$ref": loan_ref}
-    notif = Notification.create(
-        record,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    # notif = Notification.get_record_by_pid('1')
-    # assert notif == record
+    loan_ref = '{loan_url}{pid}'.format(**notif_data)
+    notif['loan'] = {"$ref": loan_ref}
 
-    # fetched_pid = fetcher(notif.id, notif)
-    # assert fetched_pid.pid_value == '1'
-    # assert fetched_pid.pid_type == 'notif'
+    notification = Notification.create(
+        notif, dbcommit=True, delete_pid=True, reindex=True)
+    assert notification == notif
+    pid = notification.get('pid')
 
-    # flush_index(NotificationsSearch.Meta.index)
-    # assert notif.get_links_to_me() == {}
-    # assert notif.can_delete
+    notification = Notification.get_record_by_pid(pid)
+    assert notification == notif
+
+    assert mapping == get_mapping(search.Meta.index)
+
+    fetched_pid = fetcher(notification.id, notification)
+    assert fetched_pid.pid_value == pid
+    assert fetched_pid.pid_type == 'notif'
+
+
+def test_notification_organisation_pid(
+        org_martigny, notification_availability_martigny):
+    """Test organisation pid has been added during the indexing."""
+    search = NotificationsSearch()
+    pid = notification_availability_martigny.get('pid')
+    notification = next(search.filter('term', pid=pid).scan())
+    assert notification.organisation.pid == org_martigny.pid
+
+    # test notification can_delete
+    assert notification_availability_martigny.get_links_to_me() == {}
+    assert notification_availability_martigny.can_delete
