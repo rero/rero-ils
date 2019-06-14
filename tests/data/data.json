@@ -1072,7 +1072,7 @@
   },
   "ebook3": {
     "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
-    "pid": "ebook2",
+    "pid": "ebook3",
     "type": "ebook",
     "title": "Harry Potter and the Chamber of Secrets",
     "languages": [
@@ -1100,6 +1100,42 @@
     "freeFormedPublicationDate": "December 2015",
     "abstracts": [
       "Harry Potter's summer has included the worst birthday ever, doomy warnings from a house-elf called Dobby, and rescue from the Dursleys by his friend Ron Weasley in a magical flying car! Back at Hogwarts School of Witchcraft and Wizardry for his second year, Harry hears strange whispers echo through empty corridors - and then the attacks start. Students are found as though turned to stone... Dobby's sinister predictions seem to be coming true."
+    ]
+  },
+  "ebook4": {
+    "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
+    "pid": "ebook4",
+    "type": "ebook",
+    "title": "Nouveau titre",
+    "languages": [
+      {
+        "language": "fre"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Peter James",
+        "type": "person"
+      }
+    ],
+    "publishers": [
+      {
+        "name": [
+          "12-21"
+        ],
+        "place": [
+          "Paris"
+        ]
+      }
+    ],
+    "publicationYear": 2019,
+    "freeFormedPublicationDate": "Mars 2019",
+    "subjects": [
+      "thriller",
+      "suspense"
+    ],
+    "notes": [
+      "La maison des oubli\u00e9s"
     ]
   },
   "item1": {

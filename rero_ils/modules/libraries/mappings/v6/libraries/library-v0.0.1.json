@@ -16,14 +16,16 @@
           "type": "keyword"
         },
         "code": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "name": {
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"
         },
         "address": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "email": {
           "type": "keyword"
