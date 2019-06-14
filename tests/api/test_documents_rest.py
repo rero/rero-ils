@@ -265,3 +265,32 @@ def test_document_can_request_view(client, item_lib_fully,
 
     picks = item_library_pickup_locations(item_lib_martigny)
     assert len(picks) == 3
+
+
+def test_document_boosting(
+        client,
+        ebook_1,
+        ebook_1_data,
+        ebook_4,
+        ebook_4_data
+):
+    """Test document boosting."""
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='maison'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total'] == 2
+    data = hits['hits'][0]['metadata']
+    assert data['pid'] == ebook_1_data.get('pid')
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='title:maison AND authors.name:James'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total'] == 1
+    data = hits['hits'][0]['metadata']
+    assert data['pid'] == ebook_1_data.get('pid')

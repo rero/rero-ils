@@ -199,7 +199,11 @@
         },
         "publicationYear": {
           "type": "date",
-          "format": "yyyy"
+          "format": "yyyy",
+          "copy_to": "publicationYearText"
+        },
+        "publicationYearText": {
+          "type": "keyword"
         },
         "otherMaterialCharacteristics": {
           "type": "keyword"

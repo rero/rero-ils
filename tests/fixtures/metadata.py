@@ -72,7 +72,7 @@ def ebook_2_data(data):
 
 @pytest.fixture(scope="module")
 def ebook_2(app, ebook_2_data):
-    """Load document record."""
+    """Load ebook 2 record."""
     doc = Document.create(
         data=ebook_2_data,
         delete_pid=False,
@@ -90,9 +90,27 @@ def ebook_3_data(data):
 
 @pytest.fixture(scope="module")
 def ebook_3(app, ebook_3_data):
-    """Load document record."""
+    """Load ebook 3 record."""
     doc = Document.create(
         data=ebook_3_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
+def ebook_4_data(data):
+    """Load ebook 4 data."""
+    return deepcopy(data.get('ebook4'))
+
+
+@pytest.fixture(scope="module")
+def ebook_4(app, ebook_4_data):
+    """Load ebook 4 record."""
+    doc = Document.create(
+        data=ebook_4_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
