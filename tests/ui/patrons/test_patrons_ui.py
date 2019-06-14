@@ -32,7 +32,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
 
-def test_patrons_profile(client, librarian_martigny_no_email, loan_pending):
+def test_patrons_profile(
+        client, librarian_martigny_no_email, loan_pending_martigny):
     """Test patron profile."""
     # check redirection
     res = client.get(url_for('patrons.profile'))
