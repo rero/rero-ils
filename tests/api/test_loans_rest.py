@@ -146,8 +146,8 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
         patron_martigny_no_email.patron_type_pid,
         item.item_type_pid
     )
-    circ_policy['number_of_days_before_due_date'] = 6
-    circ_policy['checkout_duration'] = 5
+    circ_policy['number_of_days_before_due_date'] = 7
+    circ_policy['checkout_duration'] = 3
     circ_policy.update(
         circ_policy,
         dbcommit=True,
