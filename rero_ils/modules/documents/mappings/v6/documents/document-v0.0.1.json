@@ -195,11 +195,16 @@
           "type": "keyword"
         },
         "extent": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "publicationYear": {
           "type": "date",
-          "format": "yyyy"
+          "format": "yyyy",
+          "copy_to": "publicationYearText"
+        },
+        "publicationYearText": {
+          "type": "keyword"
         },
         "otherMaterialCharacteristics": {
           "type": "keyword"

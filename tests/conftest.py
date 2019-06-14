@@ -29,9 +29,6 @@ from os.path import dirname, join
 
 import pytest
 
-from elasticsearch.exceptions import RequestError
-from invenio_search import current_search, current_search_client
-
 pytest_plugins = [
     'fixtures.circulation',
     'fixtures.metadata',

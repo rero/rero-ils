@@ -98,29 +98,15 @@
         "authors": {
           "type": "object",
           "properties": {
-            "authors": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "text",
-                  "analyzer": "global_lowercase_asciifolding",
-                  "copy_to": [
-                    "facet_authors_en",
-                    "facet_authors_fr",
-                    "facet_authors_de",
-                    "facet_authors_it"
-                  ]
-                },
-                "type": {
-                  "type": "keyword"
-                },
-                "date": {
-                  "type": "keyword"
-                },
-                "qualifier": {
-                  "type": "keyword"
-                }
-              }
+            "name": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "copy_to": [
+                "facet_authors_en",
+                "facet_authors_fr",
+                "facet_authors_de",
+                "facet_authors_it"
+              ]
             },
             "type": {
               "type": "keyword"
@@ -164,11 +150,16 @@
           "type": "keyword"
         },
         "extent": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding"
         },
         "publicationYear": {
           "type": "date",
-          "format": "yyyy"
+          "format": "yyyy",
+          "copy_to": "publicationYearText"
+        },
+        "publicationYearText": {
+          "type": "keyword"
         },
         "otherMaterialCharacteristics": {
           "type": "keyword"
