@@ -244,9 +244,8 @@ def get_due_soon_loans():
         due_date = ciso8601.parse_datetime_as_naive(end_date)
 
         days_before = circ_policy.get('number_of_days_before_due_date')
-        if now < due_date and \
-                now > due_date - timedelta(days=days_before):
-                    due_soon_loans.append(loan)
+        if due_date > now > due_date - timedelta(days=days_before):
+            due_soon_loans.append(loan)
     return due_soon_loans
 
 
