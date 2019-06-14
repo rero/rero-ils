@@ -24,29 +24,17 @@
 
 """Common pytest fixtures and plugins."""
 
-import json
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
-from os.path import dirname, join
+from datetime import datetime, timezone
 
 import mock
 import pytest
-from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, mock_response
+from utils import flush_index
 
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
-from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
-from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
-from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.locations.api import Location, LocationsSearch
-from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
-from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
+from rero_ils.modules.items.api import ItemsSearch
+from rero_ils.modules.notifications.api import NotificationsSearch, \
+    get_availability_notification
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
@@ -511,42 +499,50 @@ def patron_sion_no_email(
     return ptrn
 
 
-# ------------ Loans ----------
+# ------------ Loans: pending loan ----------
 @pytest.fixture(scope="module")
-def loan_data(data):
-    """Load loan data."""
-    return deepcopy(data.get('loan1'))
-
-
-@pytest.fixture(scope="function")
-def loan_data_tmp(data):
-    """Load loan data scope function."""
-    return deepcopy(data.get('loan1'))
-
-
-@pytest.fixture(scope="module")
-def loan_pending(
+def loan_pending_martigny(
         app,
         item_lib_fully,
         loc_public_martigny,
         librarian_martigny_no_email,
         patron2_martigny_no_email,
-        loan_data):
+        circulation_policies):
     """Create loan record with state pending.
 
     item_lib_fully is requested by patron2_martigny.
     """
-    loan = Loan.create(
-        data=loan_data,
-        delete_pid=True,
-        dbcommit=True,
-        reindex=True)
-    flush_index(current_circulation.loan_search.Meta.index)
+    transaction_date = datetime.now(timezone.utc).isoformat()
+    item_lib_fully.request(
+        patron_pid=patron2_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_date=transaction_date,
+        pickup_location_pid=loc_public_martigny.pid,
+        document_pid=item_lib_fully.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    loan = list(item_lib_fully.get_loans_by_item_pid(
+        item_pid=item_lib_fully.pid))[0]
     return loan
 
 
 @pytest.fixture(scope="module")
-def loan_validated(
+def loan_pending_martigny_data(loan_pending_martigny):
+    """Load loan data."""
+    return deepcopy(loan_pending_martigny)
+
+
+@pytest.fixture(scope="function")
+def loan_pending_martigny_data_tmp(loan_pending_martigny):
+    """Load loan data scope function."""
+    return deepcopy(loan_pending_martigny)
+
+
+# ------------ Loans: validated loan ----------
+@pytest.fixture(scope="module")
+def loan_validated_martigny(
         app,
         document,
         item2_lib_martigny,
@@ -594,7 +590,15 @@ def loan_validated(
     return loan
 
 
-# ------------ Notifications ------dummy notification----
+# ------------ Notifications: availability ----------
+@pytest.fixture(scope="module")
+def notification_availability_martigny(loan_validated_martigny):
+    """Availability notification of martigny."""
+    notification = get_availability_notification(loan_validated_martigny)
+    return notification
+
+
+# ------------ Notifications: dummy notification ----------
 
 @pytest.fixture(scope="function")
 def dummy_notification(data):

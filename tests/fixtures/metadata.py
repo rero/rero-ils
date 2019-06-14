@@ -24,30 +24,16 @@
 
 """Common pytest fixtures and plugins."""
 
-import json
+
 from copy import deepcopy
-from datetime import datetime, timedelta, timezone
-from os.path import dirname, join
 
 import mock
 import pytest
-from invenio_circulation.proxies import current_circulation
-from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, mock_response
 
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
-from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
-from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
 @pytest.fixture(scope="module")

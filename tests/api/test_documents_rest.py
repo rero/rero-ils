@@ -207,7 +207,7 @@ def test_documents_import_bnf_ean(client):
     }
 
 
-def test_document_can_delete(client, item_lib_martigny, loan_pending,
+def test_document_can_delete(client, item_lib_martigny, loan_pending_martigny,
                              document):
     """Test can delete a document."""
     links = document.get_links_to_me()
@@ -221,7 +221,7 @@ def test_document_can_delete(client, item_lib_martigny, loan_pending,
 
 
 def test_document_can_request_view(client, item_lib_fully,
-                                   loan_pending, document,
+                                   loan_pending_martigny, document,
                                    patron_martigny_no_email,
                                    patron2_martigny_no_email,
                                    item_type_standard_martigny,

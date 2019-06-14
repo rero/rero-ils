@@ -39,7 +39,8 @@ from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
 from ..locations.api import Location
-from ..notifications.api import Notification, NotificationsSearch
+from ..notifications.api import Notification, NotificationsSearch, \
+    number_of_reminders_sent
 from ..patrons.api import Patron
 
 
@@ -169,7 +170,7 @@ class Loan(IlsRecord):
                 notification_to_create = True
         elif notification_type == 'overdue':
             if self.get('state') == 'ITEM_ON_LOAN' and \
-                    number_of_reminder_sent(self) == 0:
+                    not number_of_reminders_sent(self):
                 record['reminder_counter'] = 1
                 notification_to_create = True
         if notification_to_create:
