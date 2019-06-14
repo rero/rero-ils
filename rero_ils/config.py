@@ -761,6 +761,18 @@ RECORDS_REST_FACETS = {
     )
 }
 
+# Elasticsearch fields boosting by index
+RERO_ILS_QUERY_BOOSTING = {
+    'documents': {
+        'title.*': 2,
+        'titlesProper.*': 2,
+        'authors.name': 2,
+        'authors.name_*': 2,
+        'publicationYearText': 2,
+        'freeFormedPublicationDate': 2,
+        'subjects.*': 2
+    }
+}
 
 # sort options
 indexes = [
@@ -781,7 +793,7 @@ RECORDS_REST_DEFAULT_SORT = dict()
 for index in indexes:
     RECORDS_REST_SORT_OPTIONS[index] = dict(
         bestmatch=dict(
-            fields=['_score'], title='Best match', default_order='asc',
+            fields=['-_score'], title='Best match', default_order='asc',
             order=1
         ),
         mostrecent=dict(
