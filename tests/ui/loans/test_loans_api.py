@@ -26,7 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-# import pytest
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.proxies import current_circulation
 from utils import get_mapping
@@ -34,22 +33,12 @@ from utils import get_mapping
 from rero_ils.modules.loans.api import Loan
 
 
-def test_loans_create(db, loan_data_tmp):
-    """Test loananisation creation."""
-    loan = Loan.create(loan_data_tmp, delete_pid=True)
-    assert loan == loan_data_tmp
-    assert loan.get('loan_pid') == '1'
-    assert loan.get('state') == 'PENDING'
-
-    loan = Loan.get_record_by_pid('1')
-    assert loan == loan_data_tmp
-
-    fetched_pid = loan_pid_fetcher(loan.id, loan)
-    assert fetched_pid.pid_value == '1'
+def test_loans_create(db, loan_pending_martigny):
+    """Test loan creation."""
+    assert loan_pending_martigny.get('state') == 'PENDING'
 
 
-def test_loan_es_mapping(es_clear, db, loan_data_tmp, item_lib_martigny,
-                         loc_public_fully, lib_fully):
+def test_loan_es_mapping(es_clear, db):
     """Test loans elasticsearch mapping."""
     search = current_circulation.loan_search
     mapping = get_mapping(search.Meta.index)
