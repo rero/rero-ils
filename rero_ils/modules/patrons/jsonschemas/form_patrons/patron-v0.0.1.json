@@ -74,7 +74,6 @@
           {
             "key": "roles",
             "notitle": "true",
-            "description": "What is/are the role(s) of the user?",
             "type": "rolesCheckboxes",
             "htmlClass": "d-inline-block",
             "orderable": "false",
@@ -111,7 +110,8 @@
               {
                 "key": "patron_type.$ref",
                 "required": true,
-                "title": "Patron type",
+                "title": "Patron Type",
+                "description": "Patron type in term of circulation policy.",
                 "type": "select",
                 "remoteRecordType": "patron_types",
                 "condition": {
@@ -122,7 +122,7 @@
                 "key": "library.$ref",
                 "required": true,
                 "title": "Library",
-                "description": "The library where the librarian works.",
+                "description": "Library affiliation.",
                 "type": "select",
                 "remoteRecordType": "libraries",
                 "remoteRecordFiltersByOwningLibrary": "pid",
