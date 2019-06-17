@@ -59,9 +59,9 @@
   "jpn": "jpn",
   "chi": "chi",
   "und": "und",
-  "patron": "patron",
-  "librarian": "librarian",
-  "systemlibrarian": "",
+  "patron": "lettore",
+  "librarian": "bibliotecario/a",
+  "system_librarian": "bibliotecario del sistema",
   "staff": "staff",
   "article": "article",
   "book": "libro",
@@ -224,7 +224,7 @@
   "Please insert a code": "Please insert a code",
   "Opening Hours": "Opening Hours",
   "Exceptions (holidays, etc.)": "Exceptions (holidays, etc.)",
-  "Validating…": "Validazione...",
+  "Validating\u2026": "Validazione...",
   "Name must be at least 4 characters long.": "Name must be at least 4 characters long.",
   "Address must be at least 4 characters long.": "Address must be at least 4 characters long.",
   "Email format is not correct.": "Email format is not correct.",
@@ -233,8 +233,8 @@
   "Start Time is required.": "Start Time is required.",
   "Start Time format is not correct.": "Start Time format is not correct.",
   "Import record from BNF": "Import record from BNF",
-  "Documents": "Documents",
+  "Documents": "Documenti",
   "Persons": "Persons",
-  "results": "results",
-  "No result found.": "No result found."
+  "results": "risultati",
+  "No result found.": "Nessun risultato trovato."
 }

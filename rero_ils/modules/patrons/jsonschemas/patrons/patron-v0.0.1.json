@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "title": "patron",
-  "description": "JSON schema for a patron",
+  "title": "user",
+  "description": "JSON schema for a user.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -19,13 +19,13 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate patron records against.",
+      "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json"
     },
     "pid": {
-      "title": "Patron ID",
+      "title": "User ID",
       "type": "string"
     },
     "first_name": {
@@ -57,7 +57,7 @@
     },
     "street": {
       "title": "Street",
-      "description": "Street and number of the patron's address, separated by a coma.",
+      "description": "Street and number of the address, separated by a coma.",
       "type": "string",
       "minLength": 4,
       "validationMessage": "Required."
@@ -83,6 +83,7 @@
     },
     "patron_type": {
       "title": "Patron Type",
+      "description": "Patron type in terms of circulation policy.",
       "type": "object",
       "properties": {
         "$ref": {
@@ -99,6 +100,7 @@
     },
     "library": {
       "title": "Library",
+      "description": "Library affiliation.",
       "type": "object",
       "properties": {
         "$ref": {
@@ -110,7 +112,7 @@
     },
     "roles": {
       "title": "Role",
-      "description": "Qualify this user as a patron and/or a librarian.",
+      "description": "Define the roles of the user.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
