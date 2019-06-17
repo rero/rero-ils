@@ -85,7 +85,7 @@ export class PatronsBriefViewComponent implements BriefView {
           .getRecord('patron_types', patronTypePid, 1)
           .subscribe(data => {
             this.record.metadata.patron_type = data.metadata;
-            this.isCollapsed = isCollapsed;
+            this.isCollapsed = !isCollapsed;
           });
       }
       if (this.isLibrarian()) {

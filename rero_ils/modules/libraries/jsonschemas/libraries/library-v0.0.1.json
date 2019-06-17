@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "Library",
-  "description": "JSON schema for an library",
+  "description": "JSON schema for a library",
   "additionalProperties": false,
   "required": [
     "$schema",
