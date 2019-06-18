@@ -910,7 +910,6 @@ RECORDS_JSON_SCHEMA = {
     'notif': '/notifications/notification-v0.0.1.json',
 }
 
-
 # Login Configuration
 # ===================
 #: Allow password change by users.

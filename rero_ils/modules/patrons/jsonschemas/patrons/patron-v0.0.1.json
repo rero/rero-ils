@@ -138,10 +138,10 @@
       "title": "Communication language",
       "type": "string",
       "enum": [
-        "de",
-        "en",
-        "fr",
-        "it"
+        "ger",
+        "eng",
+        "fre",
+        "ita"
       ]
     }
   }

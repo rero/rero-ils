@@ -1,0 +1,16 @@
+Expiry notice
+Dear patron,
+
+The loan period of following documents is expiring:
+
+{% if author %}Author : {{ author }}{% endif %}
+Title: {{ document.title }}
+Due date: {{ end_date }}
+Note: Non extendable
+
+You can consult your account and extend the loan period of your documents at: {{ profile_url }}
+
+Best regards
+
+{{ library.name }}
+{{ library.address }}

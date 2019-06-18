@@ -157,10 +157,10 @@
             "htmlClass": "px-2",
             "type": "select",
             "titleMap": {
-              "en": "English",
-              "fr": "French",
-              "de": "German",
-              "it": "Italian"
+              "eng": "English",
+              "fre": "French",
+              "ger": "German",
+              "ita": "Italian"
             },
             "placeHolder": "Select\u2026",
             "condition": {

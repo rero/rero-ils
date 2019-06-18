@@ -1,0 +1,16 @@
+Avviso di scadenza
+Cara lettrice, caro lettore,
+
+La durata di prestito dei seguenti documenti sta per scadere:
+
+{% if author %}Autore : {{ author }}{% endif %}
+Titolo: {{ document.title }}
+Scadenza: {{ end_date }}
+Nota: Non extendable
+
+Lei può consultare il Suo conto et prorogare la durata di prestito dei Suoi documenti al seguente indirizzo: {{ profile_url }}
+
+Cordiali saluti
+
+{{ library.name }}
+{{ library.address }}

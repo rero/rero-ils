@@ -1,0 +1,16 @@
+Documento non prorogabile
+Cara lettrice, caro lettore,
+
+Il documento che Lei ha presto in prestito è stato riservato da un'altra persona. Una proroga della durata di prestito non è quindi più possibile e La preghiamo di restituirlo entro la scadenza.
+
+{% if author %}Autore : {{ author }}{% endif %}
+Titolo: {{ document.title }}
+Scadenza: {{ end_date }}
+Nota: Non prorogabile
+
+Lei può consultare il Suo conto al seguente indirizzo: {{ profile_url }}
+
+Cordiali saluti
+
+{{ library.name }}
+{{ library.address }}

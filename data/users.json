@@ -73,7 +73,7 @@
     "postal_code": "11100",
     "street": "Via Croix Noire 3",
     "communication_channel": "email",
-    "communication_language": "it"
+    "communication_language": "ita"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -93,7 +93,7 @@
     "postal_code": "11100",
     "street": "Panoramica Collinare, 47",
     "communication_channel": "email",
-    "communication_language": "it"
+    "communication_language": "ita"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -131,7 +131,7 @@
     "postal_code": "1950",
     "street": "Rue du Nord 7",
     "communication_channel": "email",
-    "communication_language": "fr"
+    "communication_language": "fre"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -152,7 +152,7 @@
     "postal_code": "95054",
     "street": "520 Scott Blvd",
     "communication_channel": "email",
-    "communication_language": "en"
+    "communication_language": "eng"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -173,7 +173,7 @@
     "postal_code": "1892",
     "street": "Route du Village 6",
     "communication_channel": "email",
-    "communication_language": "fr"
+    "communication_language": "fre"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -194,7 +194,7 @@
     "postal_code": "6500",
     "street": "Piazza Collegiata 12",
     "communication_channel": "email",
-    "communication_language": "it"
+    "communication_language": "ita"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -215,7 +215,7 @@
     "postal_code": "1920",
     "street": "Gare 45",
     "communication_channel": "email",
-    "communication_language": "en"
+    "communication_language": "eng"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -236,7 +236,7 @@
     "postal_code": "1926",
     "street": "Vignettes 25",
     "communication_channel": "email",
-    "communication_language": "de"
+    "communication_language": "ger"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -275,7 +275,7 @@
     "postal_code": "55555",
     "street": "Magic Street 3",
     "communication_channel": "email",
-    "communication_language": "en"
+    "communication_language": "eng"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
@@ -295,6 +295,6 @@
     "postal_code": "55555",
     "street": "Diagon Alley 72",
     "communication_channel": "email",
-    "communication_language": "en"
+    "communication_language": "eng"
   }
 ]

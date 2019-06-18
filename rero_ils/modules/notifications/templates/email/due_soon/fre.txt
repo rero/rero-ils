@@ -1,0 +1,16 @@
+Avis d'échéance
+Chère lectrice, cher lecteur,
+
+Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :
+
+{% if author %}Auteur : {{ author }}{% endif %}
+Titre : {{ document.title }}
+Echéance : {{ end_date }}
+Note : Non extendable
+
+Vous pouvez consulter votre compte et prolonger la durée de prêt de vos documents à l'adresse : {{ profile_url }}
+
+Avec nos compliments
+
+{{ library.name }}
+{{ library.address }}
