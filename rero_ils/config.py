@@ -59,6 +59,7 @@ from .modules.documents.api import Document
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
 from .modules.libraries.api import Library
+from .modules.loans.api import Loan
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
@@ -999,6 +1000,9 @@ CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = \
     Item.get_document_pid_by_item_pid
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = Item.get_items_pid_by_document_pid
 
+CIRCULATION_DOCUMENT_EXISTS = Document.get_record_by_pid
+CIRCULATION_ITEM_REF_BUILDER = Loan.loan_build_item_ref
+
 # This is needed for absolute URL (url_for)
 # SERVER_NAME = 'localhost:5000'
 # CIRCULATION_REST_ENDPOINTS = {}
@@ -1091,7 +1095,7 @@ CIRCULATION_POLICIES = dict(
     checkout=dict(
         duration_default=get_default_loan_duration,
         duration_validate=loan_satisfy_circ_policies,
-        item_available=is_item_available_for_checkout
+        item_can_circulate=is_item_available_for_checkout
     ),
     extension=dict(
         from_end_date=False,

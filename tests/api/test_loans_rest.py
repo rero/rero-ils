@@ -136,6 +136,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
+
     assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
         'barcode'))
     assert item.can_delete
@@ -196,10 +197,6 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
-    assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
-        'barcode'))
-    assert item.can_delete
-    assert item.available
 
     # checkout
     res = client.post(

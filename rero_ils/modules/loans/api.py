@@ -29,12 +29,13 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 from flask import current_app, url_for
-from invenio_circulation.errors import CirculationException
+from invenio_circulation.errors import CirculationException, \
+    MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
 from invenio_circulation.proxies import current_circulation
-from invenio_circulation.search.api import search_by_patron_item
+from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
@@ -84,6 +85,27 @@ class Loan(IlsRecord):
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
         return record
+
+    def attach_item_ref(self):
+        """Attach item reference."""
+        item_pid = self.get("item_pid")
+        if not item_pid:
+            raise MissingRequiredParameterError(
+                description='item_pid missing from loan {0}'.format(
+                    self['loan_pid']))
+        if self.loan_build_item_ref:
+            self["item"] = self.loan_build_item_ref(item_pid)
+
+    def loan_build_item_ref(self, item_pid):
+        """Build $ref for the Item attached to the Loan."""
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        return {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='items',
+                pid=item_pid)
+        }
 
     @property
     def item_pid(self):
@@ -182,7 +204,7 @@ class Loan(IlsRecord):
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
     """Get pending, item_on_transit, item_at_desk loans for item, patron."""
-    search = search_by_patron_item(
+    search = search_by_patron_item_or_document(
         item_pid=item_pid,
         patron_pid=patron_pid,
         filter_states=[
