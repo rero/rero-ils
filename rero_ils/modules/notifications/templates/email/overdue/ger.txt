@@ -1,0 +1,16 @@
+1. Mahnung
+Sehr geehrte Leserin, sehr geehrter Leser,
+
+Die Ausleihfrist folgender Dokumente ist abgelaufen:
+
+{% if author %}Autor : {{ author }}{% endif %}
+Titel: {{ document.title }}
+Rückgabedatum: {{ end_date }}
+Anmerkung: 1. Mahnung
+
+Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
+
+Freundliche Grüsse
+
+{{ library.name }}
+{{ library.address }}

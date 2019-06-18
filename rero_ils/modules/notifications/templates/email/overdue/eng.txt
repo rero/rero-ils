@@ -1,0 +1,16 @@
+1st reminder
+Dear patron,
+
+The loan period of following documents has expired:
+
+{% if author %}Author : {{ author }}{% endif %}
+Title: {{ document.title }}
+Due date: {{ end_date }}
+Note: 1st reminder
+
+You can consult your account and extend the loan period of your documents at: {{ profile_url }}
+
+Best regards
+
+{{ library.name }}
+{{ library.address }}
