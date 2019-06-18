@@ -13,6 +13,18 @@
       "type": "string",
       "title": "Schema"
     },
+    "item": {
+      "title": "Item",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Item URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/items/.+?$",
+          "default": "https://ils.rero.ch/api/items/"
+        }
+      }
+    },
     "extension_count": {
       "type": "integer",
       "title": "Loan extension count"

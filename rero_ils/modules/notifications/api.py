@@ -110,6 +110,7 @@ class Notification(IlsRecord):
                 library_pid = data['loan']['pickup_location']['library']['pid']
                 library = Library.get_record_by_pid(library_pid)
                 data['loan']['pickup_location']['library'] = library
+                data['loan']['library'] = library
                 keep_until = datetime.now() + timedelta(days=10)
                 next_open = library.next_open(keep_until)
                 # language = data['loan']['patron']['communication_language']

@@ -31,7 +31,7 @@ from flask import current_app
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
 from invenio_circulation.errors import CirculationException, \
-    NoValidTransitionAvailable
+    MissingRequiredParameterError, NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_i18n.ext import current_i18n
@@ -115,8 +115,8 @@ def add_loans_parameters_and_flush_indexes(function):
         # TODO: include in invenio-circulation
         if function.__name__ == 'request' and \
                 not kwargs.get('pickup_location_pid'):
-            raise CirculationException(
-                "Pickup Location PID not specified")
+            raise MissingRequiredParameterError(
+                description="Parameter 'pickup_location_pid' is required")
 
         if loan_pid:
             loan = Loan.get_record_by_pid(loan_pid)
@@ -126,8 +126,8 @@ def add_loans_parameters_and_flush_indexes(function):
                 web_request = True
             # create or get a loan
             if not patron_pid:
-                raise CirculationException(
-                    "Patron PID not specified")
+                raise MissingRequiredParameterError(
+                    description="Parameter 'patron_pid' is required")
             if function.__name__ == 'checkout':
                 request = get_request_by_item_pid_by_patron_pid(
                     item_pid=item.pid, patron_pid=patron_pid)
@@ -141,8 +141,8 @@ def add_loans_parameters_and_flush_indexes(function):
                 }
                 loan = Loan.create(data, dbcommit=True, reindex=True)
         else:
-            raise CirculationException(
-                "Loan PID not specified")
+            raise MissingRequiredParameterError(
+                description="Parameter 'loan_pid' is required")
 
         # set missing parameters
         kwargs['item_pid'] = item.pid
@@ -397,7 +397,7 @@ class Item(IlsRecord):
         of the last loan.
         """
         loan_location_pid = get_last_transaction_loc_for_item(self.pid)
-        if loan_location_pid:
+        if loan_location_pid and Location.get_record_by_pid(loan_location_pid):
             return loan_location_pid
         return self.location_pid
 
@@ -706,7 +706,7 @@ class Item(IlsRecord):
             loan_pid = loan['loan_pid']
             try:
                 self.cancel_loan(loan_pid=loan_pid)
-            except NoValidTransitionAvailable:
+            except NoValidTransitionAvailableError:
                 pass
         self['status'] = ItemStatus.MISSING
         self.status_update(dbcommit=True, reindex=True, forceindex=True)
