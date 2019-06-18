@@ -35,9 +35,18 @@ from ..loans.api import get_due_soon_loans, get_overdue_loans
 def create_over_and_due_soon_notifications():
     """Creates due_soon and overdue notifications."""
     over_due_loans = get_overdue_loans()
+    no_over_due_loans = 0
     for loan in over_due_loans:
         loan.create_notification(notification_type='overdue')
+        no_over_due_loans += 1
 
     due_soon_loans = get_due_soon_loans()
+    no_due_soon_loans = 0
     for loan in due_soon_loans:
         loan.create_notification(notification_type='due_soon')
+        no_due_soon_loans += 1
+
+    return 'created {no_over_due_loans} overdue loans, '\
+        '{no_due_soon_loans} due soon loans'.format(
+            no_over_due_loans=no_over_due_loans,
+            no_due_soon_loans=no_due_soon_loans)
