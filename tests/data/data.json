@@ -1334,6 +1334,8 @@
     },
     "email": "lroduit@gmail.com",
     "phone": "+41324993156",
+    "communication_language": "eng",
+    "communication_channel": "email",
     "roles": [
       "patron"
     ]
@@ -1353,6 +1355,8 @@
     },
     "email": "lmoret@gmail.com",
     "phone": "+41324993151",
+    "communication_language": "eng",
+    "communication_channel": "email",
     "roles": [
       "patron"
     ]
@@ -1407,6 +1411,8 @@
     },
     "email": "reroilstest+jules@gmail.com",
     "phone": "+41324993673",
+    "communication_language": "eng",
+    "communication_channel": "email",
     "roles": [
       "patron"
     ]

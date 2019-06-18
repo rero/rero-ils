@@ -27,9 +27,10 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import partial
 
+import ciso8601
 from invenio_search.api import RecordsSearch
 
 from .dispatcher import Dispatcher
@@ -37,6 +38,7 @@ from .models import NotificationIdentifier, NotificationMetadata
 from ..api import IlsRecord
 from ..documents.api import Document
 from ..fetchers import id_fetcher
+from ..libraries.api import Library
 from ..locations.api import Location
 from ..minters import id_minter
 from ..patrons.api import Patron
@@ -84,6 +86,7 @@ class Notification(IlsRecord):
 
     def replace_pids_and_refs(self):
         """Dumps data."""
+        from ..items.api import Item
         try:
             self.init_loan()
             data = deepcopy(self.replace_refs())
@@ -91,6 +94,7 @@ class Notification(IlsRecord):
             data['loan']['item'] = self.item.replace_refs().dumps()
             # del(data['loan']['item_pid'])
             data['loan']['patron'] = self.patron.replace_refs().dumps()
+            # language = data['loan']['patron']['communication_language']
             # del(data['loan']['patron_pid'])
             data['loan']['transaction_user'] = \
                 self.transaction_user.replace_refs().dumps()
@@ -103,7 +107,37 @@ class Notification(IlsRecord):
                 data['loan']['pickup_location'] = \
                     pickup_location.replace_refs().dumps()
                 # del(data['loan']['pickup_location_pid'])
-            data['loan']['document'] = self.document.replace_refs().dumps()
+                library_pid = data['loan']['pickup_location']['library']['pid']
+                library = Library.get_record_by_pid(library_pid)
+                data['loan']['pickup_location']['library'] = library
+                keep_until = datetime.now() + timedelta(days=10)
+                next_open = library.next_open(keep_until)
+                # language = data['loan']['patron']['communication_language']
+                next_open = next_open.strftime("%d.%m.%Y")
+                data['loan']['next_open'] = next_open
+            else:
+                data['loan']['pickup_location'] = \
+                    self.transaction_location.replace_refs().dumps()
+                item_pid = data['loan']['item_pid']
+                library = Item.get_record_by_pid(item_pid).get_library()
+                data['loan']['library'] = library
+
+            document = self.document.replace_refs().dumps()
+            data['loan']['document'] = document
+            authors = document.get('authors', '')
+            if authors:
+                author = authors[0].get('name', '')
+                if not author:
+                    mef_list = ['name_fr', 'name_de', 'name_it', 'name_en']
+                    for a_name in mef_list:
+                        if authors[0].get(a_name, ''):
+                            author = authors[0].get(a_name)
+                            break
+                data['loan']['author'] = author
+            end_date = data.get('loan').get('end_date')
+            if end_date:
+                end_date = ciso8601.parse_datetime_as_naive(end_date)
+                data['loan']['end_date'] = end_date.strftime("%d.%m.%Y")
             # del(data['loan']['document_pid'])
             return data
         except Exception as e:

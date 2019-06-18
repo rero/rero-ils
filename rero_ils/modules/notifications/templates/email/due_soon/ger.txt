@@ -1,0 +1,16 @@
+Ablauf der Ausleihfrist
+Sehr geehrte Leserin, sehr geehrter Leser,
+
+Die Ausleihfrist der folgenden Dokumente läuft ab:
+
+{% if author %}Autor : {{ author }}{% endif %}
+Titel: {{ document.title }}
+Rückgabedatum: {{ end_date }}
+Anmerkung: Non extendable
+
+Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
+
+Freundliche Grüsse
+
+{{ library.name }}
+{{ library.address }}
