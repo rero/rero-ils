@@ -130,7 +130,7 @@ def test_items_serializers(
     patron_martigny_no_email,
     librarian_martigny_no_email,
     librarian_sion_no_email,
-    loan_pending
+    loan_pending_martigny
 ):
     """Test record retrieval."""
     login_user(client, librarian_martigny_no_email)

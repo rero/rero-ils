@@ -36,13 +36,43 @@ from rero_ils.modules.notifications.api import \
     notification_id_fetcher as fetcher
 
 
-def test_notification_create_and_es_mapping(
-        dummy_notification, loan_validated_martigny, mailbox):
-    """Test notification creation."""
+def test_notification_organisation_pid(
+        org_martigny, notification_availability_martigny):
+    """Test organisation pid has been added during the indexing."""
+    search = NotificationsSearch()
+    pid = notification_availability_martigny.get('pid')
+    notification = next(search.filter('term', pid=pid).scan())
+    assert notification.organisation.pid == org_martigny.pid
+
+    # test notification can_delete
+    assert notification_availability_martigny.get_links_to_me() == {}
+    assert notification_availability_martigny.can_delete
+
+
+def test_notification_es_mapping(
+        dummy_notification, loan_validated_martigny):
+    """Test notification elasticsearch mapping."""
+
     search = NotificationsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
 
+    notif = deepcopy(dummy_notification)
+    notif_data = {
+        'loan_url': 'https://ils.rero.ch/api/loans/',
+        'pid': loan_validated_martigny.get('loan_pid')
+    }
+    loan_ref = '{loan_url}{pid}'.format(**notif_data)
+    notif['loan'] = {"$ref": loan_ref}
+
+    Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
+
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_notification_create(
+        es_clear, dummy_notification, loan_validated_martigny, mailbox):
+    """Test notification creation."""
     notif = deepcopy(dummy_notification)
     notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
@@ -60,24 +90,9 @@ def test_notification_create_and_es_mapping(
     notification = Notification.get_record_by_pid(pid)
     assert notification == notif
 
-    assert mapping == get_mapping(search.Meta.index)
-
     fetched_pid = fetcher(notification.id, notification)
     assert fetched_pid.pid_value == pid
     assert fetched_pid.pid_type == 'notif'
 
     notification.dispatch()
     assert len(mailbox) == 1
-
-
-def test_notification_organisation_pid(
-        org_martigny, notification_availability_martigny):
-    """Test organisation pid has been added during the indexing."""
-    search = NotificationsSearch()
-    pid = notification_availability_martigny.get('pid')
-    notification = next(search.filter('term', pid=pid).scan())
-    assert notification.organisation.pid == org_martigny.pid
-
-    # test notification can_delete
-    assert notification_availability_martigny.get_links_to_me() == {}
-    assert notification_availability_martigny.can_delete
