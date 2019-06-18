@@ -214,8 +214,9 @@ CELERY_BEAT_SCHEDULE = {
     },
     'notification-creation': {
         'task':
-            'rero-ils.modules.tasks.create_over_and_due_soon_notifications',
-        'schedule': crontab(hour=4, minute=00)
+            'rero_ils.modules.notifications.tasks.create_over_and_due_soon_notifications',
+        'schedule': crontab(minute="*/5")
+        # TODO: in production set this up once a day
     },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
@@ -662,19 +663,13 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         record_serializers={
             'application/json': (
-                'rero_ils.modules.serializers' ':json_v1_response'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_response'
+                'rero_ils.modules.serializers:json_v1_response'
             )
         },
         search_serializers={
             'application/json': (
-                'invenio_records_rest.serializers' ':json_v1_search'
-            ),
-            'application/can-delete+json': (
-                'rero_ils.modules.serializers' ':can_delete_json_v1_search'
-            ),
+                'rero_ils.modules.serializers:json_v1_search'
+            )
         },
         record_loaders={
             'application/json': lambda: Notification(request.get_json()),

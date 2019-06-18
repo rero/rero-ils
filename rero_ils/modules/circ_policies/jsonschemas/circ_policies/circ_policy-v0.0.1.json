@@ -70,7 +70,7 @@
       "description": "Number of days before due date for sending the availability notification.",
       "type": "integer",
       "default": 5,
-      "minimum": 1
+      "minimum": 0
     },
     "number_of_days_after_due_date": {
       "title": "Number of days after due data.",
