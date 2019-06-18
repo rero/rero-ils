@@ -41,7 +41,8 @@ from rero_ils.modules.notifications.tasks import \
 
 def test_create_over_and_due_soon_notifications_task(
         client, librarian_martigny_no_email, patron_martigny_no_email,
-        item_lib_martigny, circ_policy_short_martigny):
+        item_lib_martigny, circ_policy_short_martigny,
+        loc_public_martigny, lib_martigny):
     """Test overdue and due_soon loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny

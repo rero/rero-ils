@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 
 import ciso8601
 from dateutil.parser import parse
+from flask import current_app
 
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item

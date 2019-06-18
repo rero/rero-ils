@@ -15,6 +15,13 @@
         "loan_pid": {
           "type": "keyword"
         },
+        "item": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "transaction_date": {
           "type": "date"
         },
