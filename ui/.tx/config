@@ -7,3 +7,4 @@ minimum_perc = 0
 source_file = src/assets/i18n/en_US.json
 source_lang = en_US
 type = KEYVALUEJSON
+

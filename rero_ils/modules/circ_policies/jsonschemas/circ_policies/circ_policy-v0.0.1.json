@@ -66,14 +66,14 @@
       "default": true
     },
     "number_of_days_before_due_date": {
-      "title": "Number of days before due data.",
-      "description": "Number of days before due date for sending the availability notification.",
+      "title": "Number of days before due date.",
+      "description": "Number of days before due date for sending the due_soon notification.",
       "type": "integer",
       "default": 5,
       "minimum": 0
     },
     "number_of_days_after_due_date": {
-      "title": "Number of days after due data.",
+      "title": "Number of days after due date",
       "description": "Number of days after due date for sending the first overdue notification.",
       "type": "integer",
       "default": 5,
