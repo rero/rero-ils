@@ -1,94 +1,93 @@
-# Translations template for rero-ils.
+# German translations for rero-ils.
 # Copyright (C) 2019 RERO
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-# 
+#
 # Translators:
 # Peter Weber <peter.weber@rero.ch>, 2018
 # iGor milhit <igor.milhit@rero.ch>, 2018
 # Nicolas Labat <n-labat@hotmail.com>, 2019
-# Nicolas Prongué <n.prongue@outlook.com>, 2019
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
-# 
+# Nicolas Prongué <n.prongue@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a22\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-06-18 13:44+0200\n"
+"POT-Creation-Date: 2019-06-19 13:06+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
-"Last-Translator: Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
+"Language: de\n"
 "Language-Team: German (https://www.transifex.com/rero/teams/77935/de/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: rero_ils/config.py:95
+#: rero_ils/config.py:97
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:123
 msgid "French"
 msgstr "Französisch"
 
-#: rero_ils/config.py:96
+#: rero_ils/config.py:98
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:127
 msgid "German"
 msgstr "Deutsch"
 
-#: rero_ils/config.py:97
+#: rero_ils/config.py:99
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:135
 msgid "Italian"
 msgstr "Italienisch"
 
-#: rero_ils/config.py:134 rero_ils/config.py:138
+#: rero_ils/config.py:136 rero_ils/config.py:140
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:181
+#: rero_ils/config.py:183
 msgid "Welcome to RERO-ILS!"
 msgstr "Willkommen zu RERO-ILS!"
 
-#: rero_ils/config.py:694
+#: rero_ils/config.py:735
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:695
+#: rero_ils/config.py:736
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:696
+#: rero_ils/config.py:737
 msgid "author__en"
 msgstr "Autoren"
 
-#: rero_ils/config.py:697
+#: rero_ils/config.py:738
 msgid "author__fr"
 msgstr "Autoren"
 
-#: rero_ils/config.py:698
+#: rero_ils/config.py:739
 msgid "author__de"
 msgstr "Autoren"
 
-#: rero_ils/config.py:699
+#: rero_ils/config.py:740
 msgid "author__it"
 msgstr "Autoren"
 
-#: rero_ils/config.py:700
+#: rero_ils/config.py:741
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:701
+#: rero_ils/config.py:742
 msgid "subject"
 msgstr "Schlagwort"
 
-#: rero_ils/config.py:702
+#: rero_ils/config.py:743
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:710
+#: rero_ils/config.py:751
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:718
+#: rero_ils/config.py:759
 msgid "sources"
 msgstr "Quellen"
 
@@ -337,6 +336,7 @@ msgstr "JSON Schema für eine Ausleihpolitik"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
 #: rero_ils/modules/mef_persons/jsonschemas/persons/mef_person-v0.0.1.json:15
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:15
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
@@ -411,58 +411,76 @@ msgid "Patron requests are allowed or not."
 msgstr "Bestellungen sind für Leser erlaubt oder nicht."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
+msgid "Number of days before due date."
+msgstr "Anzahl an Tagen vor Rückgabetermin"
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
+msgid "Number of days before due date for sending the due_soon notification."
+msgstr ""
+"Anzahl an Tagen vor dem Rückgabetermin, um die Benachrichtigung \"Ablauf "
+"der Ausleihfrist\" zu senden"
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
+msgid "Number of days after due date"
+msgstr "Anzahl an Tagen nach Rückgabetermin"
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
+msgid "Number of days after due date for sending the first overdue notification."
+msgstr "Anzahl an Tagen nach Rückgabetermin, um die erste Mahnung zu senden"
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "Maximum number of renewals"
 msgstr "Maximale Anzahl von Verlängerungen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:84
 msgid "Maximum number of renewals allowed."
 msgstr "Maximale Anzahl von Verlängerungen erlaubt."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:90
 msgid "Renewal duration in days"
 msgstr "Verlängerungsdauer in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:91
 msgid "The duration of the renewal in days."
 msgstr "Die Dauer einer Verlängerung in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:96
 msgid "Mark as default policy"
 msgstr "Als Standardpolitik markieren"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:87
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:101
 msgid "Library level policy"
 msgstr "Politik auf Bibliotheksebene"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:106
 msgid "List of libraries"
 msgstr "Liste der Bibliotheken"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:102
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:116
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:53
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:107
 msgid "Library URI"
 msgstr "URI der Bibliothek"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:110
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Patron + Item types links"
 msgstr "Links Lesertypen + Exemplartypen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:121
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:135
 msgid "Patron type"
 msgstr "Lesertyp"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:129
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:143
 msgid "Patron type URI"
-msgstr "URI des Lesertyps"
+msgstr "URI des Lesertypen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:136
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:150
 msgid "Item type"
 msgstr "Exemplar Typ"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:144
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:158
 msgid "Item type URI"
-msgstr "URI des Exemplartyps"
+msgstr "URI des Exemplartypen"
 
 #: rero_ils/modules/documents/views.py:313
 msgid "available"
@@ -541,8 +559,8 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Einheitstitel, ein verwandter oder analytischer Titel, der von einer "
-"Autoritätsdatei oder -liste kontrolliert und als zusätzlicher Sucheinstieg "
-"verwendet wird."
+"Autoritätsdatei oder -liste kontrolliert und als zusätzlicher "
+"Sucheinstieg verwendet wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:60
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:58
@@ -590,11 +608,11 @@ msgstr "Sprache, aus deren die Ressource übersetzt wurde."
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:109
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:107
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
-"English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
+"for English."
 msgstr ""
-"Soll im ISO-639-Format mit 3 Zeichen vorliegen (z.B. <code>eng</code> für "
-"English)."
+"Soll im ISO-639-Format mit 3 Zeichen vorliegen (z.B. <code>eng</code> für"
+" English)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:129
@@ -605,8 +623,8 @@ msgstr "Autoren"
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:130
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr ""
-"Autor(en) der Ressource. Es können sowohl Personen als auch Organisationen "
-"sein."
+"Autor(en) der Ressource. Es können sowohl Personen als auch "
+"Organisationen sein."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:125
 msgid "MEF person ref"
@@ -669,8 +687,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informationen über die Person (z.B. ihren Beruf). Hilfreich, um Menschen zu "
-"unterscheiden."
+"Informationen über die Person (z.B. ihren Beruf). Hilfreich, um Menschen "
+"zu unterscheiden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:164
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:170
@@ -706,18 +724,18 @@ msgstr "Erscheinungsdatum"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:197
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:203
 msgid ""
-"Date of the publication. This must be an integer, ie 1989, 453, -50. Used to"
-" sort search results. Once this field is set, a free formed date of "
+"Date of the publication. This must be an integer, ie 1989, 453, -50. Used"
+" to sort search results. Once this field is set, a free formed date of "
 "publication can be added in the next field."
 msgstr ""
-"Erscheinungsdatum. Muss eine ganze Zahl sein (z.B. 1989, 453, -50). Dient "
-"zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst wurde, kann im "
-"nächsten Feld ein frei gestaltetes Erscheinungsdatum hinzugefügt werden."
+"Erscheinungsdatum. Muss eine ganze Zahl sein (z.B. 1989, 453, -50). Dient"
+" zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst wurde, kann"
+" im nächsten Feld ein frei gestaltetes Erscheinungsdatum hinzugefügt "
+"werden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:201
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:207
-msgid ""
-"Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
+msgid "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
 msgstr ""
 "Muss eine ganze Zahl sein, von -9999 bis +2050. Null-Präfixe sind nicht "
 "benötigt."
@@ -733,8 +751,8 @@ msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
 msgstr ""
-"Erscheinungsdatum in freier Form. Das Feld kann nur erfasst werden, sobald "
-"das normalisiert Erscheinungsdatum angegeben ist."
+"Erscheinungsdatum in freier Form. Das Feld kann nur erfasst werden, "
+"sobald das normalisiert Erscheinungsdatum angegeben ist."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:210
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:216
@@ -909,8 +927,8 @@ msgid ""
 "locating an object using existing Internet protocols."
 msgstr ""
 "Uniform Resource Identifier (URI), der eine Standardsyntax für die "
-"Lokalisierung eines Objekts unter Verwendung vorhandener Internetprotokolle "
-"bereitstellt."
+"Lokalisierung eines Objekts unter Verwendung vorhandener "
+"Internetprotokolle bereitstellt."
 
 #: rero_ils/modules/documents/jsonschemas/documents/ebook-v0.0.1.json:315
 msgid "OAI"
@@ -1059,11 +1077,10 @@ msgid "Permalink"
 msgstr "Permalink"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:134
-msgid ""
-"Document cannot be deleted: there are still items linked to this document."
+msgid "Document cannot be deleted: there are still items linked to this document."
 msgstr ""
-"Das Dokument kann nicht gelöscht werden: bestehende Exemplare sind noch mit "
-"ihm verbunden."
+"Das Dokument kann nicht gelöscht werden: bestehende Exemplare sind noch "
+"mit ihm verbunden."
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:140
 #: rero_ils/templates/rero_ils/_editor_button_actions.html:24
@@ -1230,14 +1247,13 @@ msgstr "Exemplartyp des Exemplars"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:71
 msgid "Item Type URI"
-msgstr "URI des Exemplartyps"
+msgstr "URI des Exemplartypen"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:55
-msgid ""
-"Item cannot be deleted: there are still transactions linked to this item."
+msgid "Item cannot be deleted: there are still transactions linked to this item."
 msgstr ""
-"Das Exemplar kann nicht gelöscht werden: bestehende Transaktionen sind noch "
-"mit ihm verbunden."
+"Das Exemplar kann nicht gelöscht werden: bestehende Transaktionen sind "
+"noch mit ihm verbunden."
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:65
 msgid "Transactions"
@@ -1559,6 +1575,50 @@ msgstr "Zusammengestellt"
 msgid "By source"
 msgstr "Nach Quellen"
 
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:5
+msgid "JSON schema for notifications."
+msgstr "JSON Schema für eine Benachrichtigung"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:16
+msgid "Schema to validate notifications records against."
+msgstr "Schema zur Validierung von Datensätzen von Benachrichtigungen."
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:22
+msgid "Notification ID"
+msgstr "ID der Benachrichtigung"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:29
+msgid "Notification creation date"
+msgstr "Erstellungsdatum der Benachrichtigung"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:32
+msgid "Loan"
+msgstr "Loan"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:36
+msgid "Loan URI"
+msgstr "URI des Loans"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:45
+msgid "Notification processing date"
+msgstr "Verarbeitungsdatum der Benachrichtigung"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:49
+msgid "Current reminder count"
+msgstr "Aktuelle Zählung der Mahnungen"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:52
+msgid "Notification type"
+msgstr "Benachrichtigungstyp"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:53
+msgid "The type of the notification."
+msgstr "Der Typ der Benachrichtigung."
+
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
 msgstr "JSON Schema für eine Einrichtung"
@@ -1594,7 +1654,7 @@ msgstr "Schema zur Validierung von Lesertypen."
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:22
 msgid "Patron type ID"
-msgstr "Lesertyp ID"
+msgstr "ID des Lesertypen"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:27
 msgid "Patron type name"
@@ -1675,7 +1735,7 @@ msgstr "Schema zur Validierung von Benutzern."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:28
 msgid "User ID"
-msgstr "Benutzer ID"
+msgstr "ID des Benutzers"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:32
 msgid "First name"
@@ -1704,7 +1764,8 @@ msgstr "Erforderlich. Sollte ISO 8601 sein, JJJJ-MM-TT."
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:56
 msgid "Email should have at least one <code>@</code> and one <code>.</code>"
 msgstr ""
-"E-Mail sollte mindestens ein <code>@</code> und einen <code>.</code> haben."
+"E-Mail sollte mindestens ein <code>@</code> und einen <code>.</code> "
+"haben."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:59
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:16
@@ -1743,7 +1804,8 @@ msgstr "Telefonnummer mit internationaler Anzeige, ohne Leerzeichen."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:82
 msgid ""
-"Phone number with the international prefix, without spaces, ie +41221234567."
+"Phone number with the international prefix, without spaces, ie "
+"+41221234567."
 msgstr ""
 "Telefonnummer mit der internationalen Anzeige, ohne Leerzeichen, z.B. "
 "+41221234567."
@@ -1754,7 +1816,7 @@ msgstr "Lesertyp in Bezug auf Ausleihpolitik"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:90
 msgid "Patron Type URI"
-msgstr "URI des Lesertyps"
+msgstr "URI des Lesertypen"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
 msgid "Patron's barcode or card number"
@@ -1810,7 +1872,8 @@ msgstr "Löschen bestätigen"
 #: rero_ils/templates/rero_ils/_editor_button_actions.html:10
 msgid "You are about to delete one record, this procedure is irreversible."
 msgstr ""
-"Sie sind dabei, einen Datensatz zu löschen, dieser Vorgang ist irreversibel."
+"Sie sind dabei, einen Datensatz zu löschen, dieser Vorgang ist "
+"irreversibel."
 
 #: rero_ils/templates/rero_ils/_editor_button_actions.html:11
 msgid "Do you want to proceed?"
@@ -1918,7 +1981,8 @@ msgstr "Version"
 #: rero_ils/templates/rero_ils/frontpage.html:76
 msgid "Link to the RERO ILS code source on GitHub, last released version"
 msgstr ""
-"Link auf den Quellcode von RERO ILS auf Github, letzte freigegebene Version"
+"Link auf den Quellcode von RERO ILS auf Github, letzte freigegebene "
+"Version"
 
 #: rero_ils/templates/rero_ils/frontpage.html:80
 #: rero_ils/templates/rero_ils/frontpage.html:84
@@ -2016,3 +2080,4 @@ msgstr "Das Exemplar"
 #: rero_ils/templates/rero_ils/tombstone.html:24
 msgid "is deleted."
 msgstr "wurde gelöscht."
+
