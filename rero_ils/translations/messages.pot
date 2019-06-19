@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a22\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-06-18 13:44+0200\n"
+"POT-Creation-Date: 2019-06-19 13:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,70 +16,70 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: rero_ils/config.py:95
+#: rero_ils/config.py:97
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:123
 msgid "French"
 msgstr ""
 
-#: rero_ils/config.py:96
+#: rero_ils/config.py:98
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:127
 msgid "German"
 msgstr ""
 
-#: rero_ils/config.py:97
+#: rero_ils/config.py:99
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:135
 msgid "Italian"
 msgstr ""
 
-#: rero_ils/config.py:134 rero_ils/config.py:138
+#: rero_ils/config.py:136 rero_ils/config.py:140
 msgid "rero-ils"
 msgstr ""
 
-#: rero_ils/config.py:181
+#: rero_ils/config.py:183
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-#: rero_ils/config.py:694
+#: rero_ils/config.py:735
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:695
+#: rero_ils/config.py:736
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:696
+#: rero_ils/config.py:737
 msgid "author__en"
 msgstr ""
 
-#: rero_ils/config.py:697
+#: rero_ils/config.py:738
 msgid "author__fr"
 msgstr ""
 
-#: rero_ils/config.py:698
+#: rero_ils/config.py:739
 msgid "author__de"
 msgstr ""
 
-#: rero_ils/config.py:699
+#: rero_ils/config.py:740
 msgid "author__it"
 msgstr ""
 
-#: rero_ils/config.py:700
+#: rero_ils/config.py:741
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:701
+#: rero_ils/config.py:742
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:702
+#: rero_ils/config.py:743
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:710
+#: rero_ils/config.py:751
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:718
+#: rero_ils/config.py:759
 msgid "sources"
 msgstr ""
 
@@ -328,6 +328,7 @@ msgstr ""
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
 #: rero_ils/modules/mef_persons/jsonschemas/persons/mef_person-v0.0.1.json:15
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:14
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:15
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
@@ -402,56 +403,72 @@ msgid "Patron requests are allowed or not."
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
-msgid "Maximum number of renewals"
+msgid "Number of days before due date."
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
-msgid "Maximum number of renewals allowed."
+msgid "Number of days before due date for sending the due_soon notification."
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
-msgid "Renewal duration in days"
+msgid "Number of days after due date"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
+msgid "Number of days after due date for sending the first overdue notification."
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
+msgid "Maximum number of renewals"
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:84
+msgid "Maximum number of renewals allowed."
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:90
+msgid "Renewal duration in days"
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:91
 msgid "The duration of the renewal in days."
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:82
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:96
 msgid "Mark as default policy"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:87
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:101
 msgid "Library level policy"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:92
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:106
 msgid "List of libraries"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:102
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:116
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:53
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:107
 msgid "Library URI"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:110
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
 msgid "Patron + Item types links"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:121
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:135
 msgid "Patron type"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:129
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:143
 msgid "Patron type URI"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:136
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:150
 msgid "Item type"
 msgstr ""
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:144
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:158
 msgid "Item type URI"
 msgstr ""
 
@@ -1514,6 +1531,50 @@ msgstr ""
 #: rero_ils/modules/mef_persons/templates/rero_ils/detailed_view_persons.html:37
 #: rero_ils/modules/mef_persons/templates/rero_ils/detailed_view_persons.html:39
 msgid "By source"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
+msgid "Notification"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:5
+msgid "JSON schema for notifications."
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:16
+msgid "Schema to validate notifications records against."
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:22
+msgid "Notification ID"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:29
+msgid "Notification creation date"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:32
+msgid "Loan"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:36
+msgid "Loan URI"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:45
+msgid "Notification processing date"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:49
+msgid "Current reminder count"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:52
+msgid "Notification type"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:53
+msgid "The type of the notification."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
