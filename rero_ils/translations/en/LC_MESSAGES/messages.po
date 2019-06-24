@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a22\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-06-19 13:06+0200\n"
+"POT-Creation-Date: 2019-06-24 11:44+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
 "Language: en\n"
@@ -235,6 +235,22 @@ msgstr "BNF"
 #: rero_ils/manual_translations.txt:43
 msgid "rero"
 msgstr "RERO"
+
+#: rero_ils/manual_translations.txt:46
+msgid "ui_language_en"
+msgstr "English"
+
+#: rero_ils/manual_translations.txt:47
+msgid "ui_language_fr"
+msgstr "Français"
+
+#: rero_ils/manual_translations.txt:48
+msgid "ui_language_de"
+msgstr "Deutsch"
+
+#: rero_ils/manual_translations.txt:49
+msgid "ui_language_it"
+msgstr "Italiano"
 
 #: rero_ils/views.py:65
 msgid "Menu"
