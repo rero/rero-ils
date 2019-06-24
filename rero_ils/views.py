@@ -42,7 +42,6 @@ from invenio_jsonschemas.errors import JSONSchemaNotFound
 from rero_ils.modules.patrons.api import Patron
 
 from .modules.babel_extractors import translate
-from .utils import i18n_to_str
 from .version import __version__
 
 blueprint = Blueprint(
@@ -79,13 +78,14 @@ def init_menu():
         item = current_menu.submenu(
             'main.menu.lang_{language}'.format(
                 language=language_item.language))
+        ui_language = 'ui_language_{lang}'.format(lang=language_item.language)
         item.register(
             endpoint='invenio_i18n.set_lang',
             endpoint_arguments_constructor=partial(
                 return_language, language_item.language),
             text='{icon} {language}'.format(
                 icon='<i class="fa fa-language"></i>',
-                language=_(i18n_to_str(language_item.language))
+                language=_(ui_language)
             ),
             visible_when=partial(hide_language, language_item.language),
             order=order

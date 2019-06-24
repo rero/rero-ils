@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-19 13:06+0200\n"
+"POT-Creation-Date: 2019-06-24 11:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: it\n"
@@ -239,6 +239,22 @@ msgstr "BNF"
 #: rero_ils/manual_translations.txt:43
 msgid "rero"
 msgstr "RERO"
+
+#: rero_ils/manual_translations.txt:46
+msgid "ui_language_en"
+msgstr "English"
+
+#: rero_ils/manual_translations.txt:47
+msgid "ui_language_fr"
+msgstr "Français"
+
+#: rero_ils/manual_translations.txt:48
+msgid "ui_language_de"
+msgstr "Deutsch"
+
+#: rero_ils/manual_translations.txt:49
+msgid "ui_language_it"
+msgstr "Italiano"
 
 #: rero_ils/views.py:65
 msgid "Menu"

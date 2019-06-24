@@ -41,3 +41,9 @@ _('video')
 _('gnd')
 _('bnf')
 _('rero')
+
+# Menu language
+_('ui_language_en')
+_('ui_language_fr')
+_('ui_language_de')
+_('ui_language_it')
