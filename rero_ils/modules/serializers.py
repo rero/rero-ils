@@ -1,30 +1,25 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of RERO ILS.
-# Copyright (C) 2017 RERO.
+# RERO ILS
+# Copyright (C) 2019 RERO
 #
-# RERO ILS is free software; you can redistribute it
-# and/or modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of the
-# License, or (at your option) any later version.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
 #
-# RERO ILS is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with RERO ILS; if not, write to the
-# Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307, USA.
-#
-# In applying this license, RERO does not
-# waive the privileges and immunities granted to it by virtue of its status
-# as an Intergovernmental Organization or submit itself to any jurisdiction.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
 
 from flask import current_app, json, request, url_for
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_records_rest import current_records_rest
 from invenio_records_rest.schemas import \
     RecordSchemaJSONV1 as _RecordSchemaJSONV1
@@ -70,10 +65,28 @@ class JSONSerializer(_JSONSerializer):
             current_app.config
             .get('RECORDS_REST_ENDPOINTS')
             .get(pid.pid_type).get('record_class', Record))
-        persistent_identifier = PersistentIdentifier.get(
-            pid.pid_type, pid.pid_value)
-        record = record_class.get_record(persistent_identifier.object_uuid)
-        return JSONSerializer.add_item_links_and_permissions(record, data, pid)
+        try:
+            persistent_identifier = PersistentIdentifier.get(
+                pid.pid_type, pid.pid_value)
+            record = record_class.get_record(
+                persistent_identifier.object_uuid
+            )
+            json = JSONSerializer.add_item_links_and_permissions(
+                record, data, pid
+            )
+            permissions = json.get('permissions')
+        except PIDDoesNotExistError:
+            permissions = {
+                'cannot_update': {'permisson': 'permission denied'},
+                'cannot_delete': {'permisson': 'permission denied'}
+            }
+        return dict(
+            pid=pid,
+            metadata=record_hit['_source'],
+            links=links_factory(pid, record_hit=record_hit, **kwargs),
+            revision=record_hit['_version'],
+            permissions=permissions
+        )
 
     @staticmethod
     def add_item_links_and_permissions(record, data, pid):
