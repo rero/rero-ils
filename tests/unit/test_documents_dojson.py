@@ -333,15 +333,15 @@ def test_marc21_to_authors():
     ]
 
 
-# publishers.name: 260 [$b repetitive] (without the , but keep the ;)
-# publishers.place: 260 [$a repetitive] (without the : but keep the ;)
-# publicationDate: 260 [$c repetitive] (but take only the first one)
+# publishers.name: 264 [$b repetitive] (without the , but keep the ;)
+# publishers.place: 264 [$a repetitive] (without the : but keep the ;)
+# publicationDate: 264 [$c repetitive] (but take only the first one)
 def test_marc21_to_publishers_publicationDate():
     """Test dojson publishers publicationDate."""
 
     marc21xml = """
     <record>
-      <datafield tag="260" ind1=" " ind2=" ">
+      <datafield tag="264" ind1=" " ind2=" ">
         <subfield code="a">Lausanne :</subfield>
         <subfield code="b">Payot,</subfield>
         <subfield code="c">2015</subfield>
@@ -360,7 +360,7 @@ def test_marc21_to_publishers_publicationDate():
 
     marc21xml = """
     <record>
-      <datafield tag="260" ind1=" " ind2=" ">
+      <datafield tag="264" ind1=" " ind2=" ">
         <subfield code="a">Paris ;</subfield>
         <subfield code="a">Lausanne :</subfield>
         <subfield code="b">Payot,</subfield>
@@ -380,7 +380,7 @@ def test_marc21_to_publishers_publicationDate():
 
     marc21xml = """
     <record>
-      <datafield tag="260" ind1=" " ind2=" ">
+      <datafield tag="264" ind1=" " ind2=" ">
         <subfield code="a">Paris :</subfield>
         <subfield code="b">Champion ;</subfield>
         <subfield code="a">Genève :</subfield>
