@@ -248,14 +248,14 @@ def marc21_to_author(self, key, value):
         return None
 
 
-@marc21tojson.over('publishers', '^260..')
+@marc21tojson.over('publishers', '^264..')
 @utils.ignore_value
 def marc21_to_publishers_publicationDate(self, key, value):
     """Get publisher.
 
-    publisher.name: 260 [$b repetitive] (without the , but keep the ;)
-    publisher.place: 260 [$a repetitive] (without the : but keep the ;)
-    publicationDate: 260 [$c repetitive] (but take only the first one)
+    publisher.name: 264 [$b repetitive] (without the , but keep the ;)
+    publisher.place: 264 [$a repetitive] (without the : but keep the ;)
+    publicationDate: 264 [$c repetitive] (but take only the first one)
     """
     lasttag = '?'
     publishers = self.get('publishers', [])
