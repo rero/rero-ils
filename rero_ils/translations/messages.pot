@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
 #
+
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a22\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-06-24 11:44+0200\n"
+"POT-Creation-Date: 2019-06-27 13:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,7 +245,7 @@ msgstr ""
 msgid "ui_language_it"
 msgstr ""
 
-#: rero_ils/views.py:65
+#: rero_ils/views.py:64
 msgid "Menu"
 msgstr ""
 

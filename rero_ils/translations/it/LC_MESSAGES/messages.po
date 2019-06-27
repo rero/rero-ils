@@ -1,33 +1,29 @@
-# Italian translations for PROJECT.
-# Copyright (C) 2019 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-24 11:44+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: it\n"
-"Language-Team: it <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.7.0\n"
-
 # Italian translations for rero-ils.
 # Copyright (C) 2019 RERO
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
 # Translators:
 # Nicolas Labat <n-labat@hotmail.com>, 2018
 # iGor milhit <igor.milhit@rero.ch>, 2018
 # Gianni Pante <gianni.pante@rero.ch>, 2019
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Nicolas Prongué <n.prongue@outlook.com>, 2019
+msgid ""
+msgstr ""
+"Project-Id-Version: rero-ils 0.1.0a22\n"
+"Report-Msgid-Bugs-To: software@rero.ch\n"
+"POT-Creation-Date: 2019-06-27 13:20+0200\n"
+"PO-Revision-Date: 2018-09-03 13:16+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
+"Language: it\n"
+"Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
 #: rero_ils/config.py:97
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:123
 msgid "French"
@@ -256,7 +252,7 @@ msgstr "Deutsch"
 msgid "ui_language_it"
 msgstr "Italiano"
 
-#: rero_ils/views.py:65
+#: rero_ils/views.py:64
 msgid "Menu"
 msgstr "Menù"
 
@@ -2092,4 +2088,3 @@ msgstr "L'esemplare"
 #: rero_ils/templates/rero_ils/tombstone.html:24
 msgid "is deleted."
 msgstr "è stato eliminato."
-
