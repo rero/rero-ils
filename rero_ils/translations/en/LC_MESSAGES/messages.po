@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.1.0a22\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-06-24 11:44+0200\n"
+"POT-Creation-Date: 2019-06-27 13:20+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
 "Language: en\n"
@@ -252,7 +252,7 @@ msgstr "Deutsch"
 msgid "ui_language_it"
 msgstr "Italiano"
 
-#: rero_ils/views.py:65
+#: rero_ils/views.py:64
 msgid "Menu"
 msgstr "Menu"
 
@@ -2075,4 +2075,3 @@ msgstr "The item"
 #: rero_ils/templates/rero_ils/tombstone.html:24
 msgid "is deleted."
 msgstr "has been deleted."
-
