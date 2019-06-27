@@ -59,6 +59,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             items.append({
                 'pid': item.pid,
                 'barcode': item['barcode'],
+                'call_number': item['call_number'],
                 'status': item['status'],
                 'library_pid': location['library']['pid']
             })

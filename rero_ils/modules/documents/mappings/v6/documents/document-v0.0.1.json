@@ -338,6 +338,9 @@
             "barcode": {
               "type": "keyword"
             },
+            "call_number": {
+              "type": "keyword"
+            },
             "library_pid": {
               "type": "keyword"
             },
