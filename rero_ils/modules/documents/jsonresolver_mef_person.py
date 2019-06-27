@@ -29,6 +29,8 @@ from flask import current_app
 from requests import codes as requests_codes
 from requests import get as requests_get
 
+from rero_ils.utils import unique_list
+
 
 # TODO: if I delete the id the mock is not working any more ????
 def get_mef_value(data, key, default=None):
@@ -95,6 +97,14 @@ def mef_person_resolver(pid):
                     date_of_death=date_of_death
                 )
                 author['date'] = date
+            # variant_name
+            variant_person = []
+            for source in data['sources']:
+                if 'variant_name_for_person' in data[source]:
+                    variant_person = variant_person +\
+                        data[source]['variant_name_for_person']
+            if variant_person:
+                author['variant_name'] = unique_list(variant_person)
             return author
         else:
             current_app.logger.error(

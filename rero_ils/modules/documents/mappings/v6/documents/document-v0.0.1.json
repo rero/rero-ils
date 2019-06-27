@@ -153,6 +153,10 @@
               "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_it"
             },
+            "variant_name": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
+            },
             "type": {
               "type": "keyword"
             },
