@@ -69,3 +69,8 @@ def i18n_to_str(language):
         if language in i18n_language:
             return i18n_language[1]
     return 'English'
+
+
+def unique_list(data):
+    """Unicity of list."""
+    return list(dict.fromkeys(data))
