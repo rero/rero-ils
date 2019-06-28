@@ -65,3 +65,25 @@ def send_mail(subject, recipients, template, language, **context):
 def unique_list(data):
     """Unicity of list."""
     return list(dict.fromkeys(data))
+
+
+def get_agg_config(index_name, field):
+    """Get Elasticsearch aggregation term configuration.
+
+    This function allows to configure aggregation size per index name using
+    environnement variables.
+
+    :param index_name: name of Elasticsearch index
+    :param field: field name for the aggregation
+    :return: dict of Elasticsearch DSL aggregation configuration
+    """
+    from flask import current_app
+    return dict(terms=dict(
+        field=field,
+        size=current_app.config.get(
+            'RERO_ILS_AGGREGATION_SIZE', {}
+        ).get(
+            index_name,
+            current_app.config.get('RERO_ILS_DEFAULT_AGGREGATION_SIZE')
+        )
+    ))
