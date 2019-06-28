@@ -243,5 +243,7 @@
   "Documents": "Documents",
   "Persons": "Personnes",
   "results": "résultats",
-  "No result found.": "Aucun résultat n'a été trouvé."
+  "No result found.": "Aucun résultat n'a été trouvé.",
+  "more…": "plus…",
+  "less…": "moins…"
 }

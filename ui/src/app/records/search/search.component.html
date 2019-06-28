@@ -28,22 +28,13 @@
 
   <aside *ngIf="aggregations && aggregations.length" class="col-md-4 col-lg-3 order-12 order-md-0">
     <div *ngFor="let item of aggregations">
-      <section class="mb-2" *ngIf="item.buckets.length" >
-        <a class="text-muted" [ngClass]="{'collapsed': !startOpen(item.title)}"
-           data-toggle="collapse" href="#{{'agg_'+item.title }}"
-           aria-expanded="false" aria-controls="libraryData">
-          <h6 class="mb-0 d-inline border-bottom pb-1 font-weight-bold"><i class="fa fa-caret-down" aria-hidden="true"></i> {{ item.name | translate }}</h6>
-        </a>
-        <ul class="list-unstyled collapse" [ngClass]="{'show': startOpen(item.title)}" id="{{'agg_'+item.title }}">
-          <li class="form-check" *ngFor="let bucket of item.buckets">
-            <input class="form-check-input" type="checkbox" [checked]="isFiltered(item.title, bucket.key)" (click)="aggFilter(item.title, bucket.key) ">
-            <label class="form-check-label">
-              <span *ngIf="bucket.name">{{ bucket.name | translate }}</span>
-              <span *ngIf="!bucket.name">{{ bucket.key | translate }}</span> ({{ bucket.doc_count }})
-            </label>
-          </li>
-        </ul>
-      </section>
+      <app-aggregation
+        [aggFilters]="aggFilters"
+        [aggsSettings]="aggsSettings"
+        [aggregation]="item"
+        (addAggFilter)="addAggFilter($event)"
+        (removeAggFilter)="removeAggFilter($event)"
+      ></app-aggregation>
     </div>
   </aside>
   <section [ngClass]="aggregations && aggregations.length ? 'col-md-8 col-lg-9' : 'col-12'">

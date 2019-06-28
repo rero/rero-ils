@@ -52,6 +52,7 @@ from invenio_search import RecordsSearch
 
 from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
+from rero_ils.utils import get_agg_config
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document
@@ -703,33 +704,80 @@ RERO_ILS_APP_CONFIG_FACETS = {
             'status',
         ],
         'expand': ['document_type'],
+        'initialBucketSize': 5
     },
     'ptrn': {
         'order': [
             'roles'
         ],
-        'expand': ['roles']
+        'expand': ['roles'],
+        'initialBucketSize': 5
     },
     'pers': {
         'order': [
             'sources'
         ],
-        'expand': ['sources']
+        'expand': ['sources'],
+        'initialBucketSize': 5
     },
+}
+
+# Default number of results in facet
+RERO_ILS_DEFAULT_AGGREGATION_SIZE = 50
+
+# Number of aggregation by index name
+RERO_ILS_AGGREGATION_SIZE = {
+    'documents': 50
 }
 
 RECORDS_REST_FACETS = {
     'documents': dict(
         aggs=dict(
-            document_type=dict(terms=dict(field='type')),
-            library=dict(terms=dict(field='items.library_pid')),
-            author__en=dict(terms=dict(field='facet_authors_en')),
-            author__fr=dict(terms=dict(field='facet_authors_fr')),
-            author__de=dict(terms=dict(field='facet_authors_de')),
-            author__it=dict(terms=dict(field='facet_authors_it')),
-            language=dict(terms=dict(field='languages.language')),
-            subject=dict(terms=dict(field='facet_subjects')),
-            status=dict(terms=dict(field='items.status'))
+            document_type=partial(
+                get_agg_config,
+                index_name='documents',
+                field='type'
+            ),
+            library=partial(
+                get_agg_config,
+                index_name='documents',
+                field='items.library_pid'
+            ),
+            author__en=partial(
+                get_agg_config,
+                index_name='documents',
+                field='facet_authors_en'
+            ),
+            author__fr=partial(
+                get_agg_config,
+                index_name='documents',
+                field='facet_authors_fr'
+            ),
+            author__de=partial(
+                get_agg_config,
+                index_name='documents',
+                field='facet_authors_de'
+            ),
+            author__it=partial(
+                get_agg_config,
+                index_name='documents',
+                field='facet_authors_it'
+            ),
+            language=partial(
+                get_agg_config,
+                index_name='documents',
+                field='languages.language'
+            ),
+            subject=partial(
+                get_agg_config,
+                index_name='documents',
+                field='facet_subjects'
+            ),
+            status=partial(
+                get_agg_config,
+                index_name='items.status',
+                field='items.status'
+            )
         ),
         filters={
             _('document_type'): terms_filter('type'),

@@ -125,6 +125,7 @@ export class SearchComponent implements OnInit {
   public language = null;
   public permissions = null;
   onInitDone = false;
+
   constructor(
     protected recordsService: RecordsService,
     protected route: ActivatedRoute,
@@ -251,35 +252,6 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  aggFilter(term, value) {
-    const filterValue = `${term}=${value}`;
-    if (this.isFiltered(term, value)) {
-      this.aggFilters = this.aggFilters.filter(val => val !== filterValue);
-    } else {
-      this.aggFilters.push(filterValue);
-    }
-    this.updateRoute();
-  }
-
-  isFiltered(term, value?) {
-    if (value) {
-      const filterValue = `${term}=${value}`;
-      return this.aggFilters.some(val => filterValue === val);
-    } else {
-      return this.aggFilters.some(val => term === val.split('=')[0]);
-    }
-  }
-
-  startOpen(title: string) {
-    if (this.isFiltered(title)) {
-      return true;
-    }
-    if (this.aggsSettings.expand.some(value => value === title)) {
-      return true;
-    }
-    return false;
-  }
-
   hasPermissionToCreate() {
     if (this.permissions
         && this.permissions.cannot_create
@@ -287,5 +259,21 @@ export class SearchComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  removeAggFilter(event: any) {
+    this.aggFilters = this.aggFilters.filter(
+      val => val !== this.formatFilterValue(event)
+    );
+    this.updateRoute();
+  }
+
+  addAggFilter(event: any) {
+    this.aggFilters.push(this.formatFilterValue(event));
+    this.updateRoute();
+  }
+
+  formatFilterValue(object: {term: string, value: string}) {
+    return `${object.term}=${object.value}`;
   }
 }
