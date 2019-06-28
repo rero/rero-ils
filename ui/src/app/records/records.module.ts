@@ -48,6 +48,7 @@ import { PersonsSearchComponent } from './search/public-search/persons-search.co
 import { RefAuthorityComponent } from './editor/ref-authority/ref-authority.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { RolesCheckboxesComponent } from './editor/roles-checkboxes/roles-checkboxes.component';
+import { AggregationComponent } from './search/aggregation/aggregation.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { RolesCheckboxesComponent } from './editor/roles-checkboxes/roles-checkb
     DocumentsSearchComponent,
     PersonsSearchComponent,
     RefAuthorityComponent,
-    RolesCheckboxesComponent
+    RolesCheckboxesComponent,
+    AggregationComponent
   ],
   imports: [
     CommonModule,
