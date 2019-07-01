@@ -38,12 +38,12 @@
         <article class="">
             <dl class="row mb-0">
             <!-- AUTHORS -->
-            {% if record.authors|length > 0 %}
+            {% if record.authors %}
               {{ dl(_('Author'), record.pid | authors_format(current_i18n.language)) }}
             {% endif %}
 
             <!-- PUBLISHERS -->
-            {% if record.publishers|length > 0 %}
+            {% if record.publishers %}
               {{ dl(_('Publisher'), record.publishers|publishers_format) }}
             {% endif %}
 
