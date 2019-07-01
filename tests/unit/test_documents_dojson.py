@@ -404,6 +404,18 @@ def test_marc21_to_publishers_publicationDate():
     assert data.get('freeFormedPublicationDate') == '1912-1955'
     assert data.get('publicationYear') == 1912
 
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="c">1984</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert not data.get('publishers')
+    assert data.get('publicationYear') == 1984
+
 
 # extent: 300$a (the first one if many)
 # otherMaterialCharacteristics: 300$b (the first one if many)
