@@ -290,11 +290,11 @@ def marc21_to_publishers_publicationDate(self, key, value):
                 self['freeFormedPublicationDate'] = data
         indexes[tag] = index + 1
         lasttag = tag
-    publishers.append(publisher)
-    if publishers == [{}]:
-        return None
-    else:
-        return publishers
+
+    if publisher:
+        publishers.append(publisher)
+
+    return publishers
 
 
 @marc21tojson.over('formats', '^300..')
