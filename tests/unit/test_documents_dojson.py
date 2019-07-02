@@ -361,6 +361,28 @@ def test_marc21_to_publishers_publicationDate():
     marc21xml = """
     <record>
       <datafield tag="264" ind1=" " ind2=" ">
+        <subfield code="a">Lausanne :</subfield>
+        <subfield code="b">Payot,</subfield>
+        <subfield code="c">2015</subfield>
+      </datafield>
+      <datafield tag="260" ind1=" " ind2=" ">
+        <subfield code="c">2016</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('publishers') == [
+        {
+            'place': ['Lausanne'],
+            'name': ['Payot'],
+        }
+    ]
+    assert data.get('publicationYear') == 2015
+
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2=" ">
         <subfield code="a">Paris ;</subfield>
         <subfield code="a">Lausanne :</subfield>
         <subfield code="b">Payot,</subfield>
