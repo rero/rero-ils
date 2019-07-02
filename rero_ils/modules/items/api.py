@@ -636,9 +636,7 @@ class Item(IlsRecord):
                 if loan.is_active:
                     item, cancel_action = self.cancel_loan(
                         loan_pid=loan.get('loan_pid'))
-                    actions.update(cancel_action)
             item, validate_action = self.validate_request(**request)
-            actions.update(validate_action)
         return self, actions
 
     @add_loans_parameters_and_flush_indexes
