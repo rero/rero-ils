@@ -293,8 +293,10 @@ def marc21_to_publishers_publicationDate(self, key, value):
 
     if publisher:
         publishers.append(publisher)
-
-    return publishers
+    if not publishers:
+        return None
+    else:
+        return publishers
 
 
 @marc21tojson.over('formats', '^300..')
