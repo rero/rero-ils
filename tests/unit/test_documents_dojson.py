@@ -435,7 +435,7 @@ def test_marc21_to_publishers_publicationDate():
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert not data.get('publishers')
+    assert 'publishers' not in data
     assert data.get('publicationYear') == 1984
 
 
