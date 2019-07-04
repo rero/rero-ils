@@ -70,6 +70,20 @@
     }
   },
   {
+    "barcode": "2050124311",
+    "loans": {
+      "active": 5,
+      "extended": 1,
+      "overdue": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1,
+      "requests": 2
+    }
+  },
+  {
     "barcode": "3050124311",
     "loans": {
       "active": 5,
