@@ -78,7 +78,7 @@ class Library(IlsRecord):
         """Returns librarys first pickup location."""
         results = LocationsSearch().filter(
             'term', library__pid=self.pid).filter(
-            'term', is_pickup=True).source(['pid']).scan()
+                'term', is_pickup=True).source(['pid']).scan()
         try:
             return next(results).pid
         except StopIteration:
@@ -90,11 +90,17 @@ class Library(IlsRecord):
         for time_given in times:
             start_time = strtotime(time_given['start_time'])
             end_time = strtotime(time_given['end_time'])
-            times_open = times_open or (time_to_test >= start_time) and \
-                                       (time_to_test <= end_time)
+
+            if time_to_test.hour == time_to_test.minute == \
+                    time_to_test.second == 0:
+                # case when ibrary is open or close few hours per day
+                times_open = times_open or end_time > start_time
+            else:
+                times_open = times_open or ((time_to_test >= start_time) and
+                                            (time_to_test <= end_time))
         return times_open
 
-    def _is_in_period(self, datetime_to_test, exception_date):
+    def _is_in_period(self, datetime_to_test, exception_date, day_only):
         """Test if date is period."""
         start_date = parser.parse(exception_date['start_date'])
         end_date = exception_date.get('end_date')
@@ -107,6 +113,10 @@ class Library(IlsRecord):
                 end_date.date() - datetime_to_test.date()
             ).days >= 0
             return True, is_in_period
+        if not end_date and day_only:
+            # case when exception if full day
+            if datetime_to_test.date() == start_date.date():
+                return False, True
         return False, False
 
     def _is_in_repeat(self, datetime_to_test, start_date, repeat):
@@ -139,10 +149,14 @@ class Library(IlsRecord):
                 if not exception_date['is_open']:
                     has_period, is_in_period = self._is_in_period(
                         date,
-                        exception_date
+                        exception_date,
+                        day_only
                     )
                     if has_period and is_in_period:
                         exception = False
+                    if not has_period and is_in_period:
+                        # case when exception if full day
+                        exception = exception_date['is_open']
                     if self._is_in_repeat(date, start_date, repeat):
                         exception = False
                     # we found a closing exception
@@ -248,7 +262,7 @@ class Library(IlsRecord):
         from ..patrons.api import PatronsSearch
         results = PatronsSearch().filter(
             'term', library__pid=self.pid).filter(
-            'term', roles='librarian').source().count()
+                'term', roles='librarian').source().count()
         return results
 
     def get_number_of_locations(self):

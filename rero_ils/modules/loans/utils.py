@@ -32,17 +32,23 @@ from dateutil.parser import parse
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
-from ..patrons.api import Patron
+from ..locations.api import Location
+from ..patrons.api import Patron, current_patron
 
 
 def get_circ_policy(loan):
     """Return a circ policy for loan."""
     item = Item.get_record_by_pid(loan.get('item_pid'))
     item_type_pid = item.item_type_pid
-    library_pid = item.library_pid
-
+    transaction_location_pid = loan.get('transaction_location_pid')
+    if not transaction_location_pid:
+        library_pid = item.library_pid
+    else:
+        library_pid = \
+            Location.get_record_by_pid(transaction_location_pid).library_pid
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
+
     return CircPolicy.provide_circ_policy(
         library_pid,
         patron_type_pid,
@@ -55,7 +61,13 @@ def get_default_loan_duration(loan):
     policy = get_circ_policy(loan)
     # TODO: case when start_date is not sysdate.
     start_date = datetime.now()
-    library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+    transaction_location_pid = loan.get('transaction_location_pid')
+    if not transaction_location_pid:
+        library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+    else:
+        library_pid = \
+            Location.get_record_by_pid(transaction_location_pid).library_pid
+
     library = Library.get_record_by_pid(library_pid)
     # invenio-circulation due_date.
     due_date = start_date + timedelta(days=policy.get('checkout_duration'))
@@ -78,8 +90,13 @@ def get_extension_params(loan=None, parameter_name=None):
     }
     current_date = datetime.now()
 
-    library = Library.get_record_by_pid(
-        Item.get_record_by_pid(loan.item_pid).library_pid)
+    transaction_location_pid = loan.get('transaction_location_pid')
+    if not transaction_location_pid:
+        library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+    else:
+        library_pid = \
+            Location.get_record_by_pid(transaction_location_pid).library_pid
+    library = Library.get_record_by_pid(library_pid)
 
     calculated_due_date = current_date + timedelta(
         days=policy.get('renewal_duration'))

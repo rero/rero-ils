@@ -53,8 +53,8 @@ def test_libraries_is_open(lib_martigny):
     library = lib_martigny
     assert library.is_open(date=saturday)
 
-    assert not library.is_open(date='2018-8-1')
-    assert not library.is_open(date='2222-8-1')
+    assert not library.is_open(date=parser.parse('2019-08-01'))
+    assert not library.is_open(date=parser.parse('2222-8-1'))
 
     del library['exception_dates']
     library.replace(library.dumps(), dbcommit=True)

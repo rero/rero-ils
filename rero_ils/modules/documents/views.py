@@ -177,8 +177,8 @@ def can_request(item):
                 item_status = item.get('status')
                 if item_status != 'missing':
                     loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
-                    request = item.is_requested_by_patron(patron_barcode)
-                    if not (request or loaned_to_patron):
+                    requested = item.is_requested_by_patron(patron_barcode)
+                    if not (requested or loaned_to_patron):
                         return True
     return False
 
@@ -190,8 +190,8 @@ def requested_this_item(item):
         patron = Patron.get_patron_by_user(current_user)
         if patron and 'patron' in patron.get('roles'):
             patron_barcode = patron.get('barcode')
-            request = item.is_requested_by_patron(patron_barcode)
-            if request:
+            requested = item.is_requested_by_patron(patron_barcode)
+            if requested:
                 return True
     return False
 
