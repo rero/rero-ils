@@ -35,6 +35,7 @@ from six.moves.urllib.parse import parse_qs, urlparse
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.documents.api import Document
+from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
@@ -102,7 +103,8 @@ def loaded_resources_report():
         'patron_types': PatronType,
         'patrons': Patron,
         'documents': Document,
-        'items': Item
+        'items': Item,
+        'holdings': Holding
     }
     report = {}
     for object in objects:

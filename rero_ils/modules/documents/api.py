@@ -75,6 +75,19 @@ class Document(IlsRecord):
         # TODO: Make this condition on data
         return not self.harvested
 
+    def item_organisations(self, view_code):
+        """Returns organisations of items attached to document."""
+        from ..items.api import Item
+        from ..organisations.api import Organisation
+
+        organisations = []
+        for item_pid in Item.get_items_pid_by_document_pid(self.pid):
+            item = Item.get_record_by_pid(item_pid)
+            org = Organisation.get_record_by_pid(item.ogranisation_pid)
+            if org.get('view_code') == view_code:
+                organisations.append(item.ogranisation_pid)
+        return organisations
+
     def get_number_of_items(self):
         """Get number of items for document."""
         from ..items.api import ItemsSearch

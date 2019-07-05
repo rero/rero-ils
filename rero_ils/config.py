@@ -56,6 +56,7 @@ from rero_ils.utils import get_agg_config
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document
+from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
 from .modules.libraries.api import Library
@@ -392,6 +393,38 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.items.api:Item',
         item_route='/items/<pid(item, record_class="rero_ils.modules.items.api:Item"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
+    ),
+    hold=dict(
+        pid_type='hold',
+        pid_minter='holding_id',
+        pid_fetcher='holding_id',
+        search_class=RecordsSearch,
+        search_index='holdings',
+        search_type=None,
+        indexer_class=HoldingsIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        list_route='/holdings/',
+        record_loaders={
+            'application/json': lambda: Holding(request.get_json()),
+        },
+        record_class='rero_ils.modules.holdings.api:Holding',
+        item_route='/holdings/<pid(hold, record_class="rero_ils.modules.holdings.api:Holding"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -885,6 +918,15 @@ RECORDS_UI_ENDPOINTS = {
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
     ),
+    'hold': dict(
+        pid_type='hold',
+        route='/holdings/<pid_value>',
+        template='rero_ils/detailed_view_holdings.html',
+        view_imp='rero_ils.modules.holdings.views.holding_view_method',
+        record_class='rero_ils.modules.holdings.api:Holding',
+        permission_factory_imp='rero_ils.permissions.'
+                               'librarian_permission_factory',
+    ),
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -908,6 +950,7 @@ RECORDS_JSON_SCHEMA = {
     'ptrn': '/patrons/patron-v0.0.1.json',
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
+    'hold': '/holdings/holding-v0.0.1.json',
 }
 
 # Login Configuration

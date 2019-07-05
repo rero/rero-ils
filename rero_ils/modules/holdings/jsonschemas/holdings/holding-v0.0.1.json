@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Holding",
+  "description": "JSON schema for holdings.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate holdings records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Holding ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "call_number": {
+      "type": "string",
+      "minLength": 4,
+      "title": "Holding call number.",
+      "description": "Call number of the holding."
+    },
+    "circulation_type": {
+      "title": "Circulation type",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "circulation type URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/item_types/.*?$"
+        }
+      }
+    },
+    "location": {
+      "title": "Location",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Location URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/locations/.*?$"
+        }
+      }
+    },
+    "document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Document URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/documents/.*?$"
+        }
+      }
+    }
+  }
+}

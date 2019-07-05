@@ -31,7 +31,10 @@ import random
 from random import randint
 
 import click
+from flask import current_app
 from flask.cli import with_appcontext
+from invenio_records.api import Record
+from invenio_records_rest.utils import obj_or_import_string
 
 from .models import ItemIdentifier, ItemStatus
 from ..documents.api import Document

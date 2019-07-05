@@ -76,7 +76,7 @@ def can_access_organisation_records_factory(record, *args, **kwargs):
         patron = staffer_is_authenticated()
         if patron and patron.organisation_pid == record.organisation_pid:
             if patron.is_librarian or patron.is_system_librarian:
-                    return True
+                return True
         return False
     return type('Check', (), {'can': can})()
 
