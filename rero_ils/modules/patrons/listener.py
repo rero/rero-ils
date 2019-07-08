@@ -66,11 +66,10 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
                        **dummy_kwargs):
     """Signal sent before a record is indexed.
 
-    Arguments:
-    - ``json``: The dumped record dictionary which can be modified.
-    - ``record``: The record being indexed.
-    - ``index``: The index in which the record will be indexed.
-    - ``doc_type``: The doc_type for the record.
+    :params: json: The dumped record dictionary which can be modified.
+    :params: record: The record being indexed.
+    :params: index: The index in which the record will be indexed.
+    :params: doc_type: The doc_type for the record.
     """
     patron_index_name = PatronsSearch.Meta.index
     if index.startswith(patron_index_name):
