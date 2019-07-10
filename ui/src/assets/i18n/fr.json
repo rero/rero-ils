@@ -123,6 +123,7 @@
   "has # patrons attached": "a # lecteurs attachés",
   "The default record cannot be deleted": "L'enregistrement par défaut ne peut pas être supprimé",
   "The record contains settings": "L'enregistrement contient des paramètres",
+  "The record has been harvested": "L'enregistrement a été moissonné.",
   "Edit": "Editer",
   "no item": "pas d'exemplaire",
   "Record deleted.": "La ressource a été effacée.",

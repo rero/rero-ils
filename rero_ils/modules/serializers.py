@@ -38,6 +38,7 @@ class RecordSchemaJSONV1(_RecordSchemaJSONV1):
     """
 
     permissions = fields.Raw()
+    explanation = fields.Raw()
 
 
 class JSONSerializer(_JSONSerializer):
@@ -65,28 +66,32 @@ class JSONSerializer(_JSONSerializer):
             current_app.config
             .get('RECORDS_REST_ENDPOINTS')
             .get(pid.pid_type).get('record_class', Record))
-        try:
-            persistent_identifier = PersistentIdentifier.get(
-                pid.pid_type, pid.pid_value)
-            record = record_class.get_record(
-                persistent_identifier.object_uuid
-            )
-            json = JSONSerializer.add_item_links_and_permissions(
-                record, data, pid
-            )
-            permissions = json.get('permissions')
-        except PIDDoesNotExistError:
-            permissions = {
-                'cannot_update': {'permisson': 'permission denied'},
-                'cannot_delete': {'permisson': 'permission denied'}
-            }
-        return dict(
+        # try:
+        persistent_identifier = PersistentIdentifier.get(
+            pid.pid_type, pid.pid_value)
+        record = record_class.get_record(
+            persistent_identifier.object_uuid
+        )
+        json = JSONSerializer.add_item_links_and_permissions(
+            record, data, pid
+        )
+        permissions = json.get('permissions')
+        # except PIDDoesNotExistError as e:
+        #     raise(e)
+        #     permissions = {
+        #         'cannot_update': {'permisson': 'permission denied'},
+        #         'cannot_delete': {'permisson': 'permission denied'}
+        #     }
+        search_hit = dict(
             pid=pid,
             metadata=record_hit['_source'],
             links=links_factory(pid, record_hit=record_hit, **kwargs),
             revision=record_hit['_version'],
             permissions=permissions
         )
+        if record_hit.get('_explanation'):
+            search_hit['explanation'] = record_hit.get('_explanation')
+        return search_hit
 
     @staticmethod
     def add_item_links_and_permissions(record, data, pid):
@@ -100,7 +105,7 @@ class JSONSerializer(_JSONSerializer):
         for action in actions:
             permission = JSONSerializer.get_permission(action, pid.pid_type)
             if permission:
-                can = permission(record).can()
+                can = permission(record, credentials_only=True).can()
                 if can:
                     action_links[action] = url_for(
                         'invenio_records_rest.{pid_type}_item'.format(

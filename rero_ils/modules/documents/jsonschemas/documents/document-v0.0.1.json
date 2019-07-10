@@ -304,6 +304,13 @@
           "type": "string",
           "pattern": "^97[8|9][0-9]{10}$",
           "validationMessage": "Should be a valid ISBN-13 without dashes."
+        },
+        "harvestedID": {
+          "title": "Identifier in the harvested source.",
+          "description": "OAI identifiers of the harvested source.",
+          "type": "string",
+          "pattern": "^[a-z]+:.*",
+          "validationMessage": "Should start with a chars: prefix i.e. cantook:."
         }
       }
     },
@@ -315,6 +322,30 @@
       "items": {
         "type": "string",
         "minLength": 1
+      }
+    },
+    "cover_art": {
+      "title": "Cover art",
+      "description": "Vendor cover art URL.",
+      "type": "string",
+      "format": "uri"
+    },
+    "electronic_location": {
+      "title": "Electronic Location",
+      "description": "Information needed to locate and access an electronic resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "uri"
+        ],
+        "uri": {
+          "title": "Uniform Resource Identifier",
+          "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+          "type": "string",
+          "format": "uri"
+        }
       }
     }
   }

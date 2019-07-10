@@ -123,6 +123,7 @@
   "has # patrons attached": "hat # Leser angefügt",
   "The default record cannot be deleted": "Der Standardsatz kann nicht gelöscht werden.",
   "The record contains settings": "Der Datensatz enthält Einstellungen",
+  "The record has been harvested": "",
   "Edit": "Bearbeiten",
   "no item": "keine Exemplare",
   "Record deleted.": "Datensatz gelöscht.",

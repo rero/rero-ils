@@ -74,6 +74,18 @@ export class SearchComponent implements OnInit {
   private _currentPage = 1;
 
   @Input()
+  set displayScore(value) {
+    if (value !== undefined) {
+      this._displayScore = value;
+      this.getRecords();
+    }
+  }
+  get displayScore() {
+    return this._displayScore;
+  }
+  private _displayScore = 0;
+
+  @Input()
   set aggFilters(value) {
     if (value !== undefined) {
       this._aggFilters = value;
@@ -161,7 +173,8 @@ export class SearchComponent implements OnInit {
       this.query,
       this.searchMime,
       this.aggFilters,
-      sort
+      sort,
+      this.displayScore
     ).subscribe(data => {
       if (data === null) {
         this.notFound = true;
@@ -220,6 +233,9 @@ export class SearchComponent implements OnInit {
       page: this.currentPage,
       q: this.query
     };
+    if (this.displayScore) {
+      queryParams['display_score'] = this.displayScore;
+    }
     const filters = {};
     for (const filter of this.aggFilters) {
       const [key, value] = filter.split('=');
