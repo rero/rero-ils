@@ -36,14 +36,14 @@ from .modules.patrons.api import current_patron
 
 def organisation_search_factory(self, search, query_parser=None):
     """Search factory."""
-    search, urlkwargs = and_search_factory(self, search)
+    search, urlkwargs = search_factory(self, search)
     if current_patron:
         search = search.filter(
             'term', organisation__pid=current_patron.get_organisation()['pid'])
     return (search, urlkwargs)
 
 
-def and_search_factory(self, search, query_parser=None):
+def search_factory(self, search, query_parser=None):
     """Parse query using elasticsearch DSL query.
 
     Terms defined by: RERO_ILS_QUERY_BOOSTING will be boosted
@@ -57,12 +57,12 @@ def and_search_factory(self, search, query_parser=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
         if qstr:
             if not query_boosting:
-                return Q('query_string', query=qstr, default_operator='AND')
+                return Q('query_string', query=qstr)
             else:
                 return Q('bool', should=[
                     Q('query_string', query=qstr, boost=2,
-                        fields=query_boosting, default_operator="AND"),
-                    Q('query_string', query=qstr, default_operator="AND")
+                        fields=query_boosting),
+                    Q('query_string', query=qstr)
                 ])
         return Q()
 
@@ -78,6 +78,9 @@ def and_search_factory(self, search, query_parser=None):
     from invenio_records_rest.sorter import default_sorter_factory
 
     query_string = request.values.get('q')
+    display_score = request.values.get('display_score')
+    if display_score:
+        search = search.extra(explain=True)
     query_parser = query_parser or _default_parser
 
     search_index = search._index[0]

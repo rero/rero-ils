@@ -29,8 +29,7 @@ from __future__ import absolute_import, print_function
 from celery import shared_task
 from flask import current_app
 
-from .search import EbookSearch
-from ..documents.api import Document
+from ..documents.api import Document, DocumentsSearch
 
 
 @shared_task(ignore_result=True)
@@ -40,12 +39,15 @@ def create_records(records):
     n_created = 0
     for record in records:
         record['$schema'] = \
-            'https://ils.rero.ch/schema/documents/ebook-v0.0.1.json'
+            'https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json'
 
         # check if already harvested
-        oai_id = record.get('identifiers').get('oai')
-        query = EbookSearch().filter('term', identifiers__oai=oai_id)\
-                             .source(includes=['pid'])
+        harvestedID = record.get('identifiers').get('harvestedID')
+        query = DocumentsSearch().filter(
+            'term',
+            identifiers__harvestedID=harvestedID
+        ).source(includes=['pid'])
+
         # update the record
         try:
             pid = [r.pid for r in query.scan()].pop()

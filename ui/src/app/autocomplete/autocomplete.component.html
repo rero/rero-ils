@@ -25,6 +25,7 @@
   >
   <input type="hidden" name="size" value="10">
   <input type="hidden" name="page" value="1">
+  <input *ngIf="displayScore" type="hidden" name="display_score" value="{{ displayScore }}">
   <div class="input-group-append">
     <button type="submit" (click)="form.submit()" class="btn btn-light"><i class="fa fa-search"></i></button>
   </div>

@@ -29,6 +29,8 @@ export class AutocompleteComponent implements OnInit {
   @Input() placeholder: string;
   @Input()
   maxLengthSuggestion = 100;
+  @Input()
+  displayScore = undefined;
 
   constructor(
     private recordsService: RecordsService,
@@ -46,6 +48,9 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params: any) => {
       const query = params.get('q');
+      if (params.get('display_score')) {
+        this.displayScore = params.get('display_score');
+      }
       if (query) {
         this.asyncSelected = {
           query: query,

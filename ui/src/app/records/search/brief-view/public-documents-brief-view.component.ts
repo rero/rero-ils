@@ -60,9 +60,18 @@ import { _, } from '@app/core';
           <span translate *ngIf="record.metadata.available">available</span>
           <span translate *ngIf="!record.metadata.available">not available</span>
         </div>
+        <div *ngIf="record.explanation">
+          <a class="badge badge-info collapsed"
+              data-toggle="collapse" href="#{{'score'+record.metadata.pid }}"
+              aria-expanded="false">
+              score: {{ record.explanation.value }}
+          </a>
+          <pre class="collapse border border-secondary mt-1" id="{{'score'+record.metadata.pid }}">{{record.explanation|json}}</pre>
+        </div>
       </article>
     </div>
-  </article>`,
+</article>
+`,
   styles: [`
 .thumb-brief
   img {
@@ -76,6 +85,12 @@ import { _, } from '@app/core';
       max-width: 48px;
     }
   }
+
+pre {
+  white-space: pre-wrap;
+  max-height: 300px;
+  font-size: 0.7em;
+}
 `]
 })
 export class PublicDocumentsBriefViewComponent implements BriefView {

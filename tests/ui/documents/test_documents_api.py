@@ -63,6 +63,25 @@ def test_document_can_delete(app, document_data_tmp):
     assert document.can_delete
 
 
+def test_document_can_delete_harvested(app, ebook_1_data):
+    """Test can delete for harvested records."""
+    document = Document.create(ebook_1_data, delete_pid=True)
+    assert not document.can_delete
+
+
+def test_document_can_delete_with_loans(
+        client, item_lib_martigny, loan_pending_martigny, document):
+    """Test can delete a document."""
+    links = document.get_links_to_me()
+    assert 'items' in links
+    assert 'loans' in links
+
+    assert not document.can_delete
+
+    reasons = document.reasons_not_to_delete()
+    assert 'links' in reasons
+
+
 @mock.patch('rero_ils.modules.documents.listener.requests_get')
 @mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
 def test_document_person_resolve(mock_resolver_get, mock_listener_get,

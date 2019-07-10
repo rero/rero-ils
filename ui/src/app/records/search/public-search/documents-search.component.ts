@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
       [currentPage]="currentPage"
       [aggFilters]="aggFilters"
       [showSearchInput]="false"
+      [displayScore]="displayScore"
     >
     </app-search>
   `,
@@ -25,6 +26,7 @@ export class DocumentsSearchComponent implements OnInit {
   public nPerPage = undefined;
   public currentPage = undefined;
   public aggFilters = undefined;
+  public displayScore = undefined;
 
   constructor(
     protected route: ActivatedRoute,
@@ -51,6 +53,10 @@ export class DocumentsSearchComponent implements OnInit {
           }
           case 'page': {
             this.currentPage = +urlQuery.get(key);
+            break;
+          }
+          case 'display_score': {
+            this.displayScore = +urlQuery.get(key);
             break;
           }
           default: {

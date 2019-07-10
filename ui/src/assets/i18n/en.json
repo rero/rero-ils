@@ -123,6 +123,7 @@
   "has # patrons attached": "has # patrons attached",
   "The default record cannot be deleted": "The default record cannot be deleted",
   "The record contains settings": "The record contains settings",
+  "The record has been harvested": "The record has been harvested",
   "Edit": "Edit",
   "no item": "no item",
   "Record deleted.": "Record deleted.",
@@ -243,5 +244,7 @@
   "Documents": "Documents",
   "Persons": "Persons",
   "results": "results",
-  "No result found.": "No result found."
+  "No result found.": "No result found.",
+  "more…": "more…",
+  "less…": "less…"
 }

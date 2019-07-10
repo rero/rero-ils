@@ -2,10 +2,29 @@
   "settings": {
     "number_of_shards": 1,
     "number_of_replicas": 0,
-    "max_result_window": 20000
+    "max_result_window": 20000,
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 20
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
+        }
+      }
+    }
   },
   "mappings": {
-    "ebook-v0.0.1": {
+    "document": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
@@ -18,6 +37,7 @@
         "title": {
           "type": "text",
           "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "autocomplete_title",
           "fields": {
             "eng": {
               "type": "text",
@@ -36,6 +56,11 @@
               "analyzer": "italian"
             }
           }
+        },
+        "autocomplete_title": {
+          "type": "text",
+          "analyzer": "autocomplete",
+          "search_analyzer": "standard"
         },
         "titlesProper": {
           "type": "text",
@@ -108,6 +133,30 @@
                 "facet_authors_it"
               ]
             },
+            "name_en": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "copy_to": "facet_authors_en"
+            },
+            "name_fr": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "copy_to": "facet_authors_fr"
+            },
+            "name_de": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "copy_to": "facet_authors_de"
+            },
+            "name_it": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "copy_to": "facet_authors_it"
+            },
+            "variant_name": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding"
+            },
             "type": {
               "type": "keyword"
             },
@@ -116,11 +165,11 @@
             },
             "qualifier": {
               "type": "keyword"
+            },
+            "pid": {
+              "type": "keyword"
             }
           }
-        },
-        "item_status": {
-          "type": "keyword"
         },
         "facet_authors_en": {
           "type": "keyword"
@@ -167,13 +216,6 @@
         "formats": {
           "type": "keyword"
         },
-        "electronic_location": {
-          "properties": {
-            "uri": {
-              "type": "keyword"
-            }
-          }
-        },
         "additionalMaterials": {
           "type": "keyword"
         },
@@ -208,7 +250,26 @@
           }
         },
         "notes": {
-          "type": "text"
+          "type": "text",
+          "analyzer": "global_lowercase_asciifolding",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "abstracts": {
           "type": "text",
@@ -243,18 +304,57 @@
             },
             "isbn": {
               "type": "keyword"
-            },
-            "oai": {
-              "type": "keyword"
             }
           }
         },
         "subjects": {
           "type": "text",
-          "copy_to": "facet_subjects"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "facet_subjects",
+          "fields": {
+            "eng": {
+              "type": "text",
+              "analyzer": "english"
+            },
+            "fre": {
+              "type": "text",
+              "analyzer": "french"
+            },
+            "ger": {
+              "type": "text",
+              "analyzer": "german"
+            },
+            "ita": {
+              "type": "text",
+              "analyzer": "italian"
+            }
+          }
         },
         "facet_subjects": {
           "type": "keyword"
+        },
+        "items": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            },
+            "barcode": {
+              "type": "keyword"
+            },
+            "call_number": {
+              "type": "keyword"
+            },
+            "library_pid": {
+              "type": "keyword"
+            },
+            "status": {
+              "type": "keyword"
+            }
+          }
+        },
+        "available": {
+          "type": "boolean"
         },
         "_created": {
           "type": "date"
