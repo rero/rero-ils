@@ -97,6 +97,12 @@ def test_documents_get(client, document):
         url_for('api_documents.import_bnf_ean', ean='9782070541270'))
     assert res.status_code == 401
 
+    list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
@@ -226,19 +232,6 @@ def test_documents_import_bnf_ean(client):
         'translatedFrom': ['eng'],
         'type': 'book'
     }
-
-
-def test_document_can_delete(client, item_lib_martigny, loan_pending_martigny,
-                             document):
-    """Test can delete a document."""
-    links = document.get_links_to_me()
-    assert 'items' in links
-    assert 'loans' in links
-
-    assert not document.can_delete
-
-    reasons = document.reasons_not_to_delete()
-    assert 'links' in reasons
 
 
 def test_document_can_request_view(client, item_lib_fully,

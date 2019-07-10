@@ -72,7 +72,8 @@ from .permissions import can_access_organisation_patrons_factory, \
     can_create_organisation_records_factory, \
     can_delete_organisation_records_factory, \
     can_update_organisation_records_factory, \
-    librarian_delete_permission_factory, librarian_permission_factory
+    librarian_delete_permission_factory, librarian_permission_factory, \
+    librarian_update_permission_factory
 
 
 def _(x):
@@ -321,7 +322,7 @@ RECORDS_REST_DEFAULT_LIST_PERMISSION_FACTORY = librarian_permission_factory
 RECORDS_REST_DEFAULT_READ_PERMISSION_FACTORY = librarian_permission_factory
 """Default read permission factory: check if the record exists."""
 
-RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_permission_factory
+RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_update_permission_factory
 """Default update permission factory: reject any request."""
 
 RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_delete_permission_factory
@@ -363,7 +364,7 @@ RECORDS_REST_ENDPOINTS = dict(
         # ),
         default_media_type='application/json',
         max_result_window=5000000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all
     ),
@@ -522,7 +523,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/organisations/<pid(org, record_class="rero_ils.modules.organisations.api:Organisation"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:search_factory',
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
@@ -615,7 +616,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/persons/<pid(pers, record_class="rero_ils.modules.mef_persons.api:MefPerson"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:and_search_factory',
+        search_factory_imp='rero_ils.query:search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all,
         create_permission_factory_imp=deny_all,
@@ -812,8 +813,8 @@ RECORDS_REST_FACETS = {
 # Elasticsearch fields boosting by index
 RERO_ILS_QUERY_BOOSTING = {
     'documents': {
-        'title.*': 2,
-        'titlesProper.*': 2,
+        'title.*': 3,
+        'titlesProper.*': 3,
         'authors.name': 2,
         'authors.name_*': 2,
         'publicationYearText': 2,
@@ -932,6 +933,7 @@ SECURITY_LOGIN_WITHOUT_CONFIRMATION = False
 
 # Misc
 INDEXER_REPLACE_REFS = True
+INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
 
 SEARCH_UI_SEARCH_API = '/api/documents/'
 

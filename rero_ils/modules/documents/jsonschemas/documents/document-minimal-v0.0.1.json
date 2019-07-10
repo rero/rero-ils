@@ -1,12 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Schema for ebooks document",
+  "title": "Schema for document",
   "type": "object",
   "required": [
     "$schema",
     "pid",
     "type",
-    "title"
+    "title",
+    "languages"
   ],
   "additionalProperties": false,
   "properties": {
@@ -14,7 +15,8 @@
       "title": "Schema",
       "description": "Schema to validate document against.",
       "type": "string",
-      "minLength": 7
+      "minLength": 7,
+      "default": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json"
     },
     "pid": {
       "title": "Document ID",
@@ -76,6 +78,7 @@
             "title": "Language",
             "description": "Required. Language of the resource, primary or not.",
             "type": "string",
+            "default": "fre",
             "validationMessage": "Required. Language of the resource, primary or not.",
             "enum": [
               "fre",
@@ -89,8 +92,7 @@
               "heb",
               "jpn",
               "por",
-              "rus",
-              "und"
+              "rus"
             ]
           }
         }
@@ -107,37 +109,29 @@
         "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
       }
     },
-    "electronic_location": {
-      "title": "Electronic Location",
-      "description": "Information needed to locate and access an electronic resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "uri"
-        ],
-        "uri": {
-          "title": "Uniform Resource Identifier",
-          "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
     "authors": {
       "title": "Authors",
       "description": "Author(s) of the resource. Can be either persons or organisations.",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": [
-          "name",
           "type"
         ],
         "additionalProperties": false,
         "properties": {
+          "$ref": {
+            "title": "MEF person ref",
+            "type": "string",
+            "pattern": "^https://mef.rero.ch/api/mef/.*?$"
+          },
+          "pid": {
+            "title": "pid",
+            "description": "Corresponding pid of the MEF record.",
+            "type": "string",
+            "minLength": 1
+          },
           "name": {
             "title": "Name",
             "description": "Person's or organisation's name.",
@@ -311,12 +305,12 @@
           "pattern": "^97[8|9][0-9]{10}$",
           "validationMessage": "Should be a valid ISBN-13 without dashes."
         },
-        "oai": {
-          "title": "OAI",
+        "harvestedID": {
+          "title": "Identifier in the harvested source.",
           "description": "OAI identifiers of the harvested source.",
           "type": "string",
-          "pattern": "^oai:.*",
-          "validationMessage": "Should be a valid ISBN-13 without dashes."
+          "pattern": "^[a-z]+:.*",
+          "validationMessage": "Should start with a chars: prefix i.e. cantook:."
         }
       }
     },
@@ -330,16 +324,29 @@
         "minLength": 1
       }
     },
-    "available": {
-      "title": "Document availability",
-      "type": "boolean",
-      "default": false
-    },
     "cover_art": {
       "title": "Cover art",
       "description": "Vendor cover art URL.",
       "type": "string",
       "format": "uri"
+    },
+    "electronic_location": {
+      "title": "Electronic Location",
+      "description": "Information needed to locate and access an electronic resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "uri"
+        ],
+        "uri": {
+          "title": "Uniform Resource Identifier",
+          "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
     }
   }
 }

@@ -45,7 +45,8 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
             continue
         rec = create_record(record.xml)
         rec = marc21.do(rec)
-        rec.setdefault('identifiers', {})['oai'] = record.header.identifier
+        rec.setdefault(
+            'identifiers', {})['harvestedID'] = record.header.identifier
         converted_records.append(rec)
     if records:
         current_app.logger.info(

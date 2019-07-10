@@ -65,10 +65,15 @@ class Document(IlsRecord):
     provider = DocumentProvider
 
     @property
+    def harvested(self):
+        """Is this record harvested from an external service."""
+        return bool(self.get('identifiers', {}).get('harvestedID'))
+
+    @property
     def can_edit(self):
         """Return a boolean for can_edit resource."""
         # TODO: Make this condition on data
-        return 'ebook' != self.get('type')
+        return not self.harvested
 
     def get_number_of_items(self):
         """Get number of items for document."""
@@ -106,4 +111,6 @@ class Document(IlsRecord):
         links = self.get_links_to_me()
         if links:
             cannot_delete['links'] = links
+        if self.harvested:
+            cannot_delete['others'] = dict(harvested=True)
         return cannot_delete
