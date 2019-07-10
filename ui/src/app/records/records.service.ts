@@ -40,7 +40,8 @@ export class RecordsService {
     query: string = '',
     mime_type: string = 'application/json',
     filters = [],
-    sort?
+    sort?,
+    displayScore?
   ) {
     let url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
     if (filters.length) {
@@ -48,6 +49,9 @@ export class RecordsService {
     }
     if (sort) {
       url = url + `&sort=${sort}`;
+    }
+    if (displayScore) {
+      url = url + `&display_score=${displayScore}`;
     }
     return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
@@ -279,7 +283,8 @@ export class RecordsService {
   private othersMessages() {
     return {
       'is_default': this.translateService.instant(_('The default record cannot be deleted')),
-      'has_settings': this.translateService.instant(_('The record contains settings'))
+      'has_settings': this.translateService.instant(_('The record contains settings')),
+      'harvested': this.translateService.instant(_('The record has been harvested'))
     };
   }
 

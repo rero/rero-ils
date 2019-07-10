@@ -1000,7 +1000,7 @@
     "freeFormedPublicationDate": "[ca 1889]"
   },
   "ebook1": {
-    "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook1",
     "type": "ebook",
     "title": "La maison des oubli\u00e9s",
@@ -1031,7 +1031,8 @@
       "Le d\u00e9m\u00e9nagement dans ce manoir charmant, en haut de la colline, devait \u00eatre le point de d\u00e9part pour une nouvelle vie. Apr\u00e8s des ann\u00e9es pass\u00e9es dans la banlieue de Brighton, Ollie Harcourt ne pouvait r\u00eaver mieux qu'une existence paisible \u00e0 la campagne. Le reste de la famille suit d'un pas h\u00e9sitant, mais ne rechigne pas pour autant \u00e0 cette nouvelle aventure. Cependant, peu apr\u00e8s leur installation, des sc\u00e8nes \u00e9tranges se d\u00e9roulent dans la maison. Des ombres apparaissent, les animaux domestiques se comportent de mani\u00e8re bizarre et plusieurs accidents, plus d\u00e9routants les uns que les autres, ont lieu. Bient\u00f4t, Ollie n'a plus de doute : leur pr\u00e9sence n'est pas vraiment souhait\u00e9e. Quelqu'un semble m\u00eame pr\u00eat \u00e0 tout pour les expulser de l\u00e0... \u00e0 n'importe quel prix."
     ],
     "identifiers": {
-      "isbn": "9782823855890"
+      "isbn": "9782823855890",
+      "harvestedID": "cantook:ebook1"
     },
     "subjects": [
       "thriller",
@@ -1039,9 +1040,12 @@
     ]
   },
   "ebook2": {
-    "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook2",
     "type": "ebook",
+    "identifiers": {
+      "harvestedID": "cantook:ebook2"
+    },
     "title": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft",
     "languages": [
       {
@@ -1071,8 +1075,11 @@
     ]
   },
   "ebook3": {
-    "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook3",
+    "identifiers": {
+      "harvestedID": "cantook:ebook3"
+    },
     "type": "ebook",
     "title": "Harry Potter and the Chamber of Secrets",
     "languages": [
@@ -1103,8 +1110,11 @@
     ]
   },
   "ebook4": {
-    "$schema": "https://ils.rero.ch/schema/documents/ebook-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook4",
+    "identifiers": {
+      "harvestedID": "cantook:ebook4"
+    },
     "type": "ebook",
     "title": "Nouveau titre",
     "languages": [

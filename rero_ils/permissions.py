@@ -195,8 +195,18 @@ def librarian_permission_factory(record, *args, **kwargs):
     return librarian_permission
 
 
-def librarian_delete_permission_factory(record, *args, **kwargs):
+def librarian_update_permission_factory(record, *args, **kwargs):
+    """User has editor role and the record is editable."""
+    if record.can_edit:
+        return librarian_permission
+    return type('Check', (), {'can': lambda x: False})()
+
+
+def librarian_delete_permission_factory(
+        record, credentials_only=False, *args, **kwargs):
     """User can delete record."""
+    if credentials_only:
+        return librarian_permission
     if record.can_delete:
         return librarian_permission
     return type('Check', (), {'can': lambda x: False})()
