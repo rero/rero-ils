@@ -153,7 +153,7 @@ You can use simulate a full production environment using the
 
 .. code-block:: console
 
-    $ docker build --rm -t rero-ils-base:latest -f Dockerfile.base .
+    $ docker build --rm -t rero/rero-ils-base:latest -f Dockerfile.base .
     $ docker-compose -f docker-compose.full.yml up -d
 
 In addition to the normal ``docker-compose.yml``, this one will start:
