@@ -74,6 +74,11 @@ class Library(IlsRecord):
     fetcher = library_id_fetcher
     provider = LibraryProvider
 
+    def get_organisation(self):
+        """Get Organisation."""
+        from ..organisations.api import Organisation
+        return Organisation.get_record_by_pid(self.organisation_pid)
+
     def get_pickup_location_pid(self):
         """Returns librarys first pickup location."""
         results = LocationsSearch().filter(

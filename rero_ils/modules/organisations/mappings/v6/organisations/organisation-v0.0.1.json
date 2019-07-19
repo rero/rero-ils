@@ -21,6 +21,9 @@
         "address": {
           "type": "text"
         },
+        "code": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },

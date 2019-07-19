@@ -19,10 +19,10 @@
       <h2>{{ _('A wealth of knowledge just a click away') }}</h2>
     </header>
     <div class="container d-none d-md-block">
-    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="large"></search-autocomplete>
+    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="/{{ viewcode }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" size="large" viewcode="{{ viewcode }}"></search-autocomplete>
     </div>
     <div class="container d-block d-md-none">
-      <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="{{config.THEME_SEARCH_ENDPOINT}}"></search-autocomplete>
+      <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="/{{ viewcode }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" viewcode="{{ viewcode }}"></search-autocomplete>
     </div>
     <app-root></app-root>
     <footer class="text-center bg-danger text-white">
@@ -85,9 +85,22 @@
           </p>
         </section>
       </section>
-      <section>
+      <section class="mb-4">
         <h3>{{_('Help')}}</h3>
         <p>{{_('See the')}} <a href="{{ url_for('rero_ils.help') }}" class="rero-ils-external-link" title="{{ _('Link to the help page for this demonstration Website') }}">{{_('help page')}}</a></p>
+      </section>
+      <section>
+        {% if viewcode == config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}
+          <h3>{{ _('Institutions\' catalogues') }}</h3>
+          <ul class="list-unstyled">
+            {% for org in organisations %}
+            <li><a href="{{ url_for('rero_ils.index_with_view_code', viewcode=org.code) }}">{{ org.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <h3>{{ _('Global catalogue') }}</h3>
+          <a href="{{ url_for('rero_ils.index') }}">{{ _('RERO ILS global') }}</a>
+        {% endif %}
       </section>
     </section>
     <section class="col-md-4">

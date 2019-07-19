@@ -30,8 +30,8 @@ from functools import partial, wraps
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
-from invenio_circulation.errors import CirculationException, \
-    MissingRequiredParameterError, NoValidTransitionAvailableError
+from invenio_circulation.errors import MissingRequiredParameterError, \
+    NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_i18n.ext import current_i18n
@@ -47,6 +47,7 @@ from ..loans.api import Loan, LoanAction, get_last_transaction_loc_for_item, \
     get_request_by_item_pid_by_patron_pid
 from ..locations.api import Location
 from ..minters import id_minter
+from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
 from ..providers import Provider
 from ..transactions.api import CircTransaction
@@ -343,6 +344,10 @@ class Item(IlsRecord):
                     item_pid not in returned_item_pids:
                 returned_item_pids.append(item_pid)
                 yield item, loan
+
+    def get_organisation(self):
+        """Shortcut to the organisation of the item location."""
+        return self.get_library().get_organisation()
 
     def get_library(self):
         """Shortcut to the library of the item location."""
@@ -752,3 +757,9 @@ class Item(IlsRecord):
         """Get organisation pid for item."""
         library = Library.get_record_by_pid(self.library_pid)
         return library.organisation_pid
+
+    @property
+    def organisation_view(self):
+        """Get Organisation view for item."""
+        organisation = Organisation.get_record_by_pid(self.organisation_pid)
+        return organisation['view_code']

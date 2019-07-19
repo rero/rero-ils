@@ -27,6 +27,8 @@
 
 from functools import partial
 
+from invenio_search.api import RecordsSearch
+
 from .models import OrganisationIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
@@ -44,6 +46,15 @@ OrganisationProvider = type(
 organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
 # fetcher
 organisation_id_fetcher = partial(id_fetcher, provider=OrganisationProvider)
+
+
+class OrganisationSearch(RecordsSearch):
+    """Organisation search."""
+
+    class Meta():
+        """Meta class."""
+
+        index = 'organisations'
 
 
 class Organisation(IlsRecord):
@@ -82,6 +93,32 @@ class Organisation(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @classmethod
+    def get_all(cls):
+        """Get all organisations."""
+        return sorted([
+            Organisation.get_record_by_id(_id)
+            for _id in Organisation.get_all_ids()
+        ], key=lambda org: org.get('name'))
+
+    @classmethod
+    def all_code(cls):
+        """Get all code."""
+        return [org.get('code') for org in cls.get_all()]
+
+    @classmethod
+    def get_record_by_viewcode(cls, viewcode):
+        """Get record by view code."""
+        result = OrganisationSearch().filter(
+            'term',
+            code=viewcode
+        ).execute()
+        if result['hits']['total'] != 1:
+            raise Exception(
+                'Organisation (get_record_by_viewcode): Result not found.')
+
+        return result['hits']['hits'][0]['_source']
 
     @property
     def organisation_pid(self):

@@ -11,7 +11,7 @@
   {%- block head_base %}
     {% if admin_page %}
       <base href="/admin">
-    {% elif request.path.startswith('/search') %}
+    {% elif request.path.find('search') >= 0 %}
       <base href="/">
     {% else %}
       <base href="{{ request.path }}">

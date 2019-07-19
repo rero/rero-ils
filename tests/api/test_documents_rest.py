@@ -65,10 +65,11 @@ def test_documents_permissions(client, document, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_facets(client, document, item_lib_martigny,
-                          rero_json_header, lib_martigny):
+def test_documents_facets(
+    client, document, item_lib_martigny, rero_json_header
+):
     """Test record retrieval."""
-    list_url = url_for('invenio_records_rest.doc_list')
+    list_url = url_for('invenio_records_rest.doc_list', view='global')
 
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
@@ -76,12 +77,65 @@ def test_documents_facets(client, document, item_lib_martigny,
 
     # check all facets are present
     for facet in [
-        'document_type', 'library', 'author__en', 'author__fr', 'author__de',
-        'author__it', 'language', 'subject', 'status'
+        'document_type', 'author__en', 'author__fr',
+        'author__de', 'author__it', 'language', 'subject', 'status'
     ]:
         assert aggs[facet]
-    # check library name for display
-    assert aggs['library']['buckets'][0]['name'] == lib_martigny['name']
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_documents_organisation_facets(
+    client, document, item_lib_martigny, rero_json_header
+):
+    """Test record retrieval."""
+    list_url = url_for('invenio_records_rest.doc_list', view='global')
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+
+    assert 'organisation' in aggs
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_documents_library_facets(
+    client, document, org_martigny, item_lib_martigny, rero_json_header
+):
+    """Test record retrieval."""
+    list_url = url_for('invenio_records_rest.doc_list', view='org1')
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    aggs = data['aggregations']
+
+    assert 'library' in aggs
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_documents_items_filter(
+    client, document, org_martigny, item_lib_martigny,
+    org_sion, item_lib_sion_org2, rero_json_header
+):
+    """Test items filters for global and organisation view."""
+    list_url = url_for('invenio_records_rest.doc_list', view='global')
+    res = client.get(list_url, headers=rero_json_header)
+    items = get_json(res)['hits']['hits'][0]['metadata']['items']
+    assert len(items) == 2
+
+    list_url = url_for('invenio_records_rest.doc_list', view='org1')
+    res = client.get(list_url, headers=rero_json_header)
+    items = get_json(res)['hits']['hits'][0]['metadata']['items']
+    assert len(items) == 1
+    assert items[0]['organisation']['organisation_pid'] == 'org1'
+
+    list_url = url_for('invenio_records_rest.doc_list', view='org2')
+    res = client.get(list_url, headers=rero_json_header)
+    items = get_json(res)['hits']['hits'][0]['metadata']['items']
+    assert len(items) == 1
+    assert items[0]['organisation']['organisation_pid'] == 'org2'
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

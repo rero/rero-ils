@@ -345,11 +345,22 @@
             "call_number": {
               "type": "keyword"
             },
-            "library_pid": {
-              "type": "keyword"
-            },
             "status": {
               "type": "keyword"
+            },
+            "organisation": {
+              "type": "object",
+              "properties": {
+                "organisation_pid": {
+                  "type": "keyword"
+                },
+                "library_pid": {
+                  "type": "keyword"
+                },
+                "organisation_library": {
+                  "type": "keyword"
+                }
+              }
             }
           }
         },

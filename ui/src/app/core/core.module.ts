@@ -19,7 +19,7 @@ import { ToastrDialogComponent } from './toastr-dialog/toastr-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitlePipe } from './pipe/title.pipe';
-import { timeout } from 'q';
+import { OrganisationViewService } from './organisation/organisation-view.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { timeout } from 'q';
     ItemTypeService,
     LibraryService,
     OrganisationService,
+    OrganisationViewService,
     PatronTypeService,
     PatronTypeTool,
     ItemTypeTool,

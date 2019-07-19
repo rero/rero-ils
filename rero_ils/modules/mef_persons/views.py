@@ -30,6 +30,8 @@ import requests
 from flask import Blueprint, Response, abort, current_app, render_template, \
     request
 
+from rero_ils.modules.organisations.api import Organisation
+
 from ..documents.api import DocumentsSearch
 
 # from invenio_records_ui.signals import record_viewed
@@ -37,14 +39,14 @@ from ..documents.api import DocumentsSearch
 blueprint = Blueprint(
     'mef_persons',
     __name__,
-    url_prefix='/persons',
+    url_prefix='/<string:viewcode>/persons',
     template_folder='templates',
     static_folder='static',
 )
 
 
 @blueprint.route('/<pid>')
-def persons_detailed_view(pid):
+def persons_detailed_view(viewcode, pid):
     """Display default view.
 
     Sends record_viewed signal and renders template.
@@ -71,18 +73,23 @@ def persons_detailed_view(pid):
     record = response.json()
     record = record.get('metadata')
     search = DocumentsSearch()
-    results = search.filter(
-        'match',
-        authors__pid=pid
-    ).execute().hits.hits
-    documents = []
-    for result in results:
-        documents.append(result.get('_source'))
-    if documents:
-        record['documents'] = documents
+    search = search.filter(
+            'term',
+            authors__pid=pid
+        )
+    if (viewcode != current_app.config.get(
+        'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+    )):
+        org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+        search = search.filter(
+            'term', items__organisation__organisation_pid=org_pid
+        )
+    for result in search.execute().hits.hits:
+        record.setdefault('documents', []).append(result.get('_source'))
     return render_template(
         'rero_ils/detailed_view_persons.html',
-        record=record
+        record=record,
+        viewcode=viewcode
     )
 
 

@@ -15,16 +15,18 @@
         {%- block navbar_brand %}
           {%- if config.THEME_LOGO %}
             <div class="align-self-center d-flex w-100 justify-content-between">
-              <a href="/" class="navbar-brand pr-2"><img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}} logo"></a>
-              {%- else %}
-              <a href="/" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
+              <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand pr-2">
+                <img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}} logo">
+              </a>
+          {%- else %}
+              <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
             </div>
           {%- endif %}
         {%- endblock navbar_brand %}
         {%- block navbar_search %}
           {%- if config.THEME_SEARCHBAR %}
             <div class="align-self-center pr-2 flex-grow-1">
-              <form action="{{config.THEME_SEARCH_ENDPOINT}}" class="form-inline">
+              <form action="/{{ viewcode|default(config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE) }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" class="form-inline">
                 <div class="input-group input-group-sm w-100">
                   <input class="form-control" type="search" name="q" placeholder="{{_('Search')}}" aria-label="Search" aria-describedby="button-search">
                   <div class="input-group-append">

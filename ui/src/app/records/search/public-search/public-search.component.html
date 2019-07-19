@@ -2,14 +2,14 @@
     <ul class="nav nav-tabs">
       <li *ngIf="nDocuments>0" class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-false}" [queryParams]="{q: query, page: 1, size: 10}" [routerLink]="['/search/documents']">
+false}" [queryParams]="{q: query, page: 1, size: 10}" [routerLink]="['/' + viewCode + '/search/documents']">
           <span  translate="">Documents </span>
           <span class="badge badge-pill badge-light">{{ nDocuments }}</span>
         </a>
       </li>
       <li *ngIf="nPersons>0" class="nav-item">
         <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-false}" [queryParams]="{q: query, page: 1, size: 10}" [routerLink]="['/search/persons']">
+false}" [queryParams]="{q: query, page: 1, size: 10}" [routerLink]="['/' + viewCode + '/search/persons']">
           <span  translate="">Persons </span>
           <span class="badge badge-pill badge-light">{{ nPersons }}</span>
         </a>

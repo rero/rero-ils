@@ -47,6 +47,7 @@ _('rero');
 
 _('author');
 _('document_type');
+_('organisation');
 _('subject');
 _('language');
 _('library');

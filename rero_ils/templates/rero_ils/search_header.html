@@ -11,8 +11,13 @@
 {% extends 'rero_ils/header.html' %}
 {%- block navbar_search %}
   <div class="align-self-center pr-2 flex-grow-1">
-            <div class="align-self-center pr-2 flex-grow-1">
-              <search-autocomplete placeholder="{{ _('Search') }}" action="{{config.THEME_SEARCH_ENDPOINT}}" size="small"></search-autocomplete>
-            </div>
+    <div class="align-self-center pr-2 flex-grow-1">
+      <search-autocomplete
+        placeholder="{{ _('Search') }}"
+        action="/{{viewcode}}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}"
+        size="small"
+        viewcode="{{viewcode}}">
+      </search-autocomplete>
+    </div>
   </div>
 {%- endblock navbar_search %}

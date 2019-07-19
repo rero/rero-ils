@@ -342,3 +342,26 @@ def item_lib_sion(
         reindex=True)
     flush_index(ItemsSearch.Meta.index)
     return item
+
+
+@pytest.fixture(scope="module")
+def item_lib_sion_org2_data(data):
+    """Load item of sion library."""
+    return deepcopy(data.get('item6'))
+
+
+@pytest.fixture(scope="module")
+def item_lib_sion_org2(
+        app,
+        document,
+        item_lib_sion_org2_data,
+        loc_restricted_sion,
+        item_type_regular_sion):
+    """Create item of sion library."""
+    item = Item.create(
+        data=item_lib_sion_org2_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item

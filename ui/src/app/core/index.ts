@@ -7,6 +7,7 @@ export * from './item-type/item-type.service';
 export * from './item-type/item-type-tool';
 export * from './library/library.service';
 export * from './organisation/organisation.service';
+export * from './organisation/organisation-view.service';
 export * from './patron-type/patron-type.service';
 export * from './patron-type/patron-type-tool';
 export * from './validator/unique.validator';

@@ -34,6 +34,7 @@ from requests import get as requests_get
 from ..documents.api import DocumentsSearch
 from ..items.api import Item
 from ..locations.api import Location
+from ..organisations.api import Organisation
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -55,12 +56,21 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             available = available or item.available
             location = Location.get_record_by_pid(
                 item.replace_refs()['location']['pid']).replace_refs()
+            org_pid = item.get_library().organisation_pid
+            organisation = Organisation.get_record_by_pid(org_pid)
             items.append({
                 'pid': item.pid,
                 'barcode': item['barcode'],
                 'call_number': item['call_number'],
                 'status': item['status'],
-                'library_pid': location['library']['pid']
+                'organisation': {
+                    'organisation_pid': organisation['pid'],
+                    'library_pid': location['library']['pid'],
+                    'organisation_library': '{}-{}'.format(
+                        organisation['pid'],
+                        location['library']['pid']
+                    )
+                }
             })
         if items:
             json['items'] = items

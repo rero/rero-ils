@@ -35,7 +35,8 @@ def test_mef_persons_detailed_view(mock_get, client, mef_person_data):
     json_data = {'metadata': mef_person_data}
     mock_get.return_value = mock_response(json_data=json_data)
     # check redirection
-    res = client.get(url_for('mef_persons.persons_detailed_view', pid='pers1'))
+    res = client.get(url_for(
+        'mef_persons.persons_detailed_view', viewcode='global', pid='pers1'))
     assert res.status_code == 200
 
 # TODO: add search view

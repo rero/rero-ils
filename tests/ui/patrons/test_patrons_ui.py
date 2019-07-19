@@ -39,7 +39,7 @@ def test_patrons_profile(
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 302
     assert to_relative_url(res.location) == unquote(url_for(
-        'security.login', next='/patrons/profile'))
+        'security.login', next='/global/patrons/profile'))
 
     # check with logged user
     login_user_via_session(client, librarian_martigny_no_email.user)

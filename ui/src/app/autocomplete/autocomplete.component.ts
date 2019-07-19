@@ -31,6 +31,8 @@ export class AutocompleteComponent implements OnInit {
   maxLengthSuggestion = 100;
   @Input()
   displayScore = undefined;
+  @Input()
+  viewcode = undefined;
 
   constructor(
     private recordsService: RecordsService,
@@ -65,7 +67,7 @@ export class AutocompleteComponent implements OnInit {
 
   getStatesAsObservable(token: string): Observable<any> {
     return combineLatest(
-      this.recordsService.getSuggests('documents', 'autocomplete_title', token),
+      this.recordsService.getSuggests('documents', 'autocomplete_title', token, this.viewcode),
       this.recordsService.getSuggests('persons', 'autocomplete_name', token)
       )
     .pipe(
@@ -130,7 +132,7 @@ export class AutocompleteComponent implements OnInit {
 
   typeaheadOnSelect(e: TypeaheadMatch): void {
     if (e.item.pid && e.item.index) {
-      window.location.href = `/${e.item.index}/${e.item.pid}`;
+      window.location.href = `/${this.viewcode}/${e.item.index}/${e.item.pid}`;
     }
   }
 }

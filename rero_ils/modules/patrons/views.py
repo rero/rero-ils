@@ -53,13 +53,12 @@ api_blueprint = Blueprint(
 blueprint = Blueprint(
     'patrons',
     __name__,
-    url_prefix='/patrons',
     template_folder='templates',
     static_folder='static',
 )
 
 
-@blueprint.route('/logged_user', methods=['GET'])
+@blueprint.route('/patrons/logged_user', methods=['GET'])
 # @check_permission
 def logged_user():
     """Current logged user informations in JSON."""
@@ -80,6 +79,8 @@ def logged_user():
     data = {
         'settings': {
             'language': current_i18n.locale.language,
+            'global_view': current_app.config.get(
+                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': current_app.config.get(
                 'RERO_ILS_APP_BASE_URL',
                 ''
@@ -94,7 +95,8 @@ def logged_user():
     return jsonify(data)
 
 
-@blueprint.route('/profile')
+@blueprint.route('/global/patrons/profile', defaults={'viewcode': 'global'})
+@blueprint.route('/<string:viewcode>/patrons/profile')
 @login_required
 @register_menu(
     blueprint,
@@ -102,7 +104,7 @@ def logged_user():
     _('%(icon)s Profile', icon='<i class="fa fa-user fa-fw"></i>'),
     visible_when=user_has_patron
 )
-def profile():
+def profile(viewcode):
     """Patron Profile Page."""
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
@@ -133,7 +135,8 @@ def profile():
         'rero_ils/patron_profile.html',
         record=patron,
         checkouts=checkouts,
-        pendings=requests
+        pendings=requests,
+        viewcode=viewcode
     )
 
 

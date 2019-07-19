@@ -10,7 +10,7 @@ import { PersonsSearchComponent } from './search/public-search/persons-search.co
 
 const routes: Routes = [
   {
-    path: 'search',
+    path: ':viewcode/search',
     component: PublicSearchComponent,
     children: [
       {

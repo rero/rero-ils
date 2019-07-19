@@ -20,6 +20,7 @@ import { map } from 'rxjs/operators';
   styles: []
 })
 export class PersonsSearchComponent implements OnInit {
+  public viewCode = undefined;
   public recordType = 'persons';
   public query = '';
   public nPerPage = 10;
@@ -33,10 +34,14 @@ export class PersonsSearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    combineLatest(this.route.params, this.route.queryParamMap)
-    .pipe(map(results => ({params: results[0], query: results[1]})))
+    combineLatest(
+      this.route.params,
+      this.route.queryParamMap
+    ).pipe(map(results => ({
+      params: results[0],
+      query: results[1]
+    })))
     .subscribe(results => {
-      const params = results.params;
       const urlQuery = results.query;
       this.aggFilters = [];
       // parse url

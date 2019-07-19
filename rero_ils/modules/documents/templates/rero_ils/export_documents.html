@@ -9,7 +9,7 @@
 #}
 
 {%- extends "rero_ils/detailed_view_documents.html" %}
-{%- set canonical_url = url_for('invenio_records_ui.doc', pid_value=pid.pid_value) %}
+{%- set canonical_url = url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=pid.pid_value) %}
 
 {% block record_body %}
   <section class="mt-4">

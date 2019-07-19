@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecordsService } from '../records.service';
-import { _ } from '@app/core';
+import { _, OrganisationViewService } from '@app/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -143,7 +143,8 @@ export class SearchComponent implements OnInit {
     protected route: ActivatedRoute,
     protected router: Router,
     private translate: TranslateService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private organisationView: OrganisationViewService
    ) {}
 
   ngOnInit() {
@@ -167,6 +168,7 @@ export class SearchComponent implements OnInit {
       sort = this.sort;
     }
     this.recordsService.getRecords(
+      this.organisationView.getViewCode(),
       this.recordType,
       this.currentPage,
       this.nPerPage,
@@ -197,17 +199,19 @@ export class SearchComponent implements OnInit {
           order = Object.keys(data.aggregations);
         }
         for (const agg of order) {
-          const agg_value  = data.aggregations[agg];
-          agg_value.title = agg;
-          agg_value.name = agg;
-          const agg_split = agg.split('__');
-          if (agg_split.length === 2) {
-            if (this.language === agg_split[1]) {
-              agg_value.name = agg_split[0];
+          if (agg in data.aggregations) {
+            const agg_value  = data.aggregations[agg];
+            agg_value.title = agg;
+            agg_value.name = agg;
+            const agg_split = agg.split('__');
+            if (agg_split.length === 2) {
+              if (this.language === agg_split[1]) {
+                agg_value.name = agg_split[0];
+                this.aggregations.push(agg_value);
+              }
+            } else {
               this.aggregations.push(agg_value);
             }
-          } else {
-            this.aggregations.push(agg_value);
           }
         }
 

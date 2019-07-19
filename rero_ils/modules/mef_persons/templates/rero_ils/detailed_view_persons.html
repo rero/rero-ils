@@ -60,7 +60,7 @@
   <ul class="list-group">
   {% for document in record.documents %}
     <li class="list-group-item border-0">
-        <a class="font-weight-bold" href="{{ url_for('invenio_records_ui.doc', pid_value=document.pid) }}">{{ document.title }}</a>
+        <a class="font-weight-bold" href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) }}">{{ document.title }}</a>
     </li>
   {% endfor %}
   </ul>
