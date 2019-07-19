@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { OrganisationViewService } from '@app/core';
 
 @Component({
   selector: 'app-documents-search',
@@ -37,7 +38,6 @@ export class DocumentsSearchComponent implements OnInit {
     combineLatest(this.route.params, this.route.queryParamMap)
     .pipe(map(results => ({params: results[0], query: results[1]})))
     .subscribe(results => {
-      const params = results.params;
       const urlQuery = results.query;
       const aggFilters = [];
       // parse url

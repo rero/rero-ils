@@ -75,6 +75,7 @@
   "rero": "rero",
   "author": "author",
   "document_type": "document_type",
+  "organisation": "organisation",
   "subject": "subject",
   "language": "language",
   "library": "library",
@@ -241,10 +242,10 @@
   "Start Time is required.": "Start Time is required.",
   "Start Time format is not correct.": "Start Time format is not correct.",
   "Import record from BNF": "Import record from BNF",
+  "more\u2026": "more\u2026",
+  "less\u2026": "less\u2026",
   "Documents": "Documents",
   "Persons": "Persons",
   "results": "results",
-  "No result found.": "No result found.",
-  "more…": "more…",
-  "less…": "less…"
+  "No result found.": "No result found."
 }

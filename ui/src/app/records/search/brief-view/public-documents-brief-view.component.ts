@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BriefView } from './brief-view';
 import { RecordsService } from '../../records.service';
 import { TranslateService } from '@ngx-translate/core';
 
-import { _, } from '@app/core';
+import { _, OrganisationViewService, } from '@app/core';
 
 
 @Component({
@@ -17,7 +17,9 @@ import { _, } from '@app/core';
       </figure>
     </div>
     <div class="card-body w-100 py-0">
-      <h4 class="card-title mb-1"><a target="_self" href="/documents/{{ record.metadata.pid }}">{{ record.metadata.title }}</a></h4>
+      <h4 class="card-title mb-1">
+        <a target="_self" href="/{{ viewCode }}/documents/{{ record.metadata.pid }}">{{ record.metadata.title }}</a>
+      </h4>
       <article class="card-text">
         <!-- author -->
         <ul class="list-inline mb-0" *ngIf="record.metadata.authors && record.metadata.authors.length > 0">
@@ -27,7 +29,7 @@ import { _, } from '@app/core';
               {{ author.qualifier ? author.qualifier : '' }}
               {{ author.date ? author.date : '' }}
             </span>
-            <a *ngIf="author.pid" href="/persons/{{ author.pid }}">
+            <a *ngIf="author.pid" href="/{{ viewCode }}/persons/{{ author.pid }}">
               {{ authorName(author) }}
               {{ author.qualifier ? author.qualifier : '' }}
               {{ author.date ? author.date : '' }}
@@ -93,7 +95,7 @@ pre {
 }
 `]
 })
-export class PublicDocumentsBriefViewComponent implements BriefView {
+export class PublicDocumentsBriefViewComponent implements OnInit, BriefView {
   @Input()
   set record(value) {
     if (value !== undefined) {
@@ -117,10 +119,17 @@ export class PublicDocumentsBriefViewComponent implements BriefView {
 
   coverUrl: string;
 
+  public viewCode = undefined;
+
   constructor(
     private recordsService: RecordsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private organisationView: OrganisationViewService
   ) {}
+
+  ngOnInit() {
+    this.viewCode = this.organisationView.getViewCode();
+  }
 
   authorName(author) {
     const name_index = `name_${this.translate.currentLang}`;

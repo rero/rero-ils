@@ -33,7 +33,7 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
-from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.organisations.api import Organisation, OrganisationSearch
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 
 
@@ -44,22 +44,26 @@ def org_martigny_data(data):
 
 
 @pytest.fixture(scope="module")
-def org_martigny(database, org_martigny_data):
+def org_martigny(app, org_martigny_data):
     """Create Martigny organisation."""
     org = Organisation.create(
         data=org_martigny_data,
         delete_pid=False,
-        dbcommit=True)
+        dbcommit=True,
+        reindex=True)
+    flush_index(OrganisationSearch.Meta.index)
     return org
 
 
 @pytest.fixture(scope="function")
-def organisation_temp(db, org_martigny):
+def organisation_temp(app, org_martigny):
     """Scope function organisation data."""
     org = Organisation.create(
         data=org_martigny,
         dbcommit=True,
-        delete_pid=True)
+        delete_pid=True,
+        reindex=True)
+    flush_index(OrganisationSearch.Meta.index)
     return org
 
 
@@ -70,12 +74,14 @@ def org_sion_data(data):
 
 
 @pytest.fixture(scope="module")
-def org_sion(database, org_sion_data):
+def org_sion(app, org_sion_data):
     """Create Sion organisation."""
     org = Organisation.create(
         data=org_sion_data,
         delete_pid=False,
-        dbcommit=True)
+        dbcommit=True,
+        reindex=True)
+    flush_index(OrganisationSearch.Meta.index)
     return org
 
 

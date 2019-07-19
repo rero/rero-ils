@@ -107,7 +107,7 @@ export class LibrariesBriefViewComponent implements BriefView {
     if (this.isCollapsed) {
       const libraryPid = this.record.metadata.pid;
       this.recordsService
-          .getRecords('locations', 1, 100, `library.pid:${libraryPid}`)
+          .getRecords('global', 'locations', 1, 100, `library.pid:${libraryPid}`)
           .subscribe(data => {
             if (data.hits.total) {
               this.locations = data.hits.hits;

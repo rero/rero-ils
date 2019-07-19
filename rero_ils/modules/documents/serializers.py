@@ -24,10 +24,11 @@
 
 """Document serialization."""
 
-from flask import current_app, json
+from flask import current_app, request
 from invenio_records_rest.serializers.response import search_responsify
 
 from ..libraries.api import Library
+from ..organisations.api import Organisation
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
 
@@ -35,14 +36,38 @@ class DocumentJSONSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
     def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results.
+        """Post process the search results."""
+        # Item filters.
+        viewcode = request.args.get('view')
+        if viewcode != current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+        ):
+            view_id = Organisation.get_record_by_viewcode(viewcode)['pid']
+            records = results.get('hits', {}).get('hits', {})
+            for record in records:
+                metadata = record.get('metadata', {})
+                items = metadata.get('items', [])
+                if items:
+                    output = []
+                    for item in items:
+                        if item.get('organisation')\
+                                .get('organisation_pid') == view_id:
+                            output.append(item)
+                    record['metadata']['items'] = output
 
-        Add library names.
-        """
+        # Add organisation name
+        for org_term in results.get('aggregations', {}).get(
+                'organisation', {}).get('buckets', []):
+            pid = org_term.get('key')
+            name = Organisation.get_record_by_pid(pid).get('name')
+            org_term['name'] = name
+
+        # Add library name
         for lib_term in results.get('aggregations', {}).get(
                 'library', {}).get('buckets', []):
-            pid = lib_term.get('key')
+            pid = lib_term.get('key').split('-')[1]
             name = Library.get_record_by_pid(pid).get('name')
+            lib_term['key'] = pid
             lib_term['name'] = name
 
         return super(

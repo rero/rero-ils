@@ -39,7 +39,7 @@
             <dl class="row mb-0">
             <!-- AUTHORS -->
             {% if record.authors %}
-              {{ dl(_('Author'), record.pid | authors_format(current_i18n.language)) }}
+              {{ dl(_('Author'), record.pid | authors_format(current_i18n.language, viewcode)) }}
             {% endif %}
 
             <!-- PUBLISHERS -->
@@ -120,7 +120,7 @@
               {{ _('Permalink') }}
             </dt>
             <dd class="col-sm-7 col-md-8">
-              {{ url_for('invenio_records_ui.doc', pid_value=record.pid, _external=True) }}
+              {{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) }}
             </dd>
             </dl>
         </article>
@@ -130,7 +130,7 @@
                 href_update=url_for('records/documents.index', path=record.pid),
                 href_delete='/api/documents/' + record.pid,
                 json=record,
-                next=url_for('rero_ils.search'),
+                next=url_for('rero_ils.search', viewcode=viewcode, recordType=recordType),
                 message=_("Document cannot be deleted: there are still items linked to this document.")
               %}
                 {% include 'rero_ils/_editor_button_actions.html' %}
@@ -163,7 +163,7 @@
               {% if item.barcode %}
                 <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Barcode') }}
                   {% if current_user|can_edit %}
-                    <a href="{{ url_for('invenio_records_ui.item', pid_value=item.pid) }}">{{ item.barcode }}</a>
+                    <a href="{{ url_for('invenio_records_ui.item', viewcode=viewcode, pid_value=item.pid) }}">{{ item.barcode }}</a>
                   {% else %}
                     {{ item.barcode }}
                   {% endif %}
@@ -207,7 +207,7 @@
                     {% set locations = item|item_library_pickup_locations %}
                     {% for location in locations %}
                       <a class="dropdown-item"
-                         href="{{ url_for('item.patron_request', item_pid=item.pid, pickup_location_pid=location.pid)}}">
+                         href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
                           {{ location.get_library().name }}
                       </a>
                     {% endfor %}
@@ -220,7 +220,7 @@
                     href_update=url_for('records/items.index', path=item.pid, document=record.pid),
                     href_delete='/api/items/' + item.pid,
                     json=item,
-                    next=url_for('invenio_records_ui.doc', pid_value=record.pid)
+                    next=url_for('invenio_records_ui.doc', viewcode=viewcode, recordType=recordType, pid_value=record.pid)
                   %}
                     {% include 'rero_ils/_editor_button_actions.html' %}
                   {% endwith %}
@@ -238,7 +238,7 @@
         <ul class="list-inline d-inline-block">
         {%- for slug, fmt in formats %}
           <li>
-            <a href="{{ url_for('invenio_records_ui.doc_export', pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
+            <a href="{{ url_for('invenio_records_ui.doc_export', viewcode=viewcode, pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
               {{ fmt.title }}
             </a>
           </li>

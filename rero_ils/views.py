@@ -28,7 +28,7 @@ from __future__ import absolute_import, print_function
 
 import copy
 import re
-from functools import partial
+from functools import partial, wraps
 
 from flask import Blueprint, abort, current_app, jsonify, redirect, \
     render_template, request, url_for
@@ -39,6 +39,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 
+from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import Patron
 
 from .modules.babel_extractors import translate
@@ -121,7 +122,9 @@ def init_menu():
     item = current_menu.submenu('main.profile.login')
     item.register(
         endpoint='security.login',
-        endpoint_arguments_constructor=lambda: dict(next=request.path),
+        endpoint_arguments_constructor=lambda: dict(
+            next=request.full_path
+        ),
         visible_when=lambda: not current_user.is_authenticated,
         text='{icon} {login}'.format(
             icon='<i class="fa fa-sign-in"></i>',
@@ -133,6 +136,12 @@ def init_menu():
     item = current_menu.submenu('main.profile.logout')
     item.register(
         endpoint='security.logout',
+        endpoint_arguments_constructor=lambda: dict(
+            next='/{viewcode}'.format(viewcode=request.view_args.get(
+                'viewcode', current_app.config.get(
+                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+            )
+        ),
         visible_when=lambda: current_user.is_authenticated,
         text='{icon} {logout}'.format(
             icon='<i class="fa fa-sign-out"></i>',
@@ -153,6 +162,21 @@ def init_menu():
     )
 
 
+def check_organisation_viewcode(fn):
+    """Check if viewcode parameter is defined."""
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        viewCodes = Organisation.all_code()
+        # Add default view code
+        viewCodes.append(current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+        if not kwargs['viewcode'] in viewCodes:
+            abort(404)
+        return fn(*args, **kwargs)
+
+    return decorated_view
+
+
 @blueprint.route('/error')
 def error():
     """Error to generate exception for test purposes."""
@@ -163,7 +187,20 @@ def error():
 def index():
     """Home Page."""
     return render_template('rero_ils/frontpage.html',
-                           version=__version__)
+                           version=__version__,
+                           organisations=Organisation.get_all(),
+                           viewcode=current_app.config.get(
+                               'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+
+
+@blueprint.route('/<string:viewcode>')
+@blueprint.route('/<string:viewcode>/')
+@check_organisation_viewcode
+def index_with_view_code(viewcode):
+    """Home Page."""
+    return render_template('rero_ils/frontpage.html',
+                           version=__version__,
+                           viewcode=viewcode)
 
 
 @blueprint.route('/help')
@@ -174,17 +211,27 @@ def help():
         code=302)
 
 
-@blueprint.route('/search')
-@blueprint.route('/search/<path>')
-def search(path=None):
+@blueprint.route('/<string:viewcode>/search/<recordType>')
+@check_organisation_viewcode
+def search(viewcode, recordType):
     """Search page ui."""
-    if not path:
+    if not request.args:
         q = request.args.get('q', default='')
         size = request.args.get('size', default='10')
         page = request.args.get('page', default='1')
         return redirect(url_for(
-            'rero_ils.search', path='documents', q=q, page=page, size=size))
-    return render_template(current_app.config['SEARCH_UI_SEARCH_TEMPLATE'])
+            'rero_ils.search',
+            viewcode=viewcode,
+            recordType=recordType,
+            q=q,
+            page=page,
+            size=size
+        ))
+    return render_template(
+        current_app.config['SEARCH_UI_SEARCH_TEMPLATE'],
+        viewcode=viewcode,
+        recordType=recordType
+    )
 
 
 @blueprint.app_template_filter()

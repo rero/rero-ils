@@ -34,6 +34,7 @@ export class RecordsService {
   }
 
   getRecords(
+    view: string,
     record_type: string,
     page: number = 1,
     size: number = 10,
@@ -43,7 +44,7 @@ export class RecordsService {
     sort?,
     displayScore?
   ) {
-    let url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}`;
+    let url = `/api/${record_type}/?page=${page}&size=${size}&q=${query}&view=${view}`;
     if (filters.length) {
       url = url + '&' + filters.join('&');
     }
@@ -66,9 +67,13 @@ export class RecordsService {
     record_type: string,
     field: string,
     query: string,
+    view: string = '',
     mime_type: string = 'application/json'
   ) {
-    const url = `/api/${record_type}/?q=${field}:${query}&size=5`;
+    let url = `/api/${record_type}/?q=${field}:${query}&size=5`;
+    if (view !== '') {
+      url += `&view=${view}`;
+    }
     return this.http.get<any>(url, this.httpOptions(mime_type)).pipe(
       catchError(e => {
         if (e.status === 404) {

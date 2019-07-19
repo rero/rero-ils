@@ -76,3 +76,6 @@ rero_ils/static/js/rero_ils/ui
 
 # Virtual studio pref
 .vscode
+
+# Coverage xml file
+cov.xml

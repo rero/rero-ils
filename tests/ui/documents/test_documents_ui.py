@@ -26,11 +26,35 @@
 
 from flask import url_for
 
+from rero_ils.modules.documents.utils import document_items_filter
+
 
 def test_documents_detailed_view(client, loc_public_martigny, document):
     """Test document detailed view."""
     # check redirection
-    res = client.get(url_for('invenio_records_ui.doc', pid_value='doc1'))
+    res = client.get(url_for(
+        'invenio_records_ui.doc', viewcode='global', pid_value='doc1'))
+    assert res.status_code == 200
+
+
+def tests_document_item_filter_detailed_view(
+        client, loc_public_martigny, document):
+    """Test document detailed view with items filter."""
+    res = client.get(url_for(
+        'invenio_records_ui.doc', viewcode='org1', pid_value='doc1'))
     assert res.status_code == 200
 
 # TODO: add search view
+
+
+def test_document_items_filter(
+    org_martigny, item_lib_martigny, item2_lib_martigny, item_lib_sion_org2
+):
+    """Test document items filter."""
+    result = document_items_filter(
+        org_martigny.pid, [item_lib_martigny, item2_lib_martigny])
+    assert len(result) == 2
+
+    result = document_items_filter(
+        org_martigny.pid, [item_lib_martigny, item_lib_sion_org2])
+    assert len(result) == 1

@@ -44,7 +44,7 @@ export class RemoteSelectComponent implements OnInit {
         if (fieldToFilter && !user.roles.some(role => role === 'system_librarian')) {
           query = `${fieldToFilter}:${user.library.pid}`;
         }
-        this.recordsService.getRecords(remoteRecordType, 1, 30, query).subscribe(data => {
+        this.recordsService.getRecords('global', remoteRecordType, 1, 30, query).subscribe(data => {
           data.hits.hits.map(record => {
             const urlPrefix = this.apiService.getApiEntryPointByType(remoteRecordType, true);
             this.selectList.push({

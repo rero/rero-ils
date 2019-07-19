@@ -26,12 +26,48 @@
 
 from __future__ import absolute_import, print_function
 
+from elasticsearch_dsl import A
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
-from invenio_records_rest.sorter import eval_field
 
+from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_patron
+
+
+def document_search_factory(self, search, query_parser=None):
+    """Document search factory.
+
+    Dynamic addition of an organisation or library facet
+    depending on the view parameter (global or locale).
+    """
+    view = request.args.get(
+        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    if view == current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        agg = A('terms', field='items.organisation.organisation_pid')
+        search.aggs.bucket('organisation', agg)
+    else:
+        org_pid = Organisation.get_record_by_viewcode(view)['pid']
+        agg = A(
+            'terms',
+            field='items.organisation.organisation_library',
+            include='{}\\-[0-9]*'.format(org_pid)
+        )
+        search.aggs.bucket('library', agg)
+    return view_search_factory(self, search, query_parser)
+
+
+def view_search_factory(self, search, query_parser=None):
+    """Search factory with view code parameter."""
+    view = request.args.get(
+        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    search, urlkwargs = search_factory(self, search)
+    if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        org = Organisation.get_record_by_viewcode(view)
+        search = search.filter(
+            'term', **{'items__organisation__organisation_pid': org['pid']}
+        )
+    return (search, urlkwargs)
 
 
 def organisation_search_factory(self, search, query_parser=None):

@@ -9,7 +9,7 @@ import { _ } from '@app/core';
 @Component({
   selector: 'app-documents-brief-view',
   template: `
-  <h5 class="mb-0 card-title"><a href="{{'/documents/' + record.metadata.pid}}">{{record.metadata.title}}</a>
+  <h5 class="mb-0 card-title"><a href="{{ '/' + viewCode + '/documents/' + record.metadata.pid }}">{{ record.metadata.title }}</a>
   <small> &ndash; {{ record.metadata.type | translate }}</small></h5>
   <div class="card-text">
 
@@ -21,7 +21,7 @@ import { _ } from '@app/core';
         {{ author.qualifier ? author.qualifier : '' }}
         {{ author.date ? author.date : '' }}
       </span>
-      <a *ngIf="author.pid" href="/persons/{{ author.pid }}">
+      <a *ngIf="author.pid" href="/{{ viewCode }}/persons/{{ author.pid }}">
         {{ authorName(author) }}
         {{ author.qualifier ? author.qualifier : '' }}
         {{ author.date ? author.date : '' }}
@@ -55,7 +55,7 @@ import { _ } from '@app/core';
       class="collapse list-group list-group-flush"
       id="{{'items-'+record.metadata.pid}}">
     <li *ngFor="let item of record.metadata.items "class="list-group-item p-1">
-      <a href="{{'/items/' + item.pid }}">{{item.barcode}}</a><span> ({{ item.status | translate }})</span>
+      <a href="{{'/' + viewCode + '/items/' + item.pid }}">{{item.barcode}}</a><span> ({{ item.status | translate }})</span>
       <a *ngIf="recordType !== 'persons'" (click)="deleteItem(item.pid)"
          class="ml-2 float-right text-secondary" title="{{ 'Delete' | translate }}">
         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -75,6 +75,10 @@ import { _ } from '@app/core';
 export class DocumentsBriefViewComponent implements BriefView {
 
   @Input() record: any;
+
+  // Find a better way to fix this
+  // Another edit view for admin ???
+  public viewCode = 'global';
 
   constructor(
     private recordsService: RecordsService,

@@ -31,7 +31,7 @@
           {{ dl(_('Type'), item_type.name) }}
           {{ dl(
             _('Document'),
-            '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
+            '<a href="'+ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) +'">' + document.title +'</a>')
           }}
           {{ dl(
             _('Location'),

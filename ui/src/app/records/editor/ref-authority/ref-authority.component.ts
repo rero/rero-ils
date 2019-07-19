@@ -98,7 +98,7 @@ export class RefAuthorityComponent implements OnInit, OnDestroy {
       return of([]);
     }
     const esQuery = `%5C*.preferred_name_for_person:'${query}'`;
-    return this.recordsService.getRecords('mef', 1, 10, esQuery).pipe(
+    return this.recordsService.getRecords('global', 'mef', 1, 10, esQuery).pipe(
       map(results => {
         const names = [{
           name: query,

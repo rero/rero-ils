@@ -64,13 +64,12 @@ def item_view_method(pid, record, template=None, **kwargs):
     item_type = ItemType.get_record_by_pid(item['item_type']['pid'])
     return render_template(
         template, pid=pid, record=record, document=document, location=location,
-        library=library, item_type=item_type)
+        library=library, item_type=item_type, viewcode=kwargs['viewcode'])
 
 
 blueprint = Blueprint(
     'item',
     __name__,
-    url_prefix='/item',
     template_folder='templates',
     static_folder='static',
 )
@@ -100,11 +99,12 @@ def jsonify_error(func):
     return decorated_view
 
 
-@blueprint.route('/request/<item_pid>/<pickup_location_pid>',
-                 methods=['GET'])
+@blueprint.route(
+    '/<string:viewcode>/item/request/<item_pid>/<pickup_location_pid>',
+    methods=['GET'])
 @check_authentication_for_request
 @jsonify_error
-def patron_request(item_pid=None, pickup_location_pid=None):
+def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
     """HTTP GET request for Item request action...
 
     required_parameters: item_pid_value, location
@@ -120,5 +120,8 @@ def patron_request(item_pid=None, pickup_location_pid=None):
     )
     flash(_('The item %s has been requested.' % item_pid), 'success')
     document_pid = item.replace_refs().get('document', {}).get('pid')
-    return redirect(
-        url_for("invenio_records_ui.doc", pid_value=document_pid))
+    return redirect(url_for(
+        'invenio_records_ui.doc',
+        viewcode=viewcode,
+        pid_value=document_pid
+    ))

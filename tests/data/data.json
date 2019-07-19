@@ -3,13 +3,15 @@
     "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "pid": "org1",
     "name": "The district of Martigny Libraries",
-    "address": "Ave de la gare, Martigny CH-1920"
+    "address": "Ave de la gare, Martigny CH-1920",
+    "code": "org1"
   },
   "org2": {
     "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "pid": "org2",
     "name": "The district of Sion Libraries",
-    "address": "Ave de la gare, Martigny CH-1950"
+    "address": "Ave de la gare, Martigny CH-1950",
+    "code": "org2"
   },
   "lib1": {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -1225,6 +1227,22 @@
     },
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_shelf"
+  },
+  "item6": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item6",
+    "barcode": "87121336",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "001316",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc8"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty4"
     },
     "status": "on_shelf"
   },

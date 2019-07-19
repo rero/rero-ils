@@ -1,7 +1,7 @@
 {%- if config.ACCOUNTS %}
   {%- if not current_user.is_authenticated %}
     <form class="navbar-form navbar-right">
-      <a href="{{url_for_security('login', next=request.path)}}" class="btn btn-sm btn-default"><i class="fa fa-sign-in"></i> {{_('Log in')}}</a>
+      <a href="{{url_for_security('login', next=request.full_path)}}" class="btn btn-sm btn-default"><i class="fa fa-sign-in"></i> {{_('Log in')}}</a>
       {% if security.registerable %}<a href="{{url_for_security('register')}}" type="submit" class="btn btn-default btn-sm btn-warning"><i class="fa fa-edit"></i> {{_('Sign up')}}</a>{% endif %}
     </form>
   {%- else %}

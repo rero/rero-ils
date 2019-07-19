@@ -41,6 +41,8 @@ from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
+from rero_ils.modules.documents.utils import document_items_filter
+
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarctojson
 from ..items.api import Item, ItemStatus
@@ -69,11 +71,18 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         Item.get_record_by_pid(item_pid)
         for item_pid in Item.get_items_pid_by_document_pid(pid.pid_value)
     ]
+    viewcode = kwargs['viewcode']
+    # Item(s) filter
+    if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+        items = document_items_filter(org_pid, items)
+
     return render_template(
         template,
         pid=pid,
         record=record,
-        items=items
+        items=items,
+        viewcode=viewcode
     )
 
 
@@ -222,7 +231,7 @@ def localized_data_name(data, language):
 
 
 @blueprint.app_template_filter()
-def authors_format(pid, language):
+def authors_format(pid, language, viewcode):
     """Format authors for template."""
     doc = Document.get_record_by_pid(pid)
     doc = doc.replace_refs()
@@ -240,7 +249,8 @@ def authors_format(pid, language):
         mef_pid = author.get('pid')
         if mef_pid:
             # add link <a href="url">link text</a>
-            line = '<a href="/persons/{pid}">{text}</a>'.format(
+            line = '<a href="/{viewcode}/persons/{pid}">{text}</a>'.format(
+                viewcode=viewcode,
                 pid=mef_pid,
                 text=', '.join(line)
             )
