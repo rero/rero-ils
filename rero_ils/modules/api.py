@@ -106,6 +106,7 @@ class IlsRecord(Record):
     fetcher = None
     provider = None
     object_type = 'rec'
+    indexer = IlsRecordIndexer
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
@@ -274,9 +275,9 @@ class IlsRecord(Record):
     def reindex(self, forceindex=False):
         """Reindex record."""
         if forceindex:
-            RecordIndexer(version_type="external_gte").index(self)
+            self.indexer(version_type="external_gte").index(self)
         else:
-            RecordIndexer().index(self)
+            self.indexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
