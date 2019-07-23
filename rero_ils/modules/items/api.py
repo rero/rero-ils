@@ -183,6 +183,7 @@ class Item(IlsRecord):
     minter = item_id_minter
     fetcher = item_id_fetcher
     provider = ItemProvider
+    indexer = ItemsIndexer
 
     statuses = {
         'ITEM_ON_LOAN': 'on_loan',
@@ -481,13 +482,6 @@ class Item(IlsRecord):
         # else:
         #     actions.add('lose')
         return actions
-
-    def reindex(self, forceindex=False):
-        """Reindex record."""
-        if forceindex:
-            ItemsIndexer(version_type="external_gte").index(self)
-        else:
-            ItemsIndexer().index(self)
 
     def status_update(self, dbcommit=False, reindex=False, forceindex=False):
         """Update item status."""

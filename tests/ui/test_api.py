@@ -182,6 +182,19 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     with pytest.raises(IlsRecordError.NotDeleted):
         record = record.undelete()
 
+    """Test IlsRecord es search."""
+    search_all = list(
+        SearchTest().filter('match_all').source().scan()
+    )
+    assert len(search_all) == 3
+    search = list(
+        SearchTest()
+        .filter('term', pid='ilsrecord_pid_2')
+        .source(includes=['pid'])
+        .scan()
+    )
+    assert search[0]['pid'] == 'ilsrecord_pid_2'
+
     """Test IlsRecord update."""
     record = RecordTest.get_record_by_pid('ilsrecord_pid')
     record.delete(delindex=True)
@@ -195,16 +208,3 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     record.delete(delindex=True)
     assert len(RecordTest.get_all_pids()) == 0
     assert len(RecordTest.get_all_ids()) == 0
-
-    """Test IlsRecord es search."""
-    search_all = list(
-        SearchTest().filter('match_all').source().scan()
-    )
-    assert len(search_all) == 3
-    search = list(
-        SearchTest()
-        .filter('term', pid='ilsrecord_pid_2')
-        .source(includes=['pid'])
-        .scan()
-    )
-    assert search[0]['pid'] == 'ilsrecord_pid_2'
