@@ -521,29 +521,6 @@ def test_marc21_to_abstract():
     assert data.get('abstracts') == ["This book is about"]
 
 
-# identifiers:reroID: 035$a
-# identifiers:isbn: 020$a
-def test_marc21_to_identifiers():
-    """Test dojson identifiers."""
-
-    marc21xml = """
-    <record>
-      <datafield tag="035" ind1=" " ind2=" ">
-        <subfield code="a">R123456789</subfield>
-      </datafield>
-      <datafield tag="020" ind1=" " ind2=" ">
-        <subfield code="a">9782370550163</subfield>
-      </datafield>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21tojson.do(marc21json)
-    assert data.get('identifiers') == {
-        'reroID': 'R123456789',
-        'isbn': '9782370550163'
-    }
-
-
 # notes: [500$a repetitive]
 def test_marc21_to_notes():
     """Test dojson notes."""
@@ -598,3 +575,373 @@ def test_marc21_to_subjects():
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
     assert data.get('subjects') == ['subjects 600', 'subjects 666']
+
+
+def test_marc21_to_identifiedBy_from_020():
+    """Test dojson identifiedBy from 020."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="z">8124605254</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9788124605257 (broché)</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9788189997212</subfield>
+        <subfield code="q">hbk.</subfield>
+        <subfield code="c">£125.00</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Isbn',
+            'status': 'invalid or cancelled',
+            'value': '8124605254'
+        },
+        {
+            'type': 'bf:Isbn',
+            'qualifier': 'broché',
+            'value': '9788124605257'
+        },
+        {
+            'type': 'bf:Isbn',
+            'qualifier': 'hbk.',
+            'acquisitionsTerms': '£125.00',
+            'value': '9788189997212'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_022():
+    """Test dojson identifiedBy from 022."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="022" ind1=" " ind2=" ">
+        <subfield code="a">0264-2875</subfield>
+        <subfield code="l">0264-2875</subfield>
+      </datafield>
+      <datafield tag="022" ind1=" " ind2=" ">
+        <subfield code="a">0264-2875</subfield>
+        <subfield code="y">0080-4649</subfield>
+      </datafield>
+      <datafield tag="022" ind1=" " ind2=" ">
+        <subfield code="m">0080-4650</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Issn',
+            'value': '0264-2875'
+        },
+        {
+            'type': 'bf:IssnL',
+            'value': '0264-2875'
+        },
+        {
+            'type': 'bf:Issn',
+            'value': '0264-2875'
+        },
+        {
+            'type': 'bf:Issn',
+            'status': 'invalid',
+            'value': '0080-4649'
+        },
+        {
+            'type': 'bf:IssnL',
+            'status': 'cancelled',
+            'value': '0080-4650'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_024_snl_bnf():
+    """Test dojson identifiedBy from 024 field snl and bnf."""
+    marc21xml = """
+    <record>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">http://permalink.snl.ch/bib/chccsa86779</subfield>
+        <subfield code="2">permalink</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">http://catalogue.bnf.fr/ark:/12148/cb312v</subfield>
+        <subfield code="2">uri</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'uri',
+            'source': 'SNL',
+            'value': 'http://permalink.snl.ch/bib/chccsa86779'
+        },
+        {
+            'type': 'uri',
+            'source': 'BNF',
+            'value': 'http://catalogue.bnf.fr/ark:/12148/cb312v'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_024_with_subfield_2():
+    """Test dojson identifiedBy from 024 field with subfield 2."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">10.1007/978-3-540-37973-7</subfield>
+        <subfield code="2">doi</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">urn:nbn:de:101:1-201609052530</subfield>
+        <subfield code="2">urn</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">NIPO 035-16-060-7</subfield>
+        <subfield code="2">nipo</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">7290105422026</subfield>
+        <subfield code="2">danacode</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">VD18 10153438</subfield>
+        <subfield code="2">vd18</subfield>
+      </datafield>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">00028947969525</subfield>
+        <subfield code="2">gtin-14</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Doi',
+            'value': '10.1007/978-3-540-37973-7'
+        },
+        {
+            'type': 'bf:Urn',
+            'value': 'urn:nbn:de:101:1-201609052530'
+        },
+        {
+            'type': 'bf:Local',
+            'source': 'NIPO',
+            'value': 'NIPO 035-16-060-7'
+        },
+        {
+            'type': 'bf:Local',
+            'source': 'danacode',
+            'value': '7290105422026'
+        },
+        {
+            'type': 'bf:Local',
+            'source': 'vd18',
+            'value': 'VD18 10153438'
+        },
+        {
+            'type': 'bf:Gtin14Number',
+            'value': '00028947969525'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_024_without_subfield_2():
+    """Test dojson identifiedBy from 024 field without subfield 2."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="024" ind1=" " ind2=" ">
+        <subfield code="a">9782100745463</subfield>
+      </datafield>
+      <datafield tag="024" ind1="0" ind2="1">
+        <subfield code="a">702391010582 (vol. 2) </subfield>
+      </datafield>
+      <datafield tag="024" ind1="0" ind2="2">
+        <subfield code="a">Erato ECD 88030</subfield>
+      </datafield>
+      <datafield tag="024" ind1="1" ind2=" ">
+        <subfield code="a">604907014223 (vol. 5)</subfield>
+      </datafield>
+      <datafield tag="024" ind1="1" ind2="2">
+        <subfield code="a">EMI Classics 5 55585 2</subfield>
+      </datafield>
+      <datafield tag="024" ind1="2" ind2=" ">
+        <subfield code="a">M006546565 (kritischer B., kartoniert)</subfield>
+        <subfield code="q">vol. 1</subfield>
+      </datafield>
+      <datafield tag="024" ind1="2" ind2=" ">
+        <subfield code="a">9790201858135</subfield>
+        <subfield code="q">Kritischer Bericht</subfield>
+      </datafield>
+      <datafield tag="024" ind1="2" ind2=" ">
+        <subfield code="a">4018262101065 (Bd. 1)</subfield>
+      </datafield>
+      <datafield tag="024" ind1="3" ind2=" ">
+        <subfield code="a">309-5-56-196162-1</subfield>
+        <subfield code="q">CD audio classe</subfield>
+      </datafield>
+      <datafield tag="024" ind1="3" ind2=" ">
+        <subfield code="a">9783737407427</subfield>
+        <subfield code="q">Bd 1</subfield>
+        <subfield code="q">pbk.</subfield>
+      </datafield>
+      <datafield tag="024" ind1="3" ind2="2">
+        <subfield code="a">EP 2305</subfield>
+      </datafield>
+      <datafield tag="024" ind1="3" ind2="2">
+        <subfield code="a">97 EP 1234</subfield>
+      </datafield>
+     <datafield tag="024" ind1="8" ind2=" ">
+        <subfield code="a">ELC1283925</subfield>
+      </datafield>
+      <datafield tag="024" ind1="8" ind2=" ">
+        <subfield code="a">0000-0002-A3B1-0000-0-0000-0000-2</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Identifier',
+            'value': '9782100745463'
+        },
+        {
+            'type': 'bf:Isrc',
+            'qualifier': 'vol. 2',
+            'value': '702391010582'
+        },
+        {
+            'type': 'bf:Isrc',
+            'value': 'Erato ECD 88030'
+        },
+        {
+            'type': 'bf:Upc',
+            'qualifier': 'vol. 5',
+            'value': '604907014223'
+        },
+        {
+            'type': 'bf:Upc',
+            'value': 'EMI Classics 5 55585 2'
+        },
+        {
+            'type': 'bf:Ismn',
+            'qualifier': 'kritischer B., kartoniert, vol. 1',
+            'value': 'M006546565'
+        },
+        {
+            'type': 'bf:Ismn',
+            'qualifier': 'Kritischer Bericht',
+            'value': '9790201858135'
+        },
+        {
+            'type': 'bf:Identifier',
+            'qualifier': 'Bd. 1',
+            'value': '4018262101065'
+        },
+        {
+            'type': 'bf:Identifier',
+            'qualifier': 'CD audio classe',
+            'value': '309-5-56-196162-1'
+        },
+        {
+            'type': 'bf:Ean',
+            'qualifier': 'Bd 1, pbk.',
+            'value': '9783737407427'
+        },
+        {
+            'type': 'bf:Identifier',
+            'value': 'EP 2305'
+        },
+        {
+            'type': 'bf:Ean',
+            'value': '97 EP 1234'
+        },
+        {
+            'type': 'bf:Identifier',
+            'value': 'ELC1283925'
+        },
+        {
+            'type': 'bf:Isan',
+            'value': '0000-0002-A3B1-0000-0-0000-0000-2'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_028():
+    """Test dojson identifiedBy from 035."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="028" ind1="3" ind2=" ">
+        <subfield code="a">1234</subfield>
+        <subfield code="b">SRC</subfield>
+        <subfield code="q">Qualif1</subfield>
+        <subfield code="q">Qualif2</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:MusicPublisherNumber',
+            'source': 'SRC',
+            'qualifier': 'Qualif1, Qualif2',
+            'value': '1234'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_035():
+    """Test dojson identifiedBy from 035."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">R008945501</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Local',
+            'source': 'RERO',
+            'value': 'R008945501'
+        }
+    ]
+
+
+def test_marc21_to_identifiedBy_from_930():
+    """Test dojson identifiedBy from 930."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="930" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC) ocm11113722</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Local',
+            'source': 'OCoLC',
+            'value': 'ocm11113722'
+        }
+    ]

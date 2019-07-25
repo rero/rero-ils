@@ -351,31 +351,255 @@ def marc21_to_abstracts(self, key, value):
     return ', '.join(utils.force_list(value.get('a')))
 
 
-@marc21tojson.over('identifiers', '^020..')
+@marc21tojson.over('identifiedBy', '^020..')
 @utils.ignore_value
-def marc21_to_identifier_isbn(self, key, value):
-    """Get identifier isbn.
+def marc21_to_identifiedBy_from_field_020(self, key, value):
+    """Get identifier from field 020."""
+    def build_identifier_from(subfield_data, status=None):
+        subfield_data = subfield_data.strip()
+        identifier = {'value': subfield_data}
+        subfield_c = value.get('c', '').strip()
+        if subfield_c:
+            identifier['acquisitionsTerms'] = subfield_c
+        if value.get('q'):  # $q is repetitive
+            identifier['qualifier'] = \
+                ', '.join(utils.force_list(value.get('q')))
 
-    identifiers:isbn: 020$a
-    """
-    if value.get('a'):
-        identifiers = self.get('identifiers', {})
-        identifiers['isbn'] = value.get('a')
-        return identifiers
-    else:
-        return None
+        match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_data)
+        if match:
+            # match.group(2) : parentheses content
+            identifier['qualifier'] = ', '.join(
+                filter(
+                    None,
+                    [match.group(2), identifier.get('qualifier', '')]
+                )
+            )
+            # value without parenthesis and parentheses content
+            identifier['value'] = match.group(1)
+        if status:
+            identifier['status'] = status
+        identifier['type'] = 'bf:Isbn'
+        identifiedBy.append(identifier)
+
+    identifiedBy = self.get('identifiedBy', [])
+    subfield_a = value.get('a')
+    if subfield_a:
+        build_identifier_from(subfield_a)
+    subfield_z = value.get('z')
+    if subfield_z:
+        build_identifier_from(subfield_z, status='invalid or cancelled')
+    return identifiedBy or None
 
 
-@marc21tojson.over('identifiers', '^035..')
+@marc21tojson.over('identifiedBy', '^022..')
 @utils.ignore_value
-def marc21_to_identifier_reroID(self, key, value):
-    """Get identifier reroId.
+def marc21_to_identifiedBy_from_field_022(self, key, value):
+    """Get identifier from field 022."""
+    status_for = {
+        'm': 'cancelled',
+        'y': 'invalid'
+    }
+    type_for = {
+        'a': 'bf:Issn',
+        'l': 'bf:IssnL',
+        'm': 'bf:IssnL',
+        'y': 'bf:Issn'
+    }
 
-    identifiers:reroID: 035$a
-    """
-    identifiers = self.get('identifiers', {})
-    identifiers['reroID'] = value.get('a')
-    return identifiers
+    identifiedBy = self.get('identifiedBy', [])
+    for subfield_code in ['a', 'l', 'm', 'y']:
+        subfield_data = value.get(subfield_code, '').strip()
+        if subfield_data:
+            identifier = {}
+            identifier['type'] = type_for[subfield_code]
+            identifier['value'] = subfield_data
+            if subfield_code in status_for:
+                identifier['status'] = status_for[subfield_code]
+            identifiedBy.append(identifier)
+    return identifiedBy or None
+
+
+@marc21tojson.over('identifiedBy', '^024..')
+@utils.ignore_value
+def marc21_to_identifiedBy_from_field_024(self, key, value):
+    """Get identifier from field 024."""
+    def populate_acquisitionsTerms_note_qualifier(identifier):
+        subfield_c = value.get('c', '').strip()
+        if subfield_c:
+            identifier['acquisitionsTerms'] = subfield_c
+        subfield_d = value.get('d', '').strip()
+        if subfield_d:
+            identifier['note'] = subfield_d
+        if value.get('q'):  # $q is repetitive
+            identifier['qualifier'] = \
+                ', '.join(utils.force_list(value.get('q')))
+
+    subfield_2_regexp = {
+        'doi': {
+            'type': 'bf:Doi'
+        },
+        'urn': {
+            'type': 'bf:Urn'
+        },
+        'nipo': {
+            'type': 'bf:Local',
+            'source': 'NIPO'
+        },
+        'danacode': {
+            'type': 'bf:Local',
+            'source': 'danacode'
+        },
+        'vd18': {
+            'type': 'bf:Local',
+            'source': 'vd18'
+        },
+        'gtin-14': {
+            'type': 'bf:Gtin14Number'
+        }
+    }
+    identifier = {}
+    subfield_a = value.get('a', '').strip()
+    subfield_2 = value.get('2', '').strip()
+    if subfield_a:
+        if re.search(r'permalink\.snl\.ch', subfield_a):
+            identifier.update({
+                'value': subfield_a,
+                'type': 'uri',
+                'source': 'SNL'
+            })
+        elif re.search(r'bnf\.fr/ark', subfield_a):
+            identifier.update({
+                'value': subfield_a,
+                'type': 'uri',
+                'source': 'BNF'
+            })
+        elif subfield_2:
+            identifier['value'] = subfield_a
+            populate_acquisitionsTerms_note_qualifier(identifier)
+            for pattern in subfield_2_regexp:
+                if re.search(pattern, subfield_2, re.IGNORECASE):
+                    identifier.update(subfield_2_regexp[pattern])
+        else:  # without subfield $2
+            indicateur_1 = key[3]
+            if indicateur_1 in ('0', '1', '2', '3', '8'):
+                populate_acquisitionsTerms_note_qualifier(identifier)
+                match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_a)
+                if match:
+                    # match.group(2) : parentheses content
+                    identifier['qualifier'] = ', '.join(
+                        filter(
+                            None,
+                            [match.group(2), identifier.get('qualifier', '')]
+                        )
+                    )
+                    # value without parenthesis and parentheses content
+                    identifier['value'] = match.group(1)
+                else:
+                    identifier['value'] = subfield_a
+                if indicateur_1 == '0':
+                    identifier['type'] = 'bf:Isrc'
+                elif indicateur_1 == '1':
+                    identifier['type'] = 'bf:Upc'
+                elif indicateur_1 == '2':
+                    match = re.search(r'^(M|9790|979-0)', subfield_a)
+                    if match:  # $a starts with 'M' or '9790' or '979-0')
+                        identifier['type'] = 'bf:Ismn'
+                    else:
+                        identifier['type'] = 'bf:Identifier'
+                elif indicateur_1 == '3':
+                    match = re.search(r'^97', subfield_a)
+                    if match:  # $a starts with '97'
+                        identifier['type'] = 'bf:Ean'
+                    else:
+                        identifier['type'] = 'bf:Identifier'
+                elif indicateur_1 == '8':
+                    # 33 chars example: 0000-0002-A3B1-0000-0-0000-0000-2
+                    match = re.search(
+                        r'^(.{24}|.{26}|(.{4}-){4}.-(.{4}\-){2}.)$',
+                        identifier['value'])
+                    if match:  # $a contains one of the 3 patterns
+                        identifier['type'] = 'bf:Isan'
+                    else:
+                        identifier['type'] = 'bf:Identifier'
+            else:  # ind1 not in (0, 1, 2, 3, 8)
+                identifier.update({
+                    'value': subfield_a,
+                    'type': 'bf:Identifier'
+                })
+        identifiedBy = self.get('identifiedBy', [])
+        identifiedBy.append(identifier)
+    return identifiedBy or None
+
+
+@marc21tojson.over('identifiedBy', '^028..')
+@utils.ignore_value
+def marc21_to_identifiedBy_from_field_028(self, key, value):
+    """Get identifier from field 028."""
+    type_for_ind1 = {
+        '0': 'bf:AudioIssueNumber',
+        '1': 'bf:MatrixNumber',
+        '2': 'bf:MusicPlate',
+        '3': 'bf:MusicPublisherNumber',
+        '4': 'bf:VideoRecordingNumber',
+        '5': 'bf:PublisherNumber',
+        '6': 'bf:MusicDistributorNumber'
+    }
+
+    identifier = {}
+    subfield_a = value.get('a', '').strip()
+    if subfield_a:
+        identifier['value'] = subfield_a
+        if value.get('q'):  # $q is repetitive
+            identifier['qualifier'] = \
+                ', '.join(utils.force_list(value.get('q')))
+        subfield_b = value.get('b', '').strip()
+        if subfield_b:
+            identifier['source'] = subfield_b
+        indicateur_1 = key[3]
+        if type_for_ind1[indicateur_1]:
+            identifier['type'] = type_for_ind1[indicateur_1]
+        else:
+            identifier['type'] = 'bf:Identifier'
+        identifiedBy = self.get('identifiedBy', [])
+        identifiedBy.append(identifier)
+    return identifiedBy or None
+
+
+@marc21tojson.over('identifiedBy', '^035..')
+@utils.ignore_value
+def marc21_to_identifiedBy_from_field_035(self, key, value):
+    """Get identifier from field 035."""
+    subfield_a = value.get('a', '').strip()
+    if subfield_a:
+        identifier = {
+            'value': subfield_a,
+            'type': 'bf:Local',
+            'source': 'RERO'
+        }
+        identifiedBy = self.get('identifiedBy', [])
+        identifiedBy.append(identifier)
+    return identifiedBy or None
+
+
+@marc21tojson.over('identifiedBy', '^930..')
+@utils.ignore_value
+def marc21_to_identifiedBy_from_field_930(self, key, value):
+    """Get identifier from field 930."""
+    subfield_a = value.get('a', '').strip()
+    if subfield_a:
+        identifier = {}
+        match = re.search(r'^\((.+?)\)\s*(.*)$', subfield_a)
+        if match:
+            # match.group(1) : parentheses content
+            identifier['source'] = match.group(1)
+            # value without parenthesis and parentheses content
+            identifier['value'] = match.group(2)
+        else:
+            identifier['value'] = subfield_a
+        identifier['type'] = 'bf:Local'
+        identifiedBy = self.get('identifiedBy', [])
+        identifiedBy.append(identifier)
+    return identifiedBy or None
 
 
 @marc21tojson.over('notes', '^500..')
