@@ -65,47 +65,6 @@ def test_documents_permissions(client, document, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_get(client, document):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-
-    assert res.headers['ETag'] == '"{}"'.format(document.revision_id)
-
-    data = get_json(res)
-    assert document.dumps() == data['metadata']
-
-    # Check metadata
-    for k in ['created', 'updated', 'metadata', 'links']:
-        assert k in data
-
-    # Check self links
-    res = client.get(to_relative_url(data['links']['self']))
-    assert res.status_code == 200
-    assert data == get_json(res)
-    assert document.dumps() == data['metadata']
-
-    list_url = url_for('invenio_records_rest.doc_list')
-    res = client.get(list_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
-
-    res = client.get(
-        url_for('api_documents.import_bnf_ean', ean='9782070541270'))
-    assert res.status_code == 401
-
-    list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
-    res = client.get(list_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['hits']['total'] == 1
-
-
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(client, document, item_lib_martigny,
                           rero_json_header, lib_martigny):
     """Test record retrieval."""
@@ -185,53 +144,6 @@ def test_documents_post_put_delete(client, document_data,
 
     res = client.get(item_url)
     assert res.status_code == 410
-
-
-@mock.patch('rero_ils.modules.documents.views.login_and_librarian',
-            mock.MagicMock())
-def test_documents_import_bnf_ean(client):
-    """Test document import from bnf."""
-    res = client.get(url_for('api_documents.import_bnf_ean', ean='123'))
-    assert res.status_code == 404
-    data = get_json(res)
-    assert not data.get('metadata')
-
-    res = client.get(url_for(
-        'api_documents.import_bnf_ean', ean='9782070541270'))
-    assert res.status_code == 200
-    data = get_json(res)
-    # TODO: write a better way to test when service is down
-    assert data.get('metadata') == {} or {
-        'authors': [
-            {'date': '1965-', 'name': 'Rowling, J. K.', 'type': 'person'},
-            {
-                'date': '1948-',
-                'name': 'Ménard, Jean-François',
-                'qualifier': 'romancier pour la jeunesse',
-                'type': 'person'
-            }
-        ],
-        'extent': '232 p.',
-        'formats': ['24 cm'],
-        'identifiers': {
-            'bnfID': 'cb37090396w',
-            'isbn': '9782070541270'
-        },
-        'languages': [
-            {'language': 'fre'}
-        ],
-        'otherMaterialCharacteristics': 'couv. ill. en coul.',
-        'publicationYear': 1999,
-        'publishers': [
-            {'name': ['Gallimard'], 'place': ['[Paris]']}
-        ],
-        'series': [{'name': 'Harry Potter.', 'number': '1'}],
-        'subjects': ['JnRoman'],
-        'title': "Harry Potter à l'école des sorciers",
-        'titlesProper': ['Harry Potter'],
-        'translatedFrom': ['eng'],
-        'type': 'book'
-    }
 
 
 def test_document_can_request_view(client, item_lib_fully,

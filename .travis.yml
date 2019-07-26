@@ -87,6 +87,7 @@ before_script:
 
 script:
   - ./run-tests.sh # E2E tests are skipped if E2E env is set to 'no'
+  - ./run-tests.sh external # test external services only
 
 after_success:
   - coveralls
