@@ -23,26 +23,33 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+if [ $# -eq 0 ]
+    then
+        grep -r fuzzy rero_ils/translations
+        if [ $? -eq 0 ]
+        then
+            echo "Error: fuzzy tranlations!"
+            exit 1
+        fi
 
-grep -r fuzzy rero_ils/translations
+        set -e
+        pipenv check -i 36759
+        pipenv run flask utils check_json tests rero_ils/modules data
+        pipenv run pydocstyle rero_ils tests docs
+        pipenv run isort -rc -c -df --skip ui
 
+        # syntax check for typescript
+        CWD=`pwd`
+        cd ui; pipenv run npm run lint; cd -
 
-if [ $? -eq 0 ]
-then
-    echo "Error: fuzzy tranlations!"
-    exit 1
+        pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/node_modules*,rero_ils/static/js/rero_ils/ui*"
+        pipenv run sphinx-build -qnNW docs docs/_build/html
+        pipenv run test
 fi
+if [ "$1" = "external" ]
+    then
+        export PYTEST_ADDOPTS="--cov-append -m "external""
 
-set -e
-pipenv check -i 36759
-pipenv run flask utils check_json tests rero_ils/modules data
-pipenv run pydocstyle rero_ils tests docs
-pipenv run isort -rc -c -df --skip ui
-
-# syntax check for typescript
-CWD=`pwd`
-cd ui; pipenv run npm run lint; cd -
-
-pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/node_modules*,rero_ils/static/js/rero_ils/ui*"
-pipenv run sphinx-build -qnNW docs docs/_build/html
-pipenv run test
+        pipenv run test
+        exit 0
+fi
