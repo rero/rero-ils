@@ -917,9 +917,28 @@
         ]
       }
     ],
-    "identifiers": {
-      "reroID": "1047078"
-    },
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "RERO",
+        "value": "R008745599"
+      },
+      {
+        "type": "bf:Isbn",
+        "status": "invalid or cancelled",
+        "value": "9782844267788"
+      },
+      {
+        "type": "bf:Local",
+        "source": "BNF",
+        "value": "FRBNF452959040000002"
+      },
+      {
+        "type": "uri",
+        "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904f"
+      }
+    ],
+    "harvested": false,
     "publicationYear": 1889,
     "freeFormedPublicationDate": "[ca 1889]"
   },
@@ -932,10 +951,29 @@
         "language": "ara"
       }
     ],
-    "identifiers": {
-      "isbn": "9786039012641",
-      "reroID": "R007153123"
-    },
+    "harvested": false,
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "RERO",
+        "value": "R007153123"
+      },
+      {
+        "type": "bf:Isbn",
+        "qualifier": "broch\u00e9",
+        "acquisitionsTerms": "\u00a3125.00",
+        "value": "9786039012641"
+      },
+      {
+        "type": "bf:Local",
+        "source": "BNF",
+        "value": "FRBNF452959140000002"
+      },
+      {
+        "type": "uri",
+        "value": "http://catalogue.bnf.fr/ark:/12148/cb45295914f"
+      }
+    ],
     "authors": [
       {
         "type": "person",
@@ -960,6 +998,7 @@
     "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
     "pid": "doc3",
     "type": "book",
+    "harvested": false,
     "notes": [
       "La vie est belle"
     ],
@@ -995,9 +1034,26 @@
         ]
       }
     ],
-    "identifiers": {
-      "reroID": "1047080"
-    },
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "RERO",
+        "value": "1047080"
+      },
+      {
+        "type": "bf:Isbn",
+        "value": "9786039012642"
+      },
+      {
+        "type": "bf:Local",
+        "source": "BNF",
+        "value": "FRBNF452959240000002"
+      },
+      {
+        "type": "uri",
+        "value": "http://catalogue.bnf.fr/ark:/12148/cb45295924f"
+      }
+    ],
     "publicationYear": 1889,
     "freeFormedPublicationDate": "[ca 1889]"
   },
@@ -1005,6 +1061,7 @@
     "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook1",
     "type": "ebook",
+    "harvested": true,
     "title": "La maison des oubli\u00e9s",
     "languages": [
       {
@@ -1032,10 +1089,17 @@
     "abstracts": [
       "Le d\u00e9m\u00e9nagement dans ce manoir charmant, en haut de la colline, devait \u00eatre le point de d\u00e9part pour une nouvelle vie. Apr\u00e8s des ann\u00e9es pass\u00e9es dans la banlieue de Brighton, Ollie Harcourt ne pouvait r\u00eaver mieux qu'une existence paisible \u00e0 la campagne. Le reste de la famille suit d'un pas h\u00e9sitant, mais ne rechigne pas pour autant \u00e0 cette nouvelle aventure. Cependant, peu apr\u00e8s leur installation, des sc\u00e8nes \u00e9tranges se d\u00e9roulent dans la maison. Des ombres apparaissent, les animaux domestiques se comportent de mani\u00e8re bizarre et plusieurs accidents, plus d\u00e9routants les uns que les autres, ont lieu. Bient\u00f4t, Ollie n'a plus de doute : leur pr\u00e9sence n'est pas vraiment souhait\u00e9e. Quelqu'un semble m\u00eame pr\u00eat \u00e0 tout pour les expulser de l\u00e0... \u00e0 n'importe quel prix."
     ],
-    "identifiers": {
-      "isbn": "9782823855890",
-      "harvestedID": "cantook:ebook1"
-    },
+    "identifiedBy": [
+      {
+        "type": "bf:Isbn",
+        "value": "9782823855890"
+      },
+      {
+        "type": "bf:Local",
+        "source": "cantook",
+        "value": "ebook1"
+      }
+    ],
     "subjects": [
       "thriller",
       "suspense"
@@ -1045,9 +1109,14 @@
     "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook2",
     "type": "ebook",
-    "identifiers": {
-      "harvestedID": "cantook:ebook2"
-    },
+    "harvested": true,
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "cantook",
+        "value": "ebook2"
+      }
+    ],
     "title": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft",
     "languages": [
       {
@@ -1079,10 +1148,15 @@
   "ebook3": {
     "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook3",
-    "identifiers": {
-      "harvestedID": "cantook:ebook3"
-    },
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "cantook",
+        "value": "ebook3"
+      }
+    ],
     "type": "ebook",
+    "harvested": true,
     "title": "Harry Potter and the Chamber of Secrets",
     "languages": [
       {
@@ -1114,10 +1188,15 @@
   "ebook4": {
     "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook4",
-    "identifiers": {
-      "harvestedID": "cantook:ebook4"
-    },
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "cantook",
+        "value": "ebook4"
+      }
+    ],
     "type": "ebook",
+    "harvested": true,
     "title": "Nouveau titre",
     "languages": [
       {

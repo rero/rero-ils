@@ -60,7 +60,7 @@ class Document(IlsRecord):
     @property
     def harvested(self):
         """Is this record harvested from an external service."""
-        return bool(self.get('identifiers', {}).get('harvestedID'))
+        return self.get('harvested')
 
     @property
     def can_edit(self):

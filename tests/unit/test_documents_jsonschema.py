@@ -282,36 +282,37 @@ def test_abstracts(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_identifiers(document_schema, document_data_tmp):
+def test_identifiedby(document_schema, document_data_tmp):
     """Test identifiers for jsonschemas."""
-    document_data_tmp['identifiers'] = {
-        "reroID": "R004567655",
-        "isbn": "9782082015769",
-        "bnfID": "cb350330441"
-    }
-
+    document_data_tmp['identifiedBy'] = [
+        {
+            "type": "bf:Local",
+            "source": "RERO",
+            "value": "R008745599"
+        },
+        {
+            "type": "bf:Isbn",
+            "value": "9782844267788"
+        },
+        {
+            "type": "bf:Local",
+            "source": "BNF",
+            "value": "FRBNF452959040000002"
+        },
+        {
+            "type": "uri",
+            "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904f"
+        }
+    ]
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['identifiers']['reroID'] = 2
-        validate(document_data_tmp, document_schema)
+        for identifier in document_data_tmp['identifiedBy']:
+            identifier['value'] = 2
+            validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['identifiers']['isbn'] = 2
-        validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['identifiers'] = {}
-        validate(document_data_tmp, document_schema)
-
-    document_data_tmp['identifiers'] = {
-        "bnfID": "cb350330441"
-    }
-
-    validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['identifiers']['bnfID'] = 2
+        document_data_tmp['identifiedBy'] = {}
         validate(document_data_tmp, document_schema)
 
 
@@ -327,4 +328,13 @@ def test_subjects(document_schema, document_data_tmp):
 
     with pytest.raises(ValidationError):
         document_data_tmp['subjects'] = 2
+        validate(document_data_tmp, document_schema)
+
+
+def test_harvested(document_schema, document_data_tmp):
+    """Test harvested for jsonschemas."""
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['harvested'] = 2
         validate(document_data_tmp, document_schema)
