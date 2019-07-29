@@ -35,10 +35,12 @@ def create_records(records):
             'https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json'
 
         # check if already harvested
-        harvestedID = record.get('identifiers').get('harvestedID')
+        for identifier in record.get('identifiedBy'):
+            if identifier.get('source') == 'cantook':
+                harvested_id = identifier.get('value')
         query = DocumentsSearch().filter(
             'term',
-            identifiers__harvestedID=harvestedID
+            identifiedBy__value=harvested_id
         ).source(includes=['pid'])
 
         # update the record

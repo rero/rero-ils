@@ -59,6 +59,7 @@ def test_document_can_delete(app, document_data_tmp):
 def test_document_can_delete_harvested(app, ebook_1_data):
     """Test can delete for harvested records."""
     document = Document.create(ebook_1_data, delete_pid=True)
+    assert document.harvested
     assert not document.can_delete
 
 

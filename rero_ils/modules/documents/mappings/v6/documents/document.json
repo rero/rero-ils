@@ -293,17 +293,29 @@
             }
           }
         },
-        "identifiers": {
+        "identifiedBy": {
           "type": "object",
           "properties": {
-            "reroID": {
+            "type": {
               "type": "keyword"
             },
-            "bnfID": {
+            "source": {
               "type": "keyword"
             },
-            "isbn": {
+            "value": {
               "type": "keyword"
+            },
+            "note": {
+              "type": "text"
+            },
+            "qualifier": {
+              "type": "keyword"
+            },
+            "acquisitionsTerms": {
+              "type": "text"
+            },
+            "status": {
+              "type": "text"
             }
           }
         },
@@ -365,6 +377,9 @@
           }
         },
         "available": {
+          "type": "boolean"
+        },
+        "harvested": {
           "type": "boolean"
         },
         "_created": {
