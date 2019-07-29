@@ -7,7 +7,8 @@
     "pid",
     "type",
     "title",
-    "languages"
+    "languages",
+    "identifiedBy"
   ],
   "additionalProperties": false,
   "properties": {
@@ -279,38 +280,89 @@
         "minLength": 3
       }
     },
-    "identifiers": {
+    "identifiedBy": {
       "title": "Identifiers",
       "description": "Persistent identifiers of the resource, ie reroID and ISBN.",
-      "type": "object",
-      "additionalProperties": false,
-      "minProperties": 1,
-      "properties": {
-        "reroID": {
-          "title": "reroID",
-          "description": "Corresponding reroID of the original RERO record.",
-          "type": "string",
-          "minLength": 1
-        },
-        "bnfID": {
-          "title": "bnfID",
-          "description": "Corresponding bnfID of the original BNF record.",
-          "type": "string",
-          "minLength": 1
-        },
-        "isbn": {
-          "title": "ISBN",
-          "description": "ISBN of the resource.",
-          "type": "string",
-          "pattern": "^97[8|9][0-9]{10}$",
-          "validationMessage": "Should be a valid ISBN-13 without dashes."
-        },
-        "harvestedID": {
-          "title": "Identifier in the harvested source.",
-          "description": "OAI identifiers of the harvested source.",
-          "type": "string",
-          "pattern": "^[a-z]+:.*",
-          "validationMessage": "Should start with a chars: prefix i.e. cantook:."
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of the value.",
+            "type": "string",
+            "enum": [
+              "bf:AudioIssueNumber",
+              "bf:Doi",
+              "bf:Ean",
+              "bf:Gtin14Number",
+              "bf:Identifier",
+              "bf:Isan",
+              "bf:Isbn",
+              "bf:Ismn",
+              "bf:Isrc",
+              "bf:Issn",
+              "bf:IssnL",
+              "bf:Local",
+              "bf:MatrixNumber",
+              "bf:MusicDistributorNumber",
+              "bf:MusicPlate",
+              "bf:MusicPublisherNumber",
+              "bf:PublisherNumber",
+              "bf:Upc",
+              "bf:Urn",
+              "bf:VideoRecordingNumber",
+              "uri"
+            ]
+          },
+          "value": {
+            "title": "Identifier value",
+            "description": "Identifier value.",
+            "type": "string",
+            "minLength": 4
+          },
+          "note": {
+            "title": "Qualifier",
+            "description": "Qualifier of the identifier.",
+            "type": "string",
+            "minLength": 1
+          },
+          "qualifier": {
+            "title": "Qualifier",
+            "description": "Qualifier of the identifier.",
+            "type": "string",
+            "minLength": 1
+          },
+          "acquisitionsTerms": {
+            "title": "Acquisitions terms",
+            "description": "Acquisitions terms of the ressource.",
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "title": "Source",
+            "description": "Source of the identifier.",
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "title": "Status",
+            "description": "Status of the ISBN/ISSN identifier.",
+            "type": "string",
+            "validationMessage": "ISBN/ISSN status should be selected in the list below.",
+            "enum": [
+              "invalid",
+              "cancelled",
+              "invalid or cancelled"
+            ],
+            "minLength": 7
+          }
         }
       }
     },
@@ -347,6 +399,12 @@
           "format": "uri"
         }
       }
+    },
+    "harvested": {
+      "title": "Harvested",
+      "description": "Document is harvested or not.",
+      "type": "boolean",
+      "default": false
     }
   }
 }
