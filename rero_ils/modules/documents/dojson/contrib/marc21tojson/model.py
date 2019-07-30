@@ -158,47 +158,46 @@ def marc21_to_titlesProper(self, key, value):
     return value.get('a')
 
 
-@marc21tojson.over('languages', '^008')
+@marc21tojson.over('language', '^008')
 @utils.ignore_value
-def marc21_to_languages(self, key, value):
+def marc21_to_language(self, key, value):
     """Get languages.
 
     languages: 008 and 041 [$a, repetitive]
     """
-    language = value.strip()[35:38]
-    to_return = [{'language': language}]
-    return to_return
+    language = self.get('language', [])
+    if len(value) > 38:
+        lang_value = value.strip()[35:38]
+        if re.search(r'^[a-z]{3}$', lang_value):
+            lang = {
+                'value': lang_value,
+                'type': 'bf:Language'
+            }
+            language.append(lang)
+    return language or None
 
 
-@marc21tojson.over('translatedFrom', '^041..')
+@marc21tojson.over('language', '^041..')
 @utils.ignore_value
 def marc21_to_translatedFrom(self, key, value):
     """Get translatedFrom.
 
-    translatedFrom: 041 [$h repetitive]
-    languages: 008 and 041 [$a, repetitive]
+    languages: 041 [$a, repetitive]
+    if language properties is already set form 008
+    it will be replaced with those present in 041
     """
-    languages = self.get('languages', [])
-    unique_lang = []
-    if languages != []:
-        unique_lang.append(languages[0]['language'])
-
-    language = value.get('a')
-    if language:
-        for lang in utils.force_list(language):
-            if lang not in unique_lang:
-                unique_lang.append(lang)
-
-    languages = []
-    for lang in unique_lang:
-        languages.append({'language': lang})
-
-    self['languages'] = languages
-    translated = value.get('h')
-    if translated:
-        return list(utils.force_list(translated))
-    else:
-        return None
+    language = self.get('language', [])
+    subfield_a = value.get('a')
+    if subfield_a:
+        if language:  # remove lang from 008
+            language = []
+        for lang_value in utils.force_list(subfield_a):
+            lang = {
+                'value': lang_value.strip(),
+                'type': 'bf:Language'
+            }
+            language.append(lang)
+    return language or None
 
 
 @marc21tojson.over('authors', '[17][01]0..')
@@ -457,6 +456,25 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
             'type': 'bf:Gtin14Number'
         }
     }
+
+    type_for_ind1 = {
+        '0': {'type': 'bf:Isrc'},
+        '1': {'type': 'bf:Upc'},
+        '2': {
+            'pattern': r'^(M|9790|979-0)',
+            'matching_type': 'bf:Ismn'
+        },
+        '3': {
+            'pattern': r'^97',
+            'matching_type': 'bf:Ean'
+        },
+        '8': {
+            # 33 chars example: 0000-0002-A3B1-0000-0-0000-0000-2
+            'pattern': r'^(.{24}|.{26}|(.{4}-){4}.-(.{4}\-){2}.)$',
+            'matching_type': 'bf:Isan'
+        }
+    }
+
     identifier = {}
     subfield_a = value.get('a', '').strip()
     subfield_2 = value.get('2', '').strip()
@@ -480,8 +498,8 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
                 if re.search(pattern, subfield_2, re.IGNORECASE):
                     identifier.update(subfield_2_regexp[pattern])
         else:  # without subfield $2
-            indicateur_1 = key[3]
-            if indicateur_1 in ('0', '1', '2', '3', '8'):
+            ind1 = key[3]  # indicateur_1
+            if ind1 in ('0', '1', '2', '3', '8'):
                 populate_acquisitionsTerms_note_qualifier(identifier)
                 match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_a)
                 if match:
@@ -496,29 +514,15 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
                     identifier['value'] = match.group(1)
                 else:
                     identifier['value'] = subfield_a
-                if indicateur_1 == '0':
-                    identifier['type'] = 'bf:Isrc'
-                elif indicateur_1 == '1':
-                    identifier['type'] = 'bf:Upc'
-                elif indicateur_1 == '2':
-                    match = re.search(r'^(M|9790|979-0)', subfield_a)
-                    if match:  # $a starts with 'M' or '9790' or '979-0')
-                        identifier['type'] = 'bf:Ismn'
-                    else:
-                        identifier['type'] = 'bf:Identifier'
-                elif indicateur_1 == '3':
-                    match = re.search(r'^97', subfield_a)
-                    if match:  # $a starts with '97'
-                        identifier['type'] = 'bf:Ean'
-                    else:
-                        identifier['type'] = 'bf:Identifier'
-                elif indicateur_1 == '8':
-                    # 33 chars example: 0000-0002-A3B1-0000-0-0000-0000-2
-                    match = re.search(
-                        r'^(.{24}|.{26}|(.{4}-){4}.-(.{4}\-){2}.)$',
-                        identifier['value'])
-                    if match:  # $a contains one of the 3 patterns
-                        identifier['type'] = 'bf:Isan'
+                if 'type' in type_for_ind1[ind1]:  # ind1 0,1
+                    identifier['type'] = type_for_ind1[ind1]['type']
+                else:  # ind1 in (2, 3, 8)
+                    data = subfield_a
+                    if ind1 == '8':
+                        data = identifier['value']
+                    if re.search(type_for_ind1[ind1]['pattern'], data):
+                        identifier['type'] = \
+                            type_for_ind1[ind1]['matching_type']
                     else:
                         identifier['type'] = 'bf:Identifier'
             else:  # ind1 not in (0, 1, 2, 3, 8)
@@ -555,11 +559,8 @@ def marc21_to_identifiedBy_from_field_028(self, key, value):
         subfield_b = value.get('b', '').strip()
         if subfield_b:
             identifier['source'] = subfield_b
-        indicateur_1 = key[3]
-        if type_for_ind1[indicateur_1]:
-            identifier['type'] = type_for_ind1[indicateur_1]
-        else:
-            identifier['type'] = 'bf:Identifier'
+        # key[3] is the indicateur_1
+        identifier['type'] = type_for_ind1.get(key[3], 'bf:Identifier')
         identifiedBy = self.get('identifiedBy', [])
         identifiedBy.append(identifier)
     return identifiedBy or None

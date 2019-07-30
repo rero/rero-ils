@@ -183,8 +183,7 @@ def test_marc21_to_titlesProper():
 
 
 # languages: 008 and 041 [$a, repetitive]
-# translatedFrom: 041 [$h repetitive]
-def test_marc21_to_languages():
+def test_marc21_to_language():
     """Test dojson marc21languages."""
 
     marc21xml = """
@@ -194,36 +193,17 @@ def test_marc21_to_languages():
       <controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
-        <subfield code="h">ita</subfield>
       </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert data.get('languages') == [{'language': 'ara'}, {'language': 'eng'}]
-    assert data.get('translatedFrom') == ['ita']
-
-    marc21xml = """
-    <record>
-      <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
-      <datafield tag="041" ind1=" " ind2=" ">
-        <subfield code="a">eng</subfield>
-        <subfield code="a">fre</subfield>
-        <subfield code="h">ita</subfield>
-        <subfield code="h">ger</subfield>
-      </datafield>
-    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21tojson.do(marc21json)
-    assert data.get('languages') == [
-        {'language': 'ara'},
-        {'language': 'eng'},
-        {'language': 'fre'}
+    assert data.get('language') == [
+        {
+            'type': 'bf:Language',
+            'value': 'eng'
+        }
     ]
-    assert data.get('translatedFrom') == ['ita', 'ger']
 
     marc21xml = """
     <record>
@@ -232,13 +212,38 @@ def test_marc21_to_languages():
       <controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
+        <subfield code="a">rus</subfield>
       </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
-    assert data.get('languages') == [{'language': 'ara'}, {'language': 'eng'}]
-    assert 'translatedFrom' not in data
+    assert data.get('language') == [
+        {
+            'type': 'bf:Language',
+            'value': 'eng'
+        },
+        {
+            'type': 'bf:Language',
+            'value': 'rus'
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <controlfield tag="008">
+        881005s1984    xxu|||||| ||||00|| |ara d
+      <controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('language') == [
+        {
+            'type': 'bf:Language',
+            'value': 'ara'
+        }
+    ]
 
 
 # authors: loop:
@@ -700,6 +705,8 @@ def test_marc21_to_identifiedBy_from_024_with_subfield_2():
     <record>
       <datafield tag="024" ind1="7" ind2=" ">
         <subfield code="a">10.1007/978-3-540-37973-7</subfield>
+        <subfield code="c">£125.00</subfield>
+        <subfield code="d">note</subfield>
         <subfield code="2">doi</subfield>
       </datafield>
       <datafield tag="024" ind1="7" ind2=" ">
@@ -729,7 +736,9 @@ def test_marc21_to_identifiedBy_from_024_with_subfield_2():
     assert data.get('identifiedBy') == [
         {
             'type': 'bf:Doi',
-            'value': '10.1007/978-3-540-37973-7'
+            'value': '10.1007/978-3-540-37973-7',
+            'acquisitionsTerms': '£125.00',
+            'note': 'note'
         },
         {
             'type': 'bf:Urn',
@@ -904,6 +913,27 @@ def test_marc21_to_identifiedBy_from_028():
         }
     ]
 
+    marc21xml = """
+    <record>
+      <datafield tag="028" ind1="9" ind2=" ">
+        <subfield code="a">1234</subfield>
+        <subfield code="b">SRC</subfield>
+        <subfield code="q">Qualif1</subfield>
+        <subfield code="q">Qualif2</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Identifier',
+            'source': 'SRC',
+            'qualifier': 'Qualif1, Qualif2',
+            'value': '1234'
+        }
+    ]
+
 
 def test_marc21_to_identifiedBy_from_035():
     """Test dojson identifiedBy from 035."""
@@ -929,6 +959,7 @@ def test_marc21_to_identifiedBy_from_035():
 def test_marc21_to_identifiedBy_from_930():
     """Test dojson identifiedBy from 930."""
 
+    # identifier with source in parenthesis
     marc21xml = """
     <record>
       <datafield tag="930" ind1=" " ind2=" ">
@@ -942,6 +973,22 @@ def test_marc21_to_identifiedBy_from_930():
         {
             'type': 'bf:Local',
             'source': 'OCoLC',
+            'value': 'ocm11113722'
+        }
+    ]
+    # identifier without source in parenthesis
+    marc21xml = """
+    <record>
+      <datafield tag="930" ind1=" " ind2=" ">
+        <subfield code="a">ocm11113722</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Local',
             'value': 'ocm11113722'
         }
     ]
