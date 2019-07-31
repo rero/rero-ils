@@ -1,0 +1,30 @@
+<fieldset [class]="options?.htmlClass || 'fields-group'" [class.expandable]="options?.expandable && !expanded"
+  [class.expanded]="options?.expandable && expanded" [disabled]="options?.readonly">
+  <h5 *ngIf="sectionTitle" class="legend" [class]="options?.labelHtmlClass || ''" [innerHTML]="sectionTitle"
+    (click)="toggleExpanded()"></h5>
+  <div class="form-control d-flex flex-row">
+    <!-- menu -->
+    <div *ngIf="!options?.nomenu">
+      <div class="btn-group">
+        <a class="text-decoration-none text-muted mr-2" href="#" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">...</a>
+        <div class="dropdown-menu">
+          <!-- <button class="dropdown-item" (click)="addItem($event)">Add</button> -->
+          <button *ngIf="canAddItem" class="dropdown-item" (click)="addItem($event)">Add</button>
+          <button *ngIf="canRemoveItem" class="dropdown-item" (click)="removeItem($event)">Remove</button>
+          <a class="dropdown-item disabled" href="/cataloging/help">Help</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex-grow-1">
+      <root-widget *ngIf="expanded" [dataIndex]="dataIndex" [layout]="layoutNode.items" [layoutIndex]="layoutIndex"
+        [isFlexItem]="getFlexAttribute('is-flex')" [isOrderable]="options?.orderable"
+        [class.form-flex-column]="getFlexAttribute('flex-direction') === 'column'"
+        [class.form-flex-row]="getFlexAttribute('flex-direction') === 'row'"
+        [style.align-content]="getFlexAttribute('align-content')" [style.align-items]="getFlexAttribute('align-items')"
+        [style.display]="getFlexAttribute('display')" [style.flex-direction]="getFlexAttribute('flex-direction')"
+        [style.flex-wrap]="getFlexAttribute('flex-wrap')" [style.justify-content]="getFlexAttribute('justify-content')">
+      </root-widget>
+    </div>
+  </div>
+</fieldset>

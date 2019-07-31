@@ -1,26 +1,46 @@
 [
   {
-    "key": "barcode",
-    "validationMessage": {
-      "alreadyTakenMessage": "The barcode is already taken",
-      "cannotBeVerifiedMessage": "The server cannot verify the barcode"
-    },
-    "remoteRecordType": "items"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "barcode",
+        "validationMessage": {
+          "alreadyTakenMessage": "The barcode is already taken",
+          "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+        },
+        "remoteRecordType": "items"
+      }
+    ]
   },
   {
-    "key": "call_number"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "call_number"
+      }
+    ]
   },
   {
-    "key": "location.$ref",
-    "title": "Location",
-    "type": "select",
-    "remoteRecordType": "locations",
-    "remoteRecordFiltersByOwningLibrary": "library.pid"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "location.$ref",
+        "title": "Location",
+        "type": "select",
+        "remoteRecordType": "locations",
+        "remoteRecordFiltersByOwningLibrary": "library.pid"
+      }
+    ]
   },
   {
-    "key": "item_type.$ref",
-    "title": "Type",
-    "remoteRecordType": "item_types",
-    "type": "select"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "item_type.$ref",
+        "title": "Type",
+        "remoteRecordType": "item_types",
+        "type": "select"
+      }
+    ]
   }
 ]

@@ -4,17 +4,11 @@
     "title": "Personal data",
     "items": [
       {
-        "type": "flex",
-        "flex-direction": "row",
-        "items": [
-          {
-            "key": "first_name",
-            "htmlClass": "mr-2"
-          },
-          {
-            "key": "last_name"
-          }
-        ]
+        "key": "first_name",
+        "htmlClass": "mr-2"
+      },
+      {
+        "key": "last_name"
       },
       {
         "key": "birth_date",
@@ -30,17 +24,11 @@
         "key": "street"
       },
       {
-        "type": "flex",
-        "flex-direction": "row",
-        "items": [
-          {
-            "key": "postal_code",
-            "htmlClass": "flex-shrink-1 mr-2"
-          },
-          {
-            "key": "city"
-          }
-        ]
+        "key": "postal_code",
+        "htmlClass": "flex-shrink-1 mr-2"
+      },
+      {
+        "key": "city"
       }
     ]
   },
@@ -49,15 +37,34 @@
     "title": "Contacts",
     "items": [
       {
-        "type": "flex",
-        "flex-direction": "row",
-        "items": [
+        "key": "email",
+        "htmlClass": "mr-2"
+      },
+      {
+        "key": "phone"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "roles",
+        "title": "Roles",
+        "type": "rolesCheckboxes",
+        "orderable": "false",
+        "titleMap": [
           {
-            "key": "email",
-            "htmlClass": "mr-2"
+            "value": "patron",
+            "name": "patron"
           },
           {
-            "key": "phone"
+            "value": "librarian",
+            "name": "librarian"
+          },
+          {
+            "value": "system_librarian",
+            "name": "system librarian"
           }
         ]
       }
@@ -65,109 +72,73 @@
   },
   {
     "type": "fieldset",
-    "title": "Roles",
+    "condition": {
+      "functionBody": "{return model.roles? true: false;}"
+    },
     "items": [
       {
-        "type": "flex",
-        "flex-direction": "row",
-        "items": [
-          {
-            "key": "roles",
-            "notitle": "true",
-            "type": "rolesCheckboxes",
-            "htmlClass": "d-inline-block",
-            "orderable": "false",
-            "titleMap": [
-              {
-                "value": "patron",
-                "name": "patron"
-              },
-              {
-                "value": "librarian",
-                "name": "librarian"
-              },
-              {
-                "value": "system_librarian",
-                "name": "system librarian"
-              }
-            ]
-          },
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "key": "barcode",
-                "required": true,
-                "condition": {
-                  "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
-                },
-                "validationMessage": {
-                  "alreadyTakenMessage": "The barcode is already taken",
-                  "cannotBeVerifiedMessage": "The server cannot verify the barcode"
-                },
-                "remoteRecordType": "patrons"
-              },
-              {
-                "key": "patron_type.$ref",
-                "required": true,
-                "title": "Patron Type",
-                "description": "Patron type in term of circulation policy.",
-                "type": "select",
-                "remoteRecordType": "patron_types",
-                "condition": {
-                  "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
-                }
-              },
-              {
-                "key": "library.$ref",
-                "required": true,
-                "title": "Library",
-                "description": "Library affiliation.",
-                "type": "select",
-                "remoteRecordType": "libraries",
-                "remoteRecordFiltersByOwningLibrary": "pid",
-                "condition": {
-                  "functionBody": "{return model.roles? model.roles.includes('librarian'): false;}"
-                }
-              }
-            ]
-          }
-        ]
+        "key": "barcode",
+        "required": true,
+        "condition": {
+          "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
+        },
+        "validationMessage": {
+          "alreadyTakenMessage": "The barcode is already taken",
+          "cannotBeVerifiedMessage": "The server cannot verify the barcode"
+        },
+        "remoteRecordType": "patrons"
       },
       {
-        "type": "flex",
-        "flex-flow": "row wrap",
-        "items": [
-          {
-            "key": "communication_channel",
-            "required": true,
-            "htmlClass": "px-2",
-            "titleMap": {
-              "email": "Email",
-              "mail": "Mail"
-            },
-            "placeHolder": "Select\u2026",
-            "condition": {
-              "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
-            }
-          },
-          {
-            "key": "communication_language",
-            "required": true,
-            "htmlClass": "px-2",
-            "type": "select",
-            "titleMap": {
-              "eng": "English",
-              "fre": "French",
-              "ger": "German",
-              "ita": "Italian"
-            },
-            "placeHolder": "Select\u2026",
-            "condition": {
-              "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
-            }
-          }
-        ]
+        "key": "patron_type.$ref",
+        "required": true,
+        "title": "Patron Type",
+        "description": "Patron type in term of circulation policy.",
+        "type": "select",
+        "remoteRecordType": "patron_types",
+        "condition": {
+          "functionBody": "{return model.roles? model.roles.includes('patron'): false;}"
+        }
+      },
+      {
+        "key": "library.$ref",
+        "required": true,
+        "title": "Library",
+        "description": "Library affiliation.",
+        "type": "select",
+        "remoteRecordType": "libraries",
+        "remoteRecordFiltersByOwningLibrary": "pid",
+        "condition": {
+          "functionBody": "{return model.roles? model.roles.includes('librarian'): false;}"
+        }
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "condition": {
+      "functionBody": "{ return model.roles? model.roles.includes('patron'): false; }"
+    },
+    "items": [
+      {
+        "key": "communication_channel",
+        "required": true,
+        "titleMap": {
+          "email": "Email",
+          "mail": "Mail"
+        },
+        "placeHolder": "Select\u2026"
+      },
+      {
+        "key": "communication_language",
+        "required": true,
+        "type": "select",
+        "titleMap": {
+          "eng": "English",
+          "fre": "French",
+          "ger": "German",
+          "ita": "Italian"
+        },
+        "placeHolder": "Select\u2026"
       }
     ]
   }
