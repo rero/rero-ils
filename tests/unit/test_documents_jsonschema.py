@@ -88,11 +88,11 @@ def test_languages(document_schema, document_data_tmp):
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['languages'][0]['language'] = [2]
+        document_data_tmp['language'][0]['value'] = [2]
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['languages'][0]['language'] = ['gre']
+        document_data_tmp['language'][0]['value'] = ['gre']
         validate(document_data_tmp, document_schema)
 
 

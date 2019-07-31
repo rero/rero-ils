@@ -131,7 +131,7 @@ def unimarclanguages(self, key, value):
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     langs = schema[
-        'properties']['languages']['items']['properties']['language']['enum']
+        'properties']['language']['items']['properties']['value']['enum']
     for language in languages:
         if language in langs:
             to_return.append({'language': language})
