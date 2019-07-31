@@ -902,9 +902,10 @@
     "formats": [
       "18 cm"
     ],
-    "languages": [
+    "language": [
       {
-        "language": "fre"
+        "type": "bf:Language",
+        "value": "fre"
       }
     ],
     "publishers": [
@@ -946,9 +947,10 @@
     "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
     "pid": "doc2",
     "type": "book",
-    "languages": [
+    "language": [
       {
-        "language": "ara"
+        "type": "bf:Language",
+        "value": "ara"
       }
     ],
     "harvested": false,
@@ -1019,9 +1021,10 @@
     "formats": [
       "18 cm"
     ],
-    "languages": [
+    "language": [
       {
-        "language": "fre"
+        "type": "bf:Language",
+        "value": "fre"
       }
     ],
     "publishers": [
@@ -1063,9 +1066,10 @@
     "type": "ebook",
     "harvested": true,
     "title": "La maison des oubli\u00e9s",
-    "languages": [
+    "language": [
       {
-        "language": "fre"
+        "type": "bf:Language",
+        "value": "fre"
       }
     ],
     "authors": [
@@ -1118,9 +1122,10 @@
       }
     ],
     "title": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft",
-    "languages": [
+    "language": [
       {
-        "language": "ger"
+        "type": "bf:Language",
+        "value": "ger"
       }
     ],
     "authors": [
@@ -1158,9 +1163,10 @@
     "type": "ebook",
     "harvested": true,
     "title": "Harry Potter and the Chamber of Secrets",
-    "languages": [
+    "language": [
       {
-        "language": "eng"
+        "type": "bf:Language",
+        "value": "eng"
       }
     ],
     "authors": [
@@ -1198,9 +1204,10 @@
     "type": "ebook",
     "harvested": true,
     "title": "Nouveau titre",
-    "languages": [
+    "language": [
       {
-        "language": "fre"
+        "type": "bf:Language",
+        "value": "fre"
       }
     ],
     "authors": [
