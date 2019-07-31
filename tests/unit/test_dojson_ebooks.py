@@ -35,9 +35,12 @@ def test_marc21_to_isbn_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiers') == {
-        'isbn': '9782812933868'
-    }
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Isbn',
+            'value': '9782812933868'
+        }
+    ]
 
     marc21xml = """
     <record>
@@ -48,7 +51,7 @@ def test_marc21_to_isbn_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert not data.get('identifiers')
+    assert not data.get('identifiedBy')
 
 
 def test_marc21_to_languages_ebooks():
@@ -68,7 +71,7 @@ def test_marc21_to_languages_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('languages') == [{'language': 'fre'}]
+    assert data.get('language') == [{'type': 'bf:Language', 'value': 'fre'}]
 
 
 def test_marc21_to_type_ebooks():
@@ -96,8 +99,12 @@ def test_marc21_to_identifier_reroID():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    identifiers = data.get('identifiers', {})
-    assert identifiers.get('reroID') == 'cantook-EDEN496624'
+    identifiers = data.get('identifiedBy', [])
+    print(identifiers)
+    assert identifiers[0] == {
+        'type': 'bf:Local',
+        'value': 'cantook-EDEN496624'
+    }
 
 
 def test_marc21_to_title():

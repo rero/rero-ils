@@ -198,10 +198,68 @@ def test_marc21_to_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
+
     assert data.get('language') == [
         {
             'type': 'bf:Language',
+            'value': 'ara'
+        },
+        {
+            'type': 'bf:Language',
             'value': 'eng'
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <controlfield tag="008">
+        881005s1984    xxu|||||| ||||00|| |ara d
+      <controlfield>
+      <datafield tag="041" ind1=" " ind2=" ">
+        <subfield code="a">eng</subfield>
+      </datafield>
+      <datafield tag="041" ind1=" " ind2=" ">
+        <subfield code="a">fre</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('language') == [
+        {
+            'type': 'bf:Language',
+            'value': 'ara'
+        },       {
+            'type': 'bf:Language',
+            'value': 'eng'
+        },
+        {
+            'type': 'bf:Language',
+            'value': 'fre'
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="041" ind1=" " ind2=" ">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <controlfield tag="008">
+        881005s1984    xxu|||||| ||||00|| |ara d
+      <controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+
+    assert data.get('language') == [
+        {
+          'type': 'bf:Language',
+          'value': 'ara'
+        },
+        {
+          'type': 'bf:Language',
+          'value': 'eng'
         }
     ]
 
@@ -219,6 +277,10 @@ def test_marc21_to_language():
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
     assert data.get('language') == [
+        {
+           'type': 'bf:Language',
+           'value': 'ara'
+        },
         {
             'type': 'bf:Language',
             'value': 'eng'

@@ -94,8 +94,11 @@ def create_loans(infile, verbose):
 def print_message(barcode, item_barcode, transaction_type):
     """Print confirmation message."""
     click.echo(
-        '\t {transaction_type} created for patron {barcode} and item \
-         {item_barcode}'.format(
+        (
+            '\t'
+            '{transaction_type} created for patron {barcode} '
+            'and item {item_barcode}'
+        ).format(
             transaction_type=transaction_type,
             barcode=barcode, item_barcode=item_barcode
         )

@@ -50,13 +50,14 @@ def marc21_to_languages_from_008(self, key, value):
 
     languages: 008 and 041 [$a, repetitive]
     """
-    languages = self.get('languages', [])
+    language = self.get('language', [])
+
     # put 008 language in first place
-    languages.insert(0, value.strip()[35:38])
-    return languages
+    language.insert(0, {'type': 'bf:Language', 'value': value.strip()[35:38]})
+    return language
 
 
-@marc21.over('identifiers', '^020..')
+@marc21.over('identifiedBy', '^020..')
 @utils.ignore_value
 def marc21_to_identifier_isbn(self, key, value):
     """Get identifier isbn.
@@ -65,11 +66,14 @@ def marc21_to_identifier_isbn(self, key, value):
     """
     isbn13 = EAN13(value.get('a'))
     if isbn13:
-        identifiers = self.get('identifiers', {})
-        identifiers['isbn'] = isbn13
+        identifiers = self.get('identifiedBy', [])
+        identifier = {
+            'type': 'bf:Isbn',
+            'value': isbn13
+        }
+        identifiers.append(identifier)
         return identifiers
-    else:
-        return None
+    return None
 
 
 @marc21.over('type', '^0248.$')
@@ -90,15 +94,19 @@ def marc21_to_type(self, key, value):
     return None
 
 
-@marc21.over('identifiers', '^035..')
+@marc21.over('identifiedBy', '^035..')
 @utils.ignore_value
 def marc21_to_identifier_reroID(self, key, value):
     """Get identifier reroId.
 
     identifiers:reroID: 035$a
     """
-    identifiers = self.get('identifiers', {})
-    identifiers['reroID'] = value.get('a')
+    identifiers = self.get('identifiedBy', [])
+    identifier = {
+        'type': 'bf:Local',
+        'value': value.get('a')
+    }
+    identifiers.append(identifier)
     return identifiers
 
 
@@ -110,26 +118,26 @@ def marc21_to_translatedFrom(self, key, value):
     translatedFrom: 041 [$h repetitive]
     languages: 008 and 041 [$a, repetitive]
     """
-    languages = self.get('languages', [])
+    languages = self.get('language', [])
     unique_lang = []
     if languages != []:
         for language in languages:
-            unique_lang.append(language)
+            unique_lang.append(language['value'])
 
     language = value.get('a')
     if language:
         for lang in utils.force_list(language):
             if lang not in unique_lang:
                 unique_lang.append(lang)
-                languages.append({'language': lang})
+                languages.append({'type': 'bf:Language', 'value': lang})
 
-    self['languages'] = languages
+    self['language'] = languages
 
     translated = value.get('h')
     if translated:
         return list(utils.force_list(translated))
-    else:
-        return None
+
+    return None
 
 
 @marc21.over('authors', '[17][01]0..')

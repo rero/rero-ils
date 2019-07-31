@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 RED='\033[0;31m'
 GREEN='\033[0;0;32m'
 NC='\033[0m' # No Color
@@ -109,15 +108,16 @@ else
 fi
 
 echo -e ${GREEN}Documents:${NC} ${DOCUMENTS}
-pipenv run dojson -i ${DOCUMENTS} schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' | pipenv run invenio fixtures create --pid_type doc
+pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS}
 
 # create items
 # NEEDS item type !!!
-# to generate data file
-# pipenv run invenio fixtures create_items -c 10000 -i 5 ${DATA_PATH}/items10k.json
-# pipenv run invenio fixtures create_items -c 300 -i 5 ${DATA_PATH}/items300.json
+# to generate 10k items file 10k documents must exist in DB
+# pipenv run invenio fixtures create_items -i 5 ${DATA_PATH}/items10k.json
+# to generate 300 items file 300 documents must exist in DB
+# pipenv run invenio fixtures create_items -i 5 ${DATA_PATH}/items300.json
 echo -e ${GREEN}Items:${NC} ${ITEMS}
-pipenv run dojson -i ${ITEMS} schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' | pipenv run invenio fixtures create --pid_type item
+pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}
 
 
 pipenv run invenio index reindex -t item --yes-i-know

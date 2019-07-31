@@ -65,7 +65,11 @@ def test_language_format_format():
             'value': 'fre'
         }
     ]
-    results = 'German, French'
+    results = 'german, french'
+    assert results == language_format(language, 'en')
+
+    language = 'fre'
+    results = 'french'
     assert results == language_format(language, 'en')
 
 

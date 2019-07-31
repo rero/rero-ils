@@ -15,7 +15,6 @@
       "title": "Schema",
       "description": "Schema to validate document against.",
       "type": "string",
-      "minLength": 7,
       "default": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
     },
     "pid": {
@@ -77,10 +76,12 @@
         "properties": {
           "type": {
             "title": "Type",
-            "default": "bf:Language",
-            "description": "Type of the value.",
+            "description": "Type of the language.",
             "type": "string",
-            "minLength": 3
+            "default": "bf:Language",
+            "enum": [
+              "bf:Language"
+            ]
           },
           "value": {
             "title": "Language value",
@@ -365,8 +366,7 @@
               "invalid",
               "cancelled",
               "invalid or cancelled"
-            ],
-            "minLength": 7
+            ]
           }
         }
       }
@@ -407,7 +407,7 @@
     },
     "harvested": {
       "title": "Harvested",
-      "description": "Document is harvested or not.",
+      "description": "Document is harvested or not, will disable record edition or similar.",
       "type": "boolean",
       "default": false
     }

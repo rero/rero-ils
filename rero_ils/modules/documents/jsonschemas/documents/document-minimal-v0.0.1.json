@@ -77,9 +77,12 @@
         "properties": {
           "type": {
             "title": "Type",
-            "description": "Type of the value.",
+            "description": "Type of the language.",
             "type": "string",
-            "minLength": 3
+            "default": "bf:Language",
+            "enum": [
+              "bf:Language"
+            ]
           },
           "value": {
             "title": "Language value",
@@ -364,8 +367,7 @@
               "invalid",
               "cancelled",
               "invalid or cancelled"
-            ],
-            "minLength": 7
+            ]
           }
         }
       }
@@ -406,7 +408,7 @@
     },
     "harvested": {
       "title": "Harvested",
-      "description": "Document is harvested or not.",
+      "description": "Document is harvested or not, will disable record edition or similar.",
       "type": "boolean",
       "default": false
     }

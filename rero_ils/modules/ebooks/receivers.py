@@ -39,13 +39,16 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
         rec = create_record(record.xml)
         rec = marc21.do(rec)
         rec.setdefault('harvested', True)
-        rec.setdefault(
-            'identifiedBy', {
+
+        identifiers = rec.get('identifiedBy', [])
+        identifiers.append(
+            {
                 "type": "bf:Local",
                 "source": "cantook",
                 "value": record.header.identifier
             }
         )
+        rec['identifiedBy'] = identifiers
         converted_records.append(rec)
     if records:
         current_app.logger.info(
