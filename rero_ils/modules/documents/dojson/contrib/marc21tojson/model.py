@@ -26,6 +26,14 @@ from dojson import Overdo, utils
 marc21tojson = Overdo()
 
 
+def list_of_langs(data):
+    """Construct list of language codes from data."""
+    lang_codes = []
+    for lang_data in data:
+        lang_codes.append(lang_data.get('value'))
+    return lang_codes
+
+
 def remove_punctuation(data):
     """Remove punctuation from data."""
     try:
@@ -166,14 +174,17 @@ def marc21_to_language(self, key, value):
     languages: 008 and 041 [$a, repetitive]
     """
     language = self.get('language', [])
+    lang_codes = list_of_langs(language)
+    # check len(value) to avoid getting char[35:38] if data is invalid
     if len(value) > 38:
         lang_value = value.strip()[35:38]
         if re.search(r'^[a-z]{3}$', lang_value):
-            lang = {
-                'value': lang_value,
-                'type': 'bf:Language'
-            }
-            language.append(lang)
+            if lang_value not in lang_codes:
+                lang = {
+                    'value': lang_value,
+                    'type': 'bf:Language'
+                }
+                language.append(lang)
     return language or None
 
 
@@ -187,15 +198,15 @@ def marc21_to_translatedFrom(self, key, value):
     it will be replaced with those present in 041
     """
     language = self.get('language', [])
+    lang_codes = list_of_langs(language)
     subfield_a = value.get('a')
     if subfield_a:
-        if language:  # remove lang from 008
-            language = []
         for lang_value in utils.force_list(subfield_a):
-            lang = {
-                'value': lang_value.strip(),
-                'type': 'bf:Language'
-            }
+            if lang_value not in lang_codes:
+                lang = {
+                    'value': lang_value.strip(),
+                    'type': 'bf:Language'
+                }
             language.append(lang)
     return language or None
 

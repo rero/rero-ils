@@ -337,10 +337,9 @@ def identifiedby_format(identifiedby):
     for identifier in identifiedby:
         status = identifier.get('status')
         id_type = identifier.get('type')
-        if status not in ('invalid', 'cancelled', 'invalid or cancelled') and \
-                id_type != 'bf:Local':
-            if id_type.startswith('bf:'):
-                id_type = id_type[3:]
+        if not status and id_type != 'bf:Local':
+            if id_type.find(':') != -1:
+                id_type = id_type.split(':')[1]
             output.append({'type': id_type, 'value': identifier.get('value')})
     return output
 
@@ -355,9 +354,16 @@ def document_isbn(identifiedby):
 
 
 @blueprint.app_template_filter()
-def language_format(langs_list, interface_language):
-    """Format language for template."""
+def language_format(langs_list, language_interface):
+    """Converts language code to langauge name.
+
+    langs_list: a code or a list of language codes
+    language_interface: the code of the language of the interface
+    Returns a comma separated list of language names.
+    """
     output = []
+    if isinstance(langs_list, str):
+        langs_list = [{'type': 'bf:Language', 'value': langs_list}]
     for lang in langs_list:
         try:
             lang_name = pycountry.languages.get(
@@ -366,6 +372,6 @@ def language_format(langs_list, interface_language):
             lang_name = pycountry.languages.get(
                 alpha_3=lang.get('value')).alpha_2
         lang_display = Locale(lang_name).get_language_name(
-            interface_language).capitalize()
+            language_interface).lower()
         output.append(lang_display)
     return ", ".join(output)

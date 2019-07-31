@@ -35,17 +35,20 @@ def create_records(records):
             'https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json'
 
         # check if already harvested
+        pid = None
         for identifier in record.get('identifiedBy'):
             if identifier.get('source') == 'cantook':
                 harvested_id = identifier.get('value')
-        query = DocumentsSearch().filter(
-            'term',
-            identifiedBy__value=harvested_id
-        ).source(includes=['pid'])
-
-        # update the record
-        try:
-            pid = [r.pid for r in query.scan()].pop()
+                query = DocumentsSearch().filter(
+                    'term',
+                    identifiedBy__value=harvested_id
+                ).source(includes=['pid'])
+                try:
+                    pid = [r.pid for r in query.scan()].pop()
+                except IndexError:
+                    pid = None
+        if pid:
+            # update the record
             existing_record = Document.get_record_by_pid(pid)
             existing_record.clear()
             existing_record['pid'] = pid
@@ -54,8 +57,8 @@ def create_records(records):
                 dbcommit=True,
                 reindex=True)
             n_updated += 1
-        # create a new record
-        except IndexError:
+        else:
+            # create a new record
             Document.create(
                 record,
                 dbcommit=True,
