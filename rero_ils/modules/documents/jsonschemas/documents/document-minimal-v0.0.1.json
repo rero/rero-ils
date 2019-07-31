@@ -7,7 +7,7 @@
     "pid",
     "type",
     "title",
-    "languages",
+    "language",
     "identifiedBy"
   ],
   "additionalProperties": false,
@@ -63,24 +63,29 @@
       "type": "string",
       "minLength": 3
     },
-    "languages": {
-      "title": "Languages",
+    "language": {
+      "title": "Language",
       "description": "List of languages for the resource.",
       "type": "array",
-      "uniqueItems": true,
       "minItems": 1,
       "items": {
         "type": "object",
         "required": [
-          "language"
+          "type",
+          "value"
         ],
+        "additionalProperties": false,
         "properties": {
-          "language": {
-            "title": "Language",
-            "description": "Required. Language of the resource, primary or not.",
+          "type": {
+            "title": "Type",
+            "description": "Type of the value.",
             "type": "string",
-            "default": "fre",
-            "validationMessage": "Required. Language of the resource, primary or not.",
+            "minLength": 3
+          },
+          "value": {
+            "title": "Language value",
+            "description": "Language value.",
+            "type": "string",
             "enum": [
               "fre",
               "ger",

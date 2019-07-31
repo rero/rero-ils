@@ -87,10 +87,13 @@
         "type": {
           "type": "keyword"
         },
-        "languages": {
+        "language": {
           "type": "object",
           "properties": {
-            "language": {
+            "type": {
+              "type": "keyword"
+            },
+            "value": {
               "type": "keyword"
             }
           }
