@@ -2,100 +2,197 @@
   {
     "type": "fieldset",
     "title": "Identifiers",
+    "nomenu": true,
     "items": [
       {
         "key": "identifiedBy",
         "notitle": true,
         "description": "",
-        "add": "new identifier",
-        "style": {
-          "add": "btn-link"
-        },
-        "type": "array",
         "items": [
           {
-            "key": "identifiedBy[].type",
-            "type": "select"
-          },
-          {
-            "key": "identifiedBy[].value"
+            "type": "fieldset",
+            "items": [
+              {
+                "key": "identifiedBy[].type",
+                "titleMap": [
+                  {
+                    "value": "bf:AudioIssueNumber",
+                    "name": "AudioIssueNumber"
+                  },
+                  {
+                    "value": "bf:Doi",
+                    "name": "Doi"
+                  },
+                  {
+                    "value": "bf:Ean",
+                    "name": "Ean"
+                  },
+                  {
+                    "value": "bf:Gtin14Number",
+                    "name": "Gtin14Number"
+                  },
+                  {
+                    "value": "bf:Identifier",
+                    "name": "Identifier"
+                  },
+                  {
+                    "value": "bf:Isan",
+                    "name": "Isan"
+                  },
+                  {
+                    "value": "bf:Isbn",
+                    "name": "Isbn"
+                  },
+                  {
+                    "value": "bf:Ismn",
+                    "name": "Ismn"
+                  },
+                  {
+                    "value": "bf:Isrc",
+                    "name": "Isrc"
+                  },
+                  {
+                    "value": "bf:Issn",
+                    "name": "Issn"
+                  },
+                  {
+                    "value": "bf:IssnL",
+                    "name": "IssnL"
+                  },
+                  {
+                    "value": "bf:Local",
+                    "name": "Local"
+                  },
+                  {
+                    "value": "bf:MatrixNumber",
+                    "name": "MatrixNumber"
+                  },
+                  {
+                    "value": "bf:MusicDistributorNumber",
+                    "name": "MusicDistributorNumber"
+                  },
+                  {
+                    "value": "bf:MusicPlate",
+                    "name": "MusicPlate"
+                  },
+                  {
+                    "value": "bf:MusicPublisherNumber",
+                    "name": "MusicPublisherNumber"
+                  },
+                  {
+                    "value": "bf:PublisherNumber",
+                    "name": "PublisherNumber"
+                  },
+                  {
+                    "value": "bf:Upc",
+                    "name": "Upc"
+                  },
+                  {
+                    "value": "bf:Urn",
+                    "name": "Urn"
+                  },
+                  {
+                    "value": "bf:VideoRecordingNumber",
+                    "name": "VideoRecordingNumber"
+                  },
+                  {
+                    "value": "uri",
+                    "name": "uri"
+                  }
+                ]
+              },
+              {
+                "key": "identifiedBy[].value"
+              }
+            ]
           }
         ]
       }
     ]
   },
   {
-    "key": "title",
-    "htmlClass": "rero21-required"
+    "type": "fieldset",
+    "title": "Title",
+    "items": [
+      {
+        "key": "title"
+      },
+      {
+        "key": "titlesProper",
+        "notitle": true,
+        "description": "",
+        "items": [
+          {
+            "key": "titlesProper[]",
+            "title": "Proper or uniformed title"
+          }
+        ]
+      }
+    ]
   },
   {
     "type": "fieldset",
-    "title": "Author(s)",
+    "title": "Authors",
+    "nomenu": true,
     "items": [
       {
         "key": "authors",
         "notitle": true,
         "description": "",
-        "add": "new author",
-        "style": {
-          "add": "btn-link"
-        },
-        "type": "array",
         "items": [
           {
-            "key": "authors[].type",
-            "type": "radiobuttons",
-            "notitle": true,
-            "description": "",
-            "condition": {
-              "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.$ref === undefined && author.name === undefined && author.date === undefined &&  author.qualifier === undefined;}"
-            },
-            "titleMap": [
+            "type": "fieldset",
+            "items": [
               {
-                "value": "person",
-                "name": "Person"
+                "key": "authors[].type",
+                "type": "select",
+                "condition": {
+                  "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.$ref === undefined && author.name === undefined && author.date === undefined &&  author.qualifier === undefined;}"
+                },
+                "titleMap": [
+                  {
+                    "value": "person",
+                    "name": "Person"
+                  },
+                  {
+                    "value": "organisation",
+                    "name": "Organisation"
+                  }
+                ]
               },
               {
-                "value": "organisation",
-                "name": "Organisation"
+                "key": "authors[].$ref",
+                "title": "Name of Person",
+                "condition": {
+                  "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.type === 'person';}"
+                },
+                "type": "refAuthority"
+              },
+              {
+                "title": "Name of Organisation",
+                "key": "authors[].name",
+                "description": "",
+                "condition": {
+                  "functionBody": "{return model.authors[arrayIndices[0]].type === 'organisation';}"
+                }
+              },
+              {
+                "key": "authors[].date",
+                "title": "Date of birth - date of death",
+                "description": "",
+                "condition": {
+                  "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
+                }
+              },
+              {
+                "key": "authors[].qualifier",
+                "title": "Title and other designation associated with person",
+                "description": "",
+                "condition": {
+                  "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
+                }
               }
-            ],
-            "style": {
-              "selected": "btn-success",
-              "unselected": "btn-light"
-            }
-          },
-          {
-            "key": "authors[].$ref",
-            "title": "Name of Person",
-            "condition": {
-              "functionBody": "{var author = model.authors[arrayIndices[0]]; return author.type === 'person';}"
-            },
-            "type": "refAuthority"
-          },
-          {
-            "title": "Name of Organisation",
-            "key": "authors[].name",
-            "description": "",
-            "condition": {
-              "functionBody": "{return model.authors[arrayIndices[0]].type === 'organisation';}"
-            }
-          },
-          {
-            "key": "authors[].date",
-            "title": "Date of birth - date of death",
-            "description": "",
-            "condition": {
-              "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
-            }
-          },
-          {
-            "key": "authors[].qualifier",
-            "title": "Title and other designation associated with person",
-            "description": "",
-            "condition": {
-              "functionBody": "{return model.authors[arrayIndices[0]].$ref === undefined && model.authors[arrayIndices[0]].type === 'person';}"
-            }
+            ]
           }
         ]
       }
@@ -104,81 +201,73 @@
   {
     "type": "fieldset",
     "title": "Language(s) of the resource",
+    "nomenu": true,
     "items": [
       {
         "key": "language",
         "notitle": true,
         "description": "",
-        "add": "new language",
-        "style": {
-          "add": "btn-link"
-        },
-        "type": "array",
         "validationMessage": {
-          "402": "<span class=\"text-danger\">Language value should be unique!</span>"
+          "uniqueItems": "Language value should be unique!"
         },
         "items": [
           {
-            "key": "language[].value",
-            "notitle": true,
-            "description": "",
-            "htmlClass": "rero21-required",
-            "titleMap": [
+            "type": "fieldset",
+            "items": [
               {
-                "value": "ara",
-                "name": "Arabic"
-              },
-              {
-                "value": "chi",
-                "name": "Chinese"
-              },
-              {
-                "value": "eng",
-                "name": "English"
-              },
-              {
-                "value": "fre",
-                "name": "French"
-              },
-              {
-                "value": "ger",
-                "name": "German"
-              },
-              {
-                "value": "heb",
-                "name": "Hebrew"
-              },
-              {
-                "value": "ita",
-                "name": "Italian"
-              },
-              {
-                "value": "jpn",
-                "name": "Japanese"
-              },
-              {
-                "value": "lat",
-                "name": "Latin"
-              },
-              {
-                "value": "por",
-                "name": "Portuguese"
-              },
-              {
-                "value": "rus",
-                "name": "Russian"
-              },
-              {
-                "value": "spa",
-                "name": "Spanish"
+                "key": "language[].value",
+                "titleMap": [
+                  {
+                    "value": "ara",
+                    "name": "Arabic"
+                  },
+                  {
+                    "value": "chi",
+                    "name": "Chinese"
+                  },
+                  {
+                    "value": "eng",
+                    "name": "English"
+                  },
+                  {
+                    "value": "fre",
+                    "name": "French"
+                  },
+                  {
+                    "value": "ger",
+                    "name": "German"
+                  },
+                  {
+                    "value": "heb",
+                    "name": "Hebrew"
+                  },
+                  {
+                    "value": "ita",
+                    "name": "Italian"
+                  },
+                  {
+                    "value": "jpn",
+                    "name": "Japanese"
+                  },
+                  {
+                    "value": "lat",
+                    "name": "Latin"
+                  },
+                  {
+                    "value": "por",
+                    "name": "Portuguese"
+                  },
+                  {
+                    "value": "rus",
+                    "name": "Russian"
+                  },
+                  {
+                    "value": "spa",
+                    "name": "Spanish"
+                  }
+                ]
               }
             ]
-          },
-          {
-            "key": "language[].type",
-            "notitle": true,
-            "description": "",
-            "htmlClass": "rero21-required"
           }
         ]
       }
@@ -186,12 +275,11 @@
   },
   {
     "type": "fieldset",
-    "title": "Date of publication",
+    "title": "Publication Dates",
     "items": [
       {
         "key": "publicationYear",
-        "notitle": true,
-        "type": "integer"
+        "type": "text"
       },
       {
         "key": "freeFormedPublicationDate",
@@ -200,8 +288,11 @@
     ]
   },
   {
-    "key": "type",
-    "title": "Document type",
-    "description": "Type of the document"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "type"
+      }
+    ]
   }
 ]
