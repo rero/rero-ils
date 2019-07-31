@@ -17,10 +17,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-import { Items } from './items';
+import { Loan } from './items';
 
-describe('Items', () => {
+describe('Loan', () => {
   it('should create an instance', () => {
-    expect(new Items()).toBeTruthy();
+    expect(new Loan()).toBeTruthy();
   });
 });

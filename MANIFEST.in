@@ -71,6 +71,7 @@ recursive-include ui *.py
 
 # added by check_manifest.py
 include *.json
+include ui/yarn.lock
 
 # added by check_manifest.py
 recursive-include rero_ils *.ico

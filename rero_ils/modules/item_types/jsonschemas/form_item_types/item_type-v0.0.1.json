@@ -1,20 +1,35 @@
 [
   {
-    "title": "Organisation",
-    "key": "organisation.$ref",
-    "type": "select",
-    "remoteRecordType": "organisations",
-    "remoteRecordFiltersByOwningOrganisation": "pid",
-    "readonly": "true"
+    "type": "fieldset",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations",
+    	"remoteRecordFiltersByOwningOrganisation": "pid",
+        "readonly": "true"
+      }
+    ]
   },
   {
-    "key": "name",
-    "validationMessage": {
-      "alreadyTakenMessage": "The item type name is already taken"
-    },
-    "remoteRecordType": "item_types"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "name",
+        "validationMessage": {
+          "alreadyTakenMessage": "The item type name is already taken"
+        },
+        "remoteRecordType": "item_types"
+      }
+    ]
   },
   {
-    "key": "description"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "description"
+      }
+    ]
   }
 ]

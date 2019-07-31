@@ -8,7 +8,7 @@
       "^/api": "http://localhost:5000/api"
     }
   },
-  "/documents/*": {
+  "/global/documents/*": {
     "target": "http://localhost:5000",
     "secure": false,
     "logLevel": "debug",

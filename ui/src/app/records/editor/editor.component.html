@@ -21,7 +21,7 @@
     <button (click)="cancel()" class="btn btn-warning btn-sm" translate>Cancel</button>
   </header>
   <div *ngIf="recordType === 'documents'" class="">
-    <div class="form-group w-75">
+    <div class="form-group">
       <label class="control-label" translate>Import record from BNF</label>
       <div  class="input-group">
         <input #searchinput (keyup.enter)="importFromEan(searchinput.value)" type="text" class="form-control" placeholder="Enter an EAN" aria-label="Enter an EAN" aria-describedby="button-import">
@@ -31,14 +31,14 @@
       </div>
     </div>
   </div>
-  <div class="d-flex">
     <json-schema-form *ngIf="schemaForm"
-    class="w-75"
     [form]="schemaForm"
     [model]="schemaForm.data"
     (onSubmit)="save($event)"
-    framework="bootstrap-4"
+    framework="rero"
     [language]="currentLocale"
+    (validationErrors)="validationErrors($event)">
     >
     </json-schema-form>
-  </div>
+  <div *ngIf="validationErrors" class="text-danger"
+  [innerHTML]="prettyValidationErrors"></div>
