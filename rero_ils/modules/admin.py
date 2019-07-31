@@ -17,6 +17,7 @@
 
 """Admin views and actions."""
 
+from flask import url_for
 from flask_admin import BaseView, expose
 from flask_babelex import gettext as _
 from invenio_admin.permissions import \
@@ -56,6 +57,24 @@ class LibraryManager(BaseView):
         """Access control."""
         return (can_edit() or default_admin_permission_factory(self).can())
 
+
+class DocumentCreateILSManager(ILSManager):
+    """Flask-Admin Library view."""
+
+    def get_url(self, endpoint, **kwargs):
+        """Generate URL for the endpoint.
+
+        If you want to customize URL generation
+        logic (persist some query string argument, for example), this is
+        right place to do it.
+
+        :param endpoint:
+            Flask endpoint name
+        :param kwargs:
+            Arguments for `url_for`
+        """
+        kwargs.update({'go_to_detailed': 'true'})
+        return url_for(endpoint, **kwargs)
 
 circulation = {
     'view_class': ILSManager,
@@ -177,7 +196,7 @@ documents = {
 }
 
 documents_create = {
-    'view_class': ILSManager,
+    'view_class': DocumentCreateILSManager,
     'kwargs': dict(
         name=_('Create a bibliographic record'),
         category=_('Catalogue'),

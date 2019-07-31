@@ -1,19 +1,34 @@
 [
   {
-    "title": "Organisation",
-    "key": "organisation.$ref",
-    "type": "select",
-    "remoteRecordType": "organisations",
-    "readonly": "true"
+    "type": "fieldset",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations",
+        "readonly": "true"
+      }
+    ]
   },
   {
-    "key": "name",
-    "validationMessage": {
-      "alreadyTakenMessage": "The patron type name is already taken"
-    },
-    "remoteRecordType": "patron_types"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "name",
+        "validationMessage": {
+          "alreadyTakenMessage": "The patron type name is already taken"
+        },
+        "remoteRecordType": "patron_types"
+      }
+    ]
   },
   {
-    "key": "description"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "description"
+      }
+    ]
   }
 ]

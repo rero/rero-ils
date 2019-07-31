@@ -29,7 +29,9 @@ import { SharedModule } from '../shared.module';
 
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
+// import { Bootstrap4FrameworkModule, Framework } from 'angular6-json-schema-form';
 
 import { EditorComponent } from './editor/editor.component';
 import { RemoteSelectComponent } from './editor/remote-select/remote-select.component';
@@ -69,6 +71,9 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { RolesCheckboxesComponent } from './editor/roles-checkboxes/roles-checkboxes.component';
 import { AggregationComponent } from './search/aggregation/aggregation.component';
 import { TranslateLanguagePipe } from '@app/core';
+import { FieldsetComponent } from './editor/fieldset/fieldset.component';
+import { Bootstrap4FrameworkComponent } from './editor/bootstrap4-framework/bootstrap4-framework.component';
+import { AddReferenceComponent } from './editor/add-reference/add-reference.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +107,10 @@ import { TranslateLanguagePipe } from '@app/core';
     RefAuthorityComponent,
     RolesCheckboxesComponent,
     AggregationComponent,
-    TranslateLanguagePipe
+    TranslateLanguagePipe,
+    FieldsetComponent,
+    Bootstrap4FrameworkComponent,
+    AddReferenceComponent
   ],
   imports: [
     CommonModule,
@@ -114,6 +122,7 @@ import { TranslateLanguagePipe } from '@app/core';
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TabsModule.forRoot(),
+    TooltipModule.forRoot(),
     CollapseModule.forRoot(),
     TypeaheadModule.forRoot()
   ],
@@ -132,14 +141,18 @@ import { TranslateLanguagePipe } from '@app/core';
     PublicDocumentsBriefViewComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
-    PersonsBriefViewComponent
+    PersonsBriefViewComponent,
+    FieldsetComponent,
+    Bootstrap4FrameworkComponent,
+    AddReferenceComponent
   ],
   providers: [
     LibraryExceptionFormService,
     CirculationPolicyService,
     CirculationPolicyFormService,
     CirculationMappingService,
-    LibraryFormService
+    LibraryFormService,
+    // { provide: Framework, useClass: Bootstrap4Framework, multi: true }
   ]
 })
 export class RecordsModule { }
