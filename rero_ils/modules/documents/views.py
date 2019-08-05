@@ -25,8 +25,10 @@ import sys
 from functools import wraps
 from urllib.request import urlopen
 
+import pycountry
 import requests
 import six
+from babel import Locale
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import Blueprint, abort, current_app, jsonify, render_template, \
     request
@@ -326,3 +328,44 @@ def item_status_text(item, format='medium', locale='en'):
             if item.status == ItemStatus.IN_TRANSIT:
                 text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
     return text
+
+
+@blueprint.app_template_filter()
+def identifiedby_format(identifiedby):
+    """Format identifiedby for template."""
+    output = []
+    for identifier in identifiedby:
+        status = identifier.get('status')
+        id_type = identifier.get('type')
+        if status not in ('invalid', 'cancelled', 'invalid or cancelled') and \
+                id_type != 'bf:Local':
+            if id_type.startswith('bf:'):
+                id_type = id_type[3:]
+            output.append({'type': id_type, 'value': identifier.get('value')})
+    return output
+
+
+@blueprint.app_template_filter()
+def document_isbn(identifiedby):
+    """Returns document isbn."""
+    for identifier in identifiedby:
+        if identifier.get('type') == 'bf:Isbn':
+            return {'isbn': identifier.get('value')}
+    return {}
+
+
+@blueprint.app_template_filter()
+def language_format(langs_list, interface_language):
+    """Format language for template."""
+    output = []
+    for lang in langs_list:
+        try:
+            lang_name = pycountry.languages.get(
+                bibliographic=lang.get('value')).alpha_2
+        except:
+            lang_name = pycountry.languages.get(
+                alpha_3=lang.get('value')).alpha_2
+        lang_display = Locale(lang_name).get_language_name(
+            interface_language).capitalize()
+        output.append(lang_display)
+    return ", ".join(output)

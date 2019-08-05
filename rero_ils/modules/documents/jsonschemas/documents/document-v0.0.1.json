@@ -329,7 +329,7 @@
             "title": "Identifier value",
             "description": "Identifier value.",
             "type": "string",
-            "minLength": 4
+            "minLength": 1
           },
           "note": {
             "title": "Qualifier",

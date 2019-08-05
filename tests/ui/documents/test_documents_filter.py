@@ -20,7 +20,8 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import abstracts_format, \
-    authors_format, publishers_format, series_format
+    authors_format, publishers_format, series_format, \
+    identifiedby_format, language_format
 
 
 def test_authors_format(db, document_data):
@@ -51,3 +52,47 @@ def test_abstracts_format():
     """Test series format."""
     result = 'line1\nline2\nline3'
     assert result == abstracts_format(['line1\n\n\nline2', 'line3'])
+
+
+def test_language_format_format():
+    """Test language format."""
+    language = [
+        {
+            'type': 'bf:Language',
+            'value': 'ger'
+        }, {
+            'type': 'bf:Language',
+            'value': 'fre'
+        }
+    ]
+    results = 'German, French'
+    assert results == language_format(language, 'en')
+
+
+def test_identifiedby_format():
+    """Test identifiedBy format."""
+    identifiedby = [
+        {
+            'type': 'bf:Local',
+            'source': 'RERO',
+            'value': 'R008745599'
+        }, {
+            'type': 'bf:Isbn',
+            'value': '9782844267788'
+        }, {
+            'type': 'bf:Local',
+            'source': 'BNF',
+            'value': 'FRBNF452959040000002'
+        }, {
+            'type': 'uri',
+            'value': 'http://catalogue.bnf.fr/ark:/12148/cb45295904f'
+        }
+    ]
+    results = [
+        {
+            'type': 'Isbn', 'value': '9782844267788'},
+        {
+            'type': 'uri',
+            'value': 'http://catalogue.bnf.fr/ark:/12148/cb45295904f'}
+    ]
+    assert results == identifiedby_format(identifiedby)
