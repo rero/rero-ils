@@ -768,7 +768,7 @@ RECORDS_REST_FACETS = {
             language=partial(
                 get_agg_config,
                 index_name='documents',
-                field='languages.language'
+                field='language.value'
             ),
             subject=partial(
                 get_agg_config,
@@ -788,7 +788,7 @@ RECORDS_REST_FACETS = {
             _('author__fr'): terms_filter('facet_authors_fr'),
             _('author__de'): terms_filter('facet_authors_de'),
             _('author__it'): terms_filter('facet_authors_it'),
-            _('language'): terms_filter('languages.language'),
+            _('language'): terms_filter('language.value'),
             _('subject'): terms_filter('facet_subjects'),
             _('status'): terms_filter('items.status'),
         },

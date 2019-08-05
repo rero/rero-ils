@@ -36,6 +36,7 @@ Werkzeug = ">=0.15"
 angular-gettext-babel= ">=0.1"
 # TODO: causes datetime serialize error
 celery = "<4.3.0"
+pycountry = ">=19.7.15"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
