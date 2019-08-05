@@ -39,6 +39,7 @@ from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.api import Record
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search, current_search_client
 from werkzeug.local import LocalProxy
@@ -183,3 +184,35 @@ def init(force):
             length=current_search.number_of_indexes) as bar:
         for name, response in bar:
             bar.label = name
+
+
+@click.command('create')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
+@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=True)
+@click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
+@click.option('--pid_type', default=None)
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+@with_appcontext
+def create(infile, pid_type, verbose, dbcommit, reindex):
+    """Load REROILS record.
+
+    infile: Json file
+    reindex: reindex record by record
+    dbcommit: commit record to database
+    pid_type: record type
+    """
+    click.secho('Loading "%s" records.' % pid_type, fg='green')
+    record_class = obj_or_import_string(
+        current_app.config
+        .get('RECORDS_REST_ENDPOINTS')
+        .get(pid_type).get('record_class', Record))
+    data = json.load(infile)
+    for record in data:
+        rec = record_class.create(record, dbcommit=dbcommit, reindex=reindex)
+        if verbose:
+            click.echo(
+                '{pid_type} created {id}'.format(pid_type=pid_type, id=rec.id)
+            )
+
+
+fixtures.add_command(create)
