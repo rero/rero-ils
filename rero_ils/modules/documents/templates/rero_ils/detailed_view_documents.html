@@ -17,7 +17,7 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
-{% from 'rero_ils/macros/macro.html' import dl, div_json %}
+{% from 'rero_ils/macros/macro.html' import dl, ids, div_json %}
 
 {%- block body %}
   <header class="row">
@@ -27,8 +27,8 @@
           thumbnailurl='{{ (record.cover_art) }}'
         {% else %}
           thumbnailurl=""
-          {% if record.identifiers %}
-            identifiers='{{ (record.identifiers or {})|tojson }}'
+          {% if record.identifiedBy %}
+            identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
           {% else %}
             identifiers=""
           {% endif %}
@@ -104,11 +104,29 @@
               {{ dl(_('Notes'), notes|abstracts_format|nl2br) }}
             {% endif %}
 
-            {% if record.identifiers %}
-              {% if record.identifiers.isbn %}
-                {{ dl(_('ISBN'), record.identifiers.isbn) }}
-              {% endif %}
+            {% if record.identifiedBy|identifiedby_format|length > 0 %}
+                <dt class="col-sm-3 offset-sm-2 offset-md-1">
+                  {{ _('Identifier') }}:
+                </dt>
+                <dd class="col-sm-7 col-md-8 mb-0">
+                    <ul class="list-unstyled mb-0">
+                      {% for identifier in record.identifiedBy|identifiedby_format %}
+                        <li>
+                          {{ identifier.value }}
+                          <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
+                      {% endfor %}
+                      </li>
+                    </ul>
+                </dd>
+          
             {% endif %}
+
+
+
+            {% if record.language|language_format(current_i18n.language)|length > 0 %}
+              {{ dl(_('Language'), record.language|language_format(current_i18n.language)) }}
+            {% endif %}
+
 
             {% if record.electronic_location|length > 0 %}
               {% set uris = [] %}

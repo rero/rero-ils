@@ -122,8 +122,13 @@ export class PublicDocumentsBriefViewComponent implements OnInit, BriefView {
       this.coverUrl = `/static/images/icon_${value.metadata.type}.png`;
       if (value.metadata.cover_art) {
         this.coverUrl = value.metadata.cover_art;
-      } else if (value.metadata.identifiers) {
-        const isbn = value.metadata.identifiers.isbn;
+      } else if (value.metadata.identifiedBy) {
+        let isbn;
+        for (const identifier of value.metadata.identifiedBy) {
+          if (identifier.type === 'bf:Isbn') {
+            isbn = identifier.value;
+          }
+        }
         if (isbn) {
           this.getCover(isbn);
         }
