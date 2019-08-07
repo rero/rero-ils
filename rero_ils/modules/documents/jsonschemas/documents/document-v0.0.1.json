@@ -77,6 +77,7 @@
         "properties": {
           "type": {
             "title": "Type",
+            "default": "bf:Language",
             "description": "Type of the value.",
             "type": "string",
             "minLength": 3
