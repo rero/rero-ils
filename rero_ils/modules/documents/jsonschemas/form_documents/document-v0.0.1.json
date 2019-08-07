@@ -1,7 +1,28 @@
 [
   {
-    "key": "identifiers.isbn",
-    "title": "ISBN"
+    "type": "fieldset",
+    "title": "Identifiers",
+    "items": [
+      {
+        "key": "identifiedBy",
+        "notitle": true,
+        "description": "",
+        "add": "new identifier",
+        "style": {
+          "add": "btn-link"
+        },
+        "type": "array",
+        "items": [
+          {
+            "key": "identifiedBy[].type",
+            "type": "select"
+          },
+          {
+            "key": "identifiedBy[].value"
+          }
+        ]
+      }
+    ]
   },
   {
     "key": "title",
@@ -85,7 +106,7 @@
     "title": "Language(s) of the resource",
     "items": [
       {
-        "key": "languages",
+        "key": "language",
         "notitle": true,
         "description": "",
         "add": "new language",
@@ -98,65 +119,66 @@
         },
         "items": [
           {
-            "type": "fieldset",
-            "items": [
+            "key": "language[].value",
+            "notitle": true,
+            "description": "",
+            "htmlClass": "rero21-required",
+            "titleMap": [
               {
-                "key": "languages[].language",
-                "notitle": true,
-                "description": "",
-                "htmlClass": "rero21-required",
-                "titleMap": [
-                  {
-                    "value": "ara",
-                    "name": "Arabic"
-                  },
-                  {
-                    "value": "chi",
-                    "name": "Chinese"
-                  },
-                  {
-                    "value": "eng",
-                    "name": "English"
-                  },
-                  {
-                    "value": "fre",
-                    "name": "French"
-                  },
-                  {
-                    "value": "ger",
-                    "name": "German"
-                  },
-                  {
-                    "value": "heb",
-                    "name": "Hebrew"
-                  },
-                  {
-                    "value": "ita",
-                    "name": "Italian"
-                  },
-                  {
-                    "value": "jpn",
-                    "name": "Japanese"
-                  },
-                  {
-                    "value": "lat",
-                    "name": "Latin"
-                  },
-                  {
-                    "value": "por",
-                    "name": "Portuguese"
-                  },
-                  {
-                    "value": "rus",
-                    "name": "Russian"
-                  },
-                  {
-                    "value": "spa",
-                    "name": "Spanish"
-                  }
-                ]
+                "value": "ara",
+                "name": "Arabic"
+              },
+              {
+                "value": "chi",
+                "name": "Chinese"
+              },
+              {
+                "value": "eng",
+                "name": "English"
+              },
+              {
+                "value": "fre",
+                "name": "French"
+              },
+              {
+                "value": "ger",
+                "name": "German"
+              },
+              {
+                "value": "heb",
+                "name": "Hebrew"
+              },
+              {
+                "value": "ita",
+                "name": "Italian"
+              },
+              {
+                "value": "jpn",
+                "name": "Japanese"
+              },
+              {
+                "value": "lat",
+                "name": "Latin"
+              },
+              {
+                "value": "por",
+                "name": "Portuguese"
+              },
+              {
+                "value": "rus",
+                "name": "Russian"
+              },
+              {
+                "value": "spa",
+                "name": "Spanish"
               }
             ]
+          },
+          {
+            "key": "language[].type",
+            "notitle": true,
+            "description": "",
+            "htmlClass": "rero21-required"
           }
         ]
       }
