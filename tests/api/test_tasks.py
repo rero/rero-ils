@@ -56,7 +56,7 @@ def test_create_over_and_due_soon_notifications_task(
     assert res.status_code == 200
 
     data = get_json(res)
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
     # test due_soon notification
@@ -66,7 +66,7 @@ def test_create_over_and_due_soon_notifications_task(
 
     due_soon_loans = get_due_soon_loans()
 
-    assert due_soon_loans[0].get('loan_pid') == loan_pid
+    assert due_soon_loans[0].get('pid') == loan_pid
 
     create_over_and_due_soon_notifications()
     flush_index(NotificationsSearch.Meta.index)
@@ -80,7 +80,7 @@ def test_create_over_and_due_soon_notifications_task(
     loan.update(loan, dbcommit=True, reindex=True)
 
     overdue_loans = get_overdue_loans()
-    assert overdue_loans[0].get('loan_pid') == loan_pid
+    assert overdue_loans[0].get('pid') == loan_pid
 
     create_over_and_due_soon_notifications()
     flush_index(NotificationsSearch.Meta.index)
@@ -95,7 +95,7 @@ def test_create_over_and_due_soon_notifications_task(
         data=json.dumps(
             dict(
                 item_pid=item_pid,
-                loan_pid=loan_pid
+                pid=loan_pid
             )
         ),
         content_type='application/json',

@@ -3,7 +3,7 @@
   "title": "Schema for loan",
   "type": "object",
   "required": [
-    "loan_pid",
+    "pid",
     "$schema",
     "state"
   ],
@@ -29,9 +29,9 @@
       "type": "integer",
       "title": "Loan extension count"
     },
-    "loan_pid": {
+    "pid": {
       "type": "string",
-      "title": "Loan ID"
+      "title": "Loan PID"
     },
     "transaction_date": {
       "type": "string",
@@ -40,27 +40,27 @@
     },
     "patron_pid": {
       "type": "string",
-      "title": "Patron ID"
+      "title": "Patron PID"
     },
     "document_pid": {
       "type": "string",
-      "title": "Document ID"
+      "title": "Document PID"
     },
     "item_pid": {
       "type": "string",
-      "title": "Item ID"
+      "title": "Item PID"
     },
     "transaction_user_pid": {
       "type": "string",
-      "title": "Transaction user ID"
+      "title": "Transaction user PID"
     },
     "transaction_location_pid": {
       "type": "string",
-      "title": "Transaction location ID"
+      "title": "Transaction location PID"
     },
     "pickup_location_pid": {
       "type": "string",
-      "title": "Request pickup location ID"
+      "title": "Request pickup location PID"
     },
     "request_expiry_date": {
       "type": "string",
