@@ -37,7 +37,7 @@ def test_loans_elemnts(loan_pending_martigny, item_lib_fully):
     assert loan_pending_martigny.item_pid == item_lib_fully.pid
 
     loan = list(get_loans_by_patron_pid(loan_pending_martigny.patron_pid))[0]
-    assert loan.get('loan_pid') == loan_pending_martigny.get('loan_pid')
+    assert loan.pid == loan_pending_martigny.get('pid')
 
     new_loan = deepcopy(loan_pending_martigny)
     del new_loan['transaction_location_pid']

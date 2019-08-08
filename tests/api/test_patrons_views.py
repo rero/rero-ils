@@ -59,7 +59,7 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     )
     assert res.status_code == 200
     data = get_json(res)
-    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('loan_pid')
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
     links = patron_martigny_no_email.get_links_to_me()
     assert 'loans' in links
@@ -69,7 +69,7 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     reasons = patron_martigny_no_email.reasons_not_to_delete()
     assert 'links' in reasons
 
-    item.cancel_loan(loan_pid=loan_pid)
+    item.cancel_loan(pid=loan_pid)
     assert item.status == ItemStatus.ON_SHELF
 
 

@@ -67,7 +67,7 @@ type ItemActionObjectType<R> = {[key in keyof typeof ItemAction]: R };
 
 export class Loan {
 
-  loan_pid?: string;
+  pid?: string;
   state: LoanState;
   transaction_date?: Moment;
   patron_pid?: string;

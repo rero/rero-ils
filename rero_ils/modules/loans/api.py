@@ -59,19 +59,19 @@ class Loan(IlsRecord):
     minter = loan_pid_minter
     fetcher = loan_pid_fetcher
     provider = CirculationLoanIdProvider
-    pid_field = "loan_pid"
-    _schema = "loans/loan-ils-v0.0.1.json"
+    pid_field = 'pid'
+    _schema = 'loans/loan-ils-v0.0.1.json'
 
     def __init__(self, data, model=None):
         """Loan init."""
-        self["state"] = current_app.config["CIRCULATION_LOAN_INITIAL_STATE"]
+        self['state'] = current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
         super(Loan, self).__init__(data, model)
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True,
                dbcommit=False, reindex=False, **kwargs):
         """Create a new ils record."""
-        data["$schema"] = current_jsonschemas.path_to_url(cls._schema)
+        data['$schema'] = current_jsonschemas.path_to_url(cls._schema)
         if delete_pid and data.get(cls.pid_field):
             del(data[cls.pid_field])
         record = super(Loan, cls).create(
@@ -81,13 +81,13 @@ class Loan(IlsRecord):
 
     def attach_item_ref(self):
         """Attach item reference."""
-        item_pid = self.get("item_pid")
+        item_pid = self.get('item_pid')
         if not item_pid:
             raise MissingRequiredParameterError(
                 description='item_pid missing from loan {0}'.format(
-                    self['loan_pid']))
+                    self.pid))
         if self.loan_build_item_ref:
-            self["item"] = self.loan_build_item_ref(item_pid)
+            self['item'] = self.loan_build_item_ref(item_pid)
 
     def loan_build_item_ref(self, item_pid):
         """Build $ref for the Item attached to the Loan."""
@@ -99,6 +99,11 @@ class Loan(IlsRecord):
                 doc_type='items',
                 pid=item_pid)
         }
+
+    @property
+    def pid(self):
+        """Shortcut for pid."""
+        return self.get('pid')
 
     @property
     def item_pid(self):
@@ -113,7 +118,7 @@ class Loan(IlsRecord):
     @property
     def is_active(self):
         """Shortcut to check of loan is active."""
-        states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
+        states = current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
         if self.get('state') in states:
             return True
         return False
@@ -152,7 +157,7 @@ class Loan(IlsRecord):
     def is_notified(self, notification_type=None):
         """Check if a notification exist already for a loan by type."""
         results = NotificationsSearch().filter(
-            'term', loan__pid=self.get('loan_pid')
+            'term', loan__pid=self.pid
         ).filter('term', notification_type=notification_type).source().count()
         return results > 0
 
@@ -169,7 +174,7 @@ class Loan(IlsRecord):
             '$ref': url_api.format(
                 base_url=base_url,
                 doc_type='loans',
-                pid=self.get('loan_pid'))
+                pid=self.pid)
         }
         notification_to_create = False
         if notification_type == 'recall':
@@ -216,26 +221,26 @@ def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
 def get_loans_by_patron_pid(patron_pid):
     """Return all loans for patron."""
     results = current_circulation.loan_search\
-        .source(['loan_pid'])\
+        .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', patron_pid=patron_pid)\
         .sort({'transaction_date': {'order': 'asc'}})\
         .scan()
     for loan in results:
-        yield Loan.get_record_by_pid(loan.loan_pid)
+        yield Loan.get_record_by_pid(loan.pid)
 
 
 def get_last_transaction_loc_for_item(item_pid):
     """Return last transaction location for an item."""
     results = current_circulation.loan_search\
-        .source(['loan_pid'])\
+        .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', item_pid=item_pid)\
         .exclude('terms', state=['PENDING', 'CREATED'])\
         .sort({'transaction_date': {'order': 'desc'}})\
         .scan()
     try:
-        loan_pid = next(results).loan_pid
+        loan_pid = next(results).pid
         return Loan.get_record_by_pid(
             loan_pid).get('transaction_location_pid')
     except StopIteration:
@@ -247,13 +252,13 @@ def get_due_soon_loans():
     from .utils import get_circ_policy
     due_soon_loans = []
     results = current_circulation.loan_search\
-        .source(['loan_pid'])\
+        .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', state='ITEM_ON_LOAN')\
         .sort({'transaction_date': {'order': 'asc'}})\
         .scan()
     for record in results:
-        loan = Loan.get_record_by_pid(record.loan_pid)
+        loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
         now = datetime.now()
         end_date = loan.get('end_date')
@@ -270,13 +275,13 @@ def get_overdue_loans():
     from .utils import get_circ_policy
     overdue_loans = []
     results = current_circulation.loan_search\
-        .source(['loan_pid'])\
+        .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', state='ITEM_ON_LOAN')\
         .sort({'transaction_date': {'order': 'asc'}})\
         .scan()
     for record in results:
-        loan = Loan.get_record_by_pid(record.loan_pid)
+        loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
         now = datetime.now()
         end_date = loan.get('end_date')

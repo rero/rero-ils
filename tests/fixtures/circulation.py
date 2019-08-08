@@ -701,7 +701,7 @@ def loan_validated_martigny(
     loan = list(item2_lib_martigny.get_loans_by_item_pid(
         item_pid=item2_lib_martigny.pid))[0]
     item2_lib_martigny.validate_request(
-        loan_pid=loan.get('loan_pid'),
+        pid=loan.pid,
         patron_pid=patron_martigny_no_email.pid,
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny_no_email.pid,

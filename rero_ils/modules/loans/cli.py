@@ -123,11 +123,11 @@ def create_loan(barcode, transaction_type, loanable_items):
     )
     if transaction_type == 'extended':
         loan = get_loan_for_item(item.pid)
-        loan_pid = loan['loan_pid']
+        loan_pid = loan.get('pid')
         user_pid, user_location = \
             get_random_librarian_and_transaction_location(patron)
         item.extend_loan(
-            loan_pid=loan_pid,
+            pid=loan_pid,
             patron_pid=patron.pid,
             transaction_location_pid=user_location,
             transaction_user_pid=user_pid,

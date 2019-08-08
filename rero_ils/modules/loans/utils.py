@@ -71,7 +71,7 @@ def get_default_loan_duration(loan):
 
     new_duration = open_after_due_date - start_date
 
-    return new_duration.days
+    return timedelta(days=new_duration.days)
 
 
 def get_extension_params(loan=None, parameter_name=None):
@@ -102,7 +102,7 @@ def get_extension_params(loan=None, parameter_name=None):
         params['max_count'] = 0
 
     new_duration = first_open_date - current_date
-    params['duration_default'] = new_duration.days
+    params['duration_default'] = timedelta(days=new_duration.days)
 
     return params.get(parameter_name)
 
