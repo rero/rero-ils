@@ -16,7 +16,7 @@ PyYAML = ">=3.13"
 rero-ils = {editable = true, path = "."}
 uwsgi = ">=2.0"
 invenio-oaiharvester = {ref = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {ref = "v1.0.0a14", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+invenio-circulation = {ref = "v1.0.0a16", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
 pipenv = "*"
 requests = ">=2.20.0"
 flask-oauthlib = "*"

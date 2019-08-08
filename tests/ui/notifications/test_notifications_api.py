@@ -53,7 +53,7 @@ def test_notification_es_mapping(
     notif = deepcopy(dummy_notification)
     notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('loan_pid')
+        'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
     notif['loan'] = {"$ref": loan_ref}
@@ -69,7 +69,7 @@ def test_notification_create(
     notif = deepcopy(dummy_notification)
     notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('loan_pid')
+        'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
     notif['loan'] = {"$ref": loan_ref}

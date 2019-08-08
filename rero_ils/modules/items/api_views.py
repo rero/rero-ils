@@ -117,20 +117,20 @@ def librarian_request(item, data):
 
 def prior_checkout_actions(item, data):
     """Actions executed prior to a checkout."""
-    if data.get('loan_pid'):
-        loan = Loan.get_record_by_pid(data.get('loan_pid'))
+    if data.get('pid'):
+        loan = Loan.get_record_by_pid(data.get('pid'))
         if (
             loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
             loan.get('patron_pid') == data.get('patron_pid')
         ):
             item.receive(**data)
         if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
-            item.cancel_loan(loan_pid=loan.get('loan_pid'))
-            del data['loan_pid']
+            item.cancel_loan(pid=loan.get('pid'))
+            del data['pid']
     else:
         loan = get_loan_for_item(item.pid)
         if loan:
-            item.cancel_loan(loan_pid=loan.get('loan_pid'))
+            item.cancel_loan(pid=loan.get('pid'))
     return data
 
 
@@ -282,7 +282,7 @@ def item(item_barcode):
         abort(404)
     loan = get_loan_for_item(item.pid)
     if loan:
-        loan = Loan.get_record_by_pid(loan['loan_pid']).dumps_for_circulation()
+        loan = Loan.get_record_by_pid(loan.get('pid')).dumps_for_circulation()
     item_dumps = item.dumps_for_circulation()
     patron_pid = flask_request.args.get('patron_pid')
 

@@ -101,7 +101,7 @@ def test_notification_secure_api(client, json_header,
     notif = deepcopy(dummy_notification)
     notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('loan_pid')
+        'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
     notif['loan'] = {"$ref": loan_ref}
@@ -228,7 +228,7 @@ def test_notifications_post_put_delete(
     del record['pid']
     notif_data = {
         'loan_url': 'https://ils.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('loan_pid')
+        'pid': loan_validated_martigny.get('pid')
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
     record['loan'] = {"$ref": loan_ref}
@@ -327,7 +327,7 @@ def test_recall_notification(client, patron_martigny_no_email,
     )
     assert res.status_code == 200
     data = get_json(res)
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
     assert not loan.is_notified(notification_type='recall')
@@ -350,7 +350,7 @@ def test_recall_notification(client, patron_martigny_no_email,
     assert loan.is_notified(notification_type='recall')
 
     notification = get_recall_notification(loan)
-    assert notification.loan_pid == loan.get('loan_pid')
+    assert notification.loan_pid == loan.pid
 
     assert not loan.is_notified(notification_type='availability')
     assert not get_availability_notification(loan)
@@ -363,7 +363,7 @@ def test_availability_notification(
     loan = loan_validated_martigny
     assert loan.is_notified(notification_type='availability')
     notification = get_availability_notification(loan_validated_martigny)
-    assert notification.loan_pid == loan_validated_martigny.get('loan_pid')
+    assert notification.loan_pid == loan_validated_martigny.get('pid')
     assert notification.item_pid == item2_lib_martigny.pid
     assert notification.patron_pid == patron_martigny_no_email.pid
 

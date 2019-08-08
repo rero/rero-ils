@@ -163,9 +163,9 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     )
     assert res.status_code == 200
     data = get_json(res)
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     due_soon_loans = get_due_soon_loans()
-    assert due_soon_loans[0].get('loan_pid') == loan_pid
+    assert due_soon_loans[0].get('pid') == loan_pid
 
     # checkin the item to put it back to it's original state
     res = client.post(
@@ -173,7 +173,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
         data=json.dumps(
             dict(
                 item_pid=item_pid,
-                loan_pid=loan_pid
+                pid=loan_pid
             )
         ),
         content_type='application/json',
@@ -206,7 +206,7 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     assert res.status_code == 200
 
     data = get_json(res)
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('loan_pid')
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
     loan['end_date'] = end_date.isoformat()
@@ -217,7 +217,7 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     )
 
     overdue_loans = get_overdue_loans()
-    assert overdue_loans[0].get('loan_pid') == loan_pid
+    assert overdue_loans[0].get('pid') == loan_pid
 
     assert number_of_reminders_sent(loan) == 0
 
@@ -233,7 +233,7 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         data=json.dumps(
             dict(
                 item_pid=item_pid,
-                loan_pid=loan_pid
+                pid=loan_pid
             )
         ),
         content_type='application/json',

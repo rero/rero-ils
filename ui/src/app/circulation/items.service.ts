@@ -51,7 +51,7 @@ export class ItemsService {
     const url = '/api/item/validate';
     return this.http.post<any>(url, {
       item_pid: item.pid,
-      loan_pid: item.loan.loan_pid
+      pid: item.loan.pid
     }).pipe(
     map(data => {
       const itemData = data.metadata;
@@ -116,7 +116,7 @@ export class ItemsService {
       data['patron_pid'] = patron_pid;
     }
     if (item.loan) {
-      data['loan_pid'] = item.loan.loan_pid;
+      data['pid'] = item.loan.pid;
     }
     return this.http.post<any>(url, data).pipe(
       map(itemData => {
