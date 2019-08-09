@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~7.2.2",
     "@angular/platform-browser-dynamic": "~7.2.2",
     "@angular/router": "~7.2.2",
+    "@cospired/i18n-iso-languages": "^2.0.3",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-datatables": "^7.0.0",

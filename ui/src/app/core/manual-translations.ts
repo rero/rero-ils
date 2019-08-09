@@ -31,19 +31,6 @@ _('readingRoom');
 _('readingroom');
 _('publicaccess');
 
-_('fre');
-_('eng');
-_('ger');
-_('ita');
-_('lat');
-_('spa');
-_('ara');
-_('por');
-_('rus');
-_('heb');
-_('jpn');
-_('chi');
-_('und');
 
 _('patron');
 _('librarian');
