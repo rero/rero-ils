@@ -68,6 +68,7 @@ import { RefAuthorityComponent } from './editor/ref-authority/ref-authority.comp
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { RolesCheckboxesComponent } from './editor/roles-checkboxes/roles-checkboxes.component';
 import { AggregationComponent } from './search/aggregation/aggregation.component';
+import { TranslateLanguagePipe } from '@app/core';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { AggregationComponent } from './search/aggregation/aggregation.component
     PersonsSearchComponent,
     RefAuthorityComponent,
     RolesCheckboxesComponent,
-    AggregationComponent
+    AggregationComponent,
+    TranslateLanguagePipe
   ],
   imports: [
     CommonModule,
