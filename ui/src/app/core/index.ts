@@ -34,3 +34,5 @@ export * from './utils';
 export * from './alerts/alerts.service';
 export * from './toastr-dialog/toastr-dialog.component';
 export * from './pipe/title.pipe';
+export * from './pipe/translate-language.pipe';
+export * from './translate/translate-language.service';

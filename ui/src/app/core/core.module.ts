@@ -39,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitlePipe } from './pipe/title.pipe';
 import { OrganisationViewService } from './organisation/organisation-view.service';
+import { TranslateLanguageService } from './translate/translate-language.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { OrganisationViewService } from './organisation/organisation-view.servic
     PatronTypeTool,
     ItemTypeTool,
     UniqueValidator,
-    I18nPluralPipe
+    I18nPluralPipe,
+    TranslateLanguageService
   ],
   exports: [
     AlertsComponent
