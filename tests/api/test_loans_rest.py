@@ -21,6 +21,7 @@ import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
+import ciso8601
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -166,6 +167,12 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('pid') == loan_pid
+
+    # test due date hour
+    checkout_loan = Loan.get_record_by_pid(loan_pid)
+    end_date = ciso8601.parse_datetime(
+        checkout_loan.get('end_date')).astimezone()
+    assert end_date.minute == 59 and end_date.hour == 23
 
     # checkin the item to put it back to it's original state
     res = client.post(
