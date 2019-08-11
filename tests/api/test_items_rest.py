@@ -692,6 +692,12 @@ def test_items_extend(client, librarian_martigny_no_email,
     assert actions.get(LoanAction.EXTEND)
     assert item.get_extension_count() == 1
 
+    # test renewal due date hour
+    extended_loan = Loan.get_record_by_pid(loan_pid)
+    end_date = ciso8601.parse_datetime(
+        extended_loan.get('end_date')).astimezone()
+    assert end_date.minute == 59 and end_date.hour == 23
+
     # second extenion
     res = client.post(
         url_for('api_item.extend_loan'),

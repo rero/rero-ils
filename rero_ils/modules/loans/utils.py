@@ -55,6 +55,8 @@ def get_default_loan_duration(loan):
     policy = get_circ_policy(loan)
     # TODO: case when start_date is not sysdate.
     start_date = datetime.now()
+    time_to_end_of_day = timedelta(hours=23, minutes=59) - \
+        timedelta(hours=start_date.hour, minutes=start_date.minute)
     transaction_location_pid = loan.get('transaction_location_pid')
     if not transaction_location_pid:
         library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
@@ -68,10 +70,9 @@ def get_default_loan_duration(loan):
     # rero_ils due_date, considering library opening_hours and exception_dates.
     # next_open: -1 to check first the due date not the days.
     open_after_due_date = library.next_open(date=due_date - timedelta(days=1))
-
     new_duration = open_after_due_date - start_date
 
-    return timedelta(days=new_duration.days)
+    return timedelta(days=new_duration.days) + time_to_end_of_day
 
 
 def get_extension_params(loan=None, parameter_name=None):
@@ -83,6 +84,8 @@ def get_extension_params(loan=None, parameter_name=None):
         'duration_default': policy.get('renewal_duration')
     }
     current_date = datetime.now()
+    time_to_end_of_day = timedelta(hours=23, minutes=59) - \
+        timedelta(hours=current_date.hour, minutes=current_date.minute)
 
     transaction_location_pid = loan.get('transaction_location_pid')
     if not transaction_location_pid:
@@ -102,7 +105,8 @@ def get_extension_params(loan=None, parameter_name=None):
         params['max_count'] = 0
 
     new_duration = first_open_date - current_date
-    params['duration_default'] = timedelta(days=new_duration.days)
+    params['duration_default'] = \
+        timedelta(days=new_duration.days) + time_to_end_of_day
 
     return params.get(parameter_name)
 
