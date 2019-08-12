@@ -24,6 +24,7 @@ from datetime import datetime, timedelta
 from functools import partial
 
 import ciso8601
+from flask import current_app
 from invenio_search.api import RecordsSearch
 
 from .dispatcher import Dispatcher
@@ -133,6 +134,16 @@ class Notification(IlsRecord):
                 end_date = ciso8601.parse_datetime_as_naive(end_date)
                 data['loan']['end_date'] = end_date.strftime("%d.%m.%Y")
             # del(data['loan']['document_pid'])
+
+            # create a link to patron profile
+            patron = Patron.get_record_by_pid(data['loan']['patron']['pid'])
+            view_code = patron.get_organisation().get('code')
+            base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+            url_api = '{base_url}/{view_code}/patrons/profile'
+            profile_url = url_api.format(
+                base_url=base_url, view_code=view_code)
+            data['loan']['profile_url'] = profile_url
+
             return data
         except Exception as e:
             raise(e)
