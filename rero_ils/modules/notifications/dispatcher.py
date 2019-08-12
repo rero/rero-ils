@@ -47,8 +47,6 @@ class Dispatcher():
 
     def send_mail(self, data):
         """Send email."""
-        data['loan']['profile_url'] = \
-            'https://ils.test.rero.ch/patrons/profile'
         notification_type = data.get('notification_type')
         language = data['loan']['patron']['communication_language']
         template = 'email/{type}/{lang}'.format(
