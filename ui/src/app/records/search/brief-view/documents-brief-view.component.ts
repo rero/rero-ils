@@ -23,6 +23,7 @@ import { RecordsService } from '../../records.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { _ } from '@app/core';
+import { UserService } from '@app/user.service';
 
 
 @Component({
@@ -75,11 +76,11 @@ import { _ } from '@app/core';
       id="{{'items-'+record.metadata.pid}}">
     <li *ngFor="let item of record.metadata.items "class="list-group-item p-1">
       <a href="{{'/' + viewCode + '/items/' + item.pid }}">{{item.barcode}}</a><span> ({{ item.status | translate }})</span>
-      <a *ngIf="recordType !== 'persons'" (click)="deleteItem(item.pid)"
+      <a *ngIf="recordType !== 'persons' && showButton(item)" (click)="deleteItem(item.pid)"
          class="ml-2 float-right text-secondary" title="{{ 'Delete' | translate }}">
         <i class="fa fa-trash" aria-hidden="true"></i>
       </a>
-      <a *ngIf="recordType !== 'persons'" class="ml-2 float-right text-secondary"
+      <a *ngIf="recordType !== 'persons' && showButton(item)" class="ml-2 float-right text-secondary"
          routerLinkActive="active"
          [routerLink]="['/records/items', item.pid]"
          [queryParams]="{document: record.metadata.pid}"
@@ -102,7 +103,8 @@ export class DocumentsBriefViewComponent implements BriefView {
   constructor(
     private recordsService: RecordsService,
     private translate: TranslateService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    public userService: UserService
     ) {}
 
   publisherNames() {
@@ -136,4 +138,11 @@ export class DocumentsBriefViewComponent implements BriefView {
     });
   }
 
+  userOrganisationPid() {
+    return this.userService.loggedUser.getValue().library.organisation.pid;
+  }
+
+  showButton(item) {
+    return this.userOrganisationPid() === item.organisation.organisation_pid;
+  }
 }

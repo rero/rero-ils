@@ -55,6 +55,7 @@
           {% endif %}
         </dl>
       </article>
+      {% if current_user | can_access_item(record) %}
       <footer class="d-flex flex-column pt-2">
           <!-- TODO: delete button -->
         {% with
@@ -66,6 +67,7 @@
           {% include 'rero_ils/_editor_button_actions.html' %}
         {% endwith %}
       </footer>
+      {% endif %}
     </section>
     <!-- Transactions data -->
     {% if record.status in ['on_loan', 'in_transit'] or record.number_of_requests() %}
