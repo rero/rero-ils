@@ -20,6 +20,7 @@
 from datetime import datetime, timezone
 from functools import partial, wraps
 
+from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
@@ -31,7 +32,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_search import current_search
 
 from .models import ItemIdentifier, ItemStatus
-from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer, IlsRecordsSearch
 from ..documents.api import Document, DocumentsSearch
 from ..errors import InvalidRecordID
 from ..fetchers import id_fetcher
@@ -74,11 +75,22 @@ class ItemsIndexer(IlsRecordIndexer):
 
         :param record: Record instance.
         """
+        from ..holdings.api import Holding
+
         return_value = super(ItemsIndexer, self).delete(record)
-        document_pid = record.replace_refs()['document']['pid']
+        rec_with_refs = record.replace_refs()
+        document_pid = rec_with_refs['document']['pid']
         document = Document.get_record_by_pid(document_pid)
         document.reindex()
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        holding = rec_with_refs.get('holding', '')
+        if holding:
+            holding_rec = Holding.get_record_by_pid(holding.get('pid'))
+            try:
+                # TODO: Need to split DB and elasticsearch deletion.
+                holding_rec.delete(force=False, dbcommit=True, delindex=True)
+            except IlsRecordError.NotDeleted:
+                pass
         return return_value
 
 
@@ -186,6 +198,70 @@ class Item(IlsRecord):
         'ITEM_IN_TRANSIT_TO_HOUSE': 'in_transit',
     }
 
+    def delete_from_index(self):
+        """Delete record from index."""
+        try:
+            ItemsIndexer().delete(self)
+        except NotFoundError:
+            pass
+
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=False, reindex=False, **kwargs):
+        """Create item record."""
+        record = super(Item, cls).create(
+            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        record.item_link_to_holding()
+        return record
+
+    def update(self, data, dbcommit=False, reindex=False):
+        """Update item record."""
+        # TODO: write a better way to delete old holdings if needed
+        # from ..holdings.api import Holding
+        # holdings = self.replace_refs().get('holding')
+        # if holdings:
+        #     holding_pid = holdings.get('pid')
+        # old_location_pid = self.location_pid
+        # old_item_type_pid = self.item_type_pid
+
+        super(Item, self).update(data, dbcommit, reindex)
+        self.item_link_to_holding()
+
+        # location_pid = self.location_pid
+        # item_type_pid = self.item_type_pid
+
+        # if old_location_pid != location_pid or \
+        #         old_item_type_pid != item_type_pid:
+        #     holding = Holding.get_record_by_pid(holding_pid)
+        #     holding.reindex()
+        return self
+
+    def item_link_to_holding(self):
+        """Link an item to a holding record."""
+        from ..holdings.api import get_holding_pid_for_item, \
+            create_holding_for_item
+
+        item = self.replace_refs()
+        document_pid = item.get('document').get('pid')
+        location_pid = self.location_pid
+        item_type_pid = self.item_type_pid
+        holding_pid = get_holding_pid_for_item(
+            document_pid, location_pid, item_type_pid)
+        if not holding_pid:
+            holding_pid = create_holding_for_item(document_pid,
+                                                  location_pid, item_type_pid)
+
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        self['holding'] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='holdings',
+                pid=holding_pid)
+        }
+        self.commit()
+        self.dbcommit(reindex=True, forceindex=True)
+
     def dumps_for_circulation(self):
         """Enhance item information for api_views."""
         item = self.replace_refs()
@@ -207,6 +283,13 @@ class Item(IlsRecord):
 
         return data
 
+    @property
+    def holding_pid(self):
+        """Shortcut for item holding pid."""
+        if self.replace_refs().get('holding'):
+            return self.replace_refs()['holding']['pid']
+        return None
+
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""
@@ -219,8 +302,8 @@ class Item(IlsRecord):
         results = ItemsSearch()\
             .filter('term', document__pid=document_pid)\
             .source(['pid']).scan()
-        for r in results:
-            yield r.pid
+        for item in results:
+            yield item.pid
 
     @classmethod
     def get_loans_by_item_pid(cls, item_pid):
@@ -374,13 +457,19 @@ class Item(IlsRecord):
     @property
     def item_type_pid(self):
         """Shortcut for item type pid."""
-        item_type_pid = self.replace_refs()['item_type']['pid']
+        item_type_pid = None
+        item_type = self.replace_refs().get('item_type')
+        if item_type:
+            item_type_pid = item_type.get('pid')
         return item_type_pid
 
     @property
     def location_pid(self):
         """Shortcut for item location pid."""
-        location_pid = self.replace_refs()['location']['pid']
+        location_pid = None
+        location = self.replace_refs().get('location')
+        if location:
+            location_pid = location.get('pid')
         return location_pid
 
     @property

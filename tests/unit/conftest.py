@@ -141,3 +141,14 @@ def item_schema():
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema
+
+
+@pytest.fixture()
+def holding_schema():
+    """Holdings Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.holdings.jsonschemas',
+        '/holdings/holding-v0.0.1.json'
+    )
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
