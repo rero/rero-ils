@@ -493,6 +493,7 @@
                 "sha256:6e532854a43e4f54fc7d9b1cbda720ce4ce6383b00cee6ba5f7e86ef78f12fe2",
                 "sha256:f972e10b69a68a80c342f0bcf6b3b02a6a67af4fb6e8e347ce8b482fcb47e973"
             ],
+            "index": "pypi",
             "version": "==1.0.2"
         },
         "invenio-cache": {

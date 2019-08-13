@@ -197,3 +197,14 @@ items = {
         menu_icon_value='fa-barcode'
     )
 }
+
+holdings = {
+    'view_class': LibraryManager,
+    'kwargs': dict(
+        name='Holdings',
+        category='Resources',
+        endpoint='records/holdings',
+        menu_icon_type='fa',
+        menu_icon_value='fa-barcode'
+    )
+}

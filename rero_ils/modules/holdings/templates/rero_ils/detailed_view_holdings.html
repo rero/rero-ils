@@ -1,0 +1,62 @@
+{# -*- coding: utf-8 -*-
+
+    RERO ILS
+    Copyright (C) 2019 RERO
+  
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+  
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Affero General Public License for more details.
+  
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+#}
+{% from 'rero_ils/macros/macro.html' import dl %}
+{%- extends 'rero_ils/page.html' %}
+{%- block body %}
+    <header class="row">
+      <!-- TODO: Add cover -->
+      <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
+        <div class="thumb">
+          <figure class="mb-0">
+            <img class="img-responsive border border-light" src="{{ url_for('static', filename='images/icon_') }}{{ document.type }}.png">
+            <figcaption class="text-center">{{ _(document.type) }}</figcaption>
+          </figure>
+        </div>
+      </div>
+     <h1 class="col-sm-11 col-md-11">{{ _('Barcode') }} {{ record.barcode }}</h1>
+    </header>
+    <section>
+      <!-- Holding data -->
+      <section class="py-4">
+        <article>
+          <dl class="row mb-0">
+            {{ dl(_('Call number'), record.call_number) }}
+            {{ dl(
+              _('Document'),
+              '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
+            }}
+          </dl>
+        </article>
+        <footer class="d-flex flex-column pt-2">
+            <!-- TODO: delete button -->
+          {% with
+            href_update=url_for('records/holdings.index', path=record.pid + '?document=' + document.pid),
+            href_delete='/api/holdings/' + record.pid,
+            json=record,
+            message=_("Holding cannot be deleted: there are still transactions linked to this holding.")
+          %}
+            {% include 'rero_ils/_editor_button_actions.html' %}
+          {% endwith %}
+        </footer>
+      </section>
+      <!-- Transactions data -->
+    </section>
+  
+{%- endblock body %}
+  
