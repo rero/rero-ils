@@ -101,7 +101,7 @@
 
             <!-- NOTES -->
             {% if record.notes|length > 0 %}
-              {{ dl(_('Notes'), notes|abstracts_format|nl2br) }}
+              {{ dl(_('Notes'), record.notes|abstracts_format|nl2br) }}
             {% endif %}
 
             {% if record.identifiedBy|identifiedby_format|length > 0 %}
@@ -118,7 +118,7 @@
                       </li>
                     </ul>
                 </dd>
-          
+
             {% endif %}
 
 
