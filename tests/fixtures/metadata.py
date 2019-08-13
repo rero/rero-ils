@@ -25,6 +25,7 @@ import pytest
 from utils import flush_index, mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
 
@@ -358,3 +359,88 @@ def item_lib_sion_org2(
         reindex=True)
     flush_index(ItemsSearch.Meta.index)
     return item
+
+
+# --------- Holdings records -----------
+
+
+@pytest.fixture(scope="module")
+def holding_lib_martigny_data(data):
+    """Load holding of martigny library."""
+    return deepcopy(data.get('holding1'))
+
+
+@pytest.fixture(scope="function")
+def holding_lib_martigny_data_tmp(data):
+    """Load holding of martigny library scope function."""
+    return deepcopy(data.get('holding1'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_martigny(app, document, holding_lib_martigny_data,
+                         loc_public_martigny, item_type_standard_martigny):
+    """Create holding of martigny library."""
+    holding = Holding.create(
+        data=holding_lib_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+
+@pytest.fixture(scope="module")
+def holding_lib_saxon_data(data):
+    """Load holding of saxon library."""
+    return deepcopy(data.get('holding2'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_saxon(app, document, holding_lib_saxon_data,
+                      loc_public_saxon, item_type_standard_martigny):
+    """Create holding of saxon library."""
+    holding = Holding.create(
+        data=holding_lib_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+
+@pytest.fixture(scope="module")
+def holding_lib_fully_data(data):
+    """Load holding of fully library."""
+    return deepcopy(data.get('holding3'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_fully(app, document, holding_lib_fully_data,
+                      loc_public_fully, item_type_standard_martigny):
+    """Create holding of fully library."""
+    holding = Holding.create(
+        data=holding_lib_fully_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+
+@pytest.fixture(scope="module")
+def holding_lib_sion_data(data):
+    """Load holding of sion library."""
+    return deepcopy(data.get('holding4'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_sion(app, document, holding_lib_sion_data,
+                     loc_public_sion, item_type_internal_sion):
+    """Create holding of saxon library."""
+    holding = Holding.create(
+        data=holding_lib_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
