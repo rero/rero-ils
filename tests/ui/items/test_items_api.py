@@ -24,34 +24,7 @@ from utils import get_mapping
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
 
 
-def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
-                                      loc_restricted_martigny):
-    """Test location retriever for invenio-circulation."""
-    assert item_lib_martigny.item_location_retriever(
-        item_lib_martigny.pid) == loc_public_martigny.pid
-
-
-def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
-    """Test get items by document pid."""
-    assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
-
-
-def test_item_create(db, es_clear, item_lib_martigny_data_tmp):
-    """Test itemanisation creation."""
-    item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
-    assert item == item_lib_martigny_data_tmp
-    assert item.get('pid') == '1'
-    assert item.can_delete
-
-    item = Item.get_record_by_pid('1')
-    assert item == item_lib_martigny_data_tmp
-
-    fetched_pid = item_id_fetcher(item.id, item)
-    assert fetched_pid.pid_value == '1'
-    assert fetched_pid.pid_type == 'item'
-
-
-def test_item_organisation_pid(org_martigny, item_lib_martigny):
+def test_item_organisation_pid(client, org_martigny, item_lib_martigny):
     """Test organisation pid has been added during the indexing."""
     search = ItemsSearch()
     item = next(search.filter('term', pid=item_lib_martigny.pid).scan())
@@ -66,8 +39,26 @@ def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
 
 
 def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
-    """."""
+    """Test get items by document pid."""
     assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
+
+
+def test_item_create(db, es_clear, item_lib_martigny_data_tmp,
+                     item_lib_martigny):
+    """Test itemanisation creation."""
+    item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
+    del item['holding']
+    assert item == item_lib_martigny_data_tmp
+    assert item.get('pid') == '1'
+    assert item.can_delete
+
+    item = Item.get_record_by_pid('1')
+    del item['holding']
+    assert item == item_lib_martigny_data_tmp
+
+    fetched_pid = item_id_fetcher(item.id, item)
+    assert fetched_pid.pid_value == '1'
+    assert fetched_pid.pid_type == 'item'
 
 
 def test_item_can_delete(item_lib_martigny):
