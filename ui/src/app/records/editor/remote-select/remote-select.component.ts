@@ -59,9 +59,13 @@ export class RemoteSelectComponent implements OnInit {
       this.userService.loggedUser.subscribe(user => {
         // TODO: find a cleanest way to do it
         let query = '';
-        const fieldToFilter = this.options.remoteRecordFiltersByOwningLibrary;
+        let fieldToFilter = this.options.remoteRecordFiltersByOwningLibrary;
         if (fieldToFilter && !user.roles.some(role => role === 'system_librarian')) {
           query = `${fieldToFilter}:${user.library.pid}`;
+        }
+        fieldToFilter = this.options.remoteRecordFiltersByOwningOrganisation;
+        if (fieldToFilter && user.roles.some(role => role === 'system_librarian')) {
+          query = `${fieldToFilter}:${user.library.organisation.pid}`;
         }
         this.recordsService.getRecords('global', remoteRecordType, 1, 30, query).subscribe(data => {
           data.hits.hits.map(record => {
