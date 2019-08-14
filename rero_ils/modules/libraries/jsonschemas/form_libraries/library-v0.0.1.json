@@ -7,7 +7,8 @@
         "title": "Organisation",
         "key": "organisation.$ref",
         "type": "select",
-        "remoteRecordType": "organisations"
+        "remoteRecordType": "organisations",
+        "remoteRecordFiltersByOwningOrganisation": "pid"
       },
       {
         "type": "flex",
