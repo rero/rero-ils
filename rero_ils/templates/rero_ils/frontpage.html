@@ -110,14 +110,14 @@
       </section>
       <section>
         {% if viewcode == config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}
-          <h3>{{ _('Institutions\' catalogues') }}</h3>
+          <h3>{{ _('Organisations\' catalogues') }}</h3>
           <ul class="list-unstyled">
             {% for org in organisations %}
             <li><a href="{{ url_for('rero_ils.index_with_view_code', viewcode=org.code) }}">{{ org.name }}</a></li>
             {% endfor %}
           </ul>
         {% else %}
-          <h3>{{ _('Global catalogue') }}</h3>
+          <h3>{{ _('Union catalogue') }}</h3>
           <a href="{{ url_for('rero_ils.index') }}">{{ _('RERO ILS global') }}</a>
         {% endif %}
       </section>
@@ -138,7 +138,7 @@
           <img src="{{ url_for('static', filename='images/logo_rerodoc_height_119.png') }}" alt="RERO DOC logo">
         </a>
         <h4>
-          <a href="https://rero.ch" class="rero-ils-external-link" title="{{ _('Link to the rero Website') }}">
+          <a href="https://rero.ch" class="rero-ils-external-link" title="{{ _('Link to the RERO Website') }}">
           www.rero.ch</a>
         </h4>
       </section>
