@@ -55,7 +55,7 @@ def test_organisation_link_on_homepage(client):
         'rero_ils.index'
     ))
     assert result.status_code == 200
-    assert str(result.data).find('Institutions') > -1
+    assert str(result.data).find('Organisations') > -1
 
 
 def test_global_link_on_institution_homepage(client, org_martigny):
