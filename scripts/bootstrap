@@ -21,13 +21,19 @@ set -e
 
 # The real bootstrap script starts 20 lines below ;-)
 flags=()
+deploy=false
+cmd="pipenv sync"
+ci=false
 while test $# -gt 0; do
     case "$1" in
+        --deploy)
+            # We are probably inside travis, check for env variables
+            deploy=true
+            shift
+            ;;
         --ci)
             # We are probably inside travis, check for env variables
-            if [ "$REQUIREMENTS" == "prod" ]; then
-                flags=("--dev" "--ignore-pipfile")
-            fi
+            ci=true
             shift
             ;;
         *)
@@ -37,12 +43,23 @@ while test $# -gt 0; do
             ;;
     esac
 done
-if [ ${#flags[0]} -eq 0 ]; then
-    flags=("--dev" "--skip-lock")
+
+if ! $deploy || $ci ; then
+    flags=("--dev")
 fi
 
+if ! $deploy ; then
+    if $ci ; then
+        cmd="pipenv install --skip-lock --sequential"
+    fi
+fi
+
+# go generate a clean lock file
+# pipenv --rm; pipenv install --sequential
+
 # install the application and all the dependencies
-pipenv install ${flags[@]}
+echo "Install with command: ${cmd} ${flags[@]}"
+${cmd} ${flags[@]}
 
 # install assets utils
 npm i npm@latest -g --prefix `pipenv --venv` && pipenv run npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4

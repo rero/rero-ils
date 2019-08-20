@@ -54,8 +54,8 @@ env:
     # Enable end-to-end tests
     - E2E=no
   matrix:
-    - REQUIREMENTS=prod E2E=yes
-    - REQUIREMENTS=qa
+    - REQUIREMENTS="--deploy" E2E=yes
+    - REQUIREMENTS=""
 
 python:
   - "3.6"
@@ -75,8 +75,9 @@ before_install:
   # patch default version of travis which is mark as unsave by pipenv check
   - "travis_retry pip install --upgrade numpy"
 
+
 install:
-  - "./scripts/bootstrap --ci"
+  - "./scripts/bootstrap --ci $REQUIREMENTS"
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
