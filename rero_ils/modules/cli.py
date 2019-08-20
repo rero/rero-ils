@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+import difflib
 import json
 import os
 import sys
@@ -26,6 +27,7 @@ from collections import OrderedDict
 from glob import glob
 
 import click
+import yaml
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
@@ -102,8 +104,10 @@ def show(pid_value, pid_type):
     '-i', '--indent', 'indent', type=click.INT, default=2,
     help='intent default=2'
 )
-def check_json(paths, replace, indent, sort_keys):
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def check_json(paths, replace, indent, sort_keys, verbose):
     """Check json files."""
+    click.secho('Testing JSON intentation.', fg='green')
     files_list = []
     for path in paths:
         if os.path.isfile(path):
@@ -126,17 +130,20 @@ def check_json(paths, replace, indent, sort_keys):
             json_dump = json.dumps(json_file, indent=indent).rstrip()
             if json_dump != json_orig:
                 error_cnt = 1
-            click.echo(fname + ': ', nl=False)
             if replace:
                 with open(fname, 'w') as opened_file:
                     opened_file.write(json.dumps(json_file,
                                                  indent=indent,
                                                  sort_keys=sort_keys))
+                click.echo(fname + ': ', nl=False)
                 click.secho('File replaced', fg='yellow')
             else:
                 if error_cnt == 0:
-                    click.secho('Well indented', fg='green')
+                    if verbose:
+                        click.echo(fname + ': ', nl=False)
+                        click.secho('Well indented', fg='green')
                 else:
+                    click.echo(fname + ': ', nl=False)
                     click.secho('Bad indentation', fg='red')
         except ValueError as e:
             click.echo(fname + ': ', nl=False)
@@ -145,7 +152,8 @@ def check_json(paths, replace, indent, sort_keys):
             error_cnt = 1
 
         tot_error_cnt += error_cnt
-    return tot_error_cnt
+
+    sys.exit(tot_error_cnt)
 
 
 @utils.command('schedules')
@@ -225,3 +233,179 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex):
 
 
 fixtures.add_command(create)
+
+
+@utils.command('check_license')
+@click.argument('configfile', type=click.File('r'), default=sys.stdin)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-p', '--progress', 'progress', is_flag=True, default=False)
+def check_license(configfile, verbose, progress):
+    """Check licenses."""
+    click.secho('Testing licenses in files.', fg='green')
+
+    def get_files(paths, extensions, recursive=True):
+        """Get files from paths."""
+        files_list = []
+        for path in paths:
+            if os.path.isfile(path):
+                files_list.append(path)
+            elif os.path.isdir(path):
+                for extension in extensions:
+                    files_list += glob(
+                        os.path.join(path, '**/*.{extension}'.format(
+                            extension=extension
+                        )),
+                        recursive=recursive
+                    )
+        return files_list
+
+    def delete_prefix(prefix, line):
+        """Delete prefix from line."""
+        if prefix:
+            line = line.replace(prefix, "")
+        return line.strip()
+
+    def is_copyright(copyrides, line):
+        """Delete prefix from line."""
+        for copyride in copyrides[1:]:
+            if line == copyride:
+                return True
+        return False
+
+    def show_diff(linenbr, text, n_text):
+        """Show string diffs."""
+        seqm = difflib.SequenceMatcher(
+            None,
+            text.replace(' ', '◼︎'),
+            n_text.replace(' ', '◼︎')
+        )
+        click.echo('{linenbr}: '.format(linenbr=linenbr), nl=False)
+        for opcode, a0, a1, b0, b1 in seqm.get_opcodes():
+            if opcode == 'equal':
+                click.echo(seqm.a[a0:a1], nl=False)
+            elif opcode == 'insert':
+                click.secho(seqm.b[b0:b1], fg='red', nl=False)
+            elif opcode == 'delete':
+                click.secho(seqm.a[a0:a1], fg='blue', nl=False)
+            elif opcode == 'replace':
+                # seqm.a[a0:a1] -> seqm.b[b0:b1]
+                click.secho(seqm.b[b0:b1], fg='green', nl=False)
+        click.echo()
+
+    def test_file(file_name, extensions, extension, copyrights, license_lines,
+                  verbose, progress):
+        """Test the license in file."""
+        if progress:
+            click.secho('License test: ', fg='green', nl=False)
+            click.echo('{file_name}'.format(file_name=file_name))
+        with open(file_name, 'r') as file:
+            result = test_license(
+                file=file,
+                extension=extensions[extension],
+                copyrights=config['copyrights'],
+                license_lines=license_lines,
+                verbose=verbose
+            )
+            if result != []:
+                click.secho(
+                    'License error in {file} in lines {lines}'.format(
+                        file=file_name,
+                        lines=result
+                    ),
+                    fg='red'
+                )
+                # We have an error
+                return 1
+        # No error found
+        return 0
+
+    def test_license(file, extension, copyrights, license_lines, verbose):
+        """Test the license in file."""
+        linenbr = 1
+        lines_with_errors = []
+        line = file.readline()
+        while line[:2] == '#!':
+            # get over Shebang
+            line = file.readline()
+            linenbr += 1
+        if extension.get('top'):
+            # read the top
+            line = delete_prefix(extension.get('prefix'), line)
+            if line not in extension.get('top'):
+                if verbose:
+                    for t in extension['top']:
+                        show_diff(linenbr, t, line)
+                lines_with_errors.append(linenbr)
+            line = file.readline()
+            linenbr += 1
+        for license_line in license_lines:
+            # compare the license lines
+            line = delete_prefix(extension.get('prefix'), line)
+            while is_copyright(copyrights, line):
+                line = file.readline()
+                linenbr += 1
+                line = delete_prefix(extension.get('prefix'), line)
+            if license_line != line:
+                if verbose:
+                    show_diff(linenbr, license_line, line)
+                lines_with_errors.append(linenbr)
+            line = file.readline()
+            linenbr += 1
+        return lines_with_errors
+
+    config = yaml.safe_load(configfile)
+    file_extensions = config['file_extensions']
+    extensions = {}
+    for file_extension in file_extensions:
+        for ext in file_extension.split(','):
+            extensions.setdefault(ext.strip(), file_extensions[file_extension])
+    # create recursive file list
+    files_list = get_files(
+        paths=config['directories']['recursive'],
+        extensions=extensions,
+        recursive=True
+    )
+    # add flat file list
+    files_list += get_files(
+        paths=config['directories']['flat'],
+        extensions=extensions,
+        recursive=False
+    )
+    # remove excluded files
+    exclude_list = []
+    for ext in config['directories']['exclude']:
+        exclude_list += get_files(
+            paths=config['directories']['exclude'][ext],
+            extensions=[ext],
+            recursive=True
+        )
+    files_list = list(set(files_list) - set(exclude_list))
+
+    license_lines = config['license_text'].split('\n')
+    tot_error_cnt = 0
+    for file_name in files_list:
+        # test every file
+        extension = os.path.splitext(file_name)[1][1:]
+        tot_error_cnt += test_file(
+                file_name=file_name,
+                extensions=extensions,
+                extension=extension,
+                copyrights=config['copyrights'],
+                license_lines=license_lines,
+                verbose=verbose,
+                progress=progress
+            )
+    for extension in config['files']:
+        # test every files
+        for file_name in config['files'][extension]:
+            tot_error_cnt += test_file(
+                    file_name=file_name,
+                    extensions=extensions,
+                    extension=extension,
+                    copyrights=config['copyrights'],
+                    license_lines=license_lines,
+                    verbose=verbose,
+                    progress=progress
+                )
+
+    sys.exit(tot_error_cnt)
