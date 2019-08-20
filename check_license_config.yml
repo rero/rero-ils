@@ -1,0 +1,86 @@
+# -*- coding: utf-8 -*-
+#
+# RERO ILS
+# Copyright (C) 2019 RERO
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+directories:
+  recursive:
+    - rero_ils
+    - tests
+    - ui/src/app
+    - ui/scripts
+    - ui/e2e
+  flat:
+    - .
+  exclude:
+    txt:
+      - rero_ils/modules/notifications/templates/email/availability
+      - rero_ils/modules/notifications/templates/email/due_soon
+      - rero_ils/modules/notifications/templates/email/overdue
+      - rero_ils/modules/notifications/templates/email/recall
+    js:
+      - rero_ils/static/js/rero_ils/ui
+    html:
+      - rero_ils/static/js/rero_ils/ui
+
+files:
+  py:
+    - Dockerfile
+    - Dockerfile.base
+    - docker/haproxy/Dockerfile
+    - docker/nginx/Dockerfile
+  sh:
+    - scripts/bootstrap
+    - scripts/console
+    - scripts/server
+    - scripts/setup
+    - scripts/update
+
+copyrights:
+  - Copyright (C) 2019 RERO
+  - Copyright (C) 2015-2018 CERN
+  - Copyright (C) 2016 TIND
+
+# TODO: cleaning after refactoring of the UI application
+file_extensions:
+  py, ini, yml, cfg, conf, sh:
+    top:
+      - "-*- coding: utf-8 -*-"
+    prefix: "#"
+  ts, scss, js:
+    top:
+      - "/*"
+  html:
+    top:
+      - "<!--"
+      - "{# -*- coding: utf-8 -*-"
+
+license_text: |
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
