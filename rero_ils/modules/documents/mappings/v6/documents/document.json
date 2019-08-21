@@ -348,20 +348,36 @@
         "facet_subjects": {
           "type": "keyword"
         },
-        "items": {
+        "holdings": {
           "type": "object",
           "properties": {
             "pid": {
               "type": "keyword"
             },
-            "barcode": {
-              "type": "keyword"
-            },
             "call_number": {
               "type": "keyword"
             },
-            "status": {
-              "type": "keyword"
+            "location": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "text"
+                }
+              }
+            },
+            "circulation_category": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "text"
+                }
+              }
             },
             "organisation": {
               "type": "object",
@@ -374,6 +390,26 @@
                 },
                 "organisation_library": {
                   "type": "keyword"
+                }
+              }
+            },
+            "items": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                },
+                "barcode": {
+                  "type": "keyword"
+                },
+                "call_number": {
+                  "type": "keyword"
+                },
+                "status": {
+                  "type": "keyword"
+                },
+                "available": {
+                  "type": "boolean"
                 }
               }
             }

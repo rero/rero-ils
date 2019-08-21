@@ -37,13 +37,13 @@ def document_search_factory(self, search, query_parser=None):
     view = request.args.get(
         'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
     if view == current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-        agg = A('terms', field='items.organisation.organisation_pid')
+        agg = A('terms', field='holdings.organisation.organisation_pid')
         search.aggs.bucket('organisation', agg)
     else:
         org_pid = Organisation.get_record_by_viewcode(view)['pid']
         agg = A(
             'terms',
-            field='items.organisation.organisation_library',
+            field='holdings.organisation.organisation_library',
             include='{}\\-[0-9]*'.format(org_pid)
         )
         search.aggs.bucket('library', agg)
@@ -58,7 +58,7 @@ def view_search_factory(self, search, query_parser=None):
     if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         org = Organisation.get_record_by_viewcode(view)
         search = search.filter(
-            'term', **{'items__organisation__organisation_pid': org['pid']}
+            'term', **{'holdings__organisation__organisation_pid': org['pid']}
         )
     return (search, urlkwargs)
 
