@@ -105,70 +105,6 @@ def test_holdings_get(client, holding_lib_martigny):
     assert result == holding.replace_refs()
 
 
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
-                                  json_header, holding_lib_martigny,
-                                  loc_public_martigny):
-    """Test record create and delete."""
-    item_url = url_for('invenio_records_rest.hold_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.hold_list')
-    list_url = url_for('invenio_records_rest.hold_list', q='pid:1')
-    holding_data = holding_lib_martigny_data_tmp
-    # Create record / POST
-    holding_data['pid'] = '1'
-    res = client.post(
-        post_url,
-        data=json.dumps(holding_data),
-        headers=json_header
-    )
-    assert res.status_code == 201
-
-    flush_index(HoldingsSearch.Meta.index)
-
-    # Check that the returned record matches the given data
-    data = get_json(res)
-    assert data['metadata'] == holding_data
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert holding_data == data['metadata']
-
-    # Update record/PUT
-    data = holding_data
-    data['call_number'] = 'call number'
-    res = client.put(
-        item_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 200
-
-    # Check that the returned record matches the given data
-    data = get_json(res)
-    assert data['metadata']['call_number'] == 'call number'
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-
-    data = get_json(res)
-    assert data['metadata']['call_number'] == 'call number'
-
-    res = client.get(list_url)
-    assert res.status_code == 200
-
-    data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['call_number'] == 'call number'
-
-    # Delete record/DELETE
-    res = client.delete(item_url)
-    assert res.status_code == 204
-
-    res = client.get(item_url)
-    assert res.status_code == 410
-
-
 def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
                                       item_type_standard_martigny):
     """Test can delete a holding."""
@@ -239,6 +175,7 @@ def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
                                    librarian_sion_no_email,
                                    holding_lib_martigny_data):
     """Test holding secure api create."""
+
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_url = url_for('invenio_records_rest.hold_list')
@@ -308,4 +245,78 @@ def test_holding_secure_api_delete(client, holding_lib_saxon,
     login_user_via_session(client, librarian_sion_no_email.user)
 
     res = client.delete(record_url)
+    assert res.status_code == 410
+
+
+def test_holdings_items_filter(client, holding_lib_martigny, holding_lib_sion,
+                               item_lib_martigny):
+    """Test filter for holdings items."""
+    assert len(
+        holding_lib_martigny.get_items_filter_by_viewcode('global')) == 1
+
+    assert len(
+        holding_lib_martigny.get_items_filter_by_viewcode('org2')) == 0
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
+                                  json_header, holding_lib_martigny,
+                                  loc_public_martigny):
+    """Test record create and delete."""
+    item_url = url_for('invenio_records_rest.hold_item', pid_value='1')
+    post_url = url_for('invenio_records_rest.hold_list')
+    list_url = url_for('invenio_records_rest.hold_list', q='pid:1')
+    holding_data = holding_lib_martigny_data_tmp
+    # Create record / POST
+    holding_data['pid'] = '1'
+    res = client.post(
+        post_url,
+        data=json.dumps(holding_data),
+        headers=json_header
+    )
+    assert res.status_code == 201
+
+    flush_index(HoldingsSearch.Meta.index)
+
+    # Check that the returned record matches the given data
+    data = get_json(res)
+    assert data['metadata'] == holding_data
+
+    res = client.get(item_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert holding_data == data['metadata']
+
+    # Update record/PUT
+    data = holding_data
+    data['call_number'] = 'call number'
+    res = client.put(
+        item_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # Check that the returned record matches the given data
+    data = get_json(res)
+    assert data['metadata']['call_number'] == 'call number'
+
+    res = client.get(item_url)
+    assert res.status_code == 200
+
+    data = get_json(res)
+    assert data['metadata']['call_number'] == 'call number'
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+
+    data = get_json(res)['hits']['hits'][0]
+    assert data['metadata']['call_number'] == 'h00001'
+
+    # Delete record/DELETE
+    res = client.delete(item_url)
+    assert res.status_code == 204
+
+    res = client.get(item_url)
     assert res.status_code == 410
