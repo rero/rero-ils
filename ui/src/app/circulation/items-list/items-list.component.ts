@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ItemAction } from '../items';
 import { User } from '../../users';
+import { OrganisationViewService } from '@app/core';
 
 @Component({
   selector: 'app-items-list',
@@ -32,8 +33,13 @@ export class ItemsListComponent {
   @Input() patron: User;
   @Output() applyItems = new EventEmitter<any[]>();
 
-  constructor() {
+  viewcode = undefined;
+
+  constructor(
+    organisationViewService: OrganisationViewService
+  ) {
     this.items =  null;
+    this.viewcode = organisationViewService.getViewCode();
   }
 
   apply(items: any[]) {

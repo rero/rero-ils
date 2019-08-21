@@ -36,8 +36,8 @@
           'table-success': item.isActionLoan(patron),
           'table-warning': item.isActionReturn(patron)
         }">
-      <td><a href="/documents/{{ item.document.pid }}" target="_blank">{{ item.document.title }}</a></td>
-      <td class="text-right"><a href="/items/{{ item.pid }}" target="_blank">{{ item.barcode }}</a></td>
+      <td><a href="/{{ viewcode }}/documents/{{ item.document.pid }}" target="_blank">{{ item.document.title }}</a></td>
+      <td class="text-right"><a href="/{{ viewcode }}/items/{{ item.pid }}" target="_blank">{{ item.barcode }}</a></td>
       <td class="text-right">{{ item.location.name }}</td>
       <td class="text-right">{{ item.status | translate}}</td>
       <td class="text-right">
