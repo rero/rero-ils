@@ -63,24 +63,26 @@ import { UserService } from '@app/user.service';
     <ng-template #PublicationYear>{{ record.metadata.publicationYear }}</ng-template>
   </div>
   <section *ngIf="record.metadata.type != 'ebook'">
-    <a *ngIf="record.metadata.items && record.metadata.items.length"
+    <a *ngIf="countHoldingsItems()"
        class="collapsed text-secondary" data-toggle="collapse"
        href="#{{'items-'+record.metadata.pid}}"
        aria-expanded="false" aria-controls="itemsList">
-      <i class="fa fa-caret-down" aria-hidden="true"></i> <span translate> items</span>
+      <i class="fa fa-caret-down" aria-hidden="true"></i>
+      <span translate *ngIf="countHoldingsItems() == 1"> item</span>
+      <span translate *ngIf="countHoldingsItems() > 1"> items</span>
     </a>
-    <span *ngIf="!(record.metadata.items && record.metadata.items.length)" translate>no item</span>
+    <span *ngIf="!countHoldingsItems()" translate>no item</span>
   </section>
-  <ul *ngIf="record.metadata.items"
+  <ul *ngIf="countHoldingsItems() > 0"
       class="collapse list-group list-group-flush"
       id="{{'items-'+record.metadata.pid}}">
-    <li *ngFor="let item of record.metadata.items "class="list-group-item p-1">
+    <li *ngFor="let item of groupItems() "class="list-group-item p-1">
       <a href="{{'/' + viewCode + '/items/' + item.pid }}">{{item.barcode}}</a><span> ({{ item.status | translate }})</span>
-      <a *ngIf="recordType !== 'persons' && showButton(item)" (click)="deleteItem(item.pid)"
+      <a (click)="deleteItem(item.pid)"
          class="ml-2 float-right text-secondary" title="{{ 'Delete' | translate }}">
         <i class="fa fa-trash" aria-hidden="true"></i>
       </a>
-      <a *ngIf="recordType !== 'persons' && showButton(item)" class="ml-2 float-right text-secondary"
+      <a class="ml-2 float-right text-secondary"
          routerLinkActive="active"
          [routerLink]="['/records/items', item.pid]"
          [queryParams]="{document: record.metadata.pid}"
@@ -132,17 +134,27 @@ export class DocumentsBriefViewComponent implements BriefView {
   deleteItem(pid) {
     this.recordsService.deleteRecord(pid, 'items').subscribe(success => {
       if (success) {
-        this.record.metadata.items = this.record.metadata.items.filter(item => item.pid !== pid);
+        for (const holding of this.record.metadata.holdings) {
+          holding.items = holding.items.filter(item => item.pid !== pid);
+        }
         this.toastService.success(_('Record deleted.'), _('documents'));
       }
     });
   }
 
-  userOrganisationPid() {
-    return this.userService.loggedUser.getValue().library.organisation.pid;
+  groupItems() {
+    const items = [];
+    for (const holding of this.record.metadata.holdings) {
+      if ('items' in holding) {
+        for (const item of holding.items) {
+          items.push(item);
+        }
+      }
+    }
+    return items;
   }
 
-  showButton(item) {
-    return this.userOrganisationPid() === item.organisation.organisation_pid;
+  countHoldingsItems() {
+    return this.groupItems().length;
   }
 }

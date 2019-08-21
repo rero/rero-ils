@@ -109,31 +109,6 @@ def test_documents_library_facets(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_items_filter(
-    client, document, org_martigny, item_lib_martigny,
-    org_sion, item_lib_sion_org2, rero_json_header
-):
-    """Test items filters for global and organisation view."""
-    list_url = url_for('invenio_records_rest.doc_list', view='global')
-    res = client.get(list_url, headers=rero_json_header)
-    items = get_json(res)['hits']['hits'][0]['metadata']['items']
-    assert len(items) == 2
-
-    list_url = url_for('invenio_records_rest.doc_list', view='org1')
-    res = client.get(list_url, headers=rero_json_header)
-    items = get_json(res)['hits']['hits'][0]['metadata']['items']
-    assert len(items) == 1
-    assert items[0]['organisation']['organisation_pid'] == 'org1'
-
-    list_url = url_for('invenio_records_rest.doc_list', view='org2')
-    res = client.get(list_url, headers=rero_json_header)
-    items = get_json(res)['hits']['hits'][0]['metadata']['items']
-    assert len(items) == 1
-    assert items[0]['organisation']['organisation_pid'] == 'org2'
-
-
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_post_put_delete(client, document_data,
                                    json_header):
     """Test record retrieval."""

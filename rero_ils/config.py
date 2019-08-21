@@ -793,22 +793,22 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field='facet_subjects')
             ),
             status=dict(
-                terms=dict(field='items.status')
+                terms=dict(field='holdings.items.status')
             )
         ),
         filters={
             _('document_type'): terms_filter('type'),
             _('organisation'): terms_filter(
-                'items.organisation.organisation_pid'
+                'holdings.organisation.organisation_pid'
             ),
-            _('library'): terms_filter('items.organisation.library_pid'),
+            _('library'): terms_filter('holdings.organisation.library_pid'),
             _('author__en'): terms_filter('facet_authors_en'),
             _('author__fr'): terms_filter('facet_authors_fr'),
             _('author__de'): terms_filter('facet_authors_de'),
             _('author__it'): terms_filter('facet_authors_it'),
             _('language'): terms_filter('language.value'),
             _('subject'): terms_filter('facet_subjects'),
-            _('status'): terms_filter('items.status'),
+            _('status'): terms_filter('holdings.items.status'),
         }
     ),
     patrons=dict(

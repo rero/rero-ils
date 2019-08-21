@@ -25,6 +25,8 @@ from requests import codes as requests_codes
 from requests import get as requests_get
 
 from ..documents.api import DocumentsSearch
+from ..holdings.api import Holding
+from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
 from ..organisations.api import Organisation
@@ -42,20 +44,31 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     # TODO: this multiply the indexing time by 5, try an other way!
     document_index_name = DocumentsSearch.Meta.index
     if index.startswith(document_index_name):
-        items = []
+        # HOLDINGS
+        holdings = []
         available = False
-        for item_pid in Item.get_items_pid_by_document_pid(record['pid']):
-            item = Item.get_record_by_pid(item_pid)
-            available = available or item.available
+        for holding_pid in Holding.get_holdings_pid_by_document_pid(
+            record['pid']
+        ):
+            holding = Holding.get_record_by_pid(holding_pid)
             location = Location.get_record_by_pid(
-                item.replace_refs()['location']['pid']).replace_refs()
-            org_pid = item.get_library().organisation_pid
-            organisation = Organisation.get_record_by_pid(org_pid)
-            items.append({
-                'pid': item.pid,
-                'barcode': item['barcode'],
-                'call_number': item['call_number'],
-                'status': item['status'],
+                holding.location_pid).replace_refs()
+            organisation = Organisation.get_record_by_pid(
+                holding.organisation_pid
+            )
+            circ_category = ItemType.get_record_by_pid(
+                holding.circulation_category_pid).replace_refs()
+            data = {
+                'pid': holding.pid,
+                'call_number': holding.get('call_number'),
+                'location': {
+                    'pid': location.pid,
+                    'name': location.get('name')
+                },
+                'circulation_category': {
+                    'pid': circ_category['pid'],
+                    'name': circ_category.get('name')
+                },
                 'organisation': {
                     'organisation_pid': organisation['pid'],
                     'library_pid': location['library']['pid'],
@@ -64,10 +77,28 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                         location['library']['pid']
                     )
                 }
-            })
-        if items:
-            json['items'] = items
-            json['available'] = available
+            }
+
+            items = []
+            for item_pid in Item.get_items_pid_by_holding_pid(holding_pid):
+                item = Item.get_record_by_pid(item_pid)
+                available = available or item.available
+                items.append({
+                    'pid': item.pid,
+                    'barcode': item['barcode'],
+                    'call_number': item['call_number'],
+                    'status': item['status'],
+                    'available': available
+                })
+            if items:
+                data['items'] = items
+
+            holdings.append(data)
+
+        if holdings:
+            json['holdings'] = holdings
+
+        json['available'] = available
 
 
 def mef_person_insert(sender, *args, **kwargs):
