@@ -128,6 +128,22 @@ class Holding(IlsRecord):
         for holding in results:
             yield holding.pid
 
+    def get_items_filter_by_viewcode(self, viewcode):
+        """Return items filter by view code."""
+        items = []
+        holdingItems = [
+            Item.get_record_by_pid(item_pid)
+            for item_pid in Item.get_items_pid_by_holding_pid(self.get('pid'))
+        ]
+        if (viewcode != current_app.
+                config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
+            org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+            for item in holdingItems:
+                if (item.organisation_pid == org_pid):
+                    items.append(item)
+            return items
+        return holdingItems
+
     def get_number_of_items(self):
         """Get holding number of items."""
         results = ItemsSearch().filter(

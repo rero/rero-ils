@@ -325,6 +325,15 @@ class Item(IlsRecord):
             yield item.pid
 
     @classmethod
+    def get_items_pid_by_holding_pid(cls, holding_pid):
+        """Returns item pisd from holding pid."""
+        results = ItemsSearch()\
+            .filter('term', holding__pid=holding_pid)\
+            .source(['pid']).scan()
+        for item in results:
+            yield item.pid
+
+    @classmethod
     def get_loans_by_item_pid(cls, item_pid):
         """Return any loan loans for item."""
         results = current_circulation.loan_search.filter(
