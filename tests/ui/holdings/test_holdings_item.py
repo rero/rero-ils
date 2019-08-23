@@ -81,3 +81,20 @@ def test_holding_delete_after_item_deletion(
     pid = holding_lib_martigny.pid
     holding = Holding.get_record_by_pid(pid)
     assert not holding
+
+
+def test_holding_delete_after_item_edition(
+        client, holding_lib_saxon, item_lib_saxon, holding_lib_fully):
+    """Test automatic holding delete after item edition."""
+
+    item_lib_saxon['location'] = \
+        {'$ref': 'https://ils.rero.ch/api/locations/loc5'}
+
+    item_lib_saxon.update(item_lib_saxon, dbcommit=True, reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+
+    item = Item.get_record_by_pid(item_lib_saxon.pid)
+    assert item.holding_pid == holding_lib_fully.pid
+
+    holding = Holding.get_record_by_pid(holding_lib_saxon.pid)
+    assert not holding
