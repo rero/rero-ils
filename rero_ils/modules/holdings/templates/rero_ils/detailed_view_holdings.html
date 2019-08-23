@@ -29,34 +29,47 @@
           </figure>
         </div>
       </div>
-     <h1 class="col-sm-11 col-md-11">{{ _('Barcode') }} {{ record.barcode }}</h1>
+     <h1 class="col-sm-11 col-md-11">{{ _('PID') }} {{ record.pid }}</h1>
     </header>
     <section>
       <!-- Holding data -->
       <section class="py-4">
         <article>
           <dl class="row mb-0">
-            {{ dl(_('Call number'), record.call_number) }}
+            {% if record.call_number %}
+              {{ dl(_('Call number'), record.call_number) }}
+            {% endif %}
             {{ dl(
               _('Document'),
-              '<a href="'+ url_for('invenio_records_ui.doc', pid_value=document.pid) +'">' + document.title +'</a>')
+              '<a href="'+ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) +'">' + document.title +'</a>')
             }}
+            {{ dl(_('Library'), library.name) }}
+            {{ dl(_('Location'), location.name) }}
+            {{ dl(_('Circulation category'), circulation_category.name) }}
           </dl>
         </article>
-        <footer class="d-flex flex-column pt-2">
-            <!-- TODO: delete button -->
-          {% with
-            href_update=url_for('records/holdings.index', path=record.pid + '?document=' + document.pid),
-            href_delete='/api/holdings/' + record.pid,
-            json=record,
-            message=_("Holding cannot be deleted: there are still transactions linked to this holding.")
-          %}
-            {% include 'rero_ils/_editor_button_actions.html' %}
-          {% endwith %}
-        </footer>
       </section>
-      <!-- Transactions data -->
     </section>
-  
+    {% if items %}
+        <!-- Items data -->
+          <header>
+              <h3>{{ _('Items') }}</h3>
+          </header>          
+              {% for item in items %}
+              <section class="py-4">
+                  <article>
+                  <dl class="row mb-0">
+                  {{ dl(_('ID'), item.pid) }}
+                  {{ dl(_('Call number'), item.call_number) }}
+                  {{ dl(_('Barcode'), item.barcode) }}
+                </dl>
+              </article>
+              {% endfor %}
+         
+              </section>
+      </section> 
+    {% endif %}
+
+
 {%- endblock body %}
   
