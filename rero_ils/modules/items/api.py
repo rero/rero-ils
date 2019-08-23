@@ -30,6 +30,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_i18n.ext import current_i18n
 from invenio_search import current_search
+from vine.five import items
 
 from .models import ItemIdentifier, ItemStatus
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer, IlsRecordsSearch
@@ -63,11 +64,32 @@ class ItemsIndexer(IlsRecordIndexer):
 
     def index(self, record):
         """Index an item."""
+        from ..holdings.api import Holding
+        # get the old holding record if exists
+        items = ItemsSearch().filter(
+            'term', pid=record.get('pid')
+        ).source().execute().hits
+
+        holding_pid = None
+        if items.total:
+            item = items.hits[0]['_source']
+            holding_pid = item.get('holding', {}).get('pid')
+
         return_value = super(ItemsIndexer, self).index(record)
         document_pid = record.replace_refs()['document']['pid']
         document = Document.get_record_by_pid(document_pid)
         document.reindex()
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+
+        # check if old holding can be deleted
+        if holding_pid:
+            holding_rec = Holding.get_record_by_pid(holding_pid)
+            try:
+                # TODO: Need to split DB and elasticsearch deletion.
+                holding_rec.delete(force=False, dbcommit=True, delindex=True)
+            except IlsRecordError.NotDeleted:
+                pass
+
         return return_value
 
     def delete(self, record):
@@ -83,6 +105,7 @@ class ItemsIndexer(IlsRecordIndexer):
         document = Document.get_record_by_pid(document_pid)
         document.reindex()
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+
         holding = rec_with_refs.get('holding', '')
         if holding:
             holding_rec = Holding.get_record_by_pid(holding.get('pid'))
@@ -91,6 +114,7 @@ class ItemsIndexer(IlsRecordIndexer):
                 holding_rec.delete(force=False, dbcommit=True, delindex=True)
             except IlsRecordError.NotDeleted:
                 pass
+
         return return_value
 
 
@@ -216,24 +240,10 @@ class Item(IlsRecord):
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update item record."""
-        # TODO: write a better way to delete old holdings if needed
-        # from ..holdings.api import Holding
-        # holdings = self.replace_refs().get('holding')
-        # if holdings:
-        #     holding_pid = holdings.get('pid')
-        # old_location_pid = self.location_pid
-        # old_item_type_pid = self.item_type_pid
-
         super(Item, self).update(data, dbcommit, reindex)
+        # TODO: some item updates do not require holding re-linking
         self.item_link_to_holding()
 
-        # location_pid = self.location_pid
-        # item_type_pid = self.item_type_pid
-
-        # if old_location_pid != location_pid or \
-        #         old_item_type_pid != item_type_pid:
-        #     holding = Holding.get_record_by_pid(holding_pid)
-        #     holding.reindex()
         return self
 
     def item_link_to_holding(self):
@@ -243,13 +253,13 @@ class Item(IlsRecord):
 
         item = self.replace_refs()
         document_pid = item.get('document').get('pid')
-        location_pid = self.location_pid
-        item_type_pid = self.item_type_pid
+
         holding_pid = get_holding_pid_for_item(
-            document_pid, location_pid, item_type_pid)
+            document_pid, self.location_pid, self.item_type_pid)
+
         if not holding_pid:
-            holding_pid = create_holding_for_item(document_pid,
-                                                  location_pid, item_type_pid)
+            holding_pid = create_holding_for_item(
+                document_pid, self.location_pid, self.item_type_pid)
 
         base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
@@ -282,6 +292,15 @@ class Item(IlsRecord):
                             []).append(loan.dumps_for_circulation())
 
         return data
+
+    @classmethod
+    def get_items_pid_by_holding_pid(cls, holding_pid):
+        """Returns item pisd from holding pid."""
+        results = ItemsSearch()\
+            .filter('term', holding__pid=holding_pid)\
+            .source(['pid']).scan()
+        for item in results:
+            yield item.pid
 
     @property
     def holding_pid(self):
