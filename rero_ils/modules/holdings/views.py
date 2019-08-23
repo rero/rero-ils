@@ -24,6 +24,9 @@ from flask import Blueprint, current_app, render_template
 from invenio_records_ui.signals import record_viewed
 
 from ..documents.api import Document
+from ..item_types.api import ItemType
+from ..libraries.api import Library
+from ..locations.api import Location
 
 
 def holding_view_method(pid, record, template=None, **kwargs):
@@ -41,9 +44,17 @@ def holding_view_method(pid, record, template=None, **kwargs):
     )
     document = Document.get_record_by_pid(
         record.replace_refs()['document']['pid'])
-    # holding = record.replace_refs()
+    holding = record.replace_refs()
+    location = Location.get_record_by_pid(holding['location']['pid'])
+    library = Library.get_record_by_pid(
+        location.replace_refs()['library']['pid'])
+    circulation_category = ItemType.get_record_by_pid(
+        holding['circulation_category']['pid'])
+    items = record.get_items_filter_by_viewcode(kwargs['viewcode'])
     return render_template(
-        template, pid=pid, record=record, document=document)
+        template, pid=pid, record=record, document=document,
+        location=location, circulation_category=circulation_category,
+        library=library, viewcode=kwargs['viewcode'], items=items)
 
 
 blueprint = Blueprint(
