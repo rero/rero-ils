@@ -20,10 +20,6 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from utils import flush_index
-
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
-from rero_ils.modules.locations.api import Location, LocationsSearch
 
 
 @pytest.fixture(scope="module")
