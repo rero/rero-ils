@@ -30,9 +30,10 @@ from .models import HoldingIdentifier, HoldingMetadata
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer
 from ..documents.api import Document, DocumentsSearch
 from ..fetchers import id_fetcher
-from ..items.api import ItemsSearch
+from ..items.api import Item, ItemsSearch
 from ..locations.api import Location
 from ..minters import id_minter
+from ..organisations.api import Organisation
 from ..providers import Provider
 
 # holing provider
@@ -148,6 +149,22 @@ class Holding(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def get_items_filter_by_viewcode(self, viewcode):
+        """Return items filter by view code."""
+        items = []
+        holdingItems = [
+            Item.get_record_by_pid(item_pid)
+            for item_pid in Item.get_items_pid_by_holding_pid(self.get('pid'))
+        ]
+        if (viewcode != current_app.
+                config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
+            org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+            for item in holdingItems:
+                if (item.organisation_pid == org_pid):
+                    items.append(item)
+            return items
+        return holdingItems
 
 
 def get_holding_pid_for_item(document_pid, location_pid, item_type_pid):
