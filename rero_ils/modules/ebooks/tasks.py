@@ -19,10 +19,14 @@
 
 from __future__ import absolute_import, print_function
 
+from time import sleep
+
 from celery import shared_task
+from celery.task.control import inspect
 from flask import current_app
 
 from ..documents.api import Document, DocumentsSearch
+from ..utils import bulk_index
 
 
 @shared_task(ignore_result=True)
@@ -30,6 +34,7 @@ def create_records(records):
     """Records creation and indexing."""
     n_updated = 0
     n_created = 0
+    uuids = []
     for record in records:
         record['$schema'] = \
             'https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json'
@@ -55,15 +60,28 @@ def create_records(records):
             existing_record.update(
                 record,
                 dbcommit=True,
-                reindex=True)
+                reindex=False
+            )
             n_updated += 1
+            uuids.append(existing_record.id)
         else:
             # create a new record
-            Document.create(
+            new_record = Document.create(
                 record,
                 dbcommit=True,
-                reindex=True
+                reindex=False
             )
             n_created += 1
+            uuids.append(new_record.id)
+    bulk_index(uuids, process=True)
+    # wait for bulk index task to finish
+    inspector = inspect()
+    reserved = inspector.reserved()
+    if reserved:
+        while any(a != [] for a in reserved.values()):
+            reserved = inspector.reserved()
+            sleep(1)
+
     current_app.logger.info('create_records: {} updated, {} new'
                             .format(n_updated, n_created))
+    return n_created, n_updated

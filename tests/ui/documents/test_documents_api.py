@@ -21,10 +21,10 @@ from __future__ import absolute_import, print_function
 
 import mock
 import pytest
-from utils import get_mapping, mock_response
+from utils import mock_response
 
-from rero_ils.modules.documents.api import Document, \
-    document_id_fetcher
+from rero_ils.modules.documents.api import Document, document_id_fetcher
+from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.mef_persons.api import MefPersonsSearch
 
 
@@ -54,6 +54,18 @@ def test_document_can_delete(app, document_data_tmp):
     document = Document.create(document_data_tmp, delete_pid=True)
     assert document.get_links_to_me() == {}
     assert document.can_delete
+
+
+def test_document_create_records(app, ebook_1_data, ebook_2_data):
+    """Test can create harvested records."""
+    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
+    assert n_created == 2
+    assert n_updated == 0
+
+    # TODO: find a way to execute celery worker tasks in travis tests
+    # n_created, n_updated = create_records([ebook_1_data])
+    # assert n_created == 0
+    # assert n_updated == 1
 
 
 def test_document_can_delete_harvested(app, ebook_1_data):
