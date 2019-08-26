@@ -20,23 +20,21 @@
 from datetime import datetime, timedelta
 
 import ciso8601
-from dateutil.parser import parse
-from flask import current_app
 
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
 from ..locations.api import Location
-from ..patrons.api import Patron, current_patron
+from ..patrons.api import Patron
 
 
 def get_circ_policy(loan):
     """Return a circ policy for loan."""
     item = Item.get_record_by_pid(loan.get('item_pid'))
-    item_type_pid = item.item_type_pid
+    holding_circulation_category = item.holding_circulation_category_pid
     transaction_location_pid = loan.get('transaction_location_pid')
     if not transaction_location_pid:
-        library_pid = item.library_pid
+        library_pid = item.holding_library_pid
     else:
         library_pid = \
             Location.get_record_by_pid(transaction_location_pid).library_pid
@@ -46,7 +44,7 @@ def get_circ_policy(loan):
     return CircPolicy.provide_circ_policy(
         library_pid,
         patron_type_pid,
-        item_type_pid
+        holding_circulation_category
     )
 
 
@@ -59,7 +57,7 @@ def get_default_loan_duration(loan):
         timedelta(hours=start_date.hour, minutes=start_date.minute)
     transaction_location_pid = loan.get('transaction_location_pid')
     if not transaction_location_pid:
-        library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+        library_pid = Item.get_record_by_pid(loan.item_pid).holding_library_pid
     else:
         library_pid = \
             Location.get_record_by_pid(transaction_location_pid).library_pid
@@ -89,7 +87,7 @@ def get_extension_params(loan=None, parameter_name=None):
 
     transaction_location_pid = loan.get('transaction_location_pid')
     if not transaction_location_pid:
-        library_pid = Item.get_record_by_pid(loan.item_pid).library_pid
+        library_pid = Item.get_record_by_pid(loan.item_pid).holding_library_pid
     else:
         library_pid = \
             Location.get_record_by_pid(transaction_location_pid).library_pid
