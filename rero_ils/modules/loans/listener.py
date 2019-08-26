@@ -21,7 +21,6 @@ from invenio_circulation.proxies import current_circulation
 
 from ..items.api import Item
 from ..loans.api import Loan
-from ..locations.api import Location
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
@@ -36,9 +35,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     loan_index_name = current_circulation.loan_search.Meta.index
     if index.startswith(loan_index_name):
         item = Item.get_record_by_pid(record.get('item_pid'))
-        location_pid = item.replace_refs()['location']['pid']
-        location = Location.get_record_by_pid(location_pid).replace_refs()
-        json['library_pid'] = location['library']['pid']
+        json['library_pid'] = item.holding_library_pid
 
 
 def listener_loan_state_changed(_, prev_loan, loan, trigger):

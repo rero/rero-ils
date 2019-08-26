@@ -41,6 +41,8 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     item = Item.create(item, dbcommit=True, reindex=True)
     flush_index(HoldingsSearch.Meta.index)
     assert item.holding_pid == holding_lib_martigny.pid
+    assert item.holding_circulation_category_pid == \
+        item_type_standard_martigny.pid
 
     item2 = deepcopy(item_lib_saxon_data)
     del item2['pid']

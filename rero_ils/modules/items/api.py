@@ -30,7 +30,6 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_i18n.ext import current_i18n
 from invenio_search import current_search
-from vine.five import items
 
 from .models import ItemIdentifier, ItemStatus
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer, IlsRecordsSearch
@@ -484,6 +483,17 @@ class Item(IlsRecord):
         return item_type_pid
 
     @property
+    def holding_circulation_category_pid(self):
+        """Shortcut for holding circulation category pid of an item."""
+        from ..holdings.api import Holding
+        circulation_category_pid = None
+        if self.holding_pid:
+            circulation_category_pid = \
+                Holding.get_record_by_pid(
+                    self.holding_pid).circulation_category_pid
+        return circulation_category_pid
+
+    @property
     def location_pid(self):
         """Shortcut for item location pid."""
         location_pid = None
@@ -493,10 +503,30 @@ class Item(IlsRecord):
         return location_pid
 
     @property
+    def holding_location_pid(self):
+        """Shortcut for holding location pid of an item."""
+        from ..holdings.api import Holding
+        location_pid = None
+        if self.holding_pid:
+            location_pid = Holding.get_record_by_pid(
+                self.holding_pid).location_pid
+        return location_pid
+
+    @property
     def library_pid(self):
         """Shortcut for item library pid."""
         location = Location.get_record_by_pid(self.location_pid).replace_refs()
         return location.get('library').get('pid')
+
+    @property
+    def holding_library_pid(self):
+        """Shortcut for holding library pid of an item."""
+        library_pid = None
+        if self.holding_location_pid:
+            location = Location.get_record_by_pid(
+                self.holding_location_pid).replace_refs()
+            library_pid = location.get('library').get('pid')
+        return library_pid
 
     @property
     def last_location_pid(self):

@@ -28,7 +28,6 @@ from flask.cli import with_appcontext
 from invenio_circulation.api import get_loan_for_item
 
 from ..circ_policies.api import CircPolicy
-from ..item_types.api import ItemType
 from ..items.api import Item, ItemsSearch, ItemStatus
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -140,10 +139,10 @@ def create_loan(barcode, transaction_type, loanable_items):
         user_pid, user_location = \
             get_random_librarian_and_transaction_location(patron)
         circ_policy = CircPolicy.provide_circ_policy(
-                item.library_pid,
-                requested_patron.patron_type_pid,
-                item.item_type_pid
-            )
+            item.library_pid,
+            requested_patron.patron_type_pid,
+            item.item_type_pid
+        )
         if circ_policy.get('allow_requests'):
             item.request(
                 patron_pid=requested_patron.pid,
@@ -169,10 +168,10 @@ def create_request(barcode, transaction_type, loanable_items):
             get_random_librarian_and_transaction_location(patron)
 
         circ_policy = CircPolicy.provide_circ_policy(
-                item.library_pid,
-                rank_1_patron.patron_type_pid,
-                item.item_type_pid
-            )
+            item.holding_library_pid,
+            rank_1_patron.patron_type_pid,
+            item.holding_circulation_category_pid
+        )
         if circ_policy.get('allow_requests'):
             item.request(
                 patron_pid=rank_1_patron.pid,
@@ -207,13 +206,13 @@ def get_loanable_items(patron_type_pid):
     for loanable_item in loanable_items:
         item = Item.get_record_by_pid(loanable_item.pid)
         circ_policy = CircPolicy.provide_circ_policy(
-                item.library_pid,
-                patron_type_pid,
-                item.item_type_pid
-            )
+            item.holding_library_pid,
+            patron_type_pid,
+            item.holding_circulation_category_pid
+        )
         if (
-            circ_policy.get('allow_checkout') and
-            circ_policy.get('allow_requests')
+                circ_policy.get('allow_checkout') and
+                circ_policy.get('allow_requests')
         ):
             if not item.number_of_requests():
                 yield item
@@ -228,9 +227,9 @@ def get_random_pickup_location(patron_pid):
 def get_loan_dates(transaction_type, item, patron):
     """Get loan dates."""
     duration = CircPolicy.provide_circ_policy(
-        item.library_pid,
+        item.holding_library_pid,
         patron.patron_type_pid,
-        item.item_type_pid
+        item.holding_circulation_category_pid
     ).get('checkout_duration')
 
     today = datetime.today()

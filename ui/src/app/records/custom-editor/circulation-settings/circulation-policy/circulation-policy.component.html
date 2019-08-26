@@ -236,7 +236,7 @@
             (click)="patronTypeClickEvent($event.target.checked, patronType.id)"
           > <span [ngClass]="isPatronTypeDisabled(patronType.id) ? 'text-muted' : ''">{{ patronType.name }}</span>
           <div *ngIf="isPatronTypeChecked(patronType.id)" class="ml-3">
-          <span translate>Item types</span>:
+          <span translate>Circulation categories</span>:
           <ul class="d-inline list-inline mb-0">
             <li class="list-inline-item" *ngFor="let itemType of itemTypes()">
               <input
