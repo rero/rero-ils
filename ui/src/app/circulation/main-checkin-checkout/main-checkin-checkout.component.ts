@@ -111,10 +111,13 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
   automaticCheckinCheckout(item_barcode) {
     this.itemsService.automaticCheckin(item_barcode).subscribe(item => {
       // TODO: remove this when policy will be in place
-      if (item === null) {
+      if (
+        item === null ||
+        item.location.organisation.pid !== this.loggedUser.library.organisation.pid
+      ) {
         this.toastService.warning(_('item not found!'), _('checkin'));
         return;
-        }
+      }
       if (item.loan) {
         this.getPatronInfo(item.loan.patron_pid);
       }
@@ -191,6 +194,10 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
     if (barcode) {
       this.userService.getPatron(barcode).subscribe(
         (patron) => {
+          if (patron !== null && patron.organisation.pid !== this.loggedUser.library.organisation.pid) {
+            this.toastService.warning(_('patron not found!'), _('checkin'));
+            return;
+          }
           if (patron === null) {
             this.placeholder = _('Please enter a patron card number.');
             const newItem = this.items.find(item => item.barcode === barcode);

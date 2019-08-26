@@ -284,6 +284,11 @@ class Item(IlsRecord):
         location = Location.get_record_by_pid(item['location']['pid'])
         loc_data = location.dumps()
         data['location']['name'] = loc_data['name']
+        organisation = self.get_organisation()
+        data['location']['organisation'] = {
+            'pid': organisation.get('pid'),
+            'name': organisation.get('name')
+        }
         data['actions'] = list(self.actions)
         data['available'] = self.available
         # data['number_of_requests'] = self.number_of_requests()
