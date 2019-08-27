@@ -144,10 +144,12 @@ export class DocumentsBriefViewComponent implements BriefView {
 
   groupItems() {
     const items = [];
-    for (const holding of this.record.metadata.holdings) {
-      if ('items' in holding) {
-        for (const item of holding.items) {
-          items.push(item);
+    if ('holdings' in this.record.metadata) {
+      for (const holding of this.record.metadata.holdings) {
+        if ('items' in holding) {
+          for (const item of holding.items) {
+            items.push(item);
+          }
         }
       }
     }
