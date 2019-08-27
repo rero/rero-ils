@@ -192,6 +192,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
       this.userService.getPatron(barcode).subscribe(
         (patron) => {
           if (patron === null) {
+            this.placeholder = _('Please enter a patron card number.');
             const newItem = this.items.find(item => item.barcode === barcode);
             if (newItem) {
               this.toastService.warning(_('The item is already in the list.'), _('checkin'));
@@ -199,6 +200,7 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
               this.automaticCheckinCheckout(barcode);
             }
           } else {
+            this.placeholder = _('Please enter an item barcode.');
             let loanableItems = [];
             if (this._items.length) {
               loanableItems = this._items.filter(item => item.canLoan(patron));
