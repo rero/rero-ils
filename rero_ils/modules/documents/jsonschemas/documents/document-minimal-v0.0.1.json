@@ -171,6 +171,17 @@
         }
       }
     },
+    "copyrightDate": {
+      "title": "Copyright Date",
+      "description": "Copyright Date of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
+        "minLength": 4
+      }
+    },
     "publishers": {
       "title": "Publishers",
       "description": "Publisher(s) of the resource.",

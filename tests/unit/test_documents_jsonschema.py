@@ -149,6 +149,17 @@ def test_authors(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
+def test_copyrightDate(document_schema, document_data_tmp):
+    """Test copyright date for jsonschemas."""
+    document_data_tmp['copyrightDate'] = ['© 1971']
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['copyrightDate'] = 1971
+        validate(document_data_tmp, document_schema)
+
+
 def test_publishers(document_schema, document_data_tmp):
     """Test publishers for jsonschemas."""
     document_data_tmp['publishers'] = [

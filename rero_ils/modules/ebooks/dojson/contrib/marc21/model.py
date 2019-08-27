@@ -192,6 +192,13 @@ def marc21_to_title(self, key, value):
     return main_title
 
 
+@marc21.over('copyrightDate', '^264.4')
+@utils.ignore_value
+def marc21_to_copyright_date(self, key, value):
+    """Get Copyright Date."""
+    return value.get('c')
+
+
 @marc21.over('publishers', '^(260..|264.1)')
 @utils.ignore_value
 def marc21_to_publishers_publicationDate(self, key, value):
