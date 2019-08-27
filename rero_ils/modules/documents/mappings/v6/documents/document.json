@@ -186,6 +186,9 @@
         "facet_authors_it": {
           "type": "keyword"
         },
+        "copyrightDate": {
+          "type": "text"
+        },
         "publishers": {
           "type": "object",
           "properties": {

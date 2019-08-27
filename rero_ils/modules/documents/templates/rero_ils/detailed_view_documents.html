@@ -62,6 +62,11 @@
                  else record.publicationYear) }}
             {% endif %}
 
+              <!-- COPYRIGHT DATE -->
+            {% if record.copyrightDate %}
+              {{ dl(_('Copyright date'), record.copyrightDate) }}
+            {% endif %}
+
             <!-- ABSTRACT -->
             {% if record.abstracts|length > 0 %}
               {{ dl(_('Abstract'), record.abstracts|abstracts_format|nl2br) }}

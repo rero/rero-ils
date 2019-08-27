@@ -251,7 +251,26 @@ def marc21_to_author(self, key, value):
         return None
 
 
-@marc21tojson.over('publishers', '^264..')
+@marc21tojson.over('copyrightDate', '^264.4')
+@utils.ignore_value
+def marc21_to_copyright_date(self, key, value):
+    """Get Copyright Date."""
+    copyright_dates = self.get('copyrightDate', [])
+    copyright_date = value.get('c')
+    if copyright_date:
+        match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
+        if match:
+            copyright_date = ' '.join((
+                match.group(1),
+                match.group(2)
+            ))
+        else:
+            raise ValueError('Bad format of copyright date')
+    copyright_dates.append(copyright_date)
+    return copyright_dates or None
+
+
+@marc21tojson.over('publishers', '^264.[^4]')
 @utils.ignore_value
 def marc21_to_publishers_publicationDate(self, key, value):
     """Get publisher.
