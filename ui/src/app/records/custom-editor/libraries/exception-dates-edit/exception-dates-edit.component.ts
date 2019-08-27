@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { LibraryExceptionFormService } from '../library-exception-form.service';
@@ -84,8 +84,14 @@ export class ExceptionDatesEditComponent implements OnInit {
   onRepeatChange(repeat) {
     if (repeat) {
       this.form.interval.setValue(1);
+      this.form.interval.setValidators([
+        Validators.required,
+        Validators.min(1),
+        Validators.pattern('^[0-9]*$')
+      ]);
       this.form.period.setValue('yearly');
     } else {
+      this.form.interval.clearValidators();
       this.form.interval.setValue(null);
       this.form.period.setValue(null);
     }
