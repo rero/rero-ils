@@ -393,6 +393,22 @@ def test_marc21_to_authors():
     ]
 
 
+# Copyright Date: [264 _4 $c non repetitive]
+def test_marc21copyrightdate():
+    """Test dojson Copyright Date."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2="4">
+        <subfield code="c">© 1971</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('copyrightDate') == '© 1971'
+
+
 # publishers.name: 264 [$b repetitive] (without the , but keep the ;)
 # publishers.place: 264 [$a repetitive] (without the : but keep the ;)
 # publicationDate: 264 [$c repetitive] (but take only the first one)

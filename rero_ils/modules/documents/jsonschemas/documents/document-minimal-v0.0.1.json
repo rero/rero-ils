@@ -168,6 +168,12 @@
         }
       }
     },
+    "copyrightDate": {
+      "title": "Copyright Date",
+      "description": "Copyright Date of the resource.",
+      "type": "string",
+      "minLength": 2
+    },
     "publishers": {
       "title": "Publishers",
       "description": "Publisher(s) of the resource.",

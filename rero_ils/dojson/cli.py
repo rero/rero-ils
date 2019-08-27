@@ -18,6 +18,8 @@
 """Click command-line utilities."""
 
 
+import json
+
 import click
 from flask import current_app
 from werkzeug.local import LocalProxy

@@ -207,7 +207,7 @@ def marc21_to_translatedFrom(self, key, value):
                     'value': lang_value.strip(),
                     'type': 'bf:Language'
                 }
-            language.append(lang)
+                language.append(lang)
     return language or None
 
 
@@ -251,7 +251,14 @@ def marc21_to_author(self, key, value):
         return None
 
 
-@marc21tojson.over('publishers', '^264..')
+@marc21tojson.over('copyrightDate', '^264.4')
+@utils.ignore_value
+def marc21_to_copyright_date(self, key, value):
+    """Get Copyright Date."""
+    return value.get('c')
+
+
+@marc21tojson.over('publishers', '^264.[^4]')
 @utils.ignore_value
 def marc21_to_publishers_publicationDate(self, key, value):
     """Get publisher.
