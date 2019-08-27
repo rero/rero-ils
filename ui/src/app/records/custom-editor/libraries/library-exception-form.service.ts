@@ -46,11 +46,7 @@ export class LibraryExceptionFormService {
       is_open: [false, [ Validators.required ]],
       times: this.fb.array([]),
       repeat: [false],
-      interval: ['1', [
-        Validators.required,
-        Validators.min(1),
-        Validators.pattern('^[0-9]*$'),
-      ]],
+      interval: [null],
       period: [null],
       data: this.fb.array([])
     }, {
