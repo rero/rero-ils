@@ -28,6 +28,7 @@ from glob import glob
 from json import loads
 
 import click
+import jsonref
 import yaml
 from flask import current_app
 from flask.cli import with_appcontext
@@ -113,7 +114,7 @@ def show(pid_value, pid_type):
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 def check_json(paths, replace, indent, sort_keys, verbose):
     """Check json files."""
-    click.secho('Testing JSON intentation.', fg='green')
+    click.secho('Testing JSON indentation.', fg='green')
     files_list = []
     for path in paths:
         if os.path.isfile(path):
@@ -461,3 +462,17 @@ def check_validate(jsonfile, type, schema, verbose, savefile):
                 'Error validate in record: {count}'.format(count=count),
                 fg='red')
             click.secho(str(excp))
+
+
+@utils.command('compile_json')
+@click.argument('src_jsonfile', type=click.File('r'))
+@click.option('-o', '--output', 'output', type=click.File('w'), default=None)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def compile_json(src_jsonfile, output, verbose):
+    """Compile source json file (resolve $ref)."""
+    click.secho('Compile json file (resolve $ref): ', fg='green', nl=False)
+    click.secho(src_jsonfile.name)
+    data = jsonref.load(src_jsonfile)
+    if not output:
+        output = sys.stdout
+    json.dump(data, fp=output, indent=2)

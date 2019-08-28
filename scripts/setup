@@ -16,11 +16,73 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+DATA_PATH=$(pipenv --where)/data
+
+# Parameters description:
+#  --create_items_holdings_small:
+#       used for create only the items and holdings files for the 'small' documents file
+#  --create_items_holdings_big:
+#       used for create only the items and holdings files for the 'big' documents file
+#  --deployment:
+#       used for deploy the 'big' files
+
 RED='\033[0;31m'
 GREEN='\033[0;0;32m'
 NC='\033[0m' # No Color
 
-DATA_PATH=$(pipenv --where)/data
+display_error_message () {
+	echo -e "${RED}$1${NC}" 1>&2
+}
+
+display_success_message () {
+    echo -e "${GREEN}$1${NC}" 1>&2
+}
+
+DEPLOYMENT=false
+CREATE_ITEMS_HOLDINGS_SMALL=false
+CREATE_ITEMS_HOLDINGS_BIG=false
+
+# options may be followed by one colon to indicate they have a required argument
+if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big -- "$@")
+then
+    # something went wrong, getopt will put out an error message for us
+    exit 1
+fi
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -d|--deployment) DEPLOYMENT=true ;;
+    -s|--create_items_holdings_small) CREATE_ITEMS_HOLDINGS_SMALL=true ;;
+    -b|--create_items_holdings_big) CREATE_ITEMS_HOLDINGS_BIG=true ;;
+    (--) shift; break;;
+    (-*) display_error_message "$0: error - unrecognized option $1"; exit 1;;
+    (*) break;;
+    esac
+    shift
+done
+
+if $CREATE_ITEMS_HOLDINGS_SMALL && $CREATE_ITEMS_HOLDINGS_BIG
+then
+    display_error_message "Error - chose option for 'small' or 'big' documents generation"
+    exit 1
+fi
+
+if $CREATE_ITEMS_HOLDINGS_SMALL || $CREATE_ITEMS_HOLDINGS_BIG
+then
+    if $DEPLOYMENT
+    then
+        display_error_message "Error - chose deployment option only"
+        exit 1
+    fi
+fi
+
+if $CREATE_ITEMS_HOLDINGS_BIG
+then
+    # set DEPLOYMENT to true in order to use big documents file
+    DEPLOYMENT=true
+fi
+
 # Purge celery
 pipenv run celery purge -A invenio_app.celery -f
 # Clean redis
@@ -68,22 +130,22 @@ pipenv run invenio access allow superuser-access role superusers
 pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
-echo -e ${GREEN}Organisations:${NC}
+display_success_message "Organisations:"
 pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json
 pipenv run invenio index reindex -t org --yes-i-know
-echo -e ${GREEN}Libraries:${NC}
+display_success_message "Libraries:"
 pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json
 pipenv run invenio index reindex -t lib --yes-i-know
-echo -e ${GREEN}Locations:${NC}
+display_success_message "Locations:"
 pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json
 pipenv run invenio index reindex -t loc --yes-i-know
-echo -e ${GREEN}Item types:${NC}
+display_success_message "Item types:"
 pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json
 pipenv run invenio index reindex -t itty --yes-i-know
-echo -e ${GREEN}Patron types:${NC}
+display_success_message "Patron types:"
 pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json
 pipenv run invenio index reindex -t ptty --yes-i-know
-echo -e ${GREEN}Circulation policies:${NC}
+display_success_message "Circulation policies:"
 pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json
 pipenv run invenio index reindex -t cipo --yes-i-know
 pipenv run invenio index run --raise-on-error
@@ -103,7 +165,7 @@ pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 # pipenv run dojson -i ${DATA_PATH}/documents_small.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/documents_small.json
 # pipenv run invenio utils validate data/documents_small.json documents document-v0.0.1.json -s documents_small_errors.json
 
-if [ "$1" = "--deployment" ]
+if $DEPLOYMENT
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
@@ -112,28 +174,39 @@ else
     DOCUMENTS=${DATA_PATH}/documents_small.json
     ITEMS=${DATA_PATH}/items_small.json
     HOLDINGS=${DATA_PATH}/holdings_small.json
-
 fi
 
-echo -e ${GREEN}Documents:${NC} ${DOCUMENTS}
+display_success_message "Documents:"
+echo -e ${DOCUMENTS}
 pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS}
 
-# create items
-# NEEDS item type !!!
-# to generate big items file 1k documents must exist in DB
-# pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
-# pipenv run flask utils check_json -r data/holdings_big.json
-# to generate small items file 300 documents must exist in DB
-# pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
-# pipenv run flask utils check_json -r data/holdings_small.json
+if $CREATE_ITEMS_HOLDINGS_SMALL
+then
+    # to generate small items file small documents must exist in DB
+    pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
+    display_success_message "Creation of items and holdings done for 'small' documents done."
+    exit 0
+fi
 
-echo -e ${GREEN}Holdings:${NC} ${HOLDINGS}
+if $CREATE_ITEMS_HOLDINGS_BIG
+then
+    # to generate big items file big documents must exist in DB
+    pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
+    display_success_message "Creation of items and holdings done for 'big' documents done."
+    exit 0
+fi
+
+display_success_message "Holdings:"
+echo -e ${HOLDINGS}
+
 pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append
 
 pipenv run invenio index reindex -t hold --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
-echo -e ${GREEN}Items:${NC} ${ITEMS}
+display_success_message "Items:"
+echo -e ${ITEMS}
+
 pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}  --append
 
 # index items
@@ -145,15 +218,16 @@ pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
 # # create circulation transactions
-echo -e ${GREEN}Circulation transactions:${NC}
+display_success_message "Circulation transactions:"
 pipenv run invenio fixtures create_loans ${DATA_PATH}/loans.json
 
 # # OAI configuration
 pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
-if [ "$1" = "--deployment" ]
+if $DEPLOYMENT
 then
     # start oai harvesting asynchrone: beats must be running
     pipenv run invenio oaiharvester harvest -n ebooks -q -k
 else
-    echo -e ${GREEN}For ebooks harvesting run:${NC} pipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q
+    display_success_message "For ebooks harvesting run:"
+    echo "pipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
