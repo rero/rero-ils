@@ -37,13 +37,29 @@ from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search
+from sqlalchemy import MetaData, create_engine
 from werkzeug.local import LocalProxy
 
+from .holdings.api import Holding
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+
+
+def append_pid_to_table(table, pids):
+    """Insert pids into an indentifier table."""
+    # TODO: avoid the connection to the database, recreate code
+    with current_app.app_context():
+        URI = current_app.config.get('SQLALCHEMY_DATABASE_URI')
+        engine = create_engine(URI)
+        metadata = MetaData(engine, reflect=True)
+        table_object = metadata.tables[table]
+        for pid in pids:
+            statement = "insert into {0} values('{1}')".format(
+                table_object, pid)
+            engine.execute(statement)
 
 
 @click.group()
@@ -192,10 +208,11 @@ def init(force):
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=True)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-s', '--schema', 'schema', default=None)
+@click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, pid_type, schema, verbose, dbcommit, reindex):
+def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
     """Load REROILS record.
 
     infile: Json file
@@ -230,6 +247,10 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex):
                     id=rec.id
                 )
             )
+    if append:
+        pids = record_class.get_all_pids()
+        table = record_class.provider.identifier.__tablename__
+        append_pid_to_table(table, pids)
 
 
 fixtures.add_command(create)

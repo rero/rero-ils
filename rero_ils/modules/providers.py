@@ -48,9 +48,12 @@ class Provider(BaseProvider):
 
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
-        """Create a new CircPolicy identifier."""
-        if not kwargs.get('pid_value'):
+        """Create a new identifier."""
+        pid_value = kwargs.get('pid_value')
+        if not pid_value:
             kwargs['pid_value'] = str(cls.identifier.next())
+        # TODO: to insert pid to the identifer table, enable if needed
+
         try:
             return cls.get(kwargs['pid_value'], cls.pid_type)
         except PIDDoesNotExistError:

@@ -91,7 +91,8 @@ pipenv run invenio index run --raise-on-error
 pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 
 # # to generate data file
-# pipenv run invenio fixtures create_items -c 10000 -i 5 ${DATA_PATH}/items.json
+# pipenv run invenio fixtures create_items -c 10000 -i 5 -t ${DATA_PATH}/items.json -h ${DATA_PATH}/holdings.json
+# pipenv run flask utils check_json -r data/holdings.json
 # # Marc to xml transformation
 # yaz-marcdump -o marcxml data/10k.mrc > data/10k.xml
 # # xml to json transformation for rero marcxml records
@@ -101,9 +102,11 @@ if [ "$1" = "--deployment" ]
 then
     DOCUMENTS=${DATA_PATH}/10k.json
     ITEMS=${DATA_PATH}/items10k.json
+    HOLDINGS=${DATA_PATH}/holdings10k.json
 else
     DOCUMENTS=${DATA_PATH}/300.json
     ITEMS=${DATA_PATH}/items300.json
+    HOLDINGS=${DATA_PATH}/holdings300.json
 
 fi
 
@@ -113,15 +116,26 @@ pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/s
 # create items
 # NEEDS item type !!!
 # to generate 10k items file 10k documents must exist in DB
-# pipenv run invenio fixtures create_items -i 5 ${DATA_PATH}/items10k.json
+# pipenv run invenio fixtures create_items -i 5 -t ${DATA_PATH}/items10k.json -h ${DATA_PATH}/holdings10k.json
+# pipenv run flask utils check_json -r data/holdings10k.json
 # to generate 300 items file 300 documents must exist in DB
-# pipenv run invenio fixtures create_items -i 5 ${DATA_PATH}/items300.json
+# pipenv run invenio fixtures create_items -i 5 -t ${DATA_PATH}/items300.json -h ${DATA_PATH}/holdings300.json
+# pipenv run flask utils check_json -r data/holdings300.json
+
+echo -e ${GREEN}Holdings:${NC} ${HOLDINGS}
+pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append
+
+pipenv run invenio index reindex -t hold --yes-i-know
+pipenv run invenio index run -c 4 --raise-on-error
+
 echo -e ${GREEN}Items:${NC} ${ITEMS}
-pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}
+pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}  --append
 
-
+# index items
 pipenv run invenio index reindex -t item --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
+
+# index documents
 pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
