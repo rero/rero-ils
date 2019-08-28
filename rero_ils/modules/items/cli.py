@@ -28,6 +28,7 @@ from flask.cli import with_appcontext
 
 from .models import ItemIdentifier, ItemStatus
 from ..documents.api import Document
+from ..holdings.models import HoldingIdentifier
 from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
@@ -77,11 +78,22 @@ def reindex_items():
 @click.option(
     '-m', '--missing', 'missing', type=click.INT, default=5, help='default=5'
 )
-@click.argument('output', type=click.File('w'))
+# @click.argument('output', type=click.File('w'))
+@click.option(
+    '-t',
+    '--items_f',
+    'items_f',
+    help='Items output file.')
+@click.option(
+    '-h',
+    '--holdings_f',
+    'holdings_f',
+    help='Holdings output file.')
 @with_appcontext
-def create_items(output, count, itemscount, missing):
+def create_items(
+        count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
-    def generate(count, itemscount, missing):
+    def generate(count, itemscount, missing, holdings_file):
 
         documents_pids = Document.get_all_pids()
 
@@ -99,26 +111,83 @@ def create_items(output, count, itemscount, missing):
         patrons_barcodes = get_patrons_barcodes()
         missing *= len(patrons_barcodes)
         item_pid = ItemIdentifier.max() + 1
+        holding_pid = HoldingIdentifier.max()
+
         with click.progressbar(
                 reversed(documents_pids[:count]), length=count) as bar:
             for document_pid in bar:
+                holdings = [{}]
                 if Document.get_record_by_pid(
                         document_pid).get('type') == 'ebook':
                     continue
                 for i in range(0, randint(1, itemscount)):
+                    org = random.choice(list(locations_pids.keys()))
+                    location_pid = random.choice(locations_pids[org])
+                    item_type_pid = random.choice(item_types_pids[org])
+                    holding_found = False
+                    for hold in holdings:
+                        if hold.get('location_pid') == location_pid and \
+                                hold.get('item_type_pid') == item_type_pid:
+                            item_holding_pid = hold.get('pid')
+                            holding_found = True
+                    if not holding_found:
+                        holding_pid += 1
+                        item_holding_pid = holding_pid
+                        holdings.append(
+                            {'pid': item_holding_pid,
+                             'location_pid': location_pid,
+                             'item_type_pid': item_type_pid})
+                        new_holding = create_holding_record(
+                            item_holding_pid, location_pid,
+                            item_type_pid, document_pid)
+                        holdings_file.write(json.dumps(new_holding, indent=2))
+                        holdings_file.write(',')
+                        # holding_pid += 1
+
                     missing, item = create_random_item(
                         item_pid=item_pid,
-                        locations_pids=locations_pids,
-                        patrons_barcodes=patrons_barcodes,
+                        location_pid=location_pid,
                         missing=missing,
-                        item_types_pids=item_types_pids,
-                        document_pid=document_pid
+                        item_type_pid=item_type_pid,
+                        document_pid=document_pid,
+                        holding_pid=item_holding_pid
                     )
                     item_pid += 1
                     yield item
-    for chunk in json.JSONEncoder(indent=2)\
-            .iterencode(StreamArray(generate(count, itemscount, missing))):
-        output.write(chunk)
+
+    with open(holdings_f, 'w', encoding='utf-8') as holdings_file:
+        holdings_file.write('[')
+        with open(items_f, 'w', encoding='utf-8') as items_file:
+            for item in json.JSONEncoder(indent=2)\
+                            .iterencode(StreamArray(generate(
+                                    count, itemscount, missing, holdings_file))
+                                        ):
+                items_file.write(item)
+        import os
+        holdings_file.seek(holdings_file.tell() - 1, os.SEEK_SET)
+        holdings_file.write(']')
+
+
+def create_holding_record(
+        holding_pid, location_pid, item_type_pid, document_pid):
+    """Create items with randomised values."""
+    url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
+    holding = {
+        'pid': str(holding_pid),
+        'location': {
+            '$ref': url_api.format(
+                doc_type='locations', pid=location_pid)
+        },
+        'circulation_category': {
+            '$ref': url_api.format(
+                doc_type='item_types', pid=item_type_pid)
+        },
+        'document': {
+            '$ref': url_api.format(
+                doc_type='documents', pid=document_pid)
+        }
+    }
+    return holding
 
 
 def get_locations():
@@ -147,37 +216,35 @@ def get_item_types():
     return to_return
 
 
-def create_random_item(
-    item_pid,
-    locations_pids,
-    patrons_barcodes,
-    missing,
-    item_types_pids,
-    document_pid
-):
+def create_random_item(item_pid, location_pid, missing, item_type_pid,
+                       document_pid, holding_pid):
     """Create items with randomised values."""
     status = ItemStatus.ON_SHELF
     if randint(0, 5) == 0 and missing > 0:
         status = ItemStatus.MISSING
         missing -= 1
     url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
-    org = random.choice(list(locations_pids.keys()))
     item = {
         # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
+        'pid': str(item_pid),
         'barcode': str(10000000000 + item_pid),
         'call_number': str(item_pid).zfill(5),
         'status': status,
         'location': {
             '$ref': url_api.format(
-                doc_type='locations', pid=random.choice(locations_pids[org]))
+                doc_type='locations', pid=location_pid)
         },
         'item_type': {
             '$ref': url_api.format(
-                doc_type='item_types', pid=random.choice(item_types_pids[org]))
+                doc_type='item_types', pid=item_type_pid)
         },
         'document': {
             '$ref': url_api.format(
                 doc_type='documents', pid=document_pid)
+        },
+        'holding': {
+            '$ref': url_api.format(
+                doc_type='holdings', pid=holding_pid)
         }
     }
     return missing, item

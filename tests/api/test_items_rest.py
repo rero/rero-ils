@@ -121,6 +121,7 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
 
     res = client.get(item_url)
     assert res.status_code == 200
+
     data = get_json(res)
     del data['metadata']['holding']
     assert item_lib_martigny_data == data['metadata']

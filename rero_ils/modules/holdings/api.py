@@ -26,7 +26,7 @@ from flask import current_app
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 
-from .models import HoldingIdentifier, HoldingMetadata
+from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer
 from ..documents.api import Document, DocumentsSearch
 from ..fetchers import id_fetcher
@@ -59,7 +59,6 @@ class HoldingsSearch(RecordsSearch):
     @classmethod
     def flush(cls):
         """Flush indexes."""
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
         current_search.flush_and_refresh(cls.Meta.index)
 
 
@@ -69,10 +68,7 @@ class HoldingsIndexer(IlsRecordIndexer):
     def index(self, record):
         """Indexing a holding record."""
         return_value = super(HoldingsIndexer, self).index(record)
-        document_pid = record.replace_refs()['document']['pid']
-        document = Document.get_record_by_pid(document_pid)
-        document.reindex()
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        # current_search.flush_and_refresh(HoldingsSearch.Meta.index)
         return return_value
 
 
@@ -82,7 +78,7 @@ class Holding(IlsRecord):
     minter = holding_id_minter
     fetcher = holding_id_fetcher
     provider = HoldingProvider
-    model_cls = HoldingMetadata
+    # model_cls = HoldingMetadata
     indexer = HoldingsIndexer
 
     def delete_from_index(self):
