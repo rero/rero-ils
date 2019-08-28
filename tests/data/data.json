@@ -911,14 +911,30 @@
     "copyrightDate": [
       "\u00a9 1971"
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "H. Mignot"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "Lausanne"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "H. Mignot"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "Lausanne"
-        ]
+        "startDate": "1971",
+        "date": "1971"
       }
     ],
     "identifiedBy": [
@@ -987,14 +1003,30 @@
     ],
     "title": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b",
     "publicationYear": 2011,
-    "publishers": [
+    "provisionActivity": [
       {
-        "place": [
-          "al-Riy\u0101\u1e0d"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "al-Riy\u0101\u1e0d"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "name": [
-          "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
-        ]
+        "startDate": "2011",
+        "date": "2011"
       }
     ],
     "extent": "560 p."
@@ -1030,14 +1062,30 @@
         "value": "fre"
       }
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "H. Mignot"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "Lausanne"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "H. Mignot"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "Lausanne"
-        ]
+        "startDate": "1971",
+        "date": "1971"
       }
     ],
     "identifiedBy": [
@@ -1081,14 +1129,30 @@
         "type": "person"
       }
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "12-21"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "Lausanne"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "H. Mignot"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "Paris"
-        ]
+        "startDate": "1971",
+        "date": "1971"
       }
     ],
     "publicationYear": 2019,
@@ -1137,14 +1201,30 @@
         "type": "person"
       }
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "Amazon Media EU S.\u00e0 r.l."
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Amazon Media EU S.\u00e0 r.l."
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "Paris"
-        ]
+        "startDate": "2011",
+        "date": "2011"
       }
     ],
     "publicationYear": 2010,
@@ -1178,14 +1258,30 @@
         "type": "person"
       }
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "Pottermore Publishing"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "us",
+            "label": [
+              {
+                "value": "USA"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Pottermore Publishing"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "USA"
-        ]
+        "startDate": "2015",
+        "date": "2015"
       }
     ],
     "publicationYear": 2015,
@@ -1219,14 +1315,30 @@
         "type": "person"
       }
     ],
-    "publishers": [
+    "provisionActivity": [
       {
-        "name": [
-          "12-21"
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "fr",
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "12-21"
+              }
+            ],
+            "type": "bf:Agent"
+          }
         ],
-        "place": [
-          "Paris"
-        ]
+        "startDate": "2019",
+        "date": "2019"
       }
     ],
     "publicationYear": 2019,

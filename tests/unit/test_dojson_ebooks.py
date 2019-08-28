@@ -100,7 +100,6 @@ def test_marc21_to_identifier_reroID():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     identifiers = data.get('identifiedBy', [])
-    print(identifiers)
     assert identifiers[0] == {
         'type': 'bf:Local',
         'value': 'cantook-EDEN496624'

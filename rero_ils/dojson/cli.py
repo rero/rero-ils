@@ -61,4 +61,4 @@ def head(max):
 
 def pretty_json_dump(iterator):
     """Dump JSON from iteraror."""
-    return json.dumps(list(iterator), indent=4)
+    return json.dumps(list(iterator), indent=2)
