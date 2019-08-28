@@ -59,7 +59,6 @@ class HoldingsSearch(RecordsSearch):
     @classmethod
     def flush(cls):
         """Flush indexes."""
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
         current_search.flush_and_refresh(cls.Meta.index)
 
 
@@ -69,10 +68,7 @@ class HoldingsIndexer(IlsRecordIndexer):
     def index(self, record):
         """Indexing a holding record."""
         return_value = super(HoldingsIndexer, self).index(record)
-        document_pid = record.replace_refs()['document']['pid']
-        document = Document.get_record_by_pid(document_pid)
-        document.reindex()
-        current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        current_search.flush_and_refresh(HoldingsSearch.Meta.index)
         return return_value
 
 
