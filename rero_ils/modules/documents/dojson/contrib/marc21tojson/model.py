@@ -21,9 +21,11 @@ import re
 import sys
 
 import requests
-from dojson import Overdo, utils
+from dojson import utils
 
-marc21tojson = Overdo()
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo
+
+marc21tojson = ReroIlsMarc21Overdo()
 
 
 def list_of_langs(data):
@@ -34,22 +36,24 @@ def list_of_langs(data):
     return lang_codes
 
 
-def remove_punctuation(data):
-    """Remove punctuation from data."""
-    try:
-        if data[-1:] == ',':
-            data = data[:-1]
-        if data[-2:] == ' :':
-            data = data[:-2]
-        if data[-2:] == ' ;':
-            data = data[:-2]
-        if data[-2:] == ' /':
-            data = data[:-2]
-        if data[-2:] == ' -':
-            data = data[:-2]
-    except Exception:
-        pass
-    return data
+def remove_trailing_punctuation(
+        data,
+        punctuation=',',
+        spaced_punctuation=':;/-'):
+    """Remove trailing punctuation from data.
+
+    The punctuation parameter list the
+    punctuation characters to be removed
+    (preceded by a space or not).
+
+    The spaced_punctuation parameter list the
+    punctuation characters needing one or more preceding space(s)
+    in order to be removed.
+    """
+    return re.sub(
+        r'([{0}]|\s+[{1}])$'.format(punctuation, spaced_punctuation),
+        '',
+        data.rstrip()).rstrip()
 
 
 def get_mef_person_link(id, key, value):
@@ -90,20 +94,6 @@ def get_mef_person_link(id, key, value):
     return mef_url
 
 
-# @marc21tojson.over('__order__', '__order__')
-# def order(self, key, value):
-#     """Preserve order of datafields."""
-#     order = []
-#     for field in value:
-#         name = marc21tojson.index.query(field)
-#         if name:
-#             name = name[0]
-#         else:
-#             name = field
-#         order.append(name)
-#
-#     return order
-
 @marc21tojson.over('type', 'leader')
 def marc21_to_type(self, key, value):
     """
@@ -137,6 +127,31 @@ def marc21_to_type(self, key, value):
     return type
 
 
+@marc21tojson.over('language', '^008')
+@utils.ignore_value
+def marc21_to_language(self, key, value):
+    """Get languages.
+
+    languages: 008 and 041 [$a, repetitive]
+    """
+    lang_codes = []
+    language = self.get('language', [])
+    if marc21tojson.lang_from_008:
+        language.append({
+            'value': marc21tojson.lang_from_008,
+            'type': 'bf:Language'
+        })
+        lang_codes.append(marc21tojson.lang_from_008)
+    for lang_value in marc21tojson.langs_from_041_a:
+        if lang_value not in lang_codes:
+            language.append({
+                'value': lang_value.strip(),
+                'type': 'bf:Language'
+            })
+            lang_codes.append(lang_value)
+    return language or None
+
+
 @marc21tojson.over('title', '^245..')
 @utils.ignore_value
 def marc21_to_title(self, key, value):
@@ -145,12 +160,12 @@ def marc21_to_title(self, key, value):
     title: 245$a
     without the punctuaction. If there's a $b, then 245$a : $b without the " /"
     """
-    main_title = remove_punctuation(value.get('a'))
+    main_title = remove_trailing_punctuation(value.get('a'))
     sub_title = value.get('b')
     # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
-            utils.force_list(remove_punctuation(sub_title))
+            utils.force_list(remove_trailing_punctuation(sub_title))
         )
     return main_title
 
@@ -164,51 +179,6 @@ def marc21_to_titlesProper(self, key, value):
     titleProper: 730$a
     """
     return value.get('a')
-
-
-@marc21tojson.over('language', '^008')
-@utils.ignore_value
-def marc21_to_language(self, key, value):
-    """Get languages.
-
-    languages: 008 and 041 [$a, repetitive]
-    """
-    language = self.get('language', [])
-    lang_codes = list_of_langs(language)
-    # check len(value) to avoid getting char[35:38] if data is invalid
-    if len(value) > 38:
-        lang_value = value.strip()[35:38]
-        if re.search(r'^[a-z]{3}$', lang_value):
-            if lang_value not in lang_codes:
-                lang = {
-                    'value': lang_value,
-                    'type': 'bf:Language'
-                }
-                language.append(lang)
-    return language or None
-
-
-@marc21tojson.over('language', '^041..')
-@utils.ignore_value
-def marc21_to_translatedFrom(self, key, value):
-    """Get translatedFrom.
-
-    languages: 041 [$a, repetitive]
-    if language properties is already set form 008
-    it will be replaced with those present in 041
-    """
-    language = self.get('language', [])
-    lang_codes = list_of_langs(language)
-    subfield_a = value.get('a')
-    if subfield_a:
-        for lang_value in utils.force_list(subfield_a):
-            if lang_value not in lang_codes:
-                lang = {
-                    'value': lang_value.strip(),
-                    'type': 'bf:Language'
-                }
-                language.append(lang)
-    return language or None
 
 
 @marc21tojson.over('authors', '[17][01]0..')
@@ -225,7 +195,7 @@ def marc21_to_author(self, key, value):
     authors.qualifier: 100 $c or 700 $c (facultatif)
     authors.type: if 100 or 700 then person, if 710 then organisation
     """
-    if not (key[4] == '2'):
+    if not key[4] == '2':
         author = {}
         author['type'] = 'person'
         if value.get('0'):
@@ -234,18 +204,21 @@ def marc21_to_author(self, key, value):
                 author['$ref'] = ref
         # we do not have a $ref
         if not author.get('$ref'):
-            author['name'] = remove_punctuation(value.get('a'))
+            author['name'] = remove_trailing_punctuation(value.get('a'))
             author_subs = utils.force_list(value.get('b'))
             if author_subs:
                 for author_sub in author_subs:
-                    author['name'] += ' ' + remove_punctuation(author_sub)
+                    author['name'] += ' ' + \
+                        remove_trailing_punctuation(author_sub)
             if key[:3] == '710':
                 author['type'] = 'organisation'
             else:
                 if value.get('c'):
-                    author['qualifier'] = remove_punctuation(value.get('c'))
+                    author['qualifier'] = \
+                        remove_trailing_punctuation(value.get('c'))
                 if value.get('d'):
-                    author['date'] = remove_punctuation(value.get('d'))
+                    author['date'] = \
+                        remove_trailing_punctuation(value.get('d'))
         return author
     else:
         return None
@@ -270,55 +243,102 @@ def marc21_to_copyright_date(self, key, value):
     return copyright_dates or None
 
 
-@marc21tojson.over('publishers', '^264.[^4]')
+@marc21tojson.over('provisionActivity', '^264.[ 0-3]')
+@utils.for_each_value
 @utils.ignore_value
-def marc21_to_publishers_publicationDate(self, key, value):
-    """Get publisher.
+def marc21_to_provisionActivity(self, key, value):
+    """Get publisher data.
 
     publisher.name: 264 [$b repetitive] (without the , but keep the ;)
     publisher.place: 264 [$a repetitive] (without the : but keep the ;)
     publicationDate: 264 [$c repetitive] (but take only the first one)
     """
-    lasttag = '?'
-    publishers = self.get('publishers', [])
+    def build_statement(field_value, ind2):
 
-    publisher = {}
-    indexes = {}
-    lasttag = '?'
-    for tag in value['__order__']:
-        index = indexes.get(tag, 0)
-        data = value[tag]
-        if type(data) == tuple:
-            data = data[index]
-        if tag == 'a' and index > 0 and lasttag != 'a':
-            publishers.append(remove_punctuation(publisher))
-            publisher = {}
-        if tag == 'a':
-            place = publisher.get('place', [])
-            place.append(remove_punctuation(data))
-            publisher['place'] = place
-        elif tag == 'b':
-            name = publisher.get('name', [])
-            name.append(remove_punctuation(data))
-            publisher['name'] = name
-        elif tag == 'c' and index == 0:
+        def build_place_or_agent_data(code, label, index, link, add_country):
+            type_per_code = {
+                'a': 'bf:Place',
+                'b': 'bf:Agent'
+            }
+            place_or_agent_data = {
+                'type': type_per_code[code],
+                'label': [{'value': remove_trailing_punctuation(label)}]
+            }
 
-            # 4 digits
-            date = re.match(r'.*?(\d{4})', data).group(1)
-            self['publicationYear'] = int(date)
+            if add_country:
+                if marc21tojson.cantons:
+                    place_or_agent_data['canton'] = marc21tojson.cantons
+                if marc21tojson.country:
+                    place_or_agent_data['country'] = marc21tojson.country
+            try:
+                alt_gr = marc21tojson.alternate_graphic['264'][link]
+                subfield = \
+                    marc21tojson.get_subfields(alt_gr['field'])[index]
+                place_or_agent_data['label'].append({
+                    'value': remove_trailing_punctuation(subfield),
+                    'language': '-'.join(
+                        (marc21tojson.lang_from_008, alt_gr['script'])
+                    )
+                })
+            except Exception:
+                pass
+            return place_or_agent_data
 
-            # create free form if different
-            if data != str(self['publicationYear']):
-                self['freeFormedPublicationDate'] = data
-        indexes[tag] = index + 1
-        lasttag = tag
+        # function build_statement start here
+        subfield_6 = field_value.get('6', '')
+        tag_link = subfield_6.split('-')
+        link = ''
+        if len(tag_link) == 2:
+            link = tag_link[1]
 
-    if publisher:
-        publishers.append(publisher)
-    if not publishers:
-        return None
-    else:
-        return publishers
+        statement = []
+        if isinstance(field_value, utils.GroupableOrderedDict):
+            items = field_value.iteritems(repeated=True)
+        else:
+            items = utils.iteritems(field_value)
+        index = 1
+        add_country = ind2 in (' ', '1')
+        for blob_key, blob_value in items:
+            if blob_key in ('a', 'b'):
+                place_or_agent_data = build_place_or_agent_data(
+                    blob_key, blob_value, index, link, add_country)
+                if blob_key == 'a':
+                    add_country = False
+                statement.append(place_or_agent_data)
+            if blob_key != '__order__':
+                index += 1
+        return statement
+
+    # the function marc21_to_provisionActivity start here
+    ind2 = key[4]
+    type_per_ind2 = {
+        ' ': 'bf:Publication',
+        '0': 'bf:Production',
+        '1': 'bf:Publication',
+        '2': 'bf:Distribution',
+        '3': 'bf:Manufacture'
+    }
+    publication = {
+        'type': type_per_ind2[ind2],
+        'statement': [],
+    }
+
+    subfields_c = utils.force_list(value.get('c'))
+    if subfields_c:
+        subfield_c = subfields_c[0]
+        publication['date'] = subfield_c
+
+    if ind2 in (' ', '1'):
+        publication['startDate'] = marc21tojson.date1_from_008
+        if (marc21tojson.date_type_from_008 != 'r' and
+                marc21tojson.date2_from_008 and
+                marc21tojson.date2_from_008 not in ('    ', '9999')):
+            publication['endDate'] = marc21tojson.date2_from_008
+        if (marc21tojson.date_type_from_008 == 'q' or
+                marc21tojson.date_type_from_008 == 'n'):
+            publication['note'] = 'Date(s) incertaine(s) ou inconnue(s)'
+    publication['statement'] = build_statement(value, ind2)
+    return publication or None
 
 
 @marc21tojson.over('formats', '^300..')
@@ -332,12 +352,12 @@ def marc21_to_description(self, key, value):
     """
     if value.get('a'):
         if not self.get('extent', None):
-            self['extent'] = remove_punctuation(
+            self['extent'] = remove_trailing_punctuation(
                 utils.force_list(value.get('a'))[0]
             )
     if value.get('b'):
         if self.get('otherMaterialCharacteristics', []) == []:
-            self['otherMaterialCharacteristics'] = remove_punctuation(
+            self['otherMaterialCharacteristics'] = remove_trailing_punctuation(
                 utils.force_list(value.get('b'))[0]
             )
     if value.get('c'):
@@ -509,13 +529,13 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
     subfield_a = value.get('a', '').strip()
     subfield_2 = value.get('2', '').strip()
     if subfield_a:
-        if re.search(r'permalink\.snl\.ch', subfield_a):
+        if re.search(r'permalink\.snl\.ch', subfield_a, re.IGNORECASE):
             identifier.update({
                 'value': subfield_a,
                 'type': 'uri',
                 'source': 'SNL'
             })
-        elif re.search(r'bnf\.fr/ark', subfield_a):
+        elif re.search(r'bnf\.fr/ark', subfield_a, re.IGNORECASE):
             identifier.update({
                 'value': subfield_a,
                 'type': 'uri',
