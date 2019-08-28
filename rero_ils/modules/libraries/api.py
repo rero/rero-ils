@@ -17,7 +17,7 @@
 
 """API for manipulating libraries."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from functools import partial
 
 from dateutil import parser
@@ -30,7 +30,7 @@ from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
 from ..providers import Provider
-from ..utils import strtotime
+from ..utils import date_string_to_utc, strtotime
 
 # provider
 LibraryProvider = type(
@@ -100,10 +100,10 @@ class Library(IlsRecord):
 
     def _is_in_period(self, datetime_to_test, exception_date, day_only):
         """Test if date is period."""
-        start_date = parser.parse(exception_date['start_date'])
+        start_date = date_string_to_utc(exception_date['start_date'])
         end_date = exception_date.get('end_date')
         if end_date:
-            end_date = parser.parse(end_date)
+            end_date = date_string_to_utc(end_date)
             is_in_period = (
                 datetime_to_test.date() - start_date.date()
             ).days >= 0
@@ -140,7 +140,7 @@ class Library(IlsRecord):
         """Test the day has an exception."""
         exception = _open
         for exception_date in exception_dates:
-            start_date = parser.parse(exception_date['start_date'])
+            start_date = date_string_to_utc(exception_date['start_date'])
             repeat = exception_date.get('repeat')
             if _open:
                 # test for exceptios closed
@@ -187,12 +187,12 @@ class Library(IlsRecord):
                     return True
         return False
 
-    def is_open(self, date=datetime.now(), day_only=False):
+    def is_open(self, date=datetime.now(timezone.utc), day_only=False):
         """Test library is open."""
         _open = False
 
         if isinstance(date, str):
-            date = parser.parse(date)
+            date = date_string_to_utc(date)
         day_name = date.strftime("%A").lower()
         for opening_hour in self['opening_hours']:
             if day_name == opening_hour['day']:
@@ -215,7 +215,7 @@ class Library(IlsRecord):
                 times_open = not times_open
         return times_open
 
-    def next_open(self, date=datetime.now(), previous=False):
+    def next_open(self, date=datetime.now(timezone.utc), previous=False):
         """Get next open day."""
         if not self._has_is_open():
             raise LibraryNeverOpen
@@ -229,13 +229,13 @@ class Library(IlsRecord):
             date += timedelta(days=add_day)
         return date
 
-    def count_open(self, start_date=datetime.now(),
-                   end_date=datetime.now(), day_only=False):
+    def count_open(self, start_date=datetime.now(timezone.utc),
+                   end_date=datetime.now(timezone.utc), day_only=False):
         """Get next open day."""
         if isinstance(start_date, str):
-            start_date = parser.parse(start_date)
+            start_date = date_string_to_utc(start_date)
         if isinstance(end_date, str):
-            end_date = parser.parse(end_date)
+            end_date = date_string_to_utc(end_date)
 
         count = 0
         end_date += timedelta(days=1)
@@ -245,11 +245,11 @@ class Library(IlsRecord):
             start_date += timedelta(days=1)
         return count
 
-    def in_working_days(self, count, date=datetime.now()):
+    def in_working_days(self, count, date=datetime.now(timezone.utc)):
         """Get date for given working days."""
         counting = 1
         if isinstance(date, str):
-            date = parser.parse(date)
+            date = date_string_to_utc(date)
         while counting <= count:
             counting += 1
             date = self.next_open(date=date)

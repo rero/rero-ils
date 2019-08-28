@@ -18,7 +18,7 @@
 """Tests REST API items."""
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import ciso8601
 import mock
@@ -698,7 +698,7 @@ def test_items_extend(client, librarian_martigny_no_email,
     # test renewal due date hour
     extended_loan = Loan.get_record_by_pid(loan_pid)
     end_date = ciso8601.parse_datetime(
-        extended_loan.get('end_date')).astimezone()
+        extended_loan.get('end_date'))
     assert end_date.minute == 59 and end_date.hour == 23
 
     # second extenion
@@ -1389,10 +1389,10 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
     loan_pid = actions[LoanAction.EXTEND].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     end_date = loan.get('end_date')
-    current_date = datetime.now()
+    current_date = datetime.now(timezone.utc)
     calc_date = current_date + renewal_duration
     assert (
-        calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime_as_naive(
+        calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
             end_date).strftime('%Y-%m-%d')
     )
 

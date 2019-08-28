@@ -19,11 +19,14 @@
 
 from __future__ import absolute_import, print_function
 
+import pytz
+
 from dateutil import parser
 from utils import get_mapping
 
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
+from rero_ils.modules.utils import date_string_to_utc
 
 
 def test_library_create(db, lib_martigny_data):
@@ -46,8 +49,8 @@ def test_libraries_is_open(lib_martigny):
     library = lib_martigny
     assert library.is_open(date=saturday)
 
-    assert not library.is_open(date=parser.parse('2019-08-01'))
-    assert not library.is_open(date=parser.parse('2222-8-1'))
+    assert not library.is_open(date_string_to_utc('2019-08-01'))
+    assert not library.is_open(date_string_to_utc('2222-8-1'))
 
     del library['exception_dates']
     library.replace(library.dumps(), dbcommit=True)
@@ -68,8 +71,8 @@ def test_libraries_is_open(lib_martigny):
     assert library.count_open(start_date=monday, end_date=saturday) == 5
     assert library.in_working_days(
         count=5,
-        date='2018-12-10'
-    ) == parser.parse('2018-12-17')
+        date=date_string_to_utc('2018-12-10')
+    ) == date_string_to_utc('2018-12-17')
 
     assert not library.is_open(date=saturday)
 

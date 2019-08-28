@@ -21,6 +21,8 @@ from datetime import time
 from time import sleep
 
 import click
+import pytz
+from dateutil import parser
 from flask import current_app
 from invenio_indexer.api import RecordIndexer
 
@@ -58,3 +60,8 @@ def bulk_index(uuids, process=False, verbose=False):
             minutes *= 2
     if process:
         indexer.process_bulk_queue()
+
+
+def date_string_to_utc(date):
+    """Converts a date of string format to a datetime utc aware."""
+    return pytz.utc.localize(parser.parse(date))
