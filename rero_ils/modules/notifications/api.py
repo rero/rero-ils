@@ -20,7 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from functools import partial
 
 import ciso8601
@@ -74,7 +74,7 @@ class Notification(IlsRecord):
 
     def update_process_date(self):
         """Update process date."""
-        self['process_date'] = datetime.now().isoformat()
+        self['process_date'] = datetime.now(timezone.utc).isoformat()
         self.update(data=self.dumps(), dbcommit=True, reindex=True)
         return self
 
@@ -105,7 +105,7 @@ class Notification(IlsRecord):
                 library = Library.get_record_by_pid(library_pid)
                 data['loan']['pickup_location']['library'] = library
                 data['loan']['library'] = library
-                keep_until = datetime.now() + timedelta(days=10)
+                keep_until = datetime.now(timezone.utc) + timedelta(days=10)
                 next_open = library.next_open(keep_until)
                 # language = data['loan']['patron']['communication_language']
                 next_open = next_open.strftime("%d.%m.%Y")
@@ -131,7 +131,7 @@ class Notification(IlsRecord):
                 data['loan']['author'] = author
             end_date = data.get('loan').get('end_date')
             if end_date:
-                end_date = ciso8601.parse_datetime_as_naive(end_date)
+                end_date = ciso8601.parse_datetime(end_date)
                 data['loan']['end_date'] = end_date.strftime("%d.%m.%Y")
             # del(data['loan']['document_pid'])
 

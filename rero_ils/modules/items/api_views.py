@@ -254,13 +254,10 @@ def requested_loans(library_pid):
 @jsonify_error
 def loans(patron_pid):
     """HTTP GET request for requested loans for a library."""
-    patron_type_pid = Patron.get_record_by_pid(
-        patron_pid).patron_type_pid
     items_loans = Item.get_checked_out_items(patron_pid)
     metadata = []
     for item, loan in items_loans:
         item_dumps = item.dumps_for_circulation()
-        actions = item_dumps.get('actions')
         metadata.append({
             'item': item_dumps,
             'loan': loan.dumps_for_circulation()
@@ -292,9 +289,9 @@ def item(item_barcode):
             patron_pid).patron_type_pid
 
         circ_policy = CircPolicy.provide_circ_policy(
-                item.library_pid,
-                patron_type_pid,
-                item.item_type_pid
+            item.library_pid,
+            patron_type_pid,
+            item.item_type_pid
         )
         actions = item_dumps.get('actions')
         new_actions = []
@@ -308,9 +305,9 @@ def item(item_barcode):
                 else:
                     new_actions.append(action)
             if (
-                action == 'receive' and
-                circ_policy.get('allow_checkout') and
-                item.number_of_requests() == 0
+                    action == 'receive' and
+                    circ_policy.get('allow_checkout') and
+                    item.number_of_requests() == 0
             ):
                 new_actions.append('checkout')
         item_dumps['actions'] = new_actions

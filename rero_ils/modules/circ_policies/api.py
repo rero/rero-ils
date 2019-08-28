@@ -74,10 +74,7 @@ class CircPolicy(IlsRecord):
             return None
 
     def get_circ_policy_by_LPI(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    ):
+            library_pid, patron_type_pid, item_type_pid):
         """Check if there is a policy for library/location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
@@ -107,10 +104,7 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
-    def get_circ_policy_by_OPI(
-        patron_type_pid,
-        item_type_pid
-    ):
+    def get_circ_policy_by_OPI(patron_type_pid, item_type_pid):
         """Check if there is a circ policy for location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
@@ -148,11 +142,7 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
-    def provide_circ_policy(
-        library_pid,
-        patron_type_pid,
-        item_type_pid
-    ):
+    def provide_circ_policy(library_pid, patron_type_pid, item_type_pid):
         """Return a circ policy for library/patron/item."""
         LPI_policy = CircPolicy.get_circ_policy_by_LPI(
             library_pid,

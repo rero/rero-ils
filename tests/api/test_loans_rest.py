@@ -23,6 +23,7 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 import pytest
+import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
@@ -170,9 +171,20 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
 
     # test due date hour
     checkout_loan = Loan.get_record_by_pid(loan_pid)
+
     end_date = ciso8601.parse_datetime(
-        checkout_loan.get('end_date')).astimezone()
+        checkout_loan.get('end_date'))
     assert end_date.minute == 59 and end_date.hour == 23
+
+    new_timezone = pytz.timezone('US/Pacific')
+    end_date = ciso8601.parse_datetime(
+        checkout_loan.get('end_date')).astimezone(new_timezone)
+    assert end_date.minute == 59 and end_date.hour != 23
+
+    new_timezone = pytz.timezone('Europe/Amsterdam')
+    end_date = ciso8601.parse_datetime(
+        checkout_loan.get('end_date')).astimezone(new_timezone)
+    assert end_date.minute == 59 and end_date.hour != 23
 
     # checkin the item to put it back to it's original state
     res = client.post(

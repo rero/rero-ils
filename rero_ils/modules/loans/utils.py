@@ -17,7 +17,7 @@
 
 """Loans utils."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import ciso8601
 
@@ -52,7 +52,7 @@ def get_default_loan_duration(loan):
     """Return calculated checkout duration in number of days."""
     policy = get_circ_policy(loan)
     # TODO: case when start_date is not sysdate.
-    start_date = datetime.now()
+    start_date = datetime.now(timezone.utc)
     time_to_end_of_day = timedelta(hours=23, minutes=59) - \
         timedelta(hours=start_date.hour, minutes=start_date.minute)
     transaction_location_pid = loan.get('transaction_location_pid')
@@ -76,12 +76,12 @@ def get_default_loan_duration(loan):
 def get_extension_params(loan=None, parameter_name=None):
     """Return extension parameters."""
     policy = get_circ_policy(loan)
-    end_date = ciso8601.parse_datetime_as_naive(loan.get('end_date'))
+    end_date = ciso8601.parse_datetime(loan.get('end_date'))
     params = {
         'max_count': policy.get('number_renewals'),
         'duration_default': policy.get('renewal_duration')
     }
-    current_date = datetime.now()
+    current_date = datetime.now(timezone.utc)
     time_to_end_of_day = timedelta(hours=23, minutes=59) - \
         timedelta(hours=current_date.hour, minutes=current_date.minute)
 
@@ -111,8 +111,8 @@ def get_extension_params(loan=None, parameter_name=None):
 
 def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     """Checks extend loan will be valid."""
-    end_date = ciso8601.parse_datetime_as_naive(end_date)
-    current_date = datetime.now()
+    end_date = ciso8601.parse_datetime(end_date)
+    current_date = datetime.now(timezone.utc)
     library = Library.get_record_by_pid(library_pid)
     calculated_due_date = current_date + timedelta(
         days=renewal_duration)

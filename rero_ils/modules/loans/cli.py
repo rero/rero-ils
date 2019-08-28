@@ -108,7 +108,6 @@ def create_loan(barcode, transaction_type, loanable_items):
     """Create loans transactions."""
     item = next(loanable_items)
     patron = Patron.get_patron_by_barcode(barcode=barcode)
-    start_date, end_date = get_loan_dates(transaction_type, item, patron)
     transaction_date = datetime.now(timezone.utc).isoformat()
     user_pid, user_location = get_random_librarian_and_transaction_location(
         patron)
@@ -162,8 +161,8 @@ def create_request(barcode, transaction_type, loanable_items):
     rank_1_patron = get_random_patron(barcode)
     patron = Patron.get_patron_by_barcode(barcode)
     if transaction_type == 'rank_2':
-        transaction_date = (
-            datetime.now(timezone.utc) - timedelta(2)).isoformat()
+        transaction_date = \
+            (datetime.now(timezone.utc) - timedelta(2)).isoformat()
         user_pid, user_location = \
             get_random_librarian_and_transaction_location(patron)
 
@@ -222,28 +221,6 @@ def get_random_pickup_location(patron_pid):
     """Find a qualified pickup location."""
     pickup_locations_pids = list(Location.get_pickup_location_pids(patron_pid))
     return random.choice(pickup_locations_pids)
-
-
-def get_loan_dates(transaction_type, item, patron):
-    """Get loan dates."""
-    duration = CircPolicy.provide_circ_policy(
-        item.holding_library_pid,
-        patron.patron_type_pid,
-        item.holding_circulation_category_pid
-    ).get('checkout_duration')
-
-    today = datetime.today()
-    start_today = datetime.strftime(today, '%Y-%m-%d')
-    end_date_duration = today + timedelta(duration)
-    start_date = start_today
-    end_date = datetime.strftime(end_date_duration, '%Y-%m-%d')
-    if transaction_type == 'overdue':
-        today_overdue = datetime.today() - timedelta(50)
-        start_today_overdue = datetime.strftime(today_overdue, '%Y-%m-%d')
-        start_date = start_today_overdue
-        e_end_date = today_overdue + timedelta(duration)
-        end_date = datetime.strftime(e_end_date, '%Y-%m-%d')
-    return start_date, end_date
 
 
 def get_random_patron(exclude_this_barcode):

@@ -21,9 +21,8 @@
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
-from flask import current_app, url_for
-from invenio_circulation.errors import CirculationException, \
-    MissingRequiredParameterError
+from flask import current_app
+from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
@@ -260,9 +259,9 @@ def get_due_soon_loans():
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         end_date = loan.get('end_date')
-        due_date = ciso8601.parse_datetime_as_naive(end_date)
+        due_date = ciso8601.parse_datetime(end_date)
 
         days_before = circ_policy.get('number_of_days_before_due_date')
         if due_date > now > due_date - timedelta(days=days_before):
@@ -283,9 +282,9 @@ def get_overdue_loans():
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         end_date = loan.get('end_date')
-        due_date = ciso8601.parse_datetime_as_naive(end_date)
+        due_date = ciso8601.parse_datetime(end_date)
 
         days_after = circ_policy.get('number_of_days_after_due_date')
         if now > due_date + timedelta(days=days_after):

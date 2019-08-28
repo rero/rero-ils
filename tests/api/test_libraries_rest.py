@@ -21,12 +21,12 @@ import json
 
 import mock
 import pytest
-from dateutil import parser
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 from rero_ils.modules.libraries.api import Library, LibraryNeverOpen
+from rero_ils.modules.utils import date_string_to_utc
 
 
 def test_libraries_permissions(client, lib_martigny, json_header):
@@ -174,20 +174,20 @@ def test_library_exceptions(lib_martigny):
     """Test library exceptions."""
     assert lib_martigny._has_is_open()
     assert lib_martigny.next_open()
-    assert lib_martigny.is_open(date=parser.parse('2018-12-15'))
-    assert lib_martigny.is_open(date=parser.parse('2019-01-05'))
-    assert not lib_martigny.is_open(date=parser.parse('2019-08-01'))
+    assert lib_martigny.is_open(date_string_to_utc('2018-12-15'))
+    assert lib_martigny.is_open(date_string_to_utc('2019-01-05'))
+    assert not lib_martigny.is_open(date_string_to_utc('2019-08-01'))
 
     exception_dates = lib_martigny.get('exception_dates')
     exception_open_false = lib_martigny._has_exception(
         _open=False,
-        date=parser.parse('2019-01-06'),
+        date=date_string_to_utc('2019-01-06'),
         exception_dates=exception_dates,
         day_only=False
     )
     exception_open_true = lib_martigny._has_exception(
         _open=True,
-        date=parser.parse('2019-01-06'),
+        date=date_string_to_utc('2019-01-06'),
         exception_dates=exception_dates,
         day_only=False
     )
@@ -197,7 +197,7 @@ def test_library_exceptions(lib_martigny):
 
     assert not lib_martigny._has_exception(
         _open=True,
-        date=parser.parse('2019-08-01'),
+        date=date_string_to_utc('2019-08-01'),
         exception_dates=exception_dates,
         day_only=False
     )

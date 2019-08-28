@@ -554,9 +554,9 @@ class Item(IlsRecord):
         patron_type_pid = Patron.get_record_by_pid(
             patron_pid).patron_type_pid
         circ_policy = CircPolicy.provide_circ_policy(
-                self.library_pid,
-                patron_type_pid,
-                self.item_type_pid
+            self.library_pid,
+            patron_type_pid,
+            self.item_type_pid
         )
         data = {
             'action_validated': True,
@@ -565,13 +565,13 @@ class Item(IlsRecord):
         if action == 'extend':
             extension_count = loan.get('extension_count', 0)
             if not (
-                circ_policy.get('number_renewals') > 0 and
-                extension_count < circ_policy.get('number_renewals') and
-                extend_loan_data_is_valid(
-                    loan.get('end_date'),
-                    circ_policy.get('renewal_duration'),
-                    self.library_pid
-                )
+                    circ_policy.get('number_renewals') > 0 and
+                    extension_count < circ_policy.get('number_renewals') and
+                    extend_loan_data_is_valid(
+                        loan.get('end_date'),
+                        circ_policy.get('renewal_duration'),
+                        self.library_pid
+                    )
             ) or self.number_of_requests():
                 data['action_validated'] = False
         if action == 'checkout':
@@ -580,9 +580,9 @@ class Item(IlsRecord):
 
         if action == 'receive':
             if (
-                circ_policy.get('allow_checkout') and
-                loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
-                loan.get('patron_pid') == patron_pid
+                    circ_policy.get('allow_checkout') and
+                    loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
+                    loan.get('patron_pid') == patron_pid
             ):
                 data['action_validated'] = False
                 data['new_action'] = 'checkout'
@@ -649,8 +649,6 @@ class Item(IlsRecord):
         loan = get_loan_for_item(self.pid)
         if loan:
             end_date = loan['end_date']
-            # due_date = datetime.strptime(end_date, '%Y-%m-%d')
-
             due_date = format_date_filter(
                 end_date,
                 format=format,
@@ -824,7 +822,7 @@ class Item(IlsRecord):
                 LoanAction.NO: None
             }
 
-        elif self.status == ItemStatus.MISSING:
+        if self.status == ItemStatus.MISSING:
             return self.return_missing()
         return self, {
             LoanAction.NO: None

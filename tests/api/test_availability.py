@@ -18,10 +18,13 @@
 import json
 
 import mock
+import pytz
+from dateutil import parser
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
+from rero_ils.filter import format_date_filter
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.views import not_available_reasons
@@ -168,12 +171,13 @@ def test_item_holding_document_availability(
 
     class current_i18n:
         class locale:
-            language = 'fr'
+            language = 'en'
     with mock.patch(
         'rero_ils.modules.items.api.current_i18n',
         current_i18n
     ):
-        end_date = item.get_item_end_date()
+        end_date = pytz.utc.localize(parser.parse(item.get_item_end_date()))
+        end_date = format_date_filter(end_date, format='short_date')
         assert not_available_reasons(item) == 'due until ' + end_date
 
     """

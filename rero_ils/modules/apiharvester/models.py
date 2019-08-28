@@ -19,8 +19,9 @@
 
 from __future__ import absolute_import
 
-import datetime
+from datetime import datetime, timezone
 
+import pytz
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 
@@ -37,9 +38,9 @@ class ApiHarvestConfig(RecordIdentifier):
     mimetype = db.Column(db.String(255), nullable=False)
     size = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
-    lastrun = db.Column(db.DateTime, default=datetime.datetime(
-        year=1900, month=1, day=1
-    ), nullable=True)
+    default_last_run = datetime.strptime('1900-1-1', '%Y-%m-%d')
+    lastrun = db.Column(db.DateTime, default=pytz.utc.localize(
+        default_last_run), nullable=True)
 
     def save(self):
         """Save object to persistent storage."""
@@ -48,4 +49,4 @@ class ApiHarvestConfig(RecordIdentifier):
 
     def update_lastrun(self, new_date=None):
         """Update the 'lastrun' attribute of object to now."""
-        self.lastrun = new_date or datetime.datetime.now()
+        self.lastrun = new_date or datetime.now(timezone.utc)
