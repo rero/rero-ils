@@ -235,7 +235,8 @@ class Item(IlsRecord):
         """Create item record."""
         record = super(Item, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        record.item_link_to_holding()
+        if not data.get('holding'):
+            record.item_link_to_holding()
         return record
 
     def update(self, data, dbcommit=False, reindex=False):

@@ -21,7 +21,8 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
-from invenio_records.models import RecordMetadataBase
+
+# from invenio_records.models import RecordMetadataBase
 
 
 class HoldingIdentifier(RecordIdentifier):
@@ -36,7 +37,7 @@ class HoldingIdentifier(RecordIdentifier):
     )
 
 
-class HoldingMetadata(db.Model, RecordMetadataBase):
-    """Holding record metadata."""
+# class HoldingMetadata(db.Model, RecordMetadataBase):
+#     """Holding record metadata."""
 
-    __tablename__ = 'holdings_metadata'
+#     __tablename__ = 'holdings_metadata'
