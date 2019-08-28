@@ -160,23 +160,43 @@ def test_copyrightDate(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_publishers(document_schema, document_data_tmp):
+def test_provisionActivity(document_schema, document_data_tmp):
     """Test publishers for jsonschemas."""
-    document_data_tmp['publishers'] = [
-        {
-            'name': ['Editions de la Centrale'],
-            'place': ['Martigny']
-        }
-    ]
+    document_data_tmp['provisionActivity'] = [{
+        'type': 'bf:Publication',
+        'statement': [
+            {
+                'country': 'fr',
+                'label': [
+                    {'value': 'Paris'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Desclée de Brouwer'}
+                ],
+                'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': 'Etudes augustiniennes'}
+                ],
+                'type': 'bf:Agent'
+            }
+        ],
+        'startDate': '1969',
+        'date': '1969'
+    }]
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['publishers'][0]['name'][0] = [2]
+        document_data_tmp['provisionActivity'][0]['type'] = [2]
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['publishers'][0]['place'][0] = [2]
+        document_data_tmp['provisionActivity'][0]['startDate'] = [2]
         validate(document_data_tmp, document_schema)
 
 

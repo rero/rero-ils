@@ -93,7 +93,7 @@ def reindex_items():
 def create_items(
         count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
-    def generate(count, itemscount, missing, holdings_file):
+    def generate(count, itemscount, missing):
 
         documents_pids = Document.get_all_pids()
 
@@ -125,6 +125,7 @@ def create_items(
                     location_pid = random.choice(locations_pids[org])
                     item_type_pid = random.choice(item_types_pids[org])
                     holding_found = False
+                    new_holding = None
                     for hold in holdings:
                         if hold.get('location_pid') == location_pid and \
                                 hold.get('item_type_pid') == item_type_pid:
@@ -140,9 +141,6 @@ def create_items(
                         new_holding = create_holding_record(
                             item_holding_pid, location_pid,
                             item_type_pid, document_pid)
-                        holdings_file.write(json.dumps(new_holding, indent=2))
-                        holdings_file.write(',')
-                        # holding_pid += 1
 
                     missing, item = create_random_item(
                         item_pid=item_pid,
@@ -153,19 +151,17 @@ def create_items(
                         holding_pid=item_holding_pid
                     )
                     item_pid += 1
-                    yield item
-
+                    yield item, new_holding
+    items = []
+    holdings = []
     with open(holdings_f, 'w', encoding='utf-8') as holdings_file:
-        holdings_file.write('[')
         with open(items_f, 'w', encoding='utf-8') as items_file:
-            for item in json.JSONEncoder(indent=2)\
-                            .iterencode(StreamArray(generate(
-                                    count, itemscount, missing, holdings_file))
-                                        ):
-                items_file.write(item)
-        import os
-        holdings_file.seek(holdings_file.tell() - 1, os.SEEK_SET)
-        holdings_file.write(']')
+            for item, holding in generate(count, itemscount, missing):
+                items.append(item)
+                if holding:
+                    holdings.append(holding)
+            json.dump(items, indent=2, fp=items_file)
+            json.dump(holdings, indent=2, fp=holdings_file)
 
 
 def create_holding_record(
