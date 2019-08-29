@@ -74,16 +74,20 @@ def unimarctype(self, key, value):
     return type
 
 
-@unimarctojson.over('identifiers', '^003')
+@unimarctojson.over('identifiedBy', '^003')
 @utils.ignore_value
 def unimarcbnfid(self, key, value):
     """Get ID.
 
     identifier bnfID 003
     """
-    values = value.split('/')
-    identifiers = self.get('identifiers', {})
-    identifiers['bnfID'] = values[-1]
+    identifiers = self.get('identifiedBy', [])
+    if value.startswith('http://catalogue.bnf.fr/'):
+        identifiers.append({
+            "type": "bf:Local",
+            "source": "BNF",
+            "value":  value.replace('http://catalogue.bnf.fr/', '')
+        })
     return identifiers
 
 
@@ -116,7 +120,7 @@ def unimarctitlesProper(self, key, value):
     return value.get('a')
 
 
-@unimarctojson.over('languages', '^101')
+@unimarctojson.over('language', '^101')
 @utils.ignore_value
 def unimarclanguages(self, key, value):
     """Get languages.
@@ -134,7 +138,7 @@ def unimarclanguages(self, key, value):
         'properties']['language']['items']['properties']['value']['enum']
     for language in languages:
         if language in langs:
-            to_return.append({'language': language})
+            to_return.append({'value': language, 'type': 'bf:Language'})
 
     translatedsfrom = utils.force_list(value.get('c'))
     if translatedsfrom:
@@ -285,16 +289,25 @@ def unimarcabstracts(self, key, value):
     return ', '.join(utils.force_list(value.get('a')))
 
 
-@unimarctojson.over('identifiers', '^073..')
+@unimarctojson.over('identifiedBy', '^073..')
 @utils.ignore_value
 def unimarcidentifier_isbn(self, key, value):
     """Get identifier isbn.
 
     identifiers:isbn: 010$a
     """
-    identifiers = self.get('identifiers', {})
+    from isbnlib import EAN13
+    identifiers = self.get('identifiedBy', [])
     if value.get('a'):
-        identifiers['isbn'] = value.get('a')
+        ean = {
+            "type": "bf:Ean",
+            "value": value.get('a')
+        }
+        check_ean = EAN13(value.get('a'))
+        # Do we have to check also cancelled status?
+        if not check_ean:
+            ean['status'] = 'invalid'
+        identifiers.append(ean)
     return identifiers
 
 

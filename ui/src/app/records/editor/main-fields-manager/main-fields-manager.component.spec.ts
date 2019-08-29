@@ -19,21 +19,21 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FieldsetComponent } from './fieldset.component';
+import { MainFieldsManagerComponent } from './main-fields-manager.component';
 
-describe('FieldsetComponent', () => {
-  let component: FieldsetComponent;
-  let fixture: ComponentFixture<FieldsetComponent>;
+describe('MainFieldsManagerComponent', () => {
+  let component: MainFieldsManagerComponent;
+  let fixture: ComponentFixture<MainFieldsManagerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FieldsetComponent ]
+      declarations: [ MainFieldsManagerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FieldsetComponent);
+    fixture = TestBed.createComponent(MainFieldsManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

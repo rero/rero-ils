@@ -7,7 +7,7 @@
         "key": "organisation.$ref",
         "type": "select",
         "remoteRecordType": "organisations",
-    	"remoteRecordFiltersByOwningOrganisation": "pid",
+        "remoteRecordFiltersByOwningOrganisation": "pid",
         "readonly": "true"
       }
     ]

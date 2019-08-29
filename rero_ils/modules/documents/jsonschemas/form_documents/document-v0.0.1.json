@@ -1,112 +1,13 @@
 [
   {
+    "type": "main-fields-manager"
+  },
+  {
     "type": "fieldset",
-    "title": "Identifiers",
-    "nomenu": true,
+    "title": "Type",
     "items": [
       {
-        "key": "identifiedBy",
-        "notitle": true,
-        "description": "",
-        "items": [
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "key": "identifiedBy[].type",
-                "titleMap": [
-                  {
-                    "value": "bf:AudioIssueNumber",
-                    "name": "AudioIssueNumber"
-                  },
-                  {
-                    "value": "bf:Doi",
-                    "name": "Doi"
-                  },
-                  {
-                    "value": "bf:Ean",
-                    "name": "Ean"
-                  },
-                  {
-                    "value": "bf:Gtin14Number",
-                    "name": "Gtin14Number"
-                  },
-                  {
-                    "value": "bf:Identifier",
-                    "name": "Identifier"
-                  },
-                  {
-                    "value": "bf:Isan",
-                    "name": "Isan"
-                  },
-                  {
-                    "value": "bf:Isbn",
-                    "name": "Isbn"
-                  },
-                  {
-                    "value": "bf:Ismn",
-                    "name": "Ismn"
-                  },
-                  {
-                    "value": "bf:Isrc",
-                    "name": "Isrc"
-                  },
-                  {
-                    "value": "bf:Issn",
-                    "name": "Issn"
-                  },
-                  {
-                    "value": "bf:IssnL",
-                    "name": "IssnL"
-                  },
-                  {
-                    "value": "bf:Local",
-                    "name": "Local"
-                  },
-                  {
-                    "value": "bf:MatrixNumber",
-                    "name": "MatrixNumber"
-                  },
-                  {
-                    "value": "bf:MusicDistributorNumber",
-                    "name": "MusicDistributorNumber"
-                  },
-                  {
-                    "value": "bf:MusicPlate",
-                    "name": "MusicPlate"
-                  },
-                  {
-                    "value": "bf:MusicPublisherNumber",
-                    "name": "MusicPublisherNumber"
-                  },
-                  {
-                    "value": "bf:PublisherNumber",
-                    "name": "PublisherNumber"
-                  },
-                  {
-                    "value": "bf:Upc",
-                    "name": "Upc"
-                  },
-                  {
-                    "value": "bf:Urn",
-                    "name": "Urn"
-                  },
-                  {
-                    "value": "bf:VideoRecordingNumber",
-                    "name": "VideoRecordingNumber"
-                  },
-                  {
-                    "value": "uri",
-                    "name": "uri"
-                  }
-                ]
-              },
-              {
-                "key": "identifiedBy[].value"
-              }
-            ]
-          }
-        ]
+        "key": "type"
       }
     ]
   },
@@ -116,7 +17,14 @@
     "items": [
       {
         "key": "title"
-      },
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Proper or uniformed titles",
+    "show": false,
+    "items": [
       {
         "key": "titlesProper",
         "notitle": true,
@@ -133,6 +41,7 @@
   {
     "type": "fieldset",
     "title": "Authors",
+    "show": true,
     "nomenu": true,
     "items": [
       {
@@ -200,7 +109,23 @@
   },
   {
     "type": "fieldset",
-    "title": "Language(s) of the resource",
+    "show": false,
+    "title": "Subjects",
+    "items": [
+      {
+        "notitle": true,
+        "type": "array",
+        "items": [
+          {
+            "key": "subjects[]"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Languages",
     "nomenu": true,
     "items": [
       {
@@ -287,7 +212,80 @@
   },
   {
     "type": "fieldset",
-    "title": "Publication Dates",
+    "show": false,
+    "title": "Translated from",
+    "items": [
+      {
+        "key": "translatedFrom",
+        "notitle": true,
+        "description": "",
+        "items": [
+          {
+            "key": "translatedFrom[]",
+            "title": "Translated from"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "show": false,
+    "title": "Abstracts",
+    "items": [
+      {
+        "notitle": true,
+        "type": "array",
+        "items": [
+          {
+            "key": "abstracts[]"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Publishers",
+    "show": true,
+    "nomenu": true,
+    "items": [
+      {
+        "notitle": true,
+        "description": "",
+        "type": "array",
+        "items": [
+          {
+            "type": "fieldset",
+            "items": [
+              {
+                "type": "array",
+                "notitle": "true",
+                "items": [
+                  {
+                    "key": "publishers[].place[]"
+                  }
+                ]
+              },
+              {
+                "type": "array",
+                "notitle": "true",
+                "items": [
+                  {
+                    "key": "publishers[].name[]"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Dates of publication",
+    "show": true,
     "items": [
       {
         "key": "publicationYear",
@@ -301,9 +299,259 @@
   },
   {
     "type": "fieldset",
+    "title": "Extent",
+    "show": true,
     "items": [
       {
-        "key": "type"
+        "key": "extent"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Other Material Characteristics",
+    "show": "true",
+    "items": [
+      {
+        "key": "otherMaterialCharacteristics"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Formats",
+    "show": "false",
+    "items": [
+      {
+        "key": "formats",
+        "notitle": true,
+        "description": "",
+        "type": "array",
+        "items": [
+          {
+            "key": "formats[]",
+            "title": "Format",
+            "description": "Format of the resource, ie dimensions in cm."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "show": false,
+    "title": "Additional materials",
+    "items": [
+      {
+        "key": "additionalMaterials"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Series",
+    "show": false,
+    "nomenu": true,
+    "items": [
+      {
+        "key": "series",
+        "notitle": true,
+        "description": "",
+        "items": [
+          {
+            "type": "fieldset",
+            "items": [
+              {
+                "key": "series[].name"
+              },
+              {
+                "key": "series[].number"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "show": false,
+    "title": "Is part of",
+    "items": [
+      {
+        "key": "is_part_of"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Identifiers",
+    "show": true,
+    "nomenu": true,
+    "items": [
+      {
+        "key": "identifiedBy",
+        "notitle": true,
+        "description": "",
+        "items": [
+          {
+            "type": "fieldset",
+            "items": [
+              {
+                "key": "identifiedBy[].type",
+                "titleMap": [
+                  {
+                    "value": "bf:AudioIssueNumber",
+                    "name": "Audio issue number"
+                  },
+                  {
+                    "value": "bf:Doi",
+                    "name": "DOI"
+                  },
+                  {
+                    "value": "bf:Ean",
+                    "name": "EAN"
+                  },
+                  {
+                    "value": "bf:Gtin14Number",
+                    "name": "Global Trade Item Number 14"
+                  },
+                  {
+                    "value": "bf:Identifier",
+                    "name": "Other"
+                  },
+                  {
+                    "value": "bf:Isan",
+                    "name": "ISAN"
+                  },
+                  {
+                    "value": "bf:Isbn",
+                    "name": "ISBN"
+                  },
+                  {
+                    "value": "bf:Ismn",
+                    "name": "ISMN"
+                  },
+                  {
+                    "value": "bf:Isrc",
+                    "name": "ISRC"
+                  },
+                  {
+                    "value": "bf:Issn",
+                    "name": "ISSN"
+                  },
+                  {
+                    "value": "bf:IssnL",
+                    "name": "ISSN-L"
+                  },
+                  {
+                    "value": "bf:Local",
+                    "name": "Local identifier"
+                  },
+                  {
+                    "value": "bf:MatrixNumber",
+                    "name": "Audio matrix number"
+                  },
+                  {
+                    "value": "bf:MusicDistributorNumber",
+                    "name": "Music distributor number"
+                  },
+                  {
+                    "value": "bf:MusicPlate",
+                    "name": "Music plate number"
+                  },
+                  {
+                    "value": "bf:MusicPublisherNumber",
+                    "name": "Music publisher number"
+                  },
+                  {
+                    "value": "bf:PublisherNumber",
+                    "name": "Publisher number"
+                  },
+                  {
+                    "value": "bf:Upc",
+                    "name": "UPC"
+                  },
+                  {
+                    "value": "bf:Urn",
+                    "name": "URN"
+                  },
+                  {
+                    "value": "bf:VideoRecordingNumber",
+                    "name": "Video recording number"
+                  },
+                  {
+                    "value": "uri",
+                    "name": "URI"
+                  }
+                ]
+              },
+              {
+                "key": "identifiedBy[].source",
+                "condition": {
+                  "functionBody": "{var identifier = model.identifiedBy[arrayIndices[0]]; return identifier.type === 'bf:Local';}"
+                }
+              },
+              {
+                "key": "identifiedBy[].value"
+              },
+              {
+                "key": "identifiedBy[].status"
+              },
+              {
+                "key": "identifiedBy[].qualifier"
+              },
+              {
+                "key": "identifiedBy[].acquisitionsTerms",
+                "condition": {
+                  "functionBody": "{var identifier = model.identifiedBy[arrayIndices[0]]; return identifier.type === 'bf:Isbn';}"
+                }
+              },
+              {
+                "key": "identifiedBy[].note"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "show": false,
+    "title": "Notes",
+    "items": [
+      {
+        "key": "notes",
+        "notitle": true,
+        "items": [
+          {
+            "key": "notes[]"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Electronic Locations",
+    "show": false,
+    "nomenu": true,
+    "items": [
+      {
+        "key": "electronic_location",
+        "notitle": true,
+        "description": "",
+        "items": [
+          {
+            "type": "fieldset",
+            "items": [
+              {
+                "key": "electronic_location[].uri"
+              }
+            ]
+          }
+        ]
       }
     ]
   }

@@ -1,81 +1,106 @@
-<div *ngIf="['div', 'fieldset', 'submit', 'array', '$ref', 'flex', 'tabarray', 'tab', 'tabs'].includes(layoutNode?.type); else contentBlock" [class]="options?.htmlClass || ''" [class.has-feedback]="options?.feedback && options?.isInputWidget &&
+<!--
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<div *ngIf="show">
+  <div
+    *ngIf="['div', 'template', 'main-fields-manager', 'help', 'fieldset', 'submit', 'array', '$ref', 'flex', 'tabarray', 'tab', 'tabs'].includes(layoutNode?.type); else contentBlock"
+    [class]="options?.htmlClass || ''" [class.has-feedback]="options?.feedback && options?.isInputWidget &&
   (formControl?.dirty || options?.feedbackOnRender)" [class.has-error]="options?.enableErrorState && formControl?.errors &&
   (formControl?.dirty || options?.feedbackOnRender)" [class.has-success]="options?.enableSuccessState && !formControl?.errors &&
   (formControl?.dirty || options?.feedbackOnRender)">
-
-  <!-- <button *ngIf="showRemoveButton" class="close pull-right" type="button" (click)="removeItem()">
+    <!-- <button *ngIf="showRemoveButton" class="close pull-right" type="button" (click)="removeItem()">
     <span aria-hidden="true">&times;</span>
     <span class="sr-only">Close</span>
   </button> -->
-  <div *ngIf="options?.messageLocation === 'top'">
-    <p *ngIf="options?.helpBlock" class="help-block" [innerHTML]="options?.helpBlock"></p>
-  </div>
-  <label *ngIf="options?.title && layoutNode?.type !== 'tab'" [attr.for]="'control' + layoutNode?._id"
-    [class]="options?.labelHtmlClass || ''" [class.sr-only]="options?.notitle" [innerHTML]="options?.title"></label>
-  <p *ngIf="layoutNode?.type === 'submit' && jsf?.formOptions?.fieldsRequired">
-    <strong class="text-danger">*</strong> = required fields
-  </p>
-  <div [class.input-group]="options?.fieldAddonLeft || options?.fieldAddonRight">
-    <span *ngIf="options?.fieldAddonLeft" class="input-group-addon" [innerHTML]="options?.fieldAddonLeft"></span>
+    <div *ngIf="options?.messageLocation === 'top'">
+      <p *ngIf="options?.helpBlock" class="help-block" [innerHTML]="options?.helpBlock"></p>
+    </div>
+    <label *ngIf="options?.title && layoutNode?.type !== 'tab'" [attr.for]="'control' + layoutNode?._id"
+      [class]="options?.labelHtmlClass || ''" [class.sr-only]="options?.notitle" [innerHTML]="options?.title"></label>
+    <p *ngIf="layoutNode?.type === 'submit' && jsf?.formOptions?.fieldsRequired">
+      <strong class="text-danger">*</strong> = required fields
+    </p>
+    <div [class.input-group]="options?.fieldAddonLeft || options?.fieldAddonRight">
+      <span *ngIf="options?.fieldAddonLeft" class="input-group-addon" [innerHTML]="options?.fieldAddonLeft"></span>
 
-    <select-widget-widget [layoutNode]="widgetLayoutNode" [dataIndex]="dataIndex" [layoutIndex]="layoutIndex">
-    </select-widget-widget>
+      <select-widget-widget [layoutNode]="widgetLayoutNode" [dataIndex]="dataIndex" [layoutIndex]="layoutIndex">
+      </select-widget-widget>
 
-    <span *ngIf="options?.fieldAddonRight" class="input-group-addon" [innerHTML]="options?.fieldAddonRight"></span>
-  </div>
-  <div *ngIf="formControl?.invalid" class="invalid-feedback d-block" [innerHTML]="options?.helpBlock"></div>
-  <span *ngIf="options?.feedback && options?.isInputWidget &&
+      <span *ngIf="options?.fieldAddonRight" class="input-group-addon" [innerHTML]="options?.fieldAddonRight"></span>
+    </div>
+    <div *ngIf="formControl?.invalid" class="invalid-feedback d-block" [innerHTML]="options?.helpBlock"></div>
+    <span *ngIf="options?.feedback && options?.isInputWidget &&
     !options?.fieldAddonRight && !layoutNode.arrayItem &&
     (formControl?.dirty || options?.feedbackOnRender)"
-    [class.glyphicon-ok]="options?.enableSuccessState && !formControl?.errors"
-    [class.glyphicon-remove]="options?.enableErrorState && formControl?.errors" aria-hidden="true"
-    class="form-control-feedback glyphicon"></span>
-  <div *ngIf="options?.messageLocation !== 'top'">
-    <p *ngIf="options?.helpBlock" class="help-block" [innerHTML]="options?.helpBlock"></p>
+      [class.glyphicon-ok]="options?.enableSuccessState && !formControl?.errors"
+      [class.glyphicon-remove]="options?.enableErrorState && formControl?.errors" aria-hidden="true"
+      class="form-control-feedback glyphicon"></span>
+    <div *ngIf="options?.messageLocation !== 'top'">
+      <p *ngIf="options?.helpBlock" class="help-block" [innerHTML]="options?.helpBlock"></p>
+    </div>
   </div>
 </div>
+
 <ng-template #contentBlock>
   <div [class]="options?.htmlClass || ''" [class.has-feedback]="options?.feedback && options?.isInputWidget &&
   (formControl?.dirty || options?.feedbackOnRender)" [class.has-error]="options?.enableErrorState && formControl?.errors &&
   (formControl?.dirty || options?.feedbackOnRender)" [class.has-success]="options?.enableSuccessState && !formControl?.errors &&
   (formControl?.dirty || options?.feedbackOnRender)">
-  <div class="form-group row">
-    <div *ngIf="options?.title && layoutNode?.type !== 'tab'" class="col-lg-3 text-lg-right">
+    <div class="form-group row">
+      <div *ngIf="options?.title && layoutNode?.type !== 'tab'" class="col-lg-3 text-lg-right">
 
-      <label *ngIf="options?.title && layoutNode?.type !== 'tab'" [attr.for]="'control' + layoutNode?._id"
-        [class]="options?.labelHtmlClass || ''" [class.sr-only]="options?.notitle" 
-        [tooltip]="options?.helpBlock">
-      <a *ngIf="canAddItem" (click)="addItem($event)" href="#" class="text-dark"><i class="fa fa-plus"></i></a>&nbsp;<span [innerHTML]="options?.title"></span>
-      </label>
-      <p *ngIf="layoutNode?.type === 'submit' && jsf?.formOptions?.fieldsRequired">
-        <strong class="text-danger">*</strong> = required fields
-      </p>
-    </div>
-    <div class="col-lg-9">
-      <div class="d-flex flex-wrap">
-        <div [class.input-group]="options?.fieldAddonLeft || options?.fieldAddonRight" class="flex-grow-1">
-          <span *ngIf="options?.fieldAddonLeft" class="input-group-addon" [innerHTML]="options?.fieldAddonLeft"></span>
+        <label *ngIf="options?.title && layoutNode?.type !== 'tab'" [attr.for]="'control' + layoutNode?._id"
+          [class]="options?.labelHtmlClass || ''" [class.sr-only]="options?.notitle" [tooltip]="options?.helpBlock">
+          <a *ngIf="canAddItem" (click)="addItem($event)" href="#" class="text-dark"><i
+              class="fa fa-plus"></i></a>&nbsp;<span [innerHTML]="options?.title"></span>
+        </label>
+        <p *ngIf="layoutNode?.type === 'submit' && jsf?.formOptions?.fieldsRequired">
+          <strong class="text-danger">*</strong> = required fields
+        </p>
+      </div>
+      <div class="col-lg-9">
+        <div class="d-flex flex-wrap">
+          <div [class.input-group]="options?.fieldAddonLeft || options?.fieldAddonRight" class="flex-grow-1">
+            <span *ngIf="options?.fieldAddonLeft" class="input-group-addon"
+              [innerHTML]="options?.fieldAddonLeft"></span>
 
-          <select-widget-widget [layoutNode]="widgetLayoutNode" [dataIndex]="dataIndex" [layoutIndex]="layoutIndex">
-          </select-widget-widget>
-          <div *ngIf="formControl.invalid" class="invalid-feedback d-block" [innerHTML]="options?.helpBlock"></div>
+            <select-widget-widget [layoutNode]="widgetLayoutNode" [dataIndex]="dataIndex" [layoutIndex]="layoutIndex">
+            </select-widget-widget>
+            <div *ngIf="formControl.invalid" class="invalid-feedback d-block" [innerHTML]="options?.helpBlock"></div>
 
-          <span *ngIf="options?.fieldAddonRight" class="input-group-addon"
-            [innerHTML]="options?.fieldAddonRight"></span>
-        </div>
-          <div class="trash-container">
-            <button *ngIf="showRemoveButton" (click)="removeItem($event)" class="btn"><i class="fa fa-trash"></i></button>
+            <span *ngIf="options?.fieldAddonRight" class="input-group-addon"
+              [innerHTML]="options?.fieldAddonRight"></span>
           </div>
+          <div class="trash-container">
+            <button *ngIf="showRemoveButton" (click)="removeItem($event)" class="btn"><i
+                class="fa fa-trash"></i></button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <span *ngIf="options?.feedback && options?.isInputWidget &&
+    <span *ngIf="options?.feedback && options?.isInputWidget &&
     !options?.fieldAddonRight && !layoutNode.arrayItem &&
     (formControl?.dirty || options?.feedbackOnRender)"
-    [class.glyphicon-ok]="options?.enableSuccessState && !formControl?.errors"
-    [class.glyphicon-remove]="options?.enableErrorState && formControl?.errors" aria-hidden="true"
-    class="form-control-feedback glyphicon"></span>
-</div>
+      [class.glyphicon-ok]="options?.enableSuccessState && !formControl?.errors"
+      [class.glyphicon-remove]="options?.enableErrorState && formControl?.errors" aria-hidden="true"
+      class="form-control-feedback glyphicon"></span>
+  </div>
 </ng-template>
 
 <div *ngIf="debug && debugOutput">debug:
