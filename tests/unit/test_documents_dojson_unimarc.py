@@ -184,8 +184,8 @@ def test_unimarctotitlesProper():
 
 
 # languages: 101 [$a]
-def test_marc21languages():
-    """Test dojson marc21languages."""
+def test_marc21language():
+    """Test dojson marc21language."""
 
     unimarcxml = """
     <record>
@@ -196,7 +196,7 @@ def test_marc21languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('languages') == [{'language': 'eng'}]
+    assert data.get('language') == [{'value': 'eng', 'type': 'bf:Language'}]
 
     unimarcxml = """
     <record>
@@ -209,9 +209,9 @@ def test_marc21languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('languages') == [
-        {'language': 'eng'},
-        {'language': 'fre'}
+    assert data.get('language') == [
+        {'value': 'eng', 'type': 'bf:Language'},
+        {'value': 'fre', 'type': 'bf:Language'}
     ]
     assert data.get('translatedFrom') == ['ita']
 
@@ -226,8 +226,8 @@ def test_marc21languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('languages') == [
-        {'language': 'eng'},
+    assert data.get('language') == [
+        {'value': 'eng', 'type': 'bf:Language'},
     ]
     assert data.get('translatedFrom') == ['ita']
 
@@ -475,8 +475,8 @@ def test_marc21identifiers():
 
     unimarcxml = """
     <record>
-      <controlfield tag="003">
-        http://catalogue.bnf.fr/ark:/12148/cb350330441<controlfield>
+      <controlfield
+        tag="003">http://catalogue.bnf.fr/ark:/12148/cb350330441<controlfield>
       <datafield tag="073" ind1=" " ind2=" ">
         <subfield code="a">9782370550163</subfield>
       </datafield>
@@ -484,15 +484,41 @@ def test_marc21identifiers():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('identifiers') == {
-        'bnfID': 'cb350330441',
-        'isbn': '9782370550163'
-    }
+    assert data.get('identifiedBy') == [
+      {
+        "type": "bf:Local",
+        "value": "ark:/12148/cb350330441",
+        "source": "BNF"
+      },
+      {
+        "type": "bf:Ean",
+        "value": "9782370550163"
+      }
+    ]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="073" ind1=" " ind2=" ">
+        <subfield code="a">978237055016x</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('identifiedBy') == [
+      {
+        "type": "bf:Ean",
+        "value": "978237055016x",
+        "status": "invalid"
+      }
+    ]
 
 
-# notes: [300$a repetitive]
 def test_marc21notes():
-    """Test dojson notes."""
+    """Test dojson notes.
+
+    notes: [300$a repetitive]
+    """
 
     unimarcxml = """
     <record>

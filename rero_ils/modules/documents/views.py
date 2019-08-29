@@ -336,7 +336,7 @@ def identifiedby_format(identifiedby):
     for identifier in identifiedby:
         status = identifier.get('status')
         id_type = identifier.get('type')
-        if not status and id_type != 'bf:Local':
+        if (not status or status == 'valid') and id_type != 'bf:Local':
             if id_type.find(':') != -1:
                 id_type = id_type.split(':')[1]
             output.append({'type': id_type, 'value': identifier.get('value')})

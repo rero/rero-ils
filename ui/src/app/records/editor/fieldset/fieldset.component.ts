@@ -1,5 +1,24 @@
+/*
+
+RERO ILS
+Copyright (C) 2019 RERO
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+*/
+
 import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService, buildFormGroup, getLayoutNode, JsonPointer } from 'angular6-json-schema-form';
+import { JsonSchemaFormService, buildFormGroup, getLayoutNode, JsonPointer, getControl } from 'angular6-json-schema-form';
 import { FormArray } from '@angular/forms';
 
 @Component({
@@ -101,11 +120,72 @@ export class FieldsetComponent implements OnInit {
   }
 
   get canRemoveItem(): boolean {
-    return this.layoutNode.options.removable && this.layoutNode.arrayItem;
+    const itemRemovable = this.layoutNode.options.removable && this.layoutNode.arrayItem;
+    if (!itemRemovable) {
+      return false;
+    }
+    const parent = this.jsf.getParentNode(this);
+    return parent.type === 'array' && this.getNumberOfItemsInParent(parent) > parent.options.minItems;
+  }
+
+  get canHideItem(): boolean {
+    const parent = this.jsf.getParentNode(this);
+    const nItemsInParent = this.getNumberOfItemsInParent(parent);
+    return !this.canRemoveItem && nItemsInParent < 2;
+  }
+
+  get canHideMultipleItems(): boolean {
+    const parent = this.jsf.getParentNode(this);
+    const nItemsInParent = this.getNumberOfItemsInParent(parent);
+    return !this.canRemoveItem && nItemsInParent > 1;
+  }
+
+  private getNumberOfItemsInParent(parent) {
+    if (parent && parent.items) {
+      return parent.items.filter(item => item.options.removable === true).length;
+    }
+    return 0;
   }
 
   get canAddItem(): boolean {
     const parent = this.jsf.getParentNode(this);
-    return parent.type === 'array' && parent.items.length < parent.options.maxItems + 1;
+    return parent.type === 'array' && this.getNumberOfItemsInParent(parent) < parent.options.maxItems;
+  }
+
+  get rootFieldSet() {
+    return JsonPointer.get(this.jsf.layout, this.jsf.getLayoutPointer(this), 0, 1);
+  }
+
+  get canHide() {
+    const parent = this.jsf.getParentNode(this);
+    // parent of parent
+    if (this.rootFieldSet && this.rootFieldSet.options && this.rootFieldSet.options.show) {
+      return true;
+    }
+    return false;
+  }
+
+  hide() {
+    const field = this.rootFieldSet;
+    field.options.show = false;
+    // clear data of the removed field/subfields
+    if (this.resetFormGroup(field)) {
+      return;
+    }
+    for (const item of field.items) {
+      this.resetFormGroup(item);
+    }
+  }
+
+  private resetFormGroup(layoutNode) {
+    if (!layoutNode.dataPointer) {
+      return false;
+    }
+    const control = getControl(this.jsf.formGroup, layoutNode.dataPointer);
+    if (!control) {
+      return false;
+    }
+    control.reset();
+    return true;
   }
 }

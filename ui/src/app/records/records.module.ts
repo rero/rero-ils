@@ -74,6 +74,7 @@ import { TranslateLanguagePipe } from '@app/core';
 import { FieldsetComponent } from './editor/fieldset/fieldset.component';
 import { Bootstrap4FrameworkComponent } from './editor/bootstrap4-framework/bootstrap4-framework.component';
 import { AddReferenceComponent } from './editor/add-reference/add-reference.component';
+import { MainFieldsManagerComponent } from './editor/main-fields-manager/main-fields-manager.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { AddReferenceComponent } from './editor/add-reference/add-reference.comp
     TranslateLanguagePipe,
     FieldsetComponent,
     Bootstrap4FrameworkComponent,
-    AddReferenceComponent
+    AddReferenceComponent,
+    MainFieldsManagerComponent
   ],
   imports: [
     CommonModule,
@@ -144,7 +146,8 @@ import { AddReferenceComponent } from './editor/add-reference/add-reference.comp
     PersonsBriefViewComponent,
     FieldsetComponent,
     Bootstrap4FrameworkComponent,
-    AddReferenceComponent
+    AddReferenceComponent,
+    MainFieldsManagerComponent
   ],
   providers: [
     LibraryExceptionFormService,
