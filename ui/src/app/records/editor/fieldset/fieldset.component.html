@@ -1,3 +1,22 @@
+<!--
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
 <fieldset [class]="options?.htmlClass || 'fields-group'" [class.expandable]="options?.expandable && !expanded"
   [class.expanded]="options?.expandable && expanded" [disabled]="options?.readonly">
   <h5 *ngIf="sectionTitle" class="legend" [class]="options?.labelHtmlClass || ''" [innerHTML]="sectionTitle"
@@ -10,9 +29,11 @@
           aria-expanded="false">...</a>
         <div class="dropdown-menu">
           <!-- <button class="dropdown-item" (click)="addItem($event)">Add</button> -->
-          <button *ngIf="canAddItem" class="dropdown-item" (click)="addItem($event)">Add</button>
-          <button *ngIf="canRemoveItem" class="dropdown-item" (click)="removeItem($event)">Remove</button>
-          <a class="dropdown-item disabled" href="/cataloging/help">Help</a>
+          <button *ngIf="canAddItem" class="dropdown-item" (click)="addItem($event)" translate>New</button>
+          <button *ngIf="canRemoveItem" class="dropdown-item" (click)="removeItem($event)" translate>Remove</button>
+          <button *ngIf="canHideItem && canHide" class="dropdown-item" (click)="hide()" translate>Remove</button>
+          <button *ngIf="canHideMultipleItems && canHide" class="dropdown-item" (click)="hide()" translate>Remove all</button>
+          <a class="dropdown-item disabled" href="/cataloging/help" translate>Help</a>
         </div>
       </div>
     </div>

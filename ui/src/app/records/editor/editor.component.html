@@ -37,7 +37,9 @@
     (onSubmit)="save($event)"
     framework="rero"
     [language]="currentLocale"
-    (validationErrors)="validationErrors($event)">
+    (validationErrors)="validationErrors($event)"
+    (onChanges)="debug($event)"
+    [options]="formOptions"
     >
     </json-schema-form>
   <div *ngIf="validationErrors" class="text-danger"

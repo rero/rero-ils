@@ -37,6 +37,7 @@ import { FrameworkLibraryService } from 'angular6-json-schema-form';
 import { CustomBootstrap4Framework } from './bootstrap4-framework/custombootstrap4-framework';
 import { AddReferenceComponent } from './add-reference/add-reference.component';
 import { UserService } from '../../user.service';
+import { MainFieldsManagerComponent } from './main-fields-manager/main-fields-manager.component';
 // import { Bootstrap4Framework } from 'angular6-json-schema-form';
 // import { Framework } from 'angular6-json-schema-form';
 
@@ -50,6 +51,11 @@ export function _(str: string) {
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+
+  public formOptions = {
+    returnEmptyFields: false, // Don't return values for empty input fields
+    setSchemaDefaults: true
+  };
 
   public schemaForm = null;
   public recordType = undefined;
@@ -83,6 +89,7 @@ export class EditorComponent implements OnInit {
     this.widgetLibrary.registerWidget('refAuthority', RefAuthorityComponent);
     this.widgetLibrary.registerWidget('fieldset', FieldsetComponent);
     this.widgetLibrary.registerWidget('$ref', AddReferenceComponent);
+    this.widgetLibrary.registerWidget('main-fields-manager', MainFieldsManagerComponent);
 
     this.currentLocale = translateService.currentLang;
     this.userService.userSettings.subscribe(settings => this.userSettings = settings);
@@ -104,7 +111,9 @@ export class EditorComponent implements OnInit {
       }
       );
   }
-
+  debug(event) {
+    console.log(event);
+  }
   ngOnInit() {
     combineLatest(this.route.params, this.route.queryParams)
     .pipe(map(results => ({params: results[0], query: results[1]})))
@@ -157,7 +166,6 @@ export class EditorComponent implements OnInit {
           _('Record Updated!'),
           _(this.recordType)
         );
-        console.log(res);
         this.goToNext(this.pid);
       });
     } else {

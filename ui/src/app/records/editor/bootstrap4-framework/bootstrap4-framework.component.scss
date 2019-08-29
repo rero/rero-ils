@@ -1,15 +1,34 @@
-:host /deep/ .list-group-item .form-control-feedback { top: 40px; }
-:host /deep/ .checkbox,
-:host /deep/ .radio { margin-top: 0; margin-bottom: 0; }
-:host /deep/ .checkbox-inline,
-:host /deep/ .checkbox-inline + .checkbox-inline,
-:host /deep/ .checkbox-inline + .radio-inline,
-:host /deep/ .radio-inline,
-:host /deep/ .radio-inline + .radio-inline,
-:host /deep/ .radio-inline + .checkbox-inline { margin-left: 0; margin-right: 10px; }
-:host /deep/ .checkbox-inline:last-child,
-:host /deep/ .radio-inline:last-child { margin-right: 0; }
-:host /deep/ .ng-invalid.ng-touched { border: 1px solid #f44336; }
+/*
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+:host ::ng-deep .list-group-item .form-control-feedback { top: 40px; }
+:host ::ng-deep .checkbox,
+:host ::ng-deep .radio { margin-top: 0; margin-bottom: 0; }
+:host ::ng-deep .checkbox-inline,
+:host ::ng-deep .checkbox-inline + .checkbox-inline,
+:host ::ng-deep .checkbox-inline + .radio-inline,
+:host ::ng-deep .radio-inline,
+:host ::ng-deep .radio-inline + .radio-inline,
+:host ::ng-deep .radio-inline + .checkbox-inline { margin-left: 0; margin-right: 10px; }
+:host ::ng-deep .checkbox-inline:last-child,
+:host ::ng-deep .radio-inline:last-child { margin-right: 0; }
+:host ::ng-deep .ng-invalid.ng-touched { border: 1px solid #f44336; }
 /** reduce spacing */
 .list-group-item .form-group:last-child {
     margin-bottom: 0;
