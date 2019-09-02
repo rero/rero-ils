@@ -207,7 +207,7 @@ def marc21_to_translatedFrom(self, key, value):
                     'value': lang_value.strip(),
                     'type': 'bf:Language'
                 }
-            language.append(lang)
+                language.append(lang)
     return language or None
 
 

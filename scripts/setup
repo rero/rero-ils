@@ -93,20 +93,23 @@ pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 # # to generate data file
 # pipenv run invenio fixtures create_items -c 10000 -i 5 -t ${DATA_PATH}/items.json -h ${DATA_PATH}/holdings.json
 # pipenv run flask utils check_json -r data/holdings.json
+
 # # Marc to xml transformation
-# yaz-marcdump -o marcxml data/10k.mrc > data/10k.xml
+# yaz-marcdump -o marcxml data/1k.mrc > data/documents_big.xml
+
 # # xml to json transformation for rero marcxml records
-# pipenv run dojson -i ${DATA_PATH}/10k.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/10k.json
-# pipenv run dojson -i ${DATA_PATH}/300.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/300.json
+# pipenv run dojson -i ${DATA_PATH}/documents_big.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/documents_big.json
+# pipenv run dojson -i ${DATA_PATH}/documents_small.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/documents_small.json
+
 if [ "$1" = "--deployment" ]
 then
-    DOCUMENTS=${DATA_PATH}/10k.json
-    ITEMS=${DATA_PATH}/items10k.json
-    HOLDINGS=${DATA_PATH}/holdings10k.json
+    DOCUMENTS=${DATA_PATH}/documents_big.json
+    ITEMS=${DATA_PATH}/items_big.json 
+    HOLDINGS=${DATA_PATH}/holdings_big.json
 else
-    DOCUMENTS=${DATA_PATH}/300.json
-    ITEMS=${DATA_PATH}/items300.json
-    HOLDINGS=${DATA_PATH}/holdings300.json
+    DOCUMENTS=${DATA_PATH}/documents_small.json
+    ITEMS=${DATA_PATH}/items_small.json
+    HOLDINGS=${DATA_PATH}/holdings_small.json
 
 fi
 
@@ -115,12 +118,12 @@ pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/s
 
 # create items
 # NEEDS item type !!!
-# to generate 10k items file 10k documents must exist in DB
-# pipenv run invenio fixtures create_items -i 5 -t ${DATA_PATH}/items10k.json -h ${DATA_PATH}/holdings10k.json
-# pipenv run flask utils check_json -r data/holdings10k.json
-# to generate 300 items file 300 documents must exist in DB
-# pipenv run invenio fixtures create_items -i 5 -t ${DATA_PATH}/items300.json -h ${DATA_PATH}/holdings300.json
-# pipenv run flask utils check_json -r data/holdings300.json
+# to generate big items file 1k documents must exist in DB
+# pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
+# pipenv run flask utils check_json -r data/holdings_big.json
+# to generate small items file 300 documents must exist in DB
+# pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
+# pipenv run flask utils check_json -r data/holdings_small.json
 
 echo -e ${GREEN}Holdings:${NC} ${HOLDINGS}
 pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append
