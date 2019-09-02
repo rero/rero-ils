@@ -40,26 +40,12 @@ from invenio_search.proxies import current_search
 from sqlalchemy import MetaData, create_engine
 from werkzeug.local import LocalProxy
 
-from .holdings.api import Holding
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
+from .providers import append_pids_to_table
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
-
-
-def append_pid_to_table(table, pids):
-    """Insert pids into an indentifier table."""
-    # TODO: avoid the connection to the database, recreate code
-    with current_app.app_context():
-        URI = current_app.config.get('SQLALCHEMY_DATABASE_URI')
-        engine = create_engine(URI)
-        metadata = MetaData(engine, reflect=True)
-        table_object = metadata.tables[table]
-        for pid in pids:
-            statement = "insert into {0} values('{1}')".format(
-                table_object, pid)
-            engine.execute(statement)
 
 
 @click.group()
@@ -249,8 +235,8 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
             )
     if append:
         pids = record_class.get_all_pids()
-        table = record_class.provider.identifier.__tablename__
-        append_pid_to_table(table, pids)
+        table = record_class.provider.identifier
+        append_pids_to_table(table, pids)
 
 
 fixtures.add_command(create)

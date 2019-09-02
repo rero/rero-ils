@@ -19,9 +19,18 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.base import BaseProvider
+
+
+def append_pids_to_table(table, pids):
+    """Insert pids into an indentifier table."""
+    for pid in pids:
+        data = table(recid=pid)
+        db.session.add(data)
+    db.session.commit()
 
 
 class Provider(BaseProvider):
