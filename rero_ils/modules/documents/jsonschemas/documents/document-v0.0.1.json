@@ -88,18 +88,21 @@
             "description": "Language value.",
             "type": "string",
             "enum": [
-              "fre",
-              "ger",
-              "eng",
-              "ita",
-              "spa",
               "ara",
               "chi",
-              "lat",
+              "eng",
+              "fre",
+              "ger",
+              "gre",
               "heb",
+              "ita",
               "jpn",
+              "lat",
+              "pol",
               "por",
-              "rus"
+              "rus",
+              "spa",
+              "und"
             ]
           }
         }
