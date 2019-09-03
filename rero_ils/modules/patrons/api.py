@@ -150,6 +150,9 @@ class Patron(IlsRecord):
         try:
             return next(result).pid
         except StopIteration:
+            current_app.logger.error(
+                'Error PatronsSearch email = {email}'.format(email=email)
+            )
             return None
 
     @classmethod

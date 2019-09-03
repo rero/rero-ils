@@ -102,6 +102,14 @@ def init_menu():
         patron = Patron.get_patron_by_email(current_user.email)
         if patron:
             account = patron.initial
+            current_app.logger.error('-----> ' + account)
+        else:
+            current_app.logger.error('-----> no patron: {email}'.format(
+                email=current_user.email
+            ))
+    else:
+        current_app.logger.error('-----> user is not authenticated')
+
     item.register(
         endpoint=None,
         text='{icon} <span class="{visible}">{account}</span>'.format(
