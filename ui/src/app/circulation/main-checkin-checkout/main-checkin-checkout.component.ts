@@ -294,10 +294,16 @@ export class MainCheckinCheckoutComponent implements OnInit, NoPendingChange {
           return item;
         }).filter(item => item.status === ItemStatus.ON_LOAN);
       },
-      (err) => this.toastService.error(
-        _('an error occurs on the server: ') + err,
-        _('checkin')
-      )
+      (err) => {
+        let errorMessage = '';
+        if (err && err.error && err.error.status) {
+            errorMessage = err.error.status;
+        }
+        this.toastService.error(
+            _('an error occurs on the server: ') + errorMessage,
+            _('checkin')
+         );
+      }
     );
   }
 

@@ -21,7 +21,7 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-from flask import Blueprint, abort, jsonify
+from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from flask_login import current_user
 from invenio_circulation.api import get_loan_for_item
@@ -65,6 +65,7 @@ def jsonify_error(func):
             raise(e)
         except Exception as e:
             # raise(e)
+            current_app.logger.error(str(e))
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 
@@ -100,6 +101,7 @@ def jsonify_action(func):
             raise(e)
         except Exception as e:
             # raise(e)
+            current_app.logger.error(str(e))
             return jsonify({'status': 'error: {error}'.format(error=e)}), 500
     return decorated_view
 
