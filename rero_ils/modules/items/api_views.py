@@ -321,3 +321,16 @@ def item(item_barcode):
             'loan': loan
         }
     })
+
+
+@api_blueprint.route('/availabilty/<item_pid>', methods=['GET'])
+@check_authentication
+@jsonify_error
+def item_availability(item_pid):
+    """HTTP GET request for item availability."""
+    item = Item.get_record_by_pid(item_pid)
+    if not item:
+        abort(404)
+    return jsonify({
+        'availability': item.available
+    })

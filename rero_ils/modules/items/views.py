@@ -28,10 +28,12 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Item
+from .models import ItemStatus
 from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
+from ...filter import format_date_filter
 from ...permissions import request_item_permission
 
 
@@ -118,3 +120,27 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
         viewcode=viewcode,
         pid_value=document_pid
     ))
+
+
+@blueprint.app_template_filter()
+def not_available_reasons(item):
+    """Returns reasons why item is not available."""
+    text = ''
+    if not item.available:
+        if item.status == ItemStatus.ON_LOAN:
+            due_date = format_date_filter(
+                item.get_item_end_date(),
+                format='short_date',
+                locale='en')
+            text = '{msg} {date}'.format(
+                msg=_('due until'),
+                date=due_date)
+        elif item.status == ItemStatus.IN_TRANSIT:
+            text = '{msg}'.format(
+                msg=_('in transit'))
+
+        if item.number_of_requests():
+            text += ' ({number} {msg})'.format(
+                number=item.number_of_requests(),
+                msg=_('requests'))
+    return text.strip()
