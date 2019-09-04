@@ -319,7 +319,9 @@ def item_status_text(item, format='medium', locale='en'):
         text = _('not available')
         if item.status == ItemStatus.ON_LOAN:
             due_date = format_date_filter(
-                item.get_item_end_date(), format=format, locale=locale
+                item.get_item_end_date(format=format),
+                format=format,
+                locale=locale
             )
             text += ' ({0} {1})'.format(_('due until'), due_date)
         elif item.number_of_requests() > 0:

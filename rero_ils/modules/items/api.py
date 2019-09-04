@@ -22,6 +22,7 @@ from functools import partial, wraps
 
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
+from flask_babelex import gettext as _
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
 from invenio_circulation.errors import MissingRequiredParameterError, \
@@ -45,6 +46,7 @@ from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
 from ..providers import Provider
 from ..transactions.api import CircTransaction
+from ...filter import format_date_filter
 
 # provider
 ItemProvider = type(
@@ -639,21 +641,19 @@ class Item(IlsRecord):
 
     @property
     def available(self):
-        """Get availability for loan."""
-        return (self.status == ItemStatus.ON_SHELF) and \
-            self.number_of_requests() == 0
+        """Get availability for item."""
+        return self.item_has_active_loan_or_request() == 0
 
-    def get_item_end_date(self):
+    def get_item_end_date(self, format='short_date'):
         """Get item due date for a given item."""
         loan = get_loan_for_item(self.pid)
         if loan:
             end_date = loan['end_date']
             # due_date = datetime.strptime(end_date, '%Y-%m-%d')
-            from ...filter import format_date_filter
 
             due_date = format_date_filter(
                 end_date,
-                format='short_date',
+                format=format,
                 locale=current_i18n.locale.language,
             )
             return due_date
@@ -899,3 +899,14 @@ class Item(IlsRecord):
         """Get Organisation view for item."""
         organisation = Organisation.get_record_by_pid(self.organisation_pid)
         return organisation['view_code']
+
+    def item_has_active_loan_or_request(self):
+        """Return True if active loan or a request found for item."""
+        states = ['PENDING'] + \
+            current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+        search = search_by_pid(
+            item_pid=self.pid,
+            filter_states=states,
+        )
+        search_result = search.execute()
+        return search_result.hits.total
