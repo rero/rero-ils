@@ -288,6 +288,13 @@ class Patron(IlsRecord):
         return False
 
     @property
+    def is_patron(self):
+        """Shortcut to check if user has patron role."""
+        if 'patron' in self.get('roles'):
+            return True
+        return False
+
+    @property
     def organisation_pid(self):
         """Get organisation pid for patron."""
         from ..patron_types.api import PatronType
