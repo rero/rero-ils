@@ -24,7 +24,7 @@ import re
 from functools import partial, wraps
 
 from flask import Blueprint, abort, current_app, jsonify, redirect, \
-    render_template, request, url_for
+    render_template, request, session, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
@@ -46,9 +46,8 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.before_app_request
-def init_menu():
-    """Create the header menus."""
+def init_menu_lang():
+    """Create the header language menu."""
     item = current_menu.submenu('main.menu')
     item.register(
         endpoint=None,
@@ -86,22 +85,34 @@ def init_menu():
         )
         order += 1
 
-    item = current_menu.submenu('main.menu.help')
-    item.register(
-        endpoint='rero_ils.help',
-        text='{icon} {help}'.format(
-            icon='<i class="fa fa-info"></i>',
-            help=_('Help')
-        ),
-        order=100
-    )
+        item = current_menu.submenu('main.menu.help')
+        item.register(
+            endpoint='rero_ils.help',
+            text='{icon} {help}'.format(
+                icon='<i class="fa fa-info"></i>',
+                help=_('Help')
+            ),
+            order=100
+        )
 
+
+def init_menu_profile():
+    """Create the profile header menu."""
     item = current_menu.submenu('main.profile')
     account = _('My Account')
-    if current_user.is_authenticated:
-        patron = Patron.get_patron_by_email(current_user.email)
-        if patron:
-            account = patron.initial
+    user_initials = session.get('user_initials')
+    if session.get('user_id'):
+        if user_initials:
+            account = user_initials
+        else:
+            patron = Patron.get_patron_by_email(current_user.email)
+            if patron:
+                account = patron.initial
+                session['user_initials'] = account
+    else:
+        if user_initials:
+            del session['user_initials']
+
     item.register(
         endpoint=None,
         text='{icon} <span class="{visible}">{account}</span>'.format(
@@ -153,6 +164,21 @@ def init_menu():
         ),
         order=2
     )
+
+
+@blueprint.before_app_request
+def init_menu():
+    """Create the header menus."""
+    if (request.endpoint not in ['patrons.logged_user',
+                                 'rero_ils.schemaform',
+                                 'invenio_i18n.set_lang',
+                                 'static',
+                                 'security.login',
+                                 'patrons.logged_user',
+                                 '_debug_toolbar.static'] and
+            request.method == 'GET'):
+        init_menu_lang()
+        init_menu_profile()
 
 
 def check_organisation_viewcode(fn):
