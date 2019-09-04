@@ -23,8 +23,11 @@ from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
+from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
+
+from rero_ils.modules.circ_policies.models import CircPolicyIdentifier
 
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer
@@ -104,10 +107,24 @@ class Holding(IlsRecord):
         return self.replace_refs()['location']['pid']
 
     @property
+    def library_pid(self):
+        """Shortcut for library of the holding location."""
+        return Location.get_record_by_pid(self.location_pid).library_pid
+
+    @property
     def organisation_pid(self):
         """Get organisation pid for holding."""
         location = Location.get_record_by_pid(self.location_pid)
         return location.organisation_pid
+
+    @property
+    def available(self):
+        """Get availability for holding."""
+        for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
+            item = Item.get_record_by_pid(item_pid)
+            if item.available:
+                return True
+        return False
 
     @classmethod
     def get_document_pid_by_holding_pid(cls, holding_pid):
@@ -161,6 +178,25 @@ class Holding(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def get_holding_loan_conditions(self):
+        """Returns loan conditions for a given holding."""
+        from ..patrons.api import current_patron
+        from ..item_types.api import ItemType
+        from ..circ_policies.api import CircPolicy
+
+        if current_patron.is_patron:
+            cipo = CircPolicy.provide_circ_policy(
+                self.library_pid,
+                current_patron.patron_type_pid,
+                self.circulation_category_pid
+            )
+            text = '{0} {1} days'.format(
+                _(cipo.get('name')), cipo.get('checkout_duration'))
+            return text
+        else:
+            return ItemType.get_record_by_pid(
+                self.circulation_category_pid).get('name')
 
 
 def get_holding_pid_for_item(document_pid, location_pid, item_type_pid):
