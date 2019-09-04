@@ -249,7 +249,8 @@
                       href_update=url_for('records/items.index', path=item.pid, document=record.pid),
                       href_delete='/api/items/' + item.pid,
                       json=item,
-                      next=url_for('invenio_records_ui.doc', viewcode=viewcode, recordType=recordType, pid_value=record.pid)
+                      next=url_for('invenio_records_ui.doc', viewcode=viewcode, recordType=recordType, pid_value=record.pid),
+                      message=_("Item cannot be deleted: there are still transactions linked to this item.")
                     %}
                       {% include 'rero_ils/_editor_button_actions.html' %}
                     {% endwith %}
