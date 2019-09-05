@@ -700,6 +700,7 @@
     "checkout_duration": 30,
     "number_of_days_before_due_date": 5,
     "number_of_days_after_due_date": 5,
+    "overdue_amount": 2.0,
     "allow_requests": true,
     "number_renewals": 3,
     "renewal_duration": 30,
@@ -719,6 +720,7 @@
     "allow_requests": true,
     "number_of_days_before_due_date": 5,
     "number_of_days_after_due_date": 5,
+    "overdue_amount": 2.0,
     "number_renewals": 1,
     "renewal_duration": 15,
     "is_default": false,
@@ -755,6 +757,7 @@
     "allow_requests": true,
     "number_of_days_before_due_date": 5,
     "number_of_days_after_due_date": 5,
+    "overdue_amount": 2.0,
     "number_renewals": 1,
     "renewal_duration": 7,
     "is_default": false,
@@ -787,6 +790,7 @@
     "checkout_duration": 30,
     "number_of_days_before_due_date": 5,
     "number_of_days_after_due_date": 5,
+    "overdue_amount": 2.0,
     "allow_requests": true,
     "number_renewals": 3,
     "renewal_duration": 30,
@@ -1687,5 +1691,17 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     }
+  },
+  "dummy_fee": {
+    "$schema": "https://ils.rero.ch/schema/fees/fee-v0.0.1.json",
+    "pid": "fee1",
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "fee_type": "overdue",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "amount": 0.5,
+    "currency": "CHF",
+    "status": "open"
   }
 }

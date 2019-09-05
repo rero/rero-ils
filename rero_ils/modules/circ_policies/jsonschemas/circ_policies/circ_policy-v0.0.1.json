@@ -79,6 +79,12 @@
       "default": 5,
       "minimum": 1
     },
+    "overdue_amount": {
+      "title": "Overdue amount",
+      "description": "Overdue amount.",
+      "type": "number",
+      "default": 2.0
+    },
     "number_renewals": {
       "title": "Maximum number of renewals",
       "description": "Maximum number of renewals allowed.",
