@@ -4,14 +4,16 @@
     "pid": "org1",
     "name": "The district of Martigny Libraries",
     "address": "Ave de la gare, Martigny CH-1920",
-    "code": "org1"
+    "code": "org1",
+    "default_currency": "CHF"
   },
   "org2": {
     "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "pid": "org2",
     "name": "The district of Sion Libraries",
     "address": "Ave de la gare, Martigny CH-1950",
-    "code": "org2"
+    "code": "org2",
+    "default_currency": "EUR"
   },
   "lib1": {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
