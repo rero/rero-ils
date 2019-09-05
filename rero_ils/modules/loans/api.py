@@ -291,3 +291,18 @@ def get_overdue_loans():
         if now > due_date + timedelta(days=days_after):
             overdue_loans.append(loan)
     return overdue_loans
+
+
+def get_item_on_loan_loans():
+    """Return item on loan."""
+    item_on_loan_loans = []
+    results = current_circulation.loan_search\
+        .source(['pid'])\
+        .params(preserve_order=True)\
+        .filter('term', state='ITEM_ON_LOAN')\
+        .sort({'transaction_date': {'order': 'asc'}})\
+        .scan()
+    for record in results:
+        loan = Loan.get_record_by_pid(record.pid)
+        item_on_loan_loans.append(loan)
+    return item_on_loan_loans

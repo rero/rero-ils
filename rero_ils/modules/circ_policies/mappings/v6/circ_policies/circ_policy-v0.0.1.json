@@ -52,6 +52,9 @@
         "number_of_days_before_due_date": {
           "type": "integer"
         },
+        "overdue_amount": {
+          "type": "float"
+        },
         "renewal_duration": {
           "type": "integer"
         },

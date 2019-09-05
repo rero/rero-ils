@@ -144,7 +144,7 @@ pipenv run invenio index run -c 4 --raise-on-error
 
 # # create circulation transactions
 echo -e ${GREEN}Circulation transactions:${NC}
-pipenv run invenio fixtures create_loans ${DATA_PATH}/loans.json
+pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
 
 # # OAI configuration
 pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
