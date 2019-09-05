@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
@@ -16,19 +15,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-set -e
+"""Define relation between records and buckets."""
 
-script_path=$(dirname "$0")
+from __future__ import absolute_import
 
-export FLASK_DEBUG=True
-export FLASK_ENV=development
-# Start Worker and Server
-pipenv run celery worker -A invenio_app.celery -l INFO & pid_celery=$!
+from invenio_db import db
+from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
-pipenv run invenio run \
-       --cert "$script_path"/../docker/nginx/test.crt \
-       --key "$script_path"/../docker/nginx/test.key & pid_server=$!
 
-trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
+class FeeIdentifier(RecordIdentifier):
+    """Sequence generator for Fees identifiers."""
 
-wait $pid_celery $pid_server
+    __tablename__ = 'fee_id'
+    __mapper_args__ = {'concrete': True}
+
+    recid = db.Column(
+        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        primary_key=True, autoincrement=True,
+    )
+
+
+class FeeMetadata(db.Model, RecordMetadataBase):
+    """Fee record metadata."""
+
+    __tablename__ = 'fees_metadata'

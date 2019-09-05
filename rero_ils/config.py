@@ -717,6 +717,38 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
+    fee=dict(
+        pid_type='fee',
+        pid_minter='fee_id',
+        pid_fetcher='fee_id',
+        search_class=RecordsSearch,
+        search_index='fees',
+        indexer_class=IlsRecordIndexer,
+        search_type=None,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: Fee(request.get_json()),
+        },
+        list_route='/fees/',
+        record_class='rero_ils.modules.fees.api:Fee',
+        item_route='/fees/<pid(fee, record_class="rero_ils.modules.fees.api:Fee"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -937,6 +969,7 @@ RECORDS_JSON_SCHEMA = {
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
+    'fee': '/fees/fee-v0.0.1.json',
 }
 
 # Login Configuration
@@ -1136,3 +1169,6 @@ CIRCULATION_POLICIES = dict(
         can_be_requested=can_be_requested
     )
 )
+
+#: Rero-ils default currency configuration.
+RERO_ILS_DEFAULT_CURRENCY = 'CHF'

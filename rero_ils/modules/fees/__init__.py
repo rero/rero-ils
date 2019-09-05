@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
@@ -16,19 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-set -e
 
-script_path=$(dirname "$0")
+"""Fee Records."""
 
-export FLASK_DEBUG=True
-export FLASK_ENV=development
-# Start Worker and Server
-pipenv run celery worker -A invenio_app.celery -l INFO & pid_celery=$!
-
-pipenv run invenio run \
-       --cert "$script_path"/../docker/nginx/test.crt \
-       --key "$script_path"/../docker/nginx/test.key & pid_server=$!
-
-trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
-
-wait $pid_celery $pid_server
+from __future__ import absolute_import, print_function

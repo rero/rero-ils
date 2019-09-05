@@ -614,3 +614,11 @@ def notification_availability_martigny(loan_validated_martigny):
 def dummy_notification(data):
     """Notification data scope function."""
     return deepcopy(data.get('dummy_notif'))
+
+
+# ------------ Fees: dummy fee ----------
+
+@pytest.fixture(scope="function")
+def dummy_fee(data):
+    """Fee data scope function."""
+    return deepcopy(data.get('dummy_fee'))
