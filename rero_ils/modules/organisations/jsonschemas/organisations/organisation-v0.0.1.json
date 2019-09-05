@@ -8,7 +8,8 @@
     "$schema",
     "pid",
     "name",
-    "code"
+    "code",
+    "default_currency"
   ],
   "properties": {
     "$schema": {
@@ -40,6 +41,12 @@
       "description": "Code of the organisation.",
       "type": "string",
       "minLength": 2
+    },
+    "default_currency": {
+      "title": "Default currency",
+      "description": "The default currency of the organisation",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
     }
   }
 }
