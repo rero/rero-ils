@@ -62,20 +62,20 @@ echo "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
 # install assets utils
-npm i npm@latest -g --prefix `pipenv --venv` && pipenv run npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
-
+virtualenv_path=`pipenv --venv`
+pipenv run npm i npm@latest -g --prefix "${virtualenv_path}" && pipenv run npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4
 
 # collect static files and compile html/css assets
 CWD=`pwd`
 # build the angular ui application
-cd ui; npm ci; pipenv run npm run deploy
+cd ui; pipenv run npm ci; pipenv run npm run deploy
 
 # install the npm dependencies
 cd ${CWD}
 pipenv run invenio npm
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 cd $static_folder
-npm install
+pipenv run npm install
 cd ${CWD}
 
 # build the web assets
