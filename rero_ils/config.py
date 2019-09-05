@@ -1170,5 +1170,6 @@ CIRCULATION_POLICIES = dict(
     )
 )
 
-#: Rero-ils default currency configuration.
+# Define the default system currency in used. Each organisation can override
+# this parameter using the 'default_currency' field
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'

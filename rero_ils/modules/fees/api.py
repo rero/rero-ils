@@ -118,9 +118,15 @@ class Fee(IlsRecord):
                 holding_circulation_category_pid
             )
             data['amount'] = cipo.get('overdue_amount')
-            data['currency'] = current_app.config\
-                .get('RERO_ILS_DEFAULT_CURRENCY')
+            currency = current_app.config.get('RERO_ILS_DEFAULT_CURRENCY')
+            if notification.organisation:
+                currency = notification.organisation.get('default_currency')
+            data['currency'] = currency
             data['status'] = 'open'
             record = cls.create(
-                data, dbcommit=True, reindex=True, delete_pid=True)
+                data,
+                dbcommit=True,
+                reindex=True,
+                delete_pid=True
+            )
         return record
