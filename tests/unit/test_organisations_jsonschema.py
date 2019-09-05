@@ -63,3 +63,23 @@ def test_address(organisation_schema, org_martigny_data):
         data = copy.deepcopy(org_martigny_data)
         data['address'] = 25
         validate(data, organisation_schema)
+
+
+def test_default_currency(organisation_schema, org_martigny_data):
+    """Test default currency for organisation jsonschemas."""
+    validate(org_martigny_data, organisation_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(org_martigny_data)
+        data['default_currency'] = 25  # bad type
+        validate(data, organisation_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(org_martigny_data)
+        data['default_currency'] = "dummy"  # bad string length
+        validate(data, organisation_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(org_martigny_data)
+        data['default_currency'] = "chf"  # bad string case
+        validate(data, organisation_schema)

@@ -177,6 +177,12 @@ class Notification(IlsRecord):
         return self.transaction_location.organisation_pid
 
     @property
+    def organisation(self):
+        """Shortcut for organisation of the notification."""
+        from ..organisations.api import Organisation
+        return Organisation.get_record_by_pid(self.organisation_pid)
+
+    @property
     def item_pid(self):
         """Shortcut for item pid of the notification."""
         self.init_loan()
