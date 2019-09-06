@@ -20,6 +20,7 @@
 
 from functools import partial
 
+from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
@@ -27,6 +28,7 @@ from .models import DocumentIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
+from ..organisations.api import Organisation
 from ..providers import Provider
 
 # provider
@@ -57,14 +59,23 @@ class Document(IlsRecord):
     fetcher = document_id_fetcher
     provider = DocumentProvider
 
-    @property
-    def available(self):
+    def is_available(self, view_code):
         """Get availability for document."""
         from ..holdings.api import Holding
-        for holding_pid in Holding.get_holdings_pid_by_document_pid(self.pid):
-            holding = Holding.get_record_by_pid(holding_pid)
-            if holding.available:
-                return True
+        if view_code != current_app.config.get(
+                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+            view_id = Organisation.get_record_by_viewcode(view_code)['pid']
+            for holding_pid in Holding.get_holdings_pid_by_document_pid_by_org(
+                    self.pid, view_id):
+                holding = Holding.get_record_by_pid(holding_pid)
+                if holding.available:
+                    return True
+        else:
+            for holding_pid in Holding.get_holdings_pid_by_document_pid(
+                    self.pid):
+                holding = Holding.get_record_by_pid(holding_pid)
+                if holding.available:
+                    return True
         return False
 
     @property

@@ -44,7 +44,7 @@ def test_item_holding_document_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert document.available
+    assert document.is_available(view_code='global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
 
@@ -78,13 +78,13 @@ def test_item_holding_document_availability(
     assert not item_lib_martigny.available
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
-    assert not_available_reasons(item_lib_martigny) == '(1 requests)'
+    assert not_available_reasons(item_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert document.available
+    assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
     # validate request
@@ -104,13 +104,13 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
     assert not item_lib_martigny.available
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert not_available_reasons(item) == 'in transit (1 requests)'
+    assert not_available_reasons(item) == 'in transit (1 request)'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert document.available
+    assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
     login_user_via_session(client, librarian_saxon_no_email.user)
@@ -131,13 +131,13 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_saxon_no_email.user)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.available
-    assert not_available_reasons(item) == '(1 requests)'
+    assert not_available_reasons(item) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_saxon_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert document.available
+    assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
     # checkout
@@ -162,7 +162,7 @@ def test_item_holding_document_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_saxon_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert document.available
+    assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
 
@@ -210,13 +210,13 @@ def test_item_holding_document_availability(
     assert not item2_lib_martigny.available
     assert not item_availablity_status(
         client, item2_lib_martigny.pid, librarian_martigny_no_email.user)
-    assert not_available_reasons(item2_lib_martigny) == '(1 requests)'
+    assert not_available_reasons(item2_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert not holding.available
     assert not holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-    assert not document.available
+    assert not document.is_available('global')
     assert not document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
 
@@ -256,6 +256,7 @@ def document_availablity_status(client, pid, user):
         url_for(
             'api_documents.document_availability',
             document_pid=pid,
+            view_code='global'
         )
     )
     assert res.status_code == 200

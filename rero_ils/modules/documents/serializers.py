@@ -20,6 +20,7 @@
 from flask import current_app, request
 from invenio_records_rest.serializers.response import search_responsify
 
+from ..documents.api import Document
 from ..libraries.api import Library
 from ..organisations.api import Organisation
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
@@ -33,12 +34,15 @@ class DocumentJSONSerializer(JSONSerializer):
         # Item filters.
         viewcode = request.args.get('view')
         if viewcode != current_app.config.get(
-            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
         ):
             view_id = Organisation.get_record_by_viewcode(viewcode)['pid']
             records = results.get('hits', {}).get('hits', {})
             for record in records:
                 metadata = record.get('metadata', {})
+                available = Document.get_record_by_pid(
+                    metadata.get('pid')).is_available(viewcode)
+                metadata['available'] = available
                 items = metadata.get('items', [])
                 if items:
                     output = []
@@ -47,6 +51,13 @@ class DocumentJSONSerializer(JSONSerializer):
                                 .get('organisation_pid') == view_id:
                             output.append(item)
                     record['metadata']['items'] = output
+        else:
+            records = results.get('hits', {}).get('hits', {})
+            for record in records:
+                metadata = record.get('metadata', {})
+                available = Document.get_record_by_pid(
+                    metadata.get('pid')).is_available(viewcode)
+                metadata['available'] = available
 
         # Add organisation name
         for org_term in results.get('aggregations', {}).get(

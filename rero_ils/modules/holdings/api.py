@@ -138,6 +138,16 @@ class Holding(IlsRecord):
         for holding in results:
             yield holding.pid
 
+    @classmethod
+    def get_holdings_pid_by_document_pid_by_org(cls, document_pid, org_pid):
+        """Returns holding pids attached for a given document pid."""
+        results = HoldingsSearch()\
+            .filter('term', document__pid=document_pid)\
+            .filter('term', organisation__pid=org_pid)\
+            .source(['pid']).scan()
+        for holding in results:
+            yield holding.pid
+
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
         items = []

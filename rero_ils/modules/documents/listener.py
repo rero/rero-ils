@@ -24,7 +24,7 @@ from invenio_search import current_search
 from requests import codes as requests_codes
 from requests import get as requests_get
 
-from ..documents.api import DocumentsSearch
+from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding
 from ..item_types.api import ItemType
 from ..items.api import Item
@@ -46,9 +46,9 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     if index.startswith(document_index_name):
         # HOLDINGS
         holdings = []
-        available = False
+        document_pid = record['pid']
         for holding_pid in Holding.get_holdings_pid_by_document_pid(
-            record['pid']
+                document_pid
         ):
             holding = Holding.get_record_by_pid(holding_pid)
             location = Location.get_record_by_pid(
@@ -60,6 +60,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 holding.circulation_category_pid).replace_refs()
             data = {
                 'pid': holding.pid,
+                'available': holding.available,
                 'call_number': holding.get('call_number'),
                 'location': {
                     'pid': location.pid,
@@ -82,7 +83,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             items = []
             for item_pid in Item.get_items_pid_by_holding_pid(holding_pid):
                 item = Item.get_record_by_pid(item_pid)
-                available = available or item.available
+                available = item.available
                 items.append({
                     'pid': item.pid,
                     'barcode': item['barcode'],
@@ -97,8 +98,6 @@ def enrich_document_data(sender, json=None, record=None, index=None,
 
         if holdings:
             json['holdings'] = holdings
-
-        json['available'] = available
 
 
 def mef_person_insert(sender, *args, **kwargs):
