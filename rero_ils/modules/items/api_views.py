@@ -31,7 +31,6 @@ from werkzeug.exceptions import NotFound
 from .api import Item
 from ..circ_policies.api import CircPolicy
 from ..loans.api import Loan
-from ..loans.utils import extend_loan_data_is_valid
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 

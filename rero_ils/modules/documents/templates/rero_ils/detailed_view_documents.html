@@ -153,6 +153,7 @@
             <dd class="col-sm-7 col-md-8">
               {{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) }}
             </dd>
+            {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success' if record.available else 'danger') +'"></i> ') }}
             </dl>
         </article>
         <footer class="d-flex flex-column pt-2">
@@ -223,7 +224,12 @@
                     {% endif %}
                   {% endif %}
                   {% if item.status %}
-                    {{ dl(_('Status'),'<i class="fa fa-circle text-'+ ('success' if item.available else 'danger') +'"></i> ' + item|item_status_text(format='short_date', locale=current_i18n.locale.language)) }}
+                    {{ dl(_('Status'), item.status) }}
+                  {% endif %}
+                  {% if item.available %}
+                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
+                    {% else %}
+                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + item|not_available_reasons) }}
                   {% endif %}
                 </dl>
               </article>
