@@ -140,7 +140,16 @@ def not_available_reasons(item):
                 msg=_('in transit'))
 
         if item.number_of_requests():
-            text += ' ({number} {msg})'.format(
-                number=item.number_of_requests(),
-                msg=_('requests'))
+            if item.number_of_requests() == 1:
+                request_txt = _('request')
+            else:
+                request_txt = _('requests')
+            if text:
+                text += ' ({number} {msg})'.format(
+                    number=item.number_of_requests(),
+                    msg=request_txt)
+            else:
+                text = '{number} {msg}'.format(
+                    number=item.number_of_requests(),
+                    msg=request_txt)
     return text.strip()

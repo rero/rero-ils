@@ -30,8 +30,8 @@ import requests
 import six
 from babel import Locale
 from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import Blueprint, abort, current_app, jsonify, render_template, \
-    request
+from flask import Blueprint, abort, current_app, jsonify, render_template
+from flask import request as flask_request
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
@@ -62,14 +62,16 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     record_viewed.send(
         current_app._get_current_object(), pid=pid, record=record)
 
+    viewcode = kwargs['viewcode']
+    record['available'] = Document.get_record_by_pid(
+        pid.pid_value).is_available(viewcode)
+
     holdings = [
         Holding.get_record_by_pid(holding_pid)
         for holding_pid in Holding.get_holdings_pid_by_document_pid(
             pid.pid_value
         )
     ]
-
-    viewcode = kwargs['viewcode']
 
     return render_template(
         template,
@@ -96,17 +98,6 @@ def check_permission(fn):
     return decorated_view
 
 
-@api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])
-def document_availability(document_pid):
-    """HTTP GET request for document availability."""
-    document = Document.get_record_by_pid(document_pid)
-    if not document:
-        abort(404)
-    return jsonify({
-        'availability': document.available
-    })
-
-
 @api_blueprint.route('/cover/<isbn>')
 def cover(isbn):
     """Documenet cover service."""
@@ -114,7 +105,7 @@ def cover(isbn):
     url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
                           '&type=isbn&width=60px&callback=thumb&value=' + isbn
     response = requests.get(
-        url, headers={'referer': request.host_url})
+        url, headers={'referer': flask_request.host_url})
     return jsonify(json.loads(response.text[len('thumb('):-1]))
 
 
@@ -387,3 +378,17 @@ def language_format(langs_list, language_interface):
             language_interface).lower()
         output.append(lang_display)
     return ", ".join(output)
+
+
+@api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])
+def document_availability(document_pid):
+    """HTTP GET request for document availability."""
+    view_code = flask_request.args.get('view_code')
+    if not view_code:
+        view_code = 'global'
+    document = Document.get_record_by_pid(document_pid)
+    if not document:
+        abort(404)
+    return jsonify({
+        'availability': document.is_available(view_code)
+    })

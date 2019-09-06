@@ -20,9 +20,10 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, abort, current_app, render_template
 from invenio_records_ui.signals import record_viewed
 
+from .api import Holding
 from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
@@ -64,3 +65,12 @@ blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+@blueprint.app_template_filter()
+def holding_loan_condition_filter(holding_pid):
+    """HTTP GET request for holding loan condition."""
+    holding = Holding.get_record_by_pid(holding_pid)
+    if not holding:
+        abort(404)
+    return holding.get_holding_loan_conditions()
