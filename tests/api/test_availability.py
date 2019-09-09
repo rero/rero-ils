@@ -28,12 +28,14 @@ from rero_ils.modules.items.views import not_available_reasons
 from rero_ils.modules.loans.api import LoanAction
 
 
-def test_item_holding_availability(
-        client, holding_lib_martigny, item_lib_martigny, item2_lib_martigny,
+def test_item_holding_document_availability(
+        client, document,
+        holding_lib_martigny,
+        item_lib_martigny, item2_lib_martigny,
         librarian_martigny_no_email, librarian_saxon_no_email,
-        patron_martigny_no_email, loc_public_saxon, circulation_policies):
-    """Test item availability."""
-
+        patron_martigny_no_email, patron2_martigny_no_email,
+        loc_public_saxon, circulation_policies):
+    """Test item, holding and document availability."""
     assert item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
     assert item_lib_martigny.available
@@ -42,6 +44,9 @@ def test_item_holding_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
+    assert document.available
+    assert document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
 
     # login as patron
     with mock.patch(
@@ -79,7 +84,9 @@ def test_item_holding_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-
+    assert document.available
+    assert document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
     # validate request
     res = client.post(
         url_for('api_item.validate_request'),
@@ -103,7 +110,9 @@ def test_item_holding_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-
+    assert document.available
+    assert document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
     login_user_via_session(client, librarian_saxon_no_email.user)
     # receive
     res = client.post(
@@ -128,7 +137,9 @@ def test_item_holding_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_saxon_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
-
+    assert document.available
+    assert document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
     # checkout
     res = client.post(
         url_for('api_item.checkout'),
@@ -151,6 +162,9 @@ def test_item_holding_availability(
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_saxon_no_email.user)
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
+    assert document.available
+    assert document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
 
     class current_i18n:
         class locale:
@@ -161,6 +175,50 @@ def test_item_holding_availability(
     ):
         end_date = item.get_item_end_date()
         assert not_available_reasons(item) == 'due until ' + end_date
+
+    """
+    request second item with another patron and test document and holding
+    availability
+    """
+
+    # login as patron
+    with mock.patch(
+        'rero_ils.modules.patrons.api.current_patron',
+        patron_martigny_no_email
+    ):
+        login_user_via_session(client, patron2_martigny_no_email.user)
+        assert holding_lib_martigny.get_holding_loan_conditions() \
+            == 'short 15 days'
+    # request second item
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item2_lib_martigny.pid,
+                pickup_location_pid=loc_public_saxon.pid,
+                patron_pid=patron2_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.REQUEST].get('pid')
+    assert not item2_lib_martigny.available
+    assert not item_availablity_status(
+        client, item2_lib_martigny.pid, librarian_martigny_no_email.user)
+    assert not_available_reasons(item2_lib_martigny) == '(1 requests)'
+    holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
+    assert not holding.available
+    assert not holding_availablity_status(
+        client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
+    assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
+    assert not document.available
+    assert not document_availablity_status(
+        client, document.pid, librarian_martigny_no_email.user)
 
 
 def item_availablity_status(client, pid, user):
@@ -184,6 +242,20 @@ def holding_availablity_status(client, pid, user):
         url_for(
             'api_holding.holding_availability',
             holding_pid=pid,
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    return data.get('availability')
+
+
+def document_availablity_status(client, pid, user):
+    """Returns document availability."""
+    login_user_via_session(client, user)
+    res = client.get(
+        url_for(
+            'api_documents.document_availability',
+            document_pid=pid,
         )
     )
     assert res.status_code == 200

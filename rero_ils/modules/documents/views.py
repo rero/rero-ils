@@ -96,6 +96,17 @@ def check_permission(fn):
     return decorated_view
 
 
+@api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])
+def document_availability(document_pid):
+    """HTTP GET request for document availability."""
+    document = Document.get_record_by_pid(document_pid)
+    if not document:
+        abort(404)
+    return jsonify({
+        'availability': document.available
+    })
+
+
 @api_blueprint.route('/cover/<isbn>')
 def cover(isbn):
     """Documenet cover service."""

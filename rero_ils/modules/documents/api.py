@@ -58,6 +58,16 @@ class Document(IlsRecord):
     provider = DocumentProvider
 
     @property
+    def available(self):
+        """Get availability for document."""
+        from ..holdings.api import Holding
+        for holding_pid in Holding.get_holdings_pid_by_document_pid(self.pid):
+            holding = Holding.get_record_by_pid(holding_pid)
+            if holding.available:
+                return True
+        return False
+
+    @property
     def harvested(self):
         """Is this record harvested from an external service."""
         return self.get('harvested')
