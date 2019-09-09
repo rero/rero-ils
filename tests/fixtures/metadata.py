@@ -339,21 +339,21 @@ def item_lib_sion(
 
 
 @pytest.fixture(scope="module")
-def item_lib_sion_org2_data(data):
+def item2_lib_sion_data(data):
     """Load item of sion library."""
     return deepcopy(data.get('item6'))
 
 
 @pytest.fixture(scope="module")
-def item_lib_sion_org2(
+def item2_lib_sion(
         app,
         document,
-        item_lib_sion_org2_data,
+        item2_lib_sion_data,
         loc_restricted_sion,
         item_type_regular_sion):
     """Create item of sion library."""
     item = Item.create(
-        data=item_lib_sion_org2_data,
+        data=item2_lib_sion_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -436,7 +436,7 @@ def holding_lib_sion_data(data):
 @pytest.fixture(scope="module")
 def holding_lib_sion(app, document, holding_lib_sion_data,
                      loc_public_sion, item_type_internal_sion):
-    """Create holding of saxon library."""
+    """Create holding of sion library."""
     holding = Holding.create(
         data=holding_lib_sion_data,
         delete_pid=False,
