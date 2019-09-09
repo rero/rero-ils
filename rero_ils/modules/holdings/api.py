@@ -27,11 +27,8 @@ from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 
-from rero_ils.modules.circ_policies.models import CircPolicyIdentifier
-
 from .models import HoldingIdentifier
-from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer
-from ..documents.api import Document, DocumentsSearch
+from ..api import IlsRecord, IlsRecordIndexer
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
 from ..locations.api import Location
