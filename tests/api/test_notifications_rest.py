@@ -25,7 +25,7 @@ import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    to_relative_url
+    postdata, to_relative_url
 
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.notifications.api import Notification, \
@@ -40,15 +40,14 @@ def test_notifications_permissions(
     notif = notification_availability_martigny
     pid = notif.get('pid')
     item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
-    post_url = url_for('invenio_records_rest.notif_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.notif_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -94,7 +93,7 @@ def test_notification_secure_api(client, json_header,
     """Test notification secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.notif_list')
+    post_entrypoint = 'invenio_records_rest.notif_list'
     item_url = url_for('invenio_records_rest.notif_item', pid_value='notif1')
 
     # test notification creation
@@ -105,10 +104,10 @@ def test_notification_secure_api(client, json_header,
     }
     loan_ref = '{loan_url}{pid}'.format(**notif_data)
     notif['loan'] = {"$ref": loan_ref}
-    res = client.post(
-        post_url,
-        data=json.dumps(notif),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        notif
     )
     assert res.status_code == 201
 
@@ -135,10 +134,10 @@ def test_notification_secure_api(client, json_header,
     res = client.get(item_url)
     assert res.status_code == 403
 
-    res = client.post(
-        post_url,
-        data=json.dumps(notif),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        notif
     )
     assert res.status_code == 403
 
@@ -243,24 +242,22 @@ def test_notifications_post_put_delete(
     pid = notif.get('pid')
 
     item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
-    post_url = url_for('invenio_records_rest.notif_list')
     list_url = url_for('invenio_records_rest.notif_list', q='pid:pid')
 
     new_record = deepcopy(record)
 
     # Create record / POST
     new_record['pid'] = 'x'
-    res = client.post(
-        post_url,
-        data=json.dumps(new_record),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.notif_list',
+        new_record
     )
     assert res.status_code == 201
 
     flush_index(NotificationsSearch.Meta.index)
 
     # Check that the returned record matches the given data
-    data = get_json(res)
     assert data['metadata'] == new_record
 
     res = client.get(item_url)
@@ -315,33 +312,28 @@ def test_recall_notification(client, patron_martigny_no_email,
                              circulation_policies, loc_public_martigny):
     """Test recall notification."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
     assert not loan.is_notified(notification_type='recall')
     # test notification permissions
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pickup_location_pid=loc_public_martigny.pid,
-                patron_pid=patron2_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron2_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
 

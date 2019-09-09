@@ -28,7 +28,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
@@ -42,15 +42,14 @@ from rero_ils.modules.notifications.api import Notification, \
 def test_loans_permissions(client, loan_pending_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.loanid_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.loanid_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -70,15 +69,14 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
     """Test record retrieval."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.loanid_list')
 
     res = client.get(item_url)
     assert res.status_code == 403
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.loanid_list',
+        {}
     )
     assert res.status_code == 403
 
@@ -155,18 +153,15 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     )
 
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                patron_pid=patron_pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('pid') == loan_pid
@@ -189,15 +184,13 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     assert end_date.minute == 59 and end_date.hour != 23
 
     # checkin the item to put it back to it's original state
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
 
@@ -214,19 +207,16 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     patron_pid = patron_martigny_no_email.pid
 
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                patron_pid=patron_pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid
+        )
     )
     assert res.status_code == 200
 
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
@@ -249,15 +239,13 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     assert number_of_reminders_sent(loan) == 1
 
     # checkin the item to put it back to it's original state
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
 
@@ -274,19 +262,16 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     # request
     login_user_via_session(client, librarian_martigny_no_email.user)
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item2_lib_martigny.pid,
-                pickup_location_pid=loc_public_saxon.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
     assert not item2_lib_martigny.available
@@ -295,15 +280,13 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     assert loan.get('state') == 'PENDING'
 
     # validate request
-    res = client.post(
-        url_for('api_item.validate_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item2_lib_martigny.pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.available
@@ -315,15 +298,13 @@ def test_checkout_item_transit(client, item2_lib_martigny,
 
     login_user_via_session(client, librarian_saxon_no_email.user)
     # receive
-    res = client.post(
-        url_for('api_item.receive'),
-        data=json.dumps(
-            dict(
-                item_pid=item2_lib_martigny.pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.receive',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.available
@@ -333,15 +314,13 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     loan_before_checkout = get_loan_for_item(item.pid)
     assert loan_before_checkout.get('state') == 'ITEM_AT_DESK'
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item2_lib_martigny.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item2_lib_martigny.pid)

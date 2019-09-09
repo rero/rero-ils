@@ -23,7 +23,7 @@ from datetime import datetime, timedelta, timezone
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, to_relative_url
+from utils import flush_index, get_json, postdata, to_relative_url
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch
@@ -40,19 +40,16 @@ def test_create_fee(client, librarian_martigny_no_email,
     login_user_via_session(client, librarian_martigny_no_email.user)
 
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
 
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)
@@ -86,15 +83,13 @@ def test_create_fee(client, librarian_martigny_no_email,
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     # checkin
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
 
@@ -107,18 +102,17 @@ def test_create_fee_euro(client, librarian_martigny_no_email,
     login_user_via_session(client, librarian_martigny_no_email.user)
 
     # create a checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps({
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny_no_email.pid
-        }),
-        content_type='application/json',
+        },
     )
     assert res.status_code == 200
 
     # load the created loan and place it in overdue
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     end_date = datetime.now(timezone.utc) - timedelta(days=7)

@@ -23,7 +23,8 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 
@@ -31,15 +32,14 @@ from rero_ils.modules.api import IlsRecordError
 def test_locations_permissions(client, loc_public_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loc_item', pid_value='loc1')
-    post_url = url_for('invenio_records_rest.loc_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.loc_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -108,20 +108,18 @@ def test_locations_post_put_delete(client, lib_martigny,
                                    json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loc_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.loc_list')
     list_url = url_for('invenio_records_rest.loc_list', q='pid:1')
     location_data = loc_public_martigny_data
     # Create record / POST
     location_data['pid'] = '1'
-    res = client.post(
-        post_url,
-        data=json.dumps(location_data),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.loc_list',
+        location_data
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    data = get_json(res)
     assert data['metadata'] == location_data
 
     res = client.get(item_url)
@@ -230,23 +228,23 @@ def test_location_secure_api_create(client, json_header, loc_public_martigny,
     """Test location secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.loc_list')
+    post_entrypoint = 'invenio_records_rest.loc_list'
 
     del loc_public_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(loc_public_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        loc_public_martigny_data
     )
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
-        post_url,
-        data=json.dumps(loc_public_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        loc_public_martigny_data
     )
     assert res.status_code == 403
 

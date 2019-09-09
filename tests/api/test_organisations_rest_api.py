@@ -22,7 +22,8 @@ import json
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 
 def test_location_can_delete(client, org_martigny, lib_martigny):
@@ -61,23 +62,23 @@ def test_organisation_secure_api_create(client, json_header, org_martigny,
     """Test organisation secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.org_list')
+    post_entrypoint = 'invenio_records_rest.org_list'
 
     del org_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(org_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        org_martigny_data
     )
     assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
-        post_url,
-        data=json.dumps(org_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        org_martigny_data
     )
     assert res.status_code == 403
 

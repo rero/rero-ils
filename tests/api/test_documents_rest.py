@@ -25,7 +25,8 @@ import json
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.documents.views import can_request, \
     item_library_pickup_locations, item_status_text, number_of_requests, \
@@ -35,15 +36,14 @@ from rero_ils.modules.documents.views import can_request, \
 def test_documents_permissions(client, document, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
-    post_url = url_for('invenio_records_rest.doc_list')
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.doc_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -114,19 +114,17 @@ def test_documents_post_put_delete(client, document_data,
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.doc_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.doc_list')
     list_url = url_for('invenio_records_rest.doc_list', q='pid:1')
 
     document_data['pid'] = '1'
-    res = client.post(
-        post_url,
-        data=json.dumps(document_data),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.doc_list',
+        document_data
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    data = get_json(res)
     assert data['metadata'] == document_data
 
     res = client.get(item_url)

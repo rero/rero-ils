@@ -26,7 +26,7 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
@@ -47,58 +47,43 @@ def test_checkout_no_loan_given(client, librarian_martigny_no_email,
     patron = patron_martigny_no_email
     location = loc_public_martigny
     # request
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pickup_location_pid=location.pid,
-                patron_pid=patron.pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item.pid,
+            pickup_location_pid=location.pid,
+            patron_pid=patron.pid
+        )
     )
     assert res.status_code == 200
 
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                patron_pid=patron.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item.pid,
+            patron_pid=patron.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
 
     from rero_ils.modules.patrons.views import  \
         get_patron_from_checkout_item_pid
     assert get_patron_from_checkout_item_pid(item.pid) == patron
 
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid
-            )
-        ),
-        content_type='application/json',
-    )
+    res, _ = postdata(client, 'api_item.checkin', dict(item_pid=item.pid))
     assert res.status_code == 403
 
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pid=loan_pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item.pid,
+            pid=loan_pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
 
@@ -127,30 +112,25 @@ def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
 
     assert 'checkout' in item.actions
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pickup_location_pid=location.pid,
-                patron_pid=patron.pid
-            )
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item.pid,
+            pickup_location_pid=location.pid,
+            patron_pid=patron.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
-    res = client.post(
-        url_for('api_item.validate_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pid=loan_pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item.pid,
+            pid=loan_pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
 
@@ -169,16 +149,14 @@ def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
     )
 
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                patron_pid=patron.pid,
-                pid=loan_pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item.pid,
+            patron_pid=patron.pid,
+            pid=loan_pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
     assert 'extend_loan' in item.actions
@@ -193,15 +171,13 @@ def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
         assert item.get_item_end_date()
 
     circ_policy.update(circ_policy_origin, dbcommit=True, reindex=True)
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pid=loan_pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item.pid,
+            pid=loan_pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
 
@@ -230,31 +206,26 @@ def test_automatic_checkin(client, librarian_martigny_no_email, lib_martigny,
     record, actions = item_lib_martigny.automatic_checkin()
     assert actions == {'no': None}
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pickup_location_pid=loc_public_saxon.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron_martigny_no_email.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
-    res = client.post(
-        url_for('api_item.validate_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid,
-                transaction_location_pid=loc_public_martigny.pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
 
@@ -286,31 +257,26 @@ def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
     record, actions = item_lib_martigny.automatic_checkin()
     assert actions == {'no': None}
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pickup_location_pid=loc_public_saxon.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron_martigny_no_email.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
-    res = client.post(
-        url_for('api_item.validate_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid,
-                transaction_location_pid=loc_public_martigny.pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
 
@@ -347,18 +313,15 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     )
     assert res.status_code == 404
 
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                patron_pid=patron_pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
 
     record = Item.get_record_by_pid(item_lib_martigny.pid)
@@ -373,32 +336,27 @@ def test_item_different_actions(client, librarian_martigny_no_email,
         text = item_status_text(record, format='medium', locale='en')
         assert 'due until' in text
 
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid='does not exist',
-                pid=loan_pid,
-                transaction_location_pid=loc_public_saxon.pid
-            )
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid='does not exist',
+            pid=loan_pid,
+            transaction_location_pid=loc_public_saxon.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 404
 
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid,
-                transaction_location_pid=loc_public_saxon.pid
-            )
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_saxon.pid
         ),
-        content_type='application/json',
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKIN].get('pid')
 
     data = {'pid': loan_pid}
@@ -432,23 +390,23 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
     """Test item secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.item_list')
+    post_url = 'invenio_records_rest.item_list'
 
     del item_lib_martigny_data['pid']
-    res = client.post(
+    res, _ = postdata(
+        client,
         post_url,
-        data=json.dumps(item_lib_martigny_data),
-        headers=json_header
+        item_lib_martigny_data
     )
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
+    res, _ = postdata(
+        client,
         post_url,
-        data=json.dumps(item_lib_martigny_data),
-        headers=json_header
+        item_lib_martigny_data
     )
     assert res.status_code == 403
 

@@ -24,7 +24,8 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import ItemStatus
@@ -60,7 +61,6 @@ def test_system_librarian_permissions(
     assert data['hits']['total'] == 3
 
     # can create all type of users.
-    post_url = url_for('invenio_records_rest.ptrn_list')
     system_librarian = deepcopy(record)
     librarian = deepcopy(record)
     patron = deepcopy(record)
@@ -77,10 +77,10 @@ def test_system_librarian_permissions(
         data['email'] = str(counter) + '@domain.com'
         with mock.patch('rero_ils.modules.patrons.api.'
                         'send_reset_password_instructions'):
-            res = client.post(
-                post_url,
-                data=json.dumps(data),
-                headers=json_header
+            res, _ = postdata(
+                client,
+                'invenio_records_rest.ptrn_list',
+                data
             )
             assert res.status_code == 201
             user = get_json(res)['metadata']
