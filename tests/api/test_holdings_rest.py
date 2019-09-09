@@ -26,7 +26,7 @@ import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    to_relative_url
+    postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
@@ -35,15 +35,14 @@ from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 def test_holdings_permissions(client, holding_lib_martigny, json_header):
     """Test record permissions."""
     item_url = url_for('invenio_records_rest.hold_item', pid_value='holding1')
-    post_url = url_for('invenio_records_rest.hold_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.hold_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -178,23 +177,23 @@ def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
 
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.hold_list')
+    post_entrypoint = 'invenio_records_rest.hold_list'
 
     del holding_lib_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(holding_lib_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        holding_lib_martigny_data
     )
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
-        post_url,
-        data=json.dumps(holding_lib_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        holding_lib_martigny_data
     )
     assert res.status_code == 403
 
@@ -265,22 +264,20 @@ def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
                                   loc_public_martigny):
     """Test record create and delete."""
     item_url = url_for('invenio_records_rest.hold_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.hold_list')
     list_url = url_for('invenio_records_rest.hold_list', q='pid:1')
     holding_data = holding_lib_martigny_data_tmp
     # Create record / POST
     holding_data['pid'] = '1'
-    res = client.post(
-        post_url,
-        data=json.dumps(holding_data),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.hold_list',
+        holding_data
     )
     assert res.status_code == 201
 
     flush_index(HoldingsSearch.Meta.index)
 
     # Check that the returned record matches the given data
-    data = get_json(res)
     assert data['metadata'] == holding_data
 
     res = client.get(item_url)

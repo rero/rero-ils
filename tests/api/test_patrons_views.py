@@ -23,7 +23,7 @@ from copy import deepcopy
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, postdata
 
 from rero_ils.modules.items.api import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
@@ -45,19 +45,16 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     assert not data.get_organisation()
 
     # request
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item.pid,
-                pickup_location_pid=location.pid,
-                patron_pid=patron.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item.pid,
+            pickup_location_pid=location.pid,
+            patron_pid=patron.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
 
     links = patron_martigny_no_email.get_links_to_me()

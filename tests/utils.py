@@ -21,6 +21,7 @@
 import json
 
 import mock
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session, \
     login_user_via_view
 from invenio_circulation.api import get_loan_for_item
@@ -61,6 +62,29 @@ def login_user_for_view(client, user):
 def get_json(response):
     """Get JSON from response."""
     return json.loads(response.get_data(as_text=True))
+
+
+def postdata(client, endpoint, data=None, headers=None):
+    """
+    Build URL from given endpoint and send given data to it.
+
+    Returns result and JSON from result.
+    """
+    if data is None:
+        data = {}
+    if headers is None:
+        headers = [
+            ('Accept', 'application/json'),
+            ('Content-Type', 'application/json')
+        ]
+    res = client.post(
+        url_for(endpoint),
+        data=json.dumps(data),
+        content_type='application/json',
+        headers=headers
+    )
+    output = get_json(res)
+    return res, output
 
 
 def to_relative_url(url):

@@ -24,7 +24,8 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 
@@ -33,15 +34,14 @@ def test_circ_policies_permissions(
         client, circ_policy_default_martigny, json_header):
     """Test policy retrieval."""
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='cipo1')
-    post_url = url_for('invenio_records_rest.cipo_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.cipo_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -124,18 +124,16 @@ def test_circ_policies_post_put_delete(client, org_martigny,
     """Test policy retrieval."""
     # Create policy / POST
     item_url = url_for('invenio_records_rest.cipo_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.cipo_list')
     list_url = url_for('invenio_records_rest.cipo_list', q='pid:1')
     del circ_policy_default_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(circ_policy_default_martigny_data),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.cipo_list',
+        circ_policy_default_martigny_data
     )
     assert res.status_code == 201
 
     # Check that the returned policy matches the given data
-    data = get_json(res)
     circ_policy_default_martigny_data['pid'] = '1'
 
     assert data['metadata'] == circ_policy_default_martigny_data
@@ -245,23 +243,23 @@ def test_circ_policy_secure_api_create(client, json_header,
     """Test circulation policies secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.cipo_list')
+    post_entrypoint = 'invenio_records_rest.cipo_list'
 
     del circ_policy_default_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(circ_policy_default_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        circ_policy_default_martigny_data
     )
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
-        post_url,
-        data=json.dumps(circ_policy_default_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        circ_policy_default_martigny_data
     )
     assert res.status_code == 403
 

@@ -23,7 +23,7 @@ from datetime import datetime, timedelta, timezone
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_overdue_loans
@@ -43,19 +43,16 @@ def test_create_over_and_due_soon_notifications_task(
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                patron_pid=patron_pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid
+        )
     )
     assert res.status_code == 200
 
-    data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
 
@@ -90,14 +87,12 @@ def test_create_over_and_due_soon_notifications_task(
     assert number_of_reminders_sent(loan) == 1
 
     # checkin the item to put it back to it's original state
-    res = client.post(
-        url_for('api_item.checkin'),
-        data=json.dumps(
-            dict(
-                item_pid=item_pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200

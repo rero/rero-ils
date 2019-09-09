@@ -22,7 +22,7 @@ import pytz
 from dateutil import parser
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, postdata
 
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.holdings.api import Holding
@@ -63,19 +63,16 @@ def test_item_holding_document_availability(
     # request
     login_user_via_session(client, librarian_martigny_no_email.user)
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pickup_location_pid=loc_public_saxon.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
     assert not item_lib_martigny.available
@@ -91,15 +88,13 @@ def test_item_holding_document_availability(
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
     # validate request
-    res = client.post(
-        url_for('api_item.validate_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
     assert not item_lib_martigny.available
@@ -118,15 +113,13 @@ def test_item_holding_document_availability(
         client, document.pid, librarian_martigny_no_email.user)
     login_user_via_session(client, librarian_saxon_no_email.user)
     # receive
-    res = client.post(
-        url_for('api_item.receive'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                pid=loan_pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.receive',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            pid=loan_pid
+        )
     )
     assert res.status_code == 200
     assert not item_lib_martigny.available
@@ -144,15 +137,13 @@ def test_item_holding_document_availability(
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
     # checkout
-    res = client.post(
-        url_for('api_item.checkout'),
-        data=json.dumps(
-            dict(
-                item_pid=item_lib_martigny.pid,
-                patron_pid=patron_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
 
@@ -196,19 +187,16 @@ def test_item_holding_document_availability(
     # request second item
     login_user_via_session(client, librarian_martigny_no_email.user)
 
-    res = client.post(
-        url_for('api_item.librarian_request'),
-        data=json.dumps(
-            dict(
-                item_pid=item2_lib_martigny.pid,
-                pickup_location_pid=loc_public_saxon.pid,
-                patron_pid=patron2_martigny_no_email.pid
-            )
-        ),
-        content_type='application/json',
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron2_martigny_no_email.pid
+        )
     )
     assert res.status_code == 200
-    data = get_json(res)
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
     assert not item2_lib_martigny.available

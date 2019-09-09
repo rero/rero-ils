@@ -21,21 +21,20 @@
 # from utils import get_json, to_relative_url
 
 from flask import url_for
-from utils import get_json, to_relative_url
+from utils import get_json, postdata, to_relative_url
 
 
 def test_mef_persons_permissions(client, mef_person, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
-    post_url = url_for('invenio_records_rest.pers_list')
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.pers_list',
+        {}
     )
     assert res.status_code == 401
 

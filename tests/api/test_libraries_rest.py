@@ -23,7 +23,8 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.libraries.api import Library, LibraryNeverOpen
 from rero_ils.modules.utils import date_string_to_utc
@@ -32,15 +33,14 @@ from rero_ils.modules.utils import date_string_to_utc
 def test_libraries_permissions(client, lib_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.lib_item', pid_value='lib1')
-    post_url = url_for('invenio_records_rest.lib_list')
 
     res = client.get(item_url)
     assert res.status_code == 401
 
-    res = client.post(
-        post_url,
-        data={},
-        headers=json_header
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.lib_list',
+        {}
     )
     assert res.status_code == 401
 
@@ -91,21 +91,19 @@ def test_libraries_get(client, lib_martigny):
 def test_libraries_post_put_delete(client, lib_martigny_data, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.lib_item', pid_value='1')
-    post_url = url_for('invenio_records_rest.lib_list')
     list_url = url_for('invenio_records_rest.lib_list', q='pid:1')
 
     # Create record / POST
     lib_martigny_data['pid'] = '1'
-    res = client.post(
-        post_url,
-        data=json.dumps(lib_martigny_data),
-        headers=json_header
+    res, data = postdata(
+        client,
+        'invenio_records_rest.lib_list',
+        lib_martigny_data
     )
 
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    data = get_json(res)
     assert data['metadata'] == lib_martigny_data
 
     res = client.get(item_url)
@@ -266,23 +264,23 @@ def test_library_secure_api_create(client, json_header, lib_martigny,
     """Test library secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
-    post_url = url_for('invenio_records_rest.lib_list')
+    post_entrypoint = 'invenio_records_rest.lib_list'
 
     del lib_martigny_data['pid']
-    res = client.post(
-        post_url,
-        data=json.dumps(lib_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_martigny_data
     )
     assert res.status_code == 201
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
-    res = client.post(
-        post_url,
-        data=json.dumps(lib_martigny_data),
-        headers=json_header
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_martigny_data
     )
     assert res.status_code == 403
 
