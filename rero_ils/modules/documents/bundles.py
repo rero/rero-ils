@@ -30,13 +30,15 @@ detailed_js = Bundle(
         'js/rero_ils/translations.js',
         'js/rero_ils/thumbnail.js',
         'js/rero_ils/detailed_app.js',
+        'js/rero_ils/documents_jq.js',
         filters='requirejs',
         depends=('node_modules/d3/*'),
         npm={
             "almond": "~0.3.1",
             'angular': '~1.4.10',
             'angular-loading-bar': '~0.9.0',
-            'd3': '^3.5.17'
+            'd3': '^3.5.17',
+            'jquery': '~1.9.1',
         }
     ),
     filters='jsmin',

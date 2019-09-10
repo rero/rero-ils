@@ -27,7 +27,7 @@ from utils import get_json
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.views import not_available_reasons
+from rero_ils.modules.items.views import item_availability_text
 from rero_ils.modules.loans.api import LoanAction
 
 
@@ -42,7 +42,7 @@ def test_item_holding_document_availability(
     assert item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
     assert item_lib_martigny.available
-    assert not not_available_reasons(item_lib_martigny)
+    assert item_availability_text(item_lib_martigny) == 'on_shelf'
     assert holding_lib_martigny.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)
@@ -81,7 +81,7 @@ def test_item_holding_document_availability(
     assert not item_lib_martigny.available
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
-    assert not_available_reasons(item_lib_martigny) == '1 request'
+    assert item_availability_text(item_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -107,7 +107,7 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
     assert not item_lib_martigny.available
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert not_available_reasons(item) == 'in transit (1 request)'
+    assert item_availability_text(item) == 'in transit (1 request)'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -134,7 +134,7 @@ def test_item_holding_document_availability(
         client, item_lib_martigny.pid, librarian_saxon_no_email.user)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert not item.available
-    assert not_available_reasons(item) == '1 request'
+    assert item_availability_text(item) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert holding.available
     assert holding_availablity_status(
@@ -178,7 +178,7 @@ def test_item_holding_document_availability(
     ):
         end_date = pytz.utc.localize(parser.parse(item.get_item_end_date()))
         end_date = format_date_filter(end_date, format='short_date')
-        assert not_available_reasons(item) == 'due until ' + end_date
+        assert item_availability_text(item) == 'due until ' + end_date
 
     """
     request second item with another patron and test document and holding
@@ -214,7 +214,7 @@ def test_item_holding_document_availability(
     assert not item2_lib_martigny.available
     assert not item_availablity_status(
         client, item2_lib_martigny.pid, librarian_martigny_no_email.user)
-    assert not_available_reasons(item2_lib_martigny) == '1 request'
+    assert item_availability_text(item2_lib_martigny) == '1 request'
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
     assert not holding.available
     assert not holding_availablity_status(

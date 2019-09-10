@@ -67,9 +67,9 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         pid.pid_value).is_available(viewcode)
 
     holdings = [
-        Holding.get_record_by_pid(holding_pid)
-        for holding_pid in Holding.get_holdings_pid_by_document_pid(
-            pid.pid_value
+        Holding.get_record_by_pid(holding_pid).replace_refs()
+        for holding_pid in Holding.get_holdings_by_document_by_view_code(
+            document_pid=pid.pid_value, viewcode=viewcode
         )
     ]
 

@@ -148,6 +148,18 @@ class Holding(IlsRecord):
         for holding in results:
             yield holding.pid
 
+    @classmethod
+    def get_holdings_by_document_by_view_code(cls, document_pid, viewcode):
+        """Returns holding pids by document and view code."""
+        es_query = HoldingsSearch()\
+            .filter('term', document__pid=document_pid)\
+            .source(['pid'])
+        if (viewcode != current_app.
+                config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
+            org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+            es_query.filter('term', organisation__pid=org_pid)
+        return [result.pid for result in es_query.scan()]
+
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
         items = []
@@ -192,7 +204,7 @@ class Holding(IlsRecord):
         from ..item_types.api import ItemType
         from ..circ_policies.api import CircPolicy
 
-        if current_patron.is_patron:
+        if current_patron and current_patron.is_patron:
             cipo = CircPolicy.provide_circ_policy(
                 self.library_pid,
                 current_patron.patron_type_pid,
