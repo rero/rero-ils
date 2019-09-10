@@ -116,25 +116,6 @@ def librarian_request(item, data):
     return item.request(**data)
 
 
-def prior_checkout_actions(item, data):
-    """Actions executed prior to a checkout."""
-    if data.get('pid'):
-        loan = Loan.get_record_by_pid(data.get('pid'))
-        if (
-            loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
-            loan.get('patron_pid') == data.get('patron_pid')
-        ):
-            item.receive(**data)
-        if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
-            item.cancel_loan(pid=loan.get('pid'))
-            del data['pid']
-    else:
-        loan = get_loan_for_item(item.pid)
-        if loan:
-            item.cancel_loan(pid=loan.get('pid'))
-    return data
-
-
 @api_blueprint.route('/checkout', methods=['POST'])
 @check_authentication
 @jsonify_action
@@ -143,8 +124,7 @@ def checkout(item, data):
 
     required_parameters: patron_pid, item_pid
     """
-    new_data = prior_checkout_actions(item, data)
-    return item.checkout(**new_data)
+    return item.checkout(**data)
 
 
 @api_blueprint.route("/checkin", methods=['POST'])
