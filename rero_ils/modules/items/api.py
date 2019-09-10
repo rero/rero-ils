@@ -297,7 +297,6 @@ class Item(IlsRecord):
         for loan in self.get_requests():
             data.setdefault('pending_loans',
                             []).append(loan.dumps_for_circulation())
-
         return data
 
     @classmethod
@@ -772,11 +771,35 @@ class Item(IlsRecord):
             item, validate_action = self.validate_request(**request)
         return self, actions
 
+    def prior_checkout_actions(self, action_params):
+        """Actions executed prior to a checkout."""
+        if action_params.get('pid'):
+            loan = Loan.get_record_by_pid(action_params.get('pid'))
+            if (
+                loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
+                loan.get('patron_pid') == action_params.get('patron_pid')
+            ):
+                self.receive(**action_params)
+            if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
+                self.cancel_loan(pid=loan.get('pid'))
+                del action_params['pid']
+        else:
+            loan = get_loan_for_item(self.pid)
+            if (loan and loan.get('state') != 'ITEM_AT_DESK'):
+                self.cancel_loan(pid=loan.get('pid'))
+        return action_params
+
     @add_loans_parameters_and_flush_indexes
     def checkout(self, current_loan, **kwargs):
         """Checkout item to the user."""
+        new_data = self.prior_checkout_actions(kwargs)
+        loan = Loan.get_record_by_pid(new_data.get('pid'))
+        current_loan = loan or Loan.create(new_data,
+                                           dbcommit=True,
+                                           reindex=True)
+
         loan = current_circulation.circulation.trigger(
-            current_loan, **dict(kwargs, trigger='checkout')
+            current_loan, **dict(new_data, trigger='checkout')
         )
         return self, {
             LoanAction.CHECKOUT: loan

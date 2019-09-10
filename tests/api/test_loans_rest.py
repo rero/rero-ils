@@ -26,9 +26,11 @@ import pytest
 import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_json
 
+from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
@@ -258,3 +260,91 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         content_type='application/json',
     )
     assert res.status_code == 200
+
+
+def test_checkout_item_transit(client, item2_lib_martigny,
+                               librarian_martigny_no_email,
+                               librarian_saxon_no_email,
+                               patron_martigny_no_email,
+                               loc_public_saxon,
+                               circulation_policies):
+    """Test checkout of an item in transit."""
+    assert item2_lib_martigny.available
+
+    # request
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    res = client.post(
+        url_for('api_item.librarian_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item2_lib_martigny.pid,
+                pickup_location_pid=loc_public_saxon.pid,
+                patron_pid=patron_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    actions = data.get('action_applied')
+    loan_pid = actions[LoanAction.REQUEST].get('pid')
+    assert not item2_lib_martigny.available
+
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert loan.get('state') == 'PENDING'
+
+    # validate request
+    res = client.post(
+        url_for('api_item.validate_request'),
+        data=json.dumps(
+            dict(
+                item_pid=item2_lib_martigny.pid,
+                pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    assert not item2_lib_martigny.available
+    item = Item.get_record_by_pid(item2_lib_martigny.pid)
+    assert not item.available
+
+    loan = Loan.get_record_by_pid(loan_pid)
+    assert loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP'
+
+    login_user_via_session(client, librarian_saxon_no_email.user)
+    # receive
+    res = client.post(
+        url_for('api_item.receive'),
+        data=json.dumps(
+            dict(
+                item_pid=item2_lib_martigny.pid,
+                pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    assert not item2_lib_martigny.available
+    item = Item.get_record_by_pid(item2_lib_martigny.pid)
+    assert not item.available
+
+    loan_before_checkout = get_loan_for_item(item.pid)
+    assert loan_before_checkout.get('state') == 'ITEM_AT_DESK'
+    # checkout
+    res = client.post(
+        url_for('api_item.checkout'),
+        data=json.dumps(
+            dict(
+                item_pid=item2_lib_martigny.pid,
+                patron_pid=patron_martigny_no_email.pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+    item = Item.get_record_by_pid(item2_lib_martigny.pid)
+    loan_after_checkout = get_loan_for_item(item.pid)
+    assert loan_after_checkout.get('state') == 'ITEM_ON_LOAN'
+    assert loan_before_checkout.get('pid') == loan_after_checkout.get('pid')

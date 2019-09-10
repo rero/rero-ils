@@ -401,9 +401,8 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     data = get_json(res)
     loan_pid = data.get('action_applied')[LoanAction.CHECKIN].get('pid')
 
-    from rero_ils.modules.items.api_views import prior_checkout_actions
     data = {'pid': loan_pid}
-    return_data = prior_checkout_actions(item_lib_martigny, data)
+    return_data = item_lib_martigny.prior_checkout_actions(data)
     assert return_data == {}
 
 
