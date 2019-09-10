@@ -21,6 +21,7 @@
 
 {%- block body %}
   <header class="row">
+
     <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
       <icon-thumbnail class="thumb"
         {% if record.cover_art %}
@@ -30,20 +31,26 @@
           {% if record.identifiedBy %}
             identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
           {% else %}
-            identifiers=""
+            thumbnailurl=""
+            {% if record.identifiedBy %}
+              identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
+            {% else %}
+              identifiers=""
+            {% endif %}
           {% endif %}
         {% endif %}
         type="{{ record.type }}"
         config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
-      </icon-thumbnail>
-    </div>
-    <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
-  </header>
-  {%- block record_body %}
+        </icon-thumbnail>
+      </div>
+
+      <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
+    </header>
+
     <section>
-      <!-- Document -->
-      <section class="py-4 border-bottom">
-        <article class="">
+        <!-- Document -->
+        <section class="py-4 border-bottom">
+          <article class="">
             <dl class="row mb-0">
             <!-- AUTHORS -->
             {% if record.authors %}
@@ -152,11 +159,8 @@
             </dt>
             <dd class="col-sm-7 col-md-8">
               {{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) }}
-            </dd>
-            {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success' if record.available else 'danger') +'"></i> ') }}
-            </dl>
-        </article>
-        <footer class="d-flex flex-column pt-2">
+          </article>
+          <footer class="d-flex flex-column pt-2">
             {% if record.can_edit and current_user|can_edit %}
               {% with
                 href_update=url_for('records/documents.index', path=record.pid),
@@ -172,124 +176,141 @@
                 {{ div_json(_('JSON'), record) }}
               {% endif %}
             {% endif %}
-        </footer>
-      </section>
-      <!-- Holdings -->
-      {%- if holdings or ( current_user|can_edit and record.can_edit) %}
-        <section class="py-4 border-bottom">
-          <header class="mb-4">
-            <h3>{{ _('Items') }}
+          </footer>
+        </section>
+        <!-- Holdings -->
+        <!-- Add Item -->
+        {%- if holdings or ( current_user|can_edit and record.can_edit) %}
+          <section class="py-4">
+            <header class="mb-4">
               {%- if current_user|can_edit %}
-                <a href="{{ url_for('records/items.index', path='new', document=record.pid) }}"
-                   type="button" class="btn btn-sm btn-success">
-                  <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
-                </a>
+                <h3>
+                  {{ _('Holdings') }}
+                  <a href="{{ url_for('records/items.index', path='new', document=record.pid) }}"
+                    type="button" class="btn btn-sm btn-success">
+                    <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
+                  </a>
+                </h3> 
               {% endif %}
-            </h3>
-          </header>
-      {% endif %}
-        {% for holding in holdings %}
-        {% set items = holding.get_items_filter_by_viewcode(viewcode) %}
-        {% if items|length > 0 %}
-          {% for item in items %}
-            <!-- Item -->
-            <section class="pb-2">
-              <header class="row mt-2">
-                {% if item.barcode %}
-                  <h4 class="mb-0 col-xs-12 col-sm-10 offset-sm-2 col-md-11 offset-md-1">{{ _('Barcode') }}
-                    {% if current_user|can_edit %}
-                      <a href="{{ url_for('invenio_records_ui.item', viewcode=viewcode, pid_value=item.pid) }}">{{ item.barcode }}</a>
-                    {% else %}
-                      {{ item.barcode }}
-                    {% endif %}
-                  </h4>
-                {% endif %}
-              </header>
-              <article>
-                <dl class="row mb-0">
-                  {% set location = item.get_location() %}
-                  {% set library = item.get_library() %}
-                  {% if item.call_number %}
-                    {{ dl(_('Call Number'), item.call_number) }}
-                  {% endif %}
-                  {% if library.name %}
-                      {{ dl(_('Library'), library.name)}}
-                  {% endif %}
-                  {% if location.name %}
-                      {{ dl(_('Location'), location.name)}}
-                  {% endif %}
-                  {% if item.number_of_requests() %}
-                    {% if item|requested_this_item %}
-                      {{ dl(_('Rank'), item|patron_request_rank) }}
-                    {% endif %}
-                  {% endif %}
-                  {% if item.status %}
-                    {{ dl(_('Status'), item.status) }}
-                  {% endif %}
-                  {% if item.available %}
-                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('success') +'"></i> ') }}
-                    {% else %}
-                      {{ dl(_('Availability'),'<i class="fa fa-circle text-'+ ('danger') +'"></i> ' + item|not_available_reasons) }}
-                  {% endif %}
-                </dl>
-              </article>
-              <footer class="row flex-wrap justify-content-between pt-2">
-                <div class="dropdown col-12 col-sm-1 col-md-2 offset-sm-2 offset-md-1">
-                  {% if item|can_request %}
-                    <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenu">
-                      {{ _('Request') }}
-                      <i class="fa fa-caret-down fa-fw"></i>
-                    </a>
-                    <!-- TODO: Style the dropdown header -->
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                      <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
-                      <div class="dropdown-divider"></div>
-                      {% set locations = item|item_library_pickup_locations %}
-                      {% for location in locations %}
-                        <a class="dropdown-item"
-                          href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
-                            {{ location.get_library().name }}
+            </header>
+            <!-- Display Holdings -->
+            <div class="card">
+              {% for holding in holdings %}
+                {% set items = holding.get_items_filter_by_viewcode(viewcode) %}
+                {% set number_items = items|length %}
+                {% if number_items > 0 %}
+                <!-- Card header -->
+                <div id="{{ holding.pid }}" class="card-header p-2">
+                  <div class="row">
+                      <div class="col-1">
+                        <a class="collapse-link" data-toggle="collapse" href="#collapse-{{ holding.pid }}"
+                          aria-expanded="false">
+                            <i class="fa fa-caret-down fa-lg"></i>
                         </a>
+                      </div>
+                      <div class="col-10">
+                        <div class="row">
+                          <div class="col-sm-4">
+                              {{ holding|holding_location }}
+                          </div>
+                          <div class="col-sm-3">
+                              {{ holding|holding_circulation_category }}
+                          </div>
+                          <div class="col-sm-2">
+                            {{ number_items }} {{ _('items') if items|length > 1 else _('item') }}
+                          </div>
+    
+                          <div class="col-sm-2 availability d-none">
+                              {% if number_items > 0 %}
+                                <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
+                                {{ _('available') if holding.available else _('not available') }}
+                              {% else %}
+                                <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                              {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                <!-- Card body -->
+                <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
+                  <div class="card-body p-2">
+                    <!-- display items -->
+                    {% if items|length > 0 %}
+                      {% for item in items %}
+                      <div class="row my-2">
+                        <div class="col-1">
+                          &nbsp;
+                        </div>
+                        <div class="col-10">
+                          <div class="row">
+                              <div class="col-sm-4">
+                                  {% if current_user|can_edit %}
+                                      <a href="{{ url_for('invenio_records_ui.item', viewcode=viewcode, pid_value=item.pid) }}">{{ item.barcode }}</a></td>
+                                  {% else %}
+                                    {{ item.barcode }}
+                                  {% endif %}
+                              </div>
+                              <div class="col-sm-3">
+                                  <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i> {{ item|item_availability_text }}
+                              </div>
+                              <div class="col-sm-2">
+                              {% if item.call_number %}
+                                {{ item.call_number }}
+                              {% endif %}
+                              </div>
+                              {% if item|can_request %}
+                                <div class="col">
+                                    <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="false" id="dropdownMenu">
+                                      {{ _('Request') }}
+                                        <i class="fa fa-caret-down fa-fw"></i>
+                                    </a>
+                                    <!-- TODO: Style the dropdown header -->
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                                        <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
+                                        <div class="dropdown-divider"></div>
+                                        {% set locations = item|item_library_pickup_locations %}
+                                        {% for location in locations %}
+                                        <a class="dropdown-item"
+                                          href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
+                                          {{ location.get_library().name }}
+                                        </a>
+                                      {% endfor %}
+                                    </div>
+                                </div>
+                              {% endif %}
+                          </div>
+                        </div>
+                      </div>
                       {% endfor %}
-                    </div>
-                  {% endif %}
+                    {% endif %}
+                  </div>
                 </div>
-                <div class="col-12 col-sm-9 d-flex flex-column">
-                  {% if current_user |can_access_item(item) %}
-                    {% with
-                      href_update=url_for('records/items.index', path=item.pid, document=record.pid),
-                      href_delete='/api/items/' + item.pid,
-                      json=item,
-                      next=url_for('invenio_records_ui.doc', viewcode=viewcode, recordType=recordType, pid_value=record.pid),
-                      message=_("Item cannot be deleted: there are still transactions linked to this item.")
-                    %}
-                      {% include 'rero_ils/_editor_button_actions.html' %}
-                    {% endwith %}
-                  {% endif %}
-                </div>
-              </footer>
-            </section>
-          {% endfor %}
+              {% endif %}
+            {% endfor %}
+            </div>
+            <!-- Accordion card -->
+        </section>
         {% endif %}
-        {% endfor %}
-      </section>
     </section>
-  <footer class="pt-4 rero-ils-detailed-view-footer">
-    {%- set formats = export_formats(pid.pid_type) %}
-      {%- if formats %}
-        <h3 class="d-inline-block">{{ _('Export Formats') }}:</h3>
-        <ul class="list-inline d-inline-block">
-        {%- for slug, fmt in formats %}
-          <li>
-            <a href="{{ url_for('invenio_records_ui.doc_export', viewcode=viewcode, pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
-              {{ fmt.title }}
-            </a>
-          </li>
-        {%- endfor %}
-        </ul>
-      {%- endif %}
-  </footer>
-  {%- endblock record_body %}
+    <footer class="pt-4 rero-ils-detailed-view-footer">
+        {%- set formats = export_formats(pid.pid_type) %}
+          {%- if formats %}
+            <h3 class="d-inline-block">{{ _('Export Formats') }}:</h3>
+            <ul class="list-inline d-inline-block">
+            {%- for slug, fmt in formats %}
+              <li>
+                <a href="{{ url_for('invenio_records_ui.doc_export', viewcode=viewcode, pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
+                  {{ fmt.title }}
+                </a>
+              </li>
+            {%- endfor %}
+            </ul>
+          {%- endif %}
+      </footer>
+
 {%- endblock body %}
 
 {%- block javascript %}

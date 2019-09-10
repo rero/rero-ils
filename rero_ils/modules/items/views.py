@@ -125,10 +125,12 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
 
 
 @blueprint.app_template_filter()
-def not_available_reasons(item):
-    """Returns reasons why item is not available."""
-    text = ''
-    if not item.available:
+def item_availability_text(item):
+    """Returns text to disaply for item."""
+    if item.available:
+        return str(item.status)
+    else:
+        text = ''
         if item.status == ItemStatus.ON_LOAN:
             due_date = pytz.utc.localize(parser.parse(
                 item.get_item_end_date()))
@@ -153,4 +155,4 @@ def not_available_reasons(item):
                 text = '{number} {msg}'.format(
                     number=item.number_of_requests(),
                     msg=request_txt)
-    return text.strip()
+        return text.strip()
