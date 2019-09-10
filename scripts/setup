@@ -95,16 +95,18 @@ pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 # pipenv run flask utils check_json -r data/holdings.json
 
 # # Marc to xml transformation
-# yaz-marcdump -o marcxml data/1k.mrc > data/documents_big.xml
+# yaz-marcdump -o marcxml data/documents_big.mrc > data/documents_big.xml
 
 # # xml to json transformation for rero marcxml records
 # pipenv run dojson -i ${DATA_PATH}/documents_big.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/documents_big.json
+# pipenv run invenio utils validate data/documents_big.json documents document-v0.0.1.json -s documents_big_errors.json
 # pipenv run dojson -i ${DATA_PATH}/documents_small.xml -l marcxml -d pjson do marc21tojson > ${DATA_PATH}/documents_small.json
+# pipenv run invenio utils validate data/documents_small.json documents document-v0.0.1.json -s documents_small_errors.json
 
 if [ "$1" = "--deployment" ]
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
-    ITEMS=${DATA_PATH}/items_big.json 
+    ITEMS=${DATA_PATH}/items_big.json
     HOLDINGS=${DATA_PATH}/holdings_big.json
 else
     DOCUMENTS=${DATA_PATH}/documents_small.json

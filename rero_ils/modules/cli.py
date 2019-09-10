@@ -25,6 +25,7 @@ import os
 import sys
 from collections import OrderedDict
 from glob import glob
+from json import loads
 
 import click
 import yaml
@@ -37,6 +38,9 @@ from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
+from pkg_resources import resource_string
 from sqlalchemy import MetaData, create_engine
 from werkzeug.local import LocalProxy
 
@@ -394,6 +398,18 @@ def check_license(configfile, verbose, progress):
         # test every file
         extension = os.path.splitext(file_name)[1][1:]
         tot_error_cnt += test_file(
+            file_name=file_name,
+            extensions=extensions,
+            extension=extension,
+            copyrights=config['copyrights'],
+            license_lines=license_lines,
+            verbose=verbose,
+            progress=progress
+        )
+    for extension in config['files']:
+        # test every files
+        for file_name in config['files'][extension]:
+            tot_error_cnt += test_file(
                 file_name=file_name,
                 extensions=extensions,
                 extension=extension,
@@ -402,17 +418,46 @@ def check_license(configfile, verbose, progress):
                 verbose=verbose,
                 progress=progress
             )
-    for extension in config['files']:
-        # test every files
-        for file_name in config['files'][extension]:
-            tot_error_cnt += test_file(
-                    file_name=file_name,
-                    extensions=extensions,
-                    extension=extension,
-                    copyrights=config['copyrights'],
-                    license_lines=license_lines,
-                    verbose=verbose,
-                    progress=progress
-                )
 
     sys.exit(tot_error_cnt)
+
+
+@utils.command('validate')
+@click.argument('jsonfile', type=click.File('r'))
+@click.argument('type', default='documents')
+@click.argument('schema', default='document-v0.0.1.json')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-s', '--save', 'savefile', type=click.File('w'), default=None)
+def check_validate(jsonfile, type, schema, verbose, savefile):
+    """Check licenses."""
+    click.secho('Testing json schema for file', fg='green')
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.{type}.jsonschemas'.format(type=type),
+        '{type}/{schema}'.format(
+            type=type,
+            schema=schema
+        )
+    )
+
+    schema = loads(schema_in_bytes.decode('utf8'))
+    datas = json.load(jsonfile)
+    count = 0
+    for data in datas:
+        count += 1
+        if verbose:
+            click.echo('\tTest record: {count}'.format(count=count))
+        if not data.get("$schema"):
+            # create dummy schema in data
+            data["$schema"] = 'dummy'
+        if not data.get("pid"):
+            # create dummy pid in data
+            data["pid"] = 'dummy'
+        try:
+            validate(data, schema)
+        except ValidationError as excp:
+            if savefile:
+                savefile.write(json.dumps(data, indent=2))
+            click.secho(
+                'Error validate in record: {count}'.format(count=count),
+                fg='red')
+            click.secho(str(excp))
