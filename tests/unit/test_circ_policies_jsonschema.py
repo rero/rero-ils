@@ -156,12 +156,12 @@ def test_circ_policy_number_days_after_due_date(
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
 
-def test_circ_policy_overdue_amount(
+def test_circ_policy_reminder_fee_amount(
     circ_policy_schema, circ_policy_martigny_data_tmp
 ):
-    """Test overdue_amount for circulation policy jsonschema."""
+    """Test reminder_fee_amount for circulation policy jsonschema."""
     validate(circ_policy_martigny_data_tmp, circ_policy_schema)
 
     with pytest.raises(ValidationError):
-        circ_policy_martigny_data_tmp['overdue_amount'] = '25'
+        circ_policy_martigny_data_tmp['reminder_fee_amount'] = '25'
         validate(circ_policy_martigny_data_tmp, circ_policy_schema)

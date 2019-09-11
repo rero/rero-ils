@@ -33,7 +33,7 @@ export class CirculationPolicyFormService {
     private fb: FormBuilder,
     private patronTypeTool: PatronTypeTool,
     private itemTypeTool: ItemTypeTool
-    ) {
+  ) {
     this.build();
     this.validators();
   }
@@ -49,6 +49,7 @@ export class CirculationPolicyFormService {
       allow_requests: circulation.allow_requests,
       number_renewals: circulation.number_renewals,
       renewal_duration: circulation.renewal_duration,
+      reminder_fee_amount: circulation.reminder_fee_amount,
       policy_library_level: circulation.policy_library_level,
       is_default: circulation.is_default,
       settings: this.unserializeSettings(circulation.settings)
@@ -76,8 +77,10 @@ export class CirculationPolicyFormService {
       checkout_duration: [7],
       number_of_days_after_due_date: [5],
       number_of_days_before_due_date: [5],
+      allow_renewals: [true],
       number_renewals: [0],
       renewal_duration: [null],
+      reminder_fee_amount: [0],
       policy_library_level: [false],
       is_default: [],
       libraries: [],
@@ -90,15 +93,12 @@ export class CirculationPolicyFormService {
     const numberRenewalsControl = this.getControlByFieldName('number_renewals');
     const daysAfterControl = this.getControlByFieldName('number_of_days_after_due_date');
     const daysBeforeControl = this.getControlByFieldName('number_of_days_before_due_date');
+    const overdueAmountControl = this.getControlByFieldName('reminder_fee_amount');
     this.form.get('allow_checkout').valueChanges.subscribe(checkout => {
       if (checkout) {
         checkoutDurationControl.setValidators([
           Validators.required,
           Validators.min(1)
-        ]);
-        numberRenewalsControl.setValidators([
-          Validators.required,
-          Validators.min(0)
         ]);
         daysAfterControl.setValidators([
           Validators.required,
@@ -108,10 +108,26 @@ export class CirculationPolicyFormService {
           Validators.required,
           Validators.min(1)
         ]);
+        overdueAmountControl.setValidators([
+          Validators.required,
+          Validators.min(0)
+        ]);
       } else {
         checkoutDurationControl.clearValidators();
         numberRenewalsControl.clearValidators();
         daysAfterControl.clearValidators();
+        daysBeforeControl.clearValidators();
+        overdueAmountControl.clearValidators();
+      }
+    });
+    this.form.get('allow_renewals').valueChanges.subscribe(renewals => {
+      if (renewals) {
+        numberRenewalsControl.setValidators([
+          Validators.required,
+          Validators.min(0)
+        ]);
+      } else {
+        numberRenewalsControl.clearValidators();
       }
     });
     const renewalDuration = this.getControlByFieldName('renewal_duration');
@@ -133,6 +149,8 @@ export class CirculationPolicyFormService {
 
   getValues() {
     const formValues = this.form.value;
+    // delete calculate field before returns values of form
+    formValues.allow_renewals = null;
     formValues.libraries = this.serializeLibraries(formValues.libraries);
     formValues.settings = this.serializeSettings(formValues.settings);
     return formValues;
@@ -191,7 +209,7 @@ export class CirculationPolicyFormService {
     const itemTypeentrypoint = this.apiService
       .getApiEntryPointByType('item_types', true);
     const mapping = [];
-    Object.keys(settings).forEach(function(key) {
+    Object.keys(settings).forEach(function (key) {
       settings[key].forEach(element => {
         mapping.push({
           patron_type: {

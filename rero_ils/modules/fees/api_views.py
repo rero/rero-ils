@@ -21,8 +21,8 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint
 
-blueprint = Blueprint(
-    'fee',
+api_blueprint = Blueprint(
+    'api_fee',
     __name__,
     url_prefix='/fee'
 )

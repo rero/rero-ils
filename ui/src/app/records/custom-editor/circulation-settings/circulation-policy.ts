@@ -35,6 +35,7 @@ export class CirculationPolicy {
   number_of_days_before_due_date: number = null;
   number_renewals: number = null;
   renewal_duration: number = null;
+  reminder_fee_amount: number = null;
   policy_library_level: boolean = null;
   is_default: boolean = null;
   libraries: Array<any> = [];
@@ -54,6 +55,7 @@ export class CirculationPolicy {
     this.number_of_days_after_due_date = 5;
     this.number_of_days_before_due_date = 5;
     this.number_renewals = 0;
+    this.reminder_fee_amount = 0;
     this.policy_library_level = false;
     this.is_default = false;
     this.organisation = {
