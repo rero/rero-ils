@@ -43,6 +43,8 @@ export class CirculationPolicyComponent implements OnInit {
 
   public librariesOrg = [];
 
+  public organisation;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -66,7 +68,11 @@ export class CirculationPolicyComponent implements OnInit {
                 circulation['organisation']['$ref'] = this.organisationService
                 .getApiEntryPointRecord(user.library.organisation.pid);
                 this.circulationPolicy = circulation;
-
+                // Load organisation
+                this.recordsService.getRecord('organisations', user.library.organisation.pid)
+                  .subscribe(
+                    data => this.organisation = data.metadata
+                  );
                 // Load all required elements
                 this.circulationPolicyService
                 .loadAllItemTypesPatronTypesCirculationPolicies()
@@ -112,10 +118,19 @@ export class CirculationPolicyComponent implements OnInit {
   allowCheckoutCheckbox(checkbox: boolean) {
     if (!this.allow_checkout.value) {
       this.checkout_duration.setValue(null);
+      this.allow_renewals.setValue(false);
       this.number_renewals.setValue(null);
       this.renewal_duration.setValue(null);
       this.number_of_days_after_due_date.setValue(null);
       this.number_of_days_before_due_date.setValue(null);
+      this.overdue_amount.setValue(null);
+    }
+  }
+
+  allowRenewalsCheckbox(checkbox: boolean) {
+    if (!this.allow_renewals.value) {
+      this.number_renewals.setValue(null);
+      this.renewal_duration.setValue(null);
     }
   }
 
@@ -233,6 +248,12 @@ export class CirculationPolicyComponent implements OnInit {
   get allow_checkout() {
     return this.getField('allow_checkout');
   }
+  get allow_requests() {
+    return this.getField('allow_requests');
+  }
+  get allow_renewals() {
+    return this.getField('allow_renewals');
+  }
   get number_of_days_after_due_date() {
     return this.getField('number_of_days_after_due_date');
   }
@@ -247,6 +268,12 @@ export class CirculationPolicyComponent implements OnInit {
   }
   get renewal_duration() {
     return this.getField('renewal_duration');
+  }
+  get overdue_amount() {
+    return this.getField('overdue_amount');
+  }
+  get currency() {
+    return this.organisation.default_currency;
   }
   get policy_library_level() {
     return this.getField('policy_library_level');
