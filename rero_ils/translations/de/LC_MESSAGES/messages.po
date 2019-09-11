@@ -7,15 +7,15 @@
 # Bertrand Zuchuat, 2019
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Peter Weber <peter.weber@rero.ch>, 2019
-# Nicolas Labat <n-labat@hotmail.com>, 2019
 # MarionRERO <marion.davis@rero.ch>, 2019
 # iGor milhit <igor.milhit@rero.ch>, 2019
+# Nicolas Labat <n-labat@hotmail.com>, 2019
 # Nicolas Prongué <n.prongue@outlook.com>, 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.3.1\n"
+"Project-Id-Version: rero-ils 0.4.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-09-26 11:34+0200\n"
+"POT-Creation-Date: 2019-10-01 08:22+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
 "Language: de\n"
@@ -49,51 +49,51 @@ msgstr "rero-ils"
 msgid "Welcome to RERO-ILS!"
 msgstr "Willkommen zu RERO-ILS!"
 
-#: rero_ils/config.py:800
+#: rero_ils/config.py:832
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:801
+#: rero_ils/config.py:833
 msgid "organisation"
 msgstr "Organisation"
 
-#: rero_ils/config.py:804
+#: rero_ils/config.py:836
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:805
+#: rero_ils/config.py:837
 msgid "author__en"
 msgstr "Autoren"
 
-#: rero_ils/config.py:806
+#: rero_ils/config.py:838
 msgid "author__fr"
 msgstr "Autoren"
 
-#: rero_ils/config.py:807
+#: rero_ils/config.py:839
 msgid "author__de"
 msgstr "Autoren"
 
-#: rero_ils/config.py:808
+#: rero_ils/config.py:840
 msgid "author__it"
 msgstr "Autoren"
 
-#: rero_ils/config.py:809
+#: rero_ils/config.py:841
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:810
+#: rero_ils/config.py:842
 msgid "subject"
 msgstr "Schlagwort"
 
-#: rero_ils/config.py:811
+#: rero_ils/config.py:843
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:819
+#: rero_ils/config.py:851
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:827
+#: rero_ils/config.py:859
 msgid "sources"
 msgstr "Quellen"
 
@@ -370,6 +370,7 @@ msgstr "JSON Schema für eine Ausleihpolitik"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:455
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:455
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:455
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:19
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:13
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:15
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:19
@@ -378,7 +379,7 @@ msgstr "JSON Schema für eine Ausleihpolitik"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:16
 #: rero_ils/modules/mef_persons/jsonschemas/persons/mef_person-v0.0.1.json:15
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:15
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:15
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
 msgid "Schema"
@@ -466,59 +467,67 @@ msgstr "Anzahl an Tagen nach Rückgabetermin"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
 msgid "Number of days after due date for sending the first overdue notification."
-msgstr "Anzahl an Tagen nach Rückgabetermin, um die erste Mahnung zu senden"
+msgstr "Anzahl an Tagen nach Rückgabetermin, um die erste Erinnerung zu senden"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
+msgid "Overdue amount"
+msgstr "Betrag der Erinnerungsgebühr"
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:84
+msgid "Overdue amount."
+msgstr "Betrag der Erinnerungsgebühr."
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:89
 msgid "Maximum number of renewals"
 msgstr "Maximale Anzahl von Verlängerungen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:84
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:90
 msgid "Maximum number of renewals allowed."
 msgstr "Maximale Anzahl von Verlängerungen erlaubt."
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:90
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:96
 msgid "Renewal duration in days"
 msgstr "Verlängerungsdauer in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:91
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:97
 msgid "The duration of the renewal in days."
 msgstr "Die Dauer einer Verlängerung in Tagen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:96
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:102
 msgid "Mark as default policy"
 msgstr "Als Standardpolitik markieren"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:101
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:107
 msgid "Library level policy"
 msgstr "Politik auf Bibliotheksebene"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:106
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:112
 msgid "List of libraries"
 msgstr "Liste der Bibliotheken"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:116
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:53
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:107
 msgid "Library URI"
 msgstr "URI der Bibliothek"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:124
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:130
 msgid "Patron + Item types links"
 msgstr "Links Lesertypen + Exemplartypen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:135
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:141
 msgid "Patron type"
 msgstr "Lesertyp"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:143
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:149
 msgid "Patron type URI"
 msgstr "URI des Lesertypen"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:150
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:156
 msgid "Item type"
 msgstr "Exemplar Typ"
 
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:158
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:164
 msgid "Item type URI"
 msgstr "URI des Exemplartypen"
 
@@ -769,7 +778,7 @@ msgstr "Entsprechende PID des MEF-Records"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:32
 #: rero_ils/modules/mef_persons/templates/rero_ils/_person_by_source_data.html:28
 #: rero_ils/modules/mef_persons/templates/rero_ils/_person_unified.html:31
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:26
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
 msgid "Name"
 msgstr "Name"
 
@@ -1494,6 +1503,67 @@ msgstr "Abholort wählen"
 msgid "Export Formats"
 msgstr "Exportformate"
 
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:4
+msgid "Fee"
+msgstr "Gebühr"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:5
+msgid "JSON schema for fee."
+msgstr "JSON Schema für eine Gebühr."
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:20
+msgid "Schema to validate fee records against."
+msgstr "Schema zur Validierung von Gebühren."
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:25
+msgid "Fee ID"
+msgstr "Gebühr ID"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:32
+msgid "Fee creation date"
+msgstr "Erstellungsdatum der Gebühr"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:36
+msgid "Fee type"
+msgstr "Typ von Gebühr"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:42
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:46
+msgid "Notification URI"
+msgstr "URI der Benachrichtigung"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:53
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:42
+#: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:47
+#: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:28
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:43
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:46
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
+msgid "Location"
+msgstr "Standort"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:57
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:46
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:47
+msgid "Location URI"
+msgstr "URI des Standortes"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:65
+msgid "Fee amount"
+msgstr "Gebührenbetrag"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:69
+msgid "Fee currency"
+msgstr "Gebührenwährung"
+
+#: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:78
+msgid "Fee status"
+msgstr "Gebührenstatus"
+
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:90
 msgid "Holding"
@@ -1526,20 +1596,6 @@ msgstr "Ausleihtyp"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:35
 msgid "circulation category URI"
 msgstr "URI der Ausleihkategorie"
-
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:42
-#: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:47
-#: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:28
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:43
-#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:46
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
-msgid "Location"
-msgstr "Standort"
-
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:46
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:47
-msgid "Location URI"
-msgstr "URI des Standortes"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:53
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:43
@@ -1770,7 +1826,7 @@ msgstr "JSON Schema für eine Bibliothek"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:17
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:17
 #: rero_ils/modules/mef_persons/jsonschemas/persons/mef_person-v0.0.1.json:16
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
 msgid "Schema to validate organisation records against."
 msgstr "Schema zur Validierung von Organisationen."
 
@@ -1782,7 +1838,7 @@ msgstr "Bibliothek ID"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:38
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:27
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:39
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:40
 msgid "Code"
 msgstr "Code"
 
@@ -1795,7 +1851,7 @@ msgid "Name of the library."
 msgstr "Bibliotheksname."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:49
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:33
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:34
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:21
 msgid "Address"
 msgstr "Adresse"
@@ -2038,10 +2094,6 @@ msgstr "Zusammengestellt"
 msgid "By source"
 msgstr "Nach Quellen"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
-msgid "Notification"
-msgstr "Benachrichtigung"
-
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:5
 msgid "JSON schema for notifications."
 msgstr "JSON Schema für eine Benachrichtigung"
@@ -2086,22 +2138,30 @@ msgstr "Der Typ der Benachrichtigung."
 msgid "JSON schema for an organisation"
 msgstr "JSON Schema für eine Organisation"
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:22
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:23
 msgid "Organisation ID"
 msgstr "ID der Organisation"
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:28
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:29
 msgid "Required. Name of the organisation."
 msgstr "Erforderlich. Einrichtungsname."
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:34
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:35
 msgid "Address of the organisation."
 msgstr "Einrichtungsadresse."
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:40
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:41
 msgid "Code of the organisation."
 msgstr "Organisationscode."
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:46
+msgid "Default currency"
+msgstr "Standardwährung"
+
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:47
+msgid "The default currency of the organisation"
+msgstr "Die Standardwährung der Organisation"
 
 #: rero_ils/modules/patron_types/jsonschemas/form_patron_types/patron_type-v0.0.1.json:21
 msgid "The patron type name is already taken"

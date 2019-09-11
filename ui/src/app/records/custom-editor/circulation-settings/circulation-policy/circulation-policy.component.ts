@@ -43,6 +43,8 @@ export class CirculationPolicyComponent implements OnInit {
 
   public librariesOrg = [];
 
+  public organisation;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -53,7 +55,7 @@ export class CirculationPolicyComponent implements OnInit {
     private circulationMapping: CirculationMappingService,
     private organisationService: OrganisationService,
     private recordsService: RecordsService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.userService.loggedUser.subscribe(user => {
@@ -61,14 +63,18 @@ export class CirculationPolicyComponent implements OnInit {
         this.route.params.subscribe(params => {
           const pid = params.pid ? params.pid : null;
           this.circulationPolicyService
-              .loadOrCreateCirculationPolicy(pid)
-              .subscribe((circulation: CirculationPolicy) => {
-                circulation['organisation']['$ref'] = this.organisationService
+            .loadOrCreateCirculationPolicy(pid)
+            .subscribe((circulation: CirculationPolicy) => {
+              circulation['organisation']['$ref'] = this.organisationService
                 .getApiEntryPointRecord(user.library.organisation.pid);
-                this.circulationPolicy = circulation;
-
-                // Load all required elements
-                this.circulationPolicyService
+              this.circulationPolicy = circulation;
+              // Load organisation
+              this.recordsService.getRecord('organisations', user.library.organisation.pid)
+                .subscribe(
+                  data => this.organisation = data.metadata
+                );
+              // Load all required elements
+              this.circulationPolicyService
                 .loadAllItemTypesPatronTypesCirculationPolicies()
                 .subscribe(
                   ([itemTypes, patronTypes, circulations]: any) => {
@@ -82,28 +88,28 @@ export class CirculationPolicyComponent implements OnInit {
                       circulation.policy_library_level
                     );
                     this.libraryService
-                    .libraries()
-                    .subscribe((libraries: any) => {
-                      libraries.hits.hits.forEach(library => {
-                        this.librariesOrg.push({
-                          id: library.metadata.pid,
-                          name: library.metadata.name
+                      .libraries()
+                      .subscribe((libraries: any) => {
+                        libraries.hits.hits.forEach(library => {
+                          this.librariesOrg.push({
+                            id: library.metadata.pid,
+                            name: library.metadata.name
+                          });
                         });
+                        this.circulationPolicyForm.populate(this.circulationPolicy);
+                        this.circulationForm = this.circulationPolicyForm.getForm();
+                        this.circulationForm.controls['name'].setAsyncValidators([
+                          UniqueValidator.createValidator(
+                            this.recordsService,
+                            'circ_policies',
+                            'circ_policy_name',
+                            circulation.pid
+                          )
+                        ]);
                       });
-                      this.circulationPolicyForm.populate(this.circulationPolicy);
-                      this.circulationForm = this.circulationPolicyForm.getForm();
-                      this.circulationForm.controls['name'].setAsyncValidators([
-                        UniqueValidator.createValidator(
-                          this.recordsService,
-                          'circ_policies',
-                          'circ_policy_name',
-                          circulation.pid
-                        )
-                      ]);
-                    });
                   }
                 );
-              });
+            });
         });
       }
     });
@@ -112,10 +118,19 @@ export class CirculationPolicyComponent implements OnInit {
   allowCheckoutCheckbox(checkbox: boolean) {
     if (!this.allow_checkout.value) {
       this.checkout_duration.setValue(null);
+      this.allow_renewals.setValue(false);
       this.number_renewals.setValue(null);
       this.renewal_duration.setValue(null);
       this.number_of_days_after_due_date.setValue(null);
       this.number_of_days_before_due_date.setValue(null);
+      this.reminder_fee_amount.setValue(null);
+    }
+  }
+
+  allowRenewalsCheckbox(checkbox: boolean) {
+    if (!this.allow_renewals.value) {
+      this.number_renewals.setValue(null);
+      this.renewal_duration.setValue(null);
     }
   }
 
@@ -233,6 +248,12 @@ export class CirculationPolicyComponent implements OnInit {
   get allow_checkout() {
     return this.getField('allow_checkout');
   }
+  get allow_requests() {
+    return this.getField('allow_requests');
+  }
+  get allow_renewals() {
+    return this.getField('allow_renewals');
+  }
   get number_of_days_after_due_date() {
     return this.getField('number_of_days_after_due_date');
   }
@@ -247,6 +268,12 @@ export class CirculationPolicyComponent implements OnInit {
   }
   get renewal_duration() {
     return this.getField('renewal_duration');
+  }
+  get reminder_fee_amount() {
+    return this.getField('reminder_fee_amount');
+  }
+  get currency() {
+    return this.organisation.default_currency;
   }
   get policy_library_level() {
     return this.getField('policy_library_level');

@@ -117,7 +117,7 @@ class Fee(IlsRecord):
                 patron_type_pid,
                 holding_circulation_category_pid
             )
-            data['amount'] = cipo.get('overdue_amount')
+            data['amount'] = cipo.get('reminder_fee_amount')
             currency = current_app.config.get('RERO_ILS_DEFAULT_CURRENCY')
             if notification.organisation:
                 currency = notification.organisation.get('default_currency')

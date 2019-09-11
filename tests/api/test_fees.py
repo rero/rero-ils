@@ -38,17 +38,14 @@ def test_create_fee(client, librarian_martigny_no_email,
                     circ_policy_short_martigny):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    item = item_lib_martigny
-    item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
 
     # checkout
     res = client.post(
         url_for('api_item.checkout'),
         data=json.dumps(
             dict(
-                item_pid=item_pid,
-                patron_pid=patron_pid
+                item_pid=item_lib_martigny.pid,
+                patron_pid=patron_martigny_no_email.pid
             )
         ),
         content_type='application/json',
@@ -87,9 +84,24 @@ def test_create_fee(client, librarian_martigny_no_email,
     res = client.get(fee_url)
     assert res.status_code == 403
 
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # checkin
+    res = client.post(
+        url_for('api_item.checkin'),
+        data=json.dumps(
+            dict(
+                item_pid=item_lib_martigny.pid,
+                pid=loan_pid
+            )
+        ),
+        content_type='application/json',
+    )
+    assert res.status_code == 200
+
 
 def test_create_fee_euro(client, librarian_martigny_no_email,
-                         item_lib_martigny, patron_martigny_no_email):
+                         item_lib_martigny, patron_martigny_no_email,
+                         json_header, circulation_policies):
     """ Test overdue loans with if we change the organisation default
         currency."""
     login_user_via_session(client, librarian_martigny_no_email.user)

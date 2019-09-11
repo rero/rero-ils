@@ -104,7 +104,7 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'mef_persons = rero_ils.modules.mef_persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
-            'fees = rero_ils.modules.fees.views:blueprint',
+            'fees = rero_ils.modules.fees.api_views:api_blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -211,8 +211,7 @@ setup(
             'notification_id = rero_ils.modules.notifications.api'
             ':notification_id_minter',
             'holding_id = rero_ils.modules.holdings.api:holding_id_minter',
-            'fee_id = rero_ils.modules.fees.api'
-            ':fee_id_minter',
+            'fee_id = rero_ils.modules.fees.api:fee_id_minter'
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
@@ -239,8 +238,7 @@ setup(
             ':notification_id_fetcher',
             'holding_id = \
                 rero_ils.modules.holdings.api:holding_id_fetcher',
-            'fee_id = rero_ils.modules.fees.api'
-            ':fee_id_fetcher',
+            'fee_id = rero_ils.modules.fees.api:fee_id_fetcher'
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
