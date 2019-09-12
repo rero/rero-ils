@@ -17,11 +17,33 @@
 
 """Dojson utils."""
 
+import re
+
 import click
 from dojson import Overdo, utils
 
 
-class ReroIlsMarc21Overdo(Overdo):
+def remove_trailing_punctuation(
+        data,
+        punctuation=',',
+        spaced_punctuation=':;/-'):
+    """Remove trailing punctuation from data.
+
+    The punctuation parameter list the
+    punctuation characters to be removed
+    (preceded by a space or not).
+
+    The spaced_punctuation parameter list the
+    punctuation characters needing one or more preceding space(s)
+    in order to be removed.
+    """
+    return re.sub(
+        r'([{0}]|\s+[{1}])$'.format(punctuation, spaced_punctuation),
+        '',
+        data.rstrip()).rstrip()
+
+
+class ReroIlsOverdo(Overdo):
     """Specialized Overdo.
 
     The purpose of this class is to store the blob record in order to
@@ -30,38 +52,16 @@ class ReroIlsMarc21Overdo(Overdo):
     """
 
     blob_record = None
-    field_008_data = ''
-    lang_from_008 = None
-    date1_from_008 = None
-    date2_from_008 = None
-    date_type_from_008 = ''
-    langs_from_041_a = []
-    langs_from_041_h = []
-    alternate_graphic = {}
 
     def __init__(self, bases=None, entry_point_group=None):
-        """ReroIlsMarc21Overdo init."""
-        super(ReroIlsMarc21Overdo, self).__init__(
+        """Reroilsoverdo init."""
+        super(ReroIlsOverdo, self).__init__(
             bases=bases, entry_point_group=entry_point_group)
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
         self.blob_record = blob
-        self.field_008_data = ''
-        self.date1_from_008 = None
-        self.date2_from_008 = None
-        self.date_type_from_008 = ''
-        fields_008 = self.get_fields(tag='008')
-        if fields_008:
-            self.field_008_data = self.get_control_field_data(
-                fields_008[0]).replace('\n', '')
-            self.date1_from_008 = self.field_008_data[7:11]
-            self.date2_from_008 = self.field_008_data[11:15]
-            self.date_type_from_008 = self.field_008_data[6]
-        self.init_lang()
-        self.init_country()
-        self.init_alternate_graphic()
-        result = super(ReroIlsMarc21Overdo, self).do(
+        result = super(ReroIlsOverdo, self).do(
             blob,
             ignore_missing=ignore_missing,
             exception_handlers=exception_handlers
@@ -113,6 +113,51 @@ class ReroIlsMarc21Overdo(Overdo):
         else:
             raise ValueError('data field expected (tag >= 01x)')
         return subfields
+
+
+class ReroIlsMarc21Overdo(ReroIlsOverdo):
+    """Specialized Overdo.
+
+    This class adds RERO Marc21 properties and functions to the ReroIlsOverdo.
+    """
+
+    field_008_data = ''
+    lang_from_008 = None
+    date1_from_008 = None
+    date2_from_008 = None
+    date_type_from_008 = ''
+    langs_from_041_a = []
+    langs_from_041_h = []
+    alternate_graphic = {}
+
+    def __init__(self, bases=None, entry_point_group=None):
+        """Reroilsmarc21overdo init."""
+        super(ReroIlsMarc21Overdo, self).__init__(
+            bases=bases, entry_point_group=entry_point_group)
+
+    def do(self, blob, ignore_missing=True, exception_handlers=None):
+        """Translate blob values and instantiate new model instance."""
+        self.blob_record = blob
+        self.field_008_data = ''
+        self.date1_from_008 = None
+        self.date2_from_008 = None
+        self.date_type_from_008 = ''
+        fields_008 = self.get_fields(tag='008')
+        if fields_008:
+            self.field_008_data = self.get_control_field_data(
+                fields_008[0]).replace('\n', '')
+            self.date1_from_008 = self.field_008_data[7:11]
+            self.date2_from_008 = self.field_008_data[11:15]
+            self.date_type_from_008 = self.field_008_data[6]
+        self.init_lang()
+        self.init_country()
+        self.init_alternate_graphic()
+        result = super(ReroIlsMarc21Overdo, self).do(
+            blob,
+            ignore_missing=ignore_missing,
+            exception_handlers=exception_handlers
+        )
+        return result
 
     def get_link_data(self, subfields_6_data):
         """Extract link and script data from subfields $6 data."""
