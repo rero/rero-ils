@@ -23,7 +23,8 @@ import sys
 import requests
 from dojson import utils
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
+    remove_trailing_punctuation
 
 marc21tojson = ReroIlsMarc21Overdo()
 
@@ -34,26 +35,6 @@ def list_of_langs(data):
     for lang_data in data:
         lang_codes.append(lang_data.get('value'))
     return lang_codes
-
-
-def remove_trailing_punctuation(
-        data,
-        punctuation=',',
-        spaced_punctuation=':;/-'):
-    """Remove trailing punctuation from data.
-
-    The punctuation parameter list the
-    punctuation characters to be removed
-    (preceded by a space or not).
-
-    The spaced_punctuation parameter list the
-    punctuation characters needing one or more preceding space(s)
-    in order to be removed.
-    """
-    return re.sub(
-        r'([{0}]|\s+[{1}])$'.format(punctuation, spaced_punctuation),
-        '',
-        data.rstrip()).rstrip()
 
 
 def get_mef_person_link(id, key, value):
