@@ -1124,38 +1124,26 @@
             "type": "string"
           },
           "startDate": {
-            "title": "Start date",
-            "description": "Start date.",
+            "title": "Start date of publication",
+            "description": "Start date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
             "type": "string",
-            "pattern": "^\\d{4}$"
+            "minimum": -9999,
+            "maximum": 2050
           },
           "endDate": {
-            "title": "End date",
-            "description": "End date.",
+            "title": "End date of publication",
+            "description": "End date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
             "type": "string",
-            "pattern": "^\\d{4}$"
+            "minimum": -9999,
+            "maximum": 2050
           },
           "date": {
-            "title": "Date string",
-            "description": "Date string.",
+            "title": "Date of publication (free formed)",
+            "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
             "type": "string"
           }
         }
       }
-    },
-    "publicationYear": {
-      "title": "Date of publication",
-      "description": "Date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
-      "type": "integer",
-      "minimum": -9999,
-      "maximum": 2050,
-      "validationMessage": "Have to be an integer, from -9999 to +2050. Zero prefixes aren't needed."
-    },
-    "freeFormedPublicationDate": {
-      "title": "Date of publication (free formed)",
-      "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
-      "type": "string",
-      "minLength": 3
     },
     "extent": {
       "title": "Extent",
