@@ -18,7 +18,7 @@
 """Tests REST API items."""
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone  # noqa
 
 import ciso8601
 import mock

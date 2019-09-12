@@ -19,7 +19,6 @@
 
 from functools import partial
 
-import invenio_records
 from flask_babelex import gettext as _
 from invenio_search.api import RecordsSearch
 

@@ -34,7 +34,6 @@ from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType

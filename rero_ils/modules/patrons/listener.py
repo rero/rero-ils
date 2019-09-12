@@ -17,11 +17,7 @@
 
 """Signals connector for patron."""
 
-from flask_babelex import gettext as _
-
-from .api import Patron, PatronsSearch
-from ..documents.api import Document
-from ...utils import send_mail
+from .api import PatronsSearch
 
 
 def enrich_patron_data(sender, json=None, record=None, index=None,

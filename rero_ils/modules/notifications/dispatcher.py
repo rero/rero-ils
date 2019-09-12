@@ -19,7 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import current_app
 from flask_security.utils import config_value
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email

@@ -299,5 +299,4 @@ def schemaform(document_type):
         data['layout'] = prepare_form_option(form)
     except JSONSchemaNotFound as e:
         raise(e)
-        pass
     return jsonify(data)

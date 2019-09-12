@@ -19,9 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
-from functools import wraps
-
-from flask import Blueprint, jsonify
+from flask import Blueprint
 
 blueprint = Blueprint(
     'notifications',

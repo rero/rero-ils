@@ -30,7 +30,7 @@ from invenio_circulation.api import get_loan_for_item
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item, ItemsSearch, ItemStatus
 from ..libraries.api import Library
-from ..loans.api import Loan, get_item_on_loan_loans
+from ..loans.api import get_item_on_loan_loans
 from ..locations.api import Location
 from ..notifications.tasks import create_over_and_due_soon_notifications
 from ..patron_types.api import PatronType

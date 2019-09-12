@@ -48,8 +48,6 @@ library_id_fetcher = partial(id_fetcher, provider=LibraryProvider)
 class LibraryNeverOpen(Exception):
     """Raised when the library has no open days."""
 
-    pass
-
 
 class LibrariesSearch(RecordsSearch):
     """Libraries search."""

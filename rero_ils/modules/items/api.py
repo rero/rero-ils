@@ -22,7 +22,6 @@ from functools import partial, wraps
 
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
-from flask_babelex import gettext as _
 from invenio_circulation.api import get_loan_for_item, \
     patron_has_active_loan_on_item
 from invenio_circulation.errors import MissingRequiredParameterError, \

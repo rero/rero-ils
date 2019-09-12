@@ -41,22 +41,14 @@ class IlsRecordError:
     class Deleted(Exception):
         """IlsRecord is deleted."""
 
-        pass
-
     class NotDeleted(Exception):
         """IlsRecord is not deleted."""
-
-        pass
 
     class PidMissing(Exception):
         """IlsRecord pid missing."""
 
-        pass
-
     class PidChange(Exception):
         """IlsRecord pid change."""
-
-        pass
 
 
 class IlsRecordsSearch(RecordsSearch):
