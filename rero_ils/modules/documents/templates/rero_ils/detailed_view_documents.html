@@ -18,7 +18,7 @@
 #}
 {%- extends 'rero_ils/page.html' %}
 {% from 'rero_ils/macros/macro.html' import dl, dl_dict, div_json %}
- 
+
 {%- block body %}
   <header class="row">
     <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
@@ -51,11 +51,9 @@
             {% endif %}
 
             <!-- PUBLICATION STATEMENT -->
-            {% if record.provisionActivity %}
-              {% for provision_activity in record.provisionActivity %} 
-                {{ dl_dict(_(provision_activity.type), provision_activity|create_publication_statement ) }}
-              {% endfor %}
-            {% endif %}
+            {% for provision_activity in record.provisionActivity %}
+              {{ dl_dict(_(provision_activity.type), provision_activity|create_publication_statement ) }}
+            {% endfor %}
 
               <!-- COPYRIGHT DATE -->
             {% if record.copyrightDate %}

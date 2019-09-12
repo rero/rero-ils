@@ -200,28 +200,6 @@ def test_provisionActivity(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_publicationYear(document_schema, document_data_tmp):
-    """Test publicationYear for jsonschemas."""
-    document_data_tmp['publicationYear'] = 2017
-
-    validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['publicationYear'] = ['2017']
-        validate(document_data_tmp, document_schema)
-
-
-def test_freeFormedPublicationDate(document_schema, document_data_tmp):
-    """Test freeFormedPublicationDate for jsonschemas."""
-    document_data_tmp['freeFormedPublicationDate'] = '2017'
-
-    validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['freeFormedPublicationDate'] = [2]
-        validate(document_data_tmp, document_schema)
-
-
 def test_extent(document_schema, document_data_tmp):
     """Test extent for jsonschemas."""
     document_data_tmp['extent'] = '117'
