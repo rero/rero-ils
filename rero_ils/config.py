@@ -45,7 +45,6 @@ from invenio_search import RecordsSearch
 from rero_ils.modules.api import IlsRecordIndexer
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.utils import get_agg_config
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document

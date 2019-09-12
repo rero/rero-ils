@@ -17,20 +17,12 @@
 
 """Tests REST API patrons."""
 
-import json
 from copy import deepcopy
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
-
-from rero_ils.modules.api import IlsRecordError
-from rero_ils.modules.items.api import ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction
-from rero_ils.modules.patrons.utils import user_has_patron
+from utils import postdata
 
 
 def test_patron_permissions(

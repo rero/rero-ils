@@ -17,7 +17,6 @@
 
 """Tests REST API item_types."""
 
-import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
@@ -28,7 +27,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, postdata
+from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \

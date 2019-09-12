@@ -17,13 +17,11 @@
 
 """Tests Views for patrons."""
 
-import json
 from copy import deepcopy
 
 import mock
-from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import postdata
 
 from rero_ils.modules.items.api import ItemStatus
 from rero_ils.modules.loans.api import LoanAction

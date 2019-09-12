@@ -26,7 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
-from rero_ils.modules.libraries.api import Library, LibraryNeverOpen
+from rero_ils.modules.libraries.api import LibraryNeverOpen
 from rero_ils.modules.utils import date_string_to_utc
 
 

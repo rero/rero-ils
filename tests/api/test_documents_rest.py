@@ -17,16 +17,12 @@
 
 """Tests REST API documents."""
 
-# import json
-# from utils import get_json, to_relative_url
-
 import json
 
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.documents.views import can_request, \
     item_library_pickup_locations, item_status_text, number_of_requests, \

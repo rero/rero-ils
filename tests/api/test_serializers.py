@@ -18,9 +18,8 @@
 """Tests Serializers."""
 
 
-import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, login_user
+from utils import get_json, login_user
 
 
 def test_patrons_serializers(

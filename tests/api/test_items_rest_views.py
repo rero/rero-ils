@@ -19,22 +19,17 @@
 
 import json
 from copy import deepcopy
-from datetime import datetime, timedelta
 
-import ciso8601
 import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
+from utils import postdata
 
-from rero_ils.modules.api import IlsRecordError
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
 from rero_ils.modules.items.api import Item, ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction
-from rero_ils.modules.loans.utils import get_extension_params
+from rero_ils.modules.loans.api import LoanAction
 
 
 def test_checkout_no_loan_given(client, librarian_martigny_no_email,

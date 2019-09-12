@@ -19,16 +19,13 @@
 
 
 import json
-from copy import deepcopy
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
     postdata, to_relative_url
 
-from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 
 

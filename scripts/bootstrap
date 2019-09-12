@@ -67,6 +67,12 @@ fi
 msg "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
+# to avoid IPython dependency problem on Mac OS X
+if [ "$(uname -s)" == "Darwin" ]; then
+  msg "Install 'appnope' for Mac OS X"
+  pipenv run pip install appnope
+fi
+
 # install assets utils
 virtualenv_path=`pipenv --venv`
 msg "Install npm assets utils in: ${virtualenv_path}"

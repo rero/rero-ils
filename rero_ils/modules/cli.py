@@ -42,7 +42,6 @@ from invenio_search.proxies import current_search
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from pkg_resources import resource_string
-from sqlalchemy import MetaData, create_engine
 from werkzeug.local import LocalProxy
 
 from .items.cli import create_items, reindex_items

@@ -20,13 +20,10 @@
 import json
 
 import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
-
-from rero_ils.modules.api import IlsRecordError
 
 
 def test_locations_permissions(client, loc_public_martigny, json_header):

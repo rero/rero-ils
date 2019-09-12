@@ -17,13 +17,12 @@
 
 """Tests REST API notifications."""
 
-import json
 from datetime import datetime, timedelta, timezone
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, postdata, to_relative_url
+from utils import flush_index, postdata
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch
