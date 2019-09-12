@@ -170,8 +170,6 @@ def marc21_to_author(self, key, value):
             if value.get('d'):
                 author['date'] = remove_punctuation(value.get('d'))
         return author
-    else:
-        return None
 
 
 @marc21.over('title', '^245..')
@@ -201,7 +199,7 @@ def marc21_to_copyright_date(self, key, value):
 
 @marc21.over('publishers', '^(260..|264.1)')
 @utils.ignore_value
-def marc21_to_publishers_publicationDate(self, key, value):
+def marc21_to_publishers_publication_date(self, key, value):
     """Get publisher.
 
     publisher.name: 260 [$b repetitive] (without the , but keep the ;)
@@ -218,7 +216,7 @@ def marc21_to_publishers_publicationDate(self, key, value):
     for tag in value['__order__']:
         index = indexes.get(tag, 0)
         data = value[tag]
-        if type(data) == tuple:
+        if isinstance(data, tuple):
             data = data[index]
         if tag == 'a' and index > 0 and lasttag != 'a':
             publishers.append(remove_punctuation(publisher))
@@ -273,8 +271,6 @@ def marc21_to_description(self, key, value):
             data = value.get('c')
             formats = list(utils.force_list(data))
         return formats
-    else:
-        return None
 
 
 @marc21.over('series', '^490..')

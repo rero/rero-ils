@@ -26,9 +26,9 @@ from rero_ils.modules.documents.dojson.contrib.unimarctojson import \
 
 
 # type: leader
-def test_unimarctotype():
+def test_unimarc_to_type():
     """
-    Test dojson marc21_to_type.
+    Test dojson unimarc_to_type.
 
     Books: LDR/6-7: am
     Journals: LDR/6-7: as
@@ -155,7 +155,7 @@ def test_unimarctotitle():
 
 # titleProper: [500$a repetitive]
 def test_unimarctotitlesProper():
-    """Test dojson marc21titlesProper."""
+    """Test dojson unimarc_titlesProper."""
 
     unimarcxml = """
     <record>
@@ -184,8 +184,8 @@ def test_unimarctotitlesProper():
 
 
 # languages: 101 [$a]
-def test_marc21language():
-    """Test dojson marc21language."""
+def test_unimarc_languages():
+    """Test dojson unimarc_languages."""
 
     unimarcxml = """
     <record>
@@ -308,14 +308,14 @@ def test_unimarctoauthors():
     ]
 
 
-# publishers.name: 210 [$c repetitive]
-# publishers.place: 210 [$a repetitive]
-# publicationDate: 210 [$d repetitive] (take only the first one)
-def test_marc21publishers_publicationDate():
+def test_unimarc_publishers_provision_activity():
     """Test dojson publishers publicationDate."""
 
     unimarcxml = """
     <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="a">xxxxxxxxx2015????xxxxxxxxx</subfield>
+      </datafield>
       <datafield tag="210" ind1=" " ind2=" ">
         <subfield code="a">Lausanne</subfield>
         <subfield code="c">Payot</subfield>
@@ -325,37 +325,72 @@ def test_marc21publishers_publicationDate():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('publishers') == [
-        {
-            'place': ['Lausanne'],
-            'name': ['Payot'],
-        }
-    ]
-    assert data.get('publicationYear') == 2015
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Lausanne'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Payot'}
+                ],
+                'type': 'bf:Agent'
+            },
+        ],
+        'startDate': '2015',
+        'date': '2015'
+    }]
 
     unimarcxml = """
     <record>
+      <datafield tag="102" ind1=" " ind2=" ">
+        <subfield code="a">FR</subfield>
+      </datafield>
       <datafield tag="210" ind1=" " ind2=" ">
-        <subfield code="a">Paris</subfield>
-        <subfield code="a">Lausanne</subfield>
-        <subfield code="c">Payot</subfield>
-        <subfield code="d">1920</subfield>
+        <subfield code="a">[Paris] :</subfield>
+        <subfield code="c">Desclée de Brouwer [puis] </subfield>
+        <subfield code="c">Etudes augustiniennes,</subfield>
+        <subfield code="d">[1969-1999]</subfield>
       </datafield>
     </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('publishers') == [
-        {
-            'place': ['Paris', 'Lausanne'],
-            'name': ['Payot'],
-        }
-    ]
-    assert data.get('publicationYear') == 1920
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'statement': [
+            {
+                'country': 'fr',
+                'label': [
+                    {'value': '[Paris]'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Desclée de Brouwer [puis]'}
+                ],
+                'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': 'Etudes augustiniennes'}
+                ],
+                'type': 'bf:Agent'
+            }
+        ],
+        'startDate': '1969',
+        'endDate': '1999',
+        'date': '[1969-1999]'
+    }]
 
     unimarcxml = """
     <record>
-      <datafield tag="210" ind1=" " ind2=" ">
+      <datafield tag="214" ind1=" " ind2="0">
         <subfield code="a">Paris</subfield>
         <subfield code="c">Champion</subfield>
         <subfield code="a">Genève</subfield>
@@ -366,24 +401,132 @@ def test_marc21publishers_publicationDate():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('publishers') == [
-        {
-            'place': ['Paris'],
-            'name': ['Champion']
-        },
-        {
-            'place': ['Genève'],
-            'name': ['Droz']
-        }
-    ]
-    assert data.get('freeFormedPublicationDate') == '1912-1955'
-    assert data.get('publicationYear') == 1912
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Paris'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Champion'}
+                ],
+                'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': 'Genève'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Droz'}
+                ],
+                'type': 'bf:Agent'
+            }
+        ],
+        'startDate': '1912',
+        'endDate': '1955',
+        'date': '1912-1955'
+    }]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="214" ind1=" " ind2="1">
+        <subfield code="a">Lausanne</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Production',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Lausanne'}
+                ],
+                'type': 'bf:Place'
+            }
+        ],
+    }]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="214" ind1=" " ind2="2">
+        <subfield code="a">Lausanne</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Distribution',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Lausanne'}
+                ],
+                'type': 'bf:Place'
+            }
+        ],
+    }]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="214" ind1=" " ind2="3">
+        <subfield code="a">Lausanne</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Manufacture',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Lausanne'}
+                ],
+                'type': 'bf:Place'
+            }
+        ],
+    }]
+
+
+def test_unimarc_copyright_date():
+    """Test copyright date."""
+    unimarcxml = """
+    <record>
+      <datafield tag="214" ind1=" " ind2="4">
+        <subfield code="d">1919</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('copyrightDate') == ['© 1919']
+
+    unimarcxml = """
+    <record>
+      <datafield tag="214" ind1=" " ind2="4">
+        <subfield code="d">P 1919</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('copyrightDate') == ['℗ 1919']
 
 
 # extent: 215$a (the first one if many)
 # otherMaterialCharacteristics: 215$c (the first one if many)
 # formats: 215 [$d repetitive]
-def test_marc21description():
+def test_unimarc_description():
     """Test dojson extent, otherMaterialCharacteristics, formats."""
 
     unimarcxml = """
@@ -425,7 +568,7 @@ def test_marc21description():
 
 # series.name: [225$a repetitive]
 # series.number: [225$v repetitive]
-def test_marc21series():
+def test_unimarc_series():
     """Test dojson series."""
 
     unimarcxml = """
@@ -454,7 +597,7 @@ def test_marc21series():
 
 
 # abstract: [330$a repetitive]
-def test_marc21abstract():
+def test_unimarc_abstract():
     """Test dojson abstract."""
 
     unimarcxml = """
@@ -470,7 +613,7 @@ def test_marc21abstract():
 
 
 # identifiers:isbn: 010$a
-def test_marc21identifiers():
+def test_unimarc_identifiers():
     """Test dojson identifiers."""
 
     unimarcxml = """
@@ -514,11 +657,9 @@ def test_marc21identifiers():
     ]
 
 
-def test_marc21notes():
-    """Test dojson notes.
-
-    notes: [300$a repetitive]
-    """
+# notes: [300$a repetitive]
+def test_unimarc_notes():
+    """Test dojson notes."""
 
     unimarcxml = """
     <record>
@@ -548,7 +689,7 @@ def test_marc21notes():
 # subjects: 600..617 $a,$b,$c,$d,$f
 # [duplicates could exist between several vocabularies,
 # if possible deduplicate]
-def test_marc21subjects():
+def test_unimarc_subjects():
     """Test dojson subjects."""
 
     unimarcxml = """
