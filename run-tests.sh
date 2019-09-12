@@ -20,6 +20,18 @@ RED='\033[0;31m'
 GREEN='\033[0;0;32m'
 NC='\033[0m' # No Color
 
+RED='\033[0;31m'
+GREEN='\033[0;0;32m'
+NC='\033[0m' # No Color
+
+display_error_message () {
+	echo -e "${RED}$1${NC}" 1>&2
+}
+
+display_success_message () {
+    echo -e "${GREEN}$1${NC}" 1>&2
+}
+
 if [ $# -eq 0 ]
     then
         grep -r fuzzy rero_ils/translations
@@ -33,28 +45,28 @@ if [ $# -eq 0 ]
         pipenv check -i 36759
         pipenv run flask utils check_json tests rero_ils/modules data
         pipenv run flask utils check_license check_license_config.yml
-        echo -e ${GREEN}Test pydocstyle:${NC}
+        display_success_message "Test pydocstyle:"
         pipenv run pydocstyle rero_ils tests docs
-        echo -e ${GREEN}Test isort:${NC}
+        display_success_message "Test isort:"
         pipenv run isort -rc -c -df --skip ui
 
         # syntax check for typescript
-        echo -e ${GREEN}Syntax check for typescript:${NC}
+        display_success_message "Syntax check for typescript:"
         CWD=`pwd`
         cd ui; pipenv run npm run lint; cd -
 
-        echo -e ${GREEN}Check-manifest:${NC}
+        display_success_message "Check-manifest:"
         pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/node_modules*,rero_ils/static/js/rero_ils/ui*"
-        echo -e ${GREEN}Sphinx-build:${NC}
+        display_success_message "Sphinx-build:"
         pipenv run sphinx-build -qnNW docs docs/_build/html
-        echo -e ${GREEN}Tests:${NC}
+        display_success_message "Tests:"
         pipenv run test
 fi
 if [ "$1" = "external" ]
     then
         export PYTEST_ADDOPTS="--cov-append -m "external""
 
-        echo -e ${GREEN}External tests:${NC}
+        display_success_message "External tests:"
         pipenv run test
         exit 0
 fi

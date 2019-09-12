@@ -55,8 +55,6 @@ def test_documents_get(client, document):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    # TODO: Implement another solution for available on holding level
-    del(data['hits']['hits'][0]['metadata']['available'])
     assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
 
     res = client.get(
@@ -104,10 +102,26 @@ def test_documents_import_bnf_ean(client):
             {'language': 'fre'}
         ],
         'otherMaterialCharacteristics': 'couv. ill. en coul.',
-        'publicationYear': 1999,
-        'publishers': [
-            {'name': ['Gallimard'], 'place': ['[Paris]']}
-        ],
+        'provisionActivity': [{
+            'type': 'bf:Publication',
+            'statement': [
+                {
+                    'country': 're',
+                    'label': [
+                        {'value': '[Paris]'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Gallimard'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+            ],
+            'startDate': '1999',
+            'date': '1999'
+        }],
         'series': [{'name': 'Harry Potter.', 'number': '1'}],
         'subjects': ['JnRoman'],
         'title': "Harry Potter à l'école des sorciers",

@@ -17,29 +17,18 @@
 
 """rero-ils UNIMARC model definition."""
 
+
 import re
 from json import loads
 
-from dojson import Overdo, utils
-# from dojson.utils import force_list
+from dojson import utils
+from dojson.utils import GroupableOrderedDict, force_list
 from pkg_resources import resource_string
 
-unimarctojson = Overdo()
+from rero_ils.dojson.utils import ReroIlsOverdo, remove_trailing_punctuation
 
+unimarctojson = ReroIlsOverdo()
 
-# @unimarctojson.over('__order__', '__order__')
-# def order(self, key, value):
-#     """Preserve order of datafields."""
-#     order = []
-#     for field in value:
-#         name = unimarctojson.index.query(field)
-#         if name:
-#             name = name[0]
-#         else:
-#             name = field
-#         order.append(name)
-#
-#     return order
 
 @unimarctojson.over('type', 'leader')
 def unimarctype(self, key, value):
@@ -180,50 +169,108 @@ def unimarctoauthor(self, key, value):
     return author
 
 
-@unimarctojson.over('publishers', '^210..')
+@unimarctojson.over('provisionActivity', '^21[04]..')
+@utils.for_each_value
 @utils.ignore_value
-def unimarcpublishers_publicationDate(self, key, value):
-    """Get publisher.
+def unimarcpublishers_provision_activity_publication(self, key, value):
+    """Get provision activity dates."""
+    def build_place_or_agent_data(code, label, index, add_country):
+        type_per_code = {
+            'a': 'bf:Place',
+            'c': 'bf:Agent'
+        }
+        place_or_agent_data = {
+            'type': type_per_code[code],
+            'label': [{'value': remove_trailing_punctuation(label)}]
+        }
+        if add_country:
+            # country from 102
+            field_102 = unimarctojson.get_fields(tag='102')
+            if field_102:
+                field_102 = field_102[0]
+                country_codes = unimarctojson.get_subfields(field_102, 'a')
+                if country_codes:
+                    place_or_agent_data['country'] = country_codes[0].lower()
+        return place_or_agent_data
 
-    publisher.name: 210 [$b repetitive]
-    publisher.place: 210 [$a repetitive]
-    publicationDate: 210 [$c repetitive] (take only the first one)
-    """
-    lasttag = '?'
-    publishers = self.get('publishers', [])
+    publication = {}
+    ind2 = key[4]
+    type_per_ind2 = {
+        ' ': 'bf:Publication',
+        '_': 'bf:Publication',
+        '0': 'bf:Publication',
+        '1': 'bf:Production',
+        '2': 'bf:Distribution',
+        '3': 'bf:Manufacture'
+    }
+    if ind2 == '4':
+        field_d = value.get('d')
+        if field_d:
+            field_d = force_list(field_d)[0]
+            copyrightDate = self.get('copyrightDate', [])
+            if field_d[0] == 'P':
+                copyrightDate.append('℗ ' + field_d[2:])
+            else:
+                copyrightDate.append('© ' + field_d)
+            self['copyrightDate'] = copyrightDate
+    else:
+        publication = {
+            'type': type_per_ind2[ind2],
+            'statement': [],
+        }
+        subfields_d = utils.force_list(value.get('d'))
+        if subfields_d:
+            subfield_d = subfields_d[0]
+            publication['date'] = subfield_d
+            dates = subfield_d.replace('[', '').replace(']', '').split('-')
+            try:
+                if re.search(r'(^\[?\d{4}$)', dates[0]):
+                    publication['startDate'] = dates[0]
+            except Exception:
+                pass
+            try:
+                if re.search(r'(^\d{4}\]?$)', dates[1]):
+                    publication['endDate'] = dates[1]
+            except Exception:
+                pass
 
-    publisher = {}
-    indexes = {}
-    lasttag = '?'
-    for tag in value['__order__']:
-        index = indexes.get(tag, 0)
-        data = value[tag]
-        if type(data) == tuple:
-            data = data[index]
-        if tag == 'a' and index > 0 and lasttag != 'a':
-            publishers.append(publisher)
-            publisher = {}
-        if tag == 'a':
-            place = publisher.get('place', [])
-            place.append(data)
-            publisher['place'] = place
-        elif tag == 'c':
-            name = publisher.get('name', [])
-            name.append(data)
-            publisher['name'] = name
-        elif tag == 'd' and index == 0:
+        # TODO: dates from 100 not working !!!!
+        # if ind2 in (' ', '_', '1'):
+        #     # startDate: 100, pos. 9-12 endDate: 100, pos. 13-16
+        #     field_100 = unimarctojson.get_fields(tag='100')
+        #     if field_100:
+        #         field_100 = field_100[0]
+        #         data = unimarctojson.get_subfields(field_100, 'a')
+        #         if data:
+        #             try:
+        #                 publication['startDate'] = str(int(data[0][9:13]))
+        #             except Exception:
+        #                 pass
+        #             try:
+        #                 publication['endDate'] = str(int(data[0][13:17]))
+        #             except Exception:
+        #                 pass
 
-            # 4 digits
-            date = re.match(r'.*?(\d{4})', data).group(1)
-            self['publicationYear'] = int(date)
+        statement = []
+        if isinstance(value, GroupableOrderedDict):
+            items = value.iteritems(repeated=True)
+        else:
+            items = utils.iteritems(value)
 
-            # create free form if different
-            if data != str(self['publicationYear']):
-                self['freeFormedPublicationDate'] = data
-        indexes[tag] = index + 1
-        lasttag = tag
-    publishers.append(publisher)
-    return publishers
+        index = 1
+        add_country = ind2 in (' ', '_', '1')
+        for blob_key, blob_value in items:
+            if blob_key in ('a', 'c'):
+                place_or_agent_data = build_place_or_agent_data(
+                    blob_key, blob_value, index, add_country)
+                if blob_key == 'a':
+                    add_country = False
+                statement.append(place_or_agent_data)
+            if blob_key != '__order__':
+                index += 1
+
+        publication['statement'] = statement
+    return publication or None
 
 
 @unimarctojson.over('formats', '^215..')
