@@ -18,14 +18,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiService } from '../api/api.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
-  })
+  }),
+  params: new HttpParams()
+    .set('size', '9999')
 };
 
 @Injectable()
