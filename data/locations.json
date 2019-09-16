@@ -27,6 +27,15 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT1-ONL",
+    "name": "Online",
+    "is_pickup": false,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT2-PUB",
     "name": "Espaces publics",
     "library": {
@@ -34,6 +43,15 @@
     },
     "is_pickup": true,
     "pickup_name": "AOSTE CANT2: Espaces publics"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-CANT2-ONL",
+    "name": "Online",
+    "is_pickup": false,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/2"
+    }
   },
   {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -79,6 +97,15 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-AVISE-ONL",
+    "name": "Online",
+    "is_pickup": false,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-PUB",
     "name": "Espaces publics",
     "library": {
@@ -97,6 +124,15 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "AOSTE-LYCEE-ONL",
+    "name": "Online",
+    "is_pickup": false,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-RESTR",
     "name": "Restricted Section",
     "library": {
@@ -108,6 +144,15 @@
     "code": "HOG-PUBL",
     "name": "Public Section",
     "is_pickup": true,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/5"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "HOG-ONL",
+    "name": "Online",
+    "is_pickup": false,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/5"
     }
