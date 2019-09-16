@@ -600,6 +600,51 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
     }
   },
+  "loc9": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "MARTIGNY-ONLINE",
+    "name": "Martigny Library Online Space",
+    "pid": "loc9",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    }
+  },
+  "loc10": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "SAXON-ONLINE",
+    "name": "Saxon Library Online Space",
+    "pid": "loc10",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    }
+  },
+  "loc11": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "FULLY-ONLINE",
+    "name": "Fully Library Online Space",
+    "pid": "loc11",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib3"
+    }
+  },
+  "loc12": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "SION-ONLINE",
+    "name": "Sion Library Online Space",
+    "pid": "loc12",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    }
+  },
+  "loc13": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "APROZ-ONLINE",
+    "name": "Aproz Library Online Space",
+    "pid": "loc13",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib5"
+    }
+  },
   "itty1": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "standard",
@@ -650,6 +695,24 @@
     "name": "particular",
     "pid": "itty6",
     "description": "Particular rules.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
+  "itty7": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "no circulation",
+    "pid": "itty7",
+    "description": "Ebooks dedicated category.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "itty8": {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "name": "no circulation",
+    "pid": "itty8",
+    "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
@@ -798,6 +861,32 @@
     "renewal_duration": 30,
     "policy_library_level": false,
     "is_default": true
+  },
+  "cipo5": {
+    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo5",
+    "name": "Ebooks no circulation",
+    "description": "Ebooks no circulation.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "allow_checkout": false,
+    "allow_requests": false,
+    "policy_library_level": false,
+    "is_default": false
+  },
+  "cipo6": {
+    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "pid": "cipo6",
+    "name": "Ebooks no circulation",
+    "description": "Ebooks no circulation.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    },
+    "allow_checkout": false,
+    "allow_requests": false,
+    "policy_library_level": false,
+    "is_default": false
   },
   "pers1": {
     "$schema": "https://ils.rero.ch/schema/persons/mef_person-v0.0.1.json",
