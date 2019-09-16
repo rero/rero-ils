@@ -17,8 +17,8 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
-{% from 'rero_ils/macros/macro.html' import dl, div_json %}
-
+{% from 'rero_ils/macros/macro.html' import dl, dl_dict, div_json %}
+ 
 {%- block body %}
   <header class="row">
 
@@ -57,21 +57,16 @@
               {{ dl(_('Author'), record.pid | authors_format(current_i18n.language, viewcode)) }}
             {% endif %}
 
-            <!-- PUBLISHERS -->
-            {% if record.publishers %}
-              {{ dl(_('Publisher'), record.publishers|publishers_format) }}
-            {% endif %}
-
-            <!-- PUBLICATION YEAR -->
-            {% if record.publicationYear %}
-              {{ dl(_('Date'),
-                 record.freeFormedPublicationDate if record.freeFormedPublicationDate
-                 else record.publicationYear) }}
+            <!-- PUBLICATION STATEMENT -->
+            {% if record.provisionActivity %}
+              {% for provision_activity in record.provisionActivity %} 
+                {{ dl_dict(_(provision_activity.type), provision_activity|create_publication_statement ) }}
+              {% endfor %}
             {% endif %}
 
               <!-- COPYRIGHT DATE -->
             {% if record.copyrightDate %}
-              {{ dl(_('Copyright date'), record.copyrightDate) }}
+              {{ dl(_('Copyright date'), record.copyrightDate|join(', ')) }}
             {% endif %}
 
             <!-- ABSTRACT -->

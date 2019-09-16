@@ -27,6 +27,25 @@
   </dd>
 {% endmacro %}
 
+{% macro dl_dict(name, dict) %}
+  {% if dict %}
+    <dt class="col-sm-3 offset-sm-2 offset-md-1">
+      {{ name }}:
+    </dt>
+    <dd class="col-sm-7 col-md-8 mb-0">
+      {% if dict is string %}
+        {{ dict }}
+      {% else %}
+        <ul class="list-unstyled rero-ils-person mb-0">
+          {% for element in dict %}
+            <li>{{ dict[element] }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </dd>
+  {% endif %}
+{% endmacro %}
+
 {% macro div_row(title, content) %}
   <div class="row">
     <div class="col-xs-2 col-xs-offset-2">

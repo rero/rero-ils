@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from dojson.contrib.marc21.utils import create_record
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21tojson
+from rero_ils.modules.documents.views import create_publication_statement
 
 
 # type: leader
@@ -666,6 +667,9 @@ def test_marc21_to_provisionActivity_unknown_place_2_agents():
           'date': '1968'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'default': '[Lieu de publication non identifié] : Labor, Nathan, 1968'
+    }
 
 
 def test_marc21_to_provisionActivity_3_places_dann_2_agents():
@@ -722,6 +726,10 @@ def test_marc21_to_provisionActivity_3_places_dann_2_agents():
           'date': '1975-'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'default': 'Hamm (Westf.) ; [dann] Herzberg ; [dann] Nordhausen : ' +
+        'T. Bautz, 1975-'
+    }
 
 
 def test_marc21_to_provisionActivity_2_places_1_agent():
@@ -771,6 +779,9 @@ def test_marc21_to_provisionActivity_2_places_1_agent():
           'date': '[1966]'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'default': '[Louvain] ; [Paris] : [éditeur non identifié], [1966]'
+    }
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
@@ -860,6 +871,8 @@ def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
           'date': '[1941?]'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'default': 'Aurillac : Impr. moderne, [1941?]'}
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
@@ -922,6 +935,10 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
           'date': '2017'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+      'chi-hani': '北京 : 北京大学出版社, 2017',
+      'default': 'Beijing : Beijing da xue chu ban she, 2017'
+    }
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
@@ -976,6 +993,11 @@ def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
           'date': '2014'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'ara-arab': 'القاهرة : الهيئة العامة لقصور الثقافة, 2014',
+        'default': 'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah,' +
+        ' 2014'
+    }
 
 
 def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
@@ -1063,6 +1085,10 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
           'date': '2017'
       }
     ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+        'default': 'Ierusalim : Gesharim : Moskva : Mosty Kulʹtury, 2017',
+        'rus-cyrl': 'Иерусалим : Гешарим : Москва : Мосты Культуры, 2017'
+    }
 
 
 # extent: 300$a (the first one if many)

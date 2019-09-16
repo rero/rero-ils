@@ -61,3 +61,9 @@ _('ui_language_en')
 _('ui_language_fr')
 _('ui_language_de')
 _('ui_language_it')
+
+# provisionActivity
+_('bf:Publication')
+_('bf:Manufacture')
+_('bf:Distribution')
+_('bf:Production')
