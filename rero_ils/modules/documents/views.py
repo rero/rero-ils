@@ -37,6 +37,7 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
+from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 from .dojson.contrib.unimarctojson import unimarctojson
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
@@ -392,3 +393,44 @@ def document_availability(document_pid):
     return jsonify({
         'availability': document.is_available(view_code)
     })
+
+
+@blueprint.app_template_filter()
+def create_publication_statement(provision_activity):
+    """Create publication statement from place, agent and date values."""
+    punctuation = {
+        'bf:Place': ' ; ',
+        'bf:Agent': ', '
+    }
+
+    statement_with_language = {'default': ''}
+    statement_type = None
+
+    for statement in provision_activity['statement']:
+        labels = statement['label']
+
+        for label in labels:
+            language = label.get('language', 'default')
+
+            if not statement_with_language.get(language):
+                statement_with_language[language] = ''
+
+            if statement_with_language[language]:
+                if statement_type == statement['type']:
+                    statement_with_language[language] += punctuation[
+                        statement_type
+                    ]
+                else:
+                    statement_with_language[language] += ' : '
+
+            statement_with_language[language] += label['value']
+        statement_type = statement['type']
+
+    # date field: remove ';' and append
+    for key, value in statement_with_language.items():
+        value = remove_trailing_punctuation(value)
+        if provision_activity.get('date'):
+            value += ', ' + provision_activity.get('date')
+        statement_with_language[key] = value
+
+    return statement_with_language
