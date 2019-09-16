@@ -209,7 +209,7 @@ def test_filtered_item_types_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 3
+    assert data['hits']['total'] == 4
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -218,7 +218,7 @@ def test_filtered_item_types_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 3
+    assert data['hits']['total'] == 4
 
 
 def test_item_type_secure_api(client, json_header,
