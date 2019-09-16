@@ -650,7 +650,6 @@ class Item(IlsRecord):
         if loan:
             end_date = loan['end_date']
             # due_date = datetime.strptime(end_date, '%Y-%m-%d')
-
             due_date = format_date_filter(
                 end_date,
                 format=format,
