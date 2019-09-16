@@ -217,6 +217,36 @@ def loc_restricted_sion_data(data):
 
 
 @pytest.fixture(scope="module")
+def loc_online_martigny_data(data):
+    """Load online space location for Martigny."""
+    return deepcopy(data.get('loc9'))
+
+
+@pytest.fixture(scope="module")
+def loc_online_saxon_data(data):
+    """Load online space location for Saxon."""
+    return deepcopy(data.get('loc10'))
+
+
+@pytest.fixture(scope="module")
+def loc_online_fully_data(data):
+    """Load online space location for Fully."""
+    return deepcopy(data.get('loc11'))
+
+
+@pytest.fixture(scope="module")
+def loc_online_sion_data(data):
+    """Load online space location for Sion."""
+    return deepcopy(data.get('loc12'))
+
+
+@pytest.fixture(scope="module")
+def loc_online_aproz_data(data):
+    """Load online space location for Aproz."""
+    return deepcopy(data.get('loc13'))
+
+
+@pytest.fixture(scope="module")
 def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
     """Create public space location for Martigny ville."""
     loc = Location.create(
@@ -305,6 +335,66 @@ def loc_restricted_sion(app, lib_sion, loc_restricted_sion_data):
     """Create restricted space location for sion."""
     loc = Location.create(
         data=loc_restricted_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_online_martigny(app, lib_martigny, loc_online_martigny_data):
+    """Create online space location for Martigny."""
+    loc = Location.create(
+        data=loc_online_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_online_saxon(app, lib_saxon, loc_online_saxon_data):
+    """Create online space location for Saxon."""
+    loc = Location.create(
+        data=loc_online_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_online_fully(app, lib_fully, loc_online_fully_data):
+    """Create online space location for Fully."""
+    loc = Location.create(
+        data=loc_online_fully_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_online_sion(app, lib_sion, loc_online_sion_data):
+    """Create online space location for Sion."""
+    loc = Location.create(
+        data=loc_online_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_online_aproz(app, lib_aproz, loc_online_aproz_data):
+    """Create online space location for aproz."""
+    loc = Location.create(
+        data=loc_online_aproz_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -425,6 +515,44 @@ def item_type_particular_sion(
     """Create particular item type of sion."""
     itty = ItemType.create(
         data=item_type_particular_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
+def item_type_online_martigny_data(data):
+    """Load onine item type of martigny."""
+    return deepcopy(data.get('itty7'))
+
+
+@pytest.fixture(scope="module")
+def item_type_online_martigny(
+        app, org_martigny, item_type_online_martigny_data):
+    """Create particular item type of martigny."""
+    itty = ItemType.create(
+        data=item_type_online_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemTypesSearch.Meta.index)
+    return itty
+
+
+@pytest.fixture(scope="module")
+def item_type_online_sion_data(data):
+    """Load particular item type of sion."""
+    return deepcopy(data.get('itty8'))
+
+
+@pytest.fixture(scope="module")
+def item_type_online_sion(
+        app, org_sion, item_type_online_sion_data):
+    """Create particular item type of sion."""
+    itty = ItemType.create(
+        data=item_type_online_sion_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
@@ -622,15 +750,65 @@ def circ_policy_temp_martigny(
 
 
 @pytest.fixture(scope="module")
+def circ_policy_ebooks_martigny_data(data):
+    """Load ebooks circ policy for organisation martigny."""
+    return deepcopy(data.get('cipo5'))
+
+
+@pytest.fixture(scope="module")
+def circ_policy_ebooks_martigny(
+        app,
+        patron_type_adults_martigny,
+        patron_type_children_martigny,
+        item_type_online_martigny,
+        circ_policy_ebooks_martigny_data):
+    """Create ebooks circ policy for organisation martigny."""
+    cipo = CircPolicy.create(
+        data=circ_policy_ebooks_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
+def circ_policy_ebooks_sion_data(data):
+    """Load ebooks circ policy for organisation sion."""
+    return deepcopy(data.get('cipo6'))
+
+
+@pytest.fixture(scope="module")
+def circ_policy_ebooks_sion(
+        app,
+        patron_type_youngsters_sion,
+        patron_type_grown_sion,
+        item_type_online_sion,
+        circ_policy_ebooks_sion_data):
+    """Create ebooks circ policy for organisation sion."""
+    cipo = CircPolicy.create(
+        data=circ_policy_ebooks_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(CircPoliciesSearch.Meta.index)
+    return cipo
+
+
+@pytest.fixture(scope="module")
 def circulation_policies(
         circ_policy_default_martigny,
         circ_policy_default_sion,
         circ_policy_short_martigny,
-        circ_policy_temp_martigny):
+        circ_policy_temp_martigny,
+        circ_policy_ebooks_martigny,
+        circ_policy_ebooks_sion):
     """Load all circulation policies."""
     return [
         circ_policy_default_martigny,
         circ_policy_default_sion,
         circ_policy_short_martigny,
-        circ_policy_temp_martigny
+        circ_policy_temp_martigny,
+        circ_policy_ebooks_martigny,
+        circ_policy_ebooks_sion
     ]

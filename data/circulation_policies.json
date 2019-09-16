@@ -303,5 +303,65 @@
         }
       }
     ]
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "Ebooks no circulation",
+    "description": "Ebooks no circulation.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "allow_checkout": false,
+    "allow_requests": false,
+    "policy_library_level": false,
+    "is_default": false,
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/1"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/7"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/2"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/7"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "http://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "name": "Ebooks no circulation",
+    "description": "Ebooks no circulation.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    },
+    "allow_checkout": false,
+    "allow_requests": false,
+    "policy_library_level": false,
+    "is_default": false,
+    "settings": [
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/3"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/8"
+        }
+      },
+      {
+        "patron_type": {
+          "$ref": "https://ils.rero.ch/api/patron_types/4"
+        },
+        "item_type": {
+          "$ref": "https://ils.rero.ch/api/item_types/8"
+        }
+      }
+    ]
   }
 ]
