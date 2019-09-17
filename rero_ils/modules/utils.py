@@ -64,4 +64,7 @@ def bulk_index(uuids, process=False, verbose=False):
 
 def date_string_to_utc(date):
     """Converts a date of string format to a datetime utc aware."""
-    return pytz.utc.localize(parser.parse(date))
+    parsed_date = parser.parse(date)
+    if parsed_date.tzinfo:
+        return parsed_date
+    return pytz.utc.localize(parsed_date)
