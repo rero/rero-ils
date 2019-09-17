@@ -22,17 +22,10 @@ import { Injectable } from '@angular/core';
 import { forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CirculationPolicy } from './circulation-policy';
-import { ItemTypeService, PatronTypeService, ApiService, cleanDictKeys, _ } from '@app/core';
+import { ApiService, cleanDictKeys, _ } from '@app/core';
 import { RecordsService } from '@app/records/records.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  })
-};
 
 @Injectable()
 export class CirculationPolicyService {
@@ -41,18 +34,14 @@ export class CirculationPolicyService {
     private router: Router,
     private apiService: ApiService,
     private client: HttpClient,
-    private itemTypeService: ItemTypeService,
-    private patronTypeService: PatronTypeService,
     private recordsService: RecordsService,
     private toastService: ToastrService
   ) { }
 
   loadOrCreateCirculationPolicy(pid: number = null) {
     if (pid) {
-      return this.client.get<any>(
-        this.apiService.getApiEntryPointByType('circ_policies') + pid,
-        httpOptions
-      ).pipe(
+      return this.recordsService.getRecord('circ_policies', '' + pid)
+      .pipe(
         map(data => new CirculationPolicy(data.metadata))
       );
     } else {
@@ -60,18 +49,11 @@ export class CirculationPolicyService {
     }
   }
 
-  loadAllCirculationPolicy() {
-    return this.client.get(
-      this.apiService.getApiEntryPointByType('circ_policies'),
-      httpOptions
-    );
-  }
-
   loadAllItemTypesPatronTypesCirculationPolicies() {
     return forkJoin(
-      this.itemTypeService.itemTypes(),
-      this.patronTypeService.patronTypes(),
-      this.loadAllCirculationPolicy()
+      this.recordsService.getRecords('global', 'item_types', 1, RecordsService.MAX_REST_RESULTS_SIZE),
+      this.recordsService.getRecords('global', 'patron_types', 1, RecordsService.MAX_REST_RESULTS_SIZE),
+      this.recordsService.getRecords('global', 'circ_policies', 1, RecordsService.MAX_REST_RESULTS_SIZE)
     );
   }
 
