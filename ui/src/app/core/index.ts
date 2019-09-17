@@ -24,7 +24,6 @@ export * from './dialog/dialog.service';
 export * from './filter/nl2br';
 export * from './item-type/item-type.service';
 export * from './item-type/item-type-tool';
-export * from './library/library.service';
 export * from './organisation/organisation.service';
 export * from './organisation/organisation-view.service';
 export * from './patron-type/patron-type.service';

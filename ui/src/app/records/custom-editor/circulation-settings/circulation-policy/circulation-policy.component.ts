@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { LibraryService, UniqueValidator } from '@app/core';
+import { UniqueValidator } from '@app/core';
 import { UserService } from '@app/user.service';
 import { CirculationPolicyService } from '../circulation-policy.service';
 import { CirculationPolicyFormService } from '../circulation-policy-form.service';
@@ -51,7 +51,6 @@ export class CirculationPolicyComponent implements OnInit {
     private circulationPolicyService: CirculationPolicyService,
     private circulationPolicyForm: CirculationPolicyFormService,
     private userService: UserService,
-    private libraryService: LibraryService,
     private circulationMapping: CirculationMappingService,
     private organisationService: OrganisationService,
     private recordsService: RecordsService
@@ -87,28 +86,27 @@ export class CirculationPolicyComponent implements OnInit {
                     this.circulationMapping.setPolicyLevel(
                       circulation.policy_library_level
                     );
-                    this.libraryService
-                      .libraries()
+                    this.recordsService.getRecords('global', 'libraries', 1, RecordsService.MAX_REST_RESULTS_SIZE)
                       .subscribe((libraries: any) => {
-                        libraries.hits.hits.forEach(library => {
-                          this.librariesOrg.push({
-                            id: library.metadata.pid,
-                            name: library.metadata.name
+                          libraries.hits.hits.forEach(library => {
+                            this.librariesOrg.push({
+                              id: library.metadata.pid,
+                              name: library.metadata.name
+                            });
+                            this.circulationPolicyForm.populate(this.circulationPolicy);
+                            this.circulationForm = this.circulationPolicyForm.getForm();
+                            this.circulationForm.controls['name'].setAsyncValidators([
+                              UniqueValidator.createValidator(
+                                this.recordsService,
+                                'circ_policies',
+                                'circ_policy_name',
+                                circulation.pid
+                              )
+                            ]);
                           });
-                        });
-                        this.circulationPolicyForm.populate(this.circulationPolicy);
-                        this.circulationForm = this.circulationPolicyForm.getForm();
-                        this.circulationForm.controls['name'].setAsyncValidators([
-                          UniqueValidator.createValidator(
-                            this.recordsService,
-                            'circ_policies',
-                            'circ_policy_name',
-                            circulation.pid
-                          )
-                        ]);
-                      });
-                  }
-                );
+                        }
+                      );
+                  });
             });
         });
       }

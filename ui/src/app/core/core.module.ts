@@ -25,7 +25,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ItemTypeService } from './item-type/item-type.service';
 import { ItemTypeTool } from './item-type/item-type-tool';
-import { LibraryService } from './library/library.service';
 import { PatronTypeService } from './patron-type/patron-type.service';
 import { PatronTypeTool } from './patron-type/patron-type-tool';
 import { OrganisationService } from './organisation/organisation.service';
@@ -63,7 +62,6 @@ import { TranslateLanguageService } from './translate/translate-language.service
   providers: [
     ApiService,
     ItemTypeService,
-    LibraryService,
     OrganisationService,
     OrganisationViewService,
     PatronTypeService,

@@ -21,7 +21,6 @@ import { AbstractControl } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { JsonSchemaFormService, hasOwn } from 'angular6-json-schema-form';
 import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector

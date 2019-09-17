@@ -30,6 +30,10 @@ import { DialogService, _, extractIdOnRef } from '@app/core';
   providedIn: 'root'
 })
 export class RecordsService {
+
+  public static readonly DEFAULT_REST_RESULTS_SIZE = 10;
+  public static readonly MAX_REST_RESULTS_SIZE = 9999;
+
   private translatePlural;
   constructor(
     private http: HttpClient,
@@ -56,7 +60,7 @@ export class RecordsService {
     view: string,
     record_type: string,
     page: number = 1,
-    size: number = 10,
+    size: number = RecordsService.DEFAULT_REST_RESULTS_SIZE,
     query: string = '',
     mime_type: string = 'application/json',
     filters = [],
