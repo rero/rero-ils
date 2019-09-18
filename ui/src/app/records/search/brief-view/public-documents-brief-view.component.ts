@@ -62,20 +62,11 @@ import { _, OrganisationViewService, } from '@app/core';
         <!-- is_part_of -->
         <span *ngIf="record.metadata.is_part_of">{{ record.metadata.is_part_of }}</span>
 
-        <!-- publishers -->
-        <ul class="list-inline mb-0" *ngIf='record.metadata.publishers && record.metadata.publishers.length > 0'>
-          <li class="list-inline-item" *ngFor='let publisher of record.metadata.publishers; let last = last'>
-            <span *ngIf="publisher.place">{{ publisher.place.join(', ') }}</span><span *ngIf="publisher.place">: </span>
-            <span *ngIf="publisher.name">{{ publisher.name.join(', ') }}</span>
-            {{ last ? '' : '; ' }}
-          </li>
-        </ul>
-
-        <!-- publicationDate -->
-        <span *ngIf="record.metadata.publicationYear && !record.metadata.freeFormedPublicationDate">
-          {{ record.metadata.publicationYear }}
+        <!-- publisher_statements -->
+        <span *ngIf="record.metadata.publisherStatement">
+          {{ record.metadata.publisherStatement[0] }}
         </span>
-        <span *ngIf="record.metadata.freeFormedPublicationDate">{{ record.metadata.freeFormedPublicationDate }}</span>
+
         <div *ngIf="record.metadata.type !== 'ebook'">
           <i class="fa fa-circle text-{{ record.metadata.available ? 'success' : 'danger' }}" aria-hidden="true"></i>&nbsp;
           <span translate *ngIf="record.metadata.available">available</span>
