@@ -19,15 +19,11 @@
 
 from __future__ import absolute_import, print_function
 
-from time import sleep
-
 from celery import shared_task
-from celery.task.control import inspect
 from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
-from ..documents.api import Document, DocumentsSearch
-from ..utils import bulk_index
+from ..documents.api import DocumentsSearch
 
 
 @shared_task(ignore_result=True)

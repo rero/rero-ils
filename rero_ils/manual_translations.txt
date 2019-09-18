@@ -61,3 +61,7 @@ _('ui_language_en')
 _('ui_language_fr')
 _('ui_language_de')
 _('ui_language_it')
+
+# Harvested source
+_('ebibliomedia')
+_('mv-cantook')

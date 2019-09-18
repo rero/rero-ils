@@ -190,7 +190,7 @@
                     type="button" class="btn btn-sm btn-success">
                     <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
                   </a>
-                </h3> 
+                </h3>
               {% endif %}
             </header>
             <!-- Display Holdings -->
@@ -217,16 +217,23 @@
                               {{ holding|holding_circulation_category }}
                           </div>
                           <div class="col-sm-2">
-                            {{ number_items }} {{ _('items') if items|length > 1 else _('item') }}
+                            {% if record.harvested %}
+                              &nbsp;
+                            {% else %}
+                              {{ number_items }} {{ _('items') if items|length > 1 else _('item') }}
+                            {% endif %}
                           </div>
-    
                           <div class="col-sm-2 availability d-none">
+                            {% if record.harvested %}
+                              &nbsp;
+                            {% else %}
                               {% if number_items > 0 %}
                                 <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
                                 {{ _('available') if holding.available else _('not available') }}
                               {% else %}
                                 <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
                               {% endif %}
+                            {% endif %}
                           </div>
                         </div>
                       </div>
@@ -236,6 +243,18 @@
                 <!-- Card body -->
                 <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
                   <div class="card-body p-2">
+                    {% if record.harvested %}
+                      {% for elocation in holding.electronic_location %}
+                        <div class="row my-2">
+                          <div class="col-1">
+                            &nbsp;
+                          </div>
+                          <div class="col-10">
+                            <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
                     <!-- display items -->
                     {% if items|length > 0 %}
                       {% for item in items %}
