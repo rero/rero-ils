@@ -281,7 +281,7 @@ def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
     assert res.status_code == 200
 
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert item.status == ItemStatus.AT_DESK
+    assert item.status == ItemStatus.IN_TRANSIT
 
     record, actions = item.automatic_checkin()
     assert actions == {'no': None}

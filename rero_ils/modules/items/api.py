@@ -713,8 +713,7 @@ class Item(IlsRecord):
         #       to deal with multiple pickup locations for a library
         item = cls.get_record_by_pid(item_pid)
         if item:
-            library = item.get_library_of_last_location()
-            return library.get_pickup_location_pid()
+            return item.get_owning_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
