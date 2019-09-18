@@ -235,6 +235,10 @@
             }
           }
         },
+        "publisherStatement": {
+          "type": "keyword",
+          "index": false
+        },
         "extent": {
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"

@@ -372,7 +372,7 @@ def language_format(langs_list, language_interface):
         try:
             lang_name = pycountry.languages.get(
                 bibliographic=lang.get('value')).alpha_2
-        except:
+        except Exception:
             lang_name = pycountry.languages.get(
                 alpha_3=lang.get('value')).alpha_2
 

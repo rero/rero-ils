@@ -466,7 +466,6 @@
       "title": "Type",
       "description": "Document type.",
       "type": "string",
-      "default": "book",
       "validationMessage": "Required. Type of the document. Should be selected in the list below.",
       "enum": [
         "article",
@@ -496,11 +495,75 @@
         "minLength": 1
       }
     },
+    "is_part_of": {
+      "title": "Is part of",
+      "description": "Title of the host document.",
+      "type": "string",
+      "minLength": 3
+    },
+    "language": {
+      "title": "Language",
+      "description": "List of languages for the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of the language.",
+            "type": "string",
+            "default": "bf:Language",
+            "enum": [
+              "bf:Language"
+            ]
+          },
+          "value": {
+            "title": "Language value",
+            "description": "Language value.",
+            "type": "string",
+            "enum": [
+              "ara",
+              "chi",
+              "eng",
+              "fre",
+              "ger",
+              "gre",
+              "heb",
+              "ita",
+              "jpn",
+              "lat",
+              "pol",
+              "por",
+              "rus",
+              "spa",
+              "und"
+            ]
+          }
+        }
+      }
+    },
+    "translatedFrom": {
+      "title": "Translated from",
+      "description": "Language from which a resource is translated.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+      }
+    },
     "authors": {
       "title": "Authors",
       "description": "Author(s) of the resource. Can be either persons or organisations.",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": [
@@ -528,11 +591,11 @@
             "title": "Type",
             "description": "Identify if the author is a person or an organisation.",
             "type": "string",
-            "default": "person",
             "enum": [
               "person",
               "organisation"
-            ]
+            ],
+            "default": "person"
           },
           "date": {
             "title": "Date",
@@ -545,88 +608,6 @@
             "type": "string"
           }
         }
-      }
-    },
-    "subjects": {
-      "type": "array",
-      "title": "Subjects",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "title": "Subject",
-        "description": "Subject of the resource.",
-        "minLength": 1
-      }
-    },
-    "language": {
-      "title": "Languages",
-      "description": "List of languages for the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of the language.",
-            "type": "string",
-            "default": "bf:Language",
-            "enum": [
-              "bf:Language"
-            ]
-          },
-          "value": {
-            "title": "Language value",
-            "description": "Language value.",
-            "type": "string",
-            "default": "fre",
-            "enum": [
-              "ara",
-              "chi",
-              "eng",
-              "fre",
-              "ger",
-              "gre",
-              "heb",
-              "ita",
-              "jpn",
-              "lat",
-              "pol",
-              "por",
-              "rus",
-              "spa",
-              "und"
-            ]
-          }
-        }
-      }
-    },
-    "translatedFrom": {
-      "title": "Translated from",
-      "description": "Language from which a resource is translated.",
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "minLength": 2,
-        "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
-      }
-    },
-    "abstracts": {
-      "type": "array",
-      "title": "Abstracts",
-      "minItems": 1,
-      "items": {
-        "title": "Abstract",
-        "description": "Abstract of the resource.",
-        "type": "string",
-        "minLength": 3
       }
     },
     "copyrightDate": {
@@ -1177,7 +1158,7 @@
       "minLength": 1
     },
     "formats": {
-      "title": "Formats",
+      "title": "Format",
       "description": "Format of the resource, ie dimensions in cm.",
       "type": "array",
       "minItems": 1,
@@ -1217,11 +1198,25 @@
         }
       }
     },
-    "is_part_of": {
-      "title": "Is part of",
-      "description": "Title of the host document.",
-      "type": "string",
-      "minLength": 3
+    "notes": {
+      "title": "Note",
+      "description": "Note on the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "abstracts": {
+      "title": "Abstract",
+      "description": "Abstract of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
     },
     "identifiedBy": {
       "title": "Identifiers",
@@ -1240,7 +1235,6 @@
             "title": "Type",
             "description": "Type of the value.",
             "type": "string",
-            "default": "bf:Isbn",
             "enum": [
               "bf:AudioIssueNumber",
               "bf:Doi",
@@ -1267,13 +1261,13 @@
           },
           "value": {
             "title": "Identifier value",
-            "description": "Value of the identifier.",
+            "description": "Identifier value.",
             "type": "string",
             "minLength": 1
           },
           "note": {
-            "title": "Note",
-            "description": "Note about the identifier.",
+            "title": "Qualifier",
+            "description": "Qualifier of the identifier.",
             "type": "string",
             "minLength": 1
           },
@@ -1299,10 +1293,8 @@
             "title": "Status",
             "description": "Status of the ISBN/ISSN identifier.",
             "type": "string",
-            "default": "valid",
             "validationMessage": "ISBN/ISSN status should be selected in the list below.",
             "enum": [
-              "valid",
               "invalid",
               "cancelled",
               "invalid or cancelled"
@@ -1311,19 +1303,24 @@
         }
       }
     },
-    "notes": {
+    "subjects": {
+      "title": "Subject",
+      "description": "Subject of the resource.",
       "type": "array",
-      "title": "Notes",
       "minItems": 1,
       "items": {
-        "title": "Note",
-        "description": "Note on the resource.",
         "type": "string",
         "minLength": 1
       }
     },
+    "cover_art": {
+      "title": "Cover art",
+      "description": "Vendor cover art URL.",
+      "type": "string",
+      "format": "uri"
+    },
     "electronic_location": {
-      "title": "Electronic Locations",
+      "title": "Electronic Location",
       "description": "Information needed to locate and access an electronic resource.",
       "type": "array",
       "minItems": 1,
@@ -1332,22 +1329,13 @@
         "required": [
           "uri"
         ],
-        "additionalProperties": false,
-        "properties": {
-          "uri": {
-            "title": "Uniform Resource Identifier",
-            "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
-            "type": "string",
-            "format": "uri"
-          }
+        "uri": {
+          "title": "Uniform Resource Identifier",
+          "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+          "type": "string",
+          "format": "uri"
         }
       }
-    },
-    "cover_art": {
-      "title": "Cover art",
-      "description": "Vendor cover art URL.",
-      "type": "string",
-      "format": "uri"
     },
     "harvested": {
       "title": "Harvested",
