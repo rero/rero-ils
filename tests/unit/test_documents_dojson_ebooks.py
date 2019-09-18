@@ -88,8 +88,8 @@ def test_marc21_to_type_ebooks():
     assert data.get('type') == 'ebook'
 
 
-def test_marc21_to_identifier_reroID():
-    """Test reroID transformatiom."""
+def test_marc21_to_identifier_rero_id():
+    """Test reroID transformation."""
     marc21xml = """
     <record>
       <datafield tag="035" ind1=" " ind2=" ">
@@ -160,42 +160,131 @@ def test_marc21_to_abstracts():
     ]
 
 
-def test_marc21_to_publishers_ebooks_from_field_260():
-    """Test Publishers Place and Date from field 260 transformation."""
+def test_marc21_to_provision_activity_ebooks_from_field_260():
+    """Test provision activity Place and Date from field 260 transformation."""
     marc21xml = """
     <record>
       <datafield tag="260" ind1=" " ind2=" ">
         <subfield code="a">Lausanne :</subfield>
         <subfield code="b"/>
-        <subfield code="c">2015</subfield>
+        <subfield code="c">[2006]</subfield>
       </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('publishers') == [
+    assert data.get('provisionActivity') == [
         {
-            'place': ['Lausanne']
+            'type': 'bf:Publication',
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Lausanne'}
+                    ],
+                    'type': 'bf:Place'
+                }
+            ],
+            'startDate': '2006',
+            'date': '[2006]'
         }
     ]
 
 
-def test_marc21_to_publishers_ebooks_from_field_264_1():
-    """Test Publishers Place and Date from field 264_1 tramsform."""
+# Copyright Date: [264 _4 $c non repetitive]
+def test_marc21copyrightdate_ebooks_from_field_264_04():
+    """Test dojson Copyright Date."""
+
     marc21xml = """
     <record>
-      <datafield tag="264" ind1=" " ind2="1">
-        <subfield code="a">Genève :</subfield>
-        <subfield code="b"/>
-        <subfield code="c">2015</subfield>
+      <datafield tag="264" ind1=" " ind2="4">
+        <subfield code="c">© 1971</subfield>
       </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('publishers') == [
+    assert data.get('copyrightDate') == ['© 1971']
+
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2="4">
+        <subfield code="c">© 1971 [extra 1973]</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('copyrightDate') == ['© 1971 [extra 1973]']
+
+
+def test_marc21_to_provision_activity_ebooks_from_field_264_1():
+    """Test provision activity Place and Date from field 264_1 transform."""
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="a">Lausanne :</subfield>
+        <subfield code="b">Payot,</subfield>
+        <subfield code="c">[2006-2010]</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
         {
-            'place': ['Genève']
+            'type': 'bf:Publication',
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Lausanne'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Payot'}
+                    ],
+                    'type': 'bf:Agent'
+                }
+            ],
+            'startDate': '2006',
+            'endDate': '2010',
+            'date': '[2006-2010]'
+        }
+    ]
+
+
+def test_marc21_to_provision_activity_ebooks_from_field_264_2():
+    """Test provision activity Place and Date from field 264_2 transform."""
+    marc21xml = """
+    <record>
+      <datafield tag="264" ind1=" " ind2="2">
+        <subfield code="a">Lausanne :</subfield>
+        <subfield code="b">Payot,</subfield>
+        <subfield code="c">[2006-2010]</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Distribution',
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Lausanne'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Payot'}
+                    ],
+                    'type': 'bf:Agent'
+                }
+            ],
+            'date': '[2006-2010]'
         }
     ]
 
