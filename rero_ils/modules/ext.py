@@ -32,12 +32,11 @@ from .documents.listener import enrich_document_data, mef_person_delete, \
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
 from .items.listener import enrich_item_data
-from .items.signals import item_at_desk
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
 from .mef_persons.receivers import publish_api_harvested_records
 from .notifications.listener import enrich_notification_data
-from .patrons.listener import enrich_patron_data, listener_item_at_desk
+from .patrons.listener import enrich_patron_data
 from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
     resource_can_create, text_to_id, to_pretty_json
 
@@ -98,8 +97,6 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_location_data)
         before_record_index.connect(enrich_holding_data)
         before_record_index.connect(enrich_notification_data)
-
-        item_at_desk.connect(listener_item_at_desk)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 

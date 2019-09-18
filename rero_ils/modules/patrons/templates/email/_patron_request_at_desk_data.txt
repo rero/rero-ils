@@ -1,2 +1,0 @@
-{% for author in document.authors %}{{ author.name }}{{ "; " if not loop.last }}{% endfor %}
-{% for publisher in document.publishers %}{{ publisher.place|join(', ') }}: {{ publisher.name|join(', ') }}{{ ", " if not loop.last }}{{ "; " + document.publicationYear|string if loop.last }}{% endfor %}
