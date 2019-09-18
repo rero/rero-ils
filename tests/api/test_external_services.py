@@ -25,6 +25,8 @@ import pytest
 from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
+from rero_ils.modules.documents.views import create_publication_statement
+
 
 @pytest.mark.external
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -55,6 +57,17 @@ def test_documents_get(client, document):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
+    document = document.replace_refs()
+    publisher_statements = []
+    for provision_activity in document.get('provisionActivity', []):
+        publication_statement = create_publication_statement(
+            provision_activity
+        ).get('default')
+        if publication_statement:
+            publisher_statements.append(publication_statement)
+    if publisher_statements:
+        document['publisherStatement'] = publisher_statements
+
     assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
 
     res = client.get(
@@ -94,13 +107,18 @@ def test_documents_import_bnf_ean(client):
         ],
         'extent': '232 p.',
         'formats': ['24 cm'],
-        'identifiers': {
-            'bnfID': 'cb37090396w',
-            'isbn': '9782070541270'
-        },
-        'languages': [
-            {'language': 'fre'}
+        'identifiedBy': [
+            {
+                'source': 'BNF',
+                'type': 'bf:Local',
+                'value': 'ark:/12148/cb37090396w'
+            },
+            {
+                'type': 'bf:Ean',
+                'value': '9782070541270'
+            }
         ],
+        'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'otherMaterialCharacteristics': 'couv. ill. en coul.',
         'provisionActivity': [{
             'type': 'bf:Publication',

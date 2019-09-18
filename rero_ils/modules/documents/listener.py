@@ -24,7 +24,8 @@ from invenio_search import current_search
 from requests import codes as requests_codes
 from requests import get as requests_get
 
-from ..documents.api import Document, DocumentsSearch
+from .views import create_publication_statement
+from ..documents.api import DocumentsSearch
 from ..holdings.api import Holding
 from ..item_types.api import ItemType
 from ..items.api import Item
@@ -98,6 +99,17 @@ def enrich_document_data(sender, json=None, record=None, index=None,
 
         if holdings:
             json['holdings'] = holdings
+
+        # provisionActivity
+        publisher_statements = []
+        for provision_activity in record.get('provisionActivity', []):
+            publication_statement = create_publication_statement(
+                provision_activity
+            ).get('default')
+            if publication_statement:
+                publisher_statements.append(publication_statement)
+        if publisher_statements:
+            json['publisherStatement'] = publisher_statements
 
 
 def mef_person_insert(sender, *args, **kwargs):
