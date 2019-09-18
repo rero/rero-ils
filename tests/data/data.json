@@ -5,7 +5,8 @@
     "name": "The district of Martigny Libraries",
     "address": "Ave de la gare, Martigny CH-1920",
     "code": "org1",
-    "default_currency": "CHF"
+    "default_currency": "CHF",
+    "online_harvested_source": "ebibliomedia"
   },
   "org2": {
     "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
@@ -13,7 +14,8 @@
     "name": "The district of Sion Libraries",
     "address": "Ave de la gare, Martigny CH-1950",
     "code": "org2",
-    "default_currency": "EUR"
+    "default_currency": "EUR",
+    "online_harvested_source": "mv-cantook"
   },
   "lib1": {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
@@ -607,7 +609,8 @@
     "pid": "loc9",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    }
+    },
+    "is_online": true
   },
   "loc10": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -616,7 +619,8 @@
     "pid": "loc10",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
-    }
+    },
+    "is_online": true
   },
   "loc11": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -625,7 +629,8 @@
     "pid": "loc11",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
-    }
+    },
+    "is_online": true
   },
   "loc12": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -634,7 +639,8 @@
     "pid": "loc12",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
-    }
+    },
+    "is_online": true
   },
   "loc13": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -643,7 +649,8 @@
     "pid": "loc13",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib5"
-    }
+    },
+    "is_online": true
   },
   "itty1": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
@@ -701,8 +708,9 @@
   },
   "itty7": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "no circulation",
+    "name": "Online",
     "pid": "itty7",
+    "type": "online",
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
@@ -710,8 +718,9 @@
   },
   "itty8": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "no circulation",
+    "name": "Online",
     "pid": "itty8",
+    "type": "online",
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
@@ -1206,6 +1215,12 @@
     "pid": "ebook1",
     "type": "ebook",
     "harvested": true,
+    "electronic_location": [
+      {
+        "source": "ebibliomedia",
+        "uri": "https://www.site1.org/ebook"
+      }
+    ],
     "title": "La maison des oubli\u00e9s",
     "language": [
       {
@@ -1269,6 +1284,12 @@
     "pid": "ebook2",
     "type": "ebook",
     "harvested": true,
+    "electronic_location": [
+      {
+        "source": "ebibliomedia",
+        "uri": "https://www.site1.org/ebook"
+      }
+    ],
     "identifiedBy": [
       {
         "type": "bf:Local",
@@ -1331,6 +1352,12 @@
     ],
     "type": "ebook",
     "harvested": true,
+    "electronic_location": [
+      {
+        "source": "ebibliomedia",
+        "uri": "https://www.site1.org/ebook"
+      }
+    ],
     "title": "Harry Potter and the Chamber of Secrets",
     "language": [
       {
@@ -1386,6 +1413,12 @@
     ],
     "type": "ebook",
     "harvested": true,
+    "electronic_location": [
+      {
+        "source": "ebibliomedia",
+        "uri": "https://www.site1.org/ebook"
+      }
+    ],
     "title": "Nouveau titre",
     "language": [
       {

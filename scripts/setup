@@ -41,6 +41,7 @@ display_success_message () {
 DEPLOYMENT=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
+STOP_EXECUTION=true
 
 # options may be followed by one colon to indicate they have a required argument
 if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big -- "$@")
@@ -55,6 +56,7 @@ do
     -d|--deployment) DEPLOYMENT=true ;;
     -s|--create_items_holdings_small) CREATE_ITEMS_HOLDINGS_SMALL=true ;;
     -b|--create_items_holdings_big) CREATE_ITEMS_HOLDINGS_BIG=true ;;
+    -c|--continue) STOP_EXECUTION=false ;;
     (--) shift; break;;
     (-*) display_error_message "$0: error - unrecognized option $1"; exit 1;;
     (*) break;;
@@ -131,16 +133,16 @@ pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
 display_success_message "Organisations:"
-pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json
+pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json  --append
 pipenv run invenio index reindex -t org --yes-i-know
 display_success_message "Libraries:"
 pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json
 pipenv run invenio index reindex -t lib --yes-i-know
 display_success_message "Locations:"
-pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json
+pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append
 pipenv run invenio index reindex -t loc --yes-i-know
 display_success_message "Item types:"
-pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json
+pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append
 pipenv run invenio index reindex -t itty --yes-i-know
 display_success_message "Patron types:"
 pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json
@@ -185,7 +187,10 @@ then
     # to generate small items file small documents must exist in DB
     pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
     display_success_message "Creation of items and holdings done for 'small' documents done."
-    exit 0
+    if $STOP_EXECUTION
+    then
+        exit 0
+    fi
 fi
 
 if $CREATE_ITEMS_HOLDINGS_BIG
@@ -193,7 +198,10 @@ then
     # to generate big items file big documents must exist in DB
     pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
     display_success_message "Creation of items and holdings done for 'big' documents done."
-    exit 0
+    if $STOP_EXECUTION
+    then
+        exit 0
+    fi
 fi
 
 display_success_message "Holdings:"

@@ -31,4 +31,12 @@ class PolicyNameAlreadyExists(RecordsError):
 
 
 class InvalidRecordID(RecordsError):
-    """Error raised when the ID of record in invalid."""
+    """Error raised when the ID of record is invalid."""
+
+
+class MissingRequiredParameterError(RecordsError):
+    """Exception raised when required parameter is missing."""
+
+
+class RecordValidationError(RecordsError):
+    """Exception raised when record is not validated."""
