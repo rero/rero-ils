@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from functools import partial
 
 from elasticsearch_dsl import Q
+from flask_babelex import gettext as _
 from invenio_search.api import RecordsSearch
 
 from .models import ItemTypeIdentifier
@@ -58,6 +59,24 @@ class ItemType(IlsRecord):
     minter = item_type_id_minter
     fetcher = item_type_id_fetcher
     provider = ItemTypeProvider
+
+    def extended_validation(self, **kwargs):
+        """Validate record against schema.
+
+        and extended validation to allow only one item type of type online
+        per organisation.
+        """
+        online_type_pid = self.get_organisation().online_circulation_category()
+        if self.get('type') == 'online' and online_type_pid and \
+                self.pid != online_type_pid:
+            return _('Another online item type exists in this organisation')
+        return True
+
+    def get_organisation(self):
+        """Get organisation."""
+        from ..organisations.api import Organisation
+        org_pid = self.replace_refs()['organisation']['pid']
+        return Organisation.get_record_by_pid(org_pid)
 
     @classmethod
     def get_pid_by_name(cls, name):

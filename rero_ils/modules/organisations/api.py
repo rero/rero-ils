@@ -25,6 +25,7 @@ from invenio_search.api import RecordsSearch
 from .models import OrganisationIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
+from ..item_types.api import ItemTypesSearch
 from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
@@ -117,3 +118,28 @@ class Organisation(IlsRecord):
     def organisation_pid(self):
         """Get organisation pid ."""
         return self.pid
+
+    def online_circulation_category(self):
+        """Get the default circulation category for online resources."""
+        results = ItemTypesSearch().filter(
+            'term', organisation__pid=self.pid).filter(
+                'term', type='online').source(['pid']).scan()
+        try:
+            return next(results).pid
+        except StopIteration:
+            return None
+
+    @classmethod
+    def get_record_by_online_harvested_source(cls, source):
+        """Get record by online harvested source."""
+        results = OrganisationSearch().filter(
+            'term', online_harvested_source=source).scan()
+        try:
+            return Organisation.get_record_by_pid(next(results).pid)
+        except StopIteration:
+            return None
+
+    def get_online_locations(self):
+        """Get list of online locations."""
+        return [library.online_location
+                for library in self.get_libraries() if library.online_location]

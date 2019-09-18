@@ -250,18 +250,21 @@ class Item(IlsRecord):
 
     def item_link_to_holding(self):
         """Link an item to a holding record."""
-        from ..holdings.api import get_holding_pid_for_item, \
-            create_holding_for_item
+        from ..holdings.api import \
+            get_holding_pid_by_document_location_item_type, \
+            create_holding
 
         item = self.replace_refs()
         document_pid = item.get('document').get('pid')
 
-        holding_pid = get_holding_pid_for_item(
+        holding_pid = get_holding_pid_by_document_location_item_type(
             document_pid, self.location_pid, self.item_type_pid)
 
         if not holding_pid:
-            holding_pid = create_holding_for_item(
-                document_pid, self.location_pid, self.item_type_pid)
+            holding_pid = create_holding(
+                document_pid=document_pid,
+                location_pid=self.location_pid,
+                item_type_pid=self.item_type_pid)
 
         base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
@@ -301,7 +304,7 @@ class Item(IlsRecord):
 
     @classmethod
     def get_items_pid_by_holding_pid(cls, holding_pid):
-        """Returns item pisd from holding pid."""
+        """Returns item pids from holding pid."""
         results = ItemsSearch()\
             .filter('term', holding__pid=holding_pid)\
             .source(['pid']).scan()

@@ -60,6 +60,10 @@ def test_item_create(db, es_clear, item_lib_martigny_data_tmp,
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'item'
 
+    item_lib_martigny.delete_from_index()
+    assert not item_lib_martigny.delete_from_index()
+    item_lib_martigny.dbcommit(forceindex=True)
+
 
 def test_item_can_delete(item_lib_martigny):
     """Test can delete"""

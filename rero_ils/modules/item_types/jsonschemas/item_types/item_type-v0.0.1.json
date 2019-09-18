@@ -35,6 +35,15 @@
       "type": "string",
       "minLength": 1
     },
+    "type": {
+      "title": "Type",
+      "description": "Type of the circulation category.",
+      "type": "string",
+      "enum": [
+        "online",
+        "standard"
+      ]
+    },
     "organisation": {
       "title": "Organisation",
       "type": "object",
