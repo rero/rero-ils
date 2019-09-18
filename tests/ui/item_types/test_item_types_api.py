@@ -23,19 +23,28 @@ from utils import get_mapping
 
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
     item_type_id_fetcher
+import pytest
+from rero_ils.modules.errors import RecordValidationError
 
 
-def test_item_type_create(db, item_type_data_tmp):
+def test_item_type_create(db, item_type_data_tmp, org_martigny,
+                          item_type_online_martigny):
     """Test item type record creation."""
-    itty = ItemType.create(item_type_data_tmp, delete_pid=True)
-    assert itty == item_type_data_tmp
-    assert itty.get('pid') == '1'
+    item_type_data_tmp['type'] = 'online'
+    with pytest.raises(RecordValidationError):
+        itty = ItemType.create(item_type_data_tmp, delete_pid=True)
 
-    itty = ItemType.get_record_by_pid('1')
+    del item_type_data_tmp['type']
+    itty = ItemType.create(item_type_data_tmp, delete_pid=True)
+
+    assert itty == item_type_data_tmp
+    assert itty.get('pid') == '2'
+
+    itty = ItemType.get_record_by_pid('2')
     assert itty == item_type_data_tmp
 
     fetched_pid = item_type_id_fetcher(itty.id, itty)
-    assert fetched_pid.pid_value == '1'
+    assert fetched_pid.pid_value == '2'
     assert fetched_pid.pid_type == 'itty'
     assert not ItemType.get_pid_by_name('no exists')
 

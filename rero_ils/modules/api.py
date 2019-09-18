@@ -32,6 +32,8 @@ from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from sqlalchemy.orm.exc import NoResultFound
 
+from .errors import RecordValidationError
+
 
 class IlsRecordError:
     """Base class for errors in the IlsRecordClass."""
@@ -100,6 +102,23 @@ class IlsRecord(Record):
     provider = None
     object_type = 'rec'
     indexer = IlsRecordIndexer
+
+    def validate(self, **kwargs):
+        """Validate record against schema.
+
+        and extended validation per record class.
+        """
+        super(IlsRecord, self).validate(**kwargs)
+        validation_message = self.extended_validation(**kwargs)
+        if validation_message is not True:
+            raise RecordValidationError(validation_message)
+
+    def extended_validation(self, **kwargs):
+        """Returns reasons for validation failures, otherwise True.
+
+        Override this function for classes that require extended validations
+        """
+        return True
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

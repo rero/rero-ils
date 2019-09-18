@@ -193,9 +193,11 @@ def get_locations():
     """
     to_return = {}
     for pid in Location.get_all_pids():
-        org_pid = Location.get_record_by_pid(pid).get_library()\
-                          .replace_refs().get('organisation').get('pid')
-        to_return.setdefault(org_pid, []).append(pid)
+        record = Location.get_record_by_pid(pid)
+        if not record.get('is_online'):
+            org_pid = record.get_library()\
+                            .replace_refs().get('organisation').get('pid')
+            to_return.setdefault(org_pid, []).append(pid)
     return to_return
 
 
@@ -206,9 +208,10 @@ def get_item_types():
     """
     to_return = {}
     for pid in ItemType.get_all_pids():
-        org_pid = ItemType.get_record_by_pid(pid)\
-            .replace_refs()['organisation']['pid']
-        to_return.setdefault(org_pid, []).append(pid)
+        record = ItemType.get_record_by_pid(pid).replace_refs()
+        if record.get('type') != 'online':
+            org_pid = record['organisation']['pid']
+            to_return.setdefault(org_pid, []).append(pid)
     return to_return
 
 

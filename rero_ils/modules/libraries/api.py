@@ -67,6 +67,18 @@ class Library(IlsRecord):
     fetcher = library_id_fetcher
     provider = LibraryProvider
 
+    @property
+    def online_location(self):
+        """Get the online location."""
+        result = LocationsSearch()\
+            .filter('term', is_online=True)\
+            .filter('term', library__pid=self.pid)\
+            .source(['pid']).scan()
+        try:
+            return next(result).pid
+        except StopIteration:
+            return None
+
     def get_organisation(self):
         """Get Organisation."""
         from ..organisations.api import Organisation

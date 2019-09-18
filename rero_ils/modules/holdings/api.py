@@ -29,6 +29,7 @@ from invenio_search.api import RecordsSearch
 
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordIndexer
+from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
 from ..locations.api import Location
@@ -123,6 +124,14 @@ class Holding(IlsRecord):
                 return True
         return False
 
+    @property
+    def get_items_count_by_holding_pid(self):
+        """Returns items count from holding pid."""
+        results = ItemsSearch()\
+            .filter('term', holding__pid=self.pid)\
+            .source(['pid']).count()
+        return results
+
     @classmethod
     def get_document_pid_by_holding_pid(cls, holding_pid):
         """Returns document pid for a holding pid."""
@@ -157,24 +166,32 @@ class Holding(IlsRecord):
         if (viewcode != current_app.
                 config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
             org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-            es_query.filter('term', organisation__pid=org_pid)
+            es_query = es_query.filter('term', organisation__pid=org_pid)
         return [result.pid for result in es_query.scan()]
 
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
         items = []
-        holdingItems = [
+        holdings_items = [
             Item.get_record_by_pid(item_pid)
             for item_pid in Item.get_items_pid_by_holding_pid(self.get('pid'))
         ]
         if (viewcode != current_app.
                 config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
             org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-            for item in holdingItems:
-                if (item.organisation_pid == org_pid):
+            for item in holdings_items:
+                if item.organisation_pid == org_pid:
                     items.append(item)
             return items
-        return holdingItems
+        return holdings_items
+
+    @property
+    def get_items(self):
+        """Return items of holding record."""
+        for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
+            yield Item.get_record_by_pid(item_pid)
+        # return [Item.get_record_by_pid(item_pid)
+        #         for item_pid in Item.get_items_pid_by_holding_pid(self.pid)]
 
     def get_number_of_items(self):
         """Get holding number of items."""
@@ -218,7 +235,8 @@ class Holding(IlsRecord):
                 self.circulation_category_pid).get('name')
 
 
-def get_holding_pid_for_item(document_pid, location_pid, item_type_pid):
+def get_holding_pid_by_document_location_item_type(
+        document_pid, location_pid, item_type_pid):
     """Returns holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
         'term',
@@ -236,8 +254,28 @@ def get_holding_pid_for_item(document_pid, location_pid, item_type_pid):
         return None
 
 
-def create_holding_for_item(document_pid, location_pid, item_type_pid):
-    """Create a new holding to link an item."""
+def get_holdings_by_document_item_type(
+        document_pid, item_type_pid):
+    """Returns holding locations for document/item type."""
+    results = HoldingsSearch().filter(
+        'term',
+        document__pid=document_pid
+    ).filter(
+        'term',
+        circulation_category__pid=item_type_pid
+    ).source(['pid']).scan()
+    return [Holding.get_record_by_pid(result.pid) for result in results]
+
+
+def create_holding(
+        document_pid=None, location_pid=None,
+        item_type_pid=None, electronic_location=None):
+    """Create a new holding."""
+    if not (document_pid and location_pid and item_type_pid):
+        raise MissingRequiredParameterError(
+            "One of the parameters 'document_pid' "
+            "or 'location_pid' or 'item_type_pid' is required."
+        )
     data = {}
     schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
     data_schema = {
@@ -271,6 +309,8 @@ def create_holding_for_item(document_pid, location_pid, item_type_pid):
             doc_type='documents',
             pid=document_pid)
     }
+    if electronic_location:
+        data['electronic_location'] = [electronic_location]
     record = Holding.create(
         data, dbcommit=True, reindex=True, delete_pid=True)
     return record.get('pid')
