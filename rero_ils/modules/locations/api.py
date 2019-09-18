@@ -19,6 +19,8 @@
 
 from functools import partial
 
+import invenio_records
+from flask_babelex import gettext as _
 from invenio_search.api import RecordsSearch
 
 from .models import LocationIdentifier
@@ -54,6 +56,14 @@ class Location(IlsRecord):
     minter = location_id_minter
     fetcher = location_id_fetcher
     provider = LocationProvider
+
+    def extended_validation(self, **kwargs):
+        """Returns reasons for validation failures, otherwise True."""
+        online_location_pid = self.get_library().get_online_locations()
+        if self.get('is_online') and online_location_pid and \
+                self.pid != online_location_pid:
+            return _('Another online location exists in this library')
+        return True
 
     @classmethod
     def get_pickup_location_pids(cls, patron_pid=None):

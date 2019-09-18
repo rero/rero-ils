@@ -27,6 +27,9 @@
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"
         },
+        "type": {
+          "type": "keyword"
+        },
         "organisation": {
           "properties": {
             "pid": {

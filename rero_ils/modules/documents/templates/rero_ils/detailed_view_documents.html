@@ -196,9 +196,9 @@
             <!-- Display Holdings -->
             <div class="card">
               {% for holding in holdings %}
-                {% set items = holding.get_items_filter_by_viewcode(viewcode) %}
+                {% set items = holding.get_items %}
                 {% set number_items = items|length %}
-                {% if number_items > 0 %}
+                {% if record.harvested or number_items > 0 %}
                 <!-- Card header -->
                 <div id="{{ holding.pid }}" class="card-header p-2">
                   <div class="row">

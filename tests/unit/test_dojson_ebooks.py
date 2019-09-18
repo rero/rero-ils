@@ -284,17 +284,17 @@ def test_marc21_to_authors_and_translator():
     ]
 
 
-def test_marc21_to_electronic_location_ebooks():
-    """Electronic Locations and Cover art uri.
-
-    All the URI are in the field 'electronic_location'
-    execpt the URI of the covert art that s in the field 'cover_art'.
-    The URI for the cover art is store in 'cover_art'.
-    """
+def test_marc21_electronic_location_ebooks():
+    """Harvested_resources tests."""
     marc21xml = """
     <record>
       <datafield tag="856" ind1="4" ind2="0">
         <subfield code="u">http://site1.org/resources/1</subfield>
+        <subfield code="x">ebibliomedia</subfield>
+      </datafield>
+      <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="u">http://site5.org/resources/1</subfield>
+        <subfield code="x">mv-cantook</subfield>
       </datafield>
       <datafield tag="856" ind1="4" ind2="2">
         <subfield code="3">Image de couverture</subfield>
@@ -310,10 +310,30 @@ def test_marc21_to_electronic_location_ebooks():
     data = marc21.do(marc21json)
     assert data.get('electronic_location') == [
         {
+            'source': 'ebibliomedia',
             'uri': 'http://site1.org/resources/1'
         },
         {
-            'uri': 'https://www.edenlivres.fr/p/172480'
+            'source': 'mv-cantook',
+            'uri': 'http://site5.org/resources/1'
         }
     ]
+
+
+def test_marc21_cover_art_ebooks():
+    """Cover art tests."""
+    marc21xml = """
+    <record>
+      <datafield tag="856" ind1="4" ind2="2">
+        <subfield code="3">Image de couverture</subfield>
+        <subfield code="u">http://site2.org/resources/2</subfield>
+      </datafield>
+      <datafield tag="856" ind1="4" ind2="2">
+        <subfield code="3">test</subfield>
+        <subfield code="u">http://site3.org/resources/2</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
     assert data.get('cover_art') == 'http://site2.org/resources/2'

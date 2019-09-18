@@ -56,11 +56,51 @@ def test_document_can_delete(app, document_data_tmp):
     assert document.can_delete
 
 
-def test_document_create_records(app, ebook_1_data, ebook_2_data):
+def test_document_create_records(app, org_martigny, org_sion, ebook_1_data,
+                                 ebook_2_data, item_type_online_martigny,
+                                 loc_online_martigny, item_type_online_sion,
+                                 loc_online_sion
+                                 ):
     """Test can create harvested records."""
-    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
-    assert n_created == 2
+    ebook_1_data['electronic_location'] = [
+        {
+            "source": "ebibliomedia",
+            "uri": "https://www.site1.org/ebook"
+        }
+    ]
+    ebook_2_data['electronic_location'] = [
+        {
+            "source": "ebibliomedia",
+            "uri": "https://www.site2.org/ebook"
+        }
+    ]
+    n_created, n_updated = create_records([ebook_1_data])
+    assert n_created == 1
     assert n_updated == 0
+
+    ebook_1_data['electronic_location'] = [
+        {
+            "source": "ebibliomedia",
+            "uri": "https://www.site2.org/ebook"
+        },
+        {
+            "source": "mv-cantook",
+            "uri": "https://www.site3.org/ebook"
+        }
+    ]
+    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
+    assert n_created == 1
+    assert n_updated == 1
+
+    ebook_1_data['electronic_location'] = [
+        {
+            "source": "mv-cantook",
+            "uri": "https://www.site3.org/ebook"
+        }
+    ]
+    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
+    assert n_created == 0
+    assert n_updated == 2
 
     # TODO: find a way to execute celery worker tasks in travis tests
     # n_created, n_updated = create_records([ebook_1_data])
@@ -102,8 +142,8 @@ def test_document_person_resolve(mock_resolver_get, mock_listener_get,
     )
 
     assert document_ref.replace_refs()[
-            'authors'
-        ][0]['pid'] == mef_person_response_data['id']
+        'authors'
+    ][0]['pid'] == mef_person_response_data['id']
 
     count = MefPersonsSearch().filter(
         'match',

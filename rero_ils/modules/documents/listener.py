@@ -24,7 +24,7 @@ from invenio_search import current_search
 from requests import codes as requests_codes
 from requests import get as requests_get
 
-from ..documents.api import Document, DocumentsSearch
+from ..documents.api import DocumentsSearch
 from ..holdings.api import Holding
 from ..item_types.api import ItemType
 from ..items.api import Item

@@ -23,9 +23,13 @@ from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 
+import pytest
 from utils import flush_index
 
-from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch, \
+    get_holdings_by_document_item_type
+from rero_ils.modules.holdings.views import holding_circulation_category, \
+    holding_loan_condition_filter, holding_location
 from rero_ils.modules.items.api import Item, ItemsSearch
 
 
@@ -63,6 +67,23 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
 
     assert holding_lib_martigny.get_links_to_me().get('items')
     assert not holding_lib_martigny.can_delete
+    # test loan conditions
+    assert holding_loan_condition_filter(holding_lib_martigny.pid) == \
+        'standard'
+    with pytest.raises(Exception):
+        assert holding_loan_condition_filter('no pid')
+    assert holding_location(holding_lib_martigny.replace_refs()) == \
+        'MARTIGNY: Martigny Library Public Space'
+    assert holding_circulation_category(holding_lib_martigny) == 'standard'
+    holdings = get_holdings_by_document_item_type(
+        document.pid, item_type_standard_martigny.pid)
+    assert holding_lib_martigny.pid == holdings[0].get('pid')
+    assert holding_lib_martigny.get_items[0].get('pid') == \
+        item_lib_martigny.pid
+
+    holding_lib_martigny.delete_from_index()
+    assert not holding_lib_martigny.delete_from_index()
+    holding_lib_martigny.dbcommit(forceindex=True)
 
 
 def test_holding_delete_after_item_deletion(

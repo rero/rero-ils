@@ -21,6 +21,12 @@ from flask import current_app
 from invenio_db import db
 from invenio_oaiharvester.models import OAIHarvestConfig
 
+from ..documents.api import Document
+from ..holdings.api import create_holding, \
+    get_holding_pid_by_document_location_item_type, \
+    get_holdings_by_document_item_type
+from ..organisations.api import Organisation
+
 
 def add_oai_source(name, baseurl, metadataprefix='marc21',
                    setspecs='', comment='', update=False):
@@ -49,3 +55,68 @@ def add_oai_source(name, baseurl, metadataprefix='marc21',
             db.session.commit()
             return 'Updated'
         return 'Not Updated'
+
+
+def create_document_holding(record):
+    """Create a document and a holding for an ebook."""
+    harvested_sources = record.pop('electronic_location', None)
+    new_record = None
+    doc_created = False
+    record.pop('harvested_sources', None)
+    if harvested_sources:
+        for harvested_source in harvested_sources:
+            org = Organisation.get_record_by_online_harvested_source(
+                source=harvested_source['source'])
+            if org:
+                if not doc_created:
+                    new_record = Document.create(
+                        record,
+                        dbcommit=True,
+                        reindex=True
+                    )
+                if new_record:
+                    doc_created = True
+                    item_type_pid = org.online_circulation_category()
+                    locations = org.get_online_locations()
+                    for location in locations:
+                        create_holding(
+                            document_pid=new_record.pid,
+                            location_pid=location,
+                            item_type_pid=item_type_pid,
+                            electronic_location=harvested_source)
+    return new_record
+
+
+def update_document_holding(record, pid):
+    """Update a document and a holding for an ebook."""
+    harvested_sources = record.pop('electronic_location', None)
+    new_record = None
+    existing_record = Document.get_record_by_pid(pid)
+    new_record = existing_record.replace(
+        record,
+        dbcommit=True,
+        reindex=True
+    )
+    if harvested_sources:
+        for harvested_source in harvested_sources:
+            org = Organisation.get_record_by_online_harvested_source(
+                source=harvested_source['source'])
+            if org:
+                item_type_pid = org.online_circulation_category()
+                locations = org.get_online_locations()
+                for location_pid in locations:
+                    if not get_holding_pid_by_document_location_item_type(
+                            new_record.pid, location_pid, item_type_pid
+                    ):
+                        create_holding(
+                            document_pid=new_record.pid,
+                            location_pid=location_pid,
+                            item_type_pid=item_type_pid,
+                            electronic_location=harvested_source)
+                    holdings = get_holdings_by_document_item_type(
+                        new_record.pid, item_type_pid)
+                    for holding in holdings:
+                        if holding.location_pid not in locations:
+                            holding.delete(
+                                force=False, dbcommit=True, delindex=True)
+    return new_record

@@ -69,16 +69,16 @@ pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
 echo -e ${GREEN}Organisations:${NC}
-pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json
+pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json  --append
 pipenv run invenio index reindex -t org --yes-i-know
 echo -e ${GREEN}Libraries:${NC}
-pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json
+pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json 
 pipenv run invenio index reindex -t lib --yes-i-know
 echo -e ${GREEN}Locations:${NC}
-pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json
+pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append
 pipenv run invenio index reindex -t loc --yes-i-know
 echo -e ${GREEN}Item types:${NC}
-pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json
+pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append
 pipenv run invenio index reindex -t itty --yes-i-know
 echo -e ${GREEN}Patron types:${NC}
 pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json
