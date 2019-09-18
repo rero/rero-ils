@@ -47,6 +47,10 @@
       "description": "The default currency of the organisation",
       "type": "string",
       "pattern": "^[A-Z]{3}$"
-    }
+    },
+    "online_harvested_source": {
+      "title": "Online harvested source",
+      "description": "Online harvested source as configured in ebooks server.",
+      "type": "string"
   }
 }

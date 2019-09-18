@@ -23,19 +23,27 @@ from utils import get_mapping
 
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
+import pytest
+from rero_ils.modules.errors import RecordValidationError
 
 
-def test_location_create(db, es_clear, loc_public_martigny_data):
+def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,
+                         loc_online_martigny):
     """Test location creation."""
+    loc_public_martigny_data['is_online'] = True
+    with pytest.raises(RecordValidationError):
+        loc = Location.create(loc_public_martigny_data, delete_pid=True)
+
+    del loc_public_martigny_data['is_online']
     loc = Location.create(loc_public_martigny_data, delete_pid=True)
     assert loc == loc_public_martigny_data
-    assert loc.get('pid') == '1'
+    assert loc.get('pid') == '2'
 
-    loc = Location.get_record_by_pid('1')
+    loc = Location.get_record_by_pid('2')
     assert loc == loc_public_martigny_data
 
     fetched_pid = fetcher(loc.id, loc)
-    assert fetched_pid.pid_value == '1'
+    assert fetched_pid.pid_value == '2'
     assert fetched_pid.pid_type == 'loc'
 
 

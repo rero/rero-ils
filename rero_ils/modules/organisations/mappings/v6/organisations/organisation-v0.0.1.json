@@ -27,6 +27,9 @@
         "default_currency": {
           "type": "keyword"
         },
+        "online_harvested_source": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },

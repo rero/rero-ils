@@ -386,16 +386,23 @@ def marc21_to_is_part_of(self, key, value):
         return value.get('t')
 
 
-@marc21.over('electronic_location', '^8564.')
+@marc21.over('electronic_location', '^85640')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_online_resources(self, key, value):
-    """Get online_resources data."""
-    res = {'uri': value.get('u')}
+def marc21_electronic_location(self, key, value):
+    """Get electronic_location data."""
+    res = {}
+    if value.get('x'):
+        res['source'] = value.get('x')
+    if value.get('u'):
+        res['uri'] = value.get('u')
+    return res or None
 
+
+@marc21.over('cover_art', '^85642')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_cover_art(self, key, value):
+    """Get cover_art data."""
     if value.get('3') == 'Image de couverture':
         self.setdefault('cover_art', value.get('u'))
-        res = None
-    else:
-        res = {'uri': value.get('u')}
-    return res
