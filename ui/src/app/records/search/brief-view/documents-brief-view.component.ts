@@ -33,34 +33,29 @@ import { UserService } from '@app/user.service';
   <small> &ndash; {{ record.metadata.type | translate }}</small></h5>
   <div class="card-text">
 
-  <!-- author -->
-  <ul class="list-inline mb-0" *ngIf="record.metadata.authors && record.metadata.authors.length > 0">
-    <li class="list-inline-item" *ngFor="let author of record.metadata.authors.slice(0,3); let last = last">
-      <span *ngIf="!author.pid">
-        {{ authorName(author) }}
-        {{ author.qualifier ? author.qualifier : '' }}
-        {{ author.date ? author.date : '' }}
-      </span>
-      <a *ngIf="author.pid" href="/{{ viewCode }}/persons/{{ author.pid }}">
-        {{ authorName(author) }}
-        {{ author.qualifier ? author.qualifier : '' }}
-        {{ author.date ? author.date : '' }}
-      </a>
-      {{ last ? '' : '; ' }}
+    <!-- author -->
+    <ul class="list-inline mb-0" *ngIf="record.metadata.authors && record.metadata.authors.length > 0">
+      <li class="list-inline-item" *ngFor="let author of record.metadata.authors.slice(0,3); let last = last">
+        <span *ngIf="!author.pid">
+          {{ authorName(author) }}
+          {{ author.qualifier ? author.qualifier : '' }}
+          {{ author.date ? author.date : '' }}
+        </span>
+        <a *ngIf="author.pid" href="/{{ viewCode }}/persons/{{ author.pid }}">
+          {{ authorName(author) }}
+          {{ author.qualifier ? author.qualifier : '' }}
+          {{ author.date ? author.date : '' }}
+        </a>
+        {{ last ? '' : '; ' }}
 
-    </li>
-    <li *ngIf="record.metadata.authors && record.metadata.authors.length > 3">; …</li>
-  </ul>
+      </li>
+      <li *ngIf="record.metadata.authors && record.metadata.authors.length > 3">; …</li>
+    </ul>
 
-  <span *ngFor="let publisher of record.metadata.publishers; let isLast=last">
-    <span *ngIf="publisherNames()">
-      {{ publisherNames() }}{{isLast ? '. ' : ', '}}
+    <!-- publisher_statements -->
+    <span *ngIf="record.metadata.publisherStatement">
+      {{ record.metadata.publisherStatement[0] }}
     </span>
-  </span>
-  <span *ngIf="record.metadata.freeFormedPublicationDate; else PublicationYear">
-    {{ record.metadata.freeFormedPublicationDate }}
-    </span>
-    <ng-template #PublicationYear>{{ record.metadata.publicationYear }}</ng-template>
   </div>
   <section *ngIf="record.metadata.type != 'ebook'">
     <a *ngIf="countHoldingsItems()"
