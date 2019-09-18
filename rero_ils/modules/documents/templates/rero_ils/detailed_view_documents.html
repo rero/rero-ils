@@ -26,7 +26,7 @@
         {% if record.cover_art %}
           thumbnailurl='{{ (record.cover_art) }}'
         {% else %}
-          thumbnailurl=""
+          thumbnailurl="/static/images/icon_{{ record.type }}.png"
           {% if record.identifiedBy %}
             identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
           {% else %}
