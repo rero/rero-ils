@@ -24,6 +24,9 @@
         "code": {
           "type": "keyword"
         },
+        "online_harvested_source": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },

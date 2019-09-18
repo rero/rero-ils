@@ -24,6 +24,9 @@
         "is_pickup": {
           "type": "boolean"
         },
+        "is_online": {
+          "type": "boolean"
+        },
         "pickup_name": {
           "type": "keyword"
         },

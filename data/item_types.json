@@ -1,5 +1,6 @@
 [
   {
+    "pid": "1",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "Standard",
     "description": "Standard checkout.",
@@ -8,6 +9,7 @@
     }
   },
   {
+    "pid": "2",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "Short",
     "description": "Short checkout.",
@@ -16,6 +18,7 @@
     }
   },
   {
+    "pid": "3",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "On-site",
     "description": "On-site consultation.",
@@ -24,6 +27,7 @@
     }
   },
   {
+    "pid": "4",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "No checkout",
     "description": "No checkout.",
@@ -32,6 +36,7 @@
     }
   },
   {
+    "pid": "5",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "Standard adult",
     "description": "Standard checkout for adults only (16+).",
@@ -40,6 +45,7 @@
     }
   },
   {
+    "pid": "6",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "Short adult",
     "description": "Short checkout for adults only (16+).",
@@ -48,6 +54,7 @@
     }
   },
   {
+    "pid": "7",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
     "name": "Standard",
     "description": "Standard checkout.",
@@ -56,19 +63,23 @@
     }
   },
   {
+    "pid": "8",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "No circulation",
+    "name": "Online",
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
-    }
+    },
+    "type": "online"
   },
   {
+    "pid": "9",
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
-    "name": "No circulation",
+    "name": "Online",
     "description": "Ebooks dedicated category.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/2"
-    }
+    },
+    "type": "online"
   }
 ]

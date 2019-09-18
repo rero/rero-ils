@@ -40,6 +40,12 @@
       "default": false,
       "description": "Qualify this location as a pickup location."
     },
+    "is_online": {
+      "title": "Is online location",
+      "type": "boolean",
+      "default": false,
+      "description": "Qualify this location as an online location."
+    },
     "pickup_name": {
       "title": "Pickup location name",
       "type": "string",

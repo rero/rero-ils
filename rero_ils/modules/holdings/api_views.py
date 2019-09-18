@@ -43,14 +43,3 @@ def holding_availability(holding_pid):
     return jsonify({
         'availability': holding.available
     })
-
-
-@api_blueprint.app_template_filter()
-def holding_loan_condition(holding_pid):
-    """HTTP GET request for holding loan condition."""
-    holding = Holding.get_record_by_pid(holding_pid)
-    if not holding:
-        abort(404)
-    return jsonify({
-        'loan_condition': holding.get_holding_loan_conditions()
-    })

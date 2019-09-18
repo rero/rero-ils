@@ -39,6 +39,17 @@
             }
           }
         },
+        "electronic_location": {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "text"
+            },
+            "source": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

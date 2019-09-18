@@ -1,5 +1,6 @@
 [
   {
+    "pid": "1",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-PUB",
     "name": "Espaces publics",
@@ -10,6 +11,7 @@
     "pickup_name": "AOSTE CANT1: Espaces publics"
   },
   {
+    "pid": "2",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-BIBLIOGR",
     "name": "Bibliographie vald\u00f4taine",
@@ -18,6 +20,7 @@
     }
   },
   {
+    "pid": "3",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-MAGA",
     "name": "Magasin A",
@@ -26,15 +29,18 @@
     }
   },
   {
+    "pid": "4",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-ONL",
     "name": "Online",
     "is_pickup": false,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/1"
-    }
+    },
+    "is_online": true
   },
   {
+    "pid": "5",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT2-PUB",
     "name": "Espaces publics",
@@ -45,6 +51,7 @@
     "pickup_name": "AOSTE CANT2: Espaces publics"
   },
   {
+    "pid": "6",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT2-ONL",
     "name": "Online",
@@ -54,6 +61,7 @@
     }
   },
   {
+    "pid": "7",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-FIC",
     "name": "Section fiction",
@@ -62,6 +70,7 @@
     }
   },
   {
+    "pid": "8",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-DOC",
     "name": "Section documentaires",
@@ -70,6 +79,7 @@
     }
   },
   {
+    "pid": "9",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-ENF",
     "name": "Section enfants",
@@ -78,6 +88,7 @@
     }
   },
   {
+    "pid": "10",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-MUL",
     "name": "Section multim\u00e9dia",
@@ -86,6 +97,7 @@
     }
   },
   {
+    "pid": "11",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-PUB",
     "name": "Espaces publics",
@@ -96,15 +108,18 @@
     "pickup_name": "AOSTE-AVISE-PUB: Espaces publics"
   },
   {
+    "pid": "12",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-ONL",
     "name": "Online",
     "is_pickup": false,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/3"
-    }
+    },
+    "is_online": true
   },
   {
+    "pid": "13",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-PUB",
     "name": "Espaces publics",
@@ -115,6 +130,7 @@
     "pickup_name": "AOSTE-LYCEE: Espaces publics"
   },
   {
+    "pid": "14",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-MAT",
     "name": "Travaux de maturit\u00e9",
@@ -123,6 +139,7 @@
     }
   },
   {
+    "pid": "15",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-ONL",
     "name": "Online",
@@ -132,6 +149,7 @@
     }
   },
   {
+    "pid": "16",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-RESTR",
     "name": "Restricted Section",
@@ -140,6 +158,7 @@
     }
   },
   {
+    "pid": "17",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-PUBL",
     "name": "Public Section",
@@ -149,12 +168,14 @@
     }
   },
   {
+    "pid": "18",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-ONL",
     "name": "Online",
     "is_pickup": false,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/5"
-    }
+    },
+    "is_online": true
   }
 ]
