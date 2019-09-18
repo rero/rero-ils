@@ -19,28 +19,13 @@
 
 import re
 
-from dojson import Overdo, utils
+from dojson import utils
 from isbnlib import EAN13
 
-marc21 = Overdo()
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
+    remove_trailing_punctuation
 
-
-def remove_punctuation(data):
-    """Remove punctuation from data."""
-    try:
-        if data[-1:] == ',':
-            data = data[:-1]
-        if data[-2:] == ' :':
-            data = data[:-2]
-        if data[-2:] == ' ;':
-            data = data[:-2]
-        if data[-2:] == ' /':
-            data = data[:-2]
-        if data[-2:] == ' -':
-            data = data[:-2]
-    except Exception:
-        pass
-    return data
+marc21 = ReroIlsMarc21Overdo()
 
 
 @marc21.over('languages', '^008')
@@ -96,7 +81,7 @@ def marc21_to_type(self, key, value):
 
 @marc21.over('identifiedBy', '^035..')
 @utils.ignore_value
-def marc21_to_identifier_reroID(self, key, value):
+def marc21_to_identifier_rero_id(self, key, value):
     """Get identifier reroId.
 
     identifiers:reroID: 035$a
@@ -112,7 +97,7 @@ def marc21_to_identifier_reroID(self, key, value):
 
 @marc21.over('translatedFrom', '^041..')
 @utils.ignore_value
-def marc21_to_translatedFrom(self, key, value):
+def marc21_to_translated_from(self, key, value):
     """Get translatedFrom.
 
     translatedFrom: 041 [$h repetitive]
@@ -157,18 +142,20 @@ def marc21_to_author(self, key, value):
     if not (key[4] == '2' and (key[:3] == '710' or key[:3] == '700')):
         author = {}
         author['type'] = 'person'
-        author['name'] = remove_punctuation(value.get('a'))
+        author['name'] = remove_trailing_punctuation(value.get('a'))
         author_subs = utils.force_list(value.get('b'))
         if author_subs:
             for author_sub in author_subs:
-                author['name'] += ' ' + remove_punctuation(author_sub)
+                author['name'] += ' ' + remove_trailing_punctuation(author_sub)
         if key[:3] == '710':
             author['type'] = 'organisation'
         else:
             if value.get('c'):
-                author['qualifier'] = remove_punctuation(value.get('c'))
+                author['qualifier'] = remove_trailing_punctuation(
+                    value.get('c')
+                )
             if value.get('d'):
-                author['date'] = remove_punctuation(value.get('d'))
+                author['date'] = remove_trailing_punctuation(value.get('d'))
         return author
 
 
@@ -180,12 +167,12 @@ def marc21_to_title(self, key, value):
     title: 245$a
     without the punctuaction. If there's a $b, then 245$a : $b without the ' /'
     """
-    main_title = remove_punctuation(value.get('a'))
+    main_title = remove_trailing_punctuation(value.get('a'))
     sub_title = value.get('b')
     # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
-            utils.force_list(remove_punctuation(sub_title))
+            utils.force_list(remove_trailing_punctuation(sub_title))
         )
     return main_title
 
@@ -194,57 +181,101 @@ def marc21_to_title(self, key, value):
 @utils.ignore_value
 def marc21_to_copyright_date(self, key, value):
     """Get Copyright Date."""
-    return value.get('c')
+    copyright_dates = self.get('copyrightDate', [])
+    copyright_date = value.get('c')
+    if copyright_date:
+        match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
+        if match:
+            copyright_date = ' '.join((
+                match.group(1),
+                match.group(2)
+            ))
+        else:
+            raise ValueError('Bad format of copyright date')
+    copyright_dates.append(copyright_date)
+    return copyright_dates or None
 
 
-@marc21.over('publishers', '^(260..|264.1)')
+@marc21.over('provisionActivity', '^(260..|264.[ 0-3])')
+@utils.for_each_value
 @utils.ignore_value
-def marc21_to_publishers_publication_date(self, key, value):
-    """Get publisher.
+def marc21_to_provision_activity(self, key, value):
+    """Get publisher data.
 
-    publisher.name: 260 [$b repetitive] (without the , but keep the ;)
-    publisher.place: 260 [$a repetitive] (without the : but keep the ;)
-    publicationDate: 260 [$c repetitive] (but take only the first one)
+    publisher.name: 264 [$b repetitive]
+    publisher.place: 264 [$a repetitive]
+    publicationDate: 264 [$c repetitive] (but take only the first one)
     """
-    lasttag = '?'
-    publishers = self.get('publishers', [])
+    def build_statement(field_value, ind2):
 
-    publisher = {}
-    indexes = {}
-    lasttag = '?'
+        def build_place_or_agent_data(code, label, add_country):
+            place_or_agent_data = None
+            type_per_code = {
+                'a': 'bf:Place',
+                'b': 'bf:Agent'
+            }
+            value = remove_trailing_punctuation(label)
+            if value:
+                place_or_agent_data = {
+                    'type': type_per_code[code],
+                    'label': [{'value': value}]
+                }
+            if add_country and marc21.country:
+                place_or_agent_data['country'] = marc21.country
+            return place_or_agent_data
 
-    for tag in value['__order__']:
-        index = indexes.get(tag, 0)
-        data = value[tag]
-        if isinstance(data, tuple):
-            data = data[index]
-        if tag == 'a' and index > 0 and lasttag != 'a':
-            publishers.append(remove_punctuation(publisher))
-            publisher = {}
-        if tag == 'a' and data:
-            place = publisher.get('place', [])
-            place.append(remove_punctuation(data))
-            publisher['place'] = place
-        elif tag == 'b' and data:
-            name = publisher.get('name', [])
-            name.append(remove_punctuation(data))
-            publisher['name'] = name
-        elif tag == 'c' and index == 0 and data:
+        # function build_statement start here
+        statement = []
+        if isinstance(field_value, utils.GroupableOrderedDict):
+            items = field_value.iteritems(repeated=True)
+        else:
+            items = utils.iteritems(field_value)
+        add_country = ind2 in (' ', '1')
+        for blob_key, blob_value in items:
+            if blob_key in ('a', 'b'):
+                place_or_agent_data = build_place_or_agent_data(
+                    blob_key, blob_value, add_country)
+                if blob_key == 'a':
+                    add_country = False
+                if place_or_agent_data:
+                    statement.append(place_or_agent_data)
+        return statement
 
-            # 4 digits
-            date = re.match(r'.*?(\d{4}).*?', data).group(1)
-            self['publicationYear'] = int(date)
+    # the function marc21_to_provisionActivity start here
+    ind2 = key[4]
+    type_per_ind2 = {
+        ' ': 'bf:Publication',
+        '0': 'bf:Production',
+        '1': 'bf:Publication',
+        '2': 'bf:Distribution',
+        '3': 'bf:Manufacture'
+    }
+    if key[:3] == '260':
+        ind2 = '1'  # to force type to bf:Publication for field 260
+    publication = {
+        'type': type_per_ind2[ind2],
+        'statement': [],
+    }
 
-            # # create free form if different
-            # if data != str(self['publicationYear']):
-            #     self['freeFormedPublicationDate'] = data
-        indexes[tag] = index + 1
-        lasttag = tag
-    if publisher:
-        publishers.append(publisher)
-    if not publishers:
-        return None
-    return publishers
+    subfields_c = utils.force_list(value.get('c'))
+    if subfields_c:
+        subfield_c = subfields_c[0]
+        publication['date'] = subfield_c
+        if ind2 in (' ', '1'):
+            dates = subfield_c.replace('[', '').replace(']', '').split('-')
+            try:
+                if re.search(r'(^\[?\d{4}$)', dates[0]):
+                    publication['startDate'] = dates[0]
+            except Exception:
+                pass
+            try:
+                if re.search(r'(^\d{4}\]?$)', dates[1]):
+                    publication['endDate'] = dates[1]
+            except Exception:
+                pass
+
+    publication['statement'] = build_statement(value, ind2)
+    return publication or None
 
 
 @marc21.over('formats', '^300..')
@@ -258,11 +289,11 @@ def marc21_to_description(self, key, value):
     """
     if value.get('a'):
         if not self.get('extent', None):
-            self['extent'] = remove_punctuation(
+            self['extent'] = remove_trailing_punctuation(
                 utils.force_list(value.get('a'))[0])
     if value.get('b'):
         if self.get('otherMaterialCharacteristics', []) == []:
-            self['otherMaterialCharacteristics'] = remove_punctuation(
+            self['otherMaterialCharacteristics'] = remove_trailing_punctuation(
                 utils.force_list(value.get('b'))[0]
             )
     if value.get('c'):
@@ -336,7 +367,7 @@ def marc21_to_subjects(self, key, value):
 @marc21.over('titlesProper', '^730..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_titlesProper(self, key, value):
+def marc21_to_titles_proper(self, key, value):
     """Test dojson marc21titlesProper.
 
     titleProper: 730$a
