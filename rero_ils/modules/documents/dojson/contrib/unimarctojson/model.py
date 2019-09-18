@@ -31,7 +31,7 @@ unimarctojson = ReroIlsOverdo()
 
 
 @unimarctojson.over('type', 'leader')
-def unimarctype(self, key, value):
+def unimarc_type(self, key, value):
     """
     Get document type.
 
@@ -65,7 +65,7 @@ def unimarctype(self, key, value):
 
 @unimarctojson.over('identifiedBy', '^003')
 @utils.ignore_value
-def unimarcbnfid(self, key, value):
+def unimarc_bnf_id(self, key, value):
     """Get ID.
 
     identifier bnfID 003
@@ -82,7 +82,7 @@ def unimarcbnfid(self, key, value):
 
 @unimarctojson.over('title', '^200..')
 @utils.ignore_value
-def unimarctitle(self, key, value):
+def unimarc_title(self, key, value):
     """Get title.
 
     title: 200$a
@@ -101,7 +101,7 @@ def unimarctitle(self, key, value):
 @unimarctojson.over('titlesProper', '^500..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarctitlesProper(self, key, value):
+def unimarc_titles_proper(self, key, value):
     """Test dojson unimarctitlesProper.
 
     titleProper: 500$a
@@ -111,7 +111,7 @@ def unimarctitlesProper(self, key, value):
 
 @unimarctojson.over('language', '^101')
 @utils.ignore_value
-def unimarclanguages(self, key, value):
+def unimarc_languages(self, key, value):
     """Get languages.
 
     languages: 008 and 041 [$a, repetitive]
@@ -141,7 +141,7 @@ def unimarclanguages(self, key, value):
 @unimarctojson.over('authors', '7[01][012]..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarctoauthor(self, key, value):
+def unimarc_to_author(self, key, value):
     """Get author.
 
     authors: loop:
@@ -176,7 +176,7 @@ def unimarctoauthor(self, key, value):
 @unimarctojson.over('provisionActivity', '^21[04]..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarcpublishers_provision_activity_publication(self, key, value):
+def unimarc_publishers_provision_activity_publication(self, key, value):
     """Get provision activity dates."""
     def build_place_or_agent_data(code, label, index, add_country):
         type_per_code = {
@@ -211,12 +211,12 @@ def unimarcpublishers_provision_activity_publication(self, key, value):
         field_d = value.get('d')
         if field_d:
             field_d = force_list(field_d)[0]
-            copyrightDate = self.get('copyrightDate', [])
+            copyright_date = self.get('copyrightDate', [])
             if field_d[0] == 'P':
-                copyrightDate.append('℗ ' + field_d[2:])
+                copyright_date.append('℗ ' + field_d[2:])
             else:
-                copyrightDate.append('© ' + field_d)
-            self['copyrightDate'] = copyrightDate
+                copyright_date.append('© ' + field_d)
+            self['copyrightDate'] = copyright_date
     else:
         publication = {
             'type': type_per_ind2[ind2],
@@ -226,17 +226,18 @@ def unimarcpublishers_provision_activity_publication(self, key, value):
         if subfields_d:
             subfield_d = subfields_d[0]
             publication['date'] = subfield_d
-            dates = subfield_d.replace('[', '').replace(']', '').split('-')
-            try:
-                if re.search(r'(^\[?\d{4}$)', dates[0]):
-                    publication['startDate'] = dates[0]
-            except Exception:
-                pass
-            try:
-                if re.search(r'(^\d{4}\]?$)', dates[1]):
-                    publication['endDate'] = dates[1]
-            except Exception:
-                pass
+            if ind2 in (' ', '_', '0'):
+                dates = subfield_d.replace('[', '').replace(']', '').split('-')
+                try:
+                    if re.search(r'(^\[?\d{4}$)', dates[0]):
+                        publication['startDate'] = dates[0]
+                except Exception:
+                    pass
+                try:
+                    if re.search(r'(^\d{4}\]?$)', dates[1]):
+                        publication['endDate'] = dates[1]
+                except Exception:
+                    pass
 
         # TODO: dates from 100 not working !!!!
         # if ind2 in (' ', '_', '1'):
@@ -262,7 +263,7 @@ def unimarcpublishers_provision_activity_publication(self, key, value):
             items = utils.iteritems(value)
 
         index = 1
-        add_country = ind2 in (' ', '_', '1')
+        add_country = ind2 in (' ', '_', '0')
         for blob_key, blob_value in items:
             if blob_key in ('a', 'c'):
                 place_or_agent_data = build_place_or_agent_data(
@@ -279,7 +280,7 @@ def unimarcpublishers_provision_activity_publication(self, key, value):
 
 @unimarctojson.over('formats', '^215..')
 @utils.ignore_value
-def unimarcdescription(self, key, value):
+def unimarc_description(self, key, value):
     """Get extent, otherMaterialCharacteristics, formats.
 
     extent: 215$a (the first one if many)
@@ -309,7 +310,7 @@ def unimarcdescription(self, key, value):
 @unimarctojson.over('series', '^225..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarcseries(self, key, value):
+def unimarc_series(self, key, value):
     """Get series.
 
     series.name: [225$a repetitive]
@@ -328,7 +329,7 @@ def unimarcseries(self, key, value):
 @unimarctojson.over('abstracts', '^330..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarcabstracts(self, key, value):
+def unimarc_abstracts(self, key, value):
     """Get abstracts.
 
     abstract: [330$a repetitive]
@@ -338,7 +339,7 @@ def unimarcabstracts(self, key, value):
 
 @unimarctojson.over('identifiedBy', '^073..')
 @utils.ignore_value
-def unimarcidentifier_isbn(self, key, value):
+def unimarc_identifier_isbn(self, key, value):
     """Get identifier isbn.
 
     identifiers:isbn: 010$a
@@ -361,7 +362,7 @@ def unimarcidentifier_isbn(self, key, value):
 @unimarctojson.over('notes', '^300..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarcnotes(self, key, value):
+def unimarc_notes(self, key, value):
     """Get  notes.
 
     note: [300$a repetitive]
@@ -372,7 +373,7 @@ def unimarcnotes(self, key, value):
 @unimarctojson.over('subjects', '^6((0[0-9])|(1[0-7]))..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarcsubjects(self, key, value):
+def unimarc_subjects(self, key, value):
     """Get subjects.
 
     subjects: 6xx [duplicates could exist between several vocabularies,
