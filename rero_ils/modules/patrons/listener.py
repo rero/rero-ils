@@ -24,37 +24,6 @@ from ..documents.api import Document
 from ...utils import send_mail
 
 
-def listener_item_at_desk(sender, *args, **kwargs):
-    """Listener for signal item_at_desk."""
-    func_item_at_desk(sender, *args, **kwargs)
-
-
-def func_item_at_desk(sender, *args, **kwargs):
-    """Function for signal item_at_desk."""
-    item = kwargs['item']
-
-    requests = item.number_of_requests()
-    if requests:
-        for request in item.get_requests():
-            if request.get('state') == 'ITEM_AT_DESK':
-                patron = Patron.get_record_by_pid(request.get('patron_pid'))
-                if patron:
-                    # Send at desk mail
-                    subject = _('Document at desk')
-                    document_pid = request.get('document_pid')
-                    email = patron.get('email')
-                    recipients = [email]
-                    template = 'patron_request_at_desk'
-                    send_mail(
-                        subject=subject,
-                        recipients=recipients,
-                        template=template,
-                        language='eng',
-                        document=Document.get_record_by_pid(document_pid),
-                        holding=request
-                    )
-
-
 def enrich_patron_data(sender, json=None, record=None, index=None,
                        **dummy_kwargs):
     """Signal sent before a record is indexed.
