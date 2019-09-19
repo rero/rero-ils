@@ -55,8 +55,6 @@ def test_documents_get(client, document):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    # TODO: Implement another solution for available on holding level
-    del(data['hits']['hits'][0]['metadata']['available'])
     assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
 
     res = client.get(
