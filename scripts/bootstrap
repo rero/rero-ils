@@ -16,8 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+NC='\033[0m'            # Default color
+COLORED='\033[1;97;44m' # Bold + white + blue background
+
 set -e
 
+msg() {
+  echo -e "${COLORED}${EMPHASIS}[INFO]${NC}${COLORED}: ${1}${NC}" 1>&2
+}
 
 # The real bootstrap script starts 20 lines below ;-)
 flags=()
@@ -58,24 +64,32 @@ fi
 # pipenv --rm; pipenv install --sequential
 
 # install the application and all the dependencies
-echo "Install with command: ${cmd} ${flags[@]}"
+msg "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
 # install assets utils
 virtualenv_path=`pipenv --venv`
+msg "Install npm assets utils in: ${virtualenv_path}"
 pipenv run npm i npm@latest -g --prefix "${virtualenv_path}" && pipenv run npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
 
 # collect static files and compile html/css assets
 CWD=`pwd`
 # build the angular ui application
+msg "Build angular UI application"
 cd ui; pipenv run yarn install --frozen-lockfile; pipenv run yarn run deploy
 
 # install the npm dependencies
+msg "Return to dir: ${CWD}"
 cd ${CWD}
+msg "Install npm dependencies"
 pipenv run invenio npm
+msg "Search static folder location"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
+msg "Install static folder npm dependencies in: ${static_folder}"
 pipenv run npm install --prefix "${static_folder}"
 
 # build the web assets
+msg "Build web assets: collect"
 pipenv run invenio collect -v
+msg "Build web assets: check (build command)"
 pipenv run invenio assets build
