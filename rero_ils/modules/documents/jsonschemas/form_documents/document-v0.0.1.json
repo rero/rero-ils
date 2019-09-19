@@ -197,21 +197,6 @@
     ]
   },
   {
-    "type": "fieldset",
-    "title": "Date of publication",
-    "items": [
-      {
-        "key": "publicationYear",
-        "notitle": true,
-        "type": "integer"
-      },
-      {
-        "key": "freeFormedPublicationDate",
-        "condition": "model.publicationYear"
-      }
-    ]
-  },
-  {
     "key": "type",
     "title": "Document type",
     "description": "Type of the document"
