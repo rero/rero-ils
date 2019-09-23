@@ -50,9 +50,13 @@
             _('Library'),
             library.name)
           }}
-          {% if record.status %}
-            {{ dl(_('Status'), _(record.status)) }}
-          {% endif %}
+          {{ dl(
+              _('Availability'),
+              '<i class="fa fa-circle text-{}"></i> {}'.format(
+                'success' if record.available else 'danger',
+                _(record|item_availability_text)
+              )
+          )}}
         </dl>
       </article>
       {% if current_user | can_access_item(record) %}
