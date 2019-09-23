@@ -374,8 +374,19 @@ def language_format(langs_list, language_interface):
         except:
             lang_name = pycountry.languages.get(
                 alpha_3=lang.get('value')).alpha_2
-        lang_display = Locale(lang_name).get_language_name(
-            language_interface).lower()
+
+        try:
+            lang_display = Locale(language_interface).languages.get(
+                lang_name
+            ).lower()
+        except:
+            if 'und' == lang.get('value'):
+                lang_display = _('Undefined').lower()
+            else:
+                lang_display = lang.get('value')
+                current_app.logger.warning(
+                    'Missing language translation {lang}'.format(
+                        lang=lang.get('value')))
         output.append(lang_display)
     return ", ".join(output)
 
