@@ -220,7 +220,7 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
                        document_pid, holding_pid):
     """Create items with randomised values."""
     status = ItemStatus.ON_SHELF
-    if randint(0, 5) == 0 and missing > 0:
+    if randint(0, 50) == 0 and missing > 0:
         status = ItemStatus.MISSING
         missing -= 1
     url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'

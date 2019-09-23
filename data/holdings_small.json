@@ -20,43 +20,43 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/285"
+      "$ref": "https://ils.rero.ch/api/documents/286"
     }
   },
   {
     "pid": "3",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/284"
+      "$ref": "https://ils.rero.ch/api/documents/285"
     }
   },
   {
     "pid": "4",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/284"
-    }
-  },
-  {
-    "pid": "5",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/283"
+      "$ref": "https://ils.rero.ch/api/documents/285"
+    }
+  },
+  {
+    "pid": "5",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/5"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/284"
     }
   },
   {
@@ -68,28 +68,28 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/282"
+      "$ref": "https://ils.rero.ch/api/documents/283"
     }
   },
   {
     "pid": "7",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/281"
+      "$ref": "https://ils.rero.ch/api/documents/282"
     }
   },
   {
     "pid": "8",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/281"
@@ -98,10 +98,10 @@
   {
     "pid": "9",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/280"
@@ -110,10 +110,10 @@
   {
     "pid": "10",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/280"
@@ -122,10 +122,10 @@
   {
     "pid": "11",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/279"
@@ -133,6 +133,30 @@
   },
   {
     "pid": "12",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/279"
+    }
+  },
+  {
+    "pid": "13",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/7"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/278"
+    }
+  },
+  {
+    "pid": "14",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -144,39 +168,15 @@
     }
   },
   {
-    "pid": "13",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/277"
-    }
-  },
-  {
-    "pid": "14",
+    "pid": "15",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/277"
-    }
-  },
-  {
-    "pid": "15",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/276"
     }
   },
   {
@@ -188,16 +188,16 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/275"
+      "$ref": "https://ils.rero.ch/api/documents/276"
     }
   },
   {
     "pid": "17",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/275"
@@ -206,10 +206,10 @@
   {
     "pid": "18",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/274"
@@ -218,10 +218,10 @@
   {
     "pid": "19",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/273"
@@ -229,6 +229,18 @@
   },
   {
     "pid": "20",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/273"
+    }
+  },
+  {
+    "pid": "21",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -240,7 +252,7 @@
     }
   },
   {
-    "pid": "21",
+    "pid": "22",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -248,31 +260,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/271"
-    }
-  },
-  {
-    "pid": "22",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/270"
+      "$ref": "https://ils.rero.ch/api/documents/272"
     }
   },
   {
     "pid": "23",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/270"
+      "$ref": "https://ils.rero.ch/api/documents/271"
     }
   },
   {
@@ -281,10 +281,10 @@
       "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/269"
+      "$ref": "https://ils.rero.ch/api/documents/270"
     }
   },
   {
@@ -296,35 +296,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/268"
+      "$ref": "https://ils.rero.ch/api/documents/269"
     }
   },
   {
     "pid": "26",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/267"
+      "$ref": "https://ils.rero.ch/api/documents/269"
     }
   },
   {
     "pid": "27",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/266"
-    }
-  },
-  {
-    "pid": "28",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -332,23 +320,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/266"
+      "$ref": "https://ils.rero.ch/api/documents/268"
+    }
+  },
+  {
+    "pid": "28",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/267"
     }
   },
   {
     "pid": "29",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/265"
-    }
-  },
-  {
-    "pid": "30",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/2"
     },
@@ -356,7 +344,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/265"
+      "$ref": "https://ils.rero.ch/api/documents/266"
+    }
+  },
+  {
+    "pid": "30",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/266"
     }
   },
   {
@@ -368,47 +368,59 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/264"
+      "$ref": "https://ils.rero.ch/api/documents/265"
     }
   },
   {
     "pid": "32",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/263"
+      "$ref": "https://ils.rero.ch/api/documents/265"
     }
   },
   {
     "pid": "33",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/264"
+    }
+  },
+  {
+    "pid": "34",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/263"
     }
   },
   {
-    "pid": "34",
+    "pid": "35",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/262"
     }
   },
   {
-    "pid": "35",
+    "pid": "36",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -420,24 +432,12 @@
     }
   },
   {
-    "pid": "36",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/261"
-    }
-  },
-  {
     "pid": "37",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/261"
@@ -458,10 +458,10 @@
   {
     "pid": "39",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/259"
@@ -482,10 +482,10 @@
   {
     "pid": "41",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/258"
@@ -493,18 +493,6 @@
   },
   {
     "pid": "42",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/257"
-    }
-  },
-  {
-    "pid": "43",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -516,12 +504,24 @@
     }
   },
   {
-    "pid": "44",
+    "pid": "43",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/256"
+    }
+  },
+  {
+    "pid": "44",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/256"
@@ -530,10 +530,10 @@
   {
     "pid": "45",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/255"
@@ -542,19 +542,19 @@
   {
     "pid": "46",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/255"
+      "$ref": "https://ils.rero.ch/api/documents/254"
     }
   },
   {
     "pid": "47",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -566,29 +566,17 @@
   {
     "pid": "48",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/254"
-    }
-  },
-  {
-    "pid": "49",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/253"
     }
   },
   {
-    "pid": "50",
+    "pid": "49",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -600,7 +588,7 @@
     }
   },
   {
-    "pid": "51",
+    "pid": "50",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -612,31 +600,31 @@
     }
   },
   {
-    "pid": "52",
+    "pid": "51",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/251"
-    }
-  },
-  {
-    "pid": "53",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/250"
     }
   },
   {
-    "pid": "54",
+    "pid": "52",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/249"
+    }
+  },
+  {
+    "pid": "53",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -648,21 +636,9 @@
     }
   },
   {
-    "pid": "55",
+    "pid": "54",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/248"
-    }
-  },
-  {
-    "pid": "56",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
@@ -672,19 +648,31 @@
     }
   },
   {
-    "pid": "57",
+    "pid": "55",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/248"
+    }
+  },
+  {
+    "pid": "56",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/247"
     }
   },
   {
-    "pid": "58",
+    "pid": "57",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -696,55 +684,31 @@
     }
   },
   {
-    "pid": "59",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/246"
-    }
-  },
-  {
-    "pid": "60",
+    "pid": "58",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/246"
     }
   },
   {
-    "pid": "61",
+    "pid": "59",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/245"
     }
   },
   {
-    "pid": "62",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/245"
-    }
-  },
-  {
-    "pid": "63",
+    "pid": "60",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -756,9 +720,9 @@
     }
   },
   {
-    "pid": "64",
+    "pid": "61",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -768,48 +732,84 @@
     }
   },
   {
-    "pid": "65",
+    "pid": "62",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/243"
+    }
+  },
+  {
+    "pid": "63",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/242"
     }
   },
   {
-    "pid": "66",
+    "pid": "64",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/241"
     }
   },
   {
-    "pid": "67",
+    "pid": "65",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/240"
     }
   },
   {
-    "pid": "68",
+    "pid": "66",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/240"
+    }
+  },
+  {
+    "pid": "67",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/239"
+    }
+  },
+  {
+    "pid": "68",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/239"
@@ -818,7 +818,7 @@
   {
     "pid": "69",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -830,10 +830,10 @@
   {
     "pid": "70",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/237"
@@ -842,46 +842,46 @@
   {
     "pid": "71",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/237"
+    }
+  },
+  {
+    "pid": "72",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/236"
     }
   },
   {
-    "pid": "72",
+    "pid": "73",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/235"
     }
   },
   {
-    "pid": "73",
+    "pid": "74",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/234"
-    }
-  },
-  {
-    "pid": "74",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/234"
@@ -896,13 +896,13 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/233"
+      "$ref": "https://ils.rero.ch/api/documents/234"
     }
   },
   {
     "pid": "76",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
@@ -914,7 +914,19 @@
   {
     "pid": "77",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/233"
+    }
+  },
+  {
+    "pid": "78",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -924,33 +936,33 @@
     }
   },
   {
-    "pid": "78",
+    "pid": "79",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/232"
+    }
+  },
+  {
+    "pid": "80",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/5"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/231"
     }
   },
   {
-    "pid": "79",
+    "pid": "81",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/230"
-    }
-  },
-  {
-    "pid": "80",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
@@ -960,9 +972,9 @@
     }
   },
   {
-    "pid": "81",
+    "pid": "82",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -972,55 +984,19 @@
     }
   },
   {
-    "pid": "82",
+    "pid": "83",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/228"
     }
   },
   {
-    "pid": "83",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/227"
-    }
-  },
-  {
     "pid": "84",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/226"
-    }
-  },
-  {
-    "pid": "85",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/225"
-    }
-  },
-  {
-    "pid": "86",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -1028,40 +1004,64 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/224"
+      "$ref": "https://ils.rero.ch/api/documents/227"
     }
   },
   {
-    "pid": "87",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/224"
-    }
-  },
-  {
-    "pid": "88",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/223"
-    }
-  },
-  {
-    "pid": "89",
+    "pid": "85",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/226"
+    }
+  },
+  {
+    "pid": "86",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/5"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/226"
+    }
+  },
+  {
+    "pid": "87",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/225"
+    }
+  },
+  {
+    "pid": "88",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/224"
+    }
+  },
+  {
+    "pid": "89",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/7"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/223"
@@ -1082,10 +1082,10 @@
   {
     "pid": "91",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/221"
@@ -1094,19 +1094,19 @@
   {
     "pid": "92",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/221"
+      "$ref": "https://ils.rero.ch/api/documents/220"
     }
   },
   {
     "pid": "93",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1118,19 +1118,7 @@
   {
     "pid": "94",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/220"
-    }
-  },
-  {
-    "pid": "95",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1140,21 +1128,21 @@
     }
   },
   {
-    "pid": "96",
+    "pid": "95",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/218"
     }
   },
   {
-    "pid": "97",
+    "pid": "96",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
@@ -1164,24 +1152,36 @@
     }
   },
   {
-    "pid": "98",
+    "pid": "97",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/216"
     }
   },
   {
-    "pid": "99",
+    "pid": "98",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/215"
+    }
+  },
+  {
+    "pid": "99",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/215"
@@ -1190,46 +1190,46 @@
   {
     "pid": "100",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/215"
-    }
-  },
-  {
-    "pid": "101",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/214"
     }
   },
   {
-    "pid": "102",
+    "pid": "101",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/213"
     }
   },
   {
-    "pid": "103",
+    "pid": "102",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/212"
+    }
+  },
+  {
+    "pid": "103",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/8"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/212"
@@ -1238,10 +1238,10 @@
   {
     "pid": "104",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/211"
@@ -1250,22 +1250,22 @@
   {
     "pid": "105",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/211"
+      "$ref": "https://ils.rero.ch/api/documents/210"
     }
   },
   {
     "pid": "106",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/210"
@@ -1274,19 +1274,7 @@
   {
     "pid": "107",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/210"
-    }
-  },
-  {
-    "pid": "108",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
@@ -1296,12 +1284,24 @@
     }
   },
   {
-    "pid": "109",
+    "pid": "108",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/209"
+    }
+  },
+  {
+    "pid": "109",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/208"
@@ -1310,22 +1310,22 @@
   {
     "pid": "110",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/208"
+      "$ref": "https://ils.rero.ch/api/documents/207"
     }
   },
   {
     "pid": "111",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/207"
@@ -1334,10 +1334,10 @@
   {
     "pid": "112",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/206"
@@ -1358,22 +1358,22 @@
   {
     "pid": "114",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/205"
+      "$ref": "https://ils.rero.ch/api/documents/204"
     }
   },
   {
     "pid": "115",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/204"
@@ -1382,10 +1382,10 @@
   {
     "pid": "116",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/203"
@@ -1400,11 +1400,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/202"
+      "$ref": "https://ils.rero.ch/api/documents/203"
     }
   },
   {
     "pid": "118",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/202"
+    }
+  },
+  {
+    "pid": "119",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/1"
     },
@@ -1416,9 +1428,9 @@
     }
   },
   {
-    "pid": "119",
+    "pid": "120",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
@@ -1428,21 +1440,9 @@
     }
   },
   {
-    "pid": "120",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/200"
-    }
-  },
-  {
     "pid": "121",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1454,18 +1454,6 @@
   {
     "pid": "122",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/198"
-    }
-  },
-  {
-    "pid": "123",
-    "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
@@ -1476,12 +1464,24 @@
     }
   },
   {
-    "pid": "124",
+    "pid": "123",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/198"
+    }
+  },
+  {
+    "pid": "124",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/197"
@@ -1490,10 +1490,10 @@
   {
     "pid": "125",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/196"
@@ -1508,83 +1508,35 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/196"
+      "$ref": "https://ils.rero.ch/api/documents/195"
     }
   },
   {
     "pid": "127",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/195"
-    }
-  },
-  {
-    "pid": "128",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/194"
     }
   },
   {
-    "pid": "129",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/193"
-    }
-  },
-  {
-    "pid": "130",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/193"
-    }
-  },
-  {
-    "pid": "131",
+    "pid": "128",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/192"
+      "$ref": "https://ils.rero.ch/api/documents/193"
     }
   },
   {
-    "pid": "132",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/191"
-    }
-  },
-  {
-    "pid": "133",
+    "pid": "129",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/7"
     },
@@ -1592,35 +1544,35 @@
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
+      "$ref": "https://ils.rero.ch/api/documents/192"
+    }
+  },
+  {
+    "pid": "130",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
       "$ref": "https://ils.rero.ch/api/documents/191"
     }
   },
   {
-    "pid": "134",
+    "pid": "131",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/190"
     }
   },
   {
-    "pid": "135",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/189"
-    }
-  },
-  {
-    "pid": "136",
+    "pid": "132",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -1632,33 +1584,21 @@
     }
   },
   {
-    "pid": "137",
+    "pid": "133",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/188"
     }
   },
   {
-    "pid": "138",
+    "pid": "134",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/188"
-    }
-  },
-  {
-    "pid": "139",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1668,9 +1608,21 @@
     }
   },
   {
-    "pid": "140",
+    "pid": "135",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/186"
+    }
+  },
+  {
+    "pid": "136",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1680,21 +1632,9 @@
     }
   },
   {
-    "pid": "141",
+    "pid": "137",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/185"
-    }
-  },
-  {
-    "pid": "142",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -1704,31 +1644,43 @@
     }
   },
   {
-    "pid": "143",
+    "pid": "138",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/184"
     }
   },
   {
-    "pid": "144",
+    "pid": "139",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/183"
     }
   },
   {
-    "pid": "145",
+    "pid": "140",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/8"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/182"
+    }
+  },
+  {
+    "pid": "141",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -1740,7 +1692,19 @@
     }
   },
   {
-    "pid": "146",
+    "pid": "142",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/181"
+    }
+  },
+  {
+    "pid": "143",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -1748,11 +1712,35 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/182"
+      "$ref": "https://ils.rero.ch/api/documents/181"
     }
   },
   {
-    "pid": "147",
+    "pid": "144",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/180"
+    }
+  },
+  {
+    "pid": "145",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/180"
+    }
+  },
+  {
+    "pid": "146",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -1760,49 +1748,13 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/181"
-    }
-  },
-  {
-    "pid": "148",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/181"
-    }
-  },
-  {
-    "pid": "149",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/180"
-    }
-  },
-  {
-    "pid": "150",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
       "$ref": "https://ils.rero.ch/api/documents/179"
     }
   },
   {
-    "pid": "151",
+    "pid": "147",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/6"
@@ -1812,9 +1764,9 @@
     }
   },
   {
-    "pid": "152",
+    "pid": "148",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -1824,7 +1776,67 @@
     }
   },
   {
+    "pid": "149",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/177"
+    }
+  },
+  {
+    "pid": "150",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/176"
+    }
+  },
+  {
+    "pid": "151",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/175"
+    }
+  },
+  {
+    "pid": "152",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/174"
+    }
+  },
+  {
     "pid": "153",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/173"
+    }
+  },
+  {
+    "pid": "154",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -1832,19 +1844,7 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/176"
-    }
-  },
-  {
-    "pid": "154",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/176"
+      "$ref": "https://ils.rero.ch/api/documents/173"
     }
   },
   {
@@ -1856,59 +1856,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/175"
+      "$ref": "https://ils.rero.ch/api/documents/172"
     }
   },
   {
     "pid": "156",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/175"
-    }
-  },
-  {
-    "pid": "157",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/174"
-    }
-  },
-  {
-    "pid": "158",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/174"
+      "$ref": "https://ils.rero.ch/api/documents/171"
     }
   },
   {
-    "pid": "159",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/173"
-    }
-  },
-  {
-    "pid": "160",
+    "pid": "157",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -1916,7 +1880,43 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/172"
+      "$ref": "https://ils.rero.ch/api/documents/171"
+    }
+  },
+  {
+    "pid": "158",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/170"
+    }
+  },
+  {
+    "pid": "159",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/169"
+    }
+  },
+  {
+    "pid": "160",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/169"
     }
   },
   {
@@ -1928,31 +1928,31 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/171"
+      "$ref": "https://ils.rero.ch/api/documents/168"
     }
   },
   {
     "pid": "162",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/171"
+      "$ref": "https://ils.rero.ch/api/documents/168"
     }
   },
   {
     "pid": "163",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/170"
+      "$ref": "https://ils.rero.ch/api/documents/167"
     }
   },
   {
@@ -1964,19 +1964,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/170"
+      "$ref": "https://ils.rero.ch/api/documents/167"
     }
   },
   {
     "pid": "165",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/169"
+      "$ref": "https://ils.rero.ch/api/documents/166"
     }
   },
   {
@@ -1985,14 +1985,26 @@
       "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/168"
+      "$ref": "https://ils.rero.ch/api/documents/166"
     }
   },
   {
     "pid": "167",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/165"
+    }
+  },
+  {
+    "pid": "168",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -2000,43 +2012,31 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/167"
-    }
-  },
-  {
-    "pid": "168",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/167"
+      "$ref": "https://ils.rero.ch/api/documents/164"
     }
   },
   {
     "pid": "169",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/166"
+      "$ref": "https://ils.rero.ch/api/documents/163"
     }
   },
   {
     "pid": "170",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/165"
+      "$ref": "https://ils.rero.ch/api/documents/162"
     }
   },
   {
@@ -2048,61 +2048,37 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/164"
+      "$ref": "https://ils.rero.ch/api/documents/162"
     }
   },
   {
     "pid": "172",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/163"
-    }
-  },
-  {
-    "pid": "173",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/162"
+      "$ref": "https://ils.rero.ch/api/documents/161"
+    }
+  },
+  {
+    "pid": "173",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/161"
     }
   },
   {
     "pid": "174",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/161"
-    }
-  },
-  {
-    "pid": "175",
-    "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/161"
-    }
-  },
-  {
-    "pid": "176",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -2112,36 +2088,60 @@
     }
   },
   {
-    "pid": "177",
+    "pid": "175",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/159"
     }
   },
   {
-    "pid": "178",
+    "pid": "176",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/159"
+    }
+  },
+  {
+    "pid": "177",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/158"
     }
   },
   {
-    "pid": "179",
+    "pid": "178",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/157"
+    }
+  },
+  {
+    "pid": "179",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/157"
@@ -2150,7 +2150,7 @@
   {
     "pid": "180",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
@@ -2162,7 +2162,19 @@
   {
     "pid": "181",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/156"
+    }
+  },
+  {
+    "pid": "182",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -2172,24 +2184,12 @@
     }
   },
   {
-    "pid": "182",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/155"
-    }
-  },
-  {
     "pid": "183",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/154"
@@ -2198,7 +2198,7 @@
   {
     "pid": "184",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -2210,7 +2210,7 @@
   {
     "pid": "185",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -2234,19 +2234,7 @@
   {
     "pid": "187",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/152"
-    }
-  },
-  {
-    "pid": "188",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -2256,12 +2244,24 @@
     }
   },
   {
-    "pid": "189",
+    "pid": "188",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/151"
+    }
+  },
+  {
+    "pid": "189",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/150"
@@ -2270,22 +2270,22 @@
   {
     "pid": "190",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/150"
+      "$ref": "https://ils.rero.ch/api/documents/149"
     }
   },
   {
     "pid": "191",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/149"
@@ -2294,10 +2294,10 @@
   {
     "pid": "192",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/148"
@@ -2309,7 +2309,7 @@
       "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/147"
@@ -2318,10 +2318,10 @@
   {
     "pid": "194",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/146"
@@ -2330,101 +2330,41 @@
   {
     "pid": "195",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/146"
-    }
-  },
-  {
-    "pid": "196",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/145"
-    }
-  },
-  {
-    "pid": "197",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/145"
-    }
-  },
-  {
-    "pid": "198",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/144"
-    }
-  },
-  {
-    "pid": "199",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/144"
-    }
-  },
-  {
-    "pid": "200",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/143"
-    }
-  },
-  {
-    "pid": "201",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/142"
+      "$ref": "https://ils.rero.ch/api/documents/145"
     }
   },
   {
-    "pid": "202",
+    "pid": "196",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/142"
+      "$ref": "https://ils.rero.ch/api/documents/144"
     }
   },
   {
-    "pid": "203",
+    "pid": "197",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/144"
+    }
+  },
+  {
+    "pid": "198",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/9"
     },
@@ -2432,25 +2372,49 @@
       "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/141"
+      "$ref": "https://ils.rero.ch/api/documents/143"
     }
   },
   {
-    "pid": "204",
+    "pid": "199",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/143"
+    }
+  },
+  {
+    "pid": "200",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/142"
+    }
+  },
+  {
+    "pid": "201",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/141"
     }
   },
   {
-    "pid": "205",
+    "pid": "202",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -2460,7 +2424,7 @@
     }
   },
   {
-    "pid": "206",
+    "pid": "203",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -2472,33 +2436,45 @@
     }
   },
   {
-    "pid": "207",
+    "pid": "204",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/138"
     }
   },
   {
-    "pid": "208",
+    "pid": "205",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/137"
     }
   },
   {
-    "pid": "209",
+    "pid": "206",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/137"
+    }
+  },
+  {
+    "pid": "207",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
@@ -2508,9 +2484,9 @@
     }
   },
   {
-    "pid": "210",
+    "pid": "208",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -2520,31 +2496,7 @@
     }
   },
   {
-    "pid": "211",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/135"
-    }
-  },
-  {
-    "pid": "212",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/135"
-    }
-  },
-  {
-    "pid": "213",
+    "pid": "209",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -2552,49 +2504,37 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/134"
+      "$ref": "https://ils.rero.ch/api/documents/135"
     }
   },
   {
-    "pid": "214",
+    "pid": "210",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/134"
-    }
-  },
-  {
-    "pid": "215",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/133"
+      "$ref": "https://ils.rero.ch/api/documents/134"
     }
   },
   {
-    "pid": "216",
+    "pid": "211",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/133"
     }
   },
   {
-    "pid": "217",
+    "pid": "212",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
@@ -2604,7 +2544,19 @@
     }
   },
   {
-    "pid": "218",
+    "pid": "213",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/132"
+    }
+  },
+  {
+    "pid": "214",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -2616,15 +2568,63 @@
     }
   },
   {
-    "pid": "219",
+    "pid": "215",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/130"
+    }
+  },
+  {
+    "pid": "216",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/129"
+    }
+  },
+  {
+    "pid": "217",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/130"
+      "$ref": "https://ils.rero.ch/api/documents/128"
+    }
+  },
+  {
+    "pid": "218",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/127"
+    }
+  },
+  {
+    "pid": "219",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/126"
     }
   },
   {
@@ -2636,43 +2636,43 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/129"
+      "$ref": "https://ils.rero.ch/api/documents/126"
     }
   },
   {
     "pid": "221",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/128"
+      "$ref": "https://ils.rero.ch/api/documents/125"
     }
   },
   {
     "pid": "222",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/127"
-    }
-  },
-  {
-    "pid": "223",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/127"
+      "$ref": "https://ils.rero.ch/api/documents/124"
+    }
+  },
+  {
+    "pid": "223",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/124"
     }
   },
   {
@@ -2684,23 +2684,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/126"
+      "$ref": "https://ils.rero.ch/api/documents/123"
     }
   },
   {
     "pid": "225",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/126"
-    }
-  },
-  {
-    "pid": "226",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/3"
     },
@@ -2708,11 +2696,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/125"
+      "$ref": "https://ils.rero.ch/api/documents/122"
     }
   },
   {
-    "pid": "227",
+    "pid": "226",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/6"
     },
@@ -2720,19 +2708,31 @@
       "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/125"
+      "$ref": "https://ils.rero.ch/api/documents/122"
+    }
+  },
+  {
+    "pid": "227",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/121"
     }
   },
   {
     "pid": "228",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/124"
+      "$ref": "https://ils.rero.ch/api/documents/120"
     }
   },
   {
@@ -2741,10 +2741,10 @@
       "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/123"
+      "$ref": "https://ils.rero.ch/api/documents/119"
     }
   },
   {
@@ -2756,11 +2756,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/123"
+      "$ref": "https://ils.rero.ch/api/documents/119"
     }
   },
   {
     "pid": "231",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/118"
+    }
+  },
+  {
+    "pid": "232",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -2768,31 +2780,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/122"
-    }
-  },
-  {
-    "pid": "232",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/121"
+      "$ref": "https://ils.rero.ch/api/documents/117"
     }
   },
   {
     "pid": "233",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/121"
+      "$ref": "https://ils.rero.ch/api/documents/116"
     }
   },
   {
@@ -2804,11 +2804,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/120"
+      "$ref": "https://ils.rero.ch/api/documents/116"
     }
   },
   {
     "pid": "235",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/115"
+    }
+  },
+  {
+    "pid": "236",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -2816,43 +2828,31 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/120"
-    }
-  },
-  {
-    "pid": "236",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/119"
+      "$ref": "https://ils.rero.ch/api/documents/115"
     }
   },
   {
     "pid": "237",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/118"
+      "$ref": "https://ils.rero.ch/api/documents/114"
     }
   },
   {
     "pid": "238",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/117"
+      "$ref": "https://ils.rero.ch/api/documents/113"
     }
   },
   {
@@ -2864,83 +2864,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/117"
+      "$ref": "https://ils.rero.ch/api/documents/113"
     }
   },
   {
     "pid": "240",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/116"
-    }
-  },
-  {
-    "pid": "241",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/116"
-    }
-  },
-  {
-    "pid": "242",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/115"
-    }
-  },
-  {
-    "pid": "243",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/114"
-    }
-  },
-  {
-    "pid": "244",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/113"
-    }
-  },
-  {
-    "pid": "245",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/113"
-    }
-  },
-  {
-    "pid": "246",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -2952,9 +2880,9 @@
     }
   },
   {
-    "pid": "247",
+    "pid": "241",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -2964,21 +2892,33 @@
     }
   },
   {
-    "pid": "248",
+    "pid": "242",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/111"
     }
   },
   {
-    "pid": "249",
+    "pid": "243",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/110"
+    }
+  },
+  {
+    "pid": "244",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/2"
@@ -2988,7 +2928,7 @@
     }
   },
   {
-    "pid": "250",
+    "pid": "245",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3000,31 +2940,31 @@
     }
   },
   {
-    "pid": "251",
+    "pid": "246",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/108"
+    }
+  },
+  {
+    "pid": "247",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/108"
+      "$ref": "https://ils.rero.ch/api/documents/107"
     }
   },
   {
-    "pid": "252",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/108"
-    }
-  },
-  {
-    "pid": "253",
+    "pid": "248",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3036,9 +2976,9 @@
     }
   },
   {
-    "pid": "254",
+    "pid": "249",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
@@ -3048,7 +2988,19 @@
     }
   },
   {
-    "pid": "255",
+    "pid": "250",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/106"
+    }
+  },
+  {
+    "pid": "251",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3060,7 +3012,7 @@
     }
   },
   {
-    "pid": "256",
+    "pid": "252",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3069,6 +3021,54 @@
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/104"
+    }
+  },
+  {
+    "pid": "253",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/103"
+    }
+  },
+  {
+    "pid": "254",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/102"
+    }
+  },
+  {
+    "pid": "255",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/102"
+    }
+  },
+  {
+    "pid": "256",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/101"
     }
   },
   {
@@ -3080,7 +3080,7 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/104"
+      "$ref": "https://ils.rero.ch/api/documents/101"
     }
   },
   {
@@ -3092,83 +3092,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/103"
+      "$ref": "https://ils.rero.ch/api/documents/100"
     }
   },
   {
     "pid": "259",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/103"
-    }
-  },
-  {
-    "pid": "260",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/102"
-    }
-  },
-  {
-    "pid": "261",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/101"
-    }
-  },
-  {
-    "pid": "262",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/101"
-    }
-  },
-  {
-    "pid": "263",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/100"
-    }
-  },
-  {
-    "pid": "264",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/100"
-    }
-  },
-  {
-    "pid": "265",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3180,7 +3108,67 @@
     }
   },
   {
-    "pid": "266",
+    "pid": "260",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/5"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/98"
+    }
+  },
+  {
+    "pid": "261",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/7"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/98"
+    }
+  },
+  {
+    "pid": "262",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/97"
+    }
+  },
+  {
+    "pid": "263",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/97"
+    }
+  },
+  {
+    "pid": "264",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/96"
+    }
+  },
+  {
+    "pid": "265",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3188,7 +3176,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/98"
+      "$ref": "https://ils.rero.ch/api/documents/96"
+    }
+  },
+  {
+    "pid": "266",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/95"
     }
   },
   {
@@ -3200,59 +3200,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/97"
-    }
-  },
-  {
-    "pid": "268",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/97"
-    }
-  },
-  {
-    "pid": "269",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/96"
-    }
-  },
-  {
-    "pid": "270",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/96"
-    }
-  },
-  {
-    "pid": "271",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
       "$ref": "https://ils.rero.ch/api/documents/95"
     }
   },
   {
-    "pid": "272",
+    "pid": "268",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3264,21 +3216,33 @@
     }
   },
   {
-    "pid": "273",
+    "pid": "269",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/93"
     }
   },
   {
-    "pid": "274",
+    "pid": "270",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/93"
+    }
+  },
+  {
+    "pid": "271",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -3288,19 +3252,19 @@
     }
   },
   {
-    "pid": "275",
+    "pid": "272",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/91"
     }
   },
   {
-    "pid": "276",
+    "pid": "273",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3308,47 +3272,35 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/91"
+      "$ref": "https://ils.rero.ch/api/documents/90"
     }
   },
   {
-    "pid": "277",
+    "pid": "274",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/90"
+    }
+  },
+  {
+    "pid": "275",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/90"
-    }
-  },
-  {
-    "pid": "278",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/90"
-    }
-  },
-  {
-    "pid": "279",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/89"
     }
   },
   {
-    "pid": "280",
+    "pid": "276",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3360,7 +3312,43 @@
     }
   },
   {
-    "pid": "281",
+    "pid": "277",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/88"
+    }
+  },
+  {
+    "pid": "278",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/87"
+    }
+  },
+  {
+    "pid": "279",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/87"
+    }
+  },
+  {
+    "pid": "280",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3368,13 +3356,13 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/87"
+      "$ref": "https://ils.rero.ch/api/documents/86"
     }
   },
   {
-    "pid": "282",
+    "pid": "281",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/1"
@@ -3384,31 +3372,31 @@
     }
   },
   {
-    "pid": "283",
+    "pid": "282",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/85"
     }
   },
   {
-    "pid": "284",
+    "pid": "283",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/84"
     }
   },
   {
-    "pid": "285",
+    "pid": "284",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3420,9 +3408,21 @@
     }
   },
   {
-    "pid": "286",
+    "pid": "285",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/83"
+    }
+  },
+  {
+    "pid": "286",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -3434,19 +3434,19 @@
   {
     "pid": "287",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/81"
+      "$ref": "https://ils.rero.ch/api/documents/82"
     }
   },
   {
     "pid": "288",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -3458,55 +3458,103 @@
   {
     "pid": "289",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/81"
+    }
+  },
+  {
+    "pid": "290",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/80"
     }
   },
   {
-    "pid": "290",
+    "pid": "291",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/80"
+    }
+  },
+  {
+    "pid": "292",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/79"
     }
   },
   {
-    "pid": "291",
+    "pid": "293",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/78"
     }
   },
   {
-    "pid": "292",
+    "pid": "294",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/78"
+    }
+  },
+  {
+    "pid": "295",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/77"
     }
   },
   {
-    "pid": "293",
+    "pid": "296",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/77"
+    }
+  },
+  {
+    "pid": "297",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/4"
@@ -3516,19 +3564,19 @@
     }
   },
   {
-    "pid": "294",
+    "pid": "298",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/75"
     }
   },
   {
-    "pid": "295",
+    "pid": "299",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3536,91 +3584,43 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/75"
-    }
-  },
-  {
-    "pid": "296",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
       "$ref": "https://ils.rero.ch/api/documents/74"
     }
   },
   {
-    "pid": "297",
+    "pid": "300",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/73"
+    }
+  },
+  {
+    "pid": "301",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/73"
-    }
-  },
-  {
-    "pid": "298",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/73"
-    }
-  },
-  {
-    "pid": "299",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/72"
     }
   },
   {
-    "pid": "300",
+    "pid": "302",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/71"
-    }
-  },
-  {
-    "pid": "301",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/70"
-    }
-  },
-  {
-    "pid": "302",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/70"
     }
   },
   {
@@ -3632,16 +3632,16 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/69"
+      "$ref": "https://ils.rero.ch/api/documents/70"
     }
   },
   {
     "pid": "304",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/69"
@@ -3650,43 +3650,67 @@
   {
     "pid": "305",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/69"
+    }
+  },
+  {
+    "pid": "306",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/68"
     }
   },
   {
-    "pid": "306",
+    "pid": "307",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/67"
     }
   },
   {
-    "pid": "307",
+    "pid": "308",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/67"
+    }
+  },
+  {
+    "pid": "309",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/66"
     }
   },
   {
-    "pid": "308",
+    "pid": "310",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/4"
@@ -3696,33 +3720,9 @@
     }
   },
   {
-    "pid": "309",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/65"
-    }
-  },
-  {
-    "pid": "310",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/64"
-    }
-  },
-  {
     "pid": "311",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -3734,10 +3734,10 @@
   {
     "pid": "312",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/63"
@@ -3746,22 +3746,22 @@
   {
     "pid": "313",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/62"
+      "$ref": "https://ils.rero.ch/api/documents/63"
     }
   },
   {
     "pid": "314",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/62"
@@ -3770,10 +3770,10 @@
   {
     "pid": "315",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/1"
+      "$ref": "https://ils.rero.ch/api/locations/10"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/61"
@@ -3782,29 +3782,17 @@
   {
     "pid": "316",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/61"
-    }
-  },
-  {
-    "pid": "317",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/60"
     }
   },
   {
-    "pid": "318",
+    "pid": "317",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3816,43 +3804,19 @@
     }
   },
   {
-    "pid": "319",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/59"
-    }
-  },
-  {
-    "pid": "320",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/58"
-    }
-  },
-  {
-    "pid": "321",
+    "pid": "318",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/58"
     }
   },
   {
-    "pid": "322",
+    "pid": "319",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3864,7 +3828,7 @@
     }
   },
   {
-    "pid": "323",
+    "pid": "320",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -3876,7 +3840,19 @@
     }
   },
   {
-    "pid": "324",
+    "pid": "321",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/55"
+    }
+  },
+  {
+    "pid": "322",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3888,43 +3864,19 @@
     }
   },
   {
-    "pid": "325",
+    "pid": "323",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/2"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/55"
-    }
-  },
-  {
-    "pid": "326",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/54"
     }
   },
   {
-    "pid": "327",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/54"
-    }
-  },
-  {
-    "pid": "328",
+    "pid": "324",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -3936,21 +3888,9 @@
     }
   },
   {
-    "pid": "329",
+    "pid": "325",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/52"
-    }
-  },
-  {
-    "pid": "330",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
@@ -3960,67 +3900,55 @@
     }
   },
   {
-    "pid": "331",
+    "pid": "326",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/51"
     }
   },
   {
-    "pid": "332",
+    "pid": "327",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/6"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/51"
-    }
-  },
-  {
-    "pid": "333",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/50"
     }
   },
   {
-    "pid": "334",
+    "pid": "328",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/49"
     }
   },
   {
-    "pid": "335",
+    "pid": "329",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/48"
     }
   },
   {
-    "pid": "336",
+    "pid": "330",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -4032,9 +3960,9 @@
     }
   },
   {
-    "pid": "337",
+    "pid": "331",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -4044,21 +3972,45 @@
     }
   },
   {
-    "pid": "338",
+    "pid": "332",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/13"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/45"
     }
   },
   {
-    "pid": "339",
+    "pid": "333",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/45"
+    }
+  },
+  {
+    "pid": "334",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/44"
+    }
+  },
+  {
+    "pid": "335",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/7"
@@ -4068,7 +4020,7 @@
     }
   },
   {
-    "pid": "340",
+    "pid": "336",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -4080,33 +4032,21 @@
     }
   },
   {
-    "pid": "341",
+    "pid": "337",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/42"
     }
   },
   {
-    "pid": "342",
+    "pid": "338",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/42"
-    }
-  },
-  {
-    "pid": "343",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/6"
@@ -4116,19 +4056,7 @@
     }
   },
   {
-    "pid": "344",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/5"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/41"
-    }
-  },
-  {
-    "pid": "345",
+    "pid": "339",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -4140,79 +4068,115 @@
     }
   },
   {
-    "pid": "346",
+    "pid": "340",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/4"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/40"
+    }
+  },
+  {
+    "pid": "341",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/3"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/39"
     }
   },
   {
-    "pid": "347",
+    "pid": "342",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/39"
-    }
-  },
-  {
-    "pid": "348",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/38"
     }
   },
   {
-    "pid": "349",
+    "pid": "343",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/37"
+      "$ref": "https://ils.rero.ch/api/documents/38"
     }
   },
   {
-    "pid": "350",
+    "pid": "344",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/37"
     }
   },
   {
-    "pid": "351",
+    "pid": "345",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/7"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/36"
     }
   },
   {
-    "pid": "352",
+    "pid": "346",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/36"
+    }
+  },
+  {
+    "pid": "347",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/35"
+    }
+  },
+  {
+    "pid": "348",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/34"
+    }
+  },
+  {
+    "pid": "349",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -4220,7 +4184,43 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/35"
+      "$ref": "https://ils.rero.ch/api/documents/34"
+    }
+  },
+  {
+    "pid": "350",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/33"
+    }
+  },
+  {
+    "pid": "351",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/33"
+    }
+  },
+  {
+    "pid": "352",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/32"
     }
   },
   {
@@ -4232,11 +4232,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/35"
+      "$ref": "https://ils.rero.ch/api/documents/31"
     }
   },
   {
     "pid": "354",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/31"
+    }
+  },
+  {
+    "pid": "355",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -4244,31 +4256,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/34"
-    }
-  },
-  {
-    "pid": "355",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/34"
+      "$ref": "https://ils.rero.ch/api/documents/30"
     }
   },
   {
     "pid": "356",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/33"
+      "$ref": "https://ils.rero.ch/api/documents/29"
     }
   },
   {
@@ -4280,19 +4280,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/32"
+      "$ref": "https://ils.rero.ch/api/documents/28"
     }
   },
   {
     "pid": "358",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/31"
+      "$ref": "https://ils.rero.ch/api/documents/28"
     }
   },
   {
@@ -4304,83 +4304,23 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/31"
+      "$ref": "https://ils.rero.ch/api/documents/27"
     }
   },
   {
     "pid": "360",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/30"
-    }
-  },
-  {
-    "pid": "361",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/30"
-    }
-  },
-  {
-    "pid": "362",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/3"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/29"
+      "$ref": "https://ils.rero.ch/api/documents/27"
     }
   },
   {
-    "pid": "363",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/29"
-    }
-  },
-  {
-    "pid": "364",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/28"
-    }
-  },
-  {
-    "pid": "365",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/28"
-    }
-  },
-  {
-    "pid": "366",
+    "pid": "361",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/7"
     },
@@ -4388,23 +4328,11 @@
       "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/27"
-    }
-  },
-  {
-    "pid": "367",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
       "$ref": "https://ils.rero.ch/api/documents/26"
     }
   },
   {
-    "pid": "368",
+    "pid": "362",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -4416,103 +4344,55 @@
     }
   },
   {
-    "pid": "369",
+    "pid": "363",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/24"
     }
   },
   {
-    "pid": "370",
+    "pid": "364",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/3"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/23"
     }
   },
   {
-    "pid": "371",
+    "pid": "365",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/9"
+      "$ref": "https://ils.rero.ch/api/locations/12"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/22"
     }
   },
   {
-    "pid": "372",
+    "pid": "366",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/21"
     }
   },
   {
-    "pid": "373",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/11"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/20"
-    }
-  },
-  {
-    "pid": "374",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/20"
-    }
-  },
-  {
-    "pid": "375",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/19"
-    }
-  },
-  {
-    "pid": "376",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/19"
-    }
-  },
-  {
-    "pid": "377",
+    "pid": "367",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/5"
     },
@@ -4520,23 +4400,71 @@
       "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/18"
+      "$ref": "https://ils.rero.ch/api/documents/21"
     }
   },
   {
-    "pid": "378",
+    "pid": "368",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/6"
+      "$ref": "https://ils.rero.ch/api/locations/5"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/5"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/20"
+    }
+  },
+  {
+    "pid": "369",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/19"
+    }
+  },
+  {
+    "pid": "370",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/19"
+    }
+  },
+  {
+    "pid": "371",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/18"
     }
   },
   {
-    "pid": "379",
+    "pid": "372",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/18"
+    }
+  },
+  {
+    "pid": "373",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/13"
     },
@@ -4548,6 +4476,78 @@
     }
   },
   {
+    "pid": "374",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/2"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/17"
+    }
+  },
+  {
+    "pid": "375",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/10"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/16"
+    }
+  },
+  {
+    "pid": "376",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/16"
+    }
+  },
+  {
+    "pid": "377",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/15"
+    }
+  },
+  {
+    "pid": "378",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/12"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/14"
+    }
+  },
+  {
+    "pid": "379",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/4"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/14"
+    }
+  },
+  {
     "pid": "380",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/6"
@@ -4556,19 +4556,19 @@
       "$ref": "https://ils.rero.ch/api/item_types/1"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/16"
+      "$ref": "https://ils.rero.ch/api/documents/13"
     }
   },
   {
     "pid": "381",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/15"
+      "$ref": "https://ils.rero.ch/api/documents/13"
     }
   },
   {
@@ -4580,35 +4580,71 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/15"
+      "$ref": "https://ils.rero.ch/api/documents/12"
     }
   },
   {
     "pid": "383",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
+      "$ref": "https://ils.rero.ch/api/locations/11"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
+      "$ref": "https://ils.rero.ch/api/item_types/3"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/14"
+      "$ref": "https://ils.rero.ch/api/documents/11"
     }
   },
   {
     "pid": "384",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
+      "$ref": "https://ils.rero.ch/api/locations/1"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
+      "$ref": "https://ils.rero.ch/api/item_types/4"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/14"
+      "$ref": "https://ils.rero.ch/api/documents/11"
     }
   },
   {
     "pid": "385",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/6"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/10"
+    }
+  },
+  {
+    "pid": "386",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/11"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/10"
+    }
+  },
+  {
+    "pid": "387",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/9"
+    }
+  },
+  {
+    "pid": "388",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/4"
     },
@@ -4616,43 +4652,7 @@
       "$ref": "https://ils.rero.ch/api/item_types/2"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/13"
-    }
-  },
-  {
-    "pid": "386",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/4"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/4"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/12"
-    }
-  },
-  {
-    "pid": "387",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/11"
-    }
-  },
-  {
-    "pid": "388",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/8"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/10"
+      "$ref": "https://ils.rero.ch/api/documents/8"
     }
   },
   {
@@ -4664,107 +4664,47 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
-      "$ref": "https://ils.rero.ch/api/documents/9"
+      "$ref": "https://ils.rero.ch/api/documents/7"
     }
   },
   {
     "pid": "390",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/9"
     },
     "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/1"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/9"
-    }
-  },
-  {
-    "pid": "391",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/8"
-    }
-  },
-  {
-    "pid": "392",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/8"
-    }
-  },
-  {
-    "pid": "393",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/10"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/7"
-    }
-  },
-  {
-    "pid": "394",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/3"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/2"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/7"
-    }
-  },
-  {
-    "pid": "395",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
+      "$ref": "https://ils.rero.ch/api/item_types/6"
     },
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/6"
     }
   },
   {
-    "pid": "396",
+    "pid": "391",
     "location": {
-      "$ref": "https://ils.rero.ch/api/locations/2"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/6"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/5"
-    }
-  },
-  {
-    "pid": "397",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/7"
+      "$ref": "https://ils.rero.ch/api/locations/8"
     },
     "circulation_category": {
       "$ref": "https://ils.rero.ch/api/item_types/5"
     },
     "document": {
+      "$ref": "https://ils.rero.ch/api/documents/6"
+    }
+  },
+  {
+    "pid": "392",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/6"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/3"
+    },
+    "document": {
       "$ref": "https://ils.rero.ch/api/documents/5"
     }
   },
   {
-    "pid": "398",
+    "pid": "393",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/1"
     },
@@ -4776,7 +4716,7 @@
     }
   },
   {
-    "pid": "399",
+    "pid": "394",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
@@ -4784,47 +4724,71 @@
       "$ref": "https://ils.rero.ch/api/item_types/7"
     },
     "document": {
+      "$ref": "https://ils.rero.ch/api/documents/4"
+    }
+  },
+  {
+    "pid": "395",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/5"
+    },
+    "document": {
       "$ref": "https://ils.rero.ch/api/documents/3"
+    }
+  },
+  {
+    "pid": "396",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/9"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/3"
+    }
+  },
+  {
+    "pid": "397",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/2"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/2"
+    }
+  },
+  {
+    "pid": "398",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/13"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/7"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/2"
+    }
+  },
+  {
+    "pid": "399",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/8"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/1"
+    },
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/1"
     }
   },
   {
     "pid": "400",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/3"
-    }
-  },
-  {
-    "pid": "401",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/13"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/2"
-    }
-  },
-  {
-    "pid": "402",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/12"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/7"
-    },
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/2"
-    }
-  },
-  {
-    "pid": "403",
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/12"
     },
