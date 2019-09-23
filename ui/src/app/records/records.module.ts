@@ -76,6 +76,8 @@ import { Bootstrap4FrameworkComponent } from './editor/bootstrap4-framework/boot
 import { AddReferenceComponent } from './editor/add-reference/add-reference.component';
 import { MainFieldsManagerComponent } from './editor/main-fields-manager/main-fields-manager.component';
 import { SubmitComponent } from './editor/submit/submit.component';
+import { SelectItemTypeTypeComponent } from './editor/select-item-type-type/select-item-type-type.component';
+import { CheckboxIsOnlineComponent } from './editor/checkbox-is-online/checkbox-is-online.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { SubmitComponent } from './editor/submit/submit.component';
     Bootstrap4FrameworkComponent,
     AddReferenceComponent,
     MainFieldsManagerComponent,
-    SubmitComponent
+    SubmitComponent,
+    SelectItemTypeTypeComponent,
+    CheckboxIsOnlineComponent
   ],
   imports: [
     CommonModule,
@@ -150,7 +154,9 @@ import { SubmitComponent } from './editor/submit/submit.component';
     Bootstrap4FrameworkComponent,
     AddReferenceComponent,
     MainFieldsManagerComponent,
-    SubmitComponent
+    SubmitComponent,
+    SelectItemTypeTypeComponent,
+    CheckboxIsOnlineComponent
   ],
   providers: [
     LibraryExceptionFormService,

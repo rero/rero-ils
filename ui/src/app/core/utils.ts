@@ -32,3 +32,8 @@ export function cleanDictKeys(data: any) {
 export function _(str: string) {
   return str;
 }
+
+export function extractIdOnRef(ref: string) {
+  const rx = /.*\/?(.+)$/ig;
+  return rx.exec(ref)[1];
+}

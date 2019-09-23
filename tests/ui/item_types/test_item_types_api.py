@@ -34,7 +34,7 @@ def test_item_type_create(db, item_type_data_tmp, org_martigny,
     with pytest.raises(RecordValidationError):
         itty = ItemType.create(item_type_data_tmp, delete_pid=True)
 
-    del item_type_data_tmp['type']
+    item_type_data_tmp['type'] = 'standard'
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
 
     assert itty == item_type_data_tmp

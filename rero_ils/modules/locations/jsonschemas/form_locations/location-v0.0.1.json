@@ -6,8 +6,7 @@
         "title": "Library",
         "key": "library.$ref",
         "type": "select",
-        "remoteRecordType": "libraries",
-        "readonly": true
+        "remoteRecordType": "libraries"
       }
     ]
   },
@@ -33,15 +32,30 @@
     ]
   },
   {
-    "key": "is_pickup",
-    "type": "checkbox"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "is_pickup",
+        "type": "checkbox"
+      },
+      {
+        "key": "pickup_name",
+        "condition": "model.is_pickup"
+      }
+    ]
   },
   {
-    "key": "is_online",
-    "type": "checkbox"
-  },
-  {
-    "key": "pickup_name",
-    "condition": "model.is_pickup"
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "is_online",
+        "notitle": true,
+        "type": "checkbox-is-online",
+        "label": "Is Online",
+        "validationMessage": {
+          "alreadyTakenMessage": "The \"online\" type must be unique per library"
+        }
+      }
+    ]
   }
 ]
