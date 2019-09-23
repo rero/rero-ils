@@ -52,5 +52,6 @@
       "title": "Online harvested source",
       "description": "Online harvested source as configured in ebooks server.",
       "type": "string"
+    }
   }
 }

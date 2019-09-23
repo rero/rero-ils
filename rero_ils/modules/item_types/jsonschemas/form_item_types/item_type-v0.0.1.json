@@ -31,5 +31,29 @@
         "key": "description"
       }
     ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "type",
+        "type": "select-item-type-type",
+        "required": true,
+        "validationMessage": {
+          "alreadyTakenMessage": "There is already an online type for your organisation"
+        },
+        "titleMap": [
+          {
+            "value": "standard",
+            "name": "Standard"
+          },
+          {
+            "value": "online",
+            "name": "Online"
+          }
+        ],
+        "default": "standard"
+      }
+    ]
   }
 ]

@@ -24,7 +24,7 @@ import { of, Subject } from 'rxjs';
 
 import { TranslateService } from '@ngx-translate/core';
 import { I18nPluralPipe, NgLocaleLocalization } from '@angular/common';
-import { DialogService, _ } from '@app/core';
+import { DialogService, _, extractIdOnRef } from '@app/core';
 
 @Injectable({
   providedIn: 'root'
@@ -171,7 +171,7 @@ export class RecordsService {
     return this.http.put(url, record);
   }
 
-  valueAlreadyExists(record_type, field, value, excludePid) {
+  valueAlreadyExists(record_type, field, value, excludePid = null) {
     let url = `/api/${record_type}/?size=0&q=${field}:"${value}"`;
     if (excludePid) {
       url += ` NOT pid:${excludePid}`;
@@ -183,6 +183,18 @@ export class RecordsService {
     );
   }
 
+  uniqueIsOnlineLocationValidator(libraryRef: any, excludePid = null) {
+    const libraryPid = extractIdOnRef(libraryRef);
+    let url = `/api/locations/?size=0&q=library.pid:${libraryPid} AND is_online:true`;
+    if (excludePid) {
+      url += ` NOT pid:${excludePid}`;
+    }
+    return this.http.get<any>(url).pipe(
+      map(res => res.hits.total),
+      map(total => total ? { alreadyTakenMessage: '' } : null),
+      debounceTime(1000)
+    );
+  }
 
   deleteRecord(pid, recordType) {
     const success = new Subject();

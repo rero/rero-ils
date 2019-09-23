@@ -8,7 +8,8 @@
     "$schema",
     "pid",
     "name",
-    "organisation"
+    "organisation",
+    "type"
   ],
   "properties": {
     "$schema": {

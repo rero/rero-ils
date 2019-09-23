@@ -39,6 +39,8 @@ import { AddReferenceComponent } from './add-reference/add-reference.component';
 import { UserService } from '../../user.service';
 import { MainFieldsManagerComponent } from './main-fields-manager/main-fields-manager.component';
 import { SubmitComponent } from './submit/submit.component';
+import { SelectItemTypeTypeComponent } from './select-item-type-type/select-item-type-type.component';
+import { CheckboxIsOnlineComponent } from './checkbox-is-online/checkbox-is-online.component';
 // import { Bootstrap4Framework } from 'angular6-json-schema-form';
 // import { Framework } from 'angular6-json-schema-form';
 
@@ -92,6 +94,8 @@ export class EditorComponent implements OnInit {
     this.widgetLibrary.registerWidget('$ref', AddReferenceComponent);
     this.widgetLibrary.registerWidget('main-fields-manager', MainFieldsManagerComponent);
     this.widgetLibrary.registerWidget('submit', SubmitComponent);
+    this.widgetLibrary.registerWidget('select-item-type-type', SelectItemTypeTypeComponent);
+    this.widgetLibrary.registerWidget('checkbox-is-online', CheckboxIsOnlineComponent);
 
     this.currentLocale = translateService.currentLang;
     this.userService.userSettings.subscribe(settings => this.userSettings = settings);
