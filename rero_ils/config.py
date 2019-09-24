@@ -1015,7 +1015,10 @@ RERO_ILS_APP_BASE_URL = 'https://ils.rero.ch'
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
-#: RERO_ILS MEF specificconfigurations.
+#: Git commit hash. If set, a link to github commit page is displayed on RERO-ILS frontpage.
+RERO_ILS_APP_GIT_HASH = None
+
+#: RERO_ILS MEF specific configurations.
 RERO_ILS_MEF_HOST = 'mef.rero.ch'
 RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host=RERO_ILS_MEF_HOST)
 RERO_ILS_MEF_RESULT_SIZE = 100
