@@ -28,6 +28,12 @@ RUN chown -R invenio:invenio ${WORKING_DIR}
 
 USER 1000
 
+# Set last GIT commit hash. Example:
+# docker build --build-arg GIT_HASH=$(git rev-parse @) .
+ARG GIT_HASH
+# Last GIT commit hash
+ENV INVENIO_RERO_ILS_APP_GIT_HASH ${GIT_HASH:-''}
+
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
 RUN ./scripts/bootstrap --deploy && rm -fr ui/node_modules
 

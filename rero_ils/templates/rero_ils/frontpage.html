@@ -92,7 +92,11 @@
           <p class="card-text pl-2 align-self-center">
             {{_('Software source code')}}
             <a href="https://github.com/rero/rero-ils" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub') }}">{{_('on GitHub')}}</a>, {{ _('version') }}
-            <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, last released version') }}">{{ version }}</a>
+            {% if config.RERO_ILS_APP_GIT_HASH %}
+            <a href="https://github.com/rero/rero-ils/commit/{{ config.RERO_ILS_APP_GIT_HASH }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on Github, current used version') }}">{{ config.RERO_ILS_APP_GIT_HASH[:8] }}</a>
+            {% else %}
+            <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, current used version') }}">{{ version }}</a>
+            {% endif %}
           </p>
         </section>
         <section class="d-flex flex-row">
