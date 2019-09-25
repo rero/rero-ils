@@ -246,59 +246,6 @@
   },
   {
     "type": "fieldset",
-    "title": "Publishers",
-    "show": true,
-    "nomenu": true,
-    "items": [
-      {
-        "notitle": true,
-        "description": "",
-        "type": "array",
-        "items": [
-          {
-            "type": "fieldset",
-            "items": [
-              {
-                "type": "array",
-                "notitle": "true",
-                "items": [
-                  {
-                    "key": "publishers[].place[]"
-                  }
-                ]
-              },
-              {
-                "type": "array",
-                "notitle": "true",
-                "items": [
-                  {
-                    "key": "publishers[].name[]"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "fieldset",
-    "title": "Dates of publication",
-    "show": true,
-    "items": [
-      {
-        "key": "publicationYear",
-        "type": "text"
-      },
-      {
-        "key": "freeFormedPublicationDate",
-        "condition": "model.publicationYear"
-      }
-    ]
-  },
-  {
-    "type": "fieldset",
     "title": "Extent",
     "show": true,
     "items": [
