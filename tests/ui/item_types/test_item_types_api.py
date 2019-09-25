@@ -34,17 +34,19 @@ def test_item_type_create(db, item_type_data_tmp, org_martigny,
     with pytest.raises(RecordValidationError):
         itty = ItemType.create(item_type_data_tmp, delete_pid=True)
 
+    db.session.rollback()
+
     item_type_data_tmp['type'] = 'standard'
     itty = ItemType.create(item_type_data_tmp, delete_pid=True)
 
     assert itty == item_type_data_tmp
-    assert itty.get('pid') == '2'
+    assert itty.get('pid') == '1'
 
-    itty = ItemType.get_record_by_pid('2')
+    itty = ItemType.get_record_by_pid('1')
     assert itty == item_type_data_tmp
 
     fetched_pid = item_type_id_fetcher(itty.id, itty)
-    assert fetched_pid.pid_value == '2'
+    assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'itty'
     assert not ItemType.get_pid_by_name('no exists')
 

@@ -34,16 +34,18 @@ def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,
     with pytest.raises(RecordValidationError):
         loc = Location.create(loc_public_martigny_data, delete_pid=True)
 
+    db.session.rollback()
+
     del loc_public_martigny_data['is_online']
     loc = Location.create(loc_public_martigny_data, delete_pid=True)
     assert loc == loc_public_martigny_data
-    assert loc.get('pid') == '2'
+    assert loc.get('pid') == '1'
 
-    loc = Location.get_record_by_pid('2')
+    loc = Location.get_record_by_pid('1')
     assert loc == loc_public_martigny_data
 
     fetched_pid = fetcher(loc.id, loc)
-    assert fetched_pid.pid_value == '2'
+    assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'loc'
 
 

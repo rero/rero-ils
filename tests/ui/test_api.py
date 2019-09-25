@@ -27,11 +27,13 @@ from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
-from utils import flush_index
+from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.api import IlsRecord, IlsRecordError
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from utils import flush_index
 
 
 class IdentifierTest(RecordIdentifier):
@@ -201,3 +203,110 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     record.delete(delindex=True)
     assert len(RecordTest.get_all_pids()) == 0
     assert len(RecordTest.get_all_ids()) == 0
+
+
+class FailedPidIdentifier(RecordIdentifier):
+    """Sequence generator for Test identifiers."""
+
+    __tablename__ = 'failed_id'
+    __mapper_args__ = {'concrete': True}
+
+    recid = db.Column(
+        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        primary_key=True, autoincrement=True,
+    )
+
+
+FailedPidProvider = type(
+    'FailedPidProvider',
+    (Provider,),
+    dict(
+        identifier=FailedPidIdentifier,
+        pid_type='failed'
+    )
+)
+
+# failedPID minter
+failed_pid_minter = partial(id_minter, provider=FailedPidProvider)
+# failedPID fetcher
+failed_pid_fetcher = partial(id_fetcher, provider=FailedPidProvider)
+
+
+class FailedIlsRecord(IlsRecord):
+    minter = failed_pid_minter
+    fetcher = failed_pid_fetcher
+    provider = FailedPidProvider
+
+
+def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
+    """Test IlsRecord PID after validation failed"""
+    schema = {
+        'type': 'object',
+        'properties': {
+            'name': {
+                'type': 'string',
+            },
+            'noideaforafield': {
+                'type': 'string',
+            }
+        },
+        'required': ['name', 'noideaforafield']
+    }
+    with pytest.raises(ValidationError):
+        FailedIlsRecord.create(
+            data={
+                '$schema': schema,
+                'name': 'Bad IlsRecord',
+            },
+            delete_pid=False,
+        )
+    db.session.rollback()
+    assert len(FailedIlsRecord.get_all_pids()) == 0
+
+    record1 = FailedIlsRecord.create(data=ils_record, delete_pid=True)
+    assert len(FailedIlsRecord.get_all_pids()) == 1
+    assert record1.pid == '1'
+
+    # Add another record to test that it's 2.
+    record2 = FailedIlsRecord.create(data=ils_record_2, delete_pid=True)
+    assert record2.pid == '2'
+
+    # Add Manually 3 and 4. Add another one and check result
+    ils_record_3 = {
+        'pid': '3',
+        'name': 'IlsRecord Name 3',
+    }
+    ils_record_4 = {
+        'pid': '4',
+        'name': 'IlsRecord Name 4',
+    }
+    record3 = FailedIlsRecord.create(data=ils_record_3, delete_pid=False)
+    FailedIlsRecord.create(data=ils_record_4, delete_pid=False)
+    # without PID, this record should take 3 as next number. Not 5.
+    record5 = FailedIlsRecord.create(data=ils_record, delete_pid=True)
+    assert record5.pid == '3'
+    assert record3.pid == '3'
+
+    assert len(FailedIlsRecord.get_all_pids()) == 4
+
+    db.session.commit()
+
+    # New error to break PID 4, then add new one to check its PID: 4!
+    record6 = None
+    with pytest.raises(ValidationError):
+        record6 = FailedIlsRecord.create(
+            data={
+                '$schema': schema,
+                'name': 'Bad IlsRecord',
+            },
+            delete_pid=False,
+        )
+    db.session.rollback()
+    assert record6 is None
+
+    # We should have 3 PID.
+    assert len(FailedIlsRecord.get_all_pids()) == 4
+
+    record7 = FailedIlsRecord.create(data=ils_record, delete_pid=True)
+    db.session.commit()
+    assert record7.pid == '4'
