@@ -23,6 +23,7 @@ import { JsonSchemaFormService } from 'angular6-json-schema-form';
 import { of } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { RecordsService } from '../../records.service';
+import { UniqueValidator } from '@app/core';
 
 
 @Component({
@@ -53,19 +54,15 @@ export class RemoteInputComponent implements OnInit {
     this.jsf.initializeControl(this);
     if (this.options.remoteRecordType) {
         this.formControl.setAsyncValidators([
-            this.valueAlreadyTaken.bind(this, this.options.remoteRecordType)
+            UniqueValidator.createValidator(
+              this.recordsService, this.options.remoteRecordType,
+              this.controlName, this.formControl.root.value.pid)
         ]);
     }
   }
 
   updateValue(event) {
     this.jsf.updateValue(this, event.target.value);
-  }
-
-  valueAlreadyTaken(recordType: string, control: AbstractControl) {
-    const pid = control.root.value.pid;
-    return this.recordsService.valueAlreadyExists(
-        recordType, this.controlName, control.value, pid);
   }
 
 }

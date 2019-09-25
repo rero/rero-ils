@@ -64,7 +64,6 @@ export class AddReferenceComponent implements OnInit {
 
   addItem(event) {
     event.preventDefault();
-    console.log(this);
     this.jsf.addItem(this);
   }
 

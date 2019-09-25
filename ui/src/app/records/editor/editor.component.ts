@@ -38,6 +38,7 @@ import { CustomBootstrap4Framework } from './bootstrap4-framework/custombootstra
 import { AddReferenceComponent } from './add-reference/add-reference.component';
 import { UserService } from '../../user.service';
 import { MainFieldsManagerComponent } from './main-fields-manager/main-fields-manager.component';
+import { SubmitComponent } from './submit/submit.component';
 // import { Bootstrap4Framework } from 'angular6-json-schema-form';
 // import { Framework } from 'angular6-json-schema-form';
 
@@ -90,6 +91,7 @@ export class EditorComponent implements OnInit {
     this.widgetLibrary.registerWidget('fieldset', FieldsetComponent);
     this.widgetLibrary.registerWidget('$ref', AddReferenceComponent);
     this.widgetLibrary.registerWidget('main-fields-manager', MainFieldsManagerComponent);
+    this.widgetLibrary.registerWidget('submit', SubmitComponent);
 
     this.currentLocale = translateService.currentLang;
     this.userService.userSettings.subscribe(settings => this.userSettings = settings);
@@ -111,9 +113,11 @@ export class EditorComponent implements OnInit {
       }
       );
   }
+
   debug(event) {
     console.log(event);
   }
+
   ngOnInit() {
     combineLatest(this.route.params, this.route.queryParams)
     .pipe(map(results => ({params: results[0], query: results[1]})))
@@ -214,9 +218,5 @@ export class EditorComponent implements OnInit {
       }
     }
     return errorArray.join('<br>');
-  }
-
-  validationErrors(errors) {
-    this.formValidationErrors = errors;
   }
 }

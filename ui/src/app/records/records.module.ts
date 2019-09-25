@@ -75,6 +75,7 @@ import { FieldsetComponent } from './editor/fieldset/fieldset.component';
 import { Bootstrap4FrameworkComponent } from './editor/bootstrap4-framework/bootstrap4-framework.component';
 import { AddReferenceComponent } from './editor/add-reference/add-reference.component';
 import { MainFieldsManagerComponent } from './editor/main-fields-manager/main-fields-manager.component';
+import { SubmitComponent } from './editor/submit/submit.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { MainFieldsManagerComponent } from './editor/main-fields-manager/main-fi
     FieldsetComponent,
     Bootstrap4FrameworkComponent,
     AddReferenceComponent,
-    MainFieldsManagerComponent
+    MainFieldsManagerComponent,
+    SubmitComponent
   ],
   imports: [
     CommonModule,
@@ -147,7 +149,8 @@ import { MainFieldsManagerComponent } from './editor/main-fields-manager/main-fi
     FieldsetComponent,
     Bootstrap4FrameworkComponent,
     AddReferenceComponent,
-    MainFieldsManagerComponent
+    MainFieldsManagerComponent,
+    SubmitComponent
   ],
   providers: [
     LibraryExceptionFormService,
