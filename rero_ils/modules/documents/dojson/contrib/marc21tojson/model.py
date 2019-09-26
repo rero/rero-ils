@@ -17,6 +17,7 @@
 
 """rero-ils MARC21 model definition."""
 
+import os
 import re
 import sys
 
@@ -41,11 +42,14 @@ def get_mef_person_link(id, key, value):
     """Get mef person link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     PROD_HOST = 'mef.rero.ch'
-    DEV_HOST = 'mef.test.rero.ch'
+    if os.environ.get('RERO_ILS_MEF_HOST'):
+        DEV_HOST = os.environ.get('RERO_ILS_MEF_HOST')
+    else:
+        DEV_HOST = 'mef.test.rero.ch'
     mef_url = None
     if id:
         identifier = id[1:].split(')')
-        url = "{mef}/?q={org}.{org}_pid:{pid}".format(
+        url = "{mef}/?q={org}.pid:{pid}".format(
             mef="https://{host}/api/mef".format(host=DEV_HOST),
             org=identifier[0].lower(),
             pid=identifier[1]
