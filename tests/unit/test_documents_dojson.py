@@ -19,9 +19,15 @@
 
 from __future__ import absolute_import, print_function
 
+import os
+
+import mock
 from dojson.contrib.marc21.utils import create_record
+from utils import mock_response
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21tojson
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
+    get_mef_person_link
 from rero_ils.modules.documents.views import create_publication_statement
 
 
@@ -1646,3 +1652,38 @@ def test_marc21_to_identifiedBy_from_930():
             'value': 'ocm11113722'
         }
     ]
+
+
+@mock.patch('requests.get')
+def test_get_mef_person_link(mock_get, capsys):
+    """Test get mef person link"""
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{'links': {'self': 'mocked_url'}}]
+        }
+    })
+    mef_url = get_mef_person_link(
+        id='(RERO)A003945843',
+        key='100..',
+        value={'0': '(RERO)A003945843'}
+    )
+    assert mef_url == 'mocked_url'
+
+    os.environ['RERO_ILS_MEF_HOST'] = 'mefdev.test.rero.ch'
+    mef_url = get_mef_person_link(
+        id='(RERO)A003945843',
+        key='100..',
+        value={'0': '(RERO)A003945843'}
+    )
+    assert mef_url == 'mocked_url'
+
+    mock_get.return_value = mock_response(status=400)
+    mef_url = get_mef_person_link(
+        id='(RERO)AXXXXXXXXX',
+        key='100..',
+        value={'0': '(RERO)AAXXXXXXXXX'}
+    )
+    assert not mef_url
+    out, err = capsys.readouterr()
+    assert err == 'ERROR: MEF request ' +\
+        'https://mefdev.test.rero.ch/api/mef/?q=rero.pid:AXXXXXXXXX 400\n'
