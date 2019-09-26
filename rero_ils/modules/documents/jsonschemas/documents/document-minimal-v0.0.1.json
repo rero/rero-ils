@@ -465,9 +465,8 @@
     },
     "type": {
       "title": "Type",
-      "description": "Document type.",
+      "description": "Required. Type of the document. Should be selected in the list below.",
       "type": "string",
-      "validationMessage": "Required. Type of the document. Should be selected in the list below.",
       "enum": [
         "article",
         "book",
@@ -526,7 +525,6 @@
           },
           "value": {
             "title": "Language value",
-            "description": "Language value.",
             "type": "string",
             "enum": [
               "ara",
@@ -613,7 +611,6 @@
     },
     "copyrightDate": {
       "title": "Copyright Date",
-      "description": "Copyright Date of the resource.",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -624,7 +621,6 @@
     },
     "provisionActivity": {
       "title": "Provision Activity",
-      "description": "Provision Activity of the resource.",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -642,8 +638,7 @@
             ]
           },
           "statement": {
-            "title": "Statement of od place and/or agent of publication",
-            "description": "Statement of place and/or agent of the resource.",
+            "title": "Statement of place and/or agent of the provision activity",
             "type": "array",
             "items": {
               "type": "object",
@@ -658,7 +653,6 @@
                 },
                 "canton": {
                   "title": "Canton",
-                  "description": "Canton.",
                   "type": "array",
                   "minItems": 1,
                   "items": {
@@ -1080,14 +1074,12 @@
                 },
                 "label": {
                   "title": "Label",
-                  "description": "Provision Activity place and/or agent.",
                   "type": "array",
                   "items": {
                     "type": "object",
                     "properties": {
                       "value": {
                         "title": "Place and/or agent name",
-                        "description": "Place and/or agent name.",
                         "type": "string",
                         "minLength": 2
                       },
@@ -1221,7 +1213,6 @@
     },
     "identifiedBy": {
       "title": "Identifiers",
-      "description": "Persistent identifiers of the resource, ie reroID and ISBN.",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -1234,7 +1225,6 @@
         "properties": {
           "type": {
             "title": "Type",
-            "description": "Type of the value.",
             "type": "string",
             "enum": [
               "bf:AudioIssueNumber",
