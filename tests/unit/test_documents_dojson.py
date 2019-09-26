@@ -1086,8 +1086,8 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
       }
     ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == {
-        'default': 'Ierusalim : Gesharim : Moskva : Mosty Kulʹtury, 2017',
-        'rus-cyrl': 'Иерусалим : Гешарим : Москва : Мосты Культуры, 2017'
+        'default': 'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017',
+        'rus-cyrl': 'Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017'
     }
 
 

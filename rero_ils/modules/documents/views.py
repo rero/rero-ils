@@ -432,7 +432,10 @@ def create_publication_statement(provision_activity):
                         statement_type
                     ]
                 else:
-                    statement_with_language[language] += ' : '
+                    if statement['type'] == 'bf:Place':
+                        statement_with_language[language] += ' ; '
+                    else:
+                        statement_with_language[language] += ' : '
 
             statement_with_language[language] += label['value']
         statement_type = statement['type']
