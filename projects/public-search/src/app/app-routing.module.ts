@@ -14,33 +14,29 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { Routes, RouterModule } from '@angular/router';
 
-import { CoreConfigService, RecordModule, CoreModule } from '@rero/ng-core';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AppConfigService } from './app-config.service';
+const routes: Routes = [
+  {
+    path: 'global/search',
+    loadChildren: () => import('@rero/ng-core').then(m => m.RecordModule),
+    data: {
+      showSearchInput: true,
+      adminMode: false,
+      linkPrefix: '/global/search',
+      types: [
+        {
+          key: 'documents',
+          label: 'Documents'
+        }
+      ]
+    }
+  }
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    CoreModule,
-    RecordModule
-  ],
-  providers: [
-    {
-      provide: CoreConfigService,
-      useClass: AppConfigService
-    }
-  ],
-  bootstrap: [AppComponent]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppModule { }
+export class AppRoutingModule { }

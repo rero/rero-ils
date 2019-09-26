@@ -20,6 +20,4 @@ import { Component } from '@angular/core';
   selector: 'public-search-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'public-search';
-}
+export class AppComponent {}

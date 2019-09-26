@@ -14,9 +14,20 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-export const environment = {
-  production: true,
-  apiBaseUrl: 'https://ils.test.rero.ch',
-  $refPrefix: 'https://ils.rero.ch',
-  languages: ['fr', 'de', 'it', 'en']
-};
+import { Injectable } from '@angular/core';
+import { CoreConfigService } from '@rero/ng-core';
+
+import { environment } from '../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AppConfigService extends CoreConfigService {
+  constructor() {
+    super();
+    this.production = environment.production;
+    this.apiBaseUrl = environment.apiBaseUrl;
+    this.$refPrefix = environment.$refPrefix;
+    this.languages = environment.languages;
+  }
+}

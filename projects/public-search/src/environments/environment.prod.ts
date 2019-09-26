@@ -15,5 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 export const environment = {
-  production: true
+  production: true,
+  apiBaseUrl: 'https://ils.test.rero.ch',
+  $refPrefix: 'https://ils.rero.ch',
+  languages: ['fr', 'de', 'it', 'en']
 };

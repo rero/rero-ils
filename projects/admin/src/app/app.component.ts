@@ -20,6 +20,4 @@ import { Component } from '@angular/core';
   selector: 'admin-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'admin';
-}
+export class AppComponent {}

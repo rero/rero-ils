@@ -17,16 +17,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { RecordModule, CoreModule, CoreConfigService } from '@rero/ng-core';
+
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppConfigService } from './app-config.service';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    RecordModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: CoreConfigService,
+      useClass: AppConfigService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
