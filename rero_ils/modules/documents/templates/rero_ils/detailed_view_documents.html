@@ -216,6 +216,19 @@
       <!-- Card body -->
       <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
         <div class="card-body p-2">
+          <!-- display holding electronic location -->
+          {% if record.harvested %}
+            {% for elocation in holding.electronic_location %}
+              <div class="row my-2">
+                <div class="col-1">
+                  &nbsp;
+                </div>
+                <div class="col-10">
+                  <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
           <!-- display items -->
           {% if number_items > 0 %}
           {% for item in items %}
