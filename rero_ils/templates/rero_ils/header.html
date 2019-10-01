@@ -58,10 +58,6 @@
     <!-- Main menus - visible only on large screens -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light rero-ils-first-menu py-0 d-none d-lg-block">
       <div class="container">
-        <!-- Admin menus -->
-        <div class="collapse navbar-collapse">
-          {{ menu(admin_root_menu) }}
-        </div>
         <!-- User menus -->
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav flex-wrap">
@@ -89,8 +85,6 @@
     <!-- Submenus -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white rero-ils-second-menu py-0 d-none d-lg-block">
       <div class="container flex-column" id="navbarHide">
-        <!-- admin submenus -->
-          {{ submenu(admin_root_menu) }}
         <!-- user submenus -->
           {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
             {%- if item.children %}
@@ -110,8 +104,6 @@
     <!-- Menus - visible from medium to extra small screens -->
     <nav class="navbar-light bg-light d-lg-none d-xl-none navbarSupportedContent collapse border-bottom" id="mobileHide">
       <div class="container">
-        <!-- Admin menus -->
-        {{ mobile_menu(admin_root_menu) }}
         <!-- User menus -->
         <ul class="navbar-nav navbar-collapse align-items-start list-group list-group-flush">
           {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}

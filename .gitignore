@@ -71,9 +71,6 @@ celerybeat-schedule
 # Environment variables
 .env
 
-# Project specific
-rero_ils/static/js/rero_ils/ui
-
 # Virtual studio pref
 .vscode
 

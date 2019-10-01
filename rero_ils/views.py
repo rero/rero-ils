@@ -34,6 +34,7 @@ from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_patron
+from rero_ils.permissions import can_access_professional_view
 
 from .modules.babel_extractors import translate
 from .version import __version__
@@ -262,23 +263,7 @@ def set_language():
 @check_organisation_viewcode
 def search(viewcode, recordType):
     """Search page ui."""
-    if not request.args:
-        q = request.args.get('q', default='')
-        size = request.args.get('size', default='10')
-        page = request.args.get('page', default='1')
-        return redirect(url_for(
-            'rero_ils.search',
-            viewcode=viewcode,
-            recordType=recordType,
-            q=q,
-            page=page,
-            size=size
-        ))
-    return render_template(
-        current_app.config['SEARCH_UI_SEARCH_TEMPLATE'],
-        viewcode=viewcode,
-        recordType=recordType
-    )
+    return render_template(current_app.config.get('SEARCH_UI_SEARCH_TEMPLATE'))
 
 
 @blueprint.app_template_filter()
@@ -328,3 +313,10 @@ def schemaform(document_type):
     except JSONSchemaNotFound as error:
         raise(error)
     return jsonify(data)
+
+
+@blueprint.route('/professional/')
+@can_access_professional_view
+def professional():
+    """Return professional view."""
+    return render_template('rero_ils/professional.html')

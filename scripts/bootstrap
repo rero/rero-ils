@@ -16,13 +16,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-NC='\033[0m'            # Default color
-COLORED='\033[1;97;44m' # Bold + white + blue background
-
 set -e
 
-msg() {
-  echo -e "${COLORED}${EMPHASIS}[INFO]${NC}${COLORED}: ${1}${NC}" 1>&2
+RED='\033[0;31m'
+GREEN='\033[0;0;32m'
+NC='\033[0m' # No Color
+
+display_error_message () {
+	echo -e "${RED}$1${NC}" 1>&2
+}
+
+display_success_message () {
+    echo -e "${GREEN}$1${NC}" 1>&2
 }
 
 # The real bootstrap script starts 20 lines below ;-)
@@ -64,7 +69,7 @@ fi
 # pipenv --rm; pipenv install --sequential
 
 # install the application and all the dependencies
-msg "Install with command: ${cmd} ${flags[@]}"
+display_success_message "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
 # to avoid IPython dependency problem on Mac OS X
@@ -75,32 +80,54 @@ fi
 
 # install assets utils
 virtualenv_path=`pipenv --venv`
-msg "Install npm assets utils in: ${virtualenv_path}"
+display_success_message "Install npm assets utils in: ${virtualenv_path}"
 pipenv run npm i npm@latest -g --prefix "${virtualenv_path}" && pipenv run npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
 
 # collect static files and compile html/css assets
 CWD=`pwd`
-# build the angular ui application
-msg "Build angular UI application"
-cd ui; pipenv run yarn install --frozen-lockfile; pipenv run yarn run deploy
 
 # install the npm dependencies
-msg "Return to dir: ${CWD}"
+# TODO: remove this once webpack is used
+display_success_message "Return to dir: ${CWD}"
 cd ${CWD}
-msg "Install npm dependencies"
+display_success_message "Install npm dependencies"
 pipenv run invenio npm
-msg "Search static folder location"
+display_success_message "Search static folder location"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
-msg "Install static folder npm dependencies in: ${static_folder}"
+display_success_message "Search assets folder location"
+assets_folder=$(pipenv run invenio shell --no-term-title -c "print(app.config.get('WEBPACKEXT_PROJECT_BUILDDIR'))")
+
+display_success_message "Install static folder npm dependencies in: ${static_folder}"
 pipenv run npm install --prefix "${static_folder}"
 
 # build the web assets
-msg "Build web assets: collect"
+display_success_message "Build web assets: collect"
 pipenv run invenio collect -v
-msg "Build web assets: check (build command)"
+display_success_message "Build web assets: check (build command)"
 pipenv run invenio assets build
 
+# TODO: remove the ci test once rero-ils-ui will be published to npm!
+if ! $ci ; then
+    if $deploy; then
+        pipenv run invenio webpack buildall
+    else
+        pipenv run invenio webpack create
+        display_success_message 'Installing webpack project'
+        pipenv run invenio webpack install
+        cd $assets_folder
+        if pipenv run npm link @rero/rero-ils-ui; then
+            display_success_message 'npm link succeed'
+        else
+            display_error_message '\nERROR: npm link failed!'
+            echo "Please clone the rero-ils-ui project and run npm see the package documentation for more details."
+            exit 1
+        fi
+        cd ${CWD}
+        pipenv run invenio webpack build
+    fi
+fi
+
 # compile json files (resolve $ref)
-echo
+display_success_message 'Compile json files to resolve $ref'
 pipenv run invenio utils compile_json rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
 pipenv run invenio utils compile_json rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json

@@ -17,8 +17,9 @@
 
 """Permissions for this module."""
 
+from functools import wraps
 
-from flask import abort
+from flask import abort, current_app
 from flask_login import current_user
 from flask_principal import RoleNeed
 from invenio_access.permissions import DynamicPermission
@@ -194,29 +195,27 @@ def librarian_delete_permission_factory(
     return type('Check', (), {'can': lambda x: False})()
 
 
-def admin_permission_factory(admin_view):
-    """Admin permission factory."""
-    class FreeAccess(object):
-        def can(self):
-            return True
-    # TODO: remove this bad hacks!
-    if admin_view.name in [
-        'Circulation',
-        'Circulation Settings',
-        'Libraries',
-        'Items',
-        'My Library'] \
-       or admin_view.category in [
-            'Catalogue',
-            'User Services',
-            'Admin & Monitoring']:
-        return FreeAccess()
-    return default_admin_permission_factory(admin_view)
-
-
 def login_and_librarian():
     """Librarian is logged in."""
     if not current_user.is_authenticated:
         abort(401)
     if not librarian_permission.can():
         abort(403)
+
+
+def can_access_professional_view(func):
+    """Check if user is librarian or system librarian.
+
+    and give access to professional view.
+    """
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return current_app.login_manager.unauthorized()
+        else:
+            patron = Patron.get_patron_by_user(current_user)
+            if patron.is_librarian or patron.is_system_librarian:
+                return func(*args, **kwargs)
+            else:
+                abort(403)
+    return decorated_view
