@@ -20,9 +20,7 @@ directories:
   recursive:
     - rero_ils
     - tests
-    - ui/src/app
-    - ui/scripts
-    - ui/e2e
+
   flat:
     - .
   exclude:
@@ -31,10 +29,6 @@ directories:
       - rero_ils/modules/notifications/templates/email/due_soon
       - rero_ils/modules/notifications/templates/email/overdue
       - rero_ils/modules/notifications/templates/email/recall
-    js:
-      - rero_ils/static/js/rero_ils/ui
-    html:
-      - rero_ils/static/js/rero_ils/ui
 
 files:
   py:
@@ -54,7 +48,6 @@ copyrights:
   - Copyright (C) 2015-2018 CERN
   - Copyright (C) 2016 TIND
 
-# TODO: cleaning after refactoring of the UI application
 file_extensions:
   py, ini, yml, cfg, conf, sh:
     top:

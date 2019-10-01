@@ -61,10 +61,9 @@ if [ $# -eq 0 ]
         # syntax check for typescript
         display_success_message "Syntax check for typescript:"
         CWD=`pwd`
-        cd ui; pipenv run npm run lint; cd -
 
         display_success_message "Check-manifest:"
-        pipenv run check-manifest --ignore ".travis-*,docs/_build*,ui/node_modules*,rero_ils/static/js/rero_ils/ui*"
+        pipenv run check-manifest --ignore ".travis-*,docs/_build*"
         display_success_message "Sphinx-build:"
         pipenv run sphinx-build -qnNW docs docs/_build/html
         display_success_message "Tests:"

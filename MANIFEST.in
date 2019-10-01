@@ -20,7 +20,6 @@ include .coveragerc
 include .dockerignore
 include .editorconfig
 include .tx/config
-include ui/.tx/config
 include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
@@ -42,7 +41,6 @@ include *.rst
 include *.sh
 include *.txt
 include *.yml
-include ui/src/browserslist
 include LICENSE
 include Pipfile
 include babel.ini
@@ -68,20 +66,14 @@ recursive-include rero_ils *.svg
 recursive-include rero_ils *.scss
 recursive-include rero_ils *.txt
 recursive-include tests *.py
-recursive-include ui *.py
 
 # added by check_manifest.py
 include *.json
-include ui/yarn.lock
 
 # added by check_manifest.py
 recursive-include rero_ils *.ico
-recursive-include ui *.editorconfig
-recursive-include ui *.gitkeep
-recursive-include ui *.html
-recursive-include ui *.ico
-recursive-include ui *.js
-recursive-include ui *.json
-recursive-include ui *.md
-recursive-include ui *.scss
-recursive-include ui *.ts
+
+
+# added by check_manifest.py
+recursive-include rero_ils *.babelrc
+recursive-include rero_ils *.eslintignore

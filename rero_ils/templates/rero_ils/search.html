@@ -2,7 +2,6 @@
 
   RERO ILS
   Copyright (C) 2019 RERO
-  Copyright (C) 2015-2018 CERN
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -17,24 +16,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
+
 {% extends 'rero_ils/page.html' %}
 {%- block page_header %}
   {% include 'rero_ils/search_header.html' %}
 {%- endblock page_header %}
 
+{%- block page_body %}
+<div class="container ">
+    <public-search-root></public-search-root>
+</div>
+
+{%- endblock page_body -%}
+
 {%- block javascript %}
-  {% assets "rero_ils_ui_js" %}
+  {% assets "rero_ils_main_js" %}
     <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
+  {{ webpack['manifest.js']}}
+  {{ webpack['vendor.js']}}
+  {{ webpack['public-search_ui.js']}}
 {%- endblock javascript %}
-
-{%- block page_body %}
-{# <div class="container flex-grow-1 mt-4 d-flex flex-column-reverse flex-lg-row"> #}
-<div class="flex-grow-1">
-  <div class="container">
-    <main class="row mt-4">
-      <app-root class="col-md"></app-root>
-    </main>
-  </div>
-</div>
-{%- endblock page_body -%}

@@ -112,43 +112,14 @@ setup(
         'invenio_i18n.translations': [
             'messages = rero_ils',
         ],
-        # TODO: remove this dirty hack when the following PR
-        # (https://github.com/flask-admin/flask-admin/pull/1798)
-        # will be integrated
-        'invenio_admin.views': [
-            '100_rero_ils_admin_circulation = \
-                rero_ils.modules.admin:circulation',
-            'rero_ils_admin_library = \
-                rero_ils.modules.admin:library',
-            '303_rero_ils_admin_my_library = \
-                rero_ils.modules.admin:my_library',
-            '301_rero_ils_admin_item_types = \
-                rero_ils.modules.admin:item_types',
-            '302_rero_ils_admin_patron_types = \
-                rero_ils.modules.admin:patron_types',
-            '101_rero_ils_admin_patrons = \
-                rero_ils.modules.admin:patrons',
-            '300_rero_ils_admin_circ_policies = \
-                rero_ils.modules.admin:circ_policies',
-            'rero_ils_admin_locations = \
-                rero_ils.modules.admin:locations',
-            '304_rero_ils_admin_libraries = \
-                rero_ils.modules.admin:libraries',
-            'rero_ils_admin_items = \
-                rero_ils.modules.admin:items',
-            '200_rero_ils_admin_documents = \
-                rero_ils.modules.admin:documents',
-            '201_rero_ils_admin_documents_create = \
-                rero_ils.modules.admin:documents_create',
-            '299_rero_ils_admin_persons = \
-                rero_ils.modules.admin:persons'
-        ],
         'invenio_assets.bundles': [
             'rero_ils_main_css = rero_ils.bundles:main_css',
             'rero_ils_main_js = rero_ils.bundles:js',
-            'rero_ils_ui_js = rero_ils.bundles:ui_js',
             'rero_ils_documents_detailed_js = \
                 rero_ils.modules.documents.bundles:detailed_js'
+        ],
+        'invenio_assets.webpack': [
+            'admin = rero_ils.webpack:admin'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
