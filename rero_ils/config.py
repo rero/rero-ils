@@ -1044,13 +1044,7 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
     'de': ['gnd', 'rero', 'bnf'],
 }
 
-ADMIN_PERMISSION_FACTORY = 'rero_ils.permissions.admin_permission_factory'
 ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
-RERO_ILS_ADMIN_CATEGORY_ICONS = {
-    "Admin & Monitoring": "fa fa-cogs",
-    "Catalogue": "fa fa-file-o",
-    "User Services": "fa fa-users"
-}
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid
@@ -1173,3 +1167,5 @@ CIRCULATION_POLICIES = dict(
 # Define the default system currency in used. Each organisation can override
 # this parameter using the 'default_currency' field
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'
+
+WEBPACKEXT_PROJECT = 'rero_ils.webpack:project'
