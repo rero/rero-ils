@@ -85,7 +85,7 @@ class Library(IlsRecord):
         return Organisation.get_record_by_pid(self.organisation_pid)
 
     def get_pickup_location_pid(self):
-        """Returns librarys first pickup location."""
+        """Returns libraries first pickup location."""
         results = LocationsSearch().filter(
             'term', library__pid=self.pid).filter(
                 'term', is_pickup=True).source(['pid']).scan()
@@ -103,7 +103,7 @@ class Library(IlsRecord):
 
             if time_to_test.hour == time_to_test.minute == \
                     time_to_test.second == 0:
-                # case when ibrary is open or close few hours per day
+                # case when library is open or close few hours per day
                 times_open = times_open or end_time > start_time
             else:
                 times_open = times_open or ((time_to_test >= start_time) and

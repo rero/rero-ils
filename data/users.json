@@ -296,5 +296,24 @@
     "street": "Diagon Alley 72",
     "communication_channel": "email",
     "communication_language": "eng"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1972-10-12",
+    "city": "Village f\u00e9d\u00e9ral",
+    "email": "reroilstest+guillaume@gmail.com",
+    "first_name": "Guillaume",
+    "roles": [
+      "system_librarian",
+      "librarian"
+    ],
+    "last_name": "Tell",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/6"
+    },
+    "password": "cantonale",
+    "phone": "+765554433",
+    "postal_code": "7878",
+    "street": "Sentier des Waldst\u00e4tten"
   }
 ]

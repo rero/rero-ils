@@ -177,5 +177,16 @@
       "$ref": "https://ils.rero.ch/api/libraries/5"
     },
     "is_online": true
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "19",
+    "code": "REZ",
+    "name": "Rez-de-chauss\u00e9e",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/6"
+    },
+    "is_pickup": true,
+    "pickup_name": "Biblioth\u00e8que cantonale"
   }
 ]

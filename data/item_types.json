@@ -88,5 +88,15 @@
       "$ref": "https://ils.rero.ch/api/organisations/2"
     },
     "type": "online"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "pid": "10",
+    "name": "Default",
+    "description": "Default item type",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "type": "standard"
   }
 ]
