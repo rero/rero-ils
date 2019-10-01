@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 import jinja2
-from invenio_admin import current_admin
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
@@ -39,8 +38,7 @@ from .locations.listener import enrich_location_data
 from .mef_persons.receivers import publish_api_harvested_records
 from .notifications.listener import enrich_notification_data
 from .patrons.listener import enrich_patron_data
-from ..filter import admin_menu_is_visible, format_date_filter, jsondumps, \
-    resource_can_create, text_to_id, to_pretty_json
+from ..filter import format_date_filter, jsondumps, text_to_id, to_pretty_json
 
 
 class REROILSAPP(object):
@@ -70,13 +68,6 @@ class REROILSAPP(object):
             )
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
-            app.add_template_filter(
-                resource_can_create,
-                name='resource_can_create')
-            app.add_template_filter(
-                admin_menu_is_visible,
-                name='admin_menu_is_visible'
-            )
             app.jinja_env.add_extension('jinja2.ext.do')
             self.register_signals()
 
@@ -84,14 +75,6 @@ class REROILSAPP(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['rero-ils'] = self
-
-        # invenio-admin is not available for the wsgi_api application
-        def get_admin_menu():
-            if app.extensions.get('invenio-admin'):
-                return dict(admin_root_menu=current_admin.admin.menu())
-            return dict()
-
-        app.context_processor(get_admin_menu)
 
     def init_config(self, app):
         """Initialize configuration."""
