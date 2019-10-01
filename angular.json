@@ -139,7 +139,8 @@
             "styles": [
               "projects/public-search/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {
