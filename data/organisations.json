@@ -16,5 +16,13 @@
     "code": "highlands",
     "default_currency": "GBP",
     "online_harvested_source": "mv-cantook"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
+    "pid": "3",
+    "address": "Chemin de l'\u00c9tat, 7878 Village f\u00e9d\u00e9ral",
+    "name": "R\u00e9seau des biblioth\u00e8ques du Canton",
+    "code": "cantonal",
+    "default_currency": "CHF"
   }
 ]

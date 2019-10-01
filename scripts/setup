@@ -136,7 +136,7 @@ display_success_message "Organisations:"
 pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json  --append
 pipenv run invenio index reindex -t org --yes-i-know
 display_success_message "Libraries:"
-pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json
+pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append
 pipenv run invenio index reindex -t lib --yes-i-know
 display_success_message "Locations:"
 pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append
@@ -145,10 +145,10 @@ display_success_message "Item types:"
 pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append
 pipenv run invenio index reindex -t itty --yes-i-know
 display_success_message "Patron types:"
-pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json
+pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append
 pipenv run invenio index reindex -t ptty --yes-i-know
 display_success_message "Circulation policies:"
-pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json
+pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append
 pipenv run invenio index reindex -t cipo --yes-i-know
 pipenv run invenio index run --raise-on-error
 

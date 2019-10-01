@@ -1,6 +1,7 @@
 [
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "1",
     "address": "Via Challand 132, 11100 Aosta",
     "code": "AOSTE-CANT1",
     "email": "reroilstest+aoste1@gmail.com",
@@ -120,6 +121,7 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "2",
     "address": "Viale Carlo Viola 931, 11026 Pont-Saint-Martin",
     "code": "AOSTE-CANT2",
     "email": "reroilstest+aoste2@gmail.com",
@@ -229,6 +231,7 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "3",
     "address": "Avise 345, 11010 Avise",
     "code": "AOSTE-AVISE",
     "email": "reroilstest+aoste3@gmail.com",
@@ -336,6 +339,7 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "4",
     "address": "Via Piave 3, 11027 Saint-Vincent",
     "code": "AOSTE-LYCEE",
     "email": "reroilstest+aoste4@gmail.com",
@@ -429,6 +433,7 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "5",
     "address": "Highlands, Scotland, Great Britain",
     "code": "HOG",
     "email": "reroilstest+magic1@gmail.com",
@@ -529,5 +534,16 @@
         }
       }
     ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "6",
+    "address": "Route du Conseil, Village f\u00e9d\u00e9ral",
+    "code": "CANT1",
+    "email": "reroilstest+cantonal1@gmail.com",
+    "name": "Biblioth\u00e8que cantonale",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    }
   }
 ]
