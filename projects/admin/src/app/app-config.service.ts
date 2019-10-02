@@ -18,16 +18,36 @@ import { Injectable } from '@angular/core';
 import { CoreConfigService } from '@rero/ng-core';
 
 import { environment } from '../environments/environment';
+import { ContextSettings } from './class/ContextSettings.interface';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppConfigService extends CoreConfigService {
+
+  private settings: ContextSettings;
+
   constructor() {
     super();
     this.production = environment.production;
     this.apiBaseUrl = environment.apiBaseUrl;
     this.$refPrefix = environment.$refPrefix;
     this.languages = environment.languages;
+  }
+
+  public setSettings(settings: ContextSettings) {
+    this.settings = settings;
+  }
+
+  public getSettings() {
+    return this.settings;
+  }
+
+  public getSetting(name: string) {
+    if (!(name in this.settings)) {
+      return throwError('Missing setting key: ' + name);
+    }
+    return this.settings[name];
   }
 }

@@ -15,29 +15,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgModule } from '@angular/core';
 
-import { RecordModule, CoreModule, CoreConfigService } from '@rero/ng-core';
+import { RecordModule, CoreModule, CoreConfigService, SharedModule } from '@rero/ng-core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfigService } from './app-config.service';
+import { MenuComponent } from './menu/menu.component';
+import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CollapseModule } from 'ngx-bootstrap';
+import { FrontpageComponent } from './frontpage/frontpage.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuComponent,
+    FrontpageComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
-    RecordModule
+    SharedModule,
+    RecordModule,
+    HttpClientModule,
+    CollapseModule.forRoot()
   ],
   providers: [
     {
       provide: CoreConfigService,
       useClass: AppConfigService
-    }
+    },
+    UserService
   ],
   bootstrap: [AppComponent]
 })

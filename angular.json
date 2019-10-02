@@ -24,7 +24,9 @@
               "projects/admin/src/assets"
             ],
             "styles": [
-              "projects/admin/src/styles.css"
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/font-awesome/scss/font-awesome.scss",
+              "projects/admin/src/app/scss/styles.scss"
             ],
             "scripts": []
           },
@@ -84,7 +86,9 @@
               "projects/admin/src/assets"
             ],
             "styles": [
-              "projects/admin/src/styles.css"
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/font-awesome/scss/font-awesome.scss",
+              "projects/admin/src/app/scss/styles.scss"
             ],
             "scripts": []
           }
@@ -229,7 +233,6 @@
           }
         }
       }
-      }},
-      "defaultProject": "admin"
-    }
-    
+    }},
+  "defaultProject": "admin"
+}

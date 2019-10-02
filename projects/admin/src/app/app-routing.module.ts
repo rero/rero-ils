@@ -16,8 +16,59 @@
  */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FrontpageComponent } from './frontpage/frontpage.component';
+import { RecordSearchComponent, EditorComponent, DetailComponent } from '@rero/ng-core';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: FrontpageComponent
+  }, {
+    path: 'records',
+    children: [
+      { path: ':type', component: RecordSearchComponent },
+      { path: ':type/detail/:pid', component: DetailComponent },
+      { path: ':type/edit/:pid', component: EditorComponent },
+      { path: ':type/new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: '/records',
+      types: [
+        {
+          key: 'documents',
+          label: 'Documents',
+          // component: DocumentComponent,
+          // detailComponent: DetailComponent
+        },
+        {
+          key: 'libraries',
+          label: 'Libraries',
+          // component: InstitutionComponent
+        },
+        {
+          key: 'patrons',
+          label: 'Patrons'
+        },
+        {
+          key: 'persons',
+          label: 'Persons'
+        },
+        {
+          key: 'item_types',
+          label: 'Items Types'
+        },
+        {
+          key: 'patron_types',
+          label: 'Patron Types'
+        },
+        {
+          key: 'circ_policies',
+          label: 'Circ Policies'
+        }
+      ]
+    }
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

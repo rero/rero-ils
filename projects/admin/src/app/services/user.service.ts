@@ -14,29 +14,30 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
-import { User } from './class/User';
-import { AppConfigService } from './app-config.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../class/User';
 
-@Component({
-  selector: 'admin-root',
-  templateUrl: './app.component.html'
+@Injectable({
+  providedIn: 'root'
 })
-export class AppComponent {
+export class UserService {
 
-  user: any;
+  private user: User;
 
   constructor(
-    userService: UserService,
-    appSettings: AppConfigService
-    ) {
-    userService.getLoggedUser().subscribe(data => {
-      appSettings.setSettings(data.settings);
-      const currentUser = new User(data.metadata);
-      console.log(currentUser, 'user', data);
-      userService.setCurrentUser(currentUser);
-      this.user = currentUser;
-    });
+    private http: HttpClient
+  ) { }
+
+  getLoggedUser() {
+    return this.http.get<any>('/patrons/logged_user?resolve');
+  }
+
+  getCurrentUser() {
+    return this.user;
+  }
+
+  setCurrentUser(user: any) {
+    this.user = user;
   }
 }

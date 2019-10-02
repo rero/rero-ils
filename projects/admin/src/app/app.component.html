@@ -1,18 +1,32 @@
 <!--
- RERO ILS UI
- Copyright (C) 2019 RERO
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published by
- the Free Software Foundation, version 3 of the License.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  RERO ILS UI
+   Copyright (C) 2019 RERO
+  
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, version 3 of the License.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU Affero General Public License for more details.
+  
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1>RERO ILS administration</h1>
-<router-outlet></router-outlet>
+
+<div *ngIf="!user">Loading</div>
+<ng-container *ngIf="user">
+  <header>
+    <admin-menu></admin-menu>
+  </header>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <footer class="rero-ils-footer container d-flex justify-content-center align-items-center border-top mt-4 py-4">
+    <p class="text-secondary mb-0">
+      Réalisé par <a href="https://www.rero.ch" target="_blank">RERO</a>
+      avec <a href="https://inveniosoftware.org" target="_blank">Invenio</a>
+    </p>
+  </footer>
+</ng-container>

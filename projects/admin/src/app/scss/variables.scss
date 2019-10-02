@@ -1,0 +1,30 @@
+/*
+ * RERO ILS UI
+ * Copyright (C) 2019 RERO
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+$font-family-base:          "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-size-base:            1rem !default;
+$font-size-very-small:      $font-size-base * .525  !default;
+
+
+$dark-blue:           #1B4464;              // dark blue
+$dark:                $dark-blue;           // dark blue
+
+
+$navbar-brand-font-size:              ($font-size-base * 1.5);    // controls the logo size
+$footer-height:                       50px;
+
+$form-check-input-margin-y:           .2rem !default;
