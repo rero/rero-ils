@@ -197,15 +197,23 @@
                 {{ holding|holding_circulation_category }}
               </div>
               <div class="col-sm-2">
-                {{ number_items }} {{ _('items') if number_items > 1 else _('item') }}
+                {% if not record.harvested %}
+                  {{ number_items }} {{ _('items') if number_items > 1 else _('item') }}
+                {% else %}
+                  &nbsp;
+                {% endif %}
               </div>
 
               <div class="col-sm-2 availability d-none">
-                {% if number_items > 0 %}
-                <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
-                {{ _('available') if holding.available else _('not available') }}
+                {% if not record.harvested %}
+                  {% if number_items > 0 %}
+                    <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
+                    {{ _('available') if holding.available else _('not available') }}
+                  {% else %}
+                    <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                  {% endif %}
                 {% else %}
-                <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                  &nbsp;
                 {% endif %}
               </div>
             </div>
