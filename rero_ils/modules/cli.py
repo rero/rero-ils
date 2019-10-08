@@ -20,16 +20,20 @@
 from __future__ import absolute_import, print_function
 
 import difflib
+import gc
 import json
+import logging
+import multiprocessing
 import os
 import sys
 from collections import OrderedDict
 from glob import glob
-from json import loads
+from json import JSONDecodeError, JSONDecoder, loads
 
 import click
 import jsonref
 import yaml
+from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
@@ -41,9 +45,11 @@ from invenio_search.cli import es_version_check
 from invenio_search.proxies import current_search
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
+from lxml import etree
 from pkg_resources import resource_string
 from werkzeug.local import LocalProxy
 
+from .documents.dojson.contrib.marc21tojson import marc21tojson
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
@@ -155,6 +161,8 @@ def check_json(paths, replace, indent, sort_keys, verbose):
             click.echo(fname + ': ', nl=False)
             click.secho('Invalid JSON', fg='red', nl=False)
             click.echo(' -- ' + e.msg)
+            import traceback
+            traceback.print_exc()
             error_cnt = 1
 
         tot_error_cnt += error_cnt
@@ -193,12 +201,37 @@ def init(force):
             bar.label = name
 
 
+def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
+    """Read lasy json records from file."""
+    buffer = json_file.read(5)
+    # we have to delete the first [ for an list of records
+    if buffer.startswith('['):
+        buffer = buffer[-1:].lstrip()
+    while True:
+        block = json_file.read(buf_size)
+        if not block:
+            break
+        buffer += block
+        pos = 0
+        while True:
+            try:
+                buffer = buffer.lstrip()
+                obj, pos = decoder.raw_decode(buffer)
+            except JSONDecodeError as err:
+                break
+            else:
+                yield obj
+                buffer = buffer[pos:]
+                if buffer.startswith(','):
+                    buffer = buffer[1:]
+
+
 @click.command('create')
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
-@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=True)
-@click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
-@click.option('-s', '--schema', 'schema', default=None)
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
+@click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
+@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=True)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
+@click.option('-s', '--schema', 'schema', default=None)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
@@ -222,25 +255,55 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
         current_app.config
         .get('RECORDS_REST_ENDPOINTS')
         .get(pid_type).get('record_class', Record))
-    data = json.load(infile)
     count = 0
-    for record in data:
+    error_records = []
+    pids = []
+    for record in read_json_record(infile):
         count += 1
         if schema:
             record['$schema'] = schema
-        rec = record_class.create(record, dbcommit=dbcommit, reindex=reindex)
-        if verbose:
-            click.echo(
-                '{count: <8} {pid_type} created {id}'.format(
+        try:
+            rec = record_class.create(record, dbcommit=dbcommit,
+                                      reindex=reindex)
+            if append:
+                pids.append(rec.pid)
+            if verbose:
+                click.echo(
+                    '{count: <8} {pid_type} created {pid}:{id}'.format(
+                        count=count,
+                        pid_type=pid_type,
+                        pid=rec.pid,
+                        id=rec.id
+                    )
+                )
+        except Exception as err:
+            error_records.append(record)
+            click.secho(
+                '{count: <8} {pid_type} creat error {pid}: {err}'.format(
                     count=count,
                     pid_type=pid_type,
-                    id=rec.id
+                    pid=record.get('pid', '???'),
+                    err=err.args[0]
+                ),
+                err=True,
+                fg='red'
                 )
-            )
+
+    if error_records:
+        err_file_name = '{pid_type}_error.json'.format(pid_type=pid_type)
+        with open(err_file_name, 'w') as error_file:
+            error_file.write('[\n')
+            for error_record in error_records:
+                for line in json.dumps(error_record, indent=2).split('\n'):
+                    error_file.write('  ' + line + '\n')
+            error_file.write(']')
+
     if append:
-        pids = record_class.get_all_pids()
         table = record_class.provider.identifier
-        append_fixtures_new_identifiers(table, pids)
+        try:
+            append_fixtures_new_identifiers(table, sorted(pids))
+        except Exception as err:
+            pass
 
 
 fixtures.add_command(create)
@@ -427,8 +490,10 @@ def check_license(configfile, verbose, progress):
 @click.argument('type', default='documents')
 @click.argument('schema', default='document-v0.0.1.json')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option('-s', '--save', 'savefile', type=click.File('w'), default=None)
-def check_validate(jsonfile, type, schema, verbose, savefile):
+@click.option('-e', '--error_file', 'error_file', type=click.File('w'),
+              default=None)
+@click.option('-o', '--ok_file', 'ok_file', type=click.File('w'), default=None)
+def check_validate(jsonfile, type, schema, verbose, error_file, ok_file):
     """Check record validation."""
     click.secho('Testing json schema for file', fg='green')
     schema_in_bytes = resource_string(
@@ -438,7 +503,6 @@ def check_validate(jsonfile, type, schema, verbose, savefile):
             schema=schema
         )
     )
-
     schema = loads(schema_in_bytes.decode('utf8'))
     datas = json.load(jsonfile)
     count = 0
@@ -454,13 +518,17 @@ def check_validate(jsonfile, type, schema, verbose, savefile):
             data["pid"] = 'dummy'
         try:
             validate(data, schema)
-        except ValidationError as excp:
-            if savefile:
-                savefile.write(json.dumps(data, indent=2))
+            if ok_file:
+                if data["pid"] == 'dummy':
+                    del data["pid"]
+                ok_file.write(json.dumps(data, indent=2))
+        except ValidationError as err:
+            if error_file:
+                error_file.write(json.dumps(data, indent=2))
             click.secho(
                 'Error validate in record: {count}'.format(count=count),
                 fg='red')
-            click.secho(str(excp))
+            click.secho(str(err))
 
 
 @utils.command('compile_json')
@@ -475,3 +543,243 @@ def compile_json(src_jsonfile, output, verbose):
     if not output:
         output = sys.stdout
     json.dump(data, fp=output, indent=2)
+
+
+def do_worker(marc21records, results, pid_required):
+    """Worker for marc21 to json transformation."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.documents.jsonschemas',
+        'documents/document-v0.0.1.json'
+    )
+    schema = loads(schema_in_bytes.decode('utf8'))
+    for data in marc21records:
+        data_json = data['json']
+        pid = data_json.get('001', '???')
+        try:
+            record = marc21tojson.do(data_json)
+            if not record.get("$schema"):
+                # create dummy schema in data
+                record["$schema"] = 'dummy'
+            if not pid_required:
+                if not record.get("pid"):
+                    # create dummy pid in data
+                    record["pid"] = 'dummy'
+            validate(record, schema)
+            if record["$schema"] == 'dummy':
+                del record["$schema"]
+            if not pid_required:
+                if record["pid"] == 'dummy':
+                    del record["pid"]
+            results.append({
+                'status': True,
+                'data': record
+            })
+        except Exception as err:
+            msg = 'ERROR:\t{pid}\t{err}'.format(pid=pid, err=err.args[0])
+            click.secho(msg, err=True, fg='red')
+            # import traceback
+            # traceback.print_exc()
+            results.append({
+                'pid': pid,
+                'status': False,
+                'data': data['xml']
+            })
+
+
+class Marc21toJson():
+    """Class for Marc21 recorts to Json transformation."""
+
+    __slots__ = ['xml_file', 'json_file_ok', 'xml_file_error', 'parallel',
+                 'chunk', 'verbose', 'debug', 'pid_required',
+                 'count', 'count_ok', 'count_ko', 'ctx',
+                 'results', 'active_buffer', 'buffer', 'first_result']
+
+    def __init__(self, xml_file, json_file_ok, xml_file_error,
+                 parallel=8, chunk=5000,
+                 verbose=False, debug=False, pid_required=False):
+        """Constructor."""
+        self.count = 0
+        self.count_ok = 0
+        self.count_ko = 0
+        self.xml_file = xml_file
+        self.json_file_ok = json_file_ok
+        self.xml_file_error = xml_file_error
+        self.parallel = parallel
+        self.chunk = chunk
+        self.verbose = verbose
+        self.first_result = True
+        if verbose:
+            click.echo('Main process pid: {pid}'.format(
+                pid=multiprocessing.current_process().pid
+            ))
+        self.debug = debug
+        if debug:
+            multiprocessing.log_to_stderr(logging.DEBUG)
+        self.pid_required = pid_required
+        self.ctx = multiprocessing.get_context("spawn")
+        manager = self.ctx.Manager()
+        self.results = manager.list()
+        self.active_buffer = 0
+        self.buffer = []
+        for index in range(parallel):
+            self.buffer.append({'process': None, 'records': []})
+        self.start()
+
+    def counts(self):
+        """Get the counters."""
+        return self.count, self.count_ok, self.count_ko
+
+    def write_results(self):
+        """Write results from multiprocess to file."""
+        while self.results:
+            value = self.results.pop(0)
+            status = value.get('status')
+            data = value.get('data')
+            if status:
+                self.count_ok += 1
+                if self.first_result:
+                    self.first_result = False
+                else:
+                    self.json_file_ok.write(',')
+                for line in json.dumps(data, indent=2).split('\n'):
+                    self.json_file_ok.write('\n  ' + line)
+            else:
+                self.count_ko += 1
+                self.xml_file_error.write(data)
+        # free memory from garbage collector
+        gc.collect()
+
+    def wait_free_process(self):
+        """Wait for next process to finish."""
+        index = (self.active_buffer + 1) % self.parallel
+        process = self.buffer[index]['process']
+        if process:
+            process.join()
+        # reset data for finished jobs
+        for index in range(self.parallel):
+            process = self.buffer[index].get('process')
+            if process and process.exitcode is not None:
+                del self.buffer[index]['process']
+                self.buffer[index].clear()
+                self.buffer[index] = {'process': None, 'records': []}
+
+    def next_active_buffer(self):
+        """Set the next active buffer index."""
+        self.active_buffer = (self.active_buffer + 1) % self.parallel
+
+    def wait_all_free_process(self):
+        """Wait for all processes to finish."""
+        for index in range(self.parallel):
+            self.wait_free_process()
+            self.next_active_buffer()
+
+    def start_new_process(self):
+        """Start a new process in context."""
+        new_process = self.ctx.Process(
+            target=do_worker,
+            args=(self.active_records, self.results, self.pid_required)
+        )
+        self.wait_free_process()
+        new_process.start()
+        self.active_process = new_process
+        if self.verbose:
+            if self.count < self.chunk:
+                start = 1
+            else:
+                start = self.count - len(self.active_records) + 1
+            click.echo('Start process: {pid} records: {start}..{end}'.format(
+                pid=new_process.pid,
+                start=start,
+                end=self.count
+            ))
+        self.next_active_buffer()
+
+    def write_start(self):
+        """Write initial lines to files."""
+        self.json_file_ok.write('[')
+        self.xml_file_error.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+        self.xml_file_error.write(
+            b'<collection xmlns="http://www.loc.gov/MARC21/slim">\n\n'
+        )
+
+    def write_stop(self):
+        """Write finishing lines to files."""
+        self.json_file_ok.write('\n]')
+        self.xml_file_error.write(b'\n</collection>')
+
+    def start(self):
+        """Start the transformation."""
+        self.write_start()
+        for marc21xml in split_stream(self.xml_file):
+            marc21json_record = create_record(marc21xml)
+            self.active_records.append({
+                'json': marc21json_record,
+                'xml': etree.tostring(
+                    marc21xml,
+                    pretty_print=True,
+                    encoding='UTF-8'
+                ).strip()
+            })
+            self.count += 1
+            if len(self.active_records) % self.chunk == 0:
+                self.write_results()
+                self.start_new_process()
+
+        # process the remaining records
+        self.write_results()
+        if self.active_records:
+            self.start_new_process()
+        self.wait_all_free_process()
+        self.write_results()
+        self.write_stop()
+        return self.count, self.count_ok, self.count_ko
+
+    @property
+    def active_process(self):
+        """Get the active process."""
+        return self.buffer[self.active_buffer]['process']
+
+    @active_process.setter
+    def active_process(self, process):
+        """Set the active process."""
+        self.buffer[self.active_buffer]['process'] = process
+
+    @property
+    def active_records(self):
+        """Get the active records."""
+        return self.buffer[self.active_buffer]['records']
+
+
+@utils.command('marc21tojson')
+@click.argument('xml_file', type=click.File('rb'))
+@click.argument('json_file_ok', type=click.File('w'))
+@click.argument('xml_file_error', type=click.File('wb'))
+@click.option('-p', '--parallel', 'parallel', default=8)
+@click.option('-c', '--chunk', 'chunk', default=5000)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
+@click.option('-r', '--pidrequired', 'pid_required', is_flag=True,
+              default=False)
+def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
+               verbose, debug, pid_required):
+    """Convert xml file to json with dojson."""
+    click.secho('Marc21 to Json transform: ', fg='green', nl=False)
+    if pid_required and verbose:
+        click.secho(' (validation tests pid) ', nl=False)
+    click.secho(xml_file.name)
+
+    transform = Marc21toJson(xml_file, json_file_ok, xml_file_error,
+                             parallel, chunk, verbose, debug, pid_required)
+
+    count, count_ok, count_ko = transform.counts()
+
+    click.secho('Total records: ', fg='green', nl=False)
+    click.secho(str(count), nl=False)
+    click.secho('-', nl=False)
+    click.secho(str(count_ok + count_ko))
+
+    click.secho('Records transformed: ', fg='green', nl=False)
+    click.secho(str(count_ok))
+    if count_ko:
+        click.secho('Records with errors: ', fg='red', nl=False)
+        click.secho(str(count_ko))

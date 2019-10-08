@@ -1,7 +1,7 @@
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <leader>01624cam a22004332a 4500</leader>
-  <controlfield tag="001">vtls008400428</controlfield>
+<controlfield tag="001">REROILS:1</controlfield>
   <controlfield tag="005">20170520090500.0</controlfield>
   <controlfield tag="008">160404s2016    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -137,7 +137,7 @@
 </record>
 <record>
   <leader>01851nam a22003012a 4500</leader>
-  <controlfield tag="001">vtls006039425</controlfield>
+<controlfield tag="001">REROILS:2</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -233,7 +233,7 @@
 </record>
 <record>
   <leader>01143nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls001044022</controlfield>
+<controlfield tag="001">REROILS:3</controlfield>
   <controlfield tag="005">20190314180800.0</controlfield>
   <controlfield tag="008">890815s1983    ja |||||| ||||00|| |jpn d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -337,7 +337,7 @@
 </record>
 <record>
   <leader>00794naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003448321</controlfield>
+<controlfield tag="001">REROILS:4</controlfield>
   <controlfield tag="005">20170518133300.0</controlfield>
   <controlfield tag="008">980412s1984    xx ||| |  ||||00|  0spa d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -405,7 +405,7 @@
 </record>
 <record>
   <leader>01543naa a2200385 a 4500</leader>
-  <controlfield tag="001">vtls003159525</controlfield>
+<controlfield tag="001">REROILS:5</controlfield>
   <controlfield tag="005">20180126154600.0</controlfield>
   <controlfield tag="008">020304s1984    sz |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -534,7 +534,7 @@
 </record>
 <record>
   <leader>00872naa a2200241 a 4500</leader>
-  <controlfield tag="001">vtls005452827</controlfield>
+<controlfield tag="001">REROILS:6</controlfield>
   <controlfield tag="005">20180329165300.0</controlfield>
   <controlfield tag="008">100526s1861    au ||| |  ||||01|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -605,7 +605,7 @@
 </record>
 <record>
   <leader>01311nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls002694121</controlfield>
+<controlfield tag="001">REROILS:7</controlfield>
   <controlfield tag="005">20190122145500.0</controlfield>
   <controlfield tag="008">000917s2000    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -710,7 +710,7 @@
 </record>
 <record>
   <leader>01041njm a2200229 a 4500</leader>
-  <controlfield tag="001">vtls006098225</controlfield>
+<controlfield tag="001">REROILS:8</controlfield>
   <controlfield tag="005">20170530164200.0</controlfield>
   <controlfield tag="008">110711s2004    xx ||| |  ||||0||  |eng d</controlfield>
   <datafield tag="028" ind1="0" ind2="2">
@@ -774,7 +774,7 @@
 </record>
 <record>
   <leader>00999naa a22002537a 4500</leader>
-  <controlfield tag="001">vtls003445522</controlfield>
+<controlfield tag="001">REROILS:9</controlfield>
   <controlfield tag="005">20170518132300.0</controlfield>
   <controlfield tag="008">980412s1989    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -853,7 +853,7 @@
 </record>
 <record>
   <leader>00845nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006031521</controlfield>
+<controlfield tag="001">REROILS:10</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -931,7 +931,7 @@
 </record>
 <record>
   <leader>01038naa a22002657a 4500</leader>
-  <controlfield tag="001">vtls003481420</controlfield>
+<controlfield tag="001">REROILS:11</controlfield>
   <controlfield tag="005">20170518153600.0</controlfield>
   <controlfield tag="008">010511s2000    sz ||| |  ||||00|  |eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -1013,7 +1013,7 @@
 </record>
 <record>
   <leader>02097ncm a2200433 a 4500</leader>
-  <controlfield tag="001">vtls003047114</controlfield>
+<controlfield tag="001">REROILS:12</controlfield>
   <controlfield tag="005">20170518140800.0</controlfield>
   <controlfield tag="008">010605m19919999gw ||| |  ||||0||  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -1138,7 +1138,7 @@
 </record>
 <record>
   <leader>01626ngm a2200385 a 4500</leader>
-  <controlfield tag="001">vtls001393517</controlfield>
+<controlfield tag="001">REROILS:13</controlfield>
   <controlfield tag="005">20180701143500.0</controlfield>
   <controlfield tag="007">v|</controlfield>
   <controlfield tag="008">920512s1990    sz ||| || ||||  |  |fre d</controlfield>
@@ -1254,7 +1254,7 @@
 </record>
 <record>
   <leader>01157nam a22003257a 4500</leader>
-  <controlfield tag="001">vtls002677029</controlfield>
+<controlfield tag="001">REROILS:14</controlfield>
   <controlfield tag="005">20180828113100.0</controlfield>
   <controlfield tag="008">000917s1994    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -1361,7 +1361,7 @@
 </record>
 <record>
   <leader>01365nam a22003252a 4500</leader>
-  <controlfield tag="001">vtls006039428</controlfield>
+<controlfield tag="001">REROILS:15</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -1462,7 +1462,7 @@
 </record>
 <record>
   <leader>02163nam a2200409 a 4500</leader>
-  <controlfield tag="001">vtls006102220</controlfield>
+<controlfield tag="001">REROILS:16</controlfield>
   <controlfield tag="005">20180901200500.0</controlfield>
   <controlfield tag="008">110714s2011    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -1613,7 +1613,7 @@
 </record>
 <record>
   <leader>01314nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls001140559</controlfield>
+<controlfield tag="001">REROILS:17</controlfield>
   <controlfield tag="005">20180826094300.0</controlfield>
   <controlfield tag="008">010124s1942    sz |||||| ||||00|| |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -1731,7 +1731,7 @@
 </record>
 <record>
   <leader>01731nam a2200409 a 4500</leader>
-  <controlfield tag="001">vtls000080730</controlfield>
+<controlfield tag="001">REROILS:18</controlfield>
   <controlfield tag="005">20170610130500.0</controlfield>
   <controlfield tag="008">960525s1966    sz |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -1879,7 +1879,7 @@
 </record>
 <record>
   <leader>00868nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006032623</controlfield>
+<controlfield tag="001">REROILS:19</controlfield>
   <controlfield tag="005">20190207175800.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -1959,7 +1959,7 @@
 </record>
 <record>
   <leader>01023nam a22002772a 4500</leader>
-  <controlfield tag="001">vtls006039429</controlfield>
+<controlfield tag="001">REROILS:20</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2010    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -2046,7 +2046,7 @@
 </record>
 <record>
   <leader>01363nam a2200385 a 4500</leader>
-  <controlfield tag="001">vtls002663522</controlfield>
+<controlfield tag="001">REROILS:21</controlfield>
   <controlfield tag="005">20190513085100.0</controlfield>
   <controlfield tag="008">000914s2005    xxk||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -2171,7 +2171,7 @@
 </record>
 <record>
   <leader>01077nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls000000459</controlfield>
+<controlfield tag="001">REROILS:22</controlfield>
   <controlfield tag="005">20180630124200.0</controlfield>
   <controlfield tag="008">010121s1971    sz |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -2277,7 +2277,7 @@
 </record>
 <record>
   <leader>01384ncm a2200325 a 4500</leader>
-  <controlfield tag="001">vtls000135173</controlfield>
+<controlfield tag="001">REROILS:23</controlfield>
   <controlfield tag="005">20170515142900.0</controlfield>
   <controlfield tag="008">960525s1920    xxk|||||| |||||||  |ger d</controlfield>
   <datafield tag="028" ind1="2" ind2="2">
@@ -2382,7 +2382,7 @@
 </record>
 <record>
   <leader>01964cam a2200457 a 4500</leader>
-  <controlfield tag="001">vtls000737691</controlfield>
+<controlfield tag="001">REROILS:24</controlfield>
   <controlfield tag="005">20180701160000.0</controlfield>
   <controlfield tag="008">000923m19879999sz |||||| ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -2534,7 +2534,7 @@
 </record>
 <record>
   <leader>01428nam a22004212a 4500</leader>
-  <controlfield tag="001">vtls006032620</controlfield>
+<controlfield tag="001">REROILS:25</controlfield>
   <controlfield tag="005">20190830143300.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -2668,7 +2668,7 @@
 </record>
 <record>
   <leader>01367nam a22003377a 4500</leader>
-  <controlfield tag="001">vtls008133944</controlfield>
+<controlfield tag="001">REROILS:26</controlfield>
   <controlfield tag="005">20180109121500.0</controlfield>
   <controlfield tag="008">150428s1886    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -2776,7 +2776,7 @@
 </record>
 <record>
   <leader>00802naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003440723</controlfield>
+<controlfield tag="001">REROILS:27</controlfield>
   <controlfield tag="005">20170518130600.0</controlfield>
   <controlfield tag="008">980412s1967    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -2842,7 +2842,7 @@
 </record>
 <record>
   <leader>01502nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls008666989</controlfield>
+<controlfield tag="001">REROILS:28</controlfield>
   <controlfield tag="005">20190403141600.0</controlfield>
   <controlfield tag="008">170615s1747    sz ||| |  ||||00|  |lat d</controlfield>
   <datafield tag="024" ind1="8" ind2=" ">
@@ -2941,7 +2941,7 @@
 </record>
 <record>
   <leader>00908nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls002707720</controlfield>
+<controlfield tag="001">REROILS:29</controlfield>
   <controlfield tag="005">20170518122200.0</controlfield>
   <controlfield tag="008">000921s1998    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -3026,7 +3026,7 @@
 </record>
 <record>
   <leader>01402cam a2200397 a 4500</leader>
-  <controlfield tag="001">vtls001140526</controlfield>
+<controlfield tag="001">REROILS:30</controlfield>
   <controlfield tag="005">20180419172900.0</controlfield>
   <controlfield tag="008">001117s1988    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -3162,7 +3162,7 @@
 </record>
 <record>
   <leader>01276nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002670520</controlfield>
+<controlfield tag="001">REROILS:31</controlfield>
   <controlfield tag="005">20170611111600.0</controlfield>
   <controlfield tag="008">000913s1978    xxk|||||| ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -3273,7 +3273,7 @@
 </record>
 <record>
   <leader>01161nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls002682529</controlfield>
+<controlfield tag="001">REROILS:32</controlfield>
   <controlfield tag="005">20190412114600.0</controlfield>
   <controlfield tag="008">000915s1993    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -3371,7 +3371,7 @@
 </record>
 <record>
   <leader>01320naa a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002567626</controlfield>
+<controlfield tag="001">REROILS:33</controlfield>
   <controlfield tag="005">20180828130700.0</controlfield>
   <controlfield tag="008">000828s1998    be |||||| ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -3487,7 +3487,7 @@
 </record>
 <record>
   <leader>01336nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls001952921</controlfield>
+<controlfield tag="001">REROILS:34</controlfield>
   <controlfield tag="005">20180827210300.0</controlfield>
   <controlfield tag="008">960104s1995    fr |||||| ||||00|| |ara d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -3604,7 +3604,7 @@
 </record>
 <record>
   <leader>01065naa a2200277 a 4500</leader>
-  <controlfield tag="001">vtls005269124</controlfield>
+<controlfield tag="001">REROILS:35</controlfield>
   <controlfield tag="005">20170522155400.0</controlfield>
   <controlfield tag="008">971022 1959    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -3687,7 +3687,7 @@
 </record>
 <record>
   <leader>01251nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls003968584</controlfield>
+<controlfield tag="001">REROILS:36</controlfield>
   <controlfield tag="005">20180831205800.0</controlfield>
   <controlfield tag="008">060105s1843    sz |||||| ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -3796,7 +3796,7 @@
 </record>
 <record>
   <leader>01820nas a22004577a 4500</leader>
-  <controlfield tag="001">vtls005717371</controlfield>
+<controlfield tag="001">REROILS:37</controlfield>
   <controlfield tag="005">20190705122700.0</controlfield>
   <controlfield tag="006">m    |</controlfield>
   <controlfield tag="007">c|</controlfield>
@@ -3926,7 +3926,7 @@
 </record>
 <record>
   <leader>01588nam a2200421 a 4500</leader>
-  <controlfield tag="001">vtls006112427</controlfield>
+<controlfield tag="001">REROILS:38</controlfield>
   <controlfield tag="005">20170530171000.0</controlfield>
   <controlfield tag="008">110726s2011    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -4068,7 +4068,7 @@
 </record>
 <record>
   <leader>01076nam a22003012a 4500</leader>
-  <controlfield tag="001">vtls006031525</controlfield>
+<controlfield tag="001">REROILS:39</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -4164,7 +4164,7 @@
 </record>
 <record>
   <leader>01804nam a2200493 a 4500</leader>
-  <controlfield tag="001">vtls006102624</controlfield>
+<controlfield tag="001">REROILS:40</controlfield>
   <controlfield tag="005">20180901200600.0</controlfield>
   <controlfield tag="008">110714s2011    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -4340,7 +4340,7 @@
 </record>
 <record>
   <leader>01155nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002682723</controlfield>
+<controlfield tag="001">REROILS:41</controlfield>
   <controlfield tag="005">20180828114700.0</controlfield>
   <controlfield tag="008">001228s1999    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -4442,7 +4442,7 @@
 </record>
 <record>
   <leader>02117ncm a2200433 a 4500</leader>
-  <controlfield tag="001">vtls002633528</controlfield>
+<controlfield tag="001">REROILS:42</controlfield>
   <controlfield tag="005">20180828210100.0</controlfield>
   <controlfield tag="008">000908s1955    gw |||||| |||||||  |ger d</controlfield>
   <datafield tag="028" ind1="3" ind2="2">
@@ -4577,7 +4577,7 @@
 </record>
 <record>
   <leader>01093nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls003569321</controlfield>
+<controlfield tag="001">REROILS:43</controlfield>
   <controlfield tag="005">20171013122200.0</controlfield>
   <controlfield tag="008">040116s2003    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -4674,7 +4674,7 @@
 </record>
 <record>
   <leader>01684cam a2200457 a 4500</leader>
-  <controlfield tag="001">vtls007141733</controlfield>
+<controlfield tag="001">REROILS:44</controlfield>
   <controlfield tag="005">20190401173300.0</controlfield>
   <controlfield tag="008">120914m19711975xxu||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -4821,7 +4821,7 @@
 </record>
 <record>
   <leader>01385nam a2200385 a 4500</leader>
-  <controlfield tag="001">vtls000368925</controlfield>
+<controlfield tag="001">REROILS:45</controlfield>
   <controlfield tag="005">20180825130500.0</controlfield>
   <controlfield tag="008">960525s1982    it |||||| ||||00|| |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -4953,7 +4953,7 @@
 </record>
 <record>
   <leader>01005nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006035429</controlfield>
+<controlfield tag="001">REROILS:46</controlfield>
   <controlfield tag="005">20180403170300.0</controlfield>
   <controlfield tag="008">110218s2005    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -5040,7 +5040,7 @@
 </record>
 <record>
   <leader>01366nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002700421</controlfield>
+<controlfield tag="001">REROILS:47</controlfield>
   <controlfield tag="005">20181116205200.0</controlfield>
   <controlfield tag="008">000922s1981    xxu|||||| ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -5160,7 +5160,7 @@
 </record>
 <record>
   <leader>01241ngm a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006084129</controlfield>
+<controlfield tag="001">REROILS:48</controlfield>
   <controlfield tag="005">20170530151400.0</controlfield>
   <controlfield tag="007">v|</controlfield>
   <controlfield tag="008">110623s2011    fr ||| |  ||||0 |  |fre d</controlfield>
@@ -5259,7 +5259,7 @@
 </record>
 <record>
   <leader>01209cjm a2200325 a 4500</leader>
-  <controlfield tag="001">vtls005918723</controlfield>
+<controlfield tag="001">REROILS:49</controlfield>
   <controlfield tag="005">20190704125700.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">110203m20002004xxu|||||  |||| || ||rus d</controlfield>
@@ -5352,7 +5352,7 @@
 </record>
 <record>
   <leader>01883nam a2200433 a 4500</leader>
-  <controlfield tag="001">vtls002707520</controlfield>
+<controlfield tag="001">REROILS:50</controlfield>
   <controlfield tag="005">20180703162700.0</controlfield>
   <controlfield tag="008">000921s2000    sz |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -5497,7 +5497,7 @@
 </record>
 <record>
   <leader>00946nam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls000347026</controlfield>
+<controlfield tag="001">REROILS:51</controlfield>
   <controlfield tag="005">20170925125600.0</controlfield>
   <controlfield tag="008">960525s1981    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -5580,7 +5580,7 @@
 </record>
 <record>
   <leader>00903nam a2200265 a 4500</leader>
-  <controlfield tag="001">vtls000002655</controlfield>
+<controlfield tag="001">REROILS:52</controlfield>
   <controlfield tag="005">20170610104700.0</controlfield>
   <controlfield tag="008">001227s1968    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -5663,7 +5663,7 @@
 </record>
 <record>
   <leader>01412nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls002694628</controlfield>
+<controlfield tag="001">REROILS:53</controlfield>
   <controlfield tag="005">20170518114800.0</controlfield>
   <controlfield tag="008">000918s2000    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -5772,7 +5772,7 @@
 </record>
 <record>
   <leader>00995nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls006028924</controlfield>
+<controlfield tag="001">REROILS:54</controlfield>
   <controlfield tag="005">20180403161200.0</controlfield>
   <controlfield tag="008">110218s1993    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -5870,7 +5870,7 @@
 </record>
 <record>
   <leader>00712nam a2200241 a 4500</leader>
-  <controlfield tag="001">vtls008368629</controlfield>
+<controlfield tag="001">REROILS:55</controlfield>
   <controlfield tag="005">20170520203200.0</controlfield>
   <controlfield tag="008">160218s2014    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -5938,7 +5938,7 @@
 </record>
 <record>
   <leader>00968nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006031523</controlfield>
+<controlfield tag="001">REROILS:56</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s2000    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -6025,7 +6025,7 @@
 </record>
 <record>
   <leader>02072nam a2200541 a 4500</leader>
-  <controlfield tag="001">vtls008750101</controlfield>
+<controlfield tag="001">REROILS:57</controlfield>
   <controlfield tag="005">20190215154900.0</controlfield>
   <controlfield tag="008">180110s2015    gw |||||  ||||00||||ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -6204,7 +6204,7 @@
 </record>
 <record>
   <leader>00817naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003445220</controlfield>
+<controlfield tag="001">REROILS:58</controlfield>
   <controlfield tag="005">20170518132200.0</controlfield>
   <controlfield tag="008">980412s1967    xx ||| |  ||||00|  0ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -6271,7 +6271,7 @@
 </record>
 <record>
   <leader>01536naa a2200373 a 4500</leader>
-  <controlfield tag="001">vtls005291229</controlfield>
+<controlfield tag="001">REROILS:59</controlfield>
   <controlfield tag="005">20170522091100.0</controlfield>
   <controlfield tag="008">021211s1874    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -6394,7 +6394,7 @@
 </record>
 <record>
   <leader>00615nas a2200193 a 4500</leader>
-  <controlfield tag="001">vtls000936027</controlfield>
+<controlfield tag="001">REROILS:60</controlfield>
   <controlfield tag="005">20190705133100.0</controlfield>
   <controlfield tag="008">881006c19759999xxu|||m|| ||||0 || 0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -6447,7 +6447,7 @@
 </record>
 <record>
   <leader>00991ncm a2200301 a 4500</leader>
-  <controlfield tag="001">vtls000640629</controlfield>
+<controlfield tag="001">REROILS:61</controlfield>
   <controlfield tag="005">20170516132500.0</controlfield>
   <controlfield tag="008">860502s1977    sz |||||| |||||||  |ger d</controlfield>
   <datafield tag="028" ind1="2" ind2="2">
@@ -6537,7 +6537,7 @@
 </record>
 <record>
   <leader>03048cam a22005652a 4500</leader>
-  <controlfield tag="001">vtls008803187</controlfield>
+<controlfield tag="001">REROILS:62</controlfield>
   <controlfield tag="005">20190215122600.0</controlfield>
   <controlfield tag="008">180530s2016    is ||| |  ||||00|  |heb d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -6742,7 +6742,7 @@
 </record>
 <record>
   <leader>01376nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls006099126</controlfield>
+<controlfield tag="001">REROILS:63</controlfield>
   <controlfield tag="005">20180901200100.0</controlfield>
   <controlfield tag="008">110711s2011    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -6867,7 +6867,7 @@
 </record>
 <record>
   <leader>00838cam a2200229 a 4500</leader>
-  <controlfield tag="001">vtls004324537</controlfield>
+<controlfield tag="001">REROILS:64</controlfield>
   <controlfield tag="005">20170519112200.0</controlfield>
   <controlfield tag="008">070205m19599999fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -6931,7 +6931,7 @@
 </record>
 <record>
   <leader>01196nam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls000656827</controlfield>
+<controlfield tag="001">REROILS:65</controlfield>
   <controlfield tag="005">20170610130500.0</controlfield>
   <controlfield tag="008">860624s1979    gw |||||| ||||00|| |rus d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -7020,7 +7020,7 @@
 </record>
 <record>
   <leader>01135nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls001606120</controlfield>
+<controlfield tag="001">REROILS:66</controlfield>
   <controlfield tag="005">20180823100300.0</controlfield>
   <controlfield tag="008">931020s1979    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -7109,7 +7109,7 @@
 </record>
 <record>
   <leader>01310cam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls006103622</controlfield>
+<controlfield tag="001">REROILS:67</controlfield>
   <controlfield tag="005">20170611091200.0</controlfield>
   <controlfield tag="008">110715s2011    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -7227,7 +7227,7 @@
 </record>
 <record>
   <leader>00968nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006032522</controlfield>
+<controlfield tag="001">REROILS:68</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2001    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -7312,7 +7312,7 @@
 </record>
 <record>
   <leader>01179ncm a2200313 a 4500</leader>
-  <controlfield tag="001">vtls002396622</controlfield>
+<controlfield tag="001">REROILS:69</controlfield>
   <controlfield tag="005">20180828202300.0</controlfield>
   <controlfield tag="008">981117q19801993gw |||||| |||||||  |ger d</controlfield>
   <datafield tag="028" ind1="3" ind2="2">
@@ -7411,7 +7411,7 @@
 </record>
 <record>
   <leader>01093nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls003404321</controlfield>
+<controlfield tag="001">REROILS:70</controlfield>
   <controlfield tag="005">20180831131600.0</controlfield>
   <controlfield tag="008">030909s2003    xxk||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -7512,7 +7512,7 @@
 </record>
 <record>
   <leader>01205naa a2200313 a 4500</leader>
-  <controlfield tag="001">vtls005634921</controlfield>
+<controlfield tag="001">REROILS:71</controlfield>
   <controlfield tag="005">20190507091400.0</controlfield>
   <controlfield tag="008">100705s1911    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -7607,7 +7607,7 @@
 </record>
 <record>
   <leader>01153nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls001481488</controlfield>
+<controlfield tag="001">REROILS:72</controlfield>
   <controlfield tag="005">20180419134600.0</controlfield>
   <controlfield tag="008">000915s1968    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -7709,7 +7709,7 @@
 </record>
 <record>
   <leader>01514nam a2200385 a 4500</leader>
-  <controlfield tag="001">vtls002706923</controlfield>
+<controlfield tag="001">REROILS:73</controlfield>
   <controlfield tag="005">20170611121800.0</controlfield>
   <controlfield tag="008">001116s1999    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -7843,7 +7843,7 @@
 </record>
 <record>
   <leader>01503njm a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002050557</controlfield>
+<controlfield tag="001">REROILS:74</controlfield>
   <controlfield tag="005">20170518095100.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">960725s1996    xx |||||| |||||||  |ita d</controlfield>
@@ -7949,7 +7949,7 @@
 </record>
 <record>
   <leader>01525cam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls001971928</controlfield>
+<controlfield tag="001">REROILS:75</controlfield>
   <controlfield tag="005">20170518072500.0</controlfield>
   <controlfield tag="008">960208s1993    ru |||||| ||||00|| |rus d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -8068,7 +8068,7 @@
 </record>
 <record>
   <leader>00821nam a22002412a 4500</leader>
-  <controlfield tag="001">vtls006039423</controlfield>
+<controlfield tag="001">REROILS:76</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -8142,7 +8142,7 @@
 </record>
 <record>
   <leader>01178nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls006089623</controlfield>
+<controlfield tag="001">REROILS:77</controlfield>
   <controlfield tag="005">20190314180900.0</controlfield>
   <controlfield tag="008">110629s2010    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -8252,7 +8252,7 @@
 </record>
 <record>
   <leader>01312naa a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002128428</controlfield>
+<controlfield tag="001">REROILS:78</controlfield>
   <controlfield tag="005">20180827225000.0</controlfield>
   <controlfield tag="008">970320s1996    xxu|||||| ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -8358,7 +8358,7 @@
 </record>
 <record>
   <leader>01289nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls008606462</controlfield>
+<controlfield tag="001">REROILS:79</controlfield>
   <controlfield tag="005">20180727004500.0</controlfield>
   <controlfield tag="008">170302s2017    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -8475,7 +8475,7 @@
 </record>
 <record>
   <leader>01201nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls000709055</controlfield>
+<controlfield tag="001">REROILS:80</controlfield>
   <controlfield tag="005">20180825101300.0</controlfield>
   <controlfield tag="008">001222s1954    sz ||| |  ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -8588,7 +8588,7 @@
 </record>
 <record>
   <leader>01423nam a22002772a 4500</leader>
-  <controlfield tag="001">vtls006039422</controlfield>
+<controlfield tag="001">REROILS:81</controlfield>
   <controlfield tag="005">20190226095000.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -8673,7 +8673,7 @@
 </record>
 <record>
   <leader>01124nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002700721</controlfield>
+<controlfield tag="001">REROILS:82</controlfield>
   <controlfield tag="005">20180828123800.0</controlfield>
   <controlfield tag="008">000921s1999    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -8778,7 +8778,7 @@
 </record>
 <record>
   <leader>01301nam a22003617a 4500</leader>
-  <controlfield tag="001">vtls002707627</controlfield>
+<controlfield tag="001">REROILS:83</controlfield>
   <controlfield tag="005">20180828125500.0</controlfield>
   <controlfield tag="008">000921s1999    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -8899,7 +8899,7 @@
 </record>
 <record>
   <leader>01029nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006032520</controlfield>
+<controlfield tag="001">REROILS:84</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2000    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -8990,7 +8990,7 @@
 </record>
 <record>
   <leader>01193nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls000370927</controlfield>
+<controlfield tag="001">REROILS:85</controlfield>
   <controlfield tag="005">20170610193600.0</controlfield>
   <controlfield tag="008">960525s1981    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -9101,7 +9101,7 @@
 </record>
 <record>
   <leader>00666nas a2200229 a 4500</leader>
-  <controlfield tag="001">vtls000344026</controlfield>
+<controlfield tag="001">REROILS:86</controlfield>
   <controlfield tag="005">20170516091000.0</controlfield>
   <controlfield tag="008">960525d19501956ne |||m|| ||||0 || 0lat d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -9167,7 +9167,7 @@
 </record>
 <record>
   <leader>01680nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006032529</controlfield>
+<controlfield tag="001">REROILS:87</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2001    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -9263,7 +9263,7 @@
 </record>
 <record>
   <leader>02479nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006034120</controlfield>
+<controlfield tag="001">REROILS:88</controlfield>
   <controlfield tag="005">20180403165200.0</controlfield>
   <controlfield tag="008">110218s2003    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -9373,7 +9373,7 @@
 </record>
 <record>
   <leader>01130nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls002670820</controlfield>
+<controlfield tag="001">REROILS:89</controlfield>
   <controlfield tag="005">20180703150700.0</controlfield>
   <controlfield tag="008">000916s2000    sz |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -9483,7 +9483,7 @@
 </record>
 <record>
   <leader>00793naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003444421</controlfield>
+<controlfield tag="001">REROILS:90</controlfield>
   <controlfield tag="005">20170518131900.0</controlfield>
   <controlfield tag="008">980412s1984    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -9550,7 +9550,7 @@
 </record>
 <record>
   <leader>00772naa a2200229 a 4500</leader>
-  <controlfield tag="001">vtls005397123</controlfield>
+<controlfield tag="001">REROILS:91</controlfield>
   <controlfield tag="005">20170529173700.0</controlfield>
   <controlfield tag="008">100224s1831    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -9612,7 +9612,7 @@
 </record>
 <record>
   <leader>01318nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls001291308</controlfield>
+<controlfield tag="001">REROILS:92</controlfield>
   <controlfield tag="005">20190502165800.0</controlfield>
   <controlfield tag="008">910812s1991    fi |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -9723,7 +9723,7 @@
 </record>
 <record>
   <leader>01093nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006030222</controlfield>
+<controlfield tag="001">REROILS:93</controlfield>
   <controlfield tag="005">20180403162100.0</controlfield>
   <controlfield tag="008">110218s1997    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -9820,7 +9820,7 @@
 </record>
 <record>
   <leader>00997nam a22003012a 4500</leader>
-  <controlfield tag="001">vtls006027622</controlfield>
+<controlfield tag="001">REROILS:94</controlfield>
   <controlfield tag="005">20180403160300.0</controlfield>
   <controlfield tag="008">110218s1992    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -9912,7 +9912,7 @@
 </record>
 <record>
   <leader>01052nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002670429</controlfield>
+<controlfield tag="001">REROILS:95</controlfield>
   <controlfield tag="005">20170611111500.0</controlfield>
   <controlfield tag="008">000913s1977    xxu|||||| ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -10005,7 +10005,7 @@
 </record>
 <record>
   <leader>00819nam a22002532a 4500</leader>
-  <controlfield tag="001">vtls006027629</controlfield>
+<controlfield tag="001">REROILS:96</controlfield>
   <controlfield tag="005">20180403160300.0</controlfield>
   <controlfield tag="008">110218s1992    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -10081,7 +10081,7 @@
 </record>
 <record>
   <leader>01613nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002663923</controlfield>
+<controlfield tag="001">REROILS:97</controlfield>
   <controlfield tag="005">20180828105700.0</controlfield>
   <controlfield tag="008">000913s1999    it |||||| ||||10|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -10197,7 +10197,7 @@
 </record>
 <record>
   <leader>00583nam a2200205 a 4500</leader>
-  <controlfield tag="001">vtls006086821</controlfield>
+<controlfield tag="001">REROILS:98</controlfield>
   <controlfield tag="005">20170530151900.0</controlfield>
   <controlfield tag="008">110627s2011    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -10254,7 +10254,7 @@
 </record>
 <record>
   <leader>01408nam a22003612a 4500</leader>
-  <controlfield tag="001">vtls006028920</controlfield>
+<controlfield tag="001">REROILS:99</controlfield>
   <controlfield tag="005">20180403161200.0</controlfield>
   <controlfield tag="008">110218s1992    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -10366,7 +10366,7 @@
 </record>
 <record>
   <leader>01342nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002738529</controlfield>
+<controlfield tag="001">REROILS:100</controlfield>
   <controlfield tag="005">20171125165800.0</controlfield>
   <controlfield tag="008">000926s1999    cc ||| |  ||||00|  |chi d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -10472,7 +10472,7 @@
 </record>
 <record>
   <leader>01644cam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls006078425</controlfield>
+<controlfield tag="001">REROILS:101</controlfield>
   <controlfield tag="005">20171126074800.0</controlfield>
   <controlfield tag="008">110617s2006    bl ||| |  ||||00|  |por d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -10597,7 +10597,7 @@
 </record>
 <record>
   <leader>01053nam a22003252a 4500</leader>
-  <controlfield tag="001">vtls002658621</controlfield>
+<controlfield tag="001">REROILS:102</controlfield>
   <controlfield tag="005">20180828104200.0</controlfield>
   <controlfield tag="008">000911s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -10701,7 +10701,7 @@
 </record>
 <record>
   <leader>01458cam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls000010202</controlfield>
+<controlfield tag="001">REROILS:103</controlfield>
   <controlfield tag="005">20170610105900.0</controlfield>
   <controlfield tag="008">961221m19661970it |||||| ||||00|| |ita d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -10811,7 +10811,7 @@
 </record>
 <record>
   <leader>01234nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls005662311</controlfield>
+<controlfield tag="001">REROILS:104</controlfield>
   <controlfield tag="005">20171221152800.0</controlfield>
   <controlfield tag="008">100928s2010    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -10919,7 +10919,7 @@
 </record>
 <record>
   <leader>00796nam a22002412a 4500</leader>
-  <controlfield tag="001">vtls006039426</controlfield>
+<controlfield tag="001">REROILS:105</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -10992,7 +10992,7 @@
 </record>
 <record>
   <leader>01141nam a22003377a 4500</leader>
-  <controlfield tag="001">vtls002693824</controlfield>
+<controlfield tag="001">REROILS:106</controlfield>
   <controlfield tag="005">20180828121700.0</controlfield>
   <controlfield tag="008">000918s1999    xxu||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -11100,7 +11100,7 @@
 </record>
 <record>
   <leader>01897nam a2200517 a 4500</leader>
-  <controlfield tag="001">vtls000747622</controlfield>
+<controlfield tag="001">REROILS:107</controlfield>
   <controlfield tag="005">20180419103300.0</controlfield>
   <controlfield tag="008">000714s1987    sz |||||| ||||00|| |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -11270,7 +11270,7 @@
 </record>
 <record>
   <leader>01383nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls000750921</controlfield>
+<controlfield tag="001">REROILS:108</controlfield>
   <controlfield tag="005">20190215112900.0</controlfield>
   <controlfield tag="008">870331s1986    pl |||||| ||||00|| |pol d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -11391,7 +11391,7 @@
 </record>
 <record>
   <leader>00855naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003446025</controlfield>
+<controlfield tag="001">REROILS:109</controlfield>
   <controlfield tag="005">20170518132600.0</controlfield>
   <controlfield tag="008">980412s1973    xx ||| |  ||||00|  0fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -11461,7 +11461,7 @@
 </record>
 <record>
   <leader>01061nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls002072127</controlfield>
+<controlfield tag="001">REROILS:110</controlfield>
   <controlfield tag="005">20180827200700.0</controlfield>
   <controlfield tag="008">960917s1985    fr |||||| ||||00|| |ara d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -11555,7 +11555,7 @@
 </record>
 <record>
   <leader>00854naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003449721</controlfield>
+<controlfield tag="001">REROILS:111</controlfield>
   <controlfield tag="005">20170518133900.0</controlfield>
   <controlfield tag="008">980412s1968    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -11623,7 +11623,7 @@
 </record>
 <record>
   <leader>01221nam a22003612a 4500</leader>
-  <controlfield tag="001">vtls006032627</controlfield>
+<controlfield tag="001">REROILS:112</controlfield>
   <controlfield tag="005">20190829162600.0</controlfield>
   <controlfield tag="008">110218s2002    xx ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -11732,7 +11732,7 @@
 </record>
 <record>
   <leader>01916nam a22003492a 4500</leader>
-  <controlfield tag="001">vtls006038124</controlfield>
+<controlfield tag="001">REROILS:113</controlfield>
   <controlfield tag="005">20190131195300.0</controlfield>
   <controlfield tag="008">110218s2008    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -11843,7 +11843,7 @@
 </record>
 <record>
   <leader>01179nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls002713624</controlfield>
+<controlfield tag="001">REROILS:114</controlfield>
   <controlfield tag="005">20180828131100.0</controlfield>
   <controlfield tag="008">000922s1997    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -11955,7 +11955,7 @@
 </record>
 <record>
   <leader>01952nam a22003977a 4500</leader>
-  <controlfield tag="001">vtls002707325</controlfield>
+<controlfield tag="001">REROILS:115</controlfield>
   <controlfield tag="005">20180828125400.0</controlfield>
   <controlfield tag="008">000922s1999    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -12095,7 +12095,7 @@
 </record>
 <record>
   <leader>01098naa a2200289 a 4500</leader>
-  <controlfield tag="001">vtls003856720</controlfield>
+<controlfield tag="001">REROILS:116</controlfield>
   <controlfield tag="005">20180704124600.0</controlfield>
   <controlfield tag="008">050610s1947    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -12181,7 +12181,7 @@
 </record>
 <record>
   <leader>01023naa a22002537a 4500</leader>
-  <controlfield tag="001">vtls003472624</controlfield>
+<controlfield tag="001">REROILS:117</controlfield>
   <controlfield tag="005">20170518145200.0</controlfield>
   <controlfield tag="008">980412s1994    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -12259,7 +12259,7 @@
 </record>
 <record>
   <leader>01387nas a2200373 a 4500</leader>
-  <controlfield tag="001">vtls000657720</controlfield>
+<controlfield tag="001">REROILS:118</controlfield>
   <controlfield tag="005">20190705130500.0</controlfield>
   <controlfield tag="008">860625c19819999bl |||p|| ||||0 || 0por d</controlfield>
   <datafield tag="022" ind1=" " ind2=" ">
@@ -12383,7 +12383,7 @@
 </record>
 <record>
   <leader>01424nam a2200397 a 4500</leader>
-  <controlfield tag="001">vtls002663420</controlfield>
+<controlfield tag="001">REROILS:119</controlfield>
   <controlfield tag="005">20170925213900.0</controlfield>
   <controlfield tag="008">000912s1999    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -12511,7 +12511,7 @@
 </record>
 <record>
   <leader>01199nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002676529</controlfield>
+<controlfield tag="001">REROILS:120</controlfield>
   <controlfield tag="005">20180828112900.0</controlfield>
   <controlfield tag="008">000915s1998    at ||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -12616,7 +12616,7 @@
 </record>
 <record>
   <leader>01226nam a22002772a 4500</leader>
-  <controlfield tag="001">vtls006027628</controlfield>
+<controlfield tag="001">REROILS:121</controlfield>
   <controlfield tag="005">20180709171100.0</controlfield>
   <controlfield tag="008">110218s1991    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -12702,7 +12702,7 @@
 </record>
 <record>
   <leader>01075naa a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002720029</controlfield>
+<controlfield tag="001">REROILS:122</controlfield>
   <controlfield tag="005">20180703165900.0</controlfield>
   <controlfield tag="008">000922s1927    sz |||||| ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -12792,7 +12792,7 @@
 </record>
 <record>
   <leader>01467nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls005270811</controlfield>
+<controlfield tag="001">REROILS:123</controlfield>
   <controlfield tag="005">20170522073100.0</controlfield>
   <controlfield tag="008">021219s1992    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -12904,7 +12904,7 @@
 </record>
 <record>
   <leader>01022cam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls008349734</controlfield>
+<controlfield tag="001">REROILS:124</controlfield>
   <controlfield tag="005">20170520182200.0</controlfield>
   <controlfield tag="008">160126q1941    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -12981,7 +12981,7 @@
 </record>
 <record>
   <leader>01539naa a22003252a 4500</leader>
-  <controlfield tag="001">vtls005219528</controlfield>
+<controlfield tag="001">REROILS:125</controlfield>
   <controlfield tag="005">20171127205600.0</controlfield>
   <controlfield tag="008">970725s1940    it ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -13086,7 +13086,7 @@
 </record>
 <record>
   <leader>01089nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002689029</controlfield>
+<controlfield tag="001">REROILS:126</controlfield>
   <controlfield tag="005">20171125161800.0</controlfield>
   <controlfield tag="008">000924s1996    cc ||| |  ||||00|  |chi d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -13183,7 +13183,7 @@
 </record>
 <record>
   <leader>01048nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls000692996</controlfield>
+<controlfield tag="001">REROILS:127</controlfield>
   <controlfield tag="005">20170627082700.0</controlfield>
   <controlfield tag="008">000723s1986    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -13281,7 +13281,7 @@
 </record>
 <record>
   <leader>02469nam a2200493 a 4500</leader>
-  <controlfield tag="001">vtls000070535</controlfield>
+<controlfield tag="001">REROILS:128</controlfield>
   <controlfield tag="005">20180329161500.0</controlfield>
   <controlfield tag="008">000918r19161758xxu|||||| ||||00|| |eng d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -13434,7 +13434,7 @@
 </record>
 <record>
   <leader>01122nam a22003137a 4500</leader>
-  <controlfield tag="001">vtls002694126</controlfield>
+<controlfield tag="001">REROILS:129</controlfield>
   <controlfield tag="005">20180703160200.0</controlfield>
   <controlfield tag="008">000917s1994    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -13527,7 +13527,7 @@
 </record>
 <record>
   <leader>00978nam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls002700728</controlfield>
+<controlfield tag="001">REROILS:130</controlfield>
   <controlfield tag="005">20170518120100.0</controlfield>
   <controlfield tag="008">000918s1999    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -13608,7 +13608,7 @@
 </record>
 <record>
   <leader>02494nam a22004692a 4500</leader>
-  <controlfield tag="001">vtls007882036</controlfield>
+<controlfield tag="001">REROILS:131</controlfield>
   <controlfield tag="005">20181113172600.0</controlfield>
   <controlfield tag="008">140916m18691871ru ||| |  ||||00|  |rus d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -13767,7 +13767,7 @@
 </record>
 <record>
   <leader>01096nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls002701124</controlfield>
+<controlfield tag="001">REROILS:132</controlfield>
   <controlfield tag="005">20170611120800.0</controlfield>
   <controlfield tag="008">000918s1999    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -13866,7 +13866,7 @@
 </record>
 <record>
   <leader>01207nas a2200337 a 4500</leader>
-  <controlfield tag="001">vtls002195130</controlfield>
+<controlfield tag="001">REROILS:133</controlfield>
   <controlfield tag="005">20190705121100.0</controlfield>
   <controlfield tag="008">971001c19969999sa |||p|  ||||0 |  0eng d</controlfield>
   <datafield tag="022" ind1=" " ind2=" ">
@@ -13968,7 +13968,7 @@
 </record>
 <record>
   <leader>00842naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003447826</controlfield>
+<controlfield tag="001">REROILS:134</controlfield>
   <controlfield tag="005">20170518133100.0</controlfield>
   <controlfield tag="008">980412s1967    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -14036,7 +14036,7 @@
 </record>
 <record>
   <leader>02382nam a2200457 a 4500</leader>
-  <controlfield tag="001">vtls000099248</controlfield>
+<controlfield tag="001">REROILS:135</controlfield>
   <controlfield tag="005">20181208093600.0</controlfield>
   <controlfield tag="008">960525s1975    gr |||||| ||||00|| |gre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -14201,7 +14201,7 @@
 </record>
 <record>
   <leader>02309nam a2200601 a 4500</leader>
-  <controlfield tag="001">vtls008391688</controlfield>
+<controlfield tag="001">REROILS:136</controlfield>
   <controlfield tag="005">20190509115800.0</controlfield>
   <controlfield tag="008">160318s2017    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -14401,7 +14401,7 @@
 </record>
 <record>
   <leader>01193nam a22003372a 4500</leader>
-  <controlfield tag="001">vtls006032626</controlfield>
+<controlfield tag="001">REROILS:137</controlfield>
   <controlfield tag="005">20180403163900.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -14508,7 +14508,7 @@
 </record>
 <record>
   <leader>00807nam a22002412a 4500</leader>
-  <controlfield tag="001">vtls006032528</controlfield>
+<controlfield tag="001">REROILS:138</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2001    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -14578,7 +14578,7 @@
 </record>
 <record>
   <leader>00879nam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls002670525</controlfield>
+<controlfield tag="001">REROILS:139</controlfield>
   <controlfield tag="005">20170518103500.0</controlfield>
   <controlfield tag="008">000913s1999    xxu||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -14657,7 +14657,7 @@
 </record>
 <record>
   <leader>00743naa a22002177a 4500</leader>
-  <controlfield tag="001">vtls003440523</controlfield>
+<controlfield tag="001">REROILS:140</controlfield>
   <controlfield tag="005">20170518130500.0</controlfield>
   <controlfield tag="008">980412s1985    xx ||| |  ||||00|  0ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -14718,7 +14718,7 @@
 </record>
 <record>
   <leader>01430cam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002658224</controlfield>
+<controlfield tag="001">REROILS:141</controlfield>
   <controlfield tag="005">20170518100400.0</controlfield>
   <controlfield tag="008">000914s1997    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -14802,7 +14802,7 @@
 </record>
 <record>
   <leader>00975nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls006035427</controlfield>
+<controlfield tag="001">REROILS:142</controlfield>
   <controlfield tag="005">20180403170300.0</controlfield>
   <controlfield tag="008">110218s2001    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -14896,7 +14896,7 @@
 </record>
 <record>
   <leader>01057nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006035422</controlfield>
+<controlfield tag="001">REROILS:143</controlfield>
   <controlfield tag="005">20180403170300.0</controlfield>
   <controlfield tag="008">110218s2005    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -14990,7 +14990,7 @@
 </record>
 <record>
   <leader>01880cam a2200445 a 4500</leader>
-  <controlfield tag="001">vtls008671715</controlfield>
+<controlfield tag="001">REROILS:144</controlfield>
   <controlfield tag="005">20190215125700.0</controlfield>
   <controlfield tag="008">170626s2017    ru ||| |  ||||00|  |rus d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -15154,7 +15154,7 @@
 </record>
 <record>
   <leader>01540nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006110827</controlfield>
+<controlfield tag="001">REROILS:145</controlfield>
   <controlfield tag="005">20180901201700.0</controlfield>
   <controlfield tag="008">110725s2002    gw ||| |  |||| 1|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -15275,7 +15275,7 @@
 </record>
 <record>
   <leader>01145naa a2200253 a 4500</leader>
-  <controlfield tag="001">vtls005939923</controlfield>
+<controlfield tag="001">REROILS:146</controlfield>
   <controlfield tag="005">20170530144700.0</controlfield>
   <controlfield tag="006">m    |</controlfield>
   <controlfield tag="007">c|</controlfield>
@@ -15347,7 +15347,7 @@
 </record>
 <record>
   <leader>01167naa a2200337 a 4500</leader>
-  <controlfield tag="001">vtls006107221</controlfield>
+<controlfield tag="001">REROILS:147</controlfield>
   <controlfield tag="005">20190618143600.0</controlfield>
   <controlfield tag="008">110719s1854    gw ||| |  ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -15448,7 +15448,7 @@
 </record>
 <record>
   <leader>00906nam a22002772a 4500</leader>
-  <controlfield tag="001">vtls006032527</controlfield>
+<controlfield tag="001">REROILS:148</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2001    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -15531,7 +15531,7 @@
 </record>
 <record>
   <leader>01884naa a22004092a 4500</leader>
-  <controlfield tag="001">vtls005240126</controlfield>
+<controlfield tag="001">REROILS:149</controlfield>
   <controlfield tag="005">20170522105200.0</controlfield>
   <controlfield tag="008">970729s1976    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -15669,7 +15669,7 @@
 </record>
 <record>
   <leader>01314nam a2200325uia4500</leader>
-  <controlfield tag="001">vtls008933628</controlfield>
+<controlfield tag="001">REROILS:150</controlfield>
   <controlfield tag="005">20190823150500.0</controlfield>
   <controlfield tag="008">190612s1860    xxk           00    eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -15772,7 +15772,7 @@
 </record>
 <record>
   <leader>01007nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002658328</controlfield>
+<controlfield tag="001">REROILS:151</controlfield>
   <controlfield tag="005">20170611105600.0</controlfield>
   <controlfield tag="008">001116s1999    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -15869,7 +15869,7 @@
 </record>
 <record>
   <leader>01079nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls001352029</controlfield>
+<controlfield tag="001">REROILS:152</controlfield>
   <controlfield tag="005">20170927165800.0</controlfield>
   <controlfield tag="008">000719s1991    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -15974,7 +15974,7 @@
 </record>
 <record>
   <leader>02327nam a2200397 a 4500</leader>
-  <controlfield tag="001">vtls005786274</controlfield>
+<controlfield tag="001">REROILS:153</controlfield>
   <controlfield tag="005">20190620003900.0</controlfield>
   <controlfield tag="006">m    |</controlfield>
   <controlfield tag="007">c|</controlfield>
@@ -16098,7 +16098,7 @@
 </record>
 <record>
   <leader>00762nam a2200241 a 4500</leader>
-  <controlfield tag="001">vtls000000385</controlfield>
+<controlfield tag="001">REROILS:154</controlfield>
   <controlfield tag="005">20180630124200.0</controlfield>
   <controlfield tag="008">960525s1971    sz |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -16171,7 +16171,7 @@
 </record>
 <record>
   <leader>01072nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls002664121</controlfield>
+<controlfield tag="001">REROILS:155</controlfield>
   <controlfield tag="005">20170611110600.0</controlfield>
   <controlfield tag="008">000913s2000    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -16272,7 +16272,7 @@
 </record>
 <record>
   <leader>01286nim a2200361 a 4500</leader>
-  <controlfield tag="001">vtls008381301</controlfield>
+<controlfield tag="001">REROILS:156</controlfield>
   <controlfield tag="005">20180720164200.0</controlfield>
   <controlfield tag="007">c|</controlfield>
   <controlfield tag="007">s|</controlfield>
@@ -16374,7 +16374,7 @@
 </record>
 <record>
   <leader>04514cam a2200877 a 4500</leader>
-  <controlfield tag="001">vtls000009812</controlfield>
+<controlfield tag="001">REROILS:157</controlfield>
   <controlfield tag="005">20190814095000.0</controlfield>
   <controlfield tag="008">000927m19759999gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -16673,7 +16673,7 @@
 </record>
 <record>
   <leader>01302nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006111526</controlfield>
+<controlfield tag="001">REROILS:158</controlfield>
   <controlfield tag="005">20170611091700.0</controlfield>
   <controlfield tag="008">110725s2011    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -16791,7 +16791,7 @@
 </record>
 <record>
   <leader>04355cam a22005057a 4500</leader>
-  <controlfield tag="001">vtls006108121</controlfield>
+<controlfield tag="001">REROILS:159</controlfield>
   <controlfield tag="005">20170530170200.0</controlfield>
   <controlfield tag="008">110720s2010    be ||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -16950,7 +16950,7 @@
 </record>
 <record>
   <leader>01915nam a2200517 a 4500</leader>
-  <controlfield tag="001">vtls002663821</controlfield>
+<controlfield tag="001">REROILS:160</controlfield>
   <controlfield tag="005">20180828105600.0</controlfield>
   <controlfield tag="008">010124s1999    sp ||| |  ||||00|  |spa d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -17126,7 +17126,7 @@
 </record>
 <record>
   <leader>00993nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls006028923</controlfield>
+<controlfield tag="001">REROILS:161</controlfield>
   <controlfield tag="005">20180403161200.0</controlfield>
   <controlfield tag="008">110218s1994    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -17224,7 +17224,7 @@
 </record>
 <record>
   <leader>02278nam a2200529 a 4500</leader>
-  <controlfield tag="001">vtls000066674</controlfield>
+<controlfield tag="001">REROILS:162</controlfield>
   <controlfield tag="005">20190819112700.0</controlfield>
   <controlfield tag="008">000717m19582016gw |||||| ||||00|| |lat d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -17401,7 +17401,7 @@
 </record>
 <record>
   <leader>01276nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006089628</controlfield>
+<controlfield tag="001">REROILS:163</controlfield>
   <controlfield tag="005">20180901194700.0</controlfield>
   <controlfield tag="008">110629s2010    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -17516,7 +17516,7 @@
 </record>
 <record>
   <leader>01087nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls000569922</controlfield>
+<controlfield tag="001">REROILS:164</controlfield>
   <controlfield tag="005">20170516111400.0</controlfield>
   <controlfield tag="008">850729s1983    xxu|||||| ||||00|| |heb d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -17608,7 +17608,7 @@
 </record>
 <record>
   <leader>01464nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls007021447</controlfield>
+<controlfield tag="001">REROILS:165</controlfield>
   <controlfield tag="005">20180614113600.0</controlfield>
   <controlfield tag="008">120315s1745    ne ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -17717,7 +17717,7 @@
 </record>
 <record>
   <leader>00832naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003446524</controlfield>
+<controlfield tag="001">REROILS:166</controlfield>
   <controlfield tag="005">20170518132700.0</controlfield>
   <controlfield tag="008">980412s1966    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -17783,7 +17783,7 @@
 </record>
 <record>
   <leader>01193nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls008391622</controlfield>
+<controlfield tag="001">REROILS:167</controlfield>
   <controlfield tag="005">20190516153300.0</controlfield>
   <controlfield tag="008">160318s2015    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -17874,7 +17874,7 @@
 </record>
 <record>
   <leader>00959nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006039421</controlfield>
+<controlfield tag="001">REROILS:168</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -17964,7 +17964,7 @@
 </record>
 <record>
   <leader>00907nam a22002897a 4500</leader>
-  <controlfield tag="001">vtls006099422</controlfield>
+<controlfield tag="001">REROILS:169</controlfield>
   <controlfield tag="005">20190627005700.0</controlfield>
   <controlfield tag="008">110712s2011    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -18055,7 +18055,7 @@
 </record>
 <record>
   <leader>00954nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls002688122</controlfield>
+<controlfield tag="001">REROILS:170</controlfield>
   <controlfield tag="005">20170611114500.0</controlfield>
   <controlfield tag="008">000918s1970    xxu|||||| ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -18140,7 +18140,7 @@
 </record>
 <record>
   <leader>00974nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls001240829</controlfield>
+<controlfield tag="001">REROILS:171</controlfield>
   <controlfield tag="005">20170517120000.0</controlfield>
   <controlfield tag="008">910330s1983    ja |||||| ||||00|| |jpn d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -18225,7 +18225,7 @@
 </record>
 <record>
   <leader>00870nim a22002657a 4500</leader>
-  <controlfield tag="001">vtls004631211</controlfield>
+<controlfield tag="001">REROILS:172</controlfield>
   <controlfield tag="005">20180619171600.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">080118s2006    fr ||| |  ||||0||  |fre d</controlfield>
@@ -18301,7 +18301,7 @@
 </record>
 <record>
   <leader>01145nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002676621</controlfield>
+<controlfield tag="001">REROILS:173</controlfield>
   <controlfield tag="005">20170611112500.0</controlfield>
   <controlfield tag="008">000917s1998    xxu||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -18406,7 +18406,7 @@
 </record>
 <record>
   <leader>00901nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006028926</controlfield>
+<controlfield tag="001">REROILS:174</controlfield>
   <controlfield tag="005">20180403161200.0</controlfield>
   <controlfield tag="008">110218s1988    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -18487,7 +18487,7 @@
 </record>
 <record>
   <leader>01388nam a22004092a 4500</leader>
-  <controlfield tag="001">vtls006030224</controlfield>
+<controlfield tag="001">REROILS:175</controlfield>
   <controlfield tag="005">20180403162100.0</controlfield>
   <controlfield tag="008">110218s1997    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -18611,7 +18611,7 @@
 </record>
 <record>
   <leader>01328nas a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002371847</controlfield>
+<controlfield tag="001">REROILS:176</controlfield>
   <controlfield tag="005">20190705122000.0</controlfield>
   <controlfield tag="008">981006c19949999ne |||p|| ||||0 || 0eng d</controlfield>
   <datafield tag="022" ind1=" " ind2=" ">
@@ -18721,7 +18721,7 @@
 </record>
 <record>
   <leader>01384ncm a2200301 a 4500</leader>
-  <controlfield tag="001">vtls000353418</controlfield>
+<controlfield tag="001">REROILS:177</controlfield>
   <controlfield tag="005">20180731164800.0</controlfield>
   <controlfield tag="008">960525m19632018gw |||||| |||||||  |ger d</controlfield>
   <datafield tag="024" ind1="2" ind2=" ">
@@ -18822,7 +18822,7 @@
 </record>
 <record>
   <leader>01481nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls002700227</controlfield>
+<controlfield tag="001">REROILS:178</controlfield>
   <controlfield tag="005">20181208153600.0</controlfield>
   <controlfield tag="008">000921s1999    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -18954,7 +18954,7 @@
 </record>
 <record>
   <leader>01179nam a22003257a 4500</leader>
-  <controlfield tag="001">vtls002676828</controlfield>
+<controlfield tag="001">REROILS:179</controlfield>
   <controlfield tag="005">20180828113000.0</controlfield>
   <controlfield tag="008">000916s1999    ne ||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -19059,7 +19059,7 @@
 </record>
 <record>
   <leader>01129nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls000139171</controlfield>
+<controlfield tag="001">REROILS:180</controlfield>
   <controlfield tag="005">20171125075300.0</controlfield>
   <controlfield tag="008">960525s1936    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -19155,7 +19155,7 @@
 </record>
 <record>
   <leader>00866nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006032523</controlfield>
+<controlfield tag="001">REROILS:181</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2001    xx ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -19233,7 +19233,7 @@
 </record>
 <record>
   <leader>03745naa a2200481 a 4500</leader>
-  <controlfield tag="001">vtls003301228</controlfield>
+<controlfield tag="001">REROILS:182</controlfield>
   <controlfield tag="005">20171125230200.0</controlfield>
   <controlfield tag="008">030123s2002    xxk||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -19404,7 +19404,7 @@
 </record>
 <record>
   <leader>01024nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls002713629</controlfield>
+<controlfield tag="001">REROILS:183</controlfield>
   <controlfield tag="005">20170518123400.0</controlfield>
   <controlfield tag="008">000924s2000    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -19507,7 +19507,7 @@
 </record>
 <record>
   <leader>01112nam a22003252a 4500</leader>
-  <controlfield tag="001">vtls006027626</controlfield>
+<controlfield tag="001">REROILS:184</controlfield>
   <controlfield tag="005">20180403160300.0</controlfield>
   <controlfield tag="008">110218s1992    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -19606,7 +19606,7 @@
 </record>
 <record>
   <leader>01164nam a2200277 a 4500</leader>
-  <controlfield tag="001">vtls006117527</controlfield>
+<controlfield tag="001">REROILS:185</controlfield>
   <controlfield tag="005">20170530172000.0</controlfield>
   <controlfield tag="008">110803s2011    ua ||| |  ||||00|  |ara d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -19698,7 +19698,7 @@
 </record>
 <record>
   <leader>00831nam a2200265 a 4500</leader>
-  <controlfield tag="001">vtls002670023</controlfield>
+<controlfield tag="001">REROILS:186</controlfield>
   <controlfield tag="005">20170518103400.0</controlfield>
   <controlfield tag="008">000913s1997    fr |||||| ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -19773,7 +19773,7 @@
 </record>
 <record>
   <leader>01175nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls004798098</controlfield>
+<controlfield tag="001">REROILS:187</controlfield>
   <controlfield tag="005">20180330141700.0</controlfield>
   <controlfield tag="007">c|</controlfield>
   <controlfield tag="008">040812s2007    gw ||| |  ||||00|  |ger d</controlfield>
@@ -19868,7 +19868,7 @@
 </record>
 <record>
   <leader>01787njm a22004934a 4500</leader>
-  <controlfield tag="001">vtls008637434</controlfield>
+<controlfield tag="001">REROILS:188</controlfield>
   <controlfield tag="005">20190215121400.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">170502p20172015gw ||| |  |||| ||  |eng d</controlfield>
@@ -20024,7 +20024,7 @@
 </record>
 <record>
   <leader>02314naa a2200481 a 4500</leader>
-  <controlfield tag="001">vtls005296428</controlfield>
+<controlfield tag="001">REROILS:189</controlfield>
   <controlfield tag="005">20190218143400.0</controlfield>
   <controlfield tag="008">970728 2002    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -20206,7 +20206,7 @@
 </record>
 <record>
   <leader>01281nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls000040805</controlfield>
+<controlfield tag="001">REROILS:190</controlfield>
   <controlfield tag="005">20170610115200.0</controlfield>
   <controlfield tag="008">960525s1968    be |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -20307,7 +20307,7 @@
 </record>
 <record>
   <leader>01103nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls008647727</controlfield>
+<controlfield tag="001">REROILS:191</controlfield>
   <controlfield tag="005">20171214145100.0</controlfield>
   <controlfield tag="008">170510s2017    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -20409,7 +20409,7 @@
 </record>
 <record>
   <leader>01453nam a22003732a 4500</leader>
-  <controlfield tag="001">vtls006032628</controlfield>
+<controlfield tag="001">REROILS:192</controlfield>
   <controlfield tag="005">20190725183700.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -20527,7 +20527,7 @@
 </record>
 <record>
   <leader>01265nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006038122</controlfield>
+<controlfield tag="001">REROILS:193</controlfield>
   <controlfield tag="005">20180403083800.0</controlfield>
   <controlfield tag="008">110218s2008    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -20626,7 +20626,7 @@
 </record>
 <record>
   <leader>01145nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006032625</controlfield>
+<controlfield tag="001">REROILS:194</controlfield>
   <controlfield tag="005">20180403163900.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -20713,7 +20713,7 @@
 </record>
 <record>
   <leader>01254nam a22003852a 4500</leader>
-  <controlfield tag="001">vtls006031524</controlfield>
+<controlfield tag="001">REROILS:195</controlfield>
   <controlfield tag="005">20190725183600.0</controlfield>
   <controlfield tag="008">110218s2000    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -20833,7 +20833,7 @@
 </record>
 <record>
   <leader>01185nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls001546324</controlfield>
+<controlfield tag="001">REROILS:196</controlfield>
   <controlfield tag="005">20190822095800.0</controlfield>
   <controlfield tag="008">930603s1993    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -20943,7 +20943,7 @@
 </record>
 <record>
   <leader>02051nam a22003372a 4500</leader>
-  <controlfield tag="001">vtls006032621</controlfield>
+<controlfield tag="001">REROILS:197</controlfield>
   <controlfield tag="005">20180403163900.0</controlfield>
   <controlfield tag="008">110218s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -21046,7 +21046,7 @@
 </record>
 <record>
   <leader>01028nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002664022</controlfield>
+<controlfield tag="001">REROILS:198</controlfield>
   <controlfield tag="005">20170705194000.0</controlfield>
   <controlfield tag="008">000912s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -21148,7 +21148,7 @@
 </record>
 <record>
   <leader>01280nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls001166505</controlfield>
+<controlfield tag="001">REROILS:199</controlfield>
   <controlfield tag="005">20181122175300.0</controlfield>
   <controlfield tag="008">900814s1990    sz ||| |  ||||00|| |eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -21255,7 +21255,7 @@
 </record>
 <record>
   <leader>01821naa a22003732a 4500</leader>
-  <controlfield tag="001">vtls005244727</controlfield>
+<controlfield tag="001">REROILS:200</controlfield>
   <controlfield tag="005">20170522121700.0</controlfield>
   <controlfield tag="008">970729s1986    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -21385,7 +21385,7 @@
 </record>
 <record>
   <leader>03149ngm a2200733 a 4500</leader>
-  <controlfield tag="001">vtls002455345</controlfield>
+<controlfield tag="001">REROILS:201</controlfield>
   <controlfield tag="005">20181005125200.0</controlfield>
   <controlfield tag="007">v|</controlfield>
   <controlfield tag="008">000921s1998    fr ||| |  ||||  |  |fre d</controlfield>
@@ -21608,7 +21608,7 @@
 </record>
 <record>
   <leader>01556nam a2200409 a 4500</leader>
-  <controlfield tag="001">vtls002663621</controlfield>
+<controlfield tag="001">REROILS:202</controlfield>
   <controlfield tag="005">20180828105600.0</controlfield>
   <controlfield tag="008">000912s1972    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -21742,7 +21742,7 @@
 </record>
 <record>
   <leader>00871nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006031522</controlfield>
+<controlfield tag="001">REROILS:203</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s1998    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -21820,7 +21820,7 @@
 </record>
 <record>
   <leader>01000nam a22003012a 4500</leader>
-  <controlfield tag="001">vtls006032521</controlfield>
+<controlfield tag="001">REROILS:204</controlfield>
   <controlfield tag="005">20180403163800.0</controlfield>
   <controlfield tag="008">110218s2000    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -21908,7 +21908,7 @@
 </record>
 <record>
   <leader>00924naa a22002537a 4500</leader>
-  <controlfield tag="001">vtls003447921</controlfield>
+<controlfield tag="001">REROILS:205</controlfield>
   <controlfield tag="005">20170518133200.0</controlfield>
   <controlfield tag="008">980412s1989    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -21983,7 +21983,7 @@
 </record>
 <record>
   <leader>02613ngm a2200649 a 4500</leader>
-  <controlfield tag="001">vtls005947011</controlfield>
+<controlfield tag="001">REROILS:206</controlfield>
   <controlfield tag="005">20190715153800.0</controlfield>
   <controlfield tag="007">v|</controlfield>
   <controlfield tag="008">110303s2011    sz ||| |  ||||  |  |fre d</controlfield>
@@ -22191,7 +22191,7 @@
 </record>
 <record>
   <leader>01282nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls000970437</controlfield>
+<controlfield tag="001">REROILS:207</controlfield>
   <controlfield tag="005">20170610214700.0</controlfield>
   <controlfield tag="008">000908s1976    fr |||||| ||||00|| |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -22298,7 +22298,7 @@
 </record>
 <record>
   <leader>01243nam a2200313 a 4500</leader>
-  <controlfield tag="001">vtls008088815</controlfield>
+<controlfield tag="001">REROILS:208</controlfield>
   <controlfield tag="005">20190823144200.0</controlfield>
   <controlfield tag="007">c|</controlfield>
   <controlfield tag="008">150309s2004    sp ||| || ||||00| ||spa d</controlfield>
@@ -22387,7 +22387,7 @@
 </record>
 <record>
   <leader>01843nam a2200409 a 4500</leader>
-  <controlfield tag="001">vtls004411790</controlfield>
+<controlfield tag="001">REROILS:209</controlfield>
   <controlfield tag="005">20180831200800.0</controlfield>
   <controlfield tag="008">070518s2006    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -22531,7 +22531,7 @@
 </record>
 <record>
   <leader>01303nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls002670824</controlfield>
+<controlfield tag="001">REROILS:210</controlfield>
   <controlfield tag="005">20170518103600.0</controlfield>
   <controlfield tag="008">001229s1997    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -22635,7 +22635,7 @@
 </record>
 <record>
   <leader>01870nam a2200445 a 4500</leader>
-  <controlfield tag="001">vtls002677420</controlfield>
+<controlfield tag="001">REROILS:211</controlfield>
   <controlfield tag="005">20180828113200.0</controlfield>
   <controlfield tag="008">000926s1999    it |||||| ||||00|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -22793,7 +22793,7 @@
 </record>
 <record>
   <leader>01819naa a22003852a 4500</leader>
-  <controlfield tag="001">vtls005239320</controlfield>
+<controlfield tag="001">REROILS:212</controlfield>
   <controlfield tag="005">20181220153300.0</controlfield>
   <controlfield tag="008">970729s1964    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -22922,7 +22922,7 @@
 </record>
 <record>
   <leader>01552naa a2200313 a 4500</leader>
-  <controlfield tag="001">vtls004602125</controlfield>
+<controlfield tag="001">REROILS:213</controlfield>
   <controlfield tag="005">20180705101800.0</controlfield>
   <controlfield tag="008">080524s1991    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -23016,7 +23016,7 @@
 </record>
 <record>
   <leader>01547nam a22004457a 4500</leader>
-  <controlfield tag="001">vtls002707423</controlfield>
+<controlfield tag="001">REROILS:214</controlfield>
   <controlfield tag="005">20190314122800.0</controlfield>
   <controlfield tag="008">001227s2000    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -23167,7 +23167,7 @@
 </record>
 <record>
   <leader>01954nam a22002892a 4500</leader>
-  <controlfield tag="001">vtls006031527</controlfield>
+<controlfield tag="001">REROILS:215</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -23256,7 +23256,7 @@
 </record>
 <record>
   <leader>00890nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls002677327</controlfield>
+<controlfield tag="001">REROILS:216</controlfield>
   <controlfield tag="005">20170518105400.0</controlfield>
   <controlfield tag="008">000929s1977    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -23341,7 +23341,7 @@
 </record>
 <record>
   <leader>01773nam a2200445 a 4500</leader>
-  <controlfield tag="001">vtls003284614</controlfield>
+<controlfield tag="001">REROILS:217</controlfield>
   <controlfield tag="005">20180704160800.0</controlfield>
   <controlfield tag="008">021209s2002    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -23499,7 +23499,7 @@
 </record>
 <record>
   <leader>01721njm a2200361 a 4500</leader>
-  <controlfield tag="001">vtls004324456</controlfield>
+<controlfield tag="001">REROILS:218</controlfield>
   <controlfield tag="005">20170519112200.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">070205s2007    xx ||| |  ||||0||  |spa d</controlfield>
@@ -23609,7 +23609,7 @@
 </record>
 <record>
   <leader>01202nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002683624</controlfield>
+<controlfield tag="001">REROILS:219</controlfield>
   <controlfield tag="005">20170611113700.0</controlfield>
   <controlfield tag="008">000916s2000    xxc||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -23714,7 +23714,7 @@
 </record>
 <record>
   <leader>01670cam a2200421 a 4500</leader>
-  <controlfield tag="001">vtls006077325</controlfield>
+<controlfield tag="001">REROILS:220</controlfield>
   <controlfield tag="005">20170530150200.0</controlfield>
   <controlfield tag="008">110616s2003    cc ||| |  ||||00|  |chi d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -23852,7 +23852,7 @@
 </record>
 <record>
   <leader>01368naa a22003857a 4500</leader>
-  <controlfield tag="001">vtls006070025</controlfield>
+<controlfield tag="001">REROILS:221</controlfield>
   <controlfield tag="005">20170611084600.0</controlfield>
   <controlfield tag="008">110608s2011    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -23982,7 +23982,7 @@
 </record>
 <record>
   <leader>01536nam a2200445 a 4500</leader>
-  <controlfield tag="001">vtls006107928</controlfield>
+<controlfield tag="001">REROILS:222</controlfield>
   <controlfield tag="005">20180901201300.0</controlfield>
   <controlfield tag="008">110720s2011    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -24127,7 +24127,7 @@
 </record>
 <record>
   <leader>01381cas a2200397 a 4500</leader>
-  <controlfield tag="001">vtls000162359</controlfield>
+<controlfield tag="001">REROILS:223</controlfield>
   <controlfield tag="005">20181208100200.0</controlfield>
   <controlfield tag="008">961019d19691975sz |||p|| ||||0 || 0fre d</controlfield>
   <datafield tag="022" ind1=" " ind2=" ">
@@ -24247,7 +24247,7 @@
 </record>
 <record>
   <leader>01228caa a2200313 a 4500</leader>
-  <controlfield tag="001">vtls001496423</controlfield>
+<controlfield tag="001">REROILS:224</controlfield>
   <controlfield tag="005">20180827110700.0</controlfield>
   <controlfield tag="008">001026s1980    sz |||||| ||||00|| |ita d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -24349,7 +24349,7 @@
 </record>
 <record>
   <leader>01077naa a2200277 a 4500</leader>
-  <controlfield tag="001">vtls006421229</controlfield>
+<controlfield tag="001">REROILS:225</controlfield>
   <controlfield tag="005">20170531085800.0</controlfield>
   <controlfield tag="008">110605s1983    xx ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -24426,7 +24426,7 @@
 </record>
 <record>
   <leader>01184nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls003812065</controlfield>
+<controlfield tag="001">REROILS:226</controlfield>
   <controlfield tag="005">20171125194100.0</controlfield>
   <controlfield tag="008">050322s2002    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -24529,7 +24529,7 @@
 </record>
 <record>
   <leader>00838cam a22002172a 4500</leader>
-  <controlfield tag="001">vtls008092462</controlfield>
+<controlfield tag="001">REROILS:227</controlfield>
   <controlfield tag="005">20170520094400.0</controlfield>
   <controlfield tag="006">m    |</controlfield>
   <controlfield tag="008">150311s1839    it ||| |  ||||00|  |und d</controlfield>
@@ -24591,7 +24591,7 @@
 </record>
 <record>
   <leader>01532nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls002670829</controlfield>
+<controlfield tag="001">REROILS:228</controlfield>
   <controlfield tag="005">20180828111400.0</controlfield>
   <controlfield tag="008">000913s1978    xxk||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -24709,7 +24709,7 @@
 </record>
 <record>
   <leader>00828naa a22002177a 4500</leader>
-  <controlfield tag="001">vtls003440727</controlfield>
+<controlfield tag="001">REROILS:229</controlfield>
   <controlfield tag="005">20170518130600.0</controlfield>
   <controlfield tag="008">980412s1969    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -24769,7 +24769,7 @@
 </record>
 <record>
   <leader>01170cam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002050530</controlfield>
+<controlfield tag="001">REROILS:230</controlfield>
   <controlfield tag="005">20180827191200.0</controlfield>
   <controlfield tag="008">001223s1996    fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -24873,7 +24873,7 @@
 </record>
 <record>
   <leader>01430naa a2200349 a 4500</leader>
-  <controlfield tag="001">vtls005290722</controlfield>
+<controlfield tag="001">REROILS:231</controlfield>
   <controlfield tag="005">20170522090700.0</controlfield>
   <controlfield tag="008">960525s1942    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -24990,7 +24990,7 @@
 </record>
 <record>
   <leader>01916nam a2200385 a 4500</leader>
-  <controlfield tag="001">vtls005450453</controlfield>
+<controlfield tag="001">REROILS:232</controlfield>
   <controlfield tag="005">20181107115400.0</controlfield>
   <controlfield tag="008">100520s1963    ru |||||| ||||00|| |rus d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -25127,7 +25127,7 @@
 </record>
 <record>
   <leader>01291nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls006089624</controlfield>
+<controlfield tag="001">REROILS:233</controlfield>
   <controlfield tag="005">20180901194700.0</controlfield>
   <controlfield tag="008">110629s2010    gw ||| |  ||||  |  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -25241,7 +25241,7 @@
 </record>
 <record>
   <leader>00831naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003447824</controlfield>
+<controlfield tag="001">REROILS:234</controlfield>
   <controlfield tag="005">20170518133100.0</controlfield>
   <controlfield tag="008">980412s1967    xx ||| |  ||||00|  0fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -25309,7 +25309,7 @@
 </record>
 <record>
   <leader>01102nam a22003132a 4500</leader>
-  <controlfield tag="001">vtls006030226</controlfield>
+<controlfield tag="001">REROILS:235</controlfield>
   <controlfield tag="005">20190725183600.0</controlfield>
   <controlfield tag="008">110218s1997    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -25404,7 +25404,7 @@
 </record>
 <record>
   <leader>01192naa a22002537a 4500</leader>
-  <controlfield tag="001">vtls003425527</controlfield>
+<controlfield tag="001">REROILS:236</controlfield>
   <controlfield tag="005">20170518121300.0</controlfield>
   <controlfield tag="008">980412s1977    xx ||| |  ||||00|  0ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -25481,7 +25481,7 @@
 </record>
 <record>
   <leader>01479nam a22003974a 4500</leader>
-  <controlfield tag="001">vtls008485822</controlfield>
+<controlfield tag="001">REROILS:237</controlfield>
   <controlfield tag="005">20190215145700.0</controlfield>
   <controlfield tag="008">160811s2014    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -25613,7 +25613,7 @@
 </record>
 <record>
   <leader>00956nam a22002652a 4500</leader>
-  <controlfield tag="001">vtls006039420</controlfield>
+<controlfield tag="001">REROILS:238</controlfield>
   <controlfield tag="005">20180410091500.0</controlfield>
   <controlfield tag="008">110218s2007    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -25695,7 +25695,7 @@
 </record>
 <record>
   <leader>01776naa a2200349 a 4500</leader>
-  <controlfield tag="001">vtls005216329</controlfield>
+<controlfield tag="001">REROILS:239</controlfield>
   <controlfield tag="005">20171127203500.0</controlfield>
   <controlfield tag="008">970725s1877    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -25807,7 +25807,7 @@
 </record>
 <record>
   <leader>01635ncm a2200361 a 4500</leader>
-  <controlfield tag="001">vtls000202337</controlfield>
+<controlfield tag="001">REROILS:240</controlfield>
   <controlfield tag="005">20180726115700.0</controlfield>
   <controlfield tag="008">961001m19712003gw |||||| |||||||  |ger d</controlfield>
   <datafield tag="024" ind1="2" ind2=" ">
@@ -25921,7 +25921,7 @@
 </record>
 <record>
   <leader>01698nam a22004574a 4500</leader>
-  <controlfield tag="001">vtls008485826</controlfield>
+<controlfield tag="001">REROILS:241</controlfield>
   <controlfield tag="005">20190215145700.0</controlfield>
   <controlfield tag="008">160811s2014    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -26073,7 +26073,7 @@
 </record>
 <record>
   <leader>00798nam a22002412a 4500</leader>
-  <controlfield tag="001">vtls006039424</controlfield>
+<controlfield tag="001">REROILS:242</controlfield>
   <controlfield tag="005">20180403085100.0</controlfield>
   <controlfield tag="008">110218s2009    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -26143,7 +26143,7 @@
 </record>
 <record>
   <leader>01075nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls006107727</controlfield>
+<controlfield tag="001">REROILS:243</controlfield>
   <controlfield tag="005">20180901201200.0</controlfield>
   <controlfield tag="008">110720s2010    xxk||| |  ||||00|  |lat d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -26240,7 +26240,7 @@
 </record>
 <record>
   <leader>00970nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls002707729</controlfield>
+<controlfield tag="001">REROILS:244</controlfield>
   <controlfield tag="005">20180828125600.0</controlfield>
   <controlfield tag="008">000924s1995    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -26331,7 +26331,7 @@
 </record>
 <record>
   <leader>00823naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003450221</controlfield>
+<controlfield tag="001">REROILS:245</controlfield>
   <controlfield tag="005">20170518134100.0</controlfield>
   <controlfield tag="008">980412s1973    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -26398,7 +26398,7 @@
 </record>
 <record>
   <leader>00984nam a2200289 a 4500</leader>
-  <controlfield tag="001">vtls000347021</controlfield>
+<controlfield tag="001">REROILS:246</controlfield>
   <controlfield tag="005">20170925125600.0</controlfield>
   <controlfield tag="008">960525s1981    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -26484,7 +26484,7 @@
 </record>
 <record>
   <leader>01234nam a22003257a 4500</leader>
-  <controlfield tag="001">vtls008175325</controlfield>
+<controlfield tag="001">REROILS:247</controlfield>
   <controlfield tag="005">20170520200300.0</controlfield>
   <controlfield tag="008">150617s2014    ua ||| |  ||||00|  |ara d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -26592,7 +26592,7 @@
 </record>
 <record>
   <leader>01294nam a22003612a 4500</leader>
-  <controlfield tag="001">vtls006030223</controlfield>
+<controlfield tag="001">REROILS:248</controlfield>
   <controlfield tag="005">20180403162100.0</controlfield>
   <controlfield tag="008">110218s1997    be ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -26702,7 +26702,7 @@
 </record>
 <record>
   <leader>03136naa a22005172a 4500</leader>
-  <controlfield tag="001">vtls005213422</controlfield>
+<controlfield tag="001">REROILS:249</controlfield>
   <controlfield tag="005">20171127203100.0</controlfield>
   <controlfield tag="008">970725m19031905sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -26876,7 +26876,7 @@
 </record>
 <record>
   <leader>01632cam a2200421 a 4500</leader>
-  <controlfield tag="001">vtls008588128</controlfield>
+<controlfield tag="001">REROILS:250</controlfield>
   <controlfield tag="005">20170520153600.0</controlfield>
   <controlfield tag="008">170124s2016    it ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -27014,7 +27014,7 @@
 </record>
 <record>
   <leader>01149nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls002671122</controlfield>
+<controlfield tag="001">REROILS:251</controlfield>
   <controlfield tag="005">20180828111500.0</controlfield>
   <controlfield tag="008">000914s1998    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -27119,7 +27119,7 @@
 </record>
 <record>
   <leader>01200cam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls000000647</controlfield>
+<controlfield tag="001">REROILS:252</controlfield>
   <controlfield tag="005">20180630124300.0</controlfield>
   <controlfield tag="008">961126s1971    sz |||||| ||||00|| |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -27219,7 +27219,7 @@
 </record>
 <record>
   <leader>00959nam a22002772a 4500</leader>
-  <controlfield tag="001">vtls006038121</controlfield>
+<controlfield tag="001">REROILS:253</controlfield>
   <controlfield tag="005">20180403083800.0</controlfield>
   <controlfield tag="008">110218s2008    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -27303,7 +27303,7 @@
 </record>
 <record>
   <leader>01409nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls008485827</controlfield>
+<controlfield tag="001">REROILS:254</controlfield>
   <controlfield tag="005">20170520213400.0</controlfield>
   <controlfield tag="008">160811s2016    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -27425,7 +27425,7 @@
 </record>
 <record>
   <leader>01309nam a2200349 a 4500</leader>
-  <controlfield tag="001">vtls002664024</controlfield>
+<controlfield tag="001">REROILS:255</controlfield>
   <controlfield tag="005">20180828105700.0</controlfield>
   <controlfield tag="008">000912s1997    sw ||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -27538,7 +27538,7 @@
 </record>
 <record>
   <leader>01152naa a2200289 a 4500</leader>
-  <controlfield tag="001">vtls002224725</controlfield>
+<controlfield tag="001">REROILS:256</controlfield>
   <controlfield tag="005">20180701223700.0</controlfield>
   <controlfield tag="008">971202q19351936sz ||| |  ||||00|  |ita d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -27629,7 +27629,7 @@
 </record>
 <record>
   <leader>00858nam a22002412a 4500</leader>
-  <controlfield tag="001">vtls004093020</controlfield>
+<controlfield tag="001">REROILS:257</controlfield>
   <controlfield tag="005">20170519115400.0</controlfield>
   <controlfield tag="008">060320s1977    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -27699,7 +27699,7 @@
 </record>
 <record>
   <leader>01023nam a2200301 a 4500</leader>
-  <controlfield tag="001">vtls008488824</controlfield>
+<controlfield tag="001">REROILS:258</controlfield>
   <controlfield tag="005">20180720143800.0</controlfield>
   <controlfield tag="008">160818s2016    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -27793,7 +27793,7 @@
 </record>
 <record>
   <leader>01453cjm a2200313 a 4500</leader>
-  <controlfield tag="001">vtls000638920</controlfield>
+<controlfield tag="001">REROILS:259</controlfield>
   <controlfield tag="005">20170516132200.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">860428s1982    xx |||||| |||||||  |ger d</controlfield>
@@ -27900,7 +27900,7 @@
 </record>
 <record>
   <leader>01192njm a2200277 a 4500</leader>
-  <controlfield tag="001">vtls008088066</controlfield>
+<controlfield tag="001">REROILS:260</controlfield>
   <controlfield tag="005">20170520090900.0</controlfield>
   <controlfield tag="007">s|</controlfield>
   <controlfield tag="008">150306s2009    xx ||| |  |||| ||  |eng d</controlfield>
@@ -27977,7 +27977,7 @@
 </record>
 <record>
   <leader>01974cam a2200457 a 4500</leader>
-  <controlfield tag="001">vtls006093126</controlfield>
+<controlfield tag="001">REROILS:261</controlfield>
   <controlfield tag="005">20170530163200.0</controlfield>
   <controlfield tag="008">110705s2010    ru ||| |  ||||00|  |rus d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -28125,7 +28125,7 @@
 </record>
 <record>
   <leader>01942cam a2200457 a 4500</leader>
-  <controlfield tag="001">vtls001651551</controlfield>
+<controlfield tag="001">REROILS:262</controlfield>
   <controlfield tag="005">20181208094300.0</controlfield>
   <controlfield tag="008">940202m19699999fr |||||| ||||00|| |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -28289,7 +28289,7 @@
 </record>
 <record>
   <leader>01492nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls002663928</controlfield>
+<controlfield tag="001">REROILS:263</controlfield>
   <controlfield tag="005">20170611110500.0</controlfield>
   <controlfield tag="008">000912s1988    gw |||||| ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -28414,7 +28414,7 @@
 </record>
 <record>
   <leader>00678nam a2200241 a 4500</leader>
-  <controlfield tag="001">vtls002671321</controlfield>
+<controlfield tag="001">REROILS:264</controlfield>
   <controlfield tag="005">20170518103700.0</controlfield>
   <controlfield tag="008">000913s1980    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -28481,7 +28481,7 @@
 </record>
 <record>
   <leader>01327nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls003220220</controlfield>
+<controlfield tag="001">REROILS:265</controlfield>
   <controlfield tag="005">20190117200300.0</controlfield>
   <controlfield tag="008">020719s2001    ja ||| |  ||||00|  |jpn d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -28588,7 +28588,7 @@
 </record>
 <record>
   <leader>02017nam a22005412a 4500</leader>
-  <controlfield tag="001">vtls006031528</controlfield>
+<controlfield tag="001">REROILS:266</controlfield>
   <controlfield tag="005">20180403163000.0</controlfield>
   <controlfield tag="008">110218s1999    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -28762,7 +28762,7 @@
 </record>
 <record>
   <leader>01203naa a2200277 a 4500</leader>
-  <controlfield tag="001">vtls005264524</controlfield>
+<controlfield tag="001">REROILS:267</controlfield>
   <controlfield tag="005">20171127203300.0</controlfield>
   <controlfield tag="008">971022s1975    sz ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -28848,7 +28848,7 @@
 </record>
 <record>
   <leader>01196nam a2200337 a 4500</leader>
-  <controlfield tag="001">vtls007124426</controlfield>
+<controlfield tag="001">REROILS:268</controlfield>
   <controlfield tag="005">20170531191500.0</controlfield>
   <controlfield tag="008">120820s2012    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="024" ind1="8" ind2=" ">
@@ -28950,7 +28950,7 @@
 </record>
 <record>
   <leader>01059nam a2200325 a 4500</leader>
-  <controlfield tag="001">vtls008579328</controlfield>
+<controlfield tag="001">REROILS:269</controlfield>
   <controlfield tag="005">20170520143000.0</controlfield>
   <controlfield tag="008">170104s2016    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -29049,7 +29049,7 @@
 </record>
 <record>
   <leader>01087naa a2200277 a 4500</leader>
-  <controlfield tag="001">vtls005264924</controlfield>
+<controlfield tag="001">REROILS:270</controlfield>
   <controlfield tag="005">20171127203600.0</controlfield>
   <controlfield tag="008">971022 1970    sz ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -29135,7 +29135,7 @@
 </record>
 <record>
   <leader>00934naa a22002417a 4500</leader>
-  <controlfield tag="001">vtls003443429</controlfield>
+<controlfield tag="001">REROILS:271</controlfield>
   <controlfield tag="005">20170518131500.0</controlfield>
   <controlfield tag="008">980412s1975    xx ||| |  ||||00|  0ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -29208,7 +29208,7 @@
 </record>
 <record>
   <leader>00827nim a22002537a 4500</leader>
-  <controlfield tag="001">vtls005392475</controlfield>
+<controlfield tag="001">REROILS:272</controlfield>
   <controlfield tag="005">20170529172800.0</controlfield>
   <controlfield tag="008">100217s2006    xxu||| |  ||||0||  |eng d</controlfield>
   <datafield tag="028" ind1=" " ind2=" ">
@@ -29281,7 +29281,7 @@
 </record>
 <record>
   <leader>00812naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003441520</controlfield>
+<controlfield tag="001">REROILS:273</controlfield>
   <controlfield tag="005">20170518130800.0</controlfield>
   <controlfield tag="008">980412s1970    xx ||| |  ||||00|  0eng d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -29348,7 +29348,7 @@
 </record>
 <record>
   <leader>01207nam a22003492a 4500</leader>
-  <controlfield tag="001">vtls006030220</controlfield>
+<controlfield tag="001">REROILS:274</controlfield>
   <controlfield tag="005">20180403162100.0</controlfield>
   <controlfield tag="008">110218s1996    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -29455,7 +29455,7 @@
 </record>
 <record>
   <leader>01657cam a22004572a 4500</leader>
-  <controlfield tag="001">vtls008780060</controlfield>
+<controlfield tag="001">REROILS:275</controlfield>
   <controlfield tag="005">20190215170900.0</controlfield>
   <controlfield tag="008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -29610,7 +29610,7 @@
 </record>
 <record>
   <leader>00839naa a22002297a 4500</leader>
-  <controlfield tag="001">vtls003434423</controlfield>
+<controlfield tag="001">REROILS:276</controlfield>
   <controlfield tag="005">20170518124400.0</controlfield>
   <controlfield tag="008">980412s1966    fr ||| |  ||||00|  0fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -29676,7 +29676,7 @@
 </record>
 <record>
   <leader>03234cas a2200805 a 4500</leader>
-  <controlfield tag="001">vtls006059750</controlfield>
+<controlfield tag="001">REROILS:277</controlfield>
   <controlfield tag="005">20190718165200.0</controlfield>
   <controlfield tag="008">110526c20119999sz |||p|| ||||0 || 0fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -29967,7 +29967,7 @@
 </record>
 <record>
   <leader>01582nam a22003252a 4500</leader>
-  <controlfield tag="001">vtls006038120</controlfield>
+<controlfield tag="001">REROILS:278</controlfield>
   <controlfield tag="005">20190701151600.0</controlfield>
   <controlfield tag="008">110218s2008    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="019" ind1=" " ind2=" ">
@@ -30067,7 +30067,7 @@
 </record>
 <record>
   <leader>01375nam a2200385 a 4500</leader>
-  <controlfield tag="001">vtls008388656</controlfield>
+<controlfield tag="001">REROILS:279</controlfield>
   <controlfield tag="005">20170520230400.0</controlfield>
   <controlfield tag="008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -30193,7 +30193,7 @@
 </record>
 <record>
   <leader>01271nam a2200361 a 4500</leader>
-  <controlfield tag="001">vtls002706621</controlfield>
+<controlfield tag="001">REROILS:280</controlfield>
   <controlfield tag="005">20181208153800.0</controlfield>
   <controlfield tag="008">010121s1999    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -30311,7 +30311,7 @@
 </record>
 <record>
   <leader>00546nas a2200193 a 4500</leader>
-  <controlfield tag="001">vtls002280040</controlfield>
+<controlfield tag="001">REROILS:281</controlfield>
   <controlfield tag="005">20170518092400.0</controlfield>
   <controlfield tag="008">980327d19531968it |||m|| ||||0 || 0ita d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -30361,7 +30361,7 @@
 </record>
 <record>
   <leader>01203nam a2200373 a 4500</leader>
-  <controlfield tag="001">vtls002658529</controlfield>
+<controlfield tag="001">REROILS:282</controlfield>
   <controlfield tag="005">20170518100500.0</controlfield>
   <controlfield tag="008">000911s2000    xxu||| |  ||||00|  |eng d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -30476,7 +30476,7 @@
 </record>
 <record>
   <leader>01117naa a2200301 a 4500</leader>
-  <controlfield tag="001">vtls003249427</controlfield>
+<controlfield tag="001">REROILS:283</controlfield>
   <controlfield tag="005">20170611090000.0</controlfield>
   <controlfield tag="008">021002s2002    fr ||| |  ||||00|  |fre d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -30571,7 +30571,7 @@
 </record>
 <record>
   <leader>00820nam a2200253 a 4500</leader>
-  <controlfield tag="001">vtls001140656</controlfield>
+<controlfield tag="001">REROILS:284</controlfield>
   <controlfield tag="005">20170517083400.0</controlfield>
   <controlfield tag="008">900530s1936    gw |||||| ||||00|| |ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">
@@ -30647,7 +30647,7 @@
 </record>
 <record>
   <leader>01970nam a2200481 a 4500</leader>
-  <controlfield tag="001">vtls001667127</controlfield>
+<controlfield tag="001">REROILS:285</controlfield>
   <controlfield tag="005">20170610172800.0</controlfield>
   <controlfield tag="008">940308s1993    xxu|||||| ||||00|| |fre d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -30811,7 +30811,7 @@
 </record>
 <record>
   <leader>00572nas a2200193 a 4500</leader>
-  <controlfield tag="001">vtls000357928</controlfield>
+<controlfield tag="001">REROILS:286</controlfield>
   <controlfield tag="005">20180329164900.0</controlfield>
   <controlfield tag="008">960525c1957    gw |||m|| ||||0 || 0ger d</controlfield>
   <datafield tag="035" ind1=" " ind2=" ">

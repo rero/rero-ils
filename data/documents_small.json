@@ -1,6 +1,7 @@
 [
   {
     "type": "book",
+    "pid": "1",
     "language": [
       {
         "value": "ita",
@@ -83,6 +84,7 @@
   },
   {
     "type": "book",
+    "pid": "2",
     "language": [
       {
         "value": "fre",
@@ -144,6 +146,7 @@
   },
   {
     "type": "book",
+    "pid": "3",
     "language": [
       {
         "value": "jpn",
@@ -220,6 +223,7 @@
   },
   {
     "type": "article",
+    "pid": "4",
     "language": [
       {
         "value": "spa",
@@ -252,6 +256,7 @@
   },
   {
     "type": "article",
+    "pid": "5",
     "language": [
       {
         "value": "fre",
@@ -314,6 +319,7 @@
   },
   {
     "type": "article",
+    "pid": "6",
     "language": [
       {
         "value": "ger",
@@ -371,6 +377,7 @@
   },
   {
     "type": "book",
+    "pid": "7",
     "language": [
       {
         "value": "ger",
@@ -441,6 +448,7 @@
   },
   {
     "type": "sound",
+    "pid": "8",
     "language": [
       {
         "value": "eng",
@@ -498,6 +506,7 @@
   },
   {
     "type": "article",
+    "pid": "9",
     "language": [
       {
         "value": "eng",
@@ -530,6 +539,7 @@
   },
   {
     "type": "book",
+    "pid": "10",
     "language": [
       {
         "value": "fre",
@@ -588,6 +598,7 @@
   },
   {
     "type": "article",
+    "pid": "11",
     "language": [
       {
         "value": "eng",
@@ -620,6 +631,7 @@
   },
   {
     "type": "score",
+    "pid": "12",
     "language": [
       {
         "value": "ger",
@@ -718,6 +730,7 @@
   },
   {
     "type": "video",
+    "pid": "13",
     "language": [
       {
         "value": "fre",
@@ -794,6 +807,7 @@
   },
   {
     "type": "book",
+    "pid": "14",
     "language": [
       {
         "value": "ger",
@@ -860,6 +874,7 @@
   },
   {
     "type": "book",
+    "pid": "15",
     "language": [
       {
         "value": "fre",
@@ -926,6 +941,7 @@
   },
   {
     "type": "book",
+    "pid": "16",
     "language": [
       {
         "value": "fre",
@@ -986,6 +1002,7 @@
   },
   {
     "type": "book",
+    "pid": "17",
     "language": [
       {
         "value": "ger",
@@ -1046,6 +1063,7 @@
   },
   {
     "type": "book",
+    "pid": "18",
     "language": [
       {
         "value": "fre",
@@ -1117,6 +1135,7 @@
   },
   {
     "type": "book",
+    "pid": "19",
     "language": [
       {
         "value": "fre",
@@ -1179,6 +1198,7 @@
   },
   {
     "type": "book",
+    "pid": "20",
     "language": [
       {
         "value": "fre",
@@ -1239,6 +1259,7 @@
   },
   {
     "type": "book",
+    "pid": "21",
     "language": [
       {
         "value": "eng",
@@ -1309,6 +1330,7 @@
   },
   {
     "type": "book",
+    "pid": "22",
     "language": [
       {
         "value": "fre",
@@ -1381,6 +1403,7 @@
   },
   {
     "type": "score",
+    "pid": "23",
     "language": [
       {
         "value": "ger",
@@ -1460,6 +1483,7 @@
   },
   {
     "type": "book",
+    "pid": "24",
     "language": [
       {
         "value": "fre",
@@ -1528,6 +1552,7 @@
   },
   {
     "type": "book",
+    "pid": "25",
     "language": [
       {
         "value": "fre",
@@ -1597,6 +1622,7 @@
   },
   {
     "type": "book",
+    "pid": "26",
     "language": [
       {
         "value": "fre",
@@ -1664,6 +1690,7 @@
   },
   {
     "type": "article",
+    "pid": "27",
     "language": [
       {
         "value": "eng",
@@ -1696,6 +1723,7 @@
   },
   {
     "type": "book",
+    "pid": "28",
     "language": [
       {
         "value": "lat",
@@ -1767,6 +1795,7 @@
   },
   {
     "type": "book",
+    "pid": "29",
     "language": [
       {
         "value": "fre",
@@ -1833,6 +1862,7 @@
   },
   {
     "type": "book",
+    "pid": "30",
     "language": [
       {
         "value": "fre",
@@ -1898,6 +1928,7 @@
   },
   {
     "type": "book",
+    "pid": "31",
     "language": [
       {
         "value": "eng",
@@ -1974,6 +2005,7 @@
   },
   {
     "type": "book",
+    "pid": "32",
     "language": [
       {
         "value": "fre",
@@ -2039,6 +2071,7 @@
   },
   {
     "type": "article",
+    "pid": "33",
     "language": [
       {
         "value": "fre",
@@ -2099,6 +2132,7 @@
   },
   {
     "type": "book",
+    "pid": "34",
     "language": [
       {
         "value": "ara",
@@ -2169,6 +2203,7 @@
   },
   {
     "type": "article",
+    "pid": "35",
     "language": [
       {
         "value": "ger",
@@ -2223,6 +2258,7 @@
   },
   {
     "type": "book",
+    "pid": "36",
     "language": [
       {
         "value": "ger",
@@ -2292,6 +2328,7 @@
   },
   {
     "type": "journal",
+    "pid": "37",
     "language": [
       {
         "value": "eng",
@@ -2359,6 +2396,7 @@
   },
   {
     "type": "book",
+    "pid": "38",
     "language": [
       {
         "value": "ger",
@@ -2414,6 +2452,7 @@
   },
   {
     "type": "book",
+    "pid": "39",
     "language": [
       {
         "value": "fre",
@@ -2482,6 +2521,7 @@
   },
   {
     "type": "book",
+    "pid": "40",
     "language": [
       {
         "value": "ger",
@@ -2560,6 +2600,7 @@
   },
   {
     "type": "book",
+    "pid": "41",
     "language": [
       {
         "value": "fre",
@@ -2628,6 +2669,7 @@
   },
   {
     "type": "score",
+    "pid": "42",
     "language": [
       {
         "value": "ger",
@@ -2700,6 +2742,7 @@
   },
   {
     "type": "book",
+    "pid": "43",
     "language": [
       {
         "value": "fre",
@@ -2770,6 +2813,7 @@
   },
   {
     "type": "book",
+    "pid": "44",
     "language": [
       {
         "value": "eng",
@@ -2853,6 +2897,7 @@
   },
   {
     "type": "book",
+    "pid": "45",
     "language": [
       {
         "value": "ger",
@@ -2922,6 +2967,7 @@
   },
   {
     "type": "book",
+    "pid": "46",
     "language": [
       {
         "value": "fre",
@@ -2988,6 +3034,7 @@
   },
   {
     "type": "book",
+    "pid": "47",
     "language": [
       {
         "value": "eng",
@@ -3063,6 +3110,7 @@
   },
   {
     "type": "video",
+    "pid": "48",
     "language": [
       {
         "value": "fre",
@@ -3128,6 +3176,7 @@
   },
   {
     "type": "sound",
+    "pid": "49",
     "language": [
       {
         "value": "rus",
@@ -3192,6 +3241,7 @@
   },
   {
     "type": "book",
+    "pid": "50",
     "language": [
       {
         "value": "fre",
@@ -3263,6 +3313,7 @@
   },
   {
     "type": "book",
+    "pid": "51",
     "language": [
       {
         "value": "fre",
@@ -3325,6 +3376,7 @@
   },
   {
     "type": "book",
+    "pid": "52",
     "language": [
       {
         "value": "fre",
@@ -3388,6 +3440,7 @@
   },
   {
     "type": "book",
+    "pid": "53",
     "language": [
       {
         "value": "fre",
@@ -3461,6 +3514,7 @@
   },
   {
     "type": "book",
+    "pid": "54",
     "language": [
       {
         "value": "fre",
@@ -3528,6 +3582,7 @@
   },
   {
     "type": "book",
+    "pid": "55",
     "language": [
       {
         "value": "ger",
@@ -3579,6 +3634,7 @@
   },
   {
     "type": "book",
+    "pid": "56",
     "language": [
       {
         "value": "fre",
@@ -3642,6 +3698,7 @@
   },
   {
     "type": "book",
+    "pid": "57",
     "language": [
       {
         "value": "ger",
@@ -3731,6 +3788,7 @@
   },
   {
     "type": "article",
+    "pid": "58",
     "language": [
       {
         "value": "ger",
@@ -3763,6 +3821,7 @@
   },
   {
     "type": "article",
+    "pid": "59",
     "language": [
       {
         "value": "ger",
@@ -3821,6 +3880,7 @@
   },
   {
     "type": "journal",
+    "pid": "60",
     "language": [
       {
         "value": "eng",
@@ -3867,6 +3927,7 @@
   },
   {
     "type": "score",
+    "pid": "61",
     "language": [
       {
         "value": "ger",
@@ -3945,6 +4006,7 @@
   },
   {
     "type": "book",
+    "pid": "62",
     "language": [
       {
         "value": "heb",
@@ -4051,6 +4113,7 @@
   },
   {
     "type": "book",
+    "pid": "63",
     "language": [
       {
         "value": "ger",
@@ -4113,6 +4176,7 @@
   },
   {
     "type": "book",
+    "pid": "64",
     "language": [
       {
         "value": "fre",
@@ -4169,6 +4233,7 @@
   },
   {
     "type": "book",
+    "pid": "65",
     "language": [
       {
         "value": "rus",
@@ -4236,6 +4301,7 @@
   },
   {
     "type": "book",
+    "pid": "66",
     "language": [
       {
         "value": "ger",
@@ -4303,6 +4369,7 @@
   },
   {
     "type": "book",
+    "pid": "67",
     "language": [
       {
         "value": "ita",
@@ -4369,6 +4436,7 @@
   },
   {
     "type": "book",
+    "pid": "68",
     "language": [
       {
         "value": "fre",
@@ -4432,6 +4500,7 @@
   },
   {
     "type": "score",
+    "pid": "69",
     "language": [
       {
         "value": "ger",
@@ -4491,6 +4560,7 @@
   },
   {
     "type": "book",
+    "pid": "70",
     "language": [
       {
         "value": "eng",
@@ -4553,6 +4623,7 @@
   },
   {
     "type": "article",
+    "pid": "71",
     "language": [
       {
         "value": "fre",
@@ -4604,6 +4675,7 @@
   },
   {
     "type": "book",
+    "pid": "72",
     "language": [
       {
         "value": "fre",
@@ -4672,6 +4744,7 @@
   },
   {
     "type": "book",
+    "pid": "73",
     "language": [
       {
         "value": "ger",
@@ -4746,6 +4819,7 @@
   },
   {
     "type": "sound",
+    "pid": "74",
     "language": [
       {
         "value": "ita",
@@ -4831,6 +4905,7 @@
   },
   {
     "type": "book",
+    "pid": "75",
     "language": [
       {
         "value": "rus",
@@ -4902,6 +4977,7 @@
   },
   {
     "type": "book",
+    "pid": "76",
     "language": [
       {
         "value": "fre",
@@ -4955,6 +5031,7 @@
   },
   {
     "type": "book",
+    "pid": "77",
     "language": [
       {
         "value": "ger",
@@ -5017,6 +5094,7 @@
   },
   {
     "type": "article",
+    "pid": "78",
     "language": [
       {
         "value": "eng",
@@ -5088,6 +5166,7 @@
   },
   {
     "type": "book",
+    "pid": "79",
     "language": [
       {
         "value": "fre",
@@ -5158,6 +5237,7 @@
   },
   {
     "type": "book",
+    "pid": "80",
     "language": [
       {
         "value": "ger",
@@ -5218,6 +5298,7 @@
   },
   {
     "type": "book",
+    "pid": "81",
     "language": [
       {
         "value": "fre",
@@ -5274,6 +5355,7 @@
   },
   {
     "type": "book",
+    "pid": "82",
     "language": [
       {
         "value": "fre",
@@ -5341,6 +5423,7 @@
   },
   {
     "type": "book",
+    "pid": "83",
     "language": [
       {
         "value": "ger",
@@ -5418,6 +5501,7 @@
   },
   {
     "type": "book",
+    "pid": "84",
     "language": [
       {
         "value": "fre",
@@ -5485,6 +5569,7 @@
   },
   {
     "type": "book",
+    "pid": "85",
     "language": [
       {
         "value": "ger",
@@ -5551,6 +5636,7 @@
   },
   {
     "type": "journal",
+    "pid": "86",
     "language": [
       {
         "value": "lat",
@@ -5606,6 +5692,7 @@
   },
   {
     "type": "book",
+    "pid": "87",
     "language": [
       {
         "value": "fre",
@@ -5667,6 +5754,7 @@
   },
   {
     "type": "book",
+    "pid": "88",
     "language": [
       {
         "value": "fre",
@@ -5739,6 +5827,7 @@
   },
   {
     "type": "book",
+    "pid": "89",
     "language": [
       {
         "value": "ger",
@@ -5832,6 +5921,7 @@
   },
   {
     "type": "article",
+    "pid": "90",
     "language": [
       {
         "value": "eng",
@@ -5864,6 +5954,7 @@
   },
   {
     "type": "article",
+    "pid": "91",
     "language": [
       {
         "value": "ger",
@@ -5908,6 +5999,7 @@
   },
   {
     "type": "book",
+    "pid": "92",
     "language": [
       {
         "value": "fre",
@@ -5971,6 +6063,7 @@
   },
   {
     "type": "book",
+    "pid": "93",
     "language": [
       {
         "value": "fre",
@@ -6037,6 +6130,7 @@
   },
   {
     "type": "book",
+    "pid": "94",
     "language": [
       {
         "value": "fre",
@@ -6105,6 +6199,7 @@
   },
   {
     "type": "book",
+    "pid": "95",
     "language": [
       {
         "value": "eng",
@@ -6172,6 +6267,7 @@
   },
   {
     "type": "book",
+    "pid": "96",
     "language": [
       {
         "value": "fre",
@@ -6230,6 +6326,7 @@
   },
   {
     "type": "book",
+    "pid": "97",
     "language": [
       {
         "value": "ita",
@@ -6304,6 +6401,7 @@
   },
   {
     "type": "book",
+    "pid": "98",
     "language": [
       {
         "value": "fre",
@@ -6354,6 +6452,7 @@
   },
   {
     "type": "book",
+    "pid": "99",
     "language": [
       {
         "value": "fre",
@@ -6425,6 +6524,7 @@
   },
   {
     "type": "book",
+    "pid": "100",
     "language": [
       {
         "value": "chi",
@@ -6491,6 +6591,7 @@
   },
   {
     "type": "book",
+    "pid": "101",
     "language": [
       {
         "value": "por",
@@ -6562,6 +6663,7 @@
   },
   {
     "type": "book",
+    "pid": "102",
     "language": [
       {
         "value": "fre",
@@ -6628,6 +6730,7 @@
   },
   {
     "type": "book",
+    "pid": "103",
     "language": [
       {
         "value": "ita",
@@ -6685,6 +6788,7 @@
   },
   {
     "type": "book",
+    "pid": "104",
     "language": [
       {
         "value": "ger",
@@ -6747,6 +6851,7 @@
   },
   {
     "type": "book",
+    "pid": "105",
     "language": [
       {
         "value": "fre",
@@ -6800,6 +6905,7 @@
   },
   {
     "type": "book",
+    "pid": "106",
     "language": [
       {
         "value": "eng",
@@ -6870,6 +6976,7 @@
   },
   {
     "type": "book",
+    "pid": "107",
     "language": [
       {
         "value": "ger",
@@ -6932,6 +7039,7 @@
   },
   {
     "type": "book",
+    "pid": "108",
     "language": [
       {
         "value": "pol",
@@ -6999,6 +7107,7 @@
   },
   {
     "type": "article",
+    "pid": "109",
     "language": [
       {
         "value": "fre",
@@ -7031,6 +7140,7 @@
   },
   {
     "type": "book",
+    "pid": "110",
     "language": [
       {
         "value": "ara",
@@ -7097,6 +7207,7 @@
   },
   {
     "type": "article",
+    "pid": "111",
     "language": [
       {
         "value": "eng",
@@ -7129,6 +7240,7 @@
   },
   {
     "type": "book",
+    "pid": "112",
     "language": [
       {
         "value": "fre",
@@ -7188,6 +7300,7 @@
   },
   {
     "type": "book",
+    "pid": "113",
     "language": [
       {
         "value": "fre",
@@ -7251,6 +7364,7 @@
   },
   {
     "type": "book",
+    "pid": "114",
     "language": [
       {
         "value": "ger",
@@ -7320,6 +7434,7 @@
   },
   {
     "type": "book",
+    "pid": "115",
     "language": [
       {
         "value": "ger",
@@ -7399,6 +7514,7 @@
   },
   {
     "type": "article",
+    "pid": "116",
     "language": [
       {
         "value": "fre",
@@ -7451,6 +7567,7 @@
   },
   {
     "type": "article",
+    "pid": "117",
     "language": [
       {
         "value": "eng",
@@ -7483,6 +7600,7 @@
   },
   {
     "type": "journal",
+    "pid": "118",
     "language": [
       {
         "value": "por",
@@ -7562,6 +7680,7 @@
   },
   {
     "type": "book",
+    "pid": "119",
     "language": [
       {
         "value": "ita",
@@ -7632,6 +7751,7 @@
   },
   {
     "type": "book",
+    "pid": "120",
     "language": [
       {
         "value": "eng",
@@ -7699,6 +7819,7 @@
   },
   {
     "type": "book",
+    "pid": "121",
     "language": [
       {
         "value": "fre",
@@ -7760,6 +7881,7 @@
   },
   {
     "type": "article",
+    "pid": "122",
     "language": [
       {
         "value": "fre",
@@ -7820,6 +7942,7 @@
   },
   {
     "type": "book",
+    "pid": "123",
     "language": [
       {
         "value": "ger",
@@ -7891,6 +8014,7 @@
   },
   {
     "type": "book",
+    "pid": "124",
     "language": [
       {
         "value": "fre",
@@ -7954,6 +8078,7 @@
   },
   {
     "type": "article",
+    "pid": "125",
     "language": [
       {
         "value": "fre",
@@ -8004,6 +8129,7 @@
   },
   {
     "type": "book",
+    "pid": "126",
     "language": [
       {
         "value": "chi",
@@ -8070,6 +8196,7 @@
   },
   {
     "type": "book",
+    "pid": "127",
     "language": [
       {
         "value": "fre",
@@ -8137,6 +8264,7 @@
   },
   {
     "type": "book",
+    "pid": "128",
     "language": [
       {
         "value": "eng",
@@ -8212,6 +8340,7 @@
   },
   {
     "type": "book",
+    "pid": "129",
     "language": [
       {
         "value": "ger",
@@ -8280,6 +8409,7 @@
   },
   {
     "type": "book",
+    "pid": "130",
     "language": [
       {
         "value": "ger",
@@ -8338,6 +8468,7 @@
   },
   {
     "type": "book",
+    "pid": "131",
     "language": [
       {
         "value": "rus",
@@ -8405,6 +8536,7 @@
   },
   {
     "type": "book",
+    "pid": "132",
     "language": [
       {
         "value": "ita",
@@ -8466,6 +8598,7 @@
   },
   {
     "type": "journal",
+    "pid": "133",
     "language": [
       {
         "value": "eng",
@@ -8528,6 +8661,7 @@
   },
   {
     "type": "article",
+    "pid": "134",
     "language": [
       {
         "value": "eng",
@@ -8560,6 +8694,7 @@
   },
   {
     "type": "book",
+    "pid": "135",
     "language": [
       {
         "value": "gre",
@@ -8636,6 +8771,7 @@
   },
   {
     "type": "book",
+    "pid": "136",
     "language": [
       {
         "value": "ger",
@@ -8721,6 +8857,7 @@
   },
   {
     "type": "book",
+    "pid": "137",
     "language": [
       {
         "value": "fre",
@@ -8788,6 +8925,7 @@
   },
   {
     "type": "book",
+    "pid": "138",
     "language": [
       {
         "value": "fre",
@@ -8845,6 +8983,7 @@
   },
   {
     "type": "book",
+    "pid": "139",
     "language": [
       {
         "value": "eng",
@@ -8909,6 +9048,7 @@
   },
   {
     "type": "article",
+    "pid": "140",
     "language": [
       {
         "value": "ger",
@@ -8935,6 +9075,7 @@
   },
   {
     "type": "book",
+    "pid": "141",
     "language": [
       {
         "value": "fre",
@@ -8992,6 +9133,7 @@
   },
   {
     "type": "book",
+    "pid": "142",
     "language": [
       {
         "value": "fre",
@@ -9054,6 +9196,7 @@
   },
   {
     "type": "book",
+    "pid": "143",
     "language": [
       {
         "value": "fre",
@@ -9121,6 +9264,7 @@
   },
   {
     "type": "book",
+    "pid": "144",
     "language": [
       {
         "value": "rus",
@@ -9229,6 +9373,7 @@
   },
   {
     "type": "book",
+    "pid": "145",
     "language": [
       {
         "value": "ger",
@@ -9295,6 +9440,7 @@
   },
   {
     "type": "article",
+    "pid": "146",
     "language": [
       {
         "value": "eng",
@@ -9322,6 +9468,7 @@
   },
   {
     "type": "article",
+    "pid": "147",
     "language": [
       {
         "value": "ger",
@@ -9378,6 +9525,7 @@
   },
   {
     "type": "book",
+    "pid": "148",
     "language": [
       {
         "value": "fre",
@@ -9436,6 +9584,7 @@
   },
   {
     "type": "article",
+    "pid": "149",
     "language": [
       {
         "value": "ger",
@@ -9506,6 +9655,7 @@
   },
   {
     "type": "book",
+    "pid": "150",
     "language": [
       {
         "value": "eng",
@@ -9570,6 +9720,7 @@
   },
   {
     "type": "book",
+    "pid": "151",
     "language": [
       {
         "value": "fre",
@@ -9635,6 +9786,7 @@
   },
   {
     "type": "book",
+    "pid": "152",
     "language": [
       {
         "value": "fre",
@@ -9702,6 +9854,7 @@
   },
   {
     "type": "book",
+    "pid": "153",
     "language": [
       {
         "value": "eng",
@@ -9760,6 +9913,7 @@
   },
   {
     "type": "book",
+    "pid": "154",
     "language": [
       {
         "value": "fre",
@@ -9820,6 +9974,7 @@
   },
   {
     "type": "book",
+    "pid": "155",
     "language": [
       {
         "value": "ger",
@@ -9885,6 +10040,7 @@
   },
   {
     "type": "sound",
+    "pid": "156",
     "language": [
       {
         "value": "ger",
@@ -9952,6 +10108,7 @@
   },
   {
     "type": "book",
+    "pid": "157",
     "language": [
       {
         "value": "ger",
@@ -10075,6 +10232,7 @@
   },
   {
     "type": "book",
+    "pid": "158",
     "language": [
       {
         "value": "ger",
@@ -10138,6 +10296,7 @@
   },
   {
     "type": "book",
+    "pid": "159",
     "language": [
       {
         "value": "eng",
@@ -10229,6 +10388,7 @@
   },
   {
     "type": "book",
+    "pid": "160",
     "language": [
       {
         "value": "spa",
@@ -10320,6 +10480,7 @@
   },
   {
     "type": "book",
+    "pid": "161",
     "language": [
       {
         "value": "fre",
@@ -10387,6 +10548,7 @@
   },
   {
     "type": "book",
+    "pid": "162",
     "language": [
       {
         "value": "lat",
@@ -10477,6 +10639,7 @@
   },
   {
     "type": "book",
+    "pid": "163",
     "language": [
       {
         "value": "ger",
@@ -10537,6 +10700,7 @@
   },
   {
     "type": "book",
+    "pid": "164",
     "language": [
       {
         "value": "heb",
@@ -10610,6 +10774,7 @@
   },
   {
     "type": "book",
+    "pid": "165",
     "language": [
       {
         "value": "fre",
@@ -10670,6 +10835,7 @@
   },
   {
     "type": "article",
+    "pid": "166",
     "language": [
       {
         "value": "eng",
@@ -10696,6 +10862,7 @@
   },
   {
     "type": "book",
+    "pid": "167",
     "language": [
       {
         "value": "ger",
@@ -10752,6 +10919,7 @@
   },
   {
     "type": "book",
+    "pid": "168",
     "language": [
       {
         "value": "fre",
@@ -10812,6 +10980,7 @@
   },
   {
     "type": "book",
+    "pid": "169",
     "language": [
       {
         "value": "fre",
@@ -10875,6 +11044,7 @@
   },
   {
     "type": "book",
+    "pid": "170",
     "language": [
       {
         "value": "eng",
@@ -10941,6 +11111,7 @@
   },
   {
     "type": "book",
+    "pid": "171",
     "language": [
       {
         "value": "jpn",
@@ -11006,6 +11177,7 @@
   },
   {
     "type": "sound",
+    "pid": "172",
     "language": [
       {
         "value": "fre",
@@ -11059,6 +11231,7 @@
   },
   {
     "type": "book",
+    "pid": "173",
     "language": [
       {
         "value": "eng",
@@ -11124,6 +11297,7 @@
   },
   {
     "type": "book",
+    "pid": "174",
     "language": [
       {
         "value": "fre",
@@ -11187,6 +11361,7 @@
   },
   {
     "type": "book",
+    "pid": "175",
     "language": [
       {
         "value": "fre",
@@ -11257,6 +11432,7 @@
   },
   {
     "type": "journal",
+    "pid": "176",
     "language": [
       {
         "value": "eng",
@@ -11316,6 +11492,7 @@
   },
   {
     "type": "score",
+    "pid": "177",
     "language": [
       {
         "value": "ger",
@@ -11400,6 +11577,7 @@
   },
   {
     "type": "book",
+    "pid": "178",
     "language": [
       {
         "value": "ger",
@@ -11480,6 +11658,7 @@
   },
   {
     "type": "book",
+    "pid": "179",
     "language": [
       {
         "value": "eng",
@@ -11548,6 +11727,7 @@
   },
   {
     "type": "book",
+    "pid": "180",
     "language": [
       {
         "value": "fre",
@@ -11615,6 +11795,7 @@
   },
   {
     "type": "book",
+    "pid": "181",
     "language": [
       {
         "value": "fre",
@@ -11667,6 +11848,7 @@
   },
   {
     "type": "article",
+    "pid": "182",
     "language": [
       {
         "value": "eng",
@@ -11747,6 +11929,7 @@
   },
   {
     "type": "book",
+    "pid": "183",
     "language": [
       {
         "value": "fre",
@@ -11811,6 +11994,7 @@
   },
   {
     "type": "book",
+    "pid": "184",
     "language": [
       {
         "value": "fre",
@@ -11881,6 +12065,7 @@
   },
   {
     "type": "book",
+    "pid": "185",
     "language": [
       {
         "value": "ara",
@@ -11939,6 +12124,7 @@
   },
   {
     "type": "book",
+    "pid": "186",
     "language": [
       {
         "value": "fre",
@@ -12001,6 +12187,7 @@
   },
   {
     "type": "book",
+    "pid": "187",
     "language": [
       {
         "value": "ger",
@@ -12060,6 +12247,7 @@
   },
   {
     "type": "sound",
+    "pid": "188",
     "language": [
       {
         "value": "eng",
@@ -12142,6 +12330,7 @@
   },
   {
     "type": "article",
+    "pid": "189",
     "language": [
       {
         "value": "ita",
@@ -12212,6 +12401,7 @@
   },
   {
     "type": "book",
+    "pid": "190",
     "language": [
       {
         "value": "fre",
@@ -12292,6 +12482,7 @@
   },
   {
     "type": "book",
+    "pid": "191",
     "language": [
       {
         "value": "ger",
@@ -12356,6 +12547,7 @@
   },
   {
     "type": "book",
+    "pid": "192",
     "language": [
       {
         "value": "fre",
@@ -12422,6 +12614,7 @@
   },
   {
     "type": "book",
+    "pid": "193",
     "language": [
       {
         "value": "fre",
@@ -12489,6 +12682,7 @@
   },
   {
     "type": "book",
+    "pid": "194",
     "language": [
       {
         "value": "fre",
@@ -12558,6 +12752,7 @@
   },
   {
     "type": "book",
+    "pid": "195",
     "language": [
       {
         "value": "fre",
@@ -12621,6 +12816,7 @@
   },
   {
     "type": "book",
+    "pid": "196",
     "language": [
       {
         "value": "fre",
@@ -12687,6 +12883,7 @@
   },
   {
     "type": "book",
+    "pid": "197",
     "language": [
       {
         "value": "fre",
@@ -12758,6 +12955,7 @@
   },
   {
     "type": "book",
+    "pid": "198",
     "language": [
       {
         "value": "fre",
@@ -12825,6 +13023,7 @@
   },
   {
     "type": "book",
+    "pid": "199",
     "language": [
       {
         "value": "eng",
@@ -12885,6 +13084,7 @@
   },
   {
     "type": "article",
+    "pid": "200",
     "language": [
       {
         "value": "fre",
@@ -12947,6 +13147,7 @@
   },
   {
     "type": "video",
+    "pid": "201",
     "language": [
       {
         "value": "fre",
@@ -13039,6 +13240,7 @@
   },
   {
     "type": "book",
+    "pid": "202",
     "language": [
       {
         "value": "ger",
@@ -13121,6 +13323,7 @@
   },
   {
     "type": "book",
+    "pid": "203",
     "language": [
       {
         "value": "fre",
@@ -13179,6 +13382,7 @@
   },
   {
     "type": "book",
+    "pid": "204",
     "language": [
       {
         "value": "fre",
@@ -13241,6 +13445,7 @@
   },
   {
     "type": "article",
+    "pid": "205",
     "language": [
       {
         "value": "eng",
@@ -13267,6 +13472,7 @@
   },
   {
     "type": "video",
+    "pid": "206",
     "language": [
       {
         "value": "fre",
@@ -13351,6 +13557,7 @@
   },
   {
     "type": "book",
+    "pid": "207",
     "language": [
       {
         "value": "eng",
@@ -13425,6 +13632,7 @@
   },
   {
     "type": "book",
+    "pid": "208",
     "language": [
       {
         "value": "spa",
@@ -13500,6 +13708,7 @@
   },
   {
     "type": "book",
+    "pid": "209",
     "language": [
       {
         "value": "fre",
@@ -13620,6 +13829,7 @@
   },
   {
     "type": "book",
+    "pid": "210",
     "language": [
       {
         "value": "ger",
@@ -13689,6 +13899,7 @@
   },
   {
     "type": "book",
+    "pid": "211",
     "language": [
       {
         "value": "ita",
@@ -13760,6 +13971,7 @@
   },
   {
     "type": "article",
+    "pid": "212",
     "language": [
       {
         "value": "ger",
@@ -13810,6 +14022,7 @@
   },
   {
     "type": "article",
+    "pid": "213",
     "language": [
       {
         "value": "ger",
@@ -13842,6 +14055,7 @@
   },
   {
     "type": "book",
+    "pid": "214",
     "language": [
       {
         "value": "fre",
@@ -13910,6 +14124,7 @@
   },
   {
     "type": "book",
+    "pid": "215",
     "language": [
       {
         "value": "fre",
@@ -13976,6 +14191,7 @@
   },
   {
     "type": "book",
+    "pid": "216",
     "language": [
       {
         "value": "fre",
@@ -14038,6 +14254,7 @@
   },
   {
     "type": "book",
+    "pid": "217",
     "language": [
       {
         "value": "fre",
@@ -14110,6 +14327,7 @@
   },
   {
     "type": "sound",
+    "pid": "218",
     "language": [
       {
         "value": "spa",
@@ -14173,6 +14391,7 @@
   },
   {
     "type": "book",
+    "pid": "219",
     "language": [
       {
         "value": "fre",
@@ -14240,6 +14459,7 @@
   },
   {
     "type": "book",
+    "pid": "220",
     "language": [
       {
         "value": "chi",
@@ -14314,6 +14534,7 @@
   },
   {
     "type": "article",
+    "pid": "221",
     "language": [
       {
         "value": "fre",
@@ -14370,6 +14591,7 @@
   },
   {
     "type": "book",
+    "pid": "222",
     "language": [
       {
         "value": "fre",
@@ -14438,6 +14660,7 @@
   },
   {
     "type": "journal",
+    "pid": "223",
     "language": [
       {
         "value": "fre",
@@ -14499,6 +14722,7 @@
   },
   {
     "type": "article",
+    "pid": "224",
     "language": [
       {
         "value": "ita",
@@ -14561,6 +14785,7 @@
   },
   {
     "type": "article",
+    "pid": "225",
     "language": [
       {
         "value": "fre",
@@ -14619,6 +14844,7 @@
   },
   {
     "type": "book",
+    "pid": "226",
     "language": [
       {
         "value": "ger",
@@ -14682,6 +14908,7 @@
   },
   {
     "type": "book",
+    "pid": "227",
     "language": [
       {
         "value": "und",
@@ -14739,6 +14966,7 @@
   },
   {
     "type": "book",
+    "pid": "228",
     "language": [
       {
         "value": "eng",
@@ -14814,6 +15042,7 @@
   },
   {
     "type": "article",
+    "pid": "229",
     "language": [
       {
         "value": "eng",
@@ -14840,6 +15069,7 @@
   },
   {
     "type": "book",
+    "pid": "230",
     "language": [
       {
         "value": "fre",
@@ -14917,6 +15147,7 @@
   },
   {
     "type": "article",
+    "pid": "231",
     "language": [
       {
         "value": "fre",
@@ -14998,6 +15229,7 @@
   },
   {
     "type": "book",
+    "pid": "232",
     "language": [
       {
         "value": "rus",
@@ -15069,6 +15301,7 @@
   },
   {
     "type": "book",
+    "pid": "233",
     "language": [
       {
         "value": "ger",
@@ -15135,6 +15368,7 @@
   },
   {
     "type": "article",
+    "pid": "234",
     "language": [
       {
         "value": "fre",
@@ -15167,6 +15401,7 @@
   },
   {
     "type": "book",
+    "pid": "235",
     "language": [
       {
         "value": "fre",
@@ -15232,6 +15467,7 @@
   },
   {
     "type": "article",
+    "pid": "236",
     "language": [
       {
         "value": "ger",
@@ -15286,6 +15522,7 @@
   },
   {
     "type": "book",
+    "pid": "237",
     "language": [
       {
         "value": "ger",
@@ -15350,6 +15587,7 @@
   },
   {
     "type": "book",
+    "pid": "238",
     "language": [
       {
         "value": "fre",
@@ -15408,6 +15646,7 @@
   },
   {
     "type": "article",
+    "pid": "239",
     "language": [
       {
         "value": "ger",
@@ -15484,6 +15723,7 @@
   },
   {
     "type": "score",
+    "pid": "240",
     "language": [
       {
         "value": "ger",
@@ -15567,6 +15807,7 @@
   },
   {
     "type": "book",
+    "pid": "241",
     "language": [
       {
         "value": "ger",
@@ -15633,6 +15874,7 @@
   },
   {
     "type": "book",
+    "pid": "242",
     "language": [
       {
         "value": "fre",
@@ -15691,6 +15933,7 @@
   },
   {
     "type": "book",
+    "pid": "243",
     "language": [
       {
         "value": "lat",
@@ -15754,6 +15997,7 @@
   },
   {
     "type": "book",
+    "pid": "244",
     "language": [
       {
         "value": "ger",
@@ -15824,6 +16068,7 @@
   },
   {
     "type": "article",
+    "pid": "245",
     "language": [
       {
         "value": "eng",
@@ -15856,6 +16101,7 @@
   },
   {
     "type": "book",
+    "pid": "246",
     "language": [
       {
         "value": "ger",
@@ -15919,6 +16165,7 @@
   },
   {
     "type": "book",
+    "pid": "247",
     "language": [
       {
         "value": "ara",
@@ -15991,6 +16238,7 @@
   },
   {
     "type": "book",
+    "pid": "248",
     "language": [
       {
         "value": "fre",
@@ -16061,6 +16309,7 @@
   },
   {
     "type": "article",
+    "pid": "249",
     "language": [
       {
         "value": "ger",
@@ -16124,6 +16373,7 @@
   },
   {
     "type": "book",
+    "pid": "250",
     "language": [
       {
         "value": "ita",
@@ -16200,6 +16450,7 @@
   },
   {
     "type": "book",
+    "pid": "251",
     "language": [
       {
         "value": "fre",
@@ -16266,6 +16517,7 @@
   },
   {
     "type": "book",
+    "pid": "252",
     "language": [
       {
         "value": "fre",
@@ -16346,6 +16598,7 @@
   },
   {
     "type": "book",
+    "pid": "253",
     "language": [
       {
         "value": "fre",
@@ -16409,6 +16662,7 @@
   },
   {
     "type": "book",
+    "pid": "254",
     "language": [
       {
         "value": "ger",
@@ -16473,6 +16727,7 @@
   },
   {
     "type": "book",
+    "pid": "255",
     "language": [
       {
         "value": "eng",
@@ -16542,6 +16797,7 @@
   },
   {
     "type": "article",
+    "pid": "256",
     "language": [
       {
         "value": "ita",
@@ -16606,6 +16862,7 @@
   },
   {
     "type": "book",
+    "pid": "257",
     "language": [
       {
         "value": "ger",
@@ -16667,6 +16924,7 @@
   },
   {
     "type": "book",
+    "pid": "258",
     "language": [
       {
         "value": "ger",
@@ -16735,6 +16993,7 @@
   },
   {
     "type": "sound",
+    "pid": "259",
     "language": [
       {
         "value": "ger",
@@ -16798,6 +17057,7 @@
   },
   {
     "type": "sound",
+    "pid": "260",
     "language": [
       {
         "value": "eng",
@@ -16852,6 +17112,7 @@
   },
   {
     "type": "book",
+    "pid": "261",
     "language": [
       {
         "value": "rus",
@@ -16922,6 +17183,7 @@
   },
   {
     "type": "book",
+    "pid": "262",
     "language": [
       {
         "value": "fre",
@@ -17007,6 +17269,7 @@
   },
   {
     "type": "book",
+    "pid": "263",
     "language": [
       {
         "value": "ger",
@@ -17084,6 +17347,7 @@
   },
   {
     "type": "book",
+    "pid": "264",
     "language": [
       {
         "value": "fre",
@@ -17141,6 +17405,7 @@
   },
   {
     "type": "book",
+    "pid": "265",
     "language": [
       {
         "value": "jpn",
@@ -17209,6 +17474,7 @@
   },
   {
     "type": "book",
+    "pid": "266",
     "language": [
       {
         "value": "fre",
@@ -17274,6 +17540,7 @@
   },
   {
     "type": "article",
+    "pid": "267",
     "language": [
       {
         "value": "fre",
@@ -17333,6 +17600,7 @@
   },
   {
     "type": "book",
+    "pid": "268",
     "language": [
       {
         "value": "fre",
@@ -17399,6 +17667,7 @@
   },
   {
     "type": "book",
+    "pid": "269",
     "language": [
       {
         "value": "ger",
@@ -17465,6 +17734,7 @@
   },
   {
     "type": "article",
+    "pid": "270",
     "language": [
       {
         "value": "ger",
@@ -17519,6 +17789,7 @@
   },
   {
     "type": "article",
+    "pid": "271",
     "language": [
       {
         "value": "ger",
@@ -17551,6 +17822,7 @@
   },
   {
     "type": "sound",
+    "pid": "272",
     "language": [
       {
         "value": "eng",
@@ -17612,6 +17884,7 @@
   },
   {
     "type": "article",
+    "pid": "273",
     "language": [
       {
         "value": "eng",
@@ -17644,6 +17917,7 @@
   },
   {
     "type": "book",
+    "pid": "274",
     "language": [
       {
         "value": "fre",
@@ -17702,6 +17976,7 @@
   },
   {
     "type": "book",
+    "pid": "275",
     "language": [
       {
         "value": "chi",
@@ -17780,6 +18055,7 @@
   },
   {
     "type": "article",
+    "pid": "276",
     "language": [
       {
         "value": "fre",
@@ -17828,6 +18104,7 @@
   },
   {
     "type": "journal",
+    "pid": "277",
     "language": [
       {
         "value": "fre",
@@ -17894,6 +18171,7 @@
   },
   {
     "type": "book",
+    "pid": "278",
     "language": [
       {
         "value": "fre",
@@ -17964,6 +18242,7 @@
   },
   {
     "type": "book",
+    "pid": "279",
     "language": [
       {
         "value": "chi",
@@ -18031,6 +18310,7 @@
   },
   {
     "type": "book",
+    "pid": "280",
     "language": [
       {
         "value": "ger",
@@ -18099,6 +18379,7 @@
   },
   {
     "type": "journal",
+    "pid": "281",
     "language": [
       {
         "value": "ita",
@@ -18146,6 +18427,7 @@
   },
   {
     "type": "book",
+    "pid": "282",
     "language": [
       {
         "value": "eng",
@@ -18212,6 +18494,7 @@
   },
   {
     "type": "article",
+    "pid": "283",
     "language": [
       {
         "value": "fre",
@@ -18278,6 +18561,7 @@
   },
   {
     "type": "book",
+    "pid": "284",
     "language": [
       {
         "value": "ger",
@@ -18326,6 +18610,7 @@
   },
   {
     "type": "book",
+    "pid": "285",
     "language": [
       {
         "value": "fre",
@@ -18394,6 +18679,7 @@
   },
   {
     "type": "journal",
+    "pid": "286",
     "language": [
       {
         "value": "ger",

@@ -19,26 +19,17 @@
 
 import os
 import re
-import sys
 
 import requests
 from dojson import utils
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
-    remove_trailing_punctuation
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, error_print, \
+    not_repetitive, remove_trailing_punctuation
 
 marc21tojson = ReroIlsMarc21Overdo()
 
 
-def list_of_langs(data):
-    """Construct list of language codes from data."""
-    lang_codes = []
-    for lang_data in data:
-        lang_codes.append(lang_data.get('value'))
-    return lang_codes
-
-
-def get_mef_person_link(id, key, value):
+def get_mef_person_link(bibid, id, key, value):
     """Get mef person link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     PROD_HOST = 'mef.rero.ch'
@@ -47,7 +38,7 @@ def get_mef_person_link(id, key, value):
     else:
         DEV_HOST = 'mef.test.rero.ch'
     mef_url = None
-    if id:
+    try:
         identifier = id[1:].split(')')
         url = "{mef}/?q={org}.pid:{pid}".format(
             mef="https://{host}/api/mef".format(host=DEV_HOST),
@@ -61,21 +52,14 @@ def get_mef_person_link(id, key, value):
             if hits:
                 mef_url = hits[0].get('links').get('self')
                 mef_url = mef_url.replace(DEV_HOST, PROD_HOST)
-            else:
-                print(
-                    'ERROR: MEF person not found',
-                    url,
-                    key,
-                    value,
-                    file=sys.stderr
-                )
+            # else:
+            #     error_print('WARNING MEF NOT FOUND:', bibid, url,
+            #                 key, value)
         else:
-            print(
-                'ERROR: MEF request',
-                url,
-                request.status_code,
-                file=sys.stderr
-            )
+            error_print('ERROR MEF REQUEST:', bibid, url,
+                        request.status_code)
+    except Exception as err:
+        error_print('WARNING NOT MEF REF:', bibid, id, key, value)
     return mef_url
 
 
@@ -92,7 +76,7 @@ def marc21_to_type(self, key, value):
     Sounds: LDR/6: i|j
     E-books (imported from Cantook)
     """
-    type = None
+    type = 'other'
     type_of_record = value[6]
     bibliographic_level = value[7]
     if type_of_record == 'a':
@@ -110,6 +94,20 @@ def marc21_to_type(self, key, value):
         type = 'video'
         # Todo 007
     return type
+
+
+@marc21tojson.over('pid', '^001')
+@utils.ignore_value
+def marc21_to_pid(self, key, value):
+    """Get pid.
+
+    If 001 starts with 'REROILS:' save as pid.
+    """
+    pid = None
+    value = value.strip().split(':')
+    if value[0] == 'REROILS':
+        pid = value[1]
+    return pid
 
 
 @marc21tojson.over('language', '^008')
@@ -134,6 +132,9 @@ def marc21_to_language(self, key, value):
                 'type': 'bf:Language'
             })
             lang_codes.append(lang_value)
+    # if not language:
+    #     error_print('ERROR LANGUAGE:', marc21tojson.bib_id, 'set to "und"')
+    #     language = [{'value': 'und', 'type': 'bf:Language'}]
     return language or None
 
 
@@ -145,12 +146,14 @@ def marc21_to_title(self, key, value):
     title: 245$a
     without the punctuaction. If there's a $b, then 245$a : $b without the " /"
     """
-    main_title = remove_trailing_punctuation(value.get('a'))
-    sub_title = value.get('b')
+    data = not_repetitive(marc21tojson.bib_id, key, value, 'a')
+    main_title = remove_trailing_punctuation(data)
+    sub_title = not_repetitive(marc21tojson.bib_id, key, value, 'b')
     # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
-            utils.force_list(remove_trailing_punctuation(sub_title))
+            utils.force_list(
+                remove_trailing_punctuation(sub_title))
         )
     return main_title
 
@@ -163,7 +166,7 @@ def marc21_to_titlesProper(self, key, value):
 
     titleProper: 730$a
     """
-    return value.get('a')
+    return not_repetitive(marc21tojson.bib_id, key, value, 'a')
 
 
 @marc21tojson.over('authors', '[17][01]0..')
@@ -184,12 +187,17 @@ def marc21_to_author(self, key, value):
         author = {}
         author['type'] = 'person'
         if value.get('0'):
-            ref = get_mef_person_link(value.get('0'), key, value)
-            if ref:
-                author['$ref'] = ref
+            refs = utils.force_list(value.get('0'))
+            for ref in refs:
+                ref = get_mef_person_link(marc21tojson.bib_id, ref, key, value)
+                if ref:
+                    author['$ref'] = ref
         # we do not have a $ref
         if not author.get('$ref'):
-            author['name'] = remove_trailing_punctuation(value.get('a'))
+            author['name'] = ''
+            if value.get('a'):
+                data = not_repetitive(marc21tojson.bib_id, key, value, 'a')
+                author['name'] = remove_trailing_punctuation(data)
             author_subs = utils.force_list(value.get('b'))
             if author_subs:
                 for author_sub in author_subs:
@@ -199,11 +207,11 @@ def marc21_to_author(self, key, value):
                 author['type'] = 'organisation'
             else:
                 if value.get('c'):
-                    author['qualifier'] = \
-                        remove_trailing_punctuation(value.get('c'))
+                    data = not_repetitive(marc21tojson.bib_id, key, value, 'c')
+                    author['qualifier'] = remove_trailing_punctuation(data)
                 if value.get('d'):
-                    author['date'] = \
-                        remove_trailing_punctuation(value.get('d'))
+                    data = not_repetitive(marc21tojson.bib_id, key, value, 'd')
+                    author['date'] = remove_trailing_punctuation(data)
         return author
     else:
         return None
@@ -214,17 +222,18 @@ def marc21_to_author(self, key, value):
 def marc21_to_copyright_date(self, key, value):
     """Get Copyright Date."""
     copyright_dates = self.get('copyrightDate', [])
-    copyright_date = value.get('c')
-    if copyright_date:
-        match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
-        if match:
-            copyright_date = ' '.join((
-                match.group(1),
-                match.group(2)
-            ))
-        else:
-            raise ValueError('Bad format of copyright date')
-    copyright_dates.append(copyright_date)
+    copyrights_date = utils.force_list(value.get('c'))
+    if copyrights_date:
+        for copyright_date in copyrights_date:
+            match = re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date)
+            if match:
+                copyright_date = ' '.join((
+                    match.group(1),
+                    match.group(2)
+                ))
+                copyright_dates.append(copyright_date)
+            # else:
+            #     raise ValueError('Bad format of copyright date')
     return copyright_dates or None
 
 
@@ -239,6 +248,30 @@ def marc21_to_provisionActivity(self, key, value):
     publicationDate: 264 [$c repetitive] (but take only the first one)
     """
     def build_statement(field_value, ind2):
+
+        def get_language_script(script):
+            languages_scripts = {
+                'arab': ('ara', 'per'),
+                'cyrl': ('bel', 'chu', 'mac', 'rus', 'srp', 'ukr'),
+                'grek': ('grc', 'gre'),
+                'hani': ('chi', 'jpn'),
+                'hebr': ('heb', 'lad', 'yid'),
+                'jpan': ('jpn', ),
+                'kore': ('kor', ),
+                'zyyy': ('chi', )
+            }
+            if script in languages_scripts:
+                languages = ([marc21tojson.lang_from_008] +
+                             marc21tojson.langs_from_041_a +
+                             marc21tojson.langs_from_041_h)
+                for lang in languages:
+                    if lang in languages_scripts[script]:
+                        return '-'.join([lang, script])
+                error_print('WARNING LANGUAGE SCRIPTS:', marc21tojson.bib_id,
+                            script,  '008:', marc21tojson.lang_from_008,
+                            '041$a:', marc21tojson.langs_from_041_a,
+                            '041$h:', marc21tojson.langs_from_041_h)
+            return '-'.join(['und', script])
 
         def build_place_or_agent_data(code, label, index, link, add_country):
             type_per_code = {
@@ -261,12 +294,11 @@ def marc21_to_provisionActivity(self, key, value):
                     marc21tojson.get_subfields(alt_gr['field'])[index]
                 place_or_agent_data['label'].append({
                     'value': remove_trailing_punctuation(subfield),
-                    'language': '-'.join(
-                        (marc21tojson.lang_from_008, alt_gr['script'])
-                    )
+                    'language': get_language_script(alt_gr['script'])
                 })
-            except Exception:
+            except Exception as err:
                 pass
+                # print('++++', err)
             return place_or_agent_data
 
         # function build_statement start here
@@ -338,12 +370,12 @@ def marc21_to_description(self, key, value):
     if value.get('a'):
         if not self.get('extent', None):
             self['extent'] = remove_trailing_punctuation(
-                utils.force_list(value.get('a'))[0]
+                not_repetitive(marc21tojson.bib_id, key, value, 'a')
             )
     if value.get('b'):
         if self.get('otherMaterialCharacteristics', []) == []:
             self['otherMaterialCharacteristics'] = remove_trailing_punctuation(
-                utils.force_list(value.get('b'))[0]
+                not_repetitive(marc21tojson.bib_id, key, value, 'b')
             )
     if value.get('c'):
         formats = self.get('formats', None)
@@ -382,7 +414,10 @@ def marc21_to_abstracts(self, key, value):
 
     abstract: [520$a repetitive]
     """
-    return ', '.join(utils.force_list(value.get('a')))
+    abstracts = None
+    if value.get('a'):
+        abstracts = ', '.join(utils.force_list(value.get('a')))
+    return abstracts
 
 
 @marc21tojson.over('identifiedBy', '^020..')
@@ -392,14 +427,15 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
     def build_identifier_from(subfield_data, status=None):
         subfield_data = subfield_data.strip()
         identifier = {'value': subfield_data}
-        subfield_c = value.get('c', '').strip()
+        subfield_c = not_repetitive(
+            marc21tojson.bib_id, key, value, 'c', default='').strip()
         if subfield_c:
             identifier['acquisitionTerms'] = subfield_c
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
 
-        match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_data)
+        match = re.search(r'^(.+?)\s*\((.+)\)$', subfield_data)
         if match:
             # match.group(2) : parentheses content
             identifier['qualifier'] = ', '.join(
@@ -416,12 +452,13 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
         identifiedBy.append(identifier)
 
     identifiedBy = self.get('identifiedBy', [])
-    subfield_a = value.get('a')
+    subfield_a = not_repetitive(marc21tojson.bib_id, key, value, 'a')
     if subfield_a:
         build_identifier_from(subfield_a)
-    subfield_z = value.get('z')
-    if subfield_z:
-        build_identifier_from(subfield_z, status='invalid or cancelled')
+    subfields_z = value.get('z')
+    if subfields_z:
+        for subfield_z in utils.force_list(subfields_z):
+            build_identifier_from(subfield_z, status='invalid or cancelled')
     return identifiedBy or None
 
 
@@ -442,14 +479,18 @@ def marc21_to_identifiedBy_from_field_022(self, key, value):
 
     identifiedBy = self.get('identifiedBy', [])
     for subfield_code in ['a', 'l', 'm', 'y']:
-        subfield_data = value.get(subfield_code, '').strip()
-        if subfield_data:
-            identifier = {}
-            identifier['type'] = type_for[subfield_code]
-            identifier['value'] = subfield_data
-            if subfield_code in status_for:
-                identifier['status'] = status_for[subfield_code]
-            identifiedBy.append(identifier)
+        subfields_data = value.get(subfield_code)
+        if subfields_data:
+            if isinstance(subfields_data, str):
+                subfields_data = [subfields_data]
+            for subfield_data in subfields_data:
+                subfield_data = subfield_data.strip()
+                identifier = {}
+                identifier['type'] = type_for[subfield_code]
+                identifier['value'] = subfield_data
+                if subfield_code in status_for:
+                    identifier['status'] = status_for[subfield_code]
+                identifiedBy.append(identifier)
     return identifiedBy or None
 
 
@@ -458,10 +499,12 @@ def marc21_to_identifiedBy_from_field_022(self, key, value):
 def marc21_to_identifiedBy_from_field_024(self, key, value):
     """Get identifier from field 024."""
     def populate_acquisitionTerms_note_qualifier(identifier):
-        subfield_c = value.get('c', '').strip()
+        subfield_c = not_repetitive(
+            marc21tojson.bib_id, key, value, 'c', default='').strip()
         if subfield_c:
             identifier['acquisitionTerms'] = subfield_c
-        subfield_d = value.get('d', '').strip()
+        subfield_d = not_repetitive(
+            marc21tojson.bib_id, key, value, 'd', default='').strip()
         if subfield_d:
             identifier['note'] = subfield_d
         if value.get('q'):  # $q is repetitive
@@ -511,8 +554,10 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
     }
 
     identifier = {}
-    subfield_a = value.get('a', '').strip()
-    subfield_2 = value.get('2', '').strip()
+    subfield_a = not_repetitive(
+        marc21tojson.bib_id, key, value, 'a', default='').strip()
+    subfield_2 = not_repetitive(
+        marc21tojson.bib_id, key, value, '2', default='').strip()
     if subfield_a:
         if re.search(r'permalink\.snl\.ch', subfield_a, re.IGNORECASE):
             identifier.update({
@@ -566,6 +611,8 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
                     'type': 'bf:Identifier'
                 })
         identifiedBy = self.get('identifiedBy', [])
+        if not identifier.get('type'):
+            identifier['type'] = 'bf:Identifier'
         identifiedBy.append(identifier)
     return identifiedBy or None
 
@@ -585,13 +632,15 @@ def marc21_to_identifiedBy_from_field_028(self, key, value):
     }
 
     identifier = {}
-    subfield_a = value.get('a', '').strip()
+    subfield_a = not_repetitive(
+        marc21tojson.bib_id, key, value, 'a', default='').strip()
     if subfield_a:
         identifier['value'] = subfield_a
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
-        subfield_b = value.get('b', '').strip()
+        subfield_b = not_repetitive(
+            marc21tojson.bib_id, key, value, 'b', default='').strip()
         if subfield_b:
             identifier['source'] = subfield_b
         # key[3] is the indicateur_1
@@ -605,7 +654,8 @@ def marc21_to_identifiedBy_from_field_028(self, key, value):
 @utils.ignore_value
 def marc21_to_identifiedBy_from_field_035(self, key, value):
     """Get identifier from field 035."""
-    subfield_a = value.get('a', '').strip()
+    subfield_a = not_repetitive(
+        marc21tojson.bib_id, key, value, 'a', default='').strip()
     if subfield_a:
         identifier = {
             'value': subfield_a,
@@ -621,7 +671,8 @@ def marc21_to_identifiedBy_from_field_035(self, key, value):
 @utils.ignore_value
 def marc21_to_identifiedBy_from_field_930(self, key, value):
     """Get identifier from field 930."""
-    subfield_a = value.get('a', '').strip()
+    subfield_a = not_repetitive(
+        marc21tojson.bib_id, key, value, 'a', default='').strip()
     if subfield_a:
         identifier = {}
         match = re.search(r'^\((.+?)\)\s*(.*)$', subfield_a)
@@ -646,7 +697,7 @@ def marc21_to_notes(self, key, value):
 
     note: [500$a repetitive]
     """
-    return value.get('a')
+    return not_repetitive(marc21tojson.bib_id, key, value, 'a')
 
 
 @marc21tojson.over('is_part_of', '^773..')
@@ -657,7 +708,7 @@ def marc21_to_is_part_of(self, key, value):
     is_part_of: [773$t repetitive]
     """
     if not self.get('is_part_of', None):
-        return value.get('t')
+        return not_repetitive(marc21tojson.bib_id, key, value, 't')
 
 
 @marc21tojson.over('subjects', '^6....')
