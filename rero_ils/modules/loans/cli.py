@@ -106,107 +106,126 @@ def create_loans(infile, fee, verbose):
 
 def print_message(barcode, item_barcode, transaction_type):
     """Print confirmation message."""
-    click.echo(
-        (
-            '\t'
-            '{transaction_type} created for patron {barcode} '
-            'and item {item_barcode}'
-        ).format(
-            transaction_type=transaction_type,
-            barcode=barcode, item_barcode=item_barcode
+    if item_barcode:
+        click.echo(
+            (
+                '\t'
+                '{transaction_type} created for patron {barcode} '
+                'and item {item_barcode}'
+            ).format(
+                transaction_type=transaction_type,
+                barcode=barcode,
+                item_barcode=item_barcode
+            )
         )
-    )
+    else:
+        click.secho(
+            (
+                '\t'
+                '{transaction_type} creation error for patron {barcode} '
+            ).format(
+                transaction_type=transaction_type,
+                barcode=barcode,
+            ),
+            fg='red'
+        )
 
 
 def create_loan(barcode, transaction_type, loanable_items):
     """Create loans transactions."""
-    item = next(loanable_items)
-    patron = Patron.get_patron_by_barcode(barcode=barcode)
-    transaction_date = datetime.now(timezone.utc).isoformat()
-    user_pid, user_location = get_random_librarian_and_transaction_location(
-        patron)
-    item.checkout(
-        patron_pid=patron.pid,
-        transaction_user_pid=user_pid,
-        transaction_location_pid=user_location,
-        transaction_date=transaction_date,
-        document_pid=item.replace_refs()['document']['pid'],
-        item_pid=item.pid,
-    )
-    if transaction_type == 'extended':
-        loan = get_loan_for_item(item.pid)
-        loan_pid = loan.get('pid')
+    try:
+        item = next(loanable_items)
+        patron = Patron.get_patron_by_barcode(barcode=barcode)
+        transaction_date = datetime.now(timezone.utc).isoformat()
         user_pid, user_location = \
             get_random_librarian_and_transaction_location(patron)
-        item.extend_loan(
-            pid=loan_pid,
+        item.checkout(
             patron_pid=patron.pid,
-            transaction_location_pid=user_location,
             transaction_user_pid=user_pid,
+            transaction_location_pid=user_location,
             transaction_date=transaction_date,
             document_pid=item.replace_refs()['document']['pid'],
             item_pid=item.pid,
         )
-    if transaction_type == 'requested_by_others':
-        requested_patron = get_random_patron(barcode)
-        user_pid, user_location = \
-            get_random_librarian_and_transaction_location(patron)
-        circ_policy = CircPolicy.provide_circ_policy(
-            item.library_pid,
-            requested_patron.patron_type_pid,
-            item.item_type_pid
-        )
-        if circ_policy.get('allow_requests'):
-            item.request(
-                patron_pid=requested_patron.pid,
+        if transaction_type == 'extended':
+            loan = get_loan_for_item(item.pid)
+            loan_pid = loan.get('pid')
+            user_pid, user_location = \
+                get_random_librarian_and_transaction_location(patron)
+            item.extend_loan(
+                pid=loan_pid,
+                patron_pid=patron.pid,
                 transaction_location_pid=user_location,
                 transaction_user_pid=user_pid,
                 transaction_date=transaction_date,
-                pickup_location_pid=get_random_pickup_location(
-                    requested_patron.pid),
                 document_pid=item.replace_refs()['document']['pid'],
+                item_pid=item.pid,
             )
-    return item['barcode']
+        if transaction_type == 'requested_by_others':
+            requested_patron = get_random_patron(barcode)
+            user_pid, user_location = \
+                get_random_librarian_and_transaction_location(patron)
+            circ_policy = CircPolicy.provide_circ_policy(
+                item.library_pid,
+                requested_patron.patron_type_pid,
+                item.item_type_pid
+            )
+            if circ_policy.get('allow_requests'):
+                item.request(
+                    patron_pid=requested_patron.pid,
+                    transaction_location_pid=user_location,
+                    transaction_user_pid=user_pid,
+                    transaction_date=transaction_date,
+                    pickup_location_pid=get_random_pickup_location(
+                        requested_patron.pid),
+                    document_pid=item.replace_refs()['document']['pid'],
+                )
+        return item['barcode']
+    except Exception as err:
+        return None
 
 
 def create_request(barcode, transaction_type, loanable_items):
     """Create request transactions."""
-    item = next(loanable_items)
-    rank_1_patron = get_random_patron(barcode)
-    patron = Patron.get_patron_by_barcode(barcode)
-    if transaction_type == 'rank_2':
-        transaction_date = \
-            (datetime.now(timezone.utc) - timedelta(2)).isoformat()
+    try:
+        item = next(loanable_items)
+        rank_1_patron = get_random_patron(barcode)
+        patron = Patron.get_patron_by_barcode(barcode)
+        if transaction_type == 'rank_2':
+            transaction_date = \
+                (datetime.now(timezone.utc) - timedelta(2)).isoformat()
+            user_pid, user_location = \
+                get_random_librarian_and_transaction_location(patron)
+
+            circ_policy = CircPolicy.provide_circ_policy(
+                item.holding_library_pid,
+                rank_1_patron.patron_type_pid,
+                item.holding_circulation_category_pid
+            )
+            if circ_policy.get('allow_requests'):
+                item.request(
+                    patron_pid=rank_1_patron.pid,
+                    transaction_location_pid=user_location,
+                    transaction_user_pid=user_pid,
+                    transaction_date=transaction_date,
+                    pickup_location_pid=get_random_pickup_location(
+                        rank_1_patron.pid),
+                    document_pid=item.replace_refs()['document']['pid'],
+                )
+        transaction_date = datetime.now(timezone.utc).isoformat()
         user_pid, user_location = \
             get_random_librarian_and_transaction_location(patron)
-
-        circ_policy = CircPolicy.provide_circ_policy(
-            item.holding_library_pid,
-            rank_1_patron.patron_type_pid,
-            item.holding_circulation_category_pid
+        item.request(
+            patron_pid=patron.pid,
+            transaction_location_pid=user_location,
+            transaction_user_pid=user_pid,
+            transaction_date=transaction_date,
+            pickup_location_pid=get_random_pickup_location(patron.pid),
+            document_pid=item.replace_refs()['document']['pid'],
         )
-        if circ_policy.get('allow_requests'):
-            item.request(
-                patron_pid=rank_1_patron.pid,
-                transaction_location_pid=user_location,
-                transaction_user_pid=user_pid,
-                transaction_date=transaction_date,
-                pickup_location_pid=get_random_pickup_location(
-                    rank_1_patron.pid),
-                document_pid=item.replace_refs()['document']['pid'],
-            )
-    transaction_date = datetime.now(timezone.utc).isoformat()
-    user_pid, user_location = get_random_librarian_and_transaction_location(
-        patron)
-    item.request(
-        patron_pid=patron.pid,
-        transaction_location_pid=user_location,
-        transaction_user_pid=user_pid,
-        transaction_date=transaction_date,
-        pickup_location_pid=get_random_pickup_location(patron.pid),
-        document_pid=item.replace_refs()['document']['pid'],
-    )
-    return item['barcode']
+        return item['barcode']
+    except Exception as err:
+        return None
 
 
 def get_loanable_items(patron_type_pid):
@@ -250,6 +269,7 @@ def get_random_patron(exclude_this_barcode):
     for patron in patrons:
         if patron.barcode != exclude_this_barcode:
             return Patron.get_patron_by_barcode(barcode=patron.barcode)
+    return None
 
 
 def get_random_librarian(patron):
@@ -263,6 +283,7 @@ def get_random_librarian(patron):
         .source(['pid']).scan()
     for patron in patrons:
         return Patron.get_record_by_pid(patron.pid)
+    return None
 
 
 def get_random_librarian_and_transaction_location(patron):
