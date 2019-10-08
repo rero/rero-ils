@@ -14,7 +14,4 @@ install:
   - npm install
 
 script:
-  - ng lint admin
-  - ng lint public-search
-  - ng test admin -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-  - ng test public-search -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - ./run-tests.sh

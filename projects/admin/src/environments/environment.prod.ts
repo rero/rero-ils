@@ -16,7 +16,7 @@
  */
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://ils.test.rero.ch',
+  apiBaseUrl: '',
   $refPrefix: 'https://ils.rero.ch',
   languages: ['fr', 'de', 'it', 'en']
 };

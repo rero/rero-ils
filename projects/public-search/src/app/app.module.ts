@@ -23,10 +23,12 @@ import { CoreConfigService, RecordModule, CoreModule } from '@rero/ng-core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfigService } from './app-config.service';
+import { DocumentBriefComponent } from './document-brief/document-brief.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DocumentBriefComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,9 @@ import { AppConfigService } from './app-config.service';
       provide: CoreConfigService,
       useClass: AppConfigService
     }
+  ],
+  entryComponents: [
+    DocumentBriefComponent
   ],
   bootstrap: [AppComponent]
 })

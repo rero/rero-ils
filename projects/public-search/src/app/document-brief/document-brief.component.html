@@ -14,5 +14,7 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1>RERO ILS administration</h1>
-<router-outlet></router-outlet>
+
+<ng-container *ngIf="record">
+<h4 *ngIf="record.metadata.title">{{ record.metadata.title }}</h4>
+</ng-container>
