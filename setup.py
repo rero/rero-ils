@@ -155,7 +155,7 @@ setup(
             'head = rero_ils.dojson.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = rero_ils.dojson.cli:pretty_json_dump',
+            'pjson = rero_ils.dojson.cli:pretty_json_dump'
         ],
         'dojson.cli.rule': [
             'marc21tojson = rero_ils.modules.documents.dojson'

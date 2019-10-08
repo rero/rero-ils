@@ -18,9 +18,33 @@
 """Dojson utils."""
 
 import re
+import sys
+import traceback
 
 import click
 from dojson import Overdo, utils
+
+
+def error_print(*args):
+    """Error printing to sdterr."""
+    msg = ''
+    for arg in args:
+        msg += str(arg) + '\t'
+    msg.strip()
+    click.echo(msg, err=True)
+    sys.stderr.flush()
+
+
+def not_repetitive(bibid, key, value, subfield, default=None):
+    """Get the first value if the value is a list or tuple."""
+    if default is None:
+        data = value.get(subfield)
+    else:
+        data = value.get(subfield, default)
+    if isinstance(data, (list, tuple)):
+        error_print('WARNING NOT REPETITIVE:', bibid, key, subfield, value)
+        data = data[0]
+    return data
 
 
 def remove_trailing_punctuation(
@@ -81,7 +105,7 @@ class ReroIlsOverdo(Overdo):
             if (tag_value == tag) or not tag:
                 field_data['tag'] = tag_value
                 if len(blob_key) == 3:  # if control field
-                    field_data['data'] = blob_value.strip()
+                    field_data['data'] = blob_value.rstrip()
                 else:
                     field_data['ind1'] = blob_key[3:4]
                     field_data['ind2'] = blob_key[4:5]
@@ -121,6 +145,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     This class adds RERO Marc21 properties and functions to the ReroIlsOverdo.
     """
 
+    bib_id = ''
     field_008_data = ''
     lang_from_008 = None
     date1_from_008 = None
@@ -134,29 +159,40 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         """Reroilsmarc21overdo init."""
         super(ReroIlsMarc21Overdo, self).__init__(
             bases=bases, entry_point_group=entry_point_group)
+        self.count = 0
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
-        self.blob_record = blob
-        self.field_008_data = ''
-        self.date1_from_008 = None
-        self.date2_from_008 = None
-        self.date_type_from_008 = ''
-        fields_008 = self.get_fields(tag='008')
-        if fields_008:
-            self.field_008_data = self.get_control_field_data(
-                fields_008[0]).replace('\n', '')
-            self.date1_from_008 = self.field_008_data[7:11]
-            self.date2_from_008 = self.field_008_data[11:15]
-            self.date_type_from_008 = self.field_008_data[6]
-        self.init_lang()
-        self.init_country()
-        self.init_alternate_graphic()
-        result = super(ReroIlsMarc21Overdo, self).do(
-            blob,
-            ignore_missing=ignore_missing,
-            exception_handlers=exception_handlers
-        )
+        self.count += 1
+        result = None
+        try:
+            self.blob_record = blob
+            try:
+                self.bib_id = self.get_fields(tag='001')[0]['data']
+            except Exception as err:
+                self.bib_id = '???'
+            self.field_008_data = ''
+            self.date1_from_008 = None
+            self.date2_from_008 = None
+            self.date_type_from_008 = ''
+            fields_008 = self.get_fields(tag='008')
+            if fields_008:
+                self.field_008_data = self.get_control_field_data(
+                    fields_008[0]).rstrip()
+                self.date1_from_008 = self.field_008_data[7:11]
+                self.date2_from_008 = self.field_008_data[11:15]
+                self.date_type_from_008 = self.field_008_data[6]
+            self.init_lang()
+            self.init_country()
+            self.init_alternate_graphic()
+            result = super(ReroIlsMarc21Overdo, self).do(
+                blob,
+                ignore_missing=ignore_missing,
+                exception_handlers=exception_handlers
+            )
+        except Exception as err:
+            error_print('ERROR:', self.bib_id, self.count, err)
+            traceback.print_exc()
         return result
 
     def get_link_data(self, subfields_6_data):
@@ -168,11 +204,11 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             link = link_and_script_data[0]
             try:
                 script_code = link_and_script_data[1]
-            except Exception:
+            except Exception as err:
                 script_code = 'latn'
             try:
                 script_dir = link_and_script_data[2]
-            except Exception:
+            except Exception as err:
                 script_dir = ''
         return tag, link, script_code, script_dir
 
@@ -185,12 +221,19 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             field_044 = fields_044[0]
             cantons_codes = self.get_subfields(field_044, 'c')
             for cantons_codes in self.get_subfields(field_044, 'c'):
-                self.cantons.append(cantons_codes.split('-')[1])
+                try:
+                    canton = cantons_codes.split('-')[1].strip()
+                    self.cantons.append(canton)
+                except Exception as err:
+                    error_print('ERROR INIT CANTONS:', self.bib_id,
+                                cantons_codes)
             if self.cantons:
                 self.country = 'sz'
         else:
-            if len(self.field_008_data) > 18:
+            try:
                 self.country = self.field_008_data[15:18].rstrip()
+            except Exception as err:
+                pass
 
     def init_lang(self):
         """Initialization languages (008 and 041)."""
@@ -204,12 +247,15 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                         langs_from_041.append(lang_from_041)
             return langs_from_041
 
-        # check len(value) to avoid getting char[35:38] if data is invalid
         self.lang_from_008 = ''
         self.langs_from_041_a = []
         self.langs_from_041_h = []
-        if len(self.field_008_data) > 38:
+        try:
             self.lang_from_008 = self.field_008_data[35:38]
+        except Exception as err:
+            self.lang_from_008 = 'und'
+            error_print('WARNING:', "set 008 language to 'und'")
+
         fields_041 = self.get_fields(tag='041')
         self.langs_from_041_a = init_lang_from(fields_041, code='a')
         self.langs_from_041_h = init_lang_from(fields_041, code='h')

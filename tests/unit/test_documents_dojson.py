@@ -25,10 +25,27 @@ import mock
 from dojson.contrib.marc21.utils import create_record
 from utils import mock_response
 
+from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21tojson
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
     get_mef_person_link
 from rero_ils.modules.documents.views import create_publication_statement
+
+
+def test_not_repetetive(capsys):
+    """Test the function not_repetetive."""
+    data_dict = {'sub': ('first', 'second')}
+    data = not_repetitive('pid1', 'key', data_dict, 'sub')
+    assert data == 'first'
+    out, err = capsys.readouterr()
+    assert err == 'WARNING NOT REPETITIVE:\tpid1\tkey\tsub\t{data}\t\n'.format(
+        data=str(data_dict)
+    )
+    data = {'sub': 'only'}
+    data = not_repetitive('pid1', 'key', data, 'sub', '')
+    assert data == 'only'
+    out, err = capsys.readouterr()
+    assert err == ""
 
 
 # type: leader
@@ -116,6 +133,32 @@ def test_marc21_to_type():
     assert data.get('type') == 'video'
 
 
+# pid: 001
+def test_marc21_to_pid():
+    """Test dojson marc21languages."""
+
+    marc21xml = """
+    <record>
+      <controlfield tag="001">
+        REROILS:123456789
+      </controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('pid') == '123456789'
+    marc21xml = """
+    <record>
+      <controlfield tag="001">
+        123456789
+      </controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('pid') is None
+
+
 # title: 245$a
 # without the punctuaction. If there's a $b, then 245$a : $b without the " /"
 def test_marc21_to_title():
@@ -195,15 +238,15 @@ def test_marc21_to_language():
 
     marc21xml = """
     <record>
-      <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
+      <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">ara</subfield>
         <subfield code="a">eng</subfield>
       </datafield>
     </record>
-    """
+    """.format(
+        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
+    )
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
 
@@ -220,9 +263,7 @@ def test_marc21_to_language():
 
     marc21xml = """
     <record>
-      <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
+      <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
       </datafield>
@@ -230,7 +271,9 @@ def test_marc21_to_language():
         <subfield code="a">fre</subfield>
       </datafield>
     </record>
-    """
+    """.format(
+        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
+    )
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
     assert data.get('language') == [
@@ -252,11 +295,11 @@ def test_marc21_to_language():
       <datafield tag="041" ind1=" " ind2=" ">
       <subfield code="a">eng</subfield>
     </datafield>
-    <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
+    <controlfield tag="008">{field_008}</controlfield>
     </record>
-    """
+    """.format(
+        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
+    )
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
 
@@ -273,15 +316,15 @@ def test_marc21_to_language():
 
     marc21xml = """
     <record>
-      <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
+      <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
         <subfield code="a">eng</subfield>
         <subfield code="a">rus</subfield>
       </datafield>
     </record>
-    """
+    """.format(
+        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
+    )
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
     assert data.get('language') == [
@@ -301,11 +344,11 @@ def test_marc21_to_language():
 
     marc21xml = """
     <record>
-      <controlfield tag="008">
-        881005s1984    xxu|||||| ||||00|| |ara d
-      <controlfield>
+      <controlfield tag="008">{field_008}</controlfield>
     </record>
-    """
+    """.format(
+        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
+    )
     marc21json = create_record(marc21xml)
     data = marc21tojson.do(marc21json)
     assert data.get('language') == [
@@ -323,7 +366,8 @@ def test_marc21_to_language():
 # authors.date: 100 $d or 700 $d (facultatif)
 # authors.qualifier: 100 $c or 700 $c (facultatif)
 # authors.type: if 100 or 700 then person, if 710 then organisation
-def test_marc21_to_authors():
+@mock.patch('requests.get')
+def test_marc21_to_authors(mock_get):
     """Test dojson marc21_to_authors."""
 
     marc21xml = """
@@ -399,6 +443,28 @@ def test_marc21_to_authors():
             'type': 'organisation'
         }
     ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="0">(RERO)XXXXXXXX</subfield>
+      </datafield>
+    </record>
+    """
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{
+                'links': {'self': 'https://mef.rero.ch/api/rero/XXXXXXXX'}
+            }]
+        }
+    })
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    authors = data.get('authors')
+    assert authors == [{
+        '$ref': 'https://mef.rero.ch/api/rero/XXXXXXXX',
+        'type': 'person'
+    }]
 
 
 # Copyright Date: [264 _4 $c non repetitive]
@@ -945,6 +1011,65 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
       'chi-hani': '北京 : 北京大学出版社, 2017',
       'default': 'Beijing : Beijing da xue chu ban she, 2017'
     }
+    marc21xml = """
+      <record>
+      <controlfield tag=
+        "008">180323s2017    cc ||| |  ||||00|  |eng d</controlfield>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="6">880-04</subfield>
+        <subfield code="a">Beijing :</subfield>
+        <subfield code="b">Beijing da xue chu ban she,</subfield>
+        <subfield code="c">2017</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2="1">
+        <subfield code="6">264-04/$1</subfield>
+        <subfield code="a">北京 :</subfield>
+        <subfield code="b">北京大学出版社,</subfield>
+        <subfield code="c">2017</subfield>
+      </datafield>
+      <datafield tag="880" ind1="1" ind2=" ">
+        <subfield code="6">100-01/$1</subfield>
+        <subfield code="a">余锋</subfield>
+      </datafield>
+      <datafield tag="880" ind1="1" ind2="0">
+        <subfield code="6">245-02/$1</subfield>
+        <subfield code="a">中国娱乐法 /</subfield>
+        <subfield code="c">余锋著</subfield>
+      </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('provisionActivity') == [
+      {
+          'type': 'bf:Publication',
+          'statement': [
+              {
+                  'country': 'cc',
+                  'label': [
+                      {'value': 'Beijing'},
+                      {'value': '北京',
+                       'language': 'und-hani'}
+                  ],
+                  'type': 'bf:Place'
+              },
+              {
+                  'label': [
+                      {'value': 'Beijing da xue chu ban she'},
+                      {'value': '北京大学出版社',
+                       'language': 'und-hani'}
+                  ],
+                  'type': 'bf:Agent'
+              }
+          ],
+          'startDate': '2017',
+          'date': '2017'
+      }
+    ]
+    assert create_publication_statement(data.get('provisionActivity')[0]) == {
+      'und-hani': '北京 : 北京大学出版社, 2017',
+      'default': 'Beijing : Beijing da xue chu ban she, 2017'
+    }
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
@@ -1097,6 +1222,60 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
     }
 
 
+def test_marc21_to_provisionActivity_exceptions(capsys):
+    """Test dojson publication statement.
+    - exceptions
+    """
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">170626s2017    ru ||| |  ||||00|  |</controlfield>
+        <datafield tag="264" ind1=" " ind2="1">
+          <subfield code="6">880-02</subfield>
+          <subfield code="a">Ierusalim :</subfield>
+        </datafield>
+        <datafield tag="880" ind1=" " ind2="1">
+          <subfield code="6">264-02/(N</subfield>
+          <subfield code="a">Иерусалим :</subfield>
+        </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    out, err = capsys.readouterr()
+    assert data.get('provisionActivity') == [
+      {
+          'type': 'bf:Publication',
+          'statement': [
+              {
+                  'country': 'ru',
+                  'label': [
+                      {'value': 'Ierusalim'},
+                      {'value': 'Иерусалим',
+                       'language': 'und-cyrl'}
+                  ],
+                  'type': 'bf:Place'
+              },
+          ],
+          'startDate': '2017'
+      }
+    ]
+    assert err.strip() == ('WARNING LANGUAGE SCRIPTS:\t???\tcyrl\t008:'
+                           '\t\t041$a:\t[]\t041$h:\t[]')
+
+    marc21xml = """
+      <record>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="c">chbe</subfield>
+        </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    out, err = capsys.readouterr()
+    assert err.strip() == 'ERROR INIT CANTONS:\t???\tchbe'
+
+
 # extent: 300$a (the first one if many)
 # otherMaterialCharacteristics: 300$b (the first one if many)
 # formats: 300 [$c repetitive]
@@ -1138,6 +1317,20 @@ def test_marc21_to_description():
     assert data.get('extent') == '116 p.'
     assert data.get('otherMaterialCharacteristics') == 'ill.'
     assert data.get('formats') == ['22 cm', '12 x 15']
+
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="b">ill.</subfield>
+        <subfield code="x">22 cm</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('extent') == '116 p.'
+    assert data.get('otherMaterialCharacteristics') == 'ill.'
 
 
 # series.name: [490$a repetitive]
@@ -1663,6 +1856,7 @@ def test_get_mef_person_link(mock_get, capsys):
         }
     })
     mef_url = get_mef_person_link(
+        bibid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
@@ -1671,6 +1865,7 @@ def test_get_mef_person_link(mock_get, capsys):
 
     os.environ['RERO_ILS_MEF_HOST'] = 'mefdev.test.rero.ch'
     mef_url = get_mef_person_link(
+        bibid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
@@ -1679,11 +1874,24 @@ def test_get_mef_person_link(mock_get, capsys):
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_mef_person_link(
-        id='(RERO)AXXXXXXXXX',
+        bibid='1',
+        id='(RERO)A123456789',
         key='100..',
-        value={'0': '(RERO)AAXXXXXXXXX'}
+        value={'0': '(RERO)A123456789'}
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert err == 'ERROR: MEF request ' +\
-        'https://mefdev.test.rero.ch/api/mef/?q=rero.pid:AXXXXXXXXX 400\n'
+    assert err == "ERROR MEF REQUEST:\t1\t" + \
+        'https://mefdev.test.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
+
+    mock_get.return_value = mock_response(status=400)
+    mef_url = get_mef_person_link(
+        bibid='1',
+        id='X123456789',
+        key='100..',
+        value={'0': 'X123456789'}
+    )
+    assert not mef_url
+    out, err = capsys.readouterr()
+    assert err == 'WARNING NOT MEF REF:\t1\tX123456789\t100..\t' + \
+        "{'0': 'X123456789'}\t\n"

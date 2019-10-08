@@ -11,9 +11,6 @@
     "last_name",
     "birth_date",
     "email",
-    "street",
-    "postal_code",
-    "city",
     "roles"
   ],
   "properties": {
@@ -59,7 +56,7 @@
       "title": "Street",
       "description": "Street and number of the address, separated by a coma.",
       "type": "string",
-      "minLength": 4,
+      "minLength": 3,
       "validationMessage": "Required."
     },
     "postal_code": {

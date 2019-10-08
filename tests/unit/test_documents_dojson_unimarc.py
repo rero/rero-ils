@@ -656,7 +656,7 @@ def test_unimarc_identifiers():
     unimarcxml = """
     <record>
       <controlfield
-        tag="003">http://catalogue.bnf.fr/ark:/12148/cb350330441<controlfield>
+        tag="003">http://catalogue.bnf.fr/ark:/12148/cb350330441</controlfield>
       <datafield tag="073" ind1=" " ind2=" ">
         <subfield code="a">9782370550163</subfield>
       </datafield>
