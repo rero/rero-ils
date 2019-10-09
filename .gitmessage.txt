@@ -1,0 +1,17 @@
+# the title begins with a verb, imperative mode
+# no trailing dot
+component: summarize changes in 50 char or less
+
+# Focus on why you are making this change as opposed to how (the code
+# explains that).
+# Wrap line at 72 characters. Bullet points list is better, but full
+# paragraphs are possible too.
+* Adds your new feature.
+* Fixes an existing issue, may closes #issue.
+* Improves and existing feature.
+
+# No `Signed-off-by` line anymore.
+# Multiple `Co-Authored-by` lines are allowed.
+Co-Authored-by: [Your Full Name] <[your-email]>
+
+# https://github.com/inveniosoftware/invenio/blob/master/CONTRIBUTING.rst#commit-messages
