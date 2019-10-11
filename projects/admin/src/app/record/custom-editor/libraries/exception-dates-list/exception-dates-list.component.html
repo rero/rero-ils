@@ -1,0 +1,66 @@
+<!--
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="mt-2 mb-2 btn-group float-right" role="group">
+  <button
+    type="button"
+    class="btn btn-success"
+    (click)="addException()"
+  ><i class="fa fa-plus" aria-hidden="true"></i> <span translate>Add</span></button>
+</div>
+<table class="table table-striped" *ngIf="exceptionDates">
+  <tbody>
+    <tr *ngFor="let exception of exceptionDates; let i=index">
+      <td>
+        {{ exception.start_date | date:'longDate' }}
+        <div *ngIf="exception.end_date"> - {{ exception.end_date | date:'longDate' }}</div>
+      </td>
+      <td>
+        <div *ngIf="exception.is_open; else elseOpen">
+          <i class="fa fa-check text-success"></i> <span translate>Open</span>
+        </div>
+        <ng-template #elseOpen>
+          <i class="fa fa-times text-danger pt-1"></i> <span translate>Closed</span>
+        </ng-template>
+      </td>
+      <td>
+        {{ exception.title }}
+      </td>
+      <td>
+        <div *ngFor="let time of exception.times">
+          {{ time.start_time }}-{{ time.end_time }}
+        </div>
+        <div *ngIf="exception.repeat">
+          <i class="fa fa-repeat" aria-hidden="true" title="repeated"></i> {{ exception.repeat.period | translate }}={{ exception.repeat.interval }}
+        </div>
+      </td>
+      <td class="text-right">
+        <button
+          type="button"
+          class="btn btn-light mr-1"
+          (click)="editException(i)"
+        ><i class="fa fa-pencil-square-o"></i></button>
+        <button
+          type="button"
+          class="btn btn-light"
+          (click)="deleteException(i)"
+        ><i class="fa fa-trash-o"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

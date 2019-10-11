@@ -17,8 +17,8 @@
 import { Injectable } from '@angular/core';
 import { CoreConfigService } from '@rero/ng-core';
 
-import { environment } from '../environments/environment';
-import { ContextSettings } from './class/ContextSettings.interface';
+import { environment } from '../../environments/environment';
+import { ContextSettings } from '../class/ContextSettings.interface';
 import { throwError } from 'rxjs';
 
 @Injectable({

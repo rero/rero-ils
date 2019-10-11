@@ -1,0 +1,166 @@
+<!--
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<h1 translate>Library</h1>
+<form [formGroup]="libForm" (ngSubmit)="onSubmit()">
+  <div class="form-group row">
+    <label for="name" class="col-sm-2 col-form-label required" translate>Name</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="{{ 'Please insert a name' | translate }}"
+        required
+      >
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger pt-1">
+        <div *ngIf="name.errors.required" translate>
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength" translate>
+          Name must be at least 4 characters long.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="address" class="col-sm-2 col-form-label" translate>Address</label>
+    <div class="col-sm-10">
+      <input id="address" class="form-control" formControlName="address">
+      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger pt-1">
+        <div *ngIf="address.errors.minlength" translate>
+          Address must be at least 4 characters long.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-2 col-form-label" translate>Email</label>
+    <div class="col-sm-10">
+      <input id="email" class="form-control" formControlName="email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger pt-1">
+        <div *ngIf="email.errors.email" translate>
+          Email format is not correct.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="email" class="col-sm-2 col-form-label required" translate>Code</label>
+    <div class="col-sm-10">
+      <input
+        id="code"
+        class="form-control"
+        formControlName="code"
+        placeholder="{{ 'Please insert a code' | translate }}"
+        required
+      >
+      <div *ngIf="code.invalid && (code.dirty || code.touched)" class="text-danger pt-1">
+        <div *ngIf="code.errors.alreadyTakenMessage" translate>
+          Code is already taken.
+        </div>
+        <div *ngIf="code.pending" translate>Validating…</div>
+      </div>
+    </div>
+  </div>
+
+  <tabset #staticTabs>
+    <tab heading="{{ 'Opening Hours' | translate }}">
+      <div class="mt-3" formArrayName="opening_hours" *ngFor="let day of openingHours.controls; let i=index">
+        <div [formGroupName]="i">
+          <div class="form-group row">
+            <div class="col-2">
+              <ui-switch formControlName="is_open" [checked]="day.value.is_open" size="small" defaultBgColor="red" class="align-middle"></ui-switch>
+              {{ day.value.day | translate | titlecase }}
+            </div>
+            <div class="col-10">
+              <ul class="list-unstyled mb-0">
+                <li formArrayName="times" *ngFor="let time of day.controls.times.controls; let t=index">
+                  <div [formGroupName]="t" class="mb-1">
+                    <div class="form-row">
+                      <div class="col-3">
+                        <input class="form-control mr-2" formControlName="start_time" [readonly]="!day.value.is_open">
+                      </div>
+                      <div class="col-3">
+                        <input class="form-control" formControlName="end_time" [readonly]="!day.value.is_open">
+                      </div>
+                      <div class="col-6">
+                        <button
+                          type="button"
+                          *ngIf="day.value.is_open && day.controls.times.controls.length > 1"
+                          class="btn btn-light btn-sm"
+                          (click)="deleteTime(i, t)"
+                        ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                        <button
+                          type="button"
+                          *ngIf="day.value.is_open && day.controls.times.controls.length == 1"
+                          class="btn btn-light btn-sm"(click)="addTime(i)"
+                        ><i class="fa fa-plus" aria-hidden="true"></i> <span translate>period</span></button>
+                      </div>
+                    </div>
+                    <div
+                        *ngIf="time.controls.start_time.invalid && (time.controls.start_time.dirty || time.controls.start_time.touched)"
+                        class="text-danger pt-1"
+                      >
+                      <div *ngIf="time.controls.start_time.errors.required" translate>
+                        Start Time is required.
+                      </div>
+                      <div *ngIf="time.controls.start_time.errors.pattern" translate>
+                        Start Time format is not correct.
+                      </div>
+                    </div>
+                    <div
+                        *ngIf="time.controls.end_time.invalid && (time.controls.end_time.dirty || time.controls.end_time.touched)"
+                        class="text-danger pt-1"
+                      >
+                      <div *ngIf="time.controls.end_time.errors.required" translate>
+                        End time is required.
+                      </div>
+                      <div *ngIf="time.controls.end_time.errors.pattern" translate>
+                        End time format is not correct.
+                      </div>
+                    </div>
+                    <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger pt-1">
+                      <div *ngIf="time.errors && time.errors.lessThan" translate>
+                        End time is less than start time.
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div *ngIf="day.invalid  && (day.dirty || day.touched)" class="text-danger pt-1">
+                <div *ngIf="day.errors && day.errors.rangeLessThan" translate>
+                  The two periods are overlapping.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="{{ 'Exceptions (holidays, etc.)' | translate }}">
+      <admin-libraries-exception-dates-list *ngIf="library" [exceptionDates]="library.exception_dates"></admin-libraries-exception-dates-list>
+    </tab>
+  </tabset>
+  <div class="clearfix">
+    <div class="btn-group float-right" role="group" aria-label="Basic example">
+      <button type="cancel" class="btn btn-warning" (click)="onCancel()" translate>Cancel</button>
+      <button type="submit" class="btn btn-success" [disabled]="libForm.invalid" translate>Submit</button>
+    </div>
+  </div>
+</form>

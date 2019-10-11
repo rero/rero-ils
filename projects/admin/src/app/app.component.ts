@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UserService } from './service/user.service';
 import { User } from './class/User';
-import { AppConfigService } from './app-config.service';
+import { AppConfigService } from './service/app-config.service';
 
 @Component({
   selector: 'admin-root',

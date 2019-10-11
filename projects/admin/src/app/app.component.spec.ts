@@ -17,15 +17,23 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { MenuComponent } from './menu/menu.component';
+import { CollapseModule } from 'ngx-bootstrap';
+import { SharedModule } from '@rero/ng-core';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        CollapseModule,
+        SharedModule,
+        HttpClientModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MenuComponent
       ],
     }).compileComponents();
   }));

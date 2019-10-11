@@ -1,0 +1,240 @@
+<!--
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="modal-body">
+    <form [formGroup]="exceptionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <h3 class="modal-title" translate>Exception</h3>
+    </div>
+    <!-- Title -->
+    <div class="form-group row">
+      <label for="title" class="col-sm-2 col-form-label required" translate>Title</label>
+      <div class="col-sm-10">
+        <input
+          class="form-control"
+          formControlName="title"
+          placeholder="{{ 'Please insert a title' | translate }}"
+          required>
+          <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger pt-1">
+            <div *ngIf="title.errors.required" translate>
+              Title is required.
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- Date -->
+    <div class="form-group row">
+      <label for="title" class="col-sm-2 col-form-label">&nbsp;</label>
+      <div class="col-sm-10">
+        <div class="form-check-inline">
+          <label class="form-check-label mr-2">
+            <input type="radio" class="form-check-input" name="day-period" value="false" [checked]="is_period.value === false" (change)="onPeriodChange($event)">
+            {{ 'Day' | translate }}
+          </label>
+          <label class="form-check-label" translate>
+            <input type="radio" class="form-check-input" name="day-period" value="true" [checked]="is_period.value === true" (change)="onPeriodChange($event)">
+            {{ 'Period' | translate }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- one Date -->
+    <div class="form-group row" *ngIf="!is_period.value">
+      <label for="date" class="col-sm-2 col-form-label required" translate>Date</label>
+      <div class="col-sm-10">
+        <div class="input-group">
+          <input type="text"
+            class="form-control"
+            formControlName="date"
+            #dp="bsDatepicker"
+            bsDatepicker
+            [bsConfig]="{ containerClass: 'theme-default' }">
+            <div class="input-group-append">
+              <span class="input-group-text" (click)="dp.toggle()">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+        </div>
+        <div *ngIf="date.invalid && (date.dirty || date.touched)" class="text-danger pt-1">
+          <div *ngIf="date.errors.required" translate>
+            Date is required.
+          </div>
+          <div *ngIf="date.errors.bsDate && date.errors.bsDate.invalid" translate>
+            Date is invalid.
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2 mt-2">
+        &nbsp;
+      </div>
+      <div class="col-sm-10 mt-2">
+        <div class="form-check-inline">
+          <label class="form-check-label mr-2">
+            <input type="radio" class="form-check-input" name="date-status" value="false" [checked]="is_open.value === false" (change)="onDateStatusChange($event)">
+            {{ 'Close' | translate }}
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="date-status" value="true" [checked]="is_open.value === true" (change)="onDateStatusChange($event)">
+            {{ 'Open' | translate }}
+          </label>
+        </div>
+        <div class="mb-2">
+          <em *ngIf="exceptionForm.value && exceptionForm.value.is_open" translate>
+            Change the default opening hours for this day
+          </em>
+          <em *ngIf="exceptionForm.value && !exceptionForm.value.is_open" translate>
+            Change the default closing hours for this day
+          </em>
+        </div>
+        <div class="col-sm-12 pl-0">
+          <button
+            type="button"
+            *ngIf="times.length == 0"
+            class="btn btn-light btn-sm"(click)="addTime(0)"
+          ><i class="fa fa-plus" aria-hidden="true"></i> <span translate>period</span></button>
+          <ul class="list-unstyled mb-0">
+            <li formArrayName="times" *ngFor="let time of times.controls; let t=index">
+              <div [formGroupName]="t">
+                <div class="form-row">
+                  <div class="col-3">
+                    <input type="text" class="form-control mr-2 mb-1" formControlName="start_time">
+                  </div>
+                  <div class="col-3">
+                    <input type="text" class="form-control mr-2 mb-1" formControlName="end_time">
+                  </div>
+                  <div class="col-6">
+                    <button
+                      type="button"
+                      class="btn btn-light btn-sm mr-2"
+                      (click)="deleteTime(t)"
+                    ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    <button
+                      type="button"
+                      *ngIf="times.length == 1"
+                      class="btn btn-light btn-sm"(click)="addTime()"
+                    ><i class="fa fa-plus" aria-hidden="true"></i> <span translate>period</span></button>
+                  </div>
+                </div>
+                <div
+                  *ngIf="time.controls.start_time.invalid && (time.controls.start_time.dirty || time.controls.start_time.touched)"
+                  class="text-danger pt-1"
+                  >
+                  <div *ngIf="time.controls.start_time.errors.required" translate>
+                    Start time is required.
+                  </div>
+                  <div *ngIf="time.controls.start_time.errors.pattern" translate>
+                    Start time format is not correct.
+                  </div>
+                </div>
+                <div
+                  *ngIf="time.controls.end_time.invalid && (time.controls.end_time.dirty || time.controls.end_time.touched)"
+                  class="text-danger pt-1"
+                  >
+                  <div *ngIf="time.controls.end_time.errors.required" translate>
+                    End time is required.
+                  </div>
+                  <div *ngIf="time.controls.end_time.errors.pattern" translate>
+                    End time format is not correct.
+                  </div>
+                </div>
+                <div *ngIf="time.invalid && (time.dirty || time.touched)" class="text-danger pt-1">
+                  <div *ngIf="time.errors && time.errors.lessThan" translate>
+                    End time is less than start time.
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div *ngIf="exceptionForm.invalid  && (exceptionForm.dirty || exceptionForm.touched)" class="text-danger pt-1">
+            <div *ngIf="exceptionForm.errors && exceptionForm.errors.rangeLessThan" translate>
+              The two periods are overlapping.
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Period -->
+    </div>
+    <div class="form-group row" *ngIf="is_period.value">
+      <label for="date" class="col-sm-2 col-form-label required" translate>Start-End Date</label>
+      <div class="col-sm-10">
+        <div class="input-group">
+          <input type="text"
+            class="form-control"
+            formControlName="dates"
+            #dp="bsDaterangepicker"
+            bsDaterangepicker
+            [bsConfig]="{ containerClass: 'theme-default' }">
+            <div class="input-group-append">
+              <span class="input-group-text" (click)="dp.toggle()">
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+        </div>
+        <em translate>Library will be closed during this period.</em>
+        <div *ngIf="dates.invalid && (dates.dirty || dates.touched)" class="text-danger pt-1">
+          <div *ngIf="dates.errors.required" translate>
+            Date range is required.
+          </div>
+          <div *ngIf="dates.errors.bsDate && dates.errors.bsDate.invalid" translate>
+            Date range is invalid.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Repeat -->
+    <div class="form-group row">
+      <label for="repeat" class="col-sm-2 col-form-label required" translate>Repetition</label>
+      <div class="col-sm-10">
+        <ui-switch
+          class="align-middle"
+          formControlName="repeat"
+          [checked]="repeat"
+          size="small"
+          defaultBgColor="red"
+          (change)="onRepeatChange($event)">
+        </ui-switch>
+        <div class="ml-2 d-inline" *ngIf="repeat.value">
+          <label for="interval" class="col-form-label required" translate>Repeat each</label>
+          <input type="number" min="1" step="1" class="ml-2 col-2" formControlName="interval">
+          <select class="col-3 ml-1 form-control d-inline-block" formControlName="period">
+            <option value="weekly" translate>week</option>
+            <option value="monthly" translate>month</option>
+            <option value="yearly" translate>year</option>
+          </select>
+          <div *ngIf="interval.invalid && (interval.dirty || interval.touched)" class="text-danger pt-1">
+            <div *ngIf="interval.errors.required" translate>
+              Interval is required.
+            </div>
+            <div *ngIf="interval.errors.min" translate>
+              Interval must greater than 0.
+            </div>
+            <div *ngIf="interval.errors.pattern && !interval.errors.min" translate>
+              Integer only.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-right mb-4" role="group" aria-label="Buttons">
+      <button type="button" class="btn btn-outline-dark mr-1" (click)="onCancel()" translate>Cancel</button>
+      <button type="button" class="btn btn-outline-dark" (click)="onSubmit()" [disabled]="exceptionForm.invalid" translate>
+        OK
+      </button>
+    </div>
+  </form>
+</div>

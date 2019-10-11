@@ -20,21 +20,53 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { RecordModule, CoreModule, CoreConfigService, SharedModule } from '@rero/ng-core';
-
+import { UiSwitchModule } from 'ngx-toggle-switch';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppConfigService } from './app-config.service';
+import { AppConfigService } from './service/app-config.service';
 import { MenuComponent } from './menu/menu.component';
-import { UserService } from './services/user.service';
+import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { FrontpageComponent } from './frontpage/frontpage.component';
+import { ItemTypesBriefViewComponent } from './record/brief-view/item-types-brief-view.component';
+import { CircPoliciesBriefViewComponent } from './record/brief-view/circ-policies-brief-view.component';
+import { DocumentsBriefViewComponent } from './record/brief-view/documents-brief-view.component';
+import { LibrariesBriefViewComponent } from './record/brief-view/libraries-brief-view.component';
+import { PatronTypesBriefViewComponent } from './record/brief-view/patron-types-brief-view.component';
+import { PatronsBriefViewComponent } from './record/brief-view/patrons-brief-view.component';
+import { PersonsBriefViewComponent } from './record/brief-view/persons-brief-view.component';
+import { BioInformationsPipe } from './pipe/bio-informations.pipe';
+import { BirthDatePipe } from './pipe/birth-date.pipe';
+import { MefTitlePipe } from './pipe/mef-title.pipe';
+import { LibraryComponent } from './record/custom-editor/libraries/library.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ExceptionDatesListComponent } from './record/custom-editor/libraries/exception-dates-list/exception-dates-list.component';
+import { ExceptionDatesEditComponent } from './record/custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
+import { CirculationPolicyComponent } from './record/custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
+import { CirculationPolicyService } from './record/custom-editor/circulation-settings/circulation-policy.service';
+import { CirculationPolicyFormService } from './record/custom-editor/circulation-settings/circulation-policy-form.service';
+import { CirculationMappingService } from './record/custom-editor/circulation-settings/circulation-mapping.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    FrontpageComponent
+    FrontpageComponent,
+    ItemTypesBriefViewComponent,
+    CircPoliciesBriefViewComponent,
+    DocumentsBriefViewComponent,
+    LibrariesBriefViewComponent,
+    PatronTypesBriefViewComponent,
+    PatronsBriefViewComponent,
+    PersonsBriefViewComponent,
+    BioInformationsPipe,
+    BirthDatePipe,
+    MefTitlePipe,
+    LibraryComponent,
+    ExceptionDatesListComponent,
+    ExceptionDatesEditComponent,
+    CirculationPolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -44,14 +76,31 @@ import { FrontpageComponent } from './frontpage/frontpage.component';
     SharedModule,
     RecordModule,
     HttpClientModule,
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    TabsModule.forRoot(),
+    UiSwitchModule,
+    BsDatepickerModule
   ],
   providers: [
     {
       provide: CoreConfigService,
       useClass: AppConfigService
     },
-    UserService
+    UserService,
+    CirculationPolicyService,
+    CirculationPolicyFormService,
+    CirculationMappingService
+  ],
+  entryComponents: [
+    ItemTypesBriefViewComponent,
+    CircPoliciesBriefViewComponent,
+    DocumentsBriefViewComponent,
+    LibrariesBriefViewComponent,
+    PatronTypesBriefViewComponent,
+    PatronsBriefViewComponent,
+    PersonsBriefViewComponent
   ],
   bootstrap: [AppComponent]
 })

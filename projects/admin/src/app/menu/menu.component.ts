@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../service/user.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreConfigService } from '@rero/ng-core';
 // import { _ } from '@rero/ng-core';
@@ -46,7 +46,7 @@ export class MenuComponent implements OnInit {
           iconCssClass: 'fa fa-exchange'
         }, {
           name: _('Patrons'),
-          routerLink: '/',
+          routerLink: '/records/patrons',
           iconCssClass: 'fa fa-users'
         }]
       }, {
@@ -58,7 +58,7 @@ export class MenuComponent implements OnInit {
           iconCssClass: 'fa fa-file-o'
         }, {
           name: _('Create a bibliographic record'),
-          routerLink: '/',
+          routerLink: '/records/documents/new',
           iconCssClass: 'fa fa-file-o'
         }, {
           name: _('Persons'),
@@ -105,11 +105,13 @@ export class MenuComponent implements OnInit {
       }]
     }]
   };
+
   userMenu = {
     navCssClass: 'navbar-nav',
     iconCssClass: 'fa fa-user',
     entries: []
   };
+
   private activeLanguagesMenuItem;
 
   constructor(

@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfigService } from './app-config.service';
 import { DocumentBriefComponent } from './document-brief/document-brief.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DocumentBriefComponent } from './document-brief/document-brief.componen
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
-    RecordModule
+    RecordModule,
+    TranslatePipe
   ],
   providers: [
     {

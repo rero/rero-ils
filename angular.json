@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "preserveSymlinks": true,
             "outputPath": "dist/admin",
             "index": "projects/admin/src/index.html",
             "main": "projects/admin/src/main.ts",
@@ -130,6 +131,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "preserveSymlinks": true,
             "outputPath": "dist/public-search",
             "index": "projects/public-search/src/index.html",
             "main": "projects/public-search/src/main.ts",
