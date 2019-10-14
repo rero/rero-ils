@@ -1,32 +1,26 @@
 /*
-
-RERO ILS
-Copyright (C) 2019 RERO
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, version 3 of the License.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
+ * RERO ILS UI
+ * Copyright (C) 2019 RERO
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 import { Component, Input } from '@angular/core';
 import { ResultItem, RecordService } from '@rero/ng-core';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../service/user.service';
-// import { _ } from '@rero/ng-core';
-
-export function _(str: string) {
-  return str;
-}
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 
 @Component({
   selector: 'admin-documents-brief-view',
@@ -136,7 +130,7 @@ export class DocumentsBriefViewComponent implements ResultItem {
         for (const holding of this.record.metadata.holdings) {
           holding.items = holding.items.filter(item => item.pid !== pid);
         }
-        this.toastService.success(_('Record deleted.'), _('documents'));
+        this.toastService.success(_('Record deleted'), _('documents'));
       }
     });
   }

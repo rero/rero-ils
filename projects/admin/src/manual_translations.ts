@@ -15,11 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MefTitlePipe } from './mef-title.pipe';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 
-describe('MefTitlePipe', () => {
-  it('create an instance', () => {
-    const pipe = new MefTitlePipe();
-    expect(pipe).toBeTruthy();
-  });
-});
+// _('Your string');
+_('monday');
+_('tuesday');
+_('wednesday');
+_('thursday');
+_('friday');
+_('saturday');
+_('sunday');

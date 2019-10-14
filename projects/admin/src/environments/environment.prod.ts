@@ -14,9 +14,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 export const environment = {
   production: true,
   apiBaseUrl: '',
   $refPrefix: 'https://ils.rero.ch',
-  languages: ['fr', 'de', 'it', 'en']
+  languages: ['fr', 'de', 'it', 'en'],
+  defaultLanguage: 'en',
+  adminRoles: ['system_librarian', 'librarian']
 };

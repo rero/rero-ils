@@ -36,9 +36,18 @@ export class User {
   organisation_pid: string;
   barcode?: string;
   patron_type?: PatronType;
+  is_logged: Boolean = false;
 
-  constructor(user: User) {
+  constructor(user) {
     Object.assign(this, user);
+  }
+
+  isAuthorizedAdminAccess(roles: Array<string>) {
+    return this.roles.filter((role: string) => {
+      if (roles.indexOf(role) > -1) {
+        return role;
+      }
+    }).length > 0;
   }
 }
 

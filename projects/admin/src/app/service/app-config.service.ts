@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { Injectable } from '@angular/core';
 import { CoreConfigService } from '@rero/ng-core';
 
@@ -28,12 +29,16 @@ export class AppConfigService extends CoreConfigService {
 
   private settings: ContextSettings;
 
+  public adminRoles: Array<string>;
+
   constructor() {
     super();
     this.production = environment.production;
     this.apiBaseUrl = environment.apiBaseUrl;
     this.$refPrefix = environment.$refPrefix;
     this.languages = environment.languages;
+    this.defaultLanguage = environment.defaultLanguage;
+    this.adminRoles = environment.adminRoles;
   }
 
   public setSettings(settings: ContextSettings) {

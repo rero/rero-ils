@@ -15,11 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MefTitlePipe } from './mef-title.pipe';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../service/user.service';
 
-describe('MefTitlePipe', () => {
-  it('create an instance', () => {
-    const pipe = new MefTitlePipe();
-    expect(pipe).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'admin-libraries-mylibrary',
+  template: ``,
+  styles: []
+})
+export class MylibraryComponent implements OnInit {
+
+  constructor(
+    private router: Router,
+    private currentUser: UserService
+  ) {}
+
+  ngOnInit() {
+    const user = this.currentUser.getCurrentUser();
+    this.router.navigate(['/records/libraries/detail', user.library.pid]);
+  }
+}

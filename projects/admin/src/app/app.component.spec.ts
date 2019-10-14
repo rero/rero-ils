@@ -14,13 +14,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { SharedModule } from '@rero/ng-core';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -29,12 +31,14 @@ describe('AppComponent', () => {
         RouterTestingModule,
         CollapseModule,
         SharedModule,
-        HttpClientModule
+        HttpClientModule,
+        BsDatepickerModule.forRoot(),
+        TranslateModule.forRoot({})
       ],
       declarations: [
         AppComponent,
         MenuComponent
-      ],
+      ]
     }).compileComponents();
   }));
 

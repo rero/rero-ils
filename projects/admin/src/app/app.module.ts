@@ -14,12 +14,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { NgModule } from '@angular/core';
-
-import { RecordModule, CoreModule, CoreConfigService, SharedModule } from '@rero/ng-core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { RecordModule, CoreModule, CoreConfigService, SharedModule, TranslateService } from '@rero/ng-core';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +26,7 @@ import { AppConfigService } from './service/app-config.service';
 import { MenuComponent } from './menu/menu.component';
 import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CollapseModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { CollapseModule, TabsModule, BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap';
 import { FrontpageComponent } from './frontpage/frontpage.component';
 import { ItemTypesBriefViewComponent } from './record/brief-view/item-types-brief-view.component';
 import { CircPoliciesBriefViewComponent } from './record/brief-view/circ-policies-brief-view.component';
@@ -44,6 +43,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ExceptionDatesListComponent } from './record/custom-editor/libraries/exception-dates-list/exception-dates-list.component';
 import { ExceptionDatesEditComponent } from './record/custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
 import { CirculationPolicyComponent } from './record/custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
+import { MylibraryComponent } from './mylibrary/mylibrary.component';
+import { TranslateModule, TranslateLoader as BaseTranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader } from './translate/loader/translate-loader';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { CirculationPolicyComponent } from './record/custom-editor/circulation-s
     LibraryComponent,
     ExceptionDatesListComponent,
     ExceptionDatesEditComponent,
-    CirculationPolicyComponent
+    CirculationPolicyComponent,
+    MylibraryComponent
   ],
   imports: [
     BrowserModule,
@@ -78,14 +81,26 @@ import { CirculationPolicyComponent } from './record/custom-editor/circulation-s
     ReactiveFormsModule,
     TabsModule.forRoot(),
     UiSwitchModule,
-    BsDatepickerModule
+    BsDatepickerModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: BaseTranslateLoader,
+        useClass: TranslateLoader,
+      },
+      isolate: false
+    })
   ],
   providers: [
     {
       provide: CoreConfigService,
       useClass: AppConfigService
     },
-    UserService
+    {
+      provide: LOCALE_ID,
+      useFactory: (translate: TranslateService) => translate.currentLanguage,
+      deps: [TranslateService]
+    },
+    BsLocaleService
   ],
   entryComponents: [
     ItemTypesBriefViewComponent,
@@ -94,7 +109,8 @@ import { CirculationPolicyComponent } from './record/custom-editor/circulation-s
     LibrariesBriefViewComponent,
     PatronTypesBriefViewComponent,
     PatronsBriefViewComponent,
-    PersonsBriefViewComponent
+    PersonsBriefViewComponent,
+    ExceptionDatesEditComponent
   ],
   bootstrap: [AppComponent]
 })

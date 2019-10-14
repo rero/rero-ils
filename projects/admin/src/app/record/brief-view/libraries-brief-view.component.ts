@@ -1,42 +1,32 @@
 /*
-
-RERO ILS
-Copyright (C) 2019 RERO
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, version 3 of the License.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
+ * RERO ILS UI
+ * Copyright (C) 2019 RERO
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 import { Component, Input } from '@angular/core';
 import { ResultItem, RecordService } from '@rero/ng-core';
 import { ToastrService } from 'ngx-toastr';
-// import { _ } from '@rero/ng-core';
-
-export function _(str: string) {
-  return str;
-}
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 
 @Component({
   selector: 'admin-libraries-brief-view',
   template: `
-  <a class="collapsed card-title text-body"
-     data-toggle="collapse" href="#{{'library'+record.metadata.pid }}"
-     aria-expanded="false" aria-controls="libraryData">
-    <h5 class="mb-0 d-inline">
-      <i class="fa fa-caret-down" aria-hidden="true"></i>
-      {{record.metadata.name}}
-    </h5>
-  </a>
+  <h5 class="mb-0 d-inline">
+    <i class="fa fa-caret-down" aria-hidden="true"></i>
+    {{record.metadata.name}}
+  </h5>
   <small> {{record.metadata.code}}</small>
   <section class="card-text">
     <section class="collapse" id="{{'library'+record.metadata.pid }}">
@@ -68,9 +58,9 @@ export function _(str: string) {
               <span class="col-6 col-md-4">
                 <i class="fa"
                    [ngClass]="{'fa-check text-success': exception.is_open, 'fa-times text-danger': !exception.is_open }">
-                </i> {{ exception.start_date|date:'shortDate' }}
+                </i> {{ exception.start_date | dateTranslate:'shortDate' }}
               </span>
-              <span class="col-6 col-md-3" *ngIf="exception.end_date"> {{ exception.end_date|date:'shortDate' }}</span>
+              <span class="col-6 col-md-3" *ngIf="exception.end_date"> {{ exception.end_date | dateTranslate:'shortDate' }}</span>
               <span *ngIf="exception.times">
                 <span class="col-6 col-md-4"
                       *ngFor="let time of exception.times"> {{ time.start_time }} &mdash; {{ time.end_time }}
@@ -150,7 +140,7 @@ export class LibrariesBriefViewComponent implements ResultItem {
     this.recordService.delete('locations', pid).subscribe((success: any) => {
       if (success) {
         this.locations = this.locations.filter(location => location.metadata.pid !== pid);
-        this.toastService.success(_('Record deleted.'), _('locations'));
+        this.toastService.success(_('Record deleted'), _('locations'));
       }
     });
   }

@@ -27,7 +27,9 @@
     "build": "ng build admin --configuration production && ng build public-search --configuration production",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "extract_messages": "ngx-translate-extract -k -c -s -i ./projects/admin/src -o ./projects/admin/src/app/translate/i18n/en_US.json --fi '  '",
+    "update_catalog": "ngx-translate-extract -k -c -s -i ./projects/admin/src -o ./projects/admin/src/app/translate/i18n/{de,en,fr,it}.json --fi '  '"
   },
   "dependencies": {
     "@angular/animations": "~8.1.2",
@@ -40,9 +42,12 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@biesbjerg/ngx-translate-extract": "^4.2.0",
+    "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@cospired/i18n-iso-languages": "^2.0.5",
     "@ngx-translate/core": "^11.0.1",
-    "@rero/ng-core": "0.0.8",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "@rero/ng-core": "0.0.9",
     "angular6-json-schema-form": "^7.3.0",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",

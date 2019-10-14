@@ -14,15 +14,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreConfigService } from '@rero/ng-core';
-// import { _ } from '@rero/ng-core';
-
-export function _(str: string) {
-  return str;
-}
+import { CoreConfigService, TranslateService } from '@rero/ng-core';
+import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 
 @Component({
   selector: 'admin-menu',
@@ -82,7 +78,7 @@ export class MenuComponent implements OnInit {
           iconCssClass: 'fa fa-users'
         }, {
           name: _('My Library'),
-          routerLink: '/',
+          routerLink: '/mylibrary',
           iconCssClass: 'fa fa-university'
         }, {
           name: _('Libraries'),
@@ -115,14 +111,13 @@ export class MenuComponent implements OnInit {
   private activeLanguagesMenuItem;
 
   constructor(
-    private translateService: TranslateService,
+    private appTranslateService: TranslateService,
     private configService: CoreConfigService,
     private userService: UserService
     ) {
     }
 
     ngOnInit() {
-      this.translateService.use(this.lang);
       this.languages = this.configService.languages;
       for (const lang of this.languages) {
         const data: any = {name: lang};
@@ -142,14 +137,11 @@ export class MenuComponent implements OnInit {
             iconCssClass: 'fa fa-sign-out'
           }
         ]
-
       });
-      // const roles = this.userService.getCurrentUser().roles;
-
     }
 
     changeLang(item) {
-      this.translateService.use(item.name);
+      this.appTranslateService.setLanguage(item.name);
       delete(this.activeLanguagesMenuItem.active);
       item.active = true;
       this.activeLanguagesMenuItem = item;

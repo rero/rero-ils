@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MefTitlePipe } from './mef-title.pipe';
+import { TranslateLoader } from './translate-loader';
+import { AppConfigService } from '../../service/app-config.service';
 
-describe('MefTitlePipe', () => {
-  it('create an instance', () => {
-    const pipe = new MefTitlePipe();
-    expect(pipe).toBeTruthy();
+describe('TranslateLoader', () => {
+  it('should create an instance', () => {
+    expect(new TranslateLoader(new AppConfigService())).toBeTruthy();
   });
 });

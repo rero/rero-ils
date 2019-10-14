@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, UrlSegment } from '@angular/router';
 import { FrontpageComponent } from './frontpage/frontpage.component';
@@ -27,6 +28,7 @@ import { PatronsBriefViewComponent } from './record/brief-view/patrons-brief-vie
 import { PersonsBriefViewComponent } from './record/brief-view/persons-brief-view.component';
 import { LibraryComponent } from './record/custom-editor/libraries/library.component';
 import { CirculationPolicyComponent } from './record/custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
+import { MylibraryComponent } from './mylibrary/mylibrary.component';
 
 export function matchedUrl(url: UrlSegment[]) {
   const segments = [
@@ -49,6 +51,9 @@ const routes: Routes = [
   {
     path: '',
     component: FrontpageComponent
+  }, {
+    path: 'mylibrary',
+    component: MylibraryComponent
   }, {
     matcher: (url) => {
       if (url[0].path === 'records' && url[1].path === 'documents') {
