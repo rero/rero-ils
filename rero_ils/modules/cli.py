@@ -47,7 +47,7 @@ from werkzeug.local import LocalProxy
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
-from .providers import append_pids_to_table
+from ..modules.providers import append_fixtures_new_identifiers
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -240,7 +240,7 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
     if append:
         pids = record_class.get_all_pids()
         table = record_class.provider.identifier
-        append_pids_to_table(table, pids)
+        append_fixtures_new_identifiers(table, pids)
 
 
 fixtures.add_command(create)
