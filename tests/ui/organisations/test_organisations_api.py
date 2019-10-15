@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.organisations.api import \
     organisation_id_fetcher as fetcher
+from rero_ils.modules.providers import append_fixtures_new_identifiers
 
 
 def test_organisation_libararies(org_martigny, lib_martigny):
@@ -29,9 +30,10 @@ def test_organisation_libararies(org_martigny, lib_martigny):
     assert list(org_martigny.get_libraries()) == [lib_martigny]
 
 
-def test_organisation_create(app, db, org_martigny_data):
+def test_organisation_create(app, db, org_martigny_data, org_sion_data):
     """Test organisation creation."""
-    org = Organisation.create(org_martigny_data, delete_pid=True)
+    org_martigny_data['pid'] = '1'
+    org = Organisation.create(org_martigny_data, dbcommit=True, reindex=True)
     assert org == org_martigny_data
     assert org.get('pid') == '1'
 
@@ -44,3 +46,12 @@ def test_organisation_create(app, db, org_martigny_data):
     fetched_pid = fetcher(org.id, org)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'org'
+
+    org_sion_data['pid'] = '2'
+    org = Organisation.create(
+        org_sion_data, dbcommit=True, reindex=True)
+    assert org.get('pid') == '2'
+
+    identifier = Organisation.provider.identifier
+    append_fixtures_new_identifiers(identifier, ['1', '2'])
+    assert identifier.next() == identifier.max() == 3

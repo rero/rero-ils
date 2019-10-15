@@ -25,12 +25,13 @@ from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.base import BaseProvider
 
 
-def append_pids_to_table(table, pids):
-    """Insert pids into an indentifier table."""
+def append_fixtures_new_identifiers(table, pids):
+    """Insert pids into the indentifier table and update its sequence."""
     for pid in pids:
         data = table(recid=pid)
         db.session.add(data)
     db.session.commit()
+    table._set_sequence(int(max(pids))+1)
 
 
 class Provider(BaseProvider):
