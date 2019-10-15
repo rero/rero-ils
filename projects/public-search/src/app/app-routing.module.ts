@@ -18,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RecordSearchComponent, DetailComponent } from '@rero/ng-core';
 import { DocumentBriefComponent } from './document-brief/document-brief.component';
+import { PersonBriefComponent } from './person-brief/person-brief.component';
 
 const routes: Routes = [
   {
@@ -36,10 +37,16 @@ const routes: Routes = [
           key: 'documents',
           component: DocumentBriefComponent,
           label: 'Documents'
+        },
+        {
+          key: 'persons',
+          component: PersonBriefComponent,
+          label: 'Persons'
         }
       ]
     }
-  }, {
+  },
+  {
     path: 'highlands/search',
     children: [
       { path: ':type', component: RecordSearchComponent },
@@ -58,10 +65,16 @@ const routes: Routes = [
           preFilters: {
             view: 'highlands'
           }
+        },
+        {
+          key: 'persons',
+          component: PersonBriefComponent,
+          label: 'Persons'
         }
       ]
     }
-  }, {
+  },
+  {
     path: 'aoste/search',
     children: [
       { path: ':type', component: RecordSearchComponent },
@@ -80,6 +93,11 @@ const routes: Routes = [
           preFilters: {
             view: 'aoste'
           }
+        },
+        {
+          key: 'persons',
+          component: PersonBriefComponent,
+          label: 'Persons'
         }
       ]
     }

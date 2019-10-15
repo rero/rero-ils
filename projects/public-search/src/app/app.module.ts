@@ -18,18 +18,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { CoreConfigService, RecordModule, CoreModule } from '@rero/ng-core';
+import { CoreConfigService, RecordModule, CoreModule, SharedModule } from '@rero/ng-core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppConfigService } from './app-config.service';
 import { DocumentBriefComponent } from './document-brief/document-brief.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { PersonBriefComponent } from './person-brief/person-brief.component';
+import { MefTitlePipe } from './pipes/mef-title.pipe';
+import { BirthDatePipe } from './pipes/birth-date.pipe';
+import { BioInformationsPipe } from './pipes/bio-informations.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DocumentBriefComponent
+    DocumentBriefComponent,
+    PersonBriefComponent,
+    MefTitlePipe,
+    BirthDatePipe,
+    BioInformationsPipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     HttpClientModule,
     CoreModule,
     RecordModule,
-    TranslatePipe
+    SharedModule
   ],
   providers: [
     {
@@ -46,7 +53,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     }
   ],
   entryComponents: [
-    DocumentBriefComponent
+    DocumentBriefComponent,
+    PersonBriefComponent
   ],
   bootstrap: [AppComponent]
 })

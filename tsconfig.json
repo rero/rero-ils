@@ -24,5 +24,8 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
+  },
+  "paths": {
+    "@app/*": ["src/app/*"]
   }
 }

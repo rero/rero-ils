@@ -16,28 +16,25 @@
  */
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CoreModule, SharedModule } from '@rero/ng-core';
 
 import { MefTitlePipe } from './../pipes/mef-title.pipe';
 import { BirthDatePipe } from './../pipes/birth-date.pipe';
 import { BioInformationsPipe } from './../pipes/bio-informations.pipe';
-import { DocumentBriefComponent } from './document-brief.component';
-import { HttpClientModule } from '@angular/common/http';
+import { PersonBriefComponent } from './person-brief.component';
 
-describe('DocumentBriefComponent', () => {
-  let component: DocumentBriefComponent;
-  let fixture: ComponentFixture<DocumentBriefComponent>;
+describe('PersonBriefComponent', () => {
+  let component: PersonBriefComponent;
+  let fixture: ComponentFixture<PersonBriefComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentBriefComponent, MefTitlePipe, BirthDatePipe, BioInformationsPipe ],
-      imports: [ CoreModule, SharedModule, HttpClientModule ]
+      declarations: [ PersonBriefComponent, MefTitlePipe, BirthDatePipe, BioInformationsPipe ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentBriefComponent);
+    fixture = TestBed.createComponent(PersonBriefComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
