@@ -27,18 +27,46 @@ DATA_PATH=$(pipenv --where)/data
 #       used for deploy the 'big' files
 #  --dont_stop:
 #       used for continue script on error
+#  --time:
+#       used for checking time for each command
 
-RED='\033[0;31m'
-GREEN='\033[0;0;32m'
-NC='\033[0m' # No Color
+# COLORS for messages
+NC='\033[0m'                    # Default color
+INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
+SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
+ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
 
-display_error_message () {
-	echo -e "${RED}$1${NC}" 1>&2
+PROGRAM=`basename $0`
+
+# MESSAGES
+msg() {
+  echo -e "${1}" 1>&2
+}
+# Display a colored message
+# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# $1: choosen color
+# $2: title
+# $3: the message
+colored_msg() {
+  msg "${1}[${2}]: ${3}${NC}"
 }
 
-display_success_message () {
-    echo -e "${GREEN}$1${NC}" 1>&2
+info_msg() {
+  colored_msg "${INFO_COLOR}" "INFO" "${1}"
 }
+
+error_msg() {
+  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
+}
+
+error_msg+exit() {
+    error_msg "${1}" && exit 1
+}
+
+success_msg() {
+  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
+}
+
 
 DEPLOYMENT=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
@@ -48,8 +76,11 @@ CREATE_LAZY=""
 DONT_STOP=""
 PREFIX=""
 
+# Displays program name
+msg "PROGRAM: ${PROGRAM}"
+
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,data_path: -- "$@")
+if ! options=$(getopt -o dsb -l -t deployment,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,data_path: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -67,29 +98,26 @@ do
     -D|--data_path) DATA_PATH=$2 ;;
     -t|--time) PREFIX="time" ;;  # Get time for all commands
     (--) shift; break;;
-    (-*) display_error_message "$0: error - unrecognized option $1"; exit 1;;
+    (-*) error_msg+exit "$0: Unrecognized option $1";;
     (*) break;;
     esac
     shift
 done
 
 if [ ! -d $DATA_PATH ]; then
-    display_error_message "Error - data path does not exist: $DATA_PATH"
-    exit 1
+    error_msg+exit "Error - data path does not exist: $DATA_PATH"
 fi
 
 if $CREATE_ITEMS_HOLDINGS_SMALL && $CREATE_ITEMS_HOLDINGS_BIG
 then
-    display_error_message "Error - chose option for 'small' or 'big' documents generation"
-    exit 1
+    error_msg+exit "Choose option for 'small' or 'big' documents generation"
 fi
 
 if $CREATE_ITEMS_HOLDINGS_SMALL || $CREATE_ITEMS_HOLDINGS_BIG
 then
     if $DEPLOYMENT
     then
-        display_error_message "Error - chose deployment option only"
-        exit 1
+        error_msg+exit "Choose deployment option only"
     fi
 fi
 
@@ -100,8 +128,10 @@ then
 fi
 
 # Purge celery
+info_msg "Purge celery"
 pipenv run celery purge -A invenio_app.celery -f
 # Clean redis
+info_msg "Clean redis"
 eval "${PREFIX} pipenv run invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
 eval ${PREFIX} pipenv run invenio db destroy --yes-i-know
 eval ${PREFIX} pipenv run invenio db init create
@@ -109,26 +139,31 @@ eval ${PREFIX} pipenv run invenio index queue purge delete
 set -e
 eval ${PREFIX} pipenv run invenio index destroy --force --yes-i-know
 # Override index init to load templates before mapping
+info_msg "Override index init to load templates before mapping"
 eval ${PREFIX} pipenv run invenio utils init --force
 # eval ${PREFIX} pipenv run invenio index init --force
 eval ${PREFIX} pipenv run invenio index queue init
 # Delete invenio_circulations index
+info_msg "Delete invenio_circulations index"
 eval ${PREFIX} pipenv run invenio index delete loans-loan-v1.0.0 --force --yes-i-know
 
 # Create admin role to restrict access
+info_msg "Create admin role to restrict access"
 eval ${PREFIX} pipenv run invenio roles create admin
 eval ${PREFIX} pipenv run invenio access allow superuser-access role admin
 
 # create new user
+info_msg "Create new admin user"
 eval ${PREFIX} pipenv run invenio users create -a admin@rero.ch --password administrator
 
 # confirm users
+info_msg "Confirm admin creation"
 eval ${PREFIX} pipenv run invenio users confirm admin@rero.ch
 
 # create roles
+info_msg "Create roles: admin, patron, librarian and system librarian"
 eval "${PREFIX} pipenv run invenio roles create -d 'Admins Group' admins"
 eval "${PREFIX} pipenv run invenio roles create -d 'Super Users Group' superusers"
-
 # create a role for users qualified as a patron
 eval "${PREFIX} pipenv run invenio roles create -d 'Patron' patron"
 
@@ -139,33 +174,44 @@ eval "${PREFIX} pipenv run invenio roles create -d 'Librarian' librarian"
 eval "${PREFIX} pipenv run invenio roles create -d 'System Librarian' system_librarian"
 
 # grant accesses to action roles
+info_msg "Grant access to action roles (admins, superusers)"
 eval ${PREFIX} pipenv run invenio access allow admin-access role admins
 eval ${PREFIX} pipenv run invenio access allow superuser-access role superusers
 
 # grant roles to users
+info_msg "Grant roles to users"
 eval ${PREFIX} pipenv run invenio roles add admin@rero.ch admins
 eval ${PREFIX} pipenv run invenio roles add admin@rero.ch superusers
 
-display_success_message "Organisations: ${CREATE_LAZY} ${DONT_STOP}"
+# Generate fixtures
+info_msg "Generate fixtures:"
+
+info_msg "- Organisations ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t org --yes-i-know
-display_success_message "Libraries: ${CREATE_LAZY} ${DONT_STOP}"
+
+info_msg "- Libraries: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t lib --yes-i-know
-display_success_message "Locations: ${CREATE_LAZY} ${DONT_STOP}"
+
+info_msg "- Locations: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t loc --yes-i-know
-display_success_message "Item types: ${CREATE_LAZY} ${DONT_STOP}"
+
+info_msg "- Item types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t itty --yes-i-know
-display_success_message "Patron types: ${CREATE_LAZY} ${DONT_STOP}"
+
+info_msg "- Patron types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t ptty --yes-i-know
-display_success_message "Circulation policies: ${CREATE_LAZY} ${DONT_STOP}"
+
+info_msg "- Circulation policies: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t cipo --yes-i-know
 eval ${PREFIX} pipenv run invenio index run --raise-on-error
 
+info_msg "- Users:"
 eval ${PREFIX} pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 
 # # to generate data file
@@ -190,15 +236,15 @@ else
     HOLDINGS=${DATA_PATH}/holdings_small.json
 fi
 
-display_success_message "Documents: ${DONT_STOP}"
-echo -e ${DOCUMENTS}
+info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${DONT_STOP}
 
 if $CREATE_ITEMS_HOLDINGS_SMALL
 then
     # to generate small items file small documents must exist in DB
+    msg "\tSMALL documents, creation of items and holdings"
     eval ${PREFIX} pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
-    display_success_message "Creation of items and holdings done for 'small' documents."
+    success_msg "Creation of items and holdings done for 'small' documents."
     if $STOP_EXECUTION
     then
         exit 0
@@ -208,41 +254,50 @@ fi
 if $CREATE_ITEMS_HOLDINGS_BIG
 then
     # to generate big items file big documents must exist in DB
+    msg "\tBIG documents, creation of items and holdings"
     eval ${PREFIX} pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
-    display_success_message "Creation of items and holdings done for 'big' documents."
+    success_msg "Creation of items and holdings done for 'big' documents."
     if $STOP_EXECUTION
     then
         exit 0
     fi
 fi
 
-display_success_message "Holdings: ${CREATE_LAZY} ${DONT_STOP}"
-echo -e ${HOLDINGS}
+info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} pipenv run invenio index reindex -t hold --yes-i-know
 eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
-display_success_message "Items: ${CREATE_LAZY} ${DONT_STOP}"
-echo -e ${ITEMS}
+info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
+
+# index items
+info_msg "Index items"
 eval ${PREFIX} pipenv run invenio index reindex -t item --yes-i-know
 eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
-display_success_message "Index Documents:"
+# index documents
+info_msg "Index Documents:"
 eval ${PREFIX} pipenv run invenio index reindex -t doc --yes-i-know
 eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
-display_success_message "Circulation transactions:"
+# create circulation transactions
+info_msg "Circulation transactions:"
 eval ${PREFIX} pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
 
 # # OAI configuration
+info_msg "OAI configuration:"
 eval ${PREFIX} pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
 if $DEPLOYMENT
 then
     # start oai harvesting asynchrone: beats must be running
+    info_msg "Start OAI harvesting asynchrone"
     eval ${PREFIX} pipenv run invenio oaiharvester harvest -n ebooks -q -k
 else
-    display_success_message "For ebooks harvesting run:"
-    echo "pipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
+    info_msg "For ebooks harvesting run:"
+    echo -e "\tpipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
 date
+
+success_msg "Perfect ${PROGRAM}! See you soon…"
+exit 0

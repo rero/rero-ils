@@ -16,22 +16,45 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-RED='\033[0;31m'
-GREEN='\033[0;0;32m'
-NC='\033[0m' # No Color
+# COLORS for messages
+NC='\033[0m'                    # Default color
+INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
+SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
+ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
 
-display_error_message () {
-	echo -e "${RED}$1${NC}" 1>&2
+PROGRAM=`basename $0`
+
+# MESSAGES
+msg() {
+  echo -e "${1}" 1>&2
+}
+# Display a colored message
+# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# $1: choosen color
+# $2: title
+# $3: the message
+colored_msg() {
+  msg "${1}[${2}]: ${3}${NC}"
 }
 
-display_success_message () {
-    echo -e "${GREEN}$1${NC}" 1>&2
+info_msg() {
+  colored_msg "${INFO_COLOR}" "INFO" "${1}"
 }
 
-display_error_message_and_exit () {
-  display_error_message "$1"
-  exit 1
+error_msg() {
+  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
 }
+
+error_msg+exit() {
+    error_msg "${1}" && exit 1
+}
+
+success_msg() {
+  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
+}
+
+# Displays program name
+msg "PROGRAM: ${PROGRAM}"
 
 # compile json files (resolve $ref)
 pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
@@ -50,9 +73,9 @@ if [ $# -eq 0 ]
         pipenv check -i 36759
         pipenv run flask utils check_json tests rero_ils/modules data
         pipenv run flask utils check_license check_license_config.yml
-        display_success_message "Test pydocstyle:"
+        info_msg "Test pydocstyle:"
         pipenv run pydocstyle rero_ils tests docs
-        display_success_message "Test isort:"
+        info_msg "Test isort:"
         pipenv run isort -rc -c -df --skip ui
         echo -e ${GREEN}Test useless imports:${NC}
         pipenv run autoflake -c -r \
@@ -60,24 +83,26 @@ if [ $# -eq 0 ]
           --exclude ui \
           --ignore-init-module-imports . \
           &> /dev/null || \
-          display_error_message_and_exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
+          error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
 
         # syntax check for typescript
-        display_success_message "Syntax check for typescript:"
+        info_msg "Syntax check for typescript:"
         CWD=`pwd`
 
-        display_success_message "Check-manifest:"
+        info_msg "Check-manifest:"
         pipenv run check-manifest --ignore ".travis-*,docs/_build*"
-        display_success_message "Sphinx-build:"
+        info_msg "Sphinx-build:"
         pipenv run sphinx-build -qnNW docs docs/_build/html
-        display_success_message "Tests:"
+        info_msg "Tests:"
         pipenv run test
 fi
 if [ "$1" = "external" ]
     then
         export PYTEST_ADDOPTS="--cov-append -m "external""
 
-        display_success_message "External tests:"
+        info_msg "External tests:"
         pipenv run test
-        exit 0
 fi
+
+success_msg "Perfect ${PROGRAM}! See you soon…"
+exit 0
