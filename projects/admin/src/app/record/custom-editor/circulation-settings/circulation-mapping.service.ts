@@ -19,7 +19,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CirculationMappingService {
 
   private patronTypes = [];

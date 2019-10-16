@@ -145,8 +145,7 @@
             "styles": [
               "projects/public-search/src/styles.css"
             ],
-            "scripts": [],
-            "preserveSymlinks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -195,6 +194,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "preserveSymlinks": true,
             "main": "projects/public-search/src/test.ts",
             "polyfills": "projects/public-search/src/polyfills.ts",
             "tsConfig": "projects/public-search/tsconfig.spec.json",

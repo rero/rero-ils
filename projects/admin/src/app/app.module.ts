@@ -44,9 +44,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ExceptionDatesListComponent } from './record/custom-editor/libraries/exception-dates-list/exception-dates-list.component';
 import { ExceptionDatesEditComponent } from './record/custom-editor/libraries/exception-dates-edit/exception-dates-edit.component';
 import { CirculationPolicyComponent } from './record/custom-editor/circulation-settings/circulation-policy/circulation-policy.component';
-import { CirculationPolicyService } from './record/custom-editor/circulation-settings/circulation-policy.service';
-import { CirculationPolicyFormService } from './record/custom-editor/circulation-settings/circulation-policy-form.service';
-import { CirculationMappingService } from './record/custom-editor/circulation-settings/circulation-mapping.service';
 
 @NgModule({
   declarations: [
@@ -88,10 +85,7 @@ import { CirculationMappingService } from './record/custom-editor/circulation-se
       provide: CoreConfigService,
       useClass: AppConfigService
     },
-    UserService,
-    CirculationPolicyService,
-    CirculationPolicyFormService,
-    CirculationMappingService
+    UserService
   ],
   entryComponents: [
     ItemTypesBriefViewComponent,

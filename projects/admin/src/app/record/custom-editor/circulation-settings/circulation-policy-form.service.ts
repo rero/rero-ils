@@ -22,7 +22,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CirculationPolicy } from './circulation-policy';
 import { ApiService } from '@rero/ng-core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CirculationPolicyFormService {
 
   private form;

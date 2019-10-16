@@ -20,6 +20,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExceptionDatesListComponent } from './exception-dates-list.component';
+import { SharedModule, CoreModule } from '@rero/ng-core';
+import { ModalModule } from 'ngx-bootstrap';
+import { CommonModule } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
 
 describe('ExceptionDatesListComponent', () => {
   let component: ExceptionDatesListComponent;
@@ -27,7 +31,14 @@ describe('ExceptionDatesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExceptionDatesListComponent ]
+      declarations: [ ExceptionDatesListComponent ],
+      imports: [
+        CommonModule,
+        CoreModule,
+        SharedModule,
+        ModalModule.forRoot()
+      ],
+      providers: [{provide: LOCALE_ID, useValue: 'en-US' }]
     })
     .compileComponents();
   }));

@@ -25,7 +25,9 @@ import { cleanDictKeys, _, RecordService } from '@rero/ng-core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CirculationPolicyService {
 
   constructor(

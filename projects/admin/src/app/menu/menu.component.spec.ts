@@ -7,20 +7,32 @@ import {TranslateModule} from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserService } from '../service/user.service';
 
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
+  const userService = jasmine.createSpyObj('UserService', ['getCurrentUser']);
+  userService.getCurrentUser.and.returnValue({
+    first_name: 'John',
+    last_name: 'Doe'
+  });
 
   beforeEach(async(() => {
+
+
     TestBed.configureTestingModule({
       imports: [
         CollapseModule, CoreModule, SharedModule,  TranslateModule.forRoot(),
         HttpClientModule, BrowserModule, BrowserAnimationsModule],
-      declarations: [ MenuComponent ]
+      declarations: [ MenuComponent ],
+      providers: [
+        { provide: UserService, useValue: userService }
+      ]
     })
     .compileComponents();
+
   }));
 
   beforeEach(() => {

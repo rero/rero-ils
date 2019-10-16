@@ -20,9 +20,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import { TestBed } from '@angular/core/testing';
 
 import { LibraryExceptionFormService } from './library-exception-form.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('LibraryExceptionFormService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [
+      FormsModule,
+      ReactiveFormsModule
+    ]
+  }));
 
   it('should be created', () => {
     const service: LibraryExceptionFormService = TestBed.get(LibraryExceptionFormService);

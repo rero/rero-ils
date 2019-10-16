@@ -26,8 +26,7 @@ import { CirculationPolicy } from '../circulation-policy';
 import { CirculationMappingService } from '../circulation-mapping.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../service/user.service';
-import { RecordService, CoreConfigService, UniqueValidator, ApiService } from '@rero/ng-core';
-import { AppConfigService } from '../../../../service/app-config.service';
+import { RecordService, UniqueValidator, ApiService } from '@rero/ng-core';
 
 
 @Component({

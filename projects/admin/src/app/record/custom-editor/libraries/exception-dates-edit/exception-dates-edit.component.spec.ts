@@ -20,6 +20,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExceptionDatesEditComponent } from './exception-dates-edit.component';
+import { CommonModule } from '@angular/common';
+import { CoreModule, SharedModule, RecordModule } from '@rero/ng-core';
+import { ModalModule, BsDatepickerModule, BsModalRef } from 'ngx-bootstrap';
+import { LOCALE_ID } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 describe('ExceptionDatesEditComponent', () => {
   let component: ExceptionDatesEditComponent;
@@ -27,7 +33,17 @@ describe('ExceptionDatesEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExceptionDatesEditComponent ]
+      declarations: [ ExceptionDatesEditComponent ],
+      imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CoreModule,
+        SharedModule,
+        UiSwitchModule,
+        BsDatepickerModule.forRoot()
+      ],
+      providers: [BsModalRef, {provide: LOCALE_ID, useValue: 'en-US' }]
     })
     .compileComponents();
   }));
