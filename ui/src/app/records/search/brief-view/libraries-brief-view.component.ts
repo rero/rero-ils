@@ -93,11 +93,11 @@ import { ToastrService } from 'ngx-toastr';
     <div id="collapseBasic" [collapse]="isCollapsed">
       <ul *ngIf="locations.length" class="list-group list-group-flush">
         <li *ngFor="let location of locations;" class="list-group-item p-1">{{ location.metadata.name }}
-          <a (click)="deleteLocation(location.metadata.pid)"
+          <a (click)="deleteLocation(location.metadata.pid)" *ngIf="hasPermissionToDelete(location)"
           class="float-right text-secondary ml-2" title="{{ 'Delete' | translate }}">
           <i class="fa fa-trash" aria-hidden="true"></i>
           </a>
-          <a class="ml-2 float-right text-secondary" routerLinkActive="active"
+          <a *ngIf="hasPermissionToUpdate(location)" class="ml-2 float-right text-secondary" routerLinkActive="active"
              [routerLink]="['/records/locations', location.metadata.pid]"
              title="{{ 'Edit' | translate }}">
             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -120,21 +120,21 @@ export class LibrariesBriefViewComponent implements BriefView {
   constructor(
     private recordsService: RecordsService,
     private toastService: ToastrService
-  ) {}
+  ) { }
 
   toggleCollapse() {
     if (this.isCollapsed) {
       const libraryPid = this.record.metadata.pid;
       this.recordsService
-          .getRecords('global', 'locations', 1, 100, `library.pid:${libraryPid}`)
-          .subscribe(data => {
-            if (data.hits.total) {
-              this.locations = data.hits.hits;
-            } else {
-              this.locations = [];
-            }
-            this.isCollapsed = !this.isCollapsed;
-          });
+        .getRecords('global', 'locations', 1, 100, `library.pid:${libraryPid}`)
+        .subscribe(data => {
+          if (data.hits.total) {
+            this.locations = data.hits.hits;
+          } else {
+            this.locations = [];
+          }
+          this.isCollapsed = !this.isCollapsed;
+        });
     } else {
       this.isCollapsed = !this.isCollapsed;
     }
@@ -147,6 +147,28 @@ export class LibrariesBriefViewComponent implements BriefView {
         this.toastService.success(_('Record deleted.'), _('locations'));
       }
     });
+  }
+
+  hasPermissionToUpdate(location) {
+    if (location
+      && location.permissions
+      && location.permissions.cannot_update
+      && location.permissions.cannot_update.permission
+      && location.permissions.cannot_update.permission === 'permission denied') {
+      return false;
+    }
+    return true;
+  }
+
+  hasPermissionToDelete(location) {
+    if (location
+      && location.permissions
+      && location.permissions.cannot_delete
+      && location.permissions.cannot_delete.permission
+      && location.permissions.cannot_delete.permission === 'permission denied') {
+      return false;
+    }
+    return true;
   }
 
 }

@@ -236,9 +236,11 @@ def test_filtered_libraries_get(
     assert data['hits']['total'] == 1
 
 
-def test_library_secure_api(client, lib_martigny,
+def test_library_secure_api(client, lib_martigny, lib_fully,
                             librarian_martigny_no_email,
-                            librarian_sion_no_email):
+                            librarian_sion_no_email,
+                            system_librarian_martigny_no_email,
+                            system_librarian_sion_no_email):
     """Test library secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -246,6 +248,26 @@ def test_library_secure_api(client, lib_martigny,
                          pid_value=lib_martigny.pid)
 
     res = client.get(record_url)
+    # a librarian is authorized to access its library record of its org
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+    res = client.get(record_url)
+    # a librarian is authorized to access other library records of its org
+    assert res.status_code == 200
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+    res = client.get(record_url)
+    # a sys_lib is authorized to access its library record of its org
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+    res = client.get(record_url)
+    # a sys_lib is authorized to access libraries  of its org
     assert res.status_code == 200
 
     # Sion
@@ -254,13 +276,21 @@ def test_library_secure_api(client, lib_martigny,
                          pid_value=lib_martigny.pid)
 
     res = client.get(record_url)
+    # a librarian is not authorized to access library record of another  org
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res = client.get(record_url)
+    # a sys_lib is not authorized to access its library record of its org
     assert res.status_code == 403
 
 
-def test_library_secure_api_create(client, json_header, lib_martigny,
-                                   librarian_martigny_no_email,
+def test_library_secure_api_create(client, lib_martigny,
+                                   lib_fully_data, librarian_martigny_no_email,
                                    librarian_sion_no_email,
-                                   lib_martigny_data):
+                                   lib_martigny_data,
+                                   system_librarian_martigny_no_email,
+                                   system_librarian_sion_no_email):
     """Test library secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -272,7 +302,17 @@ def test_library_secure_api_create(client, json_header, lib_martigny,
         post_entrypoint,
         lib_martigny_data
     )
-    assert res.status_code == 201
+    # a librarian is not authorized to create its library record of its org
+    assert res.status_code == 403
+
+    del lib_fully_data['pid']
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_fully_data
+    )
+    # a librarian is not authorized to create library record of its org
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -282,54 +322,153 @@ def test_library_secure_api_create(client, json_header, lib_martigny,
         post_entrypoint,
         lib_martigny_data
     )
+    # a librarian is not authorized to create library record of other org
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_martigny_data
+    )
+    # a sys_librarian is authorized to create its library record of its org
+    assert res.status_code == 201
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_fully_data
+    )
+    # a sys_librarian is authorized to create new library record in its org
+    assert res.status_code == 201
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        lib_fully_data
+    )
+    # a sys_lib is not authorized to create new library record in other org
     assert res.status_code == 403
 
 
-def test_library_secure_api_update(client, lib_fully,
+def test_library_secure_api_update(client, lib_fully, lib_martigny,
                                    librarian_martigny_no_email,
                                    librarian_sion_no_email,
-                                   lib_fully_data,
-                                   json_header):
+                                   json_header,
+                                   system_librarian_martigny_no_email,
+                                   system_librarian_sion_no_email):
     """Test library secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.lib_item',
-                         pid_value=lib_fully.pid)
+                         pid_value=lib_martigny.pid)
 
-    data = lib_fully_data
-    data['name'] = 'New Name'
+    lib_martigny['name'] = 'New Name'
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(lib_martigny),
         headers=json_header
     )
+    # a librarian is authorized to update its library in its org
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+
+    lib_fully['name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(lib_fully),
+        headers=json_header
+    )
+    # a librarian is not authorized to update an external library of its org
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.put(
+        record_url,
+        data=json.dumps(lib_fully),
+        headers=json_header
+    )
+    # a sys_librarian is authorized to update any library of its org
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+    lib_martigny['name'] = 'New Name 2'
+    res = client.put(
+        record_url,
+        data=json.dumps(lib_martigny),
+        headers=json_header
+    )
+    # a sys_librarian is authorized to update any library of its org
     assert res.status_code == 200
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_fully.pid)
+
+    lib_fully['name'] = 'New Name 2'
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(lib_fully),
         headers=json_header
     )
+    # librarian is not authorized to update an external library of another org
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res = client.put(
+        record_url,
+        data=json.dumps(lib_fully),
+        headers=json_header
+    )
+    # sys_lib is not authorized to update an external library of another org
     assert res.status_code == 403
 
 
-def test_library_secure_api_delete(client, lib_fully,
+def test_library_secure_api_delete(client, lib_fully, lib_martigny,
                                    librarian_martigny_no_email,
-                                   librarian_sion_no_email):
+                                   librarian_sion_no_email,
+                                   system_librarian_martigny_no_email,
+                                   system_librarian_sion_no_email):
     """Test library secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.delete(record_url)
+    # librarian is not authorized to delete its library of its org
+    assert res.status_code == 403
+
+    record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_fully.pid)
 
     res = client.delete(record_url)
-    assert res.status_code == 204
+    # librarian is not authorized to delete an external library of its org
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
     res = client.delete(record_url)
-    assert res.status_code == 410
+    # librarian is not authorized to delete an external library of another org
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+
+    res = client.delete(record_url)
+    # sys_librarian is authorized to delete any library of its org
+    assert res.status_code == 204
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    record_url = url_for('invenio_records_rest.lib_item',
+                         pid_value=lib_martigny.pid)
+
+    res = client.delete(record_url)
+    # sys_librarian is not authorized to delete any library of other org
+    assert res.status_code == 403
