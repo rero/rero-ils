@@ -176,7 +176,7 @@ def test_filtered_locations_get(
         loc_public_fully, loc_restricted_fully,
         librarian_sion_no_email,
         loc_public_sion, loc_restricted_sion
-        ):
+):
     """Test location filter by organisation."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -198,8 +198,10 @@ def test_filtered_locations_get(
 
 
 def test_location_secure_api(client, json_header, loc_public_martigny,
-                             librarian_martigny_no_email,
-                             librarian_sion_no_email):
+                             loc_public_fully, librarian_martigny_no_email,
+                             librarian_sion_no_email,
+                             system_librarian_martigny_no_email,
+                             system_librarian_sion_no_email):
     """Test location secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -207,6 +209,19 @@ def test_location_secure_api(client, json_header, loc_public_martigny,
                          pid_value=loc_public_martigny.pid)
 
     res = client.get(record_url)
+    # a librarian is authorized to access any location of its library
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_public_fully.pid)
+
+    res = client.get(record_url)
+    # a librarian is authorized to access any location of its organisation
+    assert res.status_code == 200
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.get(record_url)
+    # a sys_librarian is authorized to access any location of its organisation
     assert res.status_code == 200
 
     # Sion
@@ -215,13 +230,22 @@ def test_location_secure_api(client, json_header, loc_public_martigny,
                          pid_value=loc_public_martigny.pid)
 
     res = client.get(record_url)
+    # librarian is not authorized to access any location of other organisation
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res = client.get(record_url)
+    # a sys_librarian is not authorized to access any location of other org
     assert res.status_code == 403
 
 
-def test_location_secure_api_create(client, json_header, loc_public_martigny,
+def test_location_secure_api_create(client, lib_fully, lib_martigny,
                                     librarian_martigny_no_email,
                                     librarian_sion_no_email,
-                                    loc_public_martigny_data):
+                                    loc_public_martigny_data,
+                                    loc_public_fully_data,
+                                    system_librarian_martigny_no_email,
+                                    system_librarian_sion_no_email):
     """Test location secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -233,6 +257,25 @@ def test_location_secure_api_create(client, json_header, loc_public_martigny,
         post_entrypoint,
         loc_public_martigny_data
     )
+    # librarian is authorized to create a location in its library.
+    assert res.status_code == 201
+
+    del loc_public_fully_data['pid']
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        loc_public_fully_data
+    )
+    # librarian is not authorized to create a location in other libraries.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        loc_public_fully_data
+    )
+    # sys_librarian is authorized to create any location in its org.
     assert res.status_code == 201
 
     # Sion
@@ -243,27 +286,60 @@ def test_location_secure_api_create(client, json_header, loc_public_martigny,
         post_entrypoint,
         loc_public_martigny_data
     )
+    # librarian is not authorized to create a location at other org.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        loc_public_martigny_data
+    )
+    # sys_librarian is authorized to create a location in other org.
     assert res.status_code == 403
 
 
 def test_location_secure_api_update(client, loc_restricted_saxon,
+                                    loc_public_fully, loc_public_martigny,
                                     librarian_martigny_no_email,
                                     librarian_sion_no_email,
-                                    loc_restricted_saxon_data,
-                                    json_header):
+                                    json_header,
+                                    system_librarian_martigny_no_email,
+                                    system_librarian_sion_no_email):
     """Test location secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.loc_item',
-                         pid_value=loc_restricted_saxon.pid)
+                         pid_value=loc_public_martigny.pid)
 
-    data = loc_restricted_saxon_data
-    data['name'] = 'New Name'
+    loc_public_martigny['name'] = 'New Name'
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(loc_public_martigny),
         headers=json_header
     )
+    # librarian is authorized to update a location in its library.
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_restricted_saxon.pid)
+
+    loc_restricted_saxon['name'] = 'New Name'
+    res = client.put(
+        record_url,
+        data=json.dumps(loc_restricted_saxon),
+        headers=json_header
+    )
+    # librarian is not authorized to update a location of another library.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.put(
+        record_url,
+        data=json.dumps(loc_restricted_saxon),
+        headers=json_header
+    )
+    # sys_librarian is authorized to update any location of its org.
     assert res.status_code == 200
 
     # Sion
@@ -271,27 +347,60 @@ def test_location_secure_api_update(client, loc_restricted_saxon,
 
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(loc_restricted_saxon),
+        headers=json_header
+    )
+    # librarian is not authorized to update any location of another org.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res = client.put(
+        record_url,
+        data=json.dumps(loc_restricted_saxon),
         headers=json_header
     )
     assert res.status_code == 403
 
 
 def test_location_secure_api_delete(client, loc_restricted_saxon,
+                                    loc_restricted_martigny,
+                                    loc_public_martigny,
                                     librarian_martigny_no_email,
                                     librarian_sion_no_email,
-                                    loc_restricted_saxon_data,
-                                    json_header):
+                                    system_librarian_martigny_no_email,
+                                    system_librarian_sion_no_email):
     """Test location secure api delete."""
+
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.loc_item',
-                         pid_value=loc_restricted_saxon.pid)
-    # Martigny
+                         pid_value=loc_restricted_martigny.pid)
+
     res = client.delete(record_url)
+    # librarian is authorized to delete any location of its library.
+    assert res.status_code == 204
+
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_restricted_saxon.pid)
+
+    res = client.delete(record_url)
+    # librarian is not authorized to delete any location of other libraries.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.delete(record_url)
+    # librarian is authorized to delete any location of its org.
     assert res.status_code == 204
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
+    record_url = url_for('invenio_records_rest.loc_item',
+                         pid_value=loc_public_martigny.pid)
     res = client.delete(record_url)
-    assert res.status_code == 410
+    # librarian is not authorized to delete any location of other org.
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_sion_no_email.user)
+    res = client.delete(record_url)
+    # sys_ibrarian is not authorized to delete any location of other org.
+    assert res.status_code == 403

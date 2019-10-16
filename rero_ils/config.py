@@ -43,8 +43,6 @@ from invenio_records_rest.utils import allow_all, deny_all
 from invenio_search import RecordsSearch
 
 from rero_ils.modules.api import IlsRecordIndexer
-from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.organisations.api import Organisation
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document
@@ -52,15 +50,21 @@ from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
 from .modules.libraries.api import Library
+from .modules.libraries.permissions import can_create_library_factory, \
+    can_delete_library_factory, can_update_library_factory
 from .modules.loans.api import Loan
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
 from .modules.locations.api import Location
+from .modules.locations.permissions import can_create_location_factory, \
+    can_update_delete_location_factory
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
+from .modules.patrons.permissions import can_delete_patron_factory, \
+    can_update_patron_factory
 from .permissions import can_access_organisation_patrons_factory, \
     can_access_organisation_records_factory, \
     can_create_organisation_records_factory, \
@@ -491,8 +495,8 @@ RECORDS_REST_ENDPOINTS = dict(
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         read_permission_factory_imp=can_access_organisation_records_factory,
         create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        update_permission_factory_imp=can_update_patron_factory,
+        delete_permission_factory_imp=can_delete_patron_factory,
     ),
     ptty=dict(
         pid_type='ptty',
@@ -587,9 +591,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        create_permission_factory_imp=can_create_library_factory,
+        update_permission_factory_imp=can_update_library_factory,
+        delete_permission_factory_imp=can_delete_library_factory,
     ),
     loc=dict(
         pid_type='loc',
@@ -619,9 +623,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        create_permission_factory_imp=can_create_location_factory,
+        update_permission_factory_imp=can_update_delete_location_factory,
+        delete_permission_factory_imp=can_update_delete_location_factory,
     ),
     pers=dict(
         pid_type='pers',
