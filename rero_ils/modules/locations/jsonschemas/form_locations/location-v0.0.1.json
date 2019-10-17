@@ -53,7 +53,7 @@
         "type": "checkbox-is-online",
         "label": "Is Online",
         "validationMessage": {
-          "alreadyTakenMessage": "The \"online\" type must be unique per library"
+          "alreadyTakenMessage": "The online type must be unique per library"
         }
       }
     ]

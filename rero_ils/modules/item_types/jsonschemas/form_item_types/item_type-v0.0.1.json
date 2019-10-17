@@ -40,7 +40,7 @@
         "type": "select-item-type-type",
         "required": true,
         "validationMessage": {
-          "alreadyTakenMessage": "There is already an online type for your organisation"
+          "alreadyTakenMessage": "Another online item type exists in this organisation"
         },
         "titleMap": [
           {

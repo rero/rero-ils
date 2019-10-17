@@ -80,7 +80,7 @@
           },
           "source": {
             "title": "Source",
-            "description": "Source of the uri.",
+            "description": "Source of the URI.",
             "type": "string"
           }
         }
