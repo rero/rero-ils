@@ -213,13 +213,13 @@
                 <div class="form-check-inline">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" formControlName="policy_library_level" [value]=false
-                      (click)="policyLevelEvent(0)"> {{ 'Organisation' | translate }}
+                      (click)="policyLevelEvent(false)"> {{ 'Organisation' | translate }}
                   </label>
                 </div>
                 <div class="form-check-inline">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" formControlName="policy_library_level" [value]=true
-                      (click)="policyLevelEvent(1)"> {{ 'Library' | translate }}
+                      (click)="policyLevelEvent(true)"> {{ 'Library' | translate }}
                   </label>
                 </div>
               </div>

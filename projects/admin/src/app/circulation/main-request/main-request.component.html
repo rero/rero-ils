@@ -1,0 +1,43 @@
+<!--
+  RERO ILS UI
+   Copyright (C) 2019 RERO
+  
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, version 3 of the License.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU Affero General Public License for more details.
+  
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+  <div class="row" *ngIf="!isLoading; else loading">
+    <div class="col-12 col-md-6">
+      <ng-core-search-input
+      [placeholder]="placeholder"
+      [searchText]="searchText"
+      (search)="searchValueUpdated($event)"
+      ></ng-core-search-input>
+    </div>
+  </div>
+  <div class="row" *ngIf="items && items.length > 0">
+    <div class="col-md-12">
+        <admin-circulation-requested-items-list [items]="items"></admin-circulation-requested-items-list>
+    </div>
+  </div>
+
+  <div *ngIf="items && items.length === 0" class="row mt-4">
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert" translate>no request to validate</div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+      <div class="text-center my-5">
+          <i class="fa fa-spin fa-spinner fa-2x"></i>
+      </div>
+  </ng-template>

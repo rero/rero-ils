@@ -17,7 +17,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './service/user.service';
-import { User } from './class/User';
+import { User } from './class/user';
 import { AppConfigService } from './service/app-config.service';
 import { TranslateService } from '@rero/ng-core';
 

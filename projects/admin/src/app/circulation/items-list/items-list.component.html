@@ -1,0 +1,85 @@
+<!--
+  RERO ILS UI
+   Copyright (C) 2019 RERO
+  
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, version 3 of the License.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU Affero General Public License for more details.
+  
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div *ngIf="items && items.length === 0 && patron">
+  <span translate>No loan for the current patron.</span>
+</div>
+<div *ngIf="items && items.length">
+  <table class="table table-bordered">
+    <tr>
+      <th scope="col" translate>Document</th>
+      <th scope="col" class="text-center" translate>Item</th>
+      <th scope="col" class="text-center" translate>Location</th>
+      <th scope="col" class="text-center" translate>Status</th>
+      <th scope="col" class="text-center" translate>Item infos</th>
+      <th scope="col" class="text-center" translate>Due Date</th>
+      <th scope="col" class="text-center" *ngIf="patron" translate>Action</th>
+      <th scope="col" class="text-center" translate>Action done</th>
+    </tr>
+    <tr *ngFor="let item of items"
+        [ngClass]="{
+          'table-success': item.isActionLoan(patron),
+          'table-warning': item.isActionReturn(patron)
+        }">
+      <td><a [routerLink]="['/records/documents/detail', item.document.pid]">{{ item.document.title }}</a></td>
+      <td class="text-right"><a [routerLink]="['/records/items/detail', item.pid]">{{ item.barcode }}</a></td>
+      <td class="text-right">{{ item.location.name }}</td>
+      <td class="text-right">{{ item.status | translate}}</td>
+      <td class="text-right">
+        <div *ngIf="item.requestedPosition(patron)">
+          <i *ngIf="warningRequests(item)" class="fa text-danger fa-exclamation-triangle">&nbsp;</i>
+          {{ 'Request position' | translate }}: {{ item.requestedPosition(patron) }}
+        </div>
+        <span *ngIf="item && item.pending_loans && item.pending_loans.length">
+          {{ 'Requests' | translate }}: {{ item.pending_loans.length }}
+        </span>
+        <span *ngIf="item.loan && item.loan.extension_count">
+          {{ 'Extension' | translate }}: {{ item.loan.extension_count }}
+        </span>
+      </td>
+      <td class="text-right">
+        <span [ngClass]="{'text-danger': item.loan.expired}"
+              *ngIf="item.loan && item.loan.dueDate">
+          {{ item.loan.dueDate | date :'longDate' }}
+        </span>
+      </td>
+      <td class="text-right" *ngIf="patron">
+        <div class="btn-group" dropdown *ngIf="item.actions.length">
+          <button id="button-basic" class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" aria-controls="dropdown-basic" dropdownToggle [ngClass]="{'disabled': item.actions.length < 1}">
+            {{ item.currentAction | translate }}
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngFor="let action of item.actions"><a class="dropdown-item" (click)="item.currentAction = action">{{ action | translate }}</a></li>
+          </ul>
+        </div>
+      </td>
+      <td class="text-right">
+        <span *ngIf="item.actionDone">{{ item.actionDone | translate }} <i class="fa fa-check text-success"></i> </span>
+      </td>
+    </tr>
+  </table>
+
+  <button *ngIf="patron"
+          [disabled]="!hasPendingActions()"
+          type="button"
+          class="btn btn-success pull-right"
+          (click)="apply(items)"
+          translate
+  >
+    Apply
+  </button>
+</div>

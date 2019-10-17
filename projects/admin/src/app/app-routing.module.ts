@@ -42,12 +42,72 @@ export function matchedUrl(url: UrlSegment[]) {
   };
 }
 
-const cantDelete = record => false;
-const cantUpdate =  record => false;
-const cantAdd =  record => false;
+export function cant(record) { return false; }
+
+export function documentsMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'documents') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function librariesMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'libraries') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function locationsMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'libraries') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function itemTypesMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'item_types') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function itemsMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'items') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function patronTypesMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'patron_types') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function patronsMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'patrons') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function personsMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'persons') {
+    return matchedUrl(url);
+  }
+  return null;
+}
+
+export function circPoliciesMatcher(url) {
+  if (url[0].path === 'records' && url[1].path === 'circ_policies') {
+    return matchedUrl(url);
+  }
+  return null;
+}
 
 const routes: Routes = [
-
   {
     path: '',
     component: FrontpageComponent
@@ -55,12 +115,11 @@ const routes: Routes = [
     path: 'mylibrary',
     component: MylibraryComponent
   }, {
-    matcher: (url) => {
-      if (url[0].path === 'records' && url[1].path === 'documents') {
-        return matchedUrl(url);
-      }
-      return null;
-    },
+    path: 'circulation',
+    loadChildren: () => import('./circulation/circulation.module').then(m => m.CirculationModule)
+  }, {
+    matcher: documentsMatcher,
+    // loadChildren: () => import('@rero/ng-core').then(m => m.RecordModule)
     children: [
       { path: '', component: RecordSearchComponent },
       { path: 'detail/:pid', component: DetailComponent },
@@ -78,200 +137,149 @@ const routes: Routes = [
       ]
     }
   }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'libraries') {
-          return matchedUrl(url);
+    matcher: librariesMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: LibraryComponent },
+      { path: 'new', component: LibraryComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'libraries',
+          label: 'Libraries',
+          component: LibrariesBriefViewComponent
         }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: LibraryComponent },
-        { path: 'new', component: LibraryComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'libraries',
-            label: 'Libraries',
-            component: LibrariesBriefViewComponent
-          }
-        ]
-      }
-    }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'patrons') {
-          return matchedUrl(url);
-        }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: EditorComponent },
-        { path: 'new', component: EditorComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'patrons',
-            label: 'Patrons',
-            component: PatronsBriefViewComponent
-          }
-        ]
-      }
-    }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'persons') {
-          return matchedUrl(url);
-        }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: EditorComponent },
-        { path: 'new', component: EditorComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'persons',
-            label: 'Persons',
-            component: PersonsBriefViewComponent,
-            canDelete: cantDelete,
-            canAdd: cantAdd,
-            canUpdate: cantUpdate
-          }
-        ]
-      }
-    }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'item_types') {
-          return matchedUrl(url);
-        }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: EditorComponent },
-        { path: 'new', component: EditorComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'item_types',
-            label: 'Item Types',
-            component: ItemTypesBriefViewComponent
-          }
-        ]
-      }
-    }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'patron_types') {
-          return matchedUrl(url);
-        }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: EditorComponent },
-        { path: 'new', component: EditorComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'patron_types',
-            label: 'Patron Types',
-            component: PatronTypesBriefViewComponent
-          }
-        ]
-      }
-    }, {
-      matcher: (url) => {
-        if (url[0].path === 'records' && url[1].path === 'circ_policies') {
-          return matchedUrl(url);
-        }
-        return null;
-      },
-      children: [
-        { path: '', component: RecordSearchComponent },
-        { path: 'detail/:pid', component: DetailComponent },
-        { path: 'edit/:pid', component: CirculationPolicyComponent },
-        { path: 'new', component: CirculationPolicyComponent }
-      ],
-      data: {
-        linkPrefix: 'records',
-        types: [
-          {
-            key: 'circ_policies',
-            label: 'Circulation Policies',
-            component: CircPoliciesBriefViewComponent
-          }
-        ]
-      }
+      ]
     }
-
-//   {
-//     path: '',
-//     component: FrontpageComponent
-//   }, {
-//     path: 'records',
-//     children: [
-//       { path: ':type', component: RecordSearchComponent },
-//       { path: ':type/detail/:pid', component: DetailComponent },
-//       { path: ':type/edit/:pid', component: EditorComponent },
-//       { path: ':type/new', component: EditorComponent }
-//     ],
-//     data: {
-//       linkPrefix: '/records',
-//       types: [
-//         {
-//           key: 'documents',
-//           label: 'Documents',
-//           component: DocumentsBriefViewComponent
-//         },
-//         {
-//           key: 'libraries',
-//           label: 'Libraries',
-//           component: LibrariesBriefViewComponent
-//         },
-//         {
-//           key: 'patrons',
-//           label: 'Patrons',
-//           component: PatronsBriefViewComponent
-//         },
-//         {
-//           key: 'persons',
-//           label: 'Persons',
-//           component: PersonsBriefViewComponent
-//         },
-//         {
-//           key: 'item_types',
-//           label: 'Items Types',
-//           component: ItemTypesBriefViewComponent
-//         },
-//         {
-//           key: 'patron_types',
-//           label: 'Patron Types',
-//           component: PatronTypesBriefViewComponent
-//         },
-//         {
-//           key: 'circ_policies',
-//           label: 'Circ Policies',
-//           component: CircPoliciesBriefViewComponent
-//         }
-//       ]
-//     }
-//   }
+  }, {
+    matcher: patronsMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'patrons',
+          label: 'Patrons',
+          component: PatronsBriefViewComponent
+        }
+      ]
+    }
+  }, {
+    matcher: personsMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'persons',
+          label: 'Persons',
+          component: PersonsBriefViewComponent,
+          canDelete: cant,
+          canAdd: cant,
+          canUpdate: cant
+        }
+      ]
+    }
+  }, {
+    matcher: itemTypesMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'item_types',
+          label: 'Item Types',
+          component: ItemTypesBriefViewComponent
+        }
+      ]
+    }
+  }, {
+    matcher: itemsMatcher,
+    children: [
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'items',
+          label: 'Items'
+        }
+      ]
+    }
+  }, {
+    matcher: locationsMatcher,
+    children: [
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'locations',
+          label: 'Locations'
+        }
+      ]
+    }
+  }, {
+    matcher: patronTypesMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: EditorComponent },
+      { path: 'new', component: EditorComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'patron_types',
+          label: 'Patron Types',
+          component: PatronTypesBriefViewComponent
+        }
+      ]
+    }
+  }, {
+    matcher: circPoliciesMatcher,
+    children: [
+      { path: '', component: RecordSearchComponent },
+      { path: 'detail/:pid', component: DetailComponent },
+      { path: 'edit/:pid', component: CirculationPolicyComponent },
+      { path: 'new', component: CirculationPolicyComponent }
+    ],
+    data: {
+      linkPrefix: 'records',
+      types: [
+        {
+          key: 'circ_policies',
+          label: 'Circulation Policies',
+          component: CircPoliciesBriefViewComponent
+        }
+      ]
+    }
+  }
 ];
 
 @NgModule({

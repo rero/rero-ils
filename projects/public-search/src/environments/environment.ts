@@ -21,7 +21,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:5000',
+  apiBaseUrl: '',
   $refPrefix: 'https://ils.rero.ch',
   languages: ['fr', 'de', 'it', 'en']
 };

@@ -1,0 +1,65 @@
+<!--
+  RERO ILS UI
+   Copyright (C) 2019 RERO
+  
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, version 3 of the License.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU Affero General Public License for more details.
+  
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<table datatable [dtOptions]="dtOptions"
+       [dtTrigger]="dtTrigger"
+       class="table table-responsive table-sm table-border table-hover"
+       [ngClass]="{'hide': !items || items.length === 0}"
+>
+<!-- *ngIf is not supported by angular-datatable, use hide class instead -->
+  <thead>
+    <tr>
+      <th scope="col" translate>Document</th>
+      <th scope="col" class="text-center" translate>Item</th>
+      <th scope="col" class="text-center" translate>Location</th>
+      <th scope="col" class="text-center" translate>Requested by</th>
+      <th scope="col" class="text-center" translate>Pick-up Location</th>
+      <th scope="col" class="text-center" translate>Request date</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="items && items.length">
+    <tr [ngClass]="{'table-success': item.loan.state !== 'PENDING'}"
+        *ngFor="let item of items">
+      <td><span *ngIf="item.document.title">{{ item.document.title }}</span></td>
+      <td class="text-right">
+        {{ item.barcode }}
+      </td>
+      <td class="text-right">
+        {{ item.location.name }} /
+        {{ item.call_number }}
+      </td>
+      <td class="text-right">
+        <span *ngIf="item.loan.patron.name">
+          <a [routerLink]="['/circulation/checkinout']"
+          [queryParams]="{ patron: item.loan.patron.barcode }"
+          >
+            {{ item.loan.patron.name }}
+          </a>
+        </span>
+      </td>
+      <td class="text-right">
+        {{ item.loan.pickup_location.library_name }}
+      </td>
+      <td class="text-right">
+        {{ item.loan.transaction_date | date :'medium' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="items === null">
+  <i class="fa fa-spinner fa-spin fa-fw"></i>
+</div>

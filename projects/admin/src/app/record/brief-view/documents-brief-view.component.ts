@@ -62,6 +62,10 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
       <span translate *ngIf="countHoldingsItems() == 1"> item</span>
       <span translate *ngIf="countHoldingsItems() > 1"> items</span>
     </button>
+    <a class="ml-2 text-secondary" routerLinkActive="active"
+      [queryParams]="{document: record.metadata.pid}" [routerLink]="['/records/items/new']">
+      <i class="fa fa-plus" aria-hidden="true"></i> {{ 'Add' | translate }}
+    </a>
     <span *ngIf="!countHoldingsItems()" translate>no item</span>
   </section>
   <ul *ngIf="countHoldingsItems() > 0"

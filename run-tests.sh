@@ -28,6 +28,8 @@ display_success_message () {
     echo -e "${GREEN}$1${NC}" 1>&2
 }
 
+set -e
+
 display_success_message "Linting the projects..."
 ng lint
 

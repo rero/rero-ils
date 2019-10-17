@@ -1,0 +1,58 @@
+<!--
+  RERO ILS UI
+   Copyright (C) 2019 RERO
+  
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as published by
+   the Free Software Foundation, version 3 of the License.
+  
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU Affero General Public License for more details.
+  
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<section *ngIf="!isLoading; else loading" class="content">
+  <div class="row">
+    <div class="col-12 col-md-6 mb-4">
+      <ng-core-search-input
+      [placeholder]="placeholder"
+      [searchText]="searchText"
+      (search)="searchValueUpdated($event)"
+      ></ng-core-search-input>
+    </div>
+    <div *ngIf="patron" class="col-md-6">
+      <admin-circulation-patron-detailed
+      [patron]="patron"
+      [info]="false"
+      (clearPatron)="clearPatron($event)"
+      ></admin-circulation-patron-detailed>
+    </div>
+    <div *ngIf="patronInfo" class="col-md-6 text-muted">
+      <admin-circulation-patron-detailed
+      [patron]="patronInfo"
+      [info]="true"
+      (clearPatron)="clearPatron($event)"
+      ></admin-circulation-patron-detailed>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <admin-circulation-items-list
+      [items]="items"
+      [patron]="patron"
+      (applyItems)="applyItems($event)"
+      ></admin-circulation-items-list>
+    </div>
+  </div>
+</section>
+
+<ng-template #loading>
+    <div class="text-center my-5">
+        <i class="fa fa-spin fa-spinner fa-2x"></i>
+    </div>
+</ng-template>

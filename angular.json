@@ -28,9 +28,14 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/font-awesome/scss/font-awesome.scss",
+              "node_modules/datatables.net-bs/css/dataTables.bootstrap.css",
               "projects/admin/src/app/scss/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/datatables.net-bs/js/dataTables.bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -40,15 +45,16 @@
                   "with": "projects/admin/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": false,
-              "outputHashing": "none",
+              "optimization": true,
+              "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+              "extractCss": false,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
+              "deployUrl": "/static/node_modules/@rero/rero-ils-ui/dist/admin/",
               "budgets": [
                 {
                   "type": "initial",
@@ -157,15 +163,16 @@
                   "with": "projects/public-search/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": false,
-              "outputHashing": "none",
+              "optimization": true,
+              "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
+              "extractCss": false,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
+              "buildOptimizer": true,
+              "deployUrl": "/static/node_modules/@rero/rero-ils-ui/dist/public-search/",
               "budgets": [
                 {
                   "type": "initial",

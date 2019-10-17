@@ -35,6 +35,7 @@ export class User {
   street: string;
   organisation_pid: string;
   barcode?: string;
+  items?: any[];
   patron_type?: PatronType;
   is_logged: Boolean = false;
 

@@ -18,7 +18,7 @@
 
 @import 'variables';
 @import 'node_modules/bootstrap/scss/bootstrap';
-
+@import "~ngx-toastr/toastr-bs4-alert";
 
 html [type=button] {
   -webkit-appearance: none;

@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
         iconCssClass: 'fa fa-users',
         entries: [{
           name: _('Circulation'),
-          routerLink: '/',
+          routerLink: '/circulation',
           iconCssClass: 'fa fa-exchange'
         }, {
           name: _('Patrons'),

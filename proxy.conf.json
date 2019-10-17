@@ -8,13 +8,13 @@
       "^/patrons": "https://localhost:5000/patrons"
     }
   },
-  "/api/schemaform": {
+  "/schemaform": {
     "target": "https://localhost:5000",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
     "pathRewrite": {
-      "^/api/schemaform": "https://localhost:5000/schemaform"
+      "^/schemaform": "https://localhost:5000/schemaform"
     }
   },
   "/api/*": {
@@ -24,6 +24,24 @@
     "changeOrigin": true,
     "pathRewrite": {
       "^/api": "https://localhost:5000/api"
+    }
+  },
+    "/lang/*": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": "https://localhost:5000/lang"
+    }
+  },
+  "/static/images/*": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/static/images": "https://localhost:5000/static/images"
     }
   }
 }
