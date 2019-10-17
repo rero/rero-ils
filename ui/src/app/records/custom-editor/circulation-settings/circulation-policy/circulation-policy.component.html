@@ -65,8 +65,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="form-group row" *ngIf="allow_checkout.value">
-                  <label for="checkoutDuration" class="col-sm-4 col-form-label required" translate>Checkout
-                    duration</label>
+                  <label for="checkoutDuration" class="col-sm-4 col-form-label required" translate>Checkout duration</label>
                   <div class="col-sm-4">
                     <input type="number" class="form-control" id="checkoutDuration" formControlName="checkout_duration">
                     <div *ngIf="checkout_duration.invalid && (checkout_duration.dirty || checkout_duration.touched)"
@@ -93,8 +92,8 @@
               </div>
               <div class="col-sm-8">
                 <div class="form-group row" *ngIf="allow_checkout.value && allow_renewals.value">
-                  <label for="numberRenewals" class="col-sm-4 col-form-label required" translate>Number of
-                    renewals</label>
+                  <label for="numberRenewals" class="col-sm-4 col-form-label
+                    required" translate>Number of renewals</label>
                   <div class="col-sm-4">
                     <input type="number" class="form-control" id="numberRenewals" formControlName="number_renewals"
                       (blur)="numberRenewalsCheck()">
@@ -111,8 +110,7 @@
                 </div>
                 <div class="form-group row"
                   *ngIf="allow_checkout.value && allow_renewals.value && number_renewals.value > 0">
-                  <label for="renewalDuration" class="col-sm-4 col-form-label required" translate>Renewal
-                    duration</label>
+                  <label for="renewalDuration" class="col-sm-4 col-form-label required" translate>Renewal duration</label>
                   <div class="col-sm-4">
                     <input type="number" class="form-control" id="renewalDuration" formControlName="renewal_duration">
                     <div *ngIf="renewal_duration.invalid && (renewal_duration.dirty || renewal_duration.touched)"
@@ -166,8 +164,7 @@
             </div>
           </div>
           <div class="form-group row" *ngIf="allow_checkout.value">
-            <label for="daysBeforeControl" class="col-sm-2 col-form-label required" translate>Days before due
-              date</label>
+            <label for="daysBeforeControl" class="col-sm-2 col-form-label required" translate>Days before due date</label>
             <div class="col-sm-4">
               <input type="number" class="form-control" id="daysBeforeControl"
                 formControlName="number_of_days_before_due_date">
@@ -218,14 +215,12 @@
                 <div class="form-check-inline">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" formControlName="policy_library_level" [value]=false
-                      (click)="policyLevelEvent(0)" translate> Organisation
-                  </label>
+                      (click)="policyLevelEvent(0)"> {{ 'Organisation' | translate }}</label>
                 </div>
                 <div class="form-check-inline">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" formControlName="policy_library_level" [value]=true
-                      (click)="policyLevelEvent(1)" translate> Library
-                  </label>
+                      (click)="policyLevelEvent(1)"> {{ 'Library' | translate }}</label>
                 </div>
               </div>
             </div>
@@ -243,8 +238,7 @@
 
             <!-- start: settings -->
             <div class="form-group row">
-              <label for="policySettings" class="col-sm-2 col-form-label required" translate>Applies to patron
-                types</label>
+              <label for="policySettings" class="col-sm-2 col-form-label required" translate>Applies to patron types</label>
               <div class="col-sm-10">
                 <div *ngFor="let patronType of patronTypes()">
                   <input type="checkbox" class="mr-1" [checked]="isPatronTypeChecked(patronType.id)"
