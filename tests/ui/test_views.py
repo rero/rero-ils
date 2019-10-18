@@ -74,7 +74,7 @@ def test_view_parameter_exists(client):
         'rero_ils.index_with_view_code',
         viewcode='global'
     ))
-    assert result.status_code == 200
+    assert result.status_code == 302
 
 
 def test_view_parameter_notfound(client):

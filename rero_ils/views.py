@@ -217,9 +217,16 @@ def index():
 @check_organisation_viewcode
 def index_with_view_code(viewcode):
     """Home Page."""
-    return render_template('rero_ils/frontpage.html',
-                           version=__version__,
-                           viewcode=viewcode)
+    if viewcode == current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        return redirect(url_for(
+            'rero_ils.index'
+        ))
+    else:
+        return render_template(
+            'rero_ils/frontpage.html',
+            version=__version__,
+            viewcode=viewcode
+        )
 
 
 @blueprint.route('/help')
