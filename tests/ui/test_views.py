@@ -20,7 +20,8 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from flask import url_for
+from flask import current_app, session, url_for
+from utils import get_json, postdata
 
 from rero_ils.views import nl2br
 
@@ -110,3 +111,47 @@ def test_search_with_parameters(client):
         page=1
         ))
     assert result.status_code == 200
+
+
+def test_language(client, app):
+    """Test the language endpoint."""
+    res, data = postdata(
+        client,
+        'rero_ils.set_language',
+        dict(
+            lang='fr'
+        )
+    )
+    assert session[app.config['I18N_SESSION_KEY']] == 'fr'
+    assert data == dict(lang='fr')
+    assert res.status_code == 200
+
+    res, data = postdata(
+        client,
+        'rero_ils.set_language',
+        dict(
+            lang='it'
+        )
+    )
+    assert session[app.config['I18N_SESSION_KEY']] == 'it'
+
+    res, data = postdata(
+        client,
+        'rero_ils.set_language',
+        dict(
+            language='fr'
+        )
+    )
+    assert res.status_code == 400
+
+    res, data = postdata(
+        client,
+        'rero_ils.set_language',
+        dict(
+            lang='foo'
+        )
+    )
+    assert res.status_code == 400
+
+    # session is unchanged
+    assert session[app.config['I18N_SESSION_KEY']] == 'it'

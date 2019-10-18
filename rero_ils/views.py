@@ -237,6 +237,31 @@ def help():
         code=302)
 
 
+@blueprint.route('/language', methods=['POST', 'PUT'])
+def set_language():
+    """Set language in session.
+
+    The call should be a POST or a PUT HTTP request with a JSON body as follow:
+
+    .. code-block:: json
+
+        {
+            "lang": "fr"
+        }
+    """
+    data = request.get_json()
+    if not data or not data.get('lang'):
+        return jsonify(
+            {'errors': [{'code': 400, 'title': 'missing lang property'}]}), 400
+    lang_code = data.get('lang')
+    languages = dict(current_app.extensions['invenio-i18n'].get_languages())
+    if lang_code not in languages:
+        return jsonify(
+            {'errors': [{'code': 400, 'title': 'unsupported language'}]}), 400
+    session[current_app.config['I18N_SESSION_KEY']] = lang_code.lower()
+    return jsonify({'lang': lang_code})
+
+
 @blueprint.route('/<string:viewcode>/search/<recordType>')
 @check_organisation_viewcode
 def search(viewcode, recordType):
