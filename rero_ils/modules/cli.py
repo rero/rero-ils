@@ -38,7 +38,8 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
-from invenio_pidstore.models import PersistentIdentifier
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.cli import es_version_check
@@ -299,9 +300,9 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
             error_file.write(']')
 
     if append:
-        table = record_class.provider.identifier
+        identifier = record_class.provider.identifier
         try:
-            append_fixtures_new_identifiers(table, sorted(pids))
+            append_fixtures_new_identifiers(identifier, sorted(pids), pid_type)
         except Exception as err:
             pass
 
@@ -783,3 +784,57 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
     if count_ko:
         click.secho('Records with errors: ', fg='red', nl=False)
         click.secho(str(count_ko))
+
+
+@utils.command('reserve_pid_range')
+@click.option('-p', '--pid_type', 'pid_type', default=None,
+              help='pid type of the resource')
+@click.option('-n', '--records_number', 'records_number', default=None,
+              help='Number of records to load')
+@click.option('-u', '--unused', 'unused', is_flag=True, default=False,
+              help='Set unused (gaps) pids status to NEW ')
+@with_appcontext
+def reserve_pid_range(pid_type, records_number, unused):
+    """Reserve a range of pids for future records loading.
+
+    reserved pids will have the status RESERVED.
+    - pid_type: the pid type of the resource as configured in config.py
+    - records_number: number of new records(with pids) to load.
+    - unused: set that the status of unused (gaps) pids to NEW.
+    """
+    click.secho('Reserving pids for loading "%s" records' %
+                pid_type, fg='green')
+    try:
+        records_number = int(records_number)
+    except ValueError:
+        raise ValueError('Parameter records_number must be integer.')
+
+    try:
+        record_class = obj_or_import_string(
+            current_app.config
+            .get('RECORDS_REST_ENDPOINTS')
+            .get(pid_type).get('record_class', Record))
+    except AttributeError:
+        raise AttributeError('Invalid pid type.')
+
+    identifier = record_class.provider.identifier
+    reserved_pids = []
+    for number in range(0, records_number):
+        pid = identifier.next()
+        reserved_pids.append(pid)
+        record_class.provider.create(pid_type, pid_value=pid,
+                                     status=PIDStatus.RESERVED)
+        db.session.commit()
+    click.secho(
+        ('reserved_pids range, from: {min} to: {max}').format(
+            min=min(reserved_pids), max=max(reserved_pids)
+        ))
+    if unused:
+        for pid in range(1, identifier.max()):
+            if not db.session.query(
+                    identifier.query.filter(identifier.recid == pid).exists()
+            ).scalar():
+                record_class.provider.create(pid_type, pid_value=pid,
+                                             status=PIDStatus.NEW)
+                db.session.add(identifier(recid=pid))
+            db.session.commit()

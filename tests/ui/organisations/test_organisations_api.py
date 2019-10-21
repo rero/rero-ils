@@ -53,5 +53,5 @@ def test_organisation_create(app, db, org_martigny_data, org_sion_data):
     assert org.get('pid') == '2'
 
     identifier = Organisation.provider.identifier
-    append_fixtures_new_identifiers(identifier, ['1', '2'])
+    append_fixtures_new_identifiers(identifier, ['1', '2'], 'org')
     assert identifier.next() == identifier.max() == 3
