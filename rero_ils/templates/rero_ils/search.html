@@ -33,7 +33,8 @@
   {% assets "rero_ils_main_js" %}
     <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
-  {{ webpack['manifest.js']}}
-  {{ webpack['vendor.js']}}
-  {{ webpack['public-search_ui.js']}}
+
+  {% assets "rero_ils_public_search_ui_js" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {% endassets %}
 {%- endblock javascript %}

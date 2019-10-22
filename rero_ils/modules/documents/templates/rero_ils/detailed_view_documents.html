@@ -145,7 +145,7 @@
     <footer class="d-flex flex-column pt-2">
       {% if record.can_edit and current_user|can_edit %}
       {% with
-                href_update=url_for('records/documents.index', path=record.pid),
+                href_update=url_for('rero_ils.professional', path='records/documents/edit/%s' % record.pid),
                 href_delete='/api/documents/' + record.pid,
                 json=record,
                 next=url_for('rero_ils.search', viewcode=viewcode, recordType=recordType),
@@ -168,7 +168,7 @@
       {%- if current_user|can_edit %}
       <h3>
         {{ _('Holdings') }}
-        <a href="{{ url_for('records/items.index', path='new', document=record.pid) }}" type="button"
+        <a href="{{ url_for('rero_ils.professional', path='records/items/new', document=record.pid) }}" type="button"
           class="btn btn-sm btn-success">
           <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
         </a>

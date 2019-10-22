@@ -21,7 +21,8 @@ from __future__ import absolute_import, print_function
 
 import os
 
-from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
+from invenio_assets import AngularGettextFilter, GlobBundle, LazyNpmBundle, \
+    NpmBundle
 from pkg_resources import resource_filename
 
 
@@ -66,4 +67,28 @@ js = NpmBundle(
         'jquery': '~1.9.1',
     },
     output='gen/rero_ils.main.%(version)s.js'
+)
+
+admin_ui_js = NpmBundle(
+    'node_modules/@rero/rero-ils-ui/dist/admin/runtime.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/polyfills.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/styles.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/scripts.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/admin/main.*.js',
+    output='gen/rero_ils_admin_ui.%(version)s.js',
+    npm={
+        '@rero/rero-ils-ui': '~0.0.2'
+    }
+)
+
+public_search_ui_js = NpmBundle(
+    'node_modules/@rero/rero-ils-ui/dist/public-search/runtime.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/polyfills.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/styles.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/scripts.*.js',
+    'node_modules/@rero/rero-ils-ui/dist/public-search/main.*.js',
+    output='gen/rero_ils_public-search_ui.%(version)s.js',
+    npm={
+        '@rero/rero-ils-ui': '~0.0.2'
+    }
 )
