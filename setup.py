@@ -116,10 +116,9 @@ setup(
             'rero_ils_main_css = rero_ils.bundles:main_css',
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_documents_detailed_js = \
-                rero_ils.modules.documents.bundles:detailed_js'
-        ],
-        'invenio_assets.webpack': [
-            'admin = rero_ils.webpack:admin'
+                rero_ils.modules.documents.bundles:detailed_js',
+            'rero_ils_ui_js = rero_ils.bundles:admin_ui_js',
+            'rero_ils_public_search_ui_js = rero_ils.bundles:public_search_ui_js',
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',
