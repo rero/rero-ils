@@ -282,7 +282,7 @@ APP_DEFAULT_SECURE_HEADERS = {
         'style-src': ['*', "'unsafe-inline'"],
         'script-src': [
             "'self'",
-            "'unsafe-inline'",
+            "'unsafe-eval'",
             # '*.rero.ch',
             'https://www.googletagmanager.com',
             'https://www.google-analytics.com',

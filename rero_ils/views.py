@@ -315,8 +315,9 @@ def schemaform(document_type):
     return jsonify(data)
 
 
-@blueprint.route('/professional/')
+@blueprint.route('/professional/', defaults={'path': ''})
+@blueprint.route('/professional/<path:path>')
 @can_access_professional_view
-def professional():
+def professional(path):
     """Return professional view."""
     return render_template('rero_ils/professional.html')
