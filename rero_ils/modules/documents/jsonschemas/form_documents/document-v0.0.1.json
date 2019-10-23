@@ -65,7 +65,7 @@
                   },
                   {
                     "value": "organisation",
-                    "name": "Organisation"
+                    "name": "OrganisationAsAuthor"
                   }
                 ]
               },
