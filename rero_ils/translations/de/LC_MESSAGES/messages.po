@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.4.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-10-17 11:54+0200\n"
+"POT-Creation-Date: 2019-10-23 11:33+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
 "Language: de\n"
@@ -418,7 +418,6 @@ msgid "The description of the circulation policy."
 msgstr "Die Beschreibung der Ausleihpolitik"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:68
 #: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:6
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:49
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
@@ -1273,6 +1272,10 @@ msgstr "Einheitstitel"
 #: rero_ils/modules/mef_persons/templates/rero_ils/detailed_view_persons.html:26
 msgid "Person"
 msgstr "Person"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:68
+msgid "OrganisationAsAuthor"
+msgstr "Organisation"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:74
 msgid "Name of Person"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.4.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-10-17 11:54+0200\n"
+"POT-Creation-Date: 2019-10-23 11:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -408,7 +408,6 @@ msgid "The description of the circulation policy."
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:68
 #: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:6
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:49
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
@@ -1230,6 +1229,10 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:64
 #: rero_ils/modules/mef_persons/templates/rero_ils/detailed_view_persons.html:26
 msgid "Person"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:68
+msgid "OrganisationAsAuthor"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:74
