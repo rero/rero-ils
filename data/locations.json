@@ -51,16 +51,6 @@
     "pickup_name": "AOSTE CANT2: Espaces publics"
   },
   {
-    "pid": "6",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
-    "code": "AOSTE-CANT2-ONL",
-    "name": "Online",
-    "is_pickup": false,
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/2"
-    }
-  },
-  {
     "pid": "7",
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-FIC",
@@ -134,16 +124,6 @@
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-MAT",
     "name": "Travaux de maturit\u00e9",
-    "library": {
-      "$ref": "https://ils.rero.ch/api/libraries/4"
-    }
-  },
-  {
-    "pid": "15",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
-    "code": "AOSTE-LYCEE-ONL",
-    "name": "Online",
-    "is_pickup": false,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/4"
     }
