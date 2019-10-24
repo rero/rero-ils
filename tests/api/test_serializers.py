@@ -134,6 +134,15 @@ def test_items_serializers(
     assert response.status_code == 200
     data = get_json(response)
     assert 'cannot_delete' in data['permissions']
+    assert 'cannot_update' in data['permissions']
+    assert data['metadata'].get('item_type').get('$ref')
+
+    item_url = url_for(
+        'invenio_records_rest.item_item', pid_value=item_lib_martigny.pid)
+    response = client.get(item_url, headers=json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    assert 'cannot_delete' not in data['permissions']
     assert 'cannot_update' not in data['permissions']
     assert data['metadata'].get('item_type').get('$ref')
 
