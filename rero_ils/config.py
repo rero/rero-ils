@@ -49,6 +49,8 @@ from .modules.documents.api import Document
 from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
+from .modules.items.permissions import can_create_item_factory, \
+    can_update_delete_item_factory
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_create_library_factory, \
     can_delete_library_factory, can_update_library_factory
@@ -397,9 +399,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        create_permission_factory_imp=can_create_item_factory,
+        update_permission_factory_imp=can_update_delete_item_factory,
+        delete_permission_factory_imp=can_update_delete_item_factory,
     ),
     itty=dict(
         pid_type='itty',

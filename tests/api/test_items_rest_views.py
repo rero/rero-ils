@@ -381,7 +381,9 @@ def test_item_secure_api(client, json_header, item_lib_martigny,
 def test_item_secure_api_create(client, json_header, item_lib_martigny,
                                 librarian_martigny_no_email,
                                 librarian_sion_no_email,
-                                item_lib_martigny_data):
+                                item_lib_martigny_data,
+                                item_lib_saxon_data,
+                                system_librarian_martigny_no_email):
     """Test item secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -393,6 +395,25 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
         post_url,
         item_lib_martigny_data
     )
+    # librarian can create items on its affilicated library
+    assert res.status_code == 201
+
+    del item_lib_saxon_data['pid']
+    res, _ = postdata(
+        client,
+        post_url,
+        item_lib_saxon_data
+    )
+    # librarian can not create items for another library
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        post_url,
+        item_lib_saxon_data
+    )
+    # sys_librarian can create items for any library
     assert res.status_code == 201
 
     # Sion
@@ -403,27 +424,50 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
         post_url,
         item_lib_martigny_data
     )
+    # librarian can not create items in another organisation
     assert res.status_code == 403
 
 
 def test_item_secure_api_update(client, json_header, item_lib_saxon,
                                 librarian_martigny_no_email,
                                 librarian_sion_no_email,
-                                item_lib_saxon_data
+                                item_lib_martigny,
+                                system_librarian_martigny_no_email
                                 ):
     """Test item secure api update."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.item_item',
-                         pid_value=item_lib_saxon.pid)
+                         pid_value=item_lib_martigny.pid)
 
-    data = item_lib_saxon
-    data['call_number'] = 'call_number'
+    item_lib_martigny['call_number'] = 'call_number'
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(item_lib_martigny),
         headers=json_header
     )
+    # librarian can update items of its affiliated library
+    assert res.status_code == 200
+
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_saxon.pid)
+
+    item_lib_saxon['call_number'] = 'call_number'
+    res = client.put(
+        record_url,
+        data=json.dumps(item_lib_saxon),
+        headers=json_header
+    )
+    # librarian can not update items of other libraries
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.put(
+        record_url,
+        data=json.dumps(item_lib_saxon),
+        headers=json_header
+    )
+    # sys_librarian can update items of other libraries in same organisation.
     assert res.status_code == 200
 
     # Sion
@@ -431,28 +475,44 @@ def test_item_secure_api_update(client, json_header, item_lib_saxon,
 
     res = client.put(
         record_url,
-        data=json.dumps(data),
+        data=json.dumps(item_lib_saxon),
         headers=json_header
     )
+    # librarian can not update items of other libraries in other organisation.
     assert res.status_code == 403
 
 
 def test_item_secure_api_delete(client, item_lib_saxon,
                                 librarian_martigny_no_email,
                                 librarian_sion_no_email,
-                                item_lib_saxon_data,
-                                json_header):
+                                item_lib_martigny,
+                                json_header,
+                                system_librarian_martigny_no_email):
     """Test item secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+
+    res = client.delete(record_url)
+    # librarian can delete items of its affiliated library
+    assert res.status_code == 204
+
+    record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_saxon.pid)
 
     res = client.delete(record_url)
-    assert res.status_code == 204
+    # librarian can not delete items of other libraries
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
     res = client.delete(record_url)
-    assert res.status_code == 410
+    # librarian can not delete items of other organisations
+    assert res.status_code == 403
+
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    res = client.delete(record_url)
+    # sys_librarian can delete items in other libraries in same org.
+    assert res.status_code == 204
