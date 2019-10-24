@@ -20,6 +20,12 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
+**Software version**
+Tell us which version you're using:
+
+  * from which server URL do you come from? ils.test or ilsdev?
+  * checks the version on homepage. Do you see the version as 0.5.0 or a hash as 2493ca6?
+
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
