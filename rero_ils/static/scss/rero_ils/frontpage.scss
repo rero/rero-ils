@@ -37,6 +37,13 @@
   }
 }
 
+// Hides rounded corners for small mobile devices
+@include media-breakpoint-up(md) {
+  .rero-rounded{
+    border-radius: 10px;
+  }
+ }
+
 .rero-ils-list-logo {
   width: 28px;
 }
