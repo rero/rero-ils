@@ -31,8 +31,7 @@
         "description": "",
         "items": [
           {
-            "key": "titlesProper[]",
-            "title": "Proper or uniformed title"
+            "key": "titlesProper[]"
           }
         ]
       }
@@ -114,6 +113,7 @@
     "items": [
       {
         "notitle": true,
+        "description": "",
         "type": "array",
         "items": [
           {
@@ -235,6 +235,7 @@
     "items": [
       {
         "notitle": true,
+        "description": "",
         "type": "array",
         "items": [
           {
@@ -277,7 +278,6 @@
         "items": [
           {
             "key": "formats[]",
-            "title": "Format",
             "description": "Format of the resource, ie dimensions in cm."
           }
         ]
@@ -471,6 +471,7 @@
       {
         "key": "notes",
         "notitle": true,
+        "description": "",
         "items": [
           {
             "key": "notes[]"

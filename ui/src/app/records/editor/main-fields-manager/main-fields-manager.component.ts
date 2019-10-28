@@ -18,7 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import { Component, OnInit } from '@angular/core';
-import { JsonSchemaFormService, forEach } from 'angular6-json-schema-form';
+import { JsonSchemaFormService, forEach, getControl } from 'angular6-json-schema-form';
 
 @Component({
   selector: 'app-main-fields-manager',
@@ -27,11 +27,17 @@ import { JsonSchemaFormService, forEach } from 'angular6-json-schema-form';
 })
 export class MainFieldsManagerComponent implements OnInit {
   // ref to field to show/hide given the key element
-  private layoutRefField = {};
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  private layoutRefField: any = {};
 
+  /**
+  * Constructor
+  * @param jsf: angular6 jsonschema form service
+  */
+  constructor(private jsf: JsonSchemaFormService) { }
+
+  /**
+  * Component initialisation.
+  */
   ngOnInit() {
     // keep in cache a dict with the field key name as a key and the layoutNode as a value
     let fieldToShow;
@@ -53,33 +59,87 @@ export class MainFieldsManagerComponent implements OnInit {
         }
       },
       'top-down'
-    );
-    // for update only, hide non populate fields
-    if (this.jsf.data && this.jsf.data.pid) {
-      for (const layout of Object.keys(this.layoutRefField)) {
-        if (!this.jsf.data[layout]) {
-          const field = this.layoutRefField[layout];
-          if (field && field.options.show === true) {
-            field.options.show = false;
+      );
+      // for update only, hide non populate fields
+      if (this.jsf.data && this.jsf.data.pid) {
+        for (const layout of Object.keys(this.layoutRefField)) {
+          if (!this.jsf.data[layout]) {
+            const field = this.layoutRefField[layout];
+            if (field && field.options.show === true) {
+              field.options.show = false;
+            }
+          }
+        }
+      }
+      // for update only, show populate fields
+      for (const layout of Object.keys(this.jsf.data)) {
+        const field = this.layoutRefField[layout];
+        if (field && field.options.show === false) {
+          field.options.show = true;
+        }
+      }
+
+      // disable FormControls for hidden fields
+      for (const fieldSet of Object.values(this.layoutRefField)) {
+        if (this.isHidden(fieldSet)) {
+          for (const field of fieldSet['items']) {
+            this.disableFormGroup(field);
           }
         }
       }
     }
-    // for update only, show populate fields
-    for (const layout of Object.keys(this.jsf.data)) {
-      const field = this.layoutRefField[layout];
-      if (field && field.options.show === false) {
-        field.options.show = true;
+
+    /**
+    * Return the list of the hidden form layout.
+    * @param formLayout - object, angular6 json schema form layout
+    */
+    get hiddenFields() {
+      return this.jsf.layout.filter(layout => this.isHidden(layout) );
+    }
+
+    /**
+    * Compute the visibility of a given formLayout.
+    * @param formLayout - object, angular6 json schema form layout
+    */
+    isHidden(formLayout) {
+      return 'show' in formLayout.options && formLayout.options.show === false;
+    }
+
+    /**
+    * Show a given fieldset.
+    * @param formLayout - object, angular6 json schema form layout
+    */
+    show(formLayout) {
+      formLayout.options.show = true;
+      for (const item of formLayout.items) {
+        this.enableFormGroup(item);
       }
     }
-  }
 
-  get fieldsToShow() {
-    return this.jsf.layout.filter(item => 'show' in item.options && item.options.show === false);
-  }
+    /**
+    * Mark a a layoutNode FormControl as enabled.
+    * @param layoutNode - object, angular6 json schema form layout node
+    */
+    private enableFormGroup(layoutNode) {
+      const control = getControl(this.jsf.formGroup, layoutNode.dataPointer);
+      if (!control) {
+        return false;
+      }
+      control.enable();
+      return true;
+    }
 
-  show(field) {
-    field.options.show = true;
-  }
+    /**
+    * Mark a a layoutNode FormControl as disabled.
+    * @param layoutNode - object, angular6 json schema form layout node
+    */
+    private disableFormGroup(layoutNode) {
+      const control = getControl(this.jsf.formGroup, layoutNode.dataPointer);
+      if (!control) {
+        return false;
+      }
+      control.disable();
+      return true;
+    }
 
-}
+  }
