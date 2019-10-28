@@ -30,6 +30,7 @@ from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data, mef_person_delete, \
     mef_person_insert, mef_person_revert, mef_person_update
 from .ebooks.receivers import publish_harvested_records
+from .fees.listener import enrich_fee_data
 from .holdings.listener import enrich_holding_data
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
@@ -97,6 +98,7 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_location_data)
         before_record_index.connect(enrich_holding_data)
         before_record_index.connect(enrich_notification_data)
+        before_record_index.connect(enrich_fee_data)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 

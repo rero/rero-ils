@@ -22,7 +22,7 @@ from datetime import datetime, timedelta, timezone
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, postdata
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.loans.api import Loan, LoanAction, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch
@@ -133,3 +133,26 @@ def test_create_fee_euro(client, librarian_martigny_no_email,
     flush_index(LoansSearch.Meta.index)
     fee = list(notification.fees)[0]
     assert fee.get('currency') == org.get('default_currency')
+
+
+def test_filtered_fees_get(
+        client,
+        librarian_martigny_no_email,
+        librarian_sion_no_email):
+    """Test fee filter by organisation."""
+    # Martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    list_url = url_for('invenio_records_rest.fee_list')
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 2
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+    list_url = url_for('invenio_records_rest.fee_list')
+
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total'] == 0
