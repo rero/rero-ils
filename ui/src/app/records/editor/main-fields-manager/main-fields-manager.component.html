@@ -18,8 +18,8 @@
 -->
 
 <div>
-<h5 *ngIf="fieldsToShow.length" translate>New</h5>
-  <button class="btn btn-light mr-2 mb-2" *ngFor="let field of fieldsToShow" (click)="show(field)">
+<h5 *ngIf="hiddenFields.length" translate>New</h5>
+  <button class="btn btn-light mr-2 mb-2" *ngFor="let field of hiddenFields" (click)="show(field)">
  {{field.options.title}}
 </button>
 </div>

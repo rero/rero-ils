@@ -174,6 +174,7 @@ export class FieldsetComponent implements OnInit {
     }
     for (const item of field.items) {
       this.resetFormGroup(item);
+      this.disableFormGroup(item);
     }
   }
 
@@ -188,4 +189,14 @@ export class FieldsetComponent implements OnInit {
     control.reset();
     return true;
   }
+
+  private disableFormGroup(layoutNode) {
+    const control = getControl(this.jsf.formGroup, layoutNode.dataPointer);
+    if (!control) {
+      return false;
+    }
+    control.disable();
+    return true;
+  }
+
 }
