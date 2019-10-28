@@ -96,7 +96,7 @@ html [type=button] {
 }
 
 .toast-container {
-  position: absolute;
+  position: fixed;
   z-index: 9999999;
   top: 0;
   right: 0;
