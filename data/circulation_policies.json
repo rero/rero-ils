@@ -384,7 +384,7 @@
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
     "allow_checkout": true,
-    "checkout_duration": 30,
+    "checkout_duration": 28,
     "allow_requests": true,
     "number_of_days_before_due_date": 5,
     "number_of_days_after_due_date": 5,
