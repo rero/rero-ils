@@ -10,13 +10,15 @@
 # iGor milhit <igor.milhit@rero.ch>, 2019
 # Nicolas Labat <n-labat@hotmail.com>, 2019
 # Nicolas Prongué <n.prongue@outlook.com>, 2019
+# alicia.zangger <alicia.zangger@gmail.com>, 2019
+# Renaud Michotte <renaud.michotte@gmail.com>, 2019
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.4.0\n"
+"Project-Id-Version: rero-ils 0.5.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-10-23 11:33+0200\n"
+"POT-Creation-Date: 2019-10-29 12:39+0100\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
+"Last-Translator: Renaud Michotte <renaud.michotte@gmail.com>, 2019\n"
 "Language: fr\n"
 "Language-Team: French (https://www.transifex.com/rero/teams/77935/fr/)\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -25,74 +27,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: rero_ils/config.py:93
+#: rero_ils/config.py:97
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:159
 msgid "French"
 msgstr "Français"
 
-#: rero_ils/config.py:94
+#: rero_ils/config.py:98
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:163
 msgid "German"
 msgstr "Allemand"
 
-#: rero_ils/config.py:95
+#: rero_ils/config.py:99
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:175
 msgid "Italian"
 msgstr "Italien"
 
-#: rero_ils/config.py:134 rero_ils/config.py:138
+#: rero_ils/config.py:138 rero_ils/config.py:142
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:181
+#: rero_ils/config.py:185
 msgid "Welcome to RERO-ILS!"
 msgstr "Bienvenue sur RERO-ILS!"
 
-#: rero_ils/config.py:831
+#: rero_ils/config.py:835
 msgid "document_type"
 msgstr "Type de document"
 
-#: rero_ils/config.py:832
+#: rero_ils/config.py:836
 msgid "organisation"
 msgstr "organisation"
 
-#: rero_ils/config.py:835
+#: rero_ils/config.py:839
 msgid "library"
 msgstr "bibliothèque"
 
-#: rero_ils/config.py:836
+#: rero_ils/config.py:840
 msgid "author__en"
 msgstr "Auteurs"
 
-#: rero_ils/config.py:837
+#: rero_ils/config.py:841
 msgid "author__fr"
 msgstr "Auteurs"
 
-#: rero_ils/config.py:838
+#: rero_ils/config.py:842
 msgid "author__de"
 msgstr "Auteurs"
 
-#: rero_ils/config.py:839
+#: rero_ils/config.py:843
 msgid "author__it"
 msgstr "Auteurs"
 
-#: rero_ils/config.py:840
+#: rero_ils/config.py:844
 msgid "language"
 msgstr "langue"
 
-#: rero_ils/config.py:841
+#: rero_ils/config.py:845
 msgid "subject"
 msgstr "sujet"
 
-#: rero_ils/config.py:842
+#: rero_ils/config.py:846
 msgid "status"
 msgstr "statut"
 
-#: rero_ils/config.py:850
+#: rero_ils/config.py:854
 msgid "roles"
 msgstr "rôles"
 
-#: rero_ils/config.py:858
+#: rero_ils/config.py:862
 msgid "sources"
 msgstr "sources"
 
@@ -285,7 +287,7 @@ msgstr "Accès"
 msgid "Menu"
 msgstr "Menu"
 
-#: rero_ils/templates/rero_ils/frontpage.html:112 rero_ils/views.py:93
+#: rero_ils/views.py:93
 msgid "Help"
 msgstr "Aide"
 
@@ -1730,8 +1732,8 @@ msgstr "Type de la catégorie de prêt."
 
 #: rero_ils/modules/items/views.py:118
 #, python-format
-msgid "The item %s has been requested."
-msgstr "L'exemplaire %s a été demandé."
+msgid "The item %(item_id)s has been requested."
+msgstr "L'exemplaire %(item_id)s a été demandé."
 
 #: rero_ils/modules/items/views.py:143
 msgid "in transit"
@@ -2531,99 +2533,59 @@ msgstr "À quoi pensez-vous?"
 msgid "Software under development"
 msgstr "Logiciel en cours de développement"
 
-#: rero_ils/templates/rero_ils/frontpage.html:78
-msgid "Follow Us"
-msgstr "Nous suivre"
-
+#: rero_ils/templates/rero_ils/frontpage.html:75
 #: rero_ils/templates/rero_ils/frontpage.html:80
-#: rero_ils/templates/rero_ils/frontpage.html:85
 msgid "Link to the RERO ILS backlog on Taiga"
 msgstr "Lien vers le backlog de RERO ILS sur Taiga"
 
-#: rero_ils/templates/rero_ils/frontpage.html:84
+#: rero_ils/templates/rero_ils/frontpage.html:79
 msgid "Scrum process"
 msgstr "Processus scrum"
 
-#: rero_ils/templates/rero_ils/frontpage.html:85
+#: rero_ils/templates/rero_ils/frontpage.html:80
 msgid "on Taiga"
 msgstr "sur Taiga"
 
+#: rero_ils/templates/rero_ils/frontpage.html:84
 #: rero_ils/templates/rero_ils/frontpage.html:89
-#: rero_ils/templates/rero_ils/frontpage.html:94
 msgid "Link to the RERO ILS code source on GitHub"
 msgstr "Lien vers le code source de RERO ILS sur GitHub"
 
-#: rero_ils/templates/rero_ils/frontpage.html:93
+#: rero_ils/templates/rero_ils/frontpage.html:88
 msgid "Software source code"
 msgstr "Code source du logiciel"
 
-#: rero_ils/templates/rero_ils/frontpage.html:94
+#: rero_ils/templates/rero_ils/frontpage.html:89
 msgid "on GitHub"
 msgstr "sur GitHub"
 
-#: rero_ils/templates/rero_ils/frontpage.html:94
+#: rero_ils/templates/rero_ils/frontpage.html:89
 msgid "version"
 msgstr "version"
 
-#: rero_ils/templates/rero_ils/frontpage.html:96
-#: rero_ils/templates/rero_ils/frontpage.html:98
+#: rero_ils/templates/rero_ils/frontpage.html:91
+#: rero_ils/templates/rero_ils/frontpage.html:93
 msgid "Link to the RERO ILS code source on GitHub, current used version"
 msgstr ""
 "Lien vers le code source de RERO ILS sur  GitHub, version actuelle "
 "utilisée"
 
-#: rero_ils/templates/rero_ils/frontpage.html:103
-#: rero_ils/templates/rero_ils/frontpage.html:107
+#: rero_ils/templates/rero_ils/frontpage.html:98
+#: rero_ils/templates/rero_ils/frontpage.html:102
 msgid "Link to the RERO Twitter account"
 msgstr "Lien vers le compte Twitter de RERO"
 
-#: rero_ils/templates/rero_ils/frontpage.html:113
-msgid "See the"
-msgstr "Voir la"
-
-#: rero_ils/templates/rero_ils/frontpage.html:113
-msgid "Link to the help page for this demonstration Website"
-msgstr "Lien vers la page d'aide pour ce site de démonstration"
-
-#: rero_ils/templates/rero_ils/frontpage.html:113
-msgid "help page"
-msgstr "page d'aide"
-
-#: rero_ils/templates/rero_ils/frontpage.html:117
+#: rero_ils/templates/rero_ils/frontpage.html:152
 msgid "Organisations' catalogues"
 msgstr "Catalogues des organisations"
 
-#: rero_ils/templates/rero_ils/frontpage.html:124
+#: rero_ils/templates/rero_ils/frontpage.html:159
 msgid "Union catalogue"
 msgstr "Catalogue collectif"
 
-#: rero_ils/templates/rero_ils/frontpage.html:125
+#: rero_ils/templates/rero_ils/frontpage.html:160
 msgid "RERO ILS global"
 msgstr "RERO ILS global"
-
-#: rero_ils/templates/rero_ils/frontpage.html:131
-msgid "Future"
-msgstr "Futur"
-
-#: rero_ils/templates/rero_ils/frontpage.html:132
-msgid "Link to the RERO 21 blog"
-msgstr "Lien vers le blog RERO 21"
-
-#: rero_ils/templates/rero_ils/frontpage.html:137
-msgid "Present"
-msgstr "Actuel"
-
-#: rero_ils/templates/rero_ils/frontpage.html:138
-msgid "Link to RERO Explore"
-msgstr "Lien vers RERO Explore"
-
-#: rero_ils/templates/rero_ils/frontpage.html:141
-msgid "Link to RERO DOC"
-msgstr "Lien vers RERO DOC"
-
-#: rero_ils/templates/rero_ils/frontpage.html:145
-msgid "Link to the RERO Website"
-msgstr "Lien vers le site web de RERO"
 
 #: rero_ils/templates/rero_ils/head.html:42
 msgid "Invenio"
@@ -2680,13 +2642,3 @@ msgstr "L'exemplaire"
 #: rero_ils/templates/rero_ils/tombstone.html:34
 msgid "is deleted."
 msgstr "a été supprimé."
-
-#~ msgid "There is already an online type for your organisation"
-#~ msgstr "Il y a déjà un type d'exemplaire \"en ligne\" pour votre organisation"
-
-#~ msgid "Link to the RERO ILS code source on Github, current used version"
-#~ msgstr ""
-#~ "Lien vers le code source de RERO"
-#~ " ILS sur GitHub, version actuelle "
-#~ "utilisée"
-

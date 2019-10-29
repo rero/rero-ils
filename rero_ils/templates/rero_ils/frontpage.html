@@ -88,7 +88,7 @@
               {{_('Software source code')}}
               <a href="https://github.com/rero/rero-ils" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub') }}">{{_('on GitHub')}}</a>, {{ _('version') }}
               {% if config.RERO_ILS_APP_GIT_HASH %}
-              <a href="https://github.com/rero/rero-ils/commit/{{ config.RERO_ILS_APP_GIT_HASH }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on Github, current used version') }}">{{ config.RERO_ILS_APP_GIT_HASH[:8] }}</a>
+              <a href="https://github.com/rero/rero-ils/commit/{{ config.RERO_ILS_APP_GIT_HASH }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, current used version') }}">{{ config.RERO_ILS_APP_GIT_HASH[:8] }}</a>
               {% else %}
               <a href="https://github.com/rero/rero-ils/releases/tag/v{{ version }}" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS code source on GitHub, current used version') }}">{{ version }}</a>
               {% endif %}
