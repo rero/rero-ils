@@ -111,11 +111,9 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
         'pickup_location_pid': pickup_location_pid
     }
     item = Item.get_record_by_pid(data.get('item_pid'))
-
-    item_data, action_applied = item.request(
-        **data
-    )
-    flash(_('The item %s has been requested.' % item_pid), 'success')
+    item_data, action_applied = item.request(**data)
+    flash(_('The item %(item_id)s has been requested.',
+            item_id=item_data.pid), 'success')
     document_pid = item.replace_refs().get('document', {}).get('pid')
     return redirect(url_for(
         'invenio_records_ui.doc',
