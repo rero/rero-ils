@@ -74,7 +74,8 @@ export class CheckboxIsOnlineComponent implements OnInit {
         values.pid
       );
     } else {
-      return of();
+      // return observable that emits default value to async validator
+      return of(null);
     }
   }
 }
