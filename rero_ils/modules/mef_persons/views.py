@@ -75,7 +75,7 @@ def persons_detailed_view(viewcode, pid):
     )):
         org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
         search = search.filter(
-            'term', items__organisation__organisation_pid=org_pid
+            'term', holdings__organisation__organisation_pid=org_pid
         )
     for result in search.execute().hits.hits:
         record.setdefault('documents', []).append(result.get('_source'))
