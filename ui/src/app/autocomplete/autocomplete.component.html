@@ -25,14 +25,15 @@
       role="search" autocomplete="off">
 
   <input
+  (keyup.enter)="onEnter($event)"
   name="q"
-  type="search"
+  [typeaheadIsFirstItemActive]="false"
   placeholder="{{ placeholder }}"
   [(ngModel)]="asyncSelected.query"
   [typeaheadAsync]="true"
   [typeahead]="dataSource"
   (typeaheadLoading)="changeTypeaheadLoading($event)"
-    [typeaheadOptionsLimit]="10"
+  [typeaheadOptionsLimit]="10"
   typeaheadOptionField="query"
   class="form-control"
   [typeaheadWaitMs]="300"
@@ -45,6 +46,9 @@
   <input type="hidden" name="page" value="1">
   <input *ngIf="displayScore" type="hidden" name="display_score" value="{{ displayScore }}">
   <div class="input-group-append">
-    <button type="submit" (click)="form.submit()" class="btn btn-light"><i class="fa fa-search"></i></button>
+    <button type="submit" (click)="form.submit()" class="btn btn-light">
+      <i *ngIf="!typeaheadLoading" class="fa fa-search"></i>
+      <i *ngIf="typeaheadLoading" class="fa fa-spinner fa-spin"></i>
+    </button>
   </div>
 </form>
