@@ -17,7 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { TypeaheadMatch } from 'ngx-bootstrap';
 import { Observable, of, combineLatest } from 'rxjs';
 import { mergeMap, map } from 'rxjs/operators';
@@ -32,6 +32,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent implements OnInit {
+  @ViewChild('form') form;
 
   asyncSelected = {
     text: undefined,
@@ -52,18 +53,13 @@ export class AutocompleteComponent implements OnInit {
   displayScore = undefined;
   @Input()
   viewcode = undefined;
+  private redirect = false;
 
   constructor(
     private recordsService: RecordsService,
     private route: ActivatedRoute,
     private translateStringService: TranslateStringService) {
-    this.dataSource = Observable.create((observer: any) => {
-      // Runs on every search
-      observer.next(this.asyncSelected);
-    })
-    .pipe(
-      mergeMap((token: any) => this.getStatesAsObservable(token.query))
-      );
+
   }
 
   ngOnInit() {
@@ -81,10 +77,27 @@ export class AutocompleteComponent implements OnInit {
           category: 'documents'
         };
       }
+      this.dataSource = Observable.create((observer: any) => {
+        // Runs on every search
+        observer.next(this.asyncSelected);
+      })
+      .pipe(
+        mergeMap((token: any) => this.getStatesAsObservable(token.query))
+        );
     });
   }
 
+  onEnter($event) {
+    if (!this.redirect) {
+      this.form.nativeElement.submit();
+    }
+  }
+
   getStatesAsObservable(token: string): Observable<any> {
+    // patch non working typeaheadMinLength properties
+    if (token.length < 3) {
+      return of(undefined);
+    }
     return combineLatest(
       this.recordsService.getSuggests('documents', 'autocomplete_title', token, this.viewcode),
       this.recordsService.getSuggests('persons', 'autocomplete_name', token)
@@ -93,13 +106,7 @@ export class AutocompleteComponent implements OnInit {
       map(
         ([documents, persons]) => {
           // add query at the top
-          const values = [{
-            text: token,
-            query: token,
-            pid: undefined,
-            index: undefined,
-            category: this.translateStringService.trans(_('your query')),
-          }];
+          const values = [];
           // documents
           documents.hits.hits.map(hit => {
             let text = hit.metadata.title;
@@ -152,6 +159,7 @@ export class AutocompleteComponent implements OnInit {
   typeaheadOnSelect(e: TypeaheadMatch): void {
     if (e.item.pid && e.item.index) {
       window.location.href = `/${this.viewcode}/${e.item.index}/${e.item.pid}`;
+      this.redirect = true;
     }
   }
 }
