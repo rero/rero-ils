@@ -17,6 +17,52 @@
 Changes
 =======
 
+`v0.5.1 <https://github.com/rero/rero-ils/tree/v0.5.1>`__ (2019-10-31)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.5.0...v0.5.1>`__
+
+**Closed issues:**
+
+-  Facet author not always displayed (in Firefox)
+   `#554 <https://github.com/rero/rero-ils/issues/554>`__
+
+**Merged pull requests:**
+
+-  ui: fix typeahead unexpected behaviour
+   `#593 <https://github.com/rero/rero-ils/pull/593>`__
+   (`jma <https://github.com/jma>`__)
+-  editor: fix location editor button validation
+   `#592 <https://github.com/rero/rero-ils/pull/592>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  translation: fix user message when an item is requested
+   `#591 <https://github.com/rero/rero-ils/pull/591>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  editor: fix editor button validation
+   `#590 <https://github.com/rero/rero-ils/pull/590>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  persons: fix filter to get documents in organisation views
+   `#589 <https://github.com/rero/rero-ils/pull/589>`__
+   (`benerken <https://github.com/benerken>`__)
+-  fees: add organisation search filter
+   `#588 <https://github.com/rero/rero-ils/pull/588>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  ui: fix flash messages position
+   `#587 <https://github.com/rero/rero-ils/pull/587>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  fixtures: update third organisation circulation policy
+   `#586 <https://github.com/rero/rero-ils/pull/586>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  ui: adapt frontpage for mobile devices
+   `#585 <https://github.com/rero/rero-ils/pull/585>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  github: add new info on github issue template
+   `#581 <https://github.com/rero/rero-ils/pull/581>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  items: fix online locations status
+   `#580 <https://github.com/rero/rero-ils/pull/580>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
 
 `v0.5.0 <https://github.com/rero/rero-ils/tree/v0.5.0>`__ (2019-10-17)
 ----------------------------------------------------------------------
