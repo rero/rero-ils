@@ -51,7 +51,12 @@ if [ $# -eq 0 ]
         display_success_message "Test isort:"
         pipenv run isort -rc -c -df --skip ui
         echo -e ${GREEN}Test useless imports:${NC}
-        pipenv run autoflake --remove-all-unused-imports -c -r --exclude ui --ignore-init-module-imports . || display_error_message_and_exit "\nUse this command to check imports:\n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
+        pipenv run autoflake -c -r \
+          --remove-all-unused-imports \
+          --exclude ui \
+          --ignore-init-module-imports . \
+          &> /dev/null || \
+          display_error_message_and_exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
 
         # syntax check for typescript
         display_success_message "Syntax check for typescript:"
