@@ -18,6 +18,55 @@
 Release notes
 =============
 
+v0.5.1
+------
+
+-  User interface:
+
+   -  Adds a new method to change session locale, in preparation for the
+      future pure JS application.
+   -  Rewrites frontpage to emphasize the public demo site and improves
+      its rendering on small screens.
+   -  Improves the search input suggestion UX.
+
+-  Fixtures: updates the third organisation default circulation policy
+   for the workshops.
+-  Documentation:
+
+   -  Improves the github issue template with information on the
+      instance and version of RERO ILS on which the issue occurred.
+
+-  Fixed issues:
+
+   -  `#488 <https://github.com/rero/rero-ils/issues/488>`__: disallows
+      editing libraries by a non affiliated librarian.
+   -  `#475 <https://github.com/rero/rero-ils/issues/475>`__: redirects
+      homepage to the global view.
+   -  `#540 <https://github.com/rero/rero-ils/issues/540>`__: helps
+      distinguish "organisation" from "organisation" as an author in order
+      to ease translation.
+   -  `#573 <https://github.com/rero/rero-ils/issues/573>`__: rename
+      locations incorrectly labelled as online.
+   -  `#232 <https://github.com/rero/rero-ils/issues/232>`__: improves
+      position of flash messages in order to always show  on the screen, even
+      if the screen is scrolled down.
+   -  `#556 <https://github.com/rero/rero-ils/issues/556>`__: fixes a
+      wrong label field in the ``identifiedBy`` field.
+   -  `#557 <https://github.com/rero/rero-ils/issues/557>`__: fixes a
+      bug in the document editor which was preventing the submit button
+      to be activated.
+   -  `#562 <https://github.com/rero/rero-ils/issues/562>`__: fixes a
+      bug in the location editor which was preventing the submit button
+      to be activated.
+   -  `#404 <https://github.com/rero/rero-ils/issues/404>`__: fixes
+      internationalization code in the source in order to make it
+      translatable.
+   -  `#553 <https://github.com/rero/rero-ils/issues/553>`__: fixes
+      wrong filter on persons detailed views to restore the list of
+      related documents.
+   -  `#560 <https://github.com/rero/rero-ils/issues/560>`__: makes sure
+      fees are indexed in ElasticSearch.
+
 v0.5.0
 ------
 
