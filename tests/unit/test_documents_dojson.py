@@ -1276,7 +1276,7 @@ def test_marc21_to_identifiedBy_from_020():
         {
             'type': 'bf:Isbn',
             'qualifier': 'hbk.',
-            'acquisitionsTerms': '£125.00',
+            'acquisitionTerms': '£125.00',
             'value': '9788189997212'
         }
     ]
@@ -1397,7 +1397,7 @@ def test_marc21_to_identifiedBy_from_024_with_subfield_2():
         {
             'type': 'bf:Doi',
             'value': '10.1007/978-3-540-37973-7',
-            'acquisitionsTerms': '£125.00',
+            'acquisitionTerms': '£125.00',
             'note': 'note'
         },
         {

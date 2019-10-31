@@ -394,7 +394,7 @@ def marc21_to_identifiedBy_from_field_020(self, key, value):
         identifier = {'value': subfield_data}
         subfield_c = value.get('c', '').strip()
         if subfield_c:
-            identifier['acquisitionsTerms'] = subfield_c
+            identifier['acquisitionTerms'] = subfield_c
         if value.get('q'):  # $q is repetitive
             identifier['qualifier'] = \
                 ', '.join(utils.force_list(value.get('q')))
@@ -457,10 +457,10 @@ def marc21_to_identifiedBy_from_field_022(self, key, value):
 @utils.ignore_value
 def marc21_to_identifiedBy_from_field_024(self, key, value):
     """Get identifier from field 024."""
-    def populate_acquisitionsTerms_note_qualifier(identifier):
+    def populate_acquisitionTerms_note_qualifier(identifier):
         subfield_c = value.get('c', '').strip()
         if subfield_c:
-            identifier['acquisitionsTerms'] = subfield_c
+            identifier['acquisitionTerms'] = subfield_c
         subfield_d = value.get('d', '').strip()
         if subfield_d:
             identifier['note'] = subfield_d
@@ -528,14 +528,14 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
             })
         elif subfield_2:
             identifier['value'] = subfield_a
-            populate_acquisitionsTerms_note_qualifier(identifier)
+            populate_acquisitionTerms_note_qualifier(identifier)
             for pattern in subfield_2_regexp:
                 if re.search(pattern, subfield_2, re.IGNORECASE):
                     identifier.update(subfield_2_regexp[pattern])
         else:  # without subfield $2
             ind1 = key[3]  # indicateur_1
             if ind1 in ('0', '1', '2', '3', '8'):
-                populate_acquisitionsTerms_note_qualifier(identifier)
+                populate_acquisitionTerms_note_qualifier(identifier)
                 match = re.search(r'^(.+?)\s*\((.*)\)$', subfield_a)
                 if match:
                     # match.group(2) : parentheses content

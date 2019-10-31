@@ -104,4 +104,3 @@ pipenv run invenio assets build
 echo
 pipenv run invenio utils compile_json rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
 pipenv run invenio utils compile_json rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
-
