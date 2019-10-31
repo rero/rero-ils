@@ -503,7 +503,7 @@
       "minLength": 3
     },
     "language": {
-      "title": "Languages",
+      "title": "Language",
       "description": "List of languages for the resource.",
       "type": "array",
       "minItems": 1,
@@ -611,10 +611,11 @@
       }
     },
     "copyrightDate": {
-      "title": "Copyright Dates",
+      "title": "Copyright Date",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Copyright Date",
         "type": "string",
         "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
         "minLength": 4
@@ -1215,7 +1216,7 @@
       }
     },
     "identifiedBy": {
-      "title": "Identifiers",
+      "title": "Identifier",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -1271,9 +1272,9 @@
             "type": "string",
             "minLength": 1
           },
-          "acquisitionsTerms": {
-            "title": "Acquisitions terms",
-            "description": "Acquisitions terms of the ressource.",
+          "acquisitionTerms": {
+            "title": "Acquisition terms",
+            "description": "Acquisition terms of the resource.",
             "type": "string",
             "minLength": 1
           },

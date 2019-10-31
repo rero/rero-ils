@@ -1090,7 +1090,7 @@
       {
         "type": "bf:Isbn",
         "qualifier": "broch\u00e9",
-        "acquisitionsTerms": "\u00a3125.00",
+        "acquisitionTerms": "\u00a3125.00",
         "value": "9786039012641"
       },
       {

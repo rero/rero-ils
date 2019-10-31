@@ -125,7 +125,7 @@
   },
   {
     "type": "fieldset",
-    "title": "Languages",
+    "title": "Language",
     "nomenu": true,
     "items": [
       {
@@ -332,7 +332,7 @@
   },
   {
     "type": "fieldset",
-    "title": "Identifiers",
+    "title": "Identifier",
     "show": true,
     "nomenu": true,
     "items": [
@@ -449,7 +449,7 @@
                 "key": "identifiedBy[].qualifier"
               },
               {
-                "key": "identifiedBy[].acquisitionsTerms",
+                "key": "identifiedBy[].acquisitionTerms",
                 "condition": {
                   "functionBody": "{var identifier = model.identifiedBy[arrayIndices[0]]; return identifier.type === 'bf:Isbn';}"
                 }

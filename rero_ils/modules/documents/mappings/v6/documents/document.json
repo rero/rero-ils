@@ -344,7 +344,7 @@
             "qualifier": {
               "type": "keyword"
             },
-            "acquisitionsTerms": {
+            "acquisitionTerms": {
               "type": "text"
             },
             "status": {
