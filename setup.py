@@ -117,7 +117,8 @@ setup(
             'rero_ils_main_js = rero_ils.bundles:js',
             'rero_ils_documents_detailed_js = \
                 rero_ils.modules.documents.bundles:detailed_js',
-            'rero_ils_ui_js = rero_ils.bundles:admin_ui_js',
+            'rero_ils_admin_ui_js = rero_ils.bundles:admin_ui_js',
+            'rero_ils_search_bar_ui_js = rero_ils.bundles:search_bar_ui_js',
             'rero_ils_public_search_ui_js = rero_ils.bundles:public_search_ui_js',
         ],
         'dojson.cli': [

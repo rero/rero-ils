@@ -32,20 +32,13 @@
             </div>
           {%- endif %}
         {%- endblock navbar_brand %}
+
         {%- block navbar_search %}
-          {%- if config.THEME_SEARCHBAR %}
-            <div class="align-self-center pr-2 flex-grow-1">
-              <form action="/{{ viewcode|default(config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE) }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" class="form-inline">
-                <div class="input-group input-group-sm w-100">
-                  <input class="form-control" type="search" name="q" placeholder="{{_('Search')}}" aria-label="Search" aria-describedby="button-search">
-                  <div class="input-group-append">
-                    <button class="btn btn-light" type="submit" id="button-search"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          {%- endif %}
+          <div class="align-self-center pr-2 flex-grow-1">
+            <main-search-bar placeholder="{{ _('Search') }}" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
+          </div>
         {%- endblock navbar_search %}
+
         {%- block navbar_menus %}
           <div class="align-self-center">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
