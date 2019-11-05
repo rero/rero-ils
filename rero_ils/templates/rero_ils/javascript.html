@@ -17,5 +17,12 @@
 
 #}
 {%- block javascript %}
-{% assets "rero_ils_main_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+{% assets "rero_ils_main_js" %}
+  <script src="{{ ASSET_URL }}"></script>
+{% endassets %}
+
+{% assets "rero_ils_search_bar_ui_js" %}
+  <script src="{{ ASSET_URL }}"></script>
+{% endassets %}
+
 {%- endblock javascript %}

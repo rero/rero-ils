@@ -31,25 +31,15 @@
       <h1>{{ _('Get into your library') }}</h1>
       <h2>{{ _('A wealth of knowledge just a click away') }}</h2>
     </header>
-    <!-- <div class="container d-none d-md-block">
-    <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="/{{ viewcode }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" size="large" viewcode="{{ viewcode }}"></search-autocomplete>
-    </div>
-    <div class="container d-block d-md-none">
-      <search-autocomplete placeholder="{{ _('What\'s on your mind?') }}" action="/{{ viewcode }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" viewcode="{{ viewcode }}"></search-autocomplete>
-    </div> -->
-    <!-- remove this once we have the autocomplete working -->
-    <div class="container">
-      <form action="/{{ viewcode|default(config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE) }}{{config.RERO_ILS_THEME_SEARCH_ENDPOINT}}" class="form-inline">
-        <div class="input-group input-group-lg w-100">
-          <input class="form-control" type="search" name="q" placeholder="{{_('Search')}}" aria-label="Search" aria-describedby="button-search">
-          <div class="input-group-append">
-            <button class="btn btn-light" type="submit" id="button-search"><i class="fa fa-search"></i></button>
-          </div>
-        </div>
-      </form>
+
+    <div class="container d-none d-md-block">
+      <main-search-bar placeholder="{{ _('What\'s on your mind?') }}" size="large" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
     </div>
 
-    <!-- <app-root></app-root> -->
+    <div class="container d-block d-md-none">
+      <main-search-bar placeholder="{{ _('What\'s on your mind?') }}" viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"></main-search-bar>
+    </div>
+
     <footer class="text-center bg-danger text-white">
       <p class="py-2 mb-0">
         {{ _('Software under development') }}
