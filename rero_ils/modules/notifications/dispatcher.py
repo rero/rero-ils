@@ -35,27 +35,26 @@ class Dispatcher():
                 data['loan']['patron']['communication_channel']
             if communication_channel == 'email':
                 self.send_mail(data=data)
-            if communication_channel == 'sms':
+            elif communication_channel == 'sms':
                 pass
-            if communication_channel == 'whatsapp':
+            elif communication_channel == 'whatsapp':
                 pass
-            if communication_channel == 'letter':
+            elif communication_channel == 'letter':
                 pass
             notification = notification.update_process_date()
         return notification
 
     def send_mail(self, data):
-        """Send email."""
+        """Send the notification by email."""
         notification_type = data.get('notification_type')
         language = data['loan']['patron']['communication_language']
-        template = 'email/{type}/{lang}'.format(
+        template = 'email/{type}/{lang}.txt'.format(
             type=notification_type,
             lang=language
         )
         recipient = data['loan']['patron']['email']
         msg = TemplatedMessage(
-            # template_html='{template}.html'.format(template=template),
-            template_body='{template}.txt'.format(template=template),
+            template_body=template,
             sender=config_value('EMAIL_SENDER'),
             recipients=[recipient],
             ctx=data['loan']

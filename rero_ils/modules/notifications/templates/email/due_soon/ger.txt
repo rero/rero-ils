@@ -6,7 +6,7 @@ Die Ausleihfrist der folgenden Dokumente läuft ab:
 {% if author %}Autor : {{ author }}{% endif %}
 Titel: {{ document.title }}
 Rückgabedatum: {{ end_date }}
-Anmerkung: Non extendable
+Anmerkung: Nicht verlängerbar
 
 Unter folgender Adresse können Sie Ihr Konto einsehen und die Ausleihfrist Ihrer Dokumente verlängern: {{ profile_url }}
 
