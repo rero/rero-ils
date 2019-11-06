@@ -19,6 +19,7 @@
 
 
 from copy import deepcopy
+from os.path import dirname, join
 
 import mock
 import pytest
@@ -448,3 +449,26 @@ def holding_lib_sion(app, document, holding_lib_sion_data,
         reindex=True)
     flush_index(HoldingsSearch.Meta.index)
     return holding
+
+
+@pytest.fixture(scope='module')
+def ebooks_1_xml():
+    """Load ebook1 xml file."""
+    with open(join(dirname(__file__), '..', 'data', 'ebook1.xml')) as fh:
+        return fh.read()
+
+
+@pytest.fixture(scope='module')
+def ebooks_2_xml():
+    """Load ebook2 xml file."""
+    with open(join(dirname(__file__), '..', 'data', 'ebook2.xml')) as fh:
+        return fh.read()
+
+
+@pytest.fixture(scope='module')
+def babel_filehandle():
+    """Load ebook2 xml file."""
+    return open(
+        join(dirname(__file__), '..', 'data', 'babel_extraction.json'),
+        'rb'
+    )

@@ -19,14 +19,11 @@
 
 from __future__ import absolute_import, print_function
 
-from utils import get_mapping
-
-from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch, \
-    mef_person_id_fetcher
+from rero_ils.modules.mef_persons.api import MefPerson, mef_person_id_fetcher
 
 
 def test_mef_person_create(db, mef_person_data_tmp):
-    """Test persanisation creation."""
+    """Test mef person creation."""
     pers = MefPerson.get_record_by_pid('1')
     assert not pers
     pers, msg = MefPerson.create_or_update(

@@ -49,6 +49,7 @@ include babel.ini
 include pytest.ini
 recursive-include data *.json
 recursive-include tests *.json
+recursive-include tests *.xml
 recursive-include data *.xml
 recursive-include data *.yml
 recursive-include doc *.graffle

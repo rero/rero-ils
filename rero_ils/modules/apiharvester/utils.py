@@ -103,15 +103,15 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
             'API records found: {total}'.format(total=total)
         )
 
-        next = data.get('links', {}).get('self', True)
-        while next and (count < max or max == 0):
+        next_url = data.get('links', {}).get('self', True)
+        while next_url and (count < max or max == 0):
             records = extract_records(data)
             count += len(records)
 
             if count - max > 0 and max != 0:
                 records = records[:max]
 
-            request = requests.get(next)
+            request = requests.get(next_url)
             data = request.json()
             if signals:
                 apiharvest_part.send(
@@ -121,12 +121,12 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
                     verbose=verbose,
                     **kwargs)
             else:
-                yield next, records
-            next = data.get('links', {}).get('next', None)
+                yield next_url, records
+            next_url = data.get('links', {}).get('next', None)
     except Exception as error:
         click.secho(
             'Harvesting API ConnectionRefusedError: {error}'.format(
                 error=error),
             fg='red'
         )
-        return 0, url, []
+        yield url, []
