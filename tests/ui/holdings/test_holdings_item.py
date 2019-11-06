@@ -85,6 +85,9 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     assert not holding_lib_martigny.delete_from_index()
     holding_lib_martigny.dbcommit(forceindex=True)
 
+    # test item count by holdings pid
+    assert holding_lib_martigny.get_items_count_by_holding_pid == 2
+
 
 def test_holding_delete_after_item_deletion(
         client, holding_lib_martigny, item_lib_martigny):

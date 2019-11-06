@@ -33,6 +33,7 @@ from invenio_search import current_search
 
 from .models import ItemIdentifier, ItemStatus
 from ..api import IlsRecord, IlsRecordError, IlsRecordIndexer, IlsRecordsSearch
+from ..circ_policies.api import CircPolicy
 from ..documents.api import Document, DocumentsSearch
 from ..errors import InvalidRecordID
 from ..fetchers import id_fetcher
@@ -547,10 +548,33 @@ class Item(IlsRecord):
             return loan_location_pid
         return self.location_pid
 
+    def can_extend(self, loan):
+        """Checks if the patron has the rights to renew this item."""
+        from ..loans.utils import extend_loan_data_is_valid
+        can_extend = True
+        patron_pid = loan.get('patron_pid')
+        patron_type_pid = Patron.get_record_by_pid(
+            patron_pid).patron_type_pid
+        circ_policy = CircPolicy.provide_circ_policy(
+            self.library_pid,
+            patron_type_pid,
+            self.item_type_pid
+        )
+        extension_count = loan.get('extension_count', 0)
+        if not (
+                circ_policy.get('number_renewals') > 0 and
+                extension_count < circ_policy.get('number_renewals') and
+                extend_loan_data_is_valid(
+                    loan.get('end_date'),
+                    circ_policy.get('renewal_duration'),
+                    self.library_pid
+                )
+        ) or self.number_of_requests():
+            can_extend = False
+        return can_extend
+
     def action_filter(self, action, loan):
         """Filter actions."""
-        from ..circ_policies.api import CircPolicy
-        from ..loans.utils import extend_loan_data_is_valid
         patron_pid = loan.get('patron_pid')
         patron_type_pid = Patron.get_record_by_pid(
             patron_pid).patron_type_pid
@@ -564,16 +588,7 @@ class Item(IlsRecord):
             'new_action': None
         }
         if action == 'extend':
-            extension_count = loan.get('extension_count', 0)
-            if not (
-                    circ_policy.get('number_renewals') > 0 and
-                    extension_count < circ_policy.get('number_renewals') and
-                    extend_loan_data_is_valid(
-                        loan.get('end_date'),
-                        circ_policy.get('renewal_duration'),
-                        self.library_pid
-                    )
-            ) or self.number_of_requests():
+            if not self.can_extend(loan):
                 data['action_validated'] = False
         if action == 'checkout':
             if not circ_policy.get('allow_checkout'):
