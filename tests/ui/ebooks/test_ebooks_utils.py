@@ -15,9 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Utilities functions for rero-ils."""
+"""Test ebook utils."""
+
+from rero_ils.modules.ebooks.utils import add_oai_source
 
 
-def unique_list(data):
-    """Unicity of list."""
-    return list(dict.fromkeys(data))
+def test_add_oai_source(app):
+    """Test add oai source."""
+    msg = add_oai_source(name='test', baseurl='http://test.com')
+    assert msg == 'Added'
+    msg = add_oai_source(name='test', baseurl='http://test.com')
+    assert msg == 'Not Updated'
+    msg = add_oai_source(name='test', baseurl='http://test.com',
+                         setspecs='specs', comment='comment', update=True)
+    assert msg == 'Updated'
