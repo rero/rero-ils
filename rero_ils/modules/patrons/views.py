@@ -19,7 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, jsonify, render_template, request
+from flask import Blueprint, current_app, flash, jsonify, render_template, \
+    request
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
@@ -31,7 +32,7 @@ from .utils import user_has_patron
 from ..documents.api import Document
 from ..items.api import Item
 from ..libraries.api import Library
-from ..loans.api import get_loans_by_patron_pid
+from ..loans.api import get_loans_by_patron_pid, Loan
 from ..locations.api import Location
 
 api_blueprint = Blueprint(
@@ -88,7 +89,8 @@ def logged_user():
     return jsonify(data)
 
 
-@blueprint.route('/global/patrons/profile', defaults={'viewcode': 'global'})
+@blueprint.route('/global/patrons/profile', defaults={'viewcode': 'global'},
+                 methods=['GET', 'POST'])
 @blueprint.route('/<string:viewcode>/patrons/profile')
 @login_required
 @register_menu(
@@ -102,28 +104,45 @@ def profile(viewcode):
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
+    if request.method == 'POST':
+        loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
+        item = Item.get_record_by_pid(loan.get('item_pid'))
+        data = {
+            'item_pid': item.pid,
+            'pid': request.values.get('loan_pid'),
+            'transaction_location_pid': item.location_pid
+        }
+        try:
+            item.extend_loan(**data)
+            flash(_('The item %(item_id)s has been renewed.',
+                    item_id=item.pid), 'success')
+        except Exception:
+            flash(_('Error during the renewal of the item %(item_id)s.',
+                    item_id=item.pid), 'danger')
+
     loans = get_loans_by_patron_pid(patron.pid)
     checkouts = []
     requests = []
-    if loans:
-        for loan in loans:
-            item_pid = loan.get('item_pid')
-            item = Item.get_record_by_pid(item_pid).replace_refs()
-            document = Document.get_record_by_pid(item['document']['pid'])
-            loan['document_title'] = document['title']
-            loan['item_call_number'] = item['call_number']
-            if loan['state'] == 'ITEM_ON_LOAN':
-                checkouts.append(loan)
-            elif loan['state'] in (
-                    'PENDING',
-                    'ITEM_AT_DESK',
-                    'ITEM_IN_TRANSIT_FOR_PICKUP'
-            ):
-                pickup_loc = Location.get_record_by_pid(
-                    loan['pickup_location_pid'])
-                loan['pickup_library_name'] = \
-                    pickup_loc.get_library().get('name')
-                requests.append(loan)
+    for loan in loans:
+        item_pid = loan.get('item_pid')
+        item = Item.get_record_by_pid(item_pid)
+        document = Document.get_record_by_pid(
+            item.replace_refs()['document']['pid'])
+        loan['document_title'] = document['title']
+        loan['item_call_number'] = item['call_number']
+        if loan['state'] == 'ITEM_ON_LOAN':
+            loan['can_renew'] = item.can_extend(loan)
+            checkouts.append(loan)
+        elif loan['state'] in (
+                'PENDING',
+                'ITEM_AT_DESK',
+                'ITEM_IN_TRANSIT_FOR_PICKUP'
+        ):
+            pickup_loc = Location.get_record_by_pid(
+                loan['pickup_location_pid'])
+            loan['pickup_library_name'] = \
+                pickup_loc.get_library().get('name')
+            requests.append(loan)
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,

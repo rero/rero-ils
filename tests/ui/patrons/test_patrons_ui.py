@@ -22,12 +22,16 @@ from urllib.parse import unquote
 
 import mock
 from flask import url_for
+from rero_ils.modules.items.api import Item
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
 
 def test_patrons_profile(
-        client, librarian_martigny_no_email, loan_pending_martigny):
+        client, librarian_martigny_no_email, loan_pending_martigny,
+        lib_martigny, patron_martigny_no_email, loc_public_martigny,
+        item_type_standard_martigny, item_lib_martigny, json_header,
+        circ_policy_short_martigny):
     """Test patron profile."""
     # check redirection
     res = client.get(url_for('patrons.profile'))
@@ -38,6 +42,41 @@ def test_patrons_profile(
     # check with logged user
     login_user_via_session(client, librarian_martigny_no_email.user)
     res = client.get(url_for('patrons.profile'))
+    assert res.status_code == 200
+
+    # create patron transactions
+    data = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'item_pid': item_lib_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    loan = item_lib_martigny.request(**data)
+    loan_pid = loan[1].get('request').get('pid')
+
+    loan = item_lib_martigny.checkout(**data)
+
+    # patron visits his profile to list checked-out items
+    login_user_via_session(client, patron_martigny_no_email.user)
+    res = client.get(url_for('patrons.profile'))
+    assert res.status_code == 200
+
+    # patron successfully renew the item
+    res = client.post(
+        url_for('patrons.profile'),
+        data={'loan_pid': loan_pid}
+    )
+    assert res.status_code == 200
+
+    # disable possiblity to renew the item
+    circ_policy_short_martigny['number_renewals'] = 0
+    circ_policy_short_martigny.update(
+        circ_policy_short_martigny, dbcommit=True, reindex=True)
+
+    # patron fails to renew the item
+    res = client.post(
+        url_for('patrons.profile'),
+        data={'loan_pid': loan_pid}
+    )
     assert res.status_code == 200
 
 
