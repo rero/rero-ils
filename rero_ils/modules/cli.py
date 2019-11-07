@@ -151,10 +151,10 @@ def check_json(paths, replace, indent, sort_keys, verbose):
                 else:
                     click.echo(fname + ': ', nl=False)
                     click.secho('Bad indentation', fg='red')
-        except ValueError as e:
+        except ValueError as error:
             click.echo(fname + ': ', nl=False)
             click.secho('Invalid JSON', fg='red', nl=False)
-            click.echo(' -- ' + e.msg)
+            click.echo(' -- ' + error.msg)
             error_cnt = 1
 
         tot_error_cnt += error_cnt

@@ -155,8 +155,8 @@ class Notification(IlsRecord):
             data['loan']['profile_url'] = profile_url
 
             return data
-        except Exception as e:
-            raise(e)
+        except Exception as error:
+            raise(error)
 
     def init_loan(self):
         """Set loan of the notification."""

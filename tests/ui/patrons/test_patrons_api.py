@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from utils import get_mapping
+import re
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
@@ -42,6 +43,7 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(ptrn.get('roles'))
     assert len(mailbox) == 1
+    assert re.search(r'localhost/lost-password', mailbox[0].body)
     assert ptrn.get('email') in mailbox[0].recipients
     assert ptrn == librarian_martigny_data_tmp
     assert ptrn.get('pid') == '1'

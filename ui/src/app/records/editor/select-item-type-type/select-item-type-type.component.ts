@@ -78,7 +78,7 @@ export class SelectItemTypeTypeComponent implements OnInit {
         pid
       );
     } else {
-      return of();
+      return of(true);
     }
   }
 }

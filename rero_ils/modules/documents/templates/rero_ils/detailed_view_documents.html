@@ -265,7 +265,8 @@
                   {{ item.call_number }}
                   {% endif %}
                 </div>
-                {% if item|can_request %}
+                {% set locations = item|item_library_pickup_locations %}
+                {% if item|can_request and locations %}
                 <div class="col">
                   <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false" id="dropdownMenu">
@@ -276,7 +277,6 @@
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
                     <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
                     <div class="dropdown-divider"></div>
-                    {% set locations = item|item_library_pickup_locations %}
                     {% for location in locations %}
                     <a class="dropdown-item"
                       href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">

@@ -1031,7 +1031,7 @@ RERO_ILS_MEF_RESULT_SIZE = 100
 RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
                               'version=1.2&operation=searchRetrieve'\
                               '&recordSchema=unimarcxchange&maximumRecords=1'\
-                              '&startRecord=1&query=bib.ean%%20all%%20"%s"'
+                              '&startRecord=1&query=bib.ean all "{}"'
 
 RERO_ILS_APP_HELP_PAGE = (
     'https://github.com/rero/rero-ils/wiki/Public-demo-help'

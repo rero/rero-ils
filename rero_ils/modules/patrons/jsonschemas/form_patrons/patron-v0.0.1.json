@@ -41,7 +41,10 @@
         "htmlClass": "mr-2"
       },
       {
-        "key": "phone"
+        "key": "phone",
+        "validationMessage": {
+          "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
+        }
       }
     ]
   },

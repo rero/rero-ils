@@ -18,6 +18,7 @@
 """Tests REST API patrons."""
 
 import json
+import re
 from copy import deepcopy
 
 import mock
@@ -136,7 +137,7 @@ def test_patrons_get(client, librarian_martigny_no_email):
 def test_patrons_post_put_delete(client, lib_martigny,
                                  patron_type_children_martigny,
                                  librarian_martigny_data, json_header,
-                                 roles):
+                                 roles, mailbox):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value='1')
     list_url = url_for('invenio_records_rest.ptrn_list', q='pid:1')
@@ -144,6 +145,7 @@ def test_patrons_post_put_delete(client, lib_martigny,
 
     pids = len(Patron.get_all_pids())
     uuids = len(Patron.get_all_ids())
+    assert len(mailbox) == 0
 
     # Create record / POST
     patron_data['pid'] = '1'
@@ -158,6 +160,8 @@ def test_patrons_post_put_delete(client, lib_martigny,
     assert res.status_code == 201
     assert len(Patron.get_all_pids()) == pids + 1
     assert len(Patron.get_all_ids()) == uuids + 1
+    assert len(mailbox) == 1
+    assert re.search(r'localhost/lost-password', mailbox[0].body)
 
     # Check that the returned record matches the given data
     data = get_json(res)
