@@ -60,12 +60,13 @@ def jsonify_error(func):
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except NotFound as e:
-            raise(e)
-        except Exception as e:
-            # raise(e)
-            current_app.logger.error(str(e))
-            return jsonify({'status': 'error: {error}'.format(error=e)}), 500
+        except NotFound as error:
+            raise(error)
+        except Exception as error:
+            # raise(error)
+            current_app.logger.error(str(error))
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 500
     return decorated_view
 
 
@@ -94,14 +95,15 @@ def jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
-        except CirculationException as e:
+        except CirculationException as error:
             abort(403)
-        except NotFound as e:
-            raise(e)
-        except Exception as e:
+        except NotFound as error:
+            raise(error)
+        except Exception as error:
             # raise(e)
-            current_app.logger.error(str(e))
-            return jsonify({'status': 'error: {error}'.format(error=e)}), 500
+            current_app.logger.error(str(error))
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 500
     return decorated_view
 
 

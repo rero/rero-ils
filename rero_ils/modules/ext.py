@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+import jinja2
 from invenio_admin import current_admin
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
@@ -50,6 +51,16 @@ class REROILSAPP(object):
         from ..permissions import can_access_item, can_edit
         if app:
             self.init_app(app)
+            # force to load ils template before others
+            # it is require for Flask-Security see:
+            # https://pythonhosted.org/Flask-Security/customizing.html#emails
+            ils_loader = jinja2.ChoiceLoader([
+                jinja2.PackageLoader('rero_ils', 'templates'),
+                app.jinja_loader
+            ])
+            app.jinja_loader = ils_loader
+
+            # register filters
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
             app.add_template_filter(can_edit, name='can_edit')

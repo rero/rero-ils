@@ -68,5 +68,5 @@ class Dispatcher():
             # TODO: investigate why delay does not work
             # send_email.delay(msg.__dict__)
             # current_app.extensions['mail'].send(msg)
-        except Exception as e:
-            raise(e)
+        except Exception as error:
+            raise(error)

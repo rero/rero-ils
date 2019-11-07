@@ -21,9 +21,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import re
-import sys
 from functools import wraps
-from urllib.request import urlopen
 
 import pycountry
 import requests
@@ -113,46 +111,78 @@ def cover(isbn):
 @api_blueprint.route("/import/bnf/<int:ean>")
 @check_permission
 def import_bnf_ean(ean):
-    """Import record from BNFr given a isbn 13 without dashes."""
+    """Import record from BNFr given a isbn 13 without dashes.
+
+    See: https://catalogue.bnf.fr/api/test.do
+    """
     bnf_url = current_app.config['RERO_ILS_APP_IMPORT_BNF_EAN']
     try:
-        with urlopen(bnf_url % ean) as response:
-            if response.status != 200:
-                abort(502)
-            # read the xml date from the HTTP response
-            xml_data = response.read()
+        with requests.get(bnf_url.format(ean)) as response:
+            if not response.ok:
+                status_code = 502
+                response = {
+                    'metadata': {},
+                    'errors': {
+                        'code': status_code,
+                        'title': 'The BNF server returns a bad status code.',
+                        'detail': 'Status code: {}'.format(
+                            response.status_code)
+                    }
+                }
+                current_app.logger.error(
+                    '{title}: {detail}'.format(
+                        title=response.get('title'),
+                        detail=response.get('detail')))
 
-            # create a xml file in memory
-            xml_file = six.BytesIO()
-            xml_file.write(xml_data)
-            xml_file.seek(0)
+            else:
+                # read the xml date from the HTTP response
+                xml_data = response.content
 
-            # get the record in xml if exists
-            # note: the request should returns one record max
-            xml_record = next(split_stream(xml_file))
+                # create a xml file in memory
+                xml_file = six.BytesIO()
+                xml_file.write(xml_data)
+                xml_file.seek(0)
 
-            # convert xml in marc json
-            json_data = create_record(xml_record)
+                # get the record in xml if exists
+                # note: the request should returns one record max
+                xml_record = next(split_stream(xml_file))
 
-            # convert marc json to local json format
-            record = unimarctojson.do(json_data)
-            response = {
-                'metadata': record
-            }
-            return jsonify(response)
+                # convert xml in marc json
+                json_data = create_record(xml_record)
+
+                # convert marc json to local json format
+                record = unimarctojson.do(json_data)
+                response = {
+                    'metadata': record
+                }
+                status_code = 200
     # no record found!
     except StopIteration:
+        status_code = 404
         response = {
-            'record': {}
+            'metadata': {},
+            'errors': {
+                'code': status_code,
+                'title': 'The EAN was not found on the BNF server.'
+            }
         }
-        return jsonify(response), 404
     # other errors
-    except Exception:
-        sys.stdout.flush()
+    except Exception as error:
+        status_code = 500
         response = {
-            'record': {}
+            'metadata': {},
+            'errors': {
+                'code': status_code,
+                'title': 'An unexpected error has been raise.',
+                'detail': 'Error: {error}'.format(error=error)
+            }
         }
-        return jsonify(response), 500
+        current_app.logger.error(
+            '{title}: {detail}'.format(
+                title=response.get('title'),
+                detail=response.get('detail')))
+
+    return jsonify(response), status_code
 
 
 blueprint = Blueprint(
@@ -309,7 +339,8 @@ def item_library_pickup_locations(item):
     for library in organisation.get_libraries():
         location = Location.get_record_by_pid(
             library.get_pickup_location_pid())
-        locations.append(location)
+        if location:
+            locations.append(location)
     return locations
 
 

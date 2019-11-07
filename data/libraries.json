@@ -544,6 +544,58 @@
     "name": "Biblioth\u00e8que cantonale",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
-    }
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "wednesday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "saturday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "14:00",
+            "end_time": "18:00"
+          }
+        ]
+      }
+    ]
   }
 ]
