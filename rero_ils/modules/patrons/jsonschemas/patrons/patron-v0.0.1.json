@@ -78,8 +78,7 @@
       "title": "Phone number",
       "description": "Phone number with the international prefix, without spaces.",
       "type": "string",
-      "pattern": "^\\+[0-9]*$",
-      "validationMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
+      "pattern": "^\\+[0-9]*$"
     },
     "patron_type": {
       "title": "Patron Type",

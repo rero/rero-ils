@@ -123,9 +123,10 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
             else:
                 yield next, records
             next = data.get('links', {}).get('next', None)
-    except Exception as e:
+    except Exception as error:
         click.secho(
-            'Harvesting API ConnectionRefusedError: {e}'.format(e=e),
+            'Harvesting API ConnectionRefusedError: {error}'.format(
+                error=error),
             fg='red'
         )
         return 0, url, []

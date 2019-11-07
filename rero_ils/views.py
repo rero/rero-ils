@@ -33,7 +33,7 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.api import current_patron
 
 from .modules.babel_extractors import translate
 from .version import __version__
@@ -99,19 +99,15 @@ def init_menu_lang():
 def init_menu_profile():
     """Create the profile header menu."""
     item = current_menu.submenu('main.profile')
-    account = _('My Account')
-    user_initials = session.get('user_initials')
-    if session.get('user_id'):
-        if user_initials:
-            account = user_initials
-        else:
-            patron = Patron.get_patron_by_email(current_user.email)
-            if patron:
-                account = patron.initial
-                session['user_initials'] = account
+    if current_patron:
+        session['user_initials'] = current_patron.initial
     else:
-        if user_initials:
-            del session['user_initials']
+        try:
+            session['user_initials'] = current_user.email
+        # AnonymousUser
+        except AttributeError:
+            session.pop('user_initials', None)
+    account = session.get('user_initials', _('My Account'))
 
     item.register(
         endpoint=None,
@@ -329,6 +325,6 @@ def schemaform(document_type):
         form = current_jsonschemas.get_schema(
             'form_{}/{}-v0.0.1.json'.format(document_type, doc_type))
         data['layout'] = prepare_form_option(form)
-    except JSONSchemaNotFound as e:
-        raise(e)
+    except JSONSchemaNotFound as error:
+        raise(error)
     return jsonify(data)
