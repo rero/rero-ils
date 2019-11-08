@@ -185,7 +185,7 @@ pipenv run invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/s
 if $CREATE_ITEMS_HOLDINGS_SMALL
 then
     # to generate small items file small documents must exist in DB
-    pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
+    pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
     display_success_message "Creation of items and holdings done for 'small' documents done."
     if $STOP_EXECUTION
     then
@@ -196,7 +196,7 @@ fi
 if $CREATE_ITEMS_HOLDINGS_BIG
 then
     # to generate big items file big documents must exist in DB
-    pipenv run invenio fixtures create_items -i 2 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
+    pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
     display_success_message "Creation of items and holdings done for 'big' documents done."
     if $STOP_EXECUTION
     then

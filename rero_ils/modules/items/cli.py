@@ -112,7 +112,9 @@ def create_items(
         missing *= len(patrons_barcodes)
         item_pid = ItemIdentifier.max() + 1
         holding_pid = HoldingIdentifier.max()
+        status = None
 
+        workshop_item = 1
         with click.progressbar(
                 reversed(documents_pids[:count]), length=count) as bar:
             for document_pid in bar:
@@ -141,14 +143,25 @@ def create_items(
                         new_holding = create_holding_record(
                             item_holding_pid, location_pid,
                             item_type_pid, document_pid)
+                    if org == '3':
+                        # set a prefix for items of the workshop organisation
+                        barcode = 'fictive_{0}'.format(workshop_item)
+                        if workshop_item < 17:
+                            # fix the status of the first 16 items to ON_SHELF
+                            status = ItemStatus.ON_SHELF
+                        workshop_item += 1
 
+                    else:
+                        barcode = str(10000000000 + item_pid)
                     missing, item = create_random_item(
                         item_pid=item_pid,
                         location_pid=location_pid,
                         missing=missing,
                         item_type_pid=item_type_pid,
                         document_pid=document_pid,
-                        holding_pid=item_holding_pid
+                        holding_pid=item_holding_pid,
+                        barcode=barcode,
+                        status=status
                     )
                     item_pid += 1
                     yield item, new_holding
@@ -216,17 +229,18 @@ def get_item_types():
 
 
 def create_random_item(item_pid, location_pid, missing, item_type_pid,
-                       document_pid, holding_pid):
+                       document_pid, holding_pid, barcode, status):
     """Create items with randomised values."""
-    status = ItemStatus.ON_SHELF
-    if randint(0, 50) == 0 and missing > 0:
-        status = ItemStatus.MISSING
-        missing -= 1
+    if not status:
+        status = ItemStatus.ON_SHELF
+        if randint(0, 50) == 0 and missing > 0:
+            status = ItemStatus.MISSING
+            missing -= 1
     url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
     item = {
         # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
         'pid': str(item_pid),
-        'barcode': str(10000000000 + item_pid),
+        'barcode': barcode,
         'call_number': str(item_pid).zfill(5),
         'status': status,
         'location': {
