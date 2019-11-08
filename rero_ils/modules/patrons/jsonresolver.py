@@ -19,13 +19,11 @@
 
 
 import jsonresolver
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from ..jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/patrons/<pid>', host='ils.rero.ch')
 def patron_resolver(pid):
     """Patron resolver."""
-    persistent_id = PersistentIdentifier.get('ptrn', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
-    raise Exception('unable to resolve')
+    return resolve_json_refs('ptrn', pid)

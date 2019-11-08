@@ -19,13 +19,11 @@
 
 
 import jsonresolver
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from ..jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/loans/<pid>', host='ils.rero.ch')
 def loan_resolver(pid):
     """Loan resolver."""
-    persistent_id = PersistentIdentifier.get('loanid', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
-    raise Exception('unable to resolve')
+    return resolve_json_refs('loanid', pid)

@@ -191,7 +191,7 @@ if $CREATE_ITEMS_HOLDINGS_SMALL
 then
     # to generate small items file small documents must exist in DB
     pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
-    display_success_message "Creation of items and holdings done for 'small' documents done."
+    display_success_message "Creation of items and holdings done for 'small' documents."
     if $STOP_EXECUTION
     then
         exit 0
@@ -202,7 +202,7 @@ if $CREATE_ITEMS_HOLDINGS_BIG
 then
     # to generate big items file big documents must exist in DB
     pipenv run invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
-    display_success_message "Creation of items and holdings done for 'big' documents done."
+    display_success_message "Creation of items and holdings done for 'big' documents."
     if $STOP_EXECUTION
     then
         exit 0
@@ -221,10 +221,11 @@ pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/
 pipenv run invenio index reindex -t item --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
-# index documents
+display_success_message "Index Documents:"
 pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
+set +e
 display_success_message "Circulation transactions:"
 pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
 

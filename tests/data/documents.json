@@ -1,0 +1,147 @@
+[
+  {
+    "type": "book",
+    "pid": "1",
+    "language": [
+      {
+        "value": "ita",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "9788898983056",
+        "type": "bf:Isbn"
+      },
+      {
+        "value": "R008400428",
+        "type": "bf:Local",
+        "source": "RERO"
+      },
+      {
+        "source": "OCoLC",
+        "value": "ocn945401320",
+        "type": "bf:Local"
+      }
+    ],
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/mef/20109313"
+      },
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/mef/25552024"
+      }
+    ],
+    "title": "Le due tensioni : appunti per una ideologia della letteratura",
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Matelica (MC)"
+              }
+            ],
+            "country": "it"
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Hacca"
+              }
+            ]
+          }
+        ],
+        "date": "2016",
+        "startDate": "2016"
+      }
+    ],
+    "extent": "380 pages",
+    "formats": [
+      "21 cm"
+    ],
+    "series": [
+      {
+        "name": "Novecento.0",
+        "number": "68"
+      }
+    ],
+    "notes": [
+      "Collected writings",
+      "Includes preface (pages 9-22) and postface (pages 347-357)",
+      "Includes writings, published for the first time"
+    ],
+    "subjects": [
+      "Litt\u00e9rature",
+      "Culture",
+      "[Notes, esquisses, etc.]"
+    ]
+  },
+  {
+    "type": "book",
+    "pid": "2",
+    "language": [
+      {
+        "value": "fre",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R006039425",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/mef/19985648"
+      }
+    ],
+    "title": "Sukkwan island : roman",
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Paris"
+              }
+            ],
+            "country": "fr"
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Gallmeister"
+              }
+            ]
+          }
+        ],
+        "date": "2009",
+        "startDate": "2009"
+      }
+    ],
+    "extent": "191 p.",
+    "formats": [
+      "21 cm"
+    ],
+    "series": [
+      {
+        "name": "Nature writing"
+      }
+    ],
+    "abstracts": [
+      "Une \u00eele sauvage du Sud de l'Alaska, accessible uniquement par bateau ou par hydravion, tout en for\u00eats humides et montagnes escarp\u00e9es. C'est dans ce d\u00e9cor que Jim d\u00e9cide d'emmener son fils de treize ans pour y vivre dans une cabane isol\u00e9e, une ann\u00e9e durant. Apr\u00e8s une succession d'\u00e9checs personnels, il voit l\u00e0 l'occasion de prendre un nouveau d\u00e9part et de renouer avec ce gar\u00e7on qu'il conna\u00eet si mal. La rigueur de cette vie et les d\u00e9faillances du p\u00e8re ne tardent pas \u00e0 transformer ce s\u00e9jour en cauchemar, et la situation devient vite incontr\u00f4lable. Jusqu'au drame violent et impr\u00e9visible qui scellera leur destin. Sukkwan Island est une histoire au suspense insoutenable. Avec ce roman qui nous entra\u00eene au coeur des t\u00e9n\u00e8bres de l'\u00e2me humaine, David Vann s'installe d'embl\u00e9e parmi les jeunes auteurs am\u00e9ricains de tout premier plan."
+    ]
+  }
+]

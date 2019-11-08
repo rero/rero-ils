@@ -18,20 +18,11 @@
 """Holding resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from ..jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/holdings/<pid>', host='ils.rero.ch')
 def holding_resolver(pid):
     """Resolver for holding record."""
-    persistent_id = PersistentIdentifier.get('hold', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
-    current_app.logger.error(
-        'Doc resolver error: /api/holdings/{pid} {persistent_id}'.format(
-            pid=pid,
-            persistent_id=persistent_id
-        )
-    )
-    raise Exception('unable to resolve')
+    return resolve_json_refs('hold', pid)

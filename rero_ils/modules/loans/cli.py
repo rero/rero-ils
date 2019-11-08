@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import random
+import traceback
 from datetime import datetime, timedelta, timezone
 
 import click
@@ -40,57 +41,80 @@ from ..patrons.api import Patron, PatronsSearch
 @click.command('create_loans')
 @click.option('-f', '--fee', 'fee', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def create_loans(infile, fee, verbose):
+def create_loans(infile, fee, verbose, debug):
     """Create circulation transactions.
 
     infile: Json transactions file
     """
     click.secho('Create circulation transactions:', fg='green')
     data = json.load(infile)
+    errors_count = {}
     for patron_data in data:
         barcode = patron_data.get('barcode')
         if barcode is None:
-            click.secho('\tPatron barcode is missing!', fg='red')
+            click.secho('Patron barcode is missing!', fg='red')
         else:
+            click.echo('Patron: {barcode}'.format(barcode=barcode))
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
             patron_type_pid = Patron.get_patron_by_barcode(
                 barcode).patron_type_pid
             loanable_items = get_loanable_items(patron_type_pid)
+            if verbose:
+                loanable_items_count = len(
+                    list(get_loanable_items(patron_type_pid))
+                )
+                msg = '\t{patron} loanable_items: {loanable_items}'.format(
+                    patron=patron_data,
+                    loanable_items=loanable_items_count
+                )
+                click.echo(msg)
 
             for transaction in range(loans.get('active', 0)):
-                item_barcode = create_loan(barcode, 'active', loanable_items)
-                print_message(barcode, item_barcode, 'active')
+                item_barcode = create_loan(barcode, 'active', loanable_items,
+                                           verbose, debug)
+                errors_count = print_message(item_barcode, 'active',
+                                             errors_count)
 
             for transaction in range(loans.get('overdue', 0)):
-                item_barcode = create_loan(barcode, 'overdue', loanable_items)
-                print_message(barcode, item_barcode, 'overdue')
+                item_barcode = create_loan(barcode, 'overdue', loanable_items,
+                                           verbose, debug)
+                errors_count = print_message(item_barcode, 'overdue',
+                                             errors_count)
 
             for transaction in range(loans.get('extended', 0)):
-                item_barcode = create_loan(barcode, 'extended', loanable_items)
-                print_message(barcode, item_barcode, 'extended')
+                item_barcode = create_loan(barcode, 'extended', loanable_items,
+                                           verbose, debug)
+                errors_count = print_message(item_barcode, 'extended',
+                                             errors_count)
 
             for transaction in range(loans.get('requested_by_others', 0)):
-                item_barcode = create_loan(
-                    barcode, 'requested_by_others', loanable_items)
-                print_message(barcode, item_barcode, 'requested_by_others')
+                item_barcode = create_loan(barcode, 'requested_by_others',
+                                           loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode,
+                                             'requested_by_others',
+                                             errors_count)
 
             for transaction in range(requests.get('requests', 0)):
-                item_barcode = create_request(
-                    barcode, 'requests', loanable_items)
-                print_message(barcode, item_barcode, 'requests')
+                item_barcode = create_request(barcode, 'requests',
+                                              loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode, 'requests',
+                                             errors_count)
 
             for transaction in range(requests.get('rank_1', 0)):
-                item_barcode = create_request(
-                    barcode, 'rank_1', loanable_items)
-                print_message(barcode, item_barcode, 'rank_1')
+                item_barcode = create_request(barcode, 'rank_1',
+                                              loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode, 'rank_1',
+                                             errors_count)
 
             for transaction in range(requests.get('rank_2', 0)):
-                item_barcode = create_request(
-                    barcode, 'rank_2', loanable_items)
-                print_message(barcode, item_barcode, 'rank_2')
+                item_barcode = create_request(barcode, 'rank_2',
+                                              loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode, 'rank_2',
+                                             errors_count)
     if fee:
         loan = get_item_on_loan_loans()[0]
 
@@ -102,36 +126,37 @@ def create_loans(infile, fee, verbose):
             reindex=True
         )
         create_over_and_due_soon_notifications()
-
-
-def print_message(barcode, item_barcode, transaction_type):
-    """Print confirmation message."""
-    if item_barcode:
-        click.echo(
-            (
-                '\t'
-                '{transaction_type} created for patron {barcode} '
-                'and item {item_barcode}'
-            ).format(
-                transaction_type=transaction_type,
-                barcode=barcode,
-                item_barcode=item_barcode
-            )
-        )
-    else:
+    for key, val in errors_count.items():
         click.secho(
-            (
-                '\t'
-                '{transaction_type} creation error for patron {barcode} '
-            ).format(
-                transaction_type=transaction_type,
-                barcode=barcode,
+            'Errors {transaction_type}: {count}'.format(
+                transaction_type=key,
+                count=val
             ),
             fg='red'
         )
 
 
-def create_loan(barcode, transaction_type, loanable_items):
+def print_message(item_barcode, transaction_type, errors_count):
+    """Print confirmation message."""
+    if item_barcode:
+        click.echo('\titem {item_barcode}: {transaction_type}'.format(
+            transaction_type=transaction_type,
+            item_barcode=item_barcode
+        ))
+    else:
+        click.secho(
+            '\tcreation error: {transaction_type}'.format(
+                transaction_type=transaction_type,
+            ),
+            fg='red'
+        )
+        errors_count.setdefault(transaction_type, 0)
+        errors_count[transaction_type] += 1
+    return errors_count
+
+
+def create_loan(barcode, transaction_type, loanable_items, verbose=False,
+                debug=False):
     """Create loans transactions."""
     try:
         item = next(loanable_items)
@@ -161,7 +186,7 @@ def create_loan(barcode, transaction_type, loanable_items):
                 document_pid=item.replace_refs()['document']['pid'],
                 item_pid=item.pid,
             )
-        if transaction_type == 'requested_by_others':
+        elif transaction_type == 'requested_by_others':
             requested_patron = get_random_patron(barcode)
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
@@ -182,10 +207,21 @@ def create_loan(barcode, transaction_type, loanable_items):
                 )
         return item['barcode']
     except Exception as err:
+        if verbose:
+            click.secho(
+                '\tException loan {transaction_type}: {err}'.format(
+                    transaction_type=transaction_type,
+                    err=err
+                ),
+                fg='red'
+            )
+        if debug:
+            traceback.print_exc()
         return None
 
 
-def create_request(barcode, transaction_type, loanable_items):
+def create_request(barcode, transaction_type, loanable_items, verbose=False,
+                   debug=False):
     """Create request transactions."""
     try:
         item = next(loanable_items)
@@ -225,6 +261,16 @@ def create_request(barcode, transaction_type, loanable_items):
         )
         return item['barcode']
     except Exception as err:
+        if verbose:
+            click.secho(
+                '\tException request {transaction_type}: {err}'.format(
+                    transaction_type=transaction_type,
+                    err=err
+                ),
+                fg='red'
+            )
+        if debug:
+            traceback.print_exc()
         return None
 
 
