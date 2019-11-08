@@ -28,7 +28,7 @@ import os
 import sys
 from collections import OrderedDict
 from glob import glob
-from json import JSONDecodeError, JSONDecoder, loads
+from json import loads
 
 import click
 import jsonref
@@ -54,6 +54,7 @@ from .documents.dojson.contrib.marc21tojson import marc21tojson
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
+from .utils import read_json_record
 from ..modules.providers import append_fixtures_new_identifiers
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -200,31 +201,6 @@ def init(force):
             bar.label = name
 
 
-def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
-    """Read lasy json records from file."""
-    buffer = json_file.read(5)
-    # we have to delete the first [ for an list of records
-    if buffer.startswith('['):
-        buffer = buffer[-1:].lstrip()
-    while True:
-        block = json_file.read(buf_size)
-        if not block:
-            break
-        buffer += block
-        pos = 0
-        while True:
-            try:
-                buffer = buffer.lstrip()
-                obj, pos = decoder.raw_decode(buffer)
-            except JSONDecodeError as err:
-                break
-            else:
-                yield obj
-                buffer = buffer[pos:]
-                if buffer.startswith(','):
-                    buffer = buffer[1:]
-
-
 @click.command('create')
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
@@ -232,16 +208,19 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
 @click.option('-s', '--schema', 'schema', default=None)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
+def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy):
     """Load REROILS record.
 
     infile: Json file
+    append: appends pids to database
     reindex: reindex record by record
     dbcommit: commit record to database
     pid_type: record type
     schema: recoord schema
+    lazy: lazy reads file
     """
     click.secho(
         'Loading {pid_type} records from {file_name}.'.format(
@@ -257,7 +236,13 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
     count = 0
     error_records = []
     pids = []
-    for record in read_json_record(infile):
+    if lazy:
+        # try to lazy read json file (slower, better memory management)
+        records = read_json_record(infile)
+    else:
+        # load everything in memory (faster, bad memory management)
+        records = json.load(infile)
+    for record in records:
         count += 1
         if schema:
             record['$schema'] = schema
@@ -282,7 +267,7 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
                     count=count,
                     pid_type=pid_type,
                     pid=record.get('pid', '???'),
-                    err=err.args[0]
+                    err=err
                 ),
                 err=True,
                 fg='red'
@@ -300,12 +285,52 @@ def create(infile, pid_type, schema, verbose, dbcommit, reindex, append):
     if append:
         identifier = record_class.provider.identifier
         try:
-            append_fixtures_new_identifiers(identifier, sorted(pids), pid_type)
+            append_fixtures_new_identifiers(
+                identifier,
+                sorted(pids, key=lambda x: int(x)),
+                pid_type
+            )
         except Exception as err:
-            pass
+            click.secho(
+                "ERROR append fixtures new identifiers: {err}".format(
+                    err=err
+                ),
+                fg='red'
+            )
 
 
 fixtures.add_command(create)
+
+
+@click.command('count')
+@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+def count(infile, lazy):
+    """Count records in file.
+
+    :param infile: Json file
+    :param lazy: lazy reads file
+    :return: count of records
+    """
+    click.secho(
+        'Count records from {file_name}.'.format(
+            file_name=infile.name
+        ),
+        fg='green'
+    )
+    if lazy:
+        # try to lazy read json file (slower, better memory management)
+        records = read_json_record(infile)
+    else:
+        # load everything in memory (faster, bad memory management)
+        records = json.load(infile)
+    count = 0
+    for record in records:
+        count += 1
+    click.echo('Count: {count}'.format(count=count))
+
+
+fixtures.add_command(count)
 
 
 @utils.command('check_license')

@@ -133,11 +133,11 @@ class Document(IlsRecord):
     def dumps(self, **kwargs):
         """Return pure Python dictionary with record metadata."""
         dump = super(Document, self).dumps(**kwargs)
-        provision_activities = dump.get('provisionActivity')
+        provision_activities = dump.get('provisionActivity', [])
         for provision_activity in provision_activities:
             provision_activity["_text"] = \
                 publication_statement_text(provision_activity)
-        series = dump.get('series')
+        series = dump.get('series', [])
         for series_element in series:
             series_element["_text"] = series_format_text(series_element)
         return dump

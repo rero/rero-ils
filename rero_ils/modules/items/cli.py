@@ -67,31 +67,17 @@ def reindex_items():
 
 
 @click.command('create_items')
-@click.option(
-    '-c', '--count', 'count',
-    type=click.INT, default=-1, help='default=for all records'
-)
-@click.option(
-    '-i', '--itemscount', 'itemscount',
-    type=click.INT, default=1, help='default=1'
-)
-@click.option(
-    '-m', '--missing', 'missing', type=click.INT, default=5, help='default=5'
-)
+@click.option('-c', '--count', 'count',
+              type=click.INT, default=-1, help='default=for all records')
+@click.option('-i', '--itemscount', 'itemscount',
+              type=click.INT, default=1, help='default=1')
+@click.option('-m', '--missing', 'missing',
+              type=click.INT, default=5, help='default=5')
 # @click.argument('output', type=click.File('w'))
-@click.option(
-    '-t',
-    '--items_f',
-    'items_f',
-    help='Items output file.')
-@click.option(
-    '-h',
-    '--holdings_f',
-    'holdings_f',
-    help='Holdings output file.')
+@click.option('-t', '--items_f', 'items_f', help='Items output file.')
+@click.option('-h', '--holdings_f', 'holdings_f', help='Holdings output file.')
 @with_appcontext
-def create_items(
-        count, itemscount, missing, items_f, holdings_f):
+def create_items(count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
     def generate(count, itemscount, missing):
 
@@ -101,8 +87,10 @@ def create_items(
             count = len(documents_pids)
 
         click.secho(
-            'Starting generating {0} items, random {1} ...'.format(
-                count, itemscount),
+            'Starting generating {count} items, random {itemsc} ...'.format(
+                count=count,
+                itemsc=itemscount
+            ),
             fg='green',
         )
 
@@ -165,6 +153,7 @@ def create_items(
                     )
                     item_pid += 1
                     yield item, new_holding
+
     items = []
     holdings = []
     with open(holdings_f, 'w', encoding='utf-8') as holdings_file:

@@ -27,10 +27,10 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
                      **dummy_kwargs):
     """Signal sent before a record is indexed.
 
-    :params json: The dumped record dictionary which can be modified.
-    :params record: The record being indexed.
-    :params index: The index in which the record will be indexed.
-    :params doc_type: The doc_type for the record.
+    :param json: The dumped record dictionary which can be modified.
+    :param record: The record being indexed.
+    :param index: The index in which the record will be indexed.
+    :param doc_type: The doc_type for the record.
     """
     loan_index_name = current_circulation.loan_search.Meta.index
     if index.startswith(loan_index_name):

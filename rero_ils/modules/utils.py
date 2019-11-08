@@ -18,6 +18,7 @@
 """Utilities for rero-ils editor."""
 
 from datetime import time
+from json import JSONDecodeError, JSONDecoder
 from time import sleep
 
 import click
@@ -68,3 +69,39 @@ def date_string_to_utc(date):
     if parsed_date.tzinfo:
         return parsed_date
     return pytz.utc.localize(parsed_date)
+
+
+def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
+    """Read lasy json records from file.
+
+    :param json_file: json file handle
+    :param buf_size: buffer size for file read
+    :param decoder: decoder to use for decoding
+    :return: record Generator
+    """
+    buffer = json_file.read(buf_size).replace('\n', '')
+    # we have to delete the first [ for an list of records
+    if buffer.startswith('['):
+        buffer = buffer[1:].lstrip()
+    while True:
+        block = json_file.read(buf_size)
+        if not block:
+            break
+        buffer += block.replace('\n', '')
+        pos = 0
+        while True:
+            try:
+                buffer = buffer.lstrip()
+                obj, pos = decoder.raw_decode(buffer)
+            except JSONDecodeError as err:
+                break
+            else:
+                yield obj
+                buffer = buffer[pos:].lstrip()
+
+                if len(buffer) <= 0:
+                    # buffer is empty read more data
+                    buffer = json_file.read(buf_size)
+                if buffer.startswith(','):
+                    # delete records deliminators
+                    buffer = buffer[1:].lstrip()
