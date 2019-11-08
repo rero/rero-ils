@@ -110,5 +110,181 @@
       "rank_2": 1,
       "requests": 2
     }
+  },
+  {
+    "barcode": "920001",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920002",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920003",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920004",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920005",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920006",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920007",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920008",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920009",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920010",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920011",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920012",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920013",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920014",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920015",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
+  },
+  {
+    "barcode": "920016",
+    "loans": {
+      "active": 2,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "requests": 1
+    }
   }
 ]
