@@ -161,12 +161,193 @@
   {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "19",
-    "code": "REZ",
-    "name": "Rez-de-chauss\u00e9e",
+    "code": "CITA-BIB",
+    "name": "Defaut location for La Citadelle",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/7"
+    },
+    "is_pickup": true,
+    "pickup_name": "La Citadelle",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "20",
+    "code": "BEAST-BIB",
+    "name": "Defaut location for Beast's Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/8"
+    },
+    "is_pickup": true,
+    "pickup_name": "Beast's Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "21",
+    "code": "DREAM-BIB",
+    "name": "Defaut location for Dream's Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/9"
+    },
+    "is_pickup": true,
+    "pickup_name": "Dream's Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "22",
+    "code": "LUX-BIB",
+    "name": "Defaut location for Lux Foundation Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/10"
+    },
+    "is_pickup": true,
+    "pickup_name": "Lux Foundation Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "23",
+    "code": "HOG-BIB",
+    "name": "Defaut location for Hogwarts Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/11"
+    },
+    "is_pickup": true,
+    "pickup_name": "Hogwarts Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "24",
+    "code": "BABEL-BIB",
+    "name": "Defaut location for Biblioth\u00e8que de Babel",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/12"
+    },
+    "is_pickup": true,
+    "pickup_name": "Biblioth\u00e8que de Babel",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "25",
+    "code": "ROSE-BIB",
+    "name": "Defaut location for Biblioth\u00e8que de l\u2019abbaye",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/13"
+    },
+    "is_pickup": true,
+    "pickup_name": "Biblioth\u00e8que de l\u2019abbaye",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "26",
+    "code": "UNI-BIB",
+    "name": "Defaut location for The University's Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/14"
+    },
+    "is_pickup": true,
+    "pickup_name": "The University's Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "27",
+    "code": "CEMETERY-BIB",
+    "name": "Defaut location for Cemetery of Forgotten Books",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/15"
+    },
+    "is_pickup": true,
+    "pickup_name": "Cemetery of Forgotten Books",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "28",
+    "code": "TRUTH-BIB",
+    "name": "Defaut location for Ministry of Truth",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/16"
+    },
+    "is_pickup": true,
+    "pickup_name": "Ministry of Truth",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "29",
+    "code": "RIVE-BIB",
+    "name": "Defaut location for Rivendell Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/17"
+    },
+    "is_pickup": true,
+    "pickup_name": "Rivendell Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "30",
+    "code": "MATILDA-BIB",
+    "name": "Defaut location for Matilda's Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/18"
+    },
+    "is_pickup": true,
+    "pickup_name": "Matilda's Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "31",
+    "code": "UNSEEN-BIB",
+    "name": "Defaut location for Unseen University Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/19"
+    },
+    "is_pickup": true,
+    "pickup_name": "Unseen University Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "32",
+    "code": "WAN-BIB",
+    "name": "Defaut location for Wan Shi Tong's Library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/20"
+    },
+    "is_pickup": true,
+    "pickup_name": "Wan Shi Tong's Library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "33",
+    "code": "BUFFY-BIB",
+    "name": "Defaut location for Sunnydale High School library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/21"
+    },
+    "is_pickup": true,
+    "pickup_name": "Sunnydale High School library",
+    "is_online": false
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "pid": "34",
+    "code": "JEDI-BIB",
+    "name": "Defaut location for Jedi Archives",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/6"
     },
     "is_pickup": true,
-    "pickup_name": "Biblioth\u00e8que cantonale"
+    "pickup_name": "Jedi Archives",
+    "is_online": false
   }
 ]

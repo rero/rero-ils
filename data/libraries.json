@@ -538,10 +538,10 @@
   {
     "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "6",
-    "address": "Route du Conseil, Village f\u00e9d\u00e9ral",
-    "code": "CANT1",
-    "email": "reroilstest+cantonal1@gmail.com",
-    "name": "Biblioth\u00e8que cantonale",
+    "address": "street of jedi.",
+    "code": "JEDI",
+    "email": "reroilstest+jedi@gmail.com",
+    "name": "Jedi Archives",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     },
@@ -551,48 +551,1313 @@
         "is_open": true,
         "times": [
           {
-            "start_time": "07:00",
-            "end_time": "19:00"
+            "start_time": "00:00",
+            "end_time": "23:59"
           }
         ]
       },
       {
         "day": "tuesday",
-        "is_open": false,
-        "times": []
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
       },
       {
         "day": "wednesday",
-        "is_open": false,
-        "times": []
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
       },
       {
         "day": "thursday",
         "is_open": true,
         "times": [
           {
-            "start_time": "07:00",
-            "end_time": "19:00"
+            "start_time": "00:00",
+            "end_time": "23:59"
           }
         ]
       },
       {
         "day": "friday",
-        "is_open": false,
-        "times": []
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
       },
       {
         "day": "saturday",
-        "is_open": false,
-        "times": []
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
       },
       {
         "day": "sunday",
         "is_open": true,
         "times": [
           {
-            "start_time": "14:00",
-            "end_time": "18:00"
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "7",
+    "address": "street of citadelle.",
+    "code": "CITADELLE",
+    "email": "reroilstest+citadelle@gmail.com",
+    "name": "La Citadelle",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "8",
+    "address": "street of beast.",
+    "code": "BEAST",
+    "email": "reroilstest+beast@gmail.com",
+    "name": "Beast's Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "9",
+    "address": "street of dream.",
+    "code": "DREAM",
+    "email": "reroilstest+dream@gmail.com",
+    "name": "Dream's Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "10",
+    "address": "street of who.",
+    "code": "WHO",
+    "email": "reroilstest+who@gmail.com",
+    "name": "Lux Foundation Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "11",
+    "address": "street of hog.",
+    "code": "HOG",
+    "email": "reroilstest+hog@gmail.com",
+    "name": "Hogwarts Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "12",
+    "address": "street of babel.",
+    "code": "BABEL",
+    "email": "reroilstest+babel@gmail.com",
+    "name": "Biblioth\u00e8que de Babel",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "13",
+    "address": "street of rose.",
+    "code": "ROSE",
+    "email": "reroilstest+rose@gmail.com",
+    "name": "Biblioth\u00e8que de l\u2019abbaye",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "14",
+    "address": "street of uni.",
+    "code": "UNI",
+    "email": "reroilstest+uni@gmail.com",
+    "name": "The University's Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "15",
+    "address": "street of cemetery.",
+    "code": "CEMETERY",
+    "email": "reroilstest+cemetery@gmail.com",
+    "name": "Cemetery of Forgotten Books",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "16",
+    "address": "street of truth.",
+    "code": "TRUTH",
+    "email": "reroilstest+truth@gmail.com",
+    "name": "Ministry of Truth",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "17",
+    "address": "street of rive.",
+    "code": "RIVE",
+    "email": "reroilstest+rive@gmail.com",
+    "name": "Rivendell Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "18",
+    "address": "street of matilda.",
+    "code": "MATILDA",
+    "email": "reroilstest+matilda@gmail.com",
+    "name": "Matilda's Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "19",
+    "address": "street of unseen.",
+    "code": "UNSEEN",
+    "email": "reroilstest+unseen@gmail.com",
+    "name": "Unseen University Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "20",
+    "address": "street of wan.",
+    "code": "WAN",
+    "email": "reroilstest+wan@gmail.com",
+    "name": "Wan Shi Tong's Library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "pid": "21",
+    "address": "street of buffy.",
+    "code": "BUFFY",
+    "email": "reroilstest+buffy@gmail.com",
+    "name": "Sunnydale High School library",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    },
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
+          }
+        ]
+      },
+      {
+        "day": "sunday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "00:00",
+            "end_time": "23:59"
           }
         ]
       }

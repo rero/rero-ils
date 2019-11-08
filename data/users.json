@@ -299,21 +299,645 @@
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
-    "birth_date": "1972-10-12",
-    "city": "Village f\u00e9d\u00e9ral",
-    "email": "reroilstest+guillaume@gmail.com",
-    "first_name": "Guillaume",
+    "birth_date": "1900-01-01",
+    "city": "Imagination",
+    "email": "reroilstest+imagination@gmail.com",
+    "first_name": "Imagination",
     "roles": [
       "system_librarian",
       "librarian"
     ],
-    "last_name": "Tell",
+    "last_name": "Fictive",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/6"
     },
-    "password": "cantonale",
+    "password": "123456",
     "phone": "+765554433",
     "postal_code": "7878",
-    "street": "Sentier des Waldst\u00e4tten"
+    "street": "Imagination Street 48"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1956-01-30",
+    "city": "no indication",
+    "email": "jocasta@example.org",
+    "first_name": "Jocasta",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Nu",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/6"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1959-02-27",
+    "city": "no indication",
+    "email": "urrigon@example.org",
+    "first_name": "Urrigon",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Hightower",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/7"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1962-03-24",
+    "city": "no indication",
+    "email": "thebeast@example.org",
+    "first_name": "The",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Beast",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/8"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1965-04-21",
+    "city": "no indication",
+    "email": "dream@example.org",
+    "first_name": "No first name",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Dream",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/9"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1971-05-18",
+    "city": "no indication",
+    "email": "felman@example.org",
+    "first_name": "Felman",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Lux",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/10"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1974-06-15",
+    "city": "no indication",
+    "email": "irma@example.org",
+    "first_name": "Irma",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Pince",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/11"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1977-07-12",
+    "city": "no indication",
+    "email": "jorge@example.org",
+    "first_name": "Jorge Luis",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Borges",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/12"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1980-08-09",
+    "city": "no indication",
+    "email": "malachie@example.org",
+    "first_name": "Malachie",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "de Hildesheim",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/13"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1983-09-06",
+    "city": "no indication",
+    "email": "lorren@example.org",
+    "first_name": "Master",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Lorren",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/14"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1987-10-03",
+    "city": "no indication",
+    "email": "fermin@example.org",
+    "first_name": "Fermin Romero",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "de Torres",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/15"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1990-11-01",
+    "city": "no indication",
+    "email": "winston@example.org",
+    "first_name": "Winston",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Smith",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/16"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "2005-12-29",
+    "city": "no indication",
+    "email": "elrond@example.org",
+    "first_name": "Elrond",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Half-elven",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/17"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1999-01-09",
+    "city": "no indication",
+    "email": "phelps@example.org",
+    "first_name": "Mrs.",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Phelps",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/18"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1800-01-01",
+    "city": "no indication",
+    "email": "thelibrarian@example.org",
+    "first_name": "The",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Librarian",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/19"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1925-07-31",
+    "city": "no indication",
+    "email": "wang@example.org",
+    "first_name": "Wang",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Shi Tong",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/20"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "birth_date": "1974-08-24",
+    "city": "no indication",
+    "email": "rupert@example.org",
+    "first_name": "Rupert",
+    "roles": [
+      "librarian"
+    ],
+    "last_name": "Giles",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/21"
+    },
+    "password": "123456",
+    "phone": "+765554433",
+    "postal_code": "no indication",
+    "street": "no indication"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920001",
+    "birth_date": "1941-01-31",
+    "city": "Pregny-Chamb\u00e9sy",
+    "email": "reroilstest+920001@gmail.com",
+    "first_name": "Catherine",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Rh\u00e9aume",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41316126321",
+    "postal_code": "1292",
+    "street": "Faubourg du Lac 6",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920002",
+    "birth_date": "1945-02-28",
+    "city": "Franex",
+    "email": "reroilstest+920002@gmail.com",
+    "first_name": "Ana\u00efs",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Rocher",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41913843044",
+    "postal_code": "1489",
+    "street": "Rue du Tr\u00e9sor 9",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920003",
+    "birth_date": "1950-03-27",
+    "city": "Fregi\u00e9court",
+    "email": "reroilstest+920003@gmail.com",
+    "first_name": "Roger",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Chalifour",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41628609930",
+    "postal_code": "2953",
+    "street": "Rue de l'Industrie 46",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920004",
+    "birth_date": "1955-04-25",
+    "city": "Neuch\u00e2tel",
+    "email": "reroilstest+920004@gmail.com",
+    "first_name": "Jeanne",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Lamarre",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41613956062",
+    "postal_code": "2000",
+    "street": "Avenue Max-Huber 2",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920005",
+    "birth_date": "1960-05-23",
+    "city": "Sierre",
+    "email": "reroilstest+920005@gmail.com",
+    "first_name": "Martin",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Boileau",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41815333591",
+    "postal_code": "3960",
+    "street": "Rue de Montsalvens 3",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920006",
+    "birth_date": "1965-06-21",
+    "city": "Bulle",
+    "email": "reroilstest+920006@gmail.com",
+    "first_name": "Arienne",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Doiron",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41316126321",
+    "postal_code": "1630",
+    "street": "Rue du Vieux-Pont 3",
+    "communication_channel": "email",
+    "communication_language": "fre"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920007",
+    "birth_date": "1970-07-19",
+    "city": "Unterrindal",
+    "email": "reroilstest+920007@gmail.com",
+    "first_name": "Thomas",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Beich",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41562747247",
+    "postal_code": "9604",
+    "street": "Seefeldstrasse 37",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920008",
+    "birth_date": "1975-08-17",
+    "city": "Kempten",
+    "email": "reroilstest+920008@gmail.com",
+    "first_name": "Sophie",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Fischer",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41449166744",
+    "postal_code": "8620",
+    "street": "In Stierwisen 98",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920009",
+    "birth_date": "1980-09-15",
+    "city": "Mettmenhasli",
+    "email": "reroilstest+920009@gmail.com",
+    "first_name": "Anke",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Freeh",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41523734083",
+    "postal_code": "8155",
+    "street": "Im Wingert 117",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920010",
+    "birth_date": "1985-10-13",
+    "city": "Lenggenwil",
+    "email": "reroilstest+920010@gmail.com",
+    "first_name": "Thomas",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Schuhmacher",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41318033434",
+    "postal_code": "9525",
+    "street": "Werkstrasse 136",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920011",
+    "birth_date": "1990-11-09",
+    "city": "Thun",
+    "email": "reroilstest+920011@gmail.com",
+    "first_name": "Torsten",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Trommler",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41278023434",
+    "postal_code": "3605",
+    "street": "L\u00fctzelfl\u00fchstrasse 120",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920012",
+    "birth_date": "1995-12-07",
+    "city": "Brunnwil",
+    "email": "reroilstest+920012@gmail.com",
+    "first_name": "Patrick",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Ziegler",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41222747247",
+    "postal_code": "5637",
+    "street": "\u00dcerklisweg 55",
+    "communication_channel": "email",
+    "communication_language": "ger"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920013",
+    "birth_date": "2000-01-05",
+    "city": "Cevio",
+    "email": "reroilstest+920013@gmail.com",
+    "first_name": "Eberardo",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Marcelo",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41322747447",
+    "postal_code": "6675",
+    "street": "Via Verbano 109",
+    "communication_channel": "email",
+    "communication_language": "ita"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920014",
+    "birth_date": "2005-02-03",
+    "city": "Tenna",
+    "email": "reroilstest+920014@gmail.com",
+    "first_name": "Fabiano",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Folliero",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41328619930",
+    "postal_code": "7106",
+    "street": "Quadra 93",
+    "communication_channel": "email",
+    "communication_language": "ita"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920015",
+    "birth_date": "2010-03-01",
+    "city": "Caslano",
+    "email": "reroilstest+920015@gmail.com",
+    "first_name": "Valerio",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Bellucci",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41313966062",
+    "postal_code": "6987",
+    "street": "Via Camischolas sura 63",
+    "communication_channel": "email",
+    "communication_language": "ita"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "920016",
+    "birth_date": "1993-04-02",
+    "city": "Bellinzona",
+    "email": "reroilstest+920016@gmail.com",
+    "first_name": "Renata",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "Colombo",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41274865229",
+    "postal_code": "6500",
+    "street": "Lungolago 118",
+    "communication_channel": "email",
+    "communication_language": "ita"
   }
 ]
