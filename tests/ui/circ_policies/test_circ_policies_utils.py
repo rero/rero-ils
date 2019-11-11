@@ -61,6 +61,12 @@ def test_circ_policy_search(app, circulation_policies):
             'item_type_pid': 'itty2',
             'cipo': 'cipo1'
 
+        },
+        {
+            'library_pid': 'lib4',
+            'patron_type_pid': 'ptty3',
+            'item_type_pid': 'itty4',
+            'cipo': 'cipo4'
         }
     ]
     for row in data:

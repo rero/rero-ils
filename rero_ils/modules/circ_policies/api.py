@@ -27,6 +27,7 @@ from invenio_search.api import RecordsSearch
 from .models import CircPolicyIdentifier
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
+from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
 
@@ -73,12 +74,17 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
+    @classmethod
     def get_circ_policy_by_LPI(
-            library_pid, patron_type_pid, item_type_pid):
+            cls, organisation_pid, library_pid, patron_type_pid,
+            item_type_pid):
         """Check if there is a policy for library/location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
             policy_library_level=True
+        ).filter(
+            'term',
+            organisation__pid=organisation_pid
         ).filter(
             'term',
             libraries__pid=library_pid
@@ -104,11 +110,16 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
-    def get_circ_policy_by_OPI(patron_type_pid, item_type_pid):
+    @classmethod
+    def get_circ_policy_by_OPI(
+            cls, organisation_pid, patron_type_pid, item_type_pid):
         """Check if there is a circ policy for location/item types."""
         result = CircPoliciesSearch().filter(
             'term',
             policy_library_level=False
+        ).filter(
+            'term',
+            organisation__pid=organisation_pid
         ).filter(
             'nested',
             path='settings',
@@ -131,9 +142,13 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
-    def get_default_circ_policy():
+    @classmethod
+    def get_default_circ_policy(cls, organisation_pid):
         """Return the default circ policy."""
         result = CircPoliciesSearch().filter(
+            'term',
+            organisation__pid=organisation_pid
+        ).filter(
             'term',
             is_default=True
         ).source().scan()
@@ -142,9 +157,13 @@ class CircPolicy(IlsRecord):
         except StopIteration:
             return None
 
-    def provide_circ_policy(library_pid, patron_type_pid, item_type_pid):
+    @classmethod
+    def provide_circ_policy(cls, library_pid, patron_type_pid, item_type_pid):
         """Return a circ policy for library/patron/item."""
+        organisation_pid = Library.get_record_by_pid(
+            library_pid).get_organisation().get('pid')
         LPI_policy = CircPolicy.get_circ_policy_by_LPI(
+            organisation_pid,
             library_pid,
             patron_type_pid,
             item_type_pid
@@ -152,12 +171,13 @@ class CircPolicy(IlsRecord):
         if LPI_policy:
             return LPI_policy
         PI_policy = CircPolicy.get_circ_policy_by_OPI(
+            organisation_pid,
             patron_type_pid,
             item_type_pid
         )
         if PI_policy:
             return PI_policy
-        return CircPolicy.get_default_circ_policy()
+        return CircPolicy.get_default_circ_policy(organisation_pid)
 
     def reasons_to_keep(self):
         """Reasons aside from record_links to keep a circ policy."""
