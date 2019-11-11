@@ -35,8 +35,9 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
-from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 from .dojson.contrib.unimarctojson import unimarctojson
+from .utils import localized_data_name, publication_statement_text, \
+    series_format_text
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
@@ -249,14 +250,6 @@ def patron_request_rank(item):
     return False
 
 
-def localized_data_name(data, language):
-    """Get localized name."""
-    return data.get(
-        'name_{language}'.format(language=language),
-        data.get('name', '')
-    )
-
-
 @blueprint.app_template_filter()
 def authors_format(pid, language, viewcode):
     """Format authors for template."""
@@ -308,12 +301,7 @@ def series_format(series):
     """Format series for template."""
     output = []
     for serie in series:
-        line = []
-        if serie.get('name'):
-            line.append(serie.get('name'))
-        if serie.get('number'):
-            line.append(', ' + serie.get('number'))
-        output.append(''.join(str(x) for x in line))
+        output.append(series_format_text(serie))
     return '; '.join(str(x) for x in output)
 
 
@@ -440,42 +428,4 @@ def document_availability(document_pid):
 @blueprint.app_template_filter()
 def create_publication_statement(provision_activity):
     """Create publication statement from place, agent and date values."""
-    punctuation = {
-        'bf:Place': ' ; ',
-        'bf:Agent': ', '
-    }
-
-    statement_with_language = {'default': ''}
-    statement_type = None
-
-    for statement in provision_activity['statement']:
-        labels = statement['label']
-
-        for label in labels:
-            language = label.get('language', 'default')
-
-            if not statement_with_language.get(language):
-                statement_with_language[language] = ''
-
-            if statement_with_language[language]:
-                if statement_type == statement['type']:
-                    statement_with_language[language] += punctuation[
-                        statement_type
-                    ]
-                else:
-                    if statement['type'] == 'bf:Place':
-                        statement_with_language[language] += ' ; '
-                    else:
-                        statement_with_language[language] += ' : '
-
-            statement_with_language[language] += label['value']
-        statement_type = statement['type']
-
-    # date field: remove ';' and append
-    for key, value in statement_with_language.items():
-        value = remove_trailing_punctuation(value)
-        if provision_activity.get('date'):
-            value += ', ' + provision_activity.get('date')
-        statement_with_language[key] = value
-
-    return statement_with_language
+    return publication_statement_text(provision_activity)

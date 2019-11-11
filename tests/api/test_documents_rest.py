@@ -24,6 +24,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata
 
+from rero_ils.modules.documents.utils import clean_text
 from rero_ils.modules.documents.views import can_request, \
     item_library_pickup_locations, item_status_text, number_of_requests, \
     patron_request_rank, requested_this_item
@@ -121,12 +122,12 @@ def test_documents_post_put_delete(client, document_data,
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert data['metadata'] == document_data
+    assert clean_text(data['metadata']) == document_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert document_data == data['metadata']
+    assert clean_text(data['metadata']) == document_data
 
     # Update record/PUT
     data = document_data
