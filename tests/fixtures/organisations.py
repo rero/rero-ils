@@ -666,7 +666,8 @@ def circ_policy_default_martigny_data(data):
 
 @pytest.fixture(scope="module")
 def circ_policy_default_martigny(
-        app, org_martigny, circ_policy_default_martigny_data):
+        app, org_martigny, lib_martigny, lib_saxon,
+        circ_policy_default_martigny_data):
     """Create default circ policy for organisation martigny."""
     cipo = CircPolicy.create(
         data=circ_policy_default_martigny_data,
@@ -685,7 +686,7 @@ def circ_policy_default_sion_data(data):
 
 @pytest.fixture(scope="module")
 def circ_policy_default_sion(
-        app, org_sion, circ_policy_default_sion_data):
+        app, org_sion, lib_sion, circ_policy_default_sion_data):
     """Create default circ policy for organisation sion."""
     cipo = CircPolicy.create(
         data=circ_policy_default_sion_data,

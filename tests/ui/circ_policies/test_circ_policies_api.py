@@ -30,7 +30,7 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
 
 def test_no_default_policy(app):
     """Test when no default circulation policy configured."""
-    cipo = CircPolicy.get_default_circ_policy()
+    cipo = CircPolicy.get_default_circ_policy('org1')
     assert not cipo
 
 
