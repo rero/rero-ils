@@ -15,39 +15,108 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""CircPolicy Record tests."""
+"""MEF persons Record tests."""
 
 from __future__ import absolute_import, print_function
-
-from utils import get_mapping
 
 from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch, \
     mef_person_id_fetcher
 
 
-def test_mef_person_create(db, mef_person_data_tmp):
+def test_mef_person_create(es_clear, mef_person_data_tmp):
     """Test persanisation creation."""
-    pers = MefPerson.get_record_by_pid('1')
+    pers = MefPerson.get_record_by_pid('pers1')
     assert not pers
-    pers, msg = MefPerson.create_or_update(
+    pers = MefPerson.create(
         mef_person_data_tmp,
-        dbcommit=True,
-        delete_pid=True
+        reindex=True
     )
     assert pers == mef_person_data_tmp
-    assert pers.get('pid') == '1'
+    assert pers.get('pid') == 'pers1'
 
-    pers = MefPerson.get_record_by_pid('1')
-    assert pers == mef_person_data_tmp
+    pers = MefPerson.get_record_by_pid('pers1')
+    # assert pers == mef_person_data_tmp
 
-    fetched_pid = mef_person_id_fetcher(pers.id, pers)
-    assert fetched_pid.pid_value == '1'
-    assert fetched_pid.pid_type == 'pers'
     mef_person_data_tmp['viaf_pid'] = '1234'
-    pers, msg = MefPerson.create_or_update(
+    pers = MefPerson.create(
         mef_person_data_tmp,
-        dbcommit=True,
-        delete_pid=True
+        reindex=True
     )
-    pers = MefPerson.get_record_by_pid('1')
+    pers = MefPerson.get_record_by_pid('pers1')
     assert pers.get('viaf_pid') == '1234'
+
+
+def test_mef_persons_index(mef_person, mef_person_data_tmp):
+    """Test record indexing."""
+
+    # check if mef_person is indexed
+    count = MefPersonsSearch().filter(
+        'match',
+        _id=mef_person.id
+    ).execute().hits.total
+    assert count == 1
+
+    # delete mef_person from index
+    mef_person.delete()
+
+    # try to delete a record not indexed
+    mef_person_data_tmp['pid'] = 'pers2'
+    pers = MefPerson.create(
+        mef_person_data_tmp,
+        reindex=False
+    )
+    pers.delete()
+
+    count = MefPersonsSearch().filter(
+        'match',
+        _id=mef_person.id
+    ).execute().hits.total
+    assert count == 0
+
+    # reindex mef_person
+    mef_person.reindex(
+        forceindex=True
+    )
+
+    # check if record is indexed
+    count = MefPersonsSearch().filter(
+        'match',
+        _id=mef_person.id
+    ).execute().hits.total
+    assert count == 1
+
+
+def test_mef_person_linked_document(mef_person, document_ref):
+    """Test mef person linked documents."""
+    count = mef_person.get_number_of_linked_documents()
+
+    assert count == 1
+
+    documents = mef_person.get_linked_documents()
+    assert document_ref.pid == next(documents).pid
+
+    pids = mef_person.get_linked_documents_pid()
+    assert len(pids) == 1
+
+
+def test_mef_person_linked_document_filtered(document_ref,
+                                             mef_person,
+                                             org_martigny,
+                                             item_lib_sion_mef,
+                                             mef_person_response_data):
+    """Test mef person linked documents filtered by organisation."""
+    org_pid = org_martigny.pid
+    count = mef_person.get_number_of_linked_documents(org_pid)
+    assert count == 0
+
+    pids = mef_person.get_linked_documents_pid(org_pid)
+    assert len(pids) == 0
+
+    organisation = item_lib_sion_mef.get_organisation()
+    org_pid = organisation.pid
+    count = mef_person.get_number_of_linked_documents(org_pid)
+    assert count == 1
+
+    documents = mef_person.get_linked_documents(org_pid)
+    document = next(documents)
+    assert document_ref.pid == document.pid

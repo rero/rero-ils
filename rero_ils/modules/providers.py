@@ -75,3 +75,47 @@ class Provider(BaseProvider):
             return super(Provider, cls).create(
                 object_type=object_type, object_uuid=object_uuid, **kwargs
             )
+
+
+class ElasticsearchProvider(object):
+    """Elasticsearch identifier provider.
+
+    'identifier' and 'pid_type' must be set as following example
+    MefPersonProvider = type(
+        'MefPersonProvider',
+        (ElasticsearchProvider,),
+        dict(identifier=ElasticsearchIdentifier, pid_type='pers')
+    )
+    """
+
+    identifier = None
+
+    pid_type = None
+    """Type of persistent identifier."""
+
+    pid_provider = None
+    """Provider name.
+    The provider name is not recorded in the PID since the provider does not
+    provide any additional features besides creation of elasticsearch ids.
+    """
+
+    default_status = PIDStatus.REGISTERED
+    """Default status for newly created PIDs by this provider."""
+
+    def __init__(self, pid):
+        """Initialize provider using persistent identifier.
+
+        :param pid: A :class:`rero_ils.models.ElasticsearchIdentifier`
+            instance.
+        """
+        self.pid = pid
+        assert pid.pid_provider == self.pid_provider
+
+    @classmethod
+    def create(cls, object_type=None, object_uuid=None, **kwargs):
+        """Create a new identifier."""
+        pid_value = kwargs.get('pid_value')
+        return cls(pid_type=pid_type,
+                   pid_value=pid_value,
+                   pid_provider=pid_provider,
+                   status=default_status)

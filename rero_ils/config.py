@@ -652,7 +652,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/persons/',
         record_class='rero_ils.modules.mef_persons.api:MefPerson',
-        item_route='/persons/<pid(pers, record_class="rero_ils.modules.mef_persons.api:MefPerson"):pid_value>',
+        item_route='/persons/<espid(pers, record_class="rero_ils.modules.mef_persons.api:MefPerson"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:search_factory',

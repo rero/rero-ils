@@ -17,7 +17,9 @@
 
 """API for manipulating records."""
 
+from builtins import classmethod
 from copy import deepcopy
+from datetime import datetime
 from uuid import uuid4
 
 import pytz
@@ -34,8 +36,13 @@ from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from sqlalchemy.orm.exc import NoResultFound
+from werkzeug.local import LocalProxy
 
 from .errors import RecordValidationError
+from .models import ElasticsearchIdentifier
+
+_elasticsearchrecords_state = LocalProxy(
+    lambda: current_app.extensions['invenio-records'])
 
 
 class IlsRecordError:
@@ -393,3 +400,124 @@ class IlsRecord(Record):
         if self.get('organisation'):
             return self.replace_refs()['organisation']['pid']
         return None
+
+
+class ElasticsearchRecord(dict):
+    """Elasticsearch Record class."""
+
+    version_id = 1
+    provider = None
+    searcher = None
+    indexer = IlsRecordIndexer
+
+    def __init__(self, data):
+        """Initialize instance with dictionary data.
+
+        :param data: Dict with record metadata.
+        """
+        super(ElasticsearchRecord, self).__init__(data or {})
+        now = datetime.now()
+        self._created = self._updated = now
+
+    @property
+    def pid(self):
+        """Get identifier."""
+        return self.get('pid') if self.get('pid') else None
+
+    @property
+    def id(self):
+        """Get identifier."""
+        return self.get('pid') if self.get('pid') else None
+
+    @property
+    def revision_id(self):
+        """Get revision identifier."""
+        return self.version_id
+
+    @property
+    def created(self):
+        """Get creation timestamp."""
+        return self._created
+
+    @property
+    def updated(self):
+        """Get last updated timestamp."""
+        return self._updated
+
+    @property
+    def persistent_identifier(self):
+        """Get Persistent Identifier."""
+        return self.get_persistent_identifier(self.id)
+
+    def reasons_not_to_delete(self):
+        """Elasticsearch record deletion reasons."""
+        return {}
+
+    @property
+    def can_delete(self):
+        """Elasticsearch record can be deleted."""
+        return len(self.reasons_not_to_delete()) == 0
+
+    @classmethod
+    def create(cls, data, reindex=False):
+        """Create Elasticsearch record instance."""
+        record = cls(data)
+        if reindex:
+            record.reindex(forceindex=False)
+        return record
+
+    @classmethod
+    def get_persistent_identifier(cls, id):
+        """Get Persistent Identifier."""
+        assert cls.provider
+
+        return ElasticsearchIdentifier.create(
+            id,
+            cls.provider.pid_type
+        )
+
+    @classmethod
+    def get_record_by_pid(cls, pid):
+        """Get elasticsearch record by pid value."""
+        try:
+            return cls.get_record(
+                pid
+            )
+        except NotFoundError:
+            return None
+
+    @classmethod
+    def get_record(cls, pid):
+        """Get ElasticsearchRecord by pid value."""
+        assert cls.searcher
+
+        results = cls.searcher().get_record(pid).execute().hits
+        if not results.hits:
+            raise NotFoundError
+        record = results.hits[0]['_source']
+        return cls.create(record)
+
+    def delete(self):
+        """Delete record from index."""
+        try:
+            result = self.indexer(version_type="external_gte").delete(self)
+            self.version_id = result.get('_version')
+        except NotFoundError:
+            pass
+
+    def reindex(self, forceindex=False):
+        """Reindex record."""
+        if forceindex:
+            result = self.indexer(version_type="external_gte").index(self)
+        else:
+            result = self.indexer().index(self)
+
+        self.version_id = result.get('_version')
+
+    def replace_refs(self):
+        """Replace the ``$ref`` keys within the JSON."""
+        return _elasticsearchrecords_state.replace_refs(self)
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        return deepcopy(dict(self))

@@ -21,17 +21,18 @@ from functools import partial
 
 from invenio_search.api import RecordsSearch
 
-from .models import MefPersonIdentifier
-from ..api import IlsRecord
+from ..api import ElasticsearchRecord
+from ..documents.api import Document, DocumentsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from ..providers import Provider
+from ..models import ElasticsearchIdentifier
+from ..providers import ElasticsearchProvider
 
 # provider
 MefPersonProvider = type(
     'MefPersonProvider',
-    (Provider,),
-    dict(identifier=MefPersonIdentifier, pid_type='pers')
+    (ElasticsearchProvider,),
+    dict(identifier=ElasticsearchIdentifier, pid_type='pers')
 )
 # minter
 mef_person_id_minter = partial(id_minter, provider=MefPersonProvider)
@@ -48,34 +49,34 @@ class MefPersonsSearch(RecordsSearch):
         index = 'persons'
 
 
-class MefPerson(IlsRecord):
+class MefPerson(ElasticsearchRecord):
     """MefPerson class."""
 
     minter = mef_person_id_minter
     fetcher = mef_person_id_fetcher
     provider = MefPersonProvider
+    searcher = MefPersonsSearch
 
-    @classmethod
-    def create_or_update(
-        cls,
-        data,
-        id_=None,
-        dbcommit=False,
-        reindex=False,
-        delete_pid=False,
-        **kwargs
-    ):
-        """Create or update mef person record."""
-        pid = data.get('pid')
-        record = cls.get_record_by_pid(pid, with_deleted=False)
-        if record:
-            record.update(data, dbcommit=dbcommit, reindex=reindex)
-            return record, 'updated'
-        else:
-            created_record = cls.create(
-                data,
-                delete_pid=delete_pid,
-                dbcommit=dbcommit,
-                reindex=reindex,
+    def get_number_of_linked_documents(self, org_pid=None):
+        """Get number of linked documents for person."""
+        return len(self.get_linked_documents_pid(org_pid))
+
+    def get_linked_documents(self, org_pid=None):
+        """Get linked documents."""
+        for document_pid in self.get_linked_documents_pid(org_pid):
+            document = Document.get_record_by_pid(document_pid)
+            yield document
+
+    def get_linked_documents_pid(self, org_pid=None):
+        """Get linked documents by pid."""
+        search = DocumentsSearch()
+        search = search.filter(
+                'term',
+                authors__pid=self.pid
             )
-            return created_record, 'created'
+        if org_pid:
+            search = search.filter(
+                'term', holdings__organisation__organisation_pid=org_pid
+            )
+
+        return [result.pid for result in search.scan()]

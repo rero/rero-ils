@@ -18,11 +18,11 @@
       "minLength": 9
     },
     "pid": {
-      "title": "Library ID",
+      "title": "Person ID",
       "type": "string"
     },
     "id": {
-      "title": "Library ID",
+      "title": "MEF ID",
       "type": "string"
     },
     "viaf_pid": {

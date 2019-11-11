@@ -106,6 +106,12 @@ setup(
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
             'fees = rero_ils.modules.fees.api_views:api_blueprint',
         ],
+        'invenio_base.api_converters': [
+            'espid = rero_ils.utils:ElasticsearchPIDConverter',
+        ],
+        'invenio_base.converters': [
+            'espid = rero_ils.utils:ElasticsearchPIDConverter',
+        ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
         ],
@@ -155,7 +161,7 @@ setup(
             'head = rero_ils.dojson.cli:head',
         ],
         'dojson.cli.dump': [
-            'pjson = rero_ils.dojson.cli:pretty_json_dump'
+            'pjson = rero_ils.dojson.cli:pretty_json_dump',
         ],
         'dojson.cli.rule': [
             'marc21tojson = rero_ils.modules.documents.dojson'
@@ -182,7 +188,6 @@ setup(
             'patrons = rero_ils.modules.patrons.models',
             'patron_types = rero_ils.modules.patron_types.models',
             'transactions = rero_ils.modules.transactions.models',
-            'mef = rero_ils.modules.mef_persons.models',
             'apiharvester = rero_ils.modules.apiharvester.models',
             'circ_policies = rero_ils.modules.circ_policies.models',
             'notifications = rero_ils.modules.notifications.models',
@@ -277,7 +282,6 @@ setup(
         ],
         'invenio_celery.tasks': [
             'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
-            'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
             'rero_ils_notifications = rero_ils.modules.notifications.tasks',
         ],
         'invenio_records.jsonresolver': [

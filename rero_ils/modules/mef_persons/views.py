@@ -25,7 +25,7 @@ from flask import Blueprint, Response, abort, current_app, render_template, \
 
 from rero_ils.modules.organisations.api import Organisation
 
-from ..documents.api import DocumentsSearch
+from ..mef_persons.api import MefPerson
 
 # from invenio_records_ui.signals import record_viewed
 
@@ -47,38 +47,17 @@ def persons_detailed_view(viewcode, pid):
     """
     # record_viewed.send(
     #     current_app._get_current_object(), pid=pid, record=record)
-    mef_url = '{url}{pid}'.format(
-        url=current_app.config.get('RERO_ILS_MEF_URL'),
-        pid=pid
-    )
-    response = requests.get(url=mef_url, params=dict(
-        resolve=1,
-        sources=1
-    ))
-    if response.status_code != requests.codes.ok:
-        current_app.logger.info(
-            'Mef Error: {status} {url}'.format(
-                status=response.status_code,
-                url=mef_url
-            )
-        )
-        abort(response.status_code)
-    record = response.json()
-    record = record.get('metadata')
-    search = DocumentsSearch()
-    search = search.filter(
-            'term',
-            authors__pid=pid
-        )
+
     if (viewcode != current_app.config.get(
         'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
     )):
         org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-        search = search.filter(
-            'term', holdings__organisation__organisation_pid=org_pid
-        )
-    for result in search.execute().hits.hits:
-        record.setdefault('documents', []).append(result.get('_source'))
+    else:
+        org_pid = None
+
+    record = MefPerson.get_record_by_pid(pid)
+    record.setdefault('documents', record.get_linked_documents(org_pid))
+
     return render_template(
         'rero_ils/detailed_view_persons.html',
         record=record,

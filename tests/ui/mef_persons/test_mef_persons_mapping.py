@@ -66,8 +66,6 @@ def test_mef_person_es_mapping(es_clear, db, mef_person_data_tmp):
     assert mapping
     MefPerson.create(
         mef_person_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        reindex=True
     )
     assert mapping == get_mapping(search.Meta.index)

@@ -15,20 +15,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests REST API mef_persons."""
+"""Tests REST API MEF persons."""
 
 # import json
 # from utils import get_json, to_relative_url
-
 from flask import url_for
 from utils import get_json, postdata, to_relative_url
 
 
 def test_mef_persons_permissions(client, mef_person, json_header):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
+    pers_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
 
-    res = client.get(item_url)
+    res = client.get(pers_url)
     assert res.status_code == 200
 
     res, _ = postdata(
@@ -44,22 +43,19 @@ def test_mef_persons_permissions(client, mef_person, json_header):
         headers=json_header
     )
 
-    res = client.delete(item_url)
+    res = client.delete(pers_url)
     assert res.status_code == 401
 
 
 def test_mef_persons_get(client, mef_person):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
 
-    res = client.get(item_url)
+    pers_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
+    res = client.get(pers_url)
+
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(mef_person.revision_id)
-
     data = get_json(res)
-    assert mef_person.dumps() == data['metadata']
-
     # Check metadata
     for k in ['created', 'updated', 'metadata', 'links']:
         assert k in data
@@ -67,8 +63,6 @@ def test_mef_persons_get(client, mef_person):
     # Check self links
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
-    assert data == get_json(res)
-    assert mef_person.dumps() == data['metadata']
 
     list_url = url_for('invenio_records_rest.pers_list', pid='pers1')
     res = client.get(list_url)

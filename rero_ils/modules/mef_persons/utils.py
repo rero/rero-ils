@@ -15,22 +15,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Define relation between records and buckets."""
+"""Utilities for mef persons."""
 
-from __future__ import absolute_import
+from flask import current_app
+from requests import codes as requests_codes
+from requests import get as requests_get
 
-from invenio_db import db
-from invenio_pidstore.models import RecordIdentifier
 
+def resolve_mef(mef_uri):
+    """Resolve mef reference.
 
-class MefPersonIdentifier(RecordIdentifier):
-    """Sequence generator for Document identifiers."""
-
-    __tablename__ = 'mef_person_id'
-    __mapper_args__ = {'concrete': True}
-
-    recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True,
-        autoincrement=True,
+    :param mef_uri : uri to resolve
+    :return data from MEF
+    """
+    mef_uri.replace(
+        'mef.rero.ch',
+        current_app.config['RERO_ILS_MEF_HOST']
     )
+    r = requests_get(
+        url=mef_uri,
+        params={
+            'resolve': 1,
+            'sources': 1
+        })
+
+    if r.status_code == requests_codes.ok:
+        data = r.json()
+        return data if data.get('id') else None

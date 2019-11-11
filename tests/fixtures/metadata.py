@@ -163,8 +163,6 @@ def mef_person(app, mef_person_data):
     """Create mef person record."""
     pers = MefPerson.create(
         data=mef_person_data,
-        delete_pid=False,
-        dbcommit=True,
         reindex=True)
     flush_index(MefPersonsSearch.Meta.index)
     return pers
@@ -365,6 +363,39 @@ def item2_lib_sion(
     return item
 
 
+@pytest.fixture(scope="module")
+def item_lib_sion_mef_data(data):
+    """Load item of sion library."""
+    return deepcopy(data.get('item7'))
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.documents.listener.requests_get')
+@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
+def item_lib_sion_mef(
+        mock_resolver_get,
+        mock_listener_get,
+        mef_person_response_data,
+        app,
+        document_ref,
+        item_lib_sion_mef_data,
+        loc_public_sion,
+        item_type_regular_sion):
+    """Create item of sion library."""
+    mock_resolver_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    mock_listener_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    item = Item.create(
+        data=item_lib_sion_mef_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
 # --------- Holdings records -----------
 
 
@@ -441,6 +472,40 @@ def holding_lib_sion_data(data):
 def holding_lib_sion(app, document, holding_lib_sion_data,
                      loc_public_sion, item_type_internal_sion):
     """Create holding of sion library."""
+    holding = Holding.create(
+        data=holding_lib_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+
+@pytest.fixture(scope="module")
+def holding_lib_sion_mef_data(data):
+    """Load holding of sion library."""
+    return deepcopy(data.get('holding5'))
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.documents.listener.requests_get')
+@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
+def holding_lib_sion_mef(mock_resolver_get,
+                         mock_listener_get,
+                         mef_person_response_data,
+                         app,
+                         document_ref,
+                         holding_lib_sion_mef_data,
+                         item_lib_sion_mef,
+                         loc_public_sion,
+                         item_type_regular_sion):
+    """Create holding of sion library."""
+    mock_resolver_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
+    mock_listener_get.return_value = mock_response(
+        json_data=mef_person_response_data
+    )
     holding = Holding.create(
         data=holding_lib_sion_data,
         delete_pid=False,
