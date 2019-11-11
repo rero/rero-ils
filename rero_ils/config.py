@@ -794,41 +794,43 @@ RERO_ILS_APP_CONFIG_FACETS = {
 }
 
 # Default number of results in facet
-RERO_ILS_DEFAULT_AGGREGATION_SIZE = 50
+RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 
 # Number of aggregation by index name
 RERO_ILS_AGGREGATION_SIZE = {
     'documents': 50
 }
 
+DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get(
+    'documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 RECORDS_REST_FACETS = dict(
     documents=dict(
         aggs=dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type')
+                terms=dict(field='type', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__en=dict(
-                terms=dict(field='facet_authors_en')
+                terms=dict(field='facet_authors_en', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__fr=dict(
-                terms=dict(field='facet_authors_fr')
+                terms=dict(field='facet_authors_fr', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__de=dict(
-                terms=dict(field='facet_authors_de')
+                terms=dict(field='facet_authors_de', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__it=dict(
-                terms=dict(field='facet_authors_it')
+                terms=dict(field='facet_authors_it', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             language=dict(
-                terms=dict(field='language.value')
+                terms=dict(field='language.value', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             subject=dict(
-                terms=dict(field='facet_subjects')
+                terms=dict(field='facet_subjects', size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             status=dict(
-                terms=dict(field='holdings.items.status')
+                terms=dict(field='holdings.items.status', size=DOCUMENTS_AGGREGATION_SIZE)
             )
         ),
         filters={
@@ -848,7 +850,15 @@ RECORDS_REST_FACETS = dict(
     ),
     patrons=dict(
         aggs=dict(
-            roles=dict(terms=dict(field='roles'))
+            roles=dict(
+                terms=dict(
+                    field='roles',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'patrons', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
         ),
         filters={
             _('roles'): terms_filter('roles')
@@ -856,7 +866,15 @@ RECORDS_REST_FACETS = dict(
     ),
     persons=dict(
         aggs=dict(
-            sources=dict(terms=dict(field='sources'))
+            sources=dict(
+                terms=dict(
+                    field='sources',
+                    # This does not take into account
+                    # env variable or instance config file
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'persons', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
         ),
         filters={
             _('sources'): terms_filter('sources')
