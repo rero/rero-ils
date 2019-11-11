@@ -178,8 +178,8 @@ def add_loans_parameters_and_flush_indexes(function):
         kwargs['item_pid'] = item.pid
         kwargs['patron_pid'] = loan.get('patron_pid')
         kwargs['pid'] = loan.pid
-        kwargs.setdefault(
-            'transaction_date', datetime.now(timezone.utc).isoformat())
+        # TODO: case when user want to have his own transaction date
+        kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
         if not kwargs.get('transaction_user_pid'):
             kwargs.setdefault(
                 'transaction_user_pid', current_patron.pid)
@@ -761,14 +761,14 @@ class Item(IlsRecord):
             current_loan, **dict(kwargs, trigger='checkin')
         )
         actions = {LoanAction.CHECKIN: loan}
+        # if item is requested we will automatically:
+        # - cancel the checked-in loan if still active
+        # - validate the next request
         requests = self.number_of_requests()
         if requests:
             request = next(self.get_requests())
-            requested_loan = Loan.get_record_by_pid(request.get('pid'))
-            pickup_location_pid = requested_loan.get('pickup_location_pid')
-            if self.last_location_pid == pickup_location_pid:
-                if loan.is_active:
-                    item, cancel_action = self.cancel_loan(pid=loan.pid)
+            if loan.is_active:
+                item, cancel_action = self.cancel_loan(pid=loan.pid)
             item, validate_action = self.validate_request(**request)
         return self, actions
 
