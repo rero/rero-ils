@@ -121,7 +121,7 @@ def test_unimarctotitle():
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
         <subfield code="e">subtitle</subfield>
-        <subfield code="f">responsability</subfield>
+        <subfield code="f">responsibility</subfield>
       </datafield>
     </record>
     """
@@ -133,7 +133,7 @@ def test_unimarctotitle():
     <record>
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
-        <subfield code="f">responsability</subfield>
+        <subfield code="f">responsibility</subfield>
       </datafield>
     </record>
     """
@@ -305,6 +305,36 @@ def test_unimarctoauthors():
             'name': 'BNF',
             'type': 'organisation'
         }
+    ]
+
+
+def test_unimarc_edition():
+    """Test dojson edition statement.
+    - 1 edition designation and 1 responsibility from field 205
+    """
+    unimarcxml = """
+    <record>
+      <datafield tag="205" ind1=" " ind2=" ">
+        <subfield code="a">2e ed.</subfield>
+        <subfield code="f">avec un avant-propos par Jean Faret</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('editionStatement') == [
+      {
+        'editionDesignation': [
+          {
+            'value': '2e ed.'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'avec un avant-propos par Jean Faret'
+          }
+        ]
+      }
     ]
 
 

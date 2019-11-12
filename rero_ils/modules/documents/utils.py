@@ -97,3 +97,31 @@ def series_format_text(serie):
     if serie.get('number'):
         output.append(', ' + serie.get('number'))
     return ''.join(str(x) for x in output)
+
+
+def edition_format_text(edition):
+    """Format edition for _text."""
+    edition_with_language = {'default': ''}
+    designations = edition.get('editionDesignation', [])
+    responsibilities = edition.get('responsibility', [])
+    designation_output = {}
+    for designation in designations:
+        language = designation.get('language', 'default')
+        value = designation.get('value', '')
+        designation_output[language] = value
+    responsibility_output = {}
+    for responsibility in responsibilities:
+        language = responsibility.get('language', 'default')
+        value = responsibility.get('value', '')
+        responsibility_output[language] = value
+
+    for key, value in designation_output.items():
+        output_value = remove_trailing_punctuation(
+            '{designation} / {responsibility}'.format(
+                designation=value,
+                responsibility=responsibility_output.get(key, ''),
+            )
+        )
+        edition_with_language[key] = output_value
+
+    return edition_with_language

@@ -22,7 +22,7 @@ import re
 from dojson import utils
 from isbnlib import EAN13
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, get_field_items, \
     remove_trailing_punctuation
 
 marc21 = ReroIlsMarc21Overdo()
@@ -169,12 +169,32 @@ def marc21_to_title(self, key, value):
     """
     main_title = remove_trailing_punctuation(value.get('a'))
     sub_title = value.get('b')
-    # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
             utils.force_list(remove_trailing_punctuation(sub_title))
         )
     return main_title
+
+
+@marc21.over('editionStatement', '^250..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_edition_statement(self, key, value):
+    """Get edition statement data.
+
+    editionDesignation: 250 [$a non repetitive] (without trailing ponctuation)
+    responsibility: 250 [$b non repetitive]
+    """
+    edition_data = {}
+    subfields_a = utils.force_list(value.get('a'))
+    if subfields_a:
+        subfield_a = remove_trailing_punctuation(subfields_a[0])
+        edition_data['editionDesignation'] = [{'value': subfield_a}]
+    subfields_b = utils.force_list(value.get('b'))
+    if subfields_b:
+        subfields_b = subfields_b[0]
+        edition_data['responsibility'] = [{'value': subfields_b}]
+    return edition_data or None
 
 
 @marc21.over('copyrightDate', '^264.4')
@@ -226,10 +246,7 @@ def marc21_to_provision_activity(self, key, value):
 
         # function build_statement start here
         statement = []
-        if isinstance(field_value, utils.GroupableOrderedDict):
-            items = field_value.iteritems(repeated=True)
-        else:
-            items = utils.iteritems(field_value)
+        items = get_field_items(field_value)
         add_country = ind2 in (' ', '1')
         for blob_key, blob_value in items:
             if blob_key in ('a', 'b'):

@@ -160,6 +160,33 @@ def test_copyrightDate(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
+def test_edition_statement(document_schema, document_data_tmp):
+    """Test edition statement for jsonschemas."""
+    document_data_tmp['editionStatement'] = [{
+        'editionDesignation': [{
+            'value': 'Di 3 ban'
+        }, {
+            'value': '第3版',
+            'language': 'chi-hani'
+        }],
+        'responsibility': [{
+            'value': 'Zeng Lingliang zhu bian'
+        }, {
+            'value': '曾令良主编',
+            'language': 'chi-hani'
+        }]
+    }]
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['editionStatement'] = [{'bad_key': 'bad_value'}]
+        validate(document_data_tmp, document_schema)
+    with pytest.raises(ValidationError):
+        document_data_tmp['editionStatement'] = 'string is a bad type'
+        validate(document_data_tmp, document_schema)
+
+
 def test_provisionActivity(document_schema, document_data_tmp):
     """Test publishers for jsonschemas."""
     document_data_tmp['provisionActivity'] = [{

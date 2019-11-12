@@ -34,6 +34,8 @@ include scripts/update
 prune docs/_build
 recursive-include rero_ils *.po *.pot *.mo
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+exclude rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+exclude rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
 
 # added by check_manifest.py
 include *.base

@@ -35,6 +35,17 @@ def error_print(*args):
     sys.stderr.flush()
 
 
+def make_year(date):
+    """Test if string is integer and between -9999 to 9999."""
+    try:
+        int_date = int(date)
+        if int_date >= -9999 and int_date < 9999:
+            return str(int_date)
+    except:
+        pass
+    return None
+
+
 def not_repetitive(bibid, key, value, subfield, default=None):
     """Get the first value if the value is a list or tuple."""
     if default is None:
@@ -45,6 +56,24 @@ def not_repetitive(bibid, key, value, subfield, default=None):
         error_print('WARNING NOT REPETITIVE:', bibid, key, subfield, value)
         data = data[0]
     return data
+
+
+def get_field_link_data(value):
+    """Get field link data from subfield $6."""
+    subfield_6 = value.get('6', '')
+    tag_link = subfield_6.split('-')
+    link = ''
+    if len(tag_link) == 2:
+        link = tag_link[1]
+    return tag_link, link
+
+
+def get_field_items(value):
+    """Get field items."""
+    if isinstance(value, utils.GroupableOrderedDict):
+        return value.iteritems(repeated=True)
+    else:
+        return utils.iteritems(value)
 
 
 def remove_trailing_punctuation(
@@ -95,10 +124,7 @@ class ReroIlsOverdo(Overdo):
     def get_fields(self, tag=None):
         """Get all fields having the given tag value."""
         fields = []
-        if isinstance(self.blob_record, utils.GroupableOrderedDict):
-            items = self.blob_record.iteritems(repeated=True)
-        else:
-            items = utils.iteritems(self.blob_record)
+        items = get_field_items(self.blob_record)
         for blob_key, blob_value in items:
             field_data = {}
             tag_value = blob_key[0:3]
@@ -125,12 +151,8 @@ class ReroIlsOverdo(Overdo):
     def get_subfields(self, field, code=None):
         """Get all subfields having the given subfield code value."""
         subfields = []
-
         if int(field['tag']) >= 10:
-            if isinstance(field['subfields'], utils.GroupableOrderedDict):
-                items = field['subfields'].iteritems(repeated=True)
-            else:
-                items = utils.iteritems(field['subfields'])
+            items = get_field_items(field['subfields'])
             for subfield_code, subfield_data in items:
                 if (subfield_code == code) or not code:
                     subfields.append(subfield_data)

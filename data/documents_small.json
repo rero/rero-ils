@@ -2038,6 +2038,20 @@
       }
     ],
     "title": "Histoire romaine",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2e tirage revu, corrig\u00e9 et augmente d'un \"Index nominum\""
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "par Charles Guittard"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -2850,6 +2864,20 @@
       }
     ],
     "title": "Statistical fluid mechanics : mechanics of turbulence",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "English ed. updated, augmented and rev. by the authors"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "ed. by John L. Lumley"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3397,6 +3425,15 @@
       }
     ],
     "title": "Les aciers sp\u00e9ciaux",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2e \u00e9d. mise \u00e0 jour"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3603,6 +3640,15 @@
       }
     ],
     "title": "Pflanzliche Antibiotika : Geheimwaffen aus der Natur",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4700,6 +4746,20 @@
       }
     ],
     "title": "Le th\u00e9\u00e2tre en France depuis 1900",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[6e \u00e9d. mise \u00e0 jour]"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "[par Georges Versini]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5195,6 +5255,15 @@
       }
     ],
     "title": "La parole de Protagoras : fragments et t\u00e9moignages",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Ed. bilingue"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5258,6 +5327,15 @@
       }
     ],
     "title": "Der Ultraschall und seine Anwendung in Wissenschaft und Technik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "6. v\u00f6llig \u00fcberarb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6024,6 +6102,20 @@
       }
     ],
     "title": "Heptam\u00e9ron",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "\u00c9d. critique"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "par Renja Salminen"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6218,6 +6310,15 @@
       }
     ],
     "title": "Critics on Emily Dickinson",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2nd print.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6809,6 +6910,15 @@
       }
     ],
     "title": "Joyride Ost : ein Roadmovie-Roman",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Orig.-Ausg."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6930,6 +7040,15 @@
       }
     ],
     "title": "Just Java 1.2",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4th ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7389,6 +7508,15 @@
       }
     ],
     "title": "Kein Mann, kein Schuss, kein Tor : das Drama des deutschen Fussballs",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2., erw. und aktualisierte Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8373,6 +8501,15 @@
       }
     ],
     "title": "W\u00f6rterbuch Mathematik : English, Deutsch, mit etwa 35000 Wortstellen, zweisprachige Studentenausg. = Dictionary of Mathematics : English, German, containing approximately 35000 terms, bilingual students ed.",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl., unver\u00e4nd. Nachdr.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8493,6 +8630,28 @@
       }
     ],
     "title": "Polnoe sobranie sochineni\u012d",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Izd. 2-e"
+          },
+          {
+            "value": "\u0418\u0437\u0434. 2-\u0435",
+            "language": "rus-cyrl"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "pod red. G. N. Gennadi"
+          },
+          {
+            "value": "\u043f\u043e\u0434 \u0440\u0435\u0434. \u0413. \u041d. \u0413\u0435\u043d\u043d\u0430\u0434\u0438",
+            "language": "rus-cyrl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8805,6 +8964,15 @@
       }
     ],
     "title": "Basiswissen deutsche Gegenwartssprache",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "5., \u00fcberarb. und erw. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10078,6 +10246,15 @@
       }
     ],
     "title": "Magic girls : der dunkle Verr\u00e4ter",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Gek\u00fcrzte Lesefassung"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10660,6 +10837,15 @@
       }
     ],
     "title": "Gruppen formen : 55 Spiele f\u00fcr Gruppenprozesse",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "6. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11069,6 +11255,15 @@
       }
     ],
     "title": "Theodore Dreiser : apostle of nature",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Emended ed. with a survey of research and criticism"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11606,6 +11801,20 @@
       }
     ],
     "title": "Meditation : Geschichte, Systematik, Forschung, Theorie",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Stark erw. und \u00fcberarb. 2. Aufl."
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "unter Mitarb. von Dorothea u. Joachim Galuska... [et al.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11873,6 +12082,15 @@
       }
     ],
     "title": "Protecting the Arctic : indigenous peoples and cultural survival",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Reprint."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12216,6 +12434,15 @@
       }
     ],
     "title": "ITIL : das IT-Servicemanagement Framework",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2., \u00fcberarb. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -12507,6 +12734,15 @@
       }
     ],
     "title": "Die Gestapo : Herrschaft und Terror im Dritten Reich",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4., aktualisierte Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13866,6 +14102,15 @@
       }
     ],
     "title": "Loci communes 1521 : lateinisch-deutsch",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2. durchges. und korrigierte Ausg."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14484,6 +14729,19 @@
       }
     ],
     "title": "Zhongguo nong di quan ji ben wen ti : Zhongguo ji ti nong di quan li ti xi de xing cheng yu kuo zhan",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 1 ban"
+          },
+          {
+            "value": "\u7b2c1\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14863,6 +15121,15 @@
       }
     ],
     "title": "Onkologische Krankenpflege",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3., neu \u00fcberarb. und erw. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15258,6 +15525,28 @@
       }
     ],
     "title": "Frant\ufe20s\ufe21uzsko-russki\u012d slovar\u02b9 : okolo 25 000 slov",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "11-e izd. stereotipnoe"
+          },
+          {
+            "value": "11-\u0435 \u0438\u0437\u0434. \u0441\u0442\u0435\u0440\u0435\u043e\u0442\u0438\u043f\u043d\u043e\u0435",
+            "language": "rus-cyrl"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "pri uchastii N. P. Potot\ufe20s\ufe21ko\u012d"
+          },
+          {
+            "value": "\u043f\u0440\u0438 \u0443\u0447\u0430\u0441\u0442\u0438\u0438 \u041d. \u041f. \u041f\u043e\u0442\u043e\u0446\u043a\u043e\u0439",
+            "language": "rus-cyrl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15958,6 +16247,15 @@
       }
     ],
     "title": "Catilinarians",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3rd printing with corr."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16026,6 +16324,15 @@
       }
     ],
     "title": "Vergleichende Regierungslehre",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -16475,6 +16782,15 @@
       }
     ],
     "title": "\"Electre\" de Jean Giraudoux : textes comment\u00e9s",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2e \u00e9d.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18006,6 +18322,15 @@
       }
     ],
     "title": "Zhongguo yu le fa = Entertainment law of China",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "First edition."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18257,6 +18582,28 @@
       }
     ],
     "title": "Guo ji fa = : International law",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 3 ban"
+          },
+          {
+            "value": "\u7b2c3\u7248",
+            "language": "chi-hani"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Zeng Lingliang zhu bian"
+          },
+          {
+            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
