@@ -22,10 +22,11 @@ import re
 from json import loads
 
 from dojson import utils
-from dojson.utils import GroupableOrderedDict, force_list
+from dojson.utils import force_list
 from pkg_resources import resource_string
 
-from rero_ils.dojson.utils import ReroIlsOverdo, remove_trailing_punctuation
+from rero_ils.dojson.utils import ReroIlsOverdo, get_field_items, \
+    remove_trailing_punctuation
 
 unimarctojson = ReroIlsOverdo()
 
@@ -90,7 +91,6 @@ def unimarc_title(self, key, value):
     """
     main_title = value.get('a')
     sub_title = value.get('e')
-    # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
             utils.force_list(sub_title)
@@ -171,6 +171,27 @@ def unimarc_to_author(self, key, value):
         date = date.replace('-....', '-')
         author['date'] = date
     return author
+
+
+@unimarctojson.over('editionStatement', '^205..')
+@utils.for_each_value
+@utils.ignore_value
+def unimarc_to_edition_statement(self, key, value):
+    """Get edition statement data.
+
+    editionDesignation: 205 [$a non repetitive] (without trailing ponctuation)
+    responsibility: 205 [$f non repetitive]
+    """
+    edition_data = {}
+    subfields_a = utils.force_list(value.get('a'))
+    if subfields_a:
+        subfield_a = subfields_a[0]
+        edition_data['editionDesignation'] = [{'value': subfield_a}]
+    subfields_f = utils.force_list(value.get('f'))
+    if subfields_f:
+        subfield_f = subfields_f[0]
+        edition_data['responsibility'] = [{'value': subfield_f}]
+    return edition_data or None
 
 
 @unimarctojson.over('provisionActivity', '^21[04]..')
@@ -257,11 +278,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
         #                 pass
 
         statement = []
-        if isinstance(value, GroupableOrderedDict):
-            items = value.iteritems(repeated=True)
-        else:
-            items = utils.iteritems(value)
-
+        items = get_field_items(value)
         index = 1
         add_country = ind2 in (' ', '_', '0')
         for blob_key, blob_value in items:

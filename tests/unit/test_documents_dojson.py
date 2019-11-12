@@ -170,7 +170,7 @@ def test_marc21_to_title():
       <datafield tag="245" ind1="1" ind2="0">
         <subfield code="a">main title :</subfield>
         <subfield code="b">subtitle /</subfield>
-        <subfield code="c">responsability</subfield>
+        <subfield code="c">responsibility</subfield>
       </datafield>
     </record>
     """
@@ -182,7 +182,7 @@ def test_marc21_to_title():
     <record>
       <datafield tag="245" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
-        <subfield code="c">responsability</subfield>
+        <subfield code="c">responsibility</subfield>
       </datafield>
     </record>
     """
@@ -864,7 +864,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
     marc21xml = """
       <record>
       <controlfield tag=
-        "008">000918r19161758xxu|||||| ||||00|| |eng d</controlfield>
+        "008">000918r17581916xxu|||||| ||||00|| |eng d</controlfield>
       <datafield tag="041" ind1="0" ind2=" ">
         <subfield code="a">eng</subfield>
         <subfield code="a">fre</subfield>
@@ -896,7 +896,8 @@ def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
                   'type': 'bf:Agent'
               }
           ],
-          'startDate': '1916',
+          'startDate': '1758',
+          'endDate': '1916',
           'date': '1916'
       }
     ]
@@ -1070,6 +1071,229 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
       'und-hani': '北京 : 北京大学出版社, 2017',
       'default': 'Beijing : Beijing da xue chu ban she, 2017'
     }
+
+
+def test_marc21_to_edition_statement_one_field_250():
+    """Test dojson edition statement.
+    - 1 edition designation and 1 responsibility from field 250
+    - extract data from the linked 880 from field 880
+    """
+    marc21xml = """
+      <record>
+      <controlfield tag=
+        "008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="6">880-02</subfield>
+        <subfield code="a">Di 3 ban /</subfield>
+        <subfield code="b">Zeng Lingliang zhu bian</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2=" ">
+        <subfield code="6">250-02/$1</subfield>
+        <subfield code="a">第3版 /</subfield>
+        <subfield code="b">曾令良主编</subfield>
+      </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('editionStatement') == [
+      {
+        'editionDesignation': [
+          {
+            'value': 'Di 3 ban'
+          },
+          {
+            'value': '第3版',
+            'language': 'chi-hani'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'Zeng Lingliang zhu bian'
+          },
+          {
+           'value': '曾令良主编',
+           'language': 'chi-hani'
+          }
+        ]
+      }
+    ]
+
+
+def test_marc21_to_edition_statement_two_fields_250():
+    """Test dojson edition statement.
+    - 2 edition designation and 2 responsibility from fields 250
+    - extract data from the linked 880 from 1 field 880
+    """
+    marc21xml = """
+      <record>
+      <controlfield tag=
+        "008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="6">880-02</subfield>
+        <subfield code="a">Di 3 ban /</subfield>
+        <subfield code="b">Zeng Lingliang zhu bian</subfield>
+      </datafield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="a">Edition /</subfield>
+        <subfield code="b">Responsibility</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2=" ">
+        <subfield code="6">250-02/$1</subfield>
+        <subfield code="a">第3版 /</subfield>
+        <subfield code="b">曾令良主编</subfield>
+      </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('editionStatement') == [
+      {
+        'editionDesignation': [
+          {
+            'value': 'Di 3 ban'
+          },
+          {
+            'value': '第3版',
+            'language': 'chi-hani'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'Zeng Lingliang zhu bian'
+          },
+          {
+            'value': '曾令良主编',
+            'language': 'chi-hani'
+          }
+        ]
+      },
+      {
+        'editionDesignation': [
+          {
+            'value': 'Edition'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'Responsibility'
+          }
+        ]
+      }
+    ]
+
+
+def test_marc21_to_edition_statement_with_two_subfield_a():
+    """Test dojson edition statement.
+    - 1 field 250 with 2 subfield_a
+    - extract data from the linked 880 from 1 field 880
+    """
+    marc21xml = """
+      <record>
+      <controlfield tag=
+        "008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="6">880-02</subfield>
+        <subfield code="a">Di 3 ban /</subfield>
+        <subfield code="a">Di 4 ban /</subfield>
+        <subfield code="b">Zeng Lingliang zhu bian</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2=" ">
+        <subfield code="6">250-02/$1</subfield>
+        <subfield code="a">第3版 /</subfield>
+        <subfield code="a">第4版 /</subfield>
+        <subfield code="b">曾令良主编</subfield>
+      </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+
+    assert data.get('editionStatement') == [
+      {
+        'editionDesignation': [
+          {
+            'value': 'Di 3 ban'
+          },
+          {
+            'value': '第3版',
+            'language': 'chi-hani'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'Zeng Lingliang zhu bian'
+          },
+          {
+            'value': '曾令良主编',
+            'language': 'chi-hani'
+          }
+        ]
+      }
+    ]
+
+
+def test_marc21_to_edition_statement_with_one_bad_field_250():
+    """Test dojson edition statement.
+    - 3 fields 250, and one of them as bad subdields $x, $y
+      and one as only $b
+    - extract data from the linked 880 from 1 field 880
+    """
+    marc21xml = """
+      <record>
+      <controlfield tag=
+        "008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="6">880-02</subfield>
+        <subfield code="a">Di 3 ban /</subfield>
+        <subfield code="b">Zeng Lingliang zhu bian</subfield>
+      </datafield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="x">Edition /</subfield>
+        <subfield code="y">Responsibility</subfield>
+      </datafield>
+      <datafield  tag="250" ind1=" " ind2=" ">
+        <subfield code="a">Edition</subfield>
+        <subfield code="y">Responsibility</subfield>
+      </datafield>
+      <datafield tag="880" ind1=" " ind2=" ">
+        <subfield code="6">250-02/$1</subfield>
+        <subfield code="a">第3版 /</subfield>
+        <subfield code="b">曾令良主编</subfield>
+      </datafield>
+      </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('editionStatement') == [
+      {
+        'editionDesignation': [
+          {
+            'value': 'Di 3 ban'
+          },
+          {
+            'value': '第3版',
+            'language': 'chi-hani'
+          }
+        ],
+        'responsibility': [
+          {
+            'value': 'Zeng Lingliang zhu bian'
+          },
+          {
+            'value': '曾令良主编',
+            'language': 'chi-hani'
+          }
+        ]
+      },
+      {
+        'editionDesignation': [
+          {
+            'value': 'Edition'
+          }
+        ]
+      }
+    ]
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():

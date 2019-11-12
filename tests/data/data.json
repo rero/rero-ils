@@ -1021,6 +1021,40 @@
     "copyrightDate": [
       "\u00a9 1971"
     ],
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 3 ban"
+          },
+          {
+            "value": "\u7b2c3\u7248",
+            "language": "chi-hani"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Zeng Lingliang zhu bian"
+          },
+          {
+            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "language": "chi-hani"
+          }
+        ]
+      },
+      {
+        "editionDesignation": [
+          {
+            "value": "Edition"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Responsibility"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",

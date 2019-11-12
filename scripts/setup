@@ -47,6 +47,7 @@ STOP_EXECUTION=true
 CREATE_LAZY=""
 DONT_STOP=""
 
+
 # options may be followed by one colon to indicate they have a required argument
 if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big,lazy,dont_stop,data_path: -- "$@")
 then

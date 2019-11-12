@@ -160,6 +160,34 @@ def test_marc21_to_abstracts():
     ]
 
 
+def test_marc21_to_edition_statement_one_field_250():
+    """Test dojson edition statement.
+    - 1 edition designation and 1 responsibility from field 250
+    """
+    marc21xml = """
+    <record>
+      <datafield tag="250" ind1=" " ind2=" ">
+        <subfield code="a">2e ed.</subfield>
+        <subfield code="b">avec un avant-propos par Jean Faret</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('editionStatement') == [{
+        'editionDesignation': [
+            {
+                'value': '2e ed.'
+            }
+        ],
+        'responsibility': [
+            {
+                'value': 'avec un avant-propos par Jean Faret'
+            }
+        ]
+    }]
+
+
 def test_marc21_to_provision_activity_ebooks_from_field_260():
     """Test provision activity Place and Date from field 260 transformation."""
     marc21xml = """

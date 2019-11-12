@@ -25,7 +25,8 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier
-from .utils import publication_statement_text, series_format_text
+from .utils import edition_format_text, publication_statement_text, \
+    series_format_text
 from ..api import IlsRecord
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -140,4 +141,7 @@ class Document(IlsRecord):
         series = dump.get('series', [])
         for series_element in series:
             series_element["_text"] = series_format_text(series_element)
+        editions = dump.get('editionStatement', [])
+        for edition in editions:
+            edition['_text'] = edition_format_text(edition)
         return dump

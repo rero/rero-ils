@@ -17,7 +17,7 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
-{% from 'rero_ils/macros/macro.html' import dl, dl_dict, div_json %}
+{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_list, div_json %}
 
 {%- block body %}
 <header class="row">
@@ -44,6 +44,11 @@
         <!-- AUTHORS -->
         {% if record.authors %}
         {{ dl(_('Author'), record.pid | authors_format(current_i18n.language, viewcode)) }}
+        {% endif %}
+
+        <!-- EDITION STATEMENT-->
+        {% if record.editionStatement %}
+        {{ dl_list(_('Edition'), record.editionStatement | edition_format) }}
         {% endif %}
 
         <!-- PUBLICATION STATEMENT -->
