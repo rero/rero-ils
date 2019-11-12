@@ -228,7 +228,13 @@ def get_loanable_items(patron_type_pid):
                 circ_policy.get('allow_requests')
         ):
             if not item.number_of_requests():
-                yield item
+                # exclude the first 16 items of the 3rd organisation
+                barcode = item.get('barcode')
+                if not (
+                    barcode.startswith('fictive') and
+                    int(barcode.split('fictive')[1]) < 17
+                ):
+                    yield item
 
 
 def get_random_pickup_location(patron_pid):

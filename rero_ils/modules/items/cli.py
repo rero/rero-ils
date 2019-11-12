@@ -145,7 +145,7 @@ def create_items(
                             item_type_pid, document_pid)
                     if org == '3':
                         # set a prefix for items of the workshop organisation
-                        barcode = 'fictive_{0}'.format(workshop_item)
+                        barcode = 'fictive{0}'.format(workshop_item)
                         if workshop_item < 17:
                             # fix the status of the first 16 items to ON_SHELF
                             status = ItemStatus.ON_SHELF
