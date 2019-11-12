@@ -189,15 +189,48 @@
         "copyrightDate": {
           "type": "text"
         },
+        "editionStatement": {
+          "type": "object",
+          "properties": {
+            "_text": {
+              "properties": {
+                "default": {
+                  "type": "text"
+                }
+              }
+            },
+            "editionDesignation": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "analyzer": "global_lowercase_asciifolding"
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "responsibility": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "analyzer": "global_lowercase_asciifolding"
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
         "provisionActivity": {
           "type": "object",
           "properties": {
             "statement": {
               "type": "object",
               "properties": {
-                "_text": {
-                  "type": "text"
-                },
                 "type": {
                   "type": "text"
                 },
@@ -235,6 +268,13 @@
             },
             "date": {
               "type": "keyword"
+            },
+            "_text": {
+              "properties": {
+                "default": {
+                  "type": "text"
+                }
+              }
             }
           }
         },
@@ -258,9 +298,6 @@
         "series": {
           "type": "object",
           "properties": {
-            "_text": {
-              "type": "text"
-            },
             "name": {
               "type": "text",
               "analyzer": "global_lowercase_asciifolding",
@@ -285,6 +322,9 @@
             },
             "number": {
               "type": "keyword"
+            },
+            "_text": {
+              "type": "text"
             }
           }
         },

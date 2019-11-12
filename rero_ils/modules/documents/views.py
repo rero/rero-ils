@@ -34,8 +34,8 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarctojson
-from .utils import localized_data_name, publication_statement_text, \
-    series_format_text
+from .utils import edition_format_text, localized_data_name, \
+    publication_statement_text, series_format_text
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
@@ -278,6 +278,20 @@ def authors_format(pid, language, viewcode):
         output.append(line)
 
     return '; '.join(output)
+
+
+@blueprint.app_template_filter()
+def edition_format(editions):
+    """Format edition for template."""
+    output = []
+    for edition in editions:
+        languages = edition_format_text(edition)
+        if languages:
+            output.append(languages['default'])
+            del languages['default']
+            for key, value in languages.items():
+                output.append(value)
+    return output
 
 
 @blueprint.app_template_filter()

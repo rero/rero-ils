@@ -20,6 +20,15 @@
       }
     ],
     "title": "Drogenpolitik in der Bundesrepublik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Originalausg.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1125,6 +1134,15 @@
       }
     ],
     "title": "\u02bfAbd al-N\u0101\u1e63ir : al-sijill bi al-suwar",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Al-\u1e6dab\u02bfa 2"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3098,6 +3116,15 @@
       }
     ],
     "title": "Classification d\u00e9cimale universelle [CDU]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "7e \u00e9d. abr\u00e9g\u00e9e"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3404,6 +3431,15 @@
       }
     ],
     "title": "Modelleisenbahnen elektronisch gesteuert",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "7., \u00fcberarb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -3665,6 +3701,15 @@
       }
     ],
     "title": "Bundesnaturschutzgesetz : Kommentar",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4134,6 +4179,15 @@
       }
     ],
     "title": "Pyongyang",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[4e \u00e9d.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4310,6 +4364,15 @@
       }
     ],
     "title": "Die Analphabetin : Erz\u00e4hlung",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Ungek\u00fcrzte Ausg.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -4636,6 +4699,15 @@
       }
     ],
     "title": "Las proximidades",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "1. ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5227,6 +5299,28 @@
       }
     ],
     "title": "Polnoe sobranie sochineni\u012d",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Izd. 2-e"
+          },
+          {
+            "value": "\u0418\u0437\u0434. 2-\u0435",
+            "language": "rus-cyrl"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "pod red. G. N. Gennadi"
+          },
+          {
+            "value": "\u043f\u043e\u0434 \u0440\u0435\u0434. \u0413. \u041d. \u0413\u0435\u043d\u043d\u0430\u0434\u0438",
+            "language": "rus-cyrl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -5295,6 +5389,15 @@
       }
     ],
     "title": "Gefahren von falschen Br\u00fcdern : politische Schriften",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6573,6 +6676,15 @@
       }
     ],
     "title": "Introduction to finance : markets, investments, and financial management",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "14th ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -6780,6 +6892,15 @@
       }
     ],
     "title": "Magic girls : der dunkle Verr\u00e4ter",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Gek\u00fcrzte Lesefassung"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7153,6 +7274,15 @@
       }
     ],
     "title": "Grammar games : cognitive, affective and drama activities for EFL students",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[19th print.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -7754,6 +7884,15 @@
       }
     ],
     "title": "Frankfurter Anthologie : Gedichte und Interpretationen",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -8027,6 +8166,19 @@
       }
     ],
     "title": "Edo jidai o kangaeru : Tokugawa sanbyakunen no isan",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "10-han"
+          },
+          {
+            "value": "10\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9010,6 +9162,15 @@
       }
     ],
     "title": "Handbuch der Gitarre und Laute",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Erg\u00e4nzte und rev. Ausg"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -9567,6 +9728,19 @@
       }
     ],
     "title": "Hou jiu qi yu Xianggang dian ying",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Chu ban"
+          },
+          {
+            "value": "\u521d\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10292,6 +10466,15 @@
       }
     ],
     "title": "Raffaello : la \"Deposizione\" in Galleria Borghese : il restauro e studi storico-artistici",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "1. ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10363,6 +10546,15 @@
       }
     ],
     "title": "Pflanzliche Antibiotika : Geheimwaffen aus der Natur",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10415,6 +10607,15 @@
       }
     ],
     "title": "Gruppen formen : 55 Spiele f\u00fcr Gruppenprozesse",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "6. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -10551,6 +10752,15 @@
       }
     ],
     "title": "Christentum und demokratischer Sozialismus : Beitr\u00e4ge zu einer unbequemen Partnerschaft",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -11639,6 +11849,20 @@
       }
     ],
     "title": "Jurisprudentia antejustinianae reliquias : in usum maxime academicum",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Ed. 6a aucta et emendata"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "ediderunt E. Seckel et B. Kuebler"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -13921,6 +14145,15 @@
       }
     ],
     "title": "Les aciers sp\u00e9ciaux",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2e \u00e9d. mise \u00e0 jour"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14213,6 +14446,15 @@
       }
     ],
     "title": "Einfuehrung in die Uebersetzungswissenschaft",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3. Aufl (Nachdr. d. 2., durchges. u. erg. Aufl.)"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -14877,6 +15119,15 @@
       }
     ],
     "title": "Vergleichende Regierungslehre",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15071,6 +15322,19 @@
       }
     ],
     "title": "Ch\u016bgoku daisan no kakumei : posuto K\u014d Takumin jidai no yomikata",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Saihan"
+          },
+          {
+            "value": "\u518d\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15150,6 +15414,15 @@
       }
     ],
     "title": "Taschenbuch des Deutschunterrichts : Grundfragen und Praxis der Sprach- und Literaturdidaktik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3., v\u00f6llig neubearb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -15734,6 +16007,15 @@
       }
     ],
     "title": "Taschenbuch des Deutschunterrichts : Grundfragen und Praxis der Sprach- und Literaturdidaktik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3., v\u00f6llig neubearb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17310,6 +17592,28 @@
       }
     ],
     "title": "Frant\ufe20s\ufe21uzsko-russki\u012d slovar\u02b9 : okolo 25 000 slov",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "11-e izd. stereotipnoe"
+          },
+          {
+            "value": "11-\u0435 \u0438\u0437\u0434. \u0441\u0442\u0435\u0440\u0435\u043e\u0442\u0438\u043f\u043d\u043e\u0435",
+            "language": "rus-cyrl"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "pri uchastii N. P. Potot\ufe20s\ufe21ko\u012d"
+          },
+          {
+            "value": "\u043f\u0440\u0438 \u0443\u0447\u0430\u0441\u0442\u0438\u0438 \u041d. \u041f. \u041f\u043e\u0442\u043e\u0446\u043a\u043e\u0439",
+            "language": "rus-cyrl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -17886,6 +18190,15 @@
       }
     ],
     "title": "La parole de Protagoras : fragments et t\u00e9moignages",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Ed. bilingue"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -18260,6 +18573,15 @@
       }
     ],
     "title": "Kein Mann, kein Schuss, kein Tor : das Drama des deutschen Fussballs",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2., erw. und aktualisierte Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -20499,6 +20821,15 @@
       }
     ],
     "title": "Kulturschock Finnland : [andere L\u00e4nder - andere Sitten...]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2. aktualisierte Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21848,6 +22179,15 @@
       }
     ],
     "title": "Werbung \u00fcber Satelliten : Rechtsfragen der Ausstrahlung und des Empfangs von Werbesendungen ausl\u00e4ndischer Satelliten",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. unver\u00e4nderte Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21910,6 +22250,15 @@
       }
     ],
     "title": "Storia della musica",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[IIIa ristampa]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -21975,6 +22324,15 @@
       }
     ],
     "title": "Onkologische Krankenpflege",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3., neu \u00fcberarb. und erw. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -22626,6 +22984,15 @@
       }
     ],
     "title": "Algebra 1",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24175,6 +24542,15 @@
       }
     ],
     "title": "Catilinarians",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3rd printing with corr."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24773,6 +25149,20 @@
       }
     ],
     "title": "Statistical fluid mechanics : mechanics of turbulence",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "English ed. updated, augmented and rev. by the authors"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "ed. by John L. Lumley"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -24845,6 +25235,15 @@
       }
     ],
     "title": "\"Electre\" de Jean Giraudoux : textes comment\u00e9s",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2e \u00e9d.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25143,6 +25542,20 @@
       }
     ],
     "title": "Le th\u00e9\u00e2tre en France depuis 1900",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[6e \u00e9d. mise \u00e0 jour]"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "[par Georges Versini]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25481,6 +25894,15 @@
       }
     ],
     "title": "Protecting the Arctic : indigenous peoples and cultural survival",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Reprint."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -25989,6 +26411,15 @@
       }
     ],
     "title": "New Guinea : what I did and what I saw",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2nd ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -26498,6 +26929,19 @@
       }
     ],
     "title": "Tian xia mei you mian fei de wu can : Wen yi zuo pin zhi shi chan quan su song an li bian xi",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 1 ban"
+          },
+          {
+            "value": "\u7b2c1\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -27668,6 +28112,15 @@
       }
     ],
     "title": "A, ante, bajo, cabe, con La Celestina",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "1a. ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -29107,6 +29560,15 @@
       }
     ],
     "title": "Una colecci\u00f3n de burlas bibliogr\u00e1ficas : las reproducciones fotolitogr\u00e1ficas de Sancho Ray\u00f3n",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Nueva edicion."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30285,6 +30747,15 @@
       }
     ],
     "title": "Die Gestapo : Herrschaft und Terror im Dritten Reich",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4., aktualisierte Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -30956,6 +31427,15 @@
       }
     ],
     "title": "Science Fiction : Texte Sammlung f\u00fcr die Schule",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[4. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -31168,6 +31648,15 @@
       }
     ],
     "title": "Die Frage \"Wozu ?\" : Geschichte und Wiederentdeckung des teleologischen Denkens",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl., 5.-9. Tausend]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32280,6 +32769,28 @@
       }
     ],
     "title": "Guo ji fa = : International law",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 3 ban"
+          },
+          {
+            "value": "\u7b2c3\u7248",
+            "language": "chi-hani"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Zeng Lingliang zhu bian"
+          },
+          {
+            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -32422,6 +32933,19 @@
       }
     ],
     "title": "Nihon no kamigami",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "22-han"
+          },
+          {
+            "value": "22\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33405,6 +33929,15 @@
       }
     ],
     "title": "Aloe vera : rem\u00e8de naturel de l\u00e9gende",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Nouv. \u00e9d. enti\u00e8rement r\u00e9v"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -33496,6 +34029,15 @@
       }
     ],
     "title": "SPSS 14 : Einf\u00fchrung in die moderne Datenanalyse",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "10., \u00fcberarb. und erw. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -34520,6 +35062,15 @@
       }
     ],
     "title": "The Pima Indians",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Re-edition with introd., citation sources, and bibliogr. /  by Bernard L. Fontana"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35690,6 +36241,15 @@
       }
     ],
     "title": "The environment",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Reprinted]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -35910,6 +36470,15 @@
       }
     ],
     "title": "Sprichw\u00f6rter und Redensarten aus Schleswig-Holstein",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[3. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -36166,6 +36735,15 @@
       }
     ],
     "title": "Critics on Emily Dickinson",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2nd print.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37441,6 +38019,15 @@
       }
     ],
     "title": "Makro\u00f6konomik und neue Makro\u00f6konomik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2., korr. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37707,6 +38294,15 @@
       }
     ],
     "title": "Einf\u00fchrung in die Analyse von Prosatexten",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[5., neubearb. u. erw. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -37850,6 +38446,15 @@
       }
     ],
     "title": "Sur le mal radical dans la nature humaine = : \u00dcber das radicale B\u00f6se in der menschlichen Natur",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2e \u00e9d."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38149,6 +38754,15 @@
       }
     ],
     "title": "Coment\u00e1rios ao C\u00f3digo de Processo Civil : (lei no. 5869, de 11 de janeiro de 1973)",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "7a ed., revista e atualizada"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38564,6 +39178,15 @@
       }
     ],
     "title": "Technisches Zeichnen : f\u00fcr das 8. u. 9. Schuljahr der Hauptschule",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2., durchgesehene Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -38693,6 +39316,15 @@
       }
     ],
     "title": "Grammaire progressive du fran\u00e7ais : avec 600 exercices : [niveau interm\u00e9diaire]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Nouv. \u00e9d"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -39733,6 +40365,15 @@
       }
     ],
     "title": "Trocadero : Roman",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Ungek\u00fcrzte Ausg.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -40365,6 +41006,19 @@
       }
     ],
     "title": "T\u014dky\u014d Saiban",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "35-han"
+          },
+          {
+            "value": "35\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41196,6 +41850,20 @@
       }
     ],
     "title": "Meditation : Geschichte, Systematik, Forschung, Theorie",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Stark erw. und \u00fcberarb. 2. Aufl."
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "unter Mitarb. von Dorothea u. Joachim Galuska... [et al.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41478,6 +42146,15 @@
       }
     ],
     "title": "Der Ultraschall und seine Anwendung in Wissenschaft und Technik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "6. v\u00f6llig \u00fcberarb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -41793,6 +42470,15 @@
       }
     ],
     "title": "W\u00f6rterbuch Mathematik : English, Deutsch, mit etwa 35000 Wortstellen, zweisprachige Studentenausg. = Dictionary of Mathematics : English, German, containing approximately 35000 terms, bilingual students ed.",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl., unver\u00e4nd. Nachdr.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42627,6 +43313,15 @@
       }
     ],
     "title": "Uccelli da gabbia e da voliera",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2a ed.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42699,6 +43394,19 @@
       }
     ],
     "title": "Lu Xun xiao shuo = : Lu Xun's selected short stories",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Xin 1 ban"
+          },
+          {
+            "value": "\u65b01\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -42840,6 +43548,15 @@
       }
     ],
     "title": "A colour atlas of haematological cytology",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2nd ed"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -43127,6 +43844,15 @@
       }
     ],
     "title": "Cl\u00edo, musa I : con un'appendice da \"Melp\u00f3mene\", musa III",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "1. ed. italiana"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44017,6 +44743,19 @@
       }
     ],
     "title": "Nihonjin no hass\u014d, Nihongo no hy\u014dgen : \"watakushi\" no tachiba ga kotoba o kimeru",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4-han"
+          },
+          {
+            "value": "4\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -44388,6 +45127,15 @@
       }
     ],
     "title": "Elegies",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Repr.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -45487,6 +46235,15 @@
       }
     ],
     "title": "Gespr\u00e4chspsychotherapie : einf\u00fchlsame hilfreiche Gruppen- und Einzelgespr\u00e4che in Psychotherapie und allt\u00e4glichem Leben",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "8., erg. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46206,6 +46963,15 @@
       }
     ],
     "title": "Loci communes 1521 : lateinisch-deutsch",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2. durchges. und korrigierte Ausg."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -46331,6 +47097,15 @@
       }
     ],
     "title": "Segelflugmodelle",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4., \u00fcberarb. und erw. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -48414,6 +49189,15 @@
       }
     ],
     "title": "Emblemata : Handbuch zur Sinnbildkunst des XVI. und XVII. Jahrhunderts",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Erg\u00e4nzte Neuausgabe"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -49268,6 +50052,19 @@
       }
     ],
     "title": "Yoshitsune densetsu : rekishi no kyojitsu",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Shohan"
+          },
+          {
+            "value": "\u521d\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50860,6 +51657,15 @@
       }
     ],
     "title": "Ayurvedic beauty care : ageless techniques to invoke natural beauty",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Repr."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -50916,6 +51722,15 @@
       }
     ],
     "title": "Joyride Ost : ein Roadmovie-Roman",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Orig.-Ausg."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51180,6 +51995,15 @@
       }
     ],
     "title": "Theodore Dreiser : apostle of nature",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Emended ed. with a survey of research and criticism"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51379,6 +52203,19 @@
       }
     ],
     "title": "Zhongguo nong di quan ji ben wen ti : Zhongguo ji ti nong di quan li ti xi de xing cheng yu kuo zhan",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 1 ban"
+          },
+          {
+            "value": "\u7b2c1\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51626,6 +52463,19 @@
       }
     ],
     "title": "al-\u1e24im\u0101yah al-q\u0101n\u016bn\u012byah lil-muttaham f\u012b mar\u1e25alat al-ta\u1e25q\u012bq",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "al-\u1e6cab\u02bfah 2 maz\u012bdah wa munaqahah"
+          },
+          {
+            "value": "\u0627\u0644\u0637\u0628\u0639\u0629 2 \u0645\u0632\u064a\u062f\u0629 \u0648 \u0645\u0646\u0642\u062d\u0629",
+            "language": "ara-arab"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -51832,6 +52682,15 @@
       }
     ],
     "title": "Novum Testamentum graece et latine",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[3., neubearb. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -52978,6 +53837,15 @@
       }
     ],
     "title": "Psychologisches W\u00f6rterbuch",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "10. neubearb. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53127,6 +53995,15 @@
       }
     ],
     "title": "Der goldene Schnitt",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2., erweiterte Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -53373,6 +54250,15 @@
       }
     ],
     "title": "An\u00e1lisis antropof\u00edsico de cuatro personajes hist\u00f3ricos de M\u00e9xico",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Primera edici\u00f3n."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55368,6 +56254,19 @@
       }
     ],
     "title": "Nihon to Ch\u014dsen Hant\u014d, rekishi no fushime ni tatte, zainichi Korian no 100-nen : kako, genzai, soshite mirai e",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Shohan"
+          },
+          {
+            "value": "\u521d\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55650,6 +56549,15 @@
       }
     ],
     "title": "Die Anweisung zum seligen Leben",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[3., durchges. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -55817,6 +56725,15 @@
       }
     ],
     "title": "Theory of point estimation",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2nd ed. [corr. 3rd printing]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -56767,6 +57684,15 @@
       }
     ],
     "title": "40 songs : for voice and piano",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "High [voice]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -57118,6 +58044,15 @@
       }
     ],
     "title": "Der geschlossne Handelsstaat : ein philosophischer Entwurf als Anhang zur Rechtslehre, und Probe einer k\u00fcnftig zu liefernden Politik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[3. durchges. Aufl. nach dem Erstdruck von 1800]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58084,6 +59019,15 @@
       }
     ],
     "title": "Einladung zur Soziologie : eine humanistische Perspektive",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Ungek\u00fcrzte Ausg., 4. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58465,6 +59409,15 @@
       }
     ],
     "title": "L'alimentation ou la troisi\u00e8me m\u00e9decine",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "5e \u00e9d. ref. et augm"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -58696,6 +59649,15 @@
       }
     ],
     "title": "Le mus\u00e9e de l'homme : le fabuleux d\u00e9clin de l'empire masculin",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Ed. rev. et augm"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59236,6 +60198,15 @@
       }
     ],
     "title": "ITIL : das IT-Servicemanagement Framework",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2., \u00fcberarb. Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59460,6 +60431,20 @@
       }
     ],
     "title": "Histoire romaine",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2e tirage revu, corrig\u00e9 et augmente d'un \"Index nominum\""
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "par Charles Guittard"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59786,6 +60771,15 @@
       }
     ],
     "title": "Code p\u00e9nal du canton de Berne : [30 janvier 1866]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Arr\u00eat\u00e9 au 31 d\u00e9cembre 1900"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -59876,6 +60870,19 @@
       }
     ],
     "title": "Yingguo qing ren = : The English lover",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 1 ban"
+          },
+          {
+            "value": "\u7b2c1\u7248",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60182,6 +61189,15 @@
       }
     ],
     "title": "Cun fu",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "\u7b2c1\u7248"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -60991,6 +62007,19 @@
       }
     ],
     "title": "\u014cuetsu Reppan D\u014dmei : Higashi Nihon seifu juritsu no yume",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "5-han"
+          },
+          {
+            "value": "5\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61234,6 +62263,15 @@
       }
     ],
     "title": "Das alte \u00c4gypten : Theben und das Niltal",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Deutsch-sprachige Ausg."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61841,6 +62879,15 @@
       }
     ],
     "title": "L'et\u00e0 della decodificazione",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "2a ed"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -61977,6 +63024,20 @@
       }
     ],
     "title": "Heptam\u00e9ron",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "\u00c9d. critique"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "par Renja Salminen"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -62990,6 +64051,19 @@
       }
     ],
     "title": "Emakimono ni miru Nihon shomin seikatsushi",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "24-han"
+          },
+          {
+            "value": "24\u7248",
+            "language": "jpn-jpan"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63119,6 +64193,15 @@
       }
     ],
     "title": "Une t\u00eate bien faite",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3e \u00e9d"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -63947,6 +65030,15 @@
       }
     ],
     "title": "Zhongguo yu le fa = Entertainment law of China",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "First edition."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -64102,6 +65194,15 @@
       }
     ],
     "title": "The puzzle of Latin American economic development",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3rd. edition"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65054,6 +66155,15 @@
       }
     ],
     "title": "Contributo alla conoscenza dei dialetti della Val Calanca",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Nuova ed., ampiamente sviluppata e rielaborata]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -65120,6 +66230,15 @@
       }
     ],
     "title": "Diplomatic Law : commentary on the Vienna Convention on Diplomatic Relations",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4th ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66020,6 +67139,15 @@
       }
     ],
     "title": "Survivre avec les loups : [document]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Nouv. \u00e9d"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66204,6 +67332,15 @@
       }
     ],
     "title": "Ausl\u00e4nderrecht, Migrations- und Fl\u00fcchtlingsrecht : [Aufenthalts- und Freiz\u00fcgigkeitsrecht ; Asylrecht und internationaler Schutz ; Staatsangeh\u00f6rigkeitsrecht ; Schengen-Recht ; EU-Visarecht ; Arbeitserlaubnis, Besch\u00e4ftigung]",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "12. Aufl., Rechtsstand: 15. August 2016"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66267,6 +67404,15 @@
       }
     ],
     "title": "Longman dictionary of language teaching and applied linguisitics",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[7th impr.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -66462,6 +67608,15 @@
       }
     ],
     "title": "Deutsche M\u00fcnzen : Katalog von 1800 bis 1985",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "8. v\u00f6llig \u00fcberarb. und erweiterte Aufl"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -71144,6 +72299,15 @@
       }
     ],
     "title": "Handbook of Biochemistry and Molecular Biology",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "3rd ed"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -71473,6 +72637,15 @@
       }
     ],
     "title": "Positive Familientherapie : eine Behandlungsmethode der Zukunft",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[Ungek\u00fcrzte Ausg.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -71920,6 +73093,15 @@
       }
     ],
     "title": "Basiswissen deutsche Gegenwartssprache",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "5., \u00fcberarb. und erw. Aufl."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -72431,6 +73613,15 @@
       }
     ],
     "title": "Just Java 1.2",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "4th ed."
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -73400,6 +74591,15 @@
       }
     ],
     "title": "Zur Kabbala und ihrer Symbolik",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[3. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -73800,6 +75000,15 @@
       }
     ],
     "title": "Boccaccio medievale : e nuovi studi sul Decameron",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "6a ed. aggiornata e accresciuta"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -74001,6 +75210,15 @@
       }
     ],
     "title": "Beteiligungen von Banken in anderen Wirtschaftszweigen : aktualisierte Fassung einer Studie im Auftrag der Generaldirektion Finanzinstitutionen und Steuerfragen",
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "[2. Aufl.]"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",

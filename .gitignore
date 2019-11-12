@@ -79,3 +79,7 @@ rero_ils/static/js/rero_ils/ui
 
 # Coverage xml file
 cov.xml
+
+# these json files are generated during the setup
+rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json

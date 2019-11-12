@@ -24,9 +24,42 @@ import requests
 from dojson import utils
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, error_print, \
-    not_repetitive, remove_trailing_punctuation
+    get_field_items, get_field_link_data, make_year, not_repetitive, \
+    remove_trailing_punctuation
 
 marc21tojson = ReroIlsMarc21Overdo()
+
+
+def get_language_script(script):
+    """Build the language script code.
+
+    This code is built according to the format
+    <lang_code>-<script_code> for example: chi-hani;
+    the <lang_code> is retrived from field 008 and 041
+    the <script_code> is received as parameter
+    """
+    languages_scripts = {
+        'arab': ('ara', 'per'),
+        'cyrl': ('bel', 'chu', 'mac', 'rus', 'srp', 'ukr'),
+        'grek': ('grc', 'gre'),
+        'hani': ('chi', 'jpn'),
+        'hebr': ('heb', 'lad', 'yid'),
+        'jpan': ('jpn', ),
+        'kore': ('kor', ),
+        'zyyy': ('chi', )
+    }
+    if script in languages_scripts:
+        languages = ([marc21tojson.lang_from_008] +
+                     marc21tojson.langs_from_041_a +
+                     marc21tojson.langs_from_041_h)
+        for lang in languages:
+            if lang in languages_scripts[script]:
+                return '-'.join([lang, script])
+        error_print('WARNING LANGUAGE SCRIPTS:', marc21tojson.bib_id,
+                    script,  '008:', marc21tojson.lang_from_008,
+                    '041$a:', marc21tojson.langs_from_041_a,
+                    '041$h:', marc21tojson.langs_from_041_h)
+    return '-'.join(['und', script])
 
 
 def get_mef_person_link(bibid, id, key, value):
@@ -149,7 +182,6 @@ def marc21_to_title(self, key, value):
     data = not_repetitive(marc21tojson.bib_id, key, value, 'a')
     main_title = remove_trailing_punctuation(data)
     sub_title = not_repetitive(marc21tojson.bib_id, key, value, 'b')
-    # responsability = value.get('c')
     if sub_title:
         main_title += ' : ' + ' : '.join(
             utils.force_list(
@@ -237,6 +269,49 @@ def marc21_to_copyright_date(self, key, value):
     return copyright_dates or None
 
 
+@marc21tojson.over('editionStatement', '^250..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_edition_statement(self, key, value):
+    """Get edition statement data.
+
+    editionDesignation: 250 [$a non repetitive] (without trailing /)
+    responsibility: 250 [$b non repetitive]
+    """
+    key_per_code = {
+        'a': 'editionDesignation',
+        'b': 'responsibility'
+    }
+
+    def build_edition_data(code, label, index, link):
+        data = [{'value': remove_trailing_punctuation(label)}]
+        try:
+            alt_gr = marc21tojson.alternate_graphic['250'][link]
+            subfield = \
+                marc21tojson.get_subfields(alt_gr['field'])[index]
+            data.append({
+                'value': remove_trailing_punctuation(subfield),
+                'language': get_language_script(alt_gr['script'])
+            })
+        except Exception as err:
+            pass
+        return data
+
+    tag_link, link = get_field_link_data(value)
+    items = get_field_items(value)
+    index = 1
+    edition_data = {}
+    subfield_selection = {'a', 'b'}
+    for blob_key, blob_value in items:
+        if blob_key in subfield_selection:
+            subfield_selection.remove(blob_key)
+            edition_data[key_per_code[blob_key]] = \
+                build_edition_data(blob_key, blob_value, index, link)
+        if blob_key != '__order__':
+            index += 1
+    return edition_data or None
+
+
 @marc21tojson.over('provisionActivity', '^264.[ 0-3]')
 @utils.for_each_value
 @utils.ignore_value
@@ -248,30 +323,6 @@ def marc21_to_provisionActivity(self, key, value):
     publicationDate: 264 [$c repetitive] (but take only the first one)
     """
     def build_statement(field_value, ind2):
-
-        def get_language_script(script):
-            languages_scripts = {
-                'arab': ('ara', 'per'),
-                'cyrl': ('bel', 'chu', 'mac', 'rus', 'srp', 'ukr'),
-                'grek': ('grc', 'gre'),
-                'hani': ('chi', 'jpn'),
-                'hebr': ('heb', 'lad', 'yid'),
-                'jpan': ('jpn', ),
-                'kore': ('kor', ),
-                'zyyy': ('chi', )
-            }
-            if script in languages_scripts:
-                languages = ([marc21tojson.lang_from_008] +
-                             marc21tojson.langs_from_041_a +
-                             marc21tojson.langs_from_041_h)
-                for lang in languages:
-                    if lang in languages_scripts[script]:
-                        return '-'.join([lang, script])
-                error_print('WARNING LANGUAGE SCRIPTS:', marc21tojson.bib_id,
-                            script,  '008:', marc21tojson.lang_from_008,
-                            '041$a:', marc21tojson.langs_from_041_a,
-                            '041$h:', marc21tojson.langs_from_041_h)
-            return '-'.join(['und', script])
 
         def build_place_or_agent_data(code, label, index, link, add_country):
             type_per_code = {
@@ -301,17 +352,9 @@ def marc21_to_provisionActivity(self, key, value):
             return place_or_agent_data
 
         # function build_statement start here
-        subfield_6 = field_value.get('6', '')
-        tag_link = subfield_6.split('-')
-        link = ''
-        if len(tag_link) == 2:
-            link = tag_link[1]
-
+        tag_link, link = get_field_link_data(field_value)
+        items = get_field_items(field_value)
         statement = []
-        if isinstance(field_value, utils.GroupableOrderedDict):
-            items = field_value.iteritems(repeated=True)
-        else:
-            items = utils.iteritems(field_value)
         index = 1
         add_country = ind2 in (' ', '1')
         for blob_key, blob_value in items:
@@ -343,13 +386,13 @@ def marc21_to_provisionActivity(self, key, value):
     if subfields_c:
         subfield_c = subfields_c[0]
         publication['date'] = subfield_c
-
     if ind2 in (' ', '1'):
-        publication['startDate'] = marc21tojson.date1_from_008
-        if (marc21tojson.date_type_from_008 != 'r' and
-                marc21tojson.date2_from_008 and
-                marc21tojson.date2_from_008 not in ('    ', '9999')):
-            publication['endDate'] = marc21tojson.date2_from_008
+        start_date = make_year(marc21tojson.date1_from_008)
+        if start_date:
+            publication['startDate'] = start_date
+        end_date = make_year(marc21tojson.date2_from_008)
+        if end_date:
+            publication['endDate'] = end_date
         if (marc21tojson.date_type_from_008 == 'q' or
                 marc21tojson.date_type_from_008 == 'n'):
             publication['note'] = 'Date(s) incertaine(s) ou inconnue(s)'
