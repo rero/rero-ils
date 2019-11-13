@@ -15,21 +15,109 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 Changes
-=======
+==========
 
-`v0.5.1 <https://github.com/rero/rero-ils/tree/v0.5.1>`__ (2019-10-31)
+`v0.5.2 <https://github.com/rero/rero-ils/tree/v0.5.2>`__ (2019-11-13)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.5.1...v0.5.2>`__
+
+**Fixed bugs:**
+
+-  Requesting an item from another organisation should not be possible
+   `#619 <https://github.com/rero/rero-ils/issues/619>`__
+-  Document editor: if all authors are removed from the form, then it’s
+   not possible to add an author
+   `#609 <https://github.com/rero/rero-ils/issues/609>`__
+-  Patron creation by a librarian: reset password link never works
+   `#608 <https://github.com/rero/rero-ils/issues/608>`__
+-  Render a document detailed view with document even if there’s a
+   library without pickup location in the organisation
+   `#598 <https://github.com/rero/rero-ils/issues/598>`__
+
+**Closed issues:**
+
+-  Import document from BnF not working
+   `#607 <https://github.com/rero/rero-ils/issues/607>`__
+
+**Merged pull requests:**
+
+-  dojson: fix provisionActivity unimarc transformation
+   `#623 <https://github.com/rero/rero-ils/pull/623>`__
+   (`jma <https://github.com/jma>`__)
+-  fixtures: fix and adapt the third organisation fixtures
+   `#620 <https://github.com/rero/rero-ils/pull/620>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  circulation: fix circulation policies
+   `#617 <https://github.com/rero/rero-ils/pull/617>`__
+   (`jma <https://github.com/jma>`__)
+-  REST API: set the aggregations size
+   `#616 <https://github.com/rero/rero-ils/pull/616>`__
+   (`jma <https://github.com/jma>`__)
+-  circulation: cancel active loan when checked-in item has reservations
+   `#615 <https://github.com/rero/rero-ils/pull/615>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  Workshop Issues Fixing
+   `#614 <https://github.com/rero/rero-ils/pull/614>`__
+   (`jma <https://github.com/jma>`__)
+-  fixtures: complete the workshop fixtures data
+   `#612 <https://github.com/rero/rero-ils/pull/612>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  document editor: fix add author after removed all authors from the
+   form `#611 <https://github.com/rero/rero-ils/pull/611>`__
+   (`benerken <https://github.com/benerken>`__)
+-  instance: fix several bugs
+   `#606 <https://github.com/rero/rero-ils/pull/606>`__
+   (`jma <https://github.com/jma>`__)
+-  notification: fix “not extendable” string in different languages
+   `#597 <https://github.com/rero/rero-ils/pull/597>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+
+`v0.5.1 <https://github.com/rero/rero-ils/tree/v0.5.1>`__ (2019-11-05)
 ----------------------------------------------------------------------
 
 `Full
 Changelog <https://github.com/rero/rero-ils/compare/v0.5.0...v0.5.1>`__
 
+**Implemented enhancements:**
+
+-  Flash message: bring user at top of the page
+   `#232 <https://github.com/rero/rero-ils/issues/232>`__
+
+**Fixed bugs:**
+
+-  Not possible to add or edit a location if field is_online is not
+   checked `#562 <https://github.com/rero/rero-ils/issues/562>`__
+-  Fees: API returns 0 records
+   `#560 <https://github.com/rero/rero-ils/issues/560>`__
+-  Document editor: save button disabled
+   `#556 <https://github.com/rero/rero-ils/issues/556>`__
+
 **Closed issues:**
 
+-  “online” item type in fixture
+   `#573 <https://github.com/rero/rero-ils/issues/573>`__
+-  Editor: qualifier vs. note
+   `#557 <https://github.com/rero/rero-ils/issues/557>`__
 -  Facet author not always displayed (in Firefox)
    `#554 <https://github.com/rero/rero-ils/issues/554>`__
+-  Person page: no links to documents in organisation views
+   `#553 <https://github.com/rero/rero-ils/issues/553>`__
+-  Translation “The item has been requested”
+   `#404 <https://github.com/rero/rero-ils/issues/404>`__
 
 **Merged pull requests:**
 
+-  documentation: update changes and release notes
+   `#596 <https://github.com/rero/rero-ils/pull/596>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  tests: hide “No issues detected!” from autoflake
+   `#595 <https://github.com/rero/rero-ils/pull/595>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  translations: update missing translations
+   `#594 <https://github.com/rero/rero-ils/pull/594>`__
+   (`jma <https://github.com/jma>`__)
 -  ui: fix typeahead unexpected behaviour
    `#593 <https://github.com/rero/rero-ils/pull/593>`__
    (`jma <https://github.com/jma>`__)
@@ -63,8 +151,11 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.5.0...v0.5.1>`__
 -  items: fix online locations status
    `#580 <https://github.com/rero/rero-ils/pull/580>`__
    (`zannkukai <https://github.com/zannkukai>`__)
+-  permissions: disable edit and delete buttons for librarians
+   `#566 <https://github.com/rero/rero-ils/pull/566>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
 
-`v0.5.0 <https://github.com/rero/rero-ils/tree/v0.5.0>`__ (2019-10-17)
+`v0.5.0 <https://github.com/rero/rero-ils/tree/v0.5.0>`__ (2019-10-23)
 ----------------------------------------------------------------------
 
 `Full
@@ -72,13 +163,23 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.4.0...v0.5.0>`__
 
 **Fixed bugs:**
 
+-  database sequences are not updated after executing script/setup
+   `#563 <https://github.com/rero/rero-ils/issues/563>`__
+-  JSON export not working
+   `#547 <https://github.com/rero/rero-ils/issues/547>`__
+-  A librarian should not be able to edit libraries he/she’s not
+   affiliated to. `#488 <https://github.com/rero/rero-ils/issues/488>`__
 -  Removing the barcode from a patron leads to an error after “Submit”
    action `#37 <https://github.com/rero/rero-ils/issues/37>`__
 
 **Closed issues:**
 
+-  Wrong orgnisation translation in the item type editor
+   `#540 <https://github.com/rero/rero-ils/issues/540>`__
 -  Internal server error when displaying record
    `#501 <https://github.com/rero/rero-ils/issues/501>`__
+-  2 homepages for global view
+   `#475 <https://github.com/rero/rero-ils/issues/475>`__
 -  Links to items and documents from circulation UI
    `#446 <https://github.com/rero/rero-ils/issues/446>`__
 -  Check the responsiveness of the front page
@@ -88,9 +189,36 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.4.0...v0.5.0>`__
 
 **Merged pull requests:**
 
+-  permissions: item edit and delete buttons for librarians
+   `#582 <https://github.com/rero/rero-ils/pull/582>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  cli: reserve a range of pids
+   `#579 <https://github.com/rero/rero-ils/pull/579>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  translation: correct organisation translation
+   `#578 <https://github.com/rero/rero-ils/pull/578>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  ui: fix global homepage
+   `#570 <https://github.com/rero/rero-ils/pull/570>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  ui: add a new URL to change the language
+   `#569 <https://github.com/rero/rero-ils/pull/569>`__
+   (`jma <https://github.com/jma>`__)
+-  ils: translates v0.5.0 strings
+   `#567 <https://github.com/rero/rero-ils/pull/567>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  documentation: fill in changes and release files
+   `#565 <https://github.com/rero/rero-ils/pull/565>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
 -  fixtures: reset sequence to correct value after loading records
    `#561 <https://github.com/rero/rero-ils/pull/561>`__
    (`BadrAly <https://github.com/BadrAly>`__)
+-  metadata: fix dojson for virtua records
+   `#559 <https://github.com/rero/rero-ils/pull/559>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  ui: integrate rero-ils-ui angular project
+   `#551 <https://github.com/rero/rero-ils/pull/551>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
 -  document: fix json export
    `#548 <https://github.com/rero/rero-ils/pull/548>`__
    (`Garfield-fr <https://github.com/Garfield-fr>`__)
@@ -126,6 +254,8 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.3.1...v0.4.0>`__
    `#484 <https://github.com/rero/rero-ils/issues/484>`__
 -  Detailed view: field “Notes” is displayed with no content
    `#437 <https://github.com/rero/rero-ils/issues/437>`__
+-  Increase size of result set during API calls
+   `#405 <https://github.com/rero/rero-ils/issues/405>`__
 -  Display of “My account”
    `#225 <https://github.com/rero/rero-ils/issues/225>`__
 -  UX of date exceptions
@@ -133,6 +263,8 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.3.1...v0.4.0>`__
 
 **Closed issues:**
 
+-  Checkin of item that should go in transit
+   `#462 <https://github.com/rero/rero-ils/issues/462>`__
 -  Mousehover on “Delete”, when the item cannot be deleted
    `#447 <https://github.com/rero/rero-ils/issues/447>`__
 -  Availability light in views
@@ -149,11 +281,19 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.3.1...v0.4.0>`__
    `#377 <https://github.com/rero/rero-ils/issues/377>`__
 -  Change license headers
    `#374 <https://github.com/rero/rero-ils/issues/374>`__
+-  Fix circ policies editor
+   `#363 <https://github.com/rero/rero-ils/issues/363>`__
 -  [angular] Handle Error if http client doesn’t response
    `#167 <https://github.com/rero/rero-ils/issues/167>`__
 
 **Merged pull requests:**
 
+-  tests: add PID verifications with commit/rollback
+   `#558 <https://github.com/rero/rero-ils/pull/558>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  #1021 - refactoring: delete unused imports
+   `#536 <https://github.com/rero/rero-ils/pull/536>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
 -  data: new data files for MEF
    `#535 <https://github.com/rero/rero-ils/pull/535>`__
    (`rerowep <https://github.com/rerowep>`__)
@@ -366,17 +506,10 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.3.0...v0.3.1>`__
 `Full
 Changelog <https://github.com/rero/rero-ils/compare/v0.2.3...v0.3.0>`__
 
-**Implemented enhancements:**
-
--  Should ebooks records be editable ?
-   `#89 <https://github.com/rero/rero-ils/issues/89>`__
-
 **Fixed bugs:**
 
 -  Edit item button in professional document search view always visible
    `#390 <https://github.com/rero/rero-ils/issues/390>`__
--  Wrong organisation when adding item or patron types
-   `#389 <https://github.com/rero/rero-ils/issues/389>`__
 -  Due date in a check-out does not consider closed days introduced in
    exceptions `#263 <https://github.com/rero/rero-ils/issues/263>`__
 
@@ -505,9 +638,6 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.2.3...v0.3.0>`__
 -  tests: optional execution of external services tests.
    `#411 <https://github.com/rero/rero-ils/pull/411>`__
    (`BadrAly <https://github.com/BadrAly>`__)
--  circulation: upgrade to invenio circulation v1.0.0a14
-   `#410 <https://github.com/rero/rero-ils/pull/410>`__
-   (`BadrAly <https://github.com/BadrAly>`__)
 -  indexation class: add indexation property to IlsRecord
    `#409 <https://github.com/rero/rero-ils/pull/409>`__
    (`rerowep <https://github.com/rerowep>`__)
@@ -552,9 +682,6 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.2.3...v0.3.0>`__
    (`iGormilhit <https://github.com/iGormilhit>`__)
 -  documentation: add an issue template
    `#386 <https://github.com/rero/rero-ils/pull/386>`__
-   (`iGormilhit <https://github.com/iGormilhit>`__)
--  documentation: rewrite bad syntax in docstrings
-   `#382 <https://github.com/rero/rero-ils/pull/382>`__
    (`iGormilhit <https://github.com/iGormilhit>`__)
 -  circulation: improve circulation dates
    `#375 <https://github.com/rero/rero-ils/pull/375>`__
@@ -629,6 +756,9 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.2.0...v0.2.1>`__
 
 **Merged pull requests:**
 
+-  documentation: rewrite bad syntax in docstrings
+   `#382 <https://github.com/rero/rero-ils/pull/382>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
 -  fixture: fix transformation with no publishers
    `#368 <https://github.com/rero/rero-ils/pull/368>`__
    (`iGormilhit <https://github.com/iGormilhit>`__)
@@ -665,6 +795,9 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.1.0a22...v0.2.0>`__
 
 **Merged pull requests:**
 
+-  circulation: upgrade to invenio circulation v1.0.0a14
+   `#410 <https://github.com/rero/rero-ils/pull/410>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
 -  release v0.2.0 `#362 <https://github.com/rero/rero-ils/pull/362>`__
    (`iGormilhit <https://github.com/iGormilhit>`__)
 -  ui: update translations for v.0.2.0 release
@@ -1330,9 +1463,6 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.1.0a19...v0.1.0a20>`__
 -  apiharvester: fix size
    `#113 <https://github.com/rero/rero-ils/pull/113>`__
    (`rerowep <https://github.com/rerowep>`__)
--  User interface: translations
-   `#108 <https://github.com/rero/rero-ils/pull/108>`__
-   (`iGormilhit <https://github.com/iGormilhit>`__)
 
 `v0.1.0a19 <https://github.com/rero/rero-ils/tree/v0.1.0a19>`__ (2018-10-11)
 ----------------------------------------------------------------------------
@@ -1342,6 +1472,8 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.1.0a18...v0.1.0a19>`__
 
 **Implemented enhancements:**
 
+-  Should ebooks records be editable ?
+   `#89 <https://github.com/rero/rero-ils/issues/89>`__
 -  Item status isn’t automatically updated in the item brief view
    `#20 <https://github.com/rero/rero-ils/issues/20>`__
 
@@ -1366,6 +1498,9 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.1.0a18...v0.1.0a19>`__
 -  frontend: refactoring
    `#110 <https://github.com/rero/rero-ils/pull/110>`__
    (`Garfield-fr <https://github.com/Garfield-fr>`__)
+-  User interface: translations
+   `#108 <https://github.com/rero/rero-ils/pull/108>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
 -  frontend: refactor layout
    `#107 <https://github.com/rero/rero-ils/pull/107>`__
    (`jma <https://github.com/jma>`__)
@@ -1472,3 +1607,6 @@ Changelog <https://github.com/rero/rero-ils/compare/v0.1.0a16...v0.1.0a17>`__
 -  add new document types
    `#63 <https://github.com/rero/rero-ils/pull/63>`__
    (`rerowep <https://github.com/rerowep>`__)
+
+\* *This Change Log was automatically generated
+by*\ `github_changelog_generator <https://github.com/skywinder/Github-Changelog-Generator>`__

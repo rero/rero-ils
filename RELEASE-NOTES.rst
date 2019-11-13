@@ -18,6 +18,51 @@
 Release notes
 =============
 
+v0.5.2
+------
+
+-  User interface:
+
+   -  Fixes user initials display in the user menu.
+   -  Fixes the extended facet items number which was troncated due to
+      REST API configuration.
+
+-  Editor:
+
+   -  Fixes item type validation.
+   -  Fixes validation message for patron phone number.
+   -  Fixes ``dojson`` transformation from unimarc to JSON to prevent
+      poor ``provisionActivity`` field implementation (WIP) to break BnF
+      imported records to be submitted through the editor.
+
+-  Circulation:
+
+   -  Always cancels active loan when the check-in item has pending
+      requests on it.
+   -  Sets loan ``transaction_date`` to ``datetime.now(utc)``.
+   -  Filters circulation policies by organisation.
+
+-  Fixtures:
+
+   -  Adds opening hours for the third organisation libraries.
+   -  Adds libraries, librarians, locations, patrons, items and
+      transactions in the third organisation for the workshops.
+
+-  Issues:
+
+   -  `#598 <https://github.com/rero/rero-ils/issues/598>`__: fixes
+      population of the request button when there’s no pickup location
+      in a library, as a patron load a document detailed view.
+   -  `#607 <https://github.com/rero/rero-ils/issues/607>`__: fixes
+      importation from BnF server. Logs have been improved.
+   -  `#608 <https://github.com/rero/rero-ils/issues/608>`__: fixes the
+      reset password link sent to a patron created by a librarian. To do
+      this, the RERO ILS templates for ``flask-security`` have to be
+      loaded before the ``falsk-security`` templates.
+   -  `#609 <https://github.com/rero/rero-ils/issues/609>`__: fixes an
+      error in the document JSON schema that prevent to add an author in
+      the editor, when no author field is activated.
+
 v0.5.1
 ------
 
