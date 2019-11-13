@@ -347,6 +347,43 @@ def test_unimarc_publishers_provision_activity():
 
     unimarcxml = """
     <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="a">xxxxxxxxx2015????xxxxxxxxx</subfield>
+      </datafield>
+      <datafield tag="210" ind1=" " ind2=" ">
+        <subfield code="a">Lausanne</subfield>
+        <subfield code="c">Payot</subfield>
+        <subfield code="d">2015</subfield>
+      </datafield>
+      <datafield tag="210" ind1=" " ind2=" ">
+        <subfield code="e">Lausanne</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'statement': [
+            {
+                'label': [
+                    {'value': 'Lausanne'}
+                ],
+                'type': 'bf:Place'
+            },
+            {
+                'label': [
+                    {'value': 'Payot'}
+                ],
+                'type': 'bf:Agent'
+            },
+        ],
+        'startDate': '2015',
+        'date': '2015'
+    }]
+
+    unimarcxml = """
+    <record>
       <datafield tag="102" ind1=" " ind2=" ">
         <subfield code="a">FR</subfield>
       </datafield>

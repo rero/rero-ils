@@ -25,6 +25,7 @@ import pytest
 from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import create_publication_statement
 
 
@@ -94,8 +95,12 @@ def test_documents_import_bnf_ean(client):
     res = client.get(url_for(
         'api_documents.import_bnf_ean', ean='9782070541270'))
     assert res.status_code == 200
-    data = get_json(res)
-    assert data.get('metadata') == {
+    data = get_json(res).get('metadata')
+    data.update({
+        "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+    })
+    assert data == {
+        '$schema': 'https://ils.rero.ch/schema/documents/document-v0.0.1.json',
         'authors': [
             {'date': '1965-', 'name': 'Rowling, J. K.', 'type': 'person'},
             {
@@ -147,3 +152,12 @@ def test_documents_import_bnf_ean(client):
         'translatedFrom': ['eng'],
         'type': 'book'
     }
+    assert Document.create(data)
+    res = client.get(url_for(
+        'api_documents.import_bnf_ean', ean='9782072862014'))
+    assert res.status_code == 200
+    data = get_json(res).get('metadata')
+    data.update({
+        "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+    })
+    assert Document.create(data)
