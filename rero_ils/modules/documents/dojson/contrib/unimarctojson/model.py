@@ -273,8 +273,10 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 statement.append(place_or_agent_data)
             if blob_key != '__order__':
                 index += 1
-
-        publication['statement'] = statement
+        if statement:
+            publication['statement'] = statement
+    if not publication.get('statement'):
+        publication = None
     return publication or None
 
 
