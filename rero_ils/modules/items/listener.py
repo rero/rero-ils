@@ -21,7 +21,7 @@ from .api import Item, ItemsSearch
 
 
 def enrich_item_data(sender, json=None, record=None, index=None,
-                     **dummy_kwargs):
+                     doc_type=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -29,8 +29,7 @@ def enrich_item_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    item_index_name = ItemsSearch.Meta.index
-    if index.startswith(item_index_name):
+    if index == '-'.join([ItemsSearch.Meta.index, doc_type]):
         item = record
         if not isinstance(record, Item):
             item = Item.get_record_by_pid(record.get('pid'))

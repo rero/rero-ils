@@ -195,6 +195,9 @@
             "statement": {
               "type": "object",
               "properties": {
+                "_text": {
+                  "type": "text"
+                },
                 "type": {
                   "type": "text"
                 },
@@ -255,6 +258,9 @@
         "series": {
           "type": "object",
           "properties": {
+            "_text": {
+              "type": "text"
+            },
             "name": {
               "type": "text",
               "analyzer": "global_lowercase_asciifolding",

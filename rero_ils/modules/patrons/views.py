@@ -32,7 +32,7 @@ from .utils import user_has_patron
 from ..documents.api import Document
 from ..items.api import Item
 from ..libraries.api import Library
-from ..loans.api import get_loans_by_patron_pid, Loan
+from ..loans.api import Loan, get_loans_by_patron_pid
 from ..locations.api import Location
 
 api_blueprint = Blueprint(

@@ -21,7 +21,7 @@ from .api import Fee, FeesSearch
 
 
 def enrich_fee_data(sender, json=None, record=None, index=None,
-                    **dummy_kwargs):
+                    doc_type=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -29,8 +29,7 @@ def enrich_fee_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    fee_index_name = FeesSearch.Meta.index
-    if index.startswith(fee_index_name):
+    if index == '-'.join([FeesSearch.Meta.index, doc_type]):
         fee = Fee.get_record_by_pid(record.get('pid'))
         org_pid = fee.organisation_pid
         json['organisation'] = {

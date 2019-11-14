@@ -19,12 +19,9 @@
 
 from __future__ import absolute_import, print_function
 
-import pytz
-
 from dateutil import parser
-from utils import get_mapping
 
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
 from rero_ils.modules.utils import date_string_to_utc
 

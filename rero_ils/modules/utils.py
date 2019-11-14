@@ -25,7 +25,8 @@ import click
 import pytz
 from dateutil import parser
 from flask import current_app
-from invenio_indexer.api import RecordIndexer
+
+from .api import IlsRecordIndexer
 
 
 def strtotime(strtime):
@@ -37,16 +38,16 @@ def strtotime(strtime):
     )
 
 
-def bulk_index(uuids, process=False, verbose=False):
+def do_bulk_index(uuids, doc_type=None, process=False, verbose=False):
     """Bulk index records."""
     if verbose:
         click.echo(' add to index: {count}'.format(count=len(uuids)))
-    indexer = RecordIndexer()
+    indexer = IlsRecordIndexer()
     retry = True
     minutes = 1
     while retry:
         try:
-            indexer.bulk_index(uuids)
+            indexer.bulk_index(uuids, doc_type=doc_type)
             retry = False
         except Exception as exc:
             msg = 'Bulk Index Error: retry in {minutes} min {exc}'.format(

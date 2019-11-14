@@ -83,6 +83,18 @@ def create_document_holding(record):
                             location_pid=location,
                             item_type_pid=item_type_pid,
                             electronic_location=harvested_source)
+            else:
+                current_app.logger.warning(
+                    'create document holding no org: {source}'.format(
+                        source=harvested_source['source']
+                    )
+                )
+    else:
+        current_app.logger.warning(
+            'create document holding: {rec}'.format(
+                rec=record
+            )
+        )
     return new_record
 
 
