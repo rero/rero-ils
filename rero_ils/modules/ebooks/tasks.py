@@ -25,7 +25,7 @@ from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
 from ..documents.api import DocumentsSearch
-from ..utils import bulk_index
+from ..utils import do_bulk_index
 
 # from time import sleep
 
@@ -66,7 +66,7 @@ def create_records(records):
                 n_created += 1
                 uuids.append(new_record.id)
     # TODO: bulk indexing does not work with travis, need to check why
-    bulk_index(uuids, process=True)
+    do_bulk_index(uuids, doc_type=['doc'], process=True)
     # wait for bulk index task to finish
     # inspector = inspect()
     # reserved = inspector.reserved()

@@ -28,6 +28,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from sqlalchemy.orm.exc import NoResultFound
@@ -84,6 +85,80 @@ class IlsRecordIndexer(RecordIndexer):
         index_name, doc_type = current_record_to_index(record)
         current_search.flush_and_refresh(index_name)
         return return_value
+
+    def bulk_index(self, record_id_iterator, doc_type=None):
+        """Bulk index records.
+
+        :param record_id_iterator: Iterator yielding record UUIDs.
+        """
+        self._bulk_op(record_id_iterator, op_type='index', doc_type=doc_type)
+
+    def _index_action(self, payload):
+        """Bulk index action.
+
+        :param payload: Decoded message body.
+        :returns: Dictionary defining an Elasticsearch bulk 'index' action.
+        """
+        # take the first defined doc type for finding the class
+        pid_type = payload.get('doc_type', ['rec'])[0]
+        record_class = obj_or_import_string(
+            current_app.config.get('RECORDS_REST_ENDPOINTS').get(
+                pid_type
+            ).get('record_class', Record)
+        )
+        record = record_class.get_record(payload['id'])
+        index, doc_type = self.record_to_index(record)
+
+        arguments = {}
+        body = self._prepare_record(record, index, doc_type, arguments)
+        action = {
+            '_op_type': 'index',
+            '_index': index,
+            '_type': doc_type,
+            '_id': str(record.id),
+            '_version': record.revision_id,
+            '_version_type': self._version_type,
+            '_source': body
+        }
+        action.update(arguments)
+
+        return action
+
+    @staticmethod
+    def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
+        """Prepare record data for indexing.
+
+        :param record: The record to prepare.
+        :param index: The Elasticsearch index.
+        :param doc_type: The Elasticsearch document type.
+        :param arguments: The arguments to send to Elasticsearch upon indexing.
+        :param **kwargs: Extra parameters.
+        :returns: The record metadata.
+        """
+        import pytz
+        if current_app.config['INDEXER_REPLACE_REFS']:
+            data = record.replace_refs().dumps()
+        else:
+            data = record.dumps()
+
+        data['_created'] = pytz.utc.localize(record.created).isoformat() \
+            if record.created else None
+        data['_updated'] = pytz.utc.localize(record.updated).isoformat() \
+            if record.updated else None
+
+        # Allow modification of data prior to sending to Elasticsearch.
+        from invenio_indexer.signals import before_record_index
+        before_record_index.send(
+            current_app._get_current_object(),
+            json=data,
+            record=record,
+            index=index,
+            doc_type=doc_type,
+            arguments={} if arguments is None else arguments,
+            **kwargs
+        )
+
+        return data
 
 
 class IlsRecord(Record):
