@@ -141,25 +141,25 @@ pipenv run invenio access allow superuser-access role superusers
 pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
-display_success_message "Organisations: ${CREATE_LAZY}"
-pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t org --yes-i-know
-display_success_message "Libraries: ${CREATE_LAZY}"
+display_success_message "Organisations:"
+pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json  --append ${CREATE_LAZY}
+pipenv run invenio utils reindex -t org --yes-i-know
+display_success_message "Libraries:"
 pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t lib --yes-i-know
-display_success_message "Locations: ${CREATE_LAZY}"
+pipenv run invenio utils reindex -t lib --yes-i-know
+display_success_message "Locations:"
 pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t loc --yes-i-know
-display_success_message "Item types: ${CREATE_LAZY}"
+pipenv run invenio utils reindex -t loc --yes-i-know
+display_success_message "Item types:"
 pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t itty --yes-i-know
-display_success_message "Patron types: ${CREATE_LAZY}"
+pipenv run invenio utils reindex -t itty --yes-i-know
+display_success_message "Patron types:"
 pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t ptty --yes-i-know
-display_success_message "Circulation policies: ${CREATE_LAZY}"
+pipenv run invenio utils reindex -t ptty --yes-i-know
+display_success_message "Circulation policies:"
 pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t cipo --yes-i-know
-pipenv run invenio index run --raise-on-error
+pipenv run invenio utils reindex -t cipo --yes-i-know
+pipenv run invenio utils runindex --raise-on-error
 
 pipenv run invenio fixtures import_users ${DATA_PATH}/users.json -v
 
@@ -214,18 +214,18 @@ fi
 display_success_message "Holdings: ${CREATE_LAZY}"
 echo -e ${HOLDINGS}
 pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t hold --yes-i-know
-pipenv run invenio index run -c 4 --raise-on-error
+pipenv run invenio utils reindex -t hold --yes-i-know
+pipenv run invenio utils runindex -c 4 --raise-on-error
 
 display_success_message "Items: ${CREATE_LAZY}"
 echo -e ${ITEMS}
-pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY}
-pipenv run invenio index reindex -t item --yes-i-know
-pipenv run invenio index run -c 4 --raise-on-error
+pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}  --append ${CREATE_LAZY}
+pipenv run invenio utils reindex -t item --yes-i-know
+pipenv run invenio utils runindex -c 4 --raise-on-error
 
 display_success_message "Index Documents:"
-pipenv run invenio index reindex -t doc --yes-i-know
-pipenv run invenio index run -c 4 --raise-on-error
+pipenv run invenio utils reindex -t doc --yes-i-know
+pipenv run invenio utils runindex -c 4 --raise-on-error
 
 display_success_message "Circulation transactions:"
 pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json

@@ -239,7 +239,7 @@ def marc21_to_provision_activity(self, key, value):
                     add_country = False
                 if place_or_agent_data:
                     statement.append(place_or_agent_data)
-        return statement
+        return statement or None
 
     # the function marc21_to_provisionActivity start here
     ind2 = key[4]
@@ -320,7 +320,7 @@ def marc21_to_series(self, key, value):
     number = value.get('v')
     if number:
         series['number'] = ', '.join(utils.force_list(number))
-    return series
+    return series or None
 
 
 @marc21.over('notes', '^500..')

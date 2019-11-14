@@ -21,7 +21,7 @@ from .api import Notification, NotificationsSearch
 
 
 def enrich_notification_data(sender, json=None, record=None, index=None,
-                             **dummy_kwargs):
+                             doc_type=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -29,8 +29,7 @@ def enrich_notification_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    notification_index_name = NotificationsSearch.Meta.index
-    if index.startswith(notification_index_name):
+    if index == '-'.join([NotificationsSearch.Meta.index, doc_type]):
         notification = record
         if not isinstance(record, Notification):
             notification = Notification.get_record_by_pid(record.get('pid'))

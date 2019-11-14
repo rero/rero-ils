@@ -34,7 +34,7 @@ from ..organisations.api import Organisation
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
-                         **dummy_kwargs):
+                         doc_type=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -42,9 +42,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    # TODO: this multiply the indexing time by 5, try an other way!
-    document_index_name = DocumentsSearch.Meta.index
-    if index.startswith(document_index_name):
+    if index == '-'.join([DocumentsSearch.Meta.index, doc_type]):
         # HOLDINGS
         holdings = []
         document_pid = record['pid']

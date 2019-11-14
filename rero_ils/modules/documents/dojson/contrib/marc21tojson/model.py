@@ -298,7 +298,6 @@ def marc21_to_provisionActivity(self, key, value):
                 })
             except Exception as err:
                 pass
-                # print('++++', err)
             return place_or_agent_data
 
         # function build_statement start here
