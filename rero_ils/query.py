@@ -79,6 +79,24 @@ def organisation_search_factory(self, search, query_parser=None):
     return (search, urlkwargs)
 
 
+def loans_search_factory(self, search, query_parser=None):
+    """Loan search factory.
+
+    Restricts results to oraganisation level for librarian and sys_lib.
+    Restricts results to his loans for users with role patron.
+    """
+    search, urlkwargs = search_factory(self, search)
+    if current_patron:
+        if current_patron.is_librarian or current_patron.is_system_librarian:
+            search = search.filter(
+                'term', organisation__pid=current_patron.get_organisation(
+                    )['pid'])
+        if current_patron.is_patron:
+            search = search.filter(
+                'term', patron_pid=current_patron.pid)
+    return (search, urlkwargs)
+
+
 def search_factory(self, search, query_parser=None):
     """Parse query using elasticsearch DSL query.
 

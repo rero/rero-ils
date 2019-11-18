@@ -39,7 +39,7 @@ def test_items_permissions(client, item_lib_martigny,
     item_url = url_for('invenio_records_rest.item_item', pid_value='item1')
 
     res = client.get(item_url)
-    assert res.status_code == 401
+    assert res.status_code == 200
 
     res, _ = postdata(
         client,

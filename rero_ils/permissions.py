@@ -34,8 +34,8 @@ librarian_permission = DynamicPermission(RoleNeed('librarian'))
 def user_is_authenticated(user=None):
     """Checks if user is authenticated.
 
-    returns True if user is logged in and authenticated.
-    returns False if user is not logged or not authenticated.
+    :returns: True if user is logged in and authenticated.
+    :returns False if user is not logged or not authenticated.
     """
     if not user:
         user = current_user
@@ -47,15 +47,31 @@ def user_is_authenticated(user=None):
 def staffer_is_authenticated(user=None):
     """Checks if user (librarian or system_librarian) is authenticated.
 
-    returns patron records if user is logged in and authenticated and has
+    :returns: patron records if user is logged in and authenticated and has
     librarian or system_librarian role.
-    returns False otherwise.
+    :returns False otherwise.
     """
     if not user:
         user = current_user
     if user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
         if patron and (patron.is_librarian or patron.is_system_librarian):
+            return patron
+    return None
+
+
+def patron_is_authenticated(user=None):
+    """Checks if user (with role patron) is authenticated.
+
+    :returns: Patron records if user is logged in and authenticated and has
+    the patron role.
+    :returns False otherwise.
+    """
+    if not user:
+        user = current_user
+    if user.is_authenticated:
+        patron = Patron.get_patron_by_user(current_user)
+        if patron and patron.is_patron:
             return patron
     return None
 

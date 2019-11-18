@@ -58,6 +58,13 @@
         "transaction_user_pid": {
           "type": "keyword"
         },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "trigger": {
           "type": "keyword"
         },

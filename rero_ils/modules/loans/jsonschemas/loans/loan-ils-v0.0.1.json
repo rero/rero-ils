@@ -77,6 +77,17 @@
       "format": "date-time",
       "title": "Transaction end date"
     },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
     "state": {
       "type": "string",
       "enum": [
