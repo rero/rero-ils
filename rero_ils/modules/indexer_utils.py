@@ -41,6 +41,10 @@ def record_to_index(record):
     # put all document in the same index
     if re.search(r'/documents/', schema):
         schema = re.sub(r'-.*\.json', '.json', schema)
+    # authorities specific transformation
+    if re.search(r'/authorities/', schema):
+        schema = re.sub(r'/authorities/', '/persons/', schema)
+        schema = re.sub(r'mef-person', 'mef_person', schema)
     index, doc_type = schema_to_index(schema, index_names=index_names)
 
     if index and doc_type:
