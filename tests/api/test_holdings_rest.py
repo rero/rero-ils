@@ -34,7 +34,7 @@ def test_holdings_permissions(client, holding_lib_martigny, json_header):
     item_url = url_for('invenio_records_rest.hold_item', pid_value='holding1')
 
     res = client.get(item_url)
-    assert res.status_code == 401
+    assert res.status_code == 200
 
     res, _ = postdata(
         client,
@@ -163,7 +163,7 @@ def test_holding_secure_api(client, json_header, holding_lib_martigny,
                          pid_value=holding_lib_martigny.pid)
 
     res = client.get(record_url)
-    assert res.status_code == 403
+    assert res.status_code == 200
 
 
 def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
@@ -171,7 +171,6 @@ def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
                                    librarian_sion_no_email,
                                    holding_lib_martigny_data):
     """Test holding secure api create."""
-
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_entrypoint = 'invenio_records_rest.hold_list'

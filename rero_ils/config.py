@@ -55,6 +55,8 @@ from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_create_library_factory, \
     can_delete_library_factory, can_update_library_factory
 from .modules.loans.api import Loan
+from .modules.loans.permissions import can_list_loan_factory, \
+    can_read_loan_factory
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
@@ -398,7 +400,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all,
         create_permission_factory_imp=can_create_item_factory,
         update_permission_factory_imp=can_update_delete_item_factory,
         delete_permission_factory_imp=can_update_delete_item_factory,
@@ -462,7 +465,8 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all,
         create_permission_factory_imp=can_create_organisation_records_factory,
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
@@ -908,7 +912,8 @@ indexes = [
     'libraries',
     'locations',
     'persons',
-    'circ_policies'
+    'circ_policies',
+    'loans'
 ]
 
 RECORDS_REST_SORT_OPTIONS = dict()
@@ -931,6 +936,12 @@ for index in indexes:
     RECORDS_REST_DEFAULT_SORT[index] = dict(
         query='bestmatch', noquery='mostrecent')
 
+RECORDS_REST_SORT_OPTIONS['loans'] = dict(
+    transactiondate=dict(
+        fields=['-transaction_date'], title='Transaction date',
+        default_order='asc'
+    )
+)
 
 # Detailed View Configuration
 # ===========================
@@ -1105,7 +1116,6 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
         search_type=None,
-        record_class=Loan,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),
@@ -1114,14 +1124,19 @@ CIRCULATION_REST_ENDPOINTS = dict(
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_search'),
         },
-        list_route='/circulation/loans/',
-        item_route='/circulation/loans/<{0}:pid_value>'.format(
+        record_loaders={
+            'application/json': lambda: Loan(request.get_json()),
+        },
+        record_class='rero_ils.modules.loans.api:Loan',
+        search_factory_imp='rero_ils.query:loans_search_factory',
+        list_route='/loans/',
+        item_route='/loans/<{0}:pid_value>'.format(
             _LOANID_CONVERTER),
         default_media_type='application/json',
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=deny_all,
-        list_permission_factory_imp=deny_all,
+        read_permission_factory_imp=can_read_loan_factory,
+        list_permission_factory_imp=can_list_loan_factory,
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all

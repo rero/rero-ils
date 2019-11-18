@@ -375,7 +375,7 @@ def test_item_secure_api(client, json_header, item_lib_martigny,
                          pid_value=item_lib_martigny.pid)
 
     res = client.get(record_url)
-    assert res.status_code == 403
+    assert res.status_code == 200
 
 
 def test_item_secure_api_create(client, json_header, item_lib_martigny,

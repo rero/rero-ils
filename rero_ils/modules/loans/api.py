@@ -73,6 +73,7 @@ class Loan(IlsRecord):
         data['$schema'] = current_jsonschemas.path_to_url(cls._schema)
         if delete_pid and data.get(cls.pid_field):
             del(data[cls.pid_field])
+        cls._loan_build_org_ref(data)
         record = super(Loan, cls).create(
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
@@ -98,6 +99,22 @@ class Loan(IlsRecord):
                 doc_type='items',
                 pid=item_pid)
         }
+
+    @classmethod
+    def _loan_build_org_ref(cls, data):
+        """Build $ref for the organisation of the Loan."""
+        from ..items.api import Item
+        item_pid = data.get('item_pid')
+        org_pid = Item.get_record_by_pid(item_pid).organisation_pid
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        org_ref = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='organisations',
+                pid=org_pid)
+        }
+        data['organisation'] = org_ref
 
     @property
     def pid(self):

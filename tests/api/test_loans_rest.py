@@ -34,8 +34,8 @@ from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
 from rero_ils.modules.loans.utils import can_be_requested
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch, number_of_reminders_sent
+from rero_ils.modules.notifications.api import NotificationsSearch, \
+    number_of_reminders_sent
 
 
 def test_loans_permissions(client, loan_pending_martigny, json_header):
@@ -70,7 +70,7 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
 
     res = client.get(item_url)
-    assert res.status_code == 403
+    assert res.status_code == 200
 
     res, _ = postdata(
         client,
@@ -326,3 +326,74 @@ def test_checkout_item_transit(client, item2_lib_martigny,
     loan_after_checkout = get_loan_for_item(item.pid)
     assert loan_after_checkout.get('state') == 'ITEM_ON_LOAN'
     assert loan_before_checkout.get('pid') == loan_after_checkout.get('pid')
+
+
+def test_loan_access_permissions(client, librarian_martigny_no_email,
+                                 patron_martigny_no_email,
+                                 item_lib_sion, patron_sion_no_email,
+                                 librarian_sion_no_email,
+                                 circulation_policies
+                                 ):
+    """Test loans read permissions."""
+    # no access to loans for non authenticated users.
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 401
+
+    # ensure we have loans from the two configured organisation.
+    login_user_via_session(client, librarian_sion_no_email.user)
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_lib_sion.pid,
+            patron_pid=patron_sion_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+
+    loan_pids = Loan.get_all_pids()
+    loans = [Loan.get_record_by_pid(pid) for pid in loan_pids]
+    loans_martigny = [
+        loan for loan in loans if loan.organisation_pid == 'org1']
+    loans_sion = [loan for loan in loans if loan.organisation_pid == 'org2']
+    assert loans
+    assert loan_pids
+    assert loans_martigny
+    assert loans_sion
+    # Test loan list API access.
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+    login_user_via_session(client, patron_martigny_no_email.user)
+    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
+    res = client.get(loan_list)
+    assert res.status_code == 200
+
+    # librarian or system librarian have access all loans of its org
+    user = librarian_martigny_no_email
+    login_user_via_session(client, user.user)
+    for loan in loans:
+        record_url = url_for(
+            'invenio_records_rest.loanid_item', pid_value=loan.pid)
+        res = client.get(record_url)
+        if loan.organisation_pid == user.organisation_pid:
+            assert res.status_code == 200
+        if loan.organisation_pid != user.organisation_pid:
+            assert res.status_code == 403
+
+    # patron can access only its loans
+    user = patron_martigny_no_email
+    login_user_via_session(client, user.user)
+    for loan in loans:
+        record_url = url_for(
+            'invenio_records_rest.loanid_item', pid_value=loan.pid)
+        res = client.get(record_url)
+        if loan.organisation_pid == user.organisation_pid:
+            if loan.patron_pid == user.pid:
+                assert res.status_code == 200
+            else:
+                assert res.status_code == 403
+        if loan.organisation_pid != user.organisation_pid:
+            assert res.status_code == 403
