@@ -29,6 +29,12 @@ def test_record_to_index(app):
         'documents/document-minimal-v0.0.1.json'
     }) == ('documents-document', 'document')
 
+    # for mef-persons
+    assert record_to_index({
+        '$schema': 'http://mef.rero.ch/schemas/'
+        'authorities/mef-person-v0.0.1.json'
+    }) == ('persons-mef_person-v0.0.1', 'mef_person-v0.0.1')
+
     # for others
     assert record_to_index({
         '$schema': 'https://ils.rero.ch/schema/'

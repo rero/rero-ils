@@ -78,7 +78,8 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         pid=pid,
         record=record,
         holdings=holdings,
-        viewcode=viewcode
+        viewcode=viewcode,
+        recordType='documents'
     )
 
 
