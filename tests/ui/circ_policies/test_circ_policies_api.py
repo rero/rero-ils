@@ -20,12 +20,13 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-
+import pytest
 import mock
 from utils import get_mapping
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
     CircPolicy, circ_policy_id_fetcher
+from rero_ils.modules.errors import RecordValidationError
 
 
 def test_no_default_policy(app):
@@ -34,7 +35,15 @@ def test_no_default_policy(app):
     assert not cipo
 
 
-def test_circ_policy_create(db, circ_policy_martigny_data_tmp):
+def test_circ_policy_create(circ_policy_martigny_data_tmp,
+                            org_martigny,
+                            lib_martigny, lib_saxon,
+                            patron_type_children_martigny,
+                            item_type_standard_martigny,
+                            patron_type_adults_martigny,
+                            item_type_specific_martigny,
+                            item_type_regular_sion,
+                            patron_type_youngsters_sion):
     """Test circulation policy creation."""
     cipo = CircPolicy.create(circ_policy_martigny_data_tmp, delete_pid=True)
     assert cipo == circ_policy_martigny_data_tmp
@@ -52,6 +61,34 @@ def test_circ_policy_create(db, circ_policy_martigny_data_tmp):
     cipo = CircPolicy.create(circ_policy, delete_pid=True)
     assert cipo.get('$schema')
     assert cipo.get('pid') == '2'
+
+    cipo_data = {
+        '$schema': 'https://ils.rero.ch/schema/'
+        'circ_policies/circ_policy-v0.0.1.json',
+        'pid': 'cipo_test',
+        'name': 'test',
+        'organisation': {
+            '$ref': 'https://ils.rero.ch/api/organisations/org1'
+        },
+        'is_default': False,
+        'settings': [{
+            'patron_type': {
+                '$ref': 'https://ils.rero.ch/api/patron_types/ptty3'
+            },
+            'item_type': {
+                '$ref': 'https://ils.rero.ch/api/item_types/itty1'
+            }
+        }, {
+            'patron_type': {
+                '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+            },
+            'item_type': {
+                '$ref': 'https://ils.rero.ch/api/item_types/itty4'
+            }
+        }]
+    }
+    with pytest.raises(RecordValidationError):
+        cipo = CircPolicy.create(cipo_data, delete_pid=False)
 
 
 def test_circ_policy_exist_name_and_organisation_pid(

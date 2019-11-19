@@ -59,6 +59,29 @@ class CircPolicy(IlsRecord):
     fetcher = circ_policy_id_fetcher
     provider = CircPolicyProvider
 
+    def extended_validation(self, **kwargs):
+        """Validate record against schema.
+
+        and extended validation to check that patron types and item types are
+        part of the correct organisation.
+        """
+        from ..patron_types.api import PatronType
+        from ..item_types.api import ItemType
+
+        org = self.get('organisation')
+        for setting in self.replace_refs().get('settings', []):
+            patron_type = PatronType.get_record_by_pid(setting.get(
+                'patron_type', {}).get('pid')
+            )
+            item_type = ItemType.get_record_by_pid(setting.get(
+                'item_type', {}).get('pid')
+            )
+            if patron_type.get('organisation') != org or item_type.get(
+                'organisation'
+            ) != org:
+                return False
+        return True
+
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the policy name is unique on organisation."""
