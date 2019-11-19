@@ -217,18 +217,22 @@ def init(force):
 @click.option('-s', '--schema', 'schema', default=None)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
+@click.option('-o', '--dont-stop', 'dont_stop_on_error',
+              is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy):
+def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
+           dont_stop_on_error):
     """Load REROILS record.
 
-    infile: Json file
-    append: appends pids to database
-    reindex: reindex record by record
-    dbcommit: commit record to database
-    pid_type: record type
-    schema: recoord schema
-    lazy: lazy reads file
+    :param infile: Json file
+    :param append: appends pids to database
+    :param reindex: reindex record by record
+    :param dbcommit: commit record to database
+    :param pid_type: record type
+    :param schema: recoord schema
+    :param lazy: lazy reads file
+    :param dont_stop_on_error: don't stop on error
     """
     click.secho(
         'Loading {pid_type} records from {file_name}.'.format(
@@ -271,7 +275,7 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy):
         except Exception as err:
             error_records.append(record)
             click.secho(
-                '{count: <8} {pid_type} creat error {pid}: {err}'.format(
+                '{count: <8} {pid_type} create error {pid}: {err}'.format(
                     count=count,
                     pid_type=pid_type,
                     pid=record.get('pid', '???'),
@@ -279,7 +283,9 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy):
                 ),
                 err=True,
                 fg='red'
-                )
+            )
+            if not dont_stop_on_error:
+                sys.exit(1)
 
     if error_records:
         err_file_name = '{pid_type}_error.json'.format(pid_type=pid_type)
