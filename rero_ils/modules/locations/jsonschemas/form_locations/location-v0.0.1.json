@@ -14,7 +14,8 @@
     "type": "fieldset",
     "items": [
       {
-        "key": "name"
+        "key": "name",
+        "autofocus": true
       }
     ]
   },

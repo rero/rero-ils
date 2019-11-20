@@ -26,8 +26,14 @@
     <div class="form-group row">
       <label for="name" class="col-sm-2 col-form-label required" translate>Name</label>
       <div class="col-sm-10">
-        <input class="form-control" id="name" formControlName="name"
-          placeholder="{{ 'Please insert a name' | translate }}" required>
+        <input  
+            class="form-control" 
+            id="name" 
+            formControlName="name"
+            placeholder="{{ 'Please insert a name' | translate }}"
+            required
+            [autofocus]=true
+        >
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger pt-1">
           <div *ngIf="name.errors.required" translate>
             Name is required.

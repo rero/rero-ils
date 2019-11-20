@@ -5,7 +5,8 @@
     "items": [
       {
         "key": "first_name",
-        "htmlClass": "mr-2"
+        "htmlClass": "mr-2",
+        "autofocus": true
       },
       {
         "key": "last_name"

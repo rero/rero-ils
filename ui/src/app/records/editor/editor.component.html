@@ -24,7 +24,13 @@
     <div class="form-group">
       <label class="control-label" translate>Import record from BNF</label>
       <div  class="input-group">
-        <input #searchinput (keyup.enter)="importFromEan(searchinput.value)" type="text" class="form-control" placeholder="Enter an EAN" aria-label="Enter an EAN" aria-describedby="button-import">
+        <input #searchinput (keyup.enter)="importFromEan(searchinput.value)"
+               type="text" class="form-control"
+               placeholder="Enter an EAN"
+               aria-label="Enter an EAN"
+               aria-describedby="button-import"
+               autofocus="true"
+        >
         <div class="input-group-append">
             <button (click)="importFromEan(searchinput.value)" class="btn btn-outline-info" type="button" id="button-import" translate>Import</button>
         </div>

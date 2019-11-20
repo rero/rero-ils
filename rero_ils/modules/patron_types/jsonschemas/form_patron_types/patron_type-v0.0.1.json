@@ -20,7 +20,8 @@
         "validationMessage": {
           "alreadyTakenMessage": "The patron type name is already taken"
         },
-        "remoteRecordType": "patron_types"
+        "remoteRecordType": "patron_types",
+        "autofocus": true
       }
     ]
   },

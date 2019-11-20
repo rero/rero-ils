@@ -27,6 +27,7 @@
         formControlName="name"
         placeholder="{{ 'Please insert a name' | translate }}"
         required
+        [autofocus]=true
       >
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger pt-1">
         <div *ngIf="name.errors.required" translate>

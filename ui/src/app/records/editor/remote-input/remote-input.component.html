@@ -35,6 +35,7 @@
   [id]="'control' + layoutNode?._id"
   [name]="controlName"
   [readonly]="options?.readonly ? 'readonly' : null"
+  [attr.autofocus]="options?.autofocus"
   [type]="layoutNode?.type">
   <input *ngIf="!boundControl"
   [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
@@ -49,6 +50,7 @@
   [id]="'control' + layoutNode?._id"
   [name]="controlName"
   [readonly]="options?.readonly ? 'readonly' : null"
+  [attr.autofocus]="options?.autofocus"
   [type]="layoutNode?.type"
   [value]="controlValue"
   (input)="updateValue($event)">

@@ -25,9 +25,13 @@ import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap';
+import { AutoFocusDirective } from './shared/auto-focus/auto-focus.directive';
 
 @NgModule({
-  declarations: [SearchInputComponent],
+  declarations: [
+    SearchInputComponent,
+    AutoFocusDirective
+  ],
   imports: [
     CommonModule,
     DataTablesModule,
@@ -42,7 +46,8 @@ import { PaginationModule } from 'ngx-bootstrap';
     DataTablesModule,
     SearchInputComponent,
     ModalModule,
-    PaginationModule
+    PaginationModule,
+    AutoFocusDirective,
   ]
 })
 export class SharedModule { }

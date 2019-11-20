@@ -20,7 +20,8 @@
         "validationMessage": {
           "alreadyTakenMessage": "The item type name is already taken"
         },
-        "remoteRecordType": "item_types"
+        "remoteRecordType": "item_types",
+        "autofocus": true
       }
     ]
   },
