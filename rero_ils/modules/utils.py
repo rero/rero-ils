@@ -79,7 +79,7 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
     :param decoder: decoder to use for decoding
     :return: record Generator
     """
-    buffer = json_file.read(buf_size).replace('\n', '')
+    buffer = json_file.read(2).replace('\n', '')
     # we have to delete the first [ for an list of records
     if buffer.startswith('['):
         buffer = buffer[1:].lstrip()
