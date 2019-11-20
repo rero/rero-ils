@@ -38,3 +38,4 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         json['organisation'] = {
             'pid': org_pid
         }
+        json['available'] = item.available

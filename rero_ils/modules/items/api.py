@@ -234,6 +234,7 @@ class Item(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create item record."""
+        cls._item_build_org_ref(data)
         record = super(Item, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if not data.get('holding'):
@@ -247,6 +248,23 @@ class Item(IlsRecord):
         self.item_link_to_holding()
 
         return self
+
+    @classmethod
+    def _item_build_org_ref(cls, data):
+        """Build $ref for the organisation of the item."""
+        loc_pid = data.get('location', {}).get('pid')
+        if not loc_pid:
+            loc_pid = data.get('location').get('$ref').split('locations/')[1]
+            org_pid = Location.get_record_by_pid(loc_pid).organisation_pid
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        org_ref = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='organisations',
+                pid=org_pid or cls.organisation_pid)
+        }
+        data['organisation'] = org_ref
 
     def item_link_to_holding(self):
         """Link an item to a holding record."""
@@ -947,3 +965,9 @@ class Item(IlsRecord):
         )
         search_result = search.execute()
         return search_result.hits.total
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        dump = super(Item, self).dumps(**kwargs)
+        dump['available'] = self.available
+        return dump

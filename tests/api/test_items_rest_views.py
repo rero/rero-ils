@@ -24,12 +24,32 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import get_json, postdata
 
 from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
 from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.loans.api import LoanAction
+
+
+def test_item_dumps(client, item_lib_martigny, org_martigny,
+                    librarian_martigny_no_email):
+    """Test item dumps and elastic search version."""
+    item_dumps = Item(item_lib_martigny.dumps()).replace_refs()
+
+    assert item_dumps.get('available')
+    assert item_dumps.get('organisation').get('pid') == org_martigny.pid
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.item_item',
+                         pid_value=item_lib_martigny.pid)
+
+    res = client.get(record_url)
+    assert res.status_code == 200
+
+    item_es = Item(get_json(res).get('metadata'))
+    assert item_es.available
+    assert item_es.organisation_pid == org_martigny.pid
 
 
 def test_checkout_no_loan_given(client, librarian_martigny_no_email,
