@@ -42,9 +42,10 @@ DEPLOYMENT=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
+CREATE_LAZY=""
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big,data_path: -- "$@")
+if ! options=$(getopt -o dsb -l deployment,create_items_holdings_small,create_items_holdings_big,lazy,data_path: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -57,6 +58,7 @@ do
     -s|--create_items_holdings_small) CREATE_ITEMS_HOLDINGS_SMALL=true ;;
     -b|--create_items_holdings_big) CREATE_ITEMS_HOLDINGS_BIG=true ;;
     -c|--continue) STOP_EXECUTION=false ;;
+    -l|--lazy) CREATE_LAZY="--lazy" ;;
     -D|--data_path) DATA_PATH=$2 ;;
     (--) shift; break;;
     (-*) display_error_message "$0: error - unrecognized option $1"; exit 1;;
@@ -139,23 +141,23 @@ pipenv run invenio access allow superuser-access role superusers
 pipenv run invenio roles add admin@rero.ch admins
 pipenv run invenio roles add admin@rero.ch superusers
 
-display_success_message "Organisations:"
-pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json  --append
+display_success_message "Organisations: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t org --yes-i-know
-display_success_message "Libraries:"
-pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append
+display_success_message "Libraries: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t lib --yes-i-know
-display_success_message "Locations:"
-pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append
+display_success_message "Locations: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t loc --yes-i-know
-display_success_message "Item types:"
-pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append
+display_success_message "Item types: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t itty --yes-i-know
-display_success_message "Patron types:"
-pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append
+display_success_message "Patron types: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t ptty --yes-i-know
-display_success_message "Circulation policies:"
-pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append
+display_success_message "Circulation policies: ${CREATE_LAZY}"
+pipenv run invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t cipo --yes-i-know
 pipenv run invenio index run --raise-on-error
 
@@ -209,15 +211,15 @@ then
     fi
 fi
 
-display_success_message "Holdings:"
+display_success_message "Holdings: ${CREATE_LAZY}"
 echo -e ${HOLDINGS}
-pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append
+pipenv run invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t hold --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
-display_success_message "Items:"
+display_success_message "Items: ${CREATE_LAZY}"
 echo -e ${ITEMS}
-pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS}  --append
+pipenv run invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY}
 pipenv run invenio index reindex -t item --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
@@ -225,7 +227,6 @@ display_success_message "Index Documents:"
 pipenv run invenio index reindex -t doc --yes-i-know
 pipenv run invenio index run -c 4 --raise-on-error
 
-set +e
 display_success_message "Circulation transactions:"
 pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
 
