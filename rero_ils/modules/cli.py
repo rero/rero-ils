@@ -32,7 +32,12 @@ from json import loads
 
 import click
 import jsonref
+import polib
+import pycountry
+import requests
+import xmltodict
 import yaml
+from babel import Locale, core
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import current_app
 from flask.cli import with_appcontext
@@ -936,3 +941,204 @@ def reindex(pid_type):
     IlsRecordIndexer().bulk_index(query, doc_type=pid_type)
     click.secho('Execute "run" command to process the queue!',
                 fg='yellow')
+
+
+def get_loc_languages(verbose=False):
+    """Get languages from LOC."""
+    languages = {}
+    url = 'https://www.loc.gov/standards/codelists/languages.xml'
+    response = requests.get(url)
+    root = xmltodict.parse(response.content)
+    for language in root['codelist']['languages']['language']:
+        if isinstance(language['name'], OrderedDict):
+            name = language['name']['#text']
+        else:
+            name = language['name']
+        code = language['code']
+        if isinstance(code, OrderedDict):
+            if code['@status'] == 'obsolete':
+                code = None
+            else:
+                code = code['#text']
+        if code:
+            if verbose:
+                click.echo('{code}: {name}'.format(name=name, code=code))
+            languages[code] = name
+    return languages
+
+
+@utils.command('translate')
+@click.argument('translate_to', type=str)
+@click.option('-c', '--change', 'change', is_flag=True, default=False)
+@click.option('-t', '--title_map', 'title_map', is_flag=True, default=False)
+@click.option('-l', '--no_loc_en', 'no_loc_en', is_flag=True, default=True)
+@click.option('-a', '--angular', 'angular', is_flag=True, default=False)
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
+    """Automatic language, country, canton, language scrip translations."""
+    def print_title_map(name, values):
+        """Print out a title map."""
+        if title_map:
+            click.secho('Titel map {name}:'.format(name=name), fg='green')
+            click.echo('"titleMap": [')
+            for value in values:
+                click.echo('\t{')
+                click.echo('\t\t"value": "{value}",'.format(value=value))
+                click.echo('\t\t"name": "{value}"'.format(value=value))
+                if value == values[-1]:
+                    click.echo('\t}')
+                else:
+                    click.echo('\t},')
+            click.echo(']')
+
+    def change_po(po, values):
+        """Change values in message po."""
+        for entry in po:
+            if entry.msgid in values:
+                click.echo(
+                    'Translate: {name} -> {trans}'.format(
+                        name=entry.msgid,
+                        trans=values[entry.msgid]
+                    )
+                )
+                entry.msgstr = values[entry.msgid]
+                if entry.fuzzy:
+                    entry.flags.remove('fuzzy')
+
+    try:
+        locale = Locale(translate_to)
+
+        click.secho('Translate country codes to: {translate_to}'.format(
+                translate_to=translate_to
+            ),
+            fg='green'
+        )
+        document = ('./rero_ils/modules/documents/jsonschemas/'
+                    'documents/document-v0.0.1_src.json')
+
+        if change:
+            file_name = (
+                './rero_ils/translations/{translate_to}/LC_MESSAGES/'
+                'messages.po'.format(translate_to=translate_to)
+            )
+            # try to open file. polib.pofile is not raising a good error
+            test_file = open(file_name)
+            test_file.close()
+            po = polib.pofile(file_name)
+
+        if no_loc_en and translate_to == 'en':
+            loc_languages = get_loc_languages()
+
+        with open(document, 'r') as opened_file:
+            data = json.load(opened_file)
+
+            definitions = data.get('definitions', {})
+            # languages
+            languages = definitions.get('language', {}).get('enum')
+            print_title_map('language', languages)
+            translated_languages = {}
+            for lang in languages:
+                # get language specification:
+                trans_name = None
+                if no_loc_en and translate_to == 'en':
+                    trans_name = loc_languages.get(lang, None)
+                else:
+                    lang_info = pycountry.languages.get(alpha_3=lang)
+                    if lang_info:
+                        try:
+                            # try to get translated name with alpha_2
+                            trans_name = locale.languages.get(
+                                lang_info.alpha_2
+                            )
+                        except:
+                            # try with alpha_3
+                            trans_name = locale.languages.get(
+                                lang_info.alpha_3
+                            )
+                if trans_name:
+                    translated_languages[lang] = trans_name
+                if verbose and trans_name:
+                    click.echo('Language {code}: {translated}'.format(
+                        code=lang,
+                        translated=trans_name
+                    ))
+            if change:
+                change_po(po, translated_languages)
+
+            # countries
+            countries = definitions.get('country', {}).get('enum')
+            print_title_map('country', countries)
+            # translated_countries = {}
+            # for country_code in countries:
+            #     try:
+            #         country = pycountry.countries.lookup(country_code)
+            #         trans_name = locale.territories[country.alpha_2]
+            #         translated_countries[country_code] = trans_name
+            #         if verbose:
+            #             click.echo('Country {code}: {translated}'.format(
+            #                 code=country_code,
+            #                 translated=trans_name
+            #             ))
+            #     except:
+            #         pass
+            # if change:
+            #     change_po(po, translated_countries)
+
+            # language_script
+            language_scripts = definitions.get(
+                'language_script', {}
+            ).get('enum')
+            print_title_map('language_script', language_scripts)
+            # TODO: translation
+
+            # language_script
+            cantons = definitions.get('canton', {}).get('enum')
+            print_title_map('canton', cantons)
+            # TODO: translation
+
+        if angular:
+            click.secho('Add to manual_translation.ts', fg='yellow')
+            click.secho('// Languages translations')
+            for language in languages:
+                click.secho("_('{language}')".format(language=language))
+            click.secho(
+                'Add to i18n/{translate_to}.ts'.format(
+                    translate_to=translate_to
+                ),
+                fg='yellow'
+            )
+            file_po = (
+                './rero_ils/translations/{translate_to}/LC_MESSAGES/'
+                'messages.po'.format(translate_to=translate_to)
+            )
+            # try to open file. polib.pofile is not raising a good error
+            test_file = open(file_po)
+            test_file.close()
+            po_angular = polib.pofile(file_po)
+            for entry in po_angular:
+                if entry.msgid in languages:
+                    trans = entry.msgid
+                    if entry.msgstr:
+                        trans = entry.msgstr
+                    click.secho('  "{language}": "{trans}",'.format(
+                        language=entry.msgid,
+                        trans=trans
+                    ))
+
+        if change:
+            po.save(file_name)
+        click.echo('Languages: {count} translated: {t_count}'.format(
+            count=len(languages),
+            t_count=len(translated_languages)
+        ))
+        # click.echo('Countries: {count} translated: {t_count}'.format(
+        #     count=len(countries),
+        #     t_count=len(translated_countries)
+        # ))
+    except core.UnknownLocaleError as err:
+        click.secho(
+            'Unknown locale: {translate_to}'.format(translate_to=translate_to),
+            fg='red'
+        )
+    except FileNotFoundError as err:
+        click.secho(str(err), fg='red')

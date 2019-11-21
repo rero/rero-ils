@@ -1,4 +1,4 @@
-# Italian translations for rero-ils.
+# Translations template for rero-ils.
 # Copyright (C) 2019 RERO
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
@@ -9,94 +9,92 @@
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Aly Badr <aly.badr@rero.ch>, 2019
 # iGor milhit <igor.milhit@rero.ch>, 2019
-# Peter Weber <peter.weber@rero.ch>, 2019
-# Gianni Pante <gianni.pante@rero.ch>, 2019
 # alicia.zangger <alicia.zangger@gmail.com>, 2019
 # Renaud Michotte <renaud.michotte@gmail.com>, 2019
 # Nicolas Prongué <n.prongue@outlook.com>, 2019
+# Peter Weber <peter.weber@rero.ch>, 2019
+# Gianni Pante <gianni.pante@rero.ch>, 2019
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.5.0\n"
+"Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2019-11-04 10:31+0100\n"
+"POT-Creation-Date: 2019-11-25 13:50+0100\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2019\n"
-"Language: it\n"
+"Last-Translator: Gianni Pante <gianni.pante@rero.ch>, 2019\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: rero_ils/config.py:97
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:159
+#: rero_ils/config.py:101
 msgid "French"
 msgstr "Francese"
 
-#: rero_ils/config.py:98
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:163
+#: rero_ils/config.py:102
 msgid "German"
 msgstr "Tedesco"
 
-#: rero_ils/config.py:99
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:175
+#: rero_ils/config.py:103
 msgid "Italian"
 msgstr "italiano"
 
-#: rero_ils/config.py:138 rero_ils/config.py:142
+#: rero_ils/config.py:142 rero_ils/config.py:146
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:185
+#: rero_ils/config.py:189
 msgid "Welcome to RERO-ILS!"
 msgstr "Benvenuti su RERO ILS!"
 
-#: rero_ils/config.py:835
+#: rero_ils/config.py:843
 msgid "document_type"
 msgstr "tipo di documento"
 
-#: rero_ils/config.py:836
+#: rero_ils/config.py:844
 msgid "organisation"
 msgstr "Ente"
 
-#: rero_ils/config.py:839
+#: rero_ils/config.py:847
 msgid "library"
 msgstr "biblioteca"
 
-#: rero_ils/config.py:840
+#: rero_ils/config.py:848
 msgid "author__en"
 msgstr "author__en"
 
-#: rero_ils/config.py:841
+#: rero_ils/config.py:849
 msgid "author__fr"
 msgstr "author__fr"
 
-#: rero_ils/config.py:842
+#: rero_ils/config.py:850
 msgid "author__de"
 msgstr "author__de"
 
-#: rero_ils/config.py:843
+#: rero_ils/config.py:851
 msgid "author__it"
 msgstr "author__it"
 
-#: rero_ils/config.py:844
+#: rero_ils/config.py:852
 msgid "language"
 msgstr "lingua"
 
-#: rero_ils/config.py:845
+#: rero_ils/config.py:853
 msgid "subject"
 msgstr "oggetto"
 
-#: rero_ils/config.py:846
+#: rero_ils/config.py:854
 msgid "status"
 msgstr "stato"
 
-#: rero_ils/config.py:854
+#: rero_ils/config.py:870
 msgid "roles"
 msgstr "ruoli"
 
-#: rero_ils/config.py:862
+#: rero_ils/config.py:886
 msgid "sources"
 msgstr "fonti"
 
@@ -141,147 +139,95 @@ msgid "publicaccess"
 msgstr "pubblico accesso"
 
 #: rero_ils/manual_translations.txt:28
-msgid "fre"
-msgstr "francese"
-
-#: rero_ils/manual_translations.txt:29
-msgid "eng"
-msgstr "inglese"
-
-#: rero_ils/manual_translations.txt:30
-msgid "ger"
-msgstr "tedesco"
-
-#: rero_ils/manual_translations.txt:31
-msgid "ita"
-msgstr "italiano"
-
-#: rero_ils/manual_translations.txt:32
-msgid "lat"
-msgstr "latino"
-
-#: rero_ils/manual_translations.txt:33
-msgid "spa"
-msgstr "spagnolo"
-
-#: rero_ils/manual_translations.txt:34
-msgid "ara"
-msgstr "arabo"
-
-#: rero_ils/manual_translations.txt:35
-msgid "por"
-msgstr "portoghese"
-
-#: rero_ils/manual_translations.txt:36
-msgid "rus"
-msgstr "russo"
-
-#: rero_ils/manual_translations.txt:37
-msgid "heb"
-msgstr "ebraico"
-
-#: rero_ils/manual_translations.txt:38
-msgid "jpn"
-msgstr "giapponese"
-
-#: rero_ils/manual_translations.txt:39
-msgid "chi"
-msgstr "cinese"
-
-#: rero_ils/manual_translations.txt:40
-msgid "und"
-msgstr "sconosciuta"
-
-#: rero_ils/manual_translations.txt:42
 msgid "patrons"
 msgstr "lettore"
 
-#: rero_ils/manual_translations.txt:43
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:63
+#: rero_ils/manual_translations.txt:29
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:66
 msgid "librarian"
 msgstr "bibliotecario/a"
 
-#: rero_ils/manual_translations.txt:44
+#: rero_ils/manual_translations.txt:30
 msgid "staff"
 msgstr "professionista"
 
-#: rero_ils/manual_translations.txt:46
+#: rero_ils/manual_translations.txt:32
 msgid "article"
 msgstr "articolo"
 
-#: rero_ils/manual_translations.txt:47
+#: rero_ils/manual_translations.txt:33
 msgid "book"
 msgstr "libro"
 
-#: rero_ils/manual_translations.txt:48
+#: rero_ils/manual_translations.txt:34
 msgid "ebook"
 msgstr "e-book"
 
-#: rero_ils/manual_translations.txt:49
+#: rero_ils/manual_translations.txt:35
 msgid "journal"
 msgstr "giornale"
 
-#: rero_ils/manual_translations.txt:50
+#: rero_ils/manual_translations.txt:36
 msgid "score"
 msgstr "partitura"
 
-#: rero_ils/manual_translations.txt:51
+#: rero_ils/manual_translations.txt:37
 msgid "sound"
 msgstr "audio"
 
-#: rero_ils/manual_translations.txt:52
+#: rero_ils/manual_translations.txt:38
 msgid "video"
 msgstr "video"
 
-#: rero_ils/manual_translations.txt:55
+#: rero_ils/manual_translations.txt:41
 msgid "gnd"
 msgstr "GND"
 
-#: rero_ils/manual_translations.txt:56
+#: rero_ils/manual_translations.txt:42
 msgid "bnf"
 msgstr "BNF"
 
-#: rero_ils/manual_translations.txt:57
+#: rero_ils/manual_translations.txt:43
 msgid "rero"
 msgstr "RERO"
 
-#: rero_ils/manual_translations.txt:60
+#: rero_ils/manual_translations.txt:46
 msgid "ui_language_en"
 msgstr "English"
 
-#: rero_ils/manual_translations.txt:61
+#: rero_ils/manual_translations.txt:47
 msgid "ui_language_fr"
 msgstr "Français"
 
-#: rero_ils/manual_translations.txt:62
+#: rero_ils/manual_translations.txt:48
 msgid "ui_language_de"
 msgstr "Deutsch"
 
-#: rero_ils/manual_translations.txt:63
+#: rero_ils/manual_translations.txt:49
 msgid "ui_language_it"
 msgstr "Italiano"
 
-#: rero_ils/manual_translations.txt:66
+#: rero_ils/manual_translations.txt:52
 msgid "bf:Publication"
 msgstr "Pubblicazione  "
 
-#: rero_ils/manual_translations.txt:67
+#: rero_ils/manual_translations.txt:53
 msgid "bf:Manufacture"
 msgstr "Manifattura"
 
-#: rero_ils/manual_translations.txt:68
+#: rero_ils/manual_translations.txt:54
 msgid "bf:Distribution"
 msgstr "Distribuzione"
 
-#: rero_ils/manual_translations.txt:69
+#: rero_ils/manual_translations.txt:55
 msgid "bf:Production"
 msgstr "Produzione"
 
-#: rero_ils/manual_translations.txt:72
+#: rero_ils/manual_translations.txt:58
 msgid "ebibliomedia"
 msgstr "Accesso"
 
-#: rero_ils/manual_translations.txt:73
+#: rero_ils/manual_translations.txt:59
 msgid "mv-cantook"
 msgstr "Accesso"
 
@@ -293,22 +239,22 @@ msgstr "Menù"
 msgid "Help"
 msgstr "Aiuto"
 
-#: rero_ils/views.py:102
+#: rero_ils/views.py:110
 msgid "My Account"
 msgstr "Il mio account"
 
-#: rero_ils/views.py:135
+#: rero_ils/views.py:131
 msgid "Login"
 msgstr "Login"
 
-#: rero_ils/views.py:152
+#: rero_ils/views.py:148
 msgid "Logout"
 msgstr "Logout"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:43
 #: rero_ils/templates/rero_ils/register_user.html:45
-#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:163
+#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:159
 msgid "Sign Up"
 msgstr "Registrazione nuovo utente"
 
@@ -377,10 +323,10 @@ msgid "JSON schema for circulation policies."
 msgstr "JSON schema per una politica di prestito"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:455
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:455
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:455
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:455
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:954
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:954
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:954
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:954
 #: rero_ils/modules/fees/jsonschemas/fees/fee-v0.0.1.json:19
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:13
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:16
@@ -392,7 +338,7 @@ msgstr "JSON schema per una politica di prestito"
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:15
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:21
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:18
 msgid "Schema"
 msgstr "Schema"
 
@@ -423,7 +369,9 @@ msgstr "La descrizione della politica di prestito."
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
 #: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:6
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:49
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:102
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 #: rero_ils/modules/patron_types/jsonschemas/form_patron_types/patron_type-v0.0.1.json:6
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:38
@@ -432,7 +380,9 @@ msgstr "Ente"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:53
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:106
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:42
 msgid "Organisation URI"
 msgstr "URI dell'organizzazione"
@@ -476,8 +426,10 @@ msgid "Number of days after due date"
 msgstr "Numero di giorni dopo la data di scadenza"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
-msgid "Number of days after due date for sending the first overdue notification."
-msgstr "Numero di giorni dopo la data di scadenza per mandare il primo richiamo."
+msgid ""
+"Number of days after due date for sending the first overdue notification."
+msgstr ""
+"Numero di giorni dopo la data di scadenza per mandare il primo richiamo."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "The amount of reminder fee"
@@ -517,7 +469,7 @@ msgstr "Lista delle biblioteche"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:59
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:107
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
 msgid "Library URI"
 msgstr "URI della biblioteca"
 
@@ -542,26 +494,25 @@ msgid "Item type URI"
 msgstr "URI del tipo di esemplare"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:212
-#: rero_ils/modules/documents/views.py:320
+#: rero_ils/modules/documents/views.py:339
 msgid "available"
 msgstr "disponibile"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:212
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:214
-#: rero_ils/modules/documents/views.py:322
+#: rero_ils/modules/documents/views.py:341
 msgid "not available"
 msgstr "indisponibile"
 
-#: rero_ils/modules/documents/views.py:329 rero_ils/modules/items/views.py:137
+#: rero_ils/modules/documents/views.py:348 rero_ils/modules/items/views.py:138
 msgid "due until"
 msgstr "in scadenza fino al"
 
-#: rero_ils/modules/documents/views.py:331
+#: rero_ils/modules/documents/views.py:350
 msgid "requested"
 msgstr "richiesto"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:203
-#: rero_ils/modules/documents/views.py:385
+#: rero_ils/modules/documents/views.py:404
 msgid "Undefined"
 msgstr "Indefinito"
 
@@ -572,44 +523,55 @@ msgstr "Indefinito"
 msgid "Schema for document"
 msgstr "Schema per un documento"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:456
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:456
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:456
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:456
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1028
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1028
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1027
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1027
+msgid "Language value"
+msgstr "Codice di lingua"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:955
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:955
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:955
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:955
 msgid "Schema to validate document against."
 msgstr "Schema di convalida per registrazioni bibliografiche"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:462
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:462
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:461
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:461
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:961
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:961
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:960
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:960
 msgid "Document ID"
 msgstr "ID del documento"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:467
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:519
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:591
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:633
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:649
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1231
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:467
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:519
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:591
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:633
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:649
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:807
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:466
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:518
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:590
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:631
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:647
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1229
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:466
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:518
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:590
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:631
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:647
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:805
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:966
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1019
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1561
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1603
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1619
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2209
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:966
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1019
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1075
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1117
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1133
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1291
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:965
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1018
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1560
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1601
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1617
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2207
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:965
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1018
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1074
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1115
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1131
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1289
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:7
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:40
 #: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:40
@@ -617,179 +579,172 @@ msgstr "ID del documento"
 msgid "Type"
 msgstr "Tipo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:468
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:468
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:467
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:467
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:967
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:967
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:966
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:966
 msgid "Required. Type of the document. Should be selected in the list below."
 msgstr "Richiesto. Tipo di documento. Dove essere selezionato nell'elenco."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:482
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1184
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:482
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:760
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:481
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1182
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:481
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:758
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:982
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2162
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:982
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1244
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:981
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2160
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:981
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1242
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:16
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:79
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:77
 msgid "Title"
 msgstr "Titolo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:483
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:484
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:483
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:484
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:482
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:483
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:482
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:483
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:983
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:984
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:983
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:984
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:982
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:983
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:982
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:983
 msgid "Required. Entire title without statement of responsibility."
 msgstr "Richiesto. Titolo completo senza dichiarazione di responsabilità."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:489
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:489
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:488
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:488
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:989
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:989
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:988
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:988
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:25
 msgid "Proper or uniformed titles"
 msgstr "Titoli propri o uniforme"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:490
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:490
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:489
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:489
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:990
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:990
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:989
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:989
 msgid ""
 "Uniform title, a related or an analytical title that is controlled by an "
 "authority file or list, used as an added access point."
 msgstr ""
 "Titolo uniforme, un titolo associato o analitico, controllato da un "
-"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di"
-" accesso."
+"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di "
+"accesso."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:494
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:494
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:493
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:493
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:994
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:994
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:993
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:993
 msgid "Proper or uniformed title"
 msgstr "Titolo uniforme"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:500
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:500
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:499
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:499
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:326
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1000
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1000
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:999
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:999
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2206
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:88
 msgid "Is part of"
 msgstr "Fa parte di"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:501
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:501
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:500
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:500
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1001
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1001
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1000
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1000
 msgid "Title of the host document."
 msgstr "Titolo della collezione."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:506
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:506
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:682
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:505
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:505
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:680
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1006
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1006
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1166
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1005
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1005
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1164
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:128
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:121
 msgid "Language"
 msgstr "Lingua"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:507
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:507
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:506
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:506
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1007
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1007
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1006
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1006
 msgid "List of languages for the resource."
 msgstr "Elenchi linguistici dell'opera."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:520
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:520
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:519
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:519
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1020
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1020
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1019
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1019
 msgid "Type of the language."
 msgstr "Tipo della lingua."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:528
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:528
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:527
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:527
-msgid "Language value"
-msgstr "Codice di lingua"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:552
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:552
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:551
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:551
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:216
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:225
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1522
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1036
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1521
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1035
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2096
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2105
 msgid "Translated from"
 msgstr "Tradotto da"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:553
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:553
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:552
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:552
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1523
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1037
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1522
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1036
 msgid "Language from which a resource is translated."
 msgstr "Lingua da cui l'opera è stata tradotta."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:559
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:559
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:558
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:558
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1529
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1043
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1528
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1042
 msgid ""
-"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> "
-"for English."
+"Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for "
+"English."
 msgstr ""
-"Deve essere in formato ISO 639, in 3 caratteri, ad esempio "
-"<code>eng</code> per l'inglese."
+"Deve essere in formato ISO 639, in 3 caratteri, ad esempio <code>eng</code> "
+"per l'inglese."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:563
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:563
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:562
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:562
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1533
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1047
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1532
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1046
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:42
 msgid "Authors"
 msgstr "Autore o autori"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:564
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:564
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:563
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:563
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1534
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1048
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1533
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1047
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr "Autore o autori dell'opera. Può essere una persona o un ente."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:575
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:575
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:574
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:574
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1545
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1059
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1544
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1058
 msgid "MEF person ref"
 msgstr "MEF persona ref"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:580
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:580
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:579
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:579
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1550
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1064
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1549
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1063
 msgid "pid"
 msgstr "PID"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:581
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:581
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:580
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:580
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1551
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1065
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1550
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1064
 msgid "Corresponding pid of the MEF record."
 msgstr "PID corrispondente del record MEF."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:586
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:586
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:585
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:585
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1556
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1070
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1555
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1069
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:28
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:32
@@ -799,513 +754,512 @@ msgstr "PID corrispondente del record MEF."
 msgid "Name"
 msgstr "Nome"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:587
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:587
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:586
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:586
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1557
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1071
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1556
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1070
 msgid "Person's or organisation's name."
 msgstr "Nome della persona o dell'ente."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:592
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:592
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:591
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:591
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1562
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1076
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1561
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1075
 msgid "Identify if the author is a person or an organisation."
 msgstr "Identifica se l'autore dell'opera è un individuo o un ente."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:601
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:601
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:600
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:600
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1571
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1085
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1570
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1084
 msgid "Date"
 msgstr "Data"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:602
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:602
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:601
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:601
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1572
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1086
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1571
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1085
 msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
 msgstr ""
-"Informazioni sulla data di nascita e di decesso di una persona. Utile per"
-" distinguere gli omonimi."
+"Informazioni sulla data di nascita e di decesso di una persona. Utile per "
+"distinguere gli omonimi."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:606
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1270
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:606
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:846
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:605
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1268
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:605
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:844
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1576
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2248
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1090
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1330
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1575
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2246
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1089
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1328
 msgid "Qualifier"
 msgstr "Qualificazione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:607
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:607
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:606
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:606
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1577
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1091
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1576
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1090
 msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informazioni che qualificano la persona, come la sua occupazione. Utile "
-"per distinguere gli omonimi."
+"Informazioni che qualificano la persona, come la sua occupazione. Utile per "
+"distinguere gli omonimi."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:614
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:618
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:614
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:618
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:613
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:613
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1584
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1588
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1098
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1102
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1583
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1097
 msgid "Copyright Date"
 msgstr "Data di copyright"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:625
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:625
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:623
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:623
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1595
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1109
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1593
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1107
 msgid "Provision Activity"
 msgstr "Pubblicazione, manifattura, distribuzione, produzione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:643
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:643
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:641
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:641
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1613
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1127
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1611
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1125
 msgid "Statement of place and/or agent of the provision activity"
 msgstr ""
 "Formulazione di luogo e/o di persona, famiglia, ente di pubblicazione, "
 "manifattura, distribuzione, produzione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:657
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:657
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:655
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:655
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1627
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1141
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1625
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1139
 msgid "Canton"
 msgstr "Cantone"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1078
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:671
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1076
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:669
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2048
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1155
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2046
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1153
 msgid "Label"
 msgstr "Label"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1084
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:677
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1082
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:675
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2054
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1161
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2052
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1159
 msgid "Place and/or agent name"
 msgstr "Nome di luogo e/o di persona, famiglia, ente"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1117
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1202
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1264
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:693
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:778
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:840
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1115
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1200
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1262
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:691
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:776
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:838
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2095
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2180
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2242
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1177
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1262
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1324
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2093
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2178
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2240
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1175
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1260
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1322
 msgid "Note"
 msgstr "Nota"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1118
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:694
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1116
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:692
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2096
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1178
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2094
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1176
 msgid "Note."
 msgstr "Nota"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1122
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:698
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1120
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:696
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2100
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1182
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2098
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1180
 msgid "Start date of publication"
 msgstr "Data di pubblicazione 1"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1123
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:699
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1121
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:697
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2101
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1183
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2099
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1181
 msgid ""
-"Start date of the publication. This must be an integer, ie 1989, 453, "
-"-50. Used to sort search results. Once this field is set, a free formed "
-"date of publication can be added in the next field."
+"Start date of the publication. This must be an integer, ie 1989, 453, -50. "
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
 "Data di pubblicazione 1. Deve essere un numero intero, per esempio 1989, "
 "453, -50. Utilizzata per ordinare i risultati di una ricerca. Una volta "
 "compilato il campo, è possibile aggiungere una data di pubblicazione in "
 "forma libera nel campo successivo."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1129
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:705
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1127
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:703
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2107
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1189
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2105
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1187
 msgid "End date of publication"
 msgstr "Data di pubblicazione 2"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1130
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:706
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1128
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:704
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2108
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1190
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2106
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1188
 msgid ""
 "End date of the publication. This must be an integer, ie 1989, 453, -50. "
-"Used to sort search results. Once this field is set, a free formed date "
-"of publication can be added in the next field."
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
 "Data di pubblicazione 2. Deve essere un numero intero, per esempio 1989, "
 "453, -50. Utilizzata per ordinare i risultati di una ricerca. Una volta "
 "compilato il campo, è possibile aggiungere una data di pubblicazione in "
 "forma libera nel campo successivo."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1136
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:712
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1134
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:710
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2114
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1196
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2112
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1194
 msgid "Date of publication (free formed)"
 msgstr "Data di pubblicazione (visualizzata)"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1137
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:713
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1135
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:711
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2115
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1197
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2113
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1195
 msgid ""
 "Date of the publication in a free form. If there's a normalized date of "
 "publication, then a free formed date can be added to be displayed."
 msgstr ""
-"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione"
-" in forma standard, è possibile aggiungere e visualizzare una data "
-"libera."
+"Data di pubblicazione (visualizzata). Se esiste una data di pubblicazione in"
+" forma standard, è possibile aggiungere e visualizzare una data libera."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1144
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:720
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1142
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:718
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:250
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2122
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1204
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2120
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1202
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2130
 msgid "Extent"
 msgstr "Importanza materiale"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1145
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:721
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1143
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:719
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2123
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1205
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2121
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1203
 msgid "Extent of the resource, ie number of pages or volumes."
-msgstr "Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
+msgstr ""
+"Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1150
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:726
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1148
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:724
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:260
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2128
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1210
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2126
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1208
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2140
 msgid "Other Material Characteristics"
 msgstr "Altre caratteristiche dei materiali"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1151
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:727
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1149
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:725
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2129
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1211
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2127
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1209
 msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
 msgstr ""
-"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco "
-"e nero o a colori."
+"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco e "
+"nero o a colori."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1156
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:732
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1154
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:730
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:270
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2134
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1216
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2132
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1214
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2150
 msgid "Formats"
 msgstr "Formato"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1157
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:733
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1155
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:731
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:281
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2135
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1217
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2133
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1215
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2161
 msgid "Format of the resource, ie dimensions in cm."
 msgstr "Formato della risorsa, ad esempio dimensioni in cm."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1166
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:742
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1164
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:740
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:290
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2144
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1226
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2142
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1224
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2170
 msgid "Additional materials"
 msgstr "Materiale di accompagnamento"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1167
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:743
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1165
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:741
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2145
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1227
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2143
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1225
 msgid "Accompanying material of the resource, ie maps."
 msgstr "Materiali che accompagnano la risorsa, ad esempio mappe."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1172
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:748
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1170
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:746
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:299
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2150
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1232
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2148
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1230
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2179
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:78
 msgid "Series"
 msgstr "Collezione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1173
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:749
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1171
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:747
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2151
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1233
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2149
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1231
 msgid "Series to which belongs the resource."
 msgstr "Collezione cui appartiene la risorsa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1185
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:761
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1183
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:759
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2163
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1245
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2161
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1243
 msgid "Title of the series."
 msgstr "Titolo della collezione."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1189
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:765
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1187
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:763
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2167
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1249
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2165
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1247
 msgid "Numbering"
 msgstr "Numerazione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1190
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:766
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1188
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:764
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2168
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1250
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2166
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1248
 msgid "Numbering of the resource within the series."
 msgstr "Numerazione delle risorse all'interno della raccolta."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1197
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:773
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1195
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:771
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:469
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2175
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1257
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2173
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1255
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2349
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:98
 msgid "Notes"
 msgstr "Nota"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1198
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:774
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1196
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:772
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2176
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1258
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2174
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1256
 msgid "Note on the resource."
 msgstr "Nota sulla risorsa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1208
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:784
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1206
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:782
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:234
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2186
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1268
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2184
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1266
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2114
 msgid "Abstracts"
 msgstr "Riassunto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1209
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:785
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1207
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:783
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2187
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1269
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2185
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1267
 msgid "Abstract of the resource."
 msgstr "Riassunto della risorsa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1213
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:789
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1211
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:787
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2191
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1273
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2189
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1271
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:61
 msgid "Abstract"
 msgstr "Riassunto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1219
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:795
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1217
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:793
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:335
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2197
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1279
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2195
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1277
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2215
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:103
 msgid "Identifier"
 msgstr "Identificatore"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1258
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:834
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1256
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:832
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2236
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1318
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2234
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1316
 msgid "Identifier value"
 msgstr "Codice d'identificazione"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1259
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:835
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1257
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:833
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2237
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1319
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2235
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1317
 msgid "Identifier value."
 msgstr "Codice d'identificazione."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1265
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:841
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1263
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:839
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2243
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1325
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2241
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1323
 msgid "Note of the identifier."
 msgstr "Nota sull'identificatore"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1271
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:847
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1269
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:845
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2249
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1331
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2247
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1329
 msgid "Qualifier of the identifier."
 msgstr "Qualificatore dell'identificatore."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1276
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:852
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1274
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:850
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2254
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1336
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2252
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1334
 msgid "Acquisition terms"
 msgstr "Condizioni di disponibilità"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1277
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:853
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1275
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:851
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2255
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1337
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2253
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1335
 msgid "Acquisition terms of the resource."
 msgstr "Condizioni di disponibilità della risorsa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1282
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:858
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1280
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:856
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2260
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1342
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2258
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1340
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:135
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:82
 msgid "Source"
 msgstr "Fonte"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1283
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:859
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1281
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:857
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2261
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1343
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2259
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1341
 msgid "Source of the identifier."
 msgstr "Fonte del identificatore."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1288
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:864
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1286
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:862
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2266
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1348
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2264
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1346
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:72
 msgid "Status"
 msgstr "Stato"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1289
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:865
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1287
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:863
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2267
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1349
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2265
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1347
 msgid "Status of the ISBN/ISSN identifier."
 msgstr "Stato dell'identificatore ISBN/SSSN."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1291
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:867
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1289
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:865
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2269
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1351
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2267
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1349
 msgid "ISBN/ISSN status should be selected in the list below."
 msgstr "Stato del codice ISSB/ISSN deve essere selezionato nell'elenco."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1302
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:878
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1300
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:876
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2280
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1362
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2278
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1360
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:112
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:93
 msgid "Subjects"
 msgstr "Oggetti"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1303
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:879
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1301
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:877
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2281
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1363
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2279
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1361
 msgid "Subject of the resource."
 msgstr "Oggetto della risorsa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1307
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:883
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1305
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:881
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2285
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1367
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2283
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1365
 msgid "Subject"
 msgstr "Oggetto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1313
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:889
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1311
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:887
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2291
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1373
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2289
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1371
 msgid "Cover art"
 msgstr "Immagine di copertina"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1314
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:890
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1312
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:888
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2292
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1374
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2290
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1372
 msgid "Vendor cover art URL."
 msgstr "URL dell'immagine di copertina del fornitore"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1319
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:895
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1317
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:893
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:485
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2297
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1379
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2295
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1377
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2365
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:64
 msgid "Electronic Locations"
 msgstr "Localizzazione delle risorse elettroniche"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1320
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:896
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1318
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:894
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2298
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1380
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2296
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1378
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:65
 msgid "Information needed to locate and access an electronic resource."
 msgstr ""
-"Informazioni necessarie per localizzare una risorsa elettronica e "
-"accedervi."
+"Informazioni necessarie per localizzare una risorsa elettronica e accedervi."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1329
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:905
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1328
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:904
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2307
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1389
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2306
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1388
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:76
 msgid "Uniform Resource Identifier"
 msgstr "Uniform Resource Identifier"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1330
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:906
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1329
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:905
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2308
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1390
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2307
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1389
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:77
 msgid ""
 "Uniform Resource Identifier (URI), which provides standard syntax for "
 "locating an object using existing Internet protocols."
 msgstr ""
-"Uniform Resource Identifier (URI), una sintassi standard per localizzare "
-"un oggetto utilizzando i protocolli Internet esistenti."
+"Uniform Resource Identifier (URI), una sintassi standard per localizzare un "
+"oggetto utilizzando i protocolli Internet esistenti."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1337
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:913
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1337
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:913
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2315
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1397
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2315
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1397
 msgid "Harvested"
 msgstr "Raccolto"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1338
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:914
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1338
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:914
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2316
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1398
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2316
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1398
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"Documento è stato raccolto o no, disattiva la possibilità di modificare "
-"il record o vice versa."
+"Documento è stato raccolto o no, disattiva la possibilità di modificare il "
+"record o vice versa."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:666
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:664
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1150
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1148
 msgid "Country"
 msgstr "Paese"
 
@@ -1335,130 +1289,2026 @@ msgid "Title and other designation associated with person"
 msgstr "Titolo e altre designazioni associate alla persona"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:147
-msgid "Arabic"
-msgstr "Arabo"
+msgid "aar"
+msgstr "afar"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:151
-msgid "Chinese"
-msgstr "Cinese"
+msgid "abk"
+msgstr "abcaso"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:155
-msgid "English"
-msgstr "Inglese"
+msgid "ace"
+msgstr "accinese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:159
+msgid "ach"
+msgstr "acioli"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:163
+msgid "ada"
+msgstr "adangme"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:167
-msgid "Greek"
-msgstr "Greco"
+msgid "ady"
+msgstr "adyghe"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:171
-msgid "Hebrew"
-msgstr "Ebraico"
+msgid "afa"
+msgstr "afroasiatiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:175
+msgid "afh"
+msgstr "afrihili"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:179
-msgid "Japanese"
-msgstr "Giapponese"
+msgid "afr"
+msgstr "afrikaans"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:183
-msgid "Latin"
-msgstr "Latino"
+msgid "ain"
+msgstr "ainu"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:187
-msgid "Polish"
-msgstr "Polacco"
+msgid "aka"
+msgstr "akan"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:191
-msgid "Portuguese"
-msgstr "Portoghese"
+msgid "akk"
+msgstr "accado"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:195
-msgid "Russian"
-msgstr "Russo"
+msgid "alb"
+msgstr "albanese"
 
 #: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:199
-msgid "Spanish"
-msgstr "Spagnolo"
+msgid "ale"
+msgstr "aleuto"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:352
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:203
+msgid "alg"
+msgstr "lingue algonchine"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:207
+msgid "alt"
+msgstr "altai meridionale"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:211
+msgid "amh"
+msgstr "amarico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:215
+msgid "ang"
+msgstr "inglese antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:219
+msgid "anp"
+msgstr "angika"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:223
+msgid "apa"
+msgstr "lingue apache"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:227
+msgid "ara"
+msgstr "arabo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:231
+msgid "arc"
+msgstr "aramaico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:235
+msgid "arg"
+msgstr "aragonese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:239
+msgid "arm"
+msgstr "armeno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:243
+msgid "arn"
+msgstr "mapudungun"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:247
+msgid "arp"
+msgstr "arapaho"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:251
+msgid "art"
+msgstr "lingua artificiale (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:255
+msgid "arw"
+msgstr "aruaco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:259
+msgid "asm"
+msgstr "assamese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:263
+msgid "ast"
+msgstr "asturiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:267
+msgid "ath"
+msgstr "lingue athabaska"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:271
+msgid "aus"
+msgstr "lingue australiane aborigene"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:275
+msgid "ava"
+msgstr "avaro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:279
+msgid "ave"
+msgstr "avestan"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:283
+msgid "awa"
+msgstr "awadhi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:287
+msgid "aym"
+msgstr "aymara"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:291
+msgid "aze"
+msgstr "azerbaigiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:295
+msgid "bad"
+msgstr "banda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:299
+msgid "bai"
+msgstr "lingue bamileke"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:303
+msgid "bak"
+msgstr "baschiro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:307
+msgid "bal"
+msgstr "beluci"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:311
+msgid "bam"
+msgstr "bambara"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:315
+msgid "ban"
+msgstr "balinese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:319
+msgid "baq"
+msgstr "basco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:323
+msgid "bas"
+msgstr "basa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:327
+msgid "bat"
+msgstr "lingue baltiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:331
+msgid "bej"
+msgstr "begia"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:335
+msgid "bel"
+msgstr "bielorusso"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:339
+msgid "bem"
+msgstr "wemba"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:343
+msgid "ben"
+msgstr "bengalese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:347
+msgid "ber"
+msgstr "lingue berbere"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:351
+msgid "bho"
+msgstr "bhojpuri"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:355
+msgid "bih"
+msgstr "bihari"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:359
+msgid "bik"
+msgstr "bicol"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:363
+msgid "bin"
+msgstr "bini"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:367
+msgid "bis"
+msgstr "bislama"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:371
+msgid "bla"
+msgstr "siksika"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:375
+msgid "bnt"
+msgstr "bantu (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:379
+msgid "bos"
+msgstr "bosniaco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:383
+msgid "bra"
+msgstr "braj"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:387
+msgid "bre"
+msgstr "bretone"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:391
+msgid "btk"
+msgstr "batak (indonesia)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:395
+msgid "bua"
+msgstr "buriat"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:399
+msgid "bug"
+msgstr "bugi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:403
+msgid "bul"
+msgstr "bulgaro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:407
+msgid "bur"
+msgstr "birmano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:411
+msgid "byn"
+msgstr "blin"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:415
+msgid "cad"
+msgstr "caddo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:419
+msgid "cai"
+msgstr "indiane centro-americane (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:423
+msgid "car"
+msgstr "caribico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:427
+msgid "cat"
+msgstr "catalano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:431
+msgid "cau"
+msgstr "lingue caucasiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:435
+msgid "ceb"
+msgstr "cebuano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:439
+msgid "cel"
+msgstr "lingue celtiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:443
+msgid "cha"
+msgstr "chamorro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:447
+msgid "chb"
+msgstr "chibcha"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:451
+msgid "che"
+msgstr "ceceno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:455
+msgid "chg"
+msgstr "ciagataico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:459
+msgid "chi"
+msgstr "cinese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:463
+msgid "chk"
+msgstr "chuukese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:467
+msgid "chm"
+msgstr "mari"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:471
+msgid "chn"
+msgstr "gergo chinook"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:475
+msgid "cho"
+msgstr "choctaw"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:479
+msgid "chp"
+msgstr "chipewyan"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:483
+msgid "chr"
+msgstr "cherokee"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:487
+msgid "chu"
+msgstr "slavo della Chiesa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:491
+msgid "chv"
+msgstr "ciuvascio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:495
+msgid "chy"
+msgstr "cheyenne"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:499
+msgid "cmc"
+msgstr "chamic"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:503
+msgid "cnr"
+msgstr "montenegrino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:507
+msgid "cop"
+msgstr "copto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:511
+msgid "cor"
+msgstr "cornico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:515
+msgid "cos"
+msgstr "corso"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:519
+msgid "cpe"
+msgstr "creoli e pidgin basati sull'inglese (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:523
+msgid "cpf"
+msgstr "creoli e pidgin basati sul francese (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:527
+msgid "cpp"
+msgstr "creoli e pidgin basati sul portoghese (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:531
+msgid "cre"
+msgstr "cree"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:535
+msgid "crh"
+msgstr "turco crimeo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:539
+msgid "crp"
+msgstr "creoli e pidgin (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:543
+msgid "csb"
+msgstr "kashubian"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:547
+msgid "cus"
+msgstr "lingue cushitiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:551
+msgid "cze"
+msgstr "ceco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:555
+msgid "dak"
+msgstr "dakota"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:559
+msgid "dan"
+msgstr "danese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:563
+msgid "dar"
+msgstr "dargwa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:567
+msgid "day"
+msgstr "dayak"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:571
+msgid "del"
+msgstr "delaware"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:575
+msgid "den"
+msgstr "slave"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:579
+msgid "dgr"
+msgstr "dogrib"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:583
+msgid "din"
+msgstr "dinca"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:587
+msgid "div"
+msgstr "divehi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:591
+msgid "doi"
+msgstr "dogri"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:595
+msgid "dra"
+msgstr "dravidiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:599
+msgid "dsb"
+msgstr "basso sorabo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:603
+msgid "dua"
+msgstr "duala"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:607
+msgid "dum"
+msgstr "olandese medio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:611
+msgid "dut"
+msgstr "olandese; fiammingo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:615
+msgid "dyu"
+msgstr "diula"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:619
+msgid "dzo"
+msgstr "dzongkha"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:623
+msgid "efi"
+msgstr "efik"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:627
+msgid "egy"
+msgstr "egiziano antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:631
+msgid "eka"
+msgstr "ekajuka"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:635
+msgid "elx"
+msgstr "elamitico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:639
+msgid "eng"
+msgstr "inglese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:643
+msgid "enm"
+msgstr "inglese medio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:647
+msgid "epo"
+msgstr "esperanto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:651
+msgid "est"
+msgstr "estone"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:655
+msgid "ewe"
+msgstr "ewe"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:659
+msgid "ewo"
+msgstr "ewondo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:663
+msgid "fan"
+msgstr "fang"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:667
+msgid "fao"
+msgstr "faroese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:671
+msgid "fat"
+msgstr "fanti"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:675
+msgid "fij"
+msgstr "figiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:679
+msgid "fil"
+msgstr "filippino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:683
+msgid "fin"
+msgstr "finlandese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:687
+msgid "fiu"
+msgstr "ugrofinniche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:691
+msgid "fon"
+msgstr "fon"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:695
+msgid "fre"
+msgstr "francese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:699
+msgid "frm"
+msgstr "francese medio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:703
+msgid "fro"
+msgstr "francese antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:707
+msgid "frr"
+msgstr "frisone settentrionale"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:711
+msgid "frs"
+msgstr "frisone orientale"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:715
+msgid "fry"
+msgstr "frisone occidentale"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:719
+msgid "ful"
+msgstr "fulah"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:723
+msgid "fur"
+msgstr "friulano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:727
+msgid "gaa"
+msgstr "ga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:731
+msgid "gay"
+msgstr "gayo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:735
+msgid "gba"
+msgstr "gbaya"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:739
+msgid "gem"
+msgstr "lingue germaniche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:743
+msgid "geo"
+msgstr "georgiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:747
+msgid "ger"
+msgstr "tedesco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:751
+msgid "gez"
+msgstr "geez"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:755
+msgid "gil"
+msgstr "gilbertese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:759
+msgid "gla"
+msgstr "gaelico scozzese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:763
+msgid "gle"
+msgstr "irlandese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:767
+msgid "glg"
+msgstr "galiziano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:771
+msgid "glv"
+msgstr "mannese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:775
+msgid "gmh"
+msgstr "tedesco medio alto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:779
+msgid "goh"
+msgstr "tedesco antico alto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:783
+msgid "gon"
+msgstr "gondi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:787
+msgid "gor"
+msgstr "gorontalo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:791
+msgid "got"
+msgstr "gotico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:795
+msgid "grb"
+msgstr "grebo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:799
+msgid "grc"
+msgstr "greco antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:803
+msgid "gre"
+msgstr "greco moderno (dal 1453)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:807
+msgid "grn"
+msgstr "guaraní"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:811
+msgid "gsw"
+msgstr "tedesco svizzero"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:815
+msgid "guj"
+msgstr "gujarati"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:819
+msgid "gwi"
+msgstr "gwichʼin"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:823
+msgid "hai"
+msgstr "haida"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:827
+msgid "hat"
+msgstr "haitiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:831
+msgid "hau"
+msgstr "hausa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:835
+msgid "haw"
+msgstr "hawaiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:839
+msgid "heb"
+msgstr "ebraico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:843
+msgid "her"
+msgstr "herero"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:847
+msgid "hil"
+msgstr "ilongo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:851
+msgid "him"
+msgstr "himachali"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:855
+msgid "hin"
+msgstr "hindi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:859
+msgid "hit"
+msgstr "hittite"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:863
+msgid "hmn"
+msgstr "hmong"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:867
+msgid "hmo"
+msgstr "hiri motu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:871
+msgid "hrv"
+msgstr "croato"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:875
+msgid "hsb"
+msgstr "alto sorabo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:879
+msgid "hun"
+msgstr "ungherese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:883
+msgid "hup"
+msgstr "hupa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:887
+msgid "iba"
+msgstr "iban"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:891
+msgid "ibo"
+msgstr "igbo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:895
+msgid "ice"
+msgstr "islandese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:899
+msgid "ido"
+msgstr "ido"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:903
+msgid "iii"
+msgstr "sichuan yi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:907
+msgid "ijo"
+msgstr "ijo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:911
+msgid "iku"
+msgstr "inuktitut"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:915
+msgid "ile"
+msgstr "interlingue"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:919
+msgid "ilo"
+msgstr "ilocano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:923
+msgid "ina"
+msgstr "interlingua"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:927
+msgid "inc"
+msgstr "lingue indoarie (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:931
+msgid "ind"
+msgstr "indonesiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:935
+msgid "ine"
+msgstr "lingue indoeuropee (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:939
+msgid "inh"
+msgstr "ingush"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:943
+msgid "ipk"
+msgstr "inupiak"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:947
+msgid "ira"
+msgstr "lingue iraniche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:951
+msgid "iro"
+msgstr "lingue irochesi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:955
+msgid "ita"
+msgstr "italiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:959
+msgid "jav"
+msgstr "giavanese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:963
+msgid "jbo"
+msgstr "lojban"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:967
+msgid "jpn"
+msgstr "giapponese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:971
+msgid "jpr"
+msgstr "giudeo persiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:975
+msgid "jrb"
+msgstr "giudeo arabo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:979
+msgid "kaa"
+msgstr "kara-kalpak"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:983
+msgid "kab"
+msgstr "cabilo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:987
+msgid "kac"
+msgstr "kachin"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:991
+msgid "kal"
+msgstr "groenlandese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:995
+msgid "kam"
+msgstr "kamba"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:999
+msgid "kan"
+msgstr "kannada"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1003
+msgid "kar"
+msgstr "karen"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1007
+msgid "kas"
+msgstr "kashmiri"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1011
+msgid "kau"
+msgstr "kanuri"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1015
+msgid "kaw"
+msgstr "kawi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1019
+msgid "kaz"
+msgstr "kazako"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1023
+msgid "kbd"
+msgstr "cabardino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1027
+msgid "kha"
+msgstr "khasi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1031
+msgid "khi"
+msgstr "khoisan (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1035
+msgid "khm"
+msgstr "khmer"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1039
+msgid "kho"
+msgstr "khotanese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1043
+msgid "kik"
+msgstr "kikuyu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1047
+msgid "kin"
+msgstr "kinyarwanda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1051
+msgid "kir"
+msgstr "kirghiso"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1055
+msgid "kmb"
+msgstr "kimbundu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1059
+msgid "kok"
+msgstr "konkani"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1063
+msgid "kom"
+msgstr "komi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1067
+msgid "kon"
+msgstr "kongo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1071
+msgid "kor"
+msgstr "coreano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1075
+msgid "kos"
+msgstr "kosraean"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1079
+msgid "kpe"
+msgstr "kpelle"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1083
+msgid "krc"
+msgstr "karachay-Balkar"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1087
+msgid "krl"
+msgstr "careliano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1091
+msgid "kro"
+msgstr "kru"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1095
+msgid "kru"
+msgstr "kurukh"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1099
+msgid "kua"
+msgstr "kuanyama"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1103
+msgid "kum"
+msgstr "kumyk"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1107
+msgid "kur"
+msgstr "curdo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1111
+msgid "kut"
+msgstr "kutenai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1115
+msgid "lad"
+msgstr "giudeo-spagnolo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1119
+msgid "lah"
+msgstr "lahnda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1123
+msgid "lam"
+msgstr "lamba"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1127
+msgid "lao"
+msgstr "lao"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1131
+msgid "lat"
+msgstr "latino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1135
+msgid "lav"
+msgstr "lettone"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1139
+msgid "lez"
+msgstr "lesgo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1143
+msgid "lim"
+msgstr "limburghese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1147
+msgid "lin"
+msgstr "lingala"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1151
+msgid "lit"
+msgstr "lituano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1155
+msgid "lol"
+msgstr "lolo bantu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1159
+msgid "loz"
+msgstr "lozi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1163
+msgid "ltz"
+msgstr "lussemburghese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1167
+msgid "lua"
+msgstr "luba-lulua"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1171
+msgid "lub"
+msgstr "luba-katanga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1175
+msgid "lug"
+msgstr "ganda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1179
+msgid "lui"
+msgstr "luiseno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1183
+msgid "lun"
+msgstr "lunda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1187
+msgid "luo"
+msgstr "luo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1191
+msgid "lus"
+msgstr "lushai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1195
+msgid "mac"
+msgstr "macedone"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1199
+msgid "mad"
+msgstr "madurese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1203
+msgid "mag"
+msgstr "magahi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1207
+msgid "mah"
+msgstr "marshallese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1211
+msgid "mai"
+msgstr "maithili"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1215
+msgid "mak"
+msgstr "makasar"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1219
+msgid "mal"
+msgstr "malayalam"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1223
+msgid "man"
+msgstr "mandingo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1227
+msgid "mao"
+msgstr "maori"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1231
+msgid "map"
+msgstr "austronesiano (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1235
+msgid "mar"
+msgstr "marathi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1239
+msgid "mas"
+msgstr "masai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1243
+msgid "may"
+msgstr "malay"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1247
+msgid "mdf"
+msgstr "moksha"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1251
+msgid "mdr"
+msgstr "mandar"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1255
+msgid "men"
+msgstr "mende"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1259
+msgid "mga"
+msgstr "irlandese medio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1263
+msgid "mic"
+msgstr "micmac"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1267
+msgid "min"
+msgstr "menangkabau"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1271
+msgid "mis"
+msgstr "ainu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1275
+msgid "mkh"
+msgstr "mon-khmer (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1279
+msgid "mlg"
+msgstr "malgascio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1283
+msgid "mlt"
+msgstr "maltese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1287
+msgid "mnc"
+msgstr "manchu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1291
+msgid "mni"
+msgstr "manipuri"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1295
+msgid "mno"
+msgstr "lingue manobo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1299
+msgid "moh"
+msgstr "mohawk"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1303
+msgid "mon"
+msgstr "mongolo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1307
+msgid "mos"
+msgstr "mossi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1311
+msgid "mul"
+msgstr "multilingua"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1315
+msgid "mun"
+msgstr "lingue munda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1319
+msgid "mus"
+msgstr "creek"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1323
+msgid "mwl"
+msgstr "mirandese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1327
+msgid "mwr"
+msgstr "marwari"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1331
+msgid "myn"
+msgstr "maya"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1335
+msgid "myv"
+msgstr "erzya"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1339
+msgid "nah"
+msgstr "nahuatl"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1343
+msgid "nai"
+msgstr "indiano nordamericano (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1347
+msgid "nap"
+msgstr "napoletano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1351
+msgid "nau"
+msgstr "nauru"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1355
+msgid "nav"
+msgstr "navajo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1359
+msgid "nbl"
+msgstr "ndebele del sud"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1363
+msgid "nde"
+msgstr "ndebele del nord"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1367
+msgid "ndo"
+msgstr "ndonga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1371
+msgid "nds"
+msgstr "basso tedesco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1375
+msgid "nep"
+msgstr "nepalese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1379
+msgid "new"
+msgstr "newari"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1383
+msgid "nia"
+msgstr "nias"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1387
+msgid "nic"
+msgstr "niger-kordofaniane (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1391
+msgid "niu"
+msgstr "niue"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1395
+msgid "nno"
+msgstr "norvegese nynorsk"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1399
+msgid "nob"
+msgstr "norvegese bokmål"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1403
+msgid "nog"
+msgstr "nogai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1407
+msgid "non"
+msgstr "norse antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1411
+msgid "nor"
+msgstr "norvegese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1415
+msgid "nqo"
+msgstr "n’ko"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1419
+msgid "nso"
+msgstr "sotho del nord"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1423
+msgid "nub"
+msgstr "lingue nubiane"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1427
+msgid "nwc"
+msgstr "newari classico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1431
+msgid "nya"
+msgstr "nyanja"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1435
+msgid "nym"
+msgstr "nyamwezi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1439
+msgid "nyn"
+msgstr "nyankole"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1443
+msgid "nyo"
+msgstr "nyoro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1447
+msgid "nzi"
+msgstr "nzima"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1451
+msgid "oci"
+msgstr "occitano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1455
+msgid "oji"
+msgstr "ojibwa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1459
+msgid "ori"
+msgstr "odia"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1463
+msgid "orm"
+msgstr "oromo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1467
+msgid "osa"
+msgstr "osage"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1471
+msgid "oss"
+msgstr "ossetico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1475
+msgid "ota"
+msgstr "turco ottomano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1479
+msgid "oto"
+msgstr "lingue otomiane"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1483
+msgid "paa"
+msgstr "papuasiche"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1487
+msgid "pag"
+msgstr "pangasinan"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1491
+msgid "pal"
+msgstr "pahlavi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1495
+msgid "pam"
+msgstr "pampanga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1499
+msgid "pan"
+msgstr "punjabi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1503
+msgid "pap"
+msgstr "papiamento"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1507
+msgid "pau"
+msgstr "palau"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1511
+msgid "peo"
+msgstr "persiano antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1515
+msgid "per"
+msgstr "persiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1519
+msgid "phi"
+msgstr "filippine (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1523
+msgid "phn"
+msgstr "fenicio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1527
+msgid "pli"
+msgstr "pali"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1531
+msgid "pol"
+msgstr "polacco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1535
+msgid "pon"
+msgstr "ponape"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1539
+msgid "por"
+msgstr "portoghese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1543
+msgid "pra"
+msgstr "lingue pracrite"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1547
+msgid "pro"
+msgstr "provenzale antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1551
+msgid "pus"
+msgstr "pashto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1555
+msgid "que"
+msgstr "quechua"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1559
+msgid "raj"
+msgstr "rajasthani"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1563
+msgid "rap"
+msgstr "rapanui"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1567
+msgid "rar"
+msgstr "rarotonga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1571
+msgid "roa"
+msgstr "lingue romanze (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1575
+msgid "roh"
+msgstr "romancio"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1579
+msgid "rom"
+msgstr "romani"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1583
+msgid "rum"
+msgstr "romeno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1587
+msgid "run"
+msgstr "rundi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1591
+msgid "rup"
+msgstr "arumeno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1595
+msgid "rus"
+msgstr "russo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1599
+msgid "sad"
+msgstr "sandawe"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1603
+msgid "sag"
+msgstr "sango"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1607
+msgid "sah"
+msgstr "yakut"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1611
+msgid "sai"
+msgstr "lingue indiane sudamericane (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1615
+msgid "sal"
+msgstr "lingue salish"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1619
+msgid "sam"
+msgstr "aramaico samaritano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1623
+msgid "san"
+msgstr "sanscrito"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1627
+msgid "sas"
+msgstr "sasak"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1631
+msgid "sat"
+msgstr "santali"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1635
+msgid "scn"
+msgstr "siciliano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1639
+msgid "sco"
+msgstr "scozzese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1643
+msgid "sel"
+msgstr "selkup"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1647
+msgid "sem"
+msgstr "lingue semitiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1651
+msgid "sga"
+msgstr "irlandese antico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1655
+msgid "sgn"
+msgstr "lingua dei segni"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1659
+msgid "shn"
+msgstr "shan"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1663
+msgid "sid"
+msgstr "sidamo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1667
+msgid "sin"
+msgstr "singalese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1671
+msgid "sio"
+msgstr "lingue sioux"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1675
+msgid "sit"
+msgstr "sinotibetane (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1679
+msgid "sla"
+msgstr "lingue slave (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1683
+msgid "slo"
+msgstr "slovacco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1687
+msgid "slv"
+msgstr "sloveno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1691
+msgid "sma"
+msgstr "sami del sud"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1695
+msgid "sme"
+msgstr "sami del nord"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1699
+msgid "smi"
+msgstr "lingue sami (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1703
+msgid "smj"
+msgstr "sami di Lule"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1707
+msgid "smn"
+msgstr "sami di Inari"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1711
+msgid "smo"
+msgstr "samoano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1715
+msgid "sms"
+msgstr "sami skolt"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1719
+msgid "sna"
+msgstr "shona"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1723
+msgid "snd"
+msgstr "sindhi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1727
+msgid "snk"
+msgstr "soninke"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1731
+msgid "sog"
+msgstr "sogdiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1735
+msgid "som"
+msgstr "somalo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1739
+msgid "son"
+msgstr "songhai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1743
+msgid "sot"
+msgstr "sotho del sud"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1747
+msgid "spa"
+msgstr "spagnolo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1751
+msgid "srd"
+msgstr "sardo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1755
+msgid "srn"
+msgstr "sranan tongo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1759
+msgid "srp"
+msgstr "serbo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1763
+msgid "srr"
+msgstr "serer"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1767
+msgid "ssa"
+msgstr "lingue nilo-sahariane (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1771
+msgid "ssw"
+msgstr "swati"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1775
+msgid "suk"
+msgstr "sukuma"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1779
+msgid "sun"
+msgstr "sundanese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1783
+msgid "sus"
+msgstr "susu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1787
+msgid "sux"
+msgstr "sumero"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1791
+msgid "swa"
+msgstr "swahili"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1795
+msgid "swe"
+msgstr "svedese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1799
+msgid "syc"
+msgstr "siriaco classico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1803
+msgid "syr"
+msgstr "siriaco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1807
+msgid "tah"
+msgstr "taitiano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1811
+msgid "tai"
+msgstr "thailandese (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1815
+msgid "tam"
+msgstr "tamil"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1819
+msgid "tat"
+msgstr "tataro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1823
+msgid "tel"
+msgstr "telugu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1827
+msgid "tem"
+msgstr "temne"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1831
+msgid "ter"
+msgstr "tereno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1835
+msgid "tet"
+msgstr "tetum"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1839
+msgid "tgk"
+msgstr "tagico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1843
+msgid "tgl"
+msgstr "tagalog"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1847
+msgid "tha"
+msgstr "thai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1851
+msgid "tib"
+msgstr "tibetano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1855
+msgid "tig"
+msgstr "tigre"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1859
+msgid "tir"
+msgstr "tigrino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1863
+msgid "tiv"
+msgstr "tiv"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1867
+msgid "tkl"
+msgstr "tokelau"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1871
+msgid "tlh"
+msgstr "klingon"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1875
+msgid "tli"
+msgstr "tlingit"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1879
+msgid "tmh"
+msgstr "tamashek"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1883
+msgid "tog"
+msgstr "nyasa del Tonga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1887
+msgid "ton"
+msgstr "tongano"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1891
+msgid "tpi"
+msgstr "tok pisin"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1895
+msgid "tsi"
+msgstr "tsimshian"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1899
+msgid "tsn"
+msgstr "tswana"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1903
+msgid "tso"
+msgstr "tsonga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1907
+msgid "tuk"
+msgstr "turcomanno"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1911
+msgid "tum"
+msgstr "tumbuka"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1915
+msgid "tup"
+msgstr "lingue tupi"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1919
+msgid "tur"
+msgstr "turco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1923
+msgid "tut"
+msgstr "altaiche (altre)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1927
+msgid "tvl"
+msgstr "tuvalu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1931
+msgid "twi"
+msgstr "ci"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1935
+msgid "tyv"
+msgstr "tuvinian"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1939
+msgid "udm"
+msgstr "udmurt"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1943
+msgid "uga"
+msgstr "ugaritico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1947
+msgid "uig"
+msgstr "uiguro"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1951
+msgid "ukr"
+msgstr "ucraino"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1955
+msgid "umb"
+msgstr "mbundu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1959
+msgid "und"
+msgstr "lingua imprecisata"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1963
+msgid "urd"
+msgstr "urdu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1967
+msgid "uzb"
+msgstr "uzbeco"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1971
+msgid "vai"
+msgstr "vai"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1975
+msgid "ven"
+msgstr "venda"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1979
+msgid "vie"
+msgstr "vietnamita"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1983
+msgid "vol"
+msgstr "volapük"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1987
+msgid "vot"
+msgstr "voto"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1991
+msgid "wak"
+msgstr "lingue wakash"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1995
+msgid "wal"
+msgstr "walamo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:1999
+msgid "war"
+msgstr "waray"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2003
+msgid "was"
+msgstr "washo"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2007
+msgid "wel"
+msgstr "gallese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2011
+msgid "wen"
+msgstr "lingue lusaziane"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2015
+msgid "wln"
+msgstr "vallone"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2019
+msgid "wol"
+msgstr "wolof"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2023
+msgid "xal"
+msgstr "kalmyk"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2027
+msgid "xho"
+msgstr "xhosa"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2031
+msgid "yao"
+msgstr "yao (bantu)"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2035
+msgid "yap"
+msgstr "yapese"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2039
+msgid "yid"
+msgstr "yiddish"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2043
+msgid "yor"
+msgstr "yoruba"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2047
+msgid "ypk"
+msgstr "lingue yupik"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2051
+msgid "zap"
+msgstr "zapotec"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2055
+msgid "zbl"
+msgstr "blissymbol"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2059
+msgid "zen"
+msgstr "zenaga"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2063
+msgid "zha"
+msgstr "zhuang"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2067
+msgid "znd"
+msgstr "zande"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2071
+msgid "zul"
+msgstr "zulu"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2075
+msgid "zun"
+msgstr "zuni"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2079
+msgid "zxx"
+msgstr "nessun contenuto linguistico"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2083
+msgid "zza"
+msgstr "zaza"
+
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2232
 msgid "Audio issue number"
 msgstr "Audio issue number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:356
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2236
 msgid "DOI"
 msgstr "DOI"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:360
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2240
 msgid "EAN"
 msgstr "EAN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:364
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2244
 msgid "Global Trade Item Number 14"
 msgstr "Global Trade Item Number 14"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:368
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2248
 msgid "Other"
 msgstr "Altro"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:372
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2252
 msgid "ISAN"
 msgstr "ISAN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:376
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2256
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:380
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2260
 msgid "ISMN"
 msgstr "ISMN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:384
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2264
 msgid "ISRC"
 msgstr "ISRC"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:388
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2268
 msgid "ISSN"
 msgstr "ISSN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:392
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2272
 msgid "ISSN-L"
 msgstr "ISSN-L"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:396
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2276
 msgid "Local identifier"
 msgstr "Identificatore locale"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:400
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2280
 msgid "Audio matrix number"
 msgstr "Audio matrix number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:404
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2284
 msgid "Music distributor number"
 msgstr "Music distributor number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:408
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2288
 msgid "Music plate number"
 msgstr "Music plate number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:412
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2292
 msgid "Music publisher number"
 msgstr "Music publisher number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:416
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2296
 msgid "Publisher number"
 msgstr "Numero dell'editore"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:420
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2300
 msgid "UPC"
 msgstr "UPC"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:424
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2304
 msgid "URN"
 msgstr "URN"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:428
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2308
 msgid "Video recording number"
 msgstr "Video recording number"
 
-#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:432
+#: rero_ils/modules/documents/jsonschemas/form_documents/document-v0.0.1.json:2312
 msgid "URI"
 msgstr "URI"
 
@@ -1491,7 +3341,8 @@ msgid "Permalink"
 msgstr "Permalink"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:152
-msgid "Document cannot be deleted: there are still items linked to this document."
+msgid ""
+"Document cannot be deleted: there are still items linked to this document."
 msgstr ""
 "Il documento non può essere eliminato: rimangono esemplari ad esso "
 "associati."
@@ -1517,11 +3368,11 @@ msgstr "esemplari"
 msgid "item"
 msgstr "esemplare"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:272
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:273
 msgid "Request"
 msgstr "Richiedere"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:277
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:278
 msgid "Select a Pickup Location"
 msgstr "Selezionare un punto di ritiro"
 
@@ -1655,8 +3506,8 @@ msgstr "Classificazione"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/form_locations/location-v0.0.1.json:6
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:55
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:105
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:108
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:98
 msgid "Library"
 msgstr "Biblioteca"
 
@@ -1738,30 +3589,30 @@ msgstr "Descrizione del tipo di esemplare."
 msgid "Type of the circulation category."
 msgstr "Tipo della categoria di prestito"
 
-#: rero_ils/modules/items/views.py:115
+#: rero_ils/modules/items/views.py:116
 #, python-format
 msgid "The item %(item_id)s has been requested."
 msgstr "L'esemplare %(item_id)s è stato richiesto."
 
-#: rero_ils/modules/items/views.py:141
+#: rero_ils/modules/items/views.py:142
 msgid "in transit"
 msgstr "in transito"
 
-#: rero_ils/modules/items/views.py:145
+#: rero_ils/modules/items/views.py:146
 msgid "request"
 msgstr "richiesta"
 
-#: rero_ils/modules/items/views.py:147
+#: rero_ils/modules/items/views.py:148
 msgid "requests"
 msgstr "richieste"
 
 #: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:8
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:86
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:89
 msgid "The barcode is already taken"
 msgstr "Il codice a barre è già utilizzato"
 
 #: rero_ils/modules/items/jsonschemas/form_items/item-v0.0.1.json:9
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:87
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:90
 msgid "The server cannot verify the barcode"
 msgstr "Il server non può verificare il codice a barre"
 
@@ -1811,7 +3662,8 @@ msgid "Holding URI"
 msgstr "URI del posseduto"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:69
-msgid "Item cannot be deleted: there are still transactions linked to this item."
+msgid ""
+"Item cannot be deleted: there are still transactions linked to this item."
 msgstr ""
 "L'esemplare non può essere eliminato: rimangono transazione ad esso "
 "associate."
@@ -1834,28 +3686,28 @@ msgid "Patron"
 msgstr "Lettore"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:100
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:88
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:86
 msgid "Due date"
 msgstr "Data di scadenza"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:101
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:95
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:93
 msgid "Renewals"
 msgstr "Proroghe"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:135
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:35
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:37
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:39
 msgid "Pending"
 msgstr "Prenotazioni"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:143
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:83
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:81
 msgid "Pickup library"
 msgstr "Punto di ritiro"
 
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:144
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:90
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:88
 msgid "Reservation date"
 msgstr "Data di prenotazione"
 
@@ -1909,7 +3761,7 @@ msgid "Address of the library."
 msgstr "Indirizzo della biblioteca"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:55
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:51
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:31
 msgid "Email"
 msgstr "Email"
@@ -2002,15 +3854,16 @@ msgstr "Data di inizio della transazione"
 msgid "Transaction end date"
 msgstr "Data di chiusura della transazione"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:92
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:103
 msgid "State name"
 msgstr "Nome dello stato"
 
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:96
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:107
 msgid ""
 "The name of the explicit action that triggered the transition to current "
 "state"
-msgstr "Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
+msgstr ""
+"Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
 
 #: rero_ils/modules/locations/api.py:68
 msgid "Another online location exists in this library"
@@ -2271,14 +4124,24 @@ msgstr "Descrizione del tipo di lettore"
 msgid "The description of the Patron type"
 msgstr "La descrizione del tipo di lettore"
 
-#: rero_ils/modules/patrons/views.py:97
+#: rero_ils/modules/patrons/views.py:99
 #, python-format
 msgid "%(icon)s Profile"
 msgstr "%(icon)s Mio account"
 
+#: rero_ils/modules/patrons/views.py:117
+#, python-format
+msgid "The item %(item_id)s has been renewed."
+msgstr "L'esemplare %(item_id)s è stato prorogato."
+
+#: rero_ils/modules/patrons/views.py:120
+#, python-format
+msgid "Error during the renewal of the item %(item_id)s."
+msgstr "Errore durante la proroga dell'esemplare %(item_id)s."
+
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:4
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:44
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:46
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:42
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:43
 msgid "Personal data"
 msgstr "Dati personali"
 
@@ -2290,29 +4153,29 @@ msgstr "Utilizzare il calendario o digitare direttamente nel campo."
 msgid "Contacts"
 msgstr "informazioni di contatto"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:53
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:56
 msgid "Roles"
 msgstr "Ruoli"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:59
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:62
 msgid "patron"
 msgstr "lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:67
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:70
 msgid "system librarian"
 msgstr "bibliotecario del sistema"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:94
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:85
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:97
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:81
 msgid "Patron Type"
 msgstr "Tipo di lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:95
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:98
 msgid "Patron type in term of circulation policy."
 msgstr "Tipo di lettore in termini di politica di prestito"
 
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:106
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:109
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:99
 msgid "Library affiliation."
 msgstr "Biblioteca di affiliazione"
 
@@ -2324,110 +4187,102 @@ msgstr "utente"
 msgid "JSON schema for a user."
 msgstr "JSON schema per un utente"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:22
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:19
 msgid "Schema to validate user records against."
 msgstr "Schema di convalida per utenti"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:28
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:25
 msgid "User ID"
 msgstr "ID dell'utente"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:32
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:29
 msgid "First name"
 msgstr "Nome"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:33
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:30
 msgid "First Name is required."
 msgstr "Il nome è richiesto."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:38
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:35
 msgid "Last name"
 msgstr "Cognome"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:39
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
 msgid "Last Name is required."
 msgstr "Il cognome è richiesto."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:44
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:41
 msgid "Date of birth"
 msgstr "Data di nascita"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:48
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:45
 msgid "Required. Should be in the ISO 8601, YYYY-MM-DD."
 msgstr "Richiesto. Dovrebbe essere nel formato ISO 8601, YYYY-MM-DD."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:56
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:53
 msgid "Email should have at least one <code>@</code> and one <code>.</code>"
 msgstr "Un'email Deve ester composta da una 1@1 e un 2.2"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:59
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:56
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:25
 msgid "Street"
 msgstr "Via"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:57
 msgid "Street and number of the address, separated by a coma."
 msgstr "Via e numero dell'indirizzo, separati da una virgola."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:63
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:75
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
 msgid "Required."
 msgstr "Richiesto."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:66
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:63
 msgid "Postal code"
 msgstr "Codice postale"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:69
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:66
 msgid "Required. A valid postal code with a min of 4 characters."
 msgstr "Richiesto. Un codice postale valido con un minimo di 4 caratteri."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:69
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:27
 msgid "City"
 msgstr "Città"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:78
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:75
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:79
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:76
 msgid "Phone number with the international prefix, without spaces."
 msgstr "Numero di telefono con l'indicazione internazionale, senza spazi."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:82
-msgid ""
-"Phone number with the international prefix, without spaces, ie "
-"+41221234567."
-msgstr ""
-"Numero di telefono con l'indicazione internazionale, senza spazi, cioè "
-"+41221234567."
-
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
 msgid "Patron type in terms of circulation policy."
 msgstr "Tipo di lettore in termini di politica di prestito."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:90
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
 msgid "Patron Type URI"
 msgstr "URI del tipo di lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:93
 msgid "Patron's barcode or card number"
 msgstr "Numero di codice a barre o di tessera del lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:114
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:110
 msgid "Role"
 msgstr "Ruolo"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:115
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:111
 msgid "Define the roles of the user."
 msgstr "Definire i ruoli dell'utente."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:130
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:126
 msgid "Communication channel"
 msgstr "Canali di comunicazione"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:138
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:134
 msgid "Communication language"
 msgstr "Lingua di comunicazione"
 
@@ -2435,22 +4290,26 @@ msgstr "Lingua di comunicazione"
 msgid "Phone"
 msgstr "Telefono"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:30
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:32
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:29
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:31
 msgid "Checkouts"
 msgstr "Prestiti"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:57
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
 msgid "No loan"
 msgstr "Nessun prestito"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:64
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:61
 msgid "No pending"
 msgstr "Nessuna prenotazione"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:80
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:78
 msgid "Call Number"
 msgstr "Classificazione"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:130
+msgid "Renew"
+msgstr "Prorogare"
 
 #: rero_ils/static/templates/rero_ils/count.html:22
 msgid "Found {{$count}} result."
@@ -2649,3 +4508,6 @@ msgstr "L'esemplare"
 msgid "is deleted."
 msgstr "è stato eliminato."
 
+#: rero_ils/templates/security/email/reset_instructions.html:21
+msgid "Click here to reset your password"
+msgstr "Clicca qui per reimpostare la password"
