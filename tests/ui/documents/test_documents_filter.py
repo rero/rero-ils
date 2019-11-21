@@ -54,7 +54,7 @@ def test_abstracts_format():
     assert result == abstracts_format(['line1\n\n\nline2', 'line3'])
 
 
-def test_language_format_format():
+def test_language_format_format(app):
     """Test language format."""
     language = [
         {
@@ -65,11 +65,11 @@ def test_language_format_format():
             'value': 'fre'
         }
     ]
-    results = 'german, french'
+    results = 'German, French'
     assert results == language_format(language, 'en')
 
     language = 'fre'
-    results = 'french'
+    results = 'French'
     assert results == language_format(language, 'en')
 
 

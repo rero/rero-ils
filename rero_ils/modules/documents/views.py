@@ -23,10 +23,8 @@ import json
 import re
 from functools import wraps
 
-import pycountry
 import requests
 import six
-from babel import Locale
 from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
@@ -389,26 +387,8 @@ def language_format(langs_list, language_interface):
     if isinstance(langs_list, str):
         langs_list = [{'type': 'bf:Language', 'value': langs_list}]
     for lang in langs_list:
-        try:
-            lang_name = pycountry.languages.get(
-                bibliographic=lang.get('value')).alpha_2
-        except Exception:
-            lang_name = pycountry.languages.get(
-                alpha_3=lang.get('value')).alpha_2
-
-        try:
-            lang_display = Locale(language_interface).languages.get(
-                lang_name
-            ).lower()
-        except:
-            if 'und' == lang.get('value'):
-                lang_display = _('Undefined').lower()
-            else:
-                lang_display = lang.get('value')
-                current_app.logger.warning(
-                    'Missing language translation {lang}'.format(
-                        lang=lang.get('value')))
-        output.append(lang_display)
+        language_code = lang.get('value')
+        output.append(_(language_code))
     return ", ".join(output)
 
 
