@@ -109,26 +109,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         if publisher_statements:
             json['publisherStatement'] = publisher_statements
 
-
-def mef_person_insert(sender, *args, **kwargs):
-    """Insert Signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_update(sender, *args, **kwargs):
-    """Update signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_revert(sender, *args, **kwargs):
-    """Revert signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_update_index(sender, *args, **kwargs):
-    """Index MEF person in ES."""
-    record = kwargs['record']
-    if 'documents' in record.get('$schema', ''):
+        # Index MEF person in ES
         authors = record.get('authors', [])
         for author in authors:
             mef_url = author.get('$ref')
@@ -148,9 +129,7 @@ def mef_person_update_index(sender, *args, **kwargs):
                     if data:
                         data['id'] = id
                         data['$schema'] = current_jsonschemas.path_to_url(
-                            current_app.config[
-                                'RERO_ILS_PERSONS_MEF_SCHEMA'
-                            ]
+                            current_app.config['RERO_ILS_PERSONS_MEF_SCHEMA']
                         )
                         indexer = RecordIndexer()
                         index, doc_type = indexer.record_to_index(data)
@@ -160,7 +139,6 @@ def mef_person_update_index(sender, *args, **kwargs):
                             doc_type=doc_type,
                             body=data,
                         )
-                        current_search.flush_and_refresh(index)
                 else:
                     current_app.logger.error(
                         'Mef resolver request error: {stat} {url}'.format(

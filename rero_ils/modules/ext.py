@@ -28,8 +28,7 @@ from invenio_records.signals import after_record_delete, after_record_insert, \
     after_record_revert, after_record_update
 
 from .apiharvester.signals import apiharvest_part
-from .documents.listener import enrich_document_data, mef_person_delete, \
-    mef_person_insert, mef_person_revert, mef_person_update
+from .documents.listener import enrich_document_data, mef_person_delete
 from .ebooks.receivers import publish_harvested_records
 from .fees.listener import enrich_fee_data
 from .holdings.listener import enrich_holding_data
@@ -117,7 +116,4 @@ class REROILSAPP(object):
 
         apiharvest_part.connect(publish_api_harvested_records, weak=False)
 
-        after_record_insert.connect(mef_person_insert)
-        after_record_update.connect(mef_person_update)
         after_record_delete.connect(mef_person_delete)
-        after_record_revert.connect(mef_person_revert)
