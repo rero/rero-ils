@@ -16,3 +16,4 @@
 - [ ] Functions names.
 - [ ] Functions docstrings.
 - [ ] Unnecessary commited files?
+- [ ] Extracted translations?
