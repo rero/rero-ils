@@ -126,6 +126,8 @@ api_blueprint = Blueprint(
 
 @api_blueprint.route('/mef/', defaults={'path': ''})
 @api_blueprint.route('/mef/<path:path>')
+@api_blueprint.route('/persons/', defaults={'path': ''})
+@api_blueprint.route('/persons/<path:path>')
 def mef_proxy(path):
     """Proxy to mef server."""
     resp = requests.request(
