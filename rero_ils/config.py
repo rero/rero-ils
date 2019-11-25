@@ -69,6 +69,7 @@ from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
     can_update_patron_factory
+from .modules.persons.api import Person
 from .permissions import can_access_organisation_patrons_factory, \
     can_access_organisation_records_factory, \
     can_create_organisation_records_factory, \
@@ -635,10 +636,11 @@ RECORDS_REST_ENDPOINTS = dict(
     ),
     pers=dict(
         pid_type='pers',
-        pid_minter='mef_person_id',
-        pid_fetcher='mef_person_id',
+        pid_minter='person_id',
+        pid_fetcher='person_id',
         search_class=RecordsSearch,
         search_index='persons',
+        indexer_class=IlsRecordIndexer,
         search_type=None,
         record_serializers={
             'application/json': (
@@ -651,8 +653,11 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         list_route='/persons/',
-        record_class='rero_ils.modules.mef_persons.api:MefPerson',
-        item_route='/persons/<pid(pers, record_class="rero_ils.modules.mef_persons.api:MefPerson"):pid_value>',
+        record_loaders={
+            'application/json': lambda: Person(request.get_json()),
+        },
+        record_class='rero_ils.modules.persons.api:Person',
+        item_route='/persons/<pid(pers, record_class="rero_ils.modules.persons.api:Person"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:search_factory',
@@ -979,6 +984,13 @@ RECORDS_UI_ENDPOINTS = {
         permission_factory_imp='rero_ils.permissions.'
                                'librarian_permission_factory',
     ),
+    'pers': dict(
+        pid_type='pers',
+        route='/<string:viewcode>/persons/<pid_value>',
+        template='rero_ils/detailed_view_persons.html',
+        record_class='rero_ils.modules.persons.api:Person',
+        view_imp='rero_ils.modules.persons.views.person_view_method'
+    ),
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -1004,6 +1016,7 @@ RECORDS_JSON_SCHEMA = {
     'notif': '/notifications/notification-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
     'fee': '/fees/fee-v0.0.1.json',
+    'pers': '/persons/person-v0.0.1.json',
 }
 
 # Login Configuration
@@ -1053,8 +1066,7 @@ RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 RERO_ILS_APP_GIT_HASH = None
 
 #: RERO_ILS MEF specific configurations.
-RERO_ILS_MEF_HOST = 'mef.rero.ch'
-RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host=RERO_ILS_MEF_HOST)
+RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host='mef.rero.ch')
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 
@@ -1072,7 +1084,7 @@ RERO_ILS_APP_HELP_PAGE = (
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
 #: Persons
-RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/mef_person-v0.0.1.json'
+RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/person-v0.0.1.json'
 RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd']
 
 RERO_ILS_PERSONS_LABEL_ORDER = {

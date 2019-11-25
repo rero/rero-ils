@@ -17,7 +17,8 @@
 
 """Signals connector for Holding."""
 
-from .api import Holding, HoldingsSearch
+from .api import HoldingsSearch
+from ..locations.api import LocationsSearch
 
 
 def enrich_holding_data(sender, json=None, record=None, index=None,
@@ -30,10 +31,13 @@ def enrich_holding_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join([HoldingsSearch.Meta.index, doc_type]):
-        holding = record
-        if not isinstance(record, Holding):
-            holding = Holding.get_record_by_pid(record.get('pid'))
-        org_pid = holding.organisation_pid
+        # ES search reduces number of requests for organisation and library.
+        es_loc = next(LocationsSearch().filter(
+            'term', pid=json['location']['pid']
+        ).scan())
         json['organisation'] = {
-            'pid': org_pid
+            'pid': es_loc.organisation.pid
+        }
+        json['library'] = {
+            'pid': es_loc.library.pid
         }

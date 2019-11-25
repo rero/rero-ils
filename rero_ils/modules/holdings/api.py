@@ -118,8 +118,15 @@ class Holding(IlsRecord):
     @property
     def available(self):
         """Get availability for holding."""
+        items = []
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
-            item = Item.get_record_by_pid(item_pid)
+            items.append(Item.get_record_by_pid(item_pid))
+        return Holding.isAvailable(items)
+
+    @classmethod
+    def isAvailable(cls, items):
+        """."""
+        for item in items:
             if item.available:
                 return True
         return False

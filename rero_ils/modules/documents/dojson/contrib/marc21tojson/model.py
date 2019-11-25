@@ -62,19 +62,19 @@ def get_language_script(script):
     return '-'.join(['und', script])
 
 
-def get_mef_person_link(bibid, id, key, value):
-    """Get mef person link."""
+def get_person_link(bibid, id, key, value):
+    """Get MEF person link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
-    PROD_HOST = 'mef.rero.ch'
-    if os.environ.get('RERO_ILS_MEF_HOST'):
-        DEV_HOST = os.environ.get('RERO_ILS_MEF_HOST')
-    else:
-        DEV_HOST = 'mef.test.rero.ch'
-    mef_url = None
+    prod_host = 'mef.rero.ch'
+    test_host = 'mef.test.rero.ch'
+    mef_url = 'https://{host}/api/mef/'.format(host=test_host)
+    if os.environ.get('RERO_ILS_MEF_URL'):
+        mef_url = os.environ.get('RERO_ILS_MEF_URL')
+    mef_link = None
     try:
         identifier = id[1:].split(')')
         url = "{mef}/?q={org}.pid:{pid}".format(
-            mef="https://{host}/api/mef".format(host=DEV_HOST),
+            mef=mef_url,
             org=identifier[0].lower(),
             pid=identifier[1]
         )
@@ -83,17 +83,14 @@ def get_mef_person_link(bibid, id, key, value):
             data = request.json()
             hits = data.get('hits', {}).get('hits')
             if hits:
-                mef_url = hits[0].get('links').get('self')
-                mef_url = mef_url.replace(DEV_HOST, PROD_HOST)
-            # else:
-            #     error_print('WARNING MEF NOT FOUND:', bibid, url,
-            #                 key, value)
+                mef_link = hits[0].get('links').get('self')
+                mef_link = mef_link.replace(test_host, prod_host)
         else:
             error_print('ERROR MEF REQUEST:', bibid, url,
                         request.status_code)
     except Exception as err:
         error_print('WARNING NOT MEF REF:', bibid, id, key, value)
-    return mef_url
+    return mef_link
 
 
 @marc21tojson.over('type', 'leader')
@@ -221,7 +218,7 @@ def marc21_to_author(self, key, value):
         if value.get('0'):
             refs = utils.force_list(value.get('0'))
             for ref in refs:
-                ref = get_mef_person_link(marc21tojson.bib_id, ref, key, value)
+                ref = get_person_link(marc21tojson.bib_id, ref, key, value)
                 if ref:
                     author['$ref'] = ref
         # we do not have a $ref

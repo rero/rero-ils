@@ -19,12 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
+import pytest
 from utils import get_mapping
 
+from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
     item_type_id_fetcher
-import pytest
-from rero_ils.modules.errors import RecordValidationError
 
 
 def test_item_type_create(db, item_type_data_tmp, org_martigny,

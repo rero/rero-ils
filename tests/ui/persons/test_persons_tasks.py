@@ -19,19 +19,19 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.mef_persons.api import MefPerson
-from rero_ils.modules.mef_persons.receivers import \
-    publish_api_harvested_records
+from rero_ils.modules.persons.tasks import create_mef_records, \
+    delete_records
+from rero_ils.modules.persons.api import Person
 
 
-def test_mef_publish_api_harvested_records(app, mef_person_data_tmp, capsys):
-    """Test mef person publish api harvested records."""
-    publish_api_harvested_records(sender='test', name='mef',
-                                  records=[mef_person_data_tmp],
-                                  url='http://test.com')
+def test_person_create_delete(app, person_data_tmp, capsys):
+    """Test mef persons creation and deletion."""
+    count = create_mef_records([person_data_tmp], verbose=True)
+    assert count == 1
     out, err = capsys.readouterr()
-    assert out.strip() == (
-        'mef harvester: received 1 records: '
-        'https://ils.rero.ch/schema/persons/mef_person-v0.0.1.json'
-    )
-    assert len(list(MefPerson.get_all_pids())) == 1
+    pers = Person.get_record_by_pid('pers1')
+    assert out.strip() == 'record uuid: {id}'.format(id=pers.id)
+    count = delete_records([pers], verbose=True)
+    assert count == 1
+    out, err = capsys.readouterr()
+    assert out.strip() == 'records deleted: 1'

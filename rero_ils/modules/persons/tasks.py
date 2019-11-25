@@ -23,14 +23,15 @@ import click
 from celery import shared_task
 from flask import current_app
 
-from .api import MefPerson
+from .api import Person
 
 
 @shared_task(ignore_result=True)
 def create_mef_records(records, verbose=False):
     """Records creation and indexing."""
+    # TODO: check update an existing record
     for record in records:
-        rec, status = MefPerson.create_or_update(
+        rec = Person.create(
             record,
             dbcommit=True,
             reindex=True,
@@ -38,7 +39,7 @@ def create_mef_records(records, verbose=False):
         )
         if verbose:
             click.echo(
-                'record uuid: {id} | {status}'.format(id=rec.id, status=status)
+                'record uuid: {id}'.format(id=rec.id)
             )
     return len(records)
 
@@ -47,7 +48,7 @@ def create_mef_records(records, verbose=False):
 def delete_records(records, force=False, delindex=True, verbose=False):
     """Records deletion and indexing."""
     for record in records:
-        status = MefPerson.delete(record, force=force, delindex=delindex)
+        status = Person.delete(record, force=force, delindex=delindex)
         current_app.logger.info(
             'record: {id} | DELETED {status}'.format(
                 id=record.id,

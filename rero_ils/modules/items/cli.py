@@ -59,8 +59,7 @@ class StreamArray(list):
 @with_appcontext
 def reindex_items():
     """Reindexing of item."""
-    ids = Item.get_all_ids()
-    with click.progressbar(ids, length=len(ids)) as bar:
+    with click.progressbar(ids, length=Item.count()) as bar:
         for uuid in bar:
             item = Item.get_record_by_id(uuid)
             item.reindex()
@@ -81,10 +80,8 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
     def generate(count, itemscount, missing):
 
-        documents_pids = Document.get_all_pids()
-
         if count == -1:
-            count = len(documents_pids)
+            count = Document.count()
 
         click.secho(
             'Starting generating {count} items, random {itemsc} ...'.format(
@@ -103,6 +100,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
         status = None
 
         workshop_item = 1
+        documents_pids = Document.get_all_pids()
         with click.progressbar(
                 reversed(documents_pids[:count]), length=count) as bar:
             for document_pid in bar:

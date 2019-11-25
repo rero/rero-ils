@@ -19,8 +19,9 @@
 
 from __future__ import absolute_import, print_function
 
-from utils import get_mapping
 import re
+
+from utils import get_mapping
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher

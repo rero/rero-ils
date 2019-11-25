@@ -28,7 +28,7 @@ from utils import mock_response
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21tojson
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
-    get_mef_person_link
+    get_person_link
 from rero_ils.modules.documents.views import create_publication_statement
 
 
@@ -2072,14 +2072,14 @@ def test_marc21_to_identifiedBy_from_930():
 
 
 @mock.patch('requests.get')
-def test_get_mef_person_link(mock_get, capsys):
+def test_get_person_link(mock_get, capsys):
     """Test get mef person link"""
     mock_get.return_value = mock_response(json_data={
         'hits': {
             'hits': [{'links': {'self': 'mocked_url'}}]
         }
     })
-    mef_url = get_mef_person_link(
+    mef_url = get_person_link(
         bibid='1',
         id='(RERO)A003945843',
         key='100..',
@@ -2087,8 +2087,8 @@ def test_get_mef_person_link(mock_get, capsys):
     )
     assert mef_url == 'mocked_url'
 
-    os.environ['RERO_ILS_MEF_HOST'] = 'mefdev.test.rero.ch'
-    mef_url = get_mef_person_link(
+    os.environ['RERO_ILS_MEF_URL'] = 'https://mefdev.test.rero.ch/api/mef'
+    mef_url = get_person_link(
         bibid='1',
         id='(RERO)A003945843',
         key='100..',
@@ -2097,7 +2097,7 @@ def test_get_mef_person_link(mock_get, capsys):
     assert mef_url == 'mocked_url'
 
     mock_get.return_value = mock_response(status=400)
-    mef_url = get_mef_person_link(
+    mef_url = get_person_link(
         bibid='1',
         id='(RERO)A123456789',
         key='100..',
@@ -2109,7 +2109,7 @@ def test_get_mef_person_link(mock_get, capsys):
         'https://mefdev.test.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
 
     mock_get.return_value = mock_response(status=400)
-    mef_url = get_mef_person_link(
+    mef_url = get_person_link(
         bibid='1',
         id='X123456789',
         key='100..',

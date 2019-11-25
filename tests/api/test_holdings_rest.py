@@ -96,8 +96,9 @@ def test_holdings_get(client, holding_lib_martigny):
     assert res.status_code == 200
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
-    # organisation has been added during the indexing
+    # organisation and library has been added during the indexing
     del result['organisation']
+    del result['library']
     assert result == holding.replace_refs()
 
 

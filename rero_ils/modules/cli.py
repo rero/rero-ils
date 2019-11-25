@@ -217,7 +217,7 @@ def init(force):
 @click.command('create')
 @click.option('-a', '--append', 'append', is_flag=True, default=False)
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
-@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=True)
+@click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
 @click.option('-s', '--schema', 'schema', default=None)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
@@ -291,7 +291,8 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
             )
             if not dont_stop_on_error:
                 sys.exit(1)
-
+        db.session.flush()
+    db.session.commit()
     if error_records:
         err_file_name = '{pid_type}_error.json'.format(pid_type=pid_type)
         with open(err_file_name, 'w') as error_file:

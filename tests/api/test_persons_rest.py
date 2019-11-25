@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests REST API mef_persons."""
+"""Tests REST API persons."""
 
 # import json
 # from utils import get_json, to_relative_url
@@ -24,7 +24,7 @@ from flask import url_for
 from utils import get_json, postdata, to_relative_url
 
 
-def test_mef_persons_permissions(client, mef_person, json_header):
+def test_persons_permissions(client, person, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
 
@@ -48,17 +48,17 @@ def test_mef_persons_permissions(client, mef_person, json_header):
     assert res.status_code == 401
 
 
-def test_mef_persons_get(client, mef_person):
+def test_persons_get(client, person):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.pers_item', pid_value='pers1')
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(mef_person.revision_id)
+    assert res.headers['ETag'] == '"{}"'.format(person.revision_id)
 
     data = get_json(res)
-    assert mef_person.dumps() == data['metadata']
+    assert person.dumps() == data['metadata']
 
     # Check metadata
     for k in ['created', 'updated', 'metadata', 'links']:
@@ -68,11 +68,11 @@ def test_mef_persons_get(client, mef_person):
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
     assert data == get_json(res)
-    assert mef_person.dumps() == data['metadata']
+    assert person.dumps() == data['metadata']
 
     list_url = url_for('invenio_records_rest.pers_list', pid='pers1')
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
 
-    assert data['hits']['hits'][0]['metadata'] == mef_person.replace_refs()
+    assert data['hits']['hits'][0]['metadata'] == person.replace_refs()

@@ -22,9 +22,10 @@ from urllib.parse import unquote
 
 import mock
 from flask import url_for
-from rero_ils.modules.items.api import Item
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
+
+from rero_ils.modules.items.api import Item
 
 
 def test_patrons_profile(

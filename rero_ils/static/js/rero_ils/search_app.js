@@ -33,7 +33,7 @@ require([
           'invenioConfig',
           'reroilsAppTranslations',
           'reroilsUtils',
-          'reroilsMefPerson',
+          'reroilsPerson',
           'reroThumbnails'
         ]
       );

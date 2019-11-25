@@ -43,6 +43,7 @@ from ..loans.utils import can_be_requested
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
+from ..persons.api import Person
 from ...filter import format_date_filter
 from ...permissions import login_and_librarian
 
@@ -61,8 +62,8 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         current_app._get_current_object(), pid=pid, record=record)
 
     viewcode = kwargs['viewcode']
-    record['available'] = Document.get_record_by_pid(
-        pid.pid_value).is_available(viewcode)
+
+    record['available'] = record.is_available(viewcode)
 
     holdings = [
         Holding.get_record_by_pid(holding_pid).replace_refs()
@@ -251,12 +252,15 @@ def patron_request_rank(item):
 
 @blueprint.app_template_filter()
 def authors_format(pid, language, viewcode):
-    """Format authors for template."""
+    """Format authors for template in given language."""
     doc = Document.get_record_by_pid(pid)
     doc = doc.replace_refs()
     output = []
     for author in doc.get('authors', []):
         line = []
+        author_pid = author.get('pid')
+        if author_pid:
+            author = Person.get_record_by_pid(author_pid).dumps_for_document()
         name = localized_data_name(data=author, language=language)
         line.append(name)
         qualifier = author.get('qualifier')

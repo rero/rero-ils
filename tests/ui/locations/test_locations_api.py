@@ -19,12 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
+import pytest
 from utils import get_mapping
 
+from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
-import pytest
-from rero_ils.modules.errors import RecordValidationError
 
 
 def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,

@@ -35,7 +35,7 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
                           header=Identifier(identifier='record2')))
     publish_harvested_records(sender=None, records=records)
 
-    assert len(Document.get_all_pids()) == 2
+    assert Document.count() == 2
     doc1 = Document.get_record_by_pid('1')
     assert doc1.get('identifiedBy') == [
         {'type': 'bf:Isbn', 'value': '9782075118842'},

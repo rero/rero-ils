@@ -28,7 +28,7 @@ from utils import flush_index, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
+from rero_ils.modules.persons.api import Person, PersonsSearch
 
 
 @pytest.fixture(scope="module")
@@ -138,50 +138,46 @@ def document_data_ref(data):
 
 
 @pytest.fixture(scope="module")
-def mef_person_data(data):
+def person_data(data):
     """Load mef person data."""
     return deepcopy(data.get('pers1'))
 
 
 @pytest.fixture(scope="function")
-def mef_person_data_tmp(data):
+def person_data_tmp(data):
     """Load mef person data scope function."""
     return deepcopy(data.get('pers1'))
 
 
 @pytest.fixture(scope="module")
-def mef_person_response_data(mef_person_data):
+def person_response_data(person_data):
     """Load mef person response data."""
     json_data = {
-        'id': mef_person_data['pid'],
-        'metadata': mef_person_data
+        'id': person_data['pid'],
+        'metadata': person_data
     }
     return json_data
 
 
 @pytest.fixture(scope="module")
-def mef_person(app, mef_person_data):
+def person(app, person_data):
     """Create mef person record."""
-    pers = MefPerson.create(
-        data=mef_person_data,
+    pers = Person.create(
+        data=person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(MefPersonsSearch.Meta.index)
+    flush_index(PersonsSearch.Meta.index)
     return pers
 
 
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.documents.listener.requests_get')
-@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
-def document_ref(mock_resolver_get, mock_listener_get,
-                 app, document_data_ref, mef_person_response_data):
+@mock.patch('rero_ils.modules.persons.api.requests_get')
+def document_ref(mock_persons_mef_get,
+                 app, document_data_ref, person_response_data):
     """Load document with mef records reference."""
-    mock_resolver_get.return_value = mock_response(
-        json_data=mef_person_response_data
-    )
-    mock_listener_get.return_value = mock_response(
-        json_data=mef_person_response_data
+    mock_persons_mef_get.return_value = mock_response(
+        json_data=person_response_data
     )
     doc = Document.create(
         data=document_data_ref,

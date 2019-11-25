@@ -20,8 +20,8 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import abstracts_format, \
-    authors_format, publishers_format, series_format, \
-    identifiedby_format, language_format
+    authors_format, identifiedby_format, language_format, publishers_format, \
+    series_format
 
 
 def test_authors_format(db, document_data):

@@ -15,22 +15,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests UI view for patrons."""
+"""Define relation between records and buckets."""
+
+from __future__ import absolute_import
+
+from invenio_db import db
+from invenio_pidstore.models import RecordIdentifier
 
 
-import mock
-from flask import url_for
-from utils import mock_response
+class PersonIdentifier(RecordIdentifier):
+    """Sequence generator for Document identifiers."""
 
+    __tablename__ = 'person_id'
+    __mapper_args__ = {'concrete': True}
 
-@mock.patch('requests.get')
-def test_mef_persons_detailed_view(mock_get, client, mef_person_data):
-    """Test mef detailed view."""
-    json_data = {'metadata': mef_person_data}
-    mock_get.return_value = mock_response(json_data=json_data)
-    # check redirection
-    res = client.get(url_for(
-        'mef_persons.persons_detailed_view', viewcode='global', pid='pers1'))
-    assert res.status_code == 200
-
-# TODO: add search view
+    recid = db.Column(
+        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        primary_key=True,
+        autoincrement=True,
+    )
