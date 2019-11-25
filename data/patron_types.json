@@ -43,5 +43,14 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/3"
     }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "pid": "6",
+    "name": "Children",
+    "description": "Children and teenagers (< 16 years old).",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    }
   }
 ]
