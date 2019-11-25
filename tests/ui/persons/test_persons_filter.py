@@ -17,27 +17,27 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.modules.mef_persons.views import person_label, \
+from rero_ils.modules.persons.views import person_label, \
     person_merge_data_values
 
 
-def test_person_label(app, mef_person_data):
+def test_person_label(app, person_data):
     """Test persons merge data."""
     app.config['RERO_ILS_PERSONS_LABEL_ORDER'] = {
         'fallback': 'fr',
         'fr': ['rero', 'bnf', 'gnd'],
         'de': ['gnd', 'rero', 'bnf'],
     }
-    label = person_label(mef_person_data, 'fr')
+    label = person_label(person_data, 'fr')
     assert label == 'Arnoudt, Pierre J.'
-    label = person_label(mef_person_data, 'it')
+    label = person_label(person_data, 'it')
     assert label == 'Arnoudt, Pierre J.'
 
 
-def test_person_merge_data_values(app, mef_person_data):
+def test_person_merge_data_values(app, person_data):
     """Test persons merge data."""
     app.config['RERO_ILS_PERSONS_SOURCES'] = ['bnf', 'gnd', 'rero']
-    data = person_merge_data_values(mef_person_data)
+    data = person_merge_data_values(person_data)
     assert data == {
         "$schema": {
             "https://mef.test.rero.ch/schemas/authorities/"

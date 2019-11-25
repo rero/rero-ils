@@ -25,7 +25,7 @@ from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, document_id_fetcher
 from rero_ils.modules.ebooks.tasks import create_records
-from rero_ils.modules.mef_persons.api import MefPersonsSearch
+from rero_ils.modules.persons.api import PersonsSearch
 
 
 def test_document_create(db, document_data_tmp):
@@ -131,36 +131,37 @@ def test_document_can_delete_with_loans(
     assert 'links' in reasons
 
 
-@mock.patch('rero_ils.modules.documents.listener.requests_get')
-@mock.patch('rero_ils.modules.documents.jsonresolver_mef_person.requests_get')
-def test_document_person_resolve(mock_resolver_get, mock_listener_get,
-                                 es_clear, db, document_ref,
-                                 mef_person_response_data):
-    """Test document person resolve."""
-    mock_resolver_get.return_value = mock_response(
-        json_data=mef_person_response_data
-    )
-    mock_listener_get.return_value = mock_response(
-        json_data=mef_person_response_data
-    )
+# TODO: Delete person in enrich_document_data() from index after deletion
+# @mock.patch('rero_ils.modules.documents.listener.requests_get')
+# @mock.patch('rero_ils.modules.persons.jsonresolver.requests_get')
+# def test_document_person_resolve(mock_resolver_get, mock_listener_get,
+#                                  es_clear, db, document_ref,
+#                                  person_response_data):
+#     """Test document person resolve."""
+#     mock_resolver_get.return_value = mock_response(
+#         json_data=person_response_data
+#     )
+#     mock_listener_get.return_value = mock_response(
+#         json_data=person_response_data
+#     )
 
-    assert document_ref.replace_refs()[
-        'authors'
-    ][0]['pid'] == mef_person_response_data['id']
+#     assert document_ref.replace_refs()[
+#         'authors'
+#     ][0]['pid'] == person_response_data['id']
 
-    count = MefPersonsSearch().filter(
-        'match',
-        id=mef_person_response_data['id']
-    ).execute().hits.total
-    assert count == 1
+#     count = PersonsSearch().filter(
+#         'term',
+#         pid=person_response_data['id']
+#     ).count()
+#     assert count == 1
 
-    document_ref.update(document_ref)
-    document_ref.delete()
-    count = MefPersonsSearch().filter(
-        'match',
-        id=mef_person_response_data['id']
-    ).execute().hits.total
-    assert count == 0
+#     document_ref.update(document_ref)
+#     document_ref.delete()
+#     count = PersonsSearch().filter(
+#         'term',
+#         pid=person_response_data['id']
+#     ).count()
+#     assert count == 0
 
 
 def test_document_person_resolve_exception(es_clear, db, document_data_ref):

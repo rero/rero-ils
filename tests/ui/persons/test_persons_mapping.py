@@ -19,14 +19,14 @@
 
 from utils import get_mapping
 
-from rero_ils.modules.mef_persons.api import MefPerson, MefPersonsSearch
+from rero_ils.modules.persons.api import Person, PersonsSearch
 
 
-def test_mef_persons_search_mapping(
-    app, mef_person
+def test_persons_search_mapping(
+    app, person
 ):
     """Test Mef Persons search mapping."""
-    search = MefPersonsSearch()
+    search = PersonsSearch()
 
     c = search.query('query_string', query='ordonné prêtre').count()
     assert c == 1
@@ -59,13 +59,13 @@ def test_mef_persons_search_mapping(
     assert c == 1
 
 
-def test_mef_person_es_mapping(es_clear, db, mef_person_data_tmp):
+def test_person_es_mapping(es_clear, db, person_data_tmp):
     """Test mef elasticsearch mapping."""
-    search = MefPersonsSearch()
+    search = PersonsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    MefPerson.create(
-        mef_person_data_tmp,
+    Person.create(
+        person_data_tmp,
         dbcommit=True,
         reindex=True,
         delete_pid=True

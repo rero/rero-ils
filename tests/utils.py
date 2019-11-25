@@ -126,7 +126,7 @@ def loaded_resources_report():
     report = {}
     for object in objects:
         object_pids = objects[object].get_all_pids()
-        report[object] = len(object_pids)
+        report[object] = len(list(object_pids))
         item_details = []
         if object == 'items':
             for item in object_pids:

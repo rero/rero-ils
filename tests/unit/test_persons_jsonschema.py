@@ -24,13 +24,13 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(mef_persons_schema, mef_person_data_tmp):
+def test_required(persons_schema, person_data_tmp):
     '''Test required for patron jsonschemas.'''
-    validate(mef_person_data_tmp, mef_persons_schema)
+    validate(person_data_tmp, persons_schema)
 
     with pytest.raises(ValidationError):
-        validate({}, mef_persons_schema)
-        validate(mef_person_data_tmp, mef_persons_schema)
+        validate({}, persons_schema)
+        validate(person_data_tmp, persons_schema)
 
     with pytest.raises(ValidationError):
         validate({
@@ -40,38 +40,38 @@ def test_required(mef_persons_schema, mef_person_data_tmp):
                 'rero',
                 'gnd',
                 'bnf'
-            ]}, mef_persons_schema)
-        validate(mef_person_data_tmp, mef_persons_schema)
+            ]}, persons_schema)
+        validate(person_data_tmp, persons_schema)
 
     with pytest.raises(ValidationError):
         validate({
             '$schema': 'https://ils.rero.ch/schema/persons/'
-                       'mef-person-v0.0.1.json',
+                       'person-v0.0.1.json',
             'viaf_pid': '56597999',
             'sources': [
                 'rero',
                 'gnd',
                 'bnf'
-            ]}, mef_persons_schema)
-        validate(mef_person_data_tmp, mef_persons_schema)
+            ]}, persons_schema)
+        validate(person_data_tmp, persons_schema)
 
     with pytest.raises(ValidationError):
         validate({
             '$schema': 'https://ils.rero.ch/schema/persons/'
-                       'mef-person-v0.0.1.json',
+                       'person-v0.0.1.json',
             'pid': 'pers1',
             'sources': [
                 'rero',
                 'gnd',
                 'bnf'
-            ]}, mef_persons_schema)
-        validate(mef_person_data_tmp, mef_persons_schema)
+            ]}, persons_schema)
+        validate(person_data_tmp, persons_schema)
 
     with pytest.raises(ValidationError):
         validate({
             '$schema': 'https://ils.rero.ch/schema/persons/'
-                       'mef-person-v0.0.1.json',
+                       'person-v0.0.1.json',
             'pid': 'pers1',
             'viaf_pid': '56597999'
-        }, mef_persons_schema)
-        validate(mef_person_data_tmp, mef_persons_schema)
+        }, persons_schema)
+        validate(person_data_tmp, persons_schema)

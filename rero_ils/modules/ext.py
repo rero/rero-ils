@@ -27,17 +27,16 @@ from invenio_records.signals import after_record_delete, after_record_insert, \
     after_record_revert, after_record_update
 
 from .apiharvester.signals import apiharvest_part
-from .documents.listener import enrich_document_data, mef_person_delete, \
-    mef_person_insert, mef_person_revert, mef_person_update
+from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .fees.listener import enrich_fee_data
 from .holdings.listener import enrich_holding_data
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
-from .mef_persons.receivers import publish_api_harvested_records
 from .notifications.listener import enrich_notification_data
 from .patrons.listener import enrich_patron_data
+from .persons.receivers import publish_api_harvested_records
 from ..filter import format_date_filter, jsondumps, text_to_id, to_pretty_json
 
 
@@ -99,8 +98,3 @@ class REROILSAPP(object):
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
 
         apiharvest_part.connect(publish_api_harvested_records, weak=False)
-
-        after_record_insert.connect(mef_person_insert)
-        after_record_update.connect(mef_person_update)
-        after_record_delete.connect(mef_person_delete)
-        after_record_revert.connect(mef_person_revert)

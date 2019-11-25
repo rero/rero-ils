@@ -24,7 +24,7 @@
     }
   },
   "mappings": {
-    "mef_person-v0.0.1": {
+    "person-v0.0.1": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {

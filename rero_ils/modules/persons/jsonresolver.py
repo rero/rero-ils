@@ -15,18 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Common pytest item_types."""
-
-import pytest
-from invenio_search import current_search, current_search_client
+"""Persons resolver."""
 
 
-@pytest.yield_fixture(scope='module')
-def item_types_records(
-    item_type_standard_martigny,
-    item_type_on_site_martigny,
-    item_type_specific_martigny,
-    item_type_regular_sion
-):
-    """Item types for test mapping."""
-    pass
+import jsonresolver
+from requests import get as requests_get  # noqa
+
+
+@jsonresolver.route('/api/mef/<pid>', host='mef.rero.ch')
+def person_resolver(pid):
+    """MEF person resolver."""
+    return dict(pid=pid)

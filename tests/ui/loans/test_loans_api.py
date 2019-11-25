@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
+
 from invenio_circulation.proxies import current_circulation
 from utils import get_mapping
 

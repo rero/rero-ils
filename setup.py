@@ -88,7 +88,7 @@ setup(
             'rero_ils = rero_ils.views:blueprint',
             'libraries = rero_ils.modules.libraries.views:blueprint',
             'patrons = rero_ils.modules.patrons.views:blueprint',
-            'mef_persons = rero_ils.modules.mef_persons.views:blueprint',
+            'persons = rero_ils.modules.persons.views:blueprint',
             'documents = rero_ils.modules.documents.views:blueprint',
             'items = rero_ils.modules.items.views:blueprint',
             'notifications = rero_ils.modules.notifications.views:blueprint',
@@ -102,7 +102,7 @@ setup(
             'patrons = rero_ils.modules.patrons.views:api_blueprint',
             'api_documents = rero_ils.modules.documents.views:api_blueprint',
             'items = rero_ils.modules.items.api_views:api_blueprint',
-            'mef_persons = rero_ils.modules.mef_persons.views:api_blueprint',
+            'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
             'fees = rero_ils.modules.fees.api_views:api_blueprint',
         ],
@@ -153,7 +153,7 @@ setup(
             'patrons = rero_ils.modules.patrons.models',
             'patron_types = rero_ils.modules.patron_types.models',
             'transactions = rero_ils.modules.transactions.models',
-            'mef = rero_ils.modules.mef_persons.models',
+            'mef = rero_ils.modules.persons.models',
             'apiharvester = rero_ils.modules.apiharvester.models',
             'circ_policies = rero_ils.modules.circ_policies.models',
             'notifications = rero_ils.modules.notifications.models',
@@ -175,8 +175,8 @@ setup(
             'patron_id = rero_ils.modules.patrons.api:patron_id_minter',
             'patron_type_id = \
                 rero_ils.modules.patron_types.api:patron_type_id_minter',
-            'mef_person_id = rero_ils.modules.mef_persons.api'
-            ':mef_person_id_minter',
+            'person_id = rero_ils.modules.persons.api'
+            ':person_id_minter',
             'circ_policy_id = rero_ils.modules.circ_policies.api'
             ':circ_policy_id_minter',
             'notification_id = rero_ils.modules.notifications.api'
@@ -201,8 +201,8 @@ setup(
                 rero_ils.modules.patrons.api:patron_id_fetcher',
             'patron_type_id = \
                 rero_ils.modules.patron_types.api:patron_type_id_fetcher',
-            'mef_person_id = \
-                rero_ils.modules.mef_persons.api:mef_person_id_fetcher',
+            'person_id = \
+                rero_ils.modules.persons.api:person_id_fetcher',
             'circ_policy_id = rero_ils.modules.circ_policies.api'
             ':circ_policy_id_fetcher',
             'notification_id = rero_ils.modules.notifications.api'
@@ -220,7 +220,7 @@ setup(
             'item_types = rero_ils.modules.item_types.jsonschemas',
             'patrons = rero_ils.modules.patrons.jsonschemas',
             'patron_types = rero_ils.modules.patron_types.jsonschemas',
-            'persons = rero_ils.modules.mef_persons.jsonschemas',
+            'persons = rero_ils.modules.persons.jsonschemas',
             'circ_policies = rero_ils.modules.circ_policies.jsonschemas',
             'loans = rero_ils.modules.loans.jsonschemas',
             'notifications = rero_ils.modules.notifications.jsonschemas',
@@ -236,7 +236,7 @@ setup(
             'item_types = rero_ils.modules.item_types.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
             'patron_types = rero_ils.modules.patron_types.mappings',
-            'persons = rero_ils.modules.mef_persons.mappings',
+            'persons = rero_ils.modules.persons.mappings',
             'circ_policies = rero_ils.modules.circ_policies.mappings',
             'loans = rero_ils.modules.loans.mappings',
             'notifications = rero_ils.modules.notifications.mappings',
@@ -261,10 +261,9 @@ setup(
             'item_types = rero_ils.modules.item_types.jsonresolver',
             'documents = rero_ils.modules.documents.jsonresolver',
             'loans = rero_ils.modules.loans.jsonresolver',
-            'documents_mef_person = \
-                rero_ils.modules.documents.jsonresolver_mef_person',
             'holdings = rero_ils.modules.holdings.jsonresolver',
-            'notifications = rero_ils.modules.notifications.jsonresolver'
+            'notifications = rero_ils.modules.notifications.jsonresolver',
+            'persons = rero_ils.modules.persons.jsonresolver'
         ]
     },
     classifiers=[

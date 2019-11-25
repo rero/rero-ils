@@ -904,7 +904,7 @@
     "is_default": false
   },
   "pers1": {
-    "$schema": "https://ils.rero.ch/schema/persons/mef_person-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schema/persons/person-v0.0.1.json",
     "pid": "pers1",
     "viaf_pid": "56597999",
     "sources": [

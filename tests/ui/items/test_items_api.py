@@ -43,7 +43,7 @@ def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
     assert len(list(Item.get_items_pid_by_document_pid(document.pid))) == 1
 
 
-def test_item_create(db, es_clear, item_lib_martigny_data_tmp,
+def test_item_create(db, es, item_lib_martigny_data_tmp,
                      item_lib_martigny):
     """Test itemanisation creation."""
     item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
@@ -71,7 +71,7 @@ def test_item_can_delete(item_lib_martigny):
     assert item_lib_martigny.can_delete
 
 
-def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
+def test_item_es_mapping(es, db, document, loc_public_martigny,
                          item_type_standard_martigny,
                          item_lib_martigny_data_tmp):
     """Test item elasticsearch mapping."""
@@ -85,9 +85,3 @@ def test_item_es_mapping(es_clear, db, document, loc_public_martigny,
         delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
-
-
-def test_item_can_delete(item_lib_martigny):
-    """Test can delete."""
-    assert item_lib_martigny.get_links_to_me() == {}
-    assert item_lib_martigny.can_delete

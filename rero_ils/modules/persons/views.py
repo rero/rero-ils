@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 import requests
 from flask import Blueprint, Response, abort, current_app, render_template, \
     request
+from invenio_records_ui.signals import record_viewed
 
 from rero_ils.modules.organisations.api import Organisation
 
@@ -30,7 +31,7 @@ from ..documents.api import DocumentsSearch
 # from invenio_records_ui.signals import record_viewed
 
 blueprint = Blueprint(
-    'mef_persons',
+    'persons',
     __name__,
     url_prefix='/<string:viewcode>/persons',
     template_folder='templates',
@@ -38,38 +39,21 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route('/<pid>')
-def persons_detailed_view(viewcode, pid):
+def person_view_method(pid, record, template=None, **kwargs):
     """Display default view.
 
     Sends record_viewed signal and renders template.
     :param pid: PID object.
     """
-    # record_viewed.send(
-    #     current_app._get_current_object(), pid=pid, record=record)
-    mef_url = '{url}{pid}'.format(
-        url=current_app.config.get('RERO_ILS_MEF_URL'),
-        pid=pid
-    )
-    response = requests.get(url=mef_url, params=dict(
-        resolve=1,
-        sources=1
-    ))
-    if response.status_code != requests.codes.ok:
-        current_app.logger.info(
-            'Mef Error: {status} {url}'.format(
-                status=response.status_code,
-                url=mef_url
-            )
-        )
-        abort(response.status_code)
-    record = response.json()
-    record = record.get('metadata')
-    search = DocumentsSearch()
-    search = search.filter(
-            'term',
-            authors__pid=pid
-        )
+    record_viewed.send(
+        current_app._get_current_object(), pid=pid, record=record)
+
+    # Get author documents
+    search = DocumentsSearch().filter(
+        'term',
+        authors__pid=pid.pid_value)
+
+    viewcode = kwargs['viewcode']
     if (viewcode != current_app.config.get(
         'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
     )):
@@ -77,10 +61,11 @@ def persons_detailed_view(viewcode, pid):
         search = search.filter(
             'term', holdings__organisation__organisation_pid=org_pid
         )
-    for result in search.execute().hits.hits:
-        record.setdefault('documents', []).append(result.get('_source'))
+
+    record['documents'] = list(search.scan())
+
     return render_template(
-        'rero_ils/detailed_view_persons.html',
+        template,
         record=record,
         viewcode=viewcode
     )
@@ -119,13 +104,15 @@ def person_label(data, language):
 
 
 api_blueprint = Blueprint(
-    'api_mef_persons',
+    'api_persons',
     __name__
 )
 
 
 @api_blueprint.route('/mef/', defaults={'path': ''})
 @api_blueprint.route('/mef/<path:path>')
+@api_blueprint.route('/persons/', defaults={'path': ''})
+@api_blueprint.route('/persons/<path:path>')
 def mef_proxy(path):
     """Proxy to mef server."""
     resp = requests.request(

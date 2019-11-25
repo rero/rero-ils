@@ -19,32 +19,33 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.mef_persons.api import MefPerson, mef_person_id_fetcher
+from rero_ils.modules.persons.api import Person, PersonsSearch, \
+    person_id_fetcher
 
 
-def test_mef_person_create(db, mef_person_data_tmp):
-    """Test mef person creation."""
-    pers = MefPerson.get_record_by_pid('1')
+def test_person_create(db, person_data_tmp):
+    """Test MEF person creation."""
+    pers = Person.get_record_by_pid('1')
     assert not pers
-    pers, msg = MefPerson.create_or_update(
-        mef_person_data_tmp,
+    pers = Person.create(
+        person_data_tmp,
         dbcommit=True,
         delete_pid=True
     )
-    assert pers == mef_person_data_tmp
+    assert pers == person_data_tmp
     assert pers.get('pid') == '1'
 
-    pers = MefPerson.get_record_by_pid('1')
-    assert pers == mef_person_data_tmp
+    pers = Person.get_record_by_pid('1')
+    assert pers == person_data_tmp
 
-    fetched_pid = mef_person_id_fetcher(pers.id, pers)
+    fetched_pid = person_id_fetcher(pers.id, pers)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'pers'
-    mef_person_data_tmp['viaf_pid'] = '1234'
-    pers, msg = MefPerson.create_or_update(
-        mef_person_data_tmp,
+    person_data_tmp['viaf_pid'] = '1234'
+    pers = Person.create(
+        person_data_tmp,
         dbcommit=True,
         delete_pid=True
     )
-    pers = MefPerson.get_record_by_pid('1')
+    pers = Person.get_record_by_pid('2')
     assert pers.get('viaf_pid') == '1234'

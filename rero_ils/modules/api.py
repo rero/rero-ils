@@ -255,26 +255,33 @@ class IlsRecord(Record):
         )
 
     @classmethod
-    def get_all_pids(cls, with_deleted=False):
-        """Get all records pids."""
+    def _get_all(cls, with_deleted=False):
+        """Get all persistent identifier records."""
         query = PersistentIdentifier.query.filter_by(
             pid_type=cls.provider.pid_type
         )
         if not with_deleted:
             query = query.filter_by(status=PIDStatus.REGISTERED)
-        pids = [n.pid_value for n in query]
-        return pids
+        return query
+
+    @classmethod
+    def get_all_pids(cls, with_deleted=False):
+        """Get all records pids. Return a generator iterator."""
+        query = cls._get_all(with_deleted=with_deleted)
+        for identifier in query:
+            yield identifier.pid_value
 
     @classmethod
     def get_all_ids(cls, with_deleted=False):
-        """Get all records uuids."""
-        query = PersistentIdentifier.query.filter_by(
-            pid_type=cls.provider.pid_type
-        )
-        if not with_deleted:
-            query = query.filter_by(status=PIDStatus.REGISTERED)
-        uuids = [n.object_uuid for n in query]
-        return uuids
+        """Get all records uuids. Return a generator iterator."""
+        query = cls._get_all(with_deleted=with_deleted)
+        for identifier in query:
+            yield identifier.object_uuid
+
+    @classmethod
+    def count(cls, with_deleted=False):
+        """Get record count."""
+        return cls._get_all(with_deleted=with_deleted).count()
 
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""

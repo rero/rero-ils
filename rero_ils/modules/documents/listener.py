@@ -17,20 +17,11 @@
 
 """Signals connector for Document."""
 
-from flask import current_app
-from invenio_indexer.api import RecordIndexer
-from invenio_jsonschemas import current_jsonschemas
-from invenio_search import current_search
-from requests import codes as requests_codes
-from requests import get as requests_get
-
 from .views import create_publication_statement
 from ..documents.api import DocumentsSearch
-from ..holdings.api import Holding
-from ..item_types.api import ItemType
-from ..items.api import Item
-from ..locations.api import Location
-from ..organisations.api import Organisation
+from ..holdings.api import Holding, HoldingsSearch
+from ..items.api import ItemsSearch
+from ..persons.api import Person
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -46,52 +37,41 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         # HOLDINGS
         holdings = []
         document_pid = record['pid']
-        for holding_pid in Holding.get_holdings_pid_by_document_pid(
-                document_pid
-        ):
-            holding = Holding.get_record_by_pid(holding_pid)
-            location = Location.get_record_by_pid(
-                holding.location_pid).replace_refs()
-            organisation = Organisation.get_record_by_pid(
-                holding.organisation_pid
-            )
-            circ_category = ItemType.get_record_by_pid(
-                holding.circulation_category_pid).replace_refs()
+        es_holdings = HoldingsSearch().filter(
+            'term', document__pid=document_pid
+        ).scan()
+        for holding in es_holdings:
             data = {
                 'pid': holding.pid,
-                'available': holding.available,
-                'call_number': holding.get('call_number'),
+                # 'available': holding.available,
                 'location': {
-                    'pid': location.pid,
-                    'name': location.get('name')
+                    'pid': holding['location']['pid'],
                 },
                 'circulation_category': {
-                    'pid': circ_category['pid'],
-                    'name': circ_category.get('name')
+                    'pid': holding['circulation_category']['pid'],
                 },
                 'organisation': {
-                    'organisation_pid': organisation['pid'],
-                    'library_pid': location['library']['pid'],
+                    'organisation_pid': holding['organisation']['pid'],
+                    'library_pid': holding['library']['pid'],
                     'organisation_library': '{}-{}'.format(
-                        organisation['pid'],
-                        location['library']['pid']
+                        holding['organisation']['pid'],
+                        holding['library']['pid']
                     )
                 }
             }
-
-            items = []
-            for item_pid in Item.get_items_pid_by_holding_pid(holding_pid):
-                item = Item.get_record_by_pid(item_pid)
-                available = item.available
-                items.append({
+            # replace this by an ES query
+            es_items = list(ItemsSearch().filter(
+                'term', holding__pid=holding.pid
+            ).scan())
+            for item in es_items:
+                data.setdefault('items', []).append({
                     'pid': item.pid,
-                    'barcode': item['barcode'],
-                    'call_number': item['call_number'],
-                    'status': item['status'],
-                    'available': available
+                    'barcode': item.barcode,
+                    'call_number': item.call_number,
+                    'status': item.status,
+                    'available': item.available
                 })
-            if items:
-                data['items'] = items
+            data['available'] = Holding.isAvailable(es_items)
 
             holdings.append(data)
 
@@ -109,108 +89,17 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         if publisher_statements:
             json['publisherStatement'] = publisher_statements
 
-
-def mef_person_insert(sender, *args, **kwargs):
-    """Insert Signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_update(sender, *args, **kwargs):
-    """Update signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_revert(sender, *args, **kwargs):
-    """Revert signal."""
-    mef_person_update_index(sender, *args, **kwargs)
-
-
-def mef_person_update_index(sender, *args, **kwargs):
-    """Index MEF person in ES."""
-    record = kwargs['record']
-    if 'documents' in record.get('$schema', ''):
-        authors = record.get('authors', [])
-        for author in authors:
-            mef_url = author.get('$ref')
-            if mef_url:
-                mef_url = mef_url.replace(
-                    'mef.rero.ch',
-                    current_app.config['RERO_ILS_MEF_HOST']
-                )
-                request = requests_get(url=mef_url, params=dict(
-                    resolve=1,
-                    sources=1
-                ))
-                if request.status_code == requests_codes.ok:
-                    data = request.json()
-                    id = data['id']
-                    data = data.get('metadata')
-                    if data:
-                        data['id'] = id
-                        data['$schema'] = current_jsonschemas.path_to_url(
-                            current_app.config[
-                                'RERO_ILS_PERSONS_MEF_SCHEMA'
-                            ]
-                        )
-                        indexer = RecordIndexer()
-                        index, doc_type = indexer.record_to_index(data)
-                        indexer.client.index(
-                            id=id,
-                            index=index,
-                            doc_type=doc_type,
-                            body=data,
-                        )
-                        current_search.flush_and_refresh(index)
-                else:
-                    current_app.logger.error(
-                        'Mef resolver request error: {stat} {url}'.format(
-                            stat=request.status_code,
-                            url=mef_url
-                        )
-                    )
-                    raise Exception('unable to resolve')
-
-
-def mef_person_delete(sender, *args, **kwargs):
-    """Delete signal."""
-    record = kwargs['record']
-    if 'documents' in record.get('$schema', ''):
-        authors = record.get('authors', [])
-        for author in authors:
-            mef_url = author.get('$ref')
-            if mef_url:
-                mef_url = mef_url.replace(
-                    'mef.rero.ch',
-                    current_app.config['RERO_ILS_MEF_HOST']
-                )
-                request = requests_get(url=mef_url, params=dict(
-                    resolve=1,
-                    sources=1
-                ))
-                if request.status_code == requests_codes.ok:
-                    data = request.json()
-                    id = data['id']
-                    data = data.get('metadata')
-                    if data:
-                        search = DocumentsSearch()
-                        count = search.filter(
-                            'match',
-                            authors__pid=id
-                        ).execute().hits.total
-                        if count == 1:
-                            indexer = RecordIndexer()
-                            index, doc_type = indexer.record_to_index(data)
-                            indexer.client.delete(
-                                id=id,
-                                index=index,
-                                doc_type=doc_type
-                            )
-                            current_search.flush_and_refresh(index)
-                else:
-                    current_app.logger.error(
-                        'Mef resolver request error: {result} {url}'.format(
-                            result=request.status_code,
-                            url=mef_url
-                        )
-                    )
-                    raise Exception('unable to resolve')
+        # MEF person ES index update
+        authors = []
+        for author in json.get('authors', []):
+            pid = author.get('pid', None)
+            if pid:
+                # Check presence in DB
+                author_rec = Person.get_record_by_mef_pid(pid)
+                authors.append(author_rec.dumps_for_document())
+            else:
+                authors.append(author)
+        # Put authors in JSON
+        json['authors'] = authors
+        # TODO: compare record with those in DB to check which authors have
+        # to be deleted from index

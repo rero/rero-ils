@@ -112,11 +112,11 @@ def patron_schema():
 
 
 @pytest.fixture()
-def mef_persons_schema():
+def persons_schema():
     """Patron Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.mef_persons.jsonschemas',
-        '/persons/mef_person-v0.0.1.json'
+        'rero_ils.modules.persons.jsonschemas',
+        '/persons/person-v0.0.1.json'
     )
     schema = loads(schema_in_bytes.decode('utf8'))
     return schema

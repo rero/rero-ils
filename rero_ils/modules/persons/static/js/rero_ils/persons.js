@@ -17,7 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-angular.module('reroilsMefPerson', [])
+angular.module('reroilsPerson', [])
   .controller('personController', ['$scope', function($scope) {
 
     $scope.person = null;

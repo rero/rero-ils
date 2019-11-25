@@ -143,8 +143,7 @@ def test_patrons_post_put_delete(client, lib_martigny,
     list_url = url_for('invenio_records_rest.ptrn_list', q='pid:1')
     patron_data = librarian_martigny_data
 
-    pids = len(Patron.get_all_pids())
-    uuids = len(Patron.get_all_ids())
+    pids = Patron.count()
     assert len(mailbox) == 0
 
     # Create record / POST
@@ -158,8 +157,7 @@ def test_patrons_post_put_delete(client, lib_martigny,
     )
 
     assert res.status_code == 201
-    assert len(Patron.get_all_pids()) == pids + 1
-    assert len(Patron.get_all_ids()) == uuids + 1
+    assert Patron.count() == pids + 1
     assert len(mailbox) == 1
     assert re.search(r'localhost/lost-password', mailbox[0].body)
 

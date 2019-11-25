@@ -28,12 +28,12 @@ from invenio_pidstore.providers.base import BaseProvider
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
+from utils import flush_index
 
 from rero_ils.modules.api import IlsRecord, IlsRecordError
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from utils import flush_index
 
 
 class IdentifierTest(RecordIdentifier):
@@ -193,16 +193,13 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
     record = RecordTest.get_record_by_pid('ilsrecord_pid')
     record.delete(delindex=True)
-    assert len(RecordTest.get_all_pids()) == 2
-    assert len(RecordTest.get_all_ids()) == 2
+    assert RecordTest.count() == 2
     record = RecordTest.get_record_by_pid('ilsrecord_pid_2')
     record.delete(delindex=True)
-    assert len(RecordTest.get_all_pids()) == 1
-    assert len(RecordTest.get_all_ids()) == 1
+    assert RecordTest.count() == 1
     record = RecordTest.get_record_by_pid('1')
     record.delete(delindex=True)
-    assert len(RecordTest.get_all_pids()) == 0
-    assert len(RecordTest.get_all_ids()) == 0
+    assert RecordTest.count() == 0
 
 
 class FailedPidIdentifier(RecordIdentifier):
@@ -261,10 +258,10 @@ def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
             delete_pid=False,
         )
     db.session.rollback()
-    assert len(FailedIlsRecord.get_all_pids()) == 0
+    assert FailedIlsRecord.count() == 0
 
     record1 = FailedIlsRecord.create(data=ils_record, delete_pid=True)
-    assert len(FailedIlsRecord.get_all_pids()) == 1
+    assert FailedIlsRecord.count() == 1
     assert record1.pid == '1'
 
     # Add another record to test that it's 2.
@@ -287,7 +284,7 @@ def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
     assert record5.pid == '3'
     assert record3.pid == '3'
 
-    assert len(FailedIlsRecord.get_all_pids()) == 4
+    assert FailedIlsRecord.count() == 4
 
     db.session.commit()
 
@@ -305,7 +302,7 @@ def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
     assert record6 is None
 
     # We should have 3 PID.
-    assert len(FailedIlsRecord.get_all_pids()) == 4
+    assert FailedIlsRecord.count() == 4
 
     record7 = FailedIlsRecord.create(data=ils_record, delete_pid=True)
     db.session.commit()
