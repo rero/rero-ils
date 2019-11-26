@@ -213,10 +213,10 @@ export class CirculationPolicyFormService {
       settings[key].forEach(element => {
         mapping.push({
           patron_type: {
-            $ref: patronTypeentrypoint + key.substr(1, key.length - 1)
+            $ref: patronTypeentrypoint + key.substr(1)
           },
           item_type: {
-            $ref: itemTypeentrypoint + element.substr(1, key.length - 1)
+            $ref: itemTypeentrypoint + element.substr(1)
           }
         });
       });
