@@ -127,7 +127,7 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
 def item_availability_text(item):
     """Returns text to disaply for item."""
     if item.available:
-        return str(item.status)
+        return str(_(item.status))
     else:
         text = ''
         if item.status == ItemStatus.ON_LOAN:
