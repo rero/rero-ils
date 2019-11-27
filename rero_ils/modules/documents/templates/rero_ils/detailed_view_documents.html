@@ -117,10 +117,7 @@
             </li>
           </ul>
         </dd>
-
         {% endif %}
-
-
 
         {% if record.language|language_format(current_i18n.language)|length > 0 %}
         {{ dl(_('Language'), record.language|language_format(current_i18n.language)) }}
@@ -136,10 +133,7 @@
         {% endif %}
 
         {% if record.source %}
-        {{ dl(
-                _('Source'),
-                '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>'
-              ) }}
+        {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}
         {% endif %}
         <dt class="col-sm-3 offset-sm-2 offset-md-1">
           {{ _('Permalink') }}
@@ -149,13 +143,7 @@
     </article>
     <footer class="d-flex flex-column pt-2">
       {% if record.can_edit and current_user|can_edit %}
-      {% with
-                href_update=url_for('rero_ils.professional', path='records/documents/edit/%s' % record.pid),
-                href_delete='/api/documents/' + record.pid,
-                json=record,
-                next=url_for('rero_ils.search', viewcode=viewcode, recordType=recordType),
-                message=_("Document cannot be deleted: there are still items linked to this document.")
-              %}
+      {% with json=record %}
       {% include 'rero_ils/_editor_button_actions.html' %}
       {% endwith %}
       {% else %}
@@ -167,18 +155,10 @@
   </section>
   <!-- Holdings -->
   <!-- Add Item -->
-  {%- if holdings or ( current_user|can_edit and record.can_edit) %}
+  {%- if holdings %}
   <section class="py-4">
     <header class="mb-4">
-      {%- if current_user|can_edit %}
-      <h3>
-        {{ _('Holdings') }}
-        <a href="{{ url_for('rero_ils.professional', path='records/items/new', document=record.pid) }}" type="button"
-          class="btn btn-sm btn-success">
-          <i class="fa fa-plus-square-o fa-fw"></i> {{ _('Add') }}
-        </a>
-      </h3>
-      {% endif %}
+      <h3>{{ _('Holdings') }}</h3>
     </header>
     <!-- Display Holdings -->
     <div class="card">
@@ -308,7 +288,7 @@
 <footer class="pt-4 rero-ils-detailed-view-footer">
   {%- set formats = export_formats(pid.pid_type) %}
   {%- if formats %}
-  <h3 class="d-inline-block">{{ _('Export Formats') }}:</h3>
+  <h5 class="d-inline-block">{{ _('Export Formats') }}:</h5>
   <ul class="list-inline d-inline-block">
     {%- for slug, fmt in formats %}
     <li>
