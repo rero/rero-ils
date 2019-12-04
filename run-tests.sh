@@ -33,6 +33,10 @@ display_error_message_and_exit () {
   exit 1
 }
 
+# compile json files (resolve $ref)
+pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+
 if [ $# -eq 0 ]
     then
         grep -r fuzzy rero_ils/translations
