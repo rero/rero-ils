@@ -69,7 +69,8 @@ def test_documents_get(client, document):
     if publisher_statements:
         document['publisherStatement'] = publisher_statements
 
-    assert data['hits']['hits'][0]['metadata'] == document.replace_refs()
+    assert data['hits']['hits'][0]['metadata'] == \
+        document.replace_refs().dumps()
 
     res = client.get(
         url_for('api_documents.import_bnf_ean', ean='9782070541270'))

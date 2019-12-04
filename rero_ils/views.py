@@ -263,7 +263,8 @@ def set_language():
 @check_organisation_viewcode
 def search(viewcode, recordType):
     """Search page ui."""
-    return render_template(current_app.config.get('SEARCH_UI_SEARCH_TEMPLATE'), viewcode=viewcode)
+    return render_template(current_app.config.get('SEARCH_UI_SEARCH_TEMPLATE'),
+                           viewcode=viewcode)
 
 
 @blueprint.app_template_filter()
