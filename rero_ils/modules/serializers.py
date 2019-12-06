@@ -140,12 +140,6 @@ class JSONSerializer(_JSONSerializer):
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         pid_type = pid_fetcher('foo', dict(pid='1')).pid_type
-        # add facet settings
-        facet_config = current_app.config.get(
-            'RERO_ILS_APP_CONFIG_FACETS', {}
-        )
-        facet_config = facet_config.get(pid_type, {})
-        results['aggregations']['_settings'] = facet_config
 
         # add permissions and links actions
         permission = self.get_permission('create', pid_type)

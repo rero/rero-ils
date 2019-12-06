@@ -770,39 +770,6 @@ SEARCH_UI_SEARCH_INDEX = 'documents'
 # TODO: Should be taken into angular
 RERO_ILS_SEARCH_GLOBAL_VIEW_CODE = 'global'
 
-RERO_ILS_APP_CONFIG_FACETS = {
-    'doc': {
-        'order': [
-            'document_type',
-            'organisation',
-            'library',
-            'author__en',
-            'author__fr',
-            'author__de',
-            'author__it',
-            'language',
-            'subject',
-            'status',
-        ],
-        'expand': ['document_type'],
-        'initialBucketSize': 5
-    },
-    'ptrn': {
-        'order': [
-            'roles'
-        ],
-        'expand': ['roles'],
-        'initialBucketSize': 5
-    },
-    'pers': {
-        'order': [
-            'sources'
-        ],
-        'expand': ['sources'],
-        'initialBucketSize': 5
-    },
-}
-
 # Default number of results in facet
 RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 
