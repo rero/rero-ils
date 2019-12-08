@@ -4,6 +4,10 @@
   "title": "PatronType",
   "description": "JSON schema for patron_types.",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "description"
+  ],
   "required": [
     "$schema",
     "pid",
@@ -24,14 +28,27 @@
       "minLength": 1
     },
     "name": {
-      "title": "Patron type name",
-      "description": "a short name of the Patron type",
+      "title": "Name",
+      "description": "The name of the patron type",
       "type": "string",
-      "minLength": 2
+      "minLength": 2,
+      "form": {
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "patron_type_name"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The patron type name is already taken."
+          }
+        }
+      }
     },
     "description": {
-      "title": "Patron type description",
-      "description": "The description of the Patron type",
+      "title": "Description",
+      "description": "The description of the patron type.",
       "type": "string"
     },
     "organisation": {

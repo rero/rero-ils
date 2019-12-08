@@ -318,12 +318,12 @@ def schemaform(document_type):
     except JSONSchemaNotFound:
         abort(404)
 
-    try:
-        form = current_jsonschemas.get_schema(
-            'form_{}/{}-v0.0.1.json'.format(document_type, doc_type))
-        data['layout'] = prepare_form_option(form)
-    except JSONSchemaNotFound as error:
-        raise(error)
+    # try:
+    #     form = current_jsonschemas.get_schema(
+    #         'form_{}/{}-v0.0.1.json'.format(document_type, doc_type))
+    #     data['layout'] = prepare_form_option(form)
+    # except JSONSchemaNotFound as error:
+    #     raise(error)
     return jsonify(data)
 
 

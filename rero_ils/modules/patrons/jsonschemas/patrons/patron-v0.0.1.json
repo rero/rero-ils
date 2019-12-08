@@ -4,6 +4,22 @@
   "title": "user",
   "description": "JSON schema for a user.",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "first_name",
+    "last_name",
+    "birth_date",
+    "email",
+    "street",
+    "postal_code",
+    "city",
+    "phone",
+    "roles",
+    "barcode",
+    "patron_type",
+    "communication_channel",
+    "communication_language",
+    "library"
+  ],
   "required": [
     "$schema",
     "pid",
@@ -27,13 +43,14 @@
     },
     "first_name": {
       "title": "First name",
-      "validationMessage": "First Name is required.",
       "type": "string",
-      "minLength": 2
+      "minLength": 2,
+      "form": {
+        "focus": true
+      }
     },
     "last_name": {
       "title": "Last name",
-      "validationMessage": "Last Name is required.",
       "type": "string",
       "minLength": 2
     },
@@ -42,7 +59,13 @@
       "type": "string",
       "format": "date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD."
+      "form": {
+        "validation": {
+          "messages": {
+            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          }
+        }
+      }
     },
     "email": {
       "title": "Email",
@@ -50,59 +73,111 @@
       "format": "email",
       "pattern": "^.*@.*\\..*$",
       "minLength": 6,
-      "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+      "form": {
+        "validation": {
+          "messages": {
+            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+          }
+        }
+      }
     },
     "street": {
       "title": "Street",
       "description": "Street and number of the address, separated by a coma.",
       "type": "string",
-      "minLength": 3,
-      "validationMessage": "Required."
+      "minLength": 3
     },
     "postal_code": {
       "title": "Postal code",
       "type": "string",
-      "minLength": 4,
-      "validationMessage": "Required. A valid postal code with a min of 4 characters."
+      "minLength": 4
     },
     "city": {
       "title": "City",
       "type": "string",
-      "minLength": 3,
-      "validationMessage": "Required."
+      "minLength": 3
     },
     "phone": {
       "title": "Phone number",
       "description": "Phone number with the international prefix, without spaces.",
       "type": "string",
-      "pattern": "^\\+[0-9]*$"
+      "pattern": "^\\+[0-9]*$",
+      "form": {
+        "validation": {
+          "messages": {
+            "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
+          }
+        }
+      }
     },
     "patron_type": {
       "title": "Patron Type",
       "description": "Patron type in terms of circulation policy.",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Patron Type URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/patron_types/.*?$"
+          "pattern": "^https://ils.rero.ch/api/patron_types/.*?$",
+          "form": {
+            "remoteOptions": {
+              "type": "patron_types"
+            }
+          }
+        }
+      },
+      "form": {
+        "hideExpression": "!field.parent.model.roles.some(v => v === 'patron')",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.roles.some(v => v === 'patron')"
         }
       }
     },
     "barcode": {
       "title": "Patron's barcode or card number",
       "type": "string",
-      "minLength": 6
+      "minLength": 6,
+      "form": {
+        "hideExpression": "!model.roles.some(v => v === 'patron')",
+        "expressionProperties": {
+          "templateOptions.required": "model.roles.some(v => v === 'patron')"
+        },
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {}
+          },
+          "messages": {
+            "alreadyTakenMessage": "The barcode is already taken."
+          }
+        }
+      }
     },
     "library": {
       "title": "Library",
       "description": "Library affiliation.",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+          "pattern": "^https://ils.rero.ch/api/libraries/.*?$",
+          "form": {
+            "remoteOptions": {
+              "type": "libraries"
+            }
+          }
+        }
+      },
+      "form": {
+        "hideExpression": "!field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
         }
       }
     },
@@ -113,12 +188,31 @@
       "uniqueItems": true,
       "minItems": 1,
       "maxItems": 3,
+      "default": [
+        "patron"
+      ],
       "items": {
         "type": "string",
         "enum": [
-          "system_librarian",
+          "patron",
           "librarian",
-          "patron"
+          "system_librarian"
+        ]
+      },
+      "form": {
+        "options": [
+          {
+            "label": "Patron",
+            "value": "patron"
+          },
+          {
+            "label": "Librarian",
+            "value": "librarian"
+          },
+          {
+            "label": "System Librarian",
+            "value": "system_librarian"
+          }
         ]
       }
     },
@@ -128,7 +222,13 @@
       "enum": [
         "email",
         "mail"
-      ]
+      ],
+      "form": {
+        "hideExpression": "!model.roles.some(v => v === 'patron')",
+        "expressionProperties": {
+          "templateOptions.required": "model.roles.some(v => v === 'patron')"
+        }
+      }
     },
     "communication_language": {
       "title": "Communication language",
@@ -138,7 +238,31 @@
         "eng",
         "fre",
         "ita"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "French",
+            "value": "fre"
+          },
+          {
+            "label": "English",
+            "value": "eng"
+          },
+          {
+            "label": "German",
+            "value": "ger"
+          },
+          {
+            "label": "Italian",
+            "value": "ita"
+          }
+        ],
+        "hideExpression": "!model.roles.some(v => v === 'patron')",
+        "expressionProperties": {
+          "templateOptions.required": "model.roles.some(v => v === 'patron')"
+        }
+      }
     }
   }
 }
