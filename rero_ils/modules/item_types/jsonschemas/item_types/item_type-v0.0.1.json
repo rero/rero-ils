@@ -4,6 +4,11 @@
   "title": "ItemType",
   "description": "JSON schema for item_type.",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "description",
+    "type"
+  ],
   "required": [
     "$schema",
     "pid",
@@ -28,7 +33,20 @@
       "title": "Name",
       "description": "Name of the ItemType.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "item_type_name"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The item type name is already taken"
+          }
+        }
+      }
     },
     "description": {
       "title": "Description",
@@ -40,10 +58,36 @@
       "title": "Type",
       "description": "Type of the circulation category.",
       "type": "string",
+      "default": "standard",
       "enum": [
         "online",
         "standard"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "online",
+            "label": "Online"
+          }
+        ],
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "remoteRecordType": "item_types",
+              "limitToValues": [
+                "online"
+              ]
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "Another online item type exists in this organisation"
+          }
+        }
+      }
     },
     "organisation": {
       "title": "Organisation",

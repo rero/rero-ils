@@ -1,7 +1,755 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Schema for document",
+  "title": "Bibliographic Document",
   "type": "object",
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "title",
+    "language"
+  ],
+  "propertiesOrder": [
+    "type",
+    "title",
+    "titlesProper",
+    "authors",
+    "subjects",
+    "language",
+    "translatedFrom",
+    "abstracts",
+    "extent",
+    "additionalMaterials",
+    "series",
+    "is_part_of",
+    "identifiedBy",
+    "notes",
+    "electronic_location",
+    "copyrightDate",
+    "provisionActivity",
+    "editionStatement"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate document against.",
+      "type": "string",
+      "default": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Document PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "title": "Type",
+      "description": "Type of the document.",
+      "default": "book",
+      "type": "string",
+      "enum": [
+        "article",
+        "book",
+        "ebook",
+        "journal",
+        "other",
+        "score",
+        "sound",
+        "video"
+      ],
+      "minLength": 4,
+      "form": {
+        "options": [
+          {
+            "label": "Article",
+            "value": "article"
+          },
+          {
+            "label": "Book",
+            "value": "book"
+          },
+          {
+            "label": "E-Book",
+            "value": "ebook"
+          },
+          {
+            "label": "Journal",
+            "value": "journal"
+          },
+          {
+            "label": "Other",
+            "value": "other"
+          },
+          {
+            "label": "Score",
+            "value": "score"
+          },
+          {
+            "label": "Sound",
+            "value": "sound"
+          },
+          {
+            "label": "Video",
+            "value": "video"
+          }
+        ]
+      }
+    },
+    "title": {
+      "title": "Title",
+      "description": "Entire title without statement of responsibility.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "focus": true
+      }
+    },
+    "titlesProper": {
+      "title": "Proper titles",
+      "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Proper title",
+        "type": "string",
+        "minLength": 2
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "is_part_of": {
+      "title": "Is part of",
+      "description": "Title of the host document.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "hide": true
+      }
+    },
+    "language": {
+      "title": "Languages",
+      "description": "List of languages for the resource.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Language",
+        "description": "Languages for the resource.",
+        "required": [
+          "type",
+          "value"
+        ],
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "type",
+          "value"
+        ],
+        "properties": {
+          "type": {
+            "title": "Type",
+            "description": "Type of the language.",
+            "type": "string",
+            "default": "bf:Language",
+            "enum": [
+              "bf:Language"
+            ]
+          },
+          "value": {
+            "$ref": "#/definitions/language"
+          }
+        }
+      }
+    },
+    "translatedFrom": {
+      "title": "Translated from",
+      "description": "Language from which a resource is translated.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/language"
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "authors": {
+      "title": "Authors",
+      "description": "Author(s) of the resource. Can be either persons or organisations.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Author",
+        "type": "object",
+        "oneOf": [
+          {
+            "title": "Person",
+            "additionalProperties": false,
+            "propertiesOrder": [
+              "type",
+              "name",
+              "$ref",
+              "date",
+              "qualifier"
+            ],
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "title": "Type",
+                "type": "string",
+                "enum": [
+                  "person"
+                ],
+                "default": "person",
+                "form": {
+                  "options": [
+                    {
+                      "label": "Person",
+                      "value": "person"
+                    }
+                  ]
+                }
+              },
+              "name": {
+                "title": "Name",
+                "description": "Person's name.",
+                "type": "string",
+                "form": {
+                  "type": "remoteautocomplete",
+                  "wrappers": [
+                    "form-field"
+                  ],
+                  "hideExpression": "field.model.$ref != null"
+                }
+              },
+              "$ref": {
+                "title": "MEF person ref",
+                "type": "string",
+                "pattern": "^https://mef.rero.ch/api/mef/.*?$",
+                "form": {
+                  "wrappers": [
+                    "ref"
+                  ]
+                }
+              },
+              "date": {
+                "title": "Date",
+                "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
+                "type": "string",
+                "form": {
+                  "hideExpression": "field.model.$ref != null || !field.model.name"
+                }
+              },
+              "qualifier": {
+                "title": "Qualifier",
+                "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
+                "type": "string",
+                "form": {
+                  "hideExpression": "field.model.$ref != null || !field.model.name"
+                }
+              }
+            }
+          },
+          {
+            "title": "Organisation",
+            "additionalProperties": false,
+            "propertiesOrder": [
+              "type",
+              "name"
+            ],
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "title": "Type",
+                "type": "string",
+                "default": "organisation",
+                "enum": [
+                  "organisation"
+                ],
+                "form": {
+                  "options": [
+                    {
+                      "label": "Organisation",
+                      "value": "organisation"
+                    }
+                  ]
+                }
+              },
+              "name": {
+                "title": "Name",
+                "description": "Organisation's name.",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "form": {
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "copyrightDate": {
+      "title": "Copyright Dates",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "title": "Copyright Date",
+        "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
+        "minLength": 4
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "editionStatement": {
+      "title": "Edition statements",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "title": "Edition statement",
+        "additionalProperties": false,
+        "properties": {
+          "editionDesignation": {
+            "title": "Edition designations",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Edition designation",
+              "$ref": "#/definitions/language_script"
+            }
+          },
+          "responsibility": {
+            "title": "Responsibilities",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Responsibility",
+              "$ref": "#/definitions/language_script"
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "provisionActivity": {
+      "title": "Provision Activities",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Provision Activity",
+        "type": "object",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "type",
+          "place",
+          "startDate",
+          "endDate",
+          "note",
+          "statement"
+        ],
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "enum": [
+              "bf:Publication",
+              "bf:Manufacture",
+              "bf:Distribution",
+              "bf:Production"
+            ]
+          },
+          "place": {
+            "title": "Countries and/or cantons of the provision activity",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "title": "Country and/or canton of the provision activity",
+              "required": [
+                "country"
+              ],
+              "propertiesOrder": [
+                "type",
+                "country",
+                "canton"
+              ],
+              "properties": {
+                "type": {
+                  "title": "type",
+                  "type": "string",
+                  "const": "bf:Place",
+                  "enum": [
+                    "bf:Place"
+                  ]
+                },
+                "country": {
+                  "title": "Country",
+                  "type": "string",
+                  "$ref": "#/definitions/country"
+                },
+                "canton": {
+                  "title": "Canton",
+                  "type": "string",
+                  "$ref": "#/definitions/canton"
+                }
+              }
+            }
+          },
+          "statement": {
+            "title": "Statement of place and/or agent and/or date of the provision activity",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "title": "statement",
+              "description": "Statement of place and/or agent of the provision activity",
+              "propertiesOrder": [
+                "type",
+                "label"
+              ],
+              "required": [
+                "type",
+                "label"
+              ],
+              "properties": {
+                "type": {
+                  "title": "Type",
+                  "type": "string",
+                  "enum": [
+                    "bf:Place",
+                    "bf:Agent",
+                    "Date"
+                  ]
+                },
+                "label": {
+                  "title": "Labels",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "title": "Labels",
+                    "$ref": "#/definitions/language_script"
+                  }
+                }
+              }
+            }
+          },
+          "note": {
+            "title": "Note",
+            "description": "Note.",
+            "type": "string",
+            "form": {
+              "hide": true
+            }
+          },
+          "startDate": {
+            "title": "Start date of publication",
+            "description": "Start date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+            "type": "string",
+            "minimum": -9999,
+            "maximum": 2050,
+            "form": {
+              "hide": true
+            }
+          },
+          "endDate": {
+            "title": "End date of publication",
+            "description": "End date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+            "type": "string",
+            "minimum": -9999,
+            "maximum": 2050,
+            "form": {
+              "hide": true
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "extent": {
+      "title": "Extent",
+      "description": "Extent of the resource, ie number of pages or volumes.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "hide": true
+      }
+    },
+    "otherMaterialCharacteristics": {
+      "title": "Other Material Characteristics",
+      "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
+      "type": "string",
+      "minLength": 1
+    },
+    "formats": {
+      "title": "Formats",
+      "description": "Format of the resource, ie dimensions in cm.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additionalMaterials": {
+      "title": "Additional materials",
+      "description": "Accompanying material of the resource, ie maps.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "hide": true
+      }
+    },
+    "series": {
+      "title": "Series",
+      "description": "Series to which belongs the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "title": "Series",
+        "description": "Series to which belongs the resource.",
+        "required": [
+          "name"
+        ],
+        "propertiesOrder": [
+          "name",
+          "number"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "title": "Title",
+            "description": "Title of the series.",
+            "type": "string"
+          },
+          "number": {
+            "title": "Numbering",
+            "description": "Numbering of the resource within the series.",
+            "type": "string",
+            "form": {
+              "hide": true
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "notes": {
+      "title": "Notes",
+      "description": "Note on the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Note",
+        "type": "string",
+        "minLength": 1
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "abstracts": {
+      "title": "Abstracts",
+      "description": "Abstract of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Abstract",
+        "type": "string",
+        "minLength": 2
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "identifiedBy": {
+      "title": "Identifier",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Identifier",
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "propertiesOrder": [
+          "type",
+          "value",
+          "status",
+          "qualifier",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "enum": [
+              "bf:AudioIssueNumber",
+              "bf:Doi",
+              "bf:Ean",
+              "bf:Gtin14Number",
+              "bf:Identifier",
+              "bf:Isan",
+              "bf:Isbn",
+              "bf:Ismn",
+              "bf:Isrc",
+              "bf:Issn",
+              "bf:IssnL",
+              "bf:Local",
+              "bf:MatrixNumber",
+              "bf:MusicDistributorNumber",
+              "bf:MusicPlate",
+              "bf:MusicPublisherNumber",
+              "bf:PublisherNumber",
+              "bf:Upc",
+              "bf:Urn",
+              "bf:VideoRecordingNumber",
+              "uri"
+            ]
+          },
+          "value": {
+            "title": "Identifier value",
+            "description": "Identifier value.",
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "title": "Note",
+            "description": "Note of the identifier.",
+            "type": "string",
+            "minLength": 1,
+            "form": {
+              "hide": true
+            }
+          },
+          "qualifier": {
+            "title": "Qualifier",
+            "description": "Qualifier of the identifier.",
+            "type": "string",
+            "minLength": 1,
+            "form": {
+              "hide": true
+            }
+          },
+          "acquisitionTerms": {
+            "title": "Acquisition terms",
+            "description": "Acquisition terms of the resource.",
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "title": "Source",
+            "description": "Source of the identifier.",
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "title": "Status",
+            "description": "Status of the ISBN/ISSN identifier.",
+            "type": "string",
+            "validationMessage": "ISBN/ISSN status should be selected in the list below.",
+            "enum": [
+              "invalid",
+              "cancelled",
+              "invalid or cancelled"
+            ],
+            "form": {
+              "hide": true
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "subjects": {
+      "title": "Subjects",
+      "description": "Subject of the resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Subject",
+        "type": "string",
+        "minLength": 1
+      },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "cover_art": {
+      "title": "Cover art",
+      "description": "Vendor cover art URL.",
+      "type": "string",
+      "format": "uri"
+    },
+    "electronic_location": {
+      "title": "Electronic Locations",
+      "description": "Information needed to locate and access an electronic resource.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "title": "Electronic Locations",
+        "required": [
+          "uri"
+        ],
+        "properties": {
+          "uri": {
+            "title": "Uniform Resource Identifier",
+            "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "form": {
+        "hide": true
+      }
+    },
+    "harvested": {
+      "title": "Harvested",
+      "description": "Document is harvested or not, will disable record edition or similar.",
+      "type": "boolean",
+      "default": false
+    }
+  },
   "definitions": {
     "language": {
       "title": "Language value",
@@ -495,36 +1243,61 @@
       ]
     },
     "language_script": {
-      "enum": [
-        "ara-arab",
-        "bel-cyrl",
-        "chi-hani",
-        "chi-zyyy",
-        "chu-cyrl",
-        "grc-grek",
-        "gre-grek",
-        "heb-hebr",
-        "jpn-hani",
-        "jpn-jpan",
-        "kor-kore",
-        "lad-hebr",
-        "mac-cyrl",
-        "per-arab",
-        "rus-cyrl",
-        "srp-cyrl",
-        "ukr-cyrl",
-        "yid-hebr",
-        "und-arab",
-        "und-cyrl",
-        "und-grek",
-        "und-hani",
-        "und-hebr",
-        "und-jpan",
-        "und-kore",
-        "und-zyyy"
-      ]
+      "title": "Values",
+      "type": "object",
+      "propertiesOrder": [
+        "language",
+        "value"
+      ],
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "title": "value",
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "title": "language",
+          "type": "string",
+          "enum": [
+            "ara-arab",
+            "bel-cyrl",
+            "chi-hani",
+            "chi-zyyy",
+            "chu-cyrl",
+            "grc-grek",
+            "gre-grek",
+            "heb-hebr",
+            "jpn-hani",
+            "jpn-jpan",
+            "kor-kore",
+            "lad-hebr",
+            "mac-cyrl",
+            "per-arab",
+            "rus-cyrl",
+            "srp-cyrl",
+            "ukr-cyrl",
+            "yid-hebr",
+            "und-arab",
+            "und-cyrl",
+            "und-grek",
+            "und-hani",
+            "und-hebr",
+            "und-jpan",
+            "und-kore",
+            "und-zyyy"
+          ],
+          "form": {
+            "hide": true
+          }
+        }
+      }
     },
     "country": {
+      "title": "Country",
+      "type": "string",
       "enum": [
         "aa",
         "abc",
@@ -911,6 +1684,8 @@
       ]
     },
     "canton": {
+      "title": "Cantons",
+      "type": "string",
       "enum": [
         "ag",
         "ai",
@@ -939,523 +1714,6 @@
         "zg",
         "zh"
       ]
-    }
-  },
-  "required": [
-    "$schema",
-    "pid",
-    "type",
-    "title",
-    "language"
-  ],
-  "additionalProperties": false,
-  "properties": {
-    "$schema": {
-      "title": "Schema",
-      "description": "Schema to validate document against.",
-      "type": "string",
-      "default": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
-    },
-    "pid": {
-      "title": "Document ID",
-      "type": "string",
-      "minLength": 1
-    },
-    "type": {
-      "title": "Type",
-      "description": "Required. Type of the document. Should be selected in the list below.",
-      "type": "string",
-      "enum": [
-        "other",
-        "article",
-        "book",
-        "ebook",
-        "journal",
-        "score",
-        "sound",
-        "video"
-      ],
-      "minLength": 4
-    },
-    "title": {
-      "title": "Title",
-      "description": "Required. Entire title without statement of responsibility.",
-      "validationMessage": "Required. Entire title without statement of responsibility.",
-      "type": "string",
-      "minLength": 1
-    },
-    "titlesProper": {
-      "title": "Proper or uniformed titles",
-      "description": "Uniform title, a related or an analytical title that is controlled by an authority file or list, used as an added access point.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "title": "Proper or uniformed title",
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "is_part_of": {
-      "title": "Is part of",
-      "description": "Title of the host document.",
-      "type": "string",
-      "minLength": 1
-    },
-    "language": {
-      "title": "Language",
-      "description": "List of languages for the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "title": "Type",
-            "description": "Type of the language.",
-            "type": "string",
-            "default": "bf:Language",
-            "enum": [
-              "bf:Language"
-            ]
-          },
-          "value": {
-            "title": "Language value",
-            "type": "string",
-            "$ref": "#/definitions/language"
-          }
-        }
-      }
-    },
-    "translatedFrom": {
-      "title": "Translated from",
-      "description": "Language from which a resource is translated.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "minLength": 2,
-        "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
-      }
-    },
-    "authors": {
-      "title": "Authors",
-      "description": "Author(s) of the resource. Can be either persons or organisations.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "type"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "$ref": {
-            "title": "MEF person ref",
-            "type": "string",
-            "pattern": "^https://mef.rero.ch/api/mef/.*?$"
-          },
-          "pid": {
-            "title": "pid",
-            "description": "Corresponding pid of the MEF record.",
-            "type": "string",
-            "minLength": 1
-          },
-          "name": {
-            "title": "Name",
-            "description": "Person's or organisation's name.",
-            "type": "string"
-          },
-          "type": {
-            "title": "Type",
-            "description": "Identify if the author is a person or an organisation.",
-            "type": "string",
-            "enum": [
-              "person",
-              "organisation"
-            ],
-            "default": "person"
-          },
-          "date": {
-            "title": "Date",
-            "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
-            "type": "string"
-          },
-          "qualifier": {
-            "title": "Qualifier",
-            "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
-            "type": "string"
-          }
-        }
-      }
-    },
-    "copyrightDate": {
-      "title": "Copyright Date",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
-        "minLength": 4
-      }
-    },
-    "editionStatement": {
-      "title": "Edition statement",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "editionDesignation": {
-            "title": "Edition designation",
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "language": {
-                  "title": "Language",
-                  "type": "string",
-                  "$ref": "#/definitions/language_script"
-                }
-              }
-            }
-          },
-          "responsibility": {
-            "title": "Responsibility",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "language": {
-                  "title": "Language",
-                  "type": "string",
-                  "$ref": "#/definitions/language_script"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "provisionActivity": {
-      "title": "Provision Activity",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "title": "Type",
-            "type": "string",
-            "enum": [
-              "bf:Publication",
-              "bf:Manufacture",
-              "bf:Distribution",
-              "bf:Production"
-            ]
-          },
-          "place": {
-            "title": "Country and/or canton of the provision activity",
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "required": [
-                "country"
-              ],
-              "properties": {
-                "type": {
-                  "const": "bf:Place"
-                },
-                "country": {
-                  "title": "Country",
-                  "type": "string",
-                  "$ref": "#/definitions/country"
-                },
-                "canton": {
-                  "title": "Canton",
-                  "type": "string",
-                  "$ref": "#/definitions/canton"
-                }
-              }
-            }
-          },
-          "statement": {
-            "title": "Statement of place and/or agent and/or date of the provision activity",
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "title": "Type",
-                  "type": "string",
-                  "enum": [
-                    "bf:Place",
-                    "bf:Agent",
-                    "Date"
-                  ]
-                },
-                "label": {
-                  "title": "Label",
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "title": "Place and/or agent name and/or date",
-                        "type": "string",
-                        "minLength": 1
-                      },
-                      "language": {
-                        "title": "Language",
-                        "type": "string",
-                        "$ref": "#/definitions/language_script"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "note": {
-            "title": "Note",
-            "description": "Note.",
-            "type": "string"
-          },
-          "startDate": {
-            "title": "Start date of publication",
-            "description": "Start date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
-            "type": "string",
-            "minimum": -9999,
-            "maximum": 2050
-          },
-          "endDate": {
-            "title": "End date of publication",
-            "description": "End date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
-            "type": "string",
-            "minimum": -9999,
-            "maximum": 2050
-          }
-        }
-      }
-    },
-    "extent": {
-      "title": "Extent",
-      "description": "Extent of the resource, ie number of pages or volumes.",
-      "type": "string",
-      "minLength": 1
-    },
-    "otherMaterialCharacteristics": {
-      "title": "Other Material Characteristics",
-      "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
-      "type": "string",
-      "minLength": 1
-    },
-    "formats": {
-      "title": "Formats",
-      "description": "Format of the resource, ie dimensions in cm.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "additionalMaterials": {
-      "title": "Additional materials",
-      "description": "Accompanying material of the resource, ie maps.",
-      "type": "string",
-      "minLength": 1
-    },
-    "series": {
-      "title": "Series",
-      "description": "Series to which belongs the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "name"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "title": "Title",
-            "description": "Title of the series.",
-            "type": "string"
-          },
-          "number": {
-            "title": "Numbering",
-            "description": "Numbering of the resource within the series.",
-            "type": "string"
-          }
-        }
-      }
-    },
-    "notes": {
-      "title": "Notes",
-      "description": "Note on the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "title": "Note",
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "abstracts": {
-      "title": "Abstracts",
-      "description": "Abstract of the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "title": "Abstract",
-        "type": "string",
-        "minLength": 2
-      }
-    },
-    "identifiedBy": {
-      "title": "Identifier",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
-        "additionalProperties": false,
-        "properties": {
-          "type": {
-            "title": "Type",
-            "type": "string",
-            "enum": [
-              "bf:AudioIssueNumber",
-              "bf:Doi",
-              "bf:Ean",
-              "bf:Gtin14Number",
-              "bf:Identifier",
-              "bf:Isan",
-              "bf:Isbn",
-              "bf:Ismn",
-              "bf:Isrc",
-              "bf:Issn",
-              "bf:IssnL",
-              "bf:Local",
-              "bf:MatrixNumber",
-              "bf:MusicDistributorNumber",
-              "bf:MusicPlate",
-              "bf:MusicPublisherNumber",
-              "bf:PublisherNumber",
-              "bf:Upc",
-              "bf:Urn",
-              "bf:VideoRecordingNumber",
-              "uri"
-            ]
-          },
-          "value": {
-            "title": "Identifier value",
-            "description": "Identifier value.",
-            "type": "string",
-            "minLength": 1
-          },
-          "note": {
-            "title": "Note",
-            "description": "Note of the identifier.",
-            "type": "string",
-            "minLength": 1
-          },
-          "qualifier": {
-            "title": "Qualifier",
-            "description": "Qualifier of the identifier.",
-            "type": "string",
-            "minLength": 1
-          },
-          "acquisitionTerms": {
-            "title": "Acquisition terms",
-            "description": "Acquisition terms of the resource.",
-            "type": "string",
-            "minLength": 1
-          },
-          "source": {
-            "title": "Source",
-            "description": "Source of the identifier.",
-            "type": "string",
-            "minLength": 1
-          },
-          "status": {
-            "title": "Status",
-            "description": "Status of the ISBN/ISSN identifier.",
-            "type": "string",
-            "validationMessage": "ISBN/ISSN status should be selected in the list below.",
-            "enum": [
-              "invalid",
-              "cancelled",
-              "invalid or cancelled"
-            ]
-          }
-        }
-      }
-    },
-    "subjects": {
-      "title": "Subjects",
-      "description": "Subject of the resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "title": "Subject",
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "cover_art": {
-      "title": "Cover art",
-      "description": "Vendor cover art URL.",
-      "type": "string",
-      "format": "uri"
-    },
-    "electronic_location": {
-      "title": "Electronic Locations",
-      "description": "Information needed to locate and access an electronic resource.",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": [
-          "uri"
-        ],
-        "properties": {
-          "uri": {
-            "title": "Uniform Resource Identifier",
-            "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
-            "type": "string",
-            "format": "uri"
-          }
-        }
-      }
-    },
-    "harvested": {
-      "title": "Harvested",
-      "description": "Document is harvested or not, will disable record edition or similar.",
-      "type": "boolean",
-      "default": false
     }
   }
 }

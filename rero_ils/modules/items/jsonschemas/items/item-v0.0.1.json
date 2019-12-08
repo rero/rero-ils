@@ -14,6 +14,12 @@
     "document",
     "status"
   ],
+  "propertiesOrder": [
+    "barcode",
+    "call_number",
+    "item_type",
+    "location"
+  ],
   "properties": {
     "$schema": {
       "title": "Schema",
@@ -31,7 +37,18 @@
       "title": "Barcode",
       "description": "Barcode of the item.",
       "type": "string",
-      "minLength": 4
+      "minLength": 4,
+      "form": {
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {}
+          },
+          "messages": {
+            "alreadyTakenMessage": "The barcode is already taken"
+          }
+        }
+      }
     },
     "call_number": {
       "title": "Call number",
@@ -42,11 +59,19 @@
     "location": {
       "title": "Location",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Location URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/locations/.+?$"
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "form": {
+            "remoteOptions": {
+              "type": "locations"
+            }
+          }
         }
       }
     },
@@ -66,11 +91,19 @@
       "title": "Item Type",
       "description": "Item type of the item.",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Item Type URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/item_types/.+?$"
+          "pattern": "^https://ils.rero.ch/api/item_types/.+?$",
+          "form": {
+            "remoteOptions": {
+              "type": "item_types"
+            }
+          }
         }
       }
     },

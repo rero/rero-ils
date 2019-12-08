@@ -11,6 +11,13 @@
     "name",
     "library"
   ],
+  "propertiesOrder": [
+    "name",
+    "code",
+    "is_online",
+    "is_pickup",
+    "pickup_name"
+  ],
   "properties": {
     "$schema": {
       "title": "Schema",
@@ -26,13 +33,26 @@
     "code": {
       "title": "Code",
       "description": "Code of the location.",
-      "type": "string"
+      "type": "string",
+      "form": {
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {}
+          },
+          "messages": {
+            "alreadyTakenMessage": "The code is already taken."
+          }
+        }
+      }
     },
     "name": {
       "title": "Name",
       "description": "Name of the location.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "focus": true
+      }
     },
     "is_pickup": {
       "title": "Is pickup location",
@@ -44,12 +64,43 @@
       "title": "Is online location",
       "type": "boolean",
       "default": false,
-      "description": "Qualify this location as an online location."
+      "description": "Qualify this location as an online location.",
+      "form": {
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "limitToValues": [
+                true
+              ],
+              "filter": "'library.pid:' + model.library.pid"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The online type must be unique per library."
+          }
+        }
+      }
     },
     "pickup_name": {
       "title": "Pickup location name",
       "type": "string",
-      "description": "Displayed pickup location name, if different from the location name."
+      "description": "Displayed pickup location name, if different from the location name.",
+      "form": {
+        "hideExpression": "model.is_pickup === false",
+        "expressionProperties": {
+          "templateOptions.required": "model.is_pickup === true"
+        },
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "filter": "'library.pid:' + model.library.pid"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The pickup loation name be unique in your library."
+          }
+        }
+      }
     },
     "library": {
       "title": "Library",

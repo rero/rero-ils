@@ -51,7 +51,7 @@
           }
         },
         "barcode": {
-          "type": "text"
+          "type": "keyword"
         },
         "library": {
           "properties": {
