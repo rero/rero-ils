@@ -137,6 +137,118 @@ def test_marc21_to_extent():
     assert data.get('extent') == '1234'
 
 
+def test_marc21_to_description():
+    """Test description transformation.
+
+    Transformation of extent: 300$a
+    Transformation of otherMaterialCharacteristics: 300$b
+    Transformation of formats: 300 $c
+    """
+
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="b">ill.</subfield>
+        <subfield code="c">22 cm</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('extent') == '116 p.'
+    assert data.get('otherMaterialCharacteristics') == 'ill.'
+    assert data.get('formats') == ['22 cm']
+
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="b">ill.</subfield>
+        <subfield code="c">22 cm</subfield>
+        <subfield code="c">12 x 15</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">200 p.</subfield>
+        <subfield code="b">ill.</subfield>
+        <subfield code="c">19 cm</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('extent') == '116 p.'
+    assert data.get('otherMaterialCharacteristics') == 'ill.'
+    assert data.get('formats') == ['22 cm', '12 x 15']
+
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="b">ill.</subfield>
+        <subfield code="x">22 cm</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('extent') == '116 p.'
+    assert data.get('otherMaterialCharacteristics') == 'ill.'
+
+
+def test_marc21_to_series():
+    """Test series transformation.
+
+    Transformation series name field 490 $a.
+    Transformation series number field 490 $v.
+    """
+
+    marc21xml = """
+    <record>
+      <datafield tag="490" ind1=" " ind2=" ">
+        <subfield code="a">Collection One</subfield>
+        <subfield code="v">5</subfield>
+      </datafield>
+      <datafield tag="490" ind1=" " ind2=" ">
+        <subfield code="a">Collection Two</subfield>
+        <subfield code="v">123</subfield>
+      </datafield>    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('series') == [
+        {
+            'name': 'Collection One',
+            'number': '5'
+        },
+        {
+            'name': 'Collection Two',
+            'number': '123'
+        }
+    ]
+
+
+def test_marc21_to_notes():
+    """Test notes transformation.
+
+    Transformation notes field 500 $a.
+    """
+
+    marc21xml = """
+    <record>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">note 1</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">note 2</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('notes') == ['note 1', 'note 2']
+
+
 def test_marc21_to_abstracts():
     """Test abstracts transformation.
 
@@ -210,10 +322,16 @@ def test_marc21_to_provision_activity_ebooks_from_field_260():
                         {'value': 'Lausanne'}
                     ],
                     'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': '[2006]'}
+                    ],
+                    'type': 'Date'
                 }
+
             ],
-            'startDate': '2006',
-            'date': '[2006]'
+            'startDate': '2006'
         }
     ]
 
@@ -273,11 +391,16 @@ def test_marc21_to_provision_activity_ebooks_from_field_264_1():
                         {'value': 'Payot'}
                     ],
                     'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '[2006-2010]'}
+                    ],
+                    'type': 'Date'
                 }
             ],
             'startDate': '2006',
-            'endDate': '2010',
-            'date': '[2006-2010]'
+            'endDate': '2010'
         }
     ]
 
@@ -310,9 +433,15 @@ def test_marc21_to_provision_activity_ebooks_from_field_264_2():
                         {'value': 'Payot'}
                     ],
                     'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '[2006-2010]'}
+                    ],
+                    'type': 'Date'
                 }
-            ],
-            'date': '[2006-2010]'
+
+            ]
         }
     ]
 

@@ -128,9 +128,14 @@ def test_documents_import_bnf_ean(client):
         'otherMaterialCharacteristics': 'couv. ill. en coul.',
         'provisionActivity': [{
             'type': 'bf:Publication',
-            'statement': [
+            'place': [
                 {
                     'country': 're',
+                    'type': 'bf:Place'
+                }
+            ],
+            'statement': [
+                {
                     'label': [
                         {'value': '[Paris]'}
                     ],
@@ -142,9 +147,14 @@ def test_documents_import_bnf_ean(client):
                     ],
                     'type': 'bf:Agent'
                 },
+                {
+                    'label': [
+                        {'value': '1999'}
+                    ],
+                    'type': 'Date'
+                },
             ],
             'startDate': '1999',
-            'date': '1999'
         }],
         'series': [{'name': 'Harry Potter.', 'number': '1'}],
         'subjects': ['JnRoman'],

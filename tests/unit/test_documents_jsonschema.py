@@ -191,9 +191,14 @@ def test_provisionActivity(document_schema, document_data_tmp):
     """Test publishers for jsonschemas."""
     document_data_tmp['provisionActivity'] = [{
         'type': 'bf:Publication',
-        'statement': [
+        'place': [
             {
                 'country': 'fr',
+                'type': 'bf:Place'
+            }
+        ],
+        'statement': [
+            {
                 'label': [
                     {'value': 'Paris'}
                 ],
@@ -210,10 +215,16 @@ def test_provisionActivity(document_schema, document_data_tmp):
                     {'value': 'Etudes augustiniennes'}
                 ],
                 'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': '1969'}
+                ],
+                'type': 'Date'
             }
+
         ],
-        'startDate': '1969',
-        'date': '1969'
+        'startDate': '1969'
     }]
 
     validate(document_data_tmp, document_schema)

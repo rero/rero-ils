@@ -74,6 +74,8 @@ def publication_statement_text(provision_activity):
                 else:
                     if statement['type'] == 'bf:Place':
                         statement_with_language[language] += ' ; '
+                    elif statement['type'] == 'Date':
+                        statement_with_language[language] += ', '
                     else:
                         statement_with_language[language] += ' : '
 
@@ -83,8 +85,6 @@ def publication_statement_text(provision_activity):
     # date field: remove ';' and append
     for key, value in statement_with_language.items():
         value = remove_trailing_punctuation(value)
-        if provision_activity.get('date'):
-            value += ', ' + provision_activity.get('date')
         statement_with_language[key] = value
     return statement_with_language
 

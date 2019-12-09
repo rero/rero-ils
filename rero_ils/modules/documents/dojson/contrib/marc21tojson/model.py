@@ -321,49 +321,50 @@ def marc21_to_provisionActivity(self, key, value):
     """
     def build_statement(field_value, ind2):
 
-        def build_place_or_agent_data(code, label, index, link, add_country):
+        def build_agent_data(code, label, index, link):
             type_per_code = {
                 'a': 'bf:Place',
                 'b': 'bf:Agent'
             }
-            place_or_agent_data = {
+            agent_data = {
                 'type': type_per_code[code],
                 'label': [{'value': remove_trailing_punctuation(label)}]
             }
-
-            if add_country:
-                if marc21tojson.cantons:
-                    place_or_agent_data['canton'] = marc21tojson.cantons
-                if marc21tojson.country:
-                    place_or_agent_data['country'] = marc21tojson.country
             try:
                 alt_gr = marc21tojson.alternate_graphic['264'][link]
                 subfield = \
                     marc21tojson.get_subfields(alt_gr['field'])[index]
-                place_or_agent_data['label'].append({
+                agent_data['label'].append({
                     'value': remove_trailing_punctuation(subfield),
                     'language': get_language_script(alt_gr['script'])
                 })
             except Exception as err:
                 pass
-            return place_or_agent_data
+            return agent_data
 
         # function build_statement start here
         tag_link, link = get_field_link_data(field_value)
         items = get_field_items(field_value)
         statement = []
         index = 1
-        add_country = ind2 in (' ', '1')
         for blob_key, blob_value in items:
             if blob_key in ('a', 'b'):
-                place_or_agent_data = build_place_or_agent_data(
-                    blob_key, blob_value, index, link, add_country)
-                if blob_key == 'a':
-                    add_country = False
-                statement.append(place_or_agent_data)
+                agent_data = build_agent_data(
+                    blob_key, blob_value, index, link)
+                statement.append(agent_data)
             if blob_key != '__order__':
                 index += 1
         return statement
+
+    def build_place():
+        place = {}
+        if marc21tojson.cantons:
+            place['canton'] = marc21tojson.cantons[0]
+        if marc21tojson.country:
+            place['country'] = marc21tojson.country
+        if place:
+            place['type'] = 'bf:Place'
+        return place
 
     # the function marc21_to_provisionActivity start here
     ind2 = key[4]
@@ -380,9 +381,6 @@ def marc21_to_provisionActivity(self, key, value):
     }
 
     subfields_c = utils.force_list(value.get('c'))
-    if subfields_c:
-        subfield_c = subfields_c[0]
-        publication['date'] = subfield_c
     if ind2 in (' ', '1'):
         start_date = make_year(marc21tojson.date1_from_008)
         if start_date:
@@ -393,7 +391,30 @@ def marc21_to_provisionActivity(self, key, value):
         if (marc21tojson.date_type_from_008 == 'q' or
                 marc21tojson.date_type_from_008 == 'n'):
             publication['note'] = 'Date(s) incertaine(s) ou inconnue(s)'
+        place = build_place()
+        if place:
+            publication['place'] = [place]
     publication['statement'] = build_statement(value, ind2)
+    if subfields_c:
+        subfield_c = subfields_c[0]
+        date = {
+            'label': [{'value': subfield_c}],
+            'type': 'Date'
+        }
+
+        tag_link, link = get_field_link_data(value)
+        try:
+            alt_gr = marc21tojson.alternate_graphic['264'][link]
+            subfield = \
+                marc21tojson.get_subfields(alt_gr['field'], code='c')
+            date['label'].append({
+                    'value': subfield[0],
+                    'language': get_language_script(alt_gr['script'])
+            })
+        except Exception as err:
+            pass
+
+        publication['statement'].append(date)
     return publication or None
 
 

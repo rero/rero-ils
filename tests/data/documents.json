@@ -38,6 +38,12 @@
     "provisionActivity": [
       {
         "type": "bf:Publication",
+        "place": [
+          {
+            "type": "bf:Place",
+            "country": "it"
+          }
+        ],
         "statement": [
           {
             "type": "bf:Place",
@@ -45,8 +51,7 @@
               {
                 "value": "Matelica (MC)"
               }
-            ],
-            "country": "it"
+            ]
           },
           {
             "type": "bf:Agent",
@@ -55,9 +60,16 @@
                 "value": "Hacca"
               }
             ]
+          },
+          {
+            "type": "Date",
+            "label": [
+              {
+                "value": "2016"
+              }
+            ]
           }
         ],
-        "date": "2016",
         "startDate": "2016"
       }
     ],
@@ -108,6 +120,12 @@
     "provisionActivity": [
       {
         "type": "bf:Publication",
+        "place": [
+          {
+            "type": "bf:Place",
+            "country": "fr"
+          }
+        ],
         "statement": [
           {
             "type": "bf:Place",
@@ -115,8 +133,7 @@
               {
                 "value": "Paris"
               }
-            ],
-            "country": "fr"
+            ]
           },
           {
             "type": "bf:Agent",
@@ -125,9 +142,16 @@
                 "value": "Gallmeister"
               }
             ]
+          },
+          {
+            "type": "Date",
+            "label": [
+              {
+                "value": "2009"
+              }
+            ]
           }
         ],
-        "date": "2009",
         "startDate": "2009"
       }
     ],
