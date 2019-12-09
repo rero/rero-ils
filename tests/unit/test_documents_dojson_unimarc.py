@@ -370,9 +370,14 @@ def test_unimarc_publishers_provision_activity():
                 ],
                 'type': 'bf:Agent'
             },
+            {
+                'label': [
+                    {'value': '2015'}
+                ],
+                'type': 'Date'
+            }
         ],
         'startDate': '2015',
-        'date': '2015'
     }]
 
     unimarcxml = """
@@ -407,9 +412,14 @@ def test_unimarc_publishers_provision_activity():
                 ],
                 'type': 'bf:Agent'
             },
+            {
+                'label': [
+                    {'value': '2015'}
+                ],
+                'type': 'Date'
+            }
         ],
         'startDate': '2015',
-        'date': '2015'
     }]
 
     unimarcxml = """
@@ -429,9 +439,14 @@ def test_unimarc_publishers_provision_activity():
     data = unimarctojson.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
-        'statement': [
+        'place': [
             {
                 'country': 'fr',
+                'type': 'bf:Place'
+            },
+        ],
+        'statement': [
+            {
                 'label': [
                     {'value': '[Paris]'}
                 ],
@@ -448,11 +463,16 @@ def test_unimarc_publishers_provision_activity():
                     {'value': 'Etudes augustiniennes'}
                 ],
                 'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': '[1969-1999]'}
+                ],
+                'type': 'Date'
             }
         ],
         'startDate': '1969',
         'endDate': '1999',
-        'date': '[1969-1999]'
     }]
 
     unimarcxml = """
@@ -494,11 +514,16 @@ def test_unimarc_publishers_provision_activity():
                     {'value': 'Droz'}
                 ],
                 'type': 'bf:Agent'
+            },
+            {
+                'label': [
+                    {'value': '1912-1955'}
+                ],
+                'type': 'Date'
             }
         ],
         'startDate': '1912',
-        'endDate': '1955',
-        'date': '1912-1955'
+        'endDate': '1955'
     }]
 
     unimarcxml = """

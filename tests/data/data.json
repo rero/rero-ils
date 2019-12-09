@@ -1075,10 +1075,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "1971"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "1971",
-        "date": "1971"
+        "startDate": "1971"
       }
     ],
     "identifiedBy": [
@@ -1164,10 +1171,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2011"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "2011",
-        "date": "2011"
+        "startDate": "2011"
       }
     ],
     "extent": "560 p."
@@ -1223,10 +1237,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "1971"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "1971",
-        "date": "1971"
+        "startDate": "1971"
       }
     ],
     "identifiedBy": [
@@ -1294,10 +1315,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "1971"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "1971",
-        "date": "1971"
+        "startDate": "1971"
       }
     ],
     "abstracts": [
@@ -1370,10 +1398,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2011"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "2011",
-        "date": "2011"
+        "startDate": "2011"
       }
     ],
     "abstracts": [
@@ -1431,10 +1466,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2015"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "2015",
-        "date": "2015"
+        "startDate": "2015"
       }
     ],
     "abstracts": [
@@ -1492,10 +1534,17 @@
               }
             ],
             "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2019"
+              }
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": "2019",
-        "date": "2019"
+        "startDate": "2019"
       }
     ],
     "subjects": [

@@ -53,6 +53,8 @@ _('bf:Publication')
 _('bf:Manufacture')
 _('bf:Distribution')
 _('bf:Production')
+_('bf:Place')
+_('Date')
 
 # Harvested source
 _('ebibliomedia')

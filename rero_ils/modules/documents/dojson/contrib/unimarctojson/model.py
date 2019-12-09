@@ -199,7 +199,7 @@ def unimarc_to_edition_statement(self, key, value):
 @utils.ignore_value
 def unimarc_publishers_provision_activity_publication(self, key, value):
     """Get provision activity dates."""
-    def build_place_or_agent_data(code, label, index, add_country):
+    def build_place_or_agent_data(code, label, index):
         type_per_code = {
             'a': 'bf:Place',
             'c': 'bf:Agent'
@@ -208,15 +208,19 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             'type': type_per_code[code],
             'label': [{'value': remove_trailing_punctuation(label)}]
         }
-        if add_country:
-            # country from 102
-            field_102 = unimarctojson.get_fields(tag='102')
-            if field_102:
-                field_102 = field_102[0]
-                country_codes = unimarctojson.get_subfields(field_102, 'a')
-                if country_codes:
-                    place_or_agent_data['country'] = country_codes[0].lower()
         return place_or_agent_data
+
+    def build_place():
+        # country from 102
+        place = {}
+        field_102 = unimarctojson.get_fields(tag='102')
+        if field_102:
+            field_102 = field_102[0]
+            country_codes = unimarctojson.get_subfields(field_102, 'a')
+            if country_codes:
+                place['country'] = country_codes[0].lower()
+                place['type'] = 'bf:Place'
+        return place
 
     publication = {}
     ind2 = key[4]
@@ -243,22 +247,6 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             'type': type_per_ind2[ind2],
             'statement': [],
         }
-        subfields_d = utils.force_list(value.get('d'))
-        if subfields_d:
-            subfield_d = subfields_d[0]
-            publication['date'] = subfield_d
-            if ind2 in (' ', '_', '0'):
-                dates = subfield_d.replace('[', '').replace(']', '').split('-')
-                try:
-                    if re.search(r'(^\[?\d{4}$)', dates[0]):
-                        publication['startDate'] = dates[0]
-                except Exception:
-                    pass
-                try:
-                    if re.search(r'(^\d{4}\]?$)', dates[1]):
-                        publication['endDate'] = dates[1]
-                except Exception:
-                    pass
 
         # TODO: dates from 100 not working !!!!
         # if ind2 in (' ', '_', '1'):
@@ -280,18 +268,40 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
         statement = []
         items = get_field_items(value)
         index = 1
-        add_country = ind2 in (' ', '_', '0')
         for blob_key, blob_value in items:
             if blob_key in ('a', 'c'):
                 place_or_agent_data = build_place_or_agent_data(
-                    blob_key, blob_value, index, add_country)
-                if blob_key == 'a':
-                    add_country = False
+                    blob_key, blob_value, index)
                 statement.append(place_or_agent_data)
             if blob_key != '__order__':
                 index += 1
         if statement:
             publication['statement'] = statement
+        if ind2 in (' ', '_', '0'):
+            place = build_place()
+            if place:
+                publication['place'] = [place]
+
+        subfields_d = utils.force_list(value.get('d'))
+        if subfields_d:
+            subfield_d = subfields_d[0]
+            publication['statement'].append({
+                'label': [{'value': subfield_d}],
+                'type': 'Date'
+            })
+            if ind2 in (' ', '_', '0'):
+                dates = subfield_d.replace('[', '').replace(']', '').split('-')
+                try:
+                    if re.search(r'(^\[?\d{4}$)', dates[0]):
+                        publication['startDate'] = dates[0]
+                except Exception:
+                    pass
+                try:
+                    if re.search(r'(^\d{4}\]?$)', dates[1]):
+                        publication['endDate'] = dates[1]
+                except Exception:
+                    pass
+
     if not publication.get('statement'):
         publication = None
     return publication or None

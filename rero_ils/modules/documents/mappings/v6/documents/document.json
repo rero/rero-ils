@@ -228,7 +228,7 @@
         "provisionActivity": {
           "type": "object",
           "properties": {
-            "statement": {
+            "place": {
               "type": "object",
               "properties": {
                 "type": {
@@ -238,6 +238,14 @@
                   "type": "text"
                 },
                 "country": {
+                  "type": "text"
+                }
+              }
+            },
+            "statement": {
+              "type": "object",
+              "properties": {
+                "type": {
                   "type": "text"
                 },
                 "label": {
@@ -265,9 +273,6 @@
             "endDate": {
               "type": "date",
               "format": "yyyy"
-            },
-            "date": {
-              "type": "keyword"
             },
             "_text": {
               "properties": {

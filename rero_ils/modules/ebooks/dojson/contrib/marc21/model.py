@@ -228,7 +228,7 @@ def marc21_to_provision_activity(self, key, value):
     """
     def build_statement(field_value, ind2):
 
-        def build_place_or_agent_data(code, label, add_country):
+        def build_place_or_agent_data(code, label):
             place_or_agent_data = None
             type_per_code = {
                 'a': 'bf:Place',
@@ -240,23 +240,26 @@ def marc21_to_provision_activity(self, key, value):
                     'type': type_per_code[code],
                     'label': [{'value': value}]
                 }
-            if add_country and marc21.country:
-                place_or_agent_data['country'] = marc21.country
             return place_or_agent_data
 
         # function build_statement start here
         statement = []
         items = get_field_items(field_value)
-        add_country = ind2 in (' ', '1')
         for blob_key, blob_value in items:
             if blob_key in ('a', 'b'):
                 place_or_agent_data = build_place_or_agent_data(
-                    blob_key, blob_value, add_country)
-                if blob_key == 'a':
-                    add_country = False
+                    blob_key, blob_value)
                 if place_or_agent_data:
                     statement.append(place_or_agent_data)
         return statement or None
+
+    def build_place():
+        place = {}
+        if marc21.country:
+            place['country'] = marc21.country
+        if place:
+            place['type'] = 'bf:Place'
+        return place
 
     # the function marc21_to_provisionActivity start here
     ind2 = key[4]
@@ -274,10 +277,15 @@ def marc21_to_provision_activity(self, key, value):
         'statement': [],
     }
 
+    publication['statement'] = build_statement(value, ind2)
+
     subfields_c = utils.force_list(value.get('c'))
     if subfields_c:
         subfield_c = subfields_c[0]
-        publication['date'] = subfield_c
+        publication['statement'].append({
+            'label': [{'value': subfield_c}],
+            'type': 'Date'
+        })
         if ind2 in (' ', '1'):
             dates = subfield_c.replace('[', '').replace(']', '').split('-')
             try:
@@ -290,8 +298,10 @@ def marc21_to_provision_activity(self, key, value):
                     publication['endDate'] = dates[1]
             except Exception:
                 pass
+            place = build_place()
+            if place:
+                publication['place'] = [place]
 
-    publication['statement'] = build_statement(value, ind2)
     return publication or None
 
 

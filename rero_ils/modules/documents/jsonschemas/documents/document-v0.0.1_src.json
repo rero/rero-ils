@@ -1169,9 +1169,36 @@
               "bf:Production"
             ]
           },
-          "statement": {
-            "title": "Statement of place and/or agent of the provision activity",
+          "place": {
+            "title": "Country and/or canton of the provision activity",
             "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "country"
+              ],
+              "properties": {
+                "type": {
+                  "const": "bf:Place"
+                },
+                "country": {
+                  "title": "Country",
+                  "type": "string",
+                  "$ref": "#/definitions/country"
+                },
+                "canton": {
+                  "title": "Canton",
+                  "type": "string",
+                  "$ref": "#/definitions/canton"
+                }
+              }
+            }
+          },
+          "statement": {
+            "title": "Statement of place and/or agent and/or date of the provision activity",
+            "type": "array",
+            "minItems": 1,
             "items": {
               "type": "object",
               "properties": {
@@ -1180,31 +1207,19 @@
                   "type": "string",
                   "enum": [
                     "bf:Place",
-                    "bf:Agent"
+                    "bf:Agent",
+                    "Date"
                   ]
-                },
-                "canton": {
-                  "title": "Canton",
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "string",
-                    "$ref": "#/definitions/canton"
-                  }
-                },
-                "country": {
-                  "title": "Country",
-                  "type": "string",
-                  "$ref": "#/definitions/country"
                 },
                 "label": {
                   "title": "Label",
                   "type": "array",
+                  "minItems": 1,
                   "items": {
                     "type": "object",
                     "properties": {
                       "value": {
-                        "title": "Place and/or agent name",
+                        "title": "Place and/or agent name and/or date",
                         "type": "string",
                         "minLength": 1
                       },
@@ -1237,11 +1252,6 @@
             "type": "string",
             "minimum": -9999,
             "maximum": 2050
-          },
-          "date": {
-            "title": "Date of publication (free formed)",
-            "description": "Date of the publication in a free form. If there's a normalized date of publication, then a free formed date can be added to be displayed.",
-            "type": "string"
           }
         }
       }
