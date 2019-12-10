@@ -1,0 +1,116 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "title": "Organisation",
+        "key": "organisation.$ref",
+        "type": "select",
+        "remoteRecordType": "organisations",
+        "remoteRecordFiltersByOwningOrganisation": "pid",
+        "readonly": "true"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "name",
+        "required": true,
+        "validationMessage": {
+          "alreadyTakenMessage": "The vendor name is already taken"
+        },
+        "remoteRecordType": "vendors"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "website"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "communication_language",
+        "type": "select",
+        "titleMap": {
+          "eng": "English",
+          "fre": "French",
+          "ger": "German",
+          "ita": "Italian"
+        },
+        "placeHolder": "Select\u2026"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "note"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Default contact details",
+    "description": "",
+    "items": [
+      {
+        "key": "default_contact.contact_person"
+      },
+      {
+        "key": "default_contact.street"
+      },
+      {
+        "key": "default_contact.postal_code"
+      },
+      {
+        "key": "default_contact.city"
+      },
+      {
+        "key": "default_contact.country"
+      },
+      {
+        "key": "default_contact.phone"
+      },
+      {
+        "key": "default_contact.email"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "title": "Order contact details",
+    "description": "",
+    "items": [
+      {
+        "key": "order_contact.contact_person"
+      },
+      {
+        "key": "order_contact.street"
+      },
+      {
+        "key": "order_contact.postal_code"
+      },
+      {
+        "key": "order_contact.city"
+      },
+      {
+        "key": "order_contact.country"
+      },
+      {
+        "key": "order_contact.phone"
+      },
+      {
+        "key": "order_contact.email"
+      }
+    ]
+  }
+]
