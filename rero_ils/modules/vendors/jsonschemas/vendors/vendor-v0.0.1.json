@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Vendor",
+  "description": "JSON schema for a vendor",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name",
+    "organisation"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate vendor records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Vendor ID",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "",
+      "type": "string",
+      "minLength": 1
+    },
+    "website": {
+      "title": "Website",
+      "description": "",
+      "type": "string",
+      "minLength": 4
+    },
+    "note": {
+      "title": "Note",
+      "description": "",
+      "type": "string",
+      "minLength": 1
+    },
+    "communication_language": {
+      "title": "Communication language",
+      "type": "string",
+      "enum": [
+        "ger",
+        "eng",
+        "fre",
+        "ita"
+      ]
+    },
+    "default_contact": {
+      "title": "Default contact details",
+      "description": "",
+      "type": "object",
+      "required": [
+        "city"
+      ],
+      "properties": {
+        "contact_person": {
+          "title": "Contact person",
+          "description": "Contact person of the address.",
+          "type": "string",
+          "minLength": 4
+        },
+        "street": {
+          "title": "Street",
+          "description": "Street and number of the address, separated by a coma.",
+          "type": "string",
+          "minLength": 4
+        },
+        "postal_code": {
+          "title": "Postal code",
+          "type": "string",
+          "minLength": 4,
+          "validationMessage": "A valid postal code with a min of 4 characters."
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "minLength": 2,
+          "validationMessage": "Required."
+        },
+        "country": {
+          "title": "Country",
+          "type": "string",
+          "minLength": 2
+        },
+        "phone": {
+          "title": "Phone number",
+          "description": "Phone number with the international prefix, without spaces.",
+          "type": "string",
+          "pattern": "^\\+[0-9]*$"
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "pattern": "^.*@.*\\..*$",
+          "minLength": 6,
+          "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+        }
+      }
+    },
+    "order_contact": {
+      "title": "Order contact details",
+      "description": "",
+      "type": "object",
+      "properties": {
+        "contact_person": {
+          "title": "Contact name",
+          "description": "Contact person of the address.",
+          "type": "string",
+          "minLength": 4
+        },
+        "street": {
+          "title": "Street",
+          "description": "Street and number of the address, separated by a coma.",
+          "type": "string",
+          "minLength": 4
+        },
+        "postal_code": {
+          "title": "Postal code",
+          "type": "string",
+          "minLength": 4,
+          "validationMessage": "A valid postal code with a min of 4 characters."
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "minLength": 2
+        },
+        "country": {
+          "title": "Country",
+          "type": "string",
+          "minLength": 2
+        },
+        "phone": {
+          "title": "Phone number",
+          "description": "Phone number with the international prefix, without spaces.",
+          "type": "string",
+          "pattern": "^\\+[0-9]*$"
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "pattern": "^.*@.*\\..*$",
+          "minLength": 6,
+          "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}

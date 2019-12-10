@@ -1,0 +1,119 @@
+[
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "1",
+    "name": "Payot Aoste",
+    "website": "http://www.payot.it",
+    "note": "Personne de contact litiges: Mme di Marzo",
+    "communication_language": "ita",
+    "default_contact": {
+      "city": "Aosta",
+      "email": "reroilstest+vendor1@gmail.com",
+      "phone": "+39324993598",
+      "postal_code": "11100",
+      "street": "Via de Lostan 3",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "2",
+    "name": "FNAC Aoste",
+    "website": "http://www.fnac.it",
+    "communication_language": "fre",
+    "default_contact": {
+      "city": "Aosta",
+      "email": "reroilstest+vendor2@gmail.com",
+      "phone": "+39324867598",
+      "postal_code": "11100",
+      "street": "Via Chambery 82",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "3",
+    "name": "Association des Alpes",
+    "communication_language": "ita",
+    "default_contact": {
+      "city": "Saint-Vincent",
+      "email": "reroilstest+vendor3@gmail.com",
+      "postal_code": "11027",
+      "street": "Via G. Aichino 9",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "4",
+    "name": "Flourish and Blotts Bookseller",
+    "website": "http://www.flourishandblotts.com",
+    "note": "Reduction 5%",
+    "communication_language": "eng",
+    "default_contact": {
+      "city": "London",
+      "email": "reroilstest+vendor4@gmail.com",
+      "phone": "+448444825000",
+      "street": "Diagon Alley",
+      "country": "UK"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "5",
+    "name": "Tomes and Scrolls",
+    "default_contact": {
+      "city": "Hogsmeade"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/2"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "6",
+    "name": "Sempere and Sons",
+    "note": "Reduction 5% for libraries of the fictive network",
+    "communication_language": "eng",
+    "default_contact": {
+      "city": "Barcelona",
+      "email": "reroilstest+vendor6@gmail.com",
+      "phone": "+34932680900",
+      "postal_code": "08003",
+      "street": "Carrer dels Banys Vells 21",
+      "country": "Spain"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "7",
+    "name": "Flourish and Blotts Bookseller",
+    "website": "http://www.flourishandblotts.com",
+    "communication_language": "eng",
+    "default_contact": {
+      "city": "London",
+      "email": "reroilstest+vendor7@gmail.com",
+      "phone": "+448444825000",
+      "street": "Diagon Alley",
+      "country": "UK"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/3"
+    }
+  }
+]

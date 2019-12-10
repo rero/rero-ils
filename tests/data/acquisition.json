@@ -1,0 +1,84 @@
+{
+  "vndr1": {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "vndr1",
+    "name": "Payot Aoste",
+    "website": "http://www.payot.it",
+    "note": "Personne de contact litiges: Mme di Marzo",
+    "communication_language": "ita",
+    "default_contact": {
+      "city": "Aosta",
+      "email": "reroilstest+vendor1@gmail.com",
+      "phone": "+39324993598",
+      "postal_code": "11100",
+      "street": "Via de Lostan 3",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "vndr2": {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "vndr2",
+    "name": "FNAC Aoste",
+    "website": "http://www.fnac.it",
+    "communication_language": "fre",
+    "default_contact": {
+      "city": "Aosta",
+      "email": "reroilstest+vendor2@gmail.com",
+      "phone": "+39324867598",
+      "postal_code": "11100",
+      "street": "Via Chambery 82",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "vndr3": {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "vndr3",
+    "name": "Association des Alpes",
+    "communication_language": "ita",
+    "default_contact": {
+      "city": "Saint-Vincent",
+      "email": "reroilstest+vendor3@gmail.com",
+      "postal_code": "11027",
+      "street": "Via G. Aichino 9",
+      "country": "Italia"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "vndr4": {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "vndr4",
+    "name": "Flourish and Blotts Bookseller",
+    "website": "http://www.flourishandblotts.com",
+    "note": "Reduction 5%",
+    "communication_language": "eng",
+    "default_contact": {
+      "city": "London",
+      "email": "reroilstest+vendor4@gmail.com",
+      "phone": "+448444825000",
+      "street": "Diagon Alley",
+      "country": "UK"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
+  "vndr5": {
+    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "pid": "vndr5",
+    "name": "Tomes and Scrolls",
+    "default_contact": {
+      "city": "Hogsmeade"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  }
+}

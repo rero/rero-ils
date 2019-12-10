@@ -25,7 +25,8 @@ import pytest
 pytest_plugins = [
     'fixtures.circulation',
     'fixtures.metadata',
-    'fixtures.organisations'
+    'fixtures.organisations',
+    'fixtures.acquisition'
 ]
 
 
@@ -66,6 +67,14 @@ def es(appctx):
 def data():
     """Load fixture data file."""
     with open(join(dirname(__file__), 'data/data.json')) as f:
+        data = json.load(f)
+        return data
+
+
+@pytest.fixture(scope="module")
+def acquisition():
+    """Load fixture acquisition file."""
+    with open(join(dirname(__file__), 'data/acquisition.json')) as f:
         data = json.load(f)
         return data
 
