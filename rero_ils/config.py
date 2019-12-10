@@ -46,6 +46,7 @@ from rero_ils.modules.api import IlsRecordIndexer
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document, DocumentsIndexer
+from .modules.fees.api import Fee
 from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
@@ -70,6 +71,7 @@ from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
     can_update_patron_factory
 from .modules.persons.api import Person
+from .modules.vendors.api import Vendor
 from .permissions import can_access_organisation_patrons_factory, \
     can_access_organisation_records_factory, \
     can_create_organisation_records_factory, \
@@ -765,6 +767,39 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
+    vndr=dict(
+        pid_type='vndr',
+        pid_minter='vendor_id',
+        pid_fetcher='vendor_id',
+        search_class=RecordsSearch,
+        search_index='vendors',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: Vendor(request.get_json()),
+        },
+        record_class='rero_ils.modules.vendors.api:Vendor',
+        list_route='/vendors/',
+        item_route='/vendors/<pid(vndr, record_class="rero_ils.modules.vendors.api:Vendor"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_access_organisation_patrons_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -994,6 +1029,7 @@ RECORDS_JSON_SCHEMA = {
     'hold': '/holdings/holding-v0.0.1.json',
     'fee': '/fees/fee-v0.0.1.json',
     'pers': '/persons/person-v0.0.1.json',
+    'vndr': '/vendors/vendor-v0.0.1.json',
 }
 
 # Login Configuration
