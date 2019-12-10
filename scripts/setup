@@ -285,6 +285,13 @@ eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 info_msg "Circulation transactions:"
 eval ${PREFIX} pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
 
+# # ACQUISITION
+# create vendors
+info_msg "Acquisition vendors:"
+eval ${PREFIX} pipenv run invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append
+eval ${PREFIX} pipenv run invenio index reindex -t vndr --yes-i-know
+eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
+
 # # OAI configuration
 info_msg "OAI configuration:"
 eval ${PREFIX} pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
