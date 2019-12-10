@@ -134,6 +134,17 @@ def init_menu_profile():
         order=1
     )
 
+    item = current_menu.submenu('main.profile.professional')
+    item.register(
+        endpoint='rero_ils.professional',
+        visible_when=lambda: current_patron.is_librarian,
+        text='{icon} {professional}'.format(
+            icon='<i class="fa fa-briefcase"></i>',
+            professional=_('Switch to professional view')
+        ),
+        order=1
+    )
+
     item = current_menu.submenu('main.profile.logout')
     item.register(
         endpoint='security.logout',

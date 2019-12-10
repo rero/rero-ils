@@ -148,7 +148,6 @@ THEME_FRONTPAGE_TITLE = _('rero-ils')
 #: Frontpage template.
 THEME_FRONTPAGE_TEMPLATE = 'rero_ils/frontpage.html'
 
-THEME_HEADER_LOGIN_TEMPLATE = 'rero_ils/header_login.html'
 #: Template for including a tracking code for web analytics.
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
