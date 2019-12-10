@@ -5,7 +5,7 @@
       {
         "title": "Organisation",
         "key": "organisation.$ref",
-        "type": "select",
+        "type": "remote-select",
         "remoteRecordType": "organisations",
         "remoteRecordFiltersByOwningOrganisation": "pid",
         "readonly": "true"

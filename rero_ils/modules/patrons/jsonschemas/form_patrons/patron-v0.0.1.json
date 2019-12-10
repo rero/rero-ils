@@ -107,7 +107,7 @@
         "required": true,
         "title": "Library",
         "description": "Library affiliation.",
-        "type": "select",
+        "type": "remote-select",
         "remoteRecordType": "libraries",
         "remoteRecordFiltersByOwningLibrary": "pid",
         "condition": {
