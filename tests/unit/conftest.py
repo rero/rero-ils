@@ -59,6 +59,28 @@ def item_type_schema():
 
 
 @pytest.fixture()
+def acq_account_schema():
+    """Acq account Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.acq_accounts.jsonschemas',
+        '/acq_accounts/acq_account-v0.0.1.json'
+    )
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
+def budget_schema():
+    """Budget Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.budgets.jsonschemas',
+        '/budgets/budget-v0.0.1.json'
+    )
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
 def library_schema():
     """Library Jsonschema for records."""
     schema_in_bytes = resource_string(

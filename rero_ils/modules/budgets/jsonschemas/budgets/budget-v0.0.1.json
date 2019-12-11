@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Budget",
+  "description": "JSON schema for budget.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate budget records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Budget ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Budget name",
+      "description": "Name of the budget.",
+      "type": "string",
+      "minLength": 1
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Budget start date"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Budget end date"
+    },
+    "is_active": {
+      "type": "boolean",
+      "title": "True if budget is active",
+      "description": "True if budget is active",
+      "default": false
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}
