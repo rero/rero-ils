@@ -1143,3 +1143,263 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
         )
     except FileNotFoundError as err:
         click.secho(str(err), fg='red')
+
+
+@utils.command('check_pid_dependencies')
+@click.argument('path')
+@click.option('-b', '--big', 'big', is_flag=True, default=False,
+              help='use big files')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+def check_pid_dependencies(path, big, verbose):
+    """Check record dependencies."""
+    class Dependencies():
+        """Class for dependencies checking."""
+
+        test_data = {}
+
+        def __init__(self, verbose=False):
+            """Init dependency class."""
+            self.verbose = verbose
+            self.record = {}
+            self.name = ''
+            self.pid = '0'
+            self.dependencies_pids = []
+            self.dependencies = set()
+            self.missing = 0
+            self.not_found = 0
+
+        def get_pid(self, data):
+            """Get pid from end of $ref string."""
+            return data['$ref'].split('/')[-1]
+
+        def get_ref_pids(self, data, dependency_name):
+            """Get pids from data."""
+            pids = []
+            try:
+                if isinstance(data[dependency_name], list):
+                    for dat in data[dependency_name]:
+                        pids.append(self.get_pid(dat))
+                else:
+                    pids = [self.get_pid(data[dependency_name])]
+            except Exception as err:
+                pass
+            return pids
+
+        def add_pids_to_dependencies(self, dependency_name, pids, optional):
+            """Add pids to dependoencies_pid."""
+            if not (pids or optional):
+                click.secho(
+                    '{name}: dependencie not found: {dependency_name}'.format(
+                        name=self.name,
+                        dependency_name=dependency_name
+                    ),
+                    fg='red'
+                )
+                self.not_found += 1
+            else:
+                self.dependencies_pids.append({
+                    dependency_name: pids
+                })
+                self.dependencies.add(dependency_name)
+
+        def set_dependencies_pids(self, dependencies):
+            """Get all dependencies and pids."""
+            self.dependencies_pids = []
+            for dependency in dependencies:
+                dependency_ref = dependency.get('ref')
+                if not dependency_ref:
+                    dependency_ref = dependency['name']
+                sublist = dependency.get('sublist', [])
+                for sub in sublist:
+                    datas = self.record.get(dependency['name'], [])
+                    if not(datas or dependency.get('optional')):
+                        click.secho(
+                            ('{name}: sublist not found:'
+                             ' {dependency_name}').format(
+                                name=self.name,
+                                dependency_name=dependency['name']
+                            ),
+                            fg='red'
+                        )
+                        self.not_found += 1
+                    else:
+                        for data in datas:
+                            dependency_ref = sub.get('ref')
+                            if not dependency_ref:
+                                dependency_ref = sub['name']
+                            self.add_pids_to_dependencies(
+                                dependency_ref,
+                                self.get_ref_pids(data, sub['name']),
+                                sub.get('optional')
+                            )
+                if not sublist:
+                    self.add_pids_to_dependencies(
+                        dependency_ref,
+                        self.get_ref_pids(self.record, dependency['name']),
+                        dependency.get('optional')
+                    )
+
+        def test_dependencies(self):
+            """Test all dependencies."""
+            for dependency in self.dependencies_pids:
+                for key, values in dependency.items():
+                    for value in values:
+                        try:
+                            self.test_data[key][value]
+                        except Exception as err:
+                            click.secho(
+                                ('{name}: {pid} missing '
+                                 '{ref_name}: {ref_pid}').format(
+                                    ref_name=key,
+                                    ref_pid=value,
+                                    name=self.name,
+                                    pid=self.pid
+                                ),
+                                fg='red'
+                            )
+                            self.missing += 1
+
+        def init_and_test_data(self, test):
+            """Init data and test data."""
+            self.name = test['name']
+            file_name = test['filename']
+            self.test_data.setdefault(self.name, {})
+            with open(file_name, 'r') as infile:
+                if self.verbose:
+                    click.echo('{name}: {file_name}'.format(
+                        name=self.name,
+                        file_name=file_name
+                    ))
+                records = read_json_record(infile)
+                for self.record in records:
+                    self.pid = self.record['pid']
+                    if self.test_data[self.name].get(self.pid):
+                        click.secho(
+                            'Double pid in {name}: {pid}'.format(
+                                name=self.name,
+                                pid=self.pid
+                            ),
+                            fg='red'
+                        )
+                    else:
+                        self.test_data[self.name][self.pid] = {}
+                        self.set_dependencies_pids(
+                            test.get('dependencies', [])
+                        )
+                        self.test_dependencies()
+                if self.verbose:
+                    for dependency in self.dependencies:
+                        click.echo(
+                            '\tTested dependency: {dependency}'.format(
+                                dependency=dependency
+                            )
+                        )
+
+        def run_tests(self, tests):
+            """Run the tests."""
+            for test in tests:
+                self.init_and_test_data(test)
+            if self.missing:
+                click.secho(
+                    'Missing relations: {nbr}'.format(nbr=self.missing),
+                    fg='red'
+                )
+            if self.not_found:
+                click.secho(
+                    'Relation not found: {nbr}'.format(nbr=self.not_found),
+                    fg='red'
+                )
+
+    size = 'small'
+    if big:
+        size = 'big'
+
+    tests = [
+        {
+            'name': 'organisation',
+            'filename': os.path.join(path, 'organisations.json'),
+        },
+        {
+            'name': 'library',
+            'filename': os.path.join(path, 'libraries.json'),
+            'dependencies': [
+                {'name': 'organisation'}
+            ]
+        },
+        {
+            'name': 'location',
+            'filename': os.path.join(path, 'locations.json'),
+            'dependencies': [
+                {'name': 'library'}
+            ]
+        },
+        {
+            'name': 'document',
+            'filename': os.path.join(path, 'documents_{size}.json'.format(
+                size=size
+            ))
+        },
+        {
+            'name': 'item_type',
+            'filename': os.path.join(path, 'item_types.json'),
+            'dependencies': [
+                {'name': 'organisation'}
+            ]
+        },
+        {
+            'name': 'patron_type',
+            'filename': os.path.join(path, 'patron_types.json'),
+            'dependencies': [
+                {'name': 'organisation'}
+            ]
+        },
+        {
+            'name': 'circulation_policie',
+            'filename': os.path.join(path, 'circulation_policies.json'),
+            'dependencies': [
+                {'name': 'organisation'},
+                {
+                    'name': 'settings',
+                    'optional': True,
+                    'sublist': [
+                        {'name': 'patron_type'},
+                        {'name': 'item_type'}
+                    ]
+                },
+                {'name': 'library', 'ref': 'libraries', 'optional': True}
+            ]
+        },
+        {
+            'name': 'holding',
+            'filename': os.path.join(path, 'holdings_{size}.json'.format(
+                size=size
+            )),
+            'dependencies': [
+                {'name': 'location'},
+                {'name': 'circulation_category', 'ref': 'item_type'},
+                {'name': 'document'}
+            ]
+        },
+        {
+            'name': 'item',
+            'filename': os.path.join(path, 'items_{size}.json'.format(
+                size=size
+            )),
+            'dependencies': [
+                {'name': 'location'},
+                {'name': 'item_type'},
+                {'name': 'document'},
+                {'name': 'holding'}
+            ]
+        }
+    ]
+
+    # start of tests
+    click.secho(
+        'Check dependencies: {path}'.format(path=path),
+        fg='green'
+    )
+    dependency_tests = Dependencies(verbose=verbose)
+    dependency_tests.run_tests(tests)
+
+    sys.exit(dependency_tests.missing + dependency_tests.not_found)
