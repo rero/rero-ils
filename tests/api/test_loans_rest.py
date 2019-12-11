@@ -30,6 +30,7 @@ from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, postdata
 
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
@@ -93,10 +94,13 @@ def test_loan_utils(client, patron_martigny_no_email,
                     patron2_martigny_no_email, circulation_policies,
                     loan_pending_martigny, item_lib_martigny):
     """Test loan utils."""
-    loan = {
-        'item_pid': item_lib_martigny.pid,
-        'patron_pid': patron_martigny_no_email.pid
-    }
+    loan_metadata = dict(item_lib_martigny)
+    if 'item_pid' not in loan_metadata:
+        loan_metadata['item_pid'] = item_lib_martigny.pid
+    if 'patron_pid' not in loan_metadata:
+        loan_metadata['patron_pid'] = patron_martigny_no_email.pid
+    # Create "virtual" Loan (not registered)
+    loan = Loan(loan_metadata)
     assert can_be_requested(loan)
 
     del loan['item_pid']
@@ -124,7 +128,7 @@ def test_loan_utils(client, patron_martigny_no_email,
 def test_due_soon_loans(client, librarian_martigny_no_email,
                         patron_martigny_no_email, loc_public_martigny,
                         item_type_standard_martigny,
-                        item_lib_martigny, json_header,
+                        item_lib_martigny,
                         circ_policy_short_martigny):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -165,22 +169,23 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('pid') == loan_pid
 
-    # test due date hour
+    # test due date hour, should be 22:59 UTC+0 (Europe/Zurich)
     checkout_loan = Loan.get_record_by_pid(loan_pid)
-
     end_date = ciso8601.parse_datetime(
         checkout_loan.get('end_date'))
-    assert end_date.minute == 59 and end_date.hour == 23
+    assert end_date.minute == 59 and end_date.hour == 22
 
+    # test due date hour in US/Pacific, should be 14:59
     new_timezone = pytz.timezone('US/Pacific')
     end_date = ciso8601.parse_datetime(
         checkout_loan.get('end_date')).astimezone(new_timezone)
-    assert end_date.minute == 59 and end_date.hour != 23
+    assert end_date.minute == 59 and end_date.hour == 14
 
+    # test due date hour in Europe/Amsterdam, should be 23:59
     new_timezone = pytz.timezone('Europe/Amsterdam')
     end_date = ciso8601.parse_datetime(
         checkout_loan.get('end_date')).astimezone(new_timezone)
-    assert end_date.minute == 59 and end_date.hour != 23
+    assert end_date.minute == 59 and end_date.hour == 23
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
@@ -197,7 +202,7 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
 def test_overdue_loans(client, librarian_martigny_no_email,
                        patron_martigny_no_email, loc_public_martigny,
                        item_type_standard_martigny,
-                       item_lib_martigny, json_header,
+                       item_lib_martigny,
                        circ_policy_short_martigny):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -214,7 +219,8 @@ def test_overdue_loans(client, librarian_martigny_no_email,
             patron_pid=patron_pid
         )
     )
-    assert res.status_code == 200
+    assert res.status_code == 200, "It probably failed while \
+        test_due_soon_loans fail"
 
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
@@ -397,3 +403,119 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
                 assert res.status_code == 403
         if loan.organisation_pid != user.organisation_pid:
             assert res.status_code == 403
+
+
+def test_timezone_due_date(client, librarian_martigny_no_email,
+                           patron_martigny_no_email, loc_public_martigny,
+                           item_type_standard_martigny,
+                           item3_lib_martigny,
+                           circ_policy_short_martigny,
+                           lib_martigny):
+    """Test that timezone affects due date regarding library location."""
+
+    # Login to perform action
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    # Close the library all days. Except Monday.
+    del lib_martigny['opening_hours']
+    del lib_martigny['exception_dates']
+    lib_martigny['opening_hours'] = [
+        {
+            "day": "monday",
+            "is_open": True,
+            "times": [
+                {
+                    "start_time": "07:00",
+                    "end_time": "19:00"
+                }
+            ]
+        },
+        {
+            "day": "tuesday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "wednesday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "thursday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "friday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "saturday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "sunday",
+            "is_open": False,
+            "times": []
+        }
+    ]
+    lib_martigny.update(lib_martigny, dbcommit=True, reindex=True)
+
+    # Change circulation policy
+    checkout_duration = 3
+    item = item3_lib_martigny
+    item_pid = item.pid
+    patron_pid = patron_martigny_no_email.pid
+    from rero_ils.modules.circ_policies.api import CircPolicy
+    circ_policy = CircPolicy.provide_circ_policy(
+        item.library_pid,
+        patron_martigny_no_email.patron_type_pid,
+        item.item_type_pid
+    )
+    circ_policy['number_of_days_before_due_date'] = 7
+    circ_policy['checkout_duration'] = checkout_duration
+    circ_policy.update(
+        circ_policy,
+        dbcommit=True,
+        reindex=True
+    )
+
+    # Checkout the item
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid
+        )
+    )
+    assert res.status_code == 200
+
+    # Get Loan date
+    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
+    loan = Loan.get_record_by_pid(loan_pid)
+    loan_end_date = loan.get('end_date')
+
+    # Get next library open date (should be next monday after X-1 days) where
+    # X is checkout_duration
+    soon = datetime.now(pytz.utc) + timedelta(days=(checkout_duration-1))
+    lib = Library.get_record_by_pid(item.library_pid)
+    lib_datetime = lib.next_open(soon)
+
+    # Get library timezone
+    lib_tz = lib.get_timezone()
+
+    # Apply Switzerland timezone to loan date
+    loan_datetime = ciso8601.parse_datetime(loan_end_date).astimezone(lib_tz)
+
+    # Compare year, month and date for Loan due date: should be the same!
+    fail_msg = "Check timezone for Loan and Library. It should be the same date, \
+even if timezone changed."
+    assert loan_datetime.year == lib_datetime.year, fail_msg
+    assert loan_datetime.month == lib_datetime.month, fail_msg
+    assert loan_datetime.day == lib_datetime.day, fail_msg
+    # Loan date should be 23h59 of library timezone
+    assert loan_datetime.hour == 23, fail_msg
+    assert loan_datetime.minute == 59, fail_msg

@@ -21,8 +21,6 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
-import pytz
-from dateutil import parser
 from flask import Blueprint, current_app, flash, jsonify, redirect, \
     render_template, url_for
 from flask_babelex import gettext as _
@@ -35,7 +33,6 @@ from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
-from ...filter import format_date_filter
 from ...permissions import request_item_permission
 
 
@@ -131,9 +128,7 @@ def item_availability_text(item):
     else:
         text = ''
         if item.status == ItemStatus.ON_LOAN:
-            due_date = pytz.utc.localize(parser.parse(
-                item.get_item_end_date()))
-            due_date = format_date_filter(due_date, format='short_date')
+            due_date = item.get_item_end_date(format='short_date')
             text = '{msg} {date}'.format(
                 msg=_('due until'),
                 date=due_date)

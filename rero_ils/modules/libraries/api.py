@@ -17,9 +17,10 @@
 
 """API for manipulating libraries."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from functools import partial
 
+import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 from invenio_search.api import RecordsSearch
@@ -110,10 +111,13 @@ class Library(IlsRecord):
 
     def _is_in_period(self, datetime_to_test, exception_date, day_only):
         """Test if date is period."""
-        start_date = date_string_to_utc(exception_date['start_date'])
+        start_date = exception_date['start_date']
+        if isinstance(exception_date['start_date'], str):
+            start_date = date_string_to_utc(start_date)
         end_date = exception_date.get('end_date')
         if end_date:
-            end_date = date_string_to_utc(end_date)
+            if isinstance(end_date, str):
+                end_date = date_string_to_utc(end_date)
             is_in_period = (
                 datetime_to_test.date() - start_date.date()
             ).days >= 0
@@ -150,10 +154,11 @@ class Library(IlsRecord):
         """Test the day has an exception."""
         exception = _open
         for exception_date in exception_dates:
-            start_date = date_string_to_utc(exception_date['start_date'])
+            if isinstance(exception_date['start_date'], str):
+                start_date = date_string_to_utc(exception_date['start_date'])
             repeat = exception_date.get('repeat')
             if _open:
-                # test for exceptios closed
+                # test for closed exceptions
                 if not exception_date['is_open']:
                     has_period, is_in_period = self._is_in_period(
                         date,
@@ -171,7 +176,7 @@ class Library(IlsRecord):
                     if not exception:
                         return False
             else:
-                # test for exceptions opened
+                # test for opened exceptions
                 if exception_date['is_open']:
                     if self._is_in_repeat(date, start_date, repeat):
                         exception = True
@@ -197,12 +202,16 @@ class Library(IlsRecord):
                     return True
         return False
 
-    def is_open(self, date=datetime.now(timezone.utc), day_only=False):
+    def is_open(self, date=datetime.now(pytz.utc), day_only=False):
         """Test library is open."""
         _open = False
 
+        # Change date to be aware and with timezone.
         if isinstance(date, str):
             date = date_string_to_utc(date)
+        if isinstance(date, datetime):
+            if date.tzinfo is None:
+                date = date.replace(tzinfo=pytz.utc)
         day_name = date.strftime("%A").lower()
         for opening_hour in self['opening_hours']:
             if day_name == opening_hour['day']:
@@ -225,7 +234,7 @@ class Library(IlsRecord):
                 times_open = not times_open
         return times_open
 
-    def next_open(self, date=datetime.now(timezone.utc), previous=False):
+    def next_open(self, date=datetime.now(pytz.utc), previous=False):
         """Get next open day."""
         if not self._has_is_open():
             raise LibraryNeverOpen
@@ -239,8 +248,8 @@ class Library(IlsRecord):
             date += timedelta(days=add_day)
         return date
 
-    def count_open(self, start_date=datetime.now(timezone.utc),
-                   end_date=datetime.now(timezone.utc), day_only=False):
+    def count_open(self, start_date=datetime.now(pytz.utc),
+                   end_date=datetime.now(pytz.utc), day_only=False):
         """Get next open day."""
         if isinstance(start_date, str):
             start_date = date_string_to_utc(start_date)
@@ -255,7 +264,7 @@ class Library(IlsRecord):
             start_date += timedelta(days=1)
         return count
 
-    def in_working_days(self, count, date=datetime.now(timezone.utc)):
+    def in_working_days(self, count, date=datetime.now(pytz.utc)):
         """Get date for given working days."""
         counting = 1
         if isinstance(date, str):
@@ -297,3 +306,9 @@ class Library(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def get_timezone(self):
+        """Get library timezone. By default use BABEL_DEFAULT_TIMEZONE."""
+        # TODO: get timezone regarding Library address
+        default = pytz.timezone('Europe/Zurich')
+        return default

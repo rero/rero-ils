@@ -25,8 +25,8 @@ import dateparser
 
 
 def format_date_filter(date_str, format='medium', locale='en'):
-    """Format the date."""
-    form_date = dateparser.parse(str(date_str))
+    """Format the date to the given locale."""
+    form_date = dateparser.parse(str(date_str), locales=[locale, 'en'])
     if format == 'full':
         format = "EEEE, d. MMMM y"
     elif format == 'medium':

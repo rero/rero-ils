@@ -39,6 +39,7 @@ from .utils import edition_format_text, localized_data_name, \
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
+from ..loans.api import Loan
 from ..loans.utils import can_be_requested
 from ..locations.api import Location
 from ..organisations.api import Organisation
@@ -203,11 +204,14 @@ def can_request(item):
             if 'patron' in patron.get('roles') and \
                 patron.get_organisation()['pid'] == \
                     item.get_library().replace_refs()['organisation']['pid']:
-                # TODO: Virtual Loan
-                loan = {
-                    'item_pid': item.pid,
-                    'patron_pid': patron.pid
-                }
+                # Complete metadata before Loan creation
+                loan_metadata = dict(item)
+                if 'item_pid' not in loan_metadata:
+                    loan_metadata['item_pid'] = item.pid
+                if 'patron_pid' not in loan_metadata:
+                    loan_metadata['patron_pid'] = patron.pid
+                # Create "virtual" Loan (not registered)
+                loan = Loan(loan_metadata)
                 if not can_be_requested(loan):
                     return False
                 patron_barcode = patron.get('barcode')

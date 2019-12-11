@@ -33,7 +33,7 @@ def test_loans_create(loan_pending_martigny):
     assert loan_pending_martigny.get('state') == 'PENDING'
 
 
-def test_loans_elemnts(loan_pending_martigny, item_lib_fully):
+def test_loans_elements(loan_pending_martigny, item_lib_fully):
     """Test loan elements."""
     assert loan_pending_martigny.item_pid == item_lib_fully.pid
 
