@@ -1,0 +1,106 @@
+[
+  {
+    "name": "organisation",
+    "filename": "organisations.json"
+  },
+  {
+    "name": "library",
+    "filename": "libraries.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      }
+    ]
+  },
+  {
+    "name": "location",
+    "filename": "locations.json",
+    "dependencies": [
+      {
+        "name": "library"
+      }
+    ]
+  },
+  {
+    "name": "document",
+    "filename": "documents_big.json"
+  },
+  {
+    "name": "item_type",
+    "filename": "item_types.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      }
+    ]
+  },
+  {
+    "name": "patron_type",
+    "filename": "patron_types.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      }
+    ]
+  },
+  {
+    "name": "circulation_policie",
+    "filename": "circulation_policies.json",
+    "dependencies": [
+      {
+        "name": "organisation"
+      },
+      {
+        "name": "settings",
+        "optional": "True",
+        "sublist": [
+          {
+            "name": "patron_type"
+          },
+          {
+            "name": "item_type"
+          }
+        ]
+      },
+      {
+        "name": "library",
+        "ref": "libraries",
+        "optional": "True"
+      }
+    ]
+  },
+  {
+    "name": "holding",
+    "filename": "holdings_big.json",
+    "dependencies": [
+      {
+        "name": "location"
+      },
+      {
+        "name": "circulation_category",
+        "ref": "item_type"
+      },
+      {
+        "name": "document"
+      }
+    ]
+  },
+  {
+    "name": "item",
+    "filename": "items_big.json",
+    "dependencies": [
+      {
+        "name": "location"
+      },
+      {
+        "name": "item_type"
+      },
+      {
+        "name": "document"
+      },
+      {
+        "name": "holding"
+      }
+    ]
+  }
+]
