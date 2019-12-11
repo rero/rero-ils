@@ -42,6 +42,11 @@
       "type": "string",
       "minLength": 2
     },
+    "current_budget_pid": {
+      "title": "Current ID of the budget",
+      "description": "The ID of the current budget of the organisation",
+      "type": "string"
+    },
     "default_currency": {
       "title": "Default currency",
       "description": "The default currency of the organisation",
