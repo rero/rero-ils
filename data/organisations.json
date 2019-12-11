@@ -6,6 +6,7 @@
     "name": "R\u00e9seau des biblioth\u00e8ques du Canton d'Aoste",
     "code": "aoste",
     "default_currency": "EUR",
+    "current_budget_pid": "1",
     "online_harvested_source": "ebibliomedia"
   },
   {
@@ -15,6 +16,7 @@
     "name": "Libraries of the British Ministry of Magic",
     "code": "highlands",
     "default_currency": "GBP",
+    "current_budget_pid": "4",
     "online_harvested_source": "mv-cantook"
   },
   {
@@ -23,6 +25,7 @@
     "address": "The imagination",
     "name": "Network of fictive libraries",
     "code": "fictive",
-    "default_currency": "CHF"
+    "default_currency": "CHF",
+    "current_budget_pid": "5"
   }
 ]

@@ -160,6 +160,8 @@ setup(
             'holdings = rero_ils.modules.holdings.models',
             'fees = rero_ils.modules.fees.models',
             'vendors = rero_ils.modules.vendors.models',
+            'acq_accounts = rero_ils.modules.acq_accounts.models',
+            'budgets = rero_ils.modules.budgets.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = \
@@ -185,6 +187,9 @@ setup(
             'holding_id = rero_ils.modules.holdings.api:holding_id_minter',
             'fee_id = rero_ils.modules.fees.api:fee_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_minter',
+            'acq_account_id = \
+                rero_ils.modules.acq_accounts.api:acq_account_id_minter',
+            'budget_id = rero_ils.modules.budgets.api:budget_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations'
@@ -213,6 +218,9 @@ setup(
                 rero_ils.modules.holdings.api:holding_id_fetcher',
             'fee_id = rero_ils.modules.fees.api:fee_id_fetcher',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_fetcher',
+            'acq_account_id = \
+                rero_ils.modules.acq_accounts.api:acq_account_id_fetcher',
+            'budget_id = rero_ils.modules.budgets.api:budget_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -230,6 +238,8 @@ setup(
             'holdings = rero_ils.modules.holdings.jsonschemas',
             'fees = rero_ils.modules.fees.jsonschemas',
             'vendors = rero_ils.modules.vendors.jsonschemas',
+            'acq_accounts = rero_ils.modules.acq_accounts.jsonschemas',
+            'budgets = rero_ils.modules.budgets.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -247,6 +257,8 @@ setup(
             'holdings = rero_ils.modules.holdings.mappings',
             'fees = rero_ils.modules.fees.mappings',
             'vendors = rero_ils.modules.vendors.mappings',
+            'acq_accounts = rero_ils.modules.acq_accounts.mappings',
+            'budgets = rero_ils.modules.budgets.mappings',
         ],
         'invenio_search.templates': [
             'base-record = rero_ils.es_templates:list_es_templates'
@@ -270,6 +282,8 @@ setup(
             'notifications = rero_ils.modules.notifications.jsonresolver',
             'persons = rero_ils.modules.persons.jsonresolver',
             'vendors = rero_ils.modules.vendors.jsonresolver',
+            'acq_accounts = rero_ils.modules.acq_accounts.jsonresolver',
+            'budgets = rero_ils.modules.budgets.jsonresolver',
         ]
     },
     classifiers=[

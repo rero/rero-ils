@@ -1,0 +1,57 @@
+[
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "title": "Library",
+        "key": "library.$ref",
+        "type": "select",
+        "remoteRecordType": "libraries",
+        "remoteRecordFiltersByOwningOrganisation": "pid",
+        "readonly": "true"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "title": "Budget",
+        "key": "budget.$ref",
+        "type": "select",
+        "remoteRecordType": "budgets",
+        "remoteRecordFiltersByOwningOrganisation": "pid",
+        "readonly": "true"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "name",
+        "required": true,
+        "validationMessage": {
+          "alreadyTakenMessage": "The acquisition account name is already taken"
+        },
+        "remoteRecordType": "acq_accounts"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "description"
+      }
+    ]
+  },
+  {
+    "type": "fieldset",
+    "items": [
+      {
+        "key": "amount_allocated"
+      }
+    ]
+  }
+]

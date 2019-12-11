@@ -5,7 +5,7 @@
     "max_result_window": 20000
   },
   "mappings": {
-    "organisation-v0.0.1": {
+    "budget-v0.0.1": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
@@ -16,22 +16,23 @@
           "type": "keyword"
         },
         "name": {
-          "type": "text"
-        },
-        "address": {
-          "type": "text"
-        },
-        "code": {
           "type": "keyword"
         },
-        "default_currency": {
-          "type": "keyword"
+        "start_date": {
+          "type": "date"
         },
-        "current_budget_pid": {
-          "type": "keyword"
+        "end_date": {
+          "type": "date"
         },
-        "online_harvested_source": {
-          "type": "keyword"
+        "is_active": {
+          "type": "boolean"
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "_created": {
           "type": "date"
