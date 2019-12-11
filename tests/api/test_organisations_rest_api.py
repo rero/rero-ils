@@ -24,6 +24,45 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
 
+def test_organisation_secure_api_update(client, json_header, org_martigny,
+                                        librarian_martigny_no_email,
+                                        system_librarian_martigny_no_email,
+                                        librarian_sion_no_email,
+                                        org_martigny_data):
+    """Test organisation secure api create."""
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+    record_url = url_for('invenio_records_rest.org_item',
+                         pid_value=org_martigny.pid)
+
+    data = org_martigny_data
+    data['name'] = 'New Name 1'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    data['name'] = 'New Name 2'
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+    # Sion
+    login_user_via_session(client, librarian_sion_no_email.user)
+
+    res = client.put(
+        record_url,
+        data=json.dumps(data),
+        headers=json_header
+    )
+    assert res.status_code == 403
+
+
 def test_location_can_delete(client, org_martigny, lib_martigny):
     """Test can delete an organisation."""
     links = org_martigny.get_links_to_me()
@@ -77,35 +116,6 @@ def test_organisation_secure_api_create(client, json_header, org_martigny,
         client,
         post_entrypoint,
         org_martigny_data
-    )
-    assert res.status_code == 403
-
-
-def test_organisation_secure_api_update(client, json_header, org_martigny,
-                                        librarian_martigny_no_email,
-                                        librarian_sion_no_email,
-                                        org_martigny_data):
-    """Test organisation secure api create."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    record_url = url_for('invenio_records_rest.org_item',
-                         pid_value=org_martigny.pid)
-
-    data = org_martigny_data
-    data['name'] = 'New Name'
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 403
-
-    # Sion
-    login_user_via_session(client, librarian_sion_no_email.user)
-
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
     )
     assert res.status_code == 403
 

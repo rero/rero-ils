@@ -80,5 +80,127 @@
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
+  },
+  "budg1": {
+    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "pid": "budg1",
+    "name": "2020",
+    "start_date": "2020-01-01T00:00:00.355920+00:00",
+    "end_date": "2020-12-31T00:00:00.355920+00:00",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "budg2": {
+    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "pid": "budg2",
+    "name": "2020",
+    "start_date": "2020-01-01T00:00:00.355920+00:00",
+    "end_date": "2020-12-31T00:00:00.355920+00:00",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    }
+  },
+  "budg3": {
+    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "pid": "budg3",
+    "name": "2019",
+    "start_date": "2019-01-01T00:00:00.355920+00:00",
+    "end_date": "2019-12-31T00:00:00.355920+00:00",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "budg4": {
+    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "pid": "budg4",
+    "name": "2018",
+    "start_date": "2018-01-01T00:00:00.355920+00:00",
+    "end_date": "2018-12-31T00:00:00.355920+00:00",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
+  "acac1": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac1",
+    "name": "fiction",
+    "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg1"
+    },
+    "amount_allocated": 15000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    }
+  },
+  "acac2": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac2",
+    "name": "books",
+    "description": "Documentaires de l'espace public",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg1"
+    },
+    "amount_allocated": 10000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    }
+  },
+  "acac3": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac3",
+    "name": "general",
+    "description": "Compte g\u00e9n\u00e9ral",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg1"
+    },
+    "amount_allocated": 12000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib3"
+    }
+  },
+  "acac4": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac4",
+    "name": "fiction",
+    "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg2"
+    },
+    "amount_allocated": 11000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    }
+  },
+  "acac5": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac4",
+    "name": "general",
+    "description": "Compte g\u00e9n\u00e9ral",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg2"
+    },
+    "amount_allocated": 14000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib5"
+    }
+  },
+  "acac6": {
+    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "pid": "acac6",
+    "name": "books",
+    "description": "Books",
+    "budget": {
+      "$ref": "https://ils.rero.ch/api/budgets/budg2"
+    },
+    "amount_allocated": 16000,
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    }
   }
 }

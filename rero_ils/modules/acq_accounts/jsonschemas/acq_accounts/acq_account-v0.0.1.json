@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Acquisition account",
+  "description": "JSON schema for an acquisition account",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "name",
+    "budget",
+    "amount_allocated",
+    "library"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate account records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Account ID",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the Acquisition account.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the Acquisition account.",
+      "type": "string",
+      "minLength": 1
+    },
+    "budget": {
+      "title": "Budget",
+      "type": "object",
+      "description": "The Acquisition account belongs to which budget.",
+      "properties": {
+        "$ref": {
+          "title": "Budget URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/budgets/.*?$"
+        }
+      }
+    },
+    "amount_allocated": {
+      "title": "Amount allocated",
+      "description": "The amount allocated for the Acquisition account.",
+      "type": "number"
+    },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}
