@@ -1146,19 +1146,20 @@ def translate(translate_to, change, title_map, no_loc_en, angular, verbose):
 
 
 @utils.command('check_pid_dependencies')
-@click.argument('path')
-@click.option('-b', '--big', 'big', is_flag=True, default=False,
-              help='use big files')
+@click.option('-i', '--dependency_file', 'dependency_file',
+              type=click.File('r'), default='./data/pid_dependencies.json')
+@click.option('-d', '--directory', 'directory', default='./data')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-def check_pid_dependencies(path, big, verbose):
+def check_pid_dependencies(dependency_file, directory, verbose):
     """Check record dependencies."""
     class Dependencies():
         """Class for dependencies checking."""
 
         test_data = {}
 
-        def __init__(self, verbose=False):
+        def __init__(self, directory, verbose=False):
             """Init dependency class."""
+            self.directory = directory
             self.verbose = verbose
             self.record = {}
             self.name = ''
@@ -1262,7 +1263,7 @@ def check_pid_dependencies(path, big, verbose):
         def init_and_test_data(self, test):
             """Init data and test data."""
             self.name = test['name']
-            file_name = test['filename']
+            file_name = os.path.join(self.directory, test['filename'])
             self.test_data.setdefault(self.name, {})
             with open(file_name, 'r') as infile:
                 if self.verbose:
@@ -1310,96 +1311,16 @@ def check_pid_dependencies(path, big, verbose):
                     fg='red'
                 )
 
-    size = 'small'
-    if big:
-        size = 'big'
-
-    tests = [
-        {
-            'name': 'organisation',
-            'filename': os.path.join(path, 'organisations.json'),
-        },
-        {
-            'name': 'library',
-            'filename': os.path.join(path, 'libraries.json'),
-            'dependencies': [
-                {'name': 'organisation'}
-            ]
-        },
-        {
-            'name': 'location',
-            'filename': os.path.join(path, 'locations.json'),
-            'dependencies': [
-                {'name': 'library'}
-            ]
-        },
-        {
-            'name': 'document',
-            'filename': os.path.join(path, 'documents_{size}.json'.format(
-                size=size
-            ))
-        },
-        {
-            'name': 'item_type',
-            'filename': os.path.join(path, 'item_types.json'),
-            'dependencies': [
-                {'name': 'organisation'}
-            ]
-        },
-        {
-            'name': 'patron_type',
-            'filename': os.path.join(path, 'patron_types.json'),
-            'dependencies': [
-                {'name': 'organisation'}
-            ]
-        },
-        {
-            'name': 'circulation_policie',
-            'filename': os.path.join(path, 'circulation_policies.json'),
-            'dependencies': [
-                {'name': 'organisation'},
-                {
-                    'name': 'settings',
-                    'optional': True,
-                    'sublist': [
-                        {'name': 'patron_type'},
-                        {'name': 'item_type'}
-                    ]
-                },
-                {'name': 'library', 'ref': 'libraries', 'optional': True}
-            ]
-        },
-        {
-            'name': 'holding',
-            'filename': os.path.join(path, 'holdings_{size}.json'.format(
-                size=size
-            )),
-            'dependencies': [
-                {'name': 'location'},
-                {'name': 'circulation_category', 'ref': 'item_type'},
-                {'name': 'document'}
-            ]
-        },
-        {
-            'name': 'item',
-            'filename': os.path.join(path, 'items_{size}.json'.format(
-                size=size
-            )),
-            'dependencies': [
-                {'name': 'location'},
-                {'name': 'item_type'},
-                {'name': 'document'},
-                {'name': 'holding'}
-            ]
-        }
-    ]
-
     # start of tests
     click.secho(
-        'Check dependencies: {path}'.format(path=path),
+        'Check dependencies {dependency_file}: {directory}'.format(
+            dependency_file=dependency_file,
+            directory=directory
+        ),
         fg='green'
     )
-    dependency_tests = Dependencies(verbose=verbose)
+    dependency_tests = Dependencies(directory, verbose=verbose)
+    tests = json.load(dependency_file)
     dependency_tests.run_tests(tests)
 
     sys.exit(dependency_tests.missing + dependency_tests.not_found)
