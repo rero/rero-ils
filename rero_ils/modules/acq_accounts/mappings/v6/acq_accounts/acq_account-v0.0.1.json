@@ -5,7 +5,7 @@
     "max_result_window": 20000
   },
   "mappings": {
-    "organisation-v0.0.1": {
+    "acq_account-v0.0.1": {
       "date_detection": false,
       "numeric_detection": false,
       "properties": {
@@ -16,22 +16,34 @@
           "type": "keyword"
         },
         "name": {
-          "type": "text"
-        },
-        "address": {
-          "type": "text"
-        },
-        "code": {
           "type": "keyword"
         },
-        "default_currency": {
+        "description": {
           "type": "keyword"
         },
-        "current_budget_pid": {
-          "type": "keyword"
+        "budget": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
-        "online_harvested_source": {
-          "type": "keyword"
+        "amount_allocated": {
+          "type": "float"
+        },
+        "library": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
         },
         "_created": {
           "type": "date"
