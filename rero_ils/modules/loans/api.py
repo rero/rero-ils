@@ -149,6 +149,22 @@ class Loan(IlsRecord):
             return item.organisation_pid
         return None
 
+    @property
+    def library_pid(self):
+        """Get library PID regarding transaction location PID or location."""
+        from ..items.api import Item
+
+        location_pid = self.get('transaction_location_pid')
+        item_pid = self.get('item_pid')
+
+        if not location_pid and item_pid:
+            item = Item.get_record_by_pid(item_pid)
+            return item.holding_library_pid
+        elif location_pid:
+            loc = Location.get_record_by_pid(location_pid)
+            return loc.library_pid
+        return None
+
     def dumps_for_circulation(self):
         """Dumps for circulation."""
         loan = self.replace_refs()

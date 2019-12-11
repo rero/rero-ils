@@ -53,6 +53,8 @@ env:
     - E2E_OUTPUT=base64
     # Enable end-to-end tests
     - E2E=no
+    # Enable Europe/Zurich timezone
+    - TZ="Europe/Zurich"
   matrix:
     - REQUIREMENTS="--deploy" E2E=yes
     - REQUIREMENTS=""

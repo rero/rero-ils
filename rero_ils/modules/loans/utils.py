@@ -24,7 +24,6 @@ import ciso8601
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
-from ..locations.api import Location
 from ..patrons.api import Patron
 
 
@@ -32,12 +31,7 @@ def get_circ_policy(loan):
     """Return a circ policy for loan."""
     item = Item.get_record_by_pid(loan.get('item_pid'))
     holding_circulation_category = item.holding_circulation_category_pid
-    transaction_location_pid = loan.get('transaction_location_pid')
-    if not transaction_location_pid:
-        library_pid = item.holding_library_pid
-    else:
-        library_pid = \
-            Location.get_record_by_pid(transaction_location_pid).library_pid
+    library_pid = loan.library_pid
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
 
@@ -50,27 +44,31 @@ def get_circ_policy(loan):
 
 def get_default_loan_duration(loan):
     """Return calculated checkout duration in number of days."""
+    # TODO: case when 'now' is not sysdate.
+    now = datetime.utcnow()
+
+    # Get library (to check opening hours and get timezone)
+    library = Library.get_record_by_pid(loan.library_pid)
+
+    # Process difference between now and end of day in term of hours/minutes
+    #   - use hours and minutes from now
+    #   - check regarding end of day (eod), 23:59
+    #   - correct the hours/date regarding library timezone
+    eod = timedelta(hours=23, minutes=59)
+    aware_eod = eod - library.get_timezone().utcoffset(now, is_dst=True)
+    time_to_eod = aware_eod - timedelta(hours=now.hour, minutes=now.minute)
+
+    # Due date should be defined differently from checkout_duration
+    # For that we use:
+    #   - expected due date (now + checkout_duration)
+    #   - next library open date (the eve of exepected due date is used)
+    # We finally make the difference between next library open date and now.
+    # We apply a correction for hour/minute to be 23:59 (end of day).
     policy = get_circ_policy(loan)
-    # TODO: case when start_date is not sysdate.
-    start_date = datetime.now(timezone.utc)
-    time_to_end_of_day = timedelta(hours=23, minutes=59) - \
-        timedelta(hours=start_date.hour, minutes=start_date.minute)
-    transaction_location_pid = loan.get('transaction_location_pid')
-    if not transaction_location_pid:
-        library_pid = Item.get_record_by_pid(loan.item_pid).holding_library_pid
-    else:
-        library_pid = \
-            Location.get_record_by_pid(transaction_location_pid).library_pid
-
-    library = Library.get_record_by_pid(library_pid)
-    # invenio-circulation due_date.
-    due_date = start_date + timedelta(days=policy.get('checkout_duration'))
-    # rero_ils due_date, considering library opening_hours and exception_dates.
-    # next_open: -1 to check first the due date not the days.
-    open_after_due_date = library.next_open(date=due_date - timedelta(days=1))
-    new_duration = open_after_due_date - start_date
-
-    return timedelta(days=new_duration.days) + time_to_end_of_day
+    due_date_eve = now + timedelta(days=policy.get('checkout_duration')) - \
+        timedelta(days=1)
+    next_open_date = library.next_open(date=due_date_eve)
+    return timedelta(days=(next_open_date - now).days) + time_to_eod
 
 
 def get_extension_params(loan=None, parameter_name=None):
@@ -81,19 +79,17 @@ def get_extension_params(loan=None, parameter_name=None):
         'max_count': policy.get('number_renewals'),
         'duration_default': policy.get('renewal_duration')
     }
-    current_date = datetime.now(timezone.utc)
-    time_to_end_of_day = timedelta(hours=23, minutes=59) - \
-        timedelta(hours=current_date.hour, minutes=current_date.minute)
 
-    transaction_location_pid = loan.get('transaction_location_pid')
-    if not transaction_location_pid:
-        library_pid = Item.get_record_by_pid(loan.item_pid).holding_library_pid
-    else:
-        library_pid = \
-            Location.get_record_by_pid(transaction_location_pid).library_pid
-    library = Library.get_record_by_pid(library_pid)
+    # Get library (to check opening hours)
+    library = Library.get_record_by_pid(loan.library_pid)
 
-    calculated_due_date = current_date + timedelta(
+    now = datetime.utcnow()
+    # Fix end of day regarding Library timezone
+    eod = timedelta(hours=23, minutes=59)
+    aware_eod = eod - library.get_timezone().utcoffset(now, is_dst=True)
+    time_to_eod = aware_eod - timedelta(hours=now.hour, minutes=now.minute)
+
+    calculated_due_date = now + timedelta(
         days=policy.get('renewal_duration'))
 
     first_open_date = library.next_open(
@@ -102,9 +98,9 @@ def get_extension_params(loan=None, parameter_name=None):
     if first_open_date.date() < end_date.date():
         params['max_count'] = 0
 
-    new_duration = first_open_date - current_date
+    new_duration = first_open_date - now
     params['duration_default'] = \
-        timedelta(days=new_duration.days) + time_to_end_of_day
+        timedelta(days=new_duration.days) + time_to_eod
 
     return params.get(parameter_name)
 

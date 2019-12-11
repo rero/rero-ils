@@ -28,6 +28,7 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item, ItemStatus
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.loans.utils import get_extension_params
 
@@ -625,13 +626,17 @@ def test_items_extend(client, librarian_martigny_no_email,
     assert actions.get(LoanAction.EXTEND)
     assert item.get_extension_count() == 1
 
+    # Get library timezone
+    lib = Library.get_record_by_pid(item.library_pid)
+    lib_tz = lib.get_timezone()
+
     # test renewal due date hour
     extended_loan = Loan.get_record_by_pid(loan_pid)
     end_date = ciso8601.parse_datetime(
-        extended_loan.get('end_date'))
-    # TODO: check why this test fails with this error @ travis
-    # assert end_date.minute == 59 and end_date.hour == 23
-    # assert end_date.minute == 59 and end_date.hour == 23
+        extended_loan.get('end_date')).astimezone(lib_tz)
+
+    assert end_date.minute == 59 and end_date.hour == 23
+    assert end_date.minute == 59 and end_date.hour == 23
 
     # second extenion
     res, _ = postdata(
@@ -1238,6 +1243,10 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
         )
     )
 
+    # Get library timezone
+    lib = Library.get_record_by_pid(item.library_pid)
+    lib_tz = lib.get_timezone()
+
     assert res.status_code == 200
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.EXTEND].get('pid')
@@ -1245,12 +1254,10 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
     end_date = loan.get('end_date')
     current_date = datetime.now(timezone.utc)
     calc_date = current_date + renewal_duration
-    # TODO: check whey this test fails with this error @travis
-    # AssertionError: assert '2019-10-11' == '2019-10-10'
-    # assert (
-    #     calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
-    #         end_date).strftime('%Y-%m-%d')
-    # )
+    assert (
+        calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
+            end_date).astimezone(lib_tz).strftime('%Y-%m-%d')
+    )
 
     # checkin
     res, _ = postdata(

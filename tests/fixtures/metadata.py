@@ -271,6 +271,35 @@ def item2_lib_martigny(
 
 
 @pytest.fixture(scope="module")
+def item3_lib_martigny_data(data):
+    """Load item of martigny library."""
+    return deepcopy(data.get('item1'))
+
+
+@pytest.fixture(scope="function")
+def item3_lib_martigny_data_tmp(data):
+    """Load item of martigny library scope function."""
+    return deepcopy(data.get('item1'))
+
+
+@pytest.fixture(scope="module")
+def item3_lib_martigny(
+        app,
+        document,
+        item3_lib_martigny_data,
+        loc_public_martigny,
+        item_type_standard_martigny):
+    """Create item3 of martigny library."""
+    item = Item.create(
+        data=item3_lib_martigny_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
 def item_lib_saxon_data(data):
     """Load item of saxon library."""
     return deepcopy(data.get('item2'))

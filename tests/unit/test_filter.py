@@ -60,3 +60,9 @@ def test_date_filter_format_full_fr():
     """Test full french date filter."""
     datestring = format_date_filter('1950-01-01', 'full', 'fr')
     assert 'dimanche, 1. janvier 1950' in datestring
+
+
+def test_date_filter_format_short_fr():
+    """Test short french date filter with pernicious date."""
+    datestring = format_date_filter('2006-08-14', 'short_date', 'fr')
+    assert datestring == '14.08.2006'
