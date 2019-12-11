@@ -44,6 +44,12 @@ from invenio_search import RecordsSearch
 
 from rero_ils.modules.api import IlsRecordIndexer
 
+from .modules.acq_accounts.api import AcqAccount
+from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
+    can_list_acq_account_factory, can_read_update_delete_acq_account_factory
+from .modules.budgets.api import Budget
+from .modules.budgets.permissions import can_create_budgets_factory, \
+    can_list_budgets_factory, can_update_delete_budgets_factory
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document
 from .modules.fees.api import Fee
@@ -66,6 +72,7 @@ from .modules.locations.permissions import can_create_location_factory, \
     can_update_delete_location_factory
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
+from .modules.organisations.permissions import can_update_organisations_factory
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
@@ -565,8 +572,9 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:search_factory',
+        list_permission_factory_imp=deny_all,
         create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=deny_all,
+        update_permission_factory_imp=can_update_organisations_factory,
         delete_permission_factory_imp=deny_all,
         read_permission_factory_imp=can_access_organisation_records_factory,
     ),
@@ -797,6 +805,75 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
+    acac=dict(
+        pid_type='acac',
+        pid_minter='acq_account_id',
+        pid_fetcher='acq_account_id',
+        search_class=RecordsSearch,
+        search_index='acq_accounts',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_accounts.serializers:json_acq_account_search'
+            ),
+        },
+        record_loaders={
+            'application/json': lambda: AcqAccount(request.get_json()),
+        },
+        record_class='rero_ils.modules.acq_accounts.api:AcqAccount',
+        list_route='/acq_accounts/',
+        item_route='/acq_accounts/<pid(acac, record_class="rero_ils.modules.acq_accounts.api:AcqAccount"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:acq_accounts_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_list_acq_account_factory,
+        create_permission_factory_imp=can_create_acq_account_factory,
+        update_permission_factory_imp=can_read_update_delete_acq_account_factory,
+        delete_permission_factory_imp=can_read_update_delete_acq_account_factory,
+    ),
+    budg=dict(
+        pid_type='budg',
+        pid_minter='budget_id',
+        pid_fetcher='budget_id',
+        search_class=RecordsSearch,
+        search_index='budgets',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: Budget(request.get_json()),
+        },
+        record_class='rero_ils.modules.budgets.api:Budget',
+        list_route='/budgets/',
+        item_route='/budgets/<pid(budg, record_class="rero_ils.modules.budgets.api:Budget"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_list_budgets_factory,
+        create_permission_factory_imp=can_create_budgets_factory,
+        update_permission_factory_imp=can_update_delete_budgets_factory,
+        delete_permission_factory_imp=can_update_delete_budgets_factory,
+    )
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -874,6 +951,28 @@ RECORDS_REST_FACETS = dict(
         ),
         filters={
             _('roles'): terms_filter('roles')
+        },
+    ),
+    acq_accounts=dict(
+        aggs=dict(
+            library=dict(
+                terms=dict(
+                    field='library.pid',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_accounts', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            budget=dict(
+                terms=dict(
+                    field='budget',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'budget', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('library'): terms_filter('library.pid'),
+            _('budget'): terms_filter('budget')
         },
     ),
     persons=dict(
@@ -991,7 +1090,7 @@ RECORDS_UI_ENDPOINTS = {
         template='rero_ils/detailed_view_persons.html',
         record_class='rero_ils.modules.persons.api:Person',
         view_imp='rero_ils.modules.persons.views.person_view_method'
-    ),
+    )
 }
 
 RECORDS_UI_EXPORT_FORMATS = {
@@ -1019,6 +1118,8 @@ RECORDS_JSON_SCHEMA = {
     'fee': '/fees/fee-v0.0.1.json',
     'pers': '/persons/person-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
+    'acac': '/acq_accounts/acq_account-v0.0.1.json',
+    'budg': '/budgets/budget-v0.0.1.json',
 }
 
 # Login Configuration

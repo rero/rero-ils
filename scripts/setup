@@ -292,6 +292,19 @@ eval ${PREFIX} pipenv run invenio fixtures create --pid_type vndr ${DATA_PATH}/v
 eval ${PREFIX} pipenv run invenio index reindex -t vndr --yes-i-know
 eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
+# create library budgets
+info_msg "Library budgets:"
+eval ${PREFIX} pipenv run invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append
+eval ${PREFIX} pipenv run invenio index reindex -t budg --yes-i-know
+eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error 
+
+
+# create acquisition accounts
+info_msg "Acquisition accounts:"
+eval ${PREFIX} pipenv run invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append
+eval ${PREFIX} pipenv run invenio index reindex -t acac --yes-i-know
+eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error 
+
 # # OAI configuration
 info_msg "OAI configuration:"
 eval ${PREFIX} pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
