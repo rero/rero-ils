@@ -980,7 +980,6 @@
     "title": {
       "title": "Title",
       "description": "Required. Entire title without statement of responsibility.",
-      "validationMessage": "Required. Entire title without statement of responsibility.",
       "type": "string",
       "minLength": 1
     },
@@ -1038,8 +1037,7 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "minLength": 2,
-        "validationMessage": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+        "minLength": 2
       }
     },
     "authors": {
@@ -1394,7 +1392,6 @@
             "title": "Status",
             "description": "Status of the ISBN/ISSN identifier.",
             "type": "string",
-            "validationMessage": "ISBN/ISSN status should be selected in the list below.",
             "enum": [
               "invalid",
               "cancelled",

@@ -16,7 +16,10 @@
     "title": "Title",
     "items": [
       {
-        "key": "title"
+        "key": "title",
+        "validationMessages": {
+          "required": "Required. Entire title without statement of responsibility."
+        }
       }
     ]
   },
@@ -2102,7 +2105,10 @@
         "items": [
           {
             "key": "translatedFrom[]",
-            "title": "Translated from"
+            "title": "Translated from",
+            "validationMessages": {
+              "minLength": "Should be in the ISO 639 format, with 3 characters, ie <code>eng</code> for English."
+            }
           }
         ]
       }
@@ -2323,7 +2329,10 @@
                 "key": "identifiedBy[].value"
               },
               {
-                "key": "identifiedBy[].status"
+                "key": "identifiedBy[].status",
+                "validationMessages": {
+                  "enum": "ISBN/ISSN status should be selected in the list below."
+                }
               },
               {
                 "key": "identifiedBy[].qualifier"
