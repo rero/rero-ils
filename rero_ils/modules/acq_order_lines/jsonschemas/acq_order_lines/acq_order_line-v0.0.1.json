@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "AcqOrderLine",
+  "description": "JSON schema for Acquisition Order Line.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "acq_account",
+    "description",
+    "order_line_status",
+    "quantity",
+    "amount",
+    "discount_amount",
+    "rate",
+    "note"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "acq_account",
+    "acq_order",
+    "amount",
+    "description"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema of the resource",
+      "description": "Schema to validate Acquisition Order Line records against.",
+      "type": "string",
+      "default": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+      "pattern": "^https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
+    },
+    "pid": {
+      "title": "AcqOrderLine ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "minLength": 1
+    },
+    "order_line_status": {
+      "title": "Order line status",
+      "type": "string",
+      "enum": [
+        "approved",
+        "canceled",
+        "ordered",
+        "requested",
+        "pending",
+        "received"
+      ],
+      "default": "pending",
+      "form": {
+        "options": [
+          {
+            "value": "approved",
+            "label": "Approved"
+          },
+          {
+            "value": "canceled",
+            "label": "Canceled"
+          },
+          {
+            "value": "ordered",
+            "label": "Ordered"
+          },
+          {
+            "value": "requested",
+            "label": "Requested"
+          },
+          {
+            "value": "pending",
+            "label": "Pending"
+          },
+          {
+            "value": "received",
+            "label": "Received"
+          }
+        ]
+      }
+    },
+    "quantity": {
+      "title": "Quantity",
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+    },
+    "amount": {
+      "title": "Amount",
+      "type": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "discount_amount": {
+      "title": "Discount amount",
+      "type": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "total_amount": {
+      "title": "Total amount",
+      "type": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "rate": {
+      "title": "Rate",
+      "type": "number",
+      "minimum": 0
+    },
+    "note": {
+      "title": "Note",
+      "type": "string",
+      "minLength": 9
+    },
+    "acq_account": {
+      "title": "Acquisition account",
+      "type": "object",
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Acquisition account URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$",
+          "form": {
+            "focus": true,
+            "remoteOptions": {
+              "type": "acq_accounts"
+            },
+            "placeholder": "Choose an account",
+            "templateOptions": {
+              "label": ""
+            }
+          }
+        }
+      }
+    },
+    "acq_order": {
+      "title": "Acquisition Order",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Acquisition order URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/acq_orders/.*?$"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}

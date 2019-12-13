@@ -223,5 +223,120 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     }
+  },
+  "acor1": {
+    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "pid": "acor1",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr1"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "order_number": "OR-1",
+    "order_type": "monograph",
+    "description": "Commande fictive",
+    "order_status": "pending",
+    "currency": "CHF",
+    "order_date": "2020-01-06",
+    "total_amount": 0
+  },
+  "acor2": {
+    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "pid": "acor2",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr2"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "order_number": "OR-2",
+    "order_type": "monograph",
+    "description": "Commande fictive 2",
+    "order_status": "pending",
+    "currency": "EUR",
+    "order_date": "2020-01-06",
+    "total_amount": 0
+  },
+  "acor3": {
+    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "pid": "acor3",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr4"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    },
+    "order_number": "OR-3",
+    "order_type": "monograph",
+    "description": "Commande fictive 3",
+    "order_status": "pending",
+    "currency": "CHF",
+    "order_date": "2020-01-06",
+    "total_amount": 0
+  },
+  "acol1": {
+    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "pid": "acol1",
+    "acq_account": {
+      "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
+    },
+    "acq_order": {
+      "$ref": "https://ils.rero.ch/api/acq_orders/acor1"
+    },
+    "description": "Ligne de commande fictive 1",
+    "order_line_status": "pending",
+    "quantity": 1,
+    "amount": 1000,
+    "discount_amount": 0,
+    "total_amount": 1000
+  },
+  "acol2": {
+    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "pid": "acol2",
+    "acq_account": {
+      "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
+    },
+    "acq_order": {
+      "$ref": "https://ils.rero.ch/api/acq_orders/acor1"
+    },
+    "description": "Ligne de commande fictive 2",
+    "order_line_status": "pending",
+    "quantity": 1,
+    "amount": 500,
+    "discount_amount": 0,
+    "total_amount": 500
+  },
+  "acol3": {
+    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "pid": "acol3",
+    "acq_account": {
+      "$ref": "https://ils.rero.ch/api/acq_accounts/acac2"
+    },
+    "acq_order": {
+      "$ref": "https://ils.rero.ch/api/acq_orders/acor2"
+    },
+    "description": "Ligne de commande fictive 1",
+    "order_line_status": "pending",
+    "quantity": 1,
+    "amount": 1000,
+    "discount_amount": 0,
+    "total_amount": 1000
+  },
+  "acol4": {
+    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "pid": "acol4",
+    "acq_account": {
+      "$ref": "https://ils.rero.ch/api/acq_accounts/acac4"
+    },
+    "acq_order": {
+      "$ref": "https://ils.rero.ch/api/acq_orders/acor3"
+    },
+    "description": "Ligne de commande fictive 1",
+    "order_line_status": "pending",
+    "quantity": 2,
+    "amount": 500,
+    "discount_amount": 0,
+    "total_amount": 500
   }
 }
