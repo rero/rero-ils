@@ -111,8 +111,7 @@ def test_circ_policy_can_not_delete(circ_policy_default_martigny,
 
     others = circ_policy_short_martigny.reasons_to_keep()
     assert 'is_default' not in others
-    assert not circ_policy_short_martigny.can_delete
-    assert others['has_settings']
+    assert circ_policy_short_martigny.can_delete
 
 
 def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
