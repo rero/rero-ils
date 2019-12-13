@@ -20,14 +20,15 @@
 from datetime import datetime, timezone
 from functools import partial, wraps
 
+from elasticsearch import VERSION as ES_VERSION
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
-from invenio_circulation.api import get_loan_for_item, \
-    patron_has_active_loan_on_item
+from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import MissingRequiredParameterError, \
     NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
-from invenio_circulation.search.api import search_by_pid
+from invenio_circulation.search.api import search_by_patron_item_or_document, \
+    search_by_pid
 from invenio_i18n.ext import current_i18n
 from invenio_search import current_search
 
@@ -47,6 +48,8 @@ from ..patrons.api import Patron, current_patron
 from ..providers import Provider
 from ..transactions.api import CircTransaction
 from ...filter import format_date_filter
+
+lt_es7 = ES_VERSION[0] < 7
 
 # provider
 ItemProvider = type(
@@ -730,9 +733,19 @@ class Item(IlsRecord):
         patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
             patron_pid = patron.pid
-            checkout = patron_has_active_loan_on_item(patron_pid, self.pid)
-            if checkout:
-                return True
+            search = search_by_patron_item_or_document(
+                patron_pid=patron_pid,
+                item_pid=self.pid,
+                filter_states=current_app.config[
+                    "CIRCULATION_STATES_LOAN_ACTIVE"
+                ],
+            )
+            search_result = search.execute()
+            return (
+                search_result.hits.total > 0
+                if lt_es7
+                else search_result.hits.total.value > 0
+            )
         return False
 
     @classmethod
@@ -831,7 +844,6 @@ class Item(IlsRecord):
         current_loan = loan or Loan.create(new_data,
                                            dbcommit=True,
                                            reindex=True)
-
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(new_data, trigger='checkout')
         )

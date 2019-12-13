@@ -83,7 +83,7 @@ if [ $# -eq 0 ]
           --exclude ui \
           --ignore-init-module-imports . \
           &> /dev/null || \
-          error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
+          error_msg+exit "\nUse this command to check imports: \n\tpipenv run autoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
 
         # syntax check for typescript
         info_msg "Syntax check for typescript:"

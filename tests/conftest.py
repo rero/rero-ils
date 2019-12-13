@@ -39,18 +39,18 @@ def es(appctx):
     should used the function-scoped :py:data:`es_clear` fixture to leave the
     indexes clean for the following tests.
     """
-    from elasticsearch.exceptions import RequestError
+    from invenio_search.errors import IndexAlreadyExistsError
     from invenio_search import current_search, current_search_client
 
     try:
         list(current_search.put_templates())
-    except RequestError:
+    except IndexAlreadyExistsError:
         current_search_client.indices.delete_template('*')
         list(current_search.put_templates())
 
     try:
         list(current_search.create())
-    except RequestError:
+    except IndexAlreadyExistsError:
         list(current_search.delete(ignore=[404]))
         list(current_search.create())
     current_search_client.indices.refresh()
@@ -100,6 +100,10 @@ def can_delete_json_header():
 @pytest.fixture(scope='module')
 def app_config(app_config):
     """Create temporary instance dir for each test."""
+    # port from external redis server (docker) can be changed here
+    # redis_port = 6379
+    # app_config['ACCOUNTS_SESSION_REDIS_URL'] = \
+    #     'redis://localhost:{port}/1'.format(port=redis_port)
     app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
     app_config['CACHE_TYPE'] = 'simple'
     app_config['SEARCH_ELASTIC_HOSTS'] = None
@@ -108,4 +112,5 @@ def app_config(app_config):
     app_config['CELERY_RESULT_BACKEND'] = "cache"
     app_config['CELERY_TASK_ALWAYS_EAGER'] = True
     app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
+
     return app_config

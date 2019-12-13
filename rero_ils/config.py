@@ -1191,6 +1191,11 @@ CIRCULATION_POLICIES = dict(
     )
 )
 
+CIRCULATION_STATES_LOAN_ACTIVE = ['ITEM_ON_LOAN',
+                                  'ITEM_IN_TRANSIT_FOR_PICKUP',
+                                  'ITEM_IN_TRANSIT_TO_HOUSE',
+                                  ]
+
 # Define the default system currency in used. Each organisation can override
 # this parameter using the 'default_currency' field
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'

@@ -17,9 +17,9 @@
 
 """API for manipulating Loans."""
 
-
 from datetime import datetime, timedelta, timezone
 
+import arrow
 import ciso8601
 from flask import current_app
 from invenio_circulation.errors import MissingRequiredParameterError
@@ -55,6 +55,13 @@ class LoanAction(object):
 class Loan(IlsRecord):
     """Loan class."""
 
+    DATE_FIELDS = [
+        "start_date",
+        "end_date",
+        "request_expire_date",
+        "request_start_date",
+    ]
+    DATETIME_FIELDS = ["transaction_date"]
     minter = loan_pid_minter
     fetcher = loan_pid_fetcher
     provider = CirculationLoanIdProvider
@@ -78,6 +85,21 @@ class Loan(IlsRecord):
             data=data, id_=id_, delete_pid=delete_pid, dbcommit=dbcommit,
             reindex=reindex, **kwargs)
         return record
+
+    def date_fields2datetime(self):
+        """Convert string datetime fields to Python datetime."""
+        for field in self.DATE_FIELDS + self.DATETIME_FIELDS:
+            if field in self:
+                self[field] = arrow.get(self[field]).to('utc')
+
+    def date_fields2str(self):
+        """Convert Python datetime fields to string."""
+        for field in self.DATE_FIELDS:
+            if field in self:
+                self[field] = self[field].date().isoformat()
+        for field in self.DATETIME_FIELDS:
+            if field in self:
+                self[field] = self[field].isoformat()
 
     def attach_item_ref(self):
         """Attach item reference."""

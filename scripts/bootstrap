@@ -94,6 +94,7 @@ fi
 
 # go generate a clean lock file
 # pipenv --rm; pipenv install --sequential
+# !!! delete apnope from Pipfile.lock !!!
 
 # install the application and all the dependencies
 info_msg "Install with command: ${cmd} ${flags[@]}"

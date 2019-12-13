@@ -139,7 +139,7 @@ eval ${PREFIX} pipenv run invenio index queue purge delete
 set -e
 eval ${PREFIX} pipenv run invenio index destroy --force --yes-i-know
 # Override index init to load templates before mapping
-info_msg "Override index init to load templates before mapping"
+# info_msg "Override index init to load templates before mapping"
 eval ${PREFIX} pipenv run invenio utils init --force
 # eval ${PREFIX} pipenv run invenio index init --force
 eval ${PREFIX} pipenv run invenio index queue init

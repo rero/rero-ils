@@ -129,6 +129,7 @@ def librarian_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
+
     flush_index(PatronsSearch.Meta.index)
     return ptrn
 

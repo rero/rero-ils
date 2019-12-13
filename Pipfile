@@ -23,27 +23,25 @@ pycountry = ">=19.7.15"
 angular-gettext-babel= ">=0.1"
 # TODO: causes datetime serialize error
 celery = "<4.3.0"
-invenio-oaiharvester = {editable = true,ref = "v1.0.0a4",git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {editable = true,git = "https://github.com/inveniosoftware/invenio-circulation.git",ref = "v1.0.0a16"}
-invenio = {version = "~=3.1.0",extras = ["base", "postgresql", "auth", "elasticsearch6" ]}
+invenio-oaiharvester = {editable = true, ref = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
+invenio-circulation = {editable = true, git = "https://github.com/inveniosoftware/invenio-circulation.git",ref = "v1.0.0a20"}
+invenio = {version = "==3.2", extras = ["base", "postgresql", "auth", "elasticsearch6" ]}
 dojson = ">=1.3.2"
-# get rid of invenio-search-ui
-invenio-indexer = ">=1.0.1,<1.1.0"
-invenio-jsonschemas = ">=1.0.0,<1.1.0"
-invenio-oaiserver = ">=1.0.3,<1.1.0"
-invenio-pidstore = ">=1.0.0,<1.1.0"
-invenio-records-rest = ">=1.4.0,<1.5.0"
+# get rid of invenio-search-ui from invenio metadata
+invenio-indexer = ">=1.1.0,<1.2.0"
+invenio-jsonschemas = ">=1.0.1,<1.1.0"
+invenio-oaiserver = ">=1.1.1,<1.2.0"
+invenio-pidstore = ">=1.1.0,<1.2.0"
+invenio-records-rest = ">=1.6.4,<1.7.0"
 invenio-records-ui = ">=1.0.1,<1.1.0"
-# separate tables
-invenio-records = ">=1.3.0"
+invenio-records = ">=1.3.0,<1.4.0"
 # TODO: remove this contraint once it is solved in invenio
-raven = {version = ">=6.0",extras = ["flask"]}
+# raven = {version = ">=6.0",extras = ["flask"]}
 # self install
 rero-ils = {editable = true,path = "."}
-# TODO: remove when DynamicPermission will be solved
-invenio-access = "<1.2.0"
 polib = "*"
 xmltodict = "*"
+ciso8601 = "*"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
@@ -57,7 +55,7 @@ marshmallow = ">=2.15.1,<3.0.0"
 pydocstyle = ">=2.0.0"
 pytest = ">=3.3.1"
 pytest-cov = ">=2.5.1"
-pytest-invenio = ">=1.0.2,<1.1.0"
+pytest-invenio = ">=1.2.1"
 pytest-mock = ">=1.6.0"
 pytest-pep8 = ">=1.0.6"
 pytest-random-order = ">=0.5.4"
