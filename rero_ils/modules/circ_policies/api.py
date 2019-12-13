@@ -208,9 +208,6 @@ class CircPolicy(IlsRecord):
         is_default = self.get('is_default')
         if is_default:
             others['is_default'] = is_default
-        has_settings = self.get('settings')
-        if has_settings:
-            others['has_settings'] = has_settings
         return others
 
     def get_links_to_me(self):

@@ -308,12 +308,11 @@ def test_circ_policy_secure_api_delete(client,
     record_url = url_for('invenio_records_rest.cipo_item',
                          pid_value=circ_policy_short_martigny.pid)
 
-    with pytest.raises(IlsRecordError.NotDeleted):
-        res = client.delete(record_url)
-        assert res.status_code == 200
+    res = client.delete(record_url)
+    assert res.status_code == 204
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
     res = client.delete(record_url)
-    assert res.status_code == 403
+    assert res.status_code == 410
