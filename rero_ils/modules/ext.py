@@ -36,6 +36,7 @@ from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
 from .notifications.listener import enrich_notification_data
 from .patrons.listener import enrich_patron_data
+from .persons.listener import enrich_persons_data
 from .persons.receivers import publish_api_harvested_records
 from ..filter import format_date_filter, jsondumps, text_to_id, to_pretty_json
 
@@ -86,6 +87,7 @@ class REROILSAPP(object):
         """Register signals."""
         before_record_index.connect(enrich_loan_data)
         before_record_index.connect(enrich_document_data)
+        before_record_index.connect(enrich_persons_data)
         before_record_index.connect(enrich_item_data)
         before_record_index.connect(enrich_patron_data)
         before_record_index.connect(enrich_location_data)

@@ -283,23 +283,24 @@ def get_loanable_items(patron_type_pid):
         .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
     for loanable_item in loanable_items:
         item = Item.get_record_by_pid(loanable_item.pid)
-        circ_policy = CircPolicy.provide_circ_policy(
-            item.holding_library_pid,
-            patron_type_pid,
-            item.holding_circulation_category_pid
-        )
-        if (
-                circ_policy.get('allow_checkout') and
-                circ_policy.get('allow_requests')
-        ):
-            if not item.number_of_requests():
-                # exclude the first 16 items of the 3rd organisation
-                barcode = item.get('barcode')
-                if not (
-                    barcode.startswith('fictive') and
-                    int(barcode.split('fictive')[1]) < 17
-                ):
-                    yield item
+        if item:
+            circ_policy = CircPolicy.provide_circ_policy(
+                item.holding_library_pid,
+                patron_type_pid,
+                item.holding_circulation_category_pid
+            )
+            if (
+                    circ_policy.get('allow_checkout') and
+                    circ_policy.get('allow_requests')
+            ):
+                if not item.number_of_requests():
+                    # exclude the first 16 items of the 3rd organisation
+                    barcode = item.get('barcode')
+                    if not (
+                        barcode.startswith('fictive') and
+                        int(barcode.split('fictive')[1]) < 17
+                    ):
+                        yield item
 
 
 def get_random_pickup_location(patron_pid):

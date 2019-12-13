@@ -27,7 +27,7 @@ from invenio_search.api import RecordsSearch
 from .models import DocumentIdentifier
 from .utils import edition_format_text, publication_statement_text, \
     series_format_text
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
@@ -45,6 +45,22 @@ document_id_minter = partial(id_minter, provider=DocumentProvider)
 document_id_fetcher = partial(id_fetcher, provider=DocumentProvider)
 
 
+class DocumentsIndexer(IlsRecordIndexer):
+    """Indexing documents in Elasticsearch."""
+
+    def index(self, record):
+        """Index an document."""
+        return_value = super(DocumentsIndexer, self).index(record)
+        from ..persons.api import Person
+        for author in record.replace_refs().get('authors', []):
+            auth_pid = author.get('pid')
+            if auth_pid:
+                person = Person.get_record_by_pid(auth_pid)
+                if person:
+                    person.reindex()
+        return return_value
+
+
 class DocumentsSearch(RecordsSearch):
     """DocumentsSearch."""
 
@@ -60,6 +76,7 @@ class Document(IlsRecord):
     minter = document_id_minter
     fetcher = document_id_fetcher
     provider = DocumentProvider
+    indexer = DocumentsIndexer
 
     def is_available(self, view_code):
         """Get availability for document."""

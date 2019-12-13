@@ -19,6 +19,7 @@
 
 from functools import partial
 
+from elasticsearch_dsl import A
 from flask import current_app
 from invenio_search.api import RecordsSearch
 from requests import codes as requests_codes
@@ -26,6 +27,7 @@ from requests import get as requests_get
 
 from .models import PersonIdentifier
 from ..api import IlsRecord
+from ..documents.api import DocumentsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -71,10 +73,7 @@ class Person(IlsRecord):
         metadata = data.get('metadata')
         if '$schema' in metadata:
             del metadata['$schema']
-        rec = cls.create(
-            metadata,
-            dbcommit=True,
-            reindex=True)
+        rec = cls.create(metadata, dbcommit=True, reindex=False)
         return rec
 
     def dumps_for_document(self):
@@ -161,3 +160,17 @@ class Person(IlsRecord):
         if variant_person:
             author['variant_name'] = unique_list(variant_person)
         return author
+
+    @property
+    def organisation_pids(self):
+        """Get organisations pids."""
+        organisations = set()
+        search = DocumentsSearch().filter('term', authors__pid=self.pid)
+        agg = A('terms',
+                field='holdings.organisation.organisation_pid', size=10)
+        search.aggs.bucket('organisation', agg)
+        results = search.execute()
+        for result in results.aggregations.organisation.buckets:
+            if result.doc_count:
+                organisations.add(result.key)
+        return list(organisations)

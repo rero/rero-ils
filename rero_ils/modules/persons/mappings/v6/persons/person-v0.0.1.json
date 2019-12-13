@@ -175,6 +175,9 @@
             }
           }
         },
+        "organisations": {
+          "type": "keyword"
+        },
         "_created": {
           "type": "date"
         },
