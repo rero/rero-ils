@@ -219,3 +219,58 @@ def can_access_professional_view(func):
             else:
                 abort(403)
     return decorated_view
+
+
+def can_read_update_delete_acquisition_factory(record, *args, **kwargs):
+    """Checks if logged user can update or delete its org acquisition resources.
+
+    user must have librarian or system_librarian role
+    librarian can only update or delete its affiliated library acquisition
+    resources.
+    sys_librarian can update or delete any acquisition resource of its org.
+    """
+    def can(self):
+        patron = staffer_is_authenticated()
+        if patron and patron.organisation_pid == record.organisation_pid:
+            if not patron.is_system_librarian:
+                if patron.library_pid and \
+                        record.library_pid != patron.library_pid:
+                    return False
+            return True
+        return False
+    return type('Check', (), {'can': can})()
+
+
+def can_create_acquisition_factory(record, *args, **kwargs):
+    """Checks if the logged user can create acquisition resource of its org.
+
+    librarian can create acquisition resource for its library only.
+    system_librarian can create acquisition resource at any library of its org.
+    system_librarian or librarian can not create acquisition resource at
+    another org.
+    """
+    def can(self):
+        patron = staffer_is_authenticated()
+        if patron and not record:
+            return True
+        if patron and patron.organisation_pid == record.organisation_pid:
+            if patron.is_system_librarian:
+                return True
+            if patron.is_librarian and \
+                    record.library_pid == patron.library_pid:
+                return True
+        return False
+    return type('Check', (), {'can': can})()
+
+
+def can_list_acquisition_factory(record, *args, **kwargs):
+    """Checks if the logged user have access to list acquisition resources.
+
+    only authenticated users can place a search on acquisition resources.
+    """
+    def can(self):
+        patron = staffer_is_authenticated()
+        if patron:
+            return True
+        return False
+    return type('Check', (), {'can': can})()

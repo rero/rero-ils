@@ -1,0 +1,72 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "acq_order_line-v0.0.1": {
+      "date_detection": false,
+      "numeric_detection": false,
+      "properties": {
+        "$schema": {
+          "type": "keyword"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "acq_account": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "acq_order": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "line_order_status": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "text"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "float"
+        },
+        "discount_amount": {
+          "type": "float"
+        },
+        "total_amount": {
+          "type": "float"
+        },
+        "rate": {
+          "type": "float"
+        },
+        "note": {
+          "type": "text"
+        },
+        "_created": {
+          "type": "date"
+        },
+        "_updated": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
