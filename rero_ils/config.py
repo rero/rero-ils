@@ -47,6 +47,8 @@ from rero_ils.modules.api import IlsRecordIndexer
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
     can_list_acq_account_factory, can_read_update_delete_acq_account_factory
+from .modules.acq_order_lines.api import AcqOrderLine, AcqOrderLinesIndexer
+from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
 from .modules.budgets.permissions import can_create_budgets_factory, \
     can_list_budgets_factory, can_update_delete_budgets_factory
@@ -80,9 +82,10 @@ from .modules.patrons.permissions import can_delete_patron_factory, \
 from .modules.persons.api import Person
 from .modules.vendors.api import Vendor
 from .permissions import can_access_organisation_patrons_factory, \
-    can_access_organisation_records_factory, \
+    can_access_organisation_records_factory, can_create_acquisition_factory, \
     can_create_organisation_records_factory, \
-    can_delete_organisation_records_factory, \
+    can_delete_organisation_records_factory, can_list_acquisition_factory, \
+    can_read_update_delete_acquisition_factory, \
     can_update_organisation_records_factory, \
     librarian_delete_permission_factory, librarian_permission_factory, \
     librarian_update_permission_factory
@@ -876,7 +879,76 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=can_create_budgets_factory,
         update_permission_factory_imp=can_update_delete_budgets_factory,
         delete_permission_factory_imp=can_update_delete_budgets_factory,
-    )
+    ),
+    acor=dict(
+        pid_type='acor',
+        pid_minter='acq_order_id',
+        pid_fetcher='acq_order_id',
+        search_class=RecordsSearch,
+        search_index='acq_orders',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_orders.serializers:json_acq_order_search'
+            ),
+        },
+        record_loaders={
+            'application/json': lambda: AcqOrder(request.get_json()),
+        },
+        record_class='rero_ils.modules.acq_orders.api:AcqOrder',
+        list_route='/acq_orders/',
+        item_route='/acq_orders/<pid(acor, record_class="rero_ils.modules.acq_orders.api:AcqOrder"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_list_acquisition_factory,
+        create_permission_factory_imp=can_create_acquisition_factory,
+        update_permission_factory_imp=can_read_update_delete_acquisition_factory,
+        delete_permission_factory_imp=can_read_update_delete_acquisition_factory,
+    ),
+    acol=dict(
+        pid_type='acol',
+        pid_minter='acq_order_line_id',
+        pid_fetcher='acq_order_line_id',
+        search_class=RecordsSearch,
+        search_index='acq_order_lines',
+        search_type=None,
+        indexer_class=AcqOrderLinesIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: AcqOrderLine(request.get_json()),
+        },
+        record_class='rero_ils.modules.acq_order_lines.api:AcqOrderLine',
+        list_route='/acq_order_lines/',
+        item_route='/acq_order_lines/<pid(acol, record_class="rero_ils.modules.acq_order_lines.api:AcqOrderLine"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_list_acquisition_factory,
+        create_permission_factory_imp=can_create_acquisition_factory,
+        update_permission_factory_imp=can_read_update_delete_acquisition_factory,
+        delete_permission_factory_imp=can_read_update_delete_acquisition_factory,
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -978,6 +1050,28 @@ RECORDS_REST_FACETS = dict(
             _('budget'): terms_filter('budget')
         },
     ),
+    acq_orders=dict(
+        aggs=dict(
+            library=dict(
+                terms=dict(
+                    field='library.pid',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            status=dict(
+                terms=dict(
+                    field='order_status',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('library'): terms_filter('library.pid'),
+            _('status'): terms_filter('order_status')
+        },
+    ),
     persons=dict(
         aggs=dict(
             sources=dict(
@@ -1058,6 +1152,13 @@ RECORDS_REST_SORT_OPTIONS['libraries'] = dict(
     )
 )
 
+RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
+    pid=dict(
+        fields=['_id'], title='Order line PID',
+        default_order='asc'
+    )
+)
+
 
 # Detailed View Configuration
 # ===========================
@@ -1131,6 +1232,8 @@ RECORDS_JSON_SCHEMA = {
     'vndr': '/vendors/vendor-v0.0.1.json',
     'acac': '/acq_accounts/acq_account-v0.0.1.json',
     'budg': '/budgets/budget-v0.0.1.json',
+    'acor': '/acq_orders/acq_order-v0.0.1.json',
+    'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
 }
 
 # Login Configuration

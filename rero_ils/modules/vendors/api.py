@@ -52,3 +52,26 @@ class Vendor(IlsRecord):
     minter = vendor_id_minter
     fetcher = vendor_id_fetcher
     provider = VendorProvider
+
+    def get_number_of_acq_orders(self):
+        """Get number of acq orders."""
+        from ..acq_orders.api import AcqOrdersSearch
+        results = AcqOrdersSearch().filter(
+            'term', vendor__pid=self.pid).source().count()
+        return results
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        acq_orders = self.get_number_of_acq_orders()
+        if acq_orders:
+            links['acq_orders'] = acq_orders
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete

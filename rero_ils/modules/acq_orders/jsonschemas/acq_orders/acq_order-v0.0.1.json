@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Acquisition order",
+  "description": "JSON schema for Acquisition Order.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "vendor",
+    "order_number",
+    "order_type",
+    "order_status",
+    "currency",
+    "order_date",
+    "description"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "vendor",
+    "library",
+    "order_number",
+    "order_type",
+    "order_status",
+    "currency"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema of the resource",
+      "description": "Schema to validate Acquisition Order records against.",
+      "type": "string",
+      "default": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+      "pattern": "^https://ils.rero.ch/schema/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
+    },
+    "pid": {
+      "title": "AcqOrder ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "order_number": {
+      "title": "Order number",
+      "type": "string",
+      "minLength": 3,
+      "form": {
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "order_number"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The order number is already taken"
+          }
+        }
+      }
+    },
+    "order_type": {
+      "title": "Order type",
+      "type": "string",
+      "enum": [
+        "serial",
+        "monograph",
+        "standing_order",
+        "monographic_set",
+        "planned_order",
+        "multi_volume"
+      ],
+      "default": "monograph",
+      "form": {
+        "options": [
+          {
+            "value": "monograph",
+            "label": "Monograph"
+          },
+          {
+            "value": "serial",
+            "label": "Serial"
+          },
+          {
+            "value": "standing_order",
+            "label": "Standing order"
+          },
+          {
+            "value": "monographic_set",
+            "label": "Monographic set"
+          },
+          {
+            "value": "planned_order",
+            "label": "Planned order"
+          },
+          {
+            "value": "multi_volume",
+            "label": "Multi-volume"
+          }
+        ]
+      }
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "minLength": 5
+    },
+    "order_status": {
+      "title": "Order status",
+      "type": "string",
+      "enum": [
+        "approved",
+        "canceled",
+        "ordered",
+        "requested",
+        "pending",
+        "received"
+      ],
+      "default": "pending",
+      "form": {
+        "options": [
+          {
+            "value": "approved",
+            "label": "Approved"
+          },
+          {
+            "value": "canceled",
+            "label": "Canceled"
+          },
+          {
+            "value": "ordered",
+            "label": "Ordered"
+          },
+          {
+            "value": "requested",
+            "label": "Requested"
+          },
+          {
+            "value": "pending",
+            "label": "Pending"
+          },
+          {
+            "value": "received",
+            "label": "Received"
+          }
+        ]
+      }
+    },
+    "currency": {
+      "title": "Order currency",
+      "type": "string",
+      "enum": [
+        "CHF",
+        "EUR",
+        "USD"
+      ],
+      "default": "CHF"
+    },
+    "order_date": {
+      "title": "Order date",
+      "type": "string",
+      "format": "date",
+      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+      "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+      "form": {
+        "type": "datepicker",
+        "placeholder": "Choose a date",
+        "wrappers": [
+          "form-field"
+        ],
+        "validation": {
+          "messages": {
+            "pattern": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          }
+        }
+      }
+    },
+    "total_amount": {
+      "title": "Total amount",
+      "type": "number",
+      "minLength": 1,
+      "default": 0
+    },
+    "vendor": {
+      "title": "Vendor",
+      "type": "object",
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Vendor URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/vendors/.*?$",
+          "form": {
+            "focus": true,
+            "remoteOptions": {
+              "type": "vendors"
+            },
+            "placeholder": "Choose a vendor",
+            "templateOptions": {
+              "label": ""
+            }
+          }
+        }
+      }
+    },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+        }
+      }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    }
+  }
+}

@@ -24,6 +24,9 @@ import pytest
 from utils import flush_index
 
 from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
+from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+    AcqOrderLinesSearch
+from rero_ils.modules.acq_orders.api import AcqOrder, AcqOrdersSearch
 from rero_ils.modules.budgets.api import Budget, BudgetsSearch
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
@@ -351,3 +354,140 @@ def acq_account_general_aproz(
         reindex=True)
     flush_index(AcqAccountsSearch.Meta.index)
     return acac
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_martigny_data(acquisition):
+    """Load acq_order lib martigny fiction data."""
+    return deepcopy(acquisition.get('acor1'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_martigny(
+        app, lib_martigny, vendor_martigny, acq_order_fiction_martigny_data):
+    """Load acq_order lib martigny fiction record."""
+    acor = AcqOrder.create(
+        data=acq_order_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrdersSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_saxon_data(acquisition):
+    """Load acq_order lib saxon fiction data."""
+    return deepcopy(acquisition.get('acor2'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_saxon(
+        app, lib_saxon, vendor_martigny, acq_order_fiction_saxon_data):
+    """Load acq_order lib saxon fiction record."""
+    acor = AcqOrder.create(
+        data=acq_order_fiction_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrdersSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_sion_data(acquisition):
+    """Load acq_order lib sion fiction data."""
+    return deepcopy(acquisition.get('acor3'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_fiction_sion(
+        app, lib_sion, vendor_sion, acq_order_fiction_sion_data):
+    """Load acq_order lib sion fiction record."""
+    acor = AcqOrder.create(
+        data=acq_order_fiction_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrdersSearch.Meta.index)
+    return acor
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_martigny_data(acquisition):
+    """Load acq_order_line lib martigny fiction data."""
+    return deepcopy(acquisition.get('acol1'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_martigny(
+        app, acq_account_fiction_martigny,
+        acq_order_fiction_martigny, acq_order_line_fiction_martigny_data):
+    """Load acq_order_line lib martigny fiction record."""
+    acol = AcqOrderLine.create(
+        data=acq_order_line_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrderLinesSearch.Meta.index)
+    return acol
+
+
+@pytest.fixture(scope="module")
+def acq_order_line2_fiction_martigny_data(acquisition):
+    """Load acq_order_line lib martigny fiction data."""
+    return deepcopy(acquisition.get('acol2'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_line2_fiction_martigny(
+        app, acq_account_fiction_martigny,
+        acq_order_fiction_martigny, acq_order_line2_fiction_martigny_data):
+    """Load acq_order_line lib martigny fiction record."""
+    acol = AcqOrderLine.create(
+        data=acq_order_line2_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrderLinesSearch.Meta.index)
+    return acol
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_saxon_data(acquisition):
+    """Load acq_order_line lib saxon fiction data."""
+    return deepcopy(acquisition.get('acol3'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_saxon(
+        app, acq_account_books_saxon,
+        acq_order_fiction_saxon, acq_order_line_fiction_saxon_data):
+    """Load acq_order_line lib saxon fiction record."""
+    acol = AcqOrderLine.create(
+        data=acq_order_line_fiction_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrderLinesSearch.Meta.index)
+    return acol
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_sion_data(acquisition):
+    """Load acq_order_line lib sion fiction data."""
+    return deepcopy(acquisition.get('acol4'))
+
+
+@pytest.fixture(scope="module")
+def acq_order_line_fiction_sion(
+        app, acq_account_fiction_sion,
+        acq_order_fiction_sion, acq_order_line_fiction_sion_data):
+    """Load acq_order_line lib sion fiction record."""
+    acol = AcqOrderLine.create(
+        data=acq_order_line_fiction_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcqOrderLinesSearch.Meta.index)
+    return acol
