@@ -74,5 +74,7 @@ def test_persons_get(client, person):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
+    person = person.replace_refs()
+    person['organisations'] = person.organisation_pids
 
     assert data['hits']['hits'][0]['metadata'] == person.replace_refs()

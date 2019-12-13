@@ -45,7 +45,7 @@ from invenio_search import RecordsSearch
 from rero_ils.modules.api import IlsRecordIndexer
 
 from .modules.circ_policies.api import CircPolicy
-from .modules.documents.api import Document
+from .modules.documents.api import Document, DocumentsIndexer
 from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
@@ -341,7 +341,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='documents',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class=DocumentsIndexer,
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'

@@ -19,11 +19,10 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.persons.api import Person, PersonsSearch, \
-    person_id_fetcher
+from rero_ils.modules.persons.api import Person, person_id_fetcher
 
 
-def test_person_create(db, person_data_tmp):
+def test_person_create(app, person_data_tmp):
     """Test MEF person creation."""
     pers = Person.get_record_by_pid('1')
     assert not pers
@@ -49,3 +48,5 @@ def test_person_create(db, person_data_tmp):
     )
     pers = Person.get_record_by_pid('2')
     assert pers.get('viaf_pid') == '1234'
+
+    assert pers.organisation_pids == []

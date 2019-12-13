@@ -102,7 +102,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
         workshop_item = 1
         documents_pids = Document.get_all_pids()
         with click.progressbar(
-                reversed(documents_pids[:count]), length=count) as bar:
+                reversed(list(documents_pids)[:count]), length=count) as bar:
             for document_pid in bar:
                 holdings = [{}]
                 if Document.get_record_by_pid(
