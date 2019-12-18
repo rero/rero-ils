@@ -70,6 +70,17 @@ def view_search_factory(self, search, query_parser=None):
     return (search, urlkwargs)
 
 
+def person_view_search_factory(self, search, query_parser=None):
+    """Search factory with view code parameter."""
+    view = request.args.get(
+        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
+    search, urlkwargs = search_factory(self, search)
+    if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        org = Organisation.get_record_by_viewcode(view)
+        search = search.filter('term', organisations=org['pid'])
+    return (search, urlkwargs)
+
+
 def organisation_search_factory(self, search, query_parser=None):
     """Search factory."""
     search, urlkwargs = search_factory(self, search)
