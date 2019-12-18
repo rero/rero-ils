@@ -659,7 +659,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/persons/<pid(pers, record_class="rero_ils.modules.persons.api:Person"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:search_factory',
+        search_factory_imp='rero_ils.query:person_view_search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all,
         create_permission_factory_imp=deny_all,
