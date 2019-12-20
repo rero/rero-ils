@@ -21,7 +21,11 @@
         },
         "name": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "name_sort"
+        },
+        "name_sort": {
+          "type": "keyword"
         },
         "address": {
           "type": "text",
