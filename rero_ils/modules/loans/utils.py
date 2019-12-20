@@ -24,6 +24,7 @@ import ciso8601
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
+from ..locations.api import Location
 from ..patrons.api import Patron
 
 
@@ -153,7 +154,24 @@ def is_item_available_for_checkout(item_pid):
 
 def can_be_requested(loan):
     """Check if record can be requested."""
+    # TODO : Should use
+    #  ``` item = Item.get_record_by_pid(loan.get('item_pid')
+    #      can, reasons = item.can(ItemCirculationActions.REQUEST, loan=loan)
+    #      return can
+    #  ```
+    #  But this usage cause a lot of problem with invenio-circulation because
+    #  it seems this function only answer the question "Is the item potentially
+    #  requestable" and not "Is the item is really requestable".
+
     if not loan.get('item_pid'):
         raise Exception('Transaction on document is not implemented.')
+    # 1) Check if circulation_policy allows request
     policy = get_circ_policy(loan)
-    return policy.get('allow_requests')
+    if not policy.get('allow_requests'):
+        return False
+    # 2) Check if location allows request
+    location = Location.get_record_by_pid(loan.location_pid)
+    if not location or not location.get('allow_request'):
+        return False
+    # All checks are successful, the request is allowed
+    return True

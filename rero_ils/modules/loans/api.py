@@ -32,6 +32,7 @@ from invenio_jsonschemas import current_jsonschemas
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..documents.api import Document
+from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
@@ -172,18 +173,20 @@ class Loan(IlsRecord):
 
     @property
     def library_pid(self):
-        """Get library PID regarding transaction location PID or location."""
-        from ..items.api import Item
+        """Get library PID regarding loan location."""
+        return Location.get_record_by_pid(self.location_pid).library_pid
 
+    @property
+    def location_pid(self):
+        """Get loan transaction_location PID or item owning location."""
+        from ..items.api import Item
         location_pid = self.get('transaction_location_pid')
         item_pid = self.get('item_pid')
 
         if not location_pid and item_pid:
-            item = Item.get_record_by_pid(item_pid)
-            return item.holding_library_pid
+            return Item.get_record_by_pid(item_pid).holding_location_pid
         elif location_pid:
-            loc = Location.get_record_by_pid(location_pid)
-            return loc.library_pid
+            return location_pid
         return IlsRecordError.PidDoesNotExist(
             self.provider.pid_type,
             'library_pid'
@@ -302,7 +305,11 @@ def patron_profile_loans(patron_pid):
         loan['library_name'] = Library.get_record_by_pid(
             item.holding_library_pid).get('name')
         if loan['state'] == 'ITEM_ON_LOAN':
-            loan['can_renew'] = item.can_extend(loan)
+            can, reasons = item.can(
+                ItemCirculationAction.EXTEND,
+                loan=loan
+            )
+            loan['can_renew'] = can
             checkouts.append(loan)
         elif loan['state'] in [
                 'PENDING',

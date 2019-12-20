@@ -21,6 +21,9 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.utils import can_be_requested
+
 
 def test_blocked_field_exists(
         client,
@@ -84,7 +87,7 @@ def test_blocked_patron_cannot_request(client,
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get('can_request', {}) is False
+    assert not data['can']
 
     # Check with valid patron
     res = client.get(
@@ -97,4 +100,12 @@ def test_blocked_patron_cannot_request(client,
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get('can_request', {}) is True
+    assert data['can']
+
+    # Create "virtual" Loan (not registered)
+    loan = Loan({
+        'item_pid': item_lib_martigny.pid,
+        'library_pid': lib_martigny.pid,
+        'patron_pid': patron3_martigny_no_email.pid
+    })
+    assert not can_be_requested(loan)

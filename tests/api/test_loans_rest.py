@@ -36,6 +36,7 @@ from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
 from rero_ils.modules.loans.utils import can_be_requested
+from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
 
@@ -96,7 +97,8 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
 
 def test_loan_utils(client, patron_martigny_no_email,
                     patron2_martigny_no_email, circulation_policies,
-                    loan_pending_martigny, item_lib_martigny):
+                    loan_pending_martigny, item_lib_martigny,
+                    loc_public_martigny):
     """Test loan utils."""
     loan_metadata = dict(item_lib_martigny)
     if 'item_pid' not in loan_metadata:
@@ -128,6 +130,25 @@ def test_loan_utils(client, patron_martigny_no_email,
     del new_loan['item_pid']
     with pytest.raises(IlsRecordError.PidDoesNotExist):
         new_loan.organisation_pid
+
+    new_loan = deepcopy(loan_pending_martigny)
+    assert can_be_requested(new_loan)
+    loc_public_martigny['allow_request'] = False
+    loc_public_martigny.update(
+        loc_public_martigny,
+        dbcommit=True,
+        reindex=True
+    )
+    flush_index(LocationsSearch.Meta.index)
+    assert not can_be_requested(new_loan)
+
+    loc_public_martigny['allow_request'] = True
+    loc_public_martigny.update(
+        loc_public_martigny,
+        dbcommit=True,
+        reindex=True
+    )
+    flush_index(LocationsSearch.Meta.index)
 
 
 def test_due_soon_loans(client, librarian_martigny_no_email,
@@ -262,12 +283,20 @@ def test_checkout_item_transit(client, item2_lib_martigny,
                                librarian_saxon_no_email,
                                patron_martigny_no_email,
                                loc_public_saxon,
+                               loc_public_martigny,
                                circulation_policies):
     """Test checkout of an item in transit."""
     assert item2_lib_martigny.available
 
     # request
     login_user_via_session(client, librarian_martigny_no_email.user)
+    loc_public_martigny['notification_email'] = 'dummy_email@fake.domain'
+    loc_public_martigny['send_notification'] = True
+    loc_public_martigny.update(
+        loc_public_martigny.dumps(),
+        dbcommit=True,
+        reindex=True
+    )
 
     res, data = postdata(
         client,
@@ -285,6 +314,15 @@ def test_checkout_item_transit(client, item2_lib_martigny,
 
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan.get('state') == 'PENDING'
+
+    # reset the location
+    del loc_public_martigny['notification_email']
+    del loc_public_martigny['send_notification']
+    loc_public_martigny.update(
+        loc_public_martigny.dumps(),
+        dbcommit=True,
+        reindex=True
+    )
 
     # validate request
     res, _ = postdata(

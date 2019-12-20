@@ -533,7 +533,8 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
     "is_pickup": true,
-    "pickup_name": "MARTIGNY-PUBLIC: Public Space"
+    "pickup_name": "MARTIGNY-PUBLIC: Public Space",
+    "allow_request": true
   },
   "loc2": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -542,7 +543,8 @@
     "pid": "loc2",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
-    }
+    },
+    "allow_request": true
   },
   "loc3": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -553,7 +555,8 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
     },
     "is_pickup": true,
-    "pickup_name": "SAXON-PUBLIC: Public Space"
+    "pickup_name": "SAXON-PUBLIC: Public Space",
+    "allow_request": true
   },
   "loc4": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -562,7 +565,8 @@
     "pid": "loc4",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
-    }
+    },
+    "allow_request": true
   },
   "loc5": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -573,7 +577,8 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
     },
     "is_pickup": true,
-    "pickup_name": "FULLY-PUBLIC: Public Space"
+    "pickup_name": "FULLY-PUBLIC: Public Space",
+    "allow_request": true
   },
   "loc6": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -582,7 +587,8 @@
     "pid": "loc6",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
-    }
+    },
+    "allow_request": true
   },
   "loc7": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -593,7 +599,8 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
     },
     "is_pickup": true,
-    "pickup_name": "SION-PUBLIC: Public Space"
+    "pickup_name": "SION-PUBLIC: Public Space",
+    "allow_request": true
   },
   "loc8": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -602,7 +609,8 @@
     "pid": "loc8",
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
-    }
+    },
+    "allow_request": true
   },
   "loc9": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -612,7 +620,8 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib1"
     },
-    "is_online": true
+    "is_online": true,
+    "allow_request": true
   },
   "loc10": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -622,7 +631,8 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib2"
     },
-    "is_online": true
+    "is_online": true,
+    "allow_request": true
   },
   "loc11": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -632,7 +642,8 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib3"
     },
-    "is_online": true
+    "is_online": true,
+    "allow_request": true
   },
   "loc12": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -642,7 +653,8 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib4"
     },
-    "is_online": true
+    "is_online": true,
+    "allow_request": true
   },
   "loc13": {
     "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
@@ -652,7 +664,8 @@
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/lib5"
     },
-    "is_online": true
+    "is_online": true,
+    "allow_request": true
   },
   "itty1": {
     "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
@@ -2092,7 +2105,8 @@
     "roles": [
       "system_librarian",
       "librarian"
-    ]
+    ],
+    "barcode": "sys_ptrn1"
   },
   "ptrn2": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",

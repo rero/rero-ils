@@ -24,10 +24,69 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    postdata, to_relative_url
 
+from rero_ils.modules.documents.views import item_library_pickup_locations
 from rero_ils.modules.errors import RecordValidationError
+from rero_ils.modules.locations.api import Location, LocationsSearch
+
+
+def test_location_pickup_locations(locations, patron_martigny_no_email,
+                                   patron_sion_no_email, loc_public_martigny,
+                                   item2_lib_martigny):
+    """Test for pickup locations."""
+
+    # At the beginning, if we load all locations from fixtures, there are 4
+    # pickup locations (loc1, loc3, loc5, loc7)
+    pickup_locations = Location.get_pickup_location_pids()
+    assert set(pickup_locations) == set(['loc1', 'loc3', 'loc5', 'loc7'])
+
+    # check pickup restrictions by patron_pid
+    pickup_locations = Location.get_pickup_location_pids(
+        patron_pid=patron_martigny_no_email.pid)
+    assert set(pickup_locations) == set(['loc1', 'loc3', 'loc5'])
+    pickup_locations = Location.get_pickup_location_pids(
+        patron_pid=patron_sion_no_email.pid)
+    assert set(pickup_locations) == set(['loc7'])
+
+    # check pickup restrictions by item_barcode
+    #   * update `loc1` to restrict_pickup_to 'loc3' and 'loc6'
+    #     --> 'loc6' isn't a pickup location... it's just for test
+    loc_public_martigny['restrict_pickup_to'] = [
+        {'$ref': 'https://ils.rero.ch/api/locations/loc3'},
+        {'$ref': 'https://ils.rero.ch/api/locations/loc6'},
+    ]
+    loc_public_martigny.update(
+        loc_public_martigny,
+        dbcommit=True,
+        reindex=True
+    )
+    flush_index(LocationsSearch.Meta.index)
+    pickup_locations = Location.get_pickup_location_pids(
+        item_pid=item2_lib_martigny.pid)
+    assert set(pickup_locations) == set(['loc3'])
+
+    pickup_locations = Location.get_pickup_location_pids(
+        patron_pid=patron_sion_no_email.pid,
+        item_pid=item2_lib_martigny.pid)
+    assert set(pickup_locations) == set([])
+
+    # check document.views::item_library_pickup_locations
+    #   As we limit pickup to two specific location, this tests will also
+    #   return only these two records instead of all pickups for the
+    #   organisation
+    picks = item_library_pickup_locations(item2_lib_martigny)
+    assert len(picks) == 2
+
+    # reset the location to default value before leaving
+    del loc_public_martigny['restrict_pickup_to']
+    loc_public_martigny.update(
+        loc_public_martigny,
+        dbcommit=True,
+        reindex=True
+    )
+    flush_index(LocationsSearch.Meta.index)
 
 
 def test_locations_permissions(client, loc_public_martigny, json_header):
@@ -98,7 +157,7 @@ def test_locations_get(client, loc_public_martigny):
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
     # organisation has been added during the indexing
-    del(result['organisation'])
+    del (result['organisation'])
     assert result == location.replace_refs()
 
 
@@ -174,13 +233,8 @@ def test_location_can_delete(client, item_lib_martigny, loc_public_martigny):
     assert 'links' in reasons
 
 
-def test_filtered_locations_get(
-        client, librarian_martigny_no_email, loc_public_martigny,
-        loc_restricted_martigny, loc_public_saxon, loc_restricted_saxon,
-        loc_public_fully, loc_restricted_fully,
-        librarian_sion_no_email,
-        loc_public_sion, loc_restricted_sion
-):
+def test_filtered_locations_get(client, librarian_martigny_no_email,
+                                librarian_sion_no_email, locations):
     """Test location filter by organisation."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -189,7 +243,7 @@ def test_filtered_locations_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 6
+    assert data['hits']['total'] == 9
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -198,7 +252,7 @@ def test_filtered_locations_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total'] == 4
 
 
 def test_location_secure_api(client, json_header, loc_public_martigny,

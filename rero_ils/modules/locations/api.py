@@ -79,20 +79,23 @@ class Location(IlsRecord):
         return True
 
     @classmethod
-    def get_pickup_location_pids(cls, patron_pid=None):
+    def get_pickup_location_pids(cls, patron_pid=None, item_pid=None):
         """Return pickup locations."""
         from ..patrons.api import Patron
-        from ..patron_types.api import PatronType
-        search = LocationsSearch()\
-            .filter('term', is_pickup=True)
+        from ..items.api import Item
+        search = LocationsSearch()
+
+        if item_pid:
+            loc = Item.get_record_by_pid(item_pid).get_location()
+            if loc.restrict_pickup_to:
+                search = search.filter('terms', pid=loc.restrict_pickup_to)
+
+        search = search.filter('term', is_pickup=True)
+
         if patron_pid:
-            patron = Patron.get_record_by_pid(patron_pid)
-            ptty_pid = patron.replace_refs()['patron_type']['pid']
-            org_pid = PatronType.get_record_by_pid(
-                ptty_pid).replace_refs()['organisation']['pid']
-            search = search.filter(
-                'term',
-                organisation__pid=org_pid)
+            org_pid = Patron.get_record_by_pid(patron_pid).organisation_pid
+            search = search.filter('term', organisation__pid=org_pid)
+
         locations = search.source(['pid']).scan()
         for location in locations:
             yield location.pid
@@ -138,6 +141,26 @@ class Location(IlsRecord):
 
         library = Library.get_record_by_pid(self.library_pid)
         return library.organisation_pid
+
+    @property
+    def restrict_pickup_to(self):
+        """Get restriction pickup location pid of location."""
+        return [
+            location['pid']
+            for location in self.replace_refs().get('restrict_pickup_to', [])
+        ]
+
+    @classmethod
+    def allow_request(cls, item, **kwargs):
+        """Check if an item can be requested regarding its location.
+
+        :param item : the item to check
+        :param kwargs : addition arguments
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        if item and not item.get_location().get('allow_request', False):
+            return False, ["Item location disallows request."]
+        return True, []
 
 
 class LocationsIndexer(IlsRecordsIndexer):

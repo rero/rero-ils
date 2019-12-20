@@ -248,6 +248,24 @@ def loc_online_aproz_data(data):
 
 
 @pytest.fixture(scope="module")
+def locations(loc_public_martigny, loc_restricted_martigny,
+              loc_public_saxon, loc_restricted_saxon,
+              loc_public_fully, loc_restricted_fully,
+              loc_public_sion, loc_restricted_sion,
+              loc_online_martigny, loc_online_saxon,
+              loc_online_fully, loc_online_sion, loc_online_aproz):
+    """Create all locations."""
+    return [
+        loc_public_martigny, loc_restricted_martigny,
+        loc_public_saxon, loc_restricted_saxon,
+        loc_public_fully, loc_restricted_fully,
+        loc_public_sion, loc_restricted_sion,
+        loc_online_martigny, loc_online_saxon,
+        loc_online_fully, loc_online_sion, loc_online_aproz
+    ]
+
+
+@pytest.fixture(scope="module")
 def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
     """Create public space location for Martigny ville."""
     loc = Location.create(

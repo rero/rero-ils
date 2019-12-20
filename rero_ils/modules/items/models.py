@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import
 
+from enum import Enum
+
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase
@@ -52,3 +54,12 @@ class ItemStatus(object):
     IN_TRANSIT = 'in_transit'
     EXCLUDED = 'excluded'
     MISSING = 'missing'
+
+
+class ItemCirculationAction(Enum):
+    """Enum class to list all possible action about an item."""
+
+    CHECKOUT = 'checkout'
+    CHECKIN = 'checkin'
+    REQUEST = 'request'
+    EXTEND = 'extend'

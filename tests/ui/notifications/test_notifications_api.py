@@ -21,7 +21,6 @@ from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 
-import pytest
 from utils import get_mapping
 
 from rero_ils.modules.notifications.api import Notification, \
@@ -129,6 +128,4 @@ def test_notification_dispatch(app, mailbox):
     Dispatcher().dispatch_notification(notification=notification, verbose=True)
 
     notification = DummyNotification('XXXX')
-    with pytest.raises(ValueError):
-        Dispatcher().dispatch_notification(notification=notification,
-                                           verbose=True)
+    Dispatcher().dispatch_notification(notification=notification, verbose=True)

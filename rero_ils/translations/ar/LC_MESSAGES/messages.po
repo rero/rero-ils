@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.7.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-05-06 16:32+0200\n"
+"POT-Creation-Date: 2020-05-13 15:18+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Aly Badr <aly.badr@rero.ch>, 2020\n"
 "Language: ar\n"
@@ -22,84 +22,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: rero_ils/config.py:120
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:257
+#: rero_ils/config.py:121
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:259
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:80
 msgid "French"
 msgstr "الفرنسية"
 
-#: rero_ils/config.py:121
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:265
+#: rero_ils/config.py:122
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:267
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:92
 msgid "German"
 msgstr "الألمانية"
 
-#: rero_ils/config.py:122
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:269
+#: rero_ils/config.py:123
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:271
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:88
 msgid "Italian"
 msgstr "الايطالية"
 
-#: rero_ils/config.py:173 rero_ils/config.py:177
+#: rero_ils/config.py:174 rero_ils/config.py:178
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:224
+#: rero_ils/config.py:225
 msgid "Welcome to RERO-ILS!"
 msgstr "مرحباً بك في RERO-ILS"
 
-#: rero_ils/config.py:1182
+#: rero_ils/config.py:1183
 msgid "document_type"
 msgstr "تصنبف المستند"
 
-#: rero_ils/config.py:1183
+#: rero_ils/config.py:1184
 msgid "organisation"
 msgstr "الشبكة"
 
-#: rero_ils/config.py:1186 rero_ils/config.py:1230 rero_ils/config.py:1252
-#: rero_ils/config.py:1274
+#: rero_ils/config.py:1187 rero_ils/config.py:1231 rero_ils/config.py:1253
+#: rero_ils/config.py:1275
 msgid "library"
 msgstr "المكتبة"
 
-#: rero_ils/config.py:1187
+#: rero_ils/config.py:1188
 msgid "author__en"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1188
+#: rero_ils/config.py:1189
 msgid "author__fr"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1189
+#: rero_ils/config.py:1190
 msgid "author__de"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1190
+#: rero_ils/config.py:1191
 msgid "author__it"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1191
+#: rero_ils/config.py:1192
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3646
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3646
 msgid "language"
 msgstr "اللغة"
 
-#: rero_ils/config.py:1192
+#: rero_ils/config.py:1193
 msgid "subject"
 msgstr "الموضوع"
 
-#: rero_ils/config.py:1193 rero_ils/config.py:1253 rero_ils/config.py:1275
+#: rero_ils/config.py:1194 rero_ils/config.py:1254 rero_ils/config.py:1276
 msgid "status"
 msgstr "الحالة"
 
-#: rero_ils/config.py:1209
+#: rero_ils/config.py:1210
 msgid "roles"
 msgstr "مهام"
 
-#: rero_ils/config.py:1231
+#: rero_ils/config.py:1232
 msgid "budget"
 msgstr "الميزانية"
 
-#: rero_ils/config.py:1291
+#: rero_ils/config.py:1292
 msgid "sources"
 msgstr "المصادر"
 
@@ -286,13 +286,13 @@ msgstr "مخطط JSON للحساب"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:25
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:16
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:23
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:28
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:15
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:17
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:20
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:34
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:15
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:27
 msgid "Schema"
@@ -316,7 +316,7 @@ msgstr "رقم الحساب"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:270
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:33
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:49
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:54
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:32
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:28
@@ -366,9 +366,9 @@ msgstr "المبلغ المخصص لحساب التزويد"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:203
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:49
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:121
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:126
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:163
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
 msgid "Library"
 msgstr "مكتبة"
@@ -377,9 +377,9 @@ msgstr "مكتبة"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:287
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:125
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:130
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:65
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:171
 msgid "Library URI"
 msgstr "URI للمكتبة"
 
@@ -566,7 +566,7 @@ msgstr "مختلفة"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:86
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:43
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:66
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:67
 msgid "Amount"
 msgstr "المبلغ"
 
@@ -895,7 +895,7 @@ msgid "Patron + Item types links"
 msgstr "روابط تصنيفات المستخدم + النسخة"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:141
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:308
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:310
 msgid "Patron type"
 msgstr "تصنيف المستخدم"
 
@@ -912,21 +912,21 @@ msgid "Item type URI"
 msgstr "URI لتصنيف النسخة"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:276
-#: rero_ils/modules/documents/views.py:363
+#: rero_ils/modules/documents/views.py:355
 msgid "available"
 msgstr "متاح"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:276
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:278
-#: rero_ils/modules/documents/views.py:365
+#: rero_ils/modules/documents/views.py:357
 msgid "not available"
 msgstr "غيرمتاح"
 
-#: rero_ils/modules/documents/views.py:372 rero_ils/modules/items/views.py:133
+#: rero_ils/modules/documents/views.py:364 rero_ils/modules/items/views.py:133
 msgid "due until"
 msgstr "مستحق الى"
 
-#: rero_ils/modules/documents/views.py:374
+#: rero_ils/modules/documents/views.py:366
 msgid "requested"
 msgstr "مطلوب"
 
@@ -6421,12 +6421,12 @@ msgstr "اختيار مكان الإستلام"
 msgid "Export Formats"
 msgstr "تنسيقات التصدير"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:3
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:153
 msgid "Holding"
 msgstr "مقتنيات"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:5
 msgid "JSON schema for holdings."
 msgstr "مخطط JSON لتدقيق تسجيلات المقتنيات"
 
@@ -6457,11 +6457,13 @@ msgstr ""
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:50
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:61
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:186
 msgid "Location"
 msgstr "مكان"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:67
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:68
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:189
 msgid "Location URI"
 msgstr "URI للمكان"
 
@@ -6616,7 +6618,7 @@ msgstr "ID"
 msgid "Barcode"
 msgstr "باركود"
 
-#: rero_ils/modules/item_types/api.py:72
+#: rero_ils/modules/item_types/api.py:73
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:87
 msgid "Another online item type exists in this organisation"
 msgstr "يوجد تصنيف نسخة آخر في هذه الشبكة"
@@ -6728,7 +6730,7 @@ msgid "JSON schema for a library"
 msgstr "مخطط JSON للمكتبة"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:17
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:24
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:29
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:16
 msgid "Schema to validate organisation records against."
@@ -6741,7 +6743,7 @@ msgid "Library ID"
 msgstr "رقم المكتبة"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:38
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:34
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:39
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:40
 msgid "Code"
 msgstr "رمز"
@@ -6897,11 +6899,11 @@ msgid ""
 "state"
 msgstr "اسم الإجراء الصريح الذي أدى إلى الانتقال إلى الحالة الحالية"
 
-#: rero_ils/modules/locations/api.py:69
+#: rero_ils/modules/locations/api.py:75
 msgid "Another online location exists in this library"
 msgstr "يوجد مكان مباشر آخر في هذه المكتبة"
 
-#: rero_ils/modules/locations/api.py:72
+#: rero_ils/modules/locations/api.py:78
 msgid "Pickup name field is required."
 msgstr "مكان الإستلام إجباري"
 
@@ -6909,57 +6911,100 @@ msgstr "مكان الإستلام إجباري"
 msgid "JSON schema for an location"
 msgstr "مخطط JSON للمكان"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:35
 msgid "Location ID"
 msgstr "رقم المكان"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:35
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:40
 msgid "Code of the location."
 msgstr "رمز المكان"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:43
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:48
 msgid "The code is already taken."
 msgstr "الرمز مأخوذ بالفعل."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:50
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:55
 msgid "Name of the location."
 msgstr "إسم المكان"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:58
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:63
 msgid "Is pickup location"
 msgstr "هل مكان إستلام"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:61
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:66
 msgid "Qualify this location as a pickup location."
 msgstr "تحديد المكان كمكان إستلام"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:73
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:78
 msgid "There is already one pickup location in this library."
 msgstr ""
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:79
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:84
 msgid "Is online location"
 msgstr "هل مكان مباشر"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:82
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:87
 msgid "Qualify this location as an online location."
 msgstr "تحديد المكان كمكان مباشر"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:94
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:99
 msgid "There is already one online location in this library."
 msgstr "يوجد مكان مباشر آخر في هذه المكتبة"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:100
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:105
 msgid "Pickup location name"
 msgstr "إسم مكان الإستلام"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:102
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:107
 msgid "Displayed pickup location name, if different from the location name."
 msgstr "إسم مكان الإستلام إذا كان مختلف عن إسم المكان."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:115
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:120
 msgid "The pickup location name is already taken."
 msgstr "اسم مكان الإستلام محجوز"
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:137
+msgid "Allow request"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
+msgid "If enabled, it allows requests for items linked to this location."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:143
+msgid "Send notification"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:144
+msgid "Send a email notification when an item of the location has been requested."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:155
+msgid "Notification email"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:156
+msgid "Specify a generic email address used for notification."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:179
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:209
+msgid "Restrict pickup to"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:180
+msgid ""
+"Select locations where items linked to the current location could be "
+"requested."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:196
+msgid "pickup_name"
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:210
+msgid "If enabled, restrict pickup to specific pickup locations."
+msgstr ""
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:73
@@ -7067,7 +7112,7 @@ msgstr "مصدر مباشر محصود"
 msgid "Online harvested source as configured in ebooks server."
 msgstr "مصدر مباشر محصود كما تم اعداده للكتاب الالكتروني"
 
-#: rero_ils/modules/patron_transaction_events/api.py:98
+#: rero_ils/modules/patron_transaction_events/api.py:114
 msgid "Initial charge"
 msgstr ""
 
@@ -7092,7 +7137,7 @@ msgid "Parent patron transaction"
 msgstr "اصل معاملة المستخدم"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:31
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:329
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:331
 msgid "Patron transaction URI"
 msgstr "URI لمعاملة المستخدم"
 
@@ -7112,7 +7157,7 @@ msgstr "أمين المكتبة"
 msgid "Operator patron URI"
 msgstr "URI لأمين المكتبة"
 
-#: rero_ils/modules/patron_transactions/api.py:228
+#: rero_ils/modules/patron_transactions/api.py:238
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr ""
 
@@ -7189,15 +7234,15 @@ msgstr "اسم تصنيف المستخدم محجوز"
 msgid "The description of the patron type."
 msgstr "وصف تصنيف المستخدم"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:67
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:68
 msgid "Yearly amount due by patrons linked to this patron type."
 msgstr ""
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:78
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:79
 msgid "Yearly subscription"
 msgstr ""
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:79
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Activation of subscription fees for patrons linked to this type."
 msgstr ""
 
@@ -7230,6 +7275,11 @@ msgstr "خطأ في تجديد النسخة %(item_id)s."
 
 #: rero_ils/modules/patrons/views.py:146
 msgid "You have a pending subscription fee."
+msgstr ""
+
+#: rero_ils/modules/patrons/views.py:155
+#, python-format
+msgid "Your account is currently blocked. Reason: %(reason)s"
 msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
@@ -7314,8 +7364,8 @@ msgstr "تصنيف المستخدم"
 msgid "Patron type in terms of circulation policy."
 msgstr "تصنيف المستخدم لسياسة الإعارة "
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:124
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:315
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:126
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:317
 msgid "Patron Type URI"
 msgstr "URI ل تصنيف مستخدم"
 
@@ -7369,49 +7419,49 @@ msgstr "لغة الاتصال"
 msgid "English"
 msgstr "الانجليزية"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:280
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:282
 msgid "Subscriptions"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:284
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:286
 msgid "Subscription"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:294
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:296
 msgid "Subscription start date"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:295
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:297
 msgid "The subscription start date (selected date included)."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:301
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:303
 msgid "Subscription end date"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:302
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:304
 msgid "The subscription end date (selected date excluded)."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:322
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
 msgid "Patron transaction"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:282
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:341
 msgid "Blocking"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:283
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:342
 msgid ""
 "A patron with a blocked account cannot request and borrow items, but can "
 "still renew and check in items."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:346
 msgid "Reason"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:289
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:348
 msgid ""
 "The reason is displayed in the circulation module and is visible by the "
 "patron in his account."

@@ -40,10 +40,8 @@ from .utils import display_alternate_graphic_first, edition_format_text, \
     title_variant_format_text
 from ..holdings.api import Holding
 from ..items.api import Item
-from ..items.models import ItemStatus
+from ..items.models import ItemCirculationAction, ItemStatus
 from ..libraries.api import Library
-from ..loans.api import Loan
-from ..loans.utils import can_be_requested
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
@@ -203,27 +201,12 @@ def can_request(item):
     """Check if the current user can request a given item."""
     if current_user.is_authenticated:
         patron = Patron.get_patron_by_user(current_user)
-        if patron:
-            if 'patron' in patron.get('roles') and \
-                patron.get_organisation()['pid'] == \
-                    item.get_library().replace_refs()['organisation']['pid']:
-                # Complete metadata before Loan creation
-                loan_metadata = dict(item)
-                if 'item_pid' not in loan_metadata:
-                    loan_metadata['item_pid'] = item.pid
-                if 'patron_pid' not in loan_metadata:
-                    loan_metadata['patron_pid'] = patron.pid
-                # Create "virtual" Loan (not registered)
-                loan = Loan(loan_metadata)
-                if not can_be_requested(loan):
-                    return False
-                patron_barcode = patron.get('barcode')
-                item_status = item.get('status')
-                if item_status != 'missing':
-                    loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
-                    requested = item.is_requested_by_patron(patron_barcode)
-                    if not (requested or loaned_to_patron):
-                        return True
+        can, _ = item.can(
+            ItemCirculationAction.REQUEST,
+            patron=patron,
+            library=Library.get_record_by_pid(patron.library_pid)
+        )
+        return can
     return False
 
 
@@ -343,17 +326,26 @@ def item_library_pickup_locations(item):
     """Get the pickup locations of the library of the given item."""
     location_pid = item.replace_refs()['location']['pid']
     location = Location.get_record_by_pid(location_pid)
-    library_pid = location.replace_refs()['library']['pid']
-    library = Library.get_record_by_pid(library_pid).replace_refs()
-    organisation = Organisation.get_record_by_pid(
-        library['organisation']['pid'])
-    locations = []
-    for library in organisation.get_libraries():
-        location = Location.get_record_by_pid(
-            library.get_pickup_location_pid())
-        if location:
-            locations.append(location)
-    return locations
+    # Either the location defines some 'restrict_pickup_to' either not.
+    # * If 'restrict_pickup_to' is defined, then only these locations are
+    #   eligible as possible pickup_locations
+    # * Otherwise, get all organisation pickup locations of the item belongs to
+    if 'restrict_pickup_to' in location:
+        # Get all pickup locations as Location objects and append it to the
+        # location item (removing possible None values)
+        pickup_locations = list(filter(None, [
+            Location.get_record_by_pid(loc_pid)
+            for loc_pid in location.restrict_pickup_to
+        ]))
+        return pickup_locations
+    else:
+        org = Organisation.get_record_by_pid(location.organisation_pid)
+        # Get the pickup location from each library of the item organisation
+        # (removing possible None value)
+        return list(filter(None, [
+            Location.get_record_by_pid(library.get_pickup_location_pid())
+            for library in org.get_libraries()
+        ]))
 
 
 @blueprint.app_template_filter()

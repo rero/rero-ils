@@ -271,7 +271,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                     transaction_user_pid=user_pid,
                     transaction_date=transaction_date,
                     pickup_location_pid=get_random_pickup_location(
-                        requested_patron.pid),
+                        requested_patron.pid, item),
                     document_pid=item.replace_refs()['document']['pid'],
                 )
                 loan.create_notification(notification_type='recall')
@@ -315,7 +315,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
                     transaction_user_pid=user_pid,
                     transaction_date=transaction_date,
                     pickup_location_pid=get_random_pickup_location(
-                        rank_1_patron.pid),
+                        rank_1_patron.pid, item),
                     document_pid=item.replace_refs()['document']['pid'],
                 )
         transaction_date = datetime.now(timezone.utc).isoformat()
@@ -326,7 +326,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
             transaction_location_pid=user_location,
             transaction_user_pid=user_pid,
             transaction_date=transaction_date,
-            pickup_location_pid=get_random_pickup_location(patron.pid),
+            pickup_location_pid=get_random_pickup_location(patron.pid, item),
             document_pid=item.replace_refs()['document']['pid'],
         )
         return item['barcode']
@@ -373,9 +373,12 @@ def get_loanable_items(patron_type_pid):
                         yield item
 
 
-def get_random_pickup_location(patron_pid):
+def get_random_pickup_location(patron_pid, item):
     """Find a qualified pickup location."""
-    pickup_locations_pids = list(Location.get_pickup_location_pids(patron_pid))
+    pickup_locations_pids = list(Location.get_pickup_location_pids(
+        patron_pid=patron_pid,
+        item_pid=item.pid
+    ))
     return random.choice(pickup_locations_pids)
 
 
