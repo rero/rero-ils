@@ -110,6 +110,12 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
     assert not data.get('metadata')
     assert data.get('settings').get('language')
 
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res = client.get(url_for('patrons.logged_user', resolve=1))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'organisation' in data['metadata']['library']
+
     class current_i18n:
         class locale:
             language = 'fr'

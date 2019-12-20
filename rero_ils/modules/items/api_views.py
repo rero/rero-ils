@@ -29,11 +29,11 @@ from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
 from .api import Item
-from .models import ItemStatus
+from .models import ItemCirculationAction
 from ..circ_policies.api import CircPolicy
+from ..documents.views import item_library_pickup_locations
 from ..libraries.api import Library
 from ..loans.api import Loan
-from ..loans.utils import can_be_requested
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
@@ -354,56 +354,62 @@ def item_availability(item_pid):
     })
 
 
-@api_blueprint.route(
-    '/<item_pid>/can_request/<library_pid>/<patron_barcode>', methods=['GET'])
+@api_blueprint.route('/<item_pid>/can_request', methods=['GET'])
 @check_authentication
 @jsonify_error
-def can_request(item_pid, library_pid, patron_barcode):
-    """HTTP request to check if a librarian can request an item for a patron.
+def can_request(item_pid):
+    """HTTP request to check if an item can be requested.
 
-    required_parameters: item_pid, library_pid, patron_barcode
+    Depending of query string argument, either only check if configuration
+    allows the request of this item ; either if a librarian can request an
+    item for a patron.
+
+    `api/item/<item_pid>/can_request` :
+         --> only check config
+    `api/item/<item_pid>/can_request?library_pid=<library_pid>&patron_barcode=<barcode>`:
+         --> check if the patron can request this item (check the cipo)
     """
-    return is_librarian_can_request_item_for_patron(
-        item_pid, library_pid, patron_barcode)
+    kwargs = {}
+    item = Item.get_record_by_pid(item_pid)
+    if not item:
+        abort(404, 'Item not found')
+    patron_barcode = flask_request.args.get('patron_barcode')
+    if patron_barcode:
+        kwargs['patron'] = Patron.get_patron_by_barcode(patron_barcode)
+        if not kwargs['patron']:
+            abort(404, 'Patron not found')
+    library_pid = flask_request.args.get('library_pid')
+    if library_pid:
+        kwargs['library'] = Library.get_record_by_pid(library_pid)
+        if not kwargs['library']:
+            abort(404, 'Library not found')
+
+    # as to item if the request is possible with these data.
+    can, reasons = item.can(ItemCirculationAction.REQUEST, **kwargs)
+
+    # check the `reasons_not_request` array. If it's empty, the request is
+    # allowed ; if not the request is disallow and we need to return the
+    # reasons why
+    response = {'can': can}
+    if reasons:
+        response['reasons'] = {
+            'others': {reason: True for reason in reasons}
+        }
+    return jsonify(response)
 
 
-def jsonify_response(response=False, reason=None):
-    """Jsonify api response."""
-    return jsonify({
-        'can_request': response,
-        'reason': reason
-    })
+@api_blueprint.route('/<item_pid>/pickup_locations', methods=['GET'])
+@check_authentication
+@jsonify_error
+def get_pickup_locations(item_pid):
+    """HTTP request to return the available pickup locations for an item.
 
-
-def is_librarian_can_request_item_for_patron(
-        item_pid, library_pid, patron_barcode):
-    """Check if a librarian can request an item for a patron.
-
-    required_parameters: item_pid, library_pid, patron_barcode
+    :param item_pid: the item pid
     """
     item = Item.get_record_by_pid(item_pid)
     if not item:
-        return jsonify_response(reason='Item not found.')
-    patron = Patron.get_patron_by_barcode(patron_barcode)
-    if not patron:
-        return jsonify_response(reason='Patron not found.')
-    library = Library.get_record_by_pid(library_pid)
-    if not library:
-        return jsonify_response(reason='Library not found.')
-    # Create a loan
-    loan = Loan({
-        'patron_pid': patron.pid, 'item_pid': item.pid,
-        'library_pid': library_pid})
-    if not can_be_requested(loan):
-        return jsonify_response(
-            reason='Request not allowed by the circulation policy.')
-    if item.status != ItemStatus.MISSING:
-        loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
-        if loaned_to_patron:
-            return jsonify_response(
-                reason='Item is already checked-out or requested by patron.')
-        return jsonify_response(
-            response=True, reason='Request is possible.')
-    else:
-        return jsonify_response(
-            reason='Item status does not allow requests.')
+        abort(404, 'Item not found')
+    locations = item_library_pickup_locations(item)
+    return jsonify({
+        'locations': locations
+    })

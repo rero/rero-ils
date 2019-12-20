@@ -260,6 +260,28 @@ class Patron(IlsRecord):
             return None
 
     @classmethod
+    def can_request(cls, item, **kwargs):
+        """Check if a paton can request an item.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        required_arguments = ['patron', 'patron_barcode', 'patron_pid']
+        if not any(k in required_arguments for k in kwargs):
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+        patron = kwargs.get('patron') \
+            or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
+            or Patron.get_record_by_pid(kwargs.get('patron_pid'))
+        # a blocked patron can't request any item
+        if patron.get('blocked', False):
+            return False, ['Patron is blocked']
+        return True, []
+
+    @classmethod
     def patrons_with_obsolete_subscription_pids(cls, end_date=None):
         """Search about patrons with obsolete subscription."""
         if end_date is None:
@@ -306,6 +328,16 @@ class Patron(IlsRecord):
                 initial += last[0]
 
         return initial
+
+    @property
+    def formatted_name(self):
+        """Return the best possible human readable patron name."""
+        name_parts = [
+            self.get('last_name', '').strip(),
+            self.get('first_name', '').strip()
+        ]
+        name_parts = [part for part in name_parts if part]  # remove empty part
+        return ', '.join(name_parts)
 
     @property
     def patron_type_pid(self):

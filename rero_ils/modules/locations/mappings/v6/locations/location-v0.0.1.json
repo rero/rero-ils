@@ -44,6 +44,19 @@
             }
           }
         },
+        "notification_email": {
+          "type": "keyword"
+        },
+        "allow_request": {
+          "type": "boolean"
+        },
+        "restrict_pickup_to": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

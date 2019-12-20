@@ -752,3 +752,27 @@ def test_update_loan_pickup_location(
         )
     )
     assert res.status_code == 403
+
+
+def test_item_pickup_location(
+        client, librarian_martigny_no_email, item2_lib_martigny):
+    """Test get item pickup locations."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # test with dummy data will return 404
+    res = client.get(
+        url_for(
+            'api_item.get_pickup_locations',
+            item_pid='dummy_pid'
+        )
+    )
+    assert res.status_code == 404
+    # test with an existing item
+    res = client.get(
+        url_for(
+            'api_item.get_pickup_locations',
+            item_pid=item2_lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'locations' in data

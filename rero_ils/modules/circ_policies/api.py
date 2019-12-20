@@ -243,6 +243,39 @@ class CircPolicy(IlsRecord):
             cannot_delete['links'] = links
         return cannot_delete
 
+    @classmethod
+    def allow_request(cls, item, **kwargs):
+        """Check if the cipo corresponding to item/patron allow request.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        from ..patrons.api import Patron
+        required_arguments = ['patron', 'patron_barcode', 'patron_pid']
+        if not any(k in required_arguments for k in kwargs):
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+        patron = kwargs.get('patron') \
+            or Patron.get_patron_by_barcode(kwargs.get('patron_barcode')) \
+            or Patron.get_record_by_pid(kwargs.get('patron_pid'))
+        if 'patron' not in patron.get('roles', []):
+            # without 'patron' role, we can't find any patron_type and so we
+            # can't find any corresponding cipo --> return False
+            return False, ["Patron doesn't have the correct role"]
+        library_pid = kwargs['library'].pid if kwargs.get('library') \
+            else item.library_pid
+        cipo = cls.provide_circ_policy(
+            library_pid,
+            patron.patron_type_pid,
+            item.item_type_pid
+        )
+        if not cipo.get('allow_requests', False):
+            return False, ["Circulation policy disallows the operation."]
+        return True, []
+
 
 class CircPoliciesIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""

@@ -43,6 +43,7 @@ def test_patrons_shortcuts(
     del new_patron['patron_type']
     assert not new_patron.patron_type_pid
     assert not new_patron.organisation_pid
+    assert new_patron.formatted_name == "Roduit, Louis"
 
 
 def test_filtered_patrons_get(

@@ -9,14 +9,19 @@
     "pid",
     "code",
     "name",
-    "library"
+    "library",
+    "allow_request"
   ],
   "propertiesOrder": [
     "name",
     "code",
     "is_online",
     "is_pickup",
-    "pickup_name"
+    "pickup_name",
+    "allow_request",
+    "send_notification",
+    "notification_email",
+    "restrict_pickup_to"
   ],
   "properties": {
     "$schema": {
@@ -125,6 +130,85 @@
           "title": "Library URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
+        }
+      }
+    },
+    "allow_request": {
+      "title": "Allow request",
+      "type": "boolean",
+      "description": "If enabled, it allows requests for items linked to this location.",
+      "default": true
+    },
+    "send_notification": {
+      "title": "Send notification",
+      "description": "Send a email notification when an item of the location has been requested.",
+      "type": "boolean",
+      "default": false,
+      "form": {
+        "hideExpression": "model.allow_request === false",
+        "expressionProperties": {
+          "templateOptions.required": "model.allow_request === true"
+        }
+      }
+    },
+    "notification_email": {
+      "title": "Notification email",
+      "description": "Specify a generic email address used for notification.",
+      "type": "string",
+      "format": "email",
+      "pattern": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,})+$",
+      "minLength": 6,
+      "form": {
+        "hideExpression": "model.allow_request === false || model.send_notification === false",
+        "expressionProperties": {
+          "templateOptions.required": "model.send_notification === true && model.allow_request === true"
+        },
+        "templateOptions": {
+          "addonLeft": {
+            "class": "fa fa-at"
+          }
+        },
+        "validation": {
+          "messages": {
+            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+          }
+        }
+      }
+    },
+    "restrict_pickup_to": {
+      "title": "Restrict pickup to",
+      "description": "Select locations where items linked to the current location could be requested.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Location",
+        "properties": {
+          "$ref": {
+            "title": "Location URI",
+            "type": "string",
+            "pattern": "^https://ils.rero.ch/api/locations/.*?$",
+            "form": {
+              "remoteOptions": {
+                "type": "locations",
+                "query": "is_pickup:true",
+                "labelField": "pickup_name"
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "wrappers": [
+          "toggle-switch"
+        ],
+        "templateOptions": {
+          "label": "",
+          "toggle-switch": {
+            "label": "Restrict pickup to",
+            "description": "If enabled, restrict pickup to specific pickup locations."
+          }
         }
       }
     }

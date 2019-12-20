@@ -55,6 +55,7 @@ from .modules.documents.api import Document
 from .modules.holdings.api import Holding
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item
+from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import can_create_item_factory, \
     can_update_delete_item_factory
 from .modules.libraries.api import Library
@@ -1705,6 +1706,18 @@ CIRCULATION_POLICIES = dict(
         can_be_requested=can_be_requested
     )
 )
+
+CIRCULATION_ACTIONS_VALIDATION = {
+    ItemCirculationAction.REQUEST: [
+        Location.allow_request,
+        Item.can_request,
+        CircPolicy.allow_request,
+        Patron.can_request
+    ],
+    ItemCirculationAction.EXTEND: [
+        Item.can_extend
+    ]
+}
 
 WEBPACKEXT_PROJECT = 'rero_ils.webpack:project'
 

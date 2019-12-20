@@ -28,9 +28,10 @@ from invenio_circulation.errors import MissingRequiredParameterError, \
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_pid
 from invenio_i18n.ext import current_i18n
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
-from ..models import ItemStatus
+from ..models import ItemCirculationAction, ItemStatus
 from ...api import IlsRecord
 from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
@@ -419,30 +420,77 @@ class ItemCirculation(IlsRecord):
             return loan_location_pid
         return self.location_pid
 
-    def can_extend(self, loan):
-        """Checks if the patron has the rights to renew this item."""
-        from ...loans.utils import extend_loan_data_is_valid
-        can_extend = True
-        patron_pid = loan.get('patron_pid')
-        patron_type_pid = Patron.get_record_by_pid(
-            patron_pid).patron_type_pid
-        circ_policy = CircPolicy.provide_circ_policy(
-            self.library_pid,
-            patron_type_pid,
-            self.item_type_pid
+    # CIRCULATION METHODS =====================================================
+    def can(self, action, **kwargs):
+        """Check if a specific action is allowed on this item.
+
+        :param action : the action to check as ItemCirculationAction part
+        :param kwargs : all others named arguments useful to check
+        :return a tuple with True|False to know if the action is possible and
+                a list of reasons to disallow if False.
+        """
+        can, reasons = True, []
+        actions = current_app.config.get('CIRCULATION_ACTIONS_VALIDATION', {})
+        for func_name in actions.get(action, []):
+            func_callback = obj_or_import_string(func_name)
+            func_can, func_reasons = func_callback(self, **kwargs)
+            reasons += func_reasons
+            can = can and func_can
+        return can, reasons
+
+    @classmethod
+    def can_request(cls, item, **kwargs):
+        """Check if an item can be requested regarding the item status.
+
+        :param item : the item to check.
+        :param kwargs : other arguments.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        reasons = []
+        if item.status in [ItemStatus.MISSING, ItemStatus.EXCLUDED]:
+            reasons.append("Item status disallows the operation.")
+        if 'patron' in kwargs:
+            patron = kwargs['patron']
+            if patron.organisation_pid != item.organisation_pid:
+                reasons.append("Item and patron are not in the same "
+                               "organisation.")
+            if patron.get('barcode') and \
+               item.is_loaned_to_patron(patron.get('barcode')):
+                reasons.append("Item is already checked-out or requested by "
+                               "patron.")
+        return len(reasons) == 0, reasons
+
+    @classmethod
+    def can_extend(cls, item, **kwargs):
+        """Checks if a patron has the rights to renew an item.
+
+        :param item : the item to check.
+        :param kwargs : additional arguments. To be relevant this method
+                        require 'loan' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        from rero_ils.modules.loans.utils import extend_loan_data_is_valid
+        if 'loan' not in kwargs:  # this method is not relevant
+            return True, []
+        loan = kwargs['loan']
+        patron = Patron.get_record_by_pid(loan.get('patron_pid'))
+        cipo = CircPolicy.provide_circ_policy(
+            item.library_pid,
+            patron.patron_type_pid,
+            item.item_type_pid
         )
         extension_count = loan.get('extension_count', 0)
-        if not (
-                circ_policy.get('number_renewals') > 0 and
-                extension_count < circ_policy.get('number_renewals') and
+        if not (cipo.get('number_renewals') > 0 and
+                extension_count < cipo.get('number_renewals') and
                 extend_loan_data_is_valid(
                     loan.get('end_date'),
-                    circ_policy.get('renewal_duration'),
-                    self.library_pid
-                )
-        ) or self.number_of_requests():
-            can_extend = False
-        return can_extend
+                    cipo.get('renewal_duration'),
+                    item.library_pid
+               )):
+            return False, ['Circulation policies disallows the operation.']
+        if item.number_of_requests():
+            return False, ['A pending request exists on this item.']
+        return True, []
 
     def action_filter(self, action, loan):
         """Filter actions."""
@@ -459,7 +507,8 @@ class ItemCirculation(IlsRecord):
             'new_action': None
         }
         if action == 'extend':
-            if not self.can_extend(loan):
+            can, reasons = self.can(ItemCirculationAction.EXTEND, loan=loan)
+            if not can:
                 data['action_validated'] = False
         if action == 'checkout':
             if not circ_policy.get('allow_checkout'):
