@@ -914,6 +914,14 @@ RECORDS_REST_SORT_OPTIONS['loans'] = dict(
     )
 )
 
+RECORDS_REST_SORT_OPTIONS['libraries'] = dict(
+    name=dict(
+        fields=['name_sort'], title='Library name',
+        default_order='asc'
+    )
+)
+
+
 # Detailed View Configuration
 # ===========================
 RECORDS_UI_ENDPOINTS = {
