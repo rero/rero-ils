@@ -70,6 +70,15 @@ def view_search_factory(self, search, query_parser=None):
     return (search, urlkwargs)
 
 
+def organisation_organisation_search_factory(self, search, query_parser=None):
+    """Organisation Search factory."""
+    search, urlkwargs = search_factory(self, search)
+    if current_patron:
+        search = search.filter(
+            'term', pid=current_patron.get_organisation()['pid'])
+    return (search, urlkwargs)
+
+
 def organisation_search_factory(self, search, query_parser=None):
     """Search factory."""
     search, urlkwargs = search_factory(self, search)
