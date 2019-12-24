@@ -7,11 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2020-01-10 12:13+0100\n"
-=======
-"POT-Creation-Date: 2019-12-18 14:48+0100\n"
->>>>>>> acquisition: create library budget
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,46 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-<<<<<<< HEAD
 #: rero_ils/config.py:102
-=======
-#: rero_ils/config.py:109
->>>>>>> acquisition: create library budget
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:150
 msgid "French"
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/config.py:103
-=======
-#: rero_ils/config.py:110
->>>>>>> acquisition: create library budget
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:154
 msgid "German"
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/config.py:104
-=======
-#: rero_ils/config.py:111
->>>>>>> acquisition: create library budget
 #: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:158
 msgid "Italian"
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/config.py:143 rero_ils/config.py:147
-=======
-#: rero_ils/config.py:150 rero_ils/config.py:154
->>>>>>> acquisition: create library budget
 msgid "rero-ils"
 msgstr ""
 
-#: rero_ils/config.py:196
+#: rero_ils/config.py:189
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/config.py:814
 msgid "document_type"
 msgstr ""
@@ -105,57 +84,6 @@ msgid "roles"
 msgstr ""
 
 #: rero_ils/config.py:857
-=======
-#: rero_ils/config.py:890
-msgid "document_type"
-msgstr ""
-
-#: rero_ils/config.py:891
-msgid "organisation"
-msgstr ""
-
-#: rero_ils/config.py:894 rero_ils/config.py:938
-msgid "library"
-msgstr ""
-
-#: rero_ils/config.py:895
-msgid "author__en"
-msgstr ""
-
-#: rero_ils/config.py:896
-msgid "author__fr"
-msgstr ""
-
-#: rero_ils/config.py:897
-msgid "author__de"
-msgstr ""
-
-#: rero_ils/config.py:898
-msgid "author__it"
-msgstr ""
-
-#: rero_ils/config.py:899
-msgid "language"
-msgstr ""
-
-#: rero_ils/config.py:900
-msgid "subject"
-msgstr ""
-
-#: rero_ils/config.py:901
-msgid "status"
-msgstr ""
-
-#: rero_ils/config.py:917
-msgid "roles"
-msgstr ""
-
-#: rero_ils/config.py:939
-msgid "budget"
-msgstr ""
-
-#: rero_ils/config.py:955
->>>>>>> acquisition: create library budget
 msgid "sources"
 msgstr ""
 
@@ -335,16 +263,14 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
-msgid "Acquisition account"
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
+msgid "Circulation policy"
 msgstr ""
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
-msgid "JSON schema for an acquisition account"
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:5
+msgid "JSON schema for circulation policies."
 msgstr ""
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:17
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:13
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:954
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:954
@@ -363,160 +289,6 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:18
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:15
 msgid "Schema"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:18
-msgid "Schema to validate account records against."
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:24
-msgid "Account ID"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:28
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1556
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1070
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1555
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1069
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:28
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:32
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:28
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:31
-msgid "Name"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:29
-msgid "Name of the Acquisition account."
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:34
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:34
-msgid "Description"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:35
-msgid "Description of the Acquisition account."
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:40
-#: rero_ils/modules/acq_accounts/jsonschemas/form_acq_accounts/acq_account-v0.0.1.json:19
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
-msgid "Budget"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
-msgid "The Acquisition account belongs to which budget."
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:45
-msgid "Budget URI"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:52
-msgid "Amount allocated"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:53
-msgid "The amount allocated for the Acquisition account."
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:57
-#: rero_ils/modules/acq_accounts/jsonschemas/form_acq_accounts/acq_account-v0.0.1.json:6
-#: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:46
-#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:50
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
-#: rero_ils/modules/locations/jsonschemas/form_locations/location-v0.0.1.json:6
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:55
-#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:108
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:98
-msgid "Library"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:61
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:59
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
-msgid "Library URI"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:68
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:46
-#: rero_ils/modules/budgets/jsonschemas/form_budgets/budget-v0.0.1.json:6
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:6
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:49
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:102
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
-#: rero_ils/modules/patron_types/jsonschemas/form_patron_types/patron_type-v0.0.1.json:6
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:38
-msgid "Organisation"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:72
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:50
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
-#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:53
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:106
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
-#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:42
-msgid "Organisation URI"
-msgstr ""
-
-#: rero_ils/modules/acq_accounts/jsonschemas/form_acq_accounts/acq_account-v0.0.1.json:35
-msgid "The acquisition account name is already taken"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:5
-msgid "JSON schema for budget."
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:14
-msgid "Schema to validate budget records against."
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:19
-msgid "Budget ID"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:24
-msgid "Budget name"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:25
-msgid "Name of the budget."
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:32
-msgid "Budget start date"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:37
-msgid "Budget end date"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:41
-msgid "ACTIVE"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:42
-msgid "True if budget is active"
-msgstr ""
-
-#: rero_ils/modules/budgets/jsonschemas/form_budgets/budget-v0.0.1.json:22
-msgid "The budget name is already taken"
-msgstr ""
-
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
-msgid "Circulation policy"
-msgstr ""
-
-#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:5
-msgid "JSON schema for circulation policies."
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:17
@@ -541,6 +313,27 @@ msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:35
 msgid "The description of the circulation policy."
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
+#: rero_ils/modules/item_types/jsonschemas/form_item_types/item_type-v0.0.1.json:6
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:49
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:102
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
+#: rero_ils/modules/patron_types/jsonschemas/form_patron_types/patron_type-v0.0.1.json:6
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:38
+msgid "Organisation"
+msgstr ""
+
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:53
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:106
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
+#: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:42
+msgid "Organisation URI"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:50
@@ -619,6 +412,12 @@ msgstr ""
 msgid "List of libraries"
 msgstr ""
 
+#: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:59
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
+msgid "Library URI"
+msgstr ""
+
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:130
 msgid "Patron + Item types links"
 msgstr ""
@@ -640,17 +439,12 @@ msgid "Item type URI"
 msgstr ""
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:197
-<<<<<<< HEAD
 #: rero_ils/modules/documents/views.py:360
-=======
-#: rero_ils/modules/documents/views.py:356
->>>>>>> acquisition: create library budget
 msgid "available"
 msgstr ""
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:197
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:199
-<<<<<<< HEAD
 #: rero_ils/modules/documents/views.py:362
 msgid "not available"
 msgstr ""
@@ -660,17 +454,6 @@ msgid "due until"
 msgstr ""
 
 #: rero_ils/modules/documents/views.py:371
-=======
-#: rero_ils/modules/documents/views.py:358
-msgid "not available"
-msgstr ""
-
-#: rero_ils/modules/documents/views.py:365 rero_ils/modules/items/views.py:138
-msgid "due until"
-msgstr ""
-
-#: rero_ils/modules/documents/views.py:367
->>>>>>> acquisition: create library budget
 msgid "requested"
 msgstr ""
 
@@ -898,7 +681,6 @@ msgstr ""
 msgid "Corresponding pid of the MEF record."
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1556
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1070
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1555
@@ -912,8 +694,6 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-=======
->>>>>>> acquisition: create library budget
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:1557
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1071
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1556
@@ -1268,17 +1048,10 @@ msgstr ""
 msgid "Acquisition terms of the resource."
 msgstr ""
 
-<<<<<<< HEAD
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2367
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1400
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2365
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1398
-=======
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json:2358
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1390
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:2356
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1388
->>>>>>> acquisition: create library budget
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:136
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:82
 msgid "Source"
@@ -3640,6 +3413,16 @@ msgstr ""
 msgid "Call number"
 msgstr ""
 
+#: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:46
+#: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:50
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
+#: rero_ils/modules/locations/jsonschemas/form_locations/location-v0.0.1.json:6
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:55
+#: rero_ils/modules/patrons/jsonschemas/form_patrons/patron-v0.0.1.json:108
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:98
+msgid "Library"
+msgstr ""
+
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:48
 msgid "Circulation category"
 msgstr ""
@@ -3704,6 +3487,10 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:29
 msgid "Name of the ItemType."
+msgstr ""
+
+#: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:34
+msgid "Description"
 msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:35
@@ -4050,26 +3837,18 @@ msgid "Code of the organisation."
 msgstr ""
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:46
-msgid "Current ID of the budget"
-msgstr ""
-
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:47
-msgid "The ID of the current budget of the organisation"
-msgstr ""
-
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:51
 msgid "Default currency"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:52
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:47
 msgid "The default currency of the organisation"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:52
 msgid "Online harvested source"
 msgstr ""
 
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:58
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:53
 msgid "Online harvested source as configured in ebooks server."
 msgstr ""
 
@@ -4343,7 +4122,6 @@ msgstr ""
 
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:48
 msgid "RERO authorities"
-<<<<<<< HEAD
 msgstr ""
 
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:52
@@ -4419,83 +4197,6 @@ msgstr ""
 msgid "Documents"
 msgstr ""
 
-=======
-msgstr ""
-
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:52
-msgid "GND authorities"
-msgstr ""
-
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:56
-msgid "BNF authorities"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:25
-#: rero_ils/webpack_assets/package.json:6
-msgid "RERO"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:44
-msgid "GND"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:63
-msgid "BNF"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:22
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:25
-msgid "Birth date"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:23
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:26
-msgid "Death date"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:24
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:27
-msgid "Language of person"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:25
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:28
-msgid "Gender"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:26
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:29
-msgid "Biographical information"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:29
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:32
-msgid "Variant name"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:30
-#: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:33
-msgid "Authorized access point"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:39
-msgid "All sources"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:41
-msgid "Unified"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:46
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:48
-msgid "By source"
-msgstr ""
-
-#: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:67
-msgid "Documents"
-msgstr ""
-
->>>>>>> acquisition: create library budget
 #: rero_ils/static/templates/rero_ils/count.html:22
 msgid "Found {{$count}} result."
 msgid_plural "Found {{$count}} results."
