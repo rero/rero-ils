@@ -15,7 +15,7 @@
       "country": "Italia"
     },
     "currency": "EUR",
-    "tva_rate": 22,
+    "vat_rate": 22,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
@@ -35,7 +35,7 @@
       "country": "Italia"
     },
     "currency": "EUR",
-    "tva_rate": 22,
+    "vat_rate": 22,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
@@ -53,7 +53,7 @@
       "country": "Italia"
     },
     "currency": "EUR",
-    "tva_rate": 22,
+    "vat_rate": 22,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
@@ -73,7 +73,7 @@
       "country": "UK"
     },
     "currency": "EUR",
-    "tva_rate": 20,
+    "vat_rate": 20,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     }
@@ -86,7 +86,7 @@
       "city": "Hogsmeade"
     },
     "currency": "CHF",
-    "tva_rate": 21.5,
+    "vat_rate": 21.5,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
     }

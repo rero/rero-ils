@@ -405,12 +405,12 @@
             }
           },
           "place": {
-            "title": "Countries and/or cantons of the provision activity",
+            "title": "Places",
             "type": "array",
             "minItems": 1,
             "items": {
               "type": "object",
-              "title": "Country and/or canton of the provision activity",
+              "title": "Place",
               "required": [
                 "country"
               ],
@@ -450,13 +450,13 @@
             }
           },
           "statement": {
-            "title": "Statement of place and/or agent and/or date of the provision activity",
+            "title": "Statements",
             "type": "array",
             "minItems": 1,
             "items": {
               "type": "object",
-              "title": "statement",
-              "description": "Statement of place and/or agent of the provision activity",
+              "title": "Statement",
+              "description": "Statement of place and agent of the provision activity.",
               "propertiesOrder": [
                 "type",
                 "label"
@@ -1384,1943 +1384,1943 @@
       "form": {
         "options": [
           {
-            "label": "aar",
+            "label": "lang_aar",
             "value": "aar"
           },
           {
-            "label": "abk",
+            "label": "lang_abk",
             "value": "abk"
           },
           {
-            "label": "ace",
+            "label": "lang_ace",
             "value": "ace"
           },
           {
-            "label": "ach",
+            "label": "lang_ach",
             "value": "ach"
           },
           {
-            "label": "ada",
+            "label": "lang_ada",
             "value": "ada"
           },
           {
-            "label": "ady",
+            "label": "lang_ady",
             "value": "ady"
           },
           {
-            "label": "afa",
+            "label": "lang_afa",
             "value": "afa"
           },
           {
-            "label": "afh",
+            "label": "lang_afh",
             "value": "afh"
           },
           {
-            "label": "afr",
+            "label": "lang_afr",
             "value": "afr"
           },
           {
-            "label": "ain",
+            "label": "lang_ain",
             "value": "ain"
           },
           {
-            "label": "aka",
+            "label": "lang_aka",
             "value": "aka"
           },
           {
-            "label": "akk",
+            "label": "lang_akk",
             "value": "akk"
           },
           {
-            "label": "alb",
+            "label": "lang_alb",
             "value": "alb"
           },
           {
-            "label": "ale",
+            "label": "lang_ale",
             "value": "ale"
           },
           {
-            "label": "alg",
+            "label": "lang_alg",
             "value": "alg"
           },
           {
-            "label": "alt",
+            "label": "lang_alt",
             "value": "alt"
           },
           {
-            "label": "amh",
+            "label": "lang_amh",
             "value": "amh"
           },
           {
-            "label": "ang",
+            "label": "lang_ang",
             "value": "ang"
           },
           {
-            "label": "anp",
+            "label": "lang_anp",
             "value": "anp"
           },
           {
-            "label": "apa",
+            "label": "lang_apa",
             "value": "apa"
           },
           {
-            "label": "ara",
+            "label": "lang_ara",
             "value": "ara"
           },
           {
-            "label": "arc",
+            "label": "lang_arc",
             "value": "arc"
           },
           {
-            "label": "arg",
+            "label": "lang_arg",
             "value": "arg"
           },
           {
-            "label": "arm",
+            "label": "lang_arm",
             "value": "arm"
           },
           {
-            "label": "arn",
+            "label": "lang_arn",
             "value": "arn"
           },
           {
-            "label": "arp",
+            "label": "lang_arp",
             "value": "arp"
           },
           {
-            "label": "art",
+            "label": "lang_art",
             "value": "art"
           },
           {
-            "label": "arw",
+            "label": "lang_arw",
             "value": "arw"
           },
           {
-            "label": "asm",
+            "label": "lang_asm",
             "value": "asm"
           },
           {
-            "label": "ast",
+            "label": "lang_ast",
             "value": "ast"
           },
           {
-            "label": "ath",
+            "label": "lang_ath",
             "value": "ath"
           },
           {
-            "label": "aus",
+            "label": "lang_aus",
             "value": "aus"
           },
           {
-            "label": "ava",
+            "label": "lang_ava",
             "value": "ava"
           },
           {
-            "label": "ave",
+            "label": "lang_ave",
             "value": "ave"
           },
           {
-            "label": "awa",
+            "label": "lang_awa",
             "value": "awa"
           },
           {
-            "label": "aym",
+            "label": "lang_aym",
             "value": "aym"
           },
           {
-            "label": "aze",
+            "label": "lang_aze",
             "value": "aze"
           },
           {
-            "label": "bad",
+            "label": "lang_bad",
             "value": "bad"
           },
           {
-            "label": "bai",
+            "label": "lang_bai",
             "value": "bai"
           },
           {
-            "label": "bak",
+            "label": "lang_bak",
             "value": "bak"
           },
           {
-            "label": "bal",
+            "label": "lang_bal",
             "value": "bal"
           },
           {
-            "label": "bam",
+            "label": "lang_bam",
             "value": "bam"
           },
           {
-            "label": "ban",
+            "label": "lang_ban",
             "value": "ban"
           },
           {
-            "label": "baq",
+            "label": "lang_baq",
             "value": "baq"
           },
           {
-            "label": "bas",
+            "label": "lang_bas",
             "value": "bas"
           },
           {
-            "label": "bat",
+            "label": "lang_bat",
             "value": "bat"
           },
           {
-            "label": "bej",
+            "label": "lang_bej",
             "value": "bej"
           },
           {
-            "label": "bel",
+            "label": "lang_bel",
             "value": "bel"
           },
           {
-            "label": "bem",
+            "label": "lang_bem",
             "value": "bem"
           },
           {
-            "label": "ben",
+            "label": "lang_ben",
             "value": "ben"
           },
           {
-            "label": "ber",
+            "label": "lang_ber",
             "value": "ber"
           },
           {
-            "label": "bho",
+            "label": "lang_bho",
             "value": "bho"
           },
           {
-            "label": "bih",
+            "label": "lang_bih",
             "value": "bih"
           },
           {
-            "label": "bik",
+            "label": "lang_bik",
             "value": "bik"
           },
           {
-            "label": "bin",
+            "label": "lang_bin",
             "value": "bin"
           },
           {
-            "label": "bis",
+            "label": "lang_bis",
             "value": "bis"
           },
           {
-            "label": "bla",
+            "label": "lang_bla",
             "value": "bla"
           },
           {
-            "label": "bnt",
+            "label": "lang_bnt",
             "value": "bnt"
           },
           {
-            "label": "bos",
+            "label": "lang_bos",
             "value": "bos"
           },
           {
-            "label": "bra",
+            "label": "lang_bra",
             "value": "bra"
           },
           {
-            "label": "bre",
+            "label": "lang_bre",
             "value": "bre"
           },
           {
-            "label": "btk",
+            "label": "lang_btk",
             "value": "btk"
           },
           {
-            "label": "bua",
+            "label": "lang_bua",
             "value": "bua"
           },
           {
-            "label": "bug",
+            "label": "lang_bug",
             "value": "bug"
           },
           {
-            "label": "bul",
+            "label": "lang_bul",
             "value": "bul"
           },
           {
-            "label": "bur",
+            "label": "lang_bur",
             "value": "bur"
           },
           {
-            "label": "byn",
+            "label": "lang_byn",
             "value": "byn"
           },
           {
-            "label": "cad",
+            "label": "lang_cad",
             "value": "cad"
           },
           {
-            "label": "cai",
+            "label": "lang_cai",
             "value": "cai"
           },
           {
-            "label": "car",
+            "label": "lang_car",
             "value": "car"
           },
           {
-            "label": "cat",
+            "label": "lang_cat",
             "value": "cat"
           },
           {
-            "label": "cau",
+            "label": "lang_cau",
             "value": "cau"
           },
           {
-            "label": "ceb",
+            "label": "lang_ceb",
             "value": "ceb"
           },
           {
-            "label": "cel",
+            "label": "lang_cel",
             "value": "cel"
           },
           {
-            "label": "cha",
+            "label": "lang_cha",
             "value": "cha"
           },
           {
-            "label": "chb",
+            "label": "lang_chb",
             "value": "chb"
           },
           {
-            "label": "che",
+            "label": "lang_che",
             "value": "che"
           },
           {
-            "label": "chg",
+            "label": "lang_chg",
             "value": "chg"
           },
           {
-            "label": "chi",
+            "label": "lang_chi",
             "value": "chi"
           },
           {
-            "label": "chk",
+            "label": "lang_chk",
             "value": "chk"
           },
           {
-            "label": "chm",
+            "label": "lang_chm",
             "value": "chm"
           },
           {
-            "label": "chn",
+            "label": "lang_chn",
             "value": "chn"
           },
           {
-            "label": "cho",
+            "label": "lang_cho",
             "value": "cho"
           },
           {
-            "label": "chp",
+            "label": "lang_chp",
             "value": "chp"
           },
           {
-            "label": "chr",
+            "label": "lang_chr",
             "value": "chr"
           },
           {
-            "label": "chu",
+            "label": "lang_chu",
             "value": "chu"
           },
           {
-            "label": "chv",
+            "label": "lang_chv",
             "value": "chv"
           },
           {
-            "label": "chy",
+            "label": "lang_chy",
             "value": "chy"
           },
           {
-            "label": "cmc",
+            "label": "lang_cmc",
             "value": "cmc"
           },
           {
-            "label": "cnr",
+            "label": "lang_cnr",
             "value": "cnr"
           },
           {
-            "label": "cop",
+            "label": "lang_cop",
             "value": "cop"
           },
           {
-            "label": "cor",
+            "label": "lang_cor",
             "value": "cor"
           },
           {
-            "label": "cos",
+            "label": "lang_cos",
             "value": "cos"
           },
           {
-            "label": "cpe",
+            "label": "lang_cpe",
             "value": "cpe"
           },
           {
-            "label": "cpf",
+            "label": "lang_cpf",
             "value": "cpf"
           },
           {
-            "label": "cpp",
+            "label": "lang_cpp",
             "value": "cpp"
           },
           {
-            "label": "cre",
+            "label": "lang_cre",
             "value": "cre"
           },
           {
-            "label": "crh",
+            "label": "lang_crh",
             "value": "crh"
           },
           {
-            "label": "crp",
+            "label": "lang_crp",
             "value": "crp"
           },
           {
-            "label": "csb",
+            "label": "lang_csb",
             "value": "csb"
           },
           {
-            "label": "cus",
+            "label": "lang_cus",
             "value": "cus"
           },
           {
-            "label": "cze",
+            "label": "lang_cze",
             "value": "cze"
           },
           {
-            "label": "dak",
+            "label": "lang_dak",
             "value": "dak"
           },
           {
-            "label": "dan",
+            "label": "lang_dan",
             "value": "dan"
           },
           {
-            "label": "dar",
+            "label": "lang_dar",
             "value": "dar"
           },
           {
-            "label": "day",
+            "label": "lang_day",
             "value": "day"
           },
           {
-            "label": "del",
+            "label": "lang_del",
             "value": "del"
           },
           {
-            "label": "den",
+            "label": "lang_den",
             "value": "den"
           },
           {
-            "label": "dgr",
+            "label": "lang_dgr",
             "value": "dgr"
           },
           {
-            "label": "din",
+            "label": "lang_din",
             "value": "din"
           },
           {
-            "label": "div",
+            "label": "lang_div",
             "value": "div"
           },
           {
-            "label": "doi",
+            "label": "lang_doi",
             "value": "doi"
           },
           {
-            "label": "dra",
+            "label": "lang_dra",
             "value": "dra"
           },
           {
-            "label": "dsb",
+            "label": "lang_dsb",
             "value": "dsb"
           },
           {
-            "label": "dua",
+            "label": "lang_dua",
             "value": "dua"
           },
           {
-            "label": "dum",
+            "label": "lang_dum",
             "value": "dum"
           },
           {
-            "label": "dut",
+            "label": "lang_dut",
             "value": "dut"
           },
           {
-            "label": "dyu",
+            "label": "lang_dyu",
             "value": "dyu"
           },
           {
-            "label": "dzo",
+            "label": "lang_dzo",
             "value": "dzo"
           },
           {
-            "label": "efi",
+            "label": "lang_efi",
             "value": "efi"
           },
           {
-            "label": "egy",
+            "label": "lang_egy",
             "value": "egy"
           },
           {
-            "label": "eka",
+            "label": "lang_eka",
             "value": "eka"
           },
           {
-            "label": "elx",
+            "label": "lang_elx",
             "value": "elx"
           },
           {
-            "label": "eng",
+            "label": "lang_eng",
             "value": "eng"
           },
           {
-            "label": "enm",
+            "label": "lang_enm",
             "value": "enm"
           },
           {
-            "label": "epo",
+            "label": "lang_epo",
             "value": "epo"
           },
           {
-            "label": "est",
+            "label": "lang_est",
             "value": "est"
           },
           {
-            "label": "ewe",
+            "label": "lang_ewe",
             "value": "ewe"
           },
           {
-            "label": "ewo",
+            "label": "lang_ewo",
             "value": "ewo"
           },
           {
-            "label": "fan",
+            "label": "lang_fan",
             "value": "fan"
           },
           {
-            "label": "fao",
+            "label": "lang_fao",
             "value": "fao"
           },
           {
-            "label": "fat",
+            "label": "lang_fat",
             "value": "fat"
           },
           {
-            "label": "fij",
+            "label": "lang_fij",
             "value": "fij"
           },
           {
-            "label": "fil",
+            "label": "lang_fil",
             "value": "fil"
           },
           {
-            "label": "fin",
+            "label": "lang_fin",
             "value": "fin"
           },
           {
-            "label": "fiu",
+            "label": "lang_fiu",
             "value": "fiu"
           },
           {
-            "label": "fon",
+            "label": "lang_fon",
             "value": "fon"
           },
           {
-            "label": "fre",
+            "label": "lang_fre",
             "value": "fre"
           },
           {
-            "label": "frm",
+            "label": "lang_frm",
             "value": "frm"
           },
           {
-            "label": "fro",
+            "label": "lang_fro",
             "value": "fro"
           },
           {
-            "label": "frr",
+            "label": "lang_frr",
             "value": "frr"
           },
           {
-            "label": "frs",
+            "label": "lang_frs",
             "value": "frs"
           },
           {
-            "label": "fry",
+            "label": "lang_fry",
             "value": "fry"
           },
           {
-            "label": "ful",
+            "label": "lang_ful",
             "value": "ful"
           },
           {
-            "label": "fur",
+            "label": "lang_fur",
             "value": "fur"
           },
           {
-            "label": "gaa",
+            "label": "lang_gaa",
             "value": "gaa"
           },
           {
-            "label": "gay",
+            "label": "lang_gay",
             "value": "gay"
           },
           {
-            "label": "gba",
+            "label": "lang_gba",
             "value": "gba"
           },
           {
-            "label": "gem",
+            "label": "lang_gem",
             "value": "gem"
           },
           {
-            "label": "geo",
+            "label": "lang_geo",
             "value": "geo"
           },
           {
-            "label": "ger",
+            "label": "lang_ger",
             "value": "ger"
           },
           {
-            "label": "gez",
+            "label": "lang_gez",
             "value": "gez"
           },
           {
-            "label": "gil",
+            "label": "lang_gil",
             "value": "gil"
           },
           {
-            "label": "gla",
+            "label": "lang_gla",
             "value": "gla"
           },
           {
-            "label": "gle",
+            "label": "lang_gle",
             "value": "gle"
           },
           {
-            "label": "glg",
+            "label": "lang_glg",
             "value": "glg"
           },
           {
-            "label": "glv",
+            "label": "lang_glv",
             "value": "glv"
           },
           {
-            "label": "gmh",
+            "label": "lang_gmh",
             "value": "gmh"
           },
           {
-            "label": "goh",
+            "label": "lang_goh",
             "value": "goh"
           },
           {
-            "label": "gon",
+            "label": "lang_gon",
             "value": "gon"
           },
           {
-            "label": "gor",
+            "label": "lang_gor",
             "value": "gor"
           },
           {
-            "label": "got",
+            "label": "lang_got",
             "value": "got"
           },
           {
-            "label": "grb",
+            "label": "lang_grb",
             "value": "grb"
           },
           {
-            "label": "grc",
+            "label": "lang_grc",
             "value": "grc"
           },
           {
-            "label": "gre",
+            "label": "lang_gre",
             "value": "gre"
           },
           {
-            "label": "grn",
+            "label": "lang_grn",
             "value": "grn"
           },
           {
-            "label": "gsw",
+            "label": "lang_gsw",
             "value": "gsw"
           },
           {
-            "label": "guj",
+            "label": "lang_guj",
             "value": "guj"
           },
           {
-            "label": "gwi",
+            "label": "lang_gwi",
             "value": "gwi"
           },
           {
-            "label": "hai",
+            "label": "lang_hai",
             "value": "hai"
           },
           {
-            "label": "hat",
+            "label": "lang_hat",
             "value": "hat"
           },
           {
-            "label": "hau",
+            "label": "lang_hau",
             "value": "hau"
           },
           {
-            "label": "haw",
+            "label": "lang_haw",
             "value": "haw"
           },
           {
-            "label": "heb",
+            "label": "lang_heb",
             "value": "heb"
           },
           {
-            "label": "her",
+            "label": "lang_her",
             "value": "her"
           },
           {
-            "label": "hil",
+            "label": "lang_hil",
             "value": "hil"
           },
           {
-            "label": "him",
+            "label": "lang_him",
             "value": "him"
           },
           {
-            "label": "hin",
+            "label": "lang_hin",
             "value": "hin"
           },
           {
-            "label": "hit",
+            "label": "lang_hit",
             "value": "hit"
           },
           {
-            "label": "hmn",
+            "label": "lang_hmn",
             "value": "hmn"
           },
           {
-            "label": "hmo",
+            "label": "lang_hmo",
             "value": "hmo"
           },
           {
-            "label": "hrv",
+            "label": "lang_hrv",
             "value": "hrv"
           },
           {
-            "label": "hsb",
+            "label": "lang_hsb",
             "value": "hsb"
           },
           {
-            "label": "hun",
+            "label": "lang_hun",
             "value": "hun"
           },
           {
-            "label": "hup",
+            "label": "lang_hup",
             "value": "hup"
           },
           {
-            "label": "iba",
+            "label": "lang_iba",
             "value": "iba"
           },
           {
-            "label": "ibo",
+            "label": "lang_ibo",
             "value": "ibo"
           },
           {
-            "label": "ice",
+            "label": "lang_ice",
             "value": "ice"
           },
           {
-            "label": "ido",
+            "label": "lang_ido",
             "value": "ido"
           },
           {
-            "label": "iii",
+            "label": "lang_iii",
             "value": "iii"
           },
           {
-            "label": "ijo",
+            "label": "lang_ijo",
             "value": "ijo"
           },
           {
-            "label": "iku",
+            "label": "lang_iku",
             "value": "iku"
           },
           {
-            "label": "ile",
+            "label": "lang_ile",
             "value": "ile"
           },
           {
-            "label": "ilo",
+            "label": "lang_ilo",
             "value": "ilo"
           },
           {
-            "label": "ina",
+            "label": "lang_ina",
             "value": "ina"
           },
           {
-            "label": "inc",
+            "label": "lang_inc",
             "value": "inc"
           },
           {
-            "label": "ind",
+            "label": "lang_ind",
             "value": "ind"
           },
           {
-            "label": "ine",
+            "label": "lang_ine",
             "value": "ine"
           },
           {
-            "label": "inh",
+            "label": "lang_inh",
             "value": "inh"
           },
           {
-            "label": "ipk",
+            "label": "lang_ipk",
             "value": "ipk"
           },
           {
-            "label": "ira",
+            "label": "lang_ira",
             "value": "ira"
           },
           {
-            "label": "iro",
+            "label": "lang_iro",
             "value": "iro"
           },
           {
-            "label": "ita",
+            "label": "lang_ita",
             "value": "ita"
           },
           {
-            "label": "jav",
+            "label": "lang_jav",
             "value": "jav"
           },
           {
-            "label": "jbo",
+            "label": "lang_jbo",
             "value": "jbo"
           },
           {
-            "label": "jpn",
+            "label": "lang_jpn",
             "value": "jpn"
           },
           {
-            "label": "jpr",
+            "label": "lang_jpr",
             "value": "jpr"
           },
           {
-            "label": "jrb",
+            "label": "lang_jrb",
             "value": "jrb"
           },
           {
-            "label": "kaa",
+            "label": "lang_kaa",
             "value": "kaa"
           },
           {
-            "label": "kab",
+            "label": "lang_kab",
             "value": "kab"
           },
           {
-            "label": "kac",
+            "label": "lang_kac",
             "value": "kac"
           },
           {
-            "label": "kal",
+            "label": "lang_kal",
             "value": "kal"
           },
           {
-            "label": "kam",
+            "label": "lang_kam",
             "value": "kam"
           },
           {
-            "label": "kan",
+            "label": "lang_kan",
             "value": "kan"
           },
           {
-            "label": "kar",
+            "label": "lang_kar",
             "value": "kar"
           },
           {
-            "label": "kas",
+            "label": "lang_kas",
             "value": "kas"
           },
           {
-            "label": "kau",
+            "label": "lang_kau",
             "value": "kau"
           },
           {
-            "label": "kaw",
+            "label": "lang_kaw",
             "value": "kaw"
           },
           {
-            "label": "kaz",
+            "label": "lang_kaz",
             "value": "kaz"
           },
           {
-            "label": "kbd",
+            "label": "lang_kbd",
             "value": "kbd"
           },
           {
-            "label": "kha",
+            "label": "lang_kha",
             "value": "kha"
           },
           {
-            "label": "khi",
+            "label": "lang_khi",
             "value": "khi"
           },
           {
-            "label": "khm",
+            "label": "lang_khm",
             "value": "khm"
           },
           {
-            "label": "kho",
+            "label": "lang_kho",
             "value": "kho"
           },
           {
-            "label": "kik",
+            "label": "lang_kik",
             "value": "kik"
           },
           {
-            "label": "kin",
+            "label": "lang_kin",
             "value": "kin"
           },
           {
-            "label": "kir",
+            "label": "lang_kir",
             "value": "kir"
           },
           {
-            "label": "kmb",
+            "label": "lang_kmb",
             "value": "kmb"
           },
           {
-            "label": "kok",
+            "label": "lang_kok",
             "value": "kok"
           },
           {
-            "label": "kom",
+            "label": "lang_kom",
             "value": "kom"
           },
           {
-            "label": "kon",
+            "label": "lang_kon",
             "value": "kon"
           },
           {
-            "label": "kor",
+            "label": "lang_kor",
             "value": "kor"
           },
           {
-            "label": "kos",
+            "label": "lang_kos",
             "value": "kos"
           },
           {
-            "label": "kpe",
+            "label": "lang_kpe",
             "value": "kpe"
           },
           {
-            "label": "krc",
+            "label": "lang_krc",
             "value": "krc"
           },
           {
-            "label": "krl",
+            "label": "lang_krl",
             "value": "krl"
           },
           {
-            "label": "kro",
+            "label": "lang_kro",
             "value": "kro"
           },
           {
-            "label": "kru",
+            "label": "lang_kru",
             "value": "kru"
           },
           {
-            "label": "kua",
+            "label": "lang_kua",
             "value": "kua"
           },
           {
-            "label": "kum",
+            "label": "lang_kum",
             "value": "kum"
           },
           {
-            "label": "kur",
+            "label": "lang_kur",
             "value": "kur"
           },
           {
-            "label": "kut",
+            "label": "lang_kut",
             "value": "kut"
           },
           {
-            "label": "lad",
+            "label": "lang_lad",
             "value": "lad"
           },
           {
-            "label": "lah",
+            "label": "lang_lah",
             "value": "lah"
           },
           {
-            "label": "lam",
+            "label": "lang_lam",
             "value": "lam"
           },
           {
-            "label": "lao",
+            "label": "lang_lao",
             "value": "lao"
           },
           {
-            "label": "lat",
+            "label": "lang_lat",
             "value": "lat"
           },
           {
-            "label": "lav",
+            "label": "lang_lav",
             "value": "lav"
           },
           {
-            "label": "lez",
+            "label": "lang_lez",
             "value": "lez"
           },
           {
-            "label": "lim",
+            "label": "lang_lim",
             "value": "lim"
           },
           {
-            "label": "lin",
+            "label": "lang_lin",
             "value": "lin"
           },
           {
-            "label": "lit",
+            "label": "lang_lit",
             "value": "lit"
           },
           {
-            "label": "lol",
+            "label": "lang_lol",
             "value": "lol"
           },
           {
-            "label": "loz",
+            "label": "lang_loz",
             "value": "loz"
           },
           {
-            "label": "ltz",
+            "label": "lang_ltz",
             "value": "ltz"
           },
           {
-            "label": "lua",
+            "label": "lang_lua",
             "value": "lua"
           },
           {
-            "label": "lub",
+            "label": "lang_lub",
             "value": "lub"
           },
           {
-            "label": "lug",
+            "label": "lang_lug",
             "value": "lug"
           },
           {
-            "label": "lui",
+            "label": "lang_lui",
             "value": "lui"
           },
           {
-            "label": "lun",
+            "label": "lang_lun",
             "value": "lun"
           },
           {
-            "label": "luo",
+            "label": "lang_luo",
             "value": "luo"
           },
           {
-            "label": "lus",
+            "label": "lang_lus",
             "value": "lus"
           },
           {
-            "label": "mac",
+            "label": "lang_mac",
             "value": "mac"
           },
           {
-            "label": "mad",
+            "label": "lang_mad",
             "value": "mad"
           },
           {
-            "label": "mag",
+            "label": "lang_mag",
             "value": "mag"
           },
           {
-            "label": "mah",
+            "label": "lang_mah",
             "value": "mah"
           },
           {
-            "label": "mai",
+            "label": "lang_mai",
             "value": "mai"
           },
           {
-            "label": "mak",
+            "label": "lang_mak",
             "value": "mak"
           },
           {
-            "label": "mal",
+            "label": "lang_mal",
             "value": "mal"
           },
           {
-            "label": "man",
+            "label": "lang_man",
             "value": "man"
           },
           {
-            "label": "mao",
+            "label": "lang_mao",
             "value": "mao"
           },
           {
-            "label": "map",
+            "label": "lang_map",
             "value": "map"
           },
           {
-            "label": "mar",
+            "label": "lang_mar",
             "value": "mar"
           },
           {
-            "label": "mas",
+            "label": "lang_mas",
             "value": "mas"
           },
           {
-            "label": "may",
+            "label": "lang_may",
             "value": "may"
           },
           {
-            "label": "mdf",
+            "label": "lang_mdf",
             "value": "mdf"
           },
           {
-            "label": "mdr",
+            "label": "lang_mdr",
             "value": "mdr"
           },
           {
-            "label": "men",
+            "label": "lang_men",
             "value": "men"
           },
           {
-            "label": "mga",
+            "label": "lang_mga",
             "value": "mga"
           },
           {
-            "label": "mic",
+            "label": "lang_mic",
             "value": "mic"
           },
           {
-            "label": "min",
+            "label": "lang_min",
             "value": "min"
           },
           {
-            "label": "mis",
+            "label": "lang_mis",
             "value": "mis"
           },
           {
-            "label": "mkh",
+            "label": "lang_mkh",
             "value": "mkh"
           },
           {
-            "label": "mlg",
+            "label": "lang_mlg",
             "value": "mlg"
           },
           {
-            "label": "mlt",
+            "label": "lang_mlt",
             "value": "mlt"
           },
           {
-            "label": "mnc",
+            "label": "lang_mnc",
             "value": "mnc"
           },
           {
-            "label": "mni",
+            "label": "lang_mni",
             "value": "mni"
           },
           {
-            "label": "mno",
+            "label": "lang_mno",
             "value": "mno"
           },
           {
-            "label": "moh",
+            "label": "lang_moh",
             "value": "moh"
           },
           {
-            "label": "mon",
+            "label": "lang_mon",
             "value": "mon"
           },
           {
-            "label": "mos",
+            "label": "lang_mos",
             "value": "mos"
           },
           {
-            "label": "mul",
+            "label": "lang_mul",
             "value": "mul"
           },
           {
-            "label": "mun",
+            "label": "lang_mun",
             "value": "mun"
           },
           {
-            "label": "mus",
+            "label": "lang_mus",
             "value": "mus"
           },
           {
-            "label": "mwl",
+            "label": "lang_mwl",
             "value": "mwl"
           },
           {
-            "label": "mwr",
+            "label": "lang_mwr",
             "value": "mwr"
           },
           {
-            "label": "myn",
+            "label": "lang_myn",
             "value": "myn"
           },
           {
-            "label": "myv",
+            "label": "lang_myv",
             "value": "myv"
           },
           {
-            "label": "nah",
+            "label": "lang_nah",
             "value": "nah"
           },
           {
-            "label": "nai",
+            "label": "lang_nai",
             "value": "nai"
           },
           {
-            "label": "nap",
+            "label": "lang_nap",
             "value": "nap"
           },
           {
-            "label": "nau",
+            "label": "lang_nau",
             "value": "nau"
           },
           {
-            "label": "nav",
+            "label": "lang_nav",
             "value": "nav"
           },
           {
-            "label": "nbl",
+            "label": "lang_nbl",
             "value": "nbl"
           },
           {
-            "label": "nde",
+            "label": "lang_nde",
             "value": "nde"
           },
           {
-            "label": "ndo",
+            "label": "lang_ndo",
             "value": "ndo"
           },
           {
-            "label": "nds",
+            "label": "lang_nds",
             "value": "nds"
           },
           {
-            "label": "nep",
+            "label": "lang_nep",
             "value": "nep"
           },
           {
-            "label": "new",
+            "label": "lang_new",
             "value": "new"
           },
           {
-            "label": "nia",
+            "label": "lang_nia",
             "value": "nia"
           },
           {
-            "label": "nic",
+            "label": "lang_nic",
             "value": "nic"
           },
           {
-            "label": "niu",
+            "label": "lang_niu",
             "value": "niu"
           },
           {
-            "label": "nno",
+            "label": "lang_nno",
             "value": "nno"
           },
           {
-            "label": "nob",
+            "label": "lang_nob",
             "value": "nob"
           },
           {
-            "label": "nog",
+            "label": "lang_nog",
             "value": "nog"
           },
           {
-            "label": "non",
+            "label": "lang_non",
             "value": "non"
           },
           {
-            "label": "nor",
+            "label": "lang_nor",
             "value": "nor"
           },
           {
-            "label": "nqo",
+            "label": "lang_nqo",
             "value": "nqo"
           },
           {
-            "label": "nso",
+            "label": "lang_nso",
             "value": "nso"
           },
           {
-            "label": "nub",
+            "label": "lang_nub",
             "value": "nub"
           },
           {
-            "label": "nwc",
+            "label": "lang_nwc",
             "value": "nwc"
           },
           {
-            "label": "nya",
+            "label": "lang_nya",
             "value": "nya"
           },
           {
-            "label": "nym",
+            "label": "lang_nym",
             "value": "nym"
           },
           {
-            "label": "nyn",
+            "label": "lang_nyn",
             "value": "nyn"
           },
           {
-            "label": "nyo",
+            "label": "lang_nyo",
             "value": "nyo"
           },
           {
-            "label": "nzi",
+            "label": "lang_nzi",
             "value": "nzi"
           },
           {
-            "label": "oci",
+            "label": "lang_oci",
             "value": "oci"
           },
           {
-            "label": "oji",
+            "label": "lang_oji",
             "value": "oji"
           },
           {
-            "label": "ori",
+            "label": "lang_ori",
             "value": "ori"
           },
           {
-            "label": "orm",
+            "label": "lang_orm",
             "value": "orm"
           },
           {
-            "label": "osa",
+            "label": "lang_osa",
             "value": "osa"
           },
           {
-            "label": "oss",
+            "label": "lang_oss",
             "value": "oss"
           },
           {
-            "label": "ota",
+            "label": "lang_ota",
             "value": "ota"
           },
           {
-            "label": "oto",
+            "label": "lang_oto",
             "value": "oto"
           },
           {
-            "label": "paa",
+            "label": "lang_paa",
             "value": "paa"
           },
           {
-            "label": "pag",
+            "label": "lang_pag",
             "value": "pag"
           },
           {
-            "label": "pal",
+            "label": "lang_pal",
             "value": "pal"
           },
           {
-            "label": "pam",
+            "label": "lang_pam",
             "value": "pam"
           },
           {
-            "label": "pan",
+            "label": "lang_pan",
             "value": "pan"
           },
           {
-            "label": "pap",
+            "label": "lang_pap",
             "value": "pap"
           },
           {
-            "label": "pau",
+            "label": "lang_pau",
             "value": "pau"
           },
           {
-            "label": "peo",
+            "label": "lang_peo",
             "value": "peo"
           },
           {
-            "label": "per",
+            "label": "lang_per",
             "value": "per"
           },
           {
-            "label": "phi",
+            "label": "lang_phi",
             "value": "phi"
           },
           {
-            "label": "phn",
+            "label": "lang_phn",
             "value": "phn"
           },
           {
-            "label": "pli",
+            "label": "lang_pli",
             "value": "pli"
           },
           {
-            "label": "pol",
+            "label": "lang_pol",
             "value": "pol"
           },
           {
-            "label": "pon",
+            "label": "lang_pon",
             "value": "pon"
           },
           {
-            "label": "por",
+            "label": "lang_por",
             "value": "por"
           },
           {
-            "label": "pra",
+            "label": "lang_pra",
             "value": "pra"
           },
           {
-            "label": "pro",
+            "label": "lang_pro",
             "value": "pro"
           },
           {
-            "label": "pus",
+            "label": "lang_pus",
             "value": "pus"
           },
           {
-            "label": "que",
+            "label": "lang_que",
             "value": "que"
           },
           {
-            "label": "raj",
+            "label": "lang_raj",
             "value": "raj"
           },
           {
-            "label": "rap",
+            "label": "lang_rap",
             "value": "rap"
           },
           {
-            "label": "rar",
+            "label": "lang_rar",
             "value": "rar"
           },
           {
-            "label": "roa",
+            "label": "lang_roa",
             "value": "roa"
           },
           {
-            "label": "roh",
+            "label": "lang_roh",
             "value": "roh"
           },
           {
-            "label": "rom",
+            "label": "lang_rom",
             "value": "rom"
           },
           {
-            "label": "rum",
+            "label": "lang_rum",
             "value": "rum"
           },
           {
-            "label": "run",
+            "label": "lang_run",
             "value": "run"
           },
           {
-            "label": "rup",
+            "label": "lang_rup",
             "value": "rup"
           },
           {
-            "label": "rus",
+            "label": "lang_rus",
             "value": "rus"
           },
           {
-            "label": "sad",
+            "label": "lang_sad",
             "value": "sad"
           },
           {
-            "label": "sag",
+            "label": "lang_sag",
             "value": "sag"
           },
           {
-            "label": "sah",
+            "label": "lang_sah",
             "value": "sah"
           },
           {
-            "label": "sai",
+            "label": "lang_sai",
             "value": "sai"
           },
           {
-            "label": "sal",
+            "label": "lang_sal",
             "value": "sal"
           },
           {
-            "label": "sam",
+            "label": "lang_sam",
             "value": "sam"
           },
           {
-            "label": "san",
+            "label": "lang_san",
             "value": "san"
           },
           {
-            "label": "sas",
+            "label": "lang_sas",
             "value": "sas"
           },
           {
-            "label": "sat",
+            "label": "lang_sat",
             "value": "sat"
           },
           {
-            "label": "scn",
+            "label": "lang_scn",
             "value": "scn"
           },
           {
-            "label": "sco",
+            "label": "lang_sco",
             "value": "sco"
           },
           {
-            "label": "sel",
+            "label": "lang_sel",
             "value": "sel"
           },
           {
-            "label": "sem",
+            "label": "lang_sem",
             "value": "sem"
           },
           {
-            "label": "sga",
+            "label": "lang_sga",
             "value": "sga"
           },
           {
-            "label": "sgn",
+            "label": "lang_sgn",
             "value": "sgn"
           },
           {
-            "label": "shn",
+            "label": "lang_shn",
             "value": "shn"
           },
           {
-            "label": "sid",
+            "label": "lang_sid",
             "value": "sid"
           },
           {
-            "label": "sin",
+            "label": "lang_sin",
             "value": "sin"
           },
           {
-            "label": "sio",
+            "label": "lang_sio",
             "value": "sio"
           },
           {
-            "label": "sit",
+            "label": "lang_sit",
             "value": "sit"
           },
           {
-            "label": "sla",
+            "label": "lang_sla",
             "value": "sla"
           },
           {
-            "label": "slo",
+            "label": "lang_slo",
             "value": "slo"
           },
           {
-            "label": "slv",
+            "label": "lang_slv",
             "value": "slv"
           },
           {
-            "label": "sma",
+            "label": "lang_sma",
             "value": "sma"
           },
           {
-            "label": "sme",
+            "label": "lang_sme",
             "value": "sme"
           },
           {
-            "label": "smi",
+            "label": "lang_smi",
             "value": "smi"
           },
           {
-            "label": "smj",
+            "label": "lang_smj",
             "value": "smj"
           },
           {
-            "label": "smn",
+            "label": "lang_smn",
             "value": "smn"
           },
           {
-            "label": "smo",
+            "label": "lang_smo",
             "value": "smo"
           },
           {
-            "label": "sms",
+            "label": "lang_sms",
             "value": "sms"
           },
           {
-            "label": "sna",
+            "label": "lang_sna",
             "value": "sna"
           },
           {
-            "label": "snd",
+            "label": "lang_snd",
             "value": "snd"
           },
           {
-            "label": "snk",
+            "label": "lang_snk",
             "value": "snk"
           },
           {
-            "label": "sog",
+            "label": "lang_sog",
             "value": "sog"
           },
           {
-            "label": "som",
+            "label": "lang_som",
             "value": "som"
           },
           {
-            "label": "son",
+            "label": "lang_son",
             "value": "son"
           },
           {
-            "label": "sot",
+            "label": "lang_sot",
             "value": "sot"
           },
           {
-            "label": "spa",
+            "label": "lang_spa",
             "value": "spa"
           },
           {
-            "label": "srd",
+            "label": "lang_srd",
             "value": "srd"
           },
           {
-            "label": "srn",
+            "label": "lang_srn",
             "value": "srn"
           },
           {
-            "label": "srp",
+            "label": "lang_srp",
             "value": "srp"
           },
           {
-            "label": "srr",
+            "label": "lang_srr",
             "value": "srr"
           },
           {
-            "label": "ssa",
+            "label": "lang_ssa",
             "value": "ssa"
           },
           {
-            "label": "ssw",
+            "label": "lang_ssw",
             "value": "ssw"
           },
           {
-            "label": "suk",
+            "label": "lang_suk",
             "value": "suk"
           },
           {
-            "label": "sun",
+            "label": "lang_sun",
             "value": "sun"
           },
           {
-            "label": "sus",
+            "label": "lang_sus",
             "value": "sus"
           },
           {
-            "label": "sux",
+            "label": "lang_sux",
             "value": "sux"
           },
           {
-            "label": "swa",
+            "label": "lang_swa",
             "value": "swa"
           },
           {
-            "label": "swe",
+            "label": "lang_swe",
             "value": "swe"
           },
           {
-            "label": "syc",
+            "label": "lang_syc",
             "value": "syc"
           },
           {
-            "label": "syr",
+            "label": "lang_syr",
             "value": "syr"
           },
           {
-            "label": "tah",
+            "label": "lang_tah",
             "value": "tah"
           },
           {
-            "label": "tai",
+            "label": "lang_tai",
             "value": "tai"
           },
           {
-            "label": "tam",
+            "label": "lang_tam",
             "value": "tam"
           },
           {
-            "label": "tat",
+            "label": "lang_tat",
             "value": "tat"
           },
           {
-            "label": "tel",
+            "label": "lang_tel",
             "value": "tel"
           },
           {
-            "label": "tem",
+            "label": "lang_tem",
             "value": "tem"
           },
           {
-            "label": "ter",
+            "label": "lang_ter",
             "value": "ter"
           },
           {
-            "label": "tet",
+            "label": "lang_tet",
             "value": "tet"
           },
           {
-            "label": "tgk",
+            "label": "lang_tgk",
             "value": "tgk"
           },
           {
-            "label": "tgl",
+            "label": "lang_tgl",
             "value": "tgl"
           },
           {
-            "label": "tha",
+            "label": "lang_tha",
             "value": "tha"
           },
           {
-            "label": "tib",
+            "label": "lang_tib",
             "value": "tib"
           },
           {
-            "label": "tig",
+            "label": "lang_tig",
             "value": "tig"
           },
           {
-            "label": "tir",
+            "label": "lang_tir",
             "value": "tir"
           },
           {
-            "label": "tiv",
+            "label": "lang_tiv",
             "value": "tiv"
           },
           {
-            "label": "tkl",
+            "label": "lang_tkl",
             "value": "tkl"
           },
           {
-            "label": "tlh",
+            "label": "lang_tlh",
             "value": "tlh"
           },
           {
-            "label": "tli",
+            "label": "lang_tli",
             "value": "tli"
           },
           {
-            "label": "tmh",
+            "label": "lang_tmh",
             "value": "tmh"
           },
           {
-            "label": "tog",
+            "label": "lang_tog",
             "value": "tog"
           },
           {
-            "label": "ton",
+            "label": "lang_ton",
             "value": "ton"
           },
           {
-            "label": "tpi",
+            "label": "lang_tpi",
             "value": "tpi"
           },
           {
-            "label": "tsi",
+            "label": "lang_tsi",
             "value": "tsi"
           },
           {
-            "label": "tsn",
+            "label": "lang_tsn",
             "value": "tsn"
           },
           {
-            "label": "tso",
+            "label": "lang_tso",
             "value": "tso"
           },
           {
-            "label": "tuk",
+            "label": "lang_tuk",
             "value": "tuk"
           },
           {
-            "label": "tum",
+            "label": "lang_tum",
             "value": "tum"
           },
           {
-            "label": "tup",
+            "label": "lang_tup",
             "value": "tup"
           },
           {
-            "label": "tur",
+            "label": "lang_tur",
             "value": "tur"
           },
           {
-            "label": "tut",
+            "label": "lang_tut",
             "value": "tut"
           },
           {
-            "label": "tvl",
+            "label": "lang_tvl",
             "value": "tvl"
           },
           {
-            "label": "twi",
+            "label": "lang_twi",
             "value": "twi"
           },
           {
-            "label": "tyv",
+            "label": "lang_tyv",
             "value": "tyv"
           },
           {
-            "label": "udm",
+            "label": "lang_udm",
             "value": "udm"
           },
           {
-            "label": "uga",
+            "label": "lang_uga",
             "value": "uga"
           },
           {
-            "label": "uig",
+            "label": "lang_uig",
             "value": "uig"
           },
           {
-            "label": "ukr",
+            "label": "lang_ukr",
             "value": "ukr"
           },
           {
-            "label": "umb",
+            "label": "lang_umb",
             "value": "umb"
           },
           {
-            "label": "und",
+            "label": "lang_und",
             "value": "und"
           },
           {
-            "label": "urd",
+            "label": "lang_urd",
             "value": "urd"
           },
           {
-            "label": "uzb",
+            "label": "lang_uzb",
             "value": "uzb"
           },
           {
-            "label": "vai",
+            "label": "lang_vai",
             "value": "vai"
           },
           {
-            "label": "ven",
+            "label": "lang_ven",
             "value": "ven"
           },
           {
-            "label": "vie",
+            "label": "lang_vie",
             "value": "vie"
           },
           {
-            "label": "vol",
+            "label": "lang_vol",
             "value": "vol"
           },
           {
-            "label": "vot",
+            "label": "lang_vot",
             "value": "vot"
           },
           {
-            "label": "wak",
+            "label": "lang_wak",
             "value": "wak"
           },
           {
-            "label": "wal",
+            "label": "lang_wal",
             "value": "wal"
           },
           {
-            "label": "war",
+            "label": "lang_war",
             "value": "war"
           },
           {
-            "label": "was",
+            "label": "lang_was",
             "value": "was"
           },
           {
-            "label": "wel",
+            "label": "lang_wel",
             "value": "wel"
           },
           {
-            "label": "wen",
+            "label": "lang_wen",
             "value": "wen"
           },
           {
-            "label": "wln",
+            "label": "lang_wln",
             "value": "wln"
           },
           {
-            "label": "wol",
+            "label": "lang_wol",
             "value": "wol"
           },
           {
-            "label": "xal",
+            "label": "lang_xal",
             "value": "xal"
           },
           {
-            "label": "xho",
+            "label": "lang_xho",
             "value": "xho"
           },
           {
-            "label": "yao",
+            "label": "lang_yao",
             "value": "yao"
           },
           {
-            "label": "yap",
+            "label": "lang_yap",
             "value": "yap"
           },
           {
-            "label": "yid",
+            "label": "lang_yid",
             "value": "yid"
           },
           {
-            "label": "yor",
+            "label": "lang_yor",
             "value": "yor"
           },
           {
-            "label": "ypk",
+            "label": "lang_ypk",
             "value": "ypk"
           },
           {
-            "label": "zap",
+            "label": "lang_zap",
             "value": "zap"
           },
           {
-            "label": "zbl",
+            "label": "lang_zbl",
             "value": "zbl"
           },
           {
-            "label": "zen",
+            "label": "lang_zen",
             "value": "zen"
           },
           {
-            "label": "zha",
+            "label": "lang_zha",
             "value": "zha"
           },
           {
-            "label": "znd",
+            "label": "lang_znd",
             "value": "znd"
           },
           {
-            "label": "zul",
+            "label": "lang_zul",
             "value": "zul"
           },
           {
-            "label": "zun",
+            "label": "lang_zun",
             "value": "zun"
           },
           {
-            "label": "zxx",
+            "label": "lang_zxx",
             "value": "zxx"
           },
           {
-            "label": "zza",
+            "label": "lang_zza",
             "value": "zza"
           }
         ]
@@ -3372,116 +3372,7 @@
             "und-jpan",
             "und-kore",
             "und-zyyy"
-          ],
-          "form": {
-            "hide": true,
-            "options": [
-              {
-                "label": "ara-arab",
-                "value": "ara-arab"
-              },
-              {
-                "label": "bel-cyrl",
-                "value": "bel-cyrl"
-              },
-              {
-                "label": "chi-hani",
-                "value": "chi-hani"
-              },
-              {
-                "label": "chi-zyyy",
-                "value": "chi-zyyy"
-              },
-              {
-                "label": "chu-cyrl",
-                "value": "chu-cyrl"
-              },
-              {
-                "label": "grc-grek",
-                "value": "grc-grek"
-              },
-              {
-                "label": "gre-grek",
-                "value": "gre-grek"
-              },
-              {
-                "label": "heb-hebr",
-                "value": "heb-hebr"
-              },
-              {
-                "label": "jpn-hani",
-                "value": "jpn-hani"
-              },
-              {
-                "label": "jpn-jpan",
-                "value": "jpn-jpan"
-              },
-              {
-                "label": "kor-kore",
-                "value": "kor-kore"
-              },
-              {
-                "label": "lad-hebr",
-                "value": "lad-hebr"
-              },
-              {
-                "label": "mac-cyrl",
-                "value": "mac-cyrl"
-              },
-              {
-                "label": "per-arab",
-                "value": "per-arab"
-              },
-              {
-                "label": "rus-cyrl",
-                "value": "rus-cyrl"
-              },
-              {
-                "label": "srp-cyrl",
-                "value": "srp-cyrl"
-              },
-              {
-                "label": "ukr-cyrl",
-                "value": "ukr-cyrl"
-              },
-              {
-                "label": "yid-hebr",
-                "value": "yid-hebr"
-              },
-              {
-                "label": "und-arab",
-                "value": "und-arab"
-              },
-              {
-                "label": "und-cyrl",
-                "value": "und-cyrl"
-              },
-              {
-                "label": "und-grek",
-                "value": "und-grek"
-              },
-              {
-                "label": "und-hani",
-                "value": "und-hani"
-              },
-              {
-                "label": "und-hebr",
-                "value": "und-hebr"
-              },
-              {
-                "label": "und-jpan",
-                "value": "und-jpan"
-              },
-              {
-                "label": "und-kore",
-                "value": "und-kore"
-              },
-              {
-                "label": "und-zyyy",
-                "value": "und-zyyy"
-              }
-            ]
-          }
+          ]
         }
       }
     },
@@ -3875,1531 +3766,1531 @@
       "form": {
         "options": [
           {
-            "label": "aa",
+            "label": "country_aa",
             "value": "aa"
           },
           {
-            "label": "abc",
+            "label": "country_abc",
             "value": "abc"
           },
           {
-            "label": "ac",
+            "label": "country_ac",
             "value": "ac"
           },
           {
-            "label": "aca",
+            "label": "country_aca",
             "value": "aca"
           },
           {
-            "label": "ae",
+            "label": "country_ae",
             "value": "ae"
           },
           {
-            "label": "af",
+            "label": "country_af",
             "value": "af"
           },
           {
-            "label": "ag",
+            "label": "country_ag",
             "value": "ag"
           },
           {
-            "label": "ai",
+            "label": "country_ai",
             "value": "ai"
           },
           {
-            "label": "air",
+            "label": "country_air",
             "value": "air"
           },
           {
-            "label": "aj",
+            "label": "country_aj",
             "value": "aj"
           },
           {
-            "label": "ajr",
+            "label": "country_ajr",
             "value": "ajr"
           },
           {
-            "label": "aku",
+            "label": "country_aku",
             "value": "aku"
           },
           {
-            "label": "alu",
+            "label": "country_alu",
             "value": "alu"
           },
           {
-            "label": "am",
+            "label": "country_am",
             "value": "am"
           },
           {
-            "label": "an",
+            "label": "country_an",
             "value": "an"
           },
           {
-            "label": "ao",
+            "label": "country_ao",
             "value": "ao"
           },
           {
-            "label": "aq",
+            "label": "country_aq",
             "value": "aq"
           },
           {
-            "label": "aru",
+            "label": "country_aru",
             "value": "aru"
           },
           {
-            "label": "as",
+            "label": "country_as",
             "value": "as"
           },
           {
-            "label": "at",
+            "label": "country_at",
             "value": "at"
           },
           {
-            "label": "au",
+            "label": "country_au",
             "value": "au"
           },
           {
-            "label": "aw",
+            "label": "country_aw",
             "value": "aw"
           },
           {
-            "label": "ay",
+            "label": "country_ay",
             "value": "ay"
           },
           {
-            "label": "azu",
+            "label": "country_azu",
             "value": "azu"
           },
           {
-            "label": "ba",
+            "label": "country_ba",
             "value": "ba"
           },
           {
-            "label": "bb",
+            "label": "country_bb",
             "value": "bb"
           },
           {
-            "label": "bcc",
+            "label": "country_bcc",
             "value": "bcc"
           },
           {
-            "label": "bd",
+            "label": "country_bd",
             "value": "bd"
           },
           {
-            "label": "be",
+            "label": "country_be",
             "value": "be"
           },
           {
-            "label": "bf",
+            "label": "country_bf",
             "value": "bf"
           },
           {
-            "label": "bg",
+            "label": "country_bg",
             "value": "bg"
           },
           {
-            "label": "bh",
+            "label": "country_bh",
             "value": "bh"
           },
           {
-            "label": "bi",
+            "label": "country_bi",
             "value": "bi"
           },
           {
-            "label": "bl",
+            "label": "country_bl",
             "value": "bl"
           },
           {
-            "label": "bm",
+            "label": "country_bm",
             "value": "bm"
           },
           {
-            "label": "bn",
+            "label": "country_bn",
             "value": "bn"
           },
           {
-            "label": "bo",
+            "label": "country_bo",
             "value": "bo"
           },
           {
-            "label": "bp",
+            "label": "country_bp",
             "value": "bp"
           },
           {
-            "label": "br",
+            "label": "country_br",
             "value": "br"
           },
           {
-            "label": "bs",
+            "label": "country_bs",
             "value": "bs"
           },
           {
-            "label": "bt",
+            "label": "country_bt",
             "value": "bt"
           },
           {
-            "label": "bu",
+            "label": "country_bu",
             "value": "bu"
           },
           {
-            "label": "bv",
+            "label": "country_bv",
             "value": "bv"
           },
           {
-            "label": "bw",
+            "label": "country_bw",
             "value": "bw"
           },
           {
-            "label": "bwr",
+            "label": "country_bwr",
             "value": "bwr"
           },
           {
-            "label": "bx",
+            "label": "country_bx",
             "value": "bx"
           },
           {
-            "label": "ca",
+            "label": "country_ca",
             "value": "ca"
           },
           {
-            "label": "cau",
+            "label": "country_cau",
             "value": "cau"
           },
           {
-            "label": "cb",
+            "label": "country_cb",
             "value": "cb"
           },
           {
-            "label": "cc",
+            "label": "country_cc",
             "value": "cc"
           },
           {
-            "label": "cd",
+            "label": "country_cd",
             "value": "cd"
           },
           {
-            "label": "ce",
+            "label": "country_ce",
             "value": "ce"
           },
           {
-            "label": "cf",
+            "label": "country_cf",
             "value": "cf"
           },
           {
-            "label": "cg",
+            "label": "country_cg",
             "value": "cg"
           },
           {
-            "label": "ch",
+            "label": "country_ch",
             "value": "ch"
           },
           {
-            "label": "ci",
+            "label": "country_ci",
             "value": "ci"
           },
           {
-            "label": "cj",
+            "label": "country_cj",
             "value": "cj"
           },
           {
-            "label": "ck",
+            "label": "country_ck",
             "value": "ck"
           },
           {
-            "label": "cl",
+            "label": "country_cl",
             "value": "cl"
           },
           {
-            "label": "cm",
+            "label": "country_cm",
             "value": "cm"
           },
           {
-            "label": "cn",
+            "label": "country_cn",
             "value": "cn"
           },
           {
-            "label": "co",
+            "label": "country_co",
             "value": "co"
           },
           {
-            "label": "cou",
+            "label": "country_cou",
             "value": "cou"
           },
           {
-            "label": "cp",
+            "label": "country_cp",
             "value": "cp"
           },
           {
-            "label": "cq",
+            "label": "country_cq",
             "value": "cq"
           },
           {
-            "label": "cr",
+            "label": "country_cr",
             "value": "cr"
           },
           {
-            "label": "cs",
+            "label": "country_cs",
             "value": "cs"
           },
           {
-            "label": "ctu",
+            "label": "country_ctu",
             "value": "ctu"
           },
           {
-            "label": "cu",
+            "label": "country_cu",
             "value": "cu"
           },
           {
-            "label": "cv",
+            "label": "country_cv",
             "value": "cv"
           },
           {
-            "label": "cw",
+            "label": "country_cw",
             "value": "cw"
           },
           {
-            "label": "cx",
+            "label": "country_cx",
             "value": "cx"
           },
           {
-            "label": "cy",
+            "label": "country_cy",
             "value": "cy"
           },
           {
-            "label": "cz",
+            "label": "country_cz",
             "value": "cz"
           },
           {
-            "label": "dcu",
+            "label": "country_dcu",
             "value": "dcu"
           },
           {
-            "label": "deu",
+            "label": "country_deu",
             "value": "deu"
           },
           {
-            "label": "dk",
+            "label": "country_dk",
             "value": "dk"
           },
           {
-            "label": "dm",
+            "label": "country_dm",
             "value": "dm"
           },
           {
-            "label": "dq",
+            "label": "country_dq",
             "value": "dq"
           },
           {
-            "label": "dr",
+            "label": "country_dr",
             "value": "dr"
           },
           {
-            "label": "ea",
+            "label": "country_ea",
             "value": "ea"
           },
           {
-            "label": "ec",
+            "label": "country_ec",
             "value": "ec"
           },
           {
-            "label": "eg",
+            "label": "country_eg",
             "value": "eg"
           },
           {
-            "label": "em",
+            "label": "country_em",
             "value": "em"
           },
           {
-            "label": "enk",
+            "label": "country_enk",
             "value": "enk"
           },
           {
-            "label": "er",
+            "label": "country_er",
             "value": "er"
           },
           {
-            "label": "err",
+            "label": "country_err",
             "value": "err"
           },
           {
-            "label": "es",
+            "label": "country_es",
             "value": "es"
           },
           {
-            "label": "et",
+            "label": "country_et",
             "value": "et"
           },
           {
-            "label": "fa",
+            "label": "country_fa",
             "value": "fa"
           },
           {
-            "label": "fg",
+            "label": "country_fg",
             "value": "fg"
           },
           {
-            "label": "fi",
+            "label": "country_fi",
             "value": "fi"
           },
           {
-            "label": "fj",
+            "label": "country_fj",
             "value": "fj"
           },
           {
-            "label": "fk",
+            "label": "country_fk",
             "value": "fk"
           },
           {
-            "label": "flu",
+            "label": "country_flu",
             "value": "flu"
           },
           {
-            "label": "fm",
+            "label": "country_fm",
             "value": "fm"
           },
           {
-            "label": "fp",
+            "label": "country_fp",
             "value": "fp"
           },
           {
-            "label": "fr",
+            "label": "country_fr",
             "value": "fr"
           },
           {
-            "label": "fs",
+            "label": "country_fs",
             "value": "fs"
           },
           {
-            "label": "ft",
+            "label": "country_ft",
             "value": "ft"
           },
           {
-            "label": "gau",
+            "label": "country_gau",
             "value": "gau"
           },
           {
-            "label": "gb",
+            "label": "country_gb",
             "value": "gb"
           },
           {
-            "label": "gd",
+            "label": "country_gd",
             "value": "gd"
           },
           {
-            "label": "ge",
+            "label": "country_ge",
             "value": "ge"
           },
           {
-            "label": "gg",
+            "label": "country_gg",
             "value": "gg"
           },
           {
-            "label": "gh",
+            "label": "country_gh",
             "value": "gh"
           },
           {
-            "label": "gi",
+            "label": "country_gi",
             "value": "gi"
           },
           {
-            "label": "gl",
+            "label": "country_gl",
             "value": "gl"
           },
           {
-            "label": "gm",
+            "label": "country_gm",
             "value": "gm"
           },
           {
-            "label": "gn",
+            "label": "country_gn",
             "value": "gn"
           },
           {
-            "label": "go",
+            "label": "country_go",
             "value": "go"
           },
           {
-            "label": "gp",
+            "label": "country_gp",
             "value": "gp"
           },
           {
-            "label": "gr",
+            "label": "country_gr",
             "value": "gr"
           },
           {
-            "label": "gs",
+            "label": "country_gs",
             "value": "gs"
           },
           {
-            "label": "gsr",
+            "label": "country_gsr",
             "value": "gsr"
           },
           {
-            "label": "gt",
+            "label": "country_gt",
             "value": "gt"
           },
           {
-            "label": "gu",
+            "label": "country_gu",
             "value": "gu"
           },
           {
-            "label": "gv",
+            "label": "country_gv",
             "value": "gv"
           },
           {
-            "label": "gw",
+            "label": "country_gw",
             "value": "gw"
           },
           {
-            "label": "gy",
+            "label": "country_gy",
             "value": "gy"
           },
           {
-            "label": "gz",
+            "label": "country_gz",
             "value": "gz"
           },
           {
-            "label": "hiu",
+            "label": "country_hiu",
             "value": "hiu"
           },
           {
-            "label": "hk",
+            "label": "country_hk",
             "value": "hk"
           },
           {
-            "label": "hm",
+            "label": "country_hm",
             "value": "hm"
           },
           {
-            "label": "ho",
+            "label": "country_ho",
             "value": "ho"
           },
           {
-            "label": "ht",
+            "label": "country_ht",
             "value": "ht"
           },
           {
-            "label": "hu",
+            "label": "country_hu",
             "value": "hu"
           },
           {
-            "label": "iau",
+            "label": "country_iau",
             "value": "iau"
           },
           {
-            "label": "ic",
+            "label": "country_ic",
             "value": "ic"
           },
           {
-            "label": "idu",
+            "label": "country_idu",
             "value": "idu"
           },
           {
-            "label": "ie",
+            "label": "country_ie",
             "value": "ie"
           },
           {
-            "label": "ii",
+            "label": "country_ii",
             "value": "ii"
           },
           {
-            "label": "ilu",
+            "label": "country_ilu",
             "value": "ilu"
           },
           {
-            "label": "im",
+            "label": "country_im",
             "value": "im"
           },
           {
-            "label": "inu",
+            "label": "country_inu",
             "value": "inu"
           },
           {
-            "label": "io",
+            "label": "country_io",
             "value": "io"
           },
           {
-            "label": "iq",
+            "label": "country_iq",
             "value": "iq"
           },
           {
-            "label": "ir",
+            "label": "country_ir",
             "value": "ir"
           },
           {
-            "label": "is",
+            "label": "country_is",
             "value": "is"
           },
           {
-            "label": "it",
+            "label": "country_it",
             "value": "it"
           },
           {
-            "label": "iu",
+            "label": "country_iu",
             "value": "iu"
           },
           {
-            "label": "iv",
+            "label": "country_iv",
             "value": "iv"
           },
           {
-            "label": "iw",
+            "label": "country_iw",
             "value": "iw"
           },
           {
-            "label": "iy",
+            "label": "country_iy",
             "value": "iy"
           },
           {
-            "label": "ja",
+            "label": "country_ja",
             "value": "ja"
           },
           {
-            "label": "je",
+            "label": "country_je",
             "value": "je"
           },
           {
-            "label": "ji",
+            "label": "country_ji",
             "value": "ji"
           },
           {
-            "label": "jm",
+            "label": "country_jm",
             "value": "jm"
           },
           {
-            "label": "jn",
+            "label": "country_jn",
             "value": "jn"
           },
           {
-            "label": "jo",
+            "label": "country_jo",
             "value": "jo"
           },
           {
-            "label": "ke",
+            "label": "country_ke",
             "value": "ke"
           },
           {
-            "label": "kg",
+            "label": "country_kg",
             "value": "kg"
           },
           {
-            "label": "kgr",
+            "label": "country_kgr",
             "value": "kgr"
           },
           {
-            "label": "kn",
+            "label": "country_kn",
             "value": "kn"
           },
           {
-            "label": "ko",
+            "label": "country_ko",
             "value": "ko"
           },
           {
-            "label": "ksu",
+            "label": "country_ksu",
             "value": "ksu"
           },
           {
-            "label": "ku",
+            "label": "country_ku",
             "value": "ku"
           },
           {
-            "label": "kv",
+            "label": "country_kv",
             "value": "kv"
           },
           {
-            "label": "kyu",
+            "label": "country_kyu",
             "value": "kyu"
           },
           {
-            "label": "kz",
+            "label": "country_kz",
             "value": "kz"
           },
           {
-            "label": "kzr",
+            "label": "country_kzr",
             "value": "kzr"
           },
           {
-            "label": "lau",
+            "label": "country_lau",
             "value": "lau"
           },
           {
-            "label": "lb",
+            "label": "country_lb",
             "value": "lb"
           },
           {
-            "label": "le",
+            "label": "country_le",
             "value": "le"
           },
           {
-            "label": "lh",
+            "label": "country_lh",
             "value": "lh"
           },
           {
-            "label": "li",
+            "label": "country_li",
             "value": "li"
           },
           {
-            "label": "lir",
+            "label": "country_lir",
             "value": "lir"
           },
           {
-            "label": "ln",
+            "label": "country_ln",
             "value": "ln"
           },
           {
-            "label": "lo",
+            "label": "country_lo",
             "value": "lo"
           },
           {
-            "label": "ls",
+            "label": "country_ls",
             "value": "ls"
           },
           {
-            "label": "lu",
+            "label": "country_lu",
             "value": "lu"
           },
           {
-            "label": "lv",
+            "label": "country_lv",
             "value": "lv"
           },
           {
-            "label": "lvr",
+            "label": "country_lvr",
             "value": "lvr"
           },
           {
-            "label": "ly",
+            "label": "country_ly",
             "value": "ly"
           },
           {
-            "label": "mau",
+            "label": "country_mau",
             "value": "mau"
           },
           {
-            "label": "mbc",
+            "label": "country_mbc",
             "value": "mbc"
           },
           {
-            "label": "mc",
+            "label": "country_mc",
             "value": "mc"
           },
           {
-            "label": "mdu",
+            "label": "country_mdu",
             "value": "mdu"
           },
           {
-            "label": "meu",
+            "label": "country_meu",
             "value": "meu"
           },
           {
-            "label": "mf",
+            "label": "country_mf",
             "value": "mf"
           },
           {
-            "label": "mg",
+            "label": "country_mg",
             "value": "mg"
           },
           {
-            "label": "mh",
+            "label": "country_mh",
             "value": "mh"
           },
           {
-            "label": "miu",
+            "label": "country_miu",
             "value": "miu"
           },
           {
-            "label": "mj",
+            "label": "country_mj",
             "value": "mj"
           },
           {
-            "label": "mk",
+            "label": "country_mk",
             "value": "mk"
           },
           {
-            "label": "ml",
+            "label": "country_ml",
             "value": "ml"
           },
           {
-            "label": "mm",
+            "label": "country_mm",
             "value": "mm"
           },
           {
-            "label": "mnu",
+            "label": "country_mnu",
             "value": "mnu"
           },
           {
-            "label": "mo",
+            "label": "country_mo",
             "value": "mo"
           },
           {
-            "label": "mou",
+            "label": "country_mou",
             "value": "mou"
           },
           {
-            "label": "mp",
+            "label": "country_mp",
             "value": "mp"
           },
           {
-            "label": "mq",
+            "label": "country_mq",
             "value": "mq"
           },
           {
-            "label": "mr",
+            "label": "country_mr",
             "value": "mr"
           },
           {
-            "label": "msu",
+            "label": "country_msu",
             "value": "msu"
           },
           {
-            "label": "mtu",
+            "label": "country_mtu",
             "value": "mtu"
           },
           {
-            "label": "mu",
+            "label": "country_mu",
             "value": "mu"
           },
           {
-            "label": "mv",
+            "label": "country_mv",
             "value": "mv"
           },
           {
-            "label": "mvr",
+            "label": "country_mvr",
             "value": "mvr"
           },
           {
-            "label": "mw",
+            "label": "country_mw",
             "value": "mw"
           },
           {
-            "label": "mx",
+            "label": "country_mx",
             "value": "mx"
           },
           {
-            "label": "my",
+            "label": "country_my",
             "value": "my"
           },
           {
-            "label": "mz",
+            "label": "country_mz",
             "value": "mz"
           },
           {
-            "label": "na",
+            "label": "country_na",
             "value": "na"
           },
           {
-            "label": "nbu",
+            "label": "country_nbu",
             "value": "nbu"
           },
           {
-            "label": "ncu",
+            "label": "country_ncu",
             "value": "ncu"
           },
           {
-            "label": "ndu",
+            "label": "country_ndu",
             "value": "ndu"
           },
           {
-            "label": "ne",
+            "label": "country_ne",
             "value": "ne"
           },
           {
-            "label": "nfc",
+            "label": "country_nfc",
             "value": "nfc"
           },
           {
-            "label": "ng",
+            "label": "country_ng",
             "value": "ng"
           },
           {
-            "label": "nhu",
+            "label": "country_nhu",
             "value": "nhu"
           },
           {
-            "label": "nik",
+            "label": "country_nik",
             "value": "nik"
           },
           {
-            "label": "nju",
+            "label": "country_nju",
             "value": "nju"
           },
           {
-            "label": "nkc",
+            "label": "country_nkc",
             "value": "nkc"
           },
           {
-            "label": "nl",
+            "label": "country_nl",
             "value": "nl"
           },
           {
-            "label": "nm",
+            "label": "country_nm",
             "value": "nm"
           },
           {
-            "label": "nmu",
+            "label": "country_nmu",
             "value": "nmu"
           },
           {
-            "label": "nn",
+            "label": "country_nn",
             "value": "nn"
           },
           {
-            "label": "no",
+            "label": "country_no",
             "value": "no"
           },
           {
-            "label": "np",
+            "label": "country_np",
             "value": "np"
           },
           {
-            "label": "nq",
+            "label": "country_nq",
             "value": "nq"
           },
           {
-            "label": "nr",
+            "label": "country_nr",
             "value": "nr"
           },
           {
-            "label": "nsc",
+            "label": "country_nsc",
             "value": "nsc"
           },
           {
-            "label": "ntc",
+            "label": "country_ntc",
             "value": "ntc"
           },
           {
-            "label": "nu",
+            "label": "country_nu",
             "value": "nu"
           },
           {
-            "label": "nuc",
+            "label": "country_nuc",
             "value": "nuc"
           },
           {
-            "label": "nvu",
+            "label": "country_nvu",
             "value": "nvu"
           },
           {
-            "label": "nw",
+            "label": "country_nw",
             "value": "nw"
           },
           {
-            "label": "nx",
+            "label": "country_nx",
             "value": "nx"
           },
           {
-            "label": "nyu",
+            "label": "country_nyu",
             "value": "nyu"
           },
           {
-            "label": "nz",
+            "label": "country_nz",
             "value": "nz"
           },
           {
-            "label": "ohu",
+            "label": "country_ohu",
             "value": "ohu"
           },
           {
-            "label": "oku",
+            "label": "country_oku",
             "value": "oku"
           },
           {
-            "label": "onc",
+            "label": "country_onc",
             "value": "onc"
           },
           {
-            "label": "oru",
+            "label": "country_oru",
             "value": "oru"
           },
           {
-            "label": "ot",
+            "label": "country_ot",
             "value": "ot"
           },
           {
-            "label": "pau",
+            "label": "country_pau",
             "value": "pau"
           },
           {
-            "label": "pc",
+            "label": "country_pc",
             "value": "pc"
           },
           {
-            "label": "pe",
+            "label": "country_pe",
             "value": "pe"
           },
           {
-            "label": "pf",
+            "label": "country_pf",
             "value": "pf"
           },
           {
-            "label": "pg",
+            "label": "country_pg",
             "value": "pg"
           },
           {
-            "label": "ph",
+            "label": "country_ph",
             "value": "ph"
           },
           {
-            "label": "pic",
+            "label": "country_pic",
             "value": "pic"
           },
           {
-            "label": "pk",
+            "label": "country_pk",
             "value": "pk"
           },
           {
-            "label": "pl",
+            "label": "country_pl",
             "value": "pl"
           },
           {
-            "label": "pn",
+            "label": "country_pn",
             "value": "pn"
           },
           {
-            "label": "po",
+            "label": "country_po",
             "value": "po"
           },
           {
-            "label": "pp",
+            "label": "country_pp",
             "value": "pp"
           },
           {
-            "label": "pr",
+            "label": "country_pr",
             "value": "pr"
           },
           {
-            "label": "pt",
+            "label": "country_pt",
             "value": "pt"
           },
           {
-            "label": "pw",
+            "label": "country_pw",
             "value": "pw"
           },
           {
-            "label": "py",
+            "label": "country_py",
             "value": "py"
           },
           {
-            "label": "qa",
+            "label": "country_qa",
             "value": "qa"
           },
           {
-            "label": "qea",
+            "label": "country_qea",
             "value": "qea"
           },
           {
-            "label": "quc",
+            "label": "country_quc",
             "value": "quc"
           },
           {
-            "label": "rb",
+            "label": "country_rb",
             "value": "rb"
           },
           {
-            "label": "re",
+            "label": "country_re",
             "value": "re"
           },
           {
-            "label": "rh",
+            "label": "country_rh",
             "value": "rh"
           },
           {
-            "label": "riu",
+            "label": "country_riu",
             "value": "riu"
           },
           {
-            "label": "rm",
+            "label": "country_rm",
             "value": "rm"
           },
           {
-            "label": "ru",
+            "label": "country_ru",
             "value": "ru"
           },
           {
-            "label": "rur",
+            "label": "country_rur",
             "value": "rur"
           },
           {
-            "label": "rw",
+            "label": "country_rw",
             "value": "rw"
           },
           {
-            "label": "ry",
+            "label": "country_ry",
             "value": "ry"
           },
           {
-            "label": "sa",
+            "label": "country_sa",
             "value": "sa"
           },
           {
-            "label": "sb",
+            "label": "country_sb",
             "value": "sb"
           },
           {
-            "label": "sc",
+            "label": "country_sc",
             "value": "sc"
           },
           {
-            "label": "scu",
+            "label": "country_scu",
             "value": "scu"
           },
           {
-            "label": "sd",
+            "label": "country_sd",
             "value": "sd"
           },
           {
-            "label": "sdu",
+            "label": "country_sdu",
             "value": "sdu"
           },
           {
-            "label": "se",
+            "label": "country_se",
             "value": "se"
           },
           {
-            "label": "sf",
+            "label": "country_sf",
             "value": "sf"
           },
           {
-            "label": "sg",
+            "label": "country_sg",
             "value": "sg"
           },
           {
-            "label": "sh",
+            "label": "country_sh",
             "value": "sh"
           },
           {
-            "label": "si",
+            "label": "country_si",
             "value": "si"
           },
           {
-            "label": "sj",
+            "label": "country_sj",
             "value": "sj"
           },
           {
-            "label": "sk",
+            "label": "country_sk",
             "value": "sk"
           },
           {
-            "label": "sl",
+            "label": "country_sl",
             "value": "sl"
           },
           {
-            "label": "sm",
+            "label": "country_sm",
             "value": "sm"
           },
           {
-            "label": "sn",
+            "label": "country_sn",
             "value": "sn"
           },
           {
-            "label": "snc",
+            "label": "country_snc",
             "value": "snc"
           },
           {
-            "label": "so",
+            "label": "country_so",
             "value": "so"
           },
           {
-            "label": "sp",
+            "label": "country_sp",
             "value": "sp"
           },
           {
-            "label": "sq",
+            "label": "country_sq",
             "value": "sq"
           },
           {
-            "label": "sr",
+            "label": "country_sr",
             "value": "sr"
           },
           {
-            "label": "ss",
+            "label": "country_ss",
             "value": "ss"
           },
           {
-            "label": "st",
+            "label": "country_st",
             "value": "st"
           },
           {
-            "label": "stk",
+            "label": "country_stk",
             "value": "stk"
           },
           {
-            "label": "su",
+            "label": "country_su",
             "value": "su"
           },
           {
-            "label": "sv",
+            "label": "country_sv",
             "value": "sv"
           },
           {
-            "label": "sw",
+            "label": "country_sw",
             "value": "sw"
           },
           {
-            "label": "sx",
+            "label": "country_sx",
             "value": "sx"
           },
           {
-            "label": "sy",
+            "label": "country_sy",
             "value": "sy"
           },
           {
-            "label": "sz",
+            "label": "country_sz",
             "value": "sz"
           },
           {
-            "label": "ta",
+            "label": "country_ta",
             "value": "ta"
           },
           {
-            "label": "tar",
+            "label": "country_tar",
             "value": "tar"
           },
           {
-            "label": "tc",
+            "label": "country_tc",
             "value": "tc"
           },
           {
-            "label": "tg",
+            "label": "country_tg",
             "value": "tg"
           },
           {
-            "label": "th",
+            "label": "country_th",
             "value": "th"
           },
           {
-            "label": "ti",
+            "label": "country_ti",
             "value": "ti"
           },
           {
-            "label": "tk",
+            "label": "country_tk",
             "value": "tk"
           },
           {
-            "label": "tkr",
+            "label": "country_tkr",
             "value": "tkr"
           },
           {
-            "label": "tl",
+            "label": "country_tl",
             "value": "tl"
           },
           {
-            "label": "tma",
+            "label": "country_tma",
             "value": "tma"
           },
           {
-            "label": "tnu",
+            "label": "country_tnu",
             "value": "tnu"
           },
           {
-            "label": "to",
+            "label": "country_to",
             "value": "to"
           },
           {
-            "label": "tr",
+            "label": "country_tr",
             "value": "tr"
           },
           {
-            "label": "ts",
+            "label": "country_ts",
             "value": "ts"
           },
           {
-            "label": "tt",
+            "label": "country_tt",
             "value": "tt"
           },
           {
-            "label": "tu",
+            "label": "country_tu",
             "value": "tu"
           },
           {
-            "label": "tv",
+            "label": "country_tv",
             "value": "tv"
           },
           {
-            "label": "txu",
+            "label": "country_txu",
             "value": "txu"
           },
           {
-            "label": "tz",
+            "label": "country_tz",
             "value": "tz"
           },
           {
-            "label": "ua",
+            "label": "country_ua",
             "value": "ua"
           },
           {
-            "label": "uc",
+            "label": "country_uc",
             "value": "uc"
           },
           {
-            "label": "ug",
+            "label": "country_ug",
             "value": "ug"
           },
           {
-            "label": "ui",
+            "label": "country_ui",
             "value": "ui"
           },
           {
-            "label": "uik",
+            "label": "country_uik",
             "value": "uik"
           },
           {
-            "label": "uk",
+            "label": "country_uk",
             "value": "uk"
           },
           {
-            "label": "un",
+            "label": "country_un",
             "value": "un"
           },
           {
-            "label": "unr",
+            "label": "country_unr",
             "value": "unr"
           },
           {
-            "label": "up",
+            "label": "country_up",
             "value": "up"
           },
           {
-            "label": "ur",
+            "label": "country_ur",
             "value": "ur"
           },
           {
-            "label": "us",
+            "label": "country_us",
             "value": "us"
           },
           {
-            "label": "utu",
+            "label": "country_utu",
             "value": "utu"
           },
           {
-            "label": "uv",
+            "label": "country_uv",
             "value": "uv"
           },
           {
-            "label": "uy",
+            "label": "country_uy",
             "value": "uy"
           },
           {
-            "label": "uz",
+            "label": "country_uz",
             "value": "uz"
           },
           {
-            "label": "uzr",
+            "label": "country_uzr",
             "value": "uzr"
           },
           {
-            "label": "vau",
+            "label": "country_vau",
             "value": "vau"
           },
           {
-            "label": "vb",
+            "label": "country_vb",
             "value": "vb"
           },
           {
-            "label": "vc",
+            "label": "country_vc",
             "value": "vc"
           },
           {
-            "label": "ve",
+            "label": "country_ve",
             "value": "ve"
           },
           {
-            "label": "vi",
+            "label": "country_vi",
             "value": "vi"
           },
           {
-            "label": "vm",
+            "label": "country_vm",
             "value": "vm"
           },
           {
-            "label": "vn",
+            "label": "country_vn",
             "value": "vn"
           },
           {
-            "label": "vp",
+            "label": "country_vp",
             "value": "vp"
           },
           {
-            "label": "vra",
+            "label": "country_vra",
             "value": "vra"
           },
           {
-            "label": "vs",
+            "label": "country_vs",
             "value": "vs"
           },
           {
-            "label": "vtu",
+            "label": "country_vtu",
             "value": "vtu"
           },
           {
-            "label": "wau",
+            "label": "country_wau",
             "value": "wau"
           },
           {
-            "label": "wb",
+            "label": "country_wb",
             "value": "wb"
           },
           {
-            "label": "wea",
+            "label": "country_wea",
             "value": "wea"
           },
           {
-            "label": "wf",
+            "label": "country_wf",
             "value": "wf"
           },
           {
-            "label": "wiu",
+            "label": "country_wiu",
             "value": "wiu"
           },
           {
-            "label": "wj",
+            "label": "country_wj",
             "value": "wj"
           },
           {
-            "label": "wk",
+            "label": "country_wk",
             "value": "wk"
           },
           {
-            "label": "wlk",
+            "label": "country_wlk",
             "value": "wlk"
           },
           {
-            "label": "ws",
+            "label": "country_ws",
             "value": "ws"
           },
           {
-            "label": "wvu",
+            "label": "country_wvu",
             "value": "wvu"
           },
           {
-            "label": "wyu",
+            "label": "country_wyu",
             "value": "wyu"
           },
           {
-            "label": "xa",
+            "label": "country_xa",
             "value": "xa"
           },
           {
-            "label": "xb",
+            "label": "country_xb",
             "value": "xb"
           },
           {
-            "label": "xc",
+            "label": "country_xc",
             "value": "xc"
           },
           {
-            "label": "xd",
+            "label": "country_xd",
             "value": "xd"
           },
           {
-            "label": "xe",
+            "label": "country_xe",
             "value": "xe"
           },
           {
-            "label": "xf",
+            "label": "country_xf",
             "value": "xf"
           },
           {
-            "label": "xga",
+            "label": "country_xga",
             "value": "xga"
           },
           {
-            "label": "xh",
+            "label": "country_xh",
             "value": "xh"
           },
           {
-            "label": "xi",
+            "label": "country_xi",
             "value": "xi"
           },
           {
-            "label": "xj",
+            "label": "country_xj",
             "value": "xj"
           },
           {
-            "label": "xk",
+            "label": "country_xk",
             "value": "xk"
           },
           {
-            "label": "xl",
+            "label": "country_xl",
             "value": "xl"
           },
           {
-            "label": "xm",
+            "label": "country_xm",
             "value": "xm"
           },
           {
-            "label": "xn",
+            "label": "country_xn",
             "value": "xn"
           },
           {
-            "label": "xna",
+            "label": "country_xna",
             "value": "xna"
           },
           {
-            "label": "xo",
+            "label": "country_xo",
             "value": "xo"
           },
           {
-            "label": "xoa",
+            "label": "country_xoa",
             "value": "xoa"
           },
           {
-            "label": "xp",
+            "label": "country_xp",
             "value": "xp"
           },
           {
-            "label": "xr",
+            "label": "country_xr",
             "value": "xr"
           },
           {
-            "label": "xra",
+            "label": "country_xra",
             "value": "xra"
           },
           {
-            "label": "xs",
+            "label": "country_xs",
             "value": "xs"
           },
           {
-            "label": "xv",
+            "label": "country_xv",
             "value": "xv"
           },
           {
-            "label": "xx",
+            "label": "country_xx",
             "value": "xx"
           },
           {
-            "label": "xxc",
+            "label": "country_xxc",
             "value": "xxc"
           },
           {
-            "label": "xxk",
+            "label": "country_xxk",
             "value": "xxk"
           },
           {
-            "label": "xxr",
+            "label": "country_xxr",
             "value": "xxr"
           },
           {
-            "label": "xxu",
+            "label": "country_xxu",
             "value": "xxu"
           },
           {
-            "label": "ye",
+            "label": "country_ye",
             "value": "ye"
           },
           {
-            "label": "ykc",
+            "label": "country_ykc",
             "value": "ykc"
           },
           {
-            "label": "ys",
+            "label": "country_ys",
             "value": "ys"
           },
           {
-            "label": "yu",
+            "label": "country_yu",
             "value": "yu"
           },
           {
-            "label": "za",
+            "label": "country_za",
             "value": "za"
           }
         ]
@@ -5439,107 +5330,107 @@
       "form": {
         "options": [
           {
-            "label": "ag",
+            "label": "canton_ag",
             "value": "ag"
           },
           {
-            "label": "ai",
+            "label": "canton_ai",
             "value": "ai"
           },
           {
-            "label": "ar",
+            "label": "canton_ar",
             "value": "ar"
           },
           {
-            "label": "be",
+            "label": "canton_be",
             "value": "be"
           },
           {
-            "label": "bl",
+            "label": "canton_bl",
             "value": "bl"
           },
           {
-            "label": "bs",
+            "label": "canton_bs",
             "value": "bs"
           },
           {
-            "label": "fr",
+            "label": "canton_fr",
             "value": "fr"
           },
           {
-            "label": "ge",
+            "label": "canton_ge",
             "value": "ge"
           },
           {
-            "label": "gl",
+            "label": "canton_gl",
             "value": "gl"
           },
           {
-            "label": "gr",
+            "label": "canton_gr",
             "value": "gr"
           },
           {
-            "label": "ju",
+            "label": "canton_ju",
             "value": "ju"
           },
           {
-            "label": "lu",
+            "label": "canton_lu",
             "value": "lu"
           },
           {
-            "label": "ne",
+            "label": "canton_ne",
             "value": "ne"
           },
           {
-            "label": "nw",
+            "label": "canton_nw",
             "value": "nw"
           },
           {
-            "label": "ow",
+            "label": "canton_ow",
             "value": "ow"
           },
           {
-            "label": "sg",
+            "label": "canton_sg",
             "value": "sg"
           },
           {
-            "label": "sh",
+            "label": "canton_sh",
             "value": "sh"
           },
           {
-            "label": "so",
+            "label": "canton_so",
             "value": "so"
           },
           {
-            "label": "sz",
+            "label": "canton_sz",
             "value": "sz"
           },
           {
-            "label": "tg",
+            "label": "canton_tg",
             "value": "tg"
           },
           {
-            "label": "ti",
+            "label": "canton_ti",
             "value": "ti"
           },
           {
-            "label": "ur",
+            "label": "canton_ur",
             "value": "ur"
           },
           {
-            "label": "vd",
+            "label": "canton_vd",
             "value": "vd"
           },
           {
-            "label": "vs",
+            "label": "canton_vs",
             "value": "vs"
           },
           {
-            "label": "zg",
+            "label": "canton_zg",
             "value": "zg"
           },
           {
-            "label": "zh",
+            "label": "canton_zh",
             "value": "zh"
           }
         ]
