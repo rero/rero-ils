@@ -35,7 +35,7 @@
         "communication_language": {
           "type": "keyword"
         },
-        "tva_rate": {
+        "vat_rate": {
           "type": "keyword"
         },
         "organisation": {

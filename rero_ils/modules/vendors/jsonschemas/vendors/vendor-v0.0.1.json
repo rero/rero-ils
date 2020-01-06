@@ -10,7 +10,7 @@
     "communication_language",
     "note",
     "currency",
-    "tva_rate",
+    "vat_rate",
     "default_contact",
     "order_contact"
   ],
@@ -19,7 +19,7 @@
     "pid",
     "name",
     "currency",
-    "tva_rate",
+    "vat_rate",
     "organisation"
   ],
   "properties": {
@@ -236,8 +236,8 @@
       "default": "CHF",
       "pattern": "^[A-Z]{3}$"
     },
-    "tva_rate": {
-      "title": "TVA rate",
+    "vat_rate": {
+      "title": "VAT rate",
       "type": "number",
       "minimum": 0,
       "maximum": 100
