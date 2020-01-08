@@ -35,3 +35,11 @@ def enrich_fee_data(sender, json=None, record=None, index=None,
         json['organisation'] = {
             'pid': org_pid
         }
+        if fee.loan_pid:
+            json['loan'] = {
+                'pid': fee.loan_pid
+            }
+        if fee.patron_pid:
+            json['patron'] = {
+                'pid': fee.patron_pid
+            }

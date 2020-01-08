@@ -1914,7 +1914,6 @@
       "$ref": "https://ils.rero.ch/api/locations/loc1"
     },
     "amount": 0.5,
-    "currency": "CHF",
     "status": "open"
   }
 }

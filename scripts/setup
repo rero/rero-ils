@@ -290,7 +290,7 @@ eval ${PREFIX} pipenv run invenio utils runindex -c 4 --raise-on-error
 
 # create circulation transactions
 info_msg "Circulation transactions:"
-eval ${PREFIX} pipenv run invenio fixtures create_loans --fee ${DATA_PATH}/loans.json
+eval ${PREFIX} pipenv run invenio fixtures create_loans ${DATA_PATH}/loans.json
 
 # # OAI configuration
 info_msg "OAI configuration:"

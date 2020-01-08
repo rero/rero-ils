@@ -11,7 +11,6 @@
     "fee_type",
     "location",
     "amount",
-    "currency",
     "status"
   ],
   "properties": {
@@ -63,15 +62,6 @@
     "amount": {
       "type": "number",
       "title": "Fee amount"
-    },
-    "currency": {
-      "type": "string",
-      "title": "Fee currency",
-      "enum": [
-        "CHF",
-        "EUR",
-        "USD"
-      ]
     },
     "status": {
       "type": "string",

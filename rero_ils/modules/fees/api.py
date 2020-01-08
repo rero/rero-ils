@@ -31,6 +31,7 @@ from ..circ_policies.api import CircPolicy
 from ..fetchers import id_fetcher
 from ..locations.api import Location
 from ..minters import id_minter
+from ..organisations.api import Organisation
 from ..providers import Provider
 
 # fee provider
@@ -72,6 +73,20 @@ class Fee(IlsRecord):
     def transaction_location_pid(self):
         """Return transaction location pid."""
         return self.replace_refs().get('location').get('pid')
+
+    @property
+    def loan_pid(self):
+        """Return the loan pid of the fee ."""
+        from ..notifications.api import Notification
+        notification_pid = self.replace_refs().get('notification').get('pid')
+        return Notification.get_record_by_pid(notification_pid).loan_pid
+
+    @property
+    def patron_pid(self):
+        """Return the patron pid of the fee ."""
+        from ..notifications.api import Notification
+        notification_pid = self.replace_refs().get('notification').get('pid')
+        return Notification.get_record_by_pid(notification_pid).patron_pid
 
     @classmethod
     def create_fee_from_notification(cls, notification):
@@ -118,10 +133,6 @@ class Fee(IlsRecord):
                 holding_circulation_category_pid
             )
             data['amount'] = cipo.get('reminder_fee_amount')
-            currency = current_app.config.get('RERO_ILS_DEFAULT_CURRENCY')
-            if notification.organisation:
-                currency = notification.organisation.get('default_currency')
-            data['currency'] = currency
             data['status'] = 'open'
             record = cls.create(
                 data,
@@ -130,3 +141,10 @@ class Fee(IlsRecord):
                 delete_pid=True
             )
         return record
+
+    @property
+    def currency(self):
+        """Return fee currency."""
+        organisation_pid = self.organisation_pid
+        return Organisation.get_record_by_pid(organisation_pid).get(
+            'default_currency')
