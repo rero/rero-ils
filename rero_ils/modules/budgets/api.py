@@ -25,6 +25,7 @@ from ..api import IlsRecord, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..organisations.api import Organisation
 
 # provider
 BudgetProvider = type(
@@ -71,7 +72,18 @@ class Budget(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
+        others = self.reasons_to_keep()
+        if others:
+            cannot_delete['others'] = others
         links = self.get_links_to_me()
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    def reasons_to_keep(self):
+        """Reasons aside from record_links to keep a budget."""
+        others = {}
+        organisation = Organisation.get_record_by_pid(self.organisation_pid)
+        if organisation.get('current_budget_pid') == self.pid:
+            others['is_default'] = True
+        return others

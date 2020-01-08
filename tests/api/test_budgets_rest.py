@@ -86,31 +86,31 @@ def test_budgets_get(client, budget_2020_martigny):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_budgets_post_put_delete(client,
-                                 budget_2019_martigny,
+                                 budget_2018_martigny,
                                  json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.budg_item', pid_value='1')
     list_url = url_for('invenio_records_rest.budg_list', q='pid:1')
 
-    budget_2019_martigny['pid'] = '1'
+    budget_2018_martigny['pid'] = '1'
     res, data = postdata(
         client,
         'invenio_records_rest.budg_list',
-        budget_2019_martigny
+        budget_2018_martigny
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert data['metadata'] == budget_2019_martigny
+    assert data['metadata'] == budget_2018_martigny
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert budget_2019_martigny == data['metadata']
+    assert budget_2018_martigny == data['metadata']
 
     # Update record/PUT
-    data = budget_2019_martigny
+    data = budget_2018_martigny
     data['name'] = 'Test Name'
     res = client.put(
         item_url,
@@ -151,6 +151,9 @@ def test_budgets_can_delete(
     assert 'acq_accounts' in links
 
     assert not budget_2020_martigny.can_delete
+
+    reasons_to_keep = budget_2020_martigny.reasons_to_keep()
+    assert reasons_to_keep.get('is_default')
 
     reasons = budget_2020_martigny.reasons_not_to_delete()
     assert 'links' in reasons
@@ -253,20 +256,19 @@ def test_budget_secure_api_create(client, json_header,
 
 
 def test_budget_secure_api_update(client,
-                                  budget_2018_martigny,
+                                  budget_2017_martigny,
                                   librarian_martigny_no_email,
                                   system_librarian_martigny_no_email,
                                   system_librarian_sion_no_email,
                                   librarian_sion_no_email,
-                                  budget_2018_martigny_data,
                                   json_header):
     """Test acq account secure api update."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.budg_item',
-                         pid_value=budget_2018_martigny.pid)
+                         pid_value=budget_2017_martigny.pid)
 
-    data = budget_2018_martigny
+    data = budget_2017_martigny
     data['name'] = 'Test Name'
     res = client.put(
         record_url,
@@ -287,17 +289,16 @@ def test_budget_secure_api_update(client,
 
 
 def test_budget_secure_api_delete(client,
-                                  budget_2018_martigny,
+                                  budget_2017_martigny,
                                   librarian_martigny_no_email,
                                   librarian_sion_no_email,
-                                  budget_2019_martigny,
                                   system_librarian_martigny_no_email,
                                   json_header):
     """Test acq account secure api delete."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     record_url = url_for('invenio_records_rest.budg_item',
-                         pid_value=budget_2018_martigny.pid)
+                         pid_value=budget_2017_martigny.pid)
 
     res = client.delete(record_url)
     assert res.status_code == 403
