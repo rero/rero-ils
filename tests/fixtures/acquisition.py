@@ -161,6 +161,25 @@ def budget_2018_martigny_data(acquisition):
 
 
 @pytest.fixture(scope="module")
+def budget_2017_martigny_data(acquisition):
+    """Load budget 2017 martigny."""
+    return deepcopy(acquisition.get('budg5'))
+
+
+@pytest.fixture(scope="module")
+def budget_2017_martigny(
+        app, org_martigny, budget_2017_martigny_data):
+    """Load budget 2017 martigny record."""
+    budget = Budget.create(
+        data=budget_2017_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(BudgetsSearch.Meta.index)
+    return budget
+
+
+@pytest.fixture(scope="module")
 def budget_2018_martigny(
         app, org_martigny, budget_2018_martigny_data):
     """Load budget 2018 martigny record."""

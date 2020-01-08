@@ -6,7 +6,7 @@
     "address": "Ave de la gare, Martigny CH-1920",
     "code": "org1",
     "default_currency": "CHF",
-    "current_budget_pid": "1",
+    "current_budget_pid": "budg1",
     "online_harvested_source": "ebibliomedia"
   },
   "org2": {
@@ -16,7 +16,7 @@
     "address": "Ave de la gare, Martigny CH-1950",
     "code": "org2",
     "default_currency": "EUR",
-    "current_budget_pid": "2",
+    "current_budget_pid": "budg2",
     "online_harvested_source": "mv-cantook"
   },
   "lib1": {
