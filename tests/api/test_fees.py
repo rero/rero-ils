@@ -34,7 +34,7 @@ def test_create_fee(client, librarian_martigny_no_email,
                     patron_martigny_no_email, loc_public_martigny,
                     item_type_standard_martigny,
                     item_lib_martigny, json_header,
-                    circ_policy_short_martigny):
+                    circ_policy_short_martigny, org_martigny):
     """Test overdue loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
 
@@ -68,7 +68,7 @@ def test_create_fee(client, librarian_martigny_no_email,
 
     fee = list(notification.fees)[0]
     assert fee.get('amount') == 2
-    assert fee.get('currency') == 'CHF'
+    assert fee.currency == org_martigny.get('default_currency')
 
     fee_url = url_for('invenio_records_rest.fee_item', pid_value=fee.pid)
 
@@ -132,7 +132,7 @@ def test_create_fee_euro(client, librarian_martigny_no_email,
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     fee = list(notification.fees)[0]
-    assert fee.get('currency') == org.get('default_currency')
+    assert fee.currency == org.get('default_currency')
 
 
 def test_filtered_fees_get(

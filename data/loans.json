@@ -3,6 +3,7 @@
     "barcode": "reroils1",
     "loans": {
       "active": 2,
+      "overdue": 1,
       "requested_by_others": 2
     },
     "requests": {
@@ -13,7 +14,8 @@
   {
     "barcode": "2000000001",
     "loans": {
-      "active": 1
+      "active": 1,
+      "overdue": 1
     },
     "requests": {
       "requests": 1
@@ -22,7 +24,8 @@
   {
     "barcode": "10000001",
     "loans": {
-      "active": 2
+      "active": 2,
+      "overdue": 1
     },
     "requests": {
       "requests": 1
@@ -40,7 +43,8 @@
   {
     "barcode": "kad001",
     "loans": {
-      "active": 1
+      "active": 1,
+      "overdue": 1
     },
     "requests": {
       "requests": 1
@@ -49,7 +53,8 @@
   {
     "barcode": "kad002",
     "loans": {
-      "active": 1
+      "active": 1,
+      "overdue": 1
     },
     "requests": {
       "requests": 1
@@ -285,6 +290,18 @@
     "requests": {
       "rank_1": 1,
       "requests": 1
+    }
+  },
+  {
+    "barcode": "999999",
+    "loans": {
+      "active": 1,
+      "overdue": 1,
+      "requested_by_others": 1
+    },
+    "requests": {
+      "rank_1": 1,
+      "rank_2": 1
     }
   }
 ]
