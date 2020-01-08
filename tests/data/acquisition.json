@@ -125,6 +125,17 @@
       "$ref": "https://ils.rero.ch/api/organisations/org1"
     }
   },
+  "budg5": {
+    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "pid": "budg5",
+    "name": "2017",
+    "start_date": "2017-01-01T00:00:00.355920+00:00",
+    "end_date": "2017-12-31T00:00:00.355920+00:00",
+    "is_active": true,
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    }
+  },
   "acac1": {
     "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac1",
