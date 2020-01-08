@@ -939,5 +939,26 @@
     "street": "Lungolago 118",
     "communication_channel": "email",
     "communication_language": "ita"
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "barcode": "999999",
+    "birth_date": "1970-01-01",
+    "city": "Flueli-Ranft",
+    "email": "reroilstest+guillaumeB@gmail.com",
+    "first_name": "Guillaume",
+    "roles": [
+      "patron"
+    ],
+    "last_name": "de Baskerville",
+    "password": "123456",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/5"
+    },
+    "phone": "+41324993585",
+    "postal_code": "6073",
+    "street": "Ranftweg 1",
+    "communication_channel": "email",
+    "communication_language": "eng"
   }
 ]

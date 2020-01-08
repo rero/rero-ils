@@ -31,7 +31,7 @@ from invenio_circulation.api import get_loan_for_item
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item, ItemsSearch, ItemStatus
 from ..libraries.api import Library
-from ..loans.api import get_item_on_loan_loans
+from ..loans.api import Loan
 from ..locations.api import Location
 from ..notifications.tasks import create_over_and_due_soon_notifications
 from ..patron_types.api import PatronType
@@ -39,12 +39,11 @@ from ..patrons.api import Patron, PatronsSearch
 
 
 @click.command('create_loans')
-@click.option('-f', '--fee', 'fee', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def create_loans(infile, fee, verbose, debug):
+def create_loans(infile, verbose, debug):
     """Create circulation transactions.
 
     infile: Json transactions file
@@ -115,17 +114,8 @@ def create_loans(infile, fee, verbose, debug):
                                               loanable_items, verbose, debug)
                 errors_count = print_message(item_barcode, 'rank_2',
                                              errors_count)
-    if fee:
-        loan = get_item_on_loan_loans()[0]
-
-        end_date = datetime.now(timezone.utc) - timedelta(days=7)
-        loan['end_date'] = end_date.isoformat()
-        loan.update(
-            loan,
-            dbcommit=True,
-            reindex=True
-        )
-        create_over_and_due_soon_notifications()
+    # create due soon notifications, overdue notifications are auto created.
+    create_over_and_due_soon_notifications(overdue=False)
     for key, val in errors_count.items():
         click.secho(
             'Errors {transaction_type}: {count}'.format(
@@ -172,9 +162,20 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             document_pid=item.replace_refs()['document']['pid'],
             item_pid=item.pid,
         )
-        if transaction_type == 'extended':
-            loan = get_loan_for_item(item.pid)
-            loan_pid = loan.get('pid')
+        loan = get_loan_for_item(item.pid)
+        loan_pid = loan.get('pid')
+        if transaction_type == 'overdue':
+            loan = Loan.get_record_by_pid(loan_pid)
+            end_date = datetime.now(timezone.utc) - timedelta(days=70)
+            loan['end_date'] = end_date.isoformat()
+            loan.update(
+                loan,
+                dbcommit=True,
+                reindex=True
+            )
+            notif = loan.create_notification(notification_type='overdue')
+
+        elif transaction_type == 'extended':
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
             item.extend_loan(

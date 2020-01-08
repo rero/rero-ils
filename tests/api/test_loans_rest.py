@@ -136,6 +136,8 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     item_pid = item.pid
     patron_pid = patron_martigny_no_email.pid
 
+    assert not get_last_transaction_loc_for_item(item_pid)
+
     assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
         'barcode'))
     assert item.can_delete
@@ -170,6 +172,9 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     assert due_soon_loans[0].get('pid') == loan_pid
 
     # test due date hour, should be 22:59 UTC+0 (Europe/Zurich)
+    assert get_last_transaction_loc_for_item(
+        item_pid) == loc_public_martigny.pid
+    # test due date hour
     checkout_loan = Loan.get_record_by_pid(loan_pid)
     end_date = ciso8601.parse_datetime(
         checkout_loan.get('end_date'))
