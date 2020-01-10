@@ -4,9 +4,18 @@
   "title": "Budget",
   "description": "JSON schema for budget.",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "start_date",
+    "end_date",
+    "is_active"
+  ],
   "required": [
     "$schema",
-    "pid"
+    "pid",
+    "name",
+    "start_date",
+    "end_date"
   ],
   "properties": {
     "$schema": {
@@ -24,26 +33,60 @@
       "title": "Budget name",
       "description": "Name of the budget.",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "name"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The budget name is already taken"
+          }
+        }
+      }
     },
     "start_date": {
       "type": "string",
       "format": "date",
+      "title": "Start date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD.",
-      "title": "Budget start date"
+      "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+      "form": {
+        "type": "datepicker",
+        "wrappers": [
+          "form-field"
+        ],
+        "validation": {
+          "messages": {
+            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          }
+        }
+      }
     },
     "end_date": {
       "type": "string",
       "format": "date",
+      "title": "End date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD.",
-      "title": "Budget end date"
+      "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+      "form": {
+        "type": "datepicker",
+        "wrappers": [
+          "form-field"
+        ],
+        "validation": {
+          "messages": {
+            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          }
+        }
+      }
     },
     "is_active": {
       "type": "boolean",
-      "title": "True if budget is active",
-      "description": "True if budget is active",
+      "title": "Active",
       "default": false
     },
     "organisation": {

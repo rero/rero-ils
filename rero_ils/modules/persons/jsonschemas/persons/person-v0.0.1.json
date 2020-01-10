@@ -41,7 +41,23 @@
           "rero",
           "gnd",
           "bnf"
-        ]
+        ],
+        "form": {
+          "options": [
+            {
+              "label": "rero",
+              "value": "rero"
+            },
+            {
+              "label": "gnd",
+              "value": "gnd"
+            },
+            {
+              "label": "bnf",
+              "value": "bnf"
+            }
+          ]
+        }
       }
     },
     "rero": {
