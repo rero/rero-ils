@@ -36,7 +36,15 @@
       "title": "Fee type",
       "enum": [
         "overdue"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "overdue",
+            "value": "overdue"
+          }
+        ]
+      }
     },
     "notification": {
       "title": "Notification",
@@ -71,7 +79,23 @@
         "CHF",
         "EUR",
         "USD"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "CHF",
+            "value": "CHF"
+          },
+          {
+            "label": "EUR",
+            "value": "EUR"
+          },
+          {
+            "label": "USD",
+            "value": "USD"
+          }
+        ]
+      }
     },
     "status": {
       "type": "string",
@@ -79,7 +103,19 @@
       "enum": [
         "open",
         "paid"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "open",
+            "value": "open"
+          },
+          {
+            "label": "paid",
+            "value": "paid"
+          }
+        ]
+      }
     }
   }
 }

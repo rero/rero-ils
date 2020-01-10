@@ -57,7 +57,27 @@
         "overdue",
         "availability",
         "recall"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "due_soon",
+            "value": "due_soon"
+          },
+          {
+            "label": "overdue",
+            "value": "overdue"
+          },
+          {
+            "label": "availability",
+            "value": "availability"
+          },
+          {
+            "label": "recall",
+            "value": "recall"
+          }
+        ]
+      }
     }
   }
 }

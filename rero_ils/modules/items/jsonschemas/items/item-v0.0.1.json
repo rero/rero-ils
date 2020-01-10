@@ -117,7 +117,35 @@
         "in_transit",
         "at_desk",
         "excluded"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "on_shelf",
+            "value": "on_shelf"
+          },
+          {
+            "label": "on_loan",
+            "value": "on_loan"
+          },
+          {
+            "label": "missing",
+            "value": "missing"
+          },
+          {
+            "label": "in_transit",
+            "value": "in_transit"
+          },
+          {
+            "label": "at_desk",
+            "value": "at_desk"
+          },
+          {
+            "label": "excluded",
+            "value": "excluded"
+          }
+        ]
+      }
     },
     "holding": {
       "title": "Holding",

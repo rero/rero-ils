@@ -157,7 +157,15 @@
             "default": "bf:Language",
             "enum": [
               "bf:Language"
-            ]
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "bf:Language",
+                  "value": "bf:Language"
+                }
+              ]
+            }
           },
           "value": {
             "$ref": "#/definitions/language"
@@ -374,7 +382,27 @@
               "bf:Manufacture",
               "bf:Distribution",
               "bf:Production"
-            ]
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "bf:Publication",
+                  "value": "bf:Publication"
+                },
+                {
+                  "label": "bf:Manufacture",
+                  "value": "bf:Manufacture"
+                },
+                {
+                  "label": "bf:Distribution",
+                  "value": "bf:Distribution"
+                },
+                {
+                  "label": "bf:Production",
+                  "value": "bf:Production"
+                }
+              ]
+            }
           },
           "place": {
             "title": "Countries and/or cantons of the provision activity",
@@ -398,7 +426,15 @@
                   "const": "bf:Place",
                   "enum": [
                     "bf:Place"
-                  ]
+                  ],
+                  "form": {
+                    "options": [
+                      {
+                        "label": "bf:Place",
+                        "value": "bf:Place"
+                      }
+                    ]
+                  }
                 },
                 "country": {
                   "title": "Country",
@@ -437,7 +473,23 @@
                     "bf:Place",
                     "bf:Agent",
                     "Date"
-                  ]
+                  ],
+                  "form": {
+                    "options": [
+                      {
+                        "label": "bf:Place",
+                        "value": "bf:Place"
+                      },
+                      {
+                        "label": "bf:Agent",
+                        "value": "bf:Agent"
+                      },
+                      {
+                        "label": "Date",
+                        "value": "Date"
+                      }
+                    ]
+                  }
                 },
                 "label": {
                   "title": "Labels",
@@ -635,7 +687,95 @@
               "bf:Urn",
               "bf:VideoRecordingNumber",
               "uri"
-            ]
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "bf:AudioIssueNumber",
+                  "value": "bf:AudioIssueNumber"
+                },
+                {
+                  "label": "bf:Doi",
+                  "value": "bf:Doi"
+                },
+                {
+                  "label": "bf:Ean",
+                  "value": "bf:Ean"
+                },
+                {
+                  "label": "bf:Gtin14Number",
+                  "value": "bf:Gtin14Number"
+                },
+                {
+                  "label": "bf:Identifier",
+                  "value": "bf:Identifier"
+                },
+                {
+                  "label": "bf:Isan",
+                  "value": "bf:Isan"
+                },
+                {
+                  "label": "bf:Isbn",
+                  "value": "bf:Isbn"
+                },
+                {
+                  "label": "bf:Ismn",
+                  "value": "bf:Ismn"
+                },
+                {
+                  "label": "bf:Isrc",
+                  "value": "bf:Isrc"
+                },
+                {
+                  "label": "bf:Issn",
+                  "value": "bf:Issn"
+                },
+                {
+                  "label": "bf:IssnL",
+                  "value": "bf:IssnL"
+                },
+                {
+                  "label": "bf:Local",
+                  "value": "bf:Local"
+                },
+                {
+                  "label": "bf:MatrixNumber",
+                  "value": "bf:MatrixNumber"
+                },
+                {
+                  "label": "bf:MusicDistributorNumber",
+                  "value": "bf:MusicDistributorNumber"
+                },
+                {
+                  "label": "bf:MusicPlate",
+                  "value": "bf:MusicPlate"
+                },
+                {
+                  "label": "bf:MusicPublisherNumber",
+                  "value": "bf:MusicPublisherNumber"
+                },
+                {
+                  "label": "bf:PublisherNumber",
+                  "value": "bf:PublisherNumber"
+                },
+                {
+                  "label": "bf:Upc",
+                  "value": "bf:Upc"
+                },
+                {
+                  "label": "bf:Urn",
+                  "value": "bf:Urn"
+                },
+                {
+                  "label": "bf:VideoRecordingNumber",
+                  "value": "bf:VideoRecordingNumber"
+                },
+                {
+                  "label": "uri",
+                  "value": "uri"
+                }
+              ]
+            }
           },
           "value": {
             "title": "Identifier value",
@@ -1240,7 +1380,1951 @@
         "zun",
         "zxx",
         "zza"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "aar",
+            "value": "aar"
+          },
+          {
+            "label": "abk",
+            "value": "abk"
+          },
+          {
+            "label": "ace",
+            "value": "ace"
+          },
+          {
+            "label": "ach",
+            "value": "ach"
+          },
+          {
+            "label": "ada",
+            "value": "ada"
+          },
+          {
+            "label": "ady",
+            "value": "ady"
+          },
+          {
+            "label": "afa",
+            "value": "afa"
+          },
+          {
+            "label": "afh",
+            "value": "afh"
+          },
+          {
+            "label": "afr",
+            "value": "afr"
+          },
+          {
+            "label": "ain",
+            "value": "ain"
+          },
+          {
+            "label": "aka",
+            "value": "aka"
+          },
+          {
+            "label": "akk",
+            "value": "akk"
+          },
+          {
+            "label": "alb",
+            "value": "alb"
+          },
+          {
+            "label": "ale",
+            "value": "ale"
+          },
+          {
+            "label": "alg",
+            "value": "alg"
+          },
+          {
+            "label": "alt",
+            "value": "alt"
+          },
+          {
+            "label": "amh",
+            "value": "amh"
+          },
+          {
+            "label": "ang",
+            "value": "ang"
+          },
+          {
+            "label": "anp",
+            "value": "anp"
+          },
+          {
+            "label": "apa",
+            "value": "apa"
+          },
+          {
+            "label": "ara",
+            "value": "ara"
+          },
+          {
+            "label": "arc",
+            "value": "arc"
+          },
+          {
+            "label": "arg",
+            "value": "arg"
+          },
+          {
+            "label": "arm",
+            "value": "arm"
+          },
+          {
+            "label": "arn",
+            "value": "arn"
+          },
+          {
+            "label": "arp",
+            "value": "arp"
+          },
+          {
+            "label": "art",
+            "value": "art"
+          },
+          {
+            "label": "arw",
+            "value": "arw"
+          },
+          {
+            "label": "asm",
+            "value": "asm"
+          },
+          {
+            "label": "ast",
+            "value": "ast"
+          },
+          {
+            "label": "ath",
+            "value": "ath"
+          },
+          {
+            "label": "aus",
+            "value": "aus"
+          },
+          {
+            "label": "ava",
+            "value": "ava"
+          },
+          {
+            "label": "ave",
+            "value": "ave"
+          },
+          {
+            "label": "awa",
+            "value": "awa"
+          },
+          {
+            "label": "aym",
+            "value": "aym"
+          },
+          {
+            "label": "aze",
+            "value": "aze"
+          },
+          {
+            "label": "bad",
+            "value": "bad"
+          },
+          {
+            "label": "bai",
+            "value": "bai"
+          },
+          {
+            "label": "bak",
+            "value": "bak"
+          },
+          {
+            "label": "bal",
+            "value": "bal"
+          },
+          {
+            "label": "bam",
+            "value": "bam"
+          },
+          {
+            "label": "ban",
+            "value": "ban"
+          },
+          {
+            "label": "baq",
+            "value": "baq"
+          },
+          {
+            "label": "bas",
+            "value": "bas"
+          },
+          {
+            "label": "bat",
+            "value": "bat"
+          },
+          {
+            "label": "bej",
+            "value": "bej"
+          },
+          {
+            "label": "bel",
+            "value": "bel"
+          },
+          {
+            "label": "bem",
+            "value": "bem"
+          },
+          {
+            "label": "ben",
+            "value": "ben"
+          },
+          {
+            "label": "ber",
+            "value": "ber"
+          },
+          {
+            "label": "bho",
+            "value": "bho"
+          },
+          {
+            "label": "bih",
+            "value": "bih"
+          },
+          {
+            "label": "bik",
+            "value": "bik"
+          },
+          {
+            "label": "bin",
+            "value": "bin"
+          },
+          {
+            "label": "bis",
+            "value": "bis"
+          },
+          {
+            "label": "bla",
+            "value": "bla"
+          },
+          {
+            "label": "bnt",
+            "value": "bnt"
+          },
+          {
+            "label": "bos",
+            "value": "bos"
+          },
+          {
+            "label": "bra",
+            "value": "bra"
+          },
+          {
+            "label": "bre",
+            "value": "bre"
+          },
+          {
+            "label": "btk",
+            "value": "btk"
+          },
+          {
+            "label": "bua",
+            "value": "bua"
+          },
+          {
+            "label": "bug",
+            "value": "bug"
+          },
+          {
+            "label": "bul",
+            "value": "bul"
+          },
+          {
+            "label": "bur",
+            "value": "bur"
+          },
+          {
+            "label": "byn",
+            "value": "byn"
+          },
+          {
+            "label": "cad",
+            "value": "cad"
+          },
+          {
+            "label": "cai",
+            "value": "cai"
+          },
+          {
+            "label": "car",
+            "value": "car"
+          },
+          {
+            "label": "cat",
+            "value": "cat"
+          },
+          {
+            "label": "cau",
+            "value": "cau"
+          },
+          {
+            "label": "ceb",
+            "value": "ceb"
+          },
+          {
+            "label": "cel",
+            "value": "cel"
+          },
+          {
+            "label": "cha",
+            "value": "cha"
+          },
+          {
+            "label": "chb",
+            "value": "chb"
+          },
+          {
+            "label": "che",
+            "value": "che"
+          },
+          {
+            "label": "chg",
+            "value": "chg"
+          },
+          {
+            "label": "chi",
+            "value": "chi"
+          },
+          {
+            "label": "chk",
+            "value": "chk"
+          },
+          {
+            "label": "chm",
+            "value": "chm"
+          },
+          {
+            "label": "chn",
+            "value": "chn"
+          },
+          {
+            "label": "cho",
+            "value": "cho"
+          },
+          {
+            "label": "chp",
+            "value": "chp"
+          },
+          {
+            "label": "chr",
+            "value": "chr"
+          },
+          {
+            "label": "chu",
+            "value": "chu"
+          },
+          {
+            "label": "chv",
+            "value": "chv"
+          },
+          {
+            "label": "chy",
+            "value": "chy"
+          },
+          {
+            "label": "cmc",
+            "value": "cmc"
+          },
+          {
+            "label": "cnr",
+            "value": "cnr"
+          },
+          {
+            "label": "cop",
+            "value": "cop"
+          },
+          {
+            "label": "cor",
+            "value": "cor"
+          },
+          {
+            "label": "cos",
+            "value": "cos"
+          },
+          {
+            "label": "cpe",
+            "value": "cpe"
+          },
+          {
+            "label": "cpf",
+            "value": "cpf"
+          },
+          {
+            "label": "cpp",
+            "value": "cpp"
+          },
+          {
+            "label": "cre",
+            "value": "cre"
+          },
+          {
+            "label": "crh",
+            "value": "crh"
+          },
+          {
+            "label": "crp",
+            "value": "crp"
+          },
+          {
+            "label": "csb",
+            "value": "csb"
+          },
+          {
+            "label": "cus",
+            "value": "cus"
+          },
+          {
+            "label": "cze",
+            "value": "cze"
+          },
+          {
+            "label": "dak",
+            "value": "dak"
+          },
+          {
+            "label": "dan",
+            "value": "dan"
+          },
+          {
+            "label": "dar",
+            "value": "dar"
+          },
+          {
+            "label": "day",
+            "value": "day"
+          },
+          {
+            "label": "del",
+            "value": "del"
+          },
+          {
+            "label": "den",
+            "value": "den"
+          },
+          {
+            "label": "dgr",
+            "value": "dgr"
+          },
+          {
+            "label": "din",
+            "value": "din"
+          },
+          {
+            "label": "div",
+            "value": "div"
+          },
+          {
+            "label": "doi",
+            "value": "doi"
+          },
+          {
+            "label": "dra",
+            "value": "dra"
+          },
+          {
+            "label": "dsb",
+            "value": "dsb"
+          },
+          {
+            "label": "dua",
+            "value": "dua"
+          },
+          {
+            "label": "dum",
+            "value": "dum"
+          },
+          {
+            "label": "dut",
+            "value": "dut"
+          },
+          {
+            "label": "dyu",
+            "value": "dyu"
+          },
+          {
+            "label": "dzo",
+            "value": "dzo"
+          },
+          {
+            "label": "efi",
+            "value": "efi"
+          },
+          {
+            "label": "egy",
+            "value": "egy"
+          },
+          {
+            "label": "eka",
+            "value": "eka"
+          },
+          {
+            "label": "elx",
+            "value": "elx"
+          },
+          {
+            "label": "eng",
+            "value": "eng"
+          },
+          {
+            "label": "enm",
+            "value": "enm"
+          },
+          {
+            "label": "epo",
+            "value": "epo"
+          },
+          {
+            "label": "est",
+            "value": "est"
+          },
+          {
+            "label": "ewe",
+            "value": "ewe"
+          },
+          {
+            "label": "ewo",
+            "value": "ewo"
+          },
+          {
+            "label": "fan",
+            "value": "fan"
+          },
+          {
+            "label": "fao",
+            "value": "fao"
+          },
+          {
+            "label": "fat",
+            "value": "fat"
+          },
+          {
+            "label": "fij",
+            "value": "fij"
+          },
+          {
+            "label": "fil",
+            "value": "fil"
+          },
+          {
+            "label": "fin",
+            "value": "fin"
+          },
+          {
+            "label": "fiu",
+            "value": "fiu"
+          },
+          {
+            "label": "fon",
+            "value": "fon"
+          },
+          {
+            "label": "fre",
+            "value": "fre"
+          },
+          {
+            "label": "frm",
+            "value": "frm"
+          },
+          {
+            "label": "fro",
+            "value": "fro"
+          },
+          {
+            "label": "frr",
+            "value": "frr"
+          },
+          {
+            "label": "frs",
+            "value": "frs"
+          },
+          {
+            "label": "fry",
+            "value": "fry"
+          },
+          {
+            "label": "ful",
+            "value": "ful"
+          },
+          {
+            "label": "fur",
+            "value": "fur"
+          },
+          {
+            "label": "gaa",
+            "value": "gaa"
+          },
+          {
+            "label": "gay",
+            "value": "gay"
+          },
+          {
+            "label": "gba",
+            "value": "gba"
+          },
+          {
+            "label": "gem",
+            "value": "gem"
+          },
+          {
+            "label": "geo",
+            "value": "geo"
+          },
+          {
+            "label": "ger",
+            "value": "ger"
+          },
+          {
+            "label": "gez",
+            "value": "gez"
+          },
+          {
+            "label": "gil",
+            "value": "gil"
+          },
+          {
+            "label": "gla",
+            "value": "gla"
+          },
+          {
+            "label": "gle",
+            "value": "gle"
+          },
+          {
+            "label": "glg",
+            "value": "glg"
+          },
+          {
+            "label": "glv",
+            "value": "glv"
+          },
+          {
+            "label": "gmh",
+            "value": "gmh"
+          },
+          {
+            "label": "goh",
+            "value": "goh"
+          },
+          {
+            "label": "gon",
+            "value": "gon"
+          },
+          {
+            "label": "gor",
+            "value": "gor"
+          },
+          {
+            "label": "got",
+            "value": "got"
+          },
+          {
+            "label": "grb",
+            "value": "grb"
+          },
+          {
+            "label": "grc",
+            "value": "grc"
+          },
+          {
+            "label": "gre",
+            "value": "gre"
+          },
+          {
+            "label": "grn",
+            "value": "grn"
+          },
+          {
+            "label": "gsw",
+            "value": "gsw"
+          },
+          {
+            "label": "guj",
+            "value": "guj"
+          },
+          {
+            "label": "gwi",
+            "value": "gwi"
+          },
+          {
+            "label": "hai",
+            "value": "hai"
+          },
+          {
+            "label": "hat",
+            "value": "hat"
+          },
+          {
+            "label": "hau",
+            "value": "hau"
+          },
+          {
+            "label": "haw",
+            "value": "haw"
+          },
+          {
+            "label": "heb",
+            "value": "heb"
+          },
+          {
+            "label": "her",
+            "value": "her"
+          },
+          {
+            "label": "hil",
+            "value": "hil"
+          },
+          {
+            "label": "him",
+            "value": "him"
+          },
+          {
+            "label": "hin",
+            "value": "hin"
+          },
+          {
+            "label": "hit",
+            "value": "hit"
+          },
+          {
+            "label": "hmn",
+            "value": "hmn"
+          },
+          {
+            "label": "hmo",
+            "value": "hmo"
+          },
+          {
+            "label": "hrv",
+            "value": "hrv"
+          },
+          {
+            "label": "hsb",
+            "value": "hsb"
+          },
+          {
+            "label": "hun",
+            "value": "hun"
+          },
+          {
+            "label": "hup",
+            "value": "hup"
+          },
+          {
+            "label": "iba",
+            "value": "iba"
+          },
+          {
+            "label": "ibo",
+            "value": "ibo"
+          },
+          {
+            "label": "ice",
+            "value": "ice"
+          },
+          {
+            "label": "ido",
+            "value": "ido"
+          },
+          {
+            "label": "iii",
+            "value": "iii"
+          },
+          {
+            "label": "ijo",
+            "value": "ijo"
+          },
+          {
+            "label": "iku",
+            "value": "iku"
+          },
+          {
+            "label": "ile",
+            "value": "ile"
+          },
+          {
+            "label": "ilo",
+            "value": "ilo"
+          },
+          {
+            "label": "ina",
+            "value": "ina"
+          },
+          {
+            "label": "inc",
+            "value": "inc"
+          },
+          {
+            "label": "ind",
+            "value": "ind"
+          },
+          {
+            "label": "ine",
+            "value": "ine"
+          },
+          {
+            "label": "inh",
+            "value": "inh"
+          },
+          {
+            "label": "ipk",
+            "value": "ipk"
+          },
+          {
+            "label": "ira",
+            "value": "ira"
+          },
+          {
+            "label": "iro",
+            "value": "iro"
+          },
+          {
+            "label": "ita",
+            "value": "ita"
+          },
+          {
+            "label": "jav",
+            "value": "jav"
+          },
+          {
+            "label": "jbo",
+            "value": "jbo"
+          },
+          {
+            "label": "jpn",
+            "value": "jpn"
+          },
+          {
+            "label": "jpr",
+            "value": "jpr"
+          },
+          {
+            "label": "jrb",
+            "value": "jrb"
+          },
+          {
+            "label": "kaa",
+            "value": "kaa"
+          },
+          {
+            "label": "kab",
+            "value": "kab"
+          },
+          {
+            "label": "kac",
+            "value": "kac"
+          },
+          {
+            "label": "kal",
+            "value": "kal"
+          },
+          {
+            "label": "kam",
+            "value": "kam"
+          },
+          {
+            "label": "kan",
+            "value": "kan"
+          },
+          {
+            "label": "kar",
+            "value": "kar"
+          },
+          {
+            "label": "kas",
+            "value": "kas"
+          },
+          {
+            "label": "kau",
+            "value": "kau"
+          },
+          {
+            "label": "kaw",
+            "value": "kaw"
+          },
+          {
+            "label": "kaz",
+            "value": "kaz"
+          },
+          {
+            "label": "kbd",
+            "value": "kbd"
+          },
+          {
+            "label": "kha",
+            "value": "kha"
+          },
+          {
+            "label": "khi",
+            "value": "khi"
+          },
+          {
+            "label": "khm",
+            "value": "khm"
+          },
+          {
+            "label": "kho",
+            "value": "kho"
+          },
+          {
+            "label": "kik",
+            "value": "kik"
+          },
+          {
+            "label": "kin",
+            "value": "kin"
+          },
+          {
+            "label": "kir",
+            "value": "kir"
+          },
+          {
+            "label": "kmb",
+            "value": "kmb"
+          },
+          {
+            "label": "kok",
+            "value": "kok"
+          },
+          {
+            "label": "kom",
+            "value": "kom"
+          },
+          {
+            "label": "kon",
+            "value": "kon"
+          },
+          {
+            "label": "kor",
+            "value": "kor"
+          },
+          {
+            "label": "kos",
+            "value": "kos"
+          },
+          {
+            "label": "kpe",
+            "value": "kpe"
+          },
+          {
+            "label": "krc",
+            "value": "krc"
+          },
+          {
+            "label": "krl",
+            "value": "krl"
+          },
+          {
+            "label": "kro",
+            "value": "kro"
+          },
+          {
+            "label": "kru",
+            "value": "kru"
+          },
+          {
+            "label": "kua",
+            "value": "kua"
+          },
+          {
+            "label": "kum",
+            "value": "kum"
+          },
+          {
+            "label": "kur",
+            "value": "kur"
+          },
+          {
+            "label": "kut",
+            "value": "kut"
+          },
+          {
+            "label": "lad",
+            "value": "lad"
+          },
+          {
+            "label": "lah",
+            "value": "lah"
+          },
+          {
+            "label": "lam",
+            "value": "lam"
+          },
+          {
+            "label": "lao",
+            "value": "lao"
+          },
+          {
+            "label": "lat",
+            "value": "lat"
+          },
+          {
+            "label": "lav",
+            "value": "lav"
+          },
+          {
+            "label": "lez",
+            "value": "lez"
+          },
+          {
+            "label": "lim",
+            "value": "lim"
+          },
+          {
+            "label": "lin",
+            "value": "lin"
+          },
+          {
+            "label": "lit",
+            "value": "lit"
+          },
+          {
+            "label": "lol",
+            "value": "lol"
+          },
+          {
+            "label": "loz",
+            "value": "loz"
+          },
+          {
+            "label": "ltz",
+            "value": "ltz"
+          },
+          {
+            "label": "lua",
+            "value": "lua"
+          },
+          {
+            "label": "lub",
+            "value": "lub"
+          },
+          {
+            "label": "lug",
+            "value": "lug"
+          },
+          {
+            "label": "lui",
+            "value": "lui"
+          },
+          {
+            "label": "lun",
+            "value": "lun"
+          },
+          {
+            "label": "luo",
+            "value": "luo"
+          },
+          {
+            "label": "lus",
+            "value": "lus"
+          },
+          {
+            "label": "mac",
+            "value": "mac"
+          },
+          {
+            "label": "mad",
+            "value": "mad"
+          },
+          {
+            "label": "mag",
+            "value": "mag"
+          },
+          {
+            "label": "mah",
+            "value": "mah"
+          },
+          {
+            "label": "mai",
+            "value": "mai"
+          },
+          {
+            "label": "mak",
+            "value": "mak"
+          },
+          {
+            "label": "mal",
+            "value": "mal"
+          },
+          {
+            "label": "man",
+            "value": "man"
+          },
+          {
+            "label": "mao",
+            "value": "mao"
+          },
+          {
+            "label": "map",
+            "value": "map"
+          },
+          {
+            "label": "mar",
+            "value": "mar"
+          },
+          {
+            "label": "mas",
+            "value": "mas"
+          },
+          {
+            "label": "may",
+            "value": "may"
+          },
+          {
+            "label": "mdf",
+            "value": "mdf"
+          },
+          {
+            "label": "mdr",
+            "value": "mdr"
+          },
+          {
+            "label": "men",
+            "value": "men"
+          },
+          {
+            "label": "mga",
+            "value": "mga"
+          },
+          {
+            "label": "mic",
+            "value": "mic"
+          },
+          {
+            "label": "min",
+            "value": "min"
+          },
+          {
+            "label": "mis",
+            "value": "mis"
+          },
+          {
+            "label": "mkh",
+            "value": "mkh"
+          },
+          {
+            "label": "mlg",
+            "value": "mlg"
+          },
+          {
+            "label": "mlt",
+            "value": "mlt"
+          },
+          {
+            "label": "mnc",
+            "value": "mnc"
+          },
+          {
+            "label": "mni",
+            "value": "mni"
+          },
+          {
+            "label": "mno",
+            "value": "mno"
+          },
+          {
+            "label": "moh",
+            "value": "moh"
+          },
+          {
+            "label": "mon",
+            "value": "mon"
+          },
+          {
+            "label": "mos",
+            "value": "mos"
+          },
+          {
+            "label": "mul",
+            "value": "mul"
+          },
+          {
+            "label": "mun",
+            "value": "mun"
+          },
+          {
+            "label": "mus",
+            "value": "mus"
+          },
+          {
+            "label": "mwl",
+            "value": "mwl"
+          },
+          {
+            "label": "mwr",
+            "value": "mwr"
+          },
+          {
+            "label": "myn",
+            "value": "myn"
+          },
+          {
+            "label": "myv",
+            "value": "myv"
+          },
+          {
+            "label": "nah",
+            "value": "nah"
+          },
+          {
+            "label": "nai",
+            "value": "nai"
+          },
+          {
+            "label": "nap",
+            "value": "nap"
+          },
+          {
+            "label": "nau",
+            "value": "nau"
+          },
+          {
+            "label": "nav",
+            "value": "nav"
+          },
+          {
+            "label": "nbl",
+            "value": "nbl"
+          },
+          {
+            "label": "nde",
+            "value": "nde"
+          },
+          {
+            "label": "ndo",
+            "value": "ndo"
+          },
+          {
+            "label": "nds",
+            "value": "nds"
+          },
+          {
+            "label": "nep",
+            "value": "nep"
+          },
+          {
+            "label": "new",
+            "value": "new"
+          },
+          {
+            "label": "nia",
+            "value": "nia"
+          },
+          {
+            "label": "nic",
+            "value": "nic"
+          },
+          {
+            "label": "niu",
+            "value": "niu"
+          },
+          {
+            "label": "nno",
+            "value": "nno"
+          },
+          {
+            "label": "nob",
+            "value": "nob"
+          },
+          {
+            "label": "nog",
+            "value": "nog"
+          },
+          {
+            "label": "non",
+            "value": "non"
+          },
+          {
+            "label": "nor",
+            "value": "nor"
+          },
+          {
+            "label": "nqo",
+            "value": "nqo"
+          },
+          {
+            "label": "nso",
+            "value": "nso"
+          },
+          {
+            "label": "nub",
+            "value": "nub"
+          },
+          {
+            "label": "nwc",
+            "value": "nwc"
+          },
+          {
+            "label": "nya",
+            "value": "nya"
+          },
+          {
+            "label": "nym",
+            "value": "nym"
+          },
+          {
+            "label": "nyn",
+            "value": "nyn"
+          },
+          {
+            "label": "nyo",
+            "value": "nyo"
+          },
+          {
+            "label": "nzi",
+            "value": "nzi"
+          },
+          {
+            "label": "oci",
+            "value": "oci"
+          },
+          {
+            "label": "oji",
+            "value": "oji"
+          },
+          {
+            "label": "ori",
+            "value": "ori"
+          },
+          {
+            "label": "orm",
+            "value": "orm"
+          },
+          {
+            "label": "osa",
+            "value": "osa"
+          },
+          {
+            "label": "oss",
+            "value": "oss"
+          },
+          {
+            "label": "ota",
+            "value": "ota"
+          },
+          {
+            "label": "oto",
+            "value": "oto"
+          },
+          {
+            "label": "paa",
+            "value": "paa"
+          },
+          {
+            "label": "pag",
+            "value": "pag"
+          },
+          {
+            "label": "pal",
+            "value": "pal"
+          },
+          {
+            "label": "pam",
+            "value": "pam"
+          },
+          {
+            "label": "pan",
+            "value": "pan"
+          },
+          {
+            "label": "pap",
+            "value": "pap"
+          },
+          {
+            "label": "pau",
+            "value": "pau"
+          },
+          {
+            "label": "peo",
+            "value": "peo"
+          },
+          {
+            "label": "per",
+            "value": "per"
+          },
+          {
+            "label": "phi",
+            "value": "phi"
+          },
+          {
+            "label": "phn",
+            "value": "phn"
+          },
+          {
+            "label": "pli",
+            "value": "pli"
+          },
+          {
+            "label": "pol",
+            "value": "pol"
+          },
+          {
+            "label": "pon",
+            "value": "pon"
+          },
+          {
+            "label": "por",
+            "value": "por"
+          },
+          {
+            "label": "pra",
+            "value": "pra"
+          },
+          {
+            "label": "pro",
+            "value": "pro"
+          },
+          {
+            "label": "pus",
+            "value": "pus"
+          },
+          {
+            "label": "que",
+            "value": "que"
+          },
+          {
+            "label": "raj",
+            "value": "raj"
+          },
+          {
+            "label": "rap",
+            "value": "rap"
+          },
+          {
+            "label": "rar",
+            "value": "rar"
+          },
+          {
+            "label": "roa",
+            "value": "roa"
+          },
+          {
+            "label": "roh",
+            "value": "roh"
+          },
+          {
+            "label": "rom",
+            "value": "rom"
+          },
+          {
+            "label": "rum",
+            "value": "rum"
+          },
+          {
+            "label": "run",
+            "value": "run"
+          },
+          {
+            "label": "rup",
+            "value": "rup"
+          },
+          {
+            "label": "rus",
+            "value": "rus"
+          },
+          {
+            "label": "sad",
+            "value": "sad"
+          },
+          {
+            "label": "sag",
+            "value": "sag"
+          },
+          {
+            "label": "sah",
+            "value": "sah"
+          },
+          {
+            "label": "sai",
+            "value": "sai"
+          },
+          {
+            "label": "sal",
+            "value": "sal"
+          },
+          {
+            "label": "sam",
+            "value": "sam"
+          },
+          {
+            "label": "san",
+            "value": "san"
+          },
+          {
+            "label": "sas",
+            "value": "sas"
+          },
+          {
+            "label": "sat",
+            "value": "sat"
+          },
+          {
+            "label": "scn",
+            "value": "scn"
+          },
+          {
+            "label": "sco",
+            "value": "sco"
+          },
+          {
+            "label": "sel",
+            "value": "sel"
+          },
+          {
+            "label": "sem",
+            "value": "sem"
+          },
+          {
+            "label": "sga",
+            "value": "sga"
+          },
+          {
+            "label": "sgn",
+            "value": "sgn"
+          },
+          {
+            "label": "shn",
+            "value": "shn"
+          },
+          {
+            "label": "sid",
+            "value": "sid"
+          },
+          {
+            "label": "sin",
+            "value": "sin"
+          },
+          {
+            "label": "sio",
+            "value": "sio"
+          },
+          {
+            "label": "sit",
+            "value": "sit"
+          },
+          {
+            "label": "sla",
+            "value": "sla"
+          },
+          {
+            "label": "slo",
+            "value": "slo"
+          },
+          {
+            "label": "slv",
+            "value": "slv"
+          },
+          {
+            "label": "sma",
+            "value": "sma"
+          },
+          {
+            "label": "sme",
+            "value": "sme"
+          },
+          {
+            "label": "smi",
+            "value": "smi"
+          },
+          {
+            "label": "smj",
+            "value": "smj"
+          },
+          {
+            "label": "smn",
+            "value": "smn"
+          },
+          {
+            "label": "smo",
+            "value": "smo"
+          },
+          {
+            "label": "sms",
+            "value": "sms"
+          },
+          {
+            "label": "sna",
+            "value": "sna"
+          },
+          {
+            "label": "snd",
+            "value": "snd"
+          },
+          {
+            "label": "snk",
+            "value": "snk"
+          },
+          {
+            "label": "sog",
+            "value": "sog"
+          },
+          {
+            "label": "som",
+            "value": "som"
+          },
+          {
+            "label": "son",
+            "value": "son"
+          },
+          {
+            "label": "sot",
+            "value": "sot"
+          },
+          {
+            "label": "spa",
+            "value": "spa"
+          },
+          {
+            "label": "srd",
+            "value": "srd"
+          },
+          {
+            "label": "srn",
+            "value": "srn"
+          },
+          {
+            "label": "srp",
+            "value": "srp"
+          },
+          {
+            "label": "srr",
+            "value": "srr"
+          },
+          {
+            "label": "ssa",
+            "value": "ssa"
+          },
+          {
+            "label": "ssw",
+            "value": "ssw"
+          },
+          {
+            "label": "suk",
+            "value": "suk"
+          },
+          {
+            "label": "sun",
+            "value": "sun"
+          },
+          {
+            "label": "sus",
+            "value": "sus"
+          },
+          {
+            "label": "sux",
+            "value": "sux"
+          },
+          {
+            "label": "swa",
+            "value": "swa"
+          },
+          {
+            "label": "swe",
+            "value": "swe"
+          },
+          {
+            "label": "syc",
+            "value": "syc"
+          },
+          {
+            "label": "syr",
+            "value": "syr"
+          },
+          {
+            "label": "tah",
+            "value": "tah"
+          },
+          {
+            "label": "tai",
+            "value": "tai"
+          },
+          {
+            "label": "tam",
+            "value": "tam"
+          },
+          {
+            "label": "tat",
+            "value": "tat"
+          },
+          {
+            "label": "tel",
+            "value": "tel"
+          },
+          {
+            "label": "tem",
+            "value": "tem"
+          },
+          {
+            "label": "ter",
+            "value": "ter"
+          },
+          {
+            "label": "tet",
+            "value": "tet"
+          },
+          {
+            "label": "tgk",
+            "value": "tgk"
+          },
+          {
+            "label": "tgl",
+            "value": "tgl"
+          },
+          {
+            "label": "tha",
+            "value": "tha"
+          },
+          {
+            "label": "tib",
+            "value": "tib"
+          },
+          {
+            "label": "tig",
+            "value": "tig"
+          },
+          {
+            "label": "tir",
+            "value": "tir"
+          },
+          {
+            "label": "tiv",
+            "value": "tiv"
+          },
+          {
+            "label": "tkl",
+            "value": "tkl"
+          },
+          {
+            "label": "tlh",
+            "value": "tlh"
+          },
+          {
+            "label": "tli",
+            "value": "tli"
+          },
+          {
+            "label": "tmh",
+            "value": "tmh"
+          },
+          {
+            "label": "tog",
+            "value": "tog"
+          },
+          {
+            "label": "ton",
+            "value": "ton"
+          },
+          {
+            "label": "tpi",
+            "value": "tpi"
+          },
+          {
+            "label": "tsi",
+            "value": "tsi"
+          },
+          {
+            "label": "tsn",
+            "value": "tsn"
+          },
+          {
+            "label": "tso",
+            "value": "tso"
+          },
+          {
+            "label": "tuk",
+            "value": "tuk"
+          },
+          {
+            "label": "tum",
+            "value": "tum"
+          },
+          {
+            "label": "tup",
+            "value": "tup"
+          },
+          {
+            "label": "tur",
+            "value": "tur"
+          },
+          {
+            "label": "tut",
+            "value": "tut"
+          },
+          {
+            "label": "tvl",
+            "value": "tvl"
+          },
+          {
+            "label": "twi",
+            "value": "twi"
+          },
+          {
+            "label": "tyv",
+            "value": "tyv"
+          },
+          {
+            "label": "udm",
+            "value": "udm"
+          },
+          {
+            "label": "uga",
+            "value": "uga"
+          },
+          {
+            "label": "uig",
+            "value": "uig"
+          },
+          {
+            "label": "ukr",
+            "value": "ukr"
+          },
+          {
+            "label": "umb",
+            "value": "umb"
+          },
+          {
+            "label": "und",
+            "value": "und"
+          },
+          {
+            "label": "urd",
+            "value": "urd"
+          },
+          {
+            "label": "uzb",
+            "value": "uzb"
+          },
+          {
+            "label": "vai",
+            "value": "vai"
+          },
+          {
+            "label": "ven",
+            "value": "ven"
+          },
+          {
+            "label": "vie",
+            "value": "vie"
+          },
+          {
+            "label": "vol",
+            "value": "vol"
+          },
+          {
+            "label": "vot",
+            "value": "vot"
+          },
+          {
+            "label": "wak",
+            "value": "wak"
+          },
+          {
+            "label": "wal",
+            "value": "wal"
+          },
+          {
+            "label": "war",
+            "value": "war"
+          },
+          {
+            "label": "was",
+            "value": "was"
+          },
+          {
+            "label": "wel",
+            "value": "wel"
+          },
+          {
+            "label": "wen",
+            "value": "wen"
+          },
+          {
+            "label": "wln",
+            "value": "wln"
+          },
+          {
+            "label": "wol",
+            "value": "wol"
+          },
+          {
+            "label": "xal",
+            "value": "xal"
+          },
+          {
+            "label": "xho",
+            "value": "xho"
+          },
+          {
+            "label": "yao",
+            "value": "yao"
+          },
+          {
+            "label": "yap",
+            "value": "yap"
+          },
+          {
+            "label": "yid",
+            "value": "yid"
+          },
+          {
+            "label": "yor",
+            "value": "yor"
+          },
+          {
+            "label": "ypk",
+            "value": "ypk"
+          },
+          {
+            "label": "zap",
+            "value": "zap"
+          },
+          {
+            "label": "zbl",
+            "value": "zbl"
+          },
+          {
+            "label": "zen",
+            "value": "zen"
+          },
+          {
+            "label": "zha",
+            "value": "zha"
+          },
+          {
+            "label": "znd",
+            "value": "znd"
+          },
+          {
+            "label": "zul",
+            "value": "zul"
+          },
+          {
+            "label": "zun",
+            "value": "zun"
+          },
+          {
+            "label": "zxx",
+            "value": "zxx"
+          },
+          {
+            "label": "zza",
+            "value": "zza"
+          }
+        ]
+      }
     },
     "language_script": {
       "title": "Values",
@@ -1290,7 +3374,113 @@
             "und-zyyy"
           ],
           "form": {
-            "hide": true
+            "hide": true,
+            "options": [
+              {
+                "label": "ara-arab",
+                "value": "ara-arab"
+              },
+              {
+                "label": "bel-cyrl",
+                "value": "bel-cyrl"
+              },
+              {
+                "label": "chi-hani",
+                "value": "chi-hani"
+              },
+              {
+                "label": "chi-zyyy",
+                "value": "chi-zyyy"
+              },
+              {
+                "label": "chu-cyrl",
+                "value": "chu-cyrl"
+              },
+              {
+                "label": "grc-grek",
+                "value": "grc-grek"
+              },
+              {
+                "label": "gre-grek",
+                "value": "gre-grek"
+              },
+              {
+                "label": "heb-hebr",
+                "value": "heb-hebr"
+              },
+              {
+                "label": "jpn-hani",
+                "value": "jpn-hani"
+              },
+              {
+                "label": "jpn-jpan",
+                "value": "jpn-jpan"
+              },
+              {
+                "label": "kor-kore",
+                "value": "kor-kore"
+              },
+              {
+                "label": "lad-hebr",
+                "value": "lad-hebr"
+              },
+              {
+                "label": "mac-cyrl",
+                "value": "mac-cyrl"
+              },
+              {
+                "label": "per-arab",
+                "value": "per-arab"
+              },
+              {
+                "label": "rus-cyrl",
+                "value": "rus-cyrl"
+              },
+              {
+                "label": "srp-cyrl",
+                "value": "srp-cyrl"
+              },
+              {
+                "label": "ukr-cyrl",
+                "value": "ukr-cyrl"
+              },
+              {
+                "label": "yid-hebr",
+                "value": "yid-hebr"
+              },
+              {
+                "label": "und-arab",
+                "value": "und-arab"
+              },
+              {
+                "label": "und-cyrl",
+                "value": "und-cyrl"
+              },
+              {
+                "label": "und-grek",
+                "value": "und-grek"
+              },
+              {
+                "label": "und-hani",
+                "value": "und-hani"
+              },
+              {
+                "label": "und-hebr",
+                "value": "und-hebr"
+              },
+              {
+                "label": "und-jpan",
+                "value": "und-jpan"
+              },
+              {
+                "label": "und-kore",
+                "value": "und-kore"
+              },
+              {
+                "label": "und-zyyy",
+                "value": "und-zyyy"
+              }
+            ]
           }
         }
       }
@@ -1681,7 +3871,1539 @@
         "ys",
         "yu",
         "za"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "aa",
+            "value": "aa"
+          },
+          {
+            "label": "abc",
+            "value": "abc"
+          },
+          {
+            "label": "ac",
+            "value": "ac"
+          },
+          {
+            "label": "aca",
+            "value": "aca"
+          },
+          {
+            "label": "ae",
+            "value": "ae"
+          },
+          {
+            "label": "af",
+            "value": "af"
+          },
+          {
+            "label": "ag",
+            "value": "ag"
+          },
+          {
+            "label": "ai",
+            "value": "ai"
+          },
+          {
+            "label": "air",
+            "value": "air"
+          },
+          {
+            "label": "aj",
+            "value": "aj"
+          },
+          {
+            "label": "ajr",
+            "value": "ajr"
+          },
+          {
+            "label": "aku",
+            "value": "aku"
+          },
+          {
+            "label": "alu",
+            "value": "alu"
+          },
+          {
+            "label": "am",
+            "value": "am"
+          },
+          {
+            "label": "an",
+            "value": "an"
+          },
+          {
+            "label": "ao",
+            "value": "ao"
+          },
+          {
+            "label": "aq",
+            "value": "aq"
+          },
+          {
+            "label": "aru",
+            "value": "aru"
+          },
+          {
+            "label": "as",
+            "value": "as"
+          },
+          {
+            "label": "at",
+            "value": "at"
+          },
+          {
+            "label": "au",
+            "value": "au"
+          },
+          {
+            "label": "aw",
+            "value": "aw"
+          },
+          {
+            "label": "ay",
+            "value": "ay"
+          },
+          {
+            "label": "azu",
+            "value": "azu"
+          },
+          {
+            "label": "ba",
+            "value": "ba"
+          },
+          {
+            "label": "bb",
+            "value": "bb"
+          },
+          {
+            "label": "bcc",
+            "value": "bcc"
+          },
+          {
+            "label": "bd",
+            "value": "bd"
+          },
+          {
+            "label": "be",
+            "value": "be"
+          },
+          {
+            "label": "bf",
+            "value": "bf"
+          },
+          {
+            "label": "bg",
+            "value": "bg"
+          },
+          {
+            "label": "bh",
+            "value": "bh"
+          },
+          {
+            "label": "bi",
+            "value": "bi"
+          },
+          {
+            "label": "bl",
+            "value": "bl"
+          },
+          {
+            "label": "bm",
+            "value": "bm"
+          },
+          {
+            "label": "bn",
+            "value": "bn"
+          },
+          {
+            "label": "bo",
+            "value": "bo"
+          },
+          {
+            "label": "bp",
+            "value": "bp"
+          },
+          {
+            "label": "br",
+            "value": "br"
+          },
+          {
+            "label": "bs",
+            "value": "bs"
+          },
+          {
+            "label": "bt",
+            "value": "bt"
+          },
+          {
+            "label": "bu",
+            "value": "bu"
+          },
+          {
+            "label": "bv",
+            "value": "bv"
+          },
+          {
+            "label": "bw",
+            "value": "bw"
+          },
+          {
+            "label": "bwr",
+            "value": "bwr"
+          },
+          {
+            "label": "bx",
+            "value": "bx"
+          },
+          {
+            "label": "ca",
+            "value": "ca"
+          },
+          {
+            "label": "cau",
+            "value": "cau"
+          },
+          {
+            "label": "cb",
+            "value": "cb"
+          },
+          {
+            "label": "cc",
+            "value": "cc"
+          },
+          {
+            "label": "cd",
+            "value": "cd"
+          },
+          {
+            "label": "ce",
+            "value": "ce"
+          },
+          {
+            "label": "cf",
+            "value": "cf"
+          },
+          {
+            "label": "cg",
+            "value": "cg"
+          },
+          {
+            "label": "ch",
+            "value": "ch"
+          },
+          {
+            "label": "ci",
+            "value": "ci"
+          },
+          {
+            "label": "cj",
+            "value": "cj"
+          },
+          {
+            "label": "ck",
+            "value": "ck"
+          },
+          {
+            "label": "cl",
+            "value": "cl"
+          },
+          {
+            "label": "cm",
+            "value": "cm"
+          },
+          {
+            "label": "cn",
+            "value": "cn"
+          },
+          {
+            "label": "co",
+            "value": "co"
+          },
+          {
+            "label": "cou",
+            "value": "cou"
+          },
+          {
+            "label": "cp",
+            "value": "cp"
+          },
+          {
+            "label": "cq",
+            "value": "cq"
+          },
+          {
+            "label": "cr",
+            "value": "cr"
+          },
+          {
+            "label": "cs",
+            "value": "cs"
+          },
+          {
+            "label": "ctu",
+            "value": "ctu"
+          },
+          {
+            "label": "cu",
+            "value": "cu"
+          },
+          {
+            "label": "cv",
+            "value": "cv"
+          },
+          {
+            "label": "cw",
+            "value": "cw"
+          },
+          {
+            "label": "cx",
+            "value": "cx"
+          },
+          {
+            "label": "cy",
+            "value": "cy"
+          },
+          {
+            "label": "cz",
+            "value": "cz"
+          },
+          {
+            "label": "dcu",
+            "value": "dcu"
+          },
+          {
+            "label": "deu",
+            "value": "deu"
+          },
+          {
+            "label": "dk",
+            "value": "dk"
+          },
+          {
+            "label": "dm",
+            "value": "dm"
+          },
+          {
+            "label": "dq",
+            "value": "dq"
+          },
+          {
+            "label": "dr",
+            "value": "dr"
+          },
+          {
+            "label": "ea",
+            "value": "ea"
+          },
+          {
+            "label": "ec",
+            "value": "ec"
+          },
+          {
+            "label": "eg",
+            "value": "eg"
+          },
+          {
+            "label": "em",
+            "value": "em"
+          },
+          {
+            "label": "enk",
+            "value": "enk"
+          },
+          {
+            "label": "er",
+            "value": "er"
+          },
+          {
+            "label": "err",
+            "value": "err"
+          },
+          {
+            "label": "es",
+            "value": "es"
+          },
+          {
+            "label": "et",
+            "value": "et"
+          },
+          {
+            "label": "fa",
+            "value": "fa"
+          },
+          {
+            "label": "fg",
+            "value": "fg"
+          },
+          {
+            "label": "fi",
+            "value": "fi"
+          },
+          {
+            "label": "fj",
+            "value": "fj"
+          },
+          {
+            "label": "fk",
+            "value": "fk"
+          },
+          {
+            "label": "flu",
+            "value": "flu"
+          },
+          {
+            "label": "fm",
+            "value": "fm"
+          },
+          {
+            "label": "fp",
+            "value": "fp"
+          },
+          {
+            "label": "fr",
+            "value": "fr"
+          },
+          {
+            "label": "fs",
+            "value": "fs"
+          },
+          {
+            "label": "ft",
+            "value": "ft"
+          },
+          {
+            "label": "gau",
+            "value": "gau"
+          },
+          {
+            "label": "gb",
+            "value": "gb"
+          },
+          {
+            "label": "gd",
+            "value": "gd"
+          },
+          {
+            "label": "ge",
+            "value": "ge"
+          },
+          {
+            "label": "gg",
+            "value": "gg"
+          },
+          {
+            "label": "gh",
+            "value": "gh"
+          },
+          {
+            "label": "gi",
+            "value": "gi"
+          },
+          {
+            "label": "gl",
+            "value": "gl"
+          },
+          {
+            "label": "gm",
+            "value": "gm"
+          },
+          {
+            "label": "gn",
+            "value": "gn"
+          },
+          {
+            "label": "go",
+            "value": "go"
+          },
+          {
+            "label": "gp",
+            "value": "gp"
+          },
+          {
+            "label": "gr",
+            "value": "gr"
+          },
+          {
+            "label": "gs",
+            "value": "gs"
+          },
+          {
+            "label": "gsr",
+            "value": "gsr"
+          },
+          {
+            "label": "gt",
+            "value": "gt"
+          },
+          {
+            "label": "gu",
+            "value": "gu"
+          },
+          {
+            "label": "gv",
+            "value": "gv"
+          },
+          {
+            "label": "gw",
+            "value": "gw"
+          },
+          {
+            "label": "gy",
+            "value": "gy"
+          },
+          {
+            "label": "gz",
+            "value": "gz"
+          },
+          {
+            "label": "hiu",
+            "value": "hiu"
+          },
+          {
+            "label": "hk",
+            "value": "hk"
+          },
+          {
+            "label": "hm",
+            "value": "hm"
+          },
+          {
+            "label": "ho",
+            "value": "ho"
+          },
+          {
+            "label": "ht",
+            "value": "ht"
+          },
+          {
+            "label": "hu",
+            "value": "hu"
+          },
+          {
+            "label": "iau",
+            "value": "iau"
+          },
+          {
+            "label": "ic",
+            "value": "ic"
+          },
+          {
+            "label": "idu",
+            "value": "idu"
+          },
+          {
+            "label": "ie",
+            "value": "ie"
+          },
+          {
+            "label": "ii",
+            "value": "ii"
+          },
+          {
+            "label": "ilu",
+            "value": "ilu"
+          },
+          {
+            "label": "im",
+            "value": "im"
+          },
+          {
+            "label": "inu",
+            "value": "inu"
+          },
+          {
+            "label": "io",
+            "value": "io"
+          },
+          {
+            "label": "iq",
+            "value": "iq"
+          },
+          {
+            "label": "ir",
+            "value": "ir"
+          },
+          {
+            "label": "is",
+            "value": "is"
+          },
+          {
+            "label": "it",
+            "value": "it"
+          },
+          {
+            "label": "iu",
+            "value": "iu"
+          },
+          {
+            "label": "iv",
+            "value": "iv"
+          },
+          {
+            "label": "iw",
+            "value": "iw"
+          },
+          {
+            "label": "iy",
+            "value": "iy"
+          },
+          {
+            "label": "ja",
+            "value": "ja"
+          },
+          {
+            "label": "je",
+            "value": "je"
+          },
+          {
+            "label": "ji",
+            "value": "ji"
+          },
+          {
+            "label": "jm",
+            "value": "jm"
+          },
+          {
+            "label": "jn",
+            "value": "jn"
+          },
+          {
+            "label": "jo",
+            "value": "jo"
+          },
+          {
+            "label": "ke",
+            "value": "ke"
+          },
+          {
+            "label": "kg",
+            "value": "kg"
+          },
+          {
+            "label": "kgr",
+            "value": "kgr"
+          },
+          {
+            "label": "kn",
+            "value": "kn"
+          },
+          {
+            "label": "ko",
+            "value": "ko"
+          },
+          {
+            "label": "ksu",
+            "value": "ksu"
+          },
+          {
+            "label": "ku",
+            "value": "ku"
+          },
+          {
+            "label": "kv",
+            "value": "kv"
+          },
+          {
+            "label": "kyu",
+            "value": "kyu"
+          },
+          {
+            "label": "kz",
+            "value": "kz"
+          },
+          {
+            "label": "kzr",
+            "value": "kzr"
+          },
+          {
+            "label": "lau",
+            "value": "lau"
+          },
+          {
+            "label": "lb",
+            "value": "lb"
+          },
+          {
+            "label": "le",
+            "value": "le"
+          },
+          {
+            "label": "lh",
+            "value": "lh"
+          },
+          {
+            "label": "li",
+            "value": "li"
+          },
+          {
+            "label": "lir",
+            "value": "lir"
+          },
+          {
+            "label": "ln",
+            "value": "ln"
+          },
+          {
+            "label": "lo",
+            "value": "lo"
+          },
+          {
+            "label": "ls",
+            "value": "ls"
+          },
+          {
+            "label": "lu",
+            "value": "lu"
+          },
+          {
+            "label": "lv",
+            "value": "lv"
+          },
+          {
+            "label": "lvr",
+            "value": "lvr"
+          },
+          {
+            "label": "ly",
+            "value": "ly"
+          },
+          {
+            "label": "mau",
+            "value": "mau"
+          },
+          {
+            "label": "mbc",
+            "value": "mbc"
+          },
+          {
+            "label": "mc",
+            "value": "mc"
+          },
+          {
+            "label": "mdu",
+            "value": "mdu"
+          },
+          {
+            "label": "meu",
+            "value": "meu"
+          },
+          {
+            "label": "mf",
+            "value": "mf"
+          },
+          {
+            "label": "mg",
+            "value": "mg"
+          },
+          {
+            "label": "mh",
+            "value": "mh"
+          },
+          {
+            "label": "miu",
+            "value": "miu"
+          },
+          {
+            "label": "mj",
+            "value": "mj"
+          },
+          {
+            "label": "mk",
+            "value": "mk"
+          },
+          {
+            "label": "ml",
+            "value": "ml"
+          },
+          {
+            "label": "mm",
+            "value": "mm"
+          },
+          {
+            "label": "mnu",
+            "value": "mnu"
+          },
+          {
+            "label": "mo",
+            "value": "mo"
+          },
+          {
+            "label": "mou",
+            "value": "mou"
+          },
+          {
+            "label": "mp",
+            "value": "mp"
+          },
+          {
+            "label": "mq",
+            "value": "mq"
+          },
+          {
+            "label": "mr",
+            "value": "mr"
+          },
+          {
+            "label": "msu",
+            "value": "msu"
+          },
+          {
+            "label": "mtu",
+            "value": "mtu"
+          },
+          {
+            "label": "mu",
+            "value": "mu"
+          },
+          {
+            "label": "mv",
+            "value": "mv"
+          },
+          {
+            "label": "mvr",
+            "value": "mvr"
+          },
+          {
+            "label": "mw",
+            "value": "mw"
+          },
+          {
+            "label": "mx",
+            "value": "mx"
+          },
+          {
+            "label": "my",
+            "value": "my"
+          },
+          {
+            "label": "mz",
+            "value": "mz"
+          },
+          {
+            "label": "na",
+            "value": "na"
+          },
+          {
+            "label": "nbu",
+            "value": "nbu"
+          },
+          {
+            "label": "ncu",
+            "value": "ncu"
+          },
+          {
+            "label": "ndu",
+            "value": "ndu"
+          },
+          {
+            "label": "ne",
+            "value": "ne"
+          },
+          {
+            "label": "nfc",
+            "value": "nfc"
+          },
+          {
+            "label": "ng",
+            "value": "ng"
+          },
+          {
+            "label": "nhu",
+            "value": "nhu"
+          },
+          {
+            "label": "nik",
+            "value": "nik"
+          },
+          {
+            "label": "nju",
+            "value": "nju"
+          },
+          {
+            "label": "nkc",
+            "value": "nkc"
+          },
+          {
+            "label": "nl",
+            "value": "nl"
+          },
+          {
+            "label": "nm",
+            "value": "nm"
+          },
+          {
+            "label": "nmu",
+            "value": "nmu"
+          },
+          {
+            "label": "nn",
+            "value": "nn"
+          },
+          {
+            "label": "no",
+            "value": "no"
+          },
+          {
+            "label": "np",
+            "value": "np"
+          },
+          {
+            "label": "nq",
+            "value": "nq"
+          },
+          {
+            "label": "nr",
+            "value": "nr"
+          },
+          {
+            "label": "nsc",
+            "value": "nsc"
+          },
+          {
+            "label": "ntc",
+            "value": "ntc"
+          },
+          {
+            "label": "nu",
+            "value": "nu"
+          },
+          {
+            "label": "nuc",
+            "value": "nuc"
+          },
+          {
+            "label": "nvu",
+            "value": "nvu"
+          },
+          {
+            "label": "nw",
+            "value": "nw"
+          },
+          {
+            "label": "nx",
+            "value": "nx"
+          },
+          {
+            "label": "nyu",
+            "value": "nyu"
+          },
+          {
+            "label": "nz",
+            "value": "nz"
+          },
+          {
+            "label": "ohu",
+            "value": "ohu"
+          },
+          {
+            "label": "oku",
+            "value": "oku"
+          },
+          {
+            "label": "onc",
+            "value": "onc"
+          },
+          {
+            "label": "oru",
+            "value": "oru"
+          },
+          {
+            "label": "ot",
+            "value": "ot"
+          },
+          {
+            "label": "pau",
+            "value": "pau"
+          },
+          {
+            "label": "pc",
+            "value": "pc"
+          },
+          {
+            "label": "pe",
+            "value": "pe"
+          },
+          {
+            "label": "pf",
+            "value": "pf"
+          },
+          {
+            "label": "pg",
+            "value": "pg"
+          },
+          {
+            "label": "ph",
+            "value": "ph"
+          },
+          {
+            "label": "pic",
+            "value": "pic"
+          },
+          {
+            "label": "pk",
+            "value": "pk"
+          },
+          {
+            "label": "pl",
+            "value": "pl"
+          },
+          {
+            "label": "pn",
+            "value": "pn"
+          },
+          {
+            "label": "po",
+            "value": "po"
+          },
+          {
+            "label": "pp",
+            "value": "pp"
+          },
+          {
+            "label": "pr",
+            "value": "pr"
+          },
+          {
+            "label": "pt",
+            "value": "pt"
+          },
+          {
+            "label": "pw",
+            "value": "pw"
+          },
+          {
+            "label": "py",
+            "value": "py"
+          },
+          {
+            "label": "qa",
+            "value": "qa"
+          },
+          {
+            "label": "qea",
+            "value": "qea"
+          },
+          {
+            "label": "quc",
+            "value": "quc"
+          },
+          {
+            "label": "rb",
+            "value": "rb"
+          },
+          {
+            "label": "re",
+            "value": "re"
+          },
+          {
+            "label": "rh",
+            "value": "rh"
+          },
+          {
+            "label": "riu",
+            "value": "riu"
+          },
+          {
+            "label": "rm",
+            "value": "rm"
+          },
+          {
+            "label": "ru",
+            "value": "ru"
+          },
+          {
+            "label": "rur",
+            "value": "rur"
+          },
+          {
+            "label": "rw",
+            "value": "rw"
+          },
+          {
+            "label": "ry",
+            "value": "ry"
+          },
+          {
+            "label": "sa",
+            "value": "sa"
+          },
+          {
+            "label": "sb",
+            "value": "sb"
+          },
+          {
+            "label": "sc",
+            "value": "sc"
+          },
+          {
+            "label": "scu",
+            "value": "scu"
+          },
+          {
+            "label": "sd",
+            "value": "sd"
+          },
+          {
+            "label": "sdu",
+            "value": "sdu"
+          },
+          {
+            "label": "se",
+            "value": "se"
+          },
+          {
+            "label": "sf",
+            "value": "sf"
+          },
+          {
+            "label": "sg",
+            "value": "sg"
+          },
+          {
+            "label": "sh",
+            "value": "sh"
+          },
+          {
+            "label": "si",
+            "value": "si"
+          },
+          {
+            "label": "sj",
+            "value": "sj"
+          },
+          {
+            "label": "sk",
+            "value": "sk"
+          },
+          {
+            "label": "sl",
+            "value": "sl"
+          },
+          {
+            "label": "sm",
+            "value": "sm"
+          },
+          {
+            "label": "sn",
+            "value": "sn"
+          },
+          {
+            "label": "snc",
+            "value": "snc"
+          },
+          {
+            "label": "so",
+            "value": "so"
+          },
+          {
+            "label": "sp",
+            "value": "sp"
+          },
+          {
+            "label": "sq",
+            "value": "sq"
+          },
+          {
+            "label": "sr",
+            "value": "sr"
+          },
+          {
+            "label": "ss",
+            "value": "ss"
+          },
+          {
+            "label": "st",
+            "value": "st"
+          },
+          {
+            "label": "stk",
+            "value": "stk"
+          },
+          {
+            "label": "su",
+            "value": "su"
+          },
+          {
+            "label": "sv",
+            "value": "sv"
+          },
+          {
+            "label": "sw",
+            "value": "sw"
+          },
+          {
+            "label": "sx",
+            "value": "sx"
+          },
+          {
+            "label": "sy",
+            "value": "sy"
+          },
+          {
+            "label": "sz",
+            "value": "sz"
+          },
+          {
+            "label": "ta",
+            "value": "ta"
+          },
+          {
+            "label": "tar",
+            "value": "tar"
+          },
+          {
+            "label": "tc",
+            "value": "tc"
+          },
+          {
+            "label": "tg",
+            "value": "tg"
+          },
+          {
+            "label": "th",
+            "value": "th"
+          },
+          {
+            "label": "ti",
+            "value": "ti"
+          },
+          {
+            "label": "tk",
+            "value": "tk"
+          },
+          {
+            "label": "tkr",
+            "value": "tkr"
+          },
+          {
+            "label": "tl",
+            "value": "tl"
+          },
+          {
+            "label": "tma",
+            "value": "tma"
+          },
+          {
+            "label": "tnu",
+            "value": "tnu"
+          },
+          {
+            "label": "to",
+            "value": "to"
+          },
+          {
+            "label": "tr",
+            "value": "tr"
+          },
+          {
+            "label": "ts",
+            "value": "ts"
+          },
+          {
+            "label": "tt",
+            "value": "tt"
+          },
+          {
+            "label": "tu",
+            "value": "tu"
+          },
+          {
+            "label": "tv",
+            "value": "tv"
+          },
+          {
+            "label": "txu",
+            "value": "txu"
+          },
+          {
+            "label": "tz",
+            "value": "tz"
+          },
+          {
+            "label": "ua",
+            "value": "ua"
+          },
+          {
+            "label": "uc",
+            "value": "uc"
+          },
+          {
+            "label": "ug",
+            "value": "ug"
+          },
+          {
+            "label": "ui",
+            "value": "ui"
+          },
+          {
+            "label": "uik",
+            "value": "uik"
+          },
+          {
+            "label": "uk",
+            "value": "uk"
+          },
+          {
+            "label": "un",
+            "value": "un"
+          },
+          {
+            "label": "unr",
+            "value": "unr"
+          },
+          {
+            "label": "up",
+            "value": "up"
+          },
+          {
+            "label": "ur",
+            "value": "ur"
+          },
+          {
+            "label": "us",
+            "value": "us"
+          },
+          {
+            "label": "utu",
+            "value": "utu"
+          },
+          {
+            "label": "uv",
+            "value": "uv"
+          },
+          {
+            "label": "uy",
+            "value": "uy"
+          },
+          {
+            "label": "uz",
+            "value": "uz"
+          },
+          {
+            "label": "uzr",
+            "value": "uzr"
+          },
+          {
+            "label": "vau",
+            "value": "vau"
+          },
+          {
+            "label": "vb",
+            "value": "vb"
+          },
+          {
+            "label": "vc",
+            "value": "vc"
+          },
+          {
+            "label": "ve",
+            "value": "ve"
+          },
+          {
+            "label": "vi",
+            "value": "vi"
+          },
+          {
+            "label": "vm",
+            "value": "vm"
+          },
+          {
+            "label": "vn",
+            "value": "vn"
+          },
+          {
+            "label": "vp",
+            "value": "vp"
+          },
+          {
+            "label": "vra",
+            "value": "vra"
+          },
+          {
+            "label": "vs",
+            "value": "vs"
+          },
+          {
+            "label": "vtu",
+            "value": "vtu"
+          },
+          {
+            "label": "wau",
+            "value": "wau"
+          },
+          {
+            "label": "wb",
+            "value": "wb"
+          },
+          {
+            "label": "wea",
+            "value": "wea"
+          },
+          {
+            "label": "wf",
+            "value": "wf"
+          },
+          {
+            "label": "wiu",
+            "value": "wiu"
+          },
+          {
+            "label": "wj",
+            "value": "wj"
+          },
+          {
+            "label": "wk",
+            "value": "wk"
+          },
+          {
+            "label": "wlk",
+            "value": "wlk"
+          },
+          {
+            "label": "ws",
+            "value": "ws"
+          },
+          {
+            "label": "wvu",
+            "value": "wvu"
+          },
+          {
+            "label": "wyu",
+            "value": "wyu"
+          },
+          {
+            "label": "xa",
+            "value": "xa"
+          },
+          {
+            "label": "xb",
+            "value": "xb"
+          },
+          {
+            "label": "xc",
+            "value": "xc"
+          },
+          {
+            "label": "xd",
+            "value": "xd"
+          },
+          {
+            "label": "xe",
+            "value": "xe"
+          },
+          {
+            "label": "xf",
+            "value": "xf"
+          },
+          {
+            "label": "xga",
+            "value": "xga"
+          },
+          {
+            "label": "xh",
+            "value": "xh"
+          },
+          {
+            "label": "xi",
+            "value": "xi"
+          },
+          {
+            "label": "xj",
+            "value": "xj"
+          },
+          {
+            "label": "xk",
+            "value": "xk"
+          },
+          {
+            "label": "xl",
+            "value": "xl"
+          },
+          {
+            "label": "xm",
+            "value": "xm"
+          },
+          {
+            "label": "xn",
+            "value": "xn"
+          },
+          {
+            "label": "xna",
+            "value": "xna"
+          },
+          {
+            "label": "xo",
+            "value": "xo"
+          },
+          {
+            "label": "xoa",
+            "value": "xoa"
+          },
+          {
+            "label": "xp",
+            "value": "xp"
+          },
+          {
+            "label": "xr",
+            "value": "xr"
+          },
+          {
+            "label": "xra",
+            "value": "xra"
+          },
+          {
+            "label": "xs",
+            "value": "xs"
+          },
+          {
+            "label": "xv",
+            "value": "xv"
+          },
+          {
+            "label": "xx",
+            "value": "xx"
+          },
+          {
+            "label": "xxc",
+            "value": "xxc"
+          },
+          {
+            "label": "xxk",
+            "value": "xxk"
+          },
+          {
+            "label": "xxr",
+            "value": "xxr"
+          },
+          {
+            "label": "xxu",
+            "value": "xxu"
+          },
+          {
+            "label": "ye",
+            "value": "ye"
+          },
+          {
+            "label": "ykc",
+            "value": "ykc"
+          },
+          {
+            "label": "ys",
+            "value": "ys"
+          },
+          {
+            "label": "yu",
+            "value": "yu"
+          },
+          {
+            "label": "za",
+            "value": "za"
+          }
+        ]
+      }
     },
     "canton": {
       "title": "Cantons",
@@ -1713,7 +5435,115 @@
         "vs",
         "zg",
         "zh"
-      ]
+      ],
+      "form": {
+        "options": [
+          {
+            "label": "ag",
+            "value": "ag"
+          },
+          {
+            "label": "ai",
+            "value": "ai"
+          },
+          {
+            "label": "ar",
+            "value": "ar"
+          },
+          {
+            "label": "be",
+            "value": "be"
+          },
+          {
+            "label": "bl",
+            "value": "bl"
+          },
+          {
+            "label": "bs",
+            "value": "bs"
+          },
+          {
+            "label": "fr",
+            "value": "fr"
+          },
+          {
+            "label": "ge",
+            "value": "ge"
+          },
+          {
+            "label": "gl",
+            "value": "gl"
+          },
+          {
+            "label": "gr",
+            "value": "gr"
+          },
+          {
+            "label": "ju",
+            "value": "ju"
+          },
+          {
+            "label": "lu",
+            "value": "lu"
+          },
+          {
+            "label": "ne",
+            "value": "ne"
+          },
+          {
+            "label": "nw",
+            "value": "nw"
+          },
+          {
+            "label": "ow",
+            "value": "ow"
+          },
+          {
+            "label": "sg",
+            "value": "sg"
+          },
+          {
+            "label": "sh",
+            "value": "sh"
+          },
+          {
+            "label": "so",
+            "value": "so"
+          },
+          {
+            "label": "sz",
+            "value": "sz"
+          },
+          {
+            "label": "tg",
+            "value": "tg"
+          },
+          {
+            "label": "ti",
+            "value": "ti"
+          },
+          {
+            "label": "ur",
+            "value": "ur"
+          },
+          {
+            "label": "vd",
+            "value": "vd"
+          },
+          {
+            "label": "vs",
+            "value": "vs"
+          },
+          {
+            "label": "zg",
+            "value": "zg"
+          },
+          {
+            "label": "zh",
+            "value": "zh"
+          }
+        ]
+      }
     }
   }
 }
