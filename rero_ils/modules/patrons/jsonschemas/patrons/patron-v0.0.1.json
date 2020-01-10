@@ -197,23 +197,23 @@
           "patron",
           "librarian",
           "system_librarian"
-        ]
-      },
-      "form": {
-        "options": [
-          {
-            "label": "Patron",
-            "value": "patron"
-          },
-          {
-            "label": "Librarian",
-            "value": "librarian"
-          },
-          {
-            "label": "System Librarian",
-            "value": "system_librarian"
-          }
-        ]
+        ],
+        "form": {
+          "options": [
+            {
+              "label": "Patron",
+              "value": "patron"
+            },
+            {
+              "label": "Librarian",
+              "value": "librarian"
+            },
+            {
+              "label": "System Librarian",
+              "value": "system_librarian"
+            }
+          ]
+        }
       }
     },
     "communication_channel": {
@@ -224,6 +224,16 @@
         "mail"
       ],
       "form": {
+        "options": [
+          {
+            "label": "email",
+            "value": "email"
+          },
+          {
+            "label": "mail",
+            "value": "mail"
+          }
+        ],
         "hideExpression": "!model.roles.some(v => v === 'patron')",
         "expressionProperties": {
           "templateOptions.required": "model.roles.some(v => v === 'patron')"

@@ -24,8 +24,8 @@ from ..acq_accounts.api import AcqAccountsSearch
 from ..api import IlsRecord, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from ..providers import Provider
 from ..organisations.api import Organisation
+from ..providers import Provider
 
 # provider
 BudgetProvider = type(
