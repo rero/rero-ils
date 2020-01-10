@@ -57,29 +57,41 @@ success_msg() {
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# The real bootstrap script starts 20 lines below ;-)
+# options may be followed by one colon to indicate they have a required argument
+if ! options=$(getopt -o dsb -l -t deploy,ci,tgz_path: -- "$@")
+then
+    # something went wrong, getopt will put out an error message for us
+    exit 1
+fi
+
+# The real bootstrap script starts with app installation below ;-)
 flags=()
 deploy=false
 cmd="pipenv sync"
 ci=false
-while test $# -gt 0; do
-    case "$1" in
-        --deploy)
-            # We are probably inside travis, check for env variables
-            deploy=true
-            shift
-            ;;
-        --ci)
-            # We are probably inside travis, check for env variables
-            ci=true
-            shift
-            ;;
-        *)
-            # Use the flags that are passed to the script directly to install
-            flags+=("$1")
-            shift
-            ;;
-    esac
+TGZ_PATH=""
+while test $# -gt 0
+do
+  case "$1" in
+    -d|--deploy)
+      # We are probably inside travis, check for env variables
+      deploy=true ;;
+    -c|--ci)
+      # We are probably inside travis, check for env variables
+      ci=true ;;
+    -t|--tgz_path)
+      TGZ_PATH=$2
+      if [ -z $2 ]
+        then
+          error_msg+exit "Please give path to .tgz"
+        else
+          TGZ_PATH=$2
+        fi ;;
+    (--) shift; break;;
+    (-*) flags+=("$1") ;;
+    (*) break;;
+  esac
+  shift
 done
 
 if ! $deploy || $ci ; then
@@ -95,6 +107,7 @@ fi
 # go generate a clean lock file
 # pipenv --rm; pipenv install --sequential
 
+# BOOTSTRAP START
 # install the application and all the dependencies
 info_msg "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
@@ -119,6 +132,11 @@ info_msg "Search static folder location"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 info_msg "Install static folder npm dependencies in: ${static_folder}"
 pipenv run npm install --prefix "${static_folder}"
+if [ ! -d $TGZ_PATH ]
+then
+  info_msg "Install RERO-ILS-UI from tgz"
+  pipenv run npm install "${TGZ_PATH}" --prefix "${static_folder}"
+fi
 
 # build the web assets
 info_msg "Build web assets: collect"

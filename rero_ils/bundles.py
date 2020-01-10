@@ -26,6 +26,9 @@ from invenio_assets import AngularGettextFilter, GlobBundle, LazyNpmBundle, \
 from pkg_resources import resource_filename
 
 
+RERO_ILS_UI_VERSION = '0.0.9'
+
+
 def catalog(domain):
     """Return glob matching path to tranlated messages for a given domain."""
     return os.path.join(
@@ -77,7 +80,7 @@ admin_ui_js = NpmBundle(
     'node_modules/@rero/rero-ils-ui/dist/admin/main.*.js',
     output='gen/rero_ils_admin_ui.%(version)s.js',
     npm={
-        '@rero/rero-ils-ui': '0.0.9'
+        '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
     }
 )
 
@@ -89,7 +92,7 @@ public_search_ui_js = NpmBundle(
     'node_modules/@rero/rero-ils-ui/dist/public-search/main.*.js',
     output='gen/rero_ils_public-search_ui.%(version)s.js',
     npm={
-        '@rero/rero-ils-ui': '0.0.9'
+        '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
     }
 )
 
@@ -98,6 +101,6 @@ search_bar_ui_js = NpmBundle(
     'node_modules/@rero/rero-ils-ui/dist/search-bar/main.*.js',
     output='gen/rero_ils_search-bar_ui.%(version)s.js',
     npm={
-        '@rero/rero-ils-ui': '0.0.9'
+        '@rero/rero-ils-ui': '~{version}'.format(version=RERO_ILS_UI_VERSION)
     }
 )
