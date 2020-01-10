@@ -17,12 +17,60 @@
 
 """Tests items in-transit."""
 
-from datetime import datetime, timedelta, timezone  # noqa
 
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
+from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanAction
+
+
+def test_items_in_transit_between_libraries(client,
+                                            librarian_martigny_no_email,
+                                            librarian_saxon_no_email,
+                                            patron_martigny_no_email,
+                                            loc_public_martigny,
+                                            item_type_standard_martigny,
+                                            loc_public_saxon,
+                                            item_lib_martigny, json_header,
+                                            circulation_policies):
+    """Test item in-transit scenarios."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    item = item_lib_martigny
+    item_pid = item.pid
+    patron_pid = patron_martigny_no_email.pid
+
+    # checkout the item at location A
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item_pid,
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+    assert Item.get_record_by_pid(item_pid).get('status') == ItemStatus.ON_LOAN
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.ON_LOAN
+    loan_pid = actions[LoanAction.CHECKOUT].get('pid')
+
+    # checkin the item at location B
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item_pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+    item_data = data.get('metadata')
+    item = Item.get_record_by_pid(item_data.get('pid'))
+    assert item.get('status') == ItemStatus.IN_TRANSIT
 
 
 def test_item_multiple_transit(client, item_lib_martigny,
