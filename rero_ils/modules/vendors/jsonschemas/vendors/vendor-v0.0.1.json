@@ -4,6 +4,14 @@
   "title": "Vendor",
   "description": "JSON schema for a vendor",
   "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "website",
+    "communication_language",
+    "note",
+    "default_contact",
+    "order_contact"
+  ],
   "required": [
     "$schema",
     "pid",
@@ -26,7 +34,20 @@
       "title": "Name",
       "description": "",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "form": {
+        "focus": true,
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "vendor_name"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The vendor name is already taken"
+          }
+        }
+      }
     },
     "website": {
       "title": "Website",
@@ -44,16 +65,45 @@
       "title": "Communication language",
       "type": "string",
       "enum": [
-        "ger",
-        "eng",
         "fre",
-        "ita"
-      ]
+        "eng",
+        "ita",
+        "ger"
+      ],
+      "form": {
+        "options": [
+          {
+            "value": "fre",
+            "label": "French"
+          },
+          {
+            "value": "eng",
+            "label": "English"
+          },
+          {
+            "value": "ita",
+            "label": "Italian"
+          },
+          {
+            "value": "ger",
+            "label": "German"
+          }
+        ]
+      }
     },
     "default_contact": {
       "title": "Default contact details",
       "description": "",
       "type": "object",
+      "propertiesOrder": [
+        "contact_person",
+        "street",
+        "postal_code",
+        "city",
+        "country",
+        "phone",
+        "email"
+      ],
       "required": [
         "city"
       ],
@@ -73,14 +123,12 @@
         "postal_code": {
           "title": "Postal code",
           "type": "string",
-          "minLength": 4,
-          "validationMessage": "A valid postal code with a min of 4 characters."
+          "minLength": 4
         },
         "city": {
           "title": "City",
           "type": "string",
-          "minLength": 2,
-          "validationMessage": "Required."
+          "minLength": 2
         },
         "country": {
           "title": "Country",
@@ -99,7 +147,13 @@
           "format": "email",
           "pattern": "^.*@.*\\..*$",
           "minLength": 6,
-          "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+          "form": {
+            "validation": {
+              "messages": {
+                "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+              }
+            }
+          }
         }
       }
     },
@@ -107,6 +161,15 @@
       "title": "Order contact details",
       "description": "",
       "type": "object",
+      "propertiesOrder": [
+        "contact_person",
+        "street",
+        "postal_code",
+        "city",
+        "country",
+        "phone",
+        "email"
+      ],
       "properties": {
         "contact_person": {
           "title": "Contact name",
@@ -148,13 +211,22 @@
           "format": "email",
           "pattern": "^.*@.*\\..*$",
           "minLength": 6,
-          "validationMessage": "Email should have at least one <code>@</code> and one <code>.</code>"
+          "form": {
+            "validation": {
+              "messages": {
+                "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+              }
+            }
+          }
         }
       }
     },
     "organisation": {
       "title": "Organisation",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Organisation URI",
