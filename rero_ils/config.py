@@ -1163,6 +1163,7 @@ SEARCH_UI_SEARCH_API = '/api/documents/'
 # ===========================
 RERO_ILS_BABEL_TRANSLATE_JSON_KEYS = [
     'title',
+    'label',
     'description',
     'placeholder',
     'validationMessage',
