@@ -17,7 +17,11 @@
         },
         "name": {
           "type": "text",
+          "copy_to": "vendor_name",
           "analyzer": "global_lowercase_asciifolding"
+        },
+        "vendor_name": {
+          "type": "keyword"
         },
         "organisation": {
           "properties": {
