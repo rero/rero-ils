@@ -85,8 +85,8 @@
     "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "budg1",
     "name": "2020",
-    "start_date": "2020-01-01T00:00:00.355920+00:00",
-    "end_date": "2020-12-31T00:00:00.355920+00:00",
+    "start_date": "2020-01-01",
+    "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
@@ -96,8 +96,8 @@
     "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "budg2",
     "name": "2020",
-    "start_date": "2020-01-01T00:00:00.355920+00:00",
-    "end_date": "2020-12-31T00:00:00.355920+00:00",
+    "start_date": "2020-01-01",
+    "end_date": "2020-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
@@ -107,8 +107,8 @@
     "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "budg3",
     "name": "2019",
-    "start_date": "2019-01-01T00:00:00.355920+00:00",
-    "end_date": "2019-12-31T00:00:00.355920+00:00",
+    "start_date": "2019-01-01",
+    "end_date": "2019-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
@@ -118,8 +118,8 @@
     "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "budg4",
     "name": "2018",
-    "start_date": "2018-01-01T00:00:00.355920+00:00",
-    "end_date": "2018-12-31T00:00:00.355920+00:00",
+    "start_date": "2018-01-01",
+    "end_date": "2018-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
@@ -129,8 +129,8 @@
     "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "budg5",
     "name": "2017",
-    "start_date": "2017-01-01T00:00:00.355920+00:00",
-    "end_date": "2017-12-31T00:00:00.355920+00:00",
+    "start_date": "2017-01-01",
+    "end_date": "2017-12-31",
     "is_active": true,
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org1"
