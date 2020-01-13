@@ -28,12 +28,16 @@
     },
     "start_date": {
       "type": "string",
-      "format": "date-time",
+      "format": "date",
+      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD.",
       "title": "Budget start date"
     },
     "end_date": {
       "type": "string",
-      "format": "date-time",
+      "format": "date",
+      "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+      "validationMessage": "Required. Should be in the ISO 8601, YYYY-MM-DD.",
       "title": "Budget end date"
     },
     "is_active": {
