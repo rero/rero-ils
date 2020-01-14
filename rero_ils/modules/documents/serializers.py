@@ -18,16 +18,34 @@
 """Document serialization."""
 
 from flask import current_app, request
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
 from ..documents.api import Document
 from ..libraries.api import Library
 from ..organisations.api import Organisation
+from ..persons.api import Person
 from ..serializers import JSONSerializer, RecordSchemaJSONV1
 
 
 class DocumentJSONSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
+
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization."""
+        rec = record
+        if request and request.args.get('resolve') == '1':
+            rec = record.replace_refs()
+            authors = rec.get('authors', [])
+            for author_index in range(len(authors)):
+                pid_value = authors[author_index].get('pid')
+                if pid_value:
+                    person = Person.get_record_by_mef_pid(pid_value)
+                    authors[author_index] = person.dumps_for_document()
+        data = super(JSONSerializer, self).preprocess_record(
+            pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
+
+        return JSONSerializer.add_item_links_and_permissions(record, data, pid)
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
@@ -83,3 +101,4 @@ json_doc = DocumentJSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
 json_doc_search = search_responsify(json_doc, 'application/rero+json')
+json_doc_response = record_responsify(json_doc, 'application/json')
