@@ -18,7 +18,8 @@
     "barcode",
     "call_number",
     "item_type",
-    "location"
+    "location",
+    "status"
   ],
   "properties": {
     "$schema": {
@@ -109,7 +110,9 @@
     },
     "status": {
       "type": "string",
+      "title": "circulation status",
       "default": "on_shelf",
+      "readOnly": "true",
       "enum": [
         "on_shelf",
         "on_loan",

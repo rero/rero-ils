@@ -60,6 +60,10 @@
       "format": "date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
       "form": {
+        "type": "datepicker",
+        "wrappers": [
+          "form-field"
+        ],
         "validation": {
           "messages": {
             "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
