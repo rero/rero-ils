@@ -89,7 +89,7 @@ Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ ./scripts/setup
+    $ PIPENV_QUIET=1 pipenv run setup
 
 Running
 -------
