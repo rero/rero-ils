@@ -9,6 +9,8 @@
     "website",
     "communication_language",
     "note",
+    "currency",
+    "tva_rate",
     "default_contact",
     "order_contact"
   ],
@@ -16,6 +18,8 @@
     "$schema",
     "pid",
     "name",
+    "currency",
+    "tva_rate",
     "organisation"
   ],
   "properties": {
@@ -220,6 +224,23 @@
           }
         }
       }
+    },
+    "currency": {
+      "title": "Currency",
+      "type": "string",
+      "enum": [
+        "CHF",
+        "EUR",
+        "USD"
+      ],
+      "default": "CHF",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "tva_rate": {
+      "title": "TVA rate",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
     },
     "organisation": {
       "title": "Organisation",

@@ -23,6 +23,12 @@
         "vendor_name": {
           "type": "keyword"
         },
+        "currency": {
+          "type": "keyword"
+        },
+        "tva_rate": {
+          "type": "keyword"
+        },
         "organisation": {
           "properties": {
             "pid": {
