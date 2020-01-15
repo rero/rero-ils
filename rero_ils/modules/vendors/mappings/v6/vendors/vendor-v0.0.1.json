@@ -47,6 +47,34 @@
         },
         "default_contact": {
           "properties": {
+            "contact_person": {
+              "type": "text"
+            },
+            "city": {
+              "type": "keyword"
+            },
+            "country": {
+              "type": "keyword"
+            },
+            "email": {
+              "type": "keyword"
+            },
+            "phone": {
+              "type": "keyword"
+            },
+            "postal_code": {
+              "type": "keyword"
+            },
+            "street": {
+              "type": "text"
+            }
+          }
+        },
+        "order_contact": {
+          "properties": {
+            "contact_person": {
+              "type": "text"
+            },
             "city": {
               "type": "keyword"
             },

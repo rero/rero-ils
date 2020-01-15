@@ -46,6 +46,7 @@ from rero_ils.modules.api import IlsRecordIndexer
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
     can_list_acq_account_factory, can_read_update_delete_acq_account_factory
+from .modules.acq_invoices.api import AcquisitionInvoice
 from .modules.acq_order_lines.api import AcqOrderLine, AcqOrderLinesIndexer
 from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
@@ -1001,6 +1002,42 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_read_update_delete_acquisition_factory,
         delete_permission_factory_imp=can_read_update_delete_acquisition_factory,
     ),
+    acin=dict(
+        pid_type='acin',
+        pid_minter='acq_invoice_id',
+        pid_fetcher='acq_invoice_id',
+        search_class=RecordsSearch,
+        search_index='acq_invoices',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.acq_invoices.serializers:json_acquisition_invoice_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: AcquisitionInvoice(request.get_json()),
+        },
+        record_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoice',
+        list_route='/acq_invoices/',
+        item_route='/acq_invoices/<pid(acin, record_class="rero_ils.modules.acq_invoices.api:AcquisitionInvoice"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=can_list_acquisition_factory,
+        create_permission_factory_imp=can_create_acquisition_factory,
+        update_permission_factory_imp=can_read_update_delete_acquisition_factory,
+        delete_permission_factory_imp=can_read_update_delete_acquisition_factory,
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -1103,6 +1140,28 @@ RECORDS_REST_FACETS = dict(
             _('budget'): terms_filter('budget')
         },
     ),
+    acq_invoices=dict(
+        aggs=dict(
+            library=dict(
+                terms=dict(
+                    field='library.pid',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_invoices', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            ),
+            status=dict(
+                terms=dict(
+                    field='invoice_status',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'acq_invoices', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('library'): terms_filter('library.pid'),
+            _('status'): terms_filter('invoice_status')
+        },
+    ),
     acq_orders=dict(
         aggs=dict(
             library=dict(
@@ -1140,7 +1199,7 @@ RECORDS_REST_FACETS = dict(
         filters={
             _('sources'): terms_filter('sources')
         }
-    )
+    ),
 )
 
 # Elasticsearch fields boosting by index
@@ -1351,6 +1410,7 @@ RECORDS_JSON_SCHEMA = {
     'budg': '/budgets/budget-v0.0.1.json',
     'acor': '/acq_orders/acq_order-v0.0.1.json',
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
+    'acin': '/acq_invoices/acq_invoice-v0.0.1.json',
     'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json'
 }
