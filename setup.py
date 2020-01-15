@@ -163,6 +163,7 @@ setup(
             'budgets = rero_ils.modules.budgets.models',
             'acq_orders = rero_ils.modules.acq_orders.models',
             'acq_order_lines = rero_ils.modules.acq_order_lines.models',
+            'acq_invoices = rero_ils.modules.acq_invoices.models',
             'patron_transactions = rero_ils.modules.patron_transactions.models',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.models'
         ],
@@ -184,6 +185,7 @@ setup(
             'budget_id = rero_ils.modules.budgets.api:budget_id_minter',
             'acq_order_id = rero_ils.modules.acq_orders.api:acq_order_id_minter',
             'acq_order_line_id = rero_ils.modules.acq_order_lines.api:acq_order_line_id_minter',
+            'acq_invoice_id = rero_ils.modules.acq_invoices.api:acq_invoice_id_minter',
             'patron_transaction_id = rero_ils.modules.patron_transactions.api:patron_transaction_id_minter',
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter'
         ],
@@ -206,6 +208,7 @@ setup(
             'budget_id = rero_ils.modules.budgets.api:budget_id_fetcher',
             'acq_order_id = rero_ils.modules.acq_orders.api:acq_order_id_fetcher',
             'acq_order_line_id = rero_ils.modules.acq_order_lines.api:acq_order_line_id_fetcher',
+            'acq_invoice_id = rero_ils.modules.acq_invoices.api:acq_invoice_id_fetcher',
             'patron_transaction_id = rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher',
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher'
         ],
@@ -228,6 +231,7 @@ setup(
             'budgets = rero_ils.modules.budgets.jsonschemas',
             'acq_orders = rero_ils.modules.acq_orders.jsonschemas',
             'acq_order_lines = rero_ils.modules.acq_order_lines.jsonschemas',
+            'acq_invoices = rero_ils.modules.acq_invoices.jsonschemas',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonschemas',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonschemas'
         ],
@@ -250,6 +254,7 @@ setup(
             'budgets = rero_ils.modules.budgets.mappings',
             'acq_orders = rero_ils.modules.acq_orders.mappings',
             'acq_order_lines = rero_ils.modules.acq_order_lines.mappings',
+            'acq_invoices = rero_ils.modules.acq_invoices.mappings',
             'patron_transactions = rero_ils.modules.patron_transactions.mappings',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.mappings'
         ],
@@ -279,6 +284,7 @@ setup(
             'budgets = rero_ils.modules.budgets.jsonresolver',
             'acq_orders = rero_ils.modules.acq_orders.jsonresolver',
             'acq_order_lines = rero_ils.modules.acq_order_lines.jsonresolver',
+            'acq_invoices = rero_ils.modules.acq_invoices.jsonresolver',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonresolver',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver',
         ]

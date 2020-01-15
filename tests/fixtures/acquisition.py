@@ -24,6 +24,8 @@ import pytest
 from utils import flush_index
 
 from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
+from rero_ils.modules.acq_invoices.api import AcquisitionInvoice, \
+    AcquisitionInvoicesSearch
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
 from rero_ils.modules.acq_orders.api import AcqOrder, AcqOrdersSearch
@@ -491,3 +493,64 @@ def acq_order_line_fiction_sion(
         reindex=True)
     flush_index(AcqOrderLinesSearch.Meta.index)
     return acol
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_martigny_data(acquisition):
+    """Load acq_invoice lib martigny fiction data."""
+    return deepcopy(acquisition.get('acin1'))
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_martigny(
+        app, lib_martigny, vendor_martigny, acq_invoice_fiction_martigny_data,
+        document, document_ref, acq_order_fiction_martigny,
+        acq_order_line_fiction_martigny, acq_order_line2_fiction_martigny):
+    """Load acq_invoice lib martigny fiction record."""
+    acin = AcquisitionInvoice.create(
+        data=acq_invoice_fiction_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcquisitionInvoicesSearch.Meta.index)
+    return acin
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_saxon_data(acquisition):
+    """Load acq_invoice lib martigny fiction data."""
+    return deepcopy(acquisition.get('acin2'))
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_saxon(
+        app, lib_saxon, vendor2_martigny, acq_invoice_fiction_saxon_data,
+        acq_order_fiction_saxon, acq_order_line_fiction_saxon):
+    """Load acq_invoice lib saxon fiction record."""
+    acin = AcquisitionInvoice.create(
+        data=acq_invoice_fiction_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcquisitionInvoicesSearch.Meta.index)
+    return acin
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_sion_data(acquisition):
+    """Load acq_invoice lib sion fiction data."""
+    return deepcopy(acquisition.get('acin3'))
+
+
+@pytest.fixture(scope="module")
+def acq_invoice_fiction_sion(
+        app, lib_sion, vendor_sion, acq_invoice_fiction_sion_data,
+        acq_order_fiction_sion, acq_order_line_fiction_sion):
+    """Load acq_invoice lib sion fiction record."""
+    acin = AcquisitionInvoice.create(
+        data=acq_invoice_fiction_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(AcquisitionInvoicesSearch.Meta.index)
+    return acin

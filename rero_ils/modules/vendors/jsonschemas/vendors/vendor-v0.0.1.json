@@ -36,7 +36,6 @@
     },
     "name": {
       "title": "Name",
-      "description": "",
       "type": "string",
       "minLength": 1,
       "form": {
@@ -55,13 +54,12 @@
     },
     "website": {
       "title": "Website",
-      "description": "",
       "type": "string",
+      "format": "uri",
       "minLength": 4
     },
     "note": {
       "title": "Note",
-      "description": "",
       "type": "string",
       "minLength": 1
     },
@@ -72,7 +70,8 @@
         "fre",
         "eng",
         "ita",
-        "ger"
+        "ger",
+        "spa"
       ],
       "form": {
         "options": [
@@ -91,13 +90,16 @@
           {
             "value": "ger",
             "label": "German"
+          },
+          {
+            "value": "spa",
+            "label": "Spanish"
           }
         ]
       }
     },
     "default_contact": {
       "title": "Default contact details",
-      "description": "",
       "type": "object",
       "propertiesOrder": [
         "contact_person",
@@ -142,8 +144,7 @@
         "phone": {
           "title": "Phone number",
           "description": "Phone number with the international prefix, without spaces.",
-          "type": "string",
-          "pattern": "^\\+[0-9]*$"
+          "type": "string"
         },
         "email": {
           "title": "Email",
@@ -163,7 +164,6 @@
     },
     "order_contact": {
       "title": "Order contact details",
-      "description": "",
       "type": "object",
       "propertiesOrder": [
         "contact_person",
@@ -230,8 +230,11 @@
       "type": "string",
       "enum": [
         "CHF",
+        "CAD",
         "EUR",
-        "USD"
+        "GBP",
+        "USD",
+        "AUD"
       ],
       "default": "CHF",
       "pattern": "^[A-Z]{3}$"

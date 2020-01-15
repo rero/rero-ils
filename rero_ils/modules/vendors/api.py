@@ -20,6 +20,8 @@
 from functools import partial
 
 from .models import VendorIdentifier
+from ..acq_invoices.api import AcquisitionInvoicesSearch
+from ..acq_orders.api import AcqOrdersSearch
 from ..api import IlsRecord, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -54,11 +56,14 @@ class Vendor(IlsRecord):
     provider = VendorProvider
 
     def get_number_of_acq_orders(self):
-        """Get number of acq orders."""
-        from ..acq_orders.api import AcqOrdersSearch
-        results = AcqOrdersSearch().filter(
+        """Get number of acquisition orders."""
+        return AcqOrdersSearch().filter(
             'term', vendor__pid=self.pid).source().count()
-        return results
+
+    def get_number_of_acq_invoices(self):
+        """Get number of acquisition invoices."""
+        return AcquisitionInvoicesSearch().filter(
+            'term', vendor__pid=self.pid).source().count()
 
     def get_links_to_me(self):
         """Get number of links."""
@@ -66,6 +71,10 @@ class Vendor(IlsRecord):
         acq_orders = self.get_number_of_acq_orders()
         if acq_orders:
             links['acq_orders'] = acq_orders
+
+        acq_invoices = self.get_number_of_acq_invoices()
+        if acq_invoices:
+            links['acq_invoices'] = acq_invoices
         return links
 
     def reasons_not_to_delete(self):

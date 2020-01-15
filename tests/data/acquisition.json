@@ -326,7 +326,7 @@
     "order_line_status": "pending",
     "quantity": 1,
     "amount": 1000,
-    "discount_amount": 0,
+    "discount_amount": 10,
     "total_amount": 1000
   },
   "acol4": {
@@ -346,5 +346,112 @@
     "amount": 500,
     "discount_amount": 0,
     "total_amount": 500
+  },
+  "acin1": {
+    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "pid": "acin1",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr1"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "invoice_number": "IN-1",
+    "invoice_status": "in_progress",
+    "invoice_date": "2020-01-06",
+    "invoice_items": [
+      {
+        "acq_account": {
+          "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
+        },
+        "acq_order_line": {
+          "$ref": "https://ils.rero.ch/api/acq_order_lines/acol1"
+        },
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc1"
+        },
+        "order_number": "OR-1",
+        "price": 1000,
+        "quantity": 1
+      },
+      {
+        "acq_account": {
+          "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
+        },
+        "acq_order_line": {
+          "$ref": "https://ils.rero.ch/api/acq_order_lines/acol2"
+        },
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc2"
+        },
+        "order_number": "OR-1",
+        "price": 500,
+        "quantity": 1
+      }
+    ]
+  },
+  "acin2": {
+    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "pid": "acin2",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr2"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib2"
+    },
+    "invoice_number": "IN-2",
+    "invoice_status": "in_progress",
+    "invoice_date": "2020-01-06",
+    "invoice_discount": {
+      "amount": 100
+    },
+    "invoice_items": [
+      {
+        "acq_account": {
+          "$ref": "https://ils.rero.ch/api/acq_accounts/acac2"
+        },
+        "acq_order_line": {
+          "$ref": "https://ils.rero.ch/api/acq_order_lines/acol3"
+        },
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc1"
+        },
+        "order_number": "OR-2",
+        "price": 1000,
+        "quantity": 1
+      }
+    ]
+  },
+  "acin3": {
+    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "pid": "acin3",
+    "vendor": {
+      "$ref": "https://ils.rero.ch/api/vendors/vndr4"
+    },
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib4"
+    },
+    "invoice_number": "IN-3",
+    "invoice_status": "in_progress",
+    "invoice_date": "2020-01-06",
+    "invoice_discount": {
+      "percentage": 10
+    },
+    "invoice_items": [
+      {
+        "acq_account": {
+          "$ref": "https://ils.rero.ch/api/acq_accounts/acac4"
+        },
+        "acq_order_line": {
+          "$ref": "https://ils.rero.ch/api/acq_order_lines/acol4"
+        },
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc1"
+        },
+        "order_number": "OR-3",
+        "price": 1000,
+        "quantity": 1
+      }
+    ]
   }
 }

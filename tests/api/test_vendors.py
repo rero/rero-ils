@@ -19,11 +19,8 @@
 
 import json
 
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from invenio_records.api import Record
-from jsonref import JsonRefError
 from utils import get_json, postdata
 
 
@@ -74,17 +71,28 @@ def test_filtered_vendors_get(client, librarian_martigny_no_email,
     assert data['hits']['total'] == 2
 
 
+def test_vendors_can_delete(
+        client, vendor_martigny, acq_order_fiction_martigny,
+        acq_invoice_fiction_martigny):
+    """Test can delete a vendor with a linked acquisition order."""
+    assert not vendor_martigny.can_delete
+
+    reasons = vendor_martigny.reasons_not_to_delete()
+    assert reasons['links']['acq_orders']
+    assert reasons['links']['acq_invoices']
+
+
 def test_vendor_post_update_delete(client, librarian_martigny_no_email,
-                                   vendor_martigny_data, json_header):
+                                   vendor3_martigny_data, json_header):
     """Test CRUD on vendor."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr1')
+    item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr3')
 
     # create
     res, data = postdata(
         client,
         'invenio_records_rest.vndr_list',
-        vendor_martigny_data
+        vendor3_martigny_data
     )
     assert res.status_code == 201
 
@@ -92,10 +100,10 @@ def test_vendor_post_update_delete(client, librarian_martigny_no_email,
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['metadata'] == vendor_martigny_data
+    assert data['metadata'] == vendor3_martigny_data
 
     # update
-    data = vendor_martigny_data
+    data = vendor3_martigny_data
     data['name'] = 'Test update Name'
     res = client.put(
         item_url,
@@ -114,25 +122,3 @@ def test_vendor_post_update_delete(client, librarian_martigny_no_email,
 
     res = client.get(item_url)
     assert res.status_code == 410
-
-
-def test_vendors_jsonresolver(app, vendor_martigny_tmp):
-    """Test vendor resolver."""
-    rec = Record.create({
-        'vendor': {'$ref': 'https://ils.rero.ch/api/vendors/1'}
-    })
-    assert rec.replace_refs().get('vendor') == {'pid': '1'}
-
-    # deleted record
-    vendor_martigny_tmp.delete()
-    with pytest.raises(Exception):
-        rec.replace_refs().dumps()
-
-    # non existing record
-    rec = Record.create({
-        'vendor': {'$ref': 'https://ils.rero.ch/api/vendors/n_e'}
-    })
-
-    with pytest.raises(JsonRefError) as error:
-        rec.replace_refs().dumps()
-    assert 'PIDDoesNotExistError' in str(error)
