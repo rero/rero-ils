@@ -60,6 +60,12 @@
           "form-field"
         ],
         "validation": {
+          "validators": {
+            "lessthan": {
+              "expression": "new Date(formControl.value) < new Date(formControl.parent.value.end_date)",
+              "message": "The start date must be less than the end date."
+            }
+          },
           "messages": {
             "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
           }
@@ -78,6 +84,12 @@
           "form-field"
         ],
         "validation": {
+          "validators": {
+            "greatherthan": {
+              "expression": "new Date(formControl.value) > new Date(formControl.parent.value.start_date)",
+              "message": "The end date must be greater than the start date."
+            }
+          },
           "messages": {
             "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
           }
