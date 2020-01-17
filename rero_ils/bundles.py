@@ -25,7 +25,6 @@ from invenio_assets import AngularGettextFilter, GlobBundle, LazyNpmBundle, \
     NpmBundle
 from pkg_resources import resource_filename
 
-
 RERO_ILS_UI_VERSION = '0.0.9'
 
 
