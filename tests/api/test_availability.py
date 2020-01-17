@@ -16,13 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import mock
-import pytz
-from dateutil import parser
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.filter import format_date_filter
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.views import item_availability_text
@@ -165,8 +162,7 @@ def test_item_holding_document_availability(
         'rero_ils.modules.items.api.current_i18n',
         current_i18n
     ):
-        end_date = pytz.utc.localize(parser.parse(item.get_item_end_date()))
-        end_date = format_date_filter(end_date, format='short_date')
+        end_date = item.get_item_end_date()
         assert item_availability_text(item) == 'due until ' + end_date
 
     """

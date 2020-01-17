@@ -118,6 +118,9 @@ if [ "$(uname -s)" == "Darwin" ]; then
   pipenv run pip install appnope
 fi
 
+info_msg "Display pip list"
+pipenv run pip list
+
 # install assets utils
 virtualenv_path=`pipenv --venv`
 info_msg "Install npm assets utils in: ${virtualenv_path}"

@@ -21,10 +21,8 @@ from __future__ import absolute_import, print_function
 
 import os
 
-from invenio_assets import AngularGettextFilter, GlobBundle, LazyNpmBundle, \
-    NpmBundle
+from invenio_assets import AngularGettextFilter, GlobBundle, NpmBundle
 from pkg_resources import resource_filename
-
 
 RERO_ILS_UI_VERSION = '0.0.9'
 
