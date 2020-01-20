@@ -77,6 +77,9 @@ celerybeat-schedule
 # Coverage xml file
 cov.xml
 
-# these json files are generated during the setup
+# these json files are generated during bootstrap or run-test
 rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
 rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+
+# ES mapping files
+tmp/

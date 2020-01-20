@@ -52,6 +52,9 @@
                 },
                 "period": {
                   "type": "keyword"
+                },
+                "data": {
+                  "type": "long"
                 }
               }
             },

@@ -38,9 +38,7 @@ def test_item_type_es_mapping(es_clear, db, org_martigny, item_type_data_tmp):
     assert mapping == get_mapping(search.Meta.index)
 
 
-def test_item_types_search_mapping(
-    app, item_types_records
-):
+def test_item_types_search_mapping(app, item_types_records):
     """Test item type search mapping."""
     search = ItemTypesSearch()
 

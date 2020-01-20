@@ -83,10 +83,14 @@ def publication_statement_text(provision_activity):
         statement_type = statement['type']
 
     # date field: remove ';' and append
+    statement_text = []
     for key, value in statement_with_language.items():
         value = remove_trailing_punctuation(value)
-        statement_with_language[key] = value
-    return statement_with_language
+        if key == 'default':
+            statement_text.insert(0, {'value': value, 'language': key})
+        else:
+            statement_text.append({'value': value, 'language': key})
+    return statement_text
 
 
 def series_format_text(serie):
@@ -101,7 +105,6 @@ def series_format_text(serie):
 
 def edition_format_text(edition):
     """Format edition for _text."""
-    edition_with_language = {'default': ''}
     designations = edition.get('editionDesignation', [])
     responsibilities = edition.get('responsibility', [])
     designation_output = {}
@@ -115,13 +118,17 @@ def edition_format_text(edition):
         value = responsibility.get('value', '')
         responsibility_output[language] = value
 
+    edition_text = []
     for key, value in designation_output.items():
-        output_value = remove_trailing_punctuation(
+        value = remove_trailing_punctuation(
             '{designation} / {responsibility}'.format(
-                designation=value,
+                designation=designation_output.get(key),
                 responsibility=responsibility_output.get(key, ''),
             )
         )
-        edition_with_language[key] = output_value
+        if key == 'default':
+            edition_text.insert(0, {'value': value, 'language': key})
+        else:
+            edition_text.append({'value': value, 'language': key})
 
-    return edition_with_language
+    return edition_text

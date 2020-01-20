@@ -17,7 +17,6 @@
 
 """Signals connector for Document."""
 
-from .views import create_publication_statement
 from ..documents.api import DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
@@ -77,17 +76,6 @@ def enrich_document_data(sender, json=None, record=None, index=None,
 
         if holdings:
             json['holdings'] = holdings
-
-        # provisionActivity
-        publisher_statements = []
-        for provision_activity in record.get('provisionActivity', []):
-            publication_statement = create_publication_statement(
-                provision_activity
-            ).get('default')
-            if publication_statement:
-                publisher_statements.append(publication_statement)
-        if publisher_statements:
-            json['publisherStatement'] = publisher_statements
 
         # MEF person ES index update
         authors = []

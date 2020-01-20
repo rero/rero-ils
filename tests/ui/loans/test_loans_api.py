@@ -28,6 +28,13 @@ from rero_ils.modules.loans.api import get_loans_by_patron_pid
 from rero_ils.modules.loans.utils import get_default_loan_duration
 
 
+def test_loan_es_mapping(es_clear, db):
+    """Test loans elasticsearch mapping."""
+    search = current_circulation.loan_search
+    mapping = get_mapping(search.Meta.index)
+    assert mapping == get_mapping(search.Meta.index)
+
+
 def test_loans_create(loan_pending_martigny):
     """Test loan creation."""
     assert loan_pending_martigny.get('state') == 'PENDING'
@@ -44,10 +51,3 @@ def test_loans_elements(loan_pending_martigny, item_lib_fully):
     del new_loan['transaction_location_pid']
     assert get_default_loan_duration(new_loan) == \
         get_default_loan_duration(loan_pending_martigny)
-
-
-def test_loan_es_mapping(es_clear, db):
-    """Test loans elasticsearch mapping."""
-    search = current_circulation.loan_search
-    mapping = get_mapping(search.Meta.index)
-    assert mapping == get_mapping(search.Meta.index)

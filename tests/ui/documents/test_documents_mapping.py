@@ -23,9 +23,22 @@ from utils import get_mapping
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 
 
-def test_document_search_mapping(
-    app, document_records
-):
+def test_document_es_mapping(es, db, org_martigny,
+                             document_data_ref, item_lib_martigny, person):
+    """Test document elasticsearch mapping."""
+    search = DocumentsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    Document.create(
+        document_data_ref,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_document_search_mapping(app, document_records):
     """Test document search mapping."""
     search = DocumentsSearch()
 
@@ -55,18 +68,3 @@ def test_document_search_mapping(
     query = MultiMatch(query='Chamber of Secrets', fields=['title.eng'])
     c = search.query(query).count()
     assert c == 1
-
-
-def test_document_es_mapping(db, org_martigny,
-                             document_data_tmp, item_lib_martigny):
-    """Test document elasticsearch mapping."""
-    search = DocumentsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Document.create(
-        document_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)

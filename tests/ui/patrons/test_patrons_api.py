@@ -27,6 +27,14 @@ from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 
 
+def test_patron_es_mapping(
+        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
+    """Test patron elasticsearch mapping."""
+    search = PatronsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping == get_mapping(search.Meta.index)
+
+
 def test_patron_create(app, roles, librarian_martigny_data_tmp,
                        mailbox):
     """Test Patron creation."""
@@ -111,11 +119,3 @@ def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
     assert librarian_martigny.get_links_to_me() == {}
     assert librarian_martigny.can_delete
-
-
-def test_patron_es_mapping(
-        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
-    """Test patron elasticsearch mapping."""
-    search = PatronsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping == get_mapping(search.Meta.index)

@@ -295,10 +295,8 @@ def edition_format(editions):
     for edition in editions:
         languages = edition_format_text(edition)
         if languages:
-            output.append(languages['default'])
-            del languages['default']
-            for key, value in languages.items():
-                output.append(value)
+            for edition_text in languages:
+                output.append(edition_text.get('value'))
     return output
 
 
@@ -431,4 +429,8 @@ def document_availability(document_pid):
 @blueprint.app_template_filter()
 def create_publication_statement(provision_activity):
     """Create publication statement from place, agent and date values."""
-    return publication_statement_text(provision_activity)
+    output = []
+    publication_texts = publication_statement_text(provision_activity)
+    for publication_text in publication_texts:
+        output.append(publication_text.get('value'))
+    return output

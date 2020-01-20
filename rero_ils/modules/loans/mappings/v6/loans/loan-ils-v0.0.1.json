@@ -40,6 +40,9 @@
         "end_date": {
           "type": "date"
         },
+        "extension_count": {
+          "type": "long"
+        },
         "state": {
           "type": "keyword"
         },

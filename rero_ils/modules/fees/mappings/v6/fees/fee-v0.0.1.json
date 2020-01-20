@@ -21,6 +21,13 @@
         "fee_type": {
           "type": "keyword"
         },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "notification": {
           "properties": {
             "pid": {

@@ -22,9 +22,21 @@ from utils import get_mapping
 from rero_ils.modules.persons.api import Person, PersonsSearch
 
 
-def test_persons_search_mapping(
-    app, person
-):
+def test_person_es_mapping(es_clear, db, person_data_tmp):
+    """Test mef elasticsearch mapping."""
+    search = PersonsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    Person.create(
+        person_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_persons_search_mapping(app, person):
     """Test Mef Persons search mapping."""
     search = PersonsSearch()
 
@@ -57,17 +69,3 @@ def test_persons_search_mapping(
         **{'gnd.variant_name_for_person': 'Arnoudt'}).\
         count()
     assert c == 1
-
-
-def test_person_es_mapping(es_clear, db, person_data_tmp):
-    """Test mef elasticsearch mapping."""
-    search = PersonsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Person.create(
-        person_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)

@@ -22,9 +22,22 @@ from utils import get_mapping
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 
 
-def test_circ_policies_search_mapping(
-    app, circulation_policies
-):
+def test_circ_policy_es_mapping(es_clear, db, org_martigny,
+                                circ_policy_martigny_data_tmp):
+    """Test circulation policy elasticsearch mapping."""
+    search = CircPoliciesSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    CircPolicy.create(
+        circ_policy_martigny_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_circ_policies_search_mapping(app, circulation_policies):
     """Test circulation policy search mapping."""
     search = CircPoliciesSearch()
 
@@ -40,18 +53,3 @@ def test_circ_policies_search_mapping(
     pids = [r.pid for r in search.query(
          'match', name='temporary').source(['pid']).scan()]
     assert 'cipo3' in pids
-
-
-def test_circ_policy_es_mapping(es, db, org_martigny,
-                                circ_policy_martigny_data_tmp):
-    """Test circulation policy elasticsearch mapping."""
-    search = CircPoliciesSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    CircPolicy.create(
-        circ_policy_martigny_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)

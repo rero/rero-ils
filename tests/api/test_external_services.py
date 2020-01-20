@@ -26,7 +26,6 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.views import create_publication_statement
 
 
 @pytest.mark.external
@@ -59,15 +58,6 @@ def test_documents_get(client, document):
     assert res.status_code == 200
     data = get_json(res)
     document = document.replace_refs()
-    publisher_statements = []
-    for provision_activity in document.get('provisionActivity', []):
-        publication_statement = create_publication_statement(
-            provision_activity
-        ).get('default')
-        if publication_statement:
-            publisher_statements.append(publication_statement)
-    if publisher_statements:
-        document['publisherStatement'] = publisher_statements
 
     assert data['hits']['hits'][0]['metadata'] == \
         document.replace_refs().dumps()

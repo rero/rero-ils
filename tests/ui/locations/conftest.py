@@ -15,16 +15,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Common pytest patron_types."""
+"""Common pytest libraries."""
 
 import pytest
 
 
 @pytest.yield_fixture(scope='module')
-def patron_types_records(
-    patron_type_adults_martigny,
-    patron_type_youngsters_sion,
-    patron_type_grown_sion
+def locations_records(
+    loc_public_martigny,
+    loc_restricted_martigny,
+    loc_public_saxon,
+    loc_restricted_saxon,
+    loc_public_fully,
+    loc_restricted_fully,
+    loc_public_sion,
+    loc_restricted_sion,
+    loc_online_martigny,
+    loc_online_saxon,
+    loc_online_fully,
+    loc_online_sion,
+    loc_online_aproz
 ):
-    """Patron types for test mapping."""
+    """Locations for test mapping."""
     pass
