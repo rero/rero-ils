@@ -29,19 +29,6 @@ from rero_ils.modules.notifications.api import \
     notification_id_fetcher as fetcher
 
 
-def test_notification_organisation_pid(
-        org_martigny, notification_availability_martigny):
-    """Test organisation pid has been added during the indexing."""
-    search = NotificationsSearch()
-    pid = notification_availability_martigny.get('pid')
-    notification = next(search.filter('term', pid=pid).scan())
-    assert notification.organisation.pid == org_martigny.pid
-
-    # test notification can_delete
-    assert notification_availability_martigny.get_links_to_me() == {}
-    assert notification_availability_martigny.can_delete
-
-
 def test_notification_es_mapping(
         dummy_notification, loan_validated_martigny):
     """Test notification elasticsearch mapping."""
@@ -61,6 +48,19 @@ def test_notification_es_mapping(
     Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
 
     assert mapping == get_mapping(search.Meta.index)
+
+
+def test_notification_organisation_pid(
+        app, org_martigny, notification_availability_martigny):
+    """Test organisation pid has been added during the indexing."""
+    search = NotificationsSearch()
+    pid = notification_availability_martigny.get('pid')
+    notification = next(search.filter('term', pid=pid).scan())
+    assert notification.organisation.pid == org_martigny.pid
+
+    # test notification can_delete
+    assert notification_availability_martigny.get_links_to_me() == {}
+    assert notification_availability_martigny.can_delete
 
 
 def test_notification_create(

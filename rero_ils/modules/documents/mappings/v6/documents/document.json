@@ -194,8 +194,11 @@
           "properties": {
             "_text": {
               "properties": {
-                "default": {
+                "value": {
                   "type": "text"
+                },
+                "language": {
+                  "type": "keyword"
                 }
               }
             },
@@ -245,9 +248,6 @@
             "statement": {
               "type": "object",
               "properties": {
-                "type": {
-                  "type": "text"
-                },
                 "label": {
                   "type": "object",
                   "properties": {
@@ -259,6 +259,9 @@
                       "type": "keyword"
                     }
                   }
+                },
+                "type": {
+                  "type": "text"
                 }
               }
             },
@@ -274,18 +277,20 @@
               "type": "date",
               "format": "yyyy"
             },
+            "type": {
+              "type": "text"
+            },
             "_text": {
               "properties": {
-                "default": {
+                "value": {
                   "type": "text"
+                },
+                "language": {
+                  "type": "keyword"
                 }
               }
             }
           }
-        },
-        "publisherStatement": {
-          "type": "keyword",
-          "index": false
         },
         "extent": {
           "type": "text",
@@ -434,6 +439,9 @@
           "properties": {
             "pid": {
               "type": "keyword"
+            },
+            "available": {
+              "type": "boolean"
             },
             "call_number": {
               "type": "keyword"

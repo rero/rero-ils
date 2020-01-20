@@ -27,6 +27,21 @@ from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.locations.api import location_id_fetcher as fetcher
 
 
+def test_location_es_mapping(es_clear, db, lib_martigny,
+                             loc_public_martigny_data):
+    """Test location elasticsearch mapping."""
+    search = LocationsSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    Location.create(
+        loc_public_martigny_data,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert mapping == get_mapping(search.Meta.index)
+
+
 def test_location_create(db, es_clear, loc_public_martigny_data, lib_martigny,
                          loc_online_martigny):
     """Test location creation."""
@@ -54,20 +69,6 @@ def test_location_organisation_pid(org_martigny, loc_public_martigny):
     search = LocationsSearch()
     location = next(search.filter('term', pid=loc_public_martigny.pid).scan())
     assert location.organisation.pid == org_martigny.pid
-
-
-def test_location_es_mapping(es, db, lib_martigny, loc_public_martigny_data):
-    """Test location elasticsearch mapping."""
-    search = LocationsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping
-    Location.create(
-        loc_public_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
-    assert mapping == get_mapping(search.Meta.index)
 
 
 def test_location_can_delete(loc_public_martigny):

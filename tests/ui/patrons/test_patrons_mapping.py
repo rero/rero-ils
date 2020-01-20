@@ -19,12 +19,19 @@
 
 from utils import get_mapping
 
-from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_patron_search_mapping(
-    app, patrons_records, librarian_saxon_no_email
-):
+def test_patron_es_mapping(
+        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
+    """Test patron elasticsearch mapping."""
+    search = PatronsSearch()
+    mapping = get_mapping(search.Meta.index)
+    # TODO: create of an patron
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_patron_search_mapping(app, patrons_records, librarian_saxon_no_email):
     """Test patron search mapping."""
     search = PatronsSearch()
 
@@ -46,11 +53,3 @@ def test_patron_search_mapping(
     pids = [r.pid for r in search.query(
          'match', first_name='Eléna').source(['pid']).scan()]
     assert librarian_saxon_no_email.pid in pids
-
-
-def test_patron_es_mapping(
-        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
-    """Test patron elasticsearch mapping."""
-    search = PatronsSearch()
-    mapping = get_mapping(search.Meta.index)
-    assert mapping == get_mapping(search.Meta.index)

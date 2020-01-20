@@ -75,12 +75,13 @@ STOP_EXECUTION=true
 CREATE_LAZY=""
 DONT_STOP=""
 PREFIX=""
+ES_MAPPING=false
 
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dsb -l -t deployment,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,data_path: -- "$@")
+if ! options=$(getopt -o dsb -l -t deployment,create_items_holdings_small,create_items_holdings_big,lazy,pursue,data_path,time,es-mapping: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -97,6 +98,7 @@ do
     -p|--pursue) DONT_STOP="--dont-stop" ;;
     -D|--data_path) DATA_PATH=$2 ;;
     -t|--time) PREFIX="time" ;;  # Get time for all commands
+    -m|--es-mapping) ES_MAPPING=true ;;
     (--) shift; break;;
     (-*) error_msg+exit "$0: Unrecognized option $1";;
     (*) break;;
@@ -115,7 +117,7 @@ fi
 
 if $CREATE_ITEMS_HOLDINGS_SMALL || $CREATE_ITEMS_HOLDINGS_BIG
 then
-    if $DEPLOYMENT
+    if ${DEPLOYMENT}
     then
         error_msg+exit "Choose deployment option only"
     fi
@@ -146,6 +148,13 @@ eval ${PREFIX} pipenv run invenio index queue init
 # Delete invenio_circulations index
 info_msg "Delete invenio_circulations index"
 eval ${PREFIX} pipenv run invenio index delete loans-loan-v1.0.0 --force --yes-i-know
+
+if ${ES_MAPPING}
+then
+    info_msg "ES mappings:"
+    mkdir -p tmp
+    pipenv run invenio utils dump_es_mappings -o tmp/mapping_before_setup.txt
+fi
 
 # Create admin role to restrict access
 info_msg "Create admin role to restrict access"
@@ -231,7 +240,7 @@ eval ${PREFIX} pipenv run invenio fixtures import_users ${DATA_PATH}/users.json 
 # eval ${PREFIX} pipenv run invenio utils marc21tojson ${DATA_PATH}/documents_big.xml ${DATA_PATH}/documents_big.json ${DATA_PATH}/documents_big_errors.xml -v -r
 # eval ${PREFIX} pipenv run invenio utils marc21tojson ${DATA_PATH}/documents_small.xml ${DATA_PATH}/documents_small.json ${DATA_PATH}/documents_small_errors.xml -v -r
 
-if $DEPLOYMENT
+if ${DEPLOYMENT}
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
@@ -303,19 +312,19 @@ eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 info_msg "Library budgets:"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append
 eval ${PREFIX} pipenv run invenio index reindex -t budg --yes-i-know
-eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error 
+eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
 
 # create acquisition accounts
 info_msg "Acquisition accounts:"
 eval ${PREFIX} pipenv run invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append
 eval ${PREFIX} pipenv run invenio index reindex -t acac --yes-i-know
-eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error 
+eval ${PREFIX} pipenv run invenio index run -c 4 --raise-on-error
 
 # # OAI configuration
 info_msg "OAI configuration:"
 eval ${PREFIX} pipenv run invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
-if $DEPLOYMENT
+if ${DEPLOYMENT}
 then
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
@@ -324,7 +333,15 @@ else
     info_msg "For ebooks harvesting run:"
     echo -e "\tpipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
-date
 
+if ${ES_MAPPING}
+then
+    info_msg "ES mappings:"
+    pipenv run invenio utils dump_es_mappings -o tmp/mapping_after_setup.txt
+    error_msg "ES mapping differences:"
+    diff --suppress-common-lines --side-by-side tmp/mapping_before_setup.txt tmp/mapping_after_setup.txt
+fi
+
+date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0

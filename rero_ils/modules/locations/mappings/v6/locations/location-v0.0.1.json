@@ -37,6 +37,13 @@
             }
           }
         },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

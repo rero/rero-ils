@@ -48,12 +48,12 @@
 
         <!-- EDITION STATEMENT-->
         {% if record.editionStatement %}
-        {{ dl_list(_('Edition'), record.editionStatement | edition_format) }}
+        {{ dl_list(_('Edition'), record.editionStatement|edition_format) }}
         {% endif %}
 
         <!-- PUBLICATION STATEMENT -->
         {% for provision_activity in record.provisionActivity %}
-        {{ dl_dict(_(provision_activity.type), provision_activity|create_publication_statement ) }}
+        {{ dl_list(_(provision_activity.type), provision_activity|create_publication_statement ) }}
         {% endfor %}
 
         <!-- COPYRIGHT DATE -->

@@ -1324,3 +1324,23 @@ def check_pid_dependencies(dependency_file, directory, verbose):
     dependency_tests.run_tests(tests)
 
     sys.exit(dependency_tests.missing + dependency_tests.not_found)
+
+
+@utils.command('dump_es_mappings')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-o', '--outfile', 'outfile', type=click.File('w'), default=None)
+@with_appcontext
+def dump_es_mappings(verbose, outfile):
+    """Dumps ES mappings."""
+    click.secho('Dump ES mappings:', fg='green')
+    aliases = current_search.client.indices.get_alias('*')
+    mappings = current_search.client.indices.get_mapping()
+    for alias in sorted(aliases):
+        if alias[0] != '.':
+            mapping = mappings.get(alias, {}).get('mappings')
+            click.echo('{alias}'.format(alias=alias))
+            if verbose or not outfile:
+                print(json.dumps(mapping, indent=2))
+            if outfile:
+                json.dump(mapping, outfile, indent=2)
+                outfile.write('\n')
