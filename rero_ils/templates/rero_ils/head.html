@@ -63,5 +63,6 @@
   {%- block header %}{% endblock header %}
   {%- block css %}
     {% assets "rero_ils_main_css" %}<link href="{{ ASSET_URL }}" rel="stylesheet">{% endassets %}
+    <link href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css" rel="stylesheet" title="{{ viewcode }}">
   {%- endblock css %}
 {%- endblock head %}

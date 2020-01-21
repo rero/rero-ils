@@ -153,6 +153,8 @@ THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
 #: Brand logo.
 THEME_LOGO = 'images/logo_rero_ils.png'
+# External CSS for each organisation customization
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
 
 SEARCH_UI_JSTEMPLATE_RESULTS = (
     'templates/rero_ils/brief_view_documents.html'

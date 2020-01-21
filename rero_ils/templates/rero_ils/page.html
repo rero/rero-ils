@@ -23,7 +23,7 @@
       {% include 'rero_ils/head.html' %}
     {%- endblock head %}
   </head>
-  <body ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}" {% else %} class="d-flex flex-column" {% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target">
+  <body ng-csp {% if body_css_classes %} class="{{ body_css_classes|join(' ') }}" {% else %} class="d-flex flex-column" {% endif %}{% if g.ln %} lang="{{ g.ln.split('_', 1)[0]|safe }}"{% if rtl_direction %} {{ rtl_direction|safe }}{% endif %}{% endif %} itemscope itemtype="http://schema.org/WebPage" data-spy="scroll" data-target=".scrollspy-target" {% if viewcode %}id="view-{{ viewcode }}"{% endif %}>
     {%- block outer_body %}
       {%- block browserupgrade %}
         <!--[if lt IE 8]>

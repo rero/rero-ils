@@ -26,11 +26,12 @@
             <div class="align-self-center d-flex w-100 justify-content-between">
               <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand pr-2">
                 <img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}} logo">
+                <div id="{{ viewcode }}-logo"></div>
               </a>
           {%- else %}
               <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand">{{_(config.THEME_SITENAME)}}</a>
-            </div>
           {%- endif %}
+            </div>
         {%- endblock navbar_brand %}
 
         {%- block navbar_search %}
