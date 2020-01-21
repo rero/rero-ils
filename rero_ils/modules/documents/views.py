@@ -101,7 +101,7 @@ def check_permission(fn):
 
 @api_blueprint.route('/cover/<isbn>')
 def cover(isbn):
-    """Documenet cover service."""
+    """Document cover service."""
     cover_service = current_app.config.get('RERO_ILS_THUMBNAIL_SERVICE_URL')
     url = cover_service + '?height=60px&jsonpCallbackParam=callback'\
                           '&type=isbn&width=60px&callback=thumb&value=' + isbn

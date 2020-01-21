@@ -87,6 +87,17 @@ def test_view_parameter_notfound(client):
     assert result.status_code == 404
 
 
+def test_external_endpoint_on_institution_homepage(client, org_martigny, app):
+    """Test external endpoint on institution homepage."""
+    result = client.get(url_for(
+        'rero_ils.index_with_view_code',
+        viewcode='org1'
+    ))
+    endpoint = app.config['RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT']
+    assert endpoint == "https://resources.rero.ch/ils/test/css/"
+    assert str(result.data).find(endpoint) > 1
+
+
 def test_help(client):
     """Test help entrypoint."""
     result = client.get(url_for('rero_ils.help'))
