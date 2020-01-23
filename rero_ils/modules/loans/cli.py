@@ -164,8 +164,17 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
         )
         loan = get_loan_for_item(item.pid)
         loan_pid = loan.get('pid')
+        loan = Loan.get_record_by_pid(loan_pid)
         if transaction_type == 'overdue':
-            loan = Loan.get_record_by_pid(loan_pid)
+            end_date = datetime.now(timezone.utc) - timedelta(days=2)
+            loan['end_date'] = end_date.isoformat()
+            loan.update(
+                loan,
+                dbcommit=True,
+                reindex=True
+            )
+            loan.create_notification(notification_type='due_soon')
+
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
             loan.update(
@@ -173,7 +182,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 dbcommit=True,
                 reindex=True
             )
-            notif = loan.create_notification(notification_type='overdue')
+            loan.create_notification(notification_type='overdue')
 
         elif transaction_type == 'extended':
             user_pid, user_location = \
@@ -206,6 +215,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                         requested_patron.pid),
                     document_pid=item.replace_refs()['document']['pid'],
                 )
+                loan.create_notification(notification_type='recall')
         return item['barcode']
     except Exception as err:
         if verbose:
