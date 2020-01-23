@@ -1,0 +1,100 @@
+[
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "1",
+    "creation_date": "2020-01-24T00:00:00",
+    "amount": 2,
+    "type": "fee",
+    "subtype": "overdue",
+    "status": "closed",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1222"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "2",
+    "creation_date": "2020-01-25T00:00:00",
+    "amount": 0.5,
+    "type": "fee",
+    "subtype": "overdue",
+    "status": "open",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1222"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "3",
+    "creation_date": "2020-01-25T10:00:00",
+    "amount": 1,
+    "type": "payment",
+    "subtype": "cash",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1222"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "note": "Pay with low-value coins... dummy student",
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "4",
+    "creation_date": "2020-01-25T10:00:20",
+    "amount": 1,
+    "type": "payment",
+    "subtype": "paypal",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1222"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "5",
+    "creation_date": "2020-01-25T10:10:00",
+    "type": "dispute",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/1222"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "note": "Student doesn't want to pay for overdue 2020-01-25",
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  },
+  {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "6",
+    "creation_date": "2020-01-31T16:22:32",
+    "type": "resolved",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/4"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "note": "Waive for the dispute",
+    "amount": 0.5,
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/1"
+    }
+  }
+]
