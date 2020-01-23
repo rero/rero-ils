@@ -295,7 +295,7 @@ class Item(IlsRecord):
         self.commit()
         self.dbcommit(reindex=True, forceindex=True)
 
-    def dumps_for_circulation(self):
+    def dumps_for_circulation(self, sort_by=None):
         """Enhance item information for api_views."""
         item = self.replace_refs()
         data = item.dumps()
@@ -315,7 +315,7 @@ class Item(IlsRecord):
         data['actions'] = list(self.actions)
         data['available'] = self.available
         # data['number_of_requests'] = self.number_of_requests()
-        for loan in self.get_requests():
+        for loan in self.get_requests(sort_by=sort_by):
             data.setdefault('pending_loans',
                             []).append(loan.dumps_for_circulation())
         return data
@@ -394,44 +394,59 @@ class Item(IlsRecord):
             return None
 
     @classmethod
-    def get_pendings_loans(cls, library_pid):
-        """Returns list of pending loand for a given library."""
-        # check library exists
+    def get_pendings_loans(cls, library_pid=None, sort_by='transaction_date'):
+        """Return list of sorted pending loans for a given library.
+
+        default sort is set to transaction_date
+        """
+        # check if library exists
         lib = Library.get_record_by_pid(library_pid)
         if not lib:
             raise Exception('Invalid Library PID')
-
-        results = current_circulation.loan_search\
+        # the '-' prefix means a desc order.
+        sort_by = sort_by or 'transaction_date'
+        order_by = 'asc'
+        if sort_by.startswith('-'):
+            sort_by = sort_by[1:]
+            order_by = 'desc'
+        search = current_circulation.loan_search\
             .source(['pid'])\
             .params(preserve_order=True)\
             .filter('term', state='PENDING')\
             .filter('term', library_pid=library_pid)\
-            .sort({'transaction_date': {'order': 'asc'}})\
-            .scan()
+            .sort({sort_by: {"order": order_by}})
+        results = search.scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
 
     @classmethod
-    def get_checked_out_loans(cls, patron_pid):
-        """Returns checked out loans for a given patron."""
+    def get_checked_out_loans(
+            cls, patron_pid=None, sort_by='transaction_date'):
+        """Returns sorted checked out loans for a given patron."""
         # check library exists
         patron = Patron.get_record_by_pid(patron_pid)
         if not patron:
             raise InvalidRecordID('Invalid Patron PID')
-        results = current_circulation.loan_search\
-            .source(['pid'])\
+        # the '-' prefix means a desc order.
+        sort_by = sort_by or 'transaction_date'
+        order_by = 'asc'
+        if sort_by.startswith('-'):
+            sort_by = sort_by[1:]
+            order_by = 'desc'
+
+        results = current_circulation.loan_search.source(['pid'])\
             .params(preserve_order=True)\
             .filter('term', state='ITEM_ON_LOAN')\
             .filter('term', patron_pid=patron_pid)\
-            .sort({'transaction_date': {'order': 'asc'}})\
-            .scan()
+            .sort({sort_by: {"order": order_by}}).scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
 
     @classmethod
-    def get_checked_out_items(cls, patron_pid):
-        """Return checked out items for a given patron."""
-        loans = cls.get_checked_out_loans(patron_pid)
+    def get_checked_out_items(cls, patron_pid=None, sort_by=None):
+        """Return sorted checked out items for a given patron."""
+        loans = cls.get_checked_out_loans(
+            patron_pid=patron_pid, sort_by=sort_by)
         returned_item_pids = []
         for loan in loans:
             item_pid = loan.get('item_pid')
@@ -441,23 +456,32 @@ class Item(IlsRecord):
                 returned_item_pids.append(item_pid)
                 yield item, loan
 
-    def get_requests(self):
-        """Return any pending, item_on_transit, item_at_desk loans."""
+    def get_requests(self, sort_by=None):
+        """Return sorted pending, item_on_transit, item_at_desk loans.
+
+        default sort is transaction_date.
+        """
         search = search_by_pid(
             item_pid=self.pid, filter_states=[
                 'PENDING',
                 'ITEM_AT_DESK',
                 'ITEM_IN_TRANSIT_FOR_PICKUP'
-            ]).params(preserve_order=True)\
-            .source(['pid'])\
-            .sort({'transaction_date': {'order': 'asc'}})
+            ]).params(preserve_order=True).source(['pid'])
+        order_by = 'asc'
+        sort_by = sort_by or 'transaction_date'
+        if sort_by.startswith('-'):
+            sort_by = sort_by[1:]
+            order_by = 'desc'
+        search = search.sort({sort_by: {'order': order_by}})
         for result in search.scan():
             yield Loan.get_record_by_pid(result.pid)
 
     @classmethod
-    def get_requests_to_validate(cls, library_pid):
+    def get_requests_to_validate(
+            cls, library_pid=None, sort_by=None):
         """Returns list of requests to validate for a given library."""
-        loans = cls.get_pendings_loans(library_pid)
+        loans = cls.get_pendings_loans(
+            library_pid=library_pid, sort_by=sort_by)
         returned_item_pids = []
         for loan in loans:
             item_pid = loan.get('item_pid')
