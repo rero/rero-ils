@@ -536,3 +536,159 @@ def test_item_secure_api_delete(client, item_lib_saxon,
     res = client.delete(record_url)
     # sys_librarian can delete items in other libraries in same org.
     assert res.status_code == 204
+
+
+def test_pending_loans_order(client, librarian_martigny_no_email,
+                             patron_martigny_no_email, loc_public_martigny,
+                             item_type_standard_martigny,
+                             item2_lib_martigny, json_header,
+                             patron2_martigny_no_email, patron_sion_no_email,
+                             circulation_policies):
+    """Test sort of pending loans."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    library_pid = librarian_martigny_no_email.replace_refs()['library']['pid']
+
+    res, _ = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_sion_no_email.pid,
+            pickup_location_pid=loc_public_martigny.pid
+        )
+    )
+
+    res, _ = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid,
+            pickup_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    res, _ = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron2_martigny_no_email.pid,
+            pickup_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+
+    # sort by pid asc
+    res = client.get(
+        url_for(
+            'api_item.requested_loans', library_pid=library_pid,
+            sort='pid'))
+    assert res.status_code == 200
+    data = get_json(res)
+    loans = data['hits']['hits'][0]['item']['pending_loans']
+    assert loans[2]['pid'] > loans[1]['pid'] > loans[0]['pid']
+
+    # sort by pid desc
+    res = client.get(
+        url_for(
+            'api_item.requested_loans', library_pid=library_pid,
+            sort='-pid'))
+    assert res.status_code == 200
+    data = get_json(res)
+    loans = data['hits']['hits'][0]['item']['pending_loans']
+    assert loans[2]['pid'] < loans[1]['pid'] < loans[0]['pid']
+
+    # sort by transaction desc
+    res = client.get(
+        url_for(
+            'api_item.requested_loans', library_pid=library_pid,
+            sort='-transaction_date'))
+    assert res.status_code == 200
+    data = get_json(res)
+    loans = data['hits']['hits'][0]['item']['pending_loans']
+    assert loans[2]['pid'] < loans[1]['pid'] < loans[0]['pid']
+
+    # sort by patron_pid asc
+    res = client.get(
+        url_for(
+            'api_item.requested_loans', library_pid=library_pid,
+            sort='patron_pid'))
+    assert res.status_code == 200
+    data = get_json(res)
+    loans = data['hits']['hits'][0]['item']['pending_loans']
+    assert loans[0]['patron_pid'] == patron_sion_no_email.pid
+    assert loans[1]['patron_pid'] == patron_martigny_no_email.pid
+    assert loans[2]['patron_pid'] == patron2_martigny_no_email.pid
+
+    # sort by invalid field
+    res = client.get(
+        url_for(
+            'api_item.requested_loans', library_pid=library_pid,
+            sort='does not exist'))
+    assert res.status_code == 500
+    data = get_json(res)
+    assert 'RequestError(400' in data['status']
+
+
+def test_patron_checkouts_order(client, librarian_martigny_no_email,
+                                patron_martigny_no_email, loc_public_martigny,
+                                item_type_standard_martigny,
+                                item3_lib_martigny, json_header,
+                                item2_lib_martigny,
+                                circulation_policies):
+    """Test sort of checkout loans."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        ),
+    )
+    assert res.status_code == 200
+
+    res, _ = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        ),
+    )
+    assert res.status_code == 200
+
+    # sort by transaction_date asc
+    res = client.get(
+        url_for(
+            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            sort='transaction_date'))
+    assert res.status_code == 200
+    data = get_json(res)
+    items = data['hits']['hits']
+
+    assert items[0]['item']['pid'] == item3_lib_martigny.pid
+    assert items[1]['item']['pid'] == item2_lib_martigny.pid
+
+    # sort by transaction_date desc
+    res = client.get(
+        url_for(
+            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            sort='-transaction_date'))
+    assert res.status_code == 200
+    data = get_json(res)
+    items = data['hits']['hits']
+
+    assert items[0]['item']['pid'] == item2_lib_martigny.pid
+    assert items[1]['item']['pid'] == item3_lib_martigny.pid
+
+    # sort by invalid field
+    res = client.get(
+        url_for(
+            'api_item.loans', patron_pid=patron_martigny_no_email.pid,
+            sort='does not exist'))
+    assert res.status_code == 500
+    data = get_json(res)
+    assert 'RequestError(400' in data['status']

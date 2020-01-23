@@ -215,12 +215,14 @@ def extend_loan(item, data):
 @check_authentication
 @jsonify_error
 def requested_loans(library_pid):
-    """HTTP GET request for requested loans for a library."""
-    items_loans = Item.get_requests_to_validate(library_pid)
+    """HTTP GET request for sorted requested loans for a library."""
+    sort_by = flask_request.args.get('sort')
+    items_loans = Item.get_requests_to_validate(
+        library_pid=library_pid, sort_by=sort_by)
     metadata = []
     for item, loan in items_loans:
         metadata.append({
-            'item': item.dumps_for_circulation(),
+            'item': item.dumps_for_circulation(sort_by=sort_by),
             'loan': loan.dumps_for_circulation()
         })
     return jsonify({
@@ -235,11 +237,13 @@ def requested_loans(library_pid):
 @check_authentication
 @jsonify_error
 def loans(patron_pid):
-    """HTTP GET request for requested loans for a library."""
-    items_loans = Item.get_checked_out_items(patron_pid)
+    """HTTP GET request for sorted loans for a patron pid."""
+    sort_by = flask_request.args.get('sort')
+    items_loans = Item.get_checked_out_items(
+        patron_pid=patron_pid, sort_by=sort_by)
     metadata = []
     for item, loan in items_loans:
-        item_dumps = item.dumps_for_circulation()
+        item_dumps = item.dumps_for_circulation(sort_by=sort_by)
         metadata.append({
             'item': item_dumps,
             'loan': loan.dumps_for_circulation()
