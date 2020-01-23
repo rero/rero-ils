@@ -73,7 +73,7 @@ class Person(IlsRecord):
         metadata = data.get('metadata')
         if '$schema' in metadata:
             del metadata['$schema']
-        rec = cls.create(metadata, dbcommit=True, reindex=False)
+        rec = cls.create(metadata, dbcommit=True, reindex=True)
         return rec
 
     def dumps_for_document(self):
