@@ -76,6 +76,7 @@ from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import can_update_organisations_factory
 from .modules.patron_transactions.api import PatronTransaction
+from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
@@ -546,6 +547,39 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class='rero_ils.modules.patron_transactions.api:PatronTransaction',
         list_route='/patron_transactions/',
         item_route='/patron_transactions/<pid(pttr, record_class="rero_ils.modules.patron_transactions.api:PatronTransaction"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:search_factory',
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all,
+    ),
+    ptre=dict(
+        pid_type='ptre',
+        pid_minter='patron_transaction_event_id',
+        pid_fetcher='patron_transaction_event_id',
+        search_class=RecordsSearch,
+        search_index='patron_transaction_events',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: PatronTransactionEvent(request.get_json()),
+        },
+        record_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent',
+        list_route='/patron_transaction_events/',
+        item_route='/patron_transaction_events/<pid(ptre, record_class="rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:search_factory',
@@ -1333,6 +1367,7 @@ RECORDS_JSON_SCHEMA = {
     'acor': '/acq_orders/acq_order-v0.0.1.json',
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
     'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',
+    'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json'
 }
 
 # Login Configuration
