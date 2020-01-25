@@ -259,6 +259,9 @@ DB_VERSIONING = False
 #: Disable warning
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+#: Prevent "Internal server error" after some time of inactivity
+SQLALCHEMY_POOL_RECYCLE = 90
+
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
