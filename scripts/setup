@@ -78,6 +78,7 @@ invert_warning_option() {
 
 
 DEPLOYMENT=false
+LOADPERSONS=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
@@ -98,7 +99,7 @@ if [ "${IS_VIRTUALENV}" != 1 ]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dsbwm -l -t deployment,create_items_holdings_small,create_items_holdings_big,lazy,pursue,warnings,data_path,time,es-mapping: -- "$@")
+if ! options=$(getopt -o dPsbclptmwD: -l deployment,persons,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,data_path: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -108,15 +109,16 @@ while [ $# -gt 0 ]
 do
     case $1 in
     -d|--deployment) DEPLOYMENT=true ;;
+    -P|--persons) LOADPERSONS=true ;;
     -s|--create_items_holdings_small) CREATE_ITEMS_HOLDINGS_SMALL=true ;;
     -b|--create_items_holdings_big) CREATE_ITEMS_HOLDINGS_BIG=true ;;
     -c|--continue) STOP_EXECUTION=false ;;
     -l|--lazy) CREATE_LAZY="--lazy" ;;
     -p|--pursue) DONT_STOP="--dont-stop" ;;
-    -D|--data_path) DATA_PATH=$2 ;;
     -t|--time) PREFIX="time" ;;  # Get time for all commands
     -m|--es-mapping) ES_MAPPING=true ;;
     -w|--warnings) invert_warning_option ;;
+    -D|--data_path) DATA_PATH=$2 ;;
     (--) shift; break;;
     (-*) error_msg+exit "$0: Unrecognized option $1";;
     (*) break;;
@@ -124,16 +126,16 @@ do
     shift
 done
 
-if [ ! -d $DATA_PATH ]; then
-    error_msg+exit "Error - data path does not exist: $DATA_PATH"
+if [ ! -d ${DATA_PATH} ]; then
+    error_msg+exit "Error - data path does not exist: ${DATA_PATH}"
 fi
 
-if $CREATE_ITEMS_HOLDINGS_SMALL && $CREATE_ITEMS_HOLDINGS_BIG
+if ${CREATE_ITEMS_HOLDINGS_SMALL} && ${CREATE_ITEMS_HOLDINGS_BIG}
 then
     error_msg+exit "Choose option for 'small' or 'big' documents generation"
 fi
 
-if $CREATE_ITEMS_HOLDINGS_SMALL || $CREATE_ITEMS_HOLDINGS_BIG
+if ${CREATE_ITEMS_HOLDINGS_SMALL} || ${CREATE_ITEMS_HOLDINGS_BIG}
 then
     if ${DEPLOYMENT}
     then
@@ -141,13 +143,13 @@ then
     fi
 fi
 
-if $CREATE_ITEMS_HOLDINGS_BIG
+if ${CREATE_ITEMS_HOLDINGS_BIG}
 then
     # set DEPLOYMENT to true in order to use big documents file
     DEPLOYMENT=true
 fi
 
-if ! $ENABLE_WARNINGS
+if ! ${ENABLE_WARNINGS}
 then
     # Disables different warnings from used applications
     # --------------------------------------------------
@@ -237,15 +239,15 @@ eval ${PREFIX} invenio utils reindex -t loc --yes-i-know --no-info
 
 info_msg "- Item types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t itty --yes-i-know  --no-info
+eval ${PREFIX} invenio utils reindex -t itty --yes-i-know --no-info
 
 info_msg "- Patron types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know  --no-info
+eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know --no-info
 
 info_msg "- Circulation policies: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know  --no-info
+eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Users:"
@@ -267,34 +269,45 @@ then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
     HOLDINGS=${DATA_PATH}/holdings_big.json
+    PERSONS=${DATA_PATH}/persons_big.json
 else
     DOCUMENTS=${DATA_PATH}/documents_small.json
     ITEMS=${DATA_PATH}/items_small.json
     HOLDINGS=${DATA_PATH}/holdings_small.json
+    PERSONS=${DATA_PATH}/persons_small.json
+fi
+
+if ${LOADPERSONS}
+then
+    info_msg "- PERSONS: ${DOCUMENTS} ${DONT_STOP}"
+    eval ${PREFIX} pipenv run invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${DONT_STOP}
+    info_msg "Indexing Persons:"
+    eval ${PREFIX} pipenv run invenio utils reindex -t pers --yes-i-know --no-info
+    eval ${PREFIX} pipenv run invenio utils runindex --raise-on-error
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${DONT_STOP}
 
-if $CREATE_ITEMS_HOLDINGS_SMALL
+if ${CREATE_ITEMS_HOLDINGS_SMALL}
 then
     # to generate small items file small documents must exist in DB
     msg "\tSMALL documents, creation of items and holdings"
     eval ${PREFIX} invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_small.json -h ${DATA_PATH}/holdings_small.json
     success_msg "Creation of items and holdings done for 'small' documents."
-    if $STOP_EXECUTION
+    if ${STOP_EXECUTION}
     then
         exit 0
     fi
 fi
 
-if $CREATE_ITEMS_HOLDINGS_BIG
+if ${CREATE_ITEMS_HOLDINGS_BIG}
 then
     # to generate big items file big documents must exist in DB
     msg "\tBIG documents, creation of items and holdings"
     eval ${PREFIX} invenio fixtures create_items -i 3 -t ${DATA_PATH}/items_big.json -h ${DATA_PATH}/holdings_big.json
     success_msg "Creation of items and holdings done for 'big' documents."
-    if $STOP_EXECUTION
+    if ${STOP_EXECUTION}
     then
         exit 0
     fi
@@ -338,7 +351,7 @@ eval ${PREFIX} invenio utils reindex -t budg --yes-i-know --no-info
 # create acquisition accounts
 info_msg "Acquisition accounts:"
 eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append
-eval ${PREFIX} invenio utils reindex -t acac --yes-i-know  --no-info
+eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # # OAI configuration

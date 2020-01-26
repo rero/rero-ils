@@ -132,7 +132,7 @@ def show(pid_value, pid_type):
 )
 @click.option(
     '-i', '--indent', 'indent', type=click.INT, default=2,
-    help='intent default=2'
+    help='indent default=2'
 )
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 def check_json(paths, replace, indent, sort_keys, verbose):
@@ -1446,3 +1446,80 @@ def bnf_import_test(search, index, exit, verbose, start, chunk_size):
                     count = response_test(count=count, response=response,
                                           exit=exit, verbose=verbose)
                 start += chunk_size
+
+
+@utils.command('export')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-p', '--pid_type', 'pid_type', default='doc')
+@click.option('-o', '--outfile', 'outfile', required=True,
+              type=click.File('w'))
+@click.option('-i', '--pidfile', 'pidfile', type=click.File('r'),
+              default=None)
+@click.option('-I', '--indent', 'indent', type=click.INT, default=2)
+@click.option('-s', '--schema', 'schema', is_flag=True, default=False)
+@with_appcontext
+def export(verbose, pid_type, outfile, pidfile, indent, schema):
+    """Load REROILS record.
+
+    :param verbose: verbose
+    :param pid_type: record type
+    :param outfile: Json output file
+    :param pidfile: files with pids to extract
+    :param indent: indent for output
+    :param schema: do not delete $schema
+    """
+    click.secho(
+        'Export {pid_type} records: {file_name}'.format(
+            pid_type=pid_type,
+            file_name=outfile.name
+        ),
+        fg='green'
+    )
+
+    record_class = obj_or_import_string(
+        current_app.config
+        .get('RECORDS_REST_ENDPOINTS')
+        .get(pid_type).get('record_class', Record))
+
+    if pidfile:
+        pids = pidfile
+    else:
+        pids = record_class.get_all_pids()
+
+    count = 0
+    output = '['
+    offset = '{character:{indent}}'.format(character=' ', indent=indent)
+    for pid in pids:
+        try:
+            rec = record_class.get_record_by_pid(pid)
+            count += 1
+            if verbose:
+                msg = '{count: <8} {pid_type} export {pid}:{id}'.format(
+                    count=count,
+                    pid_type=pid_type,
+                    pid=rec.pid,
+                    id=rec.id
+                )
+                click.echo(msg)
+
+            outfile.write(output)
+            if count > 1:
+                outfile.write(',')
+            if not schema:
+                del rec['$schema']
+                persons_sources = current_app.config.get(
+                    'RERO_ILS_PERSONS_SOURCES', [])
+                for persons_source in persons_sources:
+                    try:
+                        del rec[persons_sources]['$schema']
+                    except:
+                        pass
+            output = ''
+            lines = json.dumps(rec, indent=indent).split('\n')
+            for line in lines:
+                output += '\n{offset}{line}'.format(offset=offset, line=line)
+        except Exception as err:
+            click.echo(err)
+            click.echo('ERROR: Can not export pid:{pid}'.format(pid=pid))
+    outfile.write(output)
+    outfile.write('\n]\n')
