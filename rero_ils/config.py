@@ -75,6 +75,7 @@ from .modules.locations.permissions import can_create_location_factory, \
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import can_update_organisations_factory
+from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
@@ -520,6 +521,39 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=can_create_organisation_records_factory,
         update_permission_factory_imp=can_update_patron_factory,
         delete_permission_factory_imp=can_delete_patron_factory,
+    ),
+    pttr=dict(
+        pid_type='pttr',
+        pid_minter='patron_transaction_id',
+        pid_fetcher='patron_transaction_id',
+        search_class=RecordsSearch,
+        search_index='patron_transactions',
+        search_type=None,
+        indexer_class=IlsRecordIndexer,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: PatronTransaction(request.get_json()),
+        },
+        record_class='rero_ils.modules.patron_transactions.api:PatronTransaction',
+        list_route='/patron_transactions/',
+        item_route='/patron_transactions/<pid(pttr, record_class="rero_ils.modules.patron_transactions.api:PatronTransaction"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:search_factory',
+        read_permission_factory_imp=allow_all,
+        list_permission_factory_imp=allow_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all,
     ),
     ptty=dict(
         pid_type='ptty',
@@ -1236,6 +1270,7 @@ RECORDS_JSON_SCHEMA = {
     'budg': '/budgets/budget-v0.0.1.json',
     'acor': '/acq_orders/acq_order-v0.0.1.json',
     'acol': '/acq_order_lines/acq_order_line-v0.0.1.json',
+    'pttr': '/patron_transactions/patron_transaction-v0.0.1.json',
 }
 
 # Login Configuration
