@@ -225,33 +225,27 @@ info_msg "Generate fixtures:"
 
 info_msg "- Organisations ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Organisations:"
-eval ${PREFIX} invenio utils reindex -t org --yes-i-know
+eval ${PREFIX} invenio utils reindex -t org --yes-i-know --no-info
 
 info_msg "- Libraries: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Libraries:"
-eval ${PREFIX} invenio utils reindex -t lib --yes-i-know
+eval ${PREFIX} invenio utils reindex -t lib --yes-i-know --no-info
 
 info_msg "- Locations: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Locations:"
-eval ${PREFIX} invenio utils reindex -t loc --yes-i-know
+eval ${PREFIX} invenio utils reindex -t loc --yes-i-know --no-info
 
 info_msg "- Item types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Item types:"
-eval ${PREFIX} invenio utils reindex -t itty --yes-i-know
+eval ${PREFIX} invenio utils reindex -t itty --yes-i-know  --no-info
 
 info_msg "- Patron types: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Patron types:"
-eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know
+eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know  --no-info
 
 info_msg "- Circulation policies: ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Circulation policies:"
-eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know
+eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know  --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Users:"
@@ -308,22 +302,23 @@ fi
 
 info_msg "- Holdings: ${HOLDINGS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type hold --schema 'http://ils.rero.ch/schema/holdings/holding-v0.0.1.json' ${HOLDINGS} --append ${CREATE_LAZY} ${DONT_STOP}
-info_msg "Indexing Holdings:"
-eval ${PREFIX} invenio utils reindex -t hold --yes-i-know
-eval ${PREFIX} invenio utils runindex -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t hold --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type item --schema 'http://ils.rero.ch/schema/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 # index items
-info_msg "Indexing Items:"
-eval ${PREFIX} invenio utils reindex -t item --yes-i-know
-eval ${PREFIX} invenio utils runindex -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t item --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # index documents
-info_msg "Indexing Documents:"
-eval ${PREFIX} invenio utils reindex -t doc --yes-i-know
-eval ${PREFIX} invenio utils runindex -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
+
+# index persons
+eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create circulation transactions
 info_msg "Circulation transactions:"
@@ -333,20 +328,18 @@ eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 # create vendors
 info_msg "Acquisition vendors:"
 eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append
-eval ${PREFIX} invenio index reindex -t vndr --yes-i-know
-eval ${PREFIX} invenio index run -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
 
 # create library budgets
 info_msg "Library budgets:"
 eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append
-eval ${PREFIX} invenio index reindex -t budg --yes-i-know
-eval ${PREFIX} invenio index run -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t budg --yes-i-know --no-info
 
 # create acquisition accounts
 info_msg "Acquisition accounts:"
 eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append
-eval ${PREFIX} invenio index reindex -t acac --yes-i-know
-eval ${PREFIX} invenio index run -c 4 --raise-on-error
+eval ${PREFIX} invenio utils reindex -t acac --yes-i-know  --no-info
+eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # # OAI configuration
 info_msg "OAI configuration:"

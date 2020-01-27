@@ -52,13 +52,7 @@ class DocumentsIndexer(IlsRecordIndexer):
     def index(self, record):
         """Index an document."""
         return_value = super(DocumentsIndexer, self).index(record)
-        from ..persons.api import Person
-        for author in record.replace_refs().get('authors', []):
-            auth_pid = author.get('pid')
-            if auth_pid:
-                person = Person.get_record_by_pid(auth_pid)
-                if person:
-                    person.reindex()
+        record.index_persons()
         return return_value
 
 
@@ -172,3 +166,18 @@ class Document(IlsRecord):
         for edition in editions:
             edition['_text'] = edition_format_text(edition)
         return dump
+
+    def index_persons(self, bulk=False):
+        """Index all attached persons."""
+        persons_ids = []
+        for author in self.replace_refs().get('authors', []):
+            auth_pid = author.get('pid')
+            if auth_pid:
+                from ..persons.api import Person
+                person = Person.get_record_by_pid(auth_pid)
+                if bulk:
+                    persons_ids.append(person.id)
+                else:
+                    person.reindex()
+        if persons_ids:
+            IlsRecordIndexer().bulk_index(persons_ids, doc_type=['pers'])

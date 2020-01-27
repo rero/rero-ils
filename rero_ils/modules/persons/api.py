@@ -21,6 +21,7 @@ from functools import partial
 
 from elasticsearch_dsl import A
 from flask import current_app
+from invenio_db import db
 from invenio_search.api import RecordsSearch
 from requests import codes as requests_codes
 from requests import get as requests_get
@@ -64,16 +65,36 @@ class Person(IlsRecord):
     @classmethod
     def get_record_by_mef_pid(cls, pid):
         """Get record using MEF REST API."""
+        try:
+            db.session.begin_nested()
+            rec = cls.get_record_by_pid(pid)
+            if not rec:
+                # No data found: request on MEF URL
+                data = cls._get_mef_record(pid)
+                # Register MEF person
+                metadata = data.get('metadata')
+                if '$schema' in metadata:
+                    del metadata['$schema']
+                rec = cls.create(metadata, dbcommit=True)
+        except Exception as err:
+            db.session.rollback()
+            current_app.logger.error('ERROR get MEF record: {pid}'.format(
+                pid=pid
+            ))
+            return None
+        db.session.commit()
+        rec.reindex()
+        return rec
+
         rec = cls.get_record_by_pid(pid)
-        if rec:
-            return rec
-        # No data found: request on MEF URL
-        data = cls._get_mef_record(pid)
-        # Register MEF person and index it
-        metadata = data.get('metadata')
-        if '$schema' in metadata:
-            del metadata['$schema']
-        rec = cls.create(metadata, dbcommit=True, reindex=True)
+        if not rec:
+            # No data found: request on MEF URL
+            data = cls._get_mef_record(pid)
+            # Register MEF person
+            metadata = data.get('metadata')
+            if '$schema' in metadata:
+                del metadata['$schema']
+            rec = cls.create(metadata, dbcommit=True)
         return rec
 
     def dumps_for_document(self):
@@ -166,8 +187,11 @@ class Person(IlsRecord):
         """Get organisations pids."""
         organisations = set()
         search = DocumentsSearch().filter('term', authors__pid=self.pid)
+        size = current_app.config.get(
+            'RERO_ILS_AGGREGATION_SIZE'
+        ).get('organisations')
         agg = A('terms',
-                field='holdings.organisation.organisation_pid', size=10)
+                field='holdings.organisation.organisation_pid', size=size)
         search.aggs.bucket('organisation', agg)
         results = search.execute()
         for result in results.aggregations.organisation.buckets:

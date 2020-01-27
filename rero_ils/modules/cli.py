@@ -924,24 +924,32 @@ def run(delayed, concurrency, version_type=None, queue=None,
               expose_value=False,
               prompt='Do you really want to reindex all records?')
 @click.option('-t', '--pid-type', multiple=True, required=True)
+@click.option('-n', '--no-info', 'no_info', is_flag=True, default=True)
 @with_appcontext
-def reindex(pid_type):
+def reindex(pid_type, no_info):
     """Reindex all records.
 
     :param pid_type: Pid type.
     """
-    click.secho('Sending records to indexing queue ...', fg='green')
+    for type in pid_type:
+        click.secho(
+            'Sending {type} to indexing queue ...'.format(type=type),
+            fg='green'
+        )
 
-    query = (x[0] for x in PersistentIdentifier.query.filter_by(
-        object_type='rec', status=PIDStatus.REGISTERED
-    ).filter(
-        PersistentIdentifier.pid_type.in_(pid_type)
-    ).values(
-        PersistentIdentifier.object_uuid
-    ))
-    IlsRecordIndexer().bulk_index(query, doc_type=pid_type)
-    click.secho('Execute "run" command to process the queue!',
-                fg='yellow')
+        query = (x[0] for x in PersistentIdentifier.query.filter_by(
+            object_type='rec', status=PIDStatus.REGISTERED
+        ).filter(
+            PersistentIdentifier.pid_type == type
+        ).values(
+            PersistentIdentifier.object_uuid
+        ))
+        IlsRecordIndexer().bulk_index(query, doc_type=type)
+    if no_info:
+        click.secho(
+            'Execute "runindex" command to process the queue!',
+            fg='yellow'
+        )
 
 
 def get_loc_languages(verbose=False):

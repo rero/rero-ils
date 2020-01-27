@@ -964,7 +964,8 @@ RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 
 # Number of aggregation by index name
 RERO_ILS_AGGREGATION_SIZE = {
-    'documents': 50
+    'documents': 50,
+    'organisations': 10
 }
 
 DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get(
