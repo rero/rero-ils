@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Patron Transaction",
+  "description": "JSON schema for Patron Transaction.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "creation_date",
+    "status",
+    "type",
+    "patron"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate Patron Transaction records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Patron Transaction ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "creation_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Patron Transaction creation date"
+    },
+    "note": {
+      "title": "Patron Transaction Note",
+      "description": "Additional informations about patron transaction",
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "title": "Status",
+      "type": "string",
+      "enum": [
+        "open",
+        "closed"
+      ],
+      "default": "open",
+      "form": {
+        "options": [
+          {
+            "label": "open",
+            "value": "open"
+          },
+          {
+            "label": "closed",
+            "value": "closed"
+          }
+        ]
+      }
+    },
+    "type": {
+      "title": "Patron Transaction Type",
+      "type": "string",
+      "enum": [
+        "overdue",
+        "photocopy",
+        "subscription",
+        "lost",
+        "damaged",
+        "Interlibrary loan",
+        "other"
+      ],
+      "default": "overdue",
+      "form": {
+        "options": [
+          {
+            "label": "overdue",
+            "value": "overdue"
+          },
+          {
+            "label": "photocopy",
+            "value": "photocopy"
+          },
+          {
+            "label": "subscription",
+            "value": "subscription"
+          },
+          {
+            "label": "lost",
+            "value": "lost"
+          },
+          {
+            "label": "damaged",
+            "value": "damaged"
+          },
+          {
+            "label": "Interlibrary loan",
+            "value": "Interlibrary loan"
+          },
+          {
+            "label": "other",
+            "value": "other"
+          }
+        ]
+      }
+    },
+    "patron": {
+      "title": "Patron",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Patron URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+        }
+      }
+    },
+    "loan": {
+      "title": "Loan",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Loan URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/loans/.*?$"
+        }
+      }
+    },
+    "notification": {
+      "title": "Notification",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Notification URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/notifications/.*?$"
+        }
+      }
+    }
+  }
+}
