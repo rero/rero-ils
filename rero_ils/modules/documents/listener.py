@@ -83,10 +83,10 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             pid = author.get('pid', None)
             if pid:
                 # Check presence in DB
-                author_rec = Person.get_record_by_mef_pid(pid)
-                authors.append(author_rec.dumps_for_document())
-            else:
-                authors.append(author)
+                person = Person.get_record_by_mef_pid(pid)
+                if person:
+                    author = person.dumps_for_document()
+            authors.append(author)
         # Put authors in JSON
         json['authors'] = authors
         # TODO: compare record with those in DB to check which authors have

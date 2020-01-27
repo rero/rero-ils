@@ -37,11 +37,12 @@ class DocumentJSONSerializer(JSONSerializer):
         if request and request.args.get('resolve') == '1':
             rec = record.replace_refs()
             authors = rec.get('authors', [])
-            for author_index in range(len(authors)):
-                pid_value = authors[author_index].get('pid')
+            for idx, author in enumerate(authors):
+                pid_value = author.get('pid')
                 if pid_value:
                     person = Person.get_record_by_mef_pid(pid_value)
-                    authors[author_index] = person.dumps_for_document()
+                    if person:
+                        authors[idx] = person.dumps_for_document()
         data = super(JSONSerializer, self).preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 

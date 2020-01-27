@@ -17,7 +17,7 @@
 
 """Signals connector for Persons."""
 
-from .api import PersonsSearch
+from .api import Person, PersonsSearch
 
 
 def enrich_persons_data(sender, json=None, record=None, index=None,
@@ -30,4 +30,5 @@ def enrich_persons_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join([PersonsSearch.Meta.index, doc_type]):
-        json['organisations'] = record.organisation_pids
+        person = Person.get_record_by_pid(record.get('pid'))
+        json['organisations'] = person.organisation_pids

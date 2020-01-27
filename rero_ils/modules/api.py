@@ -95,19 +95,50 @@ class IlsRecordIndexer(RecordIndexer):
         """
         self._bulk_op(record_id_iterator, op_type='index', doc_type=doc_type)
 
+    def _get_record_class(self, payload):
+        """Get the record class from payload."""
+        # take the first defined doc type for finding the class
+        pid_type = payload.get('doc_type', 'rec')
+        record_class = obj_or_import_string(
+            current_app.config.get('RECORDS_REST_ENDPOINTS').get(
+                pid_type
+            ).get('record_class', Record)
+        )
+        return record_class
+
+    def _actionsiter(self, message_iterator):
+        """Iterate bulk actions.
+
+        :param message_iterator: Iterator yielding messages from a queue.
+        """
+        for message in message_iterator:
+            payload = message.decode()
+            try:
+                record_class = self._get_record_class(payload)
+                if payload['op'] == 'delete':
+                    yield record_class.indexer()._delete_action(
+                        payload=payload
+                    )
+                else:
+                    yield record_class.indexer()._index_action(
+                        payload=payload
+                    )
+                message.ack()
+            except NoResultFound:
+                message.reject()
+            except Exception:
+                message.reject()
+                current_app.logger.error(
+                    "Failed to index record {0}".format(payload.get('id')),
+                    exc_info=True)
+
     def _index_action(self, payload):
         """Bulk index action.
 
         :param payload: Decoded message body.
         :returns: Dictionary defining an Elasticsearch bulk 'index' action.
         """
-        # take the first defined doc type for finding the class
-        pid_type = payload.get('doc_type', ['rec'])[0]
-        record_class = obj_or_import_string(
-            current_app.config.get('RECORDS_REST_ENDPOINTS').get(
-                pid_type
-            ).get('record_class', Record)
-        )
+        record_class = self._get_record_class(payload)
         record = record_class.get_record(payload['id'])
         index, doc_type = self.record_to_index(record)
 
