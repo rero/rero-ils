@@ -27,6 +27,7 @@ from invenio_search.api import RecordsSearch
 from .models import DocumentIdentifier
 from .utils import edition_format_text, publication_statement_text, \
     series_format_text
+from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordIndexer
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -111,9 +112,8 @@ class Document(IlsRecord):
     def get_number_of_items(self):
         """Get number of items for document."""
         from ..items.api import ItemsSearch
-        results = ItemsSearch().filter(
+        return ItemsSearch().filter(
             'term', document__pid=self.pid).source().count()
-        return results
 
     def get_number_of_loans(self):
         """Get number of document loans."""
@@ -124,18 +124,28 @@ class Document(IlsRecord):
                 'ITEM_RETURNED',
             ]
         )
-        results = search.source().count()
-        return results
+        return search.source().count()
+
+    def get_number_of_acquisition_order_lines(self):
+        """Get number of acquisition order lines for document."""
+        return AcqOrderLinesSearch().filter(
+            'term', document__pid=self.pid).source().count()
 
     def get_links_to_me(self):
         """Get number of links."""
         links = {}
-        items = self.get_number_of_items()
-        if items:
-            links['items'] = items
-        loans = self.get_number_of_loans()
-        if loans:
-            links['loans'] = loans
+        # get number of items linked
+        number_of_items = self.get_number_of_items()
+        if number_of_items:
+            links['items'] = number_of_items
+        # get number of loans linked
+        number_of_loans = self.get_number_of_loans()
+        if number_of_loans:
+            links['loans'] = number_of_loans
+        # get number of acquisition order lines linked
+        number_of_order_lines = self.get_number_of_acquisition_order_lines()
+        if number_of_order_lines:
+            links['acq_order_lines'] = number_of_order_lines
         return links
 
     def reasons_not_to_delete(self):
