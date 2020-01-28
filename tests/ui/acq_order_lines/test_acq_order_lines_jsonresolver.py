@@ -22,7 +22,8 @@ from invenio_records.api import Record
 from jsonref import JsonRefError
 
 
-def test_acq_order_lines_jsonresolver(acq_order_line_fiction_martigny):
+def test_acq_order_lines_jsonresolver(
+        document, acq_order_line_fiction_martigny):
     """Acquisition order lines resolver tests."""
     rec = Record.create({
         'acq_order_line': {

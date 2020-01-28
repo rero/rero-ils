@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "acq_account",
-    "description",
+    "document",
     "order_line_status",
     "quantity",
     "amount",
@@ -19,8 +19,8 @@
     "pid",
     "acq_account",
     "acq_order",
-    "amount",
-    "description"
+    "document",
+    "amount"
   ],
   "properties": {
     "$schema": {
@@ -32,11 +32,6 @@
     },
     "pid": {
       "title": "AcqOrderLine ID",
-      "type": "string",
-      "minLength": 1
-    },
-    "description": {
-      "title": "Description",
       "type": "string",
       "minLength": 1
     },
@@ -128,9 +123,7 @@
           "pattern": "^https://ils.rero.ch/api/acq_accounts/.*?$",
           "form": {
             "focus": true,
-            "remoteOptions": {
-              "type": "acq_accounts"
-            },
+            "fieldMap": "acq_account",
             "placeholder": "Choose an account",
             "templateOptions": {
               "label": ""
@@ -147,6 +140,24 @@
           "title": "Acquisition order URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/acq_orders/.*?$"
+        }
+      }
+    },
+    "document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Document URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/documents/.+?$",
+          "form": {
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>"
+              }
+            }
+          }
         }
       }
     },

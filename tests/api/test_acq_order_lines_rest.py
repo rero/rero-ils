@@ -26,8 +26,8 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 
-def test_acq_orders_lines_permissions(client, acq_order_line_fiction_martigny,
-                                      json_header):
+def test_acq_orders_lines_permissions(
+        client, document, acq_order_line_fiction_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.acol_item', pid_value='acol1')
 
@@ -114,7 +114,7 @@ def test_acq_order_lines_post_put_delete(
 
     # Update record/PUT
     data = acq_order_line_fiction_saxon
-    data['description'] = 'Test Name'
+    data['note'] = 'Test update note'
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -124,19 +124,19 @@ def test_acq_order_lines_post_put_delete(
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['note'] == 'Test update note'
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['note'] == 'Test update note'
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['description'] == 'Test Name'
+    assert data['metadata']['note'] == 'Test update note'
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -155,6 +155,15 @@ def test_acq_order_lines_can_delete(client, acq_order_line_fiction_martigny):
 
     reasons = acq_order_line_fiction_martigny.reasons_not_to_delete()
     assert not reasons
+
+
+def test_acq_order_lines_document_can_delete(
+        client, document, acq_order_line_fiction_martigny):
+    """Test can delete a document with a linked acquisition order line."""
+    assert not document.can_delete
+
+    reasons = document.reasons_not_to_delete()
+    assert reasons['links']['acq_order_lines']
 
 
 def test_acq_order_line_secure_api(client, json_header,
@@ -244,7 +253,7 @@ def test_acq_order_line_secure_api_update(client,
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_sion.pid)
     data = acq_order_line_fiction_sion
-    data['description'] = 'Test description'
+    data['note'] = 'Test update note'
     res = client.put(
         record_url,
         data=json.dumps(data),

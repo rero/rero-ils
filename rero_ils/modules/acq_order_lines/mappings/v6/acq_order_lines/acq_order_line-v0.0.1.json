@@ -29,6 +29,13 @@
             }
           }
         },
+        "document": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "organisation": {
           "properties": {
             "pid": {
@@ -36,11 +43,8 @@
             }
           }
         },
-        "line_order_status": {
+        "order_line_status": {
           "type": "keyword"
-        },
-        "description": {
-          "type": "text"
         },
         "quantity": {
           "type": "integer"

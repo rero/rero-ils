@@ -284,7 +284,9 @@
     "acq_order": {
       "$ref": "https://ils.rero.ch/api/acq_orders/acor1"
     },
-    "description": "Ligne de commande fictive 1",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
     "order_line_status": "pending",
     "quantity": 1,
     "amount": 1000,
@@ -300,7 +302,9 @@
     "acq_order": {
       "$ref": "https://ils.rero.ch/api/acq_orders/acor1"
     },
-    "description": "Ligne de commande fictive 2",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc2"
+    },
     "order_line_status": "pending",
     "quantity": 1,
     "amount": 500,
@@ -316,7 +320,9 @@
     "acq_order": {
       "$ref": "https://ils.rero.ch/api/acq_orders/acor2"
     },
-    "description": "Ligne de commande fictive 1",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
     "order_line_status": "pending",
     "quantity": 1,
     "amount": 1000,
@@ -332,7 +338,9 @@
     "acq_order": {
       "$ref": "https://ils.rero.ch/api/acq_orders/acor3"
     },
-    "description": "Ligne de commande fictive 1",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
     "order_line_status": "pending",
     "quantity": 2,
     "amount": 500,
