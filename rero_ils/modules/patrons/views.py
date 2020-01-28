@@ -29,10 +29,9 @@ from werkzeug.exceptions import NotFound
 
 from .api import Patron
 from .utils import user_has_patron
-from ..documents.api import Document
 from ..items.api import Item
 from ..libraries.api import Library
-from ..loans.api import Loan, get_loans_by_patron_pid
+from ..loans.api import Loan, patron_profile_loans
 from ..locations.api import Location
 
 api_blueprint = Blueprint(
@@ -120,34 +119,14 @@ def profile(viewcode):
             flash(_('Error during the renewal of the item %(item_id)s.',
                     item_id=item.pid), 'danger')
 
-    loans = get_loans_by_patron_pid(patron.pid)
-    checkouts = []
-    requests = []
-    for loan in loans:
-        item_pid = loan.get('item_pid')
-        item = Item.get_record_by_pid(item_pid)
-        document = Document.get_record_by_pid(
-            item.replace_refs()['document']['pid'])
-        loan['document_title'] = document['title']
-        loan['item_call_number'] = item['call_number']
-        if loan['state'] == 'ITEM_ON_LOAN':
-            loan['can_renew'] = item.can_extend(loan)
-            checkouts.append(loan)
-        elif loan['state'] in (
-                'PENDING',
-                'ITEM_AT_DESK',
-                'ITEM_IN_TRANSIT_FOR_PICKUP'
-        ):
-            pickup_loc = Location.get_record_by_pid(
-                loan['pickup_location_pid'])
-            loan['pickup_library_name'] = \
-                pickup_loc.get_library().get('name')
-            requests.append(loan)
+    checkouts, requests, history = patron_profile_loans(patron.pid)
+
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
         checkouts=checkouts,
         pendings=requests,
+        history=history,
         viewcode=viewcode
     )
 
@@ -182,5 +161,4 @@ def get_patron_from_pid(patron_pid):
 @blueprint.app_template_filter('get_location_name_from_pid')
 def get_location_name_from_pid(location_pid):
     """Get location from pid."""
-    from ..locations.api import Location
     return Location.get_record_by_pid(location_pid)['name']

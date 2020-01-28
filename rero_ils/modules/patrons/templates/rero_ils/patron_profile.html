@@ -38,6 +38,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#history" data-toggle="tab" id="history-tab" title="{{ _('History') }}" role="tab"
+            aria-controls="history" aria-selected="false">
+            {{ _('History') }} ({{ history|length }})
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#personal-data" data-toggle="tab" id="personal-data-tab"
             title="{{ _('Personal data') }}" role="tab" aria-controls="personal-data" aria-selected="false">
             {{ _('Personal data') }}
@@ -61,6 +67,13 @@
       <p>{{ _('No pending') }}</p>
       {% endif %}
     </section>
+    <section class="tab-pane py-2" id="history" role="tabpanel" aria-labelledby="history-tab">
+      {% if history|length > 0 %}
+      {{ build_table('history', history) }}
+      {% else %}
+      <p>{{ _('No history') }}</p>
+      {% endif %}
+    </section>
     <section class="tab-pane py-2" id="personal-data" role="tabpanel" aria-labelledby="personal-data-tab">
       {% include('rero_ils/_patron_profile_personal.html') %}
     </section>
@@ -76,16 +89,23 @@
       <tr>
         <th class="col-md-6 border-top-0" scope="col">{{ _('Title') }}</th>
         <th class="col-md-2 border-top-0" scope="col">{{ _('Call Number') }}</th>
-        {% if type != 'checkouts' %}
+        {% if type == 'requests' %}
         <th class="col-md-2 border-top-0" scope="col">
           {{ _('Pickup library') }}
+        </th>
+        {% endif %}
+        {% if type == 'history' %}
+        <th class="col-md-2 border-top-0" scope="col">
+          {{ _('Library') }}
         </th>
         {% endif %}
         <th class="col-md-2 border-top-0" scope="col">
           {% if type == 'checkouts' %}
           {{ _('Due date') }}
-          {% else %}
+          {% elif type == 'requests' %}
           {{ _('Reservation date') }}
+          {% elif type == 'history' %}
+          {{ _('Checkin date') }}
           {% endif %}
         </th>
         {% if type == 'checkouts' %}
@@ -100,13 +120,18 @@
       <tr>
         <td>{{ loan.document_title }}</td>
         <td>{{ loan.item_call_number }}</td>
-        {% if type != 'checkouts' %}
+        {% if type == 'requests' %}
         <td>
           {{ loan.pickup_library_name }}
         </td>
         {% endif %}
+        {% if type == 'history' %}
         <td>
-          {% if type == 'checkouts' %}
+          {{ loan.library_name }}
+        </td>
+        {% endif %}
+        <td>
+          {% if type in ('checkouts','history') %}
           {{ loan.end_date|format_date(
                           format='short_date',
                           locale=current_i18n.locale.language
