@@ -25,8 +25,6 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
-from rero_ils.modules.items.api import Item
-
 
 def test_patrons_profile(
         client, librarian_martigny_no_email, loan_pending_martigny,
@@ -78,6 +76,16 @@ def test_patrons_profile(
         url_for('patrons.profile'),
         data={'loan_pid': loan_pid}
     )
+    assert res.status_code == 200
+
+    # checkin item to create history for this patron
+    data['transaction_location_pid'] = loc_public_martigny.pid
+    data['pid'] = loan_pid
+    loan = item_lib_martigny.checkin(**data)
+
+    # patron visits his profile to list history items
+    login_user_via_session(client, patron_martigny_no_email.user)
+    res = client.get(url_for('patrons.profile'))
     assert res.status_code == 200
 
 

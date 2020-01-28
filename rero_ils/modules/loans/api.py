@@ -31,6 +31,8 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord
+from ..documents.api import Document
+from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
@@ -260,6 +262,45 @@ def get_loans_by_patron_pid(patron_pid):
         .scan()
     for loan in results:
         yield Loan.get_record_by_pid(loan.pid)
+
+
+def patron_profile_loans(patron_pid):
+    """Return formatted loans for patron profile display."""
+    from ..items.api import Item
+
+    checkouts = []
+    requests = []
+    history = []
+    for loan in get_loans_by_patron_pid(patron_pid):
+        item = Item.get_record_by_pid(loan.get('item_pid'))
+        document = Document.get_record_by_pid(
+            item.replace_refs()['document']['pid'])
+        loan['document_title'] = document['title']
+        loan['item_call_number'] = item['call_number']
+        loan['library_name'] = Library.get_record_by_pid(
+            item.holding_library_pid).get('name')
+        if loan['state'] == 'ITEM_ON_LOAN':
+            loan['can_renew'] = item.can_extend(loan)
+            checkouts.append(loan)
+        elif loan['state'] in [
+                'PENDING',
+                'ITEM_AT_DESK',
+                'ITEM_IN_TRANSIT_FOR_PICKUP'
+        ]:
+            pickup_loc = Location.get_record_by_pid(
+                loan['pickup_location_pid'])
+            loan['pickup_library_name'] = \
+                pickup_loc.get_library().get('name')
+            requests.append(loan)
+        elif loan['state'] in ['ITEM_RETURNED', 'CANCELLED']:
+            end_date = loan.get('end_date')
+            if end_date:
+                end_date = ciso8601.parse_datetime(end_date)
+                loan_age = (datetime.utcnow() - end_date.replace(tzinfo=None))
+                # Only history of last six months is displayed
+                if loan_age <= timedelta(6*365/12):
+                    history.append(loan)
+    return checkouts, requests, history
 
 
 def get_last_transaction_loc_for_item(item_pid):

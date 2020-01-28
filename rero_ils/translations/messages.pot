@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-02-03 12:45+0100\n"
+"POT-Creation-Date: 2020-02-12 10:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,57 +42,57 @@ msgstr ""
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-#: rero_ils/config.py:1003
+#: rero_ils/config.py:1004
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:1004
+#: rero_ils/config.py:1005
 msgid "organisation"
 msgstr ""
 
-#: rero_ils/config.py:1007 rero_ils/config.py:1051 rero_ils/config.py:1073
+#: rero_ils/config.py:1008 rero_ils/config.py:1052 rero_ils/config.py:1074
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:1008
+#: rero_ils/config.py:1009
 msgid "author__en"
 msgstr ""
 
-#: rero_ils/config.py:1009
+#: rero_ils/config.py:1010
 msgid "author__fr"
 msgstr ""
 
-#: rero_ils/config.py:1010
+#: rero_ils/config.py:1011
 msgid "author__de"
 msgstr ""
 
-#: rero_ils/config.py:1011
+#: rero_ils/config.py:1012
 msgid "author__it"
 msgstr ""
 
-#: rero_ils/config.py:1012
+#: rero_ils/config.py:1013
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3346
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3346
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:1013
+#: rero_ils/config.py:1014
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:1014 rero_ils/config.py:1074
+#: rero_ils/config.py:1015 rero_ils/config.py:1075
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:1030
+#: rero_ils/config.py:1031
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:1052
+#: rero_ils/config.py:1053
 msgid "budget"
 msgstr ""
 
-#: rero_ils/config.py:1090
+#: rero_ils/config.py:1091
 msgid "sources"
 msgstr ""
 
@@ -388,6 +388,7 @@ msgstr ""
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:159
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:99
 msgid "Library"
 msgstr ""
 
@@ -409,7 +410,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:268
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:289
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:93
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:164
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:165
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
@@ -424,7 +425,7 @@ msgstr ""
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:97
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:97
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:168
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:169
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
@@ -904,7 +905,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:596
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:99
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:596
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:77
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:90
 msgid "Title"
 msgstr ""
 
@@ -6141,7 +6142,7 @@ msgid "paid"
 msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:152
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:153
 msgid "Holding"
 msgstr ""
 
@@ -6328,11 +6329,11 @@ msgstr ""
 msgid "excluded"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:153
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:154
 msgid "Holding record for the item."
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:157
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:158
 msgid "Holding URI"
 msgstr ""
 
@@ -6691,17 +6692,17 @@ msgstr ""
 msgid "The description of the patron type."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:99
+#: rero_ils/modules/patrons/views.py:98
 #, python-format
 msgid "%(icon)s Profile"
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:117
+#: rero_ils/modules/patrons/views.py:116
 #, python-format
 msgid "The item %(item_id)s has been renewed."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:120
+#: rero_ils/modules/patrons/views.py:119
 #, python-format
 msgid "Error during the renewal of the item %(item_id)s."
 msgstr ""
@@ -6847,40 +6848,53 @@ msgstr ""
 msgid "Checkouts"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:42
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:41
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:43
+msgid "History"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:48
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:49
 msgid "Personal data"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:60
 msgid "No loan"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:61
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
 msgid "No pending"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:78
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:74
+msgid "No history"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:91
 msgid "Call Number"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:81
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:94
 msgid "Pickup library"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:86
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:104
 msgid "Due date"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:88
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:106
 msgid "Reservation date"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:93
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
+msgid "Checkin date"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:113
 msgid "Renewals"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:130
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:155
 msgid "Renew"
 msgstr ""
 
