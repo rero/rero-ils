@@ -65,15 +65,14 @@ class Person(IlsRecord):
     def get_record_by_mef_pid(cls, pid):
         """Get record using MEF REST API."""
         rec = cls.get_record_by_pid(pid)
-        if rec:
-            return rec
-        # No data found: request on MEF URL
-        data = cls._get_mef_record(pid)
-        # Register MEF person and index it
-        metadata = data.get('metadata')
-        if '$schema' in metadata:
-            del metadata['$schema']
-        rec = cls.create(metadata, dbcommit=True, reindex=True)
+        if not rec:
+            # No data found: request on MEF URL
+            data = cls._get_mef_record(pid)
+            # Register MEF person
+            metadata = data.get('metadata')
+            if '$schema' in metadata:
+                del metadata['$schema']
+            rec = cls.create(metadata, dbcommit=True)
         return rec
 
     def dumps_for_document(self):
@@ -167,7 +166,7 @@ class Person(IlsRecord):
         organisations = set()
         search = DocumentsSearch().filter('term', authors__pid=self.pid)
         agg = A('terms',
-                field='holdings.organisation.organisation_pid', size=10)
+                field='holdings.organisation.organisation_pid', size=100)
         search.aggs.bucket('organisation', agg)
         results = search.execute()
         for result in results.aggregations.organisation.buckets:

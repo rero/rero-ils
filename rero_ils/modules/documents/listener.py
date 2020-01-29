@@ -39,7 +39,9 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         es_holdings = HoldingsSearch().filter(
             'term', document__pid=document_pid
         ).scan()
+        organisation_pids = set()
         for holding in es_holdings:
+            organisation_pids.add(holding['organisation']['pid'])
             data = {
                 'pid': holding.pid,
                 # 'available': holding.available,
@@ -83,8 +85,8 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             pid = author.get('pid', None)
             if pid:
                 # Check presence in DB
-                author_rec = Person.get_record_by_mef_pid(pid)
-                authors.append(author_rec.dumps_for_document())
+                person = Person.get_record_by_mef_pid(pid)
+                authors.append(person.dumps_for_document())
             else:
                 authors.append(author)
         # Put authors in JSON
