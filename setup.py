@@ -286,7 +286,7 @@ setup(
             'acq_orders = rero_ils.modules.acq_orders.jsonresolver',
             'acq_order_lines = rero_ils.modules.acq_order_lines.jsonresolver',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonresolver',
-            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver'
+            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver',
         ]
     },
     classifiers=[

@@ -18,7 +18,7 @@
 """Common pytest fixtures and plugins."""
 
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import mock
 import pytest
@@ -26,8 +26,10 @@ from invenio_circulation.search.api import LoansSearch
 from utils import flush_index
 
 from rero_ils.modules.items.api import ItemsSearch
+from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     get_availability_notification
+from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
@@ -622,3 +624,160 @@ def dummy_notification(data):
 def dummy_fee(data):
     """Fee data scope function."""
     return deepcopy(data.get('dummy_fee'))
+
+
+# ------------ Patron Transactions: Lib Martigny overdue scenario ----------
+@pytest.fixture(scope="module")
+def loan_overdue_martigny(
+        app,
+        document,
+        item4_lib_martigny,
+        loc_public_martigny,
+        item_type_standard_martigny,
+        librarian_martigny_no_email,
+        patron_martigny_no_email,
+        circulation_policies):
+    """Checkout an item to a patron.
+
+    item4_lib_martigny is overdue.
+    """
+    transaction_date = datetime.now(timezone.utc).isoformat()
+
+    item4_lib_martigny.checkout(
+        patron_pid=patron_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_date=transaction_date,
+        document_pid=item4_lib_martigny.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    loan = Loan.get_record_by_pid(
+        item4_lib_martigny.get_loan_pid_with_item_on_loan(
+            item4_lib_martigny.pid))
+    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    loan['end_date'] = end_date.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    return loan
+
+
+@pytest.fixture(scope="module")
+def notification_overdue_martigny(
+        app,
+        loan_overdue_martigny):
+    """Create an overdue notification for an overdue loan."""
+    notification = loan_overdue_martigny.create_notification(
+        notification_type='overdue')
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(PatronTransactionsSearch.Meta.index)
+
+    return notification
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_martigny(
+        app,
+        notification_overdue_martigny):
+    """Return an overdue patron transaction for an overdue notification."""
+    records = list(notification_overdue_martigny.patron_transactions)
+
+    return records[0]
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_event_martigny(
+        app,
+        patron_transaction_overdue_martigny):
+    """Return overdue events for patron transaction for a notification."""
+    for event in patron_transaction_overdue_martigny.events:
+        return event
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_events_martigny(
+        app,
+        patron_transaction_overdue_martigny):
+    """Return overdue events for patron transaction for a notification."""
+    return patron_transaction_overdue_martigny.events
+
+
+# ------------ Patron Transactions: Lib Saxon overdue scenario ----------
+
+
+@pytest.fixture(scope="module")
+def loan_overdue_saxon(
+        app,
+        document,
+        item2_lib_saxon,
+        loc_public_martigny,
+        item_type_standard_martigny,
+        librarian_martigny_no_email,
+        patron_martigny_no_email,
+        circulation_policies):
+    """Checkout an item to a patron.
+
+    item2_lib_saxon is overdue.
+    """
+    transaction_date = datetime.now(timezone.utc).isoformat()
+
+    item2_lib_saxon.checkout(
+        patron_pid=patron_martigny_no_email.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny_no_email.pid,
+        transaction_date=transaction_date,
+        document_pid=item2_lib_saxon.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    loan = Loan.get_record_by_pid(
+        item2_lib_saxon.get_loan_pid_with_item_on_loan(
+            item2_lib_saxon.pid))
+    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    loan['end_date'] = end_date.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    return loan
+
+
+@pytest.fixture(scope="module")
+def notification_overdue_saxon(
+        app,
+        loan_overdue_saxon):
+    """Create an overdue notification for an overdue loan."""
+    notification = loan_overdue_saxon.create_notification(
+        notification_type='overdue')
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(PatronTransactionsSearch.Meta.index)
+
+    return notification
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_saxon(
+        app,
+        notification_overdue_saxon):
+    """Return an overdue patron transaction for an overdue notification."""
+    records = list(notification_overdue_saxon.patron_transactions)
+    return records[0]
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_event_saxon(
+        app,
+        patron_transaction_overdue_saxon):
+    """Return overdue events for patron transaction for a notification."""
+    for event in patron_transaction_overdue_saxon.events:
+        return event
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_saxon_data(data):
+    """Load Martigny patron transaction martigny data."""
+    return deepcopy(data.get('dummy_patron_transaction'))
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_event_saxon_data(data):
+    """Load Martigny patron transaction martigny data."""
+    return deepcopy(data.get('dummy_patron_transaction_event'))

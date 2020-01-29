@@ -76,8 +76,12 @@ from .modules.locations.permissions import can_create_location_factory, \
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import can_update_organisations_factory
-from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_transaction_events.api import PatronTransactionEvent
+from .modules.patron_transaction_events.permissions import can_list_patron_transaction_event_factory, \
+    can_read_patron_transaction_event_factory
+from .modules.patron_transactions.api import PatronTransaction
+from .modules.patron_transactions.permissions import can_list_patron_transaction_factory, \
+    can_read_patron_transaction_factory
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
@@ -560,12 +564,12 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/patron_transactions/<pid(pttr, record_class="rero_ils.modules.patron_transactions.api:PatronTransaction"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:search_factory',
-        read_permission_factory_imp=allow_all,
-        list_permission_factory_imp=allow_all,
-        create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all,
+        search_factory_imp='rero_ils.query:patron_transactions_search_factory',
+        read_permission_factory_imp=can_read_patron_transaction_factory,
+        list_permission_factory_imp=can_list_patron_transaction_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
     ptre=dict(
         pid_type='ptre',
@@ -593,12 +597,12 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/patron_transaction_events/<pid(ptre, record_class="rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent"):pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:search_factory',
-        read_permission_factory_imp=allow_all,
-        list_permission_factory_imp=allow_all,
-        create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all,
+        search_factory_imp='rero_ils.query:patron_transactions_search_factory',
+        read_permission_factory_imp=can_read_patron_transaction_event_factory,
+        list_permission_factory_imp=can_list_patron_transaction_event_factory,
+        create_permission_factory_imp=can_create_organisation_records_factory,
+        update_permission_factory_imp=can_update_organisation_records_factory,
+        delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
     ptty=dict(
         pid_type='ptty',

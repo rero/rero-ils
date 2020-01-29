@@ -45,6 +45,13 @@
             }
           }
         },
+        "patron": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "operator": {
           "properties": {
             "pid": {
