@@ -57,6 +57,7 @@ recursive-include data *.xml
 recursive-include data *.yml
 recursive-include doc *.graffle
 recursive-include doc *.pdf
+recursive-include doc *.odg
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst
