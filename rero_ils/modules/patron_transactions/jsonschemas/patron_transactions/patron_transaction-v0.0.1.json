@@ -114,17 +114,6 @@
         }
       }
     },
-    "loan": {
-      "title": "Loan",
-      "type": "object",
-      "properties": {
-        "$ref": {
-          "title": "Loan URI",
-          "type": "string",
-          "pattern": "^https://ils.rero.ch/api/loans/.*?$"
-        }
-      }
-    },
     "notification": {
       "title": "Notification",
       "type": "object",
@@ -135,6 +124,22 @@
           "pattern": "^https://ils.rero.ch/api/notifications/.*?$"
         }
       }
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "total_amount": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Total calculated amount of the patron transaction"
     }
   }
 }

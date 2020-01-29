@@ -1673,6 +1673,38 @@
     },
     "status": "on_shelf"
   },
+  "item8": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item8",
+    "barcode": "100200300",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "100200300",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_shelf"
+  },
+  "item9": {
+    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "pid": "item9",
+    "barcode": "91231",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "call_number": "00091231",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc3"
+    },
+    "item_type": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "status": "on_shelf"
+  },
   "ptrn1": {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
@@ -1936,6 +1968,42 @@
       "$ref": "https://ils.rero.ch/api/locations/loc1"
     },
     "amount": 0.5,
+    "status": "open"
+  },
+  "dummy_patron_transaction": {
+    "$schema": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json",
+    "pid": "pttr1",
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "type": "overdue",
+    "total_amount": 5.0,
+    "notification": {
+      "$ref": "https://ils.rero.ch/api/notifications/x"
+    },
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn1"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "status": "open"
+  },
+  "dummy_patron_transaction_event": {
+    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "ptre1",
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/pttr1"
+    },
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "type": "fee",
+    "subtype": "overdue",
+    "amount": 5.0,
+    "note": "event of the dummy_patron_transaction",
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/x"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn1"
+    },
     "status": "open"
   }
 }
