@@ -102,6 +102,26 @@ def location_schema():
 
 
 @pytest.fixture()
+def patron_transaction_schema():
+    """Patron transaction Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.patron_transactions.jsonschemas',
+        'patron_transactions/patron_transaction-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
+def patron_transaction_event_schema():
+    """Patron transaction event Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.patron_transaction_events.jsonschemas',
+        'patron_transaction_events/patron_transaction_event-v0.0.1.json')
+    schema = loads(schema_in_bytes.decode('utf8'))
+    return schema
+
+
+@pytest.fixture()
 def organisation_schema():
     """Organisation Jsonschema for records."""
     schema_in_bytes = resource_string(

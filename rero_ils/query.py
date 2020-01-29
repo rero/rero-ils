@@ -115,7 +115,7 @@ def library_search_factory(self, search, query_parser=None):
 def loans_search_factory(self, search, query_parser=None):
     """Loan search factory.
 
-    Restricts results to oraganisation level for librarian and sys_lib.
+    Restricts results to organisation level for librarian and sys_lib.
     Restricts results to his loans for users with role patron.
     """
     search, urlkwargs = search_factory(self, search)
@@ -126,14 +126,32 @@ def loans_search_factory(self, search, query_parser=None):
                     )['pid'])
         if current_patron.is_patron:
             search = search.filter(
-                'term', patron_pid=current_patron.pid)
+                'term', patron__pid=current_patron.pid)
+    return (search, urlkwargs)
+
+
+def patron_transactions_search_factory(self, search, query_parser=None):
+    """Patron transaction search factory.
+
+    Restricts results to organisation level for librarian and sys_lib.
+    Restricts results to his transactions for users with role patron.
+    """
+    search, urlkwargs = search_factory(self, search)
+    if current_patron:
+        if current_patron.is_librarian or current_patron.is_system_librarian:
+            search = search.filter(
+                'term', organisation__pid=current_patron.get_organisation(
+                    )['pid'])
+        if current_patron.is_patron:
+            search = search.filter(
+                'term', patron__pid=current_patron.pid)
     return (search, urlkwargs)
 
 
 def acq_accounts_search_factory(self, search, query_parser=None):
     """Acq accounts search factory.
 
-    Restricts results to oraganisation level for sys_lib.
+    Restricts results to organisation level for sys_lib.
     Restricts results to library level for librarians.
     """
     search, urlkwargs = search_factory(self, search)
