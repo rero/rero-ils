@@ -30,12 +30,15 @@ from invenio_search.api import RecordsSearch
 from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
 from ..api import IlsRecord
+from ..circ_policies.api import CircPolicy
 from ..documents.api import Document
 from ..fees.api import Fee, FeesSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..minters import id_minter
+from ..patron_transactions.api import PatronTransaction, \
+    PatronTransactionsSearch
 from ..patrons.api import Patron
 from ..providers import Provider
 
@@ -74,7 +77,8 @@ class Notification(IlsRecord):
         """Create notification record."""
         record = super(Notification, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        Fee.create_fee_from_notification(record)
+        PatronTransaction.create_patron_transaction_from_notification(
+            record, dbcommit, reindex, delete_pid)
         return record
 
     def dispatch(self, delay=True):
@@ -258,6 +262,15 @@ class Notification(IlsRecord):
         for result in results:
             yield Fee.get_record_by_pid(result.pid)
 
+    @property
+    def patron_transactions(self):
+        """Returns patron transactions attached of a notification."""
+        results = PatronTransactionsSearch()\
+            .filter('term', notification__pid=self.pid)\
+            .source(['pid']).scan()
+        for result in results:
+            yield PatronTransaction.get_record_by_pid(result.pid)
+
 
 def get_availability_notification(loan):
     """Returns availability notification from loan."""
@@ -294,3 +307,18 @@ def number_of_reminders_sent(loan):
         return notification.get('reminder_counter')
     except StopIteration:
         return 0
+
+
+def calculate_overdue_amount(notification):
+    """Return overdue amount for a notification."""
+    location_pid = notification.transaction_location_pid
+    library_pid = Location.get_record_by_pid(location_pid).library_pid
+    patron_type_pid = notification.patron.patron_type_pid
+    holding_circulation_category_pid = notification\
+        .item.holding_circulation_category_pid
+    cipo = CircPolicy.provide_circ_policy(
+        library_pid,
+        patron_type_pid,
+        holding_circulation_category_pid
+    )
+    return cipo.get('reminder_fee_amount')
