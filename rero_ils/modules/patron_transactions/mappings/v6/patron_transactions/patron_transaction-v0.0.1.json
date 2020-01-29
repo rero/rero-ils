@@ -34,19 +34,22 @@
             }
           }
         },
-        "loan": {
-          "properties": {
-            "pid": {
-              "type": "keyword"
-            }
-          }
-        },
         "notification": {
           "properties": {
             "pid": {
               "type": "keyword"
             }
           }
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "total_amount": {
+          "type": "float"
         },
         "_created": {
           "type": "date"

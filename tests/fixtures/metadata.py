@@ -300,6 +300,35 @@ def item3_lib_martigny(
 
 
 @pytest.fixture(scope="module")
+def item4_lib_martigny_data(data):
+    """Load item of martigny library."""
+    return deepcopy(data.get('item8'))
+
+
+@pytest.fixture(scope="function")
+def item4_lib_martigny_data_tmp(data):
+    """Load item of martigny library scope function."""
+    return deepcopy(data.get('item8'))
+
+
+@pytest.fixture(scope="module")
+def item4_lib_martigny(
+        app,
+        document,
+        item4_lib_martigny_data,
+        loc_public_martigny,
+        item_type_standard_martigny):
+    """Create item of martigny library."""
+    item = Item.create(
+        data=item4_lib_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
 def item_lib_saxon_data(data):
     """Load item of saxon library."""
     return deepcopy(data.get('item2'))
@@ -384,6 +413,29 @@ def item2_lib_sion(
     """Create item of sion library."""
     item = Item.create(
         data=item2_lib_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    return item
+
+
+@pytest.fixture(scope="module")
+def item2_lib_saxon_data(data):
+    """Load item of saxon library."""
+    return deepcopy(data.get('item9'))
+
+
+@pytest.fixture(scope="module")
+def item2_lib_saxon(
+        app,
+        document,
+        item2_lib_saxon_data,
+        loc_public_saxon,
+        item_type_standard_martigny):
+    """Create item of saxon library."""
+    item = Item.create(
+        data=item2_lib_saxon_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
