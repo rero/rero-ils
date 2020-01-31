@@ -132,3 +132,140 @@ def edition_format_text(edition):
             edition_text.append({'value': value, 'language': key})
 
     return edition_text
+
+
+def title_format_text_head(titles, with_subtitle=True):
+    """Format title head for display purpose.
+
+    :param titles: titles object list
+    :type titles: JSON object list
+    :param with_subtitle: `True` for including the subtitle in the output
+    :type with_subtitle: bool, optional
+    :return: a title string formated for display purpose
+    :rtype: str
+    """
+    head_titles = []
+    parallel_titles = []
+    for title in titles:
+        if title.get('type') == 'bf:Title':
+            title_texts = \
+                title_format_text(title=title, with_subtitle=with_subtitle)
+            for title_text in title_texts:
+                if title_text.get('language') == 'default':
+                    head_titles.append(title_text.get('value'))
+        elif title.get('type') == 'bf:ParallelTitle':
+            parallel_title_texts = title_format_text(
+                title=title, with_subtitle=with_subtitle)
+            for parallel_title_text in parallel_title_texts:
+                if parallel_title_text.get('language') == 'default':
+                    parallel_titles.append(parallel_title_text.get('value'))
+    output_value = '. '.join(head_titles)
+    if parallel_titles:
+        output_value += ' = ' + str(parallel_titles[0])
+    return output_value
+
+
+def title_format_text_alternate_graphic(titles):
+    """Build a list of alternate graphic title text for display.
+
+    :param titles: titles object list
+    :type titles: JSON object list
+    :return: a list of alternate graphic title string formated for display
+    :rtype: list
+    """
+    altgr_titles = {}
+    parallel_titles = {}
+    for title in titles:
+        if title.get('type') == 'bf:Title':
+            title_texts = \
+                title_format_text(title=title, with_subtitle=True)
+            for title_text in title_texts:
+                language = title_text.get('language')
+                if language != 'default':
+                    altgr = altgr_titles.get(language, [])
+                    altgr.append(title_text.get('value'))
+                    altgr_titles[language] = altgr
+        elif title.get('type') == 'bf:ParallelTitle':
+            parallel_title_texts = title_format_text(
+                title=title, with_subtitle=True)
+            for parallel_title_text in parallel_title_texts:
+                language = parallel_title_text.get('language')
+                if language != 'default' and language in parallel_titles:
+                    parallel_titles.get(language, [])
+                    parallel_titles[language].append(
+                        parallel_title_text.get('value')
+                    )
+    output = []
+    for language in altgr_titles.keys():
+        altgr_text = '. '.join(altgr_titles[language])
+        if language in parallel_titles:
+            parallel_title_text = ' = '.join(parallel_titles[language])
+            altgr_text += ' = ' + str(parallel_title_text)
+        output.append({'value': altgr_text, 'language': language})
+    return output
+
+
+def title_variant_format_text(titles, with_subtitle=True):
+    """Build a list of variant titles in the display text form.
+
+    The first variant title in the list is in the default language.
+    The following variant titles are in the alternative language.
+    :param titles: list of titles in JSON
+    :param with_subtitle: TRUE for including the subtitle in the output
+    :return: a list of variant titles in text format
+    """
+    variant_title_texts = []
+    for title in titles:
+        if title.get('type') == 'bf:VariantTitle':
+            title_texts = \
+                title_format_text(title=title, with_subtitle=with_subtitle)
+            variant_title_texts.extend(title_texts)
+    return variant_title_texts
+
+
+def title_format_text(title, with_subtitle=True):
+    """Build a list of titles in the display text form.
+
+    The first title in the list is in the default language.
+    The following titles are in the alternative language.
+    :param title: title in JSON
+    :param with_subtitle: TRUE for including the subtitle in the output
+    :return: a list of titles in the display text form
+    :rtype: list
+    """
+    main_titles = title.get('mainTitle', [])
+    subtitles = title.get('subtitle', [])
+
+    main_title_output = {}
+    for main_title in main_titles:
+        language = main_title.get('language', 'default')
+        value = main_title.get('value', '')
+        main_title_output[language] = value
+
+    subtitle_output = {}
+    if with_subtitle:
+        subtitles = title.get('subtitle', [])
+        for subtitle in subtitles:
+            language = subtitle.get('language', 'default')
+            value = subtitle.get('value', '')
+            subtitle_output[language] = value
+
+    parts = title.get('part', [])
+    part_output = {}
+    for part in parts:
+        language = part.get('language', 'default')
+        value = part.get('value', '')
+        part_output[language] = value
+
+    title_text = []
+    for key, value in main_title_output.items():
+        value = main_title_output.get(key)
+        if subtitle_output and with_subtitle and key in subtitle_output:
+            value = ' : '.join((value, subtitle_output.get(key)))
+        if part_output and key in part_output and part_output.get(key):
+            value = '. '.join((value, part_output.get(key)))
+        if key == 'default':
+            title_text.insert(0, {'value': value, 'language': key})
+        else:
+            title_text.append({'value': value, 'language': key})
+    return title_text

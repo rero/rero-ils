@@ -59,7 +59,7 @@ from pkg_resources import resource_string
 from werkzeug.local import LocalProxy
 
 from .api import IlsRecordIndexer
-from .documents.dojson.contrib.marc21tojson import marc21tojson
+from .documents.dojson.contrib.marc21tojson import marc21
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
@@ -602,7 +602,7 @@ def do_worker(marc21records, results, pid_required, debug):
         data_json = data['json']
         pid = data_json.get('001', '???')
         try:
-            record = marc21tojson.do(data_json)
+            record = marc21.do(data_json)
             if not record.get("$schema"):
                 # create dummy schema in data
                 record["$schema"] = 'dummy'
