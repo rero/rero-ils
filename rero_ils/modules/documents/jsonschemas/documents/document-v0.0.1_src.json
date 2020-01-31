@@ -12,6 +12,7 @@
   "propertiesOrder": [
     "type",
     "title",
+    "responsibilityStatement",
     "titlesProper",
     "authors",
     "subjects",
@@ -97,11 +98,118 @@
     },
     "title": {
       "title": "Title",
-      "description": "Entire title without statement of responsibility.",
-      "type": "string",
-      "minLength": 1,
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Title",
+        "type": "object",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "type",
+          "mainTitle",
+          "subtitle",
+          "part"
+        ],
+        "required": [
+          "type",
+          "mainTitle"
+        ],
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "default": "bf:Title",
+            "enum": [
+              "bf:Title",
+              "bf:ParallelTitle",
+              "bf:VariantTitle"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Title",
+                  "value": "bf:Title"
+                },
+                {
+                  "label": "ParallelTitle",
+                  "value": "bf:ParallelTitle"
+                },
+                {
+                  "label": "VariantTitle",
+                  "value": "bf:VariantTitle"
+                }
+              ]
+            }
+          },
+          "mainTitle": {
+            "title": "Main Title",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Main Title",
+              "$ref": "#/definitions/language_script_focus"
+            }
+          },
+          "subtitle": {
+            "title": "Subtitle",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/definitions/language_script"
+            }
+          },
+          "part": {
+            "title": "Part",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "propertiesOrder": [
+                "partNumber",
+                "partName"
+              ],
+              "properties": {
+                "partNumber": {
+                  "title": "Part Number",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "title": "Part Number",
+                    "$ref": "#/definitions/language_script"
+                  }
+                },
+                "partName": {
+                  "title": "Part Name",
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "title": "Part Name",
+                    "$ref": "#/definitions/language_script"
+                  }
+                }
+              }
+            },
+            "form": {
+              "hide": true
+            }
+          }
+        }
+      }
+    },
+    "responsibilityStatement": {
+      "type": "array",
+      "minItems": 1,
+      "title": "Responsibilities",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "title": "Responsibility",
+          "$ref": "#/definitions/language_script"
+        }
+      },
       "form": {
-        "focus": true
+        "hide": true
       }
     },
     "titlesProper": {
@@ -3533,6 +3641,38 @@
         ]
       }
     },
+    "language_script_code": {
+      "title": "language",
+      "type": "string",
+      "enum": [
+        "ara-arab",
+        "bel-cyrl",
+        "chi-hani",
+        "chi-zyyy",
+        "chu-cyrl",
+        "grc-grek",
+        "gre-grek",
+        "heb-hebr",
+        "jpn-hani",
+        "jpn-jpan",
+        "kor-kore",
+        "lad-hebr",
+        "mac-cyrl",
+        "per-arab",
+        "rus-cyrl",
+        "srp-cyrl",
+        "ukr-cyrl",
+        "yid-hebr",
+        "und-arab",
+        "und-cyrl",
+        "und-grek",
+        "und-hani",
+        "und-hebr",
+        "und-jpan",
+        "und-kore",
+        "und-zyyy"
+      ]
+    },
     "language_script": {
       "title": "Values",
       "type": "object",
@@ -3550,36 +3690,31 @@
           "minLength": 1
         },
         "language": {
-          "title": "language",
+          "$ref": "#/definitions/language_script_code"
+        }
+      }
+    },
+    "language_script_focus": {
+      "title": "Values",
+      "type": "object",
+      "propertiesOrder": [
+        "language",
+        "value"
+      ],
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "title": "value",
           "type": "string",
-          "enum": [
-            "ara-arab",
-            "bel-cyrl",
-            "chi-hani",
-            "chi-zyyy",
-            "chu-cyrl",
-            "grc-grek",
-            "gre-grek",
-            "heb-hebr",
-            "jpn-hani",
-            "jpn-jpan",
-            "kor-kore",
-            "lad-hebr",
-            "mac-cyrl",
-            "per-arab",
-            "rus-cyrl",
-            "srp-cyrl",
-            "ukr-cyrl",
-            "yid-hebr",
-            "und-arab",
-            "und-cyrl",
-            "und-grek",
-            "und-hani",
-            "und-hebr",
-            "und-jpan",
-            "und-kore",
-            "und-zyyy"
-          ]
+          "minLength": 1,
+          "form": {
+            "focus": true
+          }
+        },
+        "language": {
+          "$ref": "#/definitions/language_script_code"
         }
       }
     },

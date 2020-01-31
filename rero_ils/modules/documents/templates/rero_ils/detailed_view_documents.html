@@ -45,8 +45,7 @@
     </icon-thumbnail>
   </div>
   {% endif %}
-
-  <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
+  <h1 class="col-sm-10 col-md-11">{{ record.dumps().title[0]._text }}</h1>
 </header>
 
 {%- block record_body %}
@@ -55,6 +54,15 @@
   <section class="py-4 border-bottom">
     <article class="">
       <dl class="row mb-0">
+        <!-- TITLE_ALTERNATE_GRAPHIC -->
+        {{ dl_list(_('Title'), record.title | create_title_alternate_graphic()) }}
+
+        <!-- TITLE_VARIANTS -->
+        {{ dl_list(_('Variant title'), record.title | create_title_variants()) }}
+
+        <!-- TITLE_RESPONSIBILITIES -->
+        {{ dl_list(_('Responsibility'), record.responsibilityStatement | create_title_responsibilites()) }}
+
         <!-- AUTHORS -->
         {% if record.authors %}
         {{ dl(_('Author'), record.pid | authors_format(current_i18n.language, viewcode)) }}

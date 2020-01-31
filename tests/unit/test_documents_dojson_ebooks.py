@@ -117,7 +117,10 @@ def test_marc21_to_title():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == 'Elena et les joueuses'
+    assert data.get('title') == [{
+        'mainTitle': [{'value': 'Elena et les joueuses'}],
+        'type': 'bf:Title'
+    }]
 
 
 def test_marc21_to_extent():
