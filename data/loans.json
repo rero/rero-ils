@@ -3,7 +3,8 @@
     "barcode": "reroils1",
     "loans": {
       "active": 2,
-      "overdue": 1,
+      "overdue_active": 1,
+      "overdue_paid": 1,
       "requested_by_others": 2
     },
     "requests": {
@@ -15,7 +16,8 @@
     "barcode": "2000000001",
     "loans": {
       "active": 1,
-      "overdue": 1
+      "overdue_active": 1,
+      "overdue_paid": 1
     },
     "requests": {
       "requests": 1
@@ -25,7 +27,8 @@
     "barcode": "10000001",
     "loans": {
       "active": 2,
-      "overdue": 1
+      "overdue_active": 1,
+      "overdue_paid": 1
     },
     "requests": {
       "requests": 1
@@ -44,7 +47,8 @@
     "barcode": "kad001",
     "loans": {
       "active": 1,
-      "overdue": 1
+      "overdue_active": 1,
+      "overdue_paid": 1
     },
     "requests": {
       "requests": 1
@@ -54,7 +58,7 @@
     "barcode": "kad002",
     "loans": {
       "active": 1,
-      "overdue": 1
+      "overdue_active": 1
     },
     "requests": {
       "requests": 1
@@ -65,7 +69,7 @@
     "loans": {
       "active": 2,
       "extended": 1,
-      "overdue": 2,
+      "overdue_active": 2,
       "requested_by_others": 1
     },
     "requests": {
@@ -79,7 +83,7 @@
     "loans": {
       "active": 5,
       "extended": 1,
-      "overdue": 2,
+      "overdue_active": 2,
       "requested_by_others": 1
     },
     "requests": {
@@ -93,7 +97,7 @@
     "loans": {
       "active": 5,
       "extended": 1,
-      "overdue": 2,
+      "overdue_active": 2,
       "requested_by_others": 1
     },
     "requests": {
@@ -107,7 +111,7 @@
     "loans": {
       "active": 5,
       "extended": 1,
-      "overdue": 2,
+      "overdue_active": 2,
       "requested_by_others": 1
     },
     "requests": {
@@ -296,7 +300,7 @@
     "barcode": "999999",
     "loans": {
       "active": 1,
-      "overdue": 1,
+      "overdue_active": 1,
       "requested_by_others": 1
     },
     "requests": {
