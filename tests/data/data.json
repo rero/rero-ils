@@ -1959,17 +1959,6 @@
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     }
   },
-  "dummy_fee": {
-    "$schema": "https://ils.rero.ch/schema/fees/fee-v0.0.1.json",
-    "pid": "fee1",
-    "creation_date": "2019-01-09T08:18:22.576291+00:00",
-    "fee_type": "overdue",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/loc1"
-    },
-    "amount": 0.5,
-    "status": "open"
-  },
   "dummy_patron_transaction": {
     "$schema": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json",
     "pid": "pttr1",

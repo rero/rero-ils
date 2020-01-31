@@ -600,14 +600,6 @@ def dummy_notification(data):
     return deepcopy(data.get('dummy_notif'))
 
 
-# ------------ Fees: dummy fee ----------
-
-@pytest.fixture(scope="function")
-def dummy_fee(data):
-    """Fee data scope function."""
-    return deepcopy(data.get('dummy_fee'))
-
-
 # ------------ Patron Transactions: Lib Martigny overdue scenario ----------
 @pytest.fixture(scope="module")
 def loan_overdue_martigny(
