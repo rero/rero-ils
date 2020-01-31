@@ -997,7 +997,87 @@
     "notes": [
       "La pr\u00e9face porte la date : 1889"
     ],
-    "title": "La reine Berthe et sa fille : une page du dixi\u00e8me si\u00e8cle offerte aux jeunes filles du dix-neuvi\u00e8me",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "La reine Berthe et sa fille"
+          },
+          {
+            "value": "titre en chinois",
+            "language": "chi-hani"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "une page du dixi\u00e8me si\u00e8cle offerte aux jeunes"
+          }
+        ],
+        "part": [
+          {
+            "partNumber": [
+              {
+                "value": "part number"
+              },
+              {
+                "value": "Part Number",
+                "language": "chi-hani"
+              }
+            ],
+            "partName": [
+              {
+                "value": "part number"
+              },
+              {
+                "value": "Part Number",
+                "language": "chi-hani"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "bf:ParallelTitle",
+        "mainTitle": [
+          {
+            "value": "La regina Bertha e sua figlia"
+          },
+          {
+            "value": "Titolo cinese",
+            "language": "chi-hani"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "una pagina del X secolo offerta ai giovani"
+          },
+          {
+            "value": "sottotitolo in cinese",
+            "language": "chi-hani"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Berthe et sa fille"
+          }
+        ]
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Zeng Lingliang zhu bian"
+        },
+        {
+          "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+          "language": "chi-hani"
+        }
+      ]
+    ],
     "extent": "190 p.",
     "series": [
       {
@@ -1152,7 +1232,16 @@
         "$ref": "https://mef.rero.ch/api/mef/pers1"
       }
     ],
-    "title": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b"
+          }
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -1196,7 +1285,16 @@
     "notes": [
       "La vie est belle"
     ],
-    "title": "La reine Berthe et son fils",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "La reine Berthe et son fils"
+          }
+        ]
+      }
+    ],
     "extent": "191 p.",
     "series": [
       {
@@ -1285,7 +1383,16 @@
         "type": "resource"
       }
     ],
-    "title": "La maison des oubli\u00e9s",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "La maison des oubli\u00e9s"
+          }
+        ]
+      }
+    ],
     "language": [
       {
         "type": "bf:Language",
@@ -1369,7 +1476,16 @@
         "value": "ebook2"
       }
     ],
-    "title": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "Kurkuma: Effekte auf den menschlichen K\u00f6rper-Der aktuelle Stand der Wissenschaft"
+          }
+        ]
+      }
+    ],
     "language": [
       {
         "type": "bf:Language",
@@ -1438,7 +1554,16 @@
         "type": "resource"
       }
     ],
-    "title": "Harry Potter and the Chamber of Secrets",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "Harry Potter and the Chamber of Secrets"
+          }
+        ]
+      }
+    ],
     "language": [
       {
         "type": "bf:Language",
@@ -1507,7 +1632,16 @@
         "type": "resource"
       }
     ],
-    "title": "Nouveau titre",
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "Nouveau titre"
+          }
+        ]
+      }
+    ],
     "language": [
       {
         "type": "bf:Language",

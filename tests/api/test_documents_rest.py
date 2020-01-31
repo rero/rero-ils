@@ -106,8 +106,11 @@ def test_documents_library_facets(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_post_put_delete(client, document_data,
-                                   json_header):
+def test_documents_post_put_delete(
+        client,
+        document_data,
+        json_header,
+        rero_json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.doc_item', pid_value='1')
@@ -119,6 +122,7 @@ def test_documents_post_put_delete(client, document_data,
         'invenio_records_rest.doc_list',
         document_data
     )
+
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
@@ -127,34 +131,94 @@ def test_documents_post_put_delete(client, document_data,
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
+
     assert clean_text(data['metadata']) == document_data
+    expected_title = [
+        {
+            '_text': 'La reine Berthe et sa fille : '
+                     'une page du dixième siècle offerte aux jeunes = '
+                     'La regina Bertha e sua figlia : una pagina del X '
+                     'secolo offerta ai giovani',
+            'mainTitle': [
+                    {'value': 'La reine Berthe et sa fille'},
+                    {
+                        'value': 'titre en chinois',
+                        'language': 'chi-hani'
+                    }
+            ],
+            'subtitle': [
+                {'value': 'une page du dixième siècle offerte aux jeunes'}
+            ],
+            'part': [{
+                'partName': [
+                    {'value': 'part number'},
+                    {
+                        'value': 'Part Number',
+                        'language': 'chi-hani'
+                    }
+                ],
+                'partNumber': [
+                    {'value': 'part number'},
+                    {
+                        'language': 'chi-hani',
+                        'value': 'Part Number'
+                    }
+                ]
+            }],
+            'type': 'bf:Title'
+        },
+        {
+            'mainTitle': [
+                {'value': 'La regina Bertha e sua figlia'},
+                {
+                    'value': 'Titolo cinese',
+                    'language': 'chi-hani'
+                }
+            ],
+            'subtitle': [
+                {'value': 'una pagina del X secolo offerta ai giovani'},
+                {
+                    'value': 'sottotitolo in cinese',
+                    'language': 'chi-hani'
+                }
+            ],
+            'type': 'bf:ParallelTitle'
+        },
+        {
+            'mainTitle': [{'value': 'Berthe et sa fille'}],
+            'type': 'bf:VariantTitle'
+        }
+    ]
 
     # Update record/PUT
     data = document_data
-    data['title'] = 'Test Name'
     res = client.put(
         item_url,
         data=json.dumps(data),
-        headers=json_header
+        headers=rero_json_header
     )
     assert res.status_code == 200
     # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['title'] == 'Test Name'
+    assert data['metadata']['title'] == expected_title
+    assert data['metadata']['ui_title_variants'] == ['Berthe et sa fille']
+    assert data['metadata']['ui_title_altgr'] == ['titre en chinois']
+    assert data['metadata']['ui_responsibilities'] == \
+        ['Zeng Lingliang zhu bian', '曾令良主编']
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    assert data['metadata']['title'] == 'Test Name'
+    assert data['metadata']['title'] == expected_title
 
     res = client.get(list_url)
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['title'] == 'Test Name'
+    assert data['metadata']['title'] == expected_title
 
     # Delete record/DELETE
     res = client.delete(item_url)
@@ -231,7 +295,7 @@ def test_document_boosting(
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
-        q='title:maison AND authors.name:James'
+        q='autocomplete_title:maison AND authors.name:James'
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']

@@ -22,8 +22,11 @@ import re
 from dojson import utils
 from isbnlib import EAN13
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, get_field_items, \
-    make_year, remove_trailing_punctuation
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
+    build_responsibility_data, error_print, \
+    extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
+    get_field_link_data, make_year, not_repetitive, \
+    remove_trailing_punctuation
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -162,18 +165,99 @@ def marc21_to_author(self, key, value):
 @marc21.over('title', '^245..')
 @utils.ignore_value
 def marc21_to_title(self, key, value):
-    """Get title.
+    """Get title data.
 
-    title: 245$a
-    without the punctuaction. If there's a $b, then 245$a : $b without the ' /'
+    field 245:
+        $a : non repetitive
+        $b : non repetitive
+        $c : non repetitive
+        $n : repetitive
+        $p : repetitive
+        $6 : non repetitive
+    field 246:
+        $a : non repetitive
+        $n : repetitive
+        $p : repetitive
+        $6 : non repetitive
     """
-    main_title = remove_trailing_punctuation(value.get('a'))
-    sub_title = value.get('b')
-    if sub_title:
-        main_title += ' : ' + ' : '.join(
-            utils.force_list(remove_trailing_punctuation(sub_title))
-        )
-    return main_title
+    subfield_245_a = ''
+    subfield_245_b = ''
+    fields_245 = marc21.get_fields(tag='245')
+    if fields_245:
+        subfields_245_a = marc21.get_subfields(fields_245[0], 'a')
+        subfields_245_b = marc21.get_subfields(fields_245[0], 'b')
+        if subfields_245_a:
+            subfield_245_a = subfields_245_a[0]
+        if subfields_245_b:
+            subfield_245_b = subfields_245_b[0]
+    field_245_a_end_with_equal = re.search(r'\s*=\s*$', subfield_245_a)
+    field_245_a_end_with_colon = re.search(r'\s*:\s*$', subfield_245_a)
+    field_245_a_end_with_semicolon = re.search(r'\s*;\s*$', subfield_245_a)
+    field_245_b_contains_equal = re.search(r'=', subfield_245_b)
+
+    fields_246 = marc21.get_fields(tag='246')
+    subfield_246_a = ''
+    if fields_246:
+        subfields_246_a = marc21.get_subfields(fields_246[0], 'a')
+        if subfields_246_a:
+            subfield_246_a = subfields_246_a[0]
+
+    tag_link, link = get_field_link_data(value)
+    items = get_field_items(value)
+    index = 1
+    title_list = []
+    title_data = {}
+    part_list = TitlePartList(
+                    tag='245',
+                    part_number_code='n',
+                    part_name_code='p',
+                    link=link
+                )
+    parallel_titles = []
+    pararalel_title_data_list = []
+    pararalel_title_string_set = set()
+    responsibility = {}
+
+    subfield_selection = {'a', 'b', 'c', 'n', 'p'}
+    for blob_key, blob_value in items:
+        if blob_key in subfield_selection:
+            value_data = marc21.build_value_with_alternate_graphic(
+                '245', blob_key, blob_value, index, link, ',.', ':;/-=')
+            if blob_key in {'a', 'b', 'c'}:
+                subfield_selection.remove(blob_key)
+            if blob_key == 'a':
+                title_data['mainTitle'] = value_data
+            elif blob_key == 'b':
+                if subfield_246_a:
+                    subtitle, parallel_titles, pararalel_title_string_set = \
+                        extract_subtitle_and_parallel_titles_from_field_245_b(
+                            value_data, field_245_a_end_with_equal)
+                    if subtitle:
+                        title_data['subtitle'] = subtitle
+                elif not subfield_246_a:
+                    title_data['subtitle'] = value_data
+            elif blob_key == 'c':
+                responsibility = marc21.build_responsibility_data(value_data)
+            elif blob_key in ['n', 'p']:
+                part_list.update_part(value_data, blob_key, blob_value, index)
+        if blob_key != '__order__':
+            index += 1
+    title_data['type'] = 'bf:Title'
+    the_part_list = part_list.get_part_list()
+    if the_part_list:
+        title_data['part'] = the_part_list
+    if title_data:
+        title_list.append(title_data)
+    variant_title_list = \
+        marc21.build_variant_title_data(pararalel_title_string_set)
+
+    for parallel_title in parallel_titles:
+        title_list.append(parallel_title)
+    for variant_title_data in variant_title_list:
+        title_list.append(variant_title_data)
+    if responsibility:
+        self['responsibilityStatement'] = responsibility
+    return title_list or None
 
 
 @marc21.over('editionStatement', '^250..')

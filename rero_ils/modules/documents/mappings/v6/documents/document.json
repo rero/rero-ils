@@ -35,25 +35,95 @@
           "type": "keyword"
         },
         "title": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
-          "copy_to": "autocomplete_title",
-          "fields": {
-            "eng": {
-              "type": "text",
-              "analyzer": "english"
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "keyword"
             },
-            "fre": {
-              "type": "text",
-              "analyzer": "french"
+            "mainTitle": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "analyzer": "global_lowercase_asciifolding",
+                  "copy_to": "autocomplete_title",
+                  "fields": {
+                    "eng": {
+                      "type": "text",
+                      "analyzer": "english"
+                    },
+                    "fre": {
+                      "type": "text",
+                      "analyzer": "french"
+                    },
+                    "ger": {
+                      "type": "text",
+                      "analyzer": "german"
+                    },
+                    "ita": {
+                      "type": "text",
+                      "analyzer": "italian"
+                    }
+                  }
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
             },
-            "ger": {
-              "type": "text",
-              "analyzer": "german"
+            "subtitle": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "analyzer": "global_lowercase_asciifolding",
+                  "fields": {
+                    "eng": {
+                      "type": "text",
+                      "analyzer": "english"
+                    },
+                    "fre": {
+                      "type": "text",
+                      "analyzer": "french"
+                    },
+                    "ger": {
+                      "type": "text",
+                      "analyzer": "german"
+                    },
+                    "ita": {
+                      "type": "text",
+                      "analyzer": "italian"
+                    }
+                  }
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
             },
-            "ita": {
-              "type": "text",
-              "analyzer": "italian"
+            "part": {
+              "type": "object",
+              "properties": {
+                "partNumber": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "partName": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "_text": {
+              "type": "text"
             }
           }
         },
@@ -61,6 +131,36 @@
           "type": "text",
           "analyzer": "autocomplete",
           "search_analyzer": "standard"
+        },
+        "responsibilityStatement": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "text",
+              "analyzer": "global_lowercase_asciifolding",
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
+            },
+            "language": {
+              "type": "keyword"
+            }
+          }
         },
         "titlesProper": {
           "type": "text",

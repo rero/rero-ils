@@ -17,6 +17,6 @@
 
 """MARC21 RERO to JSON."""
 
-from .model import marc21tojson
+from .model import marc21
 
-__all__ = ('marc21tojson')
+__all__ = ('marc21')
