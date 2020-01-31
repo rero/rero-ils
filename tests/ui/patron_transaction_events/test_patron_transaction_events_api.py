@@ -29,7 +29,7 @@ from rero_ils.modules.patron_transactions.api import \
 from copy import deepcopy
 
 
-def test_patron_transaction_es_mapping(
+def test_patron_transaction_event_es_mapping(
         es, db, patron_transaction_overdue_event_martigny):
     """Test patron_transaction event elasticsearch mapping."""
     search = PatronTransactionEventsSearch()
@@ -48,7 +48,7 @@ def test_patron_transaction_event_create(
         db, es_clear, patron_transaction_overdue_event_martigny):
     """Test patron transaction event creation."""
     patron_event = deepcopy(patron_transaction_overdue_event_martigny)
-    patron_event['status'] = 'no_status'
+    patron_event['type'] = 'no_type'
     import jsonschema
     with pytest.raises(jsonschema.exceptions.ValidationError):
         record = PatronTransactionEvent.create(
@@ -56,7 +56,7 @@ def test_patron_transaction_event_create(
 
     db.session.rollback()
 
-    patron_event['status'] = 'open'
+    patron_event['type'] = 'fee'
     record = PatronTransactionEvent.create(patron_event, delete_pid=True)
     assert record == patron_event
     assert record.get('pid') == '2'

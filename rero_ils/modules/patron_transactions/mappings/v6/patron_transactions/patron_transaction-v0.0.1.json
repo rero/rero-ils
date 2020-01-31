@@ -34,6 +34,13 @@
             }
           }
         },
+        "document": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "notification": {
           "properties": {
             "pid": {

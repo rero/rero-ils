@@ -116,20 +116,10 @@
             "lost",
             "other"
           ]
-        },
-        "status": {
-          "title": "Status",
-          "description": "Patron transaction event status",
-          "type": "string",
-          "enum": [
-            "open",
-            "closed"
-          ]
         }
       },
       "required": [
         "subtype",
-        "status",
         "amount"
       ]
     },
