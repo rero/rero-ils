@@ -15,13 +15,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Signals connector for Fee."""
+"""Signals connector for Patron transaction."""
 
-from .api import Fee, FeesSearch
+from .api import PatronTransaction, PatronTransactionsSearch
 
 
-def enrich_fee_data(sender, json=None, record=None, index=None,
-                    doc_type=None, **dummy_kwargs):
+def enrich_patron_transaction_data(
+        sender, json=None, record=None, index=None, doc_type=None, **
+        dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -29,19 +30,10 @@ def enrich_fee_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index == '-'.join([FeesSearch.Meta.index, doc_type]):
-        fee = record
-        if not isinstance(record, Fee):
-            fee = Fee.get_record_by_pid(record.get('pid'))
-        org_pid = fee.organisation_pid
-        json['organisation'] = {
-            'pid': org_pid
-        }
-        if fee.loan_pid:
-            json['loan'] = {
-                'pid': fee.loan_pid
-            }
-        if fee.patron_pid:
-            json['patron'] = {
-                'pid': fee.patron_pid
+    if index == '-'.join([PatronTransactionsSearch.Meta.index, doc_type]):
+        if not isinstance(record, PatronTransaction):
+            record = PatronTransaction.get_record_by_pid(record.get('pid'))
+        if record.notification_pid:
+            json['document'] = {
+                'pid': record.document_pid
             }

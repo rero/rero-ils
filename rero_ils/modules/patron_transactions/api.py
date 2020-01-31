@@ -68,7 +68,8 @@ class PatronTransaction(IlsRecord):
         record = super(PatronTransaction, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         PatronTransactionEvent.create_event_from_patron_transaction(
-            record, dbcommit, reindex, delete_pid)
+            patron_transaction=record, dbcommit=dbcommit, reindex=reindex,
+            delete_pid=delete_pid, update_parent=False)
         return record
 
     @property
@@ -81,9 +82,23 @@ class PatronTransaction(IlsRecord):
         return None
 
     @property
+    def document_pid(self):
+        """Return the document pid of the the overdue patron transaction."""
+        from ..notifications.api import Notification
+        if self.notification_pid:
+            notif = Notification.get_record_by_pid(self.notification_pid)
+            return notif.document_pid
+        return None
+
+    @property
     def patron_pid(self):
         """Return the patron pid of the patron transaction."""
         return self.replace_refs()['patron']['pid']
+
+    @property
+    def total_amount(self):
+        """Return the total_amount of the patron transaction."""
+        return self.get('total_amount')
 
     @property
     def notification_pid(self):
@@ -117,9 +132,15 @@ class PatronTransaction(IlsRecord):
             return notif.transaction_user_pid
         return None
 
+    @property
+    def status(self):
+        """Return the status of the patron transaction."""
+        return self.get('status')
+
     @classmethod
     def create_patron_transaction_from_notification(
-            cls, notification, dbcommit, reindex, delete_pid):
+            cls, notification=None, dbcommit=None, reindex=None,
+            delete_pid=None):
         """Create a patron transaction from notification."""
         record = {}
         if notification.get('notification_type') == 'overdue':

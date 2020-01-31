@@ -53,7 +53,6 @@ from .modules.budgets.permissions import can_create_budgets_factory, \
     can_list_budgets_factory, can_update_delete_budgets_factory
 from .modules.circ_policies.api import CircPolicy
 from .modules.documents.api import Document, DocumentsIndexer
-from .modules.fees.api import Fee
 from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item, ItemsIndexer
@@ -831,38 +830,6 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=can_update_organisation_records_factory,
         delete_permission_factory_imp=can_delete_organisation_records_factory,
     ),
-    fee=dict(
-        pid_type='fee',
-        pid_minter='fee_id',
-        pid_fetcher='fee_id',
-        search_class=RecordsSearch,
-        search_index='fees',
-        indexer_class=IlsRecordIndexer,
-        search_type=None,
-        record_serializers={
-            'application/json': (
-                'rero_ils.modules.serializers:json_v1_response'
-            )
-        },
-        search_serializers={
-            'application/json': (
-                'rero_ils.modules.serializers:json_v1_search'
-            )
-        },
-        record_loaders={
-            'application/json': lambda: Fee(request.get_json()),
-        },
-        list_route='/fees/',
-        record_class='rero_ils.modules.fees.api:Fee',
-        item_route='/fees/<pid(fee, record_class="rero_ils.modules.fees.api:Fee"):pid_value>',
-        default_media_type='application/json',
-        max_result_window=10000,
-        search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
-    ),
     vndr=dict(
         pid_type='vndr',
         pid_minter='vendor_id',
@@ -1374,7 +1341,6 @@ RECORDS_JSON_SCHEMA = {
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
-    'fee': '/fees/fee-v0.0.1.json',
     'pers': '/persons/person-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
     'acac': '/acq_accounts/acq_account-v0.0.1.json',
