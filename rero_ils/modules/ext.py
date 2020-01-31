@@ -29,7 +29,6 @@ from invenio_records.signals import after_record_delete, after_record_insert, \
 from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
-from .fees.listener import enrich_fee_data
 from .holdings.listener import enrich_holding_data
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
@@ -37,6 +36,7 @@ from .locations.listener import enrich_location_data
 from .notifications.listener import enrich_notification_data
 from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
+from .patron_transactions.listener import enrich_patron_transaction_data
 from .patrons.listener import enrich_patron_data
 from .persons.listener import enrich_persons_data
 from .persons.receivers import publish_api_harvested_records
@@ -95,8 +95,8 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_location_data)
         before_record_index.connect(enrich_holding_data)
         before_record_index.connect(enrich_notification_data)
-        before_record_index.connect(enrich_fee_data)
         before_record_index.connect(enrich_patron_transaction_event_data)
+        before_record_index.connect(enrich_patron_transaction_data)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 

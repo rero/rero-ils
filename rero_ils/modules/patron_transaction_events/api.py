@@ -58,25 +58,66 @@ class PatronTransactionEvent(IlsRecord):
     provider = PatronTransactionEventProvider
 
     @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=False, reindex=False, update_parent=True, **kwargs):
+        """Create patron transaction event record."""
+        record = super(PatronTransactionEvent, cls).create(
+            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        if update_parent:
+            cls.update_parent_patron_transaction(record)
+        return record
+
+    @classmethod
     def create_event_from_patron_transaction(
-            cls, patron_transaction, dbcommit, reindex, delete_pid):
+            cls, patron_transaction=None, dbcommit=None, reindex=None,
+            delete_pid=None, update_parent=True):
         """Create a patron transaction event from patron transaction."""
         record = {}
         data = build_patron_transaction_event_ref(patron_transaction, {})
         data['creation_date'] = patron_transaction.get('creation_date')
-        data['status'] = 'open'
         record = cls.create(
             data,
             dbcommit=dbcommit,
             reindex=reindex,
-            delete_pid=delete_pid
+            delete_pid=delete_pid,
+            update_parent=update_parent
         )
         return record
+
+    def update_parent_patron_transaction(self):
+        """Update parent patron transaction amount and status."""
+        patron_transaction = self.patron_transaction()
+        total_amount = patron_transaction.get('total_amount')
+        if self.event_type == 'fee':
+            total_amount = total_amount + self.amount
+        elif self.event_type == 'payment':
+            total_amount = total_amount - self.amount
+        patron_transaction['total_amount'] = total_amount
+        if total_amount == 0:
+            patron_transaction['status'] = 'closed'
+
+        patron_transaction.update(
+            patron_transaction, dbcommit=True, reindex=True)
+
+    def patron_transaction(self):
+        """Return the parent patron transaction of the event."""
+        from ..patron_transactions.api import PatronTransaction
+        return PatronTransaction.get_record_by_pid(self.parent_pid)
 
     @property
     def parent_pid(self):
         """Return the parent pid of the patron transaction event."""
         return self.replace_refs()['parent']['pid']
+
+    @property
+    def event_type(self):
+        """Return the type of the patron transaction event."""
+        return self.get('type')
+
+    @property
+    def amount(self):
+        """Return the amount of the patron transaction event."""
+        return self.get('amount')
 
     @property
     def patron_pid(self):
@@ -137,6 +178,5 @@ def build_patron_transaction_event_ref(patron_transaction, data):
     if patron_transaction.get('type') == 'overdue':
         data['type'] = 'fee'
         data['subtype'] = 'overdue'
-        data['status'] = 'open'
         data['amount'] = patron_transaction.get('total_amount')
     return data
