@@ -32,7 +32,6 @@ from .models import NotificationIdentifier, NotificationMetadata
 from ..api import IlsRecord
 from ..circ_policies.api import CircPolicy
 from ..documents.api import Document
-from ..fees.api import Fee, FeesSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -78,7 +77,8 @@ class Notification(IlsRecord):
         record = super(Notification, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         PatronTransaction.create_patron_transaction_from_notification(
-            record, dbcommit, reindex, delete_pid)
+            notification=record, dbcommit=dbcommit, reindex=reindex,
+            delete_pid=delete_pid)
         return record
 
     def dispatch(self, delay=True):
@@ -252,15 +252,6 @@ class Notification(IlsRecord):
     def document(self):
         """Shortcut for document of the notification."""
         return Document.get_record_by_pid(self.document_pid)
-
-    @property
-    def fees(self):
-        """Returns fees attached of the notification."""
-        results = FeesSearch()\
-            .filter('term', notification__pid=self.pid)\
-            .source(['pid']).scan()
-        for result in results:
-            yield Fee.get_record_by_pid(result.pid)
 
     @property
     def patron_transactions(self):
