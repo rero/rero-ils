@@ -26,7 +26,8 @@ from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier
 from .utils import edition_format_text, publication_statement_text, \
-    series_format_text
+    series_format_text, title_format_text, title_format_text_head, \
+    title_variant_format_text
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordIndexer
 from ..fetchers import id_fetcher
@@ -157,7 +158,7 @@ class Document(IlsRecord):
         dump = super(Document, self).dumps(**kwargs)
         provision_activities = dump.get('provisionActivity', [])
         for provision_activity in provision_activities:
-            provision_activity["_text"] = \
+            provision_activity['_text'] = \
                 publication_statement_text(provision_activity)
         series = dump.get('series', [])
         for series_element in series:
@@ -165,6 +166,10 @@ class Document(IlsRecord):
         editions = dump.get('editionStatement', [])
         for edition in editions:
             edition['_text'] = edition_format_text(edition)
+        titles = dump.get('title', [])
+        bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
+        for title in bf_titles:
+            title['_text'] = title_format_text_head(titles, with_subtitle=True)
         return dump
 
     def index_persons(self, bulk=False):

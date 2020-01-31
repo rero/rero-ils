@@ -22,6 +22,9 @@ from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
 from ..documents.api import Document
+from ..documents.utils import title_format_text_head
+from ..documents.views import create_title_alternate_graphic, \
+    create_title_responsibilites, create_title_variants
 from ..libraries.api import Library
 from ..organisations.api import Organisation
 from ..persons.api import Person
@@ -34,6 +37,18 @@ class DocumentJSONSerializer(JSONSerializer):
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
         rec = record
+        titles = rec.get('title', [])
+        responsibility_statement = rec.get('responsibilityStatement', [])
+        responsibilities = \
+            create_title_responsibilites(responsibility_statement)
+        if responsibilities:
+            rec['ui_responsibilities'] = responsibilities
+        altgr_titles = create_title_alternate_graphic(titles)
+        if altgr_titles:
+            rec['ui_title_altgr'] = altgr_titles
+        variant_titles = create_title_variants(titles)
+        if variant_titles:
+            rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':
             rec = record.replace_refs()
             authors = rec.get('authors', [])
@@ -51,17 +66,25 @@ class DocumentJSONSerializer(JSONSerializer):
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
         # Item filters.
-        viewcode = request.args.get('view')
+        viewcode = request.args.get('view',  current_app.config.get(
+                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+        ))
+        records = results.get('hits', {}).get('hits', {})
+        for record in records:
+            metadata = record.get('metadata', {})
+            available = Document.get_record_by_pid(
+                metadata.get('pid')).is_available(viewcode)
+            metadata['available'] = available
+            titles = metadata.get('title', [])
+            text_title = title_format_text_head(titles, with_subtitle=False)
+            if text_title:
+                metadata['ui_title_text'] = text_title
         if viewcode != current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
         ):
             view_id = Organisation.get_record_by_viewcode(viewcode)['pid']
-            records = results.get('hits', {}).get('hits', {})
             for record in records:
                 metadata = record.get('metadata', {})
-                available = Document.get_record_by_pid(
-                    metadata.get('pid')).is_available(viewcode)
-                metadata['available'] = available
                 items = metadata.get('items', [])
                 if items:
                     output = []
@@ -70,13 +93,6 @@ class DocumentJSONSerializer(JSONSerializer):
                                 .get('organisation_pid') == view_id:
                             output.append(item)
                     record['metadata']['items'] = output
-        else:
-            records = results.get('hits', {}).get('hits', {})
-            for record in records:
-                metadata = record.get('metadata', {})
-                available = Document.get_record_by_pid(
-                    metadata.get('pid')).is_available(viewcode)
-                metadata['available'] = available
 
         # Add organisation name
         for org_term in results.get('aggregations', {}).get(
@@ -102,4 +118,4 @@ json_doc = DocumentJSONSerializer(RecordSchemaJSONV1)
 """JSON v1 serializer."""
 
 json_doc_search = search_responsify(json_doc, 'application/rero+json')
-json_doc_response = record_responsify(json_doc, 'application/json')
+json_doc_response = record_responsify(json_doc, 'application/rero+json')

@@ -35,7 +35,8 @@ from invenio_records_ui.signals import record_viewed
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarctojson
 from .utils import edition_format_text, localized_data_name, \
-    publication_statement_text, series_format_text
+    publication_statement_text, series_format_text, title_format_text, \
+    title_format_text_alternate_graphic, title_variant_format_text
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
 from ..libraries.api import Library
@@ -519,3 +520,59 @@ def get_other_accesses(record):
             'public_note': public_note
         })
     return accesses
+
+
+@blueprint.app_template_filter()
+def create_title_alternate_graphic(titles):
+    """Create the list of alternate graphic titles as text for detail view.
+
+    :param titles: list of title objects
+    :type titles: list
+    :return: list of alternate graphic titles as text for detail view
+    :rtype: list
+    """
+    output = []
+    altgr_texts = title_format_text_alternate_graphic(titles)
+    for altgr_text in altgr_texts:
+        value = altgr_text.get('value')
+        if value not in output:
+            output.append(value)
+    return output
+
+
+@blueprint.app_template_filter()
+def create_title_variants(titles):
+    """Create the list of variant titles as text for detail view.
+
+    :param titles: list of title objects
+    :type titles: list
+    :return: list of variant titles as text for detail view
+    :rtype: list
+    """
+    output = []
+    title_variant_texts = \
+        title_variant_format_text(titles=titles, with_subtitle=True)
+    for title_variant_text in title_variant_texts:
+        value = title_variant_text.get('value')
+        if value not in output:
+            output.append(value)
+    return output
+
+
+@blueprint.app_template_filter()
+def create_title_responsibilites(responsibilityStatement):
+    """Create the list of title responsibilites as text for detail view.
+
+    :param responsibilityStatement: list of responsibilityStatement
+    :type responsibilityStatement: list
+    :return: list of title responsibilites as text for detail view
+    :rtype: list
+
+    """
+    output = []
+    for responsibility in responsibilityStatement:
+        for responsibility_language in responsibility:
+            value = responsibility_language.get('value')
+            if value not in output:
+                output.append(value)
+    return output
