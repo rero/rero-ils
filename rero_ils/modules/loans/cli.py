@@ -25,6 +25,7 @@ import traceback
 from datetime import datetime, timedelta, timezone
 
 import click
+from flask import current_app
 from flask.cli import with_appcontext
 from invenio_circulation.api import get_loan_for_item
 
@@ -34,6 +35,7 @@ from ..libraries.api import Library
 from ..loans.api import Loan
 from ..locations.api import Location
 from ..notifications.tasks import create_over_and_due_soon_notifications
+from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
 
@@ -78,10 +80,16 @@ def create_loans(infile, verbose, debug):
                 errors_count = print_message(item_barcode, 'active',
                                              errors_count)
 
-            for transaction in range(loans.get('overdue', 0)):
-                item_barcode = create_loan(barcode, 'overdue', loanable_items,
-                                           verbose, debug)
-                errors_count = print_message(item_barcode, 'overdue',
+            for transaction in range(loans.get('overdue_active', 0)):
+                item_barcode = create_loan(
+                    barcode, 'overdue_active', loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode, 'overdue_active',
+                                             errors_count)
+
+            for transaction in range(loans.get('overdue_paid', 0)):
+                item_barcode = create_loan(
+                    barcode, 'overdue_paid', loanable_items, verbose, debug)
+                errors_count = print_message(item_barcode, 'overdue_paid',
                                              errors_count)
 
             for transaction in range(loans.get('extended', 0)):
@@ -165,7 +173,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
         loan = get_loan_for_item(item.pid)
         loan_pid = loan.get('pid')
         loan = Loan.get_record_by_pid(loan_pid)
-        if transaction_type == 'overdue':
+        if transaction_type == 'overdue_active':
             end_date = datetime.now(timezone.utc) - timedelta(days=2)
             loan['end_date'] = end_date.isoformat()
             loan.update(
@@ -184,6 +192,34 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             )
             loan.create_notification(notification_type='overdue')
 
+        elif transaction_type == 'overdue_paid':
+            end_date = datetime.now(timezone.utc) - timedelta(days=2)
+            loan['end_date'] = end_date.isoformat()
+            loan.update(
+                loan,
+                dbcommit=True,
+                reindex=True
+            )
+            loan.create_notification(notification_type='due_soon')
+
+            end_date = datetime.now(timezone.utc) - timedelta(days=70)
+            loan['end_date'] = end_date.isoformat()
+            loan.update(
+                loan,
+                dbcommit=True,
+                reindex=True
+            )
+            notif = loan.create_notification(notification_type='overdue')
+            patron_transaction = [record
+                                  for record in notif.patron_transactions][0]
+            payment = create_payment_record(
+                patron_transaction, user_pid, user_location)
+            PatronTransactionEvent.create(
+                payment,
+                dbcommit=True,
+                reindex=True,
+                update_parent=True
+            )
         elif transaction_type == 'extended':
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
@@ -355,3 +391,51 @@ def get_random_librarian_and_transaction_location(patron):
     user = get_random_librarian(patron).replace_refs()
     library = Library.get_record_by_pid(user['library']['pid'])
     return user.pid, library.get_pickup_location_pid()
+
+
+def create_payment_record(patron_transaction, user_pid, user_location):
+    """Create payment record from patron_transaction."""
+    data = {}
+    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+    data_schema = {
+        'base_url': current_app.config.get(
+            'RERO_ILS_APP_BASE_URL'
+        ),
+        'schema_endpoint': current_app.config.get(
+            'JSONSCHEMAS_ENDPOINT'
+        ),
+        'schema': schemas['ptre']
+    }
+    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
+        .format(**data_schema)
+    base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+    url_api = '{base_url}/api/{doc_type}/{pid}'
+    for record in [
+        {
+            'resource': 'parent',
+            'doc_type': 'patron_transactions',
+            'pid': patron_transaction.pid
+        },
+        {
+            'resource': 'operator',
+            'doc_type': 'patrons',
+            'pid': user_pid
+        },
+        {
+            'resource': 'location',
+            'doc_type': 'locations',
+            'pid': user_location
+        },
+    ]:
+        data[record['resource']] = {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='{}'.format(record['doc_type']),
+                pid=record['pid'])
+            }
+    data['type'] = 'payment'
+    data['subtype'] = 'cash'
+    data['status'] = 'open'
+    data['amount'] = patron_transaction.get('total_amount')
+    data['creation_date'] = datetime.now(timezone.utc).isoformat()
+    return data
