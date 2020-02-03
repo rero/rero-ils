@@ -1107,17 +1107,19 @@ RERO_ILS_QUERY_BOOSTING = {
 
 # sort options
 indexes = [
+    'budgets',
+    'circ_policies',
     'documents',
     'items',
     'item_types',
+    'libraries',
+    'loans',
+    'locations',
+    'organisations',
     'patrons',
     'patron_types',
-    'organisations',
-    'libraries',
-    'locations',
     'persons',
-    'circ_policies',
-    'loans'
+    'vendors'
 ]
 
 RECORDS_REST_SORT_OPTIONS = dict()
@@ -1140,20 +1142,8 @@ for index in indexes:
     RECORDS_REST_DEFAULT_SORT[index] = dict(
         query='bestmatch', noquery='mostrecent')
 
-RECORDS_REST_SORT_OPTIONS['loans'] = dict(
-    transactiondate=dict(
-        fields=['-transaction_date'], title='Transaction date',
-        default_order='asc'
-    )
-)
 
-RECORDS_REST_SORT_OPTIONS['libraries'] = dict(
-    name=dict(
-        fields=['name_sort'], title='Library name',
-        default_order='asc'
-    )
-)
-
+# ------ ACQUISITION ORDER LINES SORT
 RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
     pid=dict(
         fields=['_id'], title='Order line PID',
@@ -1161,6 +1151,77 @@ RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
     )
 )
 
+# ------ BUDGETS SORT
+RECORDS_REST_SORT_OPTIONS['budgets']['name'] = dict(
+    fields=['name'], title='Budget name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['budgets'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ CIRCULATION POLICIES SORT
+RECORDS_REST_SORT_OPTIONS['circ_policies']['name'] = dict(
+    fields=['circ_policy_name'], title='Circulation policy name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['circ_policies'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ ITEM TYPES SORT
+RECORDS_REST_SORT_OPTIONS['item_types']['name'] = dict(
+    fields=['item_type_name'], title='Item type name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['item_types'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ LIBRARIES SORT
+RECORDS_REST_SORT_OPTIONS['libraries']['name'] = dict(
+    fields=['name_sort'], title='Library name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['libraries'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ LOANS SORT
+RECORDS_REST_SORT_OPTIONS['loans'] = dict(
+    transactiondate=dict(
+        fields=['-transaction_date'], title='Transaction date',
+        default_order='asc'
+    )
+)
+
+# ------ LOCATIONS SORT
+RECORDS_REST_SORT_OPTIONS['locations']['name'] = dict(
+    fields=['name'], title='Location name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['locations'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ PATRONS SORT
+RECORDS_REST_SORT_OPTIONS['patrons']['full_name'] = dict(
+    fields=['last_name_sort', 'first_name_sort'], title='Patron fullname',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['patrons'] = dict(
+    query='bestmatch', noquery='full_name')
+
+# ------ PATRON TYPES SORT
+RECORDS_REST_SORT_OPTIONS['patron_types']['name'] = dict(
+    fields=['patron_type_name'], title='Patron type name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['patron_types'] = dict(
+    query='bestmatch', noquery='name')
+
+# ------ VENDORS SORT
+RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
+    fields=['vendor_name'], title='Vendor name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
+    query='bestmatch', noquery='name')
 
 # Detailed View Configuration
 # ===========================
