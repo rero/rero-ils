@@ -17,11 +17,19 @@
         },
         "first_name": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "first_name_sort"
+        },
+        "first_name_sort": {
+          "type": "keyword"
         },
         "last_name": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "analyzer": "global_lowercase_asciifolding",
+          "copy_to": "last_name_sort"
+        },
+        "last_name_sort": {
+          "type": "keyword"
         },
         "birth_date": {
           "type": "date"
