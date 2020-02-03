@@ -145,7 +145,8 @@
             "label": "excluded",
             "value": "excluded"
           }
-        ]
+        ],
+        "hideExpression": "true"
       }
     },
     "holding": {
