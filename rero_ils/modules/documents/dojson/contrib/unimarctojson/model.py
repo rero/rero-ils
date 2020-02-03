@@ -90,12 +90,14 @@ def unimarc_title(self, key, value):
     If there's a $e, then 245$a : $e
     """
     main_title = value.get('a')
-    sub_title = value.get('e')
+    if main_title:
+        main_title = utils.force_list(main_title)[0]
+    else:
+        main_title = ''
+    sub_title = utils.force_list(value.get('e'))
     if sub_title:
-        main_title += ' : ' + ' : '.join(
-            utils.force_list(sub_title)
-        )
-    return main_title
+        main_title += ' : ' + ' : '.join(sub_title)
+    return main_title or None
 
 
 @unimarctojson.over('titlesProper', '^500..')
@@ -159,15 +161,15 @@ def unimarc_to_author(self, key, value):
         author['type'] = 'organisation'
 
     if value.get('b'):
-        author['name'] += ', ' + value.get('b')
+        author['name'] += ', ' + ', '.join(utils.force_list(value.get('b')))
     if value.get('d'):
-        author['name'] += ' ' + value.get('d')
+        author['name'] += ' ' + ' '.join(utils.force_list(value.get('d')))
 
     if value.get('c'):
         author['qualifier'] = value.get('c')
 
     if value.get('f'):
-        date = value.get('f')
+        date = utils.force_list(value.get('f'))[0]
         date = date.replace('-....', '-')
         author['date'] = date
     return author
@@ -412,11 +414,11 @@ def unimarc_subjects(self, key, value):
     if value.get('a'):
         to_return = value.get('a')
     if value.get('b'):
-        to_return += ', ' + value.get('b')
+        to_return += ', ' + ', '.join(utils.force_list(value.get('b')))
     if value.get('d'):
-        to_return += ' ' + value.get('d')
+        to_return += ' ' + ' '.join(utils.force_list(value.get('d')))
     if value.get('c'):
-        to_return += ', ' + value.get('c')
+        to_return += ', ' + ', '.join(utils.force_list(value.get('c')))
     if value.get('f'):
-        to_return += ', ' + value.get('f')
+        to_return += ', ' + ', '.join(utils.force_list(value.get('f')))
     return to_return
