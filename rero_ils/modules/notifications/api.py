@@ -221,6 +221,12 @@ class Notification(IlsRecord):
         return Patron.get_record_by_pid(self.transaction_user_pid)
 
     @property
+    def transaction_library_pid(self):
+        """Shortcut for transaction library pid of the notification."""
+        location = self.transaction_location
+        return location.library_pid
+
+    @property
     def transaction_location_pid(self):
         """Shortcut for transaction location pid of the notification."""
         self.init_loan()
