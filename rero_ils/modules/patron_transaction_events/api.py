@@ -19,6 +19,7 @@
 
 from functools import partial
 
+from datetime import datetime, timezone
 from flask import current_app
 
 from .models import PatronTransactionEventIdentifier
@@ -61,6 +62,8 @@ class PatronTransactionEvent(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, update_parent=True, **kwargs):
         """Create patron transaction event record."""
+        if 'creation_date' not in data:
+            data['creation_date'] = datetime.now(timezone.utc).isoformat()
         record = super(PatronTransactionEvent, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if update_parent:
@@ -140,12 +143,8 @@ def build_patron_transaction_event_ref(patron_transaction, data):
     """Create $ref for a patron transaction event."""
     schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
     data_schema = {
-        'base_url': current_app.config.get(
-            'RERO_ILS_APP_BASE_URL'
-        ),
-        'schema_endpoint': current_app.config.get(
-            'JSONSCHEMAS_ENDPOINT'
-        ),
+        'base_url': current_app.config.get('RERO_ILS_APP_BASE_URL'),
+        'schema_endpoint': current_app.config.get('JSONSCHEMAS_ENDPOINT'),
         'schema': schemas['ptre']
     }
     data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
@@ -157,16 +156,14 @@ def build_patron_transaction_event_ref(patron_transaction, data):
             'resource': 'parent',
             'doc_type': 'patron_transactions',
             'pid': patron_transaction.pid
-        },
-        {
+        }, {
             'resource': 'operator',
             'doc_type': 'patrons',
             'pid': patron_transaction.notification_transaction_user_pid
-        },
-        {
-            'resource': 'location',
-            'doc_type': 'locations',
-            'pid': patron_transaction.notification_transaction_location_pid
+        }, {
+            'resource': 'library',
+            'doc_type': 'libraries',
+            'pid': patron_transaction.notification_transaction_library_pid
         },
     ]:
         data[record['resource']] = {

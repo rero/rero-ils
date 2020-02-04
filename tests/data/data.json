@@ -1983,8 +1983,8 @@
     "subtype": "overdue",
     "amount": 5.0,
     "note": "event of the dummy_patron_transaction",
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/x"
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/x"
     },
     "operator": {
       "$ref": "https://ils.rero.ch/api/patrons/ptrn1"

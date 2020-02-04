@@ -38,7 +38,7 @@
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"
         },
-        "location": {
+        "library": {
           "properties": {
             "pid": {
               "type": "keyword"
