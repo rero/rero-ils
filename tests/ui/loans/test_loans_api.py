@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
+from datetime import timedelta
 
 from invenio_circulation.proxies import current_circulation
 from utils import get_mapping
@@ -40,7 +41,8 @@ def test_loans_create(loan_pending_martigny):
     assert loan_pending_martigny.get('state') == 'PENDING'
 
 
-def test_loans_elements(loan_pending_martigny, item_lib_fully):
+def test_item_loans_elements(
+        loan_pending_martigny, item_lib_fully, circ_policy_default_martigny):
     """Test loan elements."""
     assert loan_pending_martigny.item_pid == item_lib_fully.pid
 
@@ -51,3 +53,10 @@ def test_loans_elements(loan_pending_martigny, item_lib_fully):
     del new_loan['transaction_location_pid']
     assert get_default_loan_duration(new_loan) == \
         get_default_loan_duration(loan_pending_martigny)
+
+    assert item_lib_fully.last_location_pid == item_lib_fully.location_pid
+    circ_policy_default_martigny['allow_checkout'] = False
+    circ_policy_default_martigny.update(
+        circ_policy_default_martigny, dbcommit=True, reindex=True)
+
+    assert get_default_loan_duration(new_loan) == timedelta(0)

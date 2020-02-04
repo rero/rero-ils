@@ -65,10 +65,20 @@ def get_default_loan_duration(loan):
     # We finally make the difference between next library open date and now.
     # We apply a correction for hour/minute to be 23:59 (end of day).
     policy = get_circ_policy(loan)
-    due_date_eve = now + timedelta(days=policy.get('checkout_duration')) - \
-        timedelta(days=1)
-    next_open_date = library.next_open(date=due_date_eve)
-    return timedelta(days=(next_open_date - now).days) + time_to_eod
+
+    # Should block checkouts when a circulation policy found with
+    # allow_checkout is false.
+    # In this case, a checkout duration of zero days is returned, this will
+    #  trigger an HTTP 403 response for the frontend, thanks to
+    #  loan_satisfy_circ_policies.
+
+    if policy.get('allow_checkout') is True:
+        due_date_eve = now + timedelta(days=policy.get(
+            'checkout_duration')) - timedelta(days=1)
+        next_open_date = library.next_open(date=due_date_eve)
+        return timedelta(days=(next_open_date - now).days) + time_to_eod
+
+    return timedelta(days=0)
 
 
 def get_extension_params(loan=None, parameter_name=None):
