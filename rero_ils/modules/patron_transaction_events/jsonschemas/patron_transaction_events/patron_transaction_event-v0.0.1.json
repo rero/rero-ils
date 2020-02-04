@@ -9,7 +9,7 @@
     "creation_date",
     "parent",
     "type",
-    "location"
+    "library"
   ],
   "properties": {
     "$schema": {
@@ -63,14 +63,14 @@
       "type": "string",
       "minLength": 3
     },
-    "location": {
-      "title": "Location",
+    "library": {
+      "title": "Library",
       "type": "object",
       "properties": {
         "$ref": {
-          "title": "Location URI",
+          "title": "Library URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/locations/.*?$"
+          "pattern": "^https://ils.rero.ch/api/libraries/.*?$"
         }
       }
     },

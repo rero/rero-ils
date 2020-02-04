@@ -361,3 +361,9 @@ def test_availability_notification(
 
     assert not loan_validated_martigny.is_notified(notification_type='recall')
     assert not get_recall_notification(loan_validated_martigny)
+
+
+def test_transaction_library_pid(notification_overdue_martigny,
+                                 lib_martigny_data):
+    assert notification_overdue_martigny.transaction_library_pid == \
+           lib_martigny_data.get('pid')

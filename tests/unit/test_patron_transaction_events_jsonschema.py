@@ -102,16 +102,16 @@ def test_patron_transaction_events_operator(
         validate(data, patron_transaction_event_schema)
 
 
-def test_patron_transaction_events_location(
+def test_patron_transaction_events_library(
         patron_transaction_event_schema,
         patron_transaction_overdue_event_saxon_data):
-    """Test location for patron transaction event jsonschemas."""
+    """Test library for patron transaction event jsonschemas."""
     validate(patron_transaction_overdue_event_saxon_data,
              patron_transaction_event_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_event_saxon_data)
-        data['location'] = 25
+        data['library'] = 25
         validate(data, patron_transaction_event_schema)
 
 
