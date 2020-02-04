@@ -98,6 +98,7 @@ def test_patron_transactions_get(client, patron_transaction_overdue_martigny):
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
     del(result['document'])
+    del(result['loan'])
     assert result == transaction.replace_refs()
 
 

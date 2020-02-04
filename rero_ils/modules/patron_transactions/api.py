@@ -117,12 +117,13 @@ class PatronTransaction(IlsRecord):
         return None
 
     @property
-    def notification_transaction_location_pid(self):
-        """Return the transaction location of the notification."""
+    def notification_transaction_library_pid(self):
+        """Return the transaction library of the notification."""
         notif = self.notification
         if notif:
-            return notif.transaction_location_pid
-        return None
+            location = notif.transaction_location
+            if location:
+                return location.library_pid
 
     @property
     def notification_transaction_user_pid(self):

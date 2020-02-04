@@ -212,8 +212,12 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             notif = loan.create_notification(notification_type='overdue')
             patron_transaction = [record
                                   for record in notif.patron_transactions][0]
+            user = get_random_librarian(patron).replace_refs()
             payment = create_payment_record(
-                patron_transaction, user_pid, user_location)
+                patron_transaction,
+                user_pid,
+                user['library']['pid']
+            )
             PatronTransactionEvent.create(
                 payment,
                 dbcommit=True,
@@ -393,17 +397,13 @@ def get_random_librarian_and_transaction_location(patron):
     return user.pid, library.get_pickup_location_pid()
 
 
-def create_payment_record(patron_transaction, user_pid, user_location):
+def create_payment_record(patron_transaction, user_pid, user_library):
     """Create payment record from patron_transaction."""
     data = {}
     schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
     data_schema = {
-        'base_url': current_app.config.get(
-            'RERO_ILS_APP_BASE_URL'
-        ),
-        'schema_endpoint': current_app.config.get(
-            'JSONSCHEMAS_ENDPOINT'
-        ),
+        'base_url': current_app.config.get('RERO_ILS_APP_BASE_URL'),
+        'schema_endpoint': current_app.config.get('JSONSCHEMAS_ENDPOINT'),
         'schema': schemas['ptre']
     }
     data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
@@ -422,9 +422,9 @@ def create_payment_record(patron_transaction, user_pid, user_location):
             'pid': user_pid
         },
         {
-            'resource': 'location',
-            'doc_type': 'locations',
-            'pid': user_location
+            'resource': 'library',
+            'doc_type': 'libraries',
+            'pid': user_library
         },
     ]:
         data[record['resource']] = {
