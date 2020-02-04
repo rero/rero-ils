@@ -18,8 +18,7 @@
     "barcode",
     "call_number",
     "item_type",
-    "location",
-    "status"
+    "location"
   ],
   "properties": {
     "$schema": {
