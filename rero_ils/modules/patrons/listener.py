@@ -17,7 +17,7 @@
 
 """Signals connector for patron."""
 
-from .api import PatronsSearch
+from .api import Patron, PatronsSearch
 
 
 def enrich_patron_data(sender, json=None, record=None, index=None,
@@ -30,7 +30,10 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join([PatronsSearch.Meta.index, doc_type]):
-        org_pid = record.get_organisation()['pid']
+        patron = record
+        if not isinstance(record, Patron):
+            patron = Patron.get_record_by_pid(record.get('pid'))
+        org_pid = patron.get_organisation()['pid']
         if org_pid:
             json['organisation'] = {
                 'pid': org_pid
