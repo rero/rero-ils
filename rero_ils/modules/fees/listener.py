@@ -30,7 +30,9 @@ def enrich_fee_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join([FeesSearch.Meta.index, doc_type]):
-        fee = Fee.get_record_by_pid(record.get('pid'))
+        fee = record
+        if not isinstance(record, Fee):
+            fee = Fee.get_record_by_pid(record.get('pid'))
         org_pid = fee.organisation_pid
         json['organisation'] = {
             'pid': org_pid

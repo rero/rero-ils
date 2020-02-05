@@ -30,5 +30,7 @@ def enrich_persons_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join([PersonsSearch.Meta.index, doc_type]):
-        person = Person.get_record_by_pid(record.get('pid'))
+        person = record
+        if not isinstance(record, Person):
+            person = Person.get_record_by_pid(record.get('pid'))
         json['organisations'] = person.organisation_pids
