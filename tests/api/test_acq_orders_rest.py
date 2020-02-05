@@ -160,15 +160,17 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     assert res.status_code == 410
 
 
-def test_acq_orders_can_delete(client, acq_order_fiction_martigny):
+def test_acq_orders_can_delete(
+        client, document, acq_order_fiction_martigny,
+        acq_order_line_fiction_martigny):
     """Test can delete an acq order."""
     links = acq_order_fiction_martigny.get_links_to_me()
-    assert not links
+    assert 'acq_order_lines' in links
 
-    assert acq_order_fiction_martigny.can_delete
+    assert not acq_order_fiction_martigny.can_delete
 
     reasons = acq_order_fiction_martigny.reasons_not_to_delete()
-    assert not reasons
+    assert 'links' in reasons
 
 
 def test_filtered_acq_orders_get(

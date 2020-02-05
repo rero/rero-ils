@@ -158,15 +158,17 @@ def test_acq_accounts_post_put_delete(client,
     assert res.status_code == 410
 
 
-def test_acq_accounts_can_delete(client, acq_account_fiction_martigny):
+def test_acq_accounts_can_delete(
+        client, document, acq_account_fiction_martigny,
+        acq_order_line_fiction_martigny, acq_order_fiction_martigny):
     """Test can delete an acq account."""
     links = acq_account_fiction_martigny.get_links_to_me()
-    assert not links
+    assert 'acq_order_lines' in links
 
-    assert acq_account_fiction_martigny.can_delete
+    assert not acq_account_fiction_martigny.can_delete
 
     reasons = acq_account_fiction_martigny.reasons_not_to_delete()
-    assert not reasons
+    assert 'links' in reasons
 
 
 def test_filtered_acq_accounts_get(

@@ -22,6 +22,7 @@ from functools import partial
 from flask import current_app
 
 from .models import AcqAccountIdentifier
+from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
@@ -88,10 +89,18 @@ class AcqAccount(IlsRecord):
         """Shortcut for acq account library pid."""
         return self.replace_refs().get('library').get('pid')
 
+    def get_number_of_acq_order_lines(self):
+        """Get number of acquisition order lines linked to this account."""
+        results = AcqOrderLinesSearch().filter(
+            'term', acq_account__pid=self.pid).source().count()
+        return results
+
     def get_links_to_me(self):
         """Get number of links."""
-        # TODO: add purchase order links here
         links = {}
+        acq_orders = self.get_number_of_acq_order_lines()
+        if acq_orders:
+            links['acq_order_lines'] = acq_orders
         return links
 
     def reasons_not_to_delete(self):
