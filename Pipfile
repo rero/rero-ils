@@ -74,6 +74,8 @@ bleach = ">=3.1.4"
 ## Additionnal constraints on python modules
 # solves datetime serialize error
 celery = "<4.3.0"
+flask-wiki = {git = "https://github.com/rero/flask-wiki.git"}
+markdown-captions = "*"
 ## Self install
 rero-ils = {editable = true,path = "."}
 ## Deployment

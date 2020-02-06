@@ -20,6 +20,8 @@
 from __future__ import absolute_import, print_function
 
 import jinja2
+from flask_bootstrap import Bootstrap
+from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
@@ -75,6 +77,8 @@ class REROILSAPP(object):
 
     def init_app(self, app):
         """Flask application initialization."""
+        Bootstrap(app)
+        Wiki(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
 

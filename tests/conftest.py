@@ -117,4 +117,7 @@ def app_config(app_config):
     app_config['CELERY_RESULT_BACKEND'] = "cache"
     app_config['CELERY_TASK_ALWAYS_EAGER'] = True
     app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
+    help_test_dir = join(dirname(__file__), 'data', 'help')
+    app_config['WIKI_CONTENT_DIR'] = help_test_dir
+    app_config['WIKI_UPLOAD_FOLDER'] = join(help_test_dir, 'files')
     return app_config

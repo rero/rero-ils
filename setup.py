@@ -112,6 +112,7 @@ setup(
         ],
         'invenio_i18n.translations': [
             'messages = rero_ils',
+             'messages_wiki = flask_wiki',
         ],
         'invenio_assets.bundles': [
             'rero_ils_main_css = rero_ils.bundles:main_css',

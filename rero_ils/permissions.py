@@ -22,6 +22,7 @@ from functools import wraps
 from flask import abort, current_app
 from flask_login import current_user
 from flask_principal import RoleNeed
+from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
@@ -31,6 +32,7 @@ from .modules.patrons.api import Patron
 request_item_permission = Permission(RoleNeed('patron'))
 librarian_permission = Permission(RoleNeed('librarian'))
 admin_permission = Permission(RoleNeed('admin'))
+editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 
 
 def user_is_authenticated(user=None):
@@ -275,3 +277,24 @@ def can_list_acquisition_factory(record, *args, **kwargs):
             return True
         return False
     return type('Check', (), {'can': can})()
+
+
+def wiki_edit_view_permission():
+    """Wiki edition permission.
+
+    :return: true if the logged user has the editor role
+    """
+    @login_required
+    @roles_required('editor')
+    def foo():
+        return True
+    return foo()
+
+
+def wiki_edit_ui_permission():
+    """Wiki edition permision for the user interface.
+
+    Mainly used to display buttons in the user interface.
+    :return: true if the logged user has the editor role
+    """
+    return editor_permission.can()

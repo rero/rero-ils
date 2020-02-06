@@ -17,7 +17,15 @@
 
 """Utilities functions for rero-ils."""
 
+from invenio_i18n.ext import current_i18n
+
 
 def unique_list(data):
     """Unicity of list."""
     return list(dict.fromkeys(data))
+
+
+def get_current_language():
+    """Return the current selected locale."""
+    loc = current_i18n.locale
+    return loc.language

@@ -1,0 +1,21 @@
+figure {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+figure img {
+  border-radius: 5px;
+}
+
+figcaption {
+  padding-top: .5rem;
+  text-align: center;
+  font-size: 90%;
+  color: #6c757d;
+}
+figcaption::before {
+  content: "Fig. ";
+}
