@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0838985483da3bd47ae5373b7b155321d4a1ede0a634d8ea0c13e544794d4484"
+            "sha256": "d2c9ac5d6370f9cd6b1f2d539c0175f19786a5fb6f1052f4b18d1e4e2dca829e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -35,6 +35,14 @@
             ],
             "index": "pypi",
             "version": "==0.3"
+        },
+        "appnope": {
+            "hashes": [
+                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
+                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
+            ],
+            "markers": "sys_platform == 'darwin'",
+            "version": "==0.1.0"
         },
         "arrow": {
             "hashes": [
@@ -217,10 +225,10 @@
         },
         "elasticsearch": {
             "hashes": [
-                "sha256:73de69f2d1cfe64811a8f269389f768b15a769f881855aa1157414a1b276cc7e",
-                "sha256:a0be2392d696e6b9547c0e3145352347aa67b1f9b61558f2a66f0ba8c4d12995"
+                "sha256:540d633afcc0a32972e4b489c4559c9a96e294850853238f7a18b1cbd267c2ed",
+                "sha256:a8062a00b61bc7babeea028530667583a68ecb1a9f59ab0b22ff7feaf70d3564"
             ],
-            "version": "==6.8.0"
+            "version": "==6.8.1"
         },
         "elasticsearch-dsl": {
             "hashes": [
@@ -379,6 +387,10 @@
                 "sha256:a7624d67ec6ae829d6959e77e1d8f635657c27d58cc11a61e75541cac93e1fac"
             ],
             "version": "==1.0.1"
+        },
+        "flask-wiki": {
+            "git": "https://github.com/rero/flask-wiki.git",
+            "ref": "f2b88405ac93f426a9a834b1d74a0da2c97666d1"
         },
         "flask-wtf": {
             "hashes": [
@@ -802,6 +814,21 @@
                 "sha256:8e8b53c71c7e59f3de716b6832c4e401d903af574f6962edbbbf6ecc2a5fe6c9"
             ],
             "version": "==1.1.2"
+        },
+        "markdown": {
+            "hashes": [
+                "sha256:90fee683eeabe1a92e149f7ba74e5ccdc81cd397bd6c516d93a8da0ef90b6902",
+                "sha256:e4795399163109457d4c5af2183fbe6b60326c17cfdf25ce6e7474c6624f725d"
+            ],
+            "version": "==3.2.1"
+        },
+        "markdown-captions": {
+            "hashes": [
+                "sha256:0820b7ca1e7ea9041a0462584b4211d8023e6849709395fa34bfcd57c01bb49a",
+                "sha256:f653955d4ca22cbe84c39dc19693317ec2ce7a0af03cf5d44b349be7baf0dc97"
+            ],
+            "index": "pypi",
+            "version": "==2"
         },
         "markupsafe": {
             "hashes": [
@@ -1253,9 +1280,9 @@
         },
         "validators": {
             "hashes": [
-                "sha256:b192e6bde7d617811d59f50584ed240b580375648cd032d106edeb3164099508"
+                "sha256:6a0d9502219aee486f1ee12d8a9635e4a56f3dbcfa204b4e0de3a038ae35f34f"
             ],
-            "version": "==0.14.2"
+            "version": "==0.14.3"
         },
         "vine": {
             "hashes": [
@@ -1593,10 +1620,10 @@
         },
         "pep517": {
             "hashes": [
-                "sha256:5ce351f3be71d01bb094d63253854b6139931fcaba8e2f380c02102136c51e40",
-                "sha256:882e2eeeffe39ccd6be6122d98300df18d80950cb5f449766d64149c94c5614a"
+                "sha256:576c480be81f3e1a70a16182c762311eb80d1f8a7b0d11971e5234967d7a342c",
+                "sha256:8e6199cf1288d48a0c44057f112acf18aa5ebabbf73faa242f598fbe145ba29e"
             ],
-            "version": "==0.8.1"
+            "version": "==0.8.2"
         },
         "pep8": {
             "hashes": [
@@ -1687,11 +1714,11 @@
         },
         "pytest-mock": {
             "hashes": [
-                "sha256:b35eb281e93aafed138db25c8772b95d3756108b601947f89af503f8c629413f",
-                "sha256:cb67402d87d5f53c579263d37971a164743dc33c159dfb4fb4a86f37c5552307"
+                "sha256:98e02534f170e4f37d7e1abdfc5973fd4207aa609582291717f643764e71c925",
+                "sha256:a4494016753a30231f8519bfd160242a0f3c8fb82ca36e7b6f82a7fb602ac6b8"
             ],
             "index": "pypi",
-            "version": "==2.0.0"
+            "version": "==3.0.0"
         },
         "pytest-pep8": {
             "hashes": [

@@ -193,10 +193,12 @@ eval ${PREFIX} invenio access allow superuser-access role admin
 # create new user
 info_msg "Create new admin user"
 eval ${PREFIX} invenio users create -a admin@rero.ch --password administrator
+eval ${PREFIX} invenio users create -a editor@rero.ch --password editor
 
 # confirm users
 info_msg "Confirm admin creation"
 eval ${PREFIX} invenio users confirm admin@rero.ch
+eval ${PREFIX} invenio users confirm editor@rero.ch
 
 # create roles
 info_msg "Create roles: admin, patron, librarian and system librarian"
@@ -211,6 +213,9 @@ eval "${PREFIX} invenio roles create -d 'Librarian' librarian"
 # create a role for users qualified as a System librarian
 eval "${PREFIX} invenio roles create -d 'System Librarian' system_librarian"
 
+# create a role for users qualified as a System librarian
+eval "${PREFIX} invenio roles create -d 'Documentation Editor' editor"
+
 # grant accesses to action roles
 info_msg "Grant access to action roles (admins, superusers)"
 eval ${PREFIX} invenio access allow admin-access role admins
@@ -220,6 +225,7 @@ eval ${PREFIX} invenio access allow superuser-access role superusers
 info_msg "Grant roles to users"
 eval ${PREFIX} invenio roles add admin@rero.ch admins
 eval ${PREFIX} invenio roles add admin@rero.ch superusers
+eval ${PREFIX} invenio roles add editor@rero.ch editor
 
 # Generate fixtures
 info_msg "Generate fixtures:"

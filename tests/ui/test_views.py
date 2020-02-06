@@ -100,7 +100,7 @@ def test_external_endpoint_on_institution_homepage(client, org_martigny, app):
 
 def test_help(client):
     """Test help entrypoint."""
-    result = client.get(url_for('rero_ils.help'))
+    result = client.get(url_for('wiki.index'))
     assert result.status_code == 302
 
 

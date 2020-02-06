@@ -25,6 +25,7 @@ You overwrite and set instance-specific configuration by either:
 
 from __future__ import absolute_import, print_function
 
+import os
 from datetime import timedelta
 from functools import partial
 
@@ -95,7 +96,9 @@ from .permissions import can_access_organisation_patrons_factory, \
     can_read_update_delete_acquisition_factory, \
     can_update_organisation_records_factory, \
     librarian_delete_permission_factory, librarian_permission_factory, \
-    librarian_update_permission_factory
+    librarian_update_permission_factory, wiki_edit_ui_permission, \
+    wiki_edit_view_permission
+from .utils import get_current_language
 
 
 def _(x):
@@ -1623,3 +1626,18 @@ CIRCULATION_POLICIES = dict(
 RERO_ILS_DEFAULT_CURRENCY = 'CHF'
 
 WEBPACKEXT_PROJECT = 'rero_ils.webpack:project'
+
+# WIKI
+# ====
+WIKI_CONTENT_DIR = './wiki'
+WIKI_URL_PREFIX = '/help'
+WIKI_LANGUAGES = ['en', 'fr', 'de', 'it']
+WIKI_CURRENT_LANGUAGE = get_current_language
+WIKI_UPLOAD_FOLDER = os.path.join(WIKI_CONTENT_DIR, 'files')
+WIKI_BASE_TEMPLATE = 'rero_ils/page_wiki.html'
+WIKI_EDIT_VIEW_PERMISSION = wiki_edit_view_permission
+WIKI_EDIT_UI_PERMISSION = wiki_edit_ui_permission
+WIKI_MARKDOWN_EXTENSIONS = set((
+    'extra',
+    'markdown_captions'
+))

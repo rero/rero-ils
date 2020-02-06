@@ -88,7 +88,7 @@ def init_menu_lang():
 
         item = current_menu.submenu('main.menu.help')
         item.register(
-            endpoint='rero_ils.help',
+            endpoint='wiki.index',
             text='{icon} {help}'.format(
                 icon='<i class="fa fa-info"></i>',
                 help=_('Help')
@@ -235,14 +235,6 @@ def index_with_view_code(viewcode):
             version=__version__,
             viewcode=viewcode
         )
-
-
-@blueprint.route('/help')
-def help():
-    """Help Page."""
-    return redirect(
-        current_app.config.get('RERO_ILS_APP_HELP_PAGE'),
-        code=302)
 
 
 @blueprint.route('/language', methods=['POST', 'PUT'])

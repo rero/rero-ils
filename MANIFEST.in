@@ -73,6 +73,7 @@ recursive-include rero_ils *.json
 recursive-include rero_ils *.png
 recursive-include rero_ils *.svg
 recursive-include rero_ils *.scss
+recursive-include rero_ils *.css
 recursive-include rero_ils *.txt
 recursive-include tests *.py
 
@@ -86,3 +87,11 @@ recursive-include rero_ils *.ico
 # added by check_manifest.py
 recursive-include rero_ils *.babelrc
 recursive-include rero_ils *.eslintignore
+
+# added by check_manifest.py
+recursive-include tests *.md
+recursive-include tests *.png
+
+# flask-wiki to be removed
+recursive-include wiki *.md
+recursive-include wiki *.png
