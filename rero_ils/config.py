@@ -358,17 +358,23 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=DocumentsIndexer,
         record_serializers={
             'application/json': (
+                'invenio_records_rest.serializers:json_v1_response'
+            ),
+            'application/json+global': (
                 'rero_ils.modules.serializers:json_v1_response'
             ),
-            'application/rero+json': (
+            'application/rero+specific': (
                 'rero_ils.modules.documents.serializers:json_doc_response'
             )
         },
         search_serializers={
             'application/json': (
+                'invenio_records_rest.serializers:json_v1_search'
+            ),
+            'application/json+global': (
                 'rero_ils.modules.serializers:json_v1_search'
             ),
-            'application/rero+json': (
+            'application/rero+specific': (
                 'rero_ils.modules.documents.serializers:json_doc_search'
             ),
         },

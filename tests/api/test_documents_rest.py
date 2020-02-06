@@ -57,12 +57,12 @@ def test_documents_permissions(client, document, json_header):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(
-    client, document, item_lib_martigny, rero_json_header
+    client, document, item_lib_martigny, json_header
 ):
     """Test record retrieval."""
     list_url = url_for('invenio_records_rest.doc_list', view='global')
 
-    res = client.get(list_url, headers=rero_json_header)
+    res = client.get(list_url, headers=json_header)
     data = get_json(res)
     aggs = data['aggregations']
 
@@ -77,12 +77,12 @@ def test_documents_facets(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_organisation_facets(
-    client, document, item_lib_martigny, rero_json_header
+    client, document, item_lib_martigny, json_header
 ):
     """Test record retrieval."""
     list_url = url_for('invenio_records_rest.doc_list', view='global')
 
-    res = client.get(list_url, headers=rero_json_header)
+    res = client.get(list_url, headers=json_header)
     data = get_json(res)
     aggs = data['aggregations']
 
@@ -92,12 +92,12 @@ def test_documents_organisation_facets(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_library_facets(
-    client, document, org_martigny, item_lib_martigny, rero_json_header
+    client, document, org_martigny, item_lib_martigny, json_header
 ):
     """Test record retrieval."""
     list_url = url_for('invenio_records_rest.doc_list', view='org1')
 
-    res = client.get(list_url, headers=rero_json_header)
+    res = client.get(list_url, headers=json_header)
     data = get_json(res)
     aggs = data['aggregations']
 

@@ -34,6 +34,7 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarctojson
+from .permissions import document_permissions
 from .utils import edition_format_text, localized_data_name, \
     publication_statement_text, series_format_text
 from ..holdings.api import Holding
@@ -85,7 +86,8 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
 
 api_blueprint = Blueprint(
     'api_documents',
-    __name__
+    __name__,
+    url_prefix='/documents'
 )
 
 
@@ -434,3 +436,17 @@ def create_publication_statement(provision_activity):
     for publication_text in publication_texts:
         output.append(publication_text.get('value'))
     return output
+
+
+@api_blueprint.route('/<document_pid>/permissions/', methods=['GET'])
+@check_permission
+def permissions(document_pid):
+    """HTTP GET request for document permissions.
+
+    Required parameters: document_pid
+    Optional parameters: user_pid, it is the logged user pid if not given
+    """
+    user_pid = flask_request.args.get('user_pid')
+    if not user_pid:
+        user_pid = Patron.get_patron_by_user(current_user).pid
+    return document_permissions(document_pid, user_pid)
