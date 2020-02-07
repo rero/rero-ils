@@ -1208,6 +1208,10 @@ RECORDS_REST_SORT_OPTIONS['locations']['name'] = dict(
     fields=['name'], title='Location name',
     default_order='asc'
 )
+RECORDS_REST_SORT_OPTIONS['locations']['pickup_name'] = dict(
+    fields=['pickup_name'], title='Pickup Location name',
+    default_order='asc'
+)
 RECORDS_REST_DEFAULT_SORT['locations'] = dict(
     query='bestmatch', noquery='name')
 
