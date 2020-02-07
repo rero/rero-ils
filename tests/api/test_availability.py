@@ -21,13 +21,101 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.holdings.api import Holding
-from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.items.views import item_availability_text
 from rero_ils.modules.loans.api import LoanAction
 
 
+def test_item_can_request(
+        client, document, holding_lib_martigny, item_lib_martigny,
+        librarian_martigny_no_email, lib_martigny,
+        patron_martigny_no_email, circulation_policies,
+        patron_type_children_martigny):
+    """Test item can request API."""
+    # test no logged user
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 401
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # valid test
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data.get('can_request')
+
+    # test no valid item
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid='no_item',
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
+
+    # test no valid library
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid='no_library',
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
+
+    # test no valid patron
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode='no_barcode'
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
+
+    # test no valid item status
+    item_lib_martigny['status'] = ItemStatus.MISSING
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
+    item_lib_martigny['status'] = ItemStatus.ON_SHELF
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+
+
 def test_item_holding_document_availability(
-        client, document,
+        client, document, lib_martigny,
         holding_lib_martigny,
         item_lib_martigny, item2_lib_martigny,
         librarian_martigny_no_email, librarian_saxon_no_email,
@@ -82,6 +170,7 @@ def test_item_holding_document_availability(
     assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
+
     # validate request
     res, _ = postdata(
         client,
@@ -154,6 +243,19 @@ def test_item_holding_document_availability(
     assert document.is_available('global')
     assert document_availablity_status(
         client, document.pid, librarian_martigny_no_email.user)
+
+    # test can not request item already checked out to patron
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_lib_martigny.pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron_martigny_no_email.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
 
     class current_i18n:
         class locale:
