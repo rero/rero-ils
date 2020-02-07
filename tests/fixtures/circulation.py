@@ -408,24 +408,6 @@ def system_librarian_sion_no_email(
 
 # ------------ Org: Sion, Lib: Sion, Librarian ----------
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
-def patron_martigny_no_email(
-        app,
-        roles,
-        patron_type_children_martigny,
-        patron_martigny_data):
-    """Create Martigny patron without sending reset password instruction."""
-    ptrn = Patron.create(
-        data=patron_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    return ptrn
-
-
-# ------------ Org: Sion, Lib: Sion, Librarian ----------
-@pytest.fixture(scope="module")
 def librarian_sion_data(data):
     """Load sion librarian data."""
     return deepcopy(data.get('ptrn9'))
