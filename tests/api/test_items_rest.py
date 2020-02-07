@@ -402,7 +402,7 @@ def test_checkout_organisation_policy(client, lib_martigny,
 
 def test_items_requests(client, librarian_martigny_no_email,
                         patron_martigny_no_email, loc_public_martigny,
-                        item_type_standard_martigny,
+                        item_type_standard_martigny, lib_martigny,
                         item_lib_martigny, json_header,
                         circulation_policies):
     """Test requesting an item and validation."""
@@ -436,6 +436,19 @@ def test_items_requests(client, librarian_martigny_no_email,
     item = Item.get_record_by_pid(item_pid)
     assert item.patron_request_rank(patron.get('barcode')) == 1
     assert item.is_requested_by_patron(patron.get('barcode'))
+
+    # test can not request item already requested to patron
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
 
     # checkout
     res, data = postdata(
@@ -961,7 +974,7 @@ def test_items_no_extend(client, librarian_martigny_no_email,
 
 def test_items_deny_requests(client, librarian_martigny_no_email,
                              patron_martigny_no_email, loc_public_martigny,
-                             item_type_standard_martigny,
+                             item_type_standard_martigny, lib_martigny,
                              item_lib_martigny, json_header,
                              circ_policy_short_martigny):
     """Test items when requests are denied."""
@@ -989,6 +1002,19 @@ def test_items_deny_requests(client, librarian_martigny_no_email,
         )
     )
     assert res.status_code == 403
+
+    # test can request because of a circulation policy does not allow request
+    res = client.get(
+        url_for(
+            'api_item.can_request',
+            item_pid=item_pid,
+            library_pid=lib_martigny.pid,
+            patron_barcode=patron.get('barcode')
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('can_request')
 
     circ_policy_short_martigny['allow_requests'] = True
     circ_policy_short_martigny.update(

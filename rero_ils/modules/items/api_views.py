@@ -29,6 +29,7 @@ from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
 from .api import Item
+from .utils import is_librarian_can_request_item_for_patron
 from ..circ_policies.api import CircPolicy
 from ..libraries.api import Library
 from ..loans.api import Loan
@@ -323,3 +324,16 @@ def item_availability(item_pid):
     return jsonify({
         'availability': item.available
     })
+
+
+@api_blueprint.route(
+    '/<item_pid>/can_request/<library_pid>/<patron_barcode>', methods=['GET'])
+@check_authentication
+@jsonify_error
+def can_request(item_pid, library_pid, patron_barcode):
+    """HTTP request to check if a librarian can request an item for a patron.
+
+    required_parameters: item_pid, library_pid, patron_barcode
+    """
+    return is_librarian_can_request_item_for_patron(
+        item_pid, library_pid, patron_barcode)
