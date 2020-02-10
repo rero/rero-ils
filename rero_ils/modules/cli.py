@@ -386,12 +386,16 @@ def check_license(configfile, verbose, progress):
             line = line.replace(prefix, "")
         return line.strip()
 
-    def is_copyright(copyrides, line):
-        """Delete prefix from line."""
-        for copyride in copyrides[1:]:
-            if line == copyride:
-                return True
+    def is_copyright(line):
+        """Line is copyright."""
+        if line.startswith('Copyright (C)'):
+            return True
         return False
+
+    def get_line(lines, index, prefix):
+        """Get line on index."""
+        line = delete_prefix(prefix, lines[index])
+        return line, index+1
 
     def show_diff(linenbr, text, n_text):
         """Show string diffs."""
@@ -413,7 +417,7 @@ def check_license(configfile, verbose, progress):
                 click.secho(seqm.b[b0:b1], fg='green', nl=False)
         click.echo()
 
-    def test_file(file_name, extensions, extension, copyrights, license_lines,
+    def test_file(file_name, extensions, extension, license_lines,
                   verbose, progress):
         """Test the license in file."""
         if progress:
@@ -423,7 +427,6 @@ def check_license(configfile, verbose, progress):
             result = test_license(
                 file=file,
                 extension=extensions[extension],
-                copyrights=config['copyrights'],
                 license_lines=license_lines,
                 verbose=verbose
             )
@@ -440,38 +443,36 @@ def check_license(configfile, verbose, progress):
         # No error found
         return 0
 
-    def test_license(file, extension, copyrights, license_lines, verbose):
+    def test_license(file, extension, license_lines, verbose):
         """Test the license in file."""
-        linenbr = 1
         lines_with_errors = []
-        line = file.readline()
-        while line[:2] == '#!':
+        lines = [line.rstrip() for line in file]
+        linenbr = 0
+        prefix = extension.get('prefix')
+        line, linenbr = get_line(lines, linenbr, prefix)
+        while lines[linenbr-1].startswith('#!'):
             # get over Shebang
-            line = file.readline()
-            linenbr += 1
+            line, linenbr = get_line(lines, linenbr, prefix)
         if extension.get('top'):
             # read the top
-            line = delete_prefix(extension.get('prefix'), line)
             if line not in extension.get('top'):
                 if verbose:
                     for t in extension['top']:
                         show_diff(linenbr, t, line)
-                lines_with_errors.append(linenbr)
-            line = file.readline()
-            linenbr += 1
+                lines_with_errors.append(linenbr+1)
+        line, linenbr = get_line(lines, linenbr, prefix)
         for license_line in license_lines:
             # compare the license lines
-            line = delete_prefix(extension.get('prefix'), line)
-            while is_copyright(copyrights, line):
-                line = file.readline()
-                linenbr += 1
-                line = delete_prefix(extension.get('prefix'), line)
+            if is_copyright(license_line):
+                while is_copyright(line):
+                    line, linenbr = get_line(lines, linenbr, prefix)
+                linenbr -= 1
+                line = 'Copyright (C)'
             if license_line != line:
                 if verbose:
                     show_diff(linenbr, license_line, line)
                 lines_with_errors.append(linenbr)
-            line = file.readline()
-            linenbr += 1
+            line, linenbr = get_line(lines, linenbr, prefix)
         return lines_with_errors
 
     config = yaml.safe_load(configfile)
@@ -511,7 +512,6 @@ def check_license(configfile, verbose, progress):
             file_name=file_name,
             extensions=extensions,
             extension=extension,
-            copyrights=config['copyrights'],
             license_lines=license_lines,
             verbose=verbose,
             progress=progress
@@ -523,7 +523,6 @@ def check_license(configfile, verbose, progress):
                 file_name=file_name,
                 extensions=extensions,
                 extension=extension,
-                copyrights=config['copyrights'],
                 license_lines=license_lines,
                 verbose=verbose,
                 progress=progress
