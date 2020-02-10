@@ -19,9 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.persons.tasks import create_mef_records, \
-    delete_records
 from rero_ils.modules.persons.api import Person
+from rero_ils.modules.persons.tasks import create_mef_records, delete_records
 
 
 def test_person_create_delete(app, person_data_tmp, capsys):

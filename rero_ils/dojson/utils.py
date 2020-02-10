@@ -40,7 +40,7 @@ def make_year(date):
     try:
         int_date = int(date)
         if int_date >= -9999 and int_date < 9999:
-            return str(int_date)
+            return int_date
     except:
         pass
     return None

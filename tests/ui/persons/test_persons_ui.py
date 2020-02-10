@@ -18,9 +18,7 @@
 """Tests UI view for patrons."""
 
 
-import mock
 from flask import url_for
-from utils import mock_response
 
 
 def test_persons_detailed_view(client, person_data, document_ref):

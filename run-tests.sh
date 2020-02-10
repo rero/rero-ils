@@ -76,14 +76,13 @@ if [ $# -eq 0 ]
         info_msg "Test pydocstyle:"
         pipenv run pydocstyle rero_ils tests docs
         info_msg "Test isort:"
-        pipenv run isort -rc -c -df --skip ui
+        pipenv run isort -rc -c -df
         echo -e ${GREEN}Test useless imports:${NC}
         pipenv run autoflake -c -r \
           --remove-all-unused-imports \
-          --exclude ui \
           --ignore-init-module-imports . \
           &> /dev/null || \
-          error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --exclude ui --ignore-init-module-imports .\n"
+          error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
 
         # syntax check for typescript
         info_msg "Syntax check for typescript:"

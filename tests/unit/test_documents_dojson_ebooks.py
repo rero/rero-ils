@@ -331,7 +331,7 @@ def test_marc21_to_provision_activity_ebooks_from_field_260():
                 }
 
             ],
-            'startDate': '2006'
+            'startDate': 2006
         }
     ]
 
@@ -399,8 +399,8 @@ def test_marc21_to_provision_activity_ebooks_from_field_264_1():
                     'type': 'Date'
                 }
             ],
-            'startDate': '2006',
-            'endDate': '2010'
+            'startDate': 2006,
+            'endDate': 2010
         }
     ]
 

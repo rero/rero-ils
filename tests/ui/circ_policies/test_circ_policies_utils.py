@@ -19,8 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
-
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
     CircPolicy, circ_policy_id_fetcher
 

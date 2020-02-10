@@ -514,7 +514,7 @@
           "startDate": {
             "title": "Start date of publication",
             "description": "Start date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
-            "type": "string",
+            "type": "integer",
             "minimum": -9999,
             "maximum": 2050,
             "form": {
@@ -524,7 +524,7 @@
           "endDate": {
             "title": "End date of publication",
             "description": "End date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
-            "type": "string",
+            "type": "integer",
             "minimum": -9999,
             "maximum": 2050,
             "form": {
@@ -658,7 +658,8 @@
           "value",
           "status",
           "qualifier",
-          "note"
+          "note",
+          "source"
         ],
         "additionalProperties": false,
         "properties": {

@@ -224,7 +224,7 @@ def test_provisionActivity(document_schema, document_data_tmp):
             }
 
         ],
-        'startDate': '1969'
+        'startDate': 1969
     }]
 
     validate(document_data_tmp, document_schema)

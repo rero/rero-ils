@@ -23,7 +23,7 @@ from dojson import utils
 from isbnlib import EAN13
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, get_field_items, \
-    remove_trailing_punctuation
+    make_year, remove_trailing_punctuation
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -289,13 +289,15 @@ def marc21_to_provision_activity(self, key, value):
         if ind2 in (' ', '1'):
             dates = subfield_c.replace('[', '').replace(']', '').split('-')
             try:
-                if re.search(r'(^\[?\d{4}$)', dates[0]):
-                    publication['startDate'] = dates[0]
+                start_date = make_year(dates[0])
+                if start_date:
+                    publication['startDate'] = start_date
             except Exception:
                 pass
             try:
-                if re.search(r'(^\d{4}\]?$)', dates[1]):
-                    publication['endDate'] = dates[1]
+                end_date = make_year(dates[1])
+                if end_date:
+                    publication['endDate'] = end_date
             except Exception:
                 pass
             place = build_place()

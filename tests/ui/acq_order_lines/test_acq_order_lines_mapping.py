@@ -19,8 +19,8 @@
 
 from utils import get_mapping
 
-from rero_ils.modules.acq_order_lines.api import \
-    AcqOrderLine, AcqOrderLinesSearch
+from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+    AcqOrderLinesSearch
 
 
 def test_acq_order_lines_es_mapping(

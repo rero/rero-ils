@@ -20,8 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from rero_ils.modules.persons.api import Person
-from rero_ils.modules.persons.receivers import \
-    publish_api_harvested_records
+from rero_ils.modules.persons.receivers import publish_api_harvested_records
 
 
 def test_publish_api_harvested_records(app, person_data_tmp, capsys):

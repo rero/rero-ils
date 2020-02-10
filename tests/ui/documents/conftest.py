@@ -30,4 +30,3 @@ def document_records(
     ebook_3
 ):
     """Documents for test mapping."""
-    pass

@@ -21,7 +21,7 @@
    scope level fixtures.
 """
 
-from rero_ils.modules.locations.api import Location, LocationsSearch
+from rero_ils.modules.locations.api import Location
 
 
 def test_location_get_all_pickup_locations(

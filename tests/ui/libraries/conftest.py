@@ -29,4 +29,3 @@ def libraries_records(
     lib_aproz
 ):
     """Libraries for test mapping."""
-    pass

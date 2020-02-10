@@ -377,7 +377,7 @@ def test_unimarc_publishers_provision_activity():
                 'type': 'Date'
             }
         ],
-        'startDate': '2015',
+        'startDate': 2015,
     }]
 
     unimarcxml = """
@@ -419,7 +419,7 @@ def test_unimarc_publishers_provision_activity():
                 'type': 'Date'
             }
         ],
-        'startDate': '2015',
+        'startDate': 2015,
     }]
 
     unimarcxml = """
@@ -471,8 +471,8 @@ def test_unimarc_publishers_provision_activity():
                 'type': 'Date'
             }
         ],
-        'startDate': '1969',
-        'endDate': '1999',
+        'startDate': 1969,
+        'endDate': 1999
     }]
 
     unimarcxml = """
@@ -522,8 +522,8 @@ def test_unimarc_publishers_provision_activity():
                 'type': 'Date'
             }
         ],
-        'startDate': '1912',
-        'endDate': '1955'
+        'startDate': 1912,
+        'endDate': 1955
     }]
 
     unimarcxml = """

@@ -19,13 +19,10 @@
 
 from __future__ import absolute_import, print_function
 
-import mock
 import pytest
-from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, document_id_fetcher
 from rero_ils.modules.ebooks.tasks import create_records
-from rero_ils.modules.persons.api import PersonsSearch
 
 
 def test_document_create(db, document_data_tmp):

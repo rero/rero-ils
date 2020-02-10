@@ -18,14 +18,13 @@
 """rero-ils UNIMARC model definition."""
 
 
-import re
 from json import loads
 
 from dojson import utils
 from dojson.utils import force_list
 from pkg_resources import resource_string
 
-from rero_ils.dojson.utils import ReroIlsOverdo, get_field_items, \
+from rero_ils.dojson.utils import ReroIlsOverdo, get_field_items, make_year, \
     remove_trailing_punctuation
 
 unimarctojson = ReroIlsOverdo()
@@ -294,13 +293,15 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             if ind2 in (' ', '_', '0'):
                 dates = subfield_d.replace('[', '').replace(']', '').split('-')
                 try:
-                    if re.search(r'(^\[?\d{4}$)', dates[0]):
-                        publication['startDate'] = dates[0]
+                    start_date = make_year(dates[0])
+                    if start_date:
+                        publication['startDate'] = start_date
                 except Exception:
                     pass
                 try:
-                    if re.search(r'(^\d{4}\]?$)', dates[1]):
-                        publication['endDate'] = dates[1]
+                    end_date = make_year(dates[1])
+                    if end_date:
+                        publication['endDate'] = end_date
                 except Exception:
                     pass
 
