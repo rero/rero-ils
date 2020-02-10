@@ -264,9 +264,10 @@ setup(
             'base-record = rero_ils.es_templates:list_es_templates'
         ],
         'invenio_celery.tasks': [
-            'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
-            'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
-            'rero_ils_notifications = rero_ils.modules.notifications.tasks',
+            'ebooks = rero_ils.modules.ebooks.tasks',
+            'apiharvester = rero_ils.modules.apiharvester.tasks',
+            'notifications = rero_ils.modules.notifications.tasks',
+            'modules = rero_ils.modules.tasks'
         ],
         'invenio_records.jsonresolver': [
             'organisations = rero_ils.modules.organisations.jsonresolver',
