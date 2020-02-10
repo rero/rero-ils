@@ -144,7 +144,7 @@ def test_documents_import_bnf_ean(client):
                     'type': 'Date'
                 },
             ],
-            'startDate': '1999',
+            'startDate': 1999,
         }],
         'series': [{'name': 'Harry Potter.', 'number': '1'}],
         'subjects': ['JnRoman'],

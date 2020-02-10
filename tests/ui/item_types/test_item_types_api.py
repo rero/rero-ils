@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from utils import get_mapping
 
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \

@@ -25,8 +25,6 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
-from rero_ils.modules.items.api import Item
-
 
 def test_patrons_profile(
         client, librarian_martigny_no_email, loan_pending_martigny,

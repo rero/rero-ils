@@ -20,9 +20,9 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-import pytest
+
 import mock
-from utils import get_mapping
+import pytest
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
     CircPolicy, circ_policy_id_fetcher

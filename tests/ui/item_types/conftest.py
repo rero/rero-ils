@@ -18,7 +18,6 @@
 """Common pytest item_types."""
 
 import pytest
-from invenio_search import current_search, current_search_client
 
 
 @pytest.yield_fixture(scope='module')
@@ -29,4 +28,3 @@ def item_types_records(
     item_type_regular_sion
 ):
     """Item types for test mapping."""
-    pass

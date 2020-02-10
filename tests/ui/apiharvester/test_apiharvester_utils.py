@@ -19,10 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
-
 import mock
-from utils import flush_index, mock_response
+from utils import mock_response
 
 from rero_ils.modules.apiharvester.tasks import harvest_records
 from rero_ils.modules.apiharvester.utils import api_source, get_records

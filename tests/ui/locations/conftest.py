@@ -37,4 +37,3 @@ def locations_records(
     loc_online_aproz
 ):
     """Locations for test mapping."""
-    pass

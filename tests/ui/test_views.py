@@ -20,8 +20,8 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from flask import current_app, session, url_for
-from utils import get_json, postdata
+from flask import session, url_for
+from utils import postdata
 
 from rero_ils.views import nl2br
 

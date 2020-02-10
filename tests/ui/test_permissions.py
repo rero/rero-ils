@@ -17,7 +17,6 @@
 
 """"Test permissions."""
 
-from invenio_accounts.testutils import login_user_via_view
 from utils import login_user_for_view
 
 from rero_ils.permissions import can_access_item

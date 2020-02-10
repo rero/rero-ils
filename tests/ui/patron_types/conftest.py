@@ -27,4 +27,3 @@ def patron_types_records(
     patron_type_grown_sion
 ):
     """Patron types for test mapping."""
-    pass

@@ -64,7 +64,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "country": "it",
@@ -146,7 +146,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -232,7 +232,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1983",
+        "startDate": 1983,
         "place": [
           {
             "country": "ja",
@@ -293,7 +293,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1984",
+        "startDate": 1984,
         "place": [
           {
             "country": "xx",
@@ -356,7 +356,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1984",
+        "startDate": 1984,
         "place": [
           {
             "country": "sz",
@@ -435,7 +435,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1861",
+        "startDate": 1861,
         "place": [
           {
             "country": "au",
@@ -505,7 +505,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "gw",
@@ -582,7 +582,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2004",
+        "startDate": 2004,
         "place": [
           {
             "country": "xx",
@@ -638,7 +638,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1989",
+        "startDate": 1989,
         "place": [
           {
             "country": "xx",
@@ -705,7 +705,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -756,7 +756,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "sz",
@@ -853,7 +853,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1991",
+        "startDate": 1991,
         "place": [
           {
             "country": "gw",
@@ -928,7 +928,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1990",
+        "startDate": 1990,
         "place": [
           {
             "canton": "ne",
@@ -1015,7 +1015,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1994",
+        "startDate": 1994,
         "place": [
           {
             "country": "gw",
@@ -1100,7 +1100,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -1169,7 +1169,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -1248,7 +1248,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1942",
+        "startDate": 1942,
         "place": [
           {
             "country": "sz",
@@ -1329,7 +1329,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1966",
+        "startDate": 1966,
         "place": [
           {
             "country": "sz",
@@ -1409,7 +1409,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -1480,7 +1480,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "fr",
@@ -1555,7 +1555,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2005",
+        "startDate": 2005,
         "place": [
           {
             "country": "xxk",
@@ -1644,7 +1644,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971",
+        "startDate": 1971,
         "place": [
           {
             "canton": "vd",
@@ -1739,7 +1739,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1920",
+        "startDate": 1920,
         "place": [
           {
             "country": "xxk",
@@ -1805,7 +1805,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1987",
+        "startDate": 1987,
         "place": [
           {
             "country": "sz",
@@ -1900,7 +1900,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -1984,7 +1984,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1886",
+        "startDate": 1886,
         "place": [
           {
             "country": "fr",
@@ -2038,7 +2038,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1967",
+        "startDate": 1967,
         "place": [
           {
             "country": "xx",
@@ -2115,7 +2115,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1747",
+        "startDate": 1747,
         "place": [
           {
             "country": "sz",
@@ -2193,7 +2193,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "fr",
@@ -2262,7 +2262,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1988",
+        "startDate": 1988,
         "place": [
           {
             "country": "fr",
@@ -2354,7 +2354,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1978",
+        "startDate": 1978,
         "place": [
           {
             "country": "xxk",
@@ -2457,7 +2457,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1993",
+        "startDate": 1993,
         "place": [
           {
             "country": "fr",
@@ -2523,7 +2523,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "be",
@@ -2608,7 +2608,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1995",
+        "startDate": 1995,
         "place": [
           {
             "country": "fr",
@@ -2679,7 +2679,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1959",
+        "startDate": 1959,
         "place": [
           {
             "country": "sz",
@@ -2754,7 +2754,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1843",
+        "startDate": 1843,
         "place": [
           {
             "canton": "lu",
@@ -2820,7 +2820,7 @@
             ]
           }
         ],
-        "startDate": "2003",
+        "startDate": 2003,
         "place": [
           {
             "country": "lu",
@@ -2903,7 +2903,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "gw",
@@ -2975,7 +2975,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -3056,7 +3056,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "gw",
@@ -3141,7 +3141,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "canton": "zh",
@@ -3234,7 +3234,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1955",
+        "startDate": 1955,
         "place": [
           {
             "country": "gw",
@@ -3311,7 +3311,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2003",
+        "startDate": 2003,
         "place": [
           {
             "country": "fr",
@@ -3416,8 +3416,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971",
-        "endDate": "1975",
+        "startDate": 1971,
+        "endDate": 1975,
         "place": [
           {
             "country": "xxu",
@@ -3500,7 +3500,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1982",
+        "startDate": 1982,
         "place": [
           {
             "country": "it",
@@ -3586,7 +3586,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2005",
+        "startDate": 2005,
         "place": [
           {
             "country": "fr",
@@ -3669,7 +3669,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1981",
+        "startDate": 1981,
         "place": [
           {
             "country": "xxu",
@@ -3743,7 +3743,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -3832,8 +3832,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
-        "endDate": "2004",
+        "startDate": 2000,
+        "endDate": 2004,
         "place": [
           {
             "country": "xxu",
@@ -3898,7 +3898,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "canton": "fr",
@@ -3990,7 +3990,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1981",
+        "startDate": 1981,
         "place": [
           {
             "country": "fr",
@@ -4066,7 +4066,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1968",
+        "startDate": 1968,
         "place": [
           {
             "country": "fr",
@@ -4150,7 +4150,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "fr",
@@ -4232,7 +4232,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1993",
+        "startDate": 1993,
         "place": [
           {
             "country": "fr",
@@ -4317,7 +4317,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2014",
+        "startDate": 2014,
         "place": [
           {
             "country": "gw",
@@ -4385,7 +4385,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "be",
@@ -4485,7 +4485,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2015",
+        "startDate": 2015,
         "place": [
           {
             "country": "gw",
@@ -4543,7 +4543,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1967",
+        "startDate": 1967,
         "place": [
           {
             "country": "xx",
@@ -4606,7 +4606,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1874",
+        "startDate": 1874,
         "place": [
           {
             "country": "sz",
@@ -4671,7 +4671,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1975",
+        "startDate": 1975,
         "place": [
           {
             "country": "xxu",
@@ -4748,7 +4748,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1977",
+        "startDate": 1977,
         "place": [
           {
             "country": "sz",
@@ -4851,7 +4851,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "country": "is",
@@ -4944,7 +4944,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "gw",
@@ -5019,7 +5019,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1959",
+        "startDate": 1959,
         "place": [
           {
             "country": "fr",
@@ -5098,7 +5098,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1979",
+        "startDate": 1979,
         "place": [
           {
             "country": "gw",
@@ -5182,7 +5182,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1979",
+        "startDate": 1979,
         "place": [
           {
             "country": "gw",
@@ -5254,7 +5254,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "it",
@@ -5337,7 +5337,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "be",
@@ -5413,8 +5413,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1980",
-        "endDate": "1993",
+        "startDate": 1980,
+        "endDate": 1993,
         "note": "Date(s) incertaine(s) ou inconnue(s)",
         "place": [
           {
@@ -5485,7 +5485,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2003",
+        "startDate": 2003,
         "place": [
           {
             "country": "xxk",
@@ -5556,7 +5556,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1911",
+        "startDate": 1911,
         "place": [
           {
             "country": "fr",
@@ -5638,7 +5638,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1968",
+        "startDate": 1968,
         "place": [
           {
             "country": "fr",
@@ -5719,7 +5719,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "gw",
@@ -5830,7 +5830,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "xx",
@@ -5916,7 +5916,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1993",
+        "startDate": 1993,
         "place": [
           {
             "country": "ru",
@@ -5988,7 +5988,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -6054,7 +6054,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "gw",
@@ -6137,7 +6137,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "xxu",
@@ -6230,7 +6230,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
+        "startDate": 2017,
         "place": [
           {
             "country": "fr",
@@ -6314,7 +6314,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1954",
+        "startDate": 1954,
         "place": [
           {
             "canton": "zh",
@@ -6385,7 +6385,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -6458,7 +6458,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -6546,7 +6546,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "gw",
@@ -6622,7 +6622,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "fr",
@@ -6708,7 +6708,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1981",
+        "startDate": 1981,
         "place": [
           {
             "country": "gw",
@@ -6785,8 +6785,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1950",
-        "endDate": "1956",
+        "startDate": 1950,
+        "endDate": 1956,
         "place": [
           {
             "country": "ne",
@@ -6855,7 +6855,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "fr",
@@ -6933,7 +6933,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2003",
+        "startDate": 2003,
         "place": [
           {
             "country": "fr",
@@ -7018,7 +7018,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "canton": "fr",
@@ -7098,7 +7098,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1984",
+        "startDate": 1984,
         "place": [
           {
             "country": "xx",
@@ -7155,7 +7155,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1831",
+        "startDate": 1831,
         "place": [
           {
             "country": "gw",
@@ -7236,7 +7236,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1991",
+        "startDate": 1991,
         "place": [
           {
             "country": "fi",
@@ -7320,7 +7320,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "fr",
@@ -7395,7 +7395,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1992",
+        "startDate": 1992,
         "place": [
           {
             "country": "fr",
@@ -7475,7 +7475,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1977",
+        "startDate": 1977,
         "place": [
           {
             "country": "xxu",
@@ -7561,7 +7561,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1992",
+        "startDate": 1992,
         "place": [
           {
             "country": "fr",
@@ -7626,7 +7626,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "it",
@@ -7715,7 +7715,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -7786,7 +7786,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1992",
+        "startDate": 1992,
         "place": [
           {
             "country": "fr",
@@ -7864,7 +7864,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "cc",
@@ -7935,7 +7935,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2006",
+        "startDate": 2006,
         "place": [
           {
             "country": "bl",
@@ -8029,7 +8029,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -8090,8 +8090,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1966",
-        "endDate": "1970",
+        "startDate": 1966,
+        "endDate": 1970,
         "place": [
           {
             "country": "it",
@@ -8183,7 +8183,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "gw",
@@ -8258,7 +8258,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -8337,7 +8337,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "xxu",
@@ -8410,7 +8410,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1987",
+        "startDate": 1987,
         "place": [
           {
             "country": "sz",
@@ -8500,7 +8500,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1986",
+        "startDate": 1986,
         "place": [
           {
             "country": "pl",
@@ -8555,7 +8555,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1973",
+        "startDate": 1973,
         "place": [
           {
             "country": "xx",
@@ -8626,7 +8626,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1985",
+        "startDate": 1985,
         "place": [
           {
             "country": "fr",
@@ -8681,7 +8681,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1968",
+        "startDate": 1968,
         "place": [
           {
             "country": "xx",
@@ -8748,7 +8748,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "xx",
@@ -8816,7 +8816,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2008",
+        "startDate": 2008,
         "place": [
           {
             "country": "fr",
@@ -8905,7 +8905,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "gw",
@@ -8987,7 +8987,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "gw",
@@ -9075,7 +9075,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1947",
+        "startDate": 1947,
         "place": [
           {
             "canton": "ju",
@@ -9122,7 +9122,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1994",
+        "startDate": 1994,
         "place": [
           {
             "country": "xx",
@@ -9199,7 +9199,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1981",
+        "startDate": 1981,
         "place": [
           {
             "country": "bl",
@@ -9281,7 +9281,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "it",
@@ -9368,7 +9368,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "at",
@@ -9444,7 +9444,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1991",
+        "startDate": 1991,
         "place": [
           {
             "country": "fr",
@@ -9514,7 +9514,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1927",
+        "startDate": 1927,
         "place": [
           {
             "canton": "vd",
@@ -9597,7 +9597,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1992",
+        "startDate": 1992,
         "place": [
           {
             "country": "gw",
@@ -9674,7 +9674,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1941",
+        "startDate": 1941,
         "note": "Date(s) incertaine(s) ou inconnue(s)",
         "place": [
           {
@@ -9737,7 +9737,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1940",
+        "startDate": 1940,
         "place": [
           {
             "country": "it",
@@ -9816,7 +9816,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "cc",
@@ -9895,7 +9895,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1986",
+        "startDate": 1986,
         "place": [
           {
             "country": "fr",
@@ -9979,8 +9979,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1916",
-        "endDate": "1758",
+        "startDate": 1916,
+        "endDate": 1758,
         "place": [
           {
             "country": "xxu",
@@ -10077,7 +10077,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1994",
+        "startDate": 1994,
         "place": [
           {
             "canton": "be",
@@ -10148,7 +10148,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "gw",
@@ -10253,8 +10253,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1869",
-        "endDate": "1871",
+        "startDate": 1869,
+        "endDate": 1871,
         "place": [
           {
             "country": "ru",
@@ -10325,7 +10325,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "it",
@@ -10390,7 +10390,7 @@
             ]
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "sa",
@@ -10447,7 +10447,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1967",
+        "startDate": 1967,
         "place": [
           {
             "country": "xx",
@@ -10522,7 +10522,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1975",
+        "startDate": 1975,
         "place": [
           {
             "country": "gr",
@@ -10625,7 +10625,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
+        "startDate": 2017,
         "place": [
           {
             "country": "gw",
@@ -10714,7 +10714,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -10794,7 +10794,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "fr",
@@ -10868,7 +10868,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "xxu",
@@ -10915,7 +10915,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1985",
+        "startDate": 1985,
         "place": [
           {
             "country": "xx",
@@ -10976,7 +10976,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "fr",
@@ -11052,7 +11052,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "fr",
@@ -11131,7 +11131,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2005",
+        "startDate": 2005,
         "place": [
           {
             "country": "fr",
@@ -11248,7 +11248,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
+        "startDate": 2017,
         "place": [
           {
             "country": "ru",
@@ -11326,7 +11326,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "gw",
@@ -11435,7 +11435,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1854",
+        "startDate": 1854,
         "place": [
           {
             "country": "gw",
@@ -11508,7 +11508,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "be",
@@ -11579,7 +11579,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1976",
+        "startDate": 1976,
         "place": [
           {
             "country": "sz",
@@ -11663,7 +11663,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1860",
+        "startDate": 1860,
         "place": [
           {
             "country": "xxk",
@@ -11739,7 +11739,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "be",
@@ -11817,7 +11817,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1991",
+        "startDate": 1991,
         "place": [
           {
             "country": "fr",
@@ -11893,7 +11893,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1779",
+        "startDate": 1779,
         "place": [
           {
             "country": "xxk",
@@ -11968,7 +11968,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971",
+        "startDate": 1971,
         "place": [
           {
             "canton": "vd",
@@ -12039,7 +12039,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "gw",
@@ -12139,7 +12139,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2013",
+        "startDate": 2013,
         "place": [
           {
             "country": "gw",
@@ -12244,7 +12244,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1975",
+        "startDate": 1975,
         "place": [
           {
             "country": "gw",
@@ -12342,7 +12342,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "gw",
@@ -12424,7 +12424,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "be",
@@ -12524,7 +12524,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "sp",
@@ -12626,7 +12626,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1994",
+        "startDate": 1994,
         "place": [
           {
             "country": "fr",
@@ -12726,8 +12726,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1958",
-        "endDate": "2016",
+        "startDate": 1958,
+        "endDate": 2016,
         "place": [
           {
             "country": "gw",
@@ -12814,7 +12814,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "gw",
@@ -12899,7 +12899,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1983",
+        "startDate": 1983,
         "place": [
           {
             "country": "xxu",
@@ -12977,7 +12977,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1745",
+        "startDate": 1745,
         "place": [
           {
             "country": "ne",
@@ -13024,7 +13024,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1966",
+        "startDate": 1966,
         "place": [
           {
             "country": "xx",
@@ -13092,7 +13092,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2015",
+        "startDate": 2015,
         "place": [
           {
             "country": "gw",
@@ -13164,7 +13164,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -13229,7 +13229,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -13318,7 +13318,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1970",
+        "startDate": 1970,
         "place": [
           {
             "country": "xxu",
@@ -13391,7 +13391,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1983",
+        "startDate": 1983,
         "place": [
           {
             "country": "ja",
@@ -13471,7 +13471,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2006",
+        "startDate": 2006,
         "place": [
           {
             "country": "fr",
@@ -13541,7 +13541,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "xxu",
@@ -13619,7 +13619,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1988",
+        "startDate": 1988,
         "place": [
           {
             "country": "fr",
@@ -13699,7 +13699,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "be",
@@ -13776,7 +13776,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1994",
+        "startDate": 1994,
         "place": [
           {
             "country": "ne",
@@ -13876,8 +13876,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1963",
-        "endDate": "2018",
+        "startDate": 1963,
+        "endDate": 2018,
         "place": [
           {
             "country": "gw",
@@ -13973,7 +13973,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "canton": "be",
@@ -14046,7 +14046,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "canton": "vd",
@@ -14127,7 +14127,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1936",
+        "startDate": 1936,
         "place": [
           {
             "country": "fr",
@@ -14205,7 +14205,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "xx",
@@ -14285,7 +14285,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "xxk",
@@ -14378,7 +14378,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "fr",
@@ -14459,7 +14459,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1992",
+        "startDate": 1992,
         "place": [
           {
             "country": "fr",
@@ -14546,7 +14546,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "ua",
@@ -14607,7 +14607,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "fr",
@@ -14701,7 +14701,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2007",
+        "startDate": 2007,
         "place": [
           {
             "country": "gw",
@@ -14783,8 +14783,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
-        "endDate": "2015",
+        "startDate": 2017,
+        "endDate": 2015,
         "place": [
           {
             "country": "gw",
@@ -14860,7 +14860,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "it",
@@ -14959,7 +14959,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1968",
+        "startDate": 1968,
         "place": [
           {
             "country": "be",
@@ -15049,7 +15049,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
+        "startDate": 2017,
         "place": [
           {
             "country": "gw",
@@ -15126,7 +15126,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -15205,7 +15205,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2008",
+        "startDate": 2008,
         "place": [
           {
             "country": "fr",
@@ -15289,7 +15289,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -15367,7 +15367,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "be",
@@ -15447,7 +15447,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1993",
+        "startDate": 1993,
         "place": [
           {
             "country": "fr",
@@ -15526,7 +15526,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -15610,7 +15610,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -15676,7 +15676,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1990",
+        "startDate": 1990,
         "place": [
           {
             "canton": "ge",
@@ -15747,7 +15747,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1986",
+        "startDate": 1986,
         "place": [
           {
             "country": "sz",
@@ -15834,7 +15834,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "fr",
@@ -15949,7 +15949,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1972",
+        "startDate": 1972,
         "place": [
           {
             "country": "gw",
@@ -16032,7 +16032,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "fr",
@@ -16103,7 +16103,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "fr",
@@ -16152,7 +16152,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1989",
+        "startDate": 1989,
         "place": [
           {
             "country": "xx",
@@ -16213,7 +16213,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "canton": "vd",
@@ -16322,7 +16322,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1976",
+        "startDate": 1976,
         "place": [
           {
             "country": "fr",
@@ -16400,7 +16400,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2004",
+        "startDate": 2004,
         "place": [
           {
             "country": "sp",
@@ -16523,7 +16523,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2006",
+        "startDate": 2006,
         "place": [
           {
             "canton": "be",
@@ -16641,7 +16641,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "gw",
@@ -16711,7 +16711,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "it",
@@ -16783,7 +16783,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1964",
+        "startDate": 1964,
         "place": [
           {
             "country": "sz",
@@ -16838,7 +16838,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1991",
+        "startDate": 1991,
         "place": [
           {
             "canton": "vs",
@@ -16900,7 +16900,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "fr",
@@ -16987,7 +16987,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -17060,7 +17060,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1977",
+        "startDate": 1977,
         "place": [
           {
             "country": "fr",
@@ -17131,7 +17131,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "canton": "ge",
@@ -17218,7 +17218,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2007",
+        "startDate": 2007,
         "place": [
           {
             "country": "xx",
@@ -17294,7 +17294,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "xxc",
@@ -17405,7 +17405,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2003",
+        "startDate": 2003,
         "place": [
           {
             "country": "cc",
@@ -17474,7 +17474,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -17553,7 +17553,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "country": "fr",
@@ -17620,8 +17620,8 @@
             ]
           }
         ],
-        "startDate": "1969",
-        "endDate": "1975",
+        "startDate": 1969,
+        "endDate": 1975,
         "place": [
           {
             "canton": "vd",
@@ -17689,7 +17689,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1980",
+        "startDate": 1980,
         "place": [
           {
             "canton": "ti",
@@ -17772,7 +17772,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1983",
+        "startDate": 1983,
         "place": [
           {
             "country": "xx",
@@ -17846,7 +17846,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "gw",
@@ -17928,7 +17928,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1839",
+        "startDate": 1839,
         "place": [
           {
             "country": "it",
@@ -17996,7 +17996,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1978",
+        "startDate": 1978,
         "place": [
           {
             "country": "xxk",
@@ -18060,7 +18060,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1969",
+        "startDate": 1969,
         "place": [
           {
             "country": "xx",
@@ -18143,7 +18143,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "fr",
@@ -18213,7 +18213,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1942",
+        "startDate": 1942,
         "place": [
           {
             "country": "sz",
@@ -18349,7 +18349,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1963",
+        "startDate": 1963,
         "place": [
           {
             "country": "ru",
@@ -18421,7 +18421,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "gw",
@@ -18480,7 +18480,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1967",
+        "startDate": 1967,
         "place": [
           {
             "country": "xx",
@@ -18547,7 +18547,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "fr",
@@ -18615,7 +18615,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1977",
+        "startDate": 1977,
         "place": [
           {
             "country": "xx",
@@ -18701,7 +18701,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2014",
+        "startDate": 2014,
         "place": [
           {
             "country": "gw",
@@ -18765,7 +18765,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2007",
+        "startDate": 2007,
         "place": [
           {
             "country": "fr",
@@ -18836,7 +18836,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1877",
+        "startDate": 1877,
         "place": [
           {
             "country": "gw",
@@ -18954,8 +18954,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971",
-        "endDate": "2003",
+        "startDate": 1971,
+        "endDate": 2003,
         "place": [
           {
             "country": "gw",
@@ -19034,7 +19034,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2014",
+        "startDate": 2014,
         "place": [
           {
             "country": "gw",
@@ -19100,7 +19100,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "fr",
@@ -19184,7 +19184,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "xxk",
@@ -19273,7 +19273,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1995",
+        "startDate": 1995,
         "place": [
           {
             "country": "gw",
@@ -19332,7 +19332,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1973",
+        "startDate": 1973,
         "place": [
           {
             "country": "xx",
@@ -19399,7 +19399,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1981",
+        "startDate": 1981,
         "place": [
           {
             "country": "gw",
@@ -19483,7 +19483,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2014",
+        "startDate": 2014,
         "place": [
           {
             "country": "ua",
@@ -19568,7 +19568,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "be",
@@ -19637,8 +19637,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1903",
-        "endDate": "1905",
+        "startDate": 1903,
+        "endDate": 1905,
         "place": [
           {
             "country": "sz",
@@ -19728,7 +19728,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "country": "it",
@@ -19821,7 +19821,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1998",
+        "startDate": 1998,
         "place": [
           {
             "country": "fr",
@@ -19908,7 +19908,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971",
+        "startDate": 1971,
         "place": [
           {
             "canton": "ge",
@@ -19991,7 +19991,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2008",
+        "startDate": 2008,
         "place": [
           {
             "country": "fr",
@@ -20063,7 +20063,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "country": "gw",
@@ -20144,7 +20144,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1997",
+        "startDate": 1997,
         "place": [
           {
             "country": "sw",
@@ -20222,8 +20222,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1935",
-        "endDate": "1936",
+        "startDate": 1935,
+        "endDate": 1936,
         "note": "Date(s) incertaine(s) ou inconnue(s)",
         "place": [
           {
@@ -20301,7 +20301,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1977",
+        "startDate": 1977,
         "place": [
           {
             "country": "gw",
@@ -20369,7 +20369,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "canton": "zh",
@@ -20462,7 +20462,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1982",
+        "startDate": 1982,
         "place": [
           {
             "country": "xx",
@@ -20524,7 +20524,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2009",
+        "startDate": 2009,
         "place": [
           {
             "country": "xx",
@@ -20603,7 +20603,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2010",
+        "startDate": 2010,
         "place": [
           {
             "country": "ru",
@@ -20696,7 +20696,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1969",
+        "startDate": 1969,
         "place": [
           {
             "country": "fr",
@@ -20790,7 +20790,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1988",
+        "startDate": 1988,
         "place": [
           {
             "country": "gw",
@@ -20872,7 +20872,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1980",
+        "startDate": 1980,
         "place": [
           {
             "country": "fr",
@@ -20940,7 +20940,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2001",
+        "startDate": 2001,
         "place": [
           {
             "country": "ja",
@@ -21027,7 +21027,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "fr",
@@ -21105,7 +21105,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1975",
+        "startDate": 1975,
         "place": [
           {
             "country": "sz",
@@ -21181,7 +21181,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2012",
+        "startDate": 2012,
         "place": [
           {
             "country": "fr",
@@ -21256,7 +21256,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2016",
+        "startDate": 2016,
         "place": [
           {
             "country": "gw",
@@ -21327,7 +21327,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1970",
+        "startDate": 1970,
         "place": [
           {
             "country": "sz",
@@ -21378,7 +21378,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1975",
+        "startDate": 1975,
         "place": [
           {
             "country": "xx",
@@ -21449,7 +21449,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2006",
+        "startDate": 2006,
         "place": [
           {
             "country": "xxu",
@@ -21499,7 +21499,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1970",
+        "startDate": 1970,
         "place": [
           {
             "country": "xx",
@@ -21566,7 +21566,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1996",
+        "startDate": 1996,
         "place": [
           {
             "country": "fr",
@@ -21663,7 +21663,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2017",
+        "startDate": 2017,
         "place": [
           {
             "country": "cc",
@@ -21731,7 +21731,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1966",
+        "startDate": 1966,
         "place": [
           {
             "country": "fr",
@@ -21788,7 +21788,7 @@
             ]
           }
         ],
-        "startDate": "2011",
+        "startDate": 2011,
         "place": [
           {
             "canton": "vd",
@@ -21876,7 +21876,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2008",
+        "startDate": 2008,
         "place": [
           {
             "country": "fr",
@@ -21979,7 +21979,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2015",
+        "startDate": 2015,
         "place": [
           {
             "country": "cc",
@@ -22061,7 +22061,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1999",
+        "startDate": 1999,
         "place": [
           {
             "country": "gw",
@@ -22132,8 +22132,8 @@
             "type": "Date"
           }
         ],
-        "startDate": "1953",
-        "endDate": "1968",
+        "startDate": 1953,
+        "endDate": 1968,
         "place": [
           {
             "country": "it",
@@ -22202,7 +22202,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2000",
+        "startDate": 2000,
         "place": [
           {
             "country": "xxu",
@@ -22271,7 +22271,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2002",
+        "startDate": 2002,
         "place": [
           {
             "country": "fr",
@@ -22350,7 +22350,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1936",
+        "startDate": 1936,
         "place": [
           {
             "country": "gw",
@@ -22421,7 +22421,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1993",
+        "startDate": 1993,
         "place": [
           {
             "country": "xxu",
@@ -22492,7 +22492,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1957",
+        "startDate": 1957,
         "place": [
           {
             "country": "gw",

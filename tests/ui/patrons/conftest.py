@@ -28,4 +28,3 @@ def patrons_records(
     librarian_saxon_no_email
 ):
     """Patrons for test mapping."""
-    pass

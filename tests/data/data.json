@@ -1087,7 +1087,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971"
+        "startDate": 1971
       }
     ],
     "identifiedBy": [
@@ -1183,7 +1183,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011"
+        "startDate": 2011
       }
     ],
     "extent": "560 p."
@@ -1249,7 +1249,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971"
+        "startDate": 1971
       }
     ],
     "identifiedBy": [
@@ -1327,7 +1327,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "1971"
+        "startDate": 1971
       }
     ],
     "abstracts": [
@@ -1410,7 +1410,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2011"
+        "startDate": 2011
       }
     ],
     "abstracts": [
@@ -1478,7 +1478,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2015"
+        "startDate": 2015
       }
     ],
     "abstracts": [
@@ -1546,7 +1546,7 @@
             "type": "Date"
           }
         ],
-        "startDate": "2019"
+        "startDate": 2019
       }
     ],
     "subjects": [

@@ -613,8 +613,8 @@ def test_marc21_to_provisionActivity_canton():
                 'type': 'Date'
             }
         ],
-        'startDate': '2006',
-        'endDate': '2010',
+        'startDate': 2006,
+        'endDate': 2010
     }, {
         'type': 'bf:Manufacture',
         'statement': [
@@ -677,7 +677,7 @@ def test_marc21_to_provisionActivity_1_place_2_agents():
                 'type': 'Date'
             }
         ],
-        'startDate': '1969'
+        'startDate': 1969
     }]
 
 
@@ -723,7 +723,7 @@ def test_marc21_to_provisionActivity_unknown_place_2_agents():
                 'type': 'Date'
             }
         ],
-        'startDate': '1968'
+        'startDate': 1968
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         '[Lieu de publication non identifié] : Labor, Nathan, 1968'
@@ -778,7 +778,7 @@ def test_marc21_to_provisionActivity_3_places_dann_2_agents():
                 'type': 'Date'
             }
         ],
-        'startDate': '1975'
+        'startDate': 1975
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Hamm (Westf.) ; [dann] Herzberg ; [dann] Nordhausen : T. Bautz, 1975-'
@@ -828,7 +828,7 @@ def test_marc21_to_provisionActivity_2_places_1_agent():
                 'type': 'Date'
             }
         ],
-        'startDate': '1966'
+        'startDate': 1966
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         '[Louvain] ; [Paris] : [éditeur non identifié], [1966]'
@@ -877,8 +877,8 @@ def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
                 'type': 'Date'
             }
         ],
-        'startDate': '1758',
-        'endDate': '1916'
+        'startDate': 1758,
+        'endDate': 1916
     }]
 
 
@@ -921,7 +921,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
             }
         ],
         'note': 'Date(s) incertaine(s) ou inconnue(s)',
-        'startDate': '1941'
+        'startDate': 1941
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Aurillac : Impr. moderne, [1941?]'
@@ -991,7 +991,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
                 'type': 'Date'
             }
         ],
-        'startDate': '2017'
+        'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Beijing : Beijing da xue chu ban she, 2017',
@@ -1056,7 +1056,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
                 'type': 'Date'
             }
         ],
-        'startDate': '2017'
+        'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Beijing : Beijing da xue chu ban she, 2017',
@@ -1333,7 +1333,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
                 'type': 'Date'
             }
         ],
-        'startDate': '2014'
+        'startDate': 2014
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014',
@@ -1431,7 +1431,7 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
                 'type': 'Date'
             }
         ],
-        'startDate': '2017'
+        'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017',
@@ -1476,7 +1476,7 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
                 'type': 'bf:Place'
             },
         ],
-        'startDate': '2017'
+        'startDate': 2017
     }]
     assert err.strip() == ('WARNING LANGUAGE SCRIPTS:\t???\tcyrl\t008:'
                            '\t\t041$a:\t[]\t041$h:\t[]')
