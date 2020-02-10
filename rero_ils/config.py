@@ -221,7 +221,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
     'indexer': {
-        'task': 'invenio_indexer.tasks.process_bulk_queue',
+        'task': 'rero_ils.modules.tasks.process_bulk_queue',
         'schedule': timedelta(minutes=5),
     },
     'accounts': {
