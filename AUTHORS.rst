@@ -19,11 +19,17 @@ Credits
 
   * Aly Badr
   * Sébastien Délèze
+  * Mana Deweerdt
+  * Olivier Dossmann
+  * Laurent Dubois
+  * Benoit Erken
   * Nicolas Labat
   * Johnny Mariéthoz
+  * Renaud Michotte
   * Igor Milhit
   * Miguel Moreira
   * Gianni Pante
   * Nicolas Prongué
   * Peter Weber
+  * Alicia Zangger
   * Bertrand Zuchuat
