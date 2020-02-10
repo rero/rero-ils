@@ -1,0 +1,54 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% if current_i18n.language == 'en' %}
+  <h3>Pilot libraries</h3>
+  <p>
+    This site is intended for carrying out tests by pilot libraries of RERO ILS.
+    The test data corresponds to a copy of the real data of these libraries,
+    extracted from the system currently in production (RERO / Virtua).<br>
+    Data that is public in the production site is also public in this test site.
+  </p>
+{% endif %}
+{% if current_i18n.language == 'fr' %}
+  <h3>Bibliothèques pilotes</h3>
+  <p>
+    Ce site est destiné à la réalisation des tests par des bibliothèques pilotes de RERO ILS.
+    Les données de test correspondent à une copie des données réelles de ces bibliothèques,
+    extraites du système actuellement en production (RERO/Virtua).<br>
+    Les données qui sont publiques dans le site de production le sont également dans ce site de test.
+  </p>
+{% endif %}
+{% if current_i18n.language == 'de' %}
+  <h3>Pilotbibliotheken</h3>
+  <p>
+    Diese Website ist für die Durchführung von Tests durch Pilotbibliotheken von RERO ILS bestimmt.
+    Die Testdaten entsprechen einer Kopie der realen Daten dieser Bibliotheken,
+    die aus dem derzeit in Produktion befindlichen System (RERO / Virtua) extrahiert wurden.<br>
+    Daten, die in der Produktionsumgebung öffentlich sind, sind auch in dieser Testumgebung öffentlich.
+  </p>
+{% endif %}
+{% if current_i18n.language == 'it' %}
+  <h3>Biblioteche pilota</h3>
+  <p>
+    Questo sito è destinato all'esecuzione di test da parte di biblioteche pilota di RERO ILS.
+    I dati di test corrispondono ad una copia dei dati reali di queste biblioteche,
+    estratti dal sistema attualmente in produzione (RERO / Virtua).<br>
+    I dati che sono pubblici nel sito di produzione sono anche pubblici in questo sito di test.
+  </p>
+{% endif %}

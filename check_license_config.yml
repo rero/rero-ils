@@ -43,11 +43,6 @@ files:
     - scripts/setup
     - scripts/update
 
-copyrights:
-  - Copyright (C) 2019 RERO
-  - Copyright (C) 2015-2018 CERN
-  - Copyright (C) 2016 TIND
-
 file_extensions:
   py, ini, yml, cfg, conf, sh:
     top:
@@ -64,7 +59,7 @@ file_extensions:
 license_text: |
 
   RERO ILS
-  Copyright (C) 2019 RERO
+  Copyright (C)
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
