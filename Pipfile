@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+# TODO: try to remove it when werkzeug will be fixed.
+werkzeug = "==0.16.0"
+# TODO: check why we need this.
+flask-login = "<0.5"
 # Default from Invenio
 Babel = ">=2.4.0"
 Flask-BabelEx = ">=0.9.3"
