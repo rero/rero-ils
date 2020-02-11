@@ -878,18 +878,24 @@ class Item(IlsRecord):
         library = self.get_library()
         return library.get_pickup_location_pid()
 
-    def automatic_checkin(self):
+    def automatic_checkin(self, trans_loc_pid=None):
         """Apply circ transactions for item."""
+        data = {}
+        if trans_loc_pid is not None:
+            data['transaction_location_pid'] = trans_loc_pid
         if self.status == ItemStatus.ON_LOAN:
             loan_pid = self.get_loan_pid_with_item_on_loan(self.pid)
-            return self.checkin(pid=loan_pid)
+            return self.checkin(pid=loan_pid, **data)
 
         elif self.status == ItemStatus.IN_TRANSIT:
             do_receive = False
             loan_pid = self.get_loan_pid_with_item_in_transit(self.pid)
             loan = Loan.get_record_by_pid(loan_pid)
-            transaction_location_pid = \
-                Patron.get_librarian_pickup_location_pid()
+
+            transaction_location_pid = trans_loc_pid
+            if trans_loc_pid is None:
+                transaction_location_pid = \
+                    Patron.get_librarian_pickup_location_pid()
             if loan['state'] == 'ITEM_IN_TRANSIT_FOR_PICKUP' and \
                     loan['pickup_location_pid'] == transaction_location_pid:
                 do_receive = True
@@ -898,7 +904,7 @@ class Item(IlsRecord):
                     == transaction_location_pid:
                 do_receive = True
             if do_receive:
-                return self.receive(pid=loan_pid)
+                return self.receive(pid=loan_pid, **data)
             return self, {
                 LoanAction.NO: None
             }
@@ -933,6 +939,7 @@ class Item(IlsRecord):
 
         The item's status will be set to ItemStatus.ON_SHELF.
         """
+        # TODO: check transaction location
         self['status'] = ItemStatus.ON_SHELF
         self.status_update(dbcommit=True, reindex=True, forceindex=True)
         return self, {
