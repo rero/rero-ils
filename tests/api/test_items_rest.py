@@ -202,7 +202,7 @@ def test_items_simple_checkout(client, librarian_martigny_no_email,
                                patron_martigny_no_email, loc_public_martigny,
                                item_type_standard_martigny,
                                item_lib_martigny, json_header,
-                               circulation_policies):
+                               circulation_policies, lib_martigny):
     """Test item checkout."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     item = item_lib_martigny
@@ -219,7 +219,8 @@ def test_items_simple_checkout(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_pid,
-            patron_pid=patron_pid
+            patron_pid=patron_pid,
+            transaction_library_pid=lib_martigny.pid
         )
     )
     assert res.status_code == 200

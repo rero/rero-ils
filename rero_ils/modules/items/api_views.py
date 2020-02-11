@@ -30,6 +30,7 @@ from werkzeug.exceptions import NotFound
 
 from .api import Item
 from ..circ_policies.api import CircPolicy
+from ..libraries.api import Library
 from ..loans.api import Loan
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
@@ -80,12 +81,17 @@ def jsonify_action(func):
             if item_pid:
                 item = Item.get_record_by_pid(item_pid)
             else:
-                item_barcode = data.pop('item_barcode')
+                item_barcode = data.pop('item_barcode', None)
                 item = Item.get_item_by_barcode(item_barcode)
             if not item:
                 abort(404)
-
-            item_data, action_applied = func(item, data, *args, **kwargs)
+            trans_lib_pid = data.pop('transaction_library_pid', None)
+            if trans_lib_pid is not None:
+                lib = Library.get_record_by_pid(trans_lib_pid)
+                data['transaction_location_pid'] = \
+                    lib.get_pickup_location_pid()
+            item_data, action_applied = \
+                func(item, data, *args, **kwargs)
 
             for action, loan in action_applied.items():
                 if loan:
@@ -100,7 +106,7 @@ def jsonify_action(func):
         except NotFound as error:
             raise(error)
         except Exception as error:
-            # raise(e)
+            # raise(error)
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 500
@@ -148,7 +154,8 @@ def automatic_checkin(item, data):
 
     required_parameters: item_barcode
     """
-    return item.automatic_checkin()
+    trans_loc_pid = data.get('transaction_location_pid')
+    return item.automatic_checkin(trans_loc_pid)
 
 
 @api_blueprint.route("/cancel", methods=['POST'])
