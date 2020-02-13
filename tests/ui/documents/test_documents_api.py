@@ -62,40 +62,45 @@ def test_document_create_records(app, org_martigny, org_sion, ebook_1_data,
                                  loc_online_sion
                                  ):
     """Test can create harvested records."""
-    ebook_1_data['electronic_location'] = [
+    ebook_1_data['electronicLocator'] = [
         {
             "source": "ebibliomedia",
-            "uri": "https://www.site1.org/ebook"
+            "url": "https://www.site1.org/ebook",
+            "type": "resource"
         }
     ]
-    ebook_2_data['electronic_location'] = [
+    ebook_2_data['electronicLocator'] = [
         {
             "source": "ebibliomedia",
-            "uri": "https://www.site2.org/ebook"
+            "url": "https://www.site2.org/ebook",
+            "type": "resource"
         }
     ]
     n_created, n_updated = create_records([ebook_1_data])
     assert n_created == 1
     assert n_updated == 0
 
-    ebook_1_data['electronic_location'] = [
+    ebook_1_data['electronicLocator'] = [
         {
             "source": "ebibliomedia",
-            "uri": "https://www.site2.org/ebook"
+            "url": "https://www.site2.org/ebook",
+            "type": "resource"
         },
         {
             "source": "mv-cantook",
-            "uri": "https://www.site3.org/ebook"
+            "url": "https://www.site3.org/ebook",
+            "type": "resource"
         }
     ]
     n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
     assert n_created == 1
     assert n_updated == 1
 
-    ebook_1_data['electronic_location'] = [
+    ebook_1_data['electronicLocator'] = [
         {
             "source": "mv-cantook",
-            "uri": "https://www.site3.org/ebook"
+            "url": "https://www.site3.org/ebook",
+            "type": "resource"
         }
     ]
     n_created, n_updated = create_records([ebook_1_data, ebook_2_data])

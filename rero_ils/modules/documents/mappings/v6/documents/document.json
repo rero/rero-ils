@@ -482,6 +482,22 @@
                 }
               }
             },
+            "electronicLocator": {
+              "properties": {
+                "content": {
+                  "type": "keyword"
+                },
+                "publicNote": {
+                  "type": "text"
+                },
+                "type": {
+                  "type": "keyword"
+                },
+                "url": {
+                  "type": "keyword"
+                }
+              }
+            },
             "items": {
               "type": "object",
               "properties": {

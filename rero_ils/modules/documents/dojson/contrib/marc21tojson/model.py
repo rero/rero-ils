@@ -727,6 +727,66 @@ def marc21_to_identifiedBy_from_field_035(self, key, value):
     return identifiedBy or None
 
 
+@marc21tojson.over('electronicLocator', '^856..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_electronicLocator_from_field_856(self, key, value):
+    """Get electronicLocator from field 856."""
+    electronic_locator_type = {
+        '0': 'resource',
+        '1': 'versionOfResource',
+        '2': 'relatedResource',
+        '8': 'hiddenUrl'
+    }
+    electronic_locator_content = [
+        'poster',
+        'audio',
+        'postcard',
+        'addition',
+        'debriefing',
+        'exhibitionDocumentation',
+        'erratum',
+        'bookplate',
+        'extract',
+        'educationalSheet',
+        'illustrations',
+        'coverImage',
+        'deliveryInformation',
+        'biographicalInformation',
+        'introductionPreface',
+        'classReading',
+        "teachersKit",
+        "publishersNote",
+        'noteOnContent',
+        'titlePage',
+        'photography',
+        'summarization'
+        "summarization",
+        "onlineResourceViaRERODOC",
+        "pressReview",
+        "webSite",
+        "tableOfContents",
+        "fullText",
+        "video"
+    ]
+    indicator2 = key[4]
+    electronic_locator = {
+        'url': value.get('u'),
+        'type': electronic_locator_type.get(indicator2, 'noInfo')
+    }
+    content = value.get('3')
+    public_note = []
+    if content:
+        if content in electronic_locator_content:
+            electronic_locator['content'] = content
+        else:
+            public_note.append(content)
+    if value.get('z'):
+        public_note += utils.force_list(value.get('z'))
+        electronic_locator['publicNote'] = public_note
+    return electronic_locator
+
+
 @marc21tojson.over('identifiedBy', '^930..')
 @utils.ignore_value
 def marc21_to_identifiedBy_from_field_930(self, key, value):

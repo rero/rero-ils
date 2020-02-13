@@ -113,8 +113,8 @@
             <li>
               {{ identifier.value }}
               <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
-              {% endfor %}
             </li>
+            {% endfor %}
           </ul>
         </dd>
         {% endif %}
@@ -123,20 +123,33 @@
         {{ dl(_('Language'), record.language|language_format(current_i18n.language)) }}
         {% endif %}
 
-
-        {% if record.electronic_location|length > 0 %}
-        {% set uris = [] %}
-        {% for resource in record.electronic_location %}
-        {% do uris.append('<a href="'+ resource.uri +'"><i class="fa fa-lock fa-fw"></i> '+ resource.uri +'</a>') %}
-        {% endfor %}
-        {{ dl(_('Online Access'), uris|join(', ')) }}
+        <!-- Related resource -->
+        {% set other_accesses = record|get_other_accesses %}
+        {% if other_accesses|length > 0 %}
+        <dt class="col-sm-3 offset-sm-2 offset-md-1">
+          {{ _('Related resource') }}:
+        </dt>
+        <dd class="col-sm-7 col-md-8 mb-0">
+          <ul class="list-unstyled mb-0">
+            {% for other_access in other_accesses %}
+            <li>
+              <a class="rero-ils-external-link" href={{ other_access.url }}>{{ other_access.content }}</a>
+              {% if other_access.public_note %}
+                ({{ other_access.public_note }})
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </dd>
         {% endif %}
+
+
 
         {% if record.source %}
         {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}
         {% endif %}
         <dt class="col-sm-3 offset-sm-2 offset-md-1">
-          {{ _('Permalink') }}
+          {{ _('Permalink') }}:
         </dt>
         <dd class="col-sm-7 col-md-8">
           {{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) }}
@@ -153,20 +166,64 @@
       {% endif %}
     </footer>
   </section>
-  <!-- Holdings -->
-  <!-- Add Item -->
-  {%- if holdings %}
-  <section class="py-4">
-    <header class="mb-4">
-      <h3>{{ _('Holdings') }}</h3>
-    </header>
-    <!-- Display Holdings -->
+
+  {% set accesses = record|get_accesses %}
+  {% if accesses|length > 0 or holdings %}
+  <h3 class="mt-2">{{ _('Access') }}</h3>
+
+  <section class="py-2">
+    <!-- ACCESS -->
+    {% if accesses|length > 0 %}
     <div class="card">
-      {% for holding in holdings %}
-      {% set items = holding.get_items %}
-      {% set number_items = holding.get_items_count_by_holding_pid %}
-      {% if record.harvested or number_items > 0 %}
       <!-- Card header -->
+      <div id="online_access" class="card-header p-2">
+        <div class="row">
+          <div class="col-1">
+            <a class="collapse-link" data-toggle="collapse" href="#collapse-access" aria-expanded="false">
+              <i class="fa fa-caret-down fa-lg"></i>
+            </a>
+          </div>
+          <div class="col-10">
+                {{ _("Online") }}
+          </div>
+        </div>
+      </div>
+      <!-- Card body -->
+      <div id="collapse-access" class="collapse show" role="tabpanel">
+        <div class="card-body p-2">
+          {% for access in accesses %}
+          <div class="row my-2">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-sm-1">
+                  &nbsp;
+                </div>
+                <div class="col-sm-2">
+                  {{ access.type }}
+                </div>
+                <div class="col-sm-9">
+                  <a class="rero-ils-external-link" href={{ access.url }}>{{ access.content }}</a>
+                  {% if access.public_note %}
+                    ({{ access.public_note }})
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Holdings -->
+    {% if holdings %}
+    {% for holding in holdings %}
+    {% set items = holding.get_items %}
+    {% set number_items = holding.get_items_count_by_holding_pid %}
+    {% if record.harvested or number_items > 0 %}
+    <!-- Card header -->
+    <div class="card mt-2">
       <div id="{{ holding.pid }}" class="card-header p-2">
         <div class="row">
           <div class="col-1">
@@ -236,7 +293,6 @@
                   {% if current_user|can_edit %}
                   <a
                     href="{{ url_for('invenio_records_ui.item', viewcode=viewcode, pid_value=item.pid) }}">{{ item.barcode }}</a>
-                  </td>
                   {% else %}
                   {{ item.barcode }}
                   {% endif %}
@@ -278,9 +334,10 @@
           {% endif %}
         </div>
       </div>
-      {% endif %}
-      {% endfor %}
     </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     <!-- Accordion card -->
   </section>
   {% endif %}

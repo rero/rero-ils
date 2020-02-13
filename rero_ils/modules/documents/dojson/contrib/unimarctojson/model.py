@@ -423,3 +423,15 @@ def unimarc_subjects(self, key, value):
     if value.get('f'):
         to_return += ', ' + ', '.join(utils.force_list(value.get('f')))
     return to_return
+
+
+@unimarctojson.over('electronicLocator', '^8564.')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_electronicLocator_from_field_856(self, key, value):
+    """Get electronicLocator from field 856."""
+    electronic_locator = {
+        'url': value.get('u'),
+        'type': 'resource'
+    }
+    return electronic_locator

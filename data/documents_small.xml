@@ -3811,7 +3811,7 @@
     <subfield code="a">R005717371</subfield>
   </datafield>
   <datafield tag="037" ind1=" " ind2=" ">
-    <subfield code="c">Accès en texte intégral gratuit - laisdc</subfield>
+    <subfield code="c">Accès en fullText gratuit - laisdc</subfield>
   </datafield>
   <datafield tag="039" ind1=" " ind2="9">
     <subfield code="a">201907051227</subfield>
@@ -3844,7 +3844,7 @@
   </datafield>
   <datafield tag="245" ind1="0" ind2="0">
     <subfield code="a">Environment policy review</subfield>
-    <subfield code="h">[Ressource électronique] /</subfield>
+    <subfield code="h">[Resource électronique] /</subfield>
     <subfield code="c">European Commission, Environment</subfield>
   </datafield>
   <datafield tag="264" ind1=" " ind2="1">
@@ -3884,11 +3884,11 @@
   </datafield>
   <datafield tag="775" ind1="1" ind2=" ">
     <subfield code="t">Examen de la politique de l&apos;environnement ...</subfield>
-    <subfield code="h">[Ressource électronique]</subfield>
+    <subfield code="h">[Resource électronique]</subfield>
   </datafield>
   <datafield tag="775" ind1="1" ind2=" ">
     <subfield code="t">Überprufung der Umweltpolitik ...</subfield>
-    <subfield code="h">[Ressource électronique]</subfield>
+    <subfield code="h">[Resource électronique]</subfield>
   </datafield>
   <datafield tag="776" ind1="1" ind2=" ">
     <subfield code="t">Environment policy review</subfield>
@@ -4641,7 +4641,7 @@
     <subfield code="2">rdacarrier</subfield>
   </datafield>
   <datafield tag="490" ind1="1" ind2=" ">
-    <subfield code="a">Texte intégral</subfield>
+    <subfield code="a">fullText</subfield>
     <subfield code="v">848</subfield>
   </datafield>
   <datafield tag="500" ind1=" " ind2=" ">
@@ -4657,7 +4657,7 @@
     <subfield code="t">Criton</subfield>
   </datafield>
   <datafield tag="830" ind1=" " ind2="0">
-    <subfield code="a">GF Texte intégral</subfield>
+    <subfield code="a">GF fullText</subfield>
     <subfield code="v">848</subfield>
   </datafield>
   <datafield tag="904" ind1=" " ind2=" ">
@@ -6140,7 +6140,7 @@
     <subfield code="z">Bd. 1</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="2">
-    <subfield code="3">Inhaltstext</subfield>
+    <subfield code="3">noteOnContent</subfield>
     <subfield code="u">http://deposit.d-nb.de/cgi-bin/dokserv?id=5285372&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm</subfield>
     <subfield code="q">text/html</subfield>
     <subfield code="z">Bd. 1</subfield>
@@ -6152,7 +6152,7 @@
     <subfield code="z">Bd. 2</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="2">
-    <subfield code="3">Inhaltstext</subfield>
+    <subfield code="3">noteOnContent</subfield>
     <subfield code="u">http://deposit.dnb.de/cgi-bin/dokserv?id=5285371&amp;prov=M&amp;dok_var=1&amp;dok_ext=htm</subfield>
     <subfield code="q">text/html</subfield>
     <subfield code="z">Bd. 2</subfield>
@@ -7580,7 +7580,7 @@
     <subfield code="t">Gesammelte Werke = Oeuvres</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="1">
-    <subfield code="3">Ressource en ligne via RERO DOC</subfield>
+    <subfield code="3">onlineResourceViaRERODOC</subfield>
     <subfield code="u">http://doc.rero.ch/record/200260</subfield>
   </datafield>
   <datafield tag="906" ind1=" " ind2=" ">
@@ -10876,7 +10876,7 @@
     <subfield code="v">21531 : rororo Rotfuchs</subfield>
   </datafield>
   <datafield tag="520" ind1="8" ind2=" ">
-    <subfield code="a">Klassenlektüre</subfield>
+    <subfield code="a">classReading</subfield>
     <subfield code="9">vsbcvb/02.2014</subfield>
   </datafield>
   <datafield tag="521" ind1=" " ind2=" ">
@@ -10898,7 +10898,7 @@
     <subfield code="v">21531</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="2">
-    <subfield code="3">Klassenlektüre</subfield>
+    <subfield code="3">classReading</subfield>
     <subfield code="u">http://www.bibliomedia.ch/de</subfield>
     <subfield code="z">Bestellung für Lehrpersonen möglich</subfield>
   </datafield>
@@ -15309,23 +15309,23 @@
   </datafield>
   <datafield tag="245" ind1="1" ind2="4">
     <subfield code="a">The great trade collapse</subfield>
-    <subfield code="h">[Ressource électronique] :</subfield>
+    <subfield code="h">[Resource électronique] :</subfield>
     <subfield code="b">what caused it and what does it mean? /</subfield>
     <subfield code="c">Richard Baldwin</subfield>
   </datafield>
   <datafield tag="500" ind1=" " ind2=" ">
-    <subfield code="a">Ressource en ligne consultée le 28.02.2011</subfield>
+    <subfield code="a">Resource en ligne consultée le 28.02.2011</subfield>
   </datafield>
   <datafield tag="580" ind1=" " ind2=" ">
-    <subfield code="a">In : The great trade collapse [Ressource électronique] : causes, consequences and prospects / edited by Richard Baldwin. - London : CEPR, 2009. - P. 1-14</subfield>
+    <subfield code="a">In : The great trade collapse [Resource électronique] : causes, consequences and prospects / edited by Richard Baldwin. - London : CEPR, 2009. - P. 1-14</subfield>
   </datafield>
   <datafield tag="773" ind1="1" ind2=" ">
     <subfield code="t">Great trade collapse : causes, consequences and prospects</subfield>
-    <subfield code="h">[Ressource électronique]</subfield>
+    <subfield code="h">[Resource électronique]</subfield>
     <subfield code="g">1</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="0">
-    <subfield code="3">Texte intégral</subfield>
+    <subfield code="3">fullText</subfield>
     <subfield code="u">http://www.voxeu.org/article/great-trade-collapse-what-caused-it-and-what-does-it-mean</subfield>
     <subfield code="z">Accès libre</subfield>
   </datafield>
@@ -17686,17 +17686,17 @@
     <subfield code="d">Den Haag (1450-1800, lieu d&apos;édition ou d&apos;impression)</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="1">
-    <subfield code="3">Texte intégral</subfield>
+    <subfield code="3">fullText</subfield>
     <subfield code="u">http://reader.digitale-sammlungen.de/resolve/display/bsb10280564.html</subfield>
     <subfield code="z">Vol. 1</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="1">
-    <subfield code="3">Texte intégral</subfield>
+    <subfield code="3">fullText</subfield>
     <subfield code="u">http://reader.digitale-sammlungen.de/resolve/display/bsb10280565.html</subfield>
     <subfield code="z">Vol. 2</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="1">
-    <subfield code="3">Texte intégral</subfield>
+    <subfield code="3">fullText</subfield>
     <subfield code="u">http://reader.digitale-sammlungen.de/resolve/display/bsb10280566.html</subfield>
     <subfield code="z">Vol. 3</subfield>
   </datafield>
@@ -18694,7 +18694,7 @@
   </datafield>
   <datafield tag="776" ind1="1" ind2=" ">
     <subfield code="t">Religion &amp; [and] theology</subfield>
-    <subfield code="h">[Ressource électronique] : a journal of contemporary religious discourse</subfield>
+    <subfield code="h">[Resource électronique] : a journal of contemporary religious discourse</subfield>
   </datafield>
   <datafield tag="780" ind1="1" ind2="0">
     <subfield code="t">Theologia evangelica</subfield>
@@ -19310,7 +19310,7 @@
     <subfield code="a">Indigenous peoples and the Arctic environment -- Environmental protection and sustainable development -- Sustaining environmental co-operation -- Ways of knowing, ways of acting : the claim for indigenous environmental knowledge -- Hunting and the right to development : the case of aboriginal subsistence whaling -- Cultural preservation through cultural presentation : indigenous peoples and Arctic tourism -- Constructing indigenous environmentalism</subfield>
   </datafield>
   <datafield tag="520" ind1="8" ind2=" ">
-    <subfield code="a">4e de couv.: In recent years, international attention has focused on the Arctic as a critical zone for global environmental change, due to concern over global warming, atmospheric pollution, ozone depletion, overfishing, and uncontrolled resource extraction. With the internationalization of the circumpolar north through quests for natural resources and the growth of capitalist markets, the importance of the correct use of natural resources and proper ways forward for Arctic environmental protection has given rise to intense debate. Yet, despite the diversity of the indigenous peoples and cultures of this area, science-based resource management systems designed to safeguard wildlife and the Arctic environment have, for the most part, ignored indigenous perspectives. &quot;Protecting the Arctic&quot; explores some of the ways in which indigenous peoples have taken political action regarding Arctic environmental and sustainable development issues, and investigates the involvement of indigenous peoples in international environmental policy- making. Nuttall illustrates how indigenous peoples make claims that their own forms of resource management not only have relevance in an Arctic regional context, but provide models for the inclusion of indigenous values and environmental knowledge in the design, negotiation and implementation of global environmental policy.</subfield>
+    <subfield code="a">4e de couv.: In recent years, international attention has focused on the Arctic as a critical zone for global environmental change, due to concern over global warming, atmospheric pollution, ozone depletion, overfishing, and uncontrolled resource extraction. With the internationalization of the circumpolar north through quests for natural ressources and the growth of capitalist markets, the importance of the correct use of natural ressources and proper ways forward for Arctic environmental protection has given rise to intense debate. Yet, despite the diversity of the indigenous peoples and cultures of this area, science-based resource management systems designed to safeguard wildlife and the Arctic environment have, for the most part, ignored indigenous perspectives. &quot;Protecting the Arctic&quot; explores some of the ways in which indigenous peoples have taken political action regarding Arctic environmental and sustainable development issues, and investigates the involvement of indigenous peoples in international environmental policy- making. Nuttall illustrates how indigenous peoples make claims that their own forms of resource management not only have relevance in an Arctic regional context, but provide models for the inclusion of indigenous values and environmental knowledge in the design, negotiation and implementation of global environmental policy.</subfield>
     <subfield code="9">neueth/02.2017</subfield>
   </datafield>
   <datafield tag="650" ind1=" " ind2="7">
@@ -22338,7 +22338,7 @@
   </datafield>
   <datafield tag="245" ind1="0" ind2="0">
     <subfield code="a">Actas de los congresos de la Asociación Internacional de Hispanistas</subfield>
-    <subfield code="h">[Ressource électronique] /</subfield>
+    <subfield code="h">[Resource électronique] /</subfield>
     <subfield code="c">edición dirigida por Aurora Egido y César Antonio Molina</subfield>
   </datafield>
   <datafield tag="264" ind1=" " ind2="1">

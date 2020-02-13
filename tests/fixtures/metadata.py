@@ -40,7 +40,7 @@ def ebook_1_data(data):
 @pytest.fixture(scope="module")
 def ebook_1(app, ebook_1_data):
     """Load ebook 1 record."""
-    del ebook_1_data['electronic_location']
+    del ebook_1_data['electronicLocator']
     doc = Document.create(
         data=ebook_1_data,
         delete_pid=False,
@@ -59,7 +59,7 @@ def ebook_2_data(data):
 @pytest.fixture(scope="module")
 def ebook_2(app, ebook_2_data):
     """Load ebook 2 record."""
-    del ebook_2_data['electronic_location']
+    del ebook_2_data['electronicLocator']
     doc = Document.create(
         data=ebook_2_data,
         delete_pid=False,
@@ -78,7 +78,7 @@ def ebook_3_data(data):
 @pytest.fixture(scope="module")
 def ebook_3(app, ebook_3_data):
     """Load ebook 3 record."""
-    del ebook_3_data['electronic_location']
+    del ebook_3_data['electronicLocator']
     doc = Document.create(
         data=ebook_3_data,
         delete_pid=False,
@@ -97,7 +97,7 @@ def ebook_4_data(data):
 @pytest.fixture(scope="module")
 def ebook_4(app, ebook_4_data):
     """Load ebook 4 record."""
-    del ebook_4_data['electronic_location']
+    del ebook_4_data['electronicLocator']
     doc = Document.create(
         data=ebook_4_data,
         delete_pid=False,

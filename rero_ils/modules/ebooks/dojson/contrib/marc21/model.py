@@ -415,23 +415,32 @@ def marc21_to_is_part_of(self, key, value):
         return value.get('t')
 
 
-@marc21.over('electronic_location', '^85640')
+@marc21.over('electronicLocator', '^8564.')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_electronic_location(self, key, value):
-    """Get electronic_location data."""
-    res = {}
-    if value.get('x'):
-        res['source'] = value.get('x')
-    if value.get('u'):
-        res['uri'] = value.get('u')
-    return res or None
-
-
-@marc21.over('cover_art', '^85642')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_cover_art(self, key, value):
-    """Get cover_art data."""
-    if value.get('3') == 'Image de couverture':
-        self.setdefault('cover_art', value.get('u'))
+def marc21_electronicLocator(self, key, value):
+    """Get electronic locator."""
+    indicator2 = key[4]
+    electronic_locator = {}
+    url = value.get('u')
+    subfield_3 = value.get('3')
+    if subfield_3:
+        subfield_3 = utils.force_list(subfield_3)[0]
+    if indicator2 == '2':
+        if subfield_3 and subfield_3 == 'Image de couverture':
+            electronic_locator = {
+                'url': url,
+                'type': 'resource',
+                'content': 'coverImage'
+            }
+    elif indicator2 == '0':
+        subfield_x = value.get('x')
+        if subfield_x:
+            electronic_locator = {
+                'url': url,
+                'type': 'resource',
+                'source': utils.force_list(subfield_x)[0]
+            }
+            # if subfield_3 and subfield_3 == 'Texte intégral':
+            #     electronic_locator['content'] == subfield_3
+    return electronic_locator or None
