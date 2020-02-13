@@ -636,7 +636,13 @@
       "items": {
         "title": "Abstract",
         "type": "string",
-        "minLength": 2
+        "minLength": 2,
+        "form": {
+          "type": "textarea",
+          "templateOptions": {
+            "rows": 5
+          }
+        }
       },
       "form": {
         "hide": true
