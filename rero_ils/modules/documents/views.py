@@ -434,3 +434,88 @@ def create_publication_statement(provision_activity):
     for publication_text in publication_texts:
         output.append(publication_text.get('value'))
     return output
+
+
+@blueprint.app_template_filter()
+def get_cover_art(record):
+    """Get cover art.
+
+    :param record: record
+    :return: url for cover art or None
+    """
+    for electronic_locator in record.get('electronicLocator'):
+        type = electronic_locator.get('type')
+        content = electronic_locator.get('content')
+        if type == 'resource' and content == 'coverImage':
+            return electronic_locator.get('url')
+    return None
+
+
+@blueprint.app_template_filter()
+def get_accesses(record):
+    """Get electronic locator text.
+
+    :param record: record
+    :return: dictonary list of access informations
+    """
+    accesses = []
+
+    def filter_type(electronic_locator):
+        """Filter electronic locator for resources and not cover image."""
+        types = ['resource', 'versionOfResource']
+        if electronic_locator.get('type') in types \
+                and electronic_locator.get('content') != 'coverImage':
+            return True
+        else:
+            return False
+
+    filtered_electronic_locators = filter(
+        filter_type,
+        record.get('electronicLocator', [])
+    )
+    for electronic_locator in filtered_electronic_locators:
+        url = electronic_locator.get('url')
+        content = electronic_locator.get('content', url)
+        public_notes = electronic_locator.get('publicNote', [])
+        public_note = ', '.join(public_notes)
+        accesses.append({
+            'type': electronic_locator.get('type'),
+            'url': url,
+            'content': content,
+            'public_note': public_note
+        })
+    return accesses
+
+
+@blueprint.app_template_filter()
+def get_other_accesses(record):
+    """Length for electronic locator.
+
+    :param record: record
+    :return: dictonary list of other access informations
+    """
+    accesses = []
+
+    def filter_type(electronic_locator):
+        """Filter electronic locator for related resources and no info."""
+        if electronic_locator.get('type') in ['relatedResource', 'noInfo']:
+            return True
+        else:
+            return False
+
+    filtered_electronic_locators = filter(
+        filter_type,
+        record.get('electronicLocator', [])
+    )
+    for electronic_locator in filtered_electronic_locators:
+        url = electronic_locator.get('url')
+        content = electronic_locator.get('content', url)
+        public_notes = electronic_locator.get('publicNote', [])
+        public_note = ', '.join(public_notes)
+        accesses.append({
+            'type': electronic_locator.get('type'),
+            'url': url,
+            'content': content,
+            'public_note': public_note
+        })
+    return accesses

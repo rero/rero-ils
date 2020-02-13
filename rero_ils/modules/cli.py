@@ -591,7 +591,7 @@ def compile_json(src_jsonfile, output, verbose):
     json.dump(data, fp=output, indent=2)
 
 
-def do_worker(marc21records, results, pid_required):
+def do_worker(marc21records, results, pid_required, debug):
     """Worker for marc21 to json transformation."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.documents.jsonschemas',
@@ -623,8 +623,8 @@ def do_worker(marc21records, results, pid_required):
         except Exception as err:
             msg = 'ERROR:\t{pid}\t{err}'.format(pid=pid, err=err.args[0])
             click.secho(msg, err=True, fg='red')
-            # import traceback
-            # traceback.print_exc()
+            if debug:
+                traceback.print_exc()
             results.append({
                 'pid': pid,
                 'status': False,
@@ -723,7 +723,8 @@ class Marc21toJson():
         """Start a new process in context."""
         new_process = self.ctx.Process(
             target=do_worker,
-            args=(self.active_records, self.results, self.pid_required)
+            args=(self.active_records, self.results, self.pid_required,
+                  self.debug)
         )
         self.wait_free_process()
         new_process.start()

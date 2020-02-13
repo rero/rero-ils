@@ -39,7 +39,7 @@ def strtotime(strtime):
     )
 
 
-def do_bulk_index(uuids, doc_type=None, process=False, verbose=False):
+def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
     """Bulk index records."""
     if verbose:
         click.echo(' add to index: {count}'.format(count=len(uuids)))

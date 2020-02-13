@@ -29,7 +29,8 @@ from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import marc21tojson
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.model import \
     get_person_link
-from rero_ils.modules.documents.views import create_publication_statement
+from rero_ils.modules.documents.views import create_publication_statement, \
+    get_accesses, get_cover_art, get_other_accesses
 
 
 def test_not_repetetive(capsys):
@@ -2023,6 +2024,118 @@ def test_marc21_to_identifiedBy_from_035():
             'type': 'bf:Local',
             'source': 'RERO',
             'value': 'R008945501'
+        }
+    ]
+
+
+def test_marc21_to_electronicLocator_from_856():
+    """Test dojson electronicLocator from 856."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="856" ind1="4" ind2="1">
+        <subfield code="3">fullText</subfield>
+        <subfield code="u">http://reader.digitale-s.de/r/d/XXX.html</subfield>
+        <subfield code="z">Vol. 1</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('electronicLocator') == [
+        {
+            'url': 'http://reader.digitale-s.de/r/d/XXX.html',
+            'type': 'versionOfResource',
+            'content': 'fullText',
+            'publicNote': ['Vol. 1']
+        }
+    ]
+    assert get_cover_art(data) is None
+    assert get_accesses(data) == [
+        {
+            'content': 'fullText',
+            'public_note': 'Vol. 1',
+            'type': 'versionOfResource',
+            'url': 'http://reader.digitale-s.de/r/d/XXX.html'
+        }
+    ]
+    assert get_other_accesses(data) == []
+
+    marc21xml = """
+    <record>
+      <datafield tag="856" ind1="4" ind2="2">
+        <subfield code="3">Inhaltsverzeichnis</subfield>
+        <subfield code="u">http://d-nb.info/1071856731/04</subfield>
+        <subfield code="q">application/pdf</subfield>
+        <subfield code="z">Bd. 1</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('electronicLocator') == [
+        {
+            'url': 'http://d-nb.info/1071856731/04',
+            'type': 'relatedResource',
+            'publicNote': ['Inhaltsverzeichnis', 'Bd. 1']
+        }
+    ]
+    assert get_cover_art(data) is None
+    assert get_accesses(data) == []
+    assert get_other_accesses(data) == [
+        {
+            'content': 'http://d-nb.info/1071856731/04',
+            'public_note': 'Inhaltsverzeichnis, Bd. 1',
+            'type': 'relatedResource',
+            'url': 'http://d-nb.info/1071856731/04'
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="856" ind1="4" ind2="2">
+        <subfield code="3">Inhaltsverzeichnis</subfield>
+        <subfield code="u">http://d-nb.info/1071856731/04</subfield>
+        <subfield code="q">application/pdf</subfield>
+        <subfield code="z">Bd. 1</subfield>
+      </datafield>
+      <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="3">coverImage</subfield>
+        <subfield code="u">http://d-nb.info/image.png</subfield>
+      </datafield>
+      <datafield tag="856" ind1="4" ind2="1">
+        <subfield code="3">coverImage</subfield>
+        <subfield code="u">http://d-nb.info/image2.png</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21tojson.do(marc21json)
+    assert data.get('electronicLocator') == [
+        {
+            'url': 'http://d-nb.info/1071856731/04',
+            'type': 'relatedResource',
+            'publicNote': ['Inhaltsverzeichnis', 'Bd. 1']
+        },
+        {
+            'content': 'coverImage',
+            'type': 'resource',
+            'url': 'http://d-nb.info/image.png'
+        },
+        {
+            'content': 'coverImage',
+            'type': 'versionOfResource',
+            'url': 'http://d-nb.info/image2.png'
+        }
+    ]
+    assert get_cover_art(data) == 'http://d-nb.info/image.png'
+    assert get_accesses(data) == []
+    assert get_other_accesses(data) == [
+        {
+            'content': 'http://d-nb.info/1071856731/04',
+            'public_note': 'Inhaltsverzeichnis, Bd. 1',
+            'type': 'relatedResource',
+            'url': 'http://d-nb.info/1071856731/04'
         }
     ]
 

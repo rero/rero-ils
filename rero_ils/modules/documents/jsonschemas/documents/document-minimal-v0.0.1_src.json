@@ -24,7 +24,7 @@
     "is_part_of",
     "identifiedBy",
     "notes",
-    "electronic_location",
+    "electronicLocator",
     "copyrightDate",
     "provisionActivity",
     "editionStatement"
@@ -146,7 +146,6 @@
         ],
         "additionalProperties": false,
         "propertiesOrder": [
-          "type",
           "value"
         ],
         "properties": {
@@ -860,29 +859,230 @@
         }
       }
     },
-    "cover_art": {
-      "title": "Cover art",
-      "description": "Vendor cover art URL.",
-      "type": "string",
-      "format": "uri"
-    },
-    "electronic_location": {
+    "electronicLocator": {
       "title": "Electronic Locations",
       "description": "Information needed to locate and access an electronic resource.",
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "title": "Electronic Locations",
+        "title": "Electronic Location",
         "required": [
-          "uri"
+          "type",
+          "url"
+        ],
+        "propertiesOrder": [
+          "type",
+          "url",
+          "content",
+          "publicNote"
         ],
         "properties": {
-          "uri": {
-            "title": "Uniform Resource Identifier",
-            "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+          "url": {
+            "title": "url",
+            "description": "Record a unique URL here.",
+            "placeholder": "Example: https://www.rero.ch/",
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "minLength": 7
+          },
+          "type": {
+            "title": "Type of link",
+            "type": "string",
+            "enum": [
+              "resource",
+              "versionOfResource",
+              "relatedResource",
+              "hiddenUrl",
+              "noInfo"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "resource",
+                  "value": "resource"
+                },
+                {
+                  "label": "version of resource",
+                  "value": "versionOfResource"
+                },
+                {
+                  "label": "related resource",
+                  "value": "relatedResource"
+                },
+                {
+                  "label": "hidden Url",
+                  "value": "hiddenUrl"
+                },
+                {
+                  "label": "no info",
+                  "value": "noInfo"
+                }
+              ]
+            }
+          },
+          "content": {
+            "title": "Content type",
+            "description": "Is displayed as the text of the link",
+            "type": "string",
+            "enum": [
+              "poster",
+              "audio",
+              "postcard",
+              "addition",
+              "debriefing",
+              "exhibitionDocumentation",
+              "erratum",
+              "bookplate",
+              "extract",
+              "educationalSheet",
+              "illustrations",
+              "coverImage",
+              "deliveryInformation",
+              "biographicalInformation",
+              "introductionPreface",
+              "classReading",
+              "teachersKit",
+              "publishersNote",
+              "noteOnContent",
+              "titlePage",
+              "photography",
+              "summarization",
+              "onlineResourceViaRERODOC",
+              "pressReview",
+              "webSite",
+              "tableOfContents",
+              "fullText",
+              "video"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "poster",
+                  "value": "poster"
+                },
+                {
+                  "label": "audio",
+                  "value": "audio"
+                },
+                {
+                  "label": "postcard",
+                  "value": "postcard"
+                },
+                {
+                  "label": "addition",
+                  "value": "addition"
+                },
+                {
+                  "label": "debriefing",
+                  "value": "debriefing"
+                },
+                {
+                  "label": "exhibition documentation",
+                  "value": "exhibitionDocumentation"
+                },
+                {
+                  "label": "erratum",
+                  "value": "erratum"
+                },
+                {
+                  "label": "bookplate",
+                  "value": "bookplate"
+                },
+                {
+                  "label": "extract",
+                  "value": "extract"
+                },
+                {
+                  "label": "educational sheet",
+                  "value": "educationalSheet"
+                },
+                {
+                  "label": "illustrations",
+                  "value": "illustrations"
+                },
+                {
+                  "label": "cover image",
+                  "value": "coverImage"
+                },
+                {
+                  "label": "delivery information",
+                  "value": "deliveryInformation"
+                },
+                {
+                  "label": "biographical information",
+                  "value": "biographicalInformation"
+                },
+                {
+                  "label": "introduction/preface",
+                  "value": "introductionPreface"
+                },
+                {
+                  "label": "class reading",
+                  "value": "classReading"
+                },
+                {
+                  "label": "teacher's kit",
+                  "value": "teachersKit"
+                },
+                {
+                  "label": "publisher's note",
+                  "value": "publishersNote"
+                },
+                {
+                  "label": "note on content",
+                  "value": "noteOnContent"
+                },
+                {
+                  "label": "title page",
+                  "value": "titlePage"
+                },
+                {
+                  "label": "photography",
+                  "value": "photography"
+                },
+                {
+                  "label": "summarization",
+                  "value": "summarization"
+                },
+                {
+                  "label": "online resource via RERO DOC",
+                  "value": "onlineResourceViaRERODOC"
+                },
+                {
+                  "label": "press review",
+                  "value": "pressReview"
+                },
+                {
+                  "label": "web site",
+                  "value": "webSite"
+                },
+                {
+                  "label": "table of contents",
+                  "value": "tableOfContents"
+                },
+                {
+                  "label": "full text",
+                  "value": "fullText"
+                },
+                {
+                  "label": "video",
+                  "value": "video"
+                }
+              ]
+            }
+          },
+          "publicNote": {
+            "title": "Uniform Resource Identifier Public Note",
+            "description": "Is displayed next to the link, as additional information",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "form": {
+                "placeholder": "Example: Access only from the library"
+              }
+            }
           }
         }
       },

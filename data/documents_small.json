@@ -2845,6 +2845,12 @@
         "type": "organisation",
         "name": "Agence europ\u00e9enne pour l'environnement"
       }
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://ec.europa.eu/environment/policyreview.htm",
+        "type": "noInfo"
+      }
     ]
   },
   {
@@ -3326,7 +3332,7 @@
     ],
     "series": [
       {
-        "name": "Texte int\u00e9gral",
+        "name": "fullText",
         "number": "848"
       }
     ],
@@ -4505,6 +4511,40 @@
     "subjects": [
       "Afrique",
       "[Photographies]"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://d-nb.info/1071856731/04",
+        "type": "relatedResource",
+        "publicNote": [
+          "Inhaltsverzeichnis",
+          "Bd. 1"
+        ]
+      },
+      {
+        "url": "http://deposit.d-nb.de/cgi-bin/dokserv?id=5285372&prov=M&dok_var=1&dok_ext=htm",
+        "type": "relatedResource",
+        "content": "noteOnContent",
+        "publicNote": [
+          "Bd. 1"
+        ]
+      },
+      {
+        "url": "http://d-nb.info/1071856723/04",
+        "type": "relatedResource",
+        "publicNote": [
+          "Inhaltsverzeichnis",
+          "Bd. 2"
+        ]
+      },
+      {
+        "url": "http://deposit.dnb.de/cgi-bin/dokserv?id=5285371&prov=M&dok_var=1&dok_ext=htm",
+        "type": "relatedResource",
+        "content": "noteOnContent",
+        "publicNote": [
+          "Bd. 2"
+        ]
+      }
     ]
   },
   {
@@ -5279,6 +5319,12 @@
       "Catholic Church",
       "Partito della democrazia cristiana",
       "Christianity and politics"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://catdir.loc.gov/catdir/toc/casalini09/10500553.pdf",
+        "type": "relatedResource"
+      }
     ]
   },
   {
@@ -5566,7 +5612,14 @@
       }
     ],
     "extent": "22 p.",
-    "is_part_of": "Gesammelte Werke = Oeuvres"
+    "is_part_of": "Gesammelte Werke = Oeuvres",
+    "electronicLocator": [
+      {
+        "url": "http://doc.rero.ch/record/200260",
+        "type": "versionOfResource",
+        "content": "onlineResourceViaRERODOC"
+      }
+    ]
   },
   {
     "type": "book",
@@ -8203,7 +8256,17 @@
       }
     ],
     "abstracts": [
-      "Klassenlekt\u00fcre"
+      "classReading"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://www.bibliomedia.ch/de",
+        "type": "relatedResource",
+        "content": "classReading",
+        "publicNote": [
+          "Bestellung f\u00fcr Lehrpersonen m\u00f6glich"
+        ]
+      }
     ]
   },
   {
@@ -11379,9 +11442,19 @@
     ],
     "title": "The great trade collapse : what caused it and what does it mean?",
     "notes": [
-      "Ressource en ligne consult\u00e9e le 28.02.2011"
+      "Resource en ligne consult\u00e9e le 28.02.2011"
     ],
-    "is_part_of": "Great trade collapse : causes, consequences and prospects"
+    "is_part_of": "Great trade collapse : causes, consequences and prospects",
+    "electronicLocator": [
+      {
+        "url": "http://www.voxeu.org/article/great-trade-collapse-what-caused-it-and-what-does-it-mean",
+        "type": "resource",
+        "content": "fullText",
+        "publicNote": [
+          "Acc\u00e8s libre"
+        ]
+      }
+    ]
   },
   {
     "type": "article",
@@ -11681,6 +11754,22 @@
       "16e si\u00e8cle",
       "R\u00e9forme protestante",
       "Italie"
+    ],
+    "electronicLocator": [
+      {
+        "url": "https://archive.org/details/aoniopaleario01younuoft",
+        "type": "versionOfResource",
+        "publicNote": [
+          "Free eBook from the Internet Archive"
+        ]
+      },
+      {
+        "url": "https://archive.org/details/aoniopaleario02younuoft",
+        "type": "versionOfResource",
+        "publicNote": [
+          "Free eBook from the Internet Archive"
+        ]
+      }
     ]
   },
   {
@@ -11910,6 +11999,15 @@
     "subjects": [
       "Odes",
       "United States"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://find.galegroup.com/ecco/infomark.do?contentSet=ECCOArticles&docType=ECCOArticles&bookId=0986700300&type=getFullCitation&tabID=T001&prodId=ECCO&docLevel=TEXT_GRAPHICS&version=1.0&source=library",
+        "type": "resource",
+        "publicNote": [
+          "Acc\u00e8s r\u00e9serv\u00e9 \u00e0 UNIFR, UNIGE et UNINE"
+        ]
+      }
     ]
   },
   {
@@ -12992,6 +13090,32 @@
     ],
     "notes": [
       "L'auteur est Jean-Bernard Le Blanc"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://reader.digitale-sammlungen.de/resolve/display/bsb10280564.html",
+        "type": "versionOfResource",
+        "content": "fullText",
+        "publicNote": [
+          "Vol. 1"
+        ]
+      },
+      {
+        "url": "http://reader.digitale-sammlungen.de/resolve/display/bsb10280565.html",
+        "type": "versionOfResource",
+        "content": "fullText",
+        "publicNote": [
+          "Vol. 2"
+        ]
+      },
+      {
+        "url": "http://reader.digitale-sammlungen.de/resolve/display/bsb10280566.html",
+        "type": "versionOfResource",
+        "content": "fullText",
+        "publicNote": [
+          "Vol. 3"
+        ]
+      }
     ]
   },
   {
@@ -14306,7 +14430,7 @@
       }
     ],
     "abstracts": [
-      "4e de couv.: In recent years, international attention has focused on the Arctic as a critical zone for global environmental change, due to concern over global warming, atmospheric pollution, ozone depletion, overfishing, and uncontrolled resource extraction. With the internationalization of the circumpolar north through quests for natural resources and the growth of capitalist markets, the importance of the correct use of natural resources and proper ways forward for Arctic environmental protection has given rise to intense debate. Yet, despite the diversity of the indigenous peoples and cultures of this area, science-based resource management systems designed to safeguard wildlife and the Arctic environment have, for the most part, ignored indigenous perspectives. \"Protecting the Arctic\" explores some of the ways in which indigenous peoples have taken political action regarding Arctic environmental and sustainable development issues, and investigates the involvement of indigenous peoples in international environmental policy- making. Nuttall illustrates how indigenous peoples make claims that their own forms of resource management not only have relevance in an Arctic regional context, but provide models for the inclusion of indigenous values and environmental knowledge in the design, negotiation and implementation of global environmental policy."
+      "4e de couv.: In recent years, international attention has focused on the Arctic as a critical zone for global environmental change, due to concern over global warming, atmospheric pollution, ozone depletion, overfishing, and uncontrolled resource extraction. With the internationalization of the circumpolar north through quests for natural ressources and the growth of capitalist markets, the importance of the correct use of natural ressources and proper ways forward for Arctic environmental protection has given rise to intense debate. Yet, despite the diversity of the indigenous peoples and cultures of this area, science-based resource management systems designed to safeguard wildlife and the Arctic environment have, for the most part, ignored indigenous perspectives. \"Protecting the Arctic\" explores some of the ways in which indigenous peoples have taken political action regarding Arctic environmental and sustainable development issues, and investigates the involvement of indigenous peoples in international environmental policy- making. Nuttall illustrates how indigenous peoples make claims that their own forms of resource management not only have relevance in an Arctic regional context, but provide models for the inclusion of indigenous values and environmental knowledge in the design, negotiation and implementation of global environmental policy."
     ],
     "subjects": [
       "Politique de l'environnement",
@@ -17940,6 +18064,15 @@
     "extent": "30 p.",
     "formats": [
       "in-8\u00b0"
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://www.mdz-nbn-resolving.de/urn/resolver.pl?urn=urn:nbn:de:bvb:12-bsb10248057-2",
+        "type": "versionOfResource",
+        "publicNote": [
+          "kostenfrei"
+        ]
+      }
     ]
   },
   {
@@ -21194,6 +21327,12 @@
     "otherMaterialCharacteristics": "illustrations en couleur",
     "formats": [
       "24 x 16 cm."
+    ],
+    "electronicLocator": [
+      {
+        "url": "http://www.electre.com//GetBlob.ashx?Ean=9782350191034,0-1283925&Size=Original",
+        "type": "noInfo"
+      }
     ]
   },
   {

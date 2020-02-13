@@ -1278,10 +1278,11 @@
     "pid": "ebook1",
     "type": "ebook",
     "harvested": true,
-    "electronic_location": [
+    "electronicLocator": [
       {
         "source": "ebibliomedia",
-        "uri": "https://www.site1.org/ebook"
+        "url": "https://www.site1.org/ebook",
+        "type": "resource"
       }
     ],
     "title": "La maison des oubli\u00e9s",
@@ -1354,10 +1355,11 @@
     "pid": "ebook2",
     "type": "ebook",
     "harvested": true,
-    "electronic_location": [
+    "electronicLocator": [
       {
         "source": "ebibliomedia",
-        "uri": "https://www.site1.org/ebook"
+        "url": "https://www.site1.org/ebook",
+        "type": "resource"
       }
     ],
     "identifiedBy": [
@@ -1429,10 +1431,11 @@
     ],
     "type": "ebook",
     "harvested": true,
-    "electronic_location": [
+    "electronicLocator": [
       {
         "source": "ebibliomedia",
-        "uri": "https://www.site1.org/ebook"
+        "url": "https://www.site1.org/ebook",
+        "type": "resource"
       }
     ],
     "title": "Harry Potter and the Chamber of Secrets",
@@ -1497,10 +1500,11 @@
     ],
     "type": "ebook",
     "harvested": true,
-    "electronic_location": [
+    "electronicLocator": [
       {
         "source": "ebibliomedia",
-        "uri": "https://www.site1.org/ebook"
+        "url": "https://www.site1.org/ebook",
+        "type": "resource"
       }
     ],
     "title": "Nouveau titre",

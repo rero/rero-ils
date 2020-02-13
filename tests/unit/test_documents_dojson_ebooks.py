@@ -529,7 +529,7 @@ def test_marc21_to_authors_and_translator():
     ]
 
 
-def test_marc21_electronic_location_ebooks():
+def test_marc21_electronicLocator_ebooks():
     """Harvested_resources tests."""
     marc21xml = """
     <record>
@@ -553,14 +553,21 @@ def test_marc21_electronic_location_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronic_location') == [
+    assert data.get('electronicLocator') == [
         {
-            'source': 'ebibliomedia',
-            'uri': 'http://site1.org/resources/1'
+            'url': 'http://site1.org/resources/1',
+            'type': 'resource',
+            'source': 'ebibliomedia'
         },
         {
-            'source': 'mv-cantook',
-            'uri': 'http://site5.org/resources/1'
+            'url': 'http://site5.org/resources/1',
+            'type': 'resource',
+            'source': 'mv-cantook'
+        },
+        {
+            'url': 'http://site2.org/resources/2',
+            'type': 'resource',
+            'content': 'coverImage'
         }
     ]
 
@@ -581,4 +588,10 @@ def test_marc21_cover_art_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('cover_art') == 'http://site2.org/resources/2'
+    assert data.get('electronicLocator') == [
+        {
+            'url': 'http://site2.org/resources/2',
+            'type': 'resource',
+            'content': 'coverImage'
+        }
+    ]
