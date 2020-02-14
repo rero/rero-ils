@@ -25,6 +25,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
+from rero_ils.modules.loans.api import Loan
+
 
 def test_patrons_profile(
         client, librarian_martigny_no_email, loan_pending_martigny,
@@ -51,7 +53,18 @@ def test_patrons_profile(
     }
     loan = item_lib_martigny.request(**data)
     loan_pid = loan[1].get('request').get('pid')
+    pending_loan = loan_pending_martigny
+    pending_loan_pid = pending_loan.get('pid')
+    assert pending_loan.get('state') == 'PENDING'
 
+    # patron successfully cancelled the request
+    res = client.post(
+        url_for('patrons.profile'),
+        data={'loan_pid': pending_loan_pid, 'type': 'cancel'}
+    )
+    assert res.status_code == 200
+    pending_loan = Loan.get_record_by_pid(pending_loan_pid)
+    assert pending_loan.get('state') == 'CANCELLED'
     loan = item_lib_martigny.checkout(**data)
 
     # patron visits his profile to list checked-out items
@@ -62,7 +75,7 @@ def test_patrons_profile(
     # patron successfully renew the item
     res = client.post(
         url_for('patrons.profile'),
-        data={'loan_pid': loan_pid}
+        data={'loan_pid': loan_pid, 'type': 'renew'}
     )
     assert res.status_code == 200
 
@@ -74,7 +87,7 @@ def test_patrons_profile(
     # patron fails to renew the item
     res = client.post(
         url_for('patrons.profile'),
-        data={'loan_pid': loan_pid}
+        data={'loan_pid': loan_pid, 'type': 'renew'}
     )
     assert res.status_code == 200
 

@@ -113,6 +113,11 @@
           {{ _('Renewals') }}
         </th>
         {% endif %}
+        {% if type == 'requests'%}
+        <th class="col-md-1 border-top-0" scope="col">
+          {{ _('Cancel') }}
+        </th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -148,14 +153,28 @@
           {{ loan.extension_count }}
         </td>
         <td>
-            {% if loan.can_renew %}
-            {%- with form = can_renew_form %}
-              <form action="{{ url_for('patrons.profile') }}" method="POST" name="can_renew_form">
-                <input type="hidden" name="loan_pid" value="{{ loan.pid }}">  
-                <button type="submit" class="btn btn btn-primary btn-bg">{{_('Renew')}}</button>
-              </form>
-            {%- endwith %}
-            {% endif %}
+          {% if loan.can_renew %}
+          {%- with form = can_renew_form %}
+            <form action="{{ url_for('patrons.profile') }}" method="POST" name="can_renew_form">
+              <input type="hidden" name="type" value="renew">
+              <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
+              <button type="submit" class="btn btn btn-primary btn-bg">{{_('Renew')}}</button>
+            </form>
+          {%- endwith %}
+          {% endif %}
+        </td>
+        {% endif %}
+        {% if type == 'requests' %}
+        <td>
+          {% if loan.state == 'PENDING' %}
+            <form action="{{ url_for('patrons.profile') }}" method="POST" name="cancel_loan">
+              <input type="hidden" name="type" value="cancel">
+              <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
+              <button type="submit" class="btn btn btn-primary btn-bg">{{_('Cancel')}}</button>
+            </form>
+          {% else %}
+            &nbsp;
+          {% endif %}
         </td>
         {% endif %}
       </tr>

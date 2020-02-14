@@ -106,18 +106,28 @@ def profile(viewcode):
     if request.method == 'POST':
         loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
         item = Item.get_record_by_pid(loan.get('item_pid'))
-        data = {
-            'item_pid': item.pid,
-            'pid': request.values.get('loan_pid'),
-            'transaction_location_pid': item.location_pid
-        }
-        try:
-            item.extend_loan(**data)
-            flash(_('The item %(item_id)s has been renewed.',
-                    item_id=item.pid), 'success')
-        except Exception:
-            flash(_('Error during the renewal of the item %(item_id)s.',
-                    item_id=item.pid), 'danger')
+        if request.form.get('type') == 'cancel':
+            data = loan
+            try:
+                item.cancel_loan(**data)
+                flash(_('The request for item %(item_id)s has been canceled.',
+                        item_id=item.pid), 'success')
+            except Exception:
+                flash(_('Error during the cancellation of the request of \
+                item %(item_id)s.', item_id=item.pid), 'danger')
+        elif request.form.get('type') == 'renew':
+            data = {
+                'item_pid': item.pid,
+                'pid': request.values.get('loan_pid'),
+                'transaction_location_pid': item.location_pid
+            }
+            try:
+                item.extend_loan(**data)
+                flash(_('The item %(item_id)s has been renewed.',
+                        item_id=item.pid), 'success')
+            except Exception:
+                flash(_('Error during the renewal of the item %(item_id)s.',
+                        item_id=item.pid), 'danger')
 
     checkouts, requests, history = patron_profile_loans(patron.pid)
 
