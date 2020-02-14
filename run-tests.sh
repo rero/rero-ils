@@ -85,15 +85,12 @@ if [ $# -eq 0 ]
           &> /dev/null || \
           error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
 
-        # syntax check for typescript
-        info_msg "Syntax check for typescript:"
-        CWD=`pwd`
-
         info_msg "Check-manifest:"
         pipenv run check-manifest --ignore ".travis-*,docs/_build*"
         info_msg "Sphinx-build:"
         pipenv run sphinx-build -qnNW docs docs/_build/html
         info_msg "Tests:"
+        # pipenv run invenio utils set_test_static_folder -v
         pipenv run test
 fi
 if [ "$1" = "external" ]

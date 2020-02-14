@@ -40,24 +40,21 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     PendingToItemInTransitPickup, ToItemOnLoan
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
-from invenio_search import RecordsSearch
-
-from rero_ils.modules.api import IlsRecordIndexer
 
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
     can_list_acq_account_factory, can_read_update_delete_acq_account_factory
 from .modules.acq_invoices.api import AcquisitionInvoice
-from .modules.acq_order_lines.api import AcqOrderLine, AcqOrderLinesIndexer
+from .modules.acq_order_lines.api import AcqOrderLine
 from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
 from .modules.budgets.permissions import can_create_budgets_factory, \
     can_list_budgets_factory, can_update_delete_budgets_factory
 from .modules.circ_policies.api import CircPolicy
-from .modules.documents.api import Document, DocumentsIndexer
-from .modules.holdings.api import Holding, HoldingsIndexer
+from .modules.documents.api import Document
+from .modules.holdings.api import Holding
 from .modules.item_types.api import ItemType
-from .modules.items.api import Item, ItemsIndexer
+from .modules.items.api import Item
 from .modules.items.permissions import can_create_item_factory, \
     can_update_delete_item_factory
 from .modules.libraries.api import Library
@@ -249,8 +246,8 @@ CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
-    'indexer': {
-        'task': 'invenio_indexer.tasks.process_bulk_queue',
+    'bulk-indexer': {
+        'task': 'rero_ils.modules.tasks.process_bulk_queue',
         'schedule': timedelta(minutes=5),
     },
     'accounts': {
@@ -263,8 +260,8 @@ CELERY_BEAT_SCHEDULE = {
         'kwargs': dict(name='ebooks'),
     },
     'notification-creation': {
-        'task':
-            'rero_ils.modules.notifications.tasks.create_over_and_due_soon_notifications',
+        'task': ('rero_ils.modules.notifications.tasks'
+                 '.create_over_and_due_soon_notifications'),
         'schedule': crontab(minute="*/5")
         # TODO: in production set this up once a day
     },
@@ -396,10 +393,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='doc',
         pid_minter='document_id',
         pid_fetcher='document_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.documents.api:DocumentsSearch',
         search_index='documents',
         search_type=None,
-        indexer_class=DocumentsIndexer,
+        indexer_class='rero_ils.modules.documents.api:DocumentsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -418,7 +415,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/documents/',
         record_class='rero_ils.modules.documents.api:Document',
-        item_route='/documents/<pid(doc, record_class="rero_ils.modules.documents.api:Document"):pid_value>',
+        item_route=('/documents/<pid(doc, record_class='
+                    '"rero_ils.modules.documents.api:Document"):pid_value>'),
         # suggesters=dict(
         #     title={
         #         'completion': {
@@ -439,10 +437,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='item',
         pid_minter='item_id',
         pid_fetcher='item_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.items.api:ItemsSearch',
         search_index='items',
         search_type=None,
-        indexer_class=ItemsIndexer,
+        indexer_class='rero_ils.modules.items.api:ItemsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -458,7 +456,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Item(request.get_json()),
         },
         record_class='rero_ils.modules.items.api:Item',
-        item_route='/items/<pid(item, record_class="rero_ils.modules.items.api:Item"):pid_value>',
+        item_route=('/items/<pid(item, record_class='
+                    '"rero_ils.modules.items.api:Item"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -472,9 +471,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='itty',
         pid_minter='item_type_id',
         pid_fetcher='item_type_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.item_types.api:ItemTypesSearch',
         search_index='item_types',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.item_types.api:ItemTypesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -491,7 +490,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: ItemType(request.get_json()),
         },
         record_class='rero_ils.modules.item_types.api:ItemType',
-        item_route='/item_types/<pid(itty, record_class="rero_ils.modules.item_types.api:ItemType"):pid_value>',
+        item_route=('/item_types/<pid(itty, record_class='
+                    '"rero_ils.modules.item_types.api:ItemType"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -504,9 +504,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='hold',
         pid_minter='holding_id',
         pid_fetcher='holding_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.holdings.api:HoldingsSearch',
         search_index='holdings',
-        indexer_class=HoldingsIndexer,
+        indexer_class='rero_ils.modules.holdings.api:HoldingsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -523,7 +523,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Holding(request.get_json()),
         },
         record_class='rero_ils.modules.holdings.api:Holding',
-        item_route='/holdings/<pid(hold, record_class="rero_ils.modules.holdings.api:Holding"):pid_value>',
+        item_route=('/holdings/<pid(hold, record_class='
+                    '"rero_ils.modules.holdings.api:Holding"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -537,9 +538,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='ptrn',
         pid_minter='patron_id',
         pid_fetcher='patron_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.patrons.api:PatronsSearch',
         search_index='patrons',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patrons.api:PatronsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -556,7 +557,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Patron(request.get_json()),
         },
         record_class='rero_ils.modules.patrons.api:Patron',
-        item_route='/patrons/<pid(ptrn, record_class="rero_ils.modules.patrons.api:Patron"):pid_value>',
+        item_route=('/patrons/<pid(ptrn, record_class='
+                    '"rero_ils.modules.patrons.api:Patron"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -570,10 +572,12 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='pttr',
         pid_minter='patron_transaction_id',
         pid_fetcher='patron_transaction_id',
-        search_class=RecordsSearch,
+        search_class=('rero_ils.modules.patron_transactions.api:'
+                      'PatronTransactionsSearch'),
         search_index='patron_transactions',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class=('rero_ils.modules.patron_transactions.api:'
+                       'PatronTransactionsIndexer'),
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -587,9 +591,12 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: PatronTransaction(request.get_json()),
         },
-        record_class='rero_ils.modules.patron_transactions.api:PatronTransaction',
+        record_class=('rero_ils.modules.patron_transactions.api:'
+                      'PatronTransaction'),
         list_route='/patron_transactions/',
-        item_route='/patron_transactions/<pid(pttr, record_class="rero_ils.modules.patron_transactions.api:PatronTransaction"):pid_value>',
+        item_route=('/patron_transactions/<pid(pttr, record_class='
+                    '"rero_ils.modules.patron_transactions.api:'
+                    'PatronTransaction"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
@@ -603,10 +610,12 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='ptre',
         pid_minter='patron_transaction_event_id',
         pid_fetcher='patron_transaction_event_id',
-        search_class=RecordsSearch,
+        search_class=('rero_ils.modules.patron_transaction_events.api:'
+                      'PatronTransactionEventsSearch'),
         search_index='patron_transaction_events',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class=('rero_ils.modules.patron_transaction_events.api:'
+                       'PatronTransactionEventsIndexer'),
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -618,11 +627,15 @@ RECORDS_REST_ENDPOINTS = dict(
             )
         },
         record_loaders={
-            'application/json': lambda: PatronTransactionEvent(request.get_json()),
+            'application/json': lambda: PatronTransactionEvent(
+                request.get_json()),
         },
-        record_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent',
+        record_class=('rero_ils.modules.patron_transaction_events.api:'
+                      'PatronTransactionEvent'),
         list_route='/patron_transaction_events/',
-        item_route='/patron_transaction_events/<pid(ptre, record_class="rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent"):pid_value>',
+        item_route=('/patron_transaction_events/<pid(ptre, record_class='
+                    '"rero_ils.modules.patron_transaction_events.api:'
+                    'PatronTransactionEvent"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
@@ -636,10 +649,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='ptty',
         pid_minter='patron_type_id',
         pid_fetcher='patron_type_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.patron_types.api:PatronTypesSearch',
         search_index='patron_types',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patron_types.api:PatronTypesIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -655,7 +668,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: PatronType(request.get_json()),
         },
         record_class='rero_ils.modules.patron_types.api:PatronType',
-        item_route='/patron_types/<pid(ptty, record_class="rero_ils.modules.patron_types.api:PatronType"):pid_value>',
+        item_route=('/patron_types/<pid(ptty, record_class='
+                    '"rero_ils.modules.patron_types.api:'
+                    'PatronType"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -668,9 +683,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='org',
         pid_minter='organisation_id',
         pid_fetcher='organisation_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.organisations.api:OrganisationsSearch',
         search_index='organisations',
-        indexer_class=IlsRecordIndexer,
+        indexer_class=('rero_ils.modules.organisations.api:'
+                       'OrganisationsIndexer'),
         search_type=None,
         record_serializers={
             'application/json': (
@@ -687,10 +703,13 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Organisation(request.get_json()),
         },
         record_class='rero_ils.modules.organisations.api:Organisation',
-        item_route='/organisations/<pid(org, record_class="rero_ils.modules.organisations.api:Organisation"):pid_value>',
+        item_route=('/organisations/<pid(org, record_class='
+                    '"rero_ils.modules.organisations.api:'
+                    'Organisation"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
-        search_factory_imp='rero_ils.query:organisation_organisation_search_factory',
+        search_factory_imp=('rero_ils.query:'
+                            'organisation_organisation_search_factory'),
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         create_permission_factory_imp=deny_all,
         update_permission_factory_imp=can_update_organisations_factory,
@@ -701,9 +720,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='lib',
         pid_minter='library_id',
         pid_fetcher='library_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.libraries.api:LibrariesSearch',
         search_index='libraries',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.libraries.api:LibrariesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -720,7 +739,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Library(request.get_json()),
         },
         record_class='rero_ils.modules.libraries.api:Library',
-        item_route='/libraries/<pid(lib, record_class="rero_ils.modules.libraries.api:Library"):pid_value>',
+        item_route=('/libraries/<pid(lib, record_class='
+                    '"rero_ils.modules.libraries.api:Library"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -734,9 +754,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='loc',
         pid_minter='location_id',
         pid_fetcher='location_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.locations.api:LocationsSearch',
         search_index='locations',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.locations.api:LocationsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -753,7 +773,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Location(request.get_json()),
         },
         record_class='rero_ils.modules.locations.api:Location',
-        item_route='/locations/<pid(loc, record_class="rero_ils.modules.locations.api:Location"):pid_value>',
+        item_route=('/locations/<pid(loc, record_class='
+                    '"rero_ils.modules.locations.api:Location"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -766,9 +787,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='pers',
         pid_minter='person_id',
         pid_fetcher='person_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.persons.api:PersonsSearch',
         search_index='persons',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.persons.api:PersonsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -785,7 +806,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Person(request.get_json()),
         },
         record_class='rero_ils.modules.persons.api:Person',
-        item_route='/persons/<pid(pers, record_class="rero_ils.modules.persons.api:Person"):pid_value>',
+        item_route=('/persons/<pid(pers, record_class='
+                    '"rero_ils.modules.persons.api:Person"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:person_view_search_factory',
@@ -799,9 +821,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='cipo',
         pid_minter='circ_policy_id',
         pid_fetcher='circ_policy_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.circ_policies.api:CircPoliciesSearch',
         search_index='circ_policies',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.circ_policies.api:CircPoliciesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -818,7 +840,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/circ_policies/',
         record_class='rero_ils.modules.circ_policies.api:CircPolicy',
-        item_route='/circ_policies/<pid(cipo, record_class="rero_ils.modules.circ_policies.api:CircPolicy"):pid_value>',
+        item_route=('/circ_policies/<pid(cipo, record_class='
+                    '"rero_ils.modules.circ_policies.api:'
+                    'CircPolicy"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -831,9 +855,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='notif',
         pid_minter='notification_id',
         pid_fetcher='notification_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.notifications.api:NotificationsSearch',
         search_index='notifications',
-        indexer_class=IlsRecordIndexer,
+        indexer_class=('rero_ils.modules.notifications.api:'
+                       'NotificationsIndexer'),
         search_type=None,
         record_serializers={
             'application/json': (
@@ -850,7 +875,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/notifications/',
         record_class='rero_ils.modules.notifications.api:Notification',
-        item_route='/notifications/<pid(notif, record_class="rero_ils.modules.notifications.api:Notification"):pid_value>',
+        item_route=('/notifications/<pid(notif, record_class='
+                    '"rero_ils.modules.notifications.api:'
+                    'Notification"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -863,10 +890,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='vndr',
         pid_minter='vendor_id',
         pid_fetcher='vendor_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.vendors.api:VendorsSearch',
         search_index='vendors',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.vendors.api:VendorsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -882,7 +909,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.vendors.api:Vendor',
         list_route='/vendors/',
-        item_route='/vendors/<pid(vndr, record_class="rero_ils.modules.vendors.api:Vendor"):pid_value>',
+        item_route=('/vendors/<pid(vndr, record_class='
+                    '"rero_ils.modules.vendors.api:Vendor"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -896,10 +924,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acac',
         pid_minter='acq_account_id',
         pid_fetcher='acq_account_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.acq_accounts.api:AcqAccountsSearch',
         search_index='acq_accounts',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.acq_accounts.api:AcqAccountsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -910,7 +938,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_search'
             ),
             'application/rero+json': (
-                'rero_ils.modules.acq_accounts.serializers:json_acq_account_search'
+                'rero_ils.modules.acq_accounts.serializers:'
+                'json_acq_account_search'
             ),
         },
         record_loaders={
@@ -918,7 +947,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.acq_accounts.api:AcqAccount',
         list_route='/acq_accounts/',
-        item_route='/acq_accounts/<pid(acac, record_class="rero_ils.modules.acq_accounts.api:AcqAccount"):pid_value>',
+        item_route=('/acq_accounts/<pid(acac, record_class='
+                    '"rero_ils.modules.acq_accounts.api:'
+                    'AcqAccount"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:acq_accounts_search_factory',
@@ -932,10 +963,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='budg',
         pid_minter='budget_id',
         pid_fetcher='budget_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.budgets.api:BudgetsSearch',
         search_index='budgets',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.budgets.api:BudgetsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -951,7 +982,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.budgets.api:Budget',
         list_route='/budgets/',
-        item_route='/budgets/<pid(budg, record_class="rero_ils.modules.budgets.api:Budget"):pid_value>',
+        item_route=('/budgets/<pid(budg, record_class='
+                    '"rero_ils.modules.budgets.api:Budget"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -965,10 +997,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acor',
         pid_minter='acq_order_id',
         pid_fetcher='acq_order_id',
-        search_class=RecordsSearch,
+        search_class='rero_ils.modules.acq_orders.api:AcqOrdersSearch',
         search_index='acq_orders',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.acq_orders.api:AcqOrdersIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -987,7 +1019,8 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.acq_orders.api:AcqOrder',
         list_route='/acq_orders/',
-        item_route='/acq_orders/<pid(acor, record_class="rero_ils.modules.acq_orders.api:AcqOrder"):pid_value>',
+        item_route=('/acq_orders/<pid(acor, record_class='
+                    '"rero_ils.modules.acq_orders.api:AcqOrder"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -1001,10 +1034,12 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acol',
         pid_minter='acq_order_line_id',
         pid_fetcher='acq_order_line_id',
-        search_class=RecordsSearch,
+        search_class=('rero_ils.modules.acq_order_lines.api:'
+                      'AcqOrderLinesSearch'),
         search_index='acq_order_lines',
         search_type=None,
-        indexer_class=AcqOrderLinesIndexer,
+        indexer_class=('rero_ils.modules.acq_order_lines.api:'
+                       'AcqOrderLinesIndexer'),
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -1020,7 +1055,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.acq_order_lines.api:AcqOrderLine',
         list_route='/acq_order_lines/',
-        item_route='/acq_order_lines/<pid(acol, record_class="rero_ils.modules.acq_order_lines.api:AcqOrderLine"):pid_value>',
+        item_route=('/acq_order_lines/<pid(acol, record_class='
+                    '"rero_ils.modules.acq_order_lines.api:'
+                    'AcqOrderLine"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -1034,10 +1071,12 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acin',
         pid_minter='acq_invoice_id',
         pid_fetcher='acq_invoice_id',
-        search_class=RecordsSearch,
+        search_class=('rero_ils.modules.acq_invoices.api:'
+                      'AcquisitionInvoicesSearch'),
         search_index='acq_invoices',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class=('rero_ils.modules.acq_invoices.api:'
+                       'AcquisitionInvoicesIndexer'),
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -1048,7 +1087,8 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_search'
             ),
             'application/rero+json': (
-                'rero_ils.modules.acq_invoices.serializers:json_acquisition_invoice_search'
+                'rero_ils.modules.acq_invoices.serializers:'
+                'json_acquisition_invoice_search'
             )
         },
         record_loaders={
@@ -1056,7 +1096,9 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoice',
         list_route='/acq_invoices/',
-        item_route='/acq_invoices/<pid(acin, record_class="rero_ils.modules.acq_invoices.api:AcquisitionInvoice"):pid_value>',
+        item_route=('/acq_invoices/<pid(acin, record_class='
+                    '"rero_ils.modules.acq_invoices.api:'
+                    'AcquisitionInvoice"):pid_value>'),
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -1091,28 +1133,36 @@ RECORDS_REST_FACETS = dict(
             # The organisation or library facet is defined
             # dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='type',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__en=dict(
-                terms=dict(field='facet_authors_en', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='facet_authors_en',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__fr=dict(
-                terms=dict(field='facet_authors_fr', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='facet_authors_fr',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__de=dict(
-                terms=dict(field='facet_authors_de', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='facet_authors_de',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             author__it=dict(
-                terms=dict(field='facet_authors_it', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='facet_authors_it',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             language=dict(
-                terms=dict(field='language.value', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='language.value',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             subject=dict(
-                terms=dict(field='facet_subjects', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='facet_subjects',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             status=dict(
-                terms=dict(field='holdings.items.status', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(field='holdings.items.status',
+                           size=DOCUMENTS_AGGREGATION_SIZE)
             )
         ),
         filters={

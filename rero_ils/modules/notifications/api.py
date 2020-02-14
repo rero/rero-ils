@@ -25,11 +25,10 @@ from functools import partial
 
 import ciso8601
 from flask import current_app
-from invenio_search.api import RecordsSearch
 
 from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPolicy
 from ..documents.api import Document
 from ..fetchers import id_fetcher
@@ -53,13 +52,14 @@ notification_id_minter = partial(id_minter, provider=NotificationProvider)
 notification_id_fetcher = partial(id_fetcher, provider=NotificationProvider)
 
 
-class NotificationsSearch(RecordsSearch):
+class NotificationsSearch(IlsRecordsSearch):
     """RecordsSearch for Notifications."""
 
     class Meta:
         """Search only on Notifications index."""
 
         index = 'notifications'
+        doc_types = None
 
 
 class Notification(IlsRecord):
@@ -271,6 +271,12 @@ class Notification(IlsRecord):
             .source(['pid']).scan()
         for result in results:
             yield PatronTransaction.get_record_by_pid(result.pid)
+
+
+class NotificationsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Notification
 
 
 def get_availability_notification(loan):

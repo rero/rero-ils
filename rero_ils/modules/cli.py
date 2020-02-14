@@ -25,6 +25,7 @@ import json
 import logging
 import multiprocessing
 import os
+import shutil
 import sys
 import traceback
 from collections import OrderedDict
@@ -45,6 +46,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
+from invenio_app.factory import static_folder
 from invenio_db import db
 from invenio_indexer.tasks import process_bulk_queue
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -58,7 +60,7 @@ from lxml import etree
 from pkg_resources import resource_string
 from werkzeug.local import LocalProxy
 
-from .api import IlsRecordIndexer
+from .api import IlsRecordsIndexer
 from .documents.dojson.contrib.marc21tojson import marc21
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
@@ -922,7 +924,7 @@ def run(delayed, concurrency, version_type=None, queue=None,
             process_bulk_queue.apply_async(**celery_kwargs)
     else:
         click.secho('Indexing records...', fg='green')
-        IlsRecordIndexer(version_type=version_type).process_bulk_queue(
+        IlsRecordsIndexer(version_type=version_type).process_bulk_queue(
             es_bulk_kwargs={'raise_on_error': raise_on_error})
 
 
@@ -951,7 +953,7 @@ def reindex(pid_type, no_info):
         ).values(
             PersistentIdentifier.object_uuid
         ))
-        IlsRecordIndexer().bulk_index(query, doc_type=type)
+        IlsRecordsIndexer().bulk_index(query, doc_type=type)
     if no_info:
         click.secho(
             'Execute "runindex" command to process the queue!',
@@ -1527,3 +1529,26 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
             click.echo('ERROR: Can not export pid:{pid}'.format(pid=pid))
     outfile.write(output)
     outfile.write('\n]\n')
+
+
+@utils.command('set_test_static_folder')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def set_test_static_folder(verbose):
+    """Creates a static folder link for tests."""
+    click.secho('Create symlink for static folder', fg='green')
+    test_static_folder = os.path.join(sys.prefix, 'var/instance/static')
+    my_static_folder = static_folder()
+    if verbose:
+        msg = '\t{src} --> {dst}'.format(
+            src=my_static_folder,
+            dst=test_static_folder
+        )
+        click.secho(msg)
+    try:
+        os.unlink(test_static_folder)
+    except:
+        pass
+    os.makedirs(test_static_folder, exist_ok=True)
+    shutil.rmtree(test_static_folder, ignore_errors=True)
+    os.symlink(my_static_folder, test_static_folder)

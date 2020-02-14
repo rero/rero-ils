@@ -21,7 +21,7 @@ from functools import partial
 
 from .models import BudgetIdentifier
 from ..acq_accounts.api import AcqAccountsSearch
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
@@ -46,6 +46,7 @@ class BudgetsSearch(IlsRecordsSearch):
         """Search only on budget index."""
 
         index = 'budgets'
+        doc_types = None
 
 
 class Budget(IlsRecord):
@@ -87,3 +88,9 @@ class Budget(IlsRecord):
         if organisation.get('current_budget_pid') == self.pid:
             others['is_default'] = True
         return others
+
+
+class BudgetsIndexer(IlsRecordsIndexer):
+    """Indexing documents in Elasticsearch."""
+
+    record_cls = Budget
