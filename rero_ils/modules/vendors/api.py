@@ -22,7 +22,7 @@ from functools import partial
 from .models import VendorIdentifier
 from ..acq_invoices.api import AcquisitionInvoicesSearch
 from ..acq_orders.api import AcqOrdersSearch
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -46,6 +46,7 @@ class VendorsSearch(IlsRecordsSearch):
         """Search only on vendor index."""
 
         index = 'vendors'
+        doc_types = None
 
 
 class Vendor(IlsRecord):
@@ -84,3 +85,9 @@ class Vendor(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+
+class VendorsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Vendor

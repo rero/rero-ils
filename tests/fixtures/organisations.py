@@ -26,7 +26,8 @@ from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
-from rero_ils.modules.organisations.api import Organisation, OrganisationSearch
+from rero_ils.modules.organisations.api import Organisation, \
+    OrganisationsSearch
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 
 
@@ -44,7 +45,7 @@ def org_martigny(app, org_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    flush_index(OrganisationsSearch.Meta.index)
     return org
 
 
@@ -56,7 +57,7 @@ def organisation_temp(app, org_martigny):
         dbcommit=True,
         delete_pid=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    flush_index(OrganisationsSearch.Meta.index)
     return org
 
 
@@ -74,7 +75,7 @@ def org_sion(app, org_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    flush_index(OrganisationsSearch.Meta.index)
     return org
 
 

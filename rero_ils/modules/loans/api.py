@@ -30,7 +30,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_jsonschemas import current_jsonschemas
 
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import Document
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -52,6 +52,16 @@ class LoanAction(object):
     CANCEL = 'cancel'
     LOSE = 'lose'
     NO = 'no'
+
+
+class LoansSearch(IlsRecordsSearch):
+    """Libraries search."""
+
+    class Meta():
+        """Meta class."""
+
+        index = 'loans'
+        doc_types = None
 
 
 class Loan(IlsRecord):
@@ -364,3 +374,9 @@ def get_overdue_loans():
         if now > due_date + timedelta(days=days_after):
             overdue_loans.append(loan)
     return overdue_loans
+
+
+class LoansIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Loan
