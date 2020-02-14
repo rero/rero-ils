@@ -170,6 +170,7 @@ eval ${PREFIX} invenio index queue purge delete
 set -e
 eval ${PREFIX} invenio index destroy --force --yes-i-know
 # Override index init to load templates before mapping
+# TODO: check if invenio index init --force works (to delete utils init --force)
 info_msg "Override index init to load templates before mapping"
 eval ${PREFIX} invenio utils init --force
 # eval ${PREFIX} invenio index init --force
