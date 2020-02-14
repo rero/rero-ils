@@ -27,7 +27,7 @@ from dateutil import parser
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
 
-from .api import IlsRecordIndexer
+from .api import IlsRecordsIndexer
 
 
 def strtotime(strtime):
@@ -43,7 +43,7 @@ def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
     """Bulk index records."""
     if verbose:
         click.echo(' add to index: {count}'.format(count=len(uuids)))
-    indexer = IlsRecordIndexer()
+    indexer = IlsRecordsIndexer()
     retry = True
     minutes = 1
     while retry:

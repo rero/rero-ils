@@ -20,10 +20,8 @@
 
 from functools import partial
 
-from invenio_search.api import RecordsSearch
-
 from .models import OrganisationIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..item_types.api import ItemTypesSearch
 from ..libraries.api import LibrariesSearch, Library
@@ -42,13 +40,14 @@ organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
 organisation_id_fetcher = partial(id_fetcher, provider=OrganisationProvider)
 
 
-class OrganisationSearch(RecordsSearch):
+class OrganisationsSearch(IlsRecordsSearch):
     """Organisation search."""
 
     class Meta():
         """Meta class."""
 
         index = 'organisations'
+        doc_types = None
 
 
 class Organisation(IlsRecord):
@@ -104,7 +103,7 @@ class Organisation(IlsRecord):
     @classmethod
     def get_record_by_viewcode(cls, viewcode):
         """Get record by view code."""
-        result = OrganisationSearch().filter(
+        result = OrganisationsSearch().filter(
             'term',
             code=viewcode
         ).execute()
@@ -132,7 +131,7 @@ class Organisation(IlsRecord):
     @classmethod
     def get_record_by_online_harvested_source(cls, source):
         """Get record by online harvested source."""
-        results = OrganisationSearch().filter(
+        results = OrganisationsSearch().filter(
             'term', online_harvested_source=source).scan()
         try:
             return Organisation.get_record_by_pid(next(results).pid)
@@ -143,3 +142,9 @@ class Organisation(IlsRecord):
         """Get list of online locations."""
         return [library.online_location
                 for library in self.get_libraries() if library.online_location]
+
+
+class OrganisationsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Organisation

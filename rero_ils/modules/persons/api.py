@@ -22,12 +22,11 @@ from functools import partial
 from elasticsearch_dsl import A
 from flask import current_app
 from invenio_db import db
-from invenio_search.api import RecordsSearch
 from requests import codes as requests_codes
 from requests import get as requests_get
 
 from .models import PersonIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import DocumentsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -46,13 +45,14 @@ person_id_minter = partial(id_minter, provider=PersonProvider)
 person_id_fetcher = partial(id_fetcher, provider=PersonProvider)
 
 
-class PersonsSearch(RecordsSearch):
+class PersonsSearch(IlsRecordsSearch):
     """Mef person search."""
 
     class Meta():
         """Meta class."""
 
         index = 'persons'
+        doc_types = None
 
 
 class Person(IlsRecord):
@@ -189,3 +189,9 @@ class Person(IlsRecord):
             if result.doc_count:
                 organisations.add(result.key)
         return list(organisations)
+
+
+class PersonsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Person
