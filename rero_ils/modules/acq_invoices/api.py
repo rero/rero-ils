@@ -22,7 +22,7 @@ from functools import partial
 from flask import current_app
 
 from .models import AcquisitionInvoiceIdentifier
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
@@ -48,6 +48,7 @@ class AcquisitionInvoicesSearch(IlsRecordsSearch):
         """Search only on acq_invoice index."""
 
         index = 'acq_invoices'
+        doc_types = None
 
 
 class AcquisitionInvoice(IlsRecord):
@@ -130,6 +131,12 @@ class AcquisitionInvoice(IlsRecord):
     def vendor_pid(self):
         """Shortcut for acquisition order vendor pid."""
         return self.replace_refs().get('vendor').get('pid')
+
+
+class AcquisitionInvoicesIndexer(IlsRecordsIndexer):
+    """Indexing documents in Elasticsearch."""
+
+    record_cls = AcquisitionInvoice
 
 
 class InvoiceLine(object):

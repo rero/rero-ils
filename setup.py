@@ -105,7 +105,7 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring:api_blueprint'
+            'monitoring = rero_ils.modules.monitoring:api_blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -131,20 +131,16 @@ setup(
             'pjson = rero_ils.dojson.cli:pretty_json_dump'
         ],
         'dojson.cli.rule': [
-            'marc21tojson = rero_ils.modules.documents.dojson'
-            '.contrib.marc21tojson:marc21tojson',
-            'marc21toebooks = \
-                rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
-            'unimarctojson = '
-            'rero_ils.modules.documents.dojson'
-            '.contrib.unimarctojson:unimarctojson',
+            'marc21tojson = rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson',
+            'marc21toebooks = rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
+            'unimarctojson = rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarctojson',
         ],
         'flask.commands': [
             'fixtures = rero_ils.modules.cli:fixtures',
             'utils = rero_ils.modules.cli:utils',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
-            'monitoring = rero_ils.modules.monitoring:monitoring'
+            'monitoring = rero_ils.modules.monitoring:monitoring',
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
@@ -167,7 +163,7 @@ setup(
             'acq_order_lines = rero_ils.modules.acq_order_lines.models',
             'acq_invoices = rero_ils.modules.acq_invoices.models',
             'patron_transactions = rero_ils.modules.patron_transactions.models',
-            'patron_transaction_events = rero_ils.modules.patron_transaction_events.models'
+            'patron_transaction_events = rero_ils.modules.patron_transaction_events.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = rero_ils.modules.organisations.api:organisation_id_minter',
@@ -192,8 +188,7 @@ setup(
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter'
         ],
         'invenio_pidstore.fetchers': [
-            'organisation_id = rero_ils.modules.organisations'
-            '.api:organisation_id_fetcher',
+            'organisation_id = rero_ils.modules.organisations.api:organisation_id_fetcher',
             'library_id = rero_ils.modules.libraries.api:library_id_fetcher',
             'location_id = rero_ils.modules.locations.api:location_id_fetcher',
             'document_id = rero_ils.modules.documents.api:document_id_fetcher',
@@ -212,7 +207,7 @@ setup(
             'acq_order_line_id = rero_ils.modules.acq_order_lines.api:acq_order_line_id_fetcher',
             'acq_invoice_id = rero_ils.modules.acq_invoices.api:acq_invoice_id_fetcher',
             'patron_transaction_id = rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher',
-            'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher'
+            'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'organisations = rero_ils.modules.organisations.jsonschemas',
@@ -235,7 +230,7 @@ setup(
             'acq_order_lines = rero_ils.modules.acq_order_lines.jsonschemas',
             'acq_invoices = rero_ils.modules.acq_invoices.jsonschemas',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonschemas',
-            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonschemas'
+            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -258,15 +253,16 @@ setup(
             'acq_order_lines = rero_ils.modules.acq_order_lines.mappings',
             'acq_invoices = rero_ils.modules.acq_invoices.mappings',
             'patron_transactions = rero_ils.modules.patron_transactions.mappings',
-            'patron_transaction_events = rero_ils.modules.patron_transaction_events.mappings'
+            'patron_transaction_events = rero_ils.modules.patron_transaction_events.mappings',
         ],
         'invenio_search.templates': [
-            'base-record = rero_ils.es_templates:list_es_templates'
+            'base-record = rero_ils.es_templates:list_es_templates',
         ],
         'invenio_celery.tasks': [
-            'rero_ils_oaiharvest = rero_ils.modules.ebooks.tasks',
-            'rero_ils_mefharvest = rero_ils.modules.apiharvester.tasks',
-            'rero_ils_notifications = rero_ils.modules.notifications.tasks',
+            'modules = rero_ils.modules.tasks',
+            'ebooks = rero_ils.modules.ebooks.tasks',
+            'apiharvester = rero_ils.modules.apiharvester.tasks',
+            'notifications = rero_ils.modules.notifications.tasks',
         ],
         'invenio_records.jsonresolver': [
             'organisations = rero_ils.modules.organisations.jsonresolver',

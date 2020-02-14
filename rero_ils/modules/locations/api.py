@@ -20,10 +20,9 @@
 from functools import partial
 
 from flask_babelex import gettext as _
-from invenio_search.api import RecordsSearch
 
 from .models import LocationIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -40,13 +39,14 @@ location_id_minter = partial(id_minter, provider=LocationProvider)
 location_id_fetcher = partial(id_fetcher, provider=LocationProvider)
 
 
-class LocationsSearch(RecordsSearch):
+class LocationsSearch(IlsRecordsSearch):
     """RecordsSearch for locations."""
 
     class Meta:
         """Search only on locations index."""
 
         index = 'locations'
+        doc_types = None
 
 
 class Location(IlsRecord):
@@ -128,3 +128,9 @@ class Location(IlsRecord):
 
         library = Library.get_record_by_pid(self.library_pid)
         return library.organisation_pid
+
+
+class LocationsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Location
