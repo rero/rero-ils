@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
             "sha256": "2cf176d1672d1a46a990aa7d38fcfb23c9b787d6e82357922bcad88f03ecf79e"
+=======
+            "sha256": "8d817e58c5955f002fdb1c927c4104ba491407f24411cc68e480425786a046aa"
+>>>>>>> 2988301b8... framework: update to Invenio 3.2.1
         },
         "pipfile-spec": 6,
         "requires": {
