@@ -206,13 +206,13 @@ def init(force):
     click.secho('Putting templates...', fg='green', bold=True, file=sys.stderr)
     with click.progressbar(
             current_search.put_templates(ignore=[400] if force else None),
-            length=len(current_search.templates.keys())) as bar:
+            length=len(current_search.templates)) as bar:
         for response in bar:
             bar.label = response
     click.secho('Creating indexes...', fg='green', bold=True, file=sys.stderr)
     with click.progressbar(
             current_search.create(ignore=[400] if force else None),
-            length=current_search.number_of_indexes) as bar:
+            length=len(current_search.mappings)) as bar:
         for name, response in bar:
             bar.label = name
 
@@ -448,6 +448,7 @@ def check_license(configfile, verbose, progress):
         lines_with_errors = []
         lines = [line.rstrip() for line in file]
         linenbr = 0
+        linemaxnbr = len(lines)
         prefix = extension.get('prefix')
         line, linenbr = get_line(lines, linenbr, prefix)
         while lines[linenbr-1].startswith('#!'):
@@ -472,6 +473,9 @@ def check_license(configfile, verbose, progress):
                 if verbose:
                     show_diff(linenbr, license_line, line)
                 lines_with_errors.append(linenbr)
+            # Fix crash while testing a file with only comments.
+            if linenbr >= linemaxnbr:
+                continue
             line, linenbr = get_line(lines, linenbr, prefix)
         return lines_with_errors
 
