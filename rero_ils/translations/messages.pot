@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-02-17 15:11+0100\n"
+"POT-Creation-Date: 2020-02-17 17:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "author__it"
 msgstr ""
 
-#: rero_ils/config.py:1014
+#: rero_ils/config.py:1013
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3353
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3353
 msgid "language"
@@ -6697,12 +6697,24 @@ msgstr ""
 msgid "%(icon)s Profile"
 msgstr ""
 
+#: rero_ils/modules/patrons/views.py:113
+#, python-format
+msgid "The request for item %(item_id)s has been canceled."
+msgstr ""
+
 #: rero_ils/modules/patrons/views.py:116
+#, python-format
+msgid ""
+"Error during the cancellation of the request of                 item "
+"%(item_id)s."
+msgstr ""
+
+#: rero_ils/modules/patrons/views.py:126
 #, python-format
 msgid "The item %(item_id)s has been renewed."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:119
+#: rero_ils/modules/patrons/views.py:129
 #, python-format
 msgid "Error during the renewal of the item %(item_id)s."
 msgstr ""
@@ -6894,7 +6906,12 @@ msgstr ""
 msgid "Renewals"
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:148
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:112
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:165
+msgid "Cancel"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:154
 msgid "Renew"
 msgstr ""
 
