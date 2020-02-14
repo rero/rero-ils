@@ -55,6 +55,7 @@ class SearchTest(RecordsSearch):
         """Search only on test index."""
 
         index = 'records-record-v1.0.0'
+        doc_types = None
 
 
 class ProviderTest(BaseProvider):
