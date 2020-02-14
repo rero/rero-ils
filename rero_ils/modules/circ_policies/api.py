@@ -22,10 +22,9 @@ from __future__ import absolute_import, print_function
 from functools import partial
 
 from elasticsearch_dsl import Q
-from invenio_search.api import RecordsSearch
 
 from .models import CircPolicyIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
@@ -43,13 +42,14 @@ circ_policy_id_minter = partial(id_minter, provider=CircPolicyProvider)
 circ_policy_id_fetcher = partial(id_fetcher, provider=CircPolicyProvider)
 
 
-class CircPoliciesSearch(RecordsSearch):
+class CircPoliciesSearch(IlsRecordsSearch):
     """RecordsSearch for Circulation policies."""
 
     class Meta:
         """Search only on Circulation policies index."""
 
         index = 'circ_policies'
+        doc_types = None
 
 
 class CircPolicy(IlsRecord):
@@ -225,3 +225,9 @@ class CircPolicy(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+
+class CircPoliciesIndexer(IlsRecordsIndexer):
+    """Indexing documents in Elasticsearch."""
+
+    record_cls = CircPolicy

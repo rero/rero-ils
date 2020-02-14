@@ -286,14 +286,14 @@ fi
 if ${LOADPERSONS}
 then
     info_msg "- PERSONS: ${DOCUMENTS} ${DONT_STOP}"
-    eval ${PREFIX} pipenv run invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${DONT_STOP}
+    eval ${PREFIX} pipenv run invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Persons:"
     eval ${PREFIX} pipenv run invenio utils reindex -t pers --yes-i-know --no-info
     eval ${PREFIX} pipenv run invenio utils runindex --raise-on-error
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
-eval ${PREFIX} invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${DONT_STOP}
+eval ${PREFIX} invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schema/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 if ${CREATE_ITEMS_HOLDINGS_SMALL}
 then
@@ -335,10 +335,6 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
-# index persons
-eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
-eval ${PREFIX} invenio utils runindex --raise-on-error
-
 # create circulation transactions
 info_msg "Circulation transactions:"
 eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
@@ -346,18 +342,19 @@ eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 # # ACQUISITION
 # create vendors
 info_msg "Acquisition vendors:"
-eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append
+eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
 
 # create library budgets
 info_msg "Library budgets:"
-eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append
+eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t budg --yes-i-know --no-info
 
 # create acquisition accounts
 info_msg "Acquisition accounts:"
-eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append
+eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
+
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # # OAI configuration
