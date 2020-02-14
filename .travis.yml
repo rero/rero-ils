@@ -80,6 +80,7 @@ before_install:
 
 install:
   - "./scripts/bootstrap --ci $REQUIREMENTS"
+  - "pipenv run pip list"  # To have details about installed libs (isort, pytest, etc.)
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/

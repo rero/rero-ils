@@ -27,7 +27,11 @@ def test_record_to_index(app):
     assert record_to_index({
         '$schema': 'https://ils.rero.ch/schema/'
         'documents/document-minimal-v0.0.1.json'
-    }) == ('documents-document', 'document')
+    }) == ('documents-document-v0.0.1', 'document-v0.0.1')
+    assert record_to_index({
+        '$schema': 'https://ils.rero.ch/schema/'
+        'documents/document-v0.0.1.json'
+    }) == ('documents-document-v0.0.1', 'document-v0.0.1')
 
     # for mef-persons
     assert record_to_index({
