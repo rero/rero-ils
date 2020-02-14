@@ -121,59 +121,35 @@ I18N_LANGUAGES = [
     ('de', _('German')),
     ('it', _('Italian')),
 ]
+# Define the default system currency in used. Each organisation can override
+# this parameter using the 'default_currency' field
+RERO_ILS_DEFAULT_CURRENCY = 'CHF'
 
 # Base templates
 # ==============
 #: Global base template.
 BASE_TEMPLATE = 'rero_ils/page.html'
-THEME_BASE_TEMPLATE = BASE_TEMPLATE
 #: Cover page base template (used for e.g. login/sign-up).
 COVER_TEMPLATE = 'rero_ils/page_cover.html'
-THEME_COVER_TEMPLATE = COVER_TEMPLATE
 #: Footer base template.
-THEME_FOOTER_TEMPLATE = 'rero_ils/footer.html'
+FOOTER_TEMPLATE = 'rero_ils/footer.html'
 #: Header base template.
 HEADER_TEMPLATE = 'rero_ils/header.html'
-#: Header base template.
-THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
-#: Settings page template used for e.g. display user settings views.
-THEME_SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+#: Settings base template
+SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
+#: Admin base template
+ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
+
+# Miscellaneous variable around templates
+# =======================
 #: Template for security pages.
 SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 SECURITY_REGISTER_USER_TEMPLATE = 'rero_ils/register_user.html'
 SECURITY_FORGOT_PASSWORD_TEMPLATE = 'rero_ils/forgot_password.html'
 SECURITY_RESET_PASSWORD_TEMPLATE = 'rero_ils/reset_password.html'
-#: Template for error pages.
-THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
 #: Template for tombstone page.
 RECORDS_UI_TOMBSTONE_TEMPLATE = "rero_ils/tombstone.html"
-
-RERO_ILS_THEME_SEARCH_ENDPOINT = '/search/documents'
-
-# Logings
-# =======
-LOGGING_SENTRY_LEVEL = "ERROR"
-LOGGING_SENTRY_CELERY = True
-
-# Theme configuration
-# ===================
-#: Site name
-THEME_SITENAME = _('rero-ils')
-#: Use default frontpage.
-THEME_FRONTPAGE = False
-#: Frontpage title.
-THEME_FRONTPAGE_TITLE = _('rero-ils')
-#: Frontpage template.
-THEME_FRONTPAGE_TEMPLATE = 'rero_ils/frontpage.html'
-
-#: Template for including a tracking code for web analytics.
-THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
-THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
-#: Brand logo.
-THEME_LOGO = 'images/logo_rero_ils.png'
-# External CSS for each organisation customization
-RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
-
+#: Miscellaneous templates
 SEARCH_UI_JSTEMPLATE_RESULTS = (
     'templates/rero_ils/brief_view_documents.html'
 )
@@ -189,6 +165,45 @@ REROILS_SEARCHBAR_TEMPLATE = 'templates/rero_ils/searchbar.html'
 RERO_ILS_EDITOR_TEMPLATE = 'rero_ils/editor.html'
 SECURITY_LOGIN_USER_TEMPLATE = 'rero_ils/login_user.html'
 
+# Theme configuration
+# ===================
+#: Brand logo.
+THEME_LOGO = 'images/logo_rero_ils.png'
+#: Site name
+THEME_SITENAME = _('rero-ils')
+#: Use default frontpage.
+THEME_FRONTPAGE = False
+#: Frontpage title.
+THEME_FRONTPAGE_TITLE = _('rero-ils')
+#: Frontpage template.
+THEME_FRONTPAGE_TEMPLATE = 'rero_ils/frontpage.html'
+#: Theme base template.
+THEME_BASE_TEMPLATE = BASE_TEMPLATE
+#: Cover page theme template (used for e.g. login/sign-up).
+THEME_COVER_TEMPLATE = COVER_TEMPLATE
+#: Footer theme template.
+THEME_FOOTER_TEMPLATE = FOOTER_TEMPLATE
+#: Header theme template.
+THEME_HEADER_TEMPLATE = HEADER_TEMPLATE
+#: Settings page template used for e.g. display user settings views.
+THEME_SETTINGS_TEMPLATE = SETTINGS_TEMPLATE
+#: Template for error pages.
+THEME_ERROR_TEMPLATE = 'rero_ils/page_error.html'
+#: RERO-ils search endpoint (i.e /search/documents)
+RERO_ILS_THEME_SEARCH_ENDPOINT = '/search/documents'
+# External CSS for each organisation customization
+RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/ils/test/css/'
+#: Template for including a tracking code for web analytics.
+THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
+THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
+
+# Logings
+# =======
+#: Sentry level
+LOGGING_SENTRY_LEVEL = "ERROR"
+#: Sentry: use celery or not
+LOGGING_SENTRY_CELERY = True
+
 # Email configuration
 # ===================
 #: Email address for support.
@@ -198,8 +213,8 @@ MAIL_SUPPRESS_SEND = True
 
 # Assets
 # ======
-#: Static files collection method (defaults to copying files).
-# COLLECT_STORAGE = 'flask_collect.storage.file'
+#: Static files collection method (defaults to symbolic link to files).
+COLLECT_STORAGE = 'flask_collect.storage.link'
 
 # Accounts
 # ========
@@ -209,6 +224,11 @@ SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to RERO-ILS!")
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
+#: Enable session/user id request tracing. This feature will add X-Session-ID
+#: and X-User-ID headers to HTTP response. You MUST ensure that NGINX (or other
+#: proxies) removes these headers again before sending the response to the
+#: client. Set to False, in case of doubt.
+ACCOUNTS_USERINFO_HEADERS = False
 # Disable User Profiles
 USERPROFILES = False
 # make security blueprints available to the REST API
@@ -283,7 +303,6 @@ SECRET_KEY = 'CHANGE_ME'
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 #: For dev. Set to false when testing on localhost in no debug mode
 APP_ENABLE_SECURE_HEADERS = True
-
 # TODO: review theses rules for security purposes
 APP_DEFAULT_SECURE_HEADERS = {
     # disabled as https is not used by the application:
@@ -324,7 +343,7 @@ APP_DEFAULT_SECURE_HEADERS = {
     'session_cookie_secure': True,
     'session_cookie_http_only': True,
 }
-#: Sets cookie with the secure flag by default
+#: Sets cookie with the secure flag (by default False)
 SESSION_COOKIE_SECURE = False
 #: Since HAProxy and Nginx route all requests no matter the host header
 #: provided, the allowed hosts variable is set to localhost. In production it
@@ -335,6 +354,12 @@ APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
+
+# TODO: Check if needed one day
+# Previewers
+# ==========
+#: Include IIIF preview for images.
+# PREVIEWER_PREFERENCE = ['iiif_image'] + BASE_PREFERENCE
 
 # Debug
 # =====
@@ -1434,8 +1459,6 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
     'de': ['gnd', 'rero', 'bnf'],
 }
 
-ADMIN_BASE_TEMPLATE = BASE_TEMPLATE
-
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid
 CIRCULATION_PATRON_EXISTS = Patron.get_record_by_pid
@@ -1557,9 +1580,5 @@ CIRCULATION_POLICIES = dict(
         can_be_requested=can_be_requested
     )
 )
-
-# Define the default system currency in used. Each organisation can override
-# this parameter using the 'default_currency' field
-RERO_ILS_DEFAULT_CURRENCY = 'CHF'
 
 WEBPACKEXT_PROJECT = 'rero_ils.webpack:project'

@@ -174,7 +174,7 @@ class Document(IlsRecord):
             auth_pid = author.get('pid')
             if auth_pid:
                 from ..persons.api import Person
-                person = Person.get_record_by_pid(auth_pid)
+                person = Person.get_record_by_mef_pid(auth_pid)
                 if bulk:
                     persons_ids.append(person.id)
                 else:
