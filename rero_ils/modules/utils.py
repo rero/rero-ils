@@ -25,6 +25,7 @@ import click
 import pytz
 from dateutil import parser
 from flask import current_app
+from invenio_records_rest.utils import obj_or_import_string
 
 from .api import IlsRecordIndexer
 
@@ -106,3 +107,16 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
                 if buffer.startswith(','):
                     # delete records deliminators
                     buffer = buffer[1:].lstrip()
+
+
+def get_record_class_update_permission_from_route(route_name):
+    """Return the record class for a given record route name."""
+    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
+    for endpoint in endpoints.items():
+        record = endpoint[1]
+        list_route = record.get('list_route').replace('/', '')
+        if list_route == route_name:
+            record_class = obj_or_import_string(record.get('record_class'))
+            update_permission = obj_or_import_string(
+                record.get('update_permission_factory_imp'))
+            return record_class, update_permission

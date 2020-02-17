@@ -94,32 +94,35 @@ class JSONSerializer(_JSONSerializer):
     @staticmethod
     def add_item_links_and_permissions(record, data, pid):
         """Update the record with action links and permissions."""
-        actions = [
-            'update',
-            'delete'
-        ]
-        permissions = {}
-        action_links = {}
-        for action in actions:
-            permission = JSONSerializer.get_permission(action, pid.pid_type)
-            if permission:
-                can = permission(record, credentials_only=True).can()
-                if can:
-                    action_links[action] = url_for(
-                        'invenio_records_rest.{pid_type}_item'.format(
-                            pid_type=pid.pid_type),
-                        pid_value=pid.pid_value, _external=True)
-                else:
-                    action_key = 'cannot_{action}'.format(action=action)
-                    permissions[action_key] = {
-                        'permission': "permission denied"}
-        if not record.can_delete:
-            permissions.setdefault(
-                'cannot_delete',
-                {}
-            ).update(record.reasons_not_to_delete())
-        data['links'].update(action_links)
-        data['permissions'] = permissions
+        # TODO: remove this function and use the permission api
+        if pid.pid_type != 'doc':
+            actions = [
+                'update',
+                'delete'
+            ]
+            permissions = {}
+            action_links = {}
+            for action in actions:
+                permission = JSONSerializer.get_permission(
+                    action, pid.pid_type)
+                if permission:
+                    can = permission(record, credentials_only=True).can()
+                    if can:
+                        action_links[action] = url_for(
+                            'invenio_records_rest.{pid_type}_item'.format(
+                                pid_type=pid.pid_type),
+                            pid_value=pid.pid_value, _external=True)
+                    else:
+                        action_key = 'cannot_{action}'.format(action=action)
+                        permissions[action_key] = {
+                            'permission': "permission denied"}
+            if not record.can_delete:
+                permissions.setdefault(
+                    'cannot_delete',
+                    {}
+                ).update(record.reasons_not_to_delete())
+            data['links'].update(action_links)
+            data['permissions'] = permissions
         return data
 
     @staticmethod
