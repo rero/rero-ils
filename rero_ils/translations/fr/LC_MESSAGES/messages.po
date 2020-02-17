@@ -7256,7 +7256,3 @@ msgstr "a été supprimé."
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "Cliquez ici pour réinitialiser votre mot de passe"
-<<<<<<< HEAD
-=======
-
->>>>>>> permissions: update and delete permissions api for records
