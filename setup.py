@@ -95,6 +95,7 @@ setup(
             'holdings = rero_ils.modules.holdings.views:blueprint',
         ],
         'invenio_base.api_blueprints': [
+            'rero_ils = rero_ils.modules.views:api_blueprint',
             'circ_policies = rero_ils.modules.circ_policies.views:blueprint',
             'item_types = rero_ils.modules.item_types.views:blueprint',
             'patron_types = rero_ils.modules.patron_types.views:blueprint',

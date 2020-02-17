@@ -99,19 +99,6 @@ def organisation_search_factory(self, search, query_parser=None):
     return (search, urlkwargs)
 
 
-def library_search_factory(self, search, query_parser=None):
-    """Search factory."""
-    search, urlkwargs = search_factory(self, search)
-    if current_patron:
-        if current_patron.is_system_librarian:
-            search = search.filter(
-                'term', organisation__pid=current_patron.organisation_pid)
-        elif current_patron.is_librarian:
-            search = search.filter(
-                'term', library__pid=current_patron.library_pid)
-    return (search, urlkwargs)
-
-
 def loans_search_factory(self, search, query_parser=None):
     """Loan search factory.
 
