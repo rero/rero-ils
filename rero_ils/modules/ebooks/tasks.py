@@ -66,7 +66,7 @@ def create_records(records):
                 n_created += 1
                 uuids.append(new_record.id)
     # TODO: bulk indexing does not work with travis, need to check why
-    do_bulk_index(uuids, doc_type=['doc'], process=True)
+    do_bulk_index(uuids, doc_type='doc', process=True)
     # wait for bulk index task to finish
     # inspector = inspect()
     # reserved = inspector.reserved()
