@@ -120,3 +120,28 @@ def get_record_class_update_permission_from_route(route_name):
             update_permission = obj_or_import_string(
                 record.get('update_permission_factory_imp'))
             return record_class, update_permission
+
+
+def get_ref_for_pid(module, pid):
+    """Get the $ref for a pid.
+
+    :param module: name of module (class name or endpoint name or module name)
+    :param pid: pid for record
+    :return: url for record
+    """
+    if not isinstance(module, str):
+        # Get the pid_type for the class
+        module = module.provider.pid_type
+    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
+    for endpoint in endpoints:
+        search_index = endpoints[endpoint].get('search_index')
+        # Try to find module in entpoints or entpoints.serch_index
+        if search_index == module or endpoint == module:
+            list_route = endpoints[endpoint].get('list_route')
+            if list_route:
+                return '{url}/api{route}{pid}'.format(
+                    url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+                    route=list_route,
+                    pid=pid
+                )
+    return None
