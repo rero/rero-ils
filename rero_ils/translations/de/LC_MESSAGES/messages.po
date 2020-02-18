@@ -1,8 +1,8 @@
-# German translations for rero-ils.
+# Translations template for rero-ils.
 # Copyright (C) 2020 RERO
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-#
+# 
 # Translators:
 # Bertrand Zuchuat, 2019
 # Nicolas Labat <n-labat@hotmail.com>, 2019
@@ -11,22 +11,23 @@
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2019
 # Peter Weber <peter.weber@rero.ch>, 2020
 # Nicolas Prongué <n.prongue@outlook.com>, 2020
-# iGor milhit <igor.milhit@rero.ch>, 2020
 # MarionRERO <marion.davis@rero.ch>, 2020
+# iGor milhit <igor.milhit@rero.ch>, 2020
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2020-02-17 15:11+0100\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
-"Last-Translator: MarionRERO <marion.davis@rero.ch>, 2020\n"
-"Language: de\n"
+"Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2020\n"
 "Language-Team: German (https://www.transifex.com/rero/teams/77935/de/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: rero_ils/config.py:114
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:255
@@ -750,16 +751,18 @@ msgstr "Anzahl an Tagen vor Rückgabetermin"
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:70
 msgid "Number of days before due date for sending the due_soon notification."
 msgstr ""
-"Anzahl an Tagen vor dem Rückgabetermin, um die Benachrichtigung \"Ablauf "
-"der Ausleihfrist\" zu senden"
+"Anzahl an Tagen vor dem Rückgabetermin, um die Benachrichtigung \"Ablauf der"
+" Ausleihfrist\" zu senden"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:76
 msgid "Number of days after due date"
 msgstr "Anzahl an Tagen nach Rückgabetermin"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
-msgid "Number of days after due date for sending the first overdue notification."
-msgstr "Anzahl an Tagen nach Rückgabetermin, um die erste Erinnerung zu senden"
+msgid ""
+"Number of days after due date for sending the first overdue notification."
+msgstr ""
+"Anzahl an Tagen nach Rückgabetermin, um die erste Erinnerung zu senden"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "The amount of reminder fee"
@@ -940,8 +943,8 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Einheitstitel, ein verwandter oder analytischer Titel, der von einer "
-"Autoritätsdatei oder -liste kontrolliert und als zusätzlicher "
-"Sucheinstieg verwendet wird."
+"Autoritätsdatei oder -liste kontrolliert und als zusätzlicher Sucheinstieg "
+"verwendet wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:113
@@ -1009,8 +1012,8 @@ msgstr "Autoren"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:190
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr ""
-"Autor(en) der Ressource. Es können sowohl Personen als auch "
-"Körperschaften sein."
+"Autor(en) der Ressource. Es können sowohl Personen als auch Körperschaften "
+"sein."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:194
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:194
@@ -1058,8 +1061,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informationen über die Person (z.B. ihren Beruf). Hilfreich, um Menschen "
-"zu unterscheiden."
+"Informationen über die Person (z.B. ihren Beruf). Hilfreich, um Menschen zu "
+"unterscheiden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:297
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:297
@@ -1187,14 +1190,14 @@ msgstr "Veröffentlichungsdatum 1"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:516
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:516
 msgid ""
-"Start date of the publication. This must be an integer, ie 1989, 453, "
-"-50. Used to sort search results. Once this field is set, a free formed "
-"date of publication can be added in the next field."
+"Start date of the publication. This must be an integer, ie 1989, 453, -50. "
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
-"Veröffentlichungsdatum 1. Muss eine ganze Zahl sein (z.B. 1989, 453, "
-"-50). Dient zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst "
-"wurde, kann im nächsten Feld ein frei gestaltetes Erscheinungsdatum "
-"hinzugefügt werden."
+"Veröffentlichungsdatum 1. Muss eine ganze Zahl sein (z.B. 1989, 453, -50). "
+"Dient zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst wurde, "
+"kann im nächsten Feld ein frei gestaltetes Erscheinungsdatum hinzugefügt "
+"werden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:525
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:525
@@ -1205,13 +1208,13 @@ msgstr "Veröffentlichungsdatum 2"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:526
 msgid ""
 "End date of the publication. This must be an integer, ie 1989, 453, -50. "
-"Used to sort search results. Once this field is set, a free formed date "
-"of publication can be added in the next field."
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
-"Veröffentlichungsdatum 2. Muss eine ganze Zahl sein (z.B. 1989, 453, "
-"-50). Dient zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst "
-"wurde, kann im nächsten Feld ein frei gestaltetes Erscheinungsdatum "
-"hinzugefügt werden."
+"Veröffentlichungsdatum 2. Muss eine ganze Zahl sein (z.B. 1989, 453, -50). "
+"Dient zum Sortieren der Suchergebnisse. Sobald dieses Feld erfasst wurde, "
+"kann im nächsten Feld ein frei gestaltetes Erscheinungsdatum hinzugefügt "
+"werden."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:544
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:544
@@ -1541,8 +1544,8 @@ msgid ""
 "locating an object using existing Internet protocols."
 msgstr ""
 "Uniform Resource Identifier (URI), der eine Standardsyntax für die "
-"Lokalisierung eines Objekts unter Verwendung vorhandener "
-"Internetprotokolle bereitstellt."
+"Lokalisierung eines Objekts unter Verwendung vorhandener Internetprotokolle "
+"bereitstellt."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:894
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:894
@@ -1552,7 +1555,8 @@ msgstr "Gesammelt"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:895
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:895
 msgid "Document is harvested or not, will disable record edition or similar."
-msgstr "Dokument wird gesammelt oder nicht, deaktiviert Bearbeitung von Records"
+msgstr ""
+"Dokument wird gesammelt oder nicht, deaktiviert Bearbeitung von Records"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:902
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:902
@@ -4412,7 +4416,7 @@ msgstr "Äquatorialguinea (eg)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4108
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4108
 msgid "country_em"
-msgstr "Timor-Leste (em)"
+msgstr "Osttimor (em)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4112
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4112
@@ -4427,7 +4431,7 @@ msgstr "Estland (er)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4120
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4120
 msgid "country_err"
-msgstr "Estland (err)"
+msgstr "Estnische Sozialistische Sowjetrepublik (err)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4124
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4124
@@ -4462,7 +4466,7 @@ msgstr "Fidschi (fj)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4148
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4148
 msgid "country_fk"
-msgstr "Falkland-Inseln (fk)"
+msgstr "Falklandinseln (fk)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4152
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4152
@@ -4497,7 +4501,7 @@ msgstr "Dschibuti (ft)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4176
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4176
 msgid "country_gau"
-msgstr "Georgien (gau)"
+msgstr "Georgia (gau)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4180
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4180
@@ -4542,7 +4546,7 @@ msgstr "Gambia (gm)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4212
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4212
 msgid "country_gn"
-msgstr "Gilbert- und Ellice-Inseln (gn)"
+msgstr "Gilbert- und Elliceinseln (gn)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4216
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4216
@@ -4597,7 +4601,7 @@ msgstr "Guyana (gy)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4256
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4256
 msgid "country_gz"
-msgstr "Gaza-Streifen (gz)"
+msgstr "Gazastreifen (gz)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4260
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4260
@@ -5012,7 +5016,7 @@ msgstr "Niederländische Antillen (na)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4588
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4588
 msgid "country_nbu"
-msgstr "[Nebraska] (nbu)"
+msgstr "Nebraska (nbu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4592
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4592
@@ -5122,7 +5126,7 @@ msgstr "Nunavut (nuc)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4676
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4676
 msgid "country_nvu"
-msgstr "[Nevada] (nvu)"
+msgstr "Nevada (nvu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4680
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4680
@@ -5817,7 +5821,7 @@ msgstr "Nordmazedonien (xn)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:5232
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:5232
 msgid "country_xna"
-msgstr "New South Wales (xna)"
+msgstr "Neusüdwales (xna)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:5236
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:5236
@@ -7252,4 +7256,3 @@ msgstr "wurde gelöscht."
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "Hier klicken um Passwort zurückzusetzen."
-
