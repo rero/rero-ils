@@ -23,4 +23,4 @@ and parsed by ``setup.py``.
 
 from __future__ import absolute_import, print_function
 
-__version__ = "0.5.2"
+__version__ = "0.6.0"
