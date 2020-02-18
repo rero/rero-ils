@@ -293,11 +293,18 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_include_subdomains': True,
     'content_security_policy': {
         'default-src': ['*'],
-        'img-src': ["'self'", 'data:'],
-        'style-src': ['*', "'unsafe-inline'"],
+        'img-src': [
+            '*',
+            "'self'",
+            'data:'
+        ],
+        'style-src': [
+            '*',
+            "'unsafe-inline'"
+        ],
         'script-src': [
             "'self'",
-            "'unsafe-eval'",
+            "'unsafe-inline'",
             # '*.rero.ch',
             'https://www.googletagmanager.com',
             'https://www.google-analytics.com',
