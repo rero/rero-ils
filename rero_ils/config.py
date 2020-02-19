@@ -304,6 +304,7 @@ APP_DEFAULT_SECURE_HEADERS = {
         ],
         'script-src': [
             "'self'",
+            "'unsafe-eval'",
             "'unsafe-inline'",
             # '*.rero.ch',
             'https://www.googletagmanager.com',
