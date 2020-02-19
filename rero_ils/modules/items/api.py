@@ -906,7 +906,9 @@ class Item(IlsRecord):
             if do_receive:
                 return self.receive(pid=loan_pid, **data)
             return self, {
-                LoanAction.NO: None
+                # None action are available. Send anyway last known loan
+                # informations.
+                LoanAction.NO: loan
             }
 
         if self.status == ItemStatus.MISSING:
