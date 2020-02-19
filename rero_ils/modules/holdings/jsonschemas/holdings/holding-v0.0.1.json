@@ -1,71 +1,96 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
   "title": "Holding",
   "description": "JSON schema for holdings.",
+  "type": "object",
   "additionalProperties": false,
   "required": [
     "$schema",
-    "pid"
+    "pid",
+    "holdings_type",
+    "circulation_category",
+    "location",
+    "document"
+  ],
+  "propertiesOrder": [
+    "call_number",
+    "circulation_category",
+    "location",
+    "holdings_type",
+    "patterns"
   ],
   "properties": {
     "$schema": {
       "title": "Schema",
       "description": "Schema to validate holdings records against.",
       "type": "string",
-      "minLength": 9,
-      "default": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json"
+      "default": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+      "minLength": 9
     },
     "pid": {
-      "title": "Holding ID",
+      "title": "Persistant identifier",
       "type": "string",
       "minLength": 1
     },
     "call_number": {
+      "title": "Call number",
       "type": "string",
-      "minLength": 4,
-      "title": "Holding call number.",
-      "description": "Call number of the holding."
+      "minLength": 4
     },
     "circulation_category": {
       "title": "Circulation type",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
-          "title": "circulation category URI",
+          "title": "Circulation type URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/item_types/.*?$"
+          "pattern": "^https://ils.rero.ch/api/item_types/.*?$",
+          "form": {
+            "remoteOptions": {
+              "type": "item_types"
+            }
+          }
         }
       }
     },
     "location": {
       "title": "Location",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Location URI",
           "type": "string",
-          "pattern": "^https://ils.rero.ch/api/locations/.*?$"
+          "pattern": "^https://ils.rero.ch/api/locations/.+?$",
+          "form": {
+            "fieldMap": "location"
+          }
         }
       }
     },
     "document": {
-      "title": "Document",
+      "title": "Parent document",
       "type": "object",
       "properties": {
         "$ref": {
-          "title": "Document URI",
+          "title": "Parent document URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/documents/.*?$"
         }
       }
     },
     "electronic_location": {
-      "title": "Electronic Locations",
-      "description": "Information needed to locate and access an electronic resource.",
+      "title": "Electronic locations",
+      "description": "Information needed to locate and access to an electronic resource.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Electronic location",
         "type": "object",
         "required": [
           "uri"
@@ -73,16 +98,210 @@
         "additionalProperties": false,
         "properties": {
           "uri": {
-            "title": "Uniform Resource Identifier",
-            "description": "Uniform Resource Identifier (URI), which provides standard syntax for locating an object using existing Internet protocols.",
+            "title": "URI",
             "type": "string",
             "format": "uri"
           },
           "source": {
             "title": "Source",
-            "description": "Source of the URI.",
             "type": "string"
           }
+        }
+      }
+    },
+    "holdings_type": {
+      "title": "Type",
+      "type": "string",
+      "default": "serial",
+      "enum": [
+        "standard",
+        "electronic",
+        "serial"
+      ],
+      "form": {
+        "hideExpression": "true"
+      }
+    },
+    "patterns": {
+      "title": "Serial configuration",
+      "type": "object",
+      "required": [
+        "values",
+        "template"
+      ],
+      "propertiesOrder": [
+        "template",
+        "values"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "template": {
+          "title": "Issue display template",
+          "description": "This template define how a prediction is displayed. i.e. year 2020; vol.1, iss. 4. It should contains the variable field between {{}} with the corresponding pattern and level name.",
+          "type": "string",
+          "default": "Vol. {{numbering.volume}}({{chronology.year}}), no {{numbering.number}} {{chronology.season}}",
+          "minLength": 3,
+          "pattern": ".*?\\{\\{.*?\\}\\}.*?",
+          "form": {
+            "placeholder": "Vol. {{numbering.vol}}, {{chronology.year}}",
+            "validation": {
+              "messages": {
+                "pattern": "Should contains at least one variable between {{ }}."
+              }
+            }
+          }
+        },
+        "values": {
+          "title": "Prediction patterns",
+          "type": "array",
+          "default": [
+            {
+              "name": "numbering",
+              "levels": [
+                {
+                  "number_name": "volume"
+                },
+                {
+                  "number_name": "number",
+                  "completion_value": 4
+                }
+              ]
+            },
+            {
+              "name": "chronology",
+              "levels": [
+                {
+                  "number_name": "year",
+                  "next_value": 1990
+                },
+                {
+                  "list_name": "season",
+                  "mapping_values": [
+                    "printemps",
+                    "\u00e9t\u00e9",
+                    "automne",
+                    "hiver"
+                  ]
+                }
+              ]
+            }
+          ],
+          "minItems": 1,
+          "items": {
+            "title": "Prediction pattern",
+            "type": "object",
+            "required": [
+              "name",
+              "levels"
+            ],
+            "propertiesOrder": [
+              "name",
+              "levels"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string",
+                "description": "It should be used in the display template. i.e. chronology, enumeration.",
+                "minLength": 1
+              },
+              "levels": {
+                "title": "Chronology levels",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Chronology level",
+                  "type": "object",
+                  "oneOf": [
+                    {
+                      "title": "Number based prediction",
+                      "required": [
+                        "number_name"
+                      ],
+                      "propertiesOrder": [
+                        "number_name",
+                        "starting_value",
+                        "completion_value",
+                        "next_value"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "number_name": {
+                          "title": "Name",
+                          "type": "string",
+                          "description": "It should be used in the display template. i.e. year, month, volume, issue, etc.",
+                          "minLength": 1
+                        },
+                        "starting_value": {
+                          "title": "Starting value",
+                          "description": "First value of the sequence.",
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "completion_value": {
+                          "title": "Completion of the values",
+                          "description": "Last value of the sequence. If it is not defined the sequence will continue until the infinity.",
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "next_value": {
+                          "title": "Next predicted value",
+                          "description": "Can be used to correct the next current prediction.",
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    },
+                    {
+                      "title": "List based prediction (used for seasons, months...)",
+                      "required": [
+                        "list_name",
+                        "mapping_values"
+                      ],
+                      "propertiesOrder": [
+                        "list_name",
+                        "mapping_values",
+                        "next_value"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "list_name": {
+                          "title": "Name",
+                          "description": "It should be used in the display template. i.e. year, month, volume, issue.",
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "mapping_values": {
+                          "title": "Values",
+                          "type": "array",
+                          "uniqueItems": true,
+                          "minItems": 1,
+                          "items": {
+                            "title": "Value",
+                            "description": "Use a value instead of a number. i.e. january, 2nd, quarter.",
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "next_value": {
+                          "title": "Next predicted value",
+                          "description": "Can be used to correct the next current prediction. The value is the current position of the value in the list.",
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "expressionProperties": {
+          "templateOptions.required": "true"
         }
       }
     }

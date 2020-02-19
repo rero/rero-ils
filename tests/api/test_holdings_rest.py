@@ -176,13 +176,14 @@ def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_entrypoint = 'invenio_records_rest.hold_list'
 
+    # we no longer allow manual creation of standard holdings records
     del holding_lib_martigny_data['pid']
     res, _ = postdata(
         client,
         post_entrypoint,
         holding_lib_martigny_data
     )
-    assert res.status_code == 201
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -218,12 +219,13 @@ def test_holding_secure_api_update(client, holding_lib_sion,
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
+    # we no longer allow manual the update of standard holdings records
     res = client.put(
         record_url,
         data=json.dumps(data),
         headers=json_header
     )
-    assert res.status_code == 200
+    assert res.status_code == 403
 
 
 def test_holding_secure_api_delete(client, holding_lib_saxon,
@@ -234,14 +236,15 @@ def test_holding_secure_api_delete(client, holding_lib_saxon,
     record_url = url_for('invenio_records_rest.hold_item',
                          pid_value=holding_lib_saxon.pid)
     # Martigny
+    # we no longer allow manual the delete of standard holdings records
     res = client.delete(record_url)
-    assert res.status_code == 204
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
 
     res = client.delete(record_url)
-    assert res.status_code == 410
+    assert res.status_code == 403
 
 
 def test_holdings_items_filter(client, holding_lib_martigny, holding_lib_sion,
@@ -306,7 +309,7 @@ def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
     assert res.status_code == 200
 
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['call_number'] == 'h00001'
+    assert data['metadata']['call_number'] == 'call number'
 
     # Delete record/DELETE
     res = client.delete(item_url)

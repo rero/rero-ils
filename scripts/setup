@@ -335,6 +335,10 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
+# create serials patterns
+info_msg "Serials patterns:"
+eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
+
 # create circulation transactions
 info_msg "Circulation transactions:"
 eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json

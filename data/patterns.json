@@ -1,0 +1,390 @@
+[
+  {
+    "template_name": "quarterly_one_level",
+    "rero_control_number": "R003826164",
+    "patterns": {
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 61
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "mars",
+                "juin",
+                "sept.",
+                "d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "yearly_one_level",
+    "rero_control_number": "0866187",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 82
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "yearly_one_level_with_label",
+    "rero_control_number": "1450816",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 29
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "yearly_two_times",
+    "rero_control_number": "R006011814",
+    "patterns": {
+      "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 8
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 2,
+              "next_value": 2
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019,
+              "completion_value": 2
+            },
+            {
+              "list_name": "level_2",
+              "next_value": 2,
+              "mapping_values": [
+                "M\u00e4rz",
+                "Nov."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "quarterly_two_levels",
+    "rero_control_number": "R003301493",
+    "patterns": {
+      "template": "Jg. {{first_enumeration.level_1}} Heft {{enumeration_chronology.level_2}} {{enumeration_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 20
+            },
+            {
+              "number_name": "level_2",
+              "starting_value": 1,
+              "completion_value": 4
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020,
+              "completion_value": 4
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "quarterly_two_levels_with_season",
+    "rero_control_number": "1651754",
+    "patterns": {
+      "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019
+            },
+            {
+              "number_name": "level_2",
+              "starting_value": 1,
+              "completion_value": 4
+            }
+          ]
+        },
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 277
+            }
+          ]
+        },
+        {
+          "name": "second_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2018
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "printemps",
+                "\u00e9t\u00e9",
+                "automne",
+                "hiver"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "half_yearly_one_level",
+    "rero_control_number": "R215832460",
+    "patterns": {
+      "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 48
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "printemps",
+                "automne"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "bimonthly_every_two_months_one_level",
+    "rero_control_number": "R008447499",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 47
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "jan./f\u00e9v.",
+                "mars/avril",
+                "mai/juin",
+                "juil./ao\u00fbt",
+                "sept./oct.",
+                "nov./d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "half_yearly_two_levels",
+    "rero_control_number": "R003597475",
+    "patterns": {
+      "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 30
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 2
+            }
+          ]
+        },
+        {
+          "name": "second_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 84
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "June",
+                "Dec."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "template_name": "bimonthly_every_two_months_two_levels",
+    "rero_control_number": "1490336",
+    "patterns": {
+      "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 51
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 6
+            }
+          ]
+        },
+        {
+          "name": "second_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "completion_value": 6
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "Jan.",
+                "M\u00e4rz",
+                "Mai",
+                "Juli",
+                "Sept.",
+                "Nov."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
