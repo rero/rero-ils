@@ -105,8 +105,9 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                 reversed(list(documents_pids)[:count]), length=count) as bar:
             for document_pid in bar:
                 holdings = [{}]
+                # we will not create holdings for ebook and journal documents
                 if Document.get_record_by_pid(
-                        document_pid).get('type') == 'ebook':
+                        document_pid).get('type') in ['ebook', 'journal']:
                     continue
                 for i in range(0, randint(1, itemscount)):
                     org = random.choice(list(locations_pids.keys()))
@@ -174,6 +175,7 @@ def create_holding_record(
             '$ref': url_api.format(
                 doc_type='locations', pid=location_pid)
         },
+        'holdings_type': 'standard',
         'circulation_category': {
             '$ref': url_api.format(
                 doc_type='item_types', pid=item_type_pid)

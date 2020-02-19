@@ -64,6 +64,45 @@
             }
           }
         },
+        "holdings_type": {
+          "type": "keyword"
+        },
+        "patterns": {
+          "properties": {
+            "template": {
+              "type": "keyword"
+            },
+            "values": {
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "levels": {
+                  "properties": {
+                    "number_name": {
+                      "type": "keyword"
+                    },
+                    "list_name": {
+                      "type": "keyword"
+                    },
+                    "starting_value": {
+                      "type": "integer"
+                    },
+                    "next_value": {
+                      "type": "integer"
+                    },
+                    "completion_value": {
+                      "type": "integer"
+                    },
+                    "mapping_values": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

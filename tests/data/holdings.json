@@ -1,0 +1,619 @@
+{
+  "doc4": {
+    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "pid": "doc4",
+    "type": "journal",
+    "notes": [
+      "A note : 1889"
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Journal of swiss economy"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "extent": "190 p.",
+    "series": [
+      {
+        "name": "Biblioth\u00e8que de la jeune fille",
+        "number": "1"
+      }
+    ],
+    "authors": [
+      {
+        "name": "Vincent, Sophie",
+        "type": "person"
+      }
+    ],
+    "formats": [
+      "18 cm"
+    ],
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "copyrightDate": [
+      "\u00a9 1971"
+    ],
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 3 ban"
+          },
+          {
+            "value": "\u7b2c3\u7248",
+            "language": "chi-hani"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Zeng Lingliang zhu bian"
+          },
+          {
+            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "language": "chi-hani"
+          }
+        ]
+      },
+      {
+        "editionDesignation": [
+          {
+            "value": "Edition"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Responsibility"
+          }
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "Lausanne"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "H. Mignot"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "1971"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 1971
+      }
+    ],
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "RERO",
+        "value": "R0087455991"
+      },
+      {
+        "type": "bf:Isbn",
+        "status": "invalid or cancelled",
+        "value": "9782844267700"
+      },
+      {
+        "type": "bf:Local",
+        "source": "BNF",
+        "value": "FRBNF452959040000009"
+      },
+      {
+        "type": "uri",
+        "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904d"
+      }
+    ],
+    "harvested": false
+  },
+  "holding1": {
+    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "pid": "holding1",
+    "call_number": "h00001",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "holdings_type": "standard"
+  },
+  "holding2": {
+    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "pid": "holding2",
+    "call_number": "h00002",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc3"
+    },
+    "holdings_type": "standard"
+  },
+  "holding3": {
+    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "pid": "holding3",
+    "call_number": "h00003",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc5"
+    },
+    "holdings_type": "standard"
+  },
+  "holding4": {
+    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "pid": "holding4",
+    "call_number": "h00004",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc1"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty5"
+    },
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc7"
+    },
+    "holdings_type": "standard"
+  },
+  "holding5": {
+    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "pid": "holding5",
+    "call_number": "h00005",
+    "document": {
+      "$ref": "https://ils.rero.ch/api/documents/doc4"
+    },
+    "circulation_category": {
+      "$ref": "https://ils.rero.ch/api/item_types/itty1"
+    },
+    "location": {
+      "$ref": "https://ils.rero.ch/api/locations/loc1"
+    },
+    "holdings_type": "serial",
+    "patterns": {
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 61
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "mars",
+                "juin",
+                "sept.",
+                "d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern1": {
+    "template_name": "quarterly_one_level",
+    "patterns": {
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 61
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "mars",
+                "juin",
+                "sept.",
+                "d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern2": {
+    "template_name": "yearly_one_level",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 82
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern3": {
+    "template_name": "yearly_one_level_with_label",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 29
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern4": {
+    "template_name": "yearly_two_times",
+    "patterns": {
+      "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 8
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 2,
+              "next_value": 2
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019,
+              "completion_value": 2
+            },
+            {
+              "list_name": "level_2",
+              "next_value": 2,
+              "mapping_values": [
+                "M\u00e4rz",
+                "Nov."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern5": {
+    "template_name": "quarterly_two_levels",
+    "patterns": {
+      "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 20
+            },
+            {
+              "number_name": "level_2",
+              "starting_value": 1,
+              "completion_value": 4
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020,
+              "completion_value": 4
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern6": {
+    "template_name": "quarterly_two_levels_with_season",
+    "patterns": {
+      "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019
+            },
+            {
+              "number_name": "level_2",
+              "starting_value": 1,
+              "completion_value": 4
+            }
+          ]
+        },
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 277
+            }
+          ]
+        },
+        {
+          "name": "second_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2018
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "printemps",
+                "\u00e9t\u00e9",
+                "automne",
+                "hiver"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern7": {
+    "template_name": "half_yearly_one_level",
+    "patterns": {
+      "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 48
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2019
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "printemps",
+                "automne"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern8": {
+    "template_name": "bimonthly_every_two_months_one_level",
+    "patterns": {
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 47
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "jan./f\u00e9v.",
+                "mars/avril",
+                "mai/juin",
+                "juil./ao\u00fbt",
+                "sept./oct.",
+                "nov./d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern9": {
+    "template_name": "half_yearly_two_levels",
+    "patterns": {
+      "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 30
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 2
+            }
+          ]
+        },
+        {
+          "name": "second_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 84
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "June",
+                "Dec."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "pattern10": {
+    "template_name": "bimonthly_every_two_months_two_levels",
+    "patterns": {
+      "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 51
+            },
+            {
+              "number_name": "level_2",
+              "completion_value": 6
+            }
+          ]
+        },
+        {
+          "name": "second_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "completion_value": 6
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "Jan.",
+                "M\u00e4rz",
+                "Mai",
+                "Juli",
+                "Sept.",
+                "Nov."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

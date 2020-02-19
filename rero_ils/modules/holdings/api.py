@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from builtins import classmethod
+from copy import deepcopy
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -26,9 +28,11 @@ from flask import current_app
 from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
+from jinja2 import Template
 
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer
+from ..documents.api import Document
 from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
@@ -78,6 +82,42 @@ class Holding(IlsRecord):
             HoldingsIndexer().delete(self)
         except NotFoundError:
             pass
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        Ensures that holdings of type serials are created only on
+        journal documents i.e. serial mode_of_issuance documents.
+
+        Ensures that holdings of type electronic are created only on
+        ebooks documents i.e. harvested documents.
+
+        :returns: False if
+            - document type is not journal and holding type is serial.
+            - document type is journal and holding type is not serial.
+            - document type is ebook and holding type is not electronic.
+            - document type is not ebook and holding type is electronic.
+        """
+        document = Document.get_record_by_pid(self.document_pid)
+        is_serial = self.holdings_type == 'serial'
+        is_electronic = self.holdings_type == 'electronic'
+        is_issuance = document.dumps().get('issuance') == 'rdami:1003'
+        return not(
+            (is_issuance ^ is_serial) or (document.harvested ^ is_electronic)
+            )
+
+    @property
+    def is_serial(self):
+        """Shortcut to check if holding is a serial holding record."""
+        document = Document.get_record_by_pid(self.document_pid).dumps()
+        is_serial = self.holdings_type == 'serial'
+        is_issuance = document.get('issuance') == 'rdami:1003'
+        return is_serial and is_issuance
+
+    @property
+    def holdings_type(self):
+        """Shortcut to return the type of the holding."""
+        return self.get('holdings_type')
 
     @property
     def document_pid(self):
@@ -197,8 +237,14 @@ class Holding(IlsRecord):
         return results
 
     def get_links_to_me(self):
-        """Get number of links."""
+        """Get links that can block the holding deletion.
+
+        Attached items to a holding record blocks the deletion.
+
+        :returns: a list of records links to the holding record.
+        """
         links = {}
+        # get number of attached items
         items = self.get_number_of_items()
         if items:
             links['items'] = items
@@ -231,13 +277,110 @@ class Holding(IlsRecord):
             return ItemType.get_record_by_pid(
                 self.circulation_category_pid).get('name')
 
+    @property
+    def patterns(self):
+        """Shortcut for holdings patterns."""
+        return self.get('patterns')
 
-def get_holding_pid_by_document_location_item_type(
+    @property
+    def next_issue_display_text(self):
+        """Display the text of the next predicted issue."""
+        if self.patterns:
+            return self._get_next_issue_display_text(self.patterns)
+
+    @classmethod
+    def _get_next_issue_display_text(cls, patterns):
+        """Display the text for the next predicted issue.
+
+        :param patterns: List of a valid holdings patterns.
+        :returns: A display text of the next predicted issue.
+        """
+        issue_data = {}
+        for pattern in patterns.get('values', []):
+            pattern_name = pattern.get('name', '')
+            level_data = {}
+            for level in pattern.get('levels', []):
+                text_value = level.get('next_value', level.get(
+                    'starting_value', 1))
+                mapping = level.get('mapping_values')
+                if mapping:
+                    text_value = mapping[text_value - 1]
+                level_data.update({
+                    level.get(
+                        'number_name', level.get('list_name')
+                    ): str(text_value)
+                })
+            issue_data[pattern_name] = level_data
+        return Template(patterns.get('template')).render(**issue_data)
+
+    def increment_next_prediction(self):
+        """Increment next prediction."""
+        if not self.patterns or not self.patterns.get('values'):
+            return
+        self['patterns'] = self._increment_next_prediction(self.patterns)
+
+    @classmethod
+    def _increment_next_prediction(cls, patterns):
+        """Increment the next predicted issue.
+
+        :param patterns: List of a valid holdings patterns.
+        :returns: The updated patterns with the next issue.
+        """
+        for pattern in patterns.get('values', []):
+            for level in reversed(pattern.get('levels', [])):
+                max_value = level.get('completion_value')
+                if level.get('mapping_values'):
+                    max_value = len(level.get('mapping_values'))
+                next_value = level.get('next_value', level.get(
+                    'starting_value', 1))
+                if max_value == next_value:
+                    level['next_value'] = level.get(
+                        'starting_value', 1)
+                else:
+                    level['next_value'] = next_value + 1
+                    break
+        return patterns
+
+    def prediction_issues_preview(self, predictions=1):
+        """Display preview of next predictions.
+
+        :param predictions: Number of the next issues to predict.
+        :returns: An array of issues display text.
+        """
+        text = []
+        if self.patterns and self.patterns.get('values'):
+            patterns = deepcopy(self.patterns)
+            for r in range(predictions):
+                text.append(self._get_next_issue_display_text(patterns))
+                patterns = self._increment_next_prediction(patterns)
+        return text
+
+    @classmethod
+    def prediction_issues_preview_for_pattern(
+            cls, patterns, number_of_predictions=1, ):
+        """Display preview of next predictions for a given pattern.
+
+        :param predictions: Number of the next issues to predict.
+        :param patterns: The patterns to predict.
+        :returns: An array of issues display text.
+        """
+        text = []
+        if patterns and patterns.get('values'):
+            for r in range(number_of_predictions):
+                text.append(Holding._get_next_issue_display_text(patterns))
+                patterns = Holding._increment_next_prediction(patterns)
+        return text
+
+
+def get_standard_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid):
-    """Returns holding pid for document/location/item type."""
+    """Returns standard holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
         'term',
         document__pid=document_pid
+    ).filter(
+        'term',
+        holdings_type='standard'
     ).filter(
         'term',
         circulation_category__pid=item_type_pid
@@ -265,8 +408,8 @@ def get_holdings_by_document_item_type(
 
 
 def create_holding(
-        document_pid=None, location_pid=None,
-        item_type_pid=None, electronic_location=None):
+        document_pid=None, location_pid=None, item_type_pid=None,
+        electronic_location=None, holdings_type=None, patterns=None):
     """Create a new holding."""
     if not (document_pid and location_pid and item_type_pid):
         raise MissingRequiredParameterError(
@@ -308,6 +451,11 @@ def create_holding(
     }
     if electronic_location:
         data['electronic_location'] = [electronic_location]
+    if not holdings_type:
+        holdings_type = 'standard'
+    data['holdings_type'] = holdings_type
+    if patterns and holdings_type == 'serial':
+        data['patterns'] = patterns
     record = Holding.create(
         data, dbcommit=True, reindex=True, delete_pid=True)
     return record.get('pid')

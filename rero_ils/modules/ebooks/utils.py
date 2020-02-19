@@ -23,8 +23,8 @@ from invenio_oaiharvester.models import OAIHarvestConfig
 
 from ..documents.api import Document
 from ..holdings.api import create_holding, \
-    get_holding_pid_by_document_location_item_type, \
-    get_holdings_by_document_item_type
+    get_holdings_by_document_item_type, \
+    get_standard_holding_pid_by_doc_location_item_type
 from ..organisations.api import Organisation
 
 
@@ -100,7 +100,8 @@ def create_document_holding(record):
                         document_pid=new_record.pid,
                         location_pid=location,
                         item_type_pid=item_type_pid,
-                        electronic_location=harvested_source)
+                        electronic_location=harvested_source,
+                        holdings_type='electronic')
         else:
             current_app.logger.warning(
                 'create document holding no org: {source}'.format(
@@ -127,14 +128,15 @@ def update_document_holding(record, pid):
             item_type_pid = org.online_circulation_category()
             locations = org.get_online_locations()
             for location_pid in locations:
-                if not get_holding_pid_by_document_location_item_type(
-                        new_record.pid, location_pid, item_type_pid
+                if not get_standard_holding_pid_by_doc_location_item_type(
+                    new_record.pid, location_pid, item_type_pid
                 ):
                     create_holding(
                         document_pid=new_record.pid,
                         location_pid=location_pid,
                         item_type_pid=item_type_pid,
-                        electronic_location=harvested_source)
+                        electronic_location=harvested_source,
+                        holdings_type='electronic')
                 holdings = get_holdings_by_document_item_type(
                     new_record.pid, item_type_pid)
                 for holding in holdings:

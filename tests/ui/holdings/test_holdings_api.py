@@ -27,7 +27,7 @@ from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.holdings.api import holding_id_fetcher as fetcher
 
 
-def test_holding_create(db, es_clear, holding_lib_martigny_data):
+def test_holding_create(db, es_clear, document, holding_lib_martigny_data):
     """Test holding creation."""
     holding = Holding.create(holding_lib_martigny_data, delete_pid=True)
     assert holding == holding_lib_martigny_data

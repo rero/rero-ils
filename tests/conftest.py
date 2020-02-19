@@ -83,6 +83,14 @@ def acquisition():
         return data
 
 
+@pytest.fixture(scope="module")
+def holdings():
+    """Load fixture holdings file."""
+    with open(join(dirname(__file__), 'data/holdings.json')) as f:
+        data = json.load(f)
+        return data
+
+
 @pytest.fixture(scope="session")
 def json_header():
     """Load json headers."""

@@ -27,6 +27,7 @@ from invenio_access.permissions import Permission
 from invenio_admin.permissions import \
     admin_permission_factory as default_admin_permission_factory
 
+from .modules.holdings.api import Holding
 from .modules.patrons.api import Patron
 
 request_item_permission = Permission(RoleNeed('patron'))
@@ -115,9 +116,12 @@ def can_delete_organisation_records_factory(record, *args, **kwargs):
     """Checks if the logged user can delete records of its organisation.
 
     user must have librarian or system_librarian role.
+    users have no permission to delete a standard or electronic holdings.
     """
     def can(self):
         patron = staffer_is_authenticated()
+        if isinstance(record, Holding) and not record.is_serial:
+            return False
         if patron and patron.organisation_pid == record.organisation_pid:
             return True
         return False
@@ -128,10 +132,13 @@ def can_update_organisation_records_factory(record, *args, **kwargs):
     """Checks if the logged user can update records of its organisation.
 
     user must have librarian or system_librarian role.
+    users have no permission to update a standard or electronic holdings.
     """
     def can(self):
         patron = staffer_is_authenticated()
         if patron and patron.organisation_pid == record.organisation_pid:
+            if isinstance(record, Holding) and not record.is_serial:
+                return False
             return True
         return False
     return type('Check', (), {'can': can})()
@@ -142,11 +149,14 @@ def can_create_organisation_records_factory(record, *args, **kwargs):
 
     user must have librarian or system_librarian role.
     returns False if a librarian tries to create a system_librarian.
+    users have no permission to create a standard or electronic holdings.
     """
     def can(self):
         patron = staffer_is_authenticated()
         if patron and not record:
             return True
+        if isinstance(record, Holding) and not record.is_serial:
+            return False
         if patron and patron.organisation_pid == record.organisation_pid:
             if patron.is_system_librarian:
                 return True

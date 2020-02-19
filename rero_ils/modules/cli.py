@@ -62,6 +62,7 @@ from werkzeug.local import LocalProxy
 
 from .api import IlsRecordsIndexer
 from .documents.dojson.contrib.marc21tojson import marc21
+from .holdings.cli import create_patterns
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
@@ -87,6 +88,7 @@ fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 fixtures.add_command(reindex_items)
 fixtures.add_command(create_loans)
+fixtures.add_command(create_patterns)
 
 
 @users.command('confirm')

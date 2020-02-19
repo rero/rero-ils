@@ -85,7 +85,7 @@ class Document(IlsRecord):
     @property
     def harvested(self):
         """Is this record harvested from an external service."""
-        return self.get('harvested')
+        return self.get('harvested', False)
 
     @property
     def can_edit(self):
@@ -97,7 +97,13 @@ class Document(IlsRecord):
         """Get number of items for document."""
         from ..items.api import ItemsSearch
         return ItemsSearch().filter(
-            'term', document__pid=self.pid).source().count()
+            'term', document__pid=self.pid).count()
+
+    def get_number_of_holdings(self):
+        """Get number of holdings for document."""
+        from ..holdings.api import HoldingsSearch
+        return HoldingsSearch().filter(
+            'term', document__pid=self.pid).count()
 
     def get_number_of_loans(self):
         """Get number of document loans."""
@@ -113,11 +119,15 @@ class Document(IlsRecord):
     def get_number_of_acquisition_order_lines(self):
         """Get number of acquisition order lines for document."""
         return AcqOrderLinesSearch().filter(
-            'term', document__pid=self.pid).source().count()
+            'term', document__pid=self.pid).count()
 
     def get_links_to_me(self):
         """Get number of links."""
         links = {}
+        # get number of document holdings
+        number_of_holdings = self.get_number_of_holdings()
+        if number_of_holdings:
+            links['holdings'] = number_of_holdings
         # get number of items linked
         number_of_items = self.get_number_of_items()
         if number_of_items:
@@ -159,6 +169,11 @@ class Document(IlsRecord):
         bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
         for title in bf_titles:
             title['_text'] = title_format_text_head(titles, with_subtitle=True)
+        # a temporary way to set the document mode of issuance to serial.
+        # TODO: remove this when the document.issuance field is implemented.
+        document_type = dump.get('type')
+        if document_type == 'journal':
+            dump['issuance'] = 'rdami:1003'
         return dump
 
     def index_persons(self, bulk=False):
@@ -175,6 +190,17 @@ class Document(IlsRecord):
                     person.reindex()
         if persons_ids:
             IlsRecordsIndexer().bulk_index(persons_ids, doc_type=['pers'])
+
+    @classmethod
+    def get_all_serial_pids(cls):
+        """Get pids of all serial documents.
+
+        a serial document has mode_of_issuance equal to rdami:1003
+        """
+        es_documents = DocumentsSearch()\
+            .filter('term', issuance="rdami:1003").source(['pid']).scan()
+        for es_document in es_documents:
+            yield es_document.pid
 
 
 class DocumentsIndexer(IlsRecordsIndexer):
