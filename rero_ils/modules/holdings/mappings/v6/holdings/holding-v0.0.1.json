@@ -64,6 +64,38 @@
             }
           }
         },
+        "holdings_type": {
+          "type": "keyword"
+        },
+        "patterns": {
+          "properties": {
+            "name": {
+              "type": "keyword"
+            },
+            "levels": {
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "starting_value": {
+                  "type": "integer"
+                },
+                "next_value": {
+                  "type": "integer"
+                },
+                "show": {
+                  "type": "boolean"
+                },
+                "completion_value": {
+                  "type": "integer"
+                },
+                "mapping_values": {
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

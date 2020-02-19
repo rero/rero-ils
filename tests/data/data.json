@@ -1871,62 +1871,6 @@
       "$ref": "https://ils.rero.ch/api/loans/x"
     }
   },
-  "holding1": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
-    "pid": "holding1",
-    "call_number": "h00001",
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/itty1"
-    },
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/loc1"
-    }
-  },
-  "holding2": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
-    "pid": "holding2",
-    "call_number": "h00002",
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/itty1"
-    },
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/loc3"
-    }
-  },
-  "holding3": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
-    "pid": "holding3",
-    "call_number": "h00003",
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/itty1"
-    },
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/loc5"
-    }
-  },
-  "holding4": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
-    "pid": "holding4",
-    "call_number": "h00004",
-    "document": {
-      "$ref": "https://ils.rero.ch/api/documents/doc1"
-    },
-    "circulation_category": {
-      "$ref": "https://ils.rero.ch/api/item_types/itty5"
-    },
-    "location": {
-      "$ref": "https://ils.rero.ch/api/locations/loc7"
-    }
-  },
   "dummy_fee": {
     "$schema": "https://ils.rero.ch/schema/fees/fee-v0.0.1.json",
     "pid": "fee1",
