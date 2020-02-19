@@ -1,6 +1,7 @@
 [run]
 omit =
     rero_ils/dojson/cli.py
+    rero_ils/modules/holdings/cli.py
     rero_ils/modules/loans/cli.py
     rero_ils/modules/ebooks/cli.py
     rero_ils/modules/apiharvester/cli.py
