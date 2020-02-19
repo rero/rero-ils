@@ -453,15 +453,15 @@ def item2_lib_saxon(
 
 
 @pytest.fixture(scope="module")
-def holding_lib_martigny_data(data):
+def holding_lib_martigny_data(holdings):
     """Load holding of martigny library."""
-    return deepcopy(data.get('holding1'))
+    return deepcopy(holdings.get('holding1'))
 
 
 @pytest.fixture(scope="function")
-def holding_lib_martigny_data_tmp(data):
+def holding_lib_martigny_data_tmp(holdings):
     """Load holding of martigny library scope function."""
-    return deepcopy(data.get('holding1'))
+    return deepcopy(holdings.get('holding1'))
 
 
 @pytest.fixture(scope="module")
@@ -478,9 +478,9 @@ def holding_lib_martigny(app, document, holding_lib_martigny_data,
 
 
 @pytest.fixture(scope="module")
-def holding_lib_saxon_data(data):
+def holding_lib_saxon_data(holdings):
     """Load holding of saxon library."""
-    return deepcopy(data.get('holding2'))
+    return deepcopy(holdings.get('holding2'))
 
 
 @pytest.fixture(scope="module")
@@ -497,9 +497,9 @@ def holding_lib_saxon(app, document, holding_lib_saxon_data,
 
 
 @pytest.fixture(scope="module")
-def holding_lib_fully_data(data):
+def holding_lib_fully_data(holdings):
     """Load holding of fully library."""
-    return deepcopy(data.get('holding3'))
+    return deepcopy(holdings.get('holding3'))
 
 
 @pytest.fixture(scope="module")
@@ -516,9 +516,9 @@ def holding_lib_fully(app, document, holding_lib_fully_data,
 
 
 @pytest.fixture(scope="module")
-def holding_lib_sion_data(data):
+def holding_lib_sion_data(holdings):
     """Load holding of sion library."""
-    return deepcopy(data.get('holding4'))
+    return deepcopy(holdings.get('holding4'))
 
 
 @pytest.fixture(scope="module")
@@ -532,6 +532,100 @@ def holding_lib_sion(app, document, holding_lib_sion_data,
         reindex=True)
     flush_index(HoldingsSearch.Meta.index)
     return holding
+
+
+# --------- Holdings with patterns records -----------
+
+@pytest.fixture(scope="module")
+def holding_lib_martigny_w_patterns_data(holdings):
+    """Load holding of martigny library."""
+    return deepcopy(holdings.get('holding5'))
+
+
+@pytest.fixture(scope="module")
+def holding_lib_martigny_w_patterns(
+    app, document, holding_lib_martigny_w_patterns_data,
+        loc_public_martigny, item_type_standard_martigny):
+    """Create holding of martigny library with patterns."""
+    holding = Holding.create(
+        data=holding_lib_martigny_w_patterns_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(HoldingsSearch.Meta.index)
+    return holding
+
+# --------- Pattern records -----------
+
+
+@pytest.fixture(scope="module")
+def pattern_quarterly_one_level_data(holdings):
+    """Load holding with patterns of martigny library scope function."""
+    del holdings['pattern1']['template_name']
+    return deepcopy(holdings.get('pattern1'))
+
+
+@pytest.fixture(scope="module")
+def pattern_yearly_one_level_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern2']['template_name']
+    return deepcopy(holdings.get('pattern2'))
+
+
+@pytest.fixture(scope="module")
+def pattern_yearly_one_level_with_label_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern3']['template_name']
+    return deepcopy(holdings.get('pattern3'))
+
+
+@pytest.fixture(scope="module")
+def pattern_yearly_two_times_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern4']['template_name']
+    return deepcopy(holdings.get('pattern4'))
+
+
+@pytest.fixture(scope="module")
+def pattern_quarterly_two_levels_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern5']['template_name']
+    return deepcopy(holdings.get('pattern5'))
+
+
+@pytest.fixture(scope="module")
+def pattern_quarterly_two_levels_with_season_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern6']['template_name']
+    return deepcopy(holdings.get('pattern6'))
+
+
+@pytest.fixture(scope="module")
+def pattern_half_yearly_one_level_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern7']['template_name']
+    return deepcopy(holdings.get('pattern7'))
+
+
+@pytest.fixture(scope="module")
+def pattern_bimonthly_every_two_months_one_level_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern8']['template_name']
+    return deepcopy(holdings.get('pattern8'))
+
+
+@pytest.fixture(scope="module")
+def pattern_half_yearly_two_levels_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern9']['template_name']
+    return deepcopy(holdings.get('pattern9'))
+
+
+@pytest.fixture(scope="module")
+def pattern_bimonthly_every_two_months_two_levels_data(holdings):
+    """Load patterns of martigny library scope function."""
+    del holdings['pattern10']['template_name']
+    return deepcopy(holdings.get('pattern10'))
 
 
 @pytest.fixture(scope='module')
