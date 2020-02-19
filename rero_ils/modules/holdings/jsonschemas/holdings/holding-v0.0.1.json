@@ -85,6 +85,95 @@
           }
         }
       }
+    },
+    "holdings_type": {
+      "type": "string",
+      "title": "Type of the holdings",
+      "enum": [
+        "monograph",
+        "serial"
+      ],
+      "default": "monograph"
+    },
+    "patterns": {
+      "title": "Captions and patterns information",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Captions and patterns",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The name of the pattern.",
+            "minLength": 1
+          },
+          "levels": {
+            "title": "Enumeration and chronology levels",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "title": "Enumeration and chronology levels",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "The name of the level.",
+                  "minLength": 1
+                },
+                "starting_value": {
+                  "type": "integer",
+                  "title": "The starting value of current level.",
+                  "minimum": 1
+                },
+                "show": {
+                  "type": "boolean",
+                  "title": "To show this level at issue display or not.",
+                  "default": true
+                },
+                "next_value": {
+                  "type": "integer",
+                  "title": "The next value of current level.",
+                  "minimum": 1
+                },
+                "completion_value": {
+                  "type": "integer",
+                  "title": "Units per next higher level.",
+                  "minimum": 1
+                },
+                "mapping_values": {
+                  "title": "Mapping values for chronology",
+                  "type": "array",
+                  "uniqueItems": true,
+                  "minItems": 1,
+                  "items": {
+                    "title": "Description of the mapping values.",
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  },
+  "if": {
+    "properties": {
+      "holdings_type": {
+        "const": "serial"
+      }
+    },
+    "required": [
+      "holdings_type"
+    ]
+  },
+  "then": {
+    "required": [
+      "patterns"
+    ]
   }
 }

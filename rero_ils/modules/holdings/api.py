@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from builtins import classmethod
+from copy import deepcopy
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -241,6 +243,87 @@ class Holding(IlsRecord):
             return ItemType.get_record_by_pid(
                 self.circulation_category_pid).get('name')
 
+    @property
+    def patterns(self):
+        """Shortcut for holdings patterns."""
+        return self.get('patterns')
+
+    @property
+    def next_issue_display_text(self):
+        """Display the text of the next predicted issue."""
+        if self.patterns:
+            return self._get_next_issue_display_text(self.patterns)
+
+    @classmethod
+    def _get_next_issue_display_text(cls, patterns):
+        """Display the text for the next predicted issue.
+
+        :param patterns: List of a valid holdings patterns.
+        :returns: A display text of the next predicted issue.
+        """
+        texts = []
+        for pattern in patterns:
+            text = []
+            levels = pattern.get('levels', [])
+            for level in levels:
+                show_level = level.get('show', True)
+                if show_level:
+                    text_value = level.get('next_value', level.get(
+                        'starting_value', 1))
+                    mapping = level.get('mapping_values')
+                    if mapping:
+                        text_value = mapping[text_value - 1]
+                    text.append(
+                        ' '.join(
+                            (level.get('name', ''), str(text_value))
+                        ).lstrip())
+            texts.append(' '.join(text))
+        return ' '.join(texts)
+
+    def increment_next_prediction(self):
+        """Increment next prediction."""
+        if not self.patterns:
+            return
+        self['patterns'] = self._increment_next_prediction(self.patterns)
+
+    @classmethod
+    def _increment_next_prediction(cls, patterns):
+        """Increment the next predicted issue.
+
+        :param patterns: List of a valid holdings patterns.
+        :returns: The updated patterns with the next issue.
+        """
+        for pattern in patterns:
+            levels = pattern.get('levels', [])
+            for level in reversed(levels):
+                max_value = level.get('completion_value')
+                if level.get('mapping_values'):
+                    max_value = len(level.get('mapping_values'))
+                next_value = level.get('next_value', level.get(
+                    'starting_value', 1))
+                if max_value == next_value:
+                    level['next_value'] = level.get(
+                        'starting_value', 1)
+                else:
+                    level['next_value'] = next_value + 1
+                    break
+        return patterns
+
+    def prediction_issues_preview(self, predictions=1):
+        """Display prview of next predictions.
+
+        :param predictions: Number of the next issued to predict.
+        :returns: An array of issues display text.
+        """
+        if not self.patterns:
+            return []
+        patterns = deepcopy(self.patterns)
+        text = []
+        for r in range(predictions):
+            text.append(self._get_next_issue_display_text(patterns))
+            patterns = self._increment_next_prediction(patterns)
+        return text
+
 
 def get_holding_pid_by_document_location_item_type(
         document_pid, location_pid, item_type_pid):
@@ -275,8 +358,8 @@ def get_holdings_by_document_item_type(
 
 
 def create_holding(
-        document_pid=None, location_pid=None,
-        item_type_pid=None, electronic_location=None):
+        document_pid=None, location_pid=None, item_type_pid=None,
+        electronic_location=None, holdings_type=None, patterns=None):
     """Create a new holding."""
     if not (document_pid and location_pid and item_type_pid):
         raise MissingRequiredParameterError(
@@ -318,6 +401,11 @@ def create_holding(
     }
     if electronic_location:
         data['electronic_location'] = [electronic_location]
+    if not holdings_type:
+        holdings_type = 'monograph'
+    data['holdings_type'] = holdings_type
+    if patterns and holdings_type == 'serial':
+        data['patterns'] = patterns
     record = Holding.create(
         data, dbcommit=True, reindex=True, delete_pid=True)
     return record.get('pid')
