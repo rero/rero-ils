@@ -572,8 +572,8 @@
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1925-07-31",
     "city": "no indication",
-    "email": "wang@example.org",
-    "first_name": "Wang",
+    "email": "wan@example.org",
+    "first_name": "Wan",
     "roles": [
       "librarian"
     ],
