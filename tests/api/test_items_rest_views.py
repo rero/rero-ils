@@ -300,6 +300,7 @@ def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
 
     record, actions = item.automatic_checkin()
     assert 'no' in actions
+    assert actions['no']['pid'] == loan_pid
 
     item.cancel_loan(pid=loan_pid)
     assert item.status == ItemStatus.ON_SHELF
