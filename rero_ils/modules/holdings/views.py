@@ -82,7 +82,7 @@ def holding_location(holding):
     location_pid = holding.get('location').get('pid')
     location = Location.get_record_by_pid(location_pid)
     return '{lib}: {loc}'.format(
-        lib=location.get_library().get('code'), loc=location.get('name'))
+        lib=location.get_library().get('name'), loc=location.get('name'))
 
 
 @blueprint.app_template_filter()
