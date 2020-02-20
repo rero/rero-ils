@@ -265,7 +265,7 @@
                     {% for location in locations %}
                     <a class="dropdown-item"
                       href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
-                      {{ location.get_library().name }}
+                      {{ location.pickup_name }}
                     </a>
                     {% endfor %}
                   </div>
