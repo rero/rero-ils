@@ -73,7 +73,7 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     with pytest.raises(Exception):
         assert holding_loan_condition_filter('no pid')
     assert holding_location(holding_lib_martigny.replace_refs()) == \
-        'MARTIGNY: Martigny Library Public Space'
+        'Library of Martigny-ville: Martigny Library Public Space'
     assert holding_circulation_category(holding_lib_martigny) == 'standard'
     holdings = get_holdings_by_document_item_type(
         document.pid, item_type_standard_martigny.pid)

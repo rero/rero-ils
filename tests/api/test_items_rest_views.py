@@ -270,7 +270,7 @@ def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
     circ_policy = circ_policy_short_martigny
 
     record, actions = item_lib_martigny.automatic_checkin()
-    assert actions == {'no': None}
+    assert 'no' in actions
 
     res, data = postdata(
         client,
@@ -299,7 +299,7 @@ def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
     assert item.status == ItemStatus.IN_TRANSIT
 
     record, actions = item.automatic_checkin()
-    assert actions == {'no': None}
+    assert 'no' in actions
 
     item.cancel_loan(pid=loan_pid)
     assert item.status == ItemStatus.ON_SHELF
