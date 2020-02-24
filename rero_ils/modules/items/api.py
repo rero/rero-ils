@@ -817,7 +817,6 @@ class Item(IlsRecord):
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='checkin')
         )
-        actions = {LoanAction.CHECKIN: loan}
         # if item is requested we will automatically:
         # - cancel the checked-in loan if still active
         # - validate the next request
@@ -826,7 +825,10 @@ class Item(IlsRecord):
             request = next(self.get_requests())
             if loan.is_active:
                 item, cancel_action = self.cancel_loan(pid=loan.pid)
-            item, validate_action = self.validate_request(**request)
+            item, validate_item = self.validate_request(**request)
+            # return the validated loan instead of the checked-in loan
+            loan = validate_item[LoanAction.VALIDATE]
+        actions = {LoanAction.CHECKIN: loan}
         return self, actions
 
     def prior_checkout_actions(self, action_params):
