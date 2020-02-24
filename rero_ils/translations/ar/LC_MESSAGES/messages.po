@@ -7085,7 +7085,7 @@ msgstr[1] "Found {{$count}} result."
 msgstr[2] "Found {{$count}} results."
 msgstr[3] "Found {{$count}} results."
 msgstr[4] "Found {{$count}} results."
-msgstr[5] "Found {{$count}} results."
+msgstr[5] "تم العثور على {{$count}} نتائج."
 
 #: rero_ils/static/templates/rero_ils/count.html:23
 msgid "No results found."
