@@ -100,6 +100,7 @@ def logged_user():
 )
 def profile(viewcode):
     """Patron Profile Page."""
+    tab = 'checkouts'
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
@@ -107,6 +108,7 @@ def profile(viewcode):
         loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
         item = Item.get_record_by_pid(loan.get('item_pid'))
         if request.form.get('type') == 'cancel':
+            tab = 'pendings'
             data = loan
             try:
                 item.cancel_loan(**data)
@@ -137,7 +139,8 @@ def profile(viewcode):
         checkouts=checkouts,
         pendings=requests,
         history=history,
-        viewcode=viewcode
+        viewcode=viewcode,
+        tab=tab
     )
 
 
