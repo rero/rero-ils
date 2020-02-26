@@ -20,6 +20,7 @@
 
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
+
 from rero_ils.modules.loans.api import LoanAction
 
 

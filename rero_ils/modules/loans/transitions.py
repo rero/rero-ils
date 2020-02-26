@@ -22,8 +22,9 @@ from invenio_circulation.api import get_document_pid_by_item_pid, \
     get_pending_loans_by_doc_pid
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.transitions.base import Transition
-from invenio_circulation.transitions.transitions import _ensure_same_location,\
-    ensure_same_item
+from invenio_circulation.transitions.transitions import \
+    _ensure_same_location as _ensure_same_location
+from invenio_circulation.transitions.transitions import ensure_same_item
 from invenio_db import db
 
 from ..documents.api import Document
