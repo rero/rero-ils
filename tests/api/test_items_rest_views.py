@@ -257,55 +257,6 @@ def test_automatic_checkin(client, librarian_martigny_no_email, lib_martigny,
     assert item.status == ItemStatus.ON_SHELF
 
 
-def test_auto_checkin_else(client, librarian_martigny_no_email, lib_martigny,
-                           patron_martigny_no_email, loc_public_martigny,
-                           item_lib_martigny, json_header,
-                           item_type_standard_martigny,
-                           circ_policy_short_martigny,
-                           patron_type_children_martigny, lib_saxon,
-                           loc_public_saxon, librarian_saxon_no_email):
-    """Test item automatic checkin other scenarios."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    circ_policy_origin = deepcopy(circ_policy_short_martigny)
-    circ_policy = circ_policy_short_martigny
-
-    record, actions = item_lib_martigny.automatic_checkin()
-    assert 'no' in actions
-
-    res, data = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid
-        ),
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
-
-    res, _ = postdata(
-        client,
-        'api_item.validate_request',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
-        ),
-    )
-    assert res.status_code == 200
-
-    item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert item.status == ItemStatus.IN_TRANSIT
-
-    record, actions = item.automatic_checkin()
-    assert 'no' in actions
-    assert actions['no']['pid'] == loan_pid
-
-    item.cancel_loan(pid=loan_pid)
-    assert item.status == ItemStatus.ON_SHELF
-
-
 def test_item_different_actions(client, librarian_martigny_no_email,
                                 lib_martigny,
                                 patron_martigny_no_email, loc_public_martigny,

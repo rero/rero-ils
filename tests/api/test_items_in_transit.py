@@ -64,7 +64,7 @@ def test_items_in_transit_between_libraries(client,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_location_pid=loc_public_saxon.pid
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -126,3 +126,47 @@ def test_item_multiple_transit(client, item_lib_martigny,
     # The request loan will automatically go in transit
     assert Loan.get_record_by_pid(request_loan_pid).get('state') == \
         'ITEM_IN_TRANSIT_FOR_PICKUP'
+
+
+def test_auto_checkin_else(client, librarian_martigny_no_email,
+                           patron_martigny_no_email, loc_public_martigny,
+                           item3_lib_martigny, json_header,
+                           loc_public_saxon):
+    """Test item automatic checkin other scenarios."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    record, actions = item3_lib_martigny.automatic_checkin()
+    assert 'no' in actions
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pickup_location_pid=loc_public_saxon.pid,
+            patron_pid=patron_martigny_no_email.pid
+        ),
+    )
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
+
+    res, _ = postdata(
+        client,
+        'api_item.validate_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
+        ),
+    )
+    assert res.status_code == 200
+
+    item = Item.get_record_by_pid(item3_lib_martigny.pid)
+    assert item.status == ItemStatus.IN_TRANSIT
+
+    record, actions = item.automatic_checkin()
+    assert 'no' in actions
+    assert actions['no']['pid'] == loan_pid
+
+    item.cancel_loan(pid=loan_pid)
+    assert item.status == ItemStatus.ON_SHELF

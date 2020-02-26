@@ -769,6 +769,9 @@ class Item(IlsRecord):
         #       to deal with multiple pickup locations for a library
         item = cls.get_record_by_pid(item_pid)
         if item:
+            last_location = item.get_last_location()
+            if last_location:
+                return last_location.pid
             return item.get_owning_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
@@ -825,6 +828,9 @@ class Item(IlsRecord):
             request = next(self.get_requests())
             if loan.is_active:
                 item, cancel_action = self.cancel_loan(pid=loan.pid)
+            # pass the correct transaction location
+            transaction_loc_pid = loan.get('transaction_location_pid')
+            request['transaction_location_pid'] = transaction_loc_pid
             item, validate_item = self.validate_request(**request)
             # return the validated loan instead of the checked-in loan
             loan = validate_item[LoanAction.VALIDATE]
