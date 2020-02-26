@@ -26,13 +26,13 @@
     <nav>
       <ul class="nav nav-tabs" id="nav-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" href="#checkouts" data-toggle="tab" id="checkouts-tab" title="{{ _('Checkouts') }}"
+          <a {% if tab == 'checkouts' %}class="nav-link active"{%else%}class="nav-link"{% endif %} href="#checkouts" data-toggle="tab" id="checkouts-tab" title="{{ _('Checkouts') }}"
             role="tab" aria-controls="checkouts" aria-selected="true">
             {{ _('Checkouts') }} ({{ checkouts|length }})
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#pending" data-toggle="tab" id="pending-tab" title="{{ _('Pending') }}" role="tab"
+          <a {% if tab == 'pendings' %}class="nav-link active"{%else%}class="nav-link"{% endif %} href="#pending" data-toggle="tab" id="pending-tab" title="{{ _('Pending') }}" role="tab"
             aria-controls="pending" aria-selected="false">
             {{ _('Pending') }} ({{ pendings|length }})
           </a>
@@ -53,14 +53,14 @@
     </nav>
   </header>
   <article class="tab-content">
-    <section class="tab-pane show active py-2" id="checkouts" role="tabpanel" aria-labelledby="checkouts-tab">
+    <section {% if tab == 'checkouts' %}class="tab-pane show active py-2"{%else%}class="tab-pane show py-2"{% endif %} id="checkouts" role="tabpanel" aria-labelledby="checkouts-tab">
       {% if checkouts|length > 0 %}
       {{ build_table('checkouts', checkouts) }}
       {% else %}
       <p>{{ _('No loan') }}</p>
       {% endif %}
     </section>
-    <section class="tab-pane py-2" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+    <section {% if tab == 'pendings' %}class="tab-pane show active py-2"{%else%}class="tab-pane show py-2"{% endif %} id="pending" role="tabpanel" aria-labelledby="pending-tab">
       {% if pendings|length > 0 %}
       {{ build_table('requests', pendings) }}
       {% else %}
