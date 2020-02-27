@@ -1510,7 +1510,7 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
                     'RERO_ILS_PERSONS_SOURCES', [])
                 for persons_source in persons_sources:
                     try:
-                        del rec[persons_sources]['$schema']
+                        del rec[persons_source]['$schema']
                     except:
                         pass
             output = ''
