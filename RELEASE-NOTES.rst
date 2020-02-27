@@ -18,6 +18,271 @@
 Release notes
 =============
 
+v0.6.1
+------
+
+Instance
+~~~~~~~~
+
+- Uses `rero-ils-ui` version `0.0.12`.
+
+Documentation
+~~~~~~~~~~~~~
+
+- Adds the missing  release notes and changelog.
+
+Issues
+~~~~~~
+
+-  `rero/rero-ils#775 <https://github.com/rero/rero-ils/issues/775>`__:
+   when using the *switch library* toggle, the list of requested items
+   wasn't updated, so a wrong list was proposed to the librarian.
+-  Fixes a typo in `cli.py`.
+
+v0.6.0
+------
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Adds a “renew” button in the patron profile, to allow the patron to
+   renew the borrowed item, if possible (no request on it).
+-  Re-enables autocomplete in the search input.
+-  Splits the user interface into a public interface and a
+   professional interface (ie for librarians).
+-  Removes all professional actions from the public interface, as they
+   are moved to the professional interface.
+-  Moves all professional functionalities to a dedicated angular
+   application.
+-  Adds a link to switch to the professional interface (only available
+   to logged in librarians).
+-  Adds a link to switch from the professional interface to the public
+   interface.
+-  Filters persons by organisation views.
+-  Changes the angular library to generate forms (form
+   `angular6-json-schema-editor <https://github.com/hamzahamidi/ajsf>`__
+   to `ngx-formly <https://github.com/ngx-formly/ngx-formly>`__), in
+   order to accommodate the need for a complex cataloging editor.
+-  Displays custom logos and header color for each organisation and for the
+   professional interface.
+-  Adds a “history” tab in the patron profile to display the transaction
+   history of the last 6 months.
+-  Adds a button in the requests tab of the patron profile to allow
+   patrons to cancel their own requests.
+-  Updates the frontpage for the pilot libraries instance, with relevant
+   information.
+-  `[rero-ils-ui] <https://github.com/rero/rero-ils-ui>`__ Improves the
+   circulation module user interface with better information display (for
+   requests, transit and fees) and automatic performance of transactions.
+-  `[rero-ils-ui] <https://github.com/rero/rero-ils-ui>`__ Implements the
+   patron account view in the professional interface, with tabs for checked
+   out items, requests, fees and personal information.
+
+Search and indexing
+~~~~~~~~~~~~~~~~~~~
+
+-  Improves ebook bulk indexing (``invenio utils reindex``,
+   ``invenio utils runindex``).
+-  Improves person indexing during document indexing and document
+   creation.
+-  Fixes missing mappings in JSON schemas.
+-  Adds default sorting for each resource.
+
+Circulation
+~~~~~~~~~~~
+
+-  Takes into account library timezone for all circulation transactions.
+-  Links loans and fees through the notification resource.
+-  Enriches fee index with ``loan.pid``, ``patron.pid`` and
+   ``organisation.currency``.
+-  Adds an order parameter to sort pending loans.
+-  Improves the method for finding the correct location of an item when it
+   is in circulation.
+
+Metadata
+~~~~~~~~
+
+-  Improves ``dojson`` transformations (MARC21 to JSON), especially the
+   ability to do parallel transformations, which is necessary for
+   complex tasks.
+-  Updates and improves UNIMARC ``dojson`` transformation (BnF
+   importation).
+-  Adds a comprehensive language list to the document JSON schema.
+-  Reserves ranges of PIDs, useful to import linked resources from external
+   systems.
+-  Adds a dump function to compute an unstructured ``_text`` field based on
+   structured data. This field is for display purposes. This new field is also
+   added to the JSON schema.
+-  Adds a dump function to items, to populate items index with
+   organisation, location and availability data.
+-  Fixes document dumps for records without series.
+-  Fixes ``dojson`` series field transformation for ebooks.
+-  Adds a CLI command to automatically translate the LoC language list.
+-  Implements and rewrites ``provisionActivity`` field in the new data model
+   and adapts the needed transformations.
+-  Fixes ``provisionActivity`` ``startDate``.
+-  Implements edition statement field in the new data model and the
+   needed transformations.
+-  Adds a command to the bootstrap script to compile JSON (JSON
+   references for definitions).
+-  Improves performance with MEF person importations:
+
+   -  Imports MEF persons in the DB, not only in ES.
+   -  Reduces the number of requests to the DB and ES.
+
+-  Updates JSON schemas to the new ``ngx-formly`` library (form options
+   are now directly in the schema).
+-  Sets the document abstract field to ``textarea`` type.
+
+Acquisition
+~~~~~~~~~~~
+
+-  Adds new resources for vendor file, orders and order lines.
+-  Adds new resources for organisation acquisition budget and library
+   acquisition account.
+-  Inherits the acquisition account currency from organisation default
+   currency.
+-  Prevents deletion of acquisition account if orders are linked to it.
+-  Enriches the organisation record by the ``current_budget_pid``.
+-  Sets the budget dates field to ``date`` instead of ``datetime``.
+-  Links order lines to documents.
+
+API
+~~~
+
+-  Restricts actions on items to the librarians working at the owning
+   library.
+-  Allows read access to holdings and items for all users.
+-  Adds access to loan API for users of the same organisation.
+-  Restricts patron API loan search to their own loans.
+-  Sets loan API search sort order to loan’s ``transaction_date``.
+-  Limits edit, delete and update actions on acquisition account to
+   librarians of the same library.
+-  Allows librarians to read acquisition budgets of their library.
+-  Allows system librarians to create, edit, delete, update acquisition
+   budgets and accounts at the organisation level.
+-  Blocks deletion of the organisation’s current budget.
+-  Allows system librarians to edit the parameters of their own
+   organisation.
+-  Sets permissions for orders and order lines.
+-  Moves update and delete permissions from serializer to API.
+
+Fixtures
+~~~~~~~~
+
+-  Fixes the numbers of items generated.
+-  Improves error handling and logging for JSON reference resolvers.
+-  Adds lazy record creation option to the setup.
+-  Sets opening of the third organisation libraries to 01:00 AM, because
+   the editor does not validate with an opening hour set to 00:00.
+-  Adds a CLI and a configuration file to test the PID dependencies in
+   the fixture data (ie relations between resources).
+-  Adds vendor fixtures.
+-  Adds acquisition budgets and acquisition accounts fixtures.
+-  Improves notification fixtures with ``due_soon`` and recall records.
+-  Exports existing MEF persons from a running instance and then imports
+   persons when building another instance, in order to speed up the setup.
+
+Tests
+~~~~~
+
+-  Adds PID verification with commit/rollback.
+-  Improves test coverage with mef-persons tasks, ebooks receivers, API
+   harvester.
+-  Updates ``.run-tests.sh`` to ``pytest`` 5.3.3.
+-  Improves the license check.
+
+Instance
+~~~~~~~~
+
+-  RERO ILS is now three different projects, three different git
+   repositories:
+
+   -  The repository `rero-ils <https://github.com/rero/rero-ils>`__
+      contains the backend, the Invenio instance and the flask
+      application.
+   -  `ng-core <https://github.com/rero/ng-core>`__ is an angular
+      library for a User Interface, shared between two RERO projects
+      based on Invenio, RERO ILS and `SONAR <https://sonar.ch>`__.
+   -  `rero-ils-ui <https://github.com/rero/rero-ils-ui>`__ contains two
+      angular applications, one for the public search interface, the
+      other one for the professional interface.
+
+-  Uses ``invenio-assets`` (``NpmBundle``) to integrate angular apps and
+   removes ``webpack`` command in the bootstrap script.
+-  Adds the possibility to install ``rero-ils-ui`` from a locally
+   generated ``.tgz``.
+-  Adds a variable in ``bundles.py`` to set ``rero-ils-ui`` version.
+-  Updates ``Dockerfile`` to use ``rero-ils-ui`` package file.
+-  Adds ``rero-ils-ui`` version or commit hash on
+   `ilsdev.test.rero.ch <https://ilsdev.test.rero.ch>`__ frontpage.
+-  Improves scripts:
+
+   -  ``run-tests.sh``.
+   -  speeds up ``scripts/setup`` and cleans unnecessary warnings.
+   -  ``scripts/bootstrap``.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Improves templates for GitHub pull request, in order to remind
+   developers to check if strings to be translated have correctly been
+   extracted.
+-  Documents links between RERO ILS resources in
+   ``doc/reroils_resources.*`` files.
+
+Issues
+~~~~~~
+
+-  `#571 <https://github.com/rero/rero-ils/issues/571>`__: the string
+   “not extendable” was not translated in the notifications templates.
+-  `#574 <https://github.com/rero/rero-ils/issues/574>`__: librarians
+   could edit items belonging to other libraries.
+-  `#550 <https://github.com/rero/rero-ils/issues/550>`__: person
+   result list should be filtered by the organisation view.
+-  `#552 <https://github.com/rero/rero-ils/issues/552>`__: after
+   deleting a document, a *page not found* was presented to the user.
+   This fix provides a confirmation message and redirects the user to
+   the list of documents.
+-  `#572 <https://github.com/rero/rero-ils/issues/572>`__: some strings
+   in the patron editor were not correctly translated.
+-  `#599 <https://github.com/rero/rero-ils/issues/599>`__: due date
+   computation resulted in wrong output, due to incomplete timezone
+   support.
+-  `#601 <https://github.com/rero/rero-ils/issues/601>`__: deleting a
+   document resulted in an exception, because a non existing linked
+   ``mef_reference`` could not be deleted.
+-  `#213 <https://github.com/rero/rero-ils/issues/213>`__: needs a
+   method to validate circulation policies when they are imported and
+   not created through the editor.
+-  `#625 <https://github.com/rero/rero-ils/issues/625>`__: the
+   circulation policy custom editor didn’t display selected policy
+   settings (to which patron types and item types the policy applies
+   to).
+-  `#626 <https://github.com/rero/rero-ils/issues/626>`__: an error in
+   circulation policies data prevented the second organisation system
+   librarian to edit circulation policies.
+-  `#646 <https://github.com/rero/rero-ils/issues/646>`__: the French
+   translation of system librarian wasn’t correct on the frontpage.
+-  `#770 <https://github.com/rero/rero-ils/issues/770>`__: the
+   destination of an item in transit was not displayed correctly after a
+   checkin.
+-  `#776 <https://github.com/rero/rero-ils/issues/776>`__: item
+   information in the holding displayed the library code, which is not
+   relevant. The library name and location name are the desired
+   information to be displayed here. The destination of an item in transit
+   was not displayed correctly after a checkin.
+-  `#777 <https://github.com/rero/rero-ils/issues/777>`__: the item
+   request button should be populated by pickup location names instead
+   of library names.
+-  `#780 <https://github.com/rero/rero-ils/issues/780>`__: checkin of
+   requested items resulted in the wrong transit destination. This was
+   due to a bug in the ``invenio-circulation`` version used by RERO ILS.
+   Temporarily, the circulation transitions have been overwritten.
+-  `rero/rero-ils-ui#76 <https://github.com/rero/rero-ils-ui/issues/76>`__:
+   it should be possible to delete a circulation policy even if it
+   contains parameters.
+
 v0.5.2
 ------
 
