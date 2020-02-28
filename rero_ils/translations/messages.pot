@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.5.2\n"
+"Project-Id-Version: rero-ils 0.6.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-02-17 17:19+0100\n"
+"POT-Creation-Date: 2020-03-02 11:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,83 +16,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: rero_ils/config.py:114
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:255
+#: rero_ils/config.py:115
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:257
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:81
 msgid "French"
 msgstr ""
 
-#: rero_ils/config.py:115
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:263
+#: rero_ils/config.py:116
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:265
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:93
 msgid "German"
 msgstr ""
 
-#: rero_ils/config.py:116
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:267
+#: rero_ils/config.py:117
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:269
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:89
 msgid "Italian"
 msgstr ""
 
-#: rero_ils/config.py:155 rero_ils/config.py:159
+#: rero_ils/config.py:156 rero_ils/config.py:160
 msgid "rero-ils"
 msgstr ""
 
-#: rero_ils/config.py:203
+#: rero_ils/config.py:204
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-#: rero_ils/config.py:1005
+#: rero_ils/config.py:1015
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:1006
+#: rero_ils/config.py:1016
 msgid "organisation"
 msgstr ""
 
-#: rero_ils/config.py:1009 rero_ils/config.py:1053 rero_ils/config.py:1075
+#: rero_ils/config.py:1019 rero_ils/config.py:1063 rero_ils/config.py:1085
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:1010
+#: rero_ils/config.py:1020
 msgid "author__en"
 msgstr ""
 
-#: rero_ils/config.py:1011
+#: rero_ils/config.py:1021
 msgid "author__fr"
 msgstr ""
 
-#: rero_ils/config.py:1012
+#: rero_ils/config.py:1022
 msgid "author__de"
 msgstr ""
 
-#: rero_ils/config.py:1013
+#: rero_ils/config.py:1023
 msgid "author__it"
 msgstr ""
 
-#: rero_ils/config.py:1013
+#: rero_ils/config.py:1024
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3353
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3353
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:1015
+#: rero_ils/config.py:1025
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:1016 rero_ils/config.py:1076
+#: rero_ils/config.py:1026 rero_ils/config.py:1086
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:1032
+#: rero_ils/config.py:1042
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:1054
+#: rero_ils/config.py:1064
 msgid "budget"
 msgstr ""
 
-#: rero_ils/config.py:1092
+#: rero_ils/config.py:1102
 msgid "sources"
 msgstr ""
 
@@ -387,7 +387,7 @@ msgstr ""
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:48
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:159
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:93
 msgid "Library"
 msgstr ""
@@ -396,7 +396,7 @@ msgstr ""
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:110
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:167
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
 msgid "Library URI"
 msgstr ""
 
@@ -6378,7 +6378,7 @@ msgid "Address of the library."
 msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:55
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:71
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:31
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:149
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:213
@@ -6747,106 +6747,114 @@ msgstr ""
 msgid "Date of birth"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:85
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:68
+msgid "Example: 1985-12-29"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:25
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:122
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:185
 msgid "Street"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:87
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:123
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:186
 msgid "Street and number of the address, separated by a coma."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:91
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:128
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:191
 msgid "Postal code"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:96
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:27
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:133
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:197
 msgid "City"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:143
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:207
 msgid "Phone number"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:144
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:208
 msgid "Phone number with the international prefix, without spaces."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:114
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:112
+msgid "Example: +41791231212"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:116
 msgid "Patron Type"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:115
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:117
 msgid "Patron type in terms of circulation policy."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:122
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:124
 msgid "Patron Type URI"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:140
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:142
 msgid "Patron's barcode or card number"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:153
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:155
 msgid "The barcode is already taken."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:160
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:162
 msgid "Library affiliation."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:185
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:187
 msgid "Role"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:186
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:188
 msgid "Define the roles of the user."
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:204
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:206
 msgid "Patron"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:208
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:210
 msgid "Librarian"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:212
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:214
 msgid "System Librarian"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:220
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:222
 msgid "Communication channel"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:229
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:231
 msgid "email"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:233
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:235
 msgid "mail"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:244
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:246
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:69
 msgid "Communication language"
 msgstr ""
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:259
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:261
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:85
 msgid "English"
 msgstr ""

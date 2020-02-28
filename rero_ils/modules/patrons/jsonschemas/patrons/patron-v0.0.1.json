@@ -64,7 +64,8 @@
           "messages": {
             "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
           }
-        }
+        },
+        "placeholder": "Example: 1985-12-29"
       }
     },
     "email": {
@@ -107,7 +108,8 @@
           "messages": {
             "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
           }
-        }
+        },
+        "placeholder": "Example: +41791231212"
       }
     },
     "patron_type": {
