@@ -43,16 +43,22 @@ Requirements
 Installation
 ------------
 
-First you need to install
-`pipenv <https://docs.pipenv.org/install/#installing-pipenv>`_, it will handle
-the virtual environment creation for the project in order to sandbox our Python
-environment, as well as manage the dependency installation, among other things.
-
-Create your working directory and ``cd`` into it. Clone inside this directory the project:
+First, create your working directory and ``cd`` into it. Clone the project into this directory:
 
 .. code-block:: console
 
     $ git clone https://github.com/rero/rero-ils.git
+
+You need to install `pipenv`, it will handle the virtual environment creation for the project
+in order to sandbox our Python environment, as well as manage the dependency installation,
+among other things. A specific version of pipenv is needed, another version of python 3.6 can be used:
+
+.. code-block:: console
+
+    $ pyenv install 3.6.9
+    $ cd rero-ils
+    $ pyenv local 3.6.9
+    $ sudo pip install pipenv==2018.10.9
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install
 all Python dependencies and build all static assets):
