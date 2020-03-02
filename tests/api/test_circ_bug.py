@@ -67,7 +67,8 @@ def test_document_with_one_item_attached_bug(
         'api_item.checkin',
         dict(
             item_pid=item_lib_martigny.pid,
-            pid=loan_pid
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200

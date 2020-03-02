@@ -327,8 +327,8 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKIN].get('pid')
 
     data = {'pid': loan_pid}
-    return_data = item_lib_martigny.prior_checkout_actions(data)
-    assert return_data == {}
+    params, actions = item_lib_martigny.prior_checkout_actions(data)
+    assert 'cancel' in actions
 
 
 def test_item_secure_api(client, json_header, item_lib_martigny,
@@ -644,3 +644,29 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     assert res.status_code == 500
     data = get_json(res)
     assert 'RequestError(400' in data['status']
+
+
+def test_checkout_cancel_old_loan(
+        client, librarian_martigny_no_email, patron_martigny_no_email,
+        loc_public_martigny, item_lib_fully, circulation_policies,
+        patron2_martigny_no_email):
+    """Test prior checkin actions."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # request an item by a librarian in a remote location
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_fully.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
+    # validate the request to loan status goes to in_transit
+    item_lib_fully.validate_request(pid=loan_pid)
+    action_params = {'patron_pid': patron2_martigny_no_email.pid}
+    # loan will be canclled if a librarian decided to checkout the item anyway.
+    item, actions = item_lib_fully.prior_checkout_actions(action_params)
+    assert 'cancel' in actions
