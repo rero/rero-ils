@@ -769,9 +769,11 @@ class Item(IlsRecord):
         #       to deal with multiple pickup locations for a library
         item = cls.get_record_by_pid(item_pid)
         if item:
-            last_location = item.get_last_location()
-            if last_location:
-                return last_location.pid
+            # TODO: this will be useful for the very specific rero use cases
+
+            # last_location = item.get_last_location()
+            # if last_location:
+            #     return last_location.pid
             return item.get_owning_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
@@ -817,59 +819,73 @@ class Item(IlsRecord):
     @add_loans_parameters_and_flush_indexes
     def checkin(self, current_loan, **kwargs):
         """Checkin a given item."""
-        loan = current_circulation.circulation.trigger(
+        checkin_loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='checkin')
         )
+        # to return the list of all applied actions
+        actions = {LoanAction.CHECKIN: checkin_loan}
         # if item is requested we will automatically:
         # - cancel the checked-in loan if still active
         # - validate the next request
         requests = self.number_of_requests()
         if requests:
             request = next(self.get_requests())
-            if loan.is_active:
-                item, cancel_action = self.cancel_loan(pid=loan.pid)
+            if checkin_loan.is_active:
+                item, cancel_actions = self.cancel_loan(pid=checkin_loan.pid)
+                actions.update(cancel_actions)
             # pass the correct transaction location
-            transaction_loc_pid = loan.get('transaction_location_pid')
+            transaction_loc_pid = checkin_loan.get('transaction_location_pid')
             request['transaction_location_pid'] = transaction_loc_pid
-            item, validate_item = self.validate_request(**request)
-            # return the validated loan instead of the checked-in loan
-            loan = validate_item[LoanAction.VALIDATE]
-        actions = {LoanAction.CHECKIN: loan}
+            # validate the request
+            item, validate_actions = self.validate_request(**request)
+            actions.update(validate_actions)
+            validate_loan = validate_actions[LoanAction.VALIDATE]
+            # receive the request if it is requested at transaction library
+            if validate_loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP':
+                trans_loc = Location.get_record_by_pid(transaction_loc_pid)
+                req_loc = Location.get_record_by_pid(
+                    request.get('pickup_location_pid'))
+                if req_loc.library_pid == trans_loc.library_pid:
+                    item, receive_action = self.receive(**request)
+                    actions.update(receive_action)
         return self, actions
 
     def prior_checkout_actions(self, action_params):
         """Actions executed prior to a checkout."""
+        actions = {}
         if action_params.get('pid'):
             loan = Loan.get_record_by_pid(action_params.get('pid'))
             if (
                 loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
                 loan.get('patron_pid') == action_params.get('patron_pid')
             ):
-                self.receive(**action_params)
+                item, receive_actions = self.receive(**action_params)
+                actions.update(receive_actions)
             if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
-                self.cancel_loan(pid=loan.get('pid'))
+                item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
+                actions.update(cancel_actions)
                 del action_params['pid']
         else:
             loan = get_loan_for_item(self.pid)
             if (loan and loan.get('state') != 'ITEM_AT_DESK'):
-                self.cancel_loan(pid=loan.get('pid'))
-        return action_params
+                item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
+                actions.update(cancel_actions)
+        return action_params, actions
 
     @add_loans_parameters_and_flush_indexes
     def checkout(self, current_loan, **kwargs):
         """Checkout item to the user."""
-        new_data = self.prior_checkout_actions(kwargs)
-        loan = Loan.get_record_by_pid(new_data.get('pid'))
-        current_loan = loan or Loan.create(new_data,
+        action_params, actions = self.prior_checkout_actions(kwargs)
+        loan = Loan.get_record_by_pid(action_params.get('pid'))
+        current_loan = loan or Loan.create(action_params,
                                            dbcommit=True,
                                            reindex=True)
 
         loan = current_circulation.circulation.trigger(
-            current_loan, **dict(new_data, trigger='checkout')
+            current_loan, **dict(action_params, trigger='checkout')
         )
-        return self, {
-            LoanAction.CHECKOUT: loan
-        }
+        actions.update({LoanAction.CHECKOUT: loan})
+        return self, actions
 
     @add_loans_parameters_and_flush_indexes
     def cancel_loan(self, current_loan, **kwargs):
@@ -907,10 +923,10 @@ class Item(IlsRecord):
             if loan['state'] == 'ITEM_IN_TRANSIT_FOR_PICKUP' and \
                     loan['pickup_location_pid'] == transaction_location_pid:
                 do_receive = True
-            if loan['state'] == 'ITEM_IN_TRANSIT_TO_HOUSE' and \
-                    self.get_owning_pickup_location_pid() \
-                    == transaction_location_pid:
-                do_receive = True
+            if loan['state'] == 'ITEM_IN_TRANSIT_TO_HOUSE':
+                trans_loc = Location.get_record_by_pid(trans_loc_pid)
+                if self.library_pid == trans_loc.library_pid:
+                    do_receive = True
             if do_receive:
                 return self.receive(pid=loan_pid, **data)
             return self, {

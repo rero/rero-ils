@@ -25,33 +25,26 @@ from rero_ils.modules.items.api import Item, ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanAction
 
 
-def test_items_in_transit_between_libraries(client,
-                                            librarian_martigny_no_email,
-                                            librarian_saxon_no_email,
-                                            patron_martigny_no_email,
-                                            loc_public_martigny,
-                                            item_type_standard_martigny,
-                                            loc_public_saxon,
-                                            item_lib_martigny, json_header,
-                                            circulation_policies):
+def test_items_in_transit_between_libraries(
+        client, librarian_martigny_no_email, librarian_saxon_no_email,
+        patron_martigny_no_email, loc_public_martigny,
+        item_type_standard_martigny, loc_public_saxon, item_lib_martigny,
+        json_header, circulation_policies):
     """Test item in-transit scenarios."""
     login_user_via_session(client, librarian_martigny_no_email.user)
-    item = item_lib_martigny
-    item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
-
     # checkout the item at location A
     res, data = postdata(
         client,
         'api_item.checkout',
         dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid,
             transaction_location_pid=loc_public_saxon.pid
         )
     )
     assert res.status_code == 200
-    assert Item.get_record_by_pid(item_pid).get('status') == ItemStatus.ON_LOAN
+    assert Item.get_record_by_pid(item_lib_martigny.pid).get('status') \
+        == ItemStatus.ON_LOAN
     item_data = data.get('metadata')
     actions = data.get('action_applied')
     assert item_data.get('status') == ItemStatus.ON_LOAN
@@ -62,7 +55,7 @@ def test_items_in_transit_between_libraries(client,
         client,
         'api_item.checkin',
         dict(
-            item_pid=item_pid,
+            item_pid=item_lib_martigny.pid,
             pid=loan_pid,
             transaction_location_pid=loc_public_martigny.pid
         )
@@ -70,7 +63,7 @@ def test_items_in_transit_between_libraries(client,
     assert res.status_code == 200
     item_data = data.get('metadata')
     item = Item.get_record_by_pid(item_data.get('pid'))
-    assert item.get('status') == ItemStatus.IN_TRANSIT
+    assert item.get('status') == ItemStatus.ON_SHELF
 
 
 def test_item_multiple_transit(client, item_lib_martigny,
@@ -170,3 +163,57 @@ def test_auto_checkin_else(client, librarian_martigny_no_email,
 
     item.cancel_loan(pid=loan_pid)
     assert item.status == ItemStatus.ON_SHELF
+
+
+def test_checkout_in_transit_return_same_library(
+        client, librarian_martigny_no_email, librarian_saxon_no_email,
+        patron_martigny_no_email, loc_public_martigny,
+        item_type_standard_martigny, loc_public_saxon, item2_lib_martigny,
+        json_header, circulation_policies):
+    """Test item checkout, in-transit, checkin scenarios."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # checkout the item at location A
+    res, data = postdata(
+        client,
+        'api_item.checkout',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.ON_LOAN
+    loan_pid = actions[LoanAction.CHECKOUT].get('pid')
+
+    # checkin the item at location B
+    res, data = postdata(
+        client,
+        'api_item.checkin',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_saxon.pid
+        )
+    )
+    assert res.status_code == 200
+    item_data = data.get('metadata')
+    item = Item.get_record_by_pid(item_data.get('pid'))
+    assert item.get('status') == ItemStatus.IN_TRANSIT
+
+    # checkin the item at location A
+    res, data = postdata(
+        client,
+        'api_item.automatic_checkin',
+        dict(
+            item_pid=item2_lib_martigny.pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    item_data = data.get('metadata')
+    item = Item.get_record_by_pid(item2_lib_martigny.pid)
+    assert item.get('status') == ItemStatus.ON_SHELF

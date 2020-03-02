@@ -804,7 +804,7 @@ def test_items_receive(client, librarian_martigny_no_email,
 
 def test_items_automatic_checkin(client, librarian_martigny_no_email,
                                  patron_martigny_no_email, loc_public_martigny,
-                                 item_type_standard_martigny,
+                                 item_type_standard_martigny, loc_public_saxon,
                                  item_lib_martigny, json_header,
                                  circulation_policies):
     """Test automatic checkin for items."""
@@ -852,26 +852,31 @@ def test_items_automatic_checkin(client, librarian_martigny_no_email,
     loan_pid = actions[LoanAction.CHECKOUT].get('pid')
 
     # checkin
-    res, _ = postdata(
+    res, data = postdata(
         client,
         'api_item.checkin',
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_location_pid='fake'
+            transaction_location_pid=loc_public_saxon.pid
         )
     )
     assert res.status_code == 200
+    item_data = data.get('metadata')
+    actions = data.get('action_applied')
+    assert item_data.get('status') == ItemStatus.IN_TRANSIT
+    assert LoanAction.CHECKIN in actions
 
     # receive
     res, data = postdata(
         client,
         'api_item.automatic_checkin',
         dict(
-            item_barcode=item.get('barcode')
+            item_pid=item_pid,
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
-
     assert res.status_code == 200
     item_data = data.get('metadata')
     actions = data.get('action_applied')
@@ -1480,10 +1485,19 @@ def test_multiple_loans_on_item_error(client,
         )
     )
     assert res.status_code == 200
+    # test the returned three actions
+    loans = data.get('action_applied')
+    checked_in_loan = loans.get(LoanAction.CHECKIN)
+    cancelled_loan = loans.get(LoanAction.CANCEL)
+    validated_loan = loans.get(LoanAction.VALIDATE)
+    assert checked_in_loan.get('pid') == cancelled_loan.get('pid')
+    assert validated_loan.get('pid') == req_loan_pid
+
     assert Loan.get_record_by_pid(loan_pid).get('state') == 'CANCELLED'
-    assert Loan.get_record_by_pid(
-        req_loan_pid).get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP'
-    assert Item.get_record_by_pid(item.pid).get('status') == 'in_transit'
+    new_loan = Loan.get_record_by_pid(req_loan_pid)
+    assert new_loan.get('state') == 'ITEM_AT_DESK'
+    assert Item.get_record_by_pid(item.pid).get('status') == \
+        ItemStatus.AT_DESK
     # cancel request
     res, _ = postdata(
         client,
