@@ -182,7 +182,6 @@ class JSONSerializer(_JSONSerializer):
             links=links or {},
             aggregations=search_result.get('aggregations', dict()),
         )
-
         return json.dumps(
             self.post_process_serialize_search(
                 results, pid_fetcher), **self._format_args())

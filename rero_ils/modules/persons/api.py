@@ -75,6 +75,8 @@ class Person(IlsRecord):
                 metadata = data.get('metadata')
                 if '$schema' in metadata:
                     del metadata['$schema']
+                # we have to commit because create
+                # uses db.session.begin_nested
                 rec = cls.create(metadata, dbcommit=True)
         except Exception as err:
             db.session.rollback()
@@ -84,17 +86,6 @@ class Person(IlsRecord):
             return None
         db.session.commit()
         rec.reindex()
-        return rec
-
-        rec = cls.get_record_by_pid(pid)
-        if not rec:
-            # No data found: request on MEF URL
-            data = cls._get_mef_record(pid)
-            # Register MEF person
-            metadata = data.get('metadata')
-            if '$schema' in metadata:
-                del metadata['$schema']
-            rec = cls.create(metadata, dbcommit=True)
         return rec
 
     def dumps_for_document(self):
