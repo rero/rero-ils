@@ -93,7 +93,7 @@ class PatronTransactionEvent(IlsRecord):
         total_amount = patron_transaction.get('total_amount')
         if self.event_type == 'fee':
             total_amount = total_amount + self.amount
-        elif self.event_type == 'payment':
+        elif self.event_type in ('payment', 'resolved'):
             total_amount = total_amount - self.amount
         patron_transaction['total_amount'] = total_amount
         if total_amount == 0:
