@@ -105,6 +105,7 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
+            'monitoring = rero_ils.modules.monitoring:api_blueprint'
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -141,7 +142,8 @@ setup(
             'fixtures = rero_ils.modules.cli:fixtures',
             'utils = rero_ils.modules.cli:utils',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
-            'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester'
+            'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
+            'monitoring = rero_ils.modules.monitoring:monitoring'
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',
