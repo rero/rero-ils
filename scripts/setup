@@ -259,16 +259,14 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 info_msg "- Users:"
 eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 
-# # to generate data file
-# eval ${PREFIX} invenio fixtures create_items -c 10000 -i 5 -t ${DATA_PATH}/items.json -h ${DATA_PATH}/holdings.json
-# eval ${PREFIX} flask utils check_json -r data/holdings.json
-
-# # Marc to xml transformation
-# eval ${PREFIX} yaz-marcdump -o marcxml data/documents_big.mrc > data/documents_big.xml
-
-# # xml to json transformation for rero marcxml records
-# eval ${PREFIX} invenio utils marc21tojson ${DATA_PATH}/documents_big.xml ${DATA_PATH}/documents_big.json ${DATA_PATH}/documents_big_errors.xml -v -r
-# eval ${PREFIX} invenio utils marc21tojson ${DATA_PATH}/documents_small.xml ${DATA_PATH}/documents_small.json ${DATA_PATH}/documents_small_errors.xml -v -r
+# # - xml to json transformation for rero marcxml --------------------------------
+# # don't forget to recreat the documents json schema files:
+# pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+# pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+# SIZE=big # SIZE=small
+# pipenv run invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# # after recreation and loading of the new documents we have to recreate the person file
+# pipenv run invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then

@@ -86,3 +86,6 @@ tmp/
 
 # Wiki files
 wiki/
+
+# error files from documents creation
+data/*_errors.xml
