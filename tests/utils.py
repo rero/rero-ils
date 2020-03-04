@@ -159,3 +159,22 @@ def mock_response(status=200, content="CONTENT", json_data=None,
     if json_data:
         mock_resp.json = mock.Mock(return_value=json_data)
     return mock_resp
+
+
+def get_timezone_difference(timezone, date):
+    """Get timezone offset difference, in hours."""
+    if date.tzinfo is not None:
+        date = date.replace(tzinfo=None)
+    return int(timezone.utcoffset(date).total_seconds()/3600)
+
+
+def check_timezone_date(timezone, date, expected=[]):
+    """Check hour and minute of given date regarding given timezone."""
+    difference = get_timezone_difference(timezone, date)
+    hour = date.hour + difference
+    # Expected list defines accepted hours for tests
+    if expected:
+        assert hour in expected
+    tocheck_date = date.astimezone(timezone)
+    assert tocheck_date.minute == date.minute
+    assert tocheck_date.hour == hour
