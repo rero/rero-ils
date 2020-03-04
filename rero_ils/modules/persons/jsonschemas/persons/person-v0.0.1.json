@@ -34,13 +34,14 @@
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
-      "maxItems": 3,
+      "maxItems": 4,
       "items": {
         "type": "string",
         "enum": [
           "rero",
           "gnd",
-          "bnf"
+          "bnf",
+          "idref"
         ],
         "form": {
           "options": [
@@ -55,6 +56,10 @@
             {
               "label": "bnf",
               "value": "bnf"
+            },
+            {
+              "label": "idref",
+              "value": "idref"
             }
           ]
         }
@@ -70,6 +75,10 @@
     },
     "bnf": {
       "title": "BNF authorities",
+      "type": "object"
+    },
+    "idref": {
+      "title": "IdRef authorities",
       "type": "object"
     }
   }

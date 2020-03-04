@@ -80,9 +80,11 @@ class Person(IlsRecord):
                 rec = cls.create(metadata, dbcommit=True)
         except Exception as err:
             db.session.rollback()
-            current_app.logger.error('ERROR get MEF record: {pid}'.format(
+            current_app.logger.error('Get MEF record: {pid}'.format(
                 pid=pid
             ))
+            current_app.logger.error(err)
+
             return None
         db.session.commit()
         rec.reindex()

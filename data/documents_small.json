@@ -23,7 +23,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30244901"
+        "$ref": "https://mef.rero.ch/api/mef/30500459"
       }
     ],
     "responsibilityStatement": [
@@ -105,7 +105,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10515644"
+        "$ref": "https://mef.rero.ch/api/mef/10604455"
       }
     ],
     "responsibilityStatement": [
@@ -198,8 +198,7 @@
     "authors": [
       {
         "type": "person",
-        "name": "Cathrine, Arnaud",
-        "date": "1973-"
+        "$ref": "https://mef.rero.ch/api/mef/25742875"
       }
     ],
     "responsibilityStatement": [
@@ -291,15 +290,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/626528"
+        "$ref": "https://mef.rero.ch/api/mef/631548"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19962102"
+        "$ref": "https://mef.rero.ch/api/mef/20130329"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16967588"
+        "$ref": "https://mef.rero.ch/api/mef/17110543"
       }
     ],
     "responsibilityStatement": [
@@ -410,7 +409,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24956551"
+        "$ref": "https://mef.rero.ch/api/mef/25167053"
       }
     ],
     "responsibilityStatement": [
@@ -520,15 +519,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15447358"
+        "$ref": "https://mef.rero.ch/api/mef/15577856"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10815712"
+        "$ref": "https://mef.rero.ch/api/mef/10907118"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1928344"
+        "$ref": "https://mef.rero.ch/api/mef/1944241"
       }
     ],
     "responsibilityStatement": [
@@ -801,7 +800,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8601069"
+        "$ref": "https://mef.rero.ch/api/mef/8673342"
       }
     ],
     "responsibilityStatement": [
@@ -897,15 +896,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9059399"
+        "$ref": "https://mef.rero.ch/api/mef/9135703"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30425331"
+        "$ref": "https://mef.rero.ch/api/mef/30682398"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4647743"
+        "$ref": "https://mef.rero.ch/api/mef/4686906"
       }
     ],
     "responsibilityStatement": [
@@ -996,7 +995,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1453034"
+        "$ref": "https://mef.rero.ch/api/mef/1465091"
       }
     ],
     "responsibilityStatement": [
@@ -1152,11 +1151,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17311911"
+        "$ref": "https://mef.rero.ch/api/mef/17457792"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9088880"
+        "$ref": "https://mef.rero.ch/api/mef/9165323"
       }
     ],
     "titlesProper": [
@@ -1262,7 +1261,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6664032"
+        "$ref": "https://mef.rero.ch/api/mef/6720083"
       }
     ],
     "responsibilityStatement": [
@@ -1437,11 +1436,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13002041"
+        "$ref": "https://mef.rero.ch/api/mef/13111780"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24230434"
+        "$ref": "https://mef.rero.ch/api/mef/24434886"
       },
       {
         "type": "organisation",
@@ -1472,7 +1471,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26620410"
+        "$ref": "https://mef.rero.ch/api/mef/26845028"
       }
     ],
     "responsibilityStatement": [
@@ -1586,11 +1585,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1211686"
+        "$ref": "https://mef.rero.ch/api/mef/1221761"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25277339"
+        "$ref": "https://mef.rero.ch/api/mef/25490541"
       }
     ],
     "responsibilityStatement": [
@@ -1678,7 +1677,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14132261"
+        "$ref": "https://mef.rero.ch/api/mef/14251320"
       }
     ],
     "responsibilityStatement": [
@@ -1746,7 +1745,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29651159"
+        "$ref": "https://mef.rero.ch/api/mef/29901633"
       }
     ],
     "responsibilityStatement": [
@@ -1896,7 +1895,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5077830"
+        "$ref": "https://mef.rero.ch/api/mef/5120588"
       }
     ],
     "responsibilityStatement": [
@@ -2074,11 +2073,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18463625"
+        "$ref": "https://mef.rero.ch/api/mef/18619193"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29194226"
+        "$ref": "https://mef.rero.ch/api/mef/29440941"
       }
     ]
   },
@@ -2101,7 +2100,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6832549"
+        "$ref": "https://mef.rero.ch/api/mef/6890001"
       }
     ],
     "title": [
@@ -2274,7 +2273,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7513691"
+        "$ref": "https://mef.rero.ch/api/mef/7576847"
       }
     ],
     "responsibilityStatement": [
@@ -2434,7 +2433,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26613880"
+        "$ref": "https://mef.rero.ch/api/mef/26838446"
       }
     ]
   },
@@ -2673,11 +2672,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30282834"
+        "$ref": "https://mef.rero.ch/api/mef/30538695"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20172676"
+        "$ref": "https://mef.rero.ch/api/mef/20342800"
       }
     ],
     "responsibilityStatement": [
@@ -2768,7 +2767,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29154551"
+        "$ref": "https://mef.rero.ch/api/mef/29400815"
       }
     ],
     "responsibilityStatement": [
@@ -2866,7 +2865,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9251651"
+        "$ref": "https://mef.rero.ch/api/mef/9329449"
       }
     ],
     "responsibilityStatement": [
@@ -2959,7 +2958,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10501674"
+        "$ref": "https://mef.rero.ch/api/mef/10590390"
       }
     ],
     "responsibilityStatement": [
@@ -3053,7 +3052,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21421765"
+        "$ref": "https://mef.rero.ch/api/mef/21602490"
       }
     ],
     "responsibilityStatement": [
@@ -3146,11 +3145,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/32023269"
+        "$ref": "https://mef.rero.ch/api/mef/32293779"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3771426"
+        "$ref": "https://mef.rero.ch/api/mef/3803097"
       }
     ],
     "responsibilityStatement": [
@@ -3245,7 +3244,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14348156"
+        "$ref": "https://mef.rero.ch/api/mef/14469120"
       }
     ],
     "title": [
@@ -3350,7 +3349,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12018506"
+        "$ref": "https://mef.rero.ch/api/mef/12119853"
       }
     ],
     "responsibilityStatement": [
@@ -3552,7 +3551,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2999413"
+        "$ref": "https://mef.rero.ch/api/mef/3024523"
       }
     ]
   },
@@ -3579,15 +3578,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16080543"
+        "$ref": "https://mef.rero.ch/api/mef/16216227"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26957877"
+        "$ref": "https://mef.rero.ch/api/mef/27185485"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10686845"
+        "$ref": "https://mef.rero.ch/api/mef/10777115"
       }
     ],
     "responsibilityStatement": [
@@ -3694,11 +3693,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3081762"
+        "$ref": "https://mef.rero.ch/api/mef/3107542"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24425814"
+        "$ref": "https://mef.rero.ch/api/mef/24631763"
       },
       {
         "type": "organisation",
@@ -3913,11 +3912,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19868221"
+        "$ref": "https://mef.rero.ch/api/mef/20035619"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28518783"
+        "$ref": "https://mef.rero.ch/api/mef/28759548"
       }
     ],
     "responsibilityStatement": [
@@ -4193,7 +4192,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27766260"
+        "$ref": "https://mef.rero.ch/api/mef/28000744"
       }
     ],
     "responsibilityStatement": [
@@ -4434,11 +4433,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6571106"
+        "$ref": "https://mef.rero.ch/api/mef/6626266"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5428061"
+        "$ref": "https://mef.rero.ch/api/mef/5473631"
       }
     ],
     "responsibilityStatement": [
@@ -4694,7 +4693,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13586667"
+        "$ref": "https://mef.rero.ch/api/mef/13701268"
       }
     ]
   },
@@ -4726,11 +4725,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31109007"
+        "$ref": "https://mef.rero.ch/api/mef/31371883"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15268483"
+        "$ref": "https://mef.rero.ch/api/mef/15397284"
       }
     ],
     "responsibilityStatement": [
@@ -4840,7 +4839,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29822595"
+        "$ref": "https://mef.rero.ch/api/mef/30074520"
       }
     ],
     "responsibilityStatement": [
@@ -4944,11 +4943,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26106949"
+        "$ref": "https://mef.rero.ch/api/mef/200104"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3804420"
+        "$ref": "https://mef.rero.ch/api/mef/3836257"
       }
     ],
     "responsibilityStatement": [
@@ -5258,11 +5257,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28691665"
+        "$ref": "https://mef.rero.ch/api/mef/28934039"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18609329"
+        "$ref": "https://mef.rero.ch/api/mef/18766062"
       }
     ],
     "responsibilityStatement": [
@@ -5457,11 +5456,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8283641"
+        "$ref": "https://mef.rero.ch/api/mef/8353347"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13448925"
+        "$ref": "https://mef.rero.ch/api/mef/13562266"
       }
     ]
   },
@@ -5539,7 +5538,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14049621"
+        "$ref": "https://mef.rero.ch/api/mef/14168019"
       }
     ]
   },
@@ -5562,7 +5561,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22835524"
+        "$ref": "https://mef.rero.ch/api/mef/23028141"
       }
     ],
     "responsibilityStatement": [
@@ -5691,11 +5690,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29515273"
+        "$ref": "https://mef.rero.ch/api/mef/29764724"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18645581"
+        "$ref": "https://mef.rero.ch/api/mef/18802674"
       },
       {
         "type": "organisation",
@@ -5882,7 +5881,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3840985"
+        "$ref": "https://mef.rero.ch/api/mef/3873270"
       }
     ],
     "responsibilityStatement": [
@@ -5965,7 +5964,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/32346008"
+        "$ref": "https://mef.rero.ch/api/mef/32619267"
       }
     ],
     "responsibilityStatement": [
@@ -6221,7 +6220,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23606231"
+        "$ref": "https://mef.rero.ch/api/mef/23805367"
       }
     ],
     "responsibilityStatement": [
@@ -6414,27 +6413,27 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6097517"
+        "$ref": "https://mef.rero.ch/api/mef/6148908"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5018331"
+        "$ref": "https://mef.rero.ch/api/mef/5060367"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1529513"
+        "$ref": "https://mef.rero.ch/api/mef/1542120"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19942071"
+        "$ref": "https://mef.rero.ch/api/mef/20110162"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12421938"
+        "$ref": "https://mef.rero.ch/api/mef/12526643"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10641025"
+        "$ref": "https://mef.rero.ch/api/mef/10730881"
       }
     ],
     "title": [
@@ -6526,7 +6525,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13087442"
+        "$ref": "https://mef.rero.ch/api/mef/13197904"
       }
     ],
     "responsibilityStatement": [
@@ -6714,7 +6713,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4810239"
+        "$ref": "https://mef.rero.ch/api/mef/4850824"
       }
     ],
     "responsibilityStatement": [
@@ -6810,7 +6809,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11928303"
+        "$ref": "https://mef.rero.ch/api/mef/12028740"
       }
     ],
     "responsibilityStatement": [
@@ -6902,11 +6901,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24430817"
+        "$ref": "https://mef.rero.ch/api/mef/24636784"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5439883"
+        "$ref": "https://mef.rero.ch/api/mef/5485677"
       }
     ],
     "responsibilityStatement": [
@@ -7051,11 +7050,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8114242"
+        "$ref": "https://mef.rero.ch/api/mef/8182422"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10637244"
+        "$ref": "https://mef.rero.ch/api/mef/9590402"
       }
     ]
   },
@@ -7082,7 +7081,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21209116"
+        "$ref": "https://mef.rero.ch/api/mef/21387979"
       }
     ],
     "responsibilityStatement": [
@@ -7293,7 +7292,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25844914"
+        "$ref": "https://mef.rero.ch/api/mef/26062885"
       }
     ],
     "responsibilityStatement": [
@@ -7449,11 +7448,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24044602"
+        "$ref": "https://mef.rero.ch/api/mef/24247228"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24840672"
+        "$ref": "https://mef.rero.ch/api/mef/25050160"
       }
     ]
   },
@@ -7480,11 +7479,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26610586"
+        "$ref": "https://mef.rero.ch/api/mef/26835132"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14834214"
+        "$ref": "https://mef.rero.ch/api/mef/14959294"
       }
     ],
     "responsibilityStatement": [
@@ -7678,11 +7677,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13157224"
+        "$ref": "https://mef.rero.ch/api/mef/13268138"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13982342"
+        "$ref": "https://mef.rero.ch/api/mef/14100346"
       }
     ],
     "responsibilityStatement": [
@@ -7857,7 +7856,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27582920"
+        "$ref": "https://mef.rero.ch/api/mef/27815869"
       }
     ],
     "responsibilityStatement": [
@@ -7957,11 +7956,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30251681"
+        "$ref": "https://mef.rero.ch/api/mef/30507342"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17054219"
+        "$ref": "https://mef.rero.ch/api/mef/17197823"
       }
     ],
     "responsibilityStatement": [
@@ -8255,11 +8254,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28866236"
+        "$ref": "https://mef.rero.ch/api/mef/29110121"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23498817"
+        "$ref": "https://mef.rero.ch/api/mef/23697096"
       }
     ],
     "responsibilityStatement": [
@@ -8383,7 +8382,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31985142"
+        "$ref": "https://mef.rero.ch/api/mef/32255415"
       }
     ],
     "responsibilityStatement": [
@@ -8492,15 +8491,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26106949"
+        "$ref": "https://mef.rero.ch/api/mef/200104"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9901094"
+        "$ref": "https://mef.rero.ch/api/mef/9984525"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11618637"
+        "$ref": "https://mef.rero.ch/api/mef/11716737"
       }
     ],
     "responsibilityStatement": [
@@ -8599,11 +8598,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27595423"
+        "$ref": "https://mef.rero.ch/api/mef/27828448"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28599511"
+        "$ref": "https://mef.rero.ch/api/mef/28840960"
       }
     ],
     "responsibilityStatement": [
@@ -8696,11 +8695,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30816698"
+        "$ref": "https://mef.rero.ch/api/mef/31077167"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/476754"
+        "$ref": "https://mef.rero.ch/api/mef/480691"
       }
     ],
     "responsibilityStatement": [
@@ -8921,7 +8920,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17720786"
+        "$ref": "https://mef.rero.ch/api/mef/17870213"
       }
     ],
     "responsibilityStatement": [
@@ -9036,11 +9035,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31494997"
+        "$ref": "https://mef.rero.ch/api/mef/31761136"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12182340"
+        "$ref": "https://mef.rero.ch/api/mef/12285074"
       }
     ],
     "responsibilityStatement": [
@@ -9156,7 +9155,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3561902"
+        "$ref": "https://mef.rero.ch/api/mef/3591678"
       }
     ],
     "responsibilityStatement": [
@@ -9248,7 +9247,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19277514"
+        "$ref": "https://mef.rero.ch/api/mef/19440068"
       }
     ],
     "responsibilityStatement": [
@@ -9513,11 +9512,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22672687"
+        "$ref": "https://mef.rero.ch/api/mef/22864010"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26545453"
+        "$ref": "https://mef.rero.ch/api/mef/26769359"
       }
     ]
   },
@@ -9540,7 +9539,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6182323"
+        "$ref": "https://mef.rero.ch/api/mef/6234413"
       }
     ],
     "responsibilityStatement": [
@@ -9651,7 +9650,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31291260"
+        "$ref": "https://mef.rero.ch/api/mef/31555579"
       }
     ],
     "responsibilityStatement": [
@@ -9748,7 +9747,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2305990"
+        "$ref": "https://mef.rero.ch/api/mef/2325279"
       }
     ],
     "responsibilityStatement": [
@@ -9943,11 +9942,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14790309"
+        "$ref": "https://mef.rero.ch/api/mef/14915021"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29059700"
+        "$ref": "https://mef.rero.ch/api/mef/29305296"
       }
     ],
     "responsibilityStatement": [
@@ -10043,7 +10042,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5263362"
+        "$ref": "https://mef.rero.ch/api/mef/5307451"
       }
     ],
     "responsibilityStatement": [
@@ -10144,7 +10143,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15315403"
+        "$ref": "https://mef.rero.ch/api/mef/15444695"
       }
     ],
     "responsibilityStatement": [
@@ -10297,19 +10296,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22234759"
+        "$ref": "https://mef.rero.ch/api/mef/22422411"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14708146"
+        "$ref": "https://mef.rero.ch/api/mef/14832183"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15786839"
+        "$ref": "https://mef.rero.ch/api/mef/15920210"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5369701"
+        "$ref": "https://mef.rero.ch/api/mef/5414964"
       },
       {
         "type": "organisation",
@@ -10497,19 +10496,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24461901"
+        "$ref": "https://mef.rero.ch/api/mef/24668082"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6082085"
+        "$ref": "https://mef.rero.ch/api/mef/6133255"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1886431"
+        "$ref": "https://mef.rero.ch/api/mef/1902151"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31032164"
+        "$ref": "https://mef.rero.ch/api/mef/31294294"
       }
     ]
   },
@@ -10598,7 +10597,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18122047"
+        "$ref": "https://mef.rero.ch/api/mef/18274678"
       }
     ]
   },
@@ -10621,7 +10620,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18973488"
+        "$ref": "https://mef.rero.ch/api/mef/19133348"
       }
     ],
     "responsibilityStatement": [
@@ -10719,7 +10718,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8513923"
+        "$ref": "https://mef.rero.ch/api/mef/8585427"
       }
     ],
     "responsibilityStatement": [
@@ -10890,11 +10889,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5801395"
+        "$ref": "https://mef.rero.ch/api/mef/5850347"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7637470"
+        "$ref": "https://mef.rero.ch/api/mef/7701656"
       }
     ],
     "responsibilityStatement": [
@@ -11131,11 +11130,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5309764"
+        "$ref": "https://mef.rero.ch/api/mef/5354433"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9767968"
+        "$ref": "https://mef.rero.ch/api/mef/9850282"
       }
     ],
     "responsibilityStatement": [
@@ -11304,7 +11303,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22909380"
+        "$ref": "https://mef.rero.ch/api/mef/23102539"
       }
     ],
     "responsibilityStatement": [
@@ -11471,11 +11470,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24062639"
+        "$ref": "https://mef.rero.ch/api/mef/24265629"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16932463"
+        "$ref": "https://mef.rero.ch/api/mef/17075312"
       },
       {
         "type": "organisation",
@@ -11502,11 +11501,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30968748"
+        "$ref": "https://mef.rero.ch/api/mef/31230431"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1223672"
+        "$ref": "https://mef.rero.ch/api/mef/1233948"
       }
     ],
     "responsibilityStatement": [
@@ -11598,7 +11597,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9087942"
+        "$ref": "https://mef.rero.ch/api/mef/9164371"
       }
     ],
     "responsibilityStatement": [
@@ -11691,7 +11690,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26703734"
+        "$ref": "https://mef.rero.ch/api/mef/26928987"
       }
     ],
     "responsibilityStatement": [
@@ -11792,7 +11791,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17145651"
+        "$ref": "https://mef.rero.ch/api/mef/17290163"
       }
     ],
     "responsibilityStatement": [
@@ -11927,7 +11926,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11197776"
+        "$ref": "https://mef.rero.ch/api/mef/11292135"
       }
     ]
   },
@@ -11950,7 +11949,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25742736"
+        "$ref": "https://mef.rero.ch/api/mef/25959786"
       }
     ],
     "responsibilityStatement": [
@@ -12018,7 +12017,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18287761"
+        "$ref": "https://mef.rero.ch/api/mef/18441774"
       }
     ],
     "responsibilityStatement": [
@@ -12123,11 +12122,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7220270"
+        "$ref": "https://mef.rero.ch/api/mef/7280863"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21663312"
+        "$ref": "https://mef.rero.ch/api/mef/21846081"
       },
       {
         "type": "organisation",
@@ -12352,11 +12351,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10768136"
+        "$ref": "https://mef.rero.ch/api/mef/10859065"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12586491"
+        "$ref": "https://mef.rero.ch/api/mef/12692543"
       }
     ]
   },
@@ -12510,11 +12509,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23091154"
+        "$ref": "https://mef.rero.ch/api/mef/23285959"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11291515"
+        "$ref": "https://mef.rero.ch/api/mef/11386775"
       },
       {
         "type": "organisation",
@@ -12609,7 +12608,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/399594"
+        "$ref": "https://mef.rero.ch/api/mef/402894"
       }
     ],
     "responsibilityStatement": [
@@ -12681,7 +12680,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1558417"
+        "$ref": "https://mef.rero.ch/api/mef/1571410"
       }
     ],
     "responsibilityStatement": [
@@ -12891,19 +12890,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9431480"
+        "$ref": "https://mef.rero.ch/api/mef/9510951"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23006759"
+        "$ref": "https://mef.rero.ch/api/mef/23200839"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29624614"
+        "$ref": "https://mef.rero.ch/api/mef/29875011"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8945757"
+        "$ref": "https://mef.rero.ch/api/mef/9021159"
       }
     ]
   },
@@ -13134,11 +13133,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3661081"
+        "$ref": "https://mef.rero.ch/api/mef/3691857"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6490995"
+        "$ref": "https://mef.rero.ch/api/mef/6545581"
       }
     ],
     "responsibilityStatement": [
@@ -13240,7 +13239,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28783421"
+        "$ref": "https://mef.rero.ch/api/mef/27823746"
       }
     ],
     "title": [
@@ -13334,11 +13333,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11688151"
+        "$ref": "https://mef.rero.ch/api/mef/11786664"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14215303"
+        "$ref": "https://mef.rero.ch/api/mef/14335112"
       }
     ],
     "responsibilityStatement": [
@@ -13523,7 +13522,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9100392"
+        "$ref": "https://mef.rero.ch/api/mef/9177045"
       }
     ],
     "responsibilityStatement": [
@@ -13728,11 +13727,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7139957"
+        "$ref": "https://mef.rero.ch/api/mef/7199900"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8411849"
+        "$ref": "https://mef.rero.ch/api/mef/8482624"
       }
     ]
   },
@@ -13850,19 +13849,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1558434"
+        "$ref": "https://mef.rero.ch/api/mef/1571427"
       },
       {
         "type": "person",
-        "name": "Axelrad, Albert Jos\u00e9"
+        "$ref": "https://mef.rero.ch/api/mef/14635837"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12557154"
+        "$ref": "https://mef.rero.ch/api/mef/12663017"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18458280"
+        "$ref": "https://mef.rero.ch/api/mef/18613808"
       }
     ],
     "responsibilityStatement": [
@@ -13985,7 +13984,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5856081"
+        "$ref": "https://mef.rero.ch/api/mef/5905550"
       }
     ],
     "responsibilityStatement": [
@@ -14077,7 +14076,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23204059"
+        "$ref": "https://mef.rero.ch/api/mef/23399760"
       }
     ],
     "responsibilityStatement": [
@@ -14172,7 +14171,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27484230"
+        "$ref": "https://mef.rero.ch/api/mef/27716367"
       }
     ],
     "responsibilityStatement": [
@@ -14355,19 +14354,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26016601"
+        "$ref": "https://mef.rero.ch/api/mef/26236179"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2604338"
+        "$ref": "https://mef.rero.ch/api/mef/2626228"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3731129"
+        "$ref": "https://mef.rero.ch/api/mef/3762453"
       },
       {
         "type": "person",
-        "name": "Juli\u00e1, Santos"
+        "$ref": "https://mef.rero.ch/api/mef/11865122"
       }
     ]
   },
@@ -14461,7 +14460,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23989438"
+        "$ref": "https://mef.rero.ch/api/mef/24191804"
       }
     ]
   },
@@ -14494,19 +14493,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29515273"
+        "$ref": "https://mef.rero.ch/api/mef/29764724"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/306674"
+        "$ref": "https://mef.rero.ch/api/mef/309046"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25265386"
+        "$ref": "https://mef.rero.ch/api/mef/25478396"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11016155"
+        "$ref": "https://mef.rero.ch/api/mef/11109101"
       }
     ],
     "responsibilityStatement": [
@@ -14626,7 +14625,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18197434"
+        "$ref": "https://mef.rero.ch/api/mef/18350613"
       }
     ],
     "responsibilityStatement": [
@@ -14717,7 +14716,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26351380"
+        "$ref": "https://mef.rero.ch/api/mef/26573752"
       }
     ],
     "responsibilityStatement": [
@@ -14822,15 +14821,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14583453"
+        "$ref": "https://mef.rero.ch/api/mef/14706445"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2133394"
+        "$ref": "https://mef.rero.ch/api/mef/2151255"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8923357"
+        "$ref": "https://mef.rero.ch/api/mef/8998390"
       }
     ],
     "responsibilityStatement": [
@@ -14933,15 +14932,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10235283"
+        "$ref": "https://mef.rero.ch/api/mef/10321672"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25286192"
+        "$ref": "https://mef.rero.ch/api/mef/25499567"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/954443"
+        "$ref": "https://mef.rero.ch/api/mef/962192"
       }
     ],
     "responsibilityStatement": [
@@ -15043,7 +15042,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20965459"
+        "$ref": "https://mef.rero.ch/api/mef/21142279"
       }
     ],
     "responsibilityStatement": [
@@ -15138,7 +15137,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7132257"
+        "$ref": "https://mef.rero.ch/api/mef/7192053"
       }
     ],
     "responsibilityStatement": [
@@ -15247,7 +15246,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6297063"
+        "$ref": "https://mef.rero.ch/api/mef/6350070"
       }
     ],
     "responsibilityStatement": [
@@ -15437,7 +15436,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26490622"
+        "$ref": "https://mef.rero.ch/api/mef/26713975"
       }
     ],
     "responsibilityStatement": [
@@ -15532,7 +15531,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22483704"
+        "$ref": "https://mef.rero.ch/api/mef/22673473"
       }
     ],
     "responsibilityStatement": [
@@ -15623,7 +15622,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17555840"
+        "$ref": "https://mef.rero.ch/api/mef/17703741"
       }
     ],
     "responsibilityStatement": [
@@ -15793,11 +15792,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23233316"
+        "$ref": "https://mef.rero.ch/api/mef/23429117"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12598343"
+        "$ref": "https://mef.rero.ch/api/mef/12704632"
       },
       {
         "type": "organisation",
@@ -15833,7 +15832,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5425603"
+        "$ref": "https://mef.rero.ch/api/mef/5471125"
       }
     ],
     "responsibilityStatement": [
@@ -15924,11 +15923,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4302401"
+        "$ref": "https://mef.rero.ch/api/mef/4338546"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20002784"
+        "$ref": "https://mef.rero.ch/api/mef/20171404"
       }
     ],
     "responsibilityStatement": [
@@ -16107,7 +16106,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12263786"
+        "$ref": "https://mef.rero.ch/api/mef/12367183"
       }
     ]
   },
@@ -16134,7 +16133,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22016547"
+        "$ref": "https://mef.rero.ch/api/mef/22202235"
       }
     ],
     "responsibilityStatement": [
@@ -16306,7 +16305,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21618088"
+        "$ref": "https://mef.rero.ch/api/mef/21800490"
       }
     ],
     "responsibilityStatement": [
@@ -16397,11 +16396,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11133684"
+        "$ref": "https://mef.rero.ch/api/mef/11227694"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26814923"
+        "$ref": "https://mef.rero.ch/api/mef/27041068"
       }
     ],
     "responsibilityStatement": [
@@ -16609,11 +16608,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/32051769"
+        "$ref": "https://mef.rero.ch/api/mef/32322670"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9837898"
+        "$ref": "https://mef.rero.ch/api/mef/9920900"
       }
     ],
     "responsibilityStatement": [
@@ -16700,15 +16699,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17890980"
+        "$ref": "https://mef.rero.ch/api/mef/18041858"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24422677"
+        "$ref": "https://mef.rero.ch/api/mef/24628597"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20447102"
+        "$ref": "https://mef.rero.ch/api/mef/20619664"
       }
     ],
     "responsibilityStatement": [
@@ -16821,7 +16820,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28930042"
+        "$ref": "https://mef.rero.ch/api/mef/29174298"
       }
     ],
     "responsibilityStatement": [
@@ -16920,11 +16919,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27486166"
+        "$ref": "https://mef.rero.ch/api/mef/27718318"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17140316"
+        "$ref": "https://mef.rero.ch/api/mef/17284712"
       }
     ],
     "responsibilityStatement": [
@@ -17115,7 +17114,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13820844"
+        "$ref": "https://mef.rero.ch/api/mef/13937415"
       }
     ],
     "responsibilityStatement": [
@@ -17207,11 +17206,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30157484"
+        "$ref": "https://mef.rero.ch/api/mef/30412250"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21539771"
+        "$ref": "https://mef.rero.ch/api/mef/21721474"
       }
     ],
     "responsibilityStatement": [
@@ -17346,7 +17345,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23861693"
+        "$ref": "https://mef.rero.ch/api/mef/24062925"
       }
     ],
     "responsibilityStatement": [
@@ -17564,11 +17563,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19469778"
+        "$ref": "https://mef.rero.ch/api/mef/19633872"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26873191"
+        "$ref": "https://mef.rero.ch/api/mef/27099987"
       }
     ],
     "responsibilityStatement": [
@@ -17818,7 +17817,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12506355"
+        "$ref": "https://mef.rero.ch/api/mef/12611742"
       }
     ],
     "responsibilityStatement": [
@@ -17925,11 +17924,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27316640"
+        "$ref": "https://mef.rero.ch/api/mef/27547259"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28767560"
+        "$ref": "https://mef.rero.ch/api/mef/29010527"
       }
     ],
     "responsibilityStatement": [
@@ -18037,7 +18036,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17393237"
+        "$ref": "https://mef.rero.ch/api/mef/17539757"
       }
     ],
     "responsibilityStatement": [
@@ -18132,7 +18131,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13235150"
+        "$ref": "https://mef.rero.ch/api/mef/13346674"
       }
     ],
     "responsibilityStatement": [
@@ -18204,7 +18203,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24288366"
+        "$ref": "https://mef.rero.ch/api/mef/24493020"
       }
     ],
     "responsibilityStatement": [
@@ -18297,7 +18296,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2373329"
+        "$ref": "https://mef.rero.ch/api/mef/2393234"
       }
     ],
     "responsibilityStatement": [
@@ -18410,7 +18409,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21579222"
+        "$ref": "https://mef.rero.ch/api/mef/21761301"
       }
     ],
     "responsibilityStatement": [
@@ -18570,11 +18569,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11219163"
+        "$ref": "https://mef.rero.ch/api/mef/11313900"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19629392"
+        "$ref": "https://mef.rero.ch/api/mef/9689623"
       }
     ],
     "responsibilityStatement": [
@@ -18742,7 +18741,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26276896"
+        "$ref": "https://mef.rero.ch/api/mef/26498598"
       }
     ]
   },
@@ -18765,7 +18764,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15674616"
+        "$ref": "https://mef.rero.ch/api/mef/15806874"
       }
     ],
     "responsibilityStatement": [
@@ -18852,27 +18851,27 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18357783"
+        "$ref": "https://mef.rero.ch/api/mef/18512274"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3092439"
+        "$ref": "https://mef.rero.ch/api/mef/3118365"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1281533"
+        "$ref": "https://mef.rero.ch/api/mef/1292121"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5934377"
+        "$ref": "https://mef.rero.ch/api/mef/5984493"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26186107"
+        "$ref": "https://mef.rero.ch/api/mef/26407135"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30639937"
+        "$ref": "https://mef.rero.ch/api/mef/30898769"
       },
       {
         "type": "organisation",
@@ -18966,11 +18965,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11872396"
+        "$ref": "https://mef.rero.ch/api/mef/11972582"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29390989"
+        "$ref": "https://mef.rero.ch/api/mef/29639312"
       }
     ],
     "responsibilityStatement": [
@@ -19070,11 +19069,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8869002"
+        "$ref": "https://mef.rero.ch/api/mef/8943799"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6734499"
+        "$ref": "https://mef.rero.ch/api/mef/6791017"
       }
     ],
     "responsibilityStatement": [
@@ -19174,7 +19173,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16335359"
+        "$ref": "https://mef.rero.ch/api/mef/16473306"
       }
     ],
     "responsibilityStatement": [
@@ -19344,7 +19343,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5559967"
+        "$ref": "https://mef.rero.ch/api/mef/5606803"
       }
     ]
   },
@@ -19376,7 +19375,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1858651"
+        "$ref": "https://mef.rero.ch/api/mef/1874070"
       }
     ],
     "responsibilityStatement": [
@@ -19569,7 +19568,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1758352"
+        "$ref": "https://mef.rero.ch/api/mef/1772825"
       }
     ],
     "responsibilityStatement": [
@@ -19834,7 +19833,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20472332"
+        "$ref": "https://mef.rero.ch/api/mef/20645024"
       }
     ],
     "responsibilityStatement": [
@@ -20090,7 +20089,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13427468"
+        "$ref": "https://mef.rero.ch/api/mef/13540681"
       }
     ]
   },
@@ -20200,15 +20199,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5774228"
+        "$ref": "https://mef.rero.ch/api/mef/5822994"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23003427"
+        "$ref": "https://mef.rero.ch/api/mef/23197448"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7725603"
+        "$ref": "https://mef.rero.ch/api/mef/7790609"
       }
     ],
     "responsibilityStatement": [
@@ -20331,7 +20330,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12702814"
+        "$ref": "https://mef.rero.ch/api/mef/12809924"
       }
     ],
     "responsibilityStatement": [
@@ -20429,7 +20428,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21714748"
+        "$ref": "https://mef.rero.ch/api/mef/21898049"
       }
     ],
     "responsibilityStatement": [
@@ -20533,7 +20532,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24129926"
+        "$ref": "https://mef.rero.ch/api/mef/24333358"
       }
     ],
     "responsibilityStatement": [
@@ -20719,7 +20718,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22588148"
+        "$ref": "https://mef.rero.ch/api/mef/22778702"
       }
     ],
     "responsibilityStatement": [
@@ -20813,15 +20812,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30984329"
+        "$ref": "https://mef.rero.ch/api/mef/31246254"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14217143"
+        "$ref": "https://mef.rero.ch/api/mef/14336991"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3824314"
+        "$ref": "https://mef.rero.ch/api/mef/3856475"
       }
     ],
     "responsibilityStatement": [
@@ -20918,11 +20917,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8243023"
+        "$ref": "https://mef.rero.ch/api/mef/8312379"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11626208"
+        "$ref": "https://mef.rero.ch/api/mef/11724433"
       }
     ],
     "title": [
@@ -21038,7 +21037,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3938791"
+        "$ref": "https://mef.rero.ch/api/mef/3971814"
       }
     ],
     "responsibilityStatement": [
@@ -21161,11 +21160,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10823711"
+        "$ref": "https://mef.rero.ch/api/mef/10915154"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28925915"
+        "$ref": "https://mef.rero.ch/api/mef/29170088"
       }
     ],
     "responsibilityStatement": [
@@ -21305,7 +21304,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31065674"
+        "$ref": "https://mef.rero.ch/api/mef/31328316"
       }
     ],
     "responsibilityStatement": [
@@ -21404,7 +21403,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/729741"
+        "$ref": "https://mef.rero.ch/api/mef/735841"
       }
     ],
     "responsibilityStatement": [
@@ -21496,11 +21495,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30241885"
+        "$ref": "https://mef.rero.ch/api/mef/30497397"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31082956"
+        "$ref": "https://mef.rero.ch/api/mef/31345702"
       }
     ],
     "responsibilityStatement": [
@@ -21606,7 +21605,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31530082"
+        "$ref": "https://mef.rero.ch/api/mef/31796389"
       }
     ],
     "responsibilityStatement": [
@@ -21707,7 +21706,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/57838"
+        "$ref": "https://mef.rero.ch/api/mef/58074"
       }
     ],
     "responsibilityStatement": [
@@ -21803,7 +21802,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27318815"
+        "$ref": "https://mef.rero.ch/api/mef/27549470"
       }
     ],
     "responsibilityStatement": [
@@ -21902,11 +21901,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8455036"
+        "$ref": "https://mef.rero.ch/api/mef/8526211"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5272246"
+        "$ref": "https://mef.rero.ch/api/mef/5316522"
       }
     ],
     "responsibilityStatement": [
@@ -21988,11 +21987,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17337917"
+        "$ref": "https://mef.rero.ch/api/mef/17484009"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6892957"
+        "$ref": "https://mef.rero.ch/api/mef/6950722"
       }
     ],
     "responsibilityStatement": [
@@ -22269,7 +22268,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11851712"
+        "$ref": "https://mef.rero.ch/api/mef/11951550"
       },
       {
         "type": "organisation",
@@ -22368,7 +22367,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3484529"
+        "$ref": "https://mef.rero.ch/api/mef/3513635"
       }
     ],
     "responsibilityStatement": [
@@ -22453,11 +22452,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21783714"
+        "$ref": "https://mef.rero.ch/api/mef/21967618"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8144246"
+        "$ref": "https://mef.rero.ch/api/mef/8212775"
       }
     ],
     "responsibilityStatement": [
@@ -22554,7 +22553,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31709968"
+        "$ref": "https://mef.rero.ch/api/mef/31977967"
       }
     ],
     "responsibilityStatement": [
@@ -22636,7 +22635,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3933992"
+        "$ref": "https://mef.rero.ch/api/mef/3966999"
       }
     ],
     "responsibilityStatement": [
@@ -22727,7 +22726,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1533387"
+        "$ref": "https://mef.rero.ch/api/mef/1546069"
       }
     ],
     "responsibilityStatement": [
@@ -22841,19 +22840,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28597207"
+        "$ref": "https://mef.rero.ch/api/mef/28838600"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29254036"
+        "$ref": "https://mef.rero.ch/api/mef/29501059"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24987226"
+        "$ref": "https://mef.rero.ch/api/mef/25198022"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14670254"
+        "$ref": "https://mef.rero.ch/api/mef/14794016"
       }
     ],
     "responsibilityStatement": [
@@ -23063,11 +23062,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13195448"
+        "$ref": "https://mef.rero.ch/api/mef/13306768"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15155875"
+        "$ref": "https://mef.rero.ch/api/mef/15283722"
       }
     ]
   },
@@ -23090,7 +23089,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18211635"
+        "$ref": "https://mef.rero.ch/api/mef/18365066"
       }
     ],
     "responsibilityStatement": [
@@ -23190,11 +23189,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29007612"
+        "$ref": "https://mef.rero.ch/api/mef/29252602"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10081469"
+        "$ref": "https://mef.rero.ch/api/mef/10166642"
       }
     ],
     "responsibilityStatement": [
@@ -23303,11 +23302,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3491475"
+        "$ref": "https://mef.rero.ch/api/mef/3520733"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23340504"
+        "$ref": "https://mef.rero.ch/api/mef/23537395"
       }
     ],
     "responsibilityStatement": [
@@ -23485,19 +23484,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9535685"
+        "$ref": "https://mef.rero.ch/api/mef/9615976"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5515129"
+        "$ref": "https://mef.rero.ch/api/mef/5561505"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30682014"
+        "$ref": "https://mef.rero.ch/api/mef/30941269"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/469979"
+        "$ref": "https://mef.rero.ch/api/mef/473778"
       }
     ],
     "responsibilityStatement": [
@@ -23815,11 +23814,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14959624"
+        "$ref": "https://mef.rero.ch/api/mef/15085825"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2356309"
+        "$ref": "https://mef.rero.ch/api/mef/2376090"
       }
     ],
     "responsibilityStatement": [
@@ -23913,7 +23912,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24289148"
+        "$ref": "https://mef.rero.ch/api/mef/24493810"
       }
     ],
     "responsibilityStatement": [
@@ -24086,7 +24085,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/32358221"
+        "$ref": "https://mef.rero.ch/api/mef/32631734"
       }
     ]
   },
@@ -24207,7 +24206,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27986355"
+        "$ref": "https://mef.rero.ch/api/mef/28222766"
       }
     ],
     "responsibilityStatement": [
@@ -24443,7 +24442,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12089196"
+        "$ref": "https://mef.rero.ch/api/mef/12191031"
       }
     ],
     "titlesProper": [
@@ -24628,11 +24627,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25394322"
+        "$ref": "https://mef.rero.ch/api/mef/25608518"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1532965"
+        "$ref": "https://mef.rero.ch/api/mef/1545640"
       }
     ]
   },
@@ -24736,7 +24735,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20253622"
+        "$ref": "https://mef.rero.ch/api/mef/20424489"
       },
       {
         "type": "organisation",
@@ -24840,11 +24839,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29279915"
+        "$ref": "https://mef.rero.ch/api/mef/29527355"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8229228"
+        "$ref": "https://mef.rero.ch/api/mef/8298484"
       }
     ]
   },
@@ -24951,7 +24950,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11094183"
+        "$ref": "https://mef.rero.ch/api/mef/11187822"
       }
     ],
     "responsibilityStatement": [
@@ -25075,11 +25074,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3648476"
+        "$ref": "https://mef.rero.ch/api/mef/3679059"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15667885"
+        "$ref": "https://mef.rero.ch/api/mef/15800031"
       }
     ],
     "responsibilityStatement": [
@@ -25198,7 +25197,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15389049"
+        "$ref": "https://mef.rero.ch/api/mef/15518978"
       }
     ],
     "responsibilityStatement": [
@@ -25347,7 +25346,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25036807"
+        "$ref": "https://mef.rero.ch/api/mef/25248040"
       },
       {
         "type": "organisation",
@@ -25382,7 +25381,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6650478"
+        "$ref": "https://mef.rero.ch/api/mef/6706249"
       }
     ],
     "responsibilityStatement": [
@@ -25494,11 +25493,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31537597"
+        "$ref": "https://mef.rero.ch/api/mef/31804051"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31674186"
+        "$ref": "https://mef.rero.ch/api/mef/31941775"
       }
     ],
     "responsibilityStatement": [

@@ -1577,12 +1577,12 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
 #: Persons
 RERO_ILS_PERSONS_MEF_SCHEMA = 'persons/person-v0.0.1.json'
-RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd']
+RERO_ILS_PERSONS_SOURCES = ['rero', 'bnf', 'gnd', 'idref']
 
 RERO_ILS_PERSONS_LABEL_ORDER = {
     'fallback': 'fr',
-    'fr': ['rero', 'bnf', 'gnd'],
-    'de': ['gnd', 'rero', 'bnf'],
+    'fr': ['rero', 'idref', 'bnf', 'gnd'],
+    'de': ['gnd', 'rero', 'idref', 'bnf'],
 }
 
 #: Invenio circulation configuration.

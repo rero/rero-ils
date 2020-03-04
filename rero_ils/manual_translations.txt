@@ -31,10 +31,10 @@ _('score')
 _('sound')
 _('video')
 
-
 _('gnd')
 _('bnf')
 _('rero')
+_('idref')
 
 # Menu language
 _('ui_language_en')

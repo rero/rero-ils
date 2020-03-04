@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.6.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-04-24 12:51+0200\n"
+"POT-Creation-Date: 2020-04-27 12:09+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: bibsys UCL <bibsys@uclouvain.be>, 2020\n"
 "Language: es\n"
@@ -49,58 +49,58 @@ msgstr "RERO-ILS"
 msgid "Welcome to RERO-ILS!"
 msgstr "¡Bienvenido en RERO-ILS!"
 
-#: rero_ils/config.py:1174
+#: rero_ils/config.py:1182
 msgid "document_type"
 msgstr "Tipo de documento"
 
-#: rero_ils/config.py:1175
+#: rero_ils/config.py:1183
 msgid "organisation"
 msgstr "organización"
 
-#: rero_ils/config.py:1178 rero_ils/config.py:1222 rero_ils/config.py:1244
-#: rero_ils/config.py:1266
+#: rero_ils/config.py:1186 rero_ils/config.py:1230 rero_ils/config.py:1252
+#: rero_ils/config.py:1274
 msgid "library"
 msgstr "biblioteca"
 
-#: rero_ils/config.py:1179
+#: rero_ils/config.py:1187
 msgid "author__en"
 msgstr "Autores"
 
-#: rero_ils/config.py:1180
+#: rero_ils/config.py:1188
 msgid "author__fr"
 msgstr "Autores"
 
-#: rero_ils/config.py:1181
+#: rero_ils/config.py:1189
 msgid "author__de"
 msgstr "Autores"
 
-#: rero_ils/config.py:1182
+#: rero_ils/config.py:1190
 msgid "author__it"
 msgstr "Autores"
 
-#: rero_ils/config.py:1183
+#: rero_ils/config.py:1191
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3652
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3652
 msgid "language"
 msgstr "idioma"
 
-#: rero_ils/config.py:1184
+#: rero_ils/config.py:1192
 msgid "subject"
 msgstr "sujeto"
 
-#: rero_ils/config.py:1185 rero_ils/config.py:1245 rero_ils/config.py:1267
+#: rero_ils/config.py:1193 rero_ils/config.py:1253 rero_ils/config.py:1275
 msgid "status"
 msgstr "estado"
 
-#: rero_ils/config.py:1201
+#: rero_ils/config.py:1209
 msgid "roles"
 msgstr "funcciones"
 
-#: rero_ils/config.py:1223
+#: rero_ils/config.py:1231
 msgid "budget"
 msgstr "presupuesto"
 
-#: rero_ils/config.py:1283
+#: rero_ils/config.py:1291
 msgid "sources"
 msgstr "fuentes"
 
@@ -171,20 +171,25 @@ msgstr "sonido"
 msgid "video"
 msgstr "video"
 
-#: rero_ils/manual_translations.txt:35
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:52
+#: rero_ils/manual_translations.txt:34
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:53
 msgid "gnd"
 msgstr "GND"
 
-#: rero_ils/manual_translations.txt:36
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:56
+#: rero_ils/manual_translations.txt:35
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:57
 msgid "bnf"
 msgstr "BNF"
 
-#: rero_ils/manual_translations.txt:37
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:48
+#: rero_ils/manual_translations.txt:36
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:49
 msgid "rero"
 msgstr "RERO"
+
+#: rero_ils/manual_translations.txt:37
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:61
+msgid "idref"
+msgstr "IDREF"
 
 #: rero_ils/manual_translations.txt:40
 msgid "ui_language_en"
@@ -7527,29 +7532,21 @@ msgstr "ID VIAF"
 msgid "Source authorities list"
 msgstr "Lista de las fuentes de autoridades"
 
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:64
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:69
 msgid "RERO authorities"
 msgstr "Autoridades RERO"
 
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:68
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:73
 msgid "GND authorities"
 msgstr "Autoridades GND"
 
-#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:72
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:77
 msgid "BNF authorities"
 msgstr "Autoridades BNF"
 
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:25
-msgid "RERO"
-msgstr "RERO"
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:44
-msgid "GND"
-msgstr "GND"
-
-#: rero_ils/modules/persons/templates/rero_ils/_person_by_source.html:63
-msgid "BNF"
-msgstr "BNF"
+#: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:81
+msgid "IdRef authorities"
+msgstr "Autoridades IdRef"
 
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:22
 #: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:25
@@ -7829,3 +7826,11 @@ msgstr "está suprimido."
 msgid "Click here to reset your password"
 msgstr "Haga clic aquí para restablecer su contraseña"
 
+#~ msgid "RERO"
+#~ msgstr "RERO"
+
+#~ msgid "GND"
+#~ msgstr "GND"
+
+#~ msgid "BNF"
+#~ msgstr "BNF"
