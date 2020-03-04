@@ -27,7 +27,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, postdata
+from utils import check_timezone_date, flush_index, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
@@ -170,27 +170,20 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     due_soon_loans = get_due_soon_loans()
     assert due_soon_loans[0].get('pid') == loan_pid
-
-    # test due date hour, should be 22:59 UTC+0 (Europe/Zurich)
     assert get_last_transaction_loc_for_item(
         item_pid) == loc_public_martigny.pid
-    # test due date hour
+
+    # test due date regarding multiple timezones
     checkout_loan = Loan.get_record_by_pid(loan_pid)
-    end_date = ciso8601.parse_datetime(
-        checkout_loan.get('end_date'))
-    assert end_date.minute == 59 and end_date.hour == 22
+    loan_date = ciso8601.parse_datetime(checkout_loan.get('end_date'))
 
-    # test due date hour in US/Pacific, should be 14:59
-    new_timezone = pytz.timezone('US/Pacific')
-    end_date = ciso8601.parse_datetime(
-        checkout_loan.get('end_date')).astimezone(new_timezone)
-    assert end_date.minute == 59 and end_date.hour == 14
+    # should be 22:59 in UTC+0
+    tocheck_date = loan_date
+    assert tocheck_date.minute == 59 and tocheck_date.hour == 22
 
-    # test due date hour in Europe/Amsterdam, should be 23:59
-    new_timezone = pytz.timezone('Europe/Amsterdam')
-    end_date = ciso8601.parse_datetime(
-        checkout_loan.get('end_date')).astimezone(new_timezone)
-    assert end_date.minute == 59 and end_date.hour == 23
+    # should be 14:59/15:59 in US/Pacific (because of daylight saving time)
+    check_timezone_date(pytz.timezone('US/Pacific'), loan_date, [14, 15])
+    check_timezone_date(pytz.timezone('Europe/Amsterdam'), loan_date)
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
