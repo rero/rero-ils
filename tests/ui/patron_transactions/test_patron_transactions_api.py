@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+
 import pytest
 from utils import get_mapping
 
@@ -26,7 +28,6 @@ from rero_ils.modules.patron_transactions.api import PatronTransaction, \
     PatronTransactionsSearch
 from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
-from copy import deepcopy
 
 
 def test_patron_transaction_create(
