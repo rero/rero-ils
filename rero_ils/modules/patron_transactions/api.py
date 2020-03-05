@@ -79,7 +79,6 @@ class PatronTransaction(IlsRecord):
         if self.notification_pid:
             notif = Notification.get_record_by_pid(self.notification_pid)
             return notif.loan_pid
-        return None
 
     @property
     def document_pid(self):
@@ -88,7 +87,6 @@ class PatronTransaction(IlsRecord):
         if self.notification_pid:
             notif = Notification.get_record_by_pid(self.notification_pid)
             return notif.document_pid
-        return None
 
     @property
     def patron_pid(self):
@@ -105,7 +103,6 @@ class PatronTransaction(IlsRecord):
         """Return the notification pid of the patron transaction."""
         if self.get('notification'):
             return self.replace_refs()['notification']['pid']
-        return None
 
     @property
     def notification(self):
@@ -114,7 +111,6 @@ class PatronTransaction(IlsRecord):
         if self.get('notification'):
             pid = self.replace_refs()['notification']['pid']
             return Notification.get_record_by_pid(pid)
-        return None
 
     @property
     def notification_transaction_library_pid(self):
@@ -131,7 +127,6 @@ class PatronTransaction(IlsRecord):
         notif = self.notification
         if notif:
             return notif.transaction_user_pid
-        return None
 
     @property
     def status(self):

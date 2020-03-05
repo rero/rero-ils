@@ -97,7 +97,7 @@
       "$ref": "#/definitions/dispute"
     },
     {
-      "$ref": "#/definitions/resolved"
+      "$ref": "#/definitions/cancel"
     }
   ],
   "definitions": {
@@ -159,11 +159,11 @@
         "note"
       ]
     },
-    "resolved": {
+    "cancel": {
       "properties": {
         "type": {
           "enum": [
-            "resolved"
+            "cancel"
           ]
         }
       },

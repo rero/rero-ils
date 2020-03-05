@@ -27,6 +27,12 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 
+def test_patron_transactions_user_pid(patron_transaction_overdue_martigny):
+    """Test patron_transactions.notification_user_pid property"""
+    ptre = patron_transaction_overdue_martigny
+    assert ptre.notification_transaction_user_pid == 'ptrn2'
+
+
 def test_patron_transactions_permissions(
         client, patron_transaction_overdue_martigny, json_header):
     """Test record retrieval."""

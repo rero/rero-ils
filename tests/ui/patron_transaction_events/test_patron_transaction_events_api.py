@@ -19,14 +19,17 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+
 import pytest
 from utils import get_mapping
 
 from rero_ils.modules.patron_transaction_events.api import \
-    PatronTransactionEvent, PatronTransactionEventsSearch
+    PatronTransactionEvent as PatronTransactionEvent
+from rero_ils.modules.patron_transaction_events.api import \
+    PatronTransactionEventsSearch
 from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
-from copy import deepcopy
 
 
 def test_patron_transaction_event_es_mapping(
