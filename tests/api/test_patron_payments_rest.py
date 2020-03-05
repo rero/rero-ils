@@ -23,6 +23,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_patron_payment(
@@ -46,6 +47,8 @@ def test_patron_payment(
     payment['type'] = 'payment'
     payment['subtype'] = 'cash'
     payment['amount'] = 1.00
+    payment['operator'] = {'$ref': get_ref_for_pid(
+        'patrons', librarian_martigny_no_email.pid)}
     res, _ = postdata(
         client,
         post_entrypoint,

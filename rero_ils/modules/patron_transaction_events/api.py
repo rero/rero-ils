@@ -17,9 +17,9 @@
 
 """API for manipulating patron_transaction_events."""
 
+from datetime import datetime, timezone
 from functools import partial
 
-from datetime import datetime, timezone
 from flask import current_app
 
 from .models import PatronTransactionEventIdentifier
@@ -75,7 +75,6 @@ class PatronTransactionEvent(IlsRecord):
             cls, patron_transaction=None, dbcommit=None, reindex=None,
             delete_pid=None, update_parent=True):
         """Create a patron transaction event from patron transaction."""
-        record = {}
         data = build_patron_transaction_event_ref(patron_transaction, {})
         data['creation_date'] = patron_transaction.get('creation_date')
         record = cls.create(
@@ -93,7 +92,7 @@ class PatronTransactionEvent(IlsRecord):
         total_amount = patron_transaction.get('total_amount')
         if self.event_type == 'fee':
             total_amount = total_amount + self.amount
-        elif self.event_type in ('payment', 'resolved'):
+        elif self.event_type in ('payment', 'cancel'):
             total_amount = total_amount - self.amount
         patron_transaction['total_amount'] = total_amount
         if total_amount == 0:
@@ -157,10 +156,6 @@ def build_patron_transaction_event_ref(patron_transaction, data):
             'doc_type': 'patron_transactions',
             'pid': patron_transaction.pid
         }, {
-            'resource': 'operator',
-            'doc_type': 'patrons',
-            'pid': patron_transaction.notification_transaction_user_pid
-        }, {
             'resource': 'library',
             'doc_type': 'libraries',
             'pid': patron_transaction.notification_transaction_library_pid
@@ -176,4 +171,5 @@ def build_patron_transaction_event_ref(patron_transaction, data):
         data['type'] = 'fee'
         data['subtype'] = 'overdue'
         data['amount'] = patron_transaction.get('total_amount')
+
     return data
