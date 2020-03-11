@@ -362,6 +362,47 @@ def patron2_martigny_no_email(
     return ptrn
 
 
+# ------------ Org: Martigny Patron 3 (blocked) ----------
+@pytest.fixture(scope="module")
+def patron3_martigny_data(data):
+    """Load Martigny blocked patron data."""
+    return deepcopy(data.get('ptrn11'))
+
+
+@pytest.fixture(scope="module")
+def patron3_martigny(
+        app,
+        roles,
+        lib_martigny,
+        patron_type_adults_martigny,
+        patron3_martigny_data):
+    """Create Martigny patron record."""
+    ptrn = Patron.create(
+        data=patron3_martigny_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
+@pytest.fixture(scope="module")
+@mock.patch('rero_ils.modules.patrons.api.send_reset_password_instructions')
+def patron3_martigny_no_email(
+        app,
+        roles,
+        patron_type_adults_martigny,
+        patron3_martigny_data):
+    """Create Martigny patron without sending reset password instruction."""
+    ptrn = Patron.create(
+        data=patron3_martigny_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    return ptrn
+
+
 # ------------ Org: Sion, Lib: Sion, System Librarian ----------
 @pytest.fixture(scope="module")
 def system_librarian_sion_data(data):

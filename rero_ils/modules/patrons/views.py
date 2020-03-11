@@ -148,6 +148,14 @@ def profile(viewcode):
             ),
             'level': 'warning'  # bootstrap alert level
         }
+    if patron.get('blocked'):
+        alerts['blocking'] = {
+            'messages': [
+                _('Your account is currently blocked. Reason: %(reason)s',
+                    reason=patron.get('blocked_note', ''))
+            ],
+            'level': 'danger'
+        }
 
     return render_template(
         'rero_ils/patron_profile.html',

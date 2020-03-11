@@ -27,7 +27,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import check_timezone_date, flush_index, postdata
+from utils import check_timezone_date, flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
@@ -514,3 +514,27 @@ It should be the same date, even if timezone changed."
     assert loan_datetime.day == lib_datetime.day, fail_msg
     # Loan date differs regarding timezone, and day of the year (GMT+1/2).
     check_timezone_date(pytz.utc, loan_datetime, [21, 22])
+
+
+def test_librarian_request_on_blocked_user(
+        client, item_lib_martigny,
+        librarian_martigny_no_email,
+        patron3_martigny_no_email,
+        circulation_policies):
+    """Librarian request on blocked user returns a specific 403 message."""
+    assert item_lib_martigny.available
+
+    # request
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_lib_martigny.pid,
+            patron_pid=patron3_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 403
+    data = get_json(res)
+    assert data.get('message') == 'BLOCKED USER'

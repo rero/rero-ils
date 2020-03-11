@@ -123,3 +123,28 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
         data = get_json(res)
         assert data.get('metadata') == librarian_martigny_no_email
         assert data.get('settings').get('language') == 'fr'
+
+
+def test_patrons_logged_user_resolve(
+        client,
+        lib_martigny,
+        patron3_martigny_no_email):
+    """Test that patron library is resolved in JSON data."""
+    login_user_via_session(client, patron3_martigny_no_email.user)
+    res = client.get(url_for('patrons.logged_user', resolve=1))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data.get('metadata', {}).get('library')
+
+
+def test_patrons_blocked_user_profile(
+        client,
+        lib_martigny,
+        patron3_martigny_no_email):
+    """Test blocked patron profile."""
+    # The patron logged in
+    login_user_via_session(client, patron3_martigny_no_email.user)
+    res = client.get(url_for('patrons.profile'))
+    assert res.status_code == 200
+    # The profile displays the patron a blocked account message.
+    assert "Your account is currently blocked." in res.get_data(as_text=True)

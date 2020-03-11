@@ -35,11 +35,20 @@ def get_circ_policy(loan):
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
 
-    return CircPolicy.provide_circ_policy(
+    result = CircPolicy.provide_circ_policy(
         library_pid,
         patron_type_pid,
         holding_circulation_category
     )
+
+    # checkouts and request are not allowed anymore for blocked patrons
+    if patron.get('blocked', False):
+        result.update({
+            "allow_checkout": False,
+            "allow_requests": False,
+        })
+
+    return result
 
 
 def get_default_loan_duration(loan):

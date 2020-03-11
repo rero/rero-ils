@@ -18,7 +18,9 @@
     "patron_type",
     "communication_channel",
     "communication_language",
-    "library"
+    "library",
+    "blocked",
+    "blocked_note"
   ],
   "required": [
     "$schema",
@@ -332,6 +334,22 @@
               }
             }
           }
+        }
+      }
+    },
+    "blocked": {
+      "title": "Blocking",
+      "description": "A patron with a blocked account cannot request and borrow items, but can still renew and check in items.",
+      "type": "boolean"
+    },
+    "blocked_note": {
+      "title": "Reason",
+      "type": "string",
+      "description": "The reason is displayed in the circulation module and is visible by the patron in his account.",
+      "form": {
+        "hideExpression": "field.model.blocked !== true",
+        "expressionProperties": {
+          "templateOptions.required": "model.blocked === true"
         }
       }
     }

@@ -119,3 +119,16 @@ def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
     assert librarian_martigny.get_links_to_me() == {}
     assert librarian_martigny.can_delete
+
+
+def test_get_patron_blocked_field(patron_martigny_no_email):
+    """Test patron blocked field retrieval."""
+    patron = Patron.get_patron_by_email(patron_martigny_no_email.get('email'))
+    assert 'blocked' in patron
+    assert patron.get('blocked', {}) is False
+
+
+def test_get_patron_blocked_field_absent(patron2_martigny_no_email):
+    """Test patron blocked field retrieval."""
+    patron = Patron.get_patron_by_email(patron2_martigny_no_email.get('email'))
+    assert 'blocked' not in patron
