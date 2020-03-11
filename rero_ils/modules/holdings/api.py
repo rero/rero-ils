@@ -28,6 +28,7 @@ from flask import current_app
 from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
+from jinja2 import Template
 
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordIndexer
@@ -261,28 +262,23 @@ class Holding(IlsRecord):
         :param patterns: List of a valid holdings patterns.
         :returns: A display text of the next predicted issue.
         """
-        texts = []
-        for pattern in patterns:
-            text = []
-            levels = pattern.get('levels', [])
-            for level in levels:
-                show_level = level.get('show', True)
-                if show_level:
-                    text_value = level.get('next_value', level.get(
-                        'starting_value', 1))
-                    mapping = level.get('mapping_values')
-                    if mapping:
-                        text_value = mapping[text_value - 1]
-                    text.append(
-                        ' '.join(
-                            (level.get('name', ''), str(text_value))
-                        ).lstrip())
-            texts.append(' '.join(text))
-        return ' '.join(texts)
+        issue_data = {}
+        for pattern in patterns.get('values', []):
+            pattern_name = pattern.get('name', '')
+            level_data = {}
+            for level in pattern.get('levels', []):
+                text_value = level.get('next_value', level.get(
+                    'starting_value', 1))
+                mapping = level.get('mapping_values')
+                if mapping:
+                    text_value = mapping[text_value - 1]
+                level_data.update({level.get('name', ''): str(text_value)})
+            issue_data[pattern_name] = level_data
+        return Template(patterns.get('template')).render(**issue_data)
 
     def increment_next_prediction(self):
         """Increment next prediction."""
-        if not self.patterns:
+        if not self.patterns or not self.patterns.get('values'):
             return
         self['patterns'] = self._increment_next_prediction(self.patterns)
 
@@ -293,9 +289,8 @@ class Holding(IlsRecord):
         :param patterns: List of a valid holdings patterns.
         :returns: The updated patterns with the next issue.
         """
-        for pattern in patterns:
-            levels = pattern.get('levels', [])
-            for level in reversed(levels):
+        for pattern in patterns.get('values', []):
+            for level in reversed(pattern.get('levels', [])):
                 max_value = level.get('completion_value')
                 if level.get('mapping_values'):
                     max_value = len(level.get('mapping_values'))
@@ -315,7 +310,7 @@ class Holding(IlsRecord):
         :param predictions: Number of the next issued to predict.
         :returns: An array of issues display text.
         """
-        if not self.patterns:
+        if not self.patterns or not self.patterns.get('values'):
             return []
         patterns = deepcopy(self.patterns)
         text = []

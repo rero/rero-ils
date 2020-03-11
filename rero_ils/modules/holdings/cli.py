@@ -34,10 +34,18 @@ from ..utils import read_json_record
 
 def get_documents_with_type_journal():
     """Get pids of documents with type journal."""
-    document_pids = []
     es_documents = DocumentsSearch()\
         .filter('term', type="journal").source(['pid']).scan()
     return [es_document.pid for es_document in es_documents]
+
+
+def get_document_pid_by_rero_number(rero_control_number):
+    """Get pid of document by rero control number."""
+    es_documents = DocumentsSearch()\
+        .filter('term', identifiedBy__value=rero_control_number).source(
+            ['pid']).scan()
+    documents = [document.pid for document in es_documents]
+    return next(iter(documents or []), None)
 
 
 def get_location(library_pid):
@@ -91,10 +99,13 @@ def create_patterns(infile, verbose, debug, lazy):
         data = json.load(infile)
     for record_index, record in enumerate(data):
         template_name = record.get('template_name')
-        try:
-            document_pid = journal_pids[record_index]
-        except IndexError as error:
-            break
+        rero_control_number = record.get('rero_control_number')
+        document_pid = get_document_pid_by_rero_number(rero_control_number)
+        if not document_pid:
+            try:
+                document_pid = journal_pids[record_index]
+            except IndexError as error:
+                break
         patterns = record.get('patterns')
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)

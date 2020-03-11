@@ -69,28 +69,32 @@
         },
         "patterns": {
           "properties": {
-            "name": {
+            "template": {
               "type": "keyword"
             },
-            "levels": {
+            "values": {
               "properties": {
                 "name": {
                   "type": "keyword"
                 },
-                "starting_value": {
-                  "type": "integer"
-                },
-                "next_value": {
-                  "type": "integer"
-                },
-                "show": {
-                  "type": "boolean"
-                },
-                "completion_value": {
-                  "type": "integer"
-                },
-                "mapping_values": {
-                  "type": "text"
+                "levels": {
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "starting_value": {
+                      "type": "integer"
+                    },
+                    "next_value": {
+                      "type": "integer"
+                    },
+                    "completion_value": {
+                      "type": "integer"
+                    },
+                    "mapping_values": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             }
