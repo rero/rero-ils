@@ -368,7 +368,7 @@ def is_librarian_can_request_item_for_patron(
         'library_pid': library_pid})
     if not can_be_requested(loan):
         return jsonify_response(
-            reason='Circulation policies do not allow request on this item.')
+            reason='Request not allowed by the circulation policy.')
     if item.status != ItemStatus.MISSING:
         loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
         if loaned_to_patron:
