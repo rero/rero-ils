@@ -96,62 +96,76 @@
       "default": "monograph"
     },
     "patterns": {
-      "title": "Captions and patterns information",
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "title": "Captions and patterns",
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "The name of the pattern.",
-            "minLength": 1
-          },
-          "levels": {
-            "title": "Enumeration and chronology levels",
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "title": "Enumeration and chronology levels",
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "title": "The name of the level.",
-                  "minLength": 1
-                },
-                "starting_value": {
-                  "type": "integer",
-                  "title": "The starting value of current level.",
-                  "minimum": 1
-                },
-                "show": {
-                  "type": "boolean",
-                  "title": "To show this level at issue display or not.",
-                  "default": true
-                },
-                "next_value": {
-                  "type": "integer",
-                  "title": "The next value of current level.",
-                  "minimum": 1
-                },
-                "completion_value": {
-                  "type": "integer",
-                  "title": "Units per next higher level.",
-                  "minimum": 1
-                },
-                "mapping_values": {
-                  "title": "Mapping values for chronology",
-                  "type": "array",
-                  "uniqueItems": true,
-                  "minItems": 1,
-                  "items": {
-                    "title": "Description of the mapping values.",
-                    "type": "string",
-                    "minLength": 1
+      "title": "Captions for the patterns enumeration and chronology.",
+      "type": "object",
+      "required": [
+        "values",
+        "template"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "template": {
+          "title": "Template for the display of the holdings issues.",
+          "type": "string",
+          "minLength": 3
+        },
+        "values": {
+          "title": "Values of the captions information.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Captions",
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name of the caption chronology.",
+                "minLength": 1
+              },
+              "levels": {
+                "title": "Caption's chronology levels.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Caption's chronology levels.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Name of the chronology level.",
+                      "minLength": 1
+                    },
+                    "starting_value": {
+                      "type": "integer",
+                      "title": "The starting value of current level.",
+                      "minimum": 1
+                    },
+                    "next_value": {
+                      "type": "integer",
+                      "title": "The next value of current level.",
+                      "minimum": 1
+                    },
+                    "completion_value": {
+                      "type": "integer",
+                      "title": "Units per next higher level.",
+                      "minimum": 1
+                    },
+                    "mapping_values": {
+                      "title": "Mapping values for the chronology level",
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "title": "Elements of the mapping values.",
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
                   }
                 }
               }
