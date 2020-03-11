@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 import copy
+from datetime import datetime
 
 import pytest
 from jsonschema import validate
@@ -131,4 +132,24 @@ def test_patron_transactions_total_amount(
     with pytest.raises(ValidationError):
         data = copy.deepcopy(patron_transaction_overdue_saxon_data)
         data['total_amount'] = '25'
+        validate(data, patron_transaction_schema)
+
+
+def test_patron_transaction_type_subscription(
+        patron_transaction_schema, patron_transaction_overdue_saxon_data):
+    """Test 'subscription' type patron transaction against jsonschemas."""
+    trans = patron_transaction_overdue_saxon_data
+    trans['type'] = 'subscription'
+    trans['start_date'] = datetime.now().strftime('%Y-%m-%dT%X.%d+00:00')
+    trans['end_date'] = trans['start_date']
+    validate(trans, patron_transaction_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(trans)
+        del (data['end_date'])
+        validate(data, patron_transaction_schema)
+
+    with pytest.raises(ValidationError):
+        data = copy.deepcopy(trans)
+        del (data['start_date'])
         validate(data, patron_transaction_schema)

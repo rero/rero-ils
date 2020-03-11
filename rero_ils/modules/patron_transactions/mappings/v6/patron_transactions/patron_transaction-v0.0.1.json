@@ -65,6 +65,12 @@
         "total_amount": {
           "type": "float"
         },
+        "start_date": {
+          "type": "date"
+        },
+        "end_date": {
+          "type": "date"
+        },
         "_created": {
           "type": "date"
         },

@@ -27,6 +27,9 @@
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"
         },
+        "subscription_amount": {
+          "type": "float"
+        },
         "organisation": {
           "properties": {
             "pid": {

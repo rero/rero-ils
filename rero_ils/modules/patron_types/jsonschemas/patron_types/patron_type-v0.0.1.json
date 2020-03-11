@@ -1,12 +1,13 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "PatronType",
   "description": "JSON schema for patron_types.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
-    "description"
+    "description",
+    "subscription_amount"
   ],
   "required": [
     "$schema",
@@ -58,6 +59,25 @@
         "$ref": {
           "title": "Organisation URI",
           "type": "string"
+        }
+      }
+    },
+    "subscription_amount": {
+      "title": "Amount",
+      "description": "Yearly amount due by patrons linked to this patron type.",
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "form": {
+        "wrappers": [
+          "toggle-switch",
+          "form-field"
+        ],
+        "templateOptions": {
+          "toggle-switch": {
+            "label": "Yearly subscription",
+            "description": "Activation of subscription fees for patrons linked to this type."
+          }
         }
       }
     }

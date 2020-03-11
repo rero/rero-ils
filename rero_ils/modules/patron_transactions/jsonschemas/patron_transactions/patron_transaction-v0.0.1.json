@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Patron Transaction",
   "description": "JSON schema for Patron Transaction.",
@@ -140,6 +140,29 @@
       "type": "number",
       "minimum": 0,
       "title": "Total calculated amount of the patron transaction"
+    },
+    "start_date": {
+      "title": "Subscription start date",
+      "type": "string",
+      "format": "date"
+    },
+    "end_date": {
+      "title": "Subscription start date",
+      "type": "string",
+      "format": "date"
     }
+  },
+  "if": {
+    "properties": {
+      "type": {
+        "const": "subscription"
+      }
+    }
+  },
+  "then": {
+    "required": [
+      "start_date",
+      "end_date"
+    ]
   }
 }

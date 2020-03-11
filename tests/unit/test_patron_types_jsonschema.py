@@ -68,3 +68,17 @@ def test_organisation_pid(
     with pytest.raises(ValidationError):
         patron_type_data_tmp['organisation_pid'] = 25
         validate(patron_type_data_tmp, patron_type_schema)
+
+
+def test_yearly_subscription(patron_type_schema, patron_type_data_tmp):
+    """Test yearly subscription for patron type jsonschemas."""
+    patron_type_data_tmp['subscription_amount'] = 25
+    validate(patron_type_data_tmp, patron_type_schema)
+
+    with pytest.raises(ValidationError):
+        patron_type_data_tmp['subscription_amount'] = '25'
+        validate(patron_type_data_tmp, patron_type_schema)
+
+    with pytest.raises(ValidationError):
+        patron_type_data_tmp['subscription_amount'] = -2
+        validate(patron_type_data_tmp, patron_type_schema)
