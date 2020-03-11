@@ -92,6 +92,11 @@ do
   shift
 done
 
+# PIPENV is a mandatory condition to launch this program!
+if [[ -z  "${VIRTUAL_ENV}" ]]; then
+  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+fi
+
 if ! $deploy || $ci ; then
     flags=("--dev")
 fi
@@ -113,40 +118,40 @@ ${cmd} ${flags[@]}
 # to avoid IPython dependency problem on Mac OS X
 if [ "$(uname -s)" == "Darwin" ]; then
   info_msg "Install 'appnope' for Mac OS X"
-  pipenv run pip install appnope
+  pip install appnope
 fi
 
 # install assets utils
 virtualenv_path=`pipenv --venv`
 info_msg "Install npm assets utils in: ${virtualenv_path}"
-pipenv run npm i npm@latest -g --prefix "${virtualenv_path}" && pipenv run npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
+npm i npm@latest -g --prefix "${virtualenv_path}" && npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
 
 # collect static files and compile html/css assets
 # ------------------------------------------------
 # install the npm dependencies
 info_msg "Install npm dependencies"
-pipenv run invenio npm
+invenio npm
 info_msg "Search static folder location"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 info_msg "Install static folder npm dependencies in: ${static_folder}"
-pipenv run npm install --prefix "${static_folder}"
+npm install --prefix "${static_folder}"
 if [ -f ${tgz_file} ]
 then
   info_msg "Install RERO-ILS-UI from tgz: ${tgz_file}"
-  pipenv run npm install "${tgz_file}" --prefix "${static_folder}"
+  npm install "${tgz_file}" --prefix "${static_folder}"
 fi
 
 # build the web assets
 info_msg "Build web assets: collect"
-pipenv run invenio collect -v
+invenio collect -v
 info_msg "Build web assets: check (build command)"
-pipenv run invenio assets build
+invenio assets build
 
 # compile json files (resolve $ref)
 info_msg "Compile JSON files to resolve \$ref"
 echo
-pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
-pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
 
 success_msg "${PROGRAM} finished!"
 exit 0
