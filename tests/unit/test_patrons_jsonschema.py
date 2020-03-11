@@ -139,3 +139,38 @@ def test_roles(patron_schema, librarian_martigny_data_tmp):
     with pytest.raises(ValidationError):
         librarian_martigny_data_tmp['roles'] = 'text'
         validate(librarian_martigny_data_tmp, patron_schema)
+
+
+def test_blocked(patron_schema, librarian_martigny_data_tmp):
+    """Test blocked field for patron jsonschemas."""
+    validate(librarian_martigny_data_tmp, patron_schema)
+
+    # blocked is a boolean field, should fail with everything except boolean
+    with pytest.raises(ValidationError):
+        librarian_martigny_data_tmp['blocked'] = 25
+        validate(librarian_martigny_data_tmp, patron_schema)
+
+    with pytest.raises(ValidationError):
+        librarian_martigny_data_tmp['blocked'] = 'text'
+        validate(librarian_martigny_data_tmp, patron_schema)
+
+    # Should pass with boolean
+    librarian_martigny_data_tmp['blocked'] = False
+    validate(librarian_martigny_data_tmp, patron_schema)
+
+
+def test_blocked_note(patron_schema, librarian_martigny_data_tmp):
+    """Test blocked_note field for patron jsonschemas."""
+    validate(librarian_martigny_data_tmp, patron_schema)
+
+    # blocked_note is text field. Should fail except with text.
+    with pytest.raises(ValidationError):
+        librarian_martigny_data_tmp['blocked_note'] = 25
+        validate(librarian_martigny_data_tmp, patron_schema)
+
+    with pytest.raises(ValidationError):
+        librarian_martigny_data_tmp['blocked_note'] = True
+        validate(librarian_martigny_data_tmp, patron_schema)
+
+    librarian_martigny_data_tmp['blocked_note'] = 'Lost card'
+    validate(librarian_martigny_data_tmp, patron_schema)

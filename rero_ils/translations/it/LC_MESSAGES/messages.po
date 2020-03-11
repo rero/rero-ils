@@ -6786,7 +6786,7 @@ msgid "Address of the library."
 msgstr "Indirizzo della biblioteca"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:55
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:72
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:74
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:31
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:150
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:213
@@ -7169,7 +7169,7 @@ msgid "Patron transaction type"
 msgstr ""
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:62
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:206
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:208
 msgid "Patron"
 msgstr "Lettore"
 
@@ -7264,77 +7264,77 @@ msgstr "utente"
 msgid "JSON schema for a user."
 msgstr "JSON schema per un utente"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:35
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:37
 msgid "Schema to validate user records against."
 msgstr "Schema di convalida per utenti"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:41
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:43
 msgid "User ID"
 msgstr "ID dell'utente"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:45
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:47
 msgid "First name"
 msgstr "Nome"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:53
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:55
 msgid "Last name"
 msgstr "Cognome"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:58
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
 msgid "Date of birth"
 msgstr "Data di nascita"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:68
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:70
 msgid "Example: 1985-12-29"
 msgstr "Esempio: 1985-12-29"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:88
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:25
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:124
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:185
 msgid "Street"
 msgstr "Via"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:87
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:125
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:186
 msgid "Street and number of the address, separated by a coma."
 msgstr "Via e numero dell'indirizzo, separati da una virgola."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:92
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:94
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:130
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:191
 msgid "Postal code"
 msgstr "Codice postale"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:97
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:99
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:27
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:135
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:197
 msgid "City"
 msgstr "Città"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:102
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:104
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:145
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:207
 msgid "Phone number"
 msgstr "Numero di telefono"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:103
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:105
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:146
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:208
 msgid "Phone number with the international prefix, without spaces."
 msgstr "Numero di telefono con l'indicazione internazionale, senza spazi."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:112
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:114
 msgid "Example: +41791231212"
 msgstr "Esempio: +41791231212"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:116
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:118
 msgid "Patron Type"
 msgstr "Tipo di lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:117
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:119
 msgid "Patron type in terms of circulation policy."
 msgstr "Tipo di lettore in termini di politica di prestito."
 
@@ -7343,52 +7343,52 @@ msgstr "Tipo di lettore in termini di politica di prestito."
 msgid "Patron Type URI"
 msgstr "URI del tipo di lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:142
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:144
 msgid "Patron's barcode or card number"
 msgstr "Numero di codice a barre o di tessera del lettore"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:155
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:157
 msgid "The barcode is already taken."
 msgstr "Il codice a barre è già utilizzato."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:162
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:164
 msgid "Library affiliation."
 msgstr "Biblioteca di affiliazione"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:187
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:189
 msgid "Role"
 msgstr "Ruolo"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:188
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:190
 msgid "Define the roles of the user."
 msgstr "Definire i ruoli dell'utente."
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:210
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:212
 msgid "Librarian"
 msgstr "Bibliotecario/a"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:214
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:216
 msgid "System Librarian"
 msgstr "Bibliotecario/a del sistema"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:222
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:224
 msgid "Communication channel"
 msgstr "Canali di comunicazione"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:231
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:233
 msgid "email"
 msgstr "e-mail"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:235
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:237
 msgid "mail"
 msgstr "posta"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:246
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:248
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:67
 msgid "Communication language"
 msgstr "Lingua di comunicazione"
 
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:261
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:263
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:84
 msgid "English"
 msgstr "Inglese"
@@ -7419,6 +7419,26 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:322
 msgid "Patron transaction"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:282
+msgid "Blocking"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:283
+msgid ""
+"A patron with a blocked account cannot request and borrow items, but can "
+"still renew and check in items."
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
+msgid "Reason"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:289
+msgid ""
+"The reason is displayed in the circulation module and is visible by the "
+"patron in his account."
 msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:29

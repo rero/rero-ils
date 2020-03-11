@@ -54,6 +54,7 @@ def create_loans(infile, verbose, debug):
     click.secho('Create circulation transactions:', fg='green')
     data = json.load(infile)
     errors_count = {}
+    to_block = []
     for patron_data in data:
         barcode = patron_data.get('barcode')
         if barcode is None:
@@ -62,6 +63,9 @@ def create_loans(infile, verbose, debug):
             click.echo('Patron: {barcode}'.format(barcode=barcode))
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
+            blocked = patron_data.get('blocked', False)
+            if blocked:
+                to_block.append(patron_data)
             patron_type_pid = Patron.get_patron_by_barcode(
                 barcode).patron_type_pid
             loanable_items = get_loanable_items(patron_type_pid)
@@ -127,6 +131,17 @@ def create_loans(infile, verbose, debug):
     result = create_over_and_due_soon_notifications(overdue=False,
                                                     process=False,
                                                     verbose=verbose)
+    # block given patron
+    for patron_data in to_block:
+        barcode = patron_data.get('barcode')
+        patron = Patron.get_patron_by_barcode(barcode)
+        patron['blocked'] = True
+        patron['blocked_note'] = patron_data.get('blocked', "")
+        patron.update(
+            patron,
+            dbcommit=True,
+            reindex=True
+        )
     for key, val in errors_count.items():
         click.secho(
             'Errors {transaction_type}: {count}'.format(

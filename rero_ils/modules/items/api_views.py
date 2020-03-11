@@ -104,6 +104,13 @@ def jsonify_action(func):
                 'action_applied': action_applied
             })
         except CirculationException as error:
+            patron = False
+            # Detect patron details
+            if data.get('patron_pid'):
+                patron = Patron.get_record_by_pid(data.get('patron_pid'))
+            # Add more info in case of blocked patron (for UI)
+            if patron and patron.get('blocked', {}) is True:
+                abort(403, "BLOCKED USER")
             abort(403)
         except NotFound as error:
             raise(error)

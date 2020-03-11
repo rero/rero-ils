@@ -62,7 +62,8 @@
     },
     "requests": {
       "requests": 1
-    }
+    },
+    "blocked": "Lost card"
   },
   {
     "barcode": "2030124287",
@@ -104,7 +105,8 @@
       "rank_1": 1,
       "rank_2": 1,
       "requests": 2
-    }
+    },
+    "blocked": "Another reason to block someone."
   },
   {
     "barcode": "3050124312",

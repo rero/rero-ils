@@ -73,7 +73,9 @@
     "postal_code": "11100",
     "street": "Via Croix Noire 3",
     "communication_channel": "email",
-    "communication_language": "ita"
+    "communication_language": "ita",
+    "blocked": false,
+    "blocked_note": "Test functionnality when active is false"
   },
   {
     "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
