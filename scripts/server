@@ -16,18 +16,63 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+NC='\033[0m'                    # Default color
+INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
+SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
+ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
+
+PROGRAM=`basename $0`
+
+set -e
+
+# MESSAGES
+msg() {
+  echo -e "${1}" 1>&2
+}
+# Display a colored message
+# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# $1: choosen color
+# $2: title
+# $3: the message
+colored_msg() {
+  msg "${1}[${2}]: ${3}${NC}"
+}
+
+info_msg() {
+  colored_msg "${INFO_COLOR}" "INFO" "${1}"
+}
+
+error_msg() {
+  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
+}
+
+error_msg+exit() {
+    error_msg "${1}" && exit 1
+}
+
+success_msg() {
+  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
+}
+
+# Displays program name
+msg "PROGRAM: ${PROGRAM}"
+
 set -e
 
 script_path=$(dirname "$0")
+# PIPENV is a mandatory condition to launch this program!
+if [[ -z  "${VIRTUAL_ENV}" ]]; then
+  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+fi
 
 export FLASK_DEBUG=True
 export FLASK_ENV=development
 # Start Worker and Server
-pipenv run celery worker -A invenio_app.celery -l INFO & pid_celery=$!
+celery worker -A invenio_app.celery -l INFO & pid_celery=$!
 
-pipenv run invenio run \
-       --cert "$script_path"/../docker/nginx/test.crt \
-       --key "$script_path"/../docker/nginx/test.key & pid_server=$!
+invenio run \
+   --cert "$script_path"/../docker/nginx/test.crt \
+   --key "$script_path"/../docker/nginx/test.key & pid_server=$!
 
 trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
 

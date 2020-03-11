@@ -93,9 +93,8 @@ ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 msg "PROGRAM: ${PROGRAM}"
 
 # PIPENV is a mandatory condition to launch this program!
-IS_VIRTUALENV=`python -c "import sys; print(1) if hasattr(sys, 'real_prefix') else print(0)"`
-if [ "${IS_VIRTUALENV}" != 1 ]; then
-  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run setup"
+if [[ -z  "${VIRTUAL_ENV}" ]]; then
+  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
 fi
 
 # options may be followed by one colon to indicate they have a required argument

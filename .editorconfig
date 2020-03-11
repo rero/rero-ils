@@ -39,6 +39,8 @@ known_first_party = rero_ils
 multi_line_output = 2
 default_section = THIRDPARTY
 skip = .eggs
+# Needed for isort since version 4.3.10
+reverse_relative = true
 
 # RST files (used by sphinx)
 [*.rst]

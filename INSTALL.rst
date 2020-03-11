@@ -60,7 +60,7 @@ all Python dependencies and build all static assets):
 .. code-block:: console
 
     $ cd rero-ils
-    $ ./scripts/bootstrap
+    $ pipenv run bootstrap
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
@@ -97,13 +97,13 @@ Start the webserver and the celery worker:
 
 .. code-block:: console
 
-    $ ./scripts/server
+    $ pipenv run server
 
 Start a Python shell:
 
 .. code-block:: console
 
-    $ ./scripts/console
+    $ pipenv run console
 
 Upgrading
 ---------
@@ -111,7 +111,7 @@ In order to upgrade an existing instance simply run:
 
 .. code-block:: console
 
-    $ ./scripts/update
+    $ pipenv run update
 
 Testing
 -------
