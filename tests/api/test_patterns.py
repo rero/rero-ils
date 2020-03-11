@@ -18,34 +18,52 @@
 
 """Holding Patterns Record tests."""
 
-
 from __future__ import absolute_import, print_function
 
+import jinja2
+import pytest
 
-def test_patterns_quarterly_one_level(
-        db, es_clear, holding_lib_martigny_w_patterns,
-        holding_lib_martigny):
-    """Test holdings patterns annual two levels."""
-    holding = holding_lib_martigny_w_patterns
+
+def test_patterns_functions(holding_lib_martigny_w_patterns,
+                            holding_lib_martigny):
+    """Test holdings patterns functions."""
     # test no prediction for monograph holdings record
     assert not holding_lib_martigny.increment_next_prediction()
     assert not holding_lib_martigny.next_issue_display_text
     assert not holding_lib_martigny.prediction_issues_preview(1)
 
+    holding = holding_lib_martigny_w_patterns
+    old_template = holding.get('patterns').get('template')
+    # test invalid syntax for pattern templates
+    template = 'no {{first_chronology.level_1}'
+    holding['patterns']['template'] = template
+    with pytest.raises(jinja2.exceptions.TemplateSyntaxError):
+        assert holding.next_issue_display_text
+
+    template = 'no {{unknown_chronology.level_1}}'
+    holding['patterns']['template'] = template
+    with pytest.raises(jinja2.exceptions.UndefinedError):
+        assert holding.next_issue_display_text
+    holding['patterns']['template'] = old_template
+
+
+def test_patterns_quarterly_one_level(holding_lib_martigny_w_patterns):
+    """Test holdings patterns annual two levels."""
+    holding = holding_lib_martigny_w_patterns
     # test first issue
-    assert holding.next_issue_display_text == 'no 61 2020 mars'
+    assert holding.next_issue_display_text == 'no 61 mars 2020'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'no 62 2020 juin'
+    assert holding.next_issue_display_text == 'no 62 juin 2020'
     for r in range(11):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'no 73 2023 mars'
+    assert holding.next_issue_display_text == 'no 73 mars 2023'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'no 85 2026 mars'
+    assert issues[-1] == 'no 85 mars 2026'
 
 
 def test_patterns_yearly_one_level(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_yearly_one_level_data):
     """Test pattern yearly one level."""
     holding = holding_lib_martigny_w_patterns
@@ -64,43 +82,43 @@ def test_patterns_yearly_one_level(
 
 
 def test_patterns_yearly_one_level_with_label(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_yearly_one_level_with_label_data):
     """Test pattern yearly one level with label."""
     holding = holding_lib_martigny_w_patterns
     holding['patterns'] = pattern_yearly_one_level_with_label_data['patterns']
     # test first issue
-    assert holding.next_issue_display_text == 'Edition 29 2020'
+    assert holding.next_issue_display_text == '29 Edition 2020'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Edition 30 2021'
+    assert holding.next_issue_display_text == '30 Edition 2021'
     for r in range(25):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Edition 55 2046'
+    assert holding.next_issue_display_text == '55 Edition 2046'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'Edition 67 2058'
+    assert issues[-1] == '67 Edition 2058'
 
 
 def test_patterns_yearly_two_times(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_yearly_two_times_data):
     """Test pattern yearly two times."""
     holding = holding_lib_martigny_w_patterns
     holding['patterns'] = pattern_yearly_two_times_data['patterns']
     # test first issue
-    assert holding.next_issue_display_text == 'Jg. 8 2019 Nov.'
+    assert holding.next_issue_display_text == 'Jg. 8 Nov. 2019'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Jg. 9 2020 März'
+    assert holding.next_issue_display_text == 'Jg. 9 März 2020'
     for r in range(25):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Jg. 21 2032 Nov.'
+    assert holding.next_issue_display_text == 'Jg. 21 Nov. 2032'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'Jg. 27 2038 Nov.'
+    assert issues[-1] == 'Jg. 27 Nov. 2038'
 
 
 def test_patterns_quarterly_two_levels(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_quarterly_two_levels_data):
     """Test pattern quarterly_two_levels."""
     holding = holding_lib_martigny_w_patterns
@@ -118,7 +136,7 @@ def test_patterns_quarterly_two_levels(
 
 
 def test_patterns_quarterly_two_levels_with_season(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_quarterly_two_levels_with_season_data):
     """Test pattern quarterly_two_levels_with_season."""
     holding = holding_lib_martigny_w_patterns
@@ -126,20 +144,20 @@ def test_patterns_quarterly_two_levels_with_season(
         pattern_quarterly_two_levels_with_season_data['patterns']
     # test first issue
     assert holding.next_issue_display_text == \
-        'année 2019 no 277 2018 printemps'
+        'année 2019 no 277 printemps 2018'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'année 2019 no 278 2018 été'
+    assert holding.next_issue_display_text == 'année 2019 no 278 été 2018'
     for r in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == \
-        'année 2025 no 303 2024 automne'
+        'année 2025 no 303 automne 2024'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'année 2028 no 315 2027 automne'
+    assert issues[-1] == 'année 2028 no 315 automne 2027'
 
 
 def test_patterns_half_yearly_one_level(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_half_yearly_one_level_data):
     """Test pattern half_yearly_one_level."""
     holding = holding_lib_martigny_w_patterns
@@ -147,69 +165,69 @@ def test_patterns_half_yearly_one_level(
         pattern_half_yearly_one_level_data['patterns']
 
     # test first issue
-    assert holding.next_issue_display_text == 'N˚ 48 2019 printemps'
+    assert holding.next_issue_display_text == 'N˚ 48 printemps 2019'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'N˚ 49 2019 automne'
+    assert holding.next_issue_display_text == 'N˚ 49 automne 2019'
     for r in range(13):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'N˚ 62 2026 printemps'
+    assert holding.next_issue_display_text == 'N˚ 62 printemps 2026'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'N˚ 74 2032 printemps'
+    assert issues[-1] == 'N˚ 74 printemps 2032'
 
 
 def test_patterns_bimonthly_every_two_months_one_level(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_bimonthly_every_two_months_one_level_data):
     """Test pattern quarterly_two_levels."""
     holding = holding_lib_martigny_w_patterns
     holding['patterns'] = \
         pattern_bimonthly_every_two_months_one_level_data['patterns']
     # test first issue
-    assert holding.next_issue_display_text == '47 2020 jan./fév.'
+    assert holding.next_issue_display_text == '47 jan./fév. 2020'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == '48 2020 mars/avril'
+    assert holding.next_issue_display_text == '48 mars/avril 2020'
     for r in range(25):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == '73 2024 mai/juin'
+    assert holding.next_issue_display_text == '73 mai/juin 2024'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == '85 2026 mai/juin'
+    assert issues[-1] == '85 mai/juin 2026'
 
 
 def test_patterns_half_yearly_two_levels(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_half_yearly_two_levels_data):
     """Test pattern half_yearly_two_levels."""
     holding = holding_lib_martigny_w_patterns
     holding['patterns'] = \
         pattern_half_yearly_two_levels_data['patterns']
     # test first issue
-    assert holding.next_issue_display_text == 'Année 30 84 2020 June'
+    assert holding.next_issue_display_text == 'Année 30 no 84 June 2020'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Année 30 85 2020 Dec.'
+    assert holding.next_issue_display_text == 'Année 30 no 85 Dec. 2020'
     for r in range(25):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Année 43 110 2033 June'
+    assert holding.next_issue_display_text == 'Année 43 no 110 June 2033'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'Année 49 122 2039 June'
+    assert issues[-1] == 'Année 49 no 122 June 2039'
 
 
 def test_bimonthly_every_two_months_two_levels(
-        db, es_clear, holding_lib_martigny_w_patterns,
+        holding_lib_martigny_w_patterns,
         pattern_bimonthly_every_two_months_two_levels_data):
     """Test pattern bimonthly_every_two_months_two_levels."""
     holding = holding_lib_martigny_w_patterns
     holding['patterns'] = \
         pattern_bimonthly_every_two_months_two_levels_data['patterns']
     # test first issue
-    assert holding.next_issue_display_text == 'Jg 51 Nr 1 2020 Jan.'
+    assert holding.next_issue_display_text == 'Jg 51 Nr 1 Jan. 2020'
     holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Jg 51 Nr 2 2020 März'
+    assert holding.next_issue_display_text == 'Jg 51 Nr 2 März 2020'
     for r in range(25):
         holding.increment_next_prediction()
-    assert holding.next_issue_display_text == 'Jg 55 Nr 3 2024 Mai'
+    assert holding.next_issue_display_text == 'Jg 55 Nr 3 Mai 2024'
     # test preview
     issues = holding.prediction_issues_preview(13)
-    assert issues[-1] == 'Jg 57 Nr 3 2026 Mai'
+    assert issues[-1] == 'Jg 57 Nr 3 Mai 2026'
