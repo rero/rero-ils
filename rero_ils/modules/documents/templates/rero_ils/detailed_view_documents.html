@@ -22,15 +22,29 @@
 {%- block body %}
 <header class="row">
 
+  {% if record | get_cover_art%}
+  <a id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start" href="{{ (record | get_cover_art) }}" target="_blank">
+    <icon-thumbnail class="thumb"
+      thumbnailurl='{{ (record | get_cover_art) }}'
+      type="{{ record.type }}"
+      config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
+    </icon-thumbnail>
+  </a>
+  {% else %}
   <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
-    <icon-thumbnail class="thumb" {% if record.cover_art %} thumbnailurl='{{ (record.cover_art) }}' {% else %}
-      thumbnailurl="/static/images/icon_{{ record.type }}.png" {% if record.identifiedBy %}
-      identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}' {% else %} thumbnailurl=""
-      {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}' {% else %}
-      identifiers="" {% endif %} {% endif %} {% endif %} type="{{ record.type }}"
+    <icon-thumbnail class="thumb"
+      thumbnailurl="/static/images/icon_{{ record.type }}.png"
+        {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
+        {% else %} thumbnailurl=""
+          {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
+          {% else %} identifiers=""
+          {% endif %}
+        {% endif %}
+      type="{{ record.type }}"
       config='{{ {"thumbnail_service_url": config.RERO_ILS_THUMBNAIL_SERVICE_URL} | tojson }}'>
     </icon-thumbnail>
   </div>
+  {% endif %}
 
   <h1 class="col-sm-10 col-md-11">{{ record.title }}</h1>
 </header>

@@ -2099,7 +2099,7 @@ def test_marc21_to_electronicLocator_from_856():
         <subfield code="q">application/pdf</subfield>
         <subfield code="z">Bd. 1</subfield>
       </datafield>
-      <datafield tag="856" ind1="4" ind2="0">
+      <datafield tag="856" ind1="4" ind2="2">
         <subfield code="3">coverImage</subfield>
         <subfield code="u">http://d-nb.info/image.png</subfield>
       </datafield>
@@ -2119,7 +2119,7 @@ def test_marc21_to_electronicLocator_from_856():
         },
         {
             'content': 'coverImage',
-            'type': 'resource',
+            'type': 'relatedResource',
             'url': 'http://d-nb.info/image.png'
         },
         {
@@ -2129,7 +2129,14 @@ def test_marc21_to_electronicLocator_from_856():
         }
     ]
     assert get_cover_art(data) == 'http://d-nb.info/image.png'
-    assert get_accesses(data) == []
+    assert get_accesses(data) == [
+        {
+            'content': 'coverImage',
+            'public_note': '',
+            'type': 'versionOfResource',
+            'url': 'http://d-nb.info/image2.png'
+            }
+    ]
     assert get_other_accesses(data) == [
         {
             'content': 'http://d-nb.info/1071856731/04',

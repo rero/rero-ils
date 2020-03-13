@@ -430,7 +430,7 @@ def marc21_electronicLocator(self, key, value):
         if subfield_3 and subfield_3 == 'Image de couverture':
             electronic_locator = {
                 'url': url,
-                'type': 'resource',
+                'type': 'relatedResource',
                 'content': 'coverImage'
             }
     elif indicator2 == '0':
