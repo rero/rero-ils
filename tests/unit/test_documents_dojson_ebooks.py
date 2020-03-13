@@ -566,7 +566,7 @@ def test_marc21_electronicLocator_ebooks():
         },
         {
             'url': 'http://site2.org/resources/2',
-            'type': 'resource',
+            'type': 'relatedResource',
             'content': 'coverImage'
         }
     ]
@@ -591,7 +591,7 @@ def test_marc21_cover_art_ebooks():
     assert data.get('electronicLocator') == [
         {
             'url': 'http://site2.org/resources/2',
-            'type': 'resource',
+            'type': 'relatedResource',
             'content': 'coverImage'
         }
     ]

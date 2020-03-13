@@ -443,10 +443,10 @@ def get_cover_art(record):
     :param record: record
     :return: url for cover art or None
     """
-    for electronic_locator in record.get('electronicLocator'):
+    for electronic_locator in record.get('electronicLocator', []):
         type = electronic_locator.get('type')
         content = electronic_locator.get('content')
-        if type == 'resource' and content == 'coverImage':
+        if type == 'relatedResource' and content == 'coverImage':
             return electronic_locator.get('url')
     return None
 
@@ -463,8 +463,7 @@ def get_accesses(record):
     def filter_type(electronic_locator):
         """Filter electronic locator for resources and not cover image."""
         types = ['resource', 'versionOfResource']
-        if electronic_locator.get('type') in types \
-                and electronic_locator.get('content') != 'coverImage':
+        if electronic_locator.get('type') in types:
             return True
         else:
             return False
@@ -498,7 +497,8 @@ def get_other_accesses(record):
 
     def filter_type(electronic_locator):
         """Filter electronic locator for related resources and no info."""
-        if electronic_locator.get('type') in ['relatedResource', 'noInfo']:
+        if electronic_locator.get('type') in ['relatedResource', 'noInfo'] \
+                and electronic_locator.get('content') != 'coverImage':
             return True
         else:
             return False
