@@ -308,7 +308,8 @@ class Library(IlsRecord):
         return cannot_delete
 
     def get_timezone(self):
-        """Get library timezone. By default use BABEL_DEFAULT_TIMEZONE."""
-        # TODO: get timezone regarding Library address
+        """Get library timezone."""
+        # TODO: get timezone regarding Library address.
+        # TODO: Use BABEL_DEFAULT_TIMEZONE by default
         default = pytz.timezone('Europe/Zurich')
         return default

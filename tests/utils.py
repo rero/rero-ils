@@ -171,10 +171,16 @@ def get_timezone_difference(timezone, date):
 def check_timezone_date(timezone, date, expected=[]):
     """Check hour and minute of given date regarding given timezone."""
     difference = get_timezone_difference(timezone, date)
-    hour = date.hour + difference
+    # In case the difference is positive, the result hour could be greater
+    # or equal to 24.
+    # A day doesn't contain more than 24 hours.
+    # We so use modulo to always have less than 24.
+    hour = (date.hour + difference) % 24
     # Expected list defines accepted hours for tests
     if expected:
         assert hour in expected
     tocheck_date = date.astimezone(timezone)
-    assert tocheck_date.minute == date.minute
-    assert tocheck_date.hour == hour
+    error_msg = "Date: %s. Expected: %s. Minutes should be: %s. Hour: %s" % (
+        tocheck_date, date, date.minute, hour)
+    assert tocheck_date.minute == date.minute, error_msg
+    assert tocheck_date.hour == hour, error_msg

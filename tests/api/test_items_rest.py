@@ -24,7 +24,8 @@ import ciso8601
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
+from utils import VerifyRecordPermissionPatch, check_timezone_date, \
+    flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.items.api import Item, ItemStatus
@@ -646,11 +647,8 @@ def test_items_extend(client, librarian_martigny_no_email,
 
     # test renewal due date hour
     extended_loan = Loan.get_record_by_pid(loan_pid)
-    end_date = ciso8601.parse_datetime(
-        extended_loan.get('end_date')).astimezone(lib_tz)
-
-    assert end_date.minute == 59 and end_date.hour == 23
-    assert end_date.minute == 59 and end_date.hour == 23
+    end_date = ciso8601.parse_datetime(extended_loan.get('end_date'))
+    check_timezone_date(lib_tz, end_date)
 
     # second extenion
     res, _ = postdata(
@@ -1270,20 +1268,21 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
         )
     )
 
-    # Get library timezone
-    lib = Library.get_record_by_pid(item.library_pid)
-    lib_tz = lib.get_timezone()
-
     assert res.status_code == 200
+
+    # Compare expected loan date with processed one
+    # first get loan UTC date
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.EXTEND].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
-    end_date = loan.get('end_date')
+    loan_date = loan.get('end_date')
+    # then process a date with current UTC date + renewal
     current_date = datetime.now(timezone.utc)
     calc_date = current_date + renewal_duration
+    # finally the comparison should give the same date (in UTC)!
     assert (
         calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
-            end_date).astimezone(lib_tz).strftime('%Y-%m-%d')
+            loan_date).astimezone(timezone.utc).strftime('%Y-%m-%d')
     )
 
     # checkin
