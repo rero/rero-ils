@@ -22,6 +22,9 @@ from __future__ import absolute_import, print_function
 
 import jinja2
 import pytest
+from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
+from utils import get_json, postdata
 
 
 def test_patterns_functions(holding_lib_martigny_w_patterns,
@@ -231,3 +234,105 @@ def test_bimonthly_every_two_months_two_levels(
     # test preview
     issues = holding.prediction_issues_preview(13)
     assert issues[-1] == 'Jg 57 Nr 3 Mai 2026'
+
+
+def test_pattern_preview_api(
+        client, holding_lib_martigny_w_patterns, librarian_martigny_no_email):
+    """Test holdings patterns preview api."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    holding = holding_lib_martigny_w_patterns
+    # test preview by default 10 issues returned
+    res = client.get(
+        url_for(
+            'api_holding.patterns_preview',
+            holding_pid=holding.pid
+        )
+    )
+    assert res.status_code == 200
+    issues = get_json(res).get('issues')
+    assert issues[0] == 'no 61 mars 2020'
+    assert len(issues) == 10
+    # test invalid size
+    res = client.get(
+        url_for(
+            'api_holding.patterns_preview',
+            holding_pid=holding.pid,
+            size='no size'
+        )
+    )
+    assert res.status_code == 200
+    issues = get_json(res).get('issues')
+    assert issues[0] == 'no 61 mars 2020'
+    assert len(issues) == 10
+    # test preview for a given size
+    res = client.get(
+        url_for(
+            'api_holding.patterns_preview',
+            holding_pid=holding.pid,
+            size=13
+        )
+    )
+    assert res.status_code == 200
+    issues = get_json(res).get('issues')
+    assert issues[12] == 'no 73 mars 2023'
+    assert len(issues) == 13
+
+
+def test_create_holdings_with_pattern(
+        client, librarian_martigny_no_email, loc_public_martigny,
+        document, item_type_standard_martigny,
+        json_header, holding_lib_martigny_data, pattern_yearly_one_level_data):
+    """Test create holding type serial with patterns."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_entrypoint = 'invenio_records_rest.hold_list'
+
+    del holding_lib_martigny_data['pid']
+    holding_lib_martigny_data['holdings_type'] = 'serial'
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        holding_lib_martigny_data
+    )
+    assert res.status_code == 400
+
+    holding_lib_martigny_data['patterns'] = \
+        pattern_yearly_one_level_data['patterns']
+
+    res, _ = postdata(
+        client,
+        post_entrypoint,
+        holding_lib_martigny_data
+    )
+    assert res.status_code == 201
+
+
+def test_holding_pattern_preview_api(
+        client, pattern_yearly_one_level_data,
+        librarian_martigny_no_email):
+    """Test holdings patterns preview api."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    patterns = pattern_yearly_one_level_data.get('patterns')
+    # test preview by default 10 issues returned
+    res, data = postdata(
+        client,
+        'api_holding.pattern_preview',
+        dict(data=patterns, size=15)
+    )
+    assert res.status_code == 200
+
+    issues = get_json(res).get('issues')
+    assert issues[0] == '108 2046'
+    assert len(issues) == 15
+
+    # test invalid patterns
+    del(patterns['values'])
+    res, data = postdata(
+        client,
+        'api_holding.pattern_preview',
+        dict(data=patterns)
+    )
+    assert res.status_code == 200
+
+    issues = get_json(res).get('issues')
+    assert issues == []
+    assert len(issues) == 0

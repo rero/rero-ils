@@ -175,19 +175,27 @@
       }
     }
   },
-  "if": {
-    "properties": {
-      "holdings_type": {
-        "const": "serial"
-      }
+  "oneOf": [
+    {
+      "properties": {
+        "holdings_type": {
+          "enum": [
+            "serial"
+          ]
+        }
+      },
+      "required": [
+        "patterns"
+      ]
     },
-    "required": [
-      "holdings_type"
-    ]
-  },
-  "then": {
-    "required": [
-      "patterns"
-    ]
-  }
+    {
+      "properties": {
+        "holdings_type": {
+          "enum": [
+            "monograph"
+          ]
+        }
+      }
+    }
+  ]
 }
