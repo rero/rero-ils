@@ -28,8 +28,19 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(holding_schema, holding_lib_martigny_w_patterns_data):
-    """Test required for library jsonschemas."""
+def test_required(holding_schema, holding_lib_martigny_data):
+    """Test required for holdings of type monograph jsonschemas."""
+    validate(holding_lib_martigny_data, holding_schema)
+
+    with pytest.raises(ValidationError):
+        validate({}, holding_schema)
+        validate(
+            holding_lib_martigny_data, holding_schema)
+
+
+def test_required_patterns(
+        holding_schema, holding_lib_martigny_w_patterns_data):
+    """Test required for holdings jsonschemas."""
     validate(holding_lib_martigny_w_patterns_data, holding_schema)
 
     with pytest.raises(ValidationError):

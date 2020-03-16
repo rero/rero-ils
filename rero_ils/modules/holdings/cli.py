@@ -45,7 +45,7 @@ def get_document_pid_by_rero_number(rero_control_number):
         .filter('term', identifiedBy__value=rero_control_number).source(
             ['pid']).scan()
     documents = [document.pid for document in es_documents]
-    return next(iter(documents or []), None)
+    return documents[0] if documents else None
 
 
 def get_location(library_pid):
@@ -100,8 +100,9 @@ def create_patterns(infile, verbose, debug, lazy):
     for record_index, record in enumerate(data):
         template_name = record.get('template_name')
         rero_control_number = record.get('rero_control_number')
-        document_pid = get_document_pid_by_rero_number(rero_control_number)
-        if not document_pid:
+        if rero_control_number:
+            document_pid = get_document_pid_by_rero_number(rero_control_number)
+        else:
             try:
                 document_pid = journal_pids[record_index]
             except IndexError as error:
@@ -117,13 +118,13 @@ def create_patterns(infile, verbose, debug, lazy):
                 holdings_type='serial',
                 patterns=patterns)
             click.echo(
-                'ptr {template_name}: hld {holding_pid} doc {document_pid}'
+                '{ptr_str}{template}{hld_str} {holding} {doc_str} {document}'
                 .format(
-                    ptr='Pattern',
-                    hld='created for holdings',
-                    doc='and document',
-                    template_name=template_name,
-                    holding_pid=holding_pid,
-                    document_pid=document_pid
+                    ptr_str='Pattern <',
+                    hld_str='> created for holdings_pid',
+                    doc_str='and document_pid',
+                    template=template_name,
+                    holding=holding_pid,
+                    document=document_pid
                 ))
         record_index = record_index + 1

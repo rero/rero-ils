@@ -21,6 +21,7 @@
 from __future__ import absolute_import, print_function
 
 from flask import Blueprint, abort, jsonify
+from flask import request as flask_request
 
 from .api import Holding
 from ..items.api_views import check_authentication, jsonify_error
@@ -43,3 +44,42 @@ def holding_availability(holding_pid):
     return jsonify({
         'availability': holding.available
     })
+
+
+@api_blueprint.route('/<holding_pid>/patterns/preview/', methods=['GET'])
+@check_authentication
+@jsonify_error
+def patterns_preview(holding_pid):
+    """HTTP GET request for holdings pattern preview.
+
+    Required parameters: holding_pid
+    Optional parameters: size: number of previewed issues - by default 10
+    """
+    print()
+    try:
+        size = flask_request.args.get('size')
+        number_issues = int(size) if size else 10
+    except ValueError as error:
+        number_issues = 10
+    holding = Holding.get_record_by_pid(holding_pid)
+    if holding and holding.get('holdings_type') != 'serial':
+        return jsonify({'status': 'error: invalid holdings type'}), 400
+    issues = holding.prediction_issues_preview(predictions=number_issues)
+    return jsonify({'issues': issues})
+
+
+@api_blueprint.route("/pattern/preview", methods=['POST'])
+@check_authentication
+@jsonify_error
+def pattern_preview():
+    """HTTP POST for patterns preview of first n issues for a given patterns.
+
+    Required parameters: data contains the json of holdings record to preview
+    Optional parameters: size: number of previewed issues - by default 10
+    """
+    patterns_data = flask_request.get_json()
+    pattern = patterns_data.get('data', {})
+    size = patterns_data.get('size', 10)
+    issues = Holding.prediction_issues_preview_for_pattern(
+        pattern, number_of_predictions=size)
+    return jsonify({'issues': issues})
