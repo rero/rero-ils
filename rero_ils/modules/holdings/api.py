@@ -305,18 +305,33 @@ class Holding(IlsRecord):
         return patterns
 
     def prediction_issues_preview(self, predictions=1):
-        """Display prview of next predictions.
+        """Display preview of next predictions.
 
-        :param predictions: Number of the next issued to predict.
+        :param predictions: Number of the next issues to predict.
         :returns: An array of issues display text.
         """
-        if not self.patterns or not self.patterns.get('values'):
-            return []
-        patterns = deepcopy(self.patterns)
         text = []
-        for r in range(predictions):
-            text.append(self._get_next_issue_display_text(patterns))
-            patterns = self._increment_next_prediction(patterns)
+        if self.patterns and self.patterns.get('values'):
+            patterns = deepcopy(self.patterns)
+            for r in range(predictions):
+                text.append(self._get_next_issue_display_text(patterns))
+                patterns = self._increment_next_prediction(patterns)
+        return text
+
+    @classmethod
+    def prediction_issues_preview_for_pattern(
+            cls, patterns, number_of_predictions=1, ):
+        """Display preview of next predictions for a given pattern.
+
+        :param predictions: Number of the next issues to predict.
+        :param patterns: The patterns to predict.
+        :returns: An array of issues display text.
+        """
+        text = []
+        if patterns and patterns.get('values'):
+            for r in range(number_of_predictions):
+                text.append(Holding._get_next_issue_display_text(patterns))
+                patterns = Holding._increment_next_prediction(patterns)
         return text
 
 
