@@ -60,6 +60,11 @@ class PatronType(IlsRecord):
     fetcher = patron_type_id_fetcher
     provider = PatronTypeProvider
     model_cls = PatronTypeMetadata
+    pids_exist_check = {
+        'required': {
+            'org': 'organisation',
+        }
+    }
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):

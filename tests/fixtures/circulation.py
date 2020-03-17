@@ -109,11 +109,20 @@ def librarian_martigny(
         lib_martigny,
         librarian_martigny_data):
     """Create Martigny librarian record."""
-    ptrn = Patron.create(
-        data=librarian_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
+    ptrn = Patron.get_record_by_pid(librarian_martigny_data['pid'])
+    if ptrn:
+        ptrn = ptrn.update(
+            data=librarian_martigny_data,
+            dbcommit=True,
+            reindex=True
+        )
+    else:
+        ptrn = Patron.create(
+            data=librarian_martigny_data,
+            delete_pid=False,
+            dbcommit=True,
+            reindex=True
+        )
     flush_index(PatronsSearch.Meta.index)
     return ptrn
 
@@ -295,11 +304,19 @@ def patron_martigny(
         patron_type_children_martigny,
         patron_martigny_data):
     """Create Martigny patron record."""
-    ptrn = Patron.create(
-        data=patron_martigny_data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
+    ptrn = Patron.get_record_by_pid(patron_martigny_data.get('pid'))
+    if ptrn:
+        ptrn = ptrn.update(
+            data=patron_martigny_data,
+            dbcommit=True,
+            reindex=True
+        )
+    else:
+        ptrn = Patron.create(
+            data=patron_martigny_data,
+            delete_pid=False,
+            dbcommit=True,
+            reindex=True)
     flush_index(PatronsSearch.Meta.index)
     return ptrn
 
@@ -524,6 +541,7 @@ def patron_sion(
 def patron_sion_no_email(
         app,
         roles,
+        lib_sion,
         patron_type_grown_sion,
         patron_sion_data):
     """Create Sion patron without sending reset password instruction."""

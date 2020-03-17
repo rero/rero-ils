@@ -53,6 +53,15 @@ class IlsRecordError:
     class PidChange(Exception):
         """IlsRecord pid change."""
 
+    class PidAlradyUsed(Exception):
+        """IlsRecord pid already used."""
+
+    class PidDoesNotExist(Exception):
+        """Pid does not exist."""
+
+    class DataMissing(Exception):
+        """Data missing in record."""
+
 
 class IlsRecordsSearch(RecordsSearch):
     """Search Class for ils."""
@@ -76,6 +85,8 @@ class IlsRecord(Record):
     fetcher = None
     provider = None
     object_type = 'rec'
+    pids_exist_check = None
+    pid_check = True
 
     @classmethod
     def get_indexer_class(cls):
@@ -94,10 +105,25 @@ class IlsRecord(Record):
     def validate(self, **kwargs):
         """Validate record against schema.
 
-        and extended validation per record class.
+        extended validation per record class
+        and test of pid existence.
         """
         super(IlsRecord, self).validate(**kwargs)
         validation_message = self.extended_validation(**kwargs)
+        # We only like to run pids_exist_check if validation_message is True
+        # and not a string with error from extended_validation
+        if validation_message is True and self.pid_check and \
+                self.pids_exist_check:
+            from .utils import pids_exists_in_data
+            validation_message = pids_exists_in_data(
+                info='{pid_type} ({pid})'.format(
+                    pid_type=self.provider.pid_type,
+                    pid=self.pid
+                ),
+                data=self,
+                required=self.pids_exist_check.get('required', {}),
+                not_required=self.pids_exist_check.get('not_required', {})
+            ) or True
         if validation_message is not True:
             raise RecordValidationError(validation_message)
 
@@ -110,9 +136,10 @@ class IlsRecord(Record):
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
+               dbcommit=False, reindex=False, pidcheck=True, **kwargs):
         """Create a new ils record."""
         assert cls.minter
+        assert cls.provider
         if '$schema' not in data:
             type = cls.provider.pid_type
             schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
@@ -128,11 +155,25 @@ class IlsRecord(Record):
                 }
                 data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
                     .format(**data_schema)
-        if delete_pid and data.get('pid'):
-            del data['pid']
+        pid = data.get('pid')
+        if delete_pid:
+            if pid:
+                del data['pid']
+        else:
+            if pid:
+                test_rec = cls.get_record_by_pid(pid)
+                if test_rec is not None:
+                    raise IlsRecordError.PidAlradyUsed(
+                        '{pid_type} {pid} {uuid}'.format(
+                            pid_type=cls.provider.pid_type,
+                            pid=test_rec.pid,
+                            uuid=test_rec.id
+                        )
+                    )
         if not id_:
             id_ = uuid4()
         cls.minter(id_, data)
+        cls.pid_check = pidcheck
         record = super(IlsRecord, cls).create(data=data, id_=id_, **kwargs)
         if dbcommit:
             record.dbcommit(reindex)
@@ -151,6 +192,7 @@ class IlsRecord(Record):
                 persistent_identifier.object_uuid,
                 with_deleted=with_deleted
             )
+        # TODO: is it better to raise a error or to return None?
         except NoResultFound:
             return None
         except PIDDoesNotExistError:
@@ -226,12 +268,12 @@ class IlsRecord(Record):
             db_record = self.get_record_by_id(self.id)
             if pid != db_record.pid:
                 raise IlsRecordError.PidChange(
-                    'changed pid from {old_pid} to {new_pid}'.format(
-                        old_pid=self.pid,
+                    '{class_n} changed pid from {old_pid} to {new_pid}'.format(
+                        class_n=self.__class__.__name__,
+                        old_pid=db_record.pid,
                         new_pid=pid
                     )
                 )
-
         super(IlsRecord, self).update(data)
         if dbcommit:
             self = super(IlsRecord, self).commit()
@@ -293,7 +335,12 @@ class IlsRecord(Record):
         try:
             indexer().delete(self)
         except NotFoundError:
-            pass
+            current_app.logger.warning(
+                'Can not delete from index {class_name}: {pid}'.format(
+                    class_name=self.__class__.__name__,
+                    pid=self.pid
+                )
+            )
 
     @property
     def pid(self):

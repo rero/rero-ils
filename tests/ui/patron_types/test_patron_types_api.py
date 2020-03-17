@@ -19,11 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch, \
+from rero_ils.modules.patron_types.api import PatronType, \
     patron_type_id_fetcher
 
 
-def test_patron_type_create(db, patron_type_children_martigny_data):
+def test_patron_type_create(
+        db, org_martigny, patron_type_children_martigny_data):
     """Test pttyanisation creation."""
     ptty = PatronType.create(
         patron_type_children_martigny_data, delete_pid=True)

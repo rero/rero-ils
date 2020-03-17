@@ -56,6 +56,11 @@ class Vendor(IlsRecord):
     fetcher = vendor_id_fetcher
     provider = VendorProvider
     model_cls = VendorMetadata
+    pids_exist_check = {
+        'required': {
+            'org': 'organisation'
+        }
+    }
 
     def get_number_of_acq_orders(self):
         """Get number of acquisition orders."""

@@ -574,7 +574,7 @@ def patron_type_data_tmp(data):
 
 
 @pytest.fixture(scope="function")
-def patron_type_tmp(db, patron_type_children_martigny_data):
+def patron_type_tmp(db, org_martigny, patron_type_children_martigny_data):
     """Create scope function children patron type of martigny."""
     ptty = PatronType.create(
         data=patron_type_children_martigny_data,

@@ -67,6 +67,18 @@ class Item(ItemRecord, ItemCirculation):
     fetcher = item_id_fetcher
     provider = ItemProvider
     model_cls = ItemMetadata
+    pids_exist_check = {
+        'required': {
+            'loc': 'location',
+            'doc': 'document',
+            'itty': 'item_type'
+        },
+        'not_required': {
+            'org': 'organisation',
+            # We can not make the holding required because it is created later
+            'hold': 'holding'
+        }
+    }
 
     def delete_from_index(self):
         """Delete record from index."""

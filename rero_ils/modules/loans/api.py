@@ -17,7 +17,6 @@
 
 """API for manipulating Loans."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
@@ -30,13 +29,15 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_jsonschemas import current_jsonschemas
 
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
+    IlsRecordsSearch
 from ..documents.api import Document
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
 from ..patrons.api import Patron
+from ..utils import get_ref_for_pid
 
 
 class LoanAction(object):
@@ -72,6 +73,12 @@ class Loan(IlsRecord):
     provider = CirculationLoanIdProvider
     pid_field = 'pid'
     _schema = 'loans/loan-ils-v0.0.1.json'
+    pids_exist_check = {
+        'not_required': {
+            'org': 'organisation',
+            'item': 'item'
+        }
+    }
 
     def __init__(self, data, model=None):
         """Loan init."""
@@ -91,6 +98,12 @@ class Loan(IlsRecord):
             reindex=reindex, **kwargs)
         return record
 
+    def update(self, data, dbcommit=False, reindex=False):
+        """Update loan record."""
+        self._loan_build_org_ref(data)
+        super(Loan, self).update(data, dbcommit, reindex)
+        return self
+
     def attach_item_ref(self):
         """Attach item reference."""
         item_pid = self.get('item_pid')
@@ -103,30 +116,22 @@ class Loan(IlsRecord):
 
     def loan_build_item_ref(self, item_pid):
         """Build $ref for the Item attached to the Loan."""
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        return {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='items',
-                pid=item_pid)
-        }
+        return {'$ref': '{base_url}/api/{doc_type}/{pid}'.format(
+            base_url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+            doc_type='items',
+            pid=item_pid
+        )}
 
     @classmethod
     def _loan_build_org_ref(cls, data):
         """Build $ref for the organisation of the Loan."""
         from ..items.api import Item
         item_pid = data.get('item_pid')
-        org_pid = Item.get_record_by_pid(item_pid).organisation_pid
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='organisations',
-                pid=org_pid)
-        }
-        data['organisation'] = org_ref
+        data['organisation'] = {'$ref': get_ref_for_pid(
+            'org',
+            Item.get_record_by_pid(item_pid).organisation_pid
+        )}
+        return data
 
     @property
     def pid(self):
@@ -159,7 +164,11 @@ class Loan(IlsRecord):
         if self.get('item_pid'):
             item = Item.get_record_by_pid(self.get('item_pid'))
             return item.organisation_pid
-        return None
+        # return None
+        raise IlsRecordError.PidDoesNotExist(
+            self.provider.pid_type,
+            'organisation_pid:item_pid'
+        )
 
     @property
     def library_pid(self):
@@ -175,7 +184,10 @@ class Loan(IlsRecord):
         elif location_pid:
             loc = Location.get_record_by_pid(location_pid)
             return loc.library_pid
-        return None
+        return IlsRecordError.PidDoesNotExist(
+            self.provider.pid_type,
+            'library_pid'
+        )
 
     def dumps_for_circulation(self):
         """Dumps for circulation."""

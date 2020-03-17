@@ -100,35 +100,40 @@ def test_acq_accounts_get(client, acq_account_fiction_martigny):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acq_accounts_post_put_delete(client,
-                                      acq_account_books_saxon,
+                                      lib_saxon,
+                                      acq_account_books_saxon_data,
+                                      budget_2020_martigny,
                                       json_header):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.acac_item', pid_value='1')
     list_url = url_for('invenio_records_rest.acac_list', q='pid:1')
 
-    acq_account_books_saxon['pid'] = '1'
+    acq_account_books_saxon_data.pop('pid')
     res, data = postdata(
         client,
         'invenio_records_rest.acac_list',
-        acq_account_books_saxon
+        acq_account_books_saxon_data
     )
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert data['metadata'] == acq_account_books_saxon
+    acq_account_books_saxon_data['pid'] = '1'
+    acq_account_books_saxon_data['organisation'] = {
+        '$ref': 'https://ils.rero.ch/api/organisations/org1'
+    }
+    assert data['metadata'] == acq_account_books_saxon_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert acq_account_books_saxon == data['metadata']
+    assert acq_account_books_saxon_data == data['metadata']
 
     # Update record/PUT
-    data = acq_account_books_saxon
-    data['name'] = 'Test Name'
+    acq_account_books_saxon_data['name'] = 'Test Name'
     res = client.put(
         item_url,
-        data=json.dumps(data),
+        data=json.dumps(acq_account_books_saxon_data),
         headers=json_header
     )
     assert res.status_code == 200
@@ -222,29 +227,29 @@ def test_acq_account_secure_api(client, json_header,
 
 
 def test_acq_account_secure_api_create(client, json_header,
-                                       acq_account_fiction_martigny,
+                                       acq_account_fiction_martigny_data,
                                        librarian_martigny_no_email,
                                        librarian_sion_no_email,
-                                       acq_account_books_saxon,
+                                       acq_account_books_saxon_data,
                                        system_librarian_martigny_no_email):
     """Test acq account secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_entrypoint = 'invenio_records_rest.acac_list'
 
-    del acq_account_books_saxon['pid']
+    acq_account_books_saxon_data.pop('pid')
     res, _ = postdata(
         client,
         post_entrypoint,
-        acq_account_books_saxon
+        acq_account_books_saxon_data
     )
     assert res.status_code == 403
 
-    del acq_account_fiction_martigny['pid']
+    acq_account_fiction_martigny_data.pop('pid')
     res, _ = postdata(
         client,
         post_entrypoint,
-        acq_account_fiction_martigny
+        acq_account_fiction_martigny_data
     )
     assert res.status_code == 201
 
@@ -252,7 +257,7 @@ def test_acq_account_secure_api_create(client, json_header,
     res, _ = postdata(
         client,
         post_entrypoint,
-        acq_account_fiction_martigny
+        acq_account_fiction_martigny_data
     )
     assert res.status_code == 201
 
@@ -262,7 +267,7 @@ def test_acq_account_secure_api_create(client, json_header,
     res, _ = postdata(
         client,
         post_entrypoint,
-        acq_account_books_saxon
+        acq_account_books_saxon_data
     )
     assert res.status_code == 403
 

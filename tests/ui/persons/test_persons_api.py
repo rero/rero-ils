@@ -25,7 +25,7 @@ import pytest
 from rero_ils.modules.persons.api import Person, person_id_fetcher
 
 
-def test_person_create(app, person_data_tmp):
+def test_person_create(app, person_data_tmp, caplog):
     """Test MEF person creation."""
     pers = Person.get_record_by_pid('1')
     assert not pers
@@ -53,6 +53,13 @@ def test_person_create(app, person_data_tmp):
     assert pers.get('viaf_pid') == '1234'
 
     assert pers.organisation_pids == []
+
+    pers.delete_from_index()
+    # test the messages from current_app.logger
+    assert caplog.records[0].name == 'elasticsearch'
+    assert caplog.record_tuples[1] == (
+        'flask.app', 30, 'Can not delete from index Person: 2'
+    )
 
 
 def test_person_mef_create(app, person_data_tmp):

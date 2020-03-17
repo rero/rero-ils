@@ -66,6 +66,11 @@ class Library(IlsRecord):
     fetcher = library_id_fetcher
     provider = LibraryProvider
     model_cls = LibraryMetadata
+    pids_exist_check = {
+        'required': {
+            'org': 'organisation'
+        }
+    }
 
     @property
     def online_location(self):

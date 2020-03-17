@@ -18,7 +18,6 @@
 """Tests REST API for circulation policies."""
 
 import json
-from copy import deepcopy
 
 import mock
 import pytest
@@ -229,10 +228,6 @@ def test_circ_policy_secure_api(client, json_header,
 
     res = client.get(record_url)
     assert res.status_code == 403
-
-    org = deepcopy(circ_policy_default_martigny)
-    del org['organisation']
-    assert not org.organisation_pid
 
 
 def test_circ_policy_secure_api_create(client, json_header,

@@ -31,6 +31,7 @@ from werkzeug.utils import cached_property
 
 from .models import PatronIdentifier, PatronMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from ..errors import RecordValidationError
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
@@ -75,6 +76,60 @@ class Patron(IlsRecord):
     model_cls = PatronMetadata
     available_roles = ['system_librarian', 'librarian', 'patron']
 
+    def validate(self, **kwargs):
+        """Validate record against schema.
+
+        extended validation per record class
+        and test of pid existence.
+        """
+        super(Patron, self).validate(**kwargs)
+        validation_message = self.extended_validation(**kwargs)
+        self.pids_exist_check = self.get_pid_exist_test(self)
+        # We only like to run pids_exist_check if validation_message is True
+        # and not a string with error from extended_validation
+        if validation_message is True and self.pid_check:
+            from ..utils import pids_exists_in_data
+            if self.is_patron:
+                validation_message = pids_exists_in_data(
+                    info='{pid_type} ({pid})'.format(
+                        pid_type=self.provider.pid_type,
+                        pid=self.pid
+                    ),
+                    data=self,
+                    required={'ptty': 'patron_type'},
+                    not_required={}
+                ) or True
+            if self.is_librarian:
+                validation_message = pids_exists_in_data(
+                    info='{pid_type} ({pid})'.format(
+                        pid_type=self.provider.pid_type,
+                        pid=self.pid
+                    ),
+                    data=self,
+                    required={'lib': 'library'},
+                    not_required={}
+                ) or True
+        subscriptions = self.get('subscriptions')
+        if subscriptions and validation_message is True:
+            for subscription in subscriptions:
+                subscription_validation_message = pids_exists_in_data(
+                    info='{pid_type} ({pid})'.format(
+                        pid_type=self.provider.pid_type,
+                        pid=self.pid
+                    ),
+                    data=subscription,
+                    required={
+                        'ptty': 'patron_type',
+                        'pttr': 'patron_transaction'
+                    },
+                    not_required={}
+                ) or True
+                if subscription_validation_message is not True:
+                    validation_message = subscription_validation_message
+                    break
+        if validation_message is not True:
+            raise RecordValidationError(validation_message)
+
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
@@ -85,17 +140,38 @@ class Patron(IlsRecord):
         record._update_roles()
         return record
 
-    def delete(self, force=False, delindex=False):
-        """Delete record and persistent identifier."""
-        self._remove_roles()
-        super(Patron, self).delete(force, delindex)
-        return self
-
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
         data = trim_barcode_for_record(data=data)
         super(Patron, self).update(data, dbcommit, reindex)
         self._update_roles()
+        return self
+
+    @classmethod
+    def get_pid_exist_test(cls, data):
+        """Test if library or patron type $ref pid exist.
+
+        ;param data: Data to find the information for the pids to test.
+        :return: dictionair with pid types to test.
+        """
+        roles = data.get('roles', [])
+        if 'system_librarian' in roles or 'librarian' in roles:
+            return {
+                'required': {
+                    'lib': 'library'
+                }
+            }
+        elif 'patron' in roles:
+            return {
+                'required': {
+                    'ptty': 'patron_type'
+                }
+            }
+
+    def delete(self, force=False, delindex=False):
+        """Delete record and persistent identifier."""
+        self._remove_roles()
+        super(Patron, self).delete(force, delindex)
         return self
 
     @cached_property
@@ -234,10 +310,7 @@ class Patron(IlsRecord):
     @property
     def patron_type_pid(self):
         """Shortcut for patron type pid."""
-        if self.get('patron_type'):
-            patron_type_pid = self.replace_refs().get('patron_type').get('pid')
-            return patron_type_pid
-        return None
+        return self.replace_refs().get('patron_type', {}).get('pid')
 
     def get_number_of_loans(self):
         """Get number of loans."""
@@ -285,26 +358,15 @@ class Patron(IlsRecord):
 
     def get_organisation(self):
         """Return organisation."""
-        from ..patron_types.api import PatronType
-
-        patron = self.replace_refs()
-        if self.get('library'):
-            lib = Library.get_record_by_pid(patron['library']['pid'])
-            return Organisation.get_record_by_pid(
-                lib.replace_refs()['organisation']['pid'])
-        if self.get('patron_type'):
-            ptty = PatronType.get_record_by_pid(patron['patron_type']['pid'])
-            return Organisation.get_record_by_pid(
-                ptty.replace_refs()['organisation']['pid'])
-        return None
+        return Organisation.get_record_by_pid(self.organisation_pid)
 
     @property
     def library_pid(self):
         """Shortcut for patron library pid."""
-        if self.get('library'):
-            library_pid = self.replace_refs().get('library').get('pid')
-            return library_pid
-        return None
+        if self.is_librarian:
+            return self.replace_refs()['library']['pid']
+        else:
+            return None
 
     @property
     def is_librarian(self):
@@ -330,14 +392,14 @@ class Patron(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for patron."""
-        from ..patron_types.api import PatronType
-
-        if self.library_pid:
-            library = Library.get_record_by_pid(self.library_pid)
+        library_pid = self.library_pid
+        if library_pid:
+            library = Library.get_record_by_pid(library_pid)
             return library.organisation_pid
-
-        if self.patron_type_pid:
-            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+        patron_type_pid = self.patron_type_pid
+        if patron_type_pid:
+            from ..patron_types.api import PatronType
+            patron_type = PatronType.get_record_by_pid(patron_type_pid)
             return patron_type.organisation_pid
         return None
 

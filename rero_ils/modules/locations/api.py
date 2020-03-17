@@ -56,6 +56,11 @@ class Location(IlsRecord):
     fetcher = location_id_fetcher
     provider = LocationProvider
     model_cls = LocationMetadata
+    pids_exist_check = {
+        'required': {
+            'lib': 'library'
+        }
+    }
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
