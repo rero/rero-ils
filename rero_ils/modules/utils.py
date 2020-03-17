@@ -25,9 +25,10 @@ import click
 import pytz
 from dateutil import parser
 from flask import current_app
+from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
 
-from .api import IlsRecordsIndexer
+from .api import IlsRecordError, IlsRecordsIndexer
 
 
 def strtotime(strtime):
@@ -266,3 +267,93 @@ def get_schema_for_resource(resource):
             endpoint=current_app.config.get('JSONSCHEMAS_ENDPOINT'),
             schema=schemas[resource]
         )
+
+
+def pid_exists(info, pid_type, pid, raise_on_error=False):
+    """Test pid exist in pid_type.
+
+    :param pid_type: Pid type to test the pid for.
+    :param pid: Pid to search for.
+    :param raise_on_error: Raise PidDoesNotExist exception if enabled.
+    :return: True if pid was found. Otherwise False.
+    """
+    if PersistentIdentifier.query.filter_by(
+        pid_type=str(pid_type), pid_value=str(pid)
+    ).count() == 1:
+        return True
+    else:
+        if raise_on_error:
+            raise IlsRecordError.PidDoesNotExist(info, pid_type, pid)
+        return False
+
+
+def pids_exists_in_data(info, data, required={}, not_required={}):
+    """Test pid or $ref has valid pid.
+
+    :param info:  Info to add to errors description.
+    :param data: data with information to test.
+    :param required: dictionary with required pid types and key in data to
+        test. example {'doc', 'document'}
+    :param not_required: dictionary with not required pid types and keys
+        in data to test. example {'item', 'item'}
+    :return: True if all requirements  Otherwise False.
+    """
+    def pids_exists_in_data_test(info, data, tests, is_required):
+        """Test the pids exists."""
+        return_value = []
+        endpoints = current_app.config['RECORDS_REST_ENDPOINTS']
+        for pid_type, key in tests.items():
+            data_to_test = data.get(key)
+            if data_to_test:
+                try:
+                    list_route = endpoints[pid_type]['list_route']
+                    data_pid = data_to_test.get('pid') or \
+                        data_to_test.get('$ref').split(list_route)[1]
+                except:
+                    data_pid = None
+                if not data_pid and is_required:
+                    return_value.append(
+                        '{info}: No pid found: {pid_type} {data}'.format(
+                            info=info,
+                            pid_type=pid_type,
+                            data=data_to_test
+                        )
+                    )
+                else:
+                    if not pid_exists(
+                        info=info,
+                        pid_type=pid_type,
+                        pid=data_pid
+                    ):
+                        return_value.append(
+                            '{info}: {text} {pid_type} {pid}'.format(
+                                info=info,
+                                text='Pid does not exist:',
+                                pid_type=pid_type,
+                                pid=data_pid
+                            )
+                        )
+            else:
+                if is_required:
+                    return_value.append(
+                        '{info}: {text} {key}'.format(
+                            info=info,
+                            text='No data found:',
+                            key=key
+                        )
+                    )
+        return return_value
+
+    return_value_required = pids_exists_in_data_test(
+        info=info,
+        data=data,
+        tests=required,
+        is_required=True
+    )
+    return_value_not_required = pids_exists_in_data_test(
+        info=info,
+        data=data,
+        tests=not_required,
+        is_required=False
+    )
+    return return_value_required + return_value_not_required

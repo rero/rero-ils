@@ -19,8 +19,6 @@
 
 from functools import partial
 
-from flask import current_app
-
 from .models import AcqOrderIdentifier, AcqOrderMetadata
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -28,6 +26,7 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import get_ref_for_pid
 
 # provider
 AcqOrderProvider = type(
@@ -58,6 +57,15 @@ class AcqOrder(IlsRecord):
     fetcher = acq_order_id_fetcher
     provider = AcqOrderProvider
     model_cls = AcqOrderMetadata
+    pids_exist_check = {
+        'required': {
+            'lib': 'library',
+            'vndr': 'vendor'
+        },
+        'not_required': {
+            'org': 'organisation'
+        }
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
@@ -68,23 +76,23 @@ class AcqOrder(IlsRecord):
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         return record
 
+    def update(self, data, dbcommit=False, reindex=False):
+        """Update acq order record."""
+        self._acq_order_build_org_ref(data)
+        super(AcqOrder, self).update(data, dbcommit, reindex)
+        return self
+
     @classmethod
     def _acq_order_build_org_ref(cls, data):
         """Build $ref for the organisation of the acquisition order."""
-        library_pid = data.get('library', {}).get('pid')
-        if not library_pid:
-            library_pid = data.get('library').get(
-                '$ref').split('libraries/')[1]
-        org_pid = Library.get_record_by_pid(library_pid).organisation_pid
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='organisations',
-                pid=org_pid or cls.organisation_pid)
-        }
-        data['organisation'] = org_ref
+        library = data.get('library', {})
+        library_pid = library.get('pid') or \
+            library.get('$ref').split('libraries/')[1]
+        data['organisation'] = {'$ref': get_ref_for_pid(
+            'org',
+            Library.get_record_by_pid(library_pid).organisation_pid
+        )}
+        return data
 
     @property
     def organisation_pid(self):
@@ -94,7 +102,7 @@ class AcqOrder(IlsRecord):
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        return self.replace_refs().get('library').get('pid')
+        return self.replace_refs()['library']['pid']
 
     def get_number_of_acq_order_lines(self):
         """Get number of acquisition order lines."""

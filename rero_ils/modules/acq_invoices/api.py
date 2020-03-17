@@ -58,6 +58,15 @@ class AcquisitionInvoice(IlsRecord):
     fetcher = acq_invoice_id_fetcher
     provider = AcquisitionInvoiceProvider
     model_cls = AcquisitionInvoiceMetadata
+    pids_exist_check = {
+        'required': {
+            'lib': 'library',
+            'vndr': 'vendor'
+        },
+        'not_required': {
+            'org': 'organisation'
+        }
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

@@ -59,6 +59,17 @@ class CircPolicy(IlsRecord):
     fetcher = circ_policy_id_fetcher
     provider = CircPolicyProvider
     model_cls = CircPolicyMetadata
+    pids_exist_check = {
+        'required': {
+            'org': 'organisation',
+        },
+        'not_required': {
+            # TODO: this is in list of settings
+            # 'lib': 'library', # list
+            # 'ptty': 'patron_type', # settings list
+            # 'itty': 'item_type' # setings list
+        }
+    }
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
@@ -69,6 +80,11 @@ class CircPolicy(IlsRecord):
         from ..patron_types.api import PatronType
         from ..item_types.api import ItemType
 
+        for library in self.replace_refs().get('libraries', []):
+            if not Library.get_record_by_pid(library.get('pid')):
+                return 'CircPolicy: no library:  {pid}'.format(
+                    pid=library.get('pid')
+                )
         org = self.get('organisation')
         for setting in self.replace_refs().get('settings', []):
             patron_type = PatronType.get_record_by_pid(setting.get(
@@ -80,7 +96,7 @@ class CircPolicy(IlsRecord):
             if patron_type.get('organisation') != org or item_type.get(
                 'organisation'
             ) != org:
-                return False
+                return 'CircPolicy: PatronType ItemType Org diff'
         return True
 
     @classmethod

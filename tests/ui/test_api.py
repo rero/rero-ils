@@ -22,7 +22,6 @@ from functools import partial
 
 import pytest
 from invenio_db import db
-from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
 from invenio_search import current_search
@@ -126,7 +125,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
         delete_pid=True
     )
     assert record_created_pid.pid == '1'
-    with pytest.raises(PIDAlreadyExists):
+    with pytest.raises(IlsRecordError.PidAlradyUsed):
         RecordTest.create(
             data=ils_record,
             dbcommit=True,

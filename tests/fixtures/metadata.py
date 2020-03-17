@@ -483,8 +483,8 @@ def holding_lib_martigny_data_tmp(holdings):
 
 
 @pytest.fixture(scope="module")
-def holding_lib_martigny(app, document, holding_lib_martigny_data,
-                         loc_public_martigny, item_type_standard_martigny):
+def holding_lib_martigny(app, loc_public_martigny, item_type_standard_martigny,
+                         document, holding_lib_martigny_data):
     """Create holding of martigny library."""
     holding = Holding.create(
         data=holding_lib_martigny_data,

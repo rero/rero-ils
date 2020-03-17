@@ -28,7 +28,7 @@ from utils import get_json, postdata
 
 def test_system_librarian_permissions(
         client, json_header, system_librarian_martigny_no_email,
-        patron_martigny_no_email,
+        patron_martigny_no_email, patron_type_adults_martigny,
         librarian_fully_no_email):
     """Test system_librarian permissions."""
     # Login as system_librarian
@@ -42,7 +42,6 @@ def test_system_librarian_permissions(
         "postal_code": "1920",
         "city": "Martigny",
         "birth_date": "1967-06-07",
-        "patron_type": {"$ref": "https://ils.rero.ch/api/patron_types/ptty1"},
         "phone": "+41324993111"
     }
 
@@ -58,16 +57,31 @@ def test_system_librarian_permissions(
     librarian = deepcopy(record)
     patron = deepcopy(record)
     counter = 1
-    for record in [
-        {'data': patron, 'role': ['patron']},
-        {'data': librarian, 'role': ['librarian']},
-        {'data': system_librarian, 'role': ['librarian', 'system_librarian']}
-    ]:
+    records = [{
+        'data': patron, 'role': ['patron'], 'patron_type': {
+            '$ref': 'https://ils.rero.ch/api/patron_types/ptty2'
+        }
+    }, {
+        'data': librarian, 'role': ['librarian'], 'library': {
+            '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+        }
+    }, {
+        'data': system_librarian, 'role': [
+            'librarian', 'system_librarian'
+        ], 'library': {
+            '$ref': 'https://ils.rero.ch/api/libraries/lib1'
+        }
+    }]
+    for record in records:
         counter += 1
         data = record['data']
         data['roles'] = record['role']
         data['barcode'] = 'barcode' + str(counter)
         data['email'] = str(counter) + '@domain.com'
+        if record.get('patron_type'):
+            data['patron_type'] = record['patron_type']
+        if record.get('library'):
+            data['library'] = record['library']
         with mock.patch('rero_ils.modules.patrons.api.'
                         'send_reset_password_instructions'):
             res, _ = postdata(

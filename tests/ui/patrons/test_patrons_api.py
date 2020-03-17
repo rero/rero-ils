@@ -20,15 +20,19 @@
 from __future__ import absolute_import, print_function
 
 import re
+from copy import deepcopy
 
+import pytest
+from jsonschema.exceptions import ValidationError
 from utils import get_mapping
 
+from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 
 
-def test_patron_es_mapping(
-        roles, es_clear, lib_martigny, librarian_martigny_data_tmp):
+def test_patron_es_mapping(roles, es_clear, lib_martigny,
+                           librarian_martigny_data_tmp):
     """Test patron elasticsearch mapping."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
@@ -36,16 +40,51 @@ def test_patron_es_mapping(
 
 
 def test_patron_create(app, roles, librarian_martigny_data_tmp,
-                       mailbox):
+                       patron_type_adults_martigny, mailbox):
     """Test Patron creation."""
     ds = app.extensions['invenio-accounts'].datastore
     email = librarian_martigny_data_tmp.get('email')
     assert not ds.find_user(email=email)
     assert len(mailbox) == 0
+
+    wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
+    wrong_librarian_martigny_data_tmp.pop('first_name')
+    with pytest.raises(ValidationError):
+        ptrn = Patron.create(
+            wrong_librarian_martigny_data_tmp,
+            dbcommit=True,
+            delete_pid=True
+        )
+
+    wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
+    wrong_librarian_martigny_data_tmp.pop('library')
+    with pytest.raises(RecordValidationError):
+        ptrn = Patron.create(
+            wrong_librarian_martigny_data_tmp,
+            dbcommit=True,
+            delete_pid=True
+        )
+
+    wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
+    wrong_librarian_martigny_data_tmp['subscriptions'] = [{
+        'start_date': '2000-01-01',
+        'end_date': '2001-01-01',
+        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/xxx'},
+        'patron_transaction': {
+            '$ref': 'https://ils.rero.ch/api/patron_transactions/xxx'
+        },
+    }]
+    with pytest.raises(RecordValidationError):
+        ptrn = Patron.create(
+            wrong_librarian_martigny_data_tmp,
+            dbcommit=True,
+            delete_pid=True
+        )
+
     ptrn = Patron.create(
         librarian_martigny_data_tmp,
         dbcommit=True,
-        delete_pid=True
+        delete_pid=False
     )
     user = ds.find_user(email=email)
     assert user
@@ -55,13 +94,13 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     assert re.search(r'localhost/lost-password', mailbox[0].body)
     assert ptrn.get('email') in mailbox[0].recipients
     assert ptrn == librarian_martigny_data_tmp
-    assert ptrn.get('pid') == '1'
+    assert ptrn.get('pid') == 'ptrn2'
 
-    ptrn = Patron.get_record_by_pid('1')
+    ptrn = Patron.get_record_by_pid('ptrn2')
     assert ptrn == librarian_martigny_data_tmp
 
     fetched_pid = patron_id_fetcher(ptrn.id, ptrn)
-    assert fetched_pid.pid_value == '1'
+    assert fetched_pid.pid_value == 'ptrn2'
     assert fetched_pid.pid_type == 'ptrn'
 
     # set librarian
@@ -70,7 +109,11 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(roles)
     roles = Patron.available_roles
-    ptrn.update({'roles': Patron.available_roles}, dbcommit=True)
+    data = {
+        'roles': Patron.available_roles,
+        'patron_type': {'$ref': 'https://ils.rero.ch/api/patron_types/ptty2'}
+    }
+    ptrn.update(data, dbcommit=True)
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(Patron.available_roles)
 
@@ -83,11 +126,11 @@ def test_patron_create(app, roles, librarian_martigny_data_tmp,
     assert not user.roles
     assert len(mailbox) == 1
     # patron does not exists anymore
-    ptrn = Patron.get_record_by_pid('1')
+    ptrn = Patron.get_record_by_pid('ptrn2')
     assert ptrn is None
-    ptrn = Patron.get_record_by_pid('1', with_deleted=True)
+    ptrn = Patron.get_record_by_pid('ptrn2', with_deleted=True)
     assert ptrn == {}
-    assert ptrn.persistent_identifier.pid_value == '1'
+    assert ptrn.persistent_identifier.pid_value == 'ptrn2'
 
 
 def test_patron_organisation_pid(org_martigny, patron_martigny_no_email,

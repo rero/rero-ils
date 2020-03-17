@@ -17,15 +17,15 @@
 
 """API for manipulating Acquisition Order Line."""
 
+from copy import deepcopy
 from functools import partial
-
-from flask import current_app
 
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import get_ref_for_pid
 
 # provider
 AcqOrderLineProvider = type(
@@ -56,6 +56,16 @@ class AcqOrderLine(IlsRecord):
     fetcher = acq_order_line_id_fetcher
     provider = AcqOrderLineProvider
     model_cls = AcqOrderLineMetadata
+    pids_exist_check = {
+        'required': {
+            'doc': 'document',
+            'acac': 'acq_account',
+            'acor': 'acq_order'
+        },
+        'not_required': {
+            'org': 'organisation'
+        }
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
@@ -69,30 +79,25 @@ class AcqOrderLine(IlsRecord):
 
     def update(self, data, dbcommit=True, reindex=True):
         """Update Acquisition Order Line record."""
-        self._build_total_amount_for_order_line(data)
-        super(AcqOrderLine, self).update(data, dbcommit, reindex)
+        new_data = deepcopy(dict(self))
+        new_data.update(data)
+        self._acq_order_line_build_org_ref(new_data)
+        self._build_total_amount_for_order_line(new_data)
+        super(AcqOrderLine, self).update(new_data, dbcommit, reindex)
         return self
 
     @classmethod
     def _acq_order_line_build_org_ref(cls, data):
         """Build $ref for the organisation of the acquisition order."""
         from ..acq_orders.api import AcqOrder
-
-        order_pid = data.get('acq_order', {}).get('pid')
-        if not order_pid:
-            order_pid = data.get('acq_order').get(
-                '$ref').split('acq_orders/')[1]
-
-        org_pid = AcqOrder.get_record_by_pid(order_pid).organisation_pid
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='organisations',
-                pid=org_pid or cls.organisation_pid)
-        }
-        data['organisation'] = org_ref
+        order = data.get('acq_order', {})
+        order_pid = order.get('pid') or \
+            order.get('$ref').split('acq_orders/')[1]
+        data['organisation'] = {'$ref': get_ref_for_pid(
+            'org',
+            AcqOrder.get_record_by_pid(order_pid).organisation_pid
+        )}
+        return data
 
     @classmethod
     def _build_total_amount_for_order_line(cls, data):

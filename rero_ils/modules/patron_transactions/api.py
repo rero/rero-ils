@@ -63,6 +63,15 @@ class PatronTransaction(IlsRecord):
     fetcher = patron_transaction_id_fetcher
     provider = PatronTransactionProvider
     model_cls = PatronTransactionMetadata
+    pids_exist_check = {
+        'required': {
+            'ptrn': 'patron'
+        },
+        'not_required': {
+            'org': 'organisation',
+            'notif': 'notification'
+        }
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

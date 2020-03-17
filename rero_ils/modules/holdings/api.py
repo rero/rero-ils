@@ -23,14 +23,13 @@ from builtins import classmethod
 from copy import deepcopy
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jinja2 import Template
 
-from .models import HoldingIdentifier, HoldingMetadata
+from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..documents.api import Document
 from ..errors import MissingRequiredParameterError
@@ -74,14 +73,14 @@ class Holding(IlsRecord):
     minter = holding_id_minter
     fetcher = holding_id_fetcher
     provider = HoldingProvider
-    model_cls = HoldingMetadata
-
-    def delete_from_index(self):
-        """Delete record from index."""
-        try:
-            HoldingsIndexer().delete(self)
-        except NotFoundError:
-            pass
+    # model_cls = HoldingMetadata
+    pids_exist_check = {
+        'required': {
+            'doc': 'document',
+            'loc': 'location',
+            'itty': 'circulation_category'
+        }
+    }
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -142,8 +141,7 @@ class Holding(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for holding."""
-        location = Location.get_record_by_pid(self.location_pid)
-        return location.organisation_pid
+        return Location.get_record_by_pid(self.location_pid).organisation_pid
 
     @property
     def available(self):

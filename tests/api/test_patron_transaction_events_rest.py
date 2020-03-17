@@ -222,7 +222,7 @@ def test_patron_transaction_event_secure_api(
     # test if a 'creation_date' attribute is created if not present into data
     trans_data = deepcopy(patron_transaction_overdue_event_martigny)
     del trans_data['creation_date']
-    trans = PatronTransactionEvent.create(trans_data)
+    trans = PatronTransactionEvent.create(trans_data, delete_pid=True)
     assert trans.get('creation_date')
 
     record_url = url_for(

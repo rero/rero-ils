@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 import pytest
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.documents.api import Document, document_id_fetcher
 from rero_ils.modules.ebooks.tasks import create_records
 
@@ -34,12 +35,15 @@ def test_document_create(db, document_data_tmp):
         {'language': 'chi-hani', 'value': '第3版 / 曾令良主编'},
         {'language': 'default', 'value': 'Di 3 ban / Zeng Lingliang zhu bian'}
     ]
-    ptty = Document.get_record_by_pid('1')
-    assert ptty == document_data_tmp
+    doc = Document.get_record_by_pid('1')
+    assert doc == document_data_tmp
 
     fetched_pid = document_id_fetcher(ptty.id, ptty)
     assert fetched_pid.pid_value == '1'
     assert fetched_pid.pid_type == 'doc'
+
+    with pytest.raises(IlsRecordError.PidAlradyUsed):
+        new_doc = Document.create(doc)
 
 
 def test_document_can_not_delete(document, item_lib_martigny):

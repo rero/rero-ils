@@ -29,6 +29,7 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
 from utils import check_timezone_date, flush_index, get_json, postdata
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
@@ -125,7 +126,8 @@ def test_loan_utils(client, patron_martigny_no_email,
     new_loan = deepcopy(loan_pending_martigny)
     assert new_loan.organisation_pid
     del new_loan['item_pid']
-    assert not new_loan.organisation_pid
+    with pytest.raises(IlsRecordError.PidDoesNotExist):
+        new_loan.organisation_pid
 
 
 def test_due_soon_loans(client, librarian_martigny_no_email,

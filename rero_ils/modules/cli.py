@@ -231,10 +231,12 @@ def init(force):
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.option('-o', '--dont-stop', 'dont_stop_on_error',
               is_flag=True, default=False)
+@click.option('-P', '--pid-check', 'pid_check',
+              is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
 def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
-           dont_stop_on_error):
+           dont_stop_on_error, pid_check):
     """Load REROILS record.
 
     :param infile: Json file
@@ -245,6 +247,7 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
     :param schema: recoord schema
     :param lazy: lazy reads file
     :param dont_stop_on_error: don't stop on error
+    :param pidcheck: check pids
     """
     click.secho(
         'Loading {pid_type} records from {file_name}.'.format(
@@ -272,7 +275,7 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
             record['$schema'] = schema
         try:
             rec = record_class.create(record, dbcommit=dbcommit,
-                                      reindex=reindex)
+                                      reindex=reindex, pidcheck=pid_check)
             if append:
                 pids.append(rec.pid)
             if verbose:

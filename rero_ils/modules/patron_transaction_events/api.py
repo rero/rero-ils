@@ -61,6 +61,15 @@ class PatronTransactionEvent(IlsRecord):
     fetcher = patron_transaction_event_id_fetcher
     provider = PatronTransactionEventProvider
     model_cls = PatronTransactionEventMetadata
+    pids_exist_check = {
+        'required': {
+            'pttr': 'parent'
+        },
+        'not_required': {
+            'lib': 'library',
+            'ptrn': 'operator'
+        }
+    }
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
@@ -73,6 +82,11 @@ class PatronTransactionEvent(IlsRecord):
         if update_parent:
             cls.update_parent_patron_transaction(record)
         return record
+
+    def update(self, data, dbcommit=False, reindex=False):
+        """Update data for record."""
+        super(PatronTransactionEvent, self).update(data, dbcommit, reindex)
+        return self
 
     @classmethod
     def create_event_from_patron_transaction(

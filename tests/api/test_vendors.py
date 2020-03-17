@@ -89,6 +89,7 @@ def test_vendor_post_update_delete(client, librarian_martigny_no_email,
     item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr3')
 
     # create
+    vendor3_martigny_data['pid'] = 'vndr3'
     res, data = postdata(
         client,
         'invenio_records_rest.vndr_list',

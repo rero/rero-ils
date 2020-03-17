@@ -56,6 +56,11 @@ class Budget(IlsRecord):
     fetcher = budget_id_fetcher
     provider = BudgetProvider
     model_cls = BudgetMetadata
+    pids_exist_check = {
+        'required': {
+            'org': 'organisation'
+        }
+    }
 
     def get_number_of_acq_accounts(self):
         """Get number of acq accounts."""

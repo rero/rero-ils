@@ -318,7 +318,7 @@ def test_create_holdings_with_pattern(
     with pytest.raises(RecordValidationError):
         Holding.create(
             data=holding_lib_martigny_w_patterns_data,
-            delete_pid=False,
+            delete_pid=True,
             dbcommit=True,
             reindex=True)
 
