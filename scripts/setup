@@ -93,7 +93,7 @@ ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 msg "PROGRAM: ${PROGRAM}"
 
 # PIPENV is a mandatory condition to launch this program!
-if [[ -z  "${VIRTUAL_ENV}" ]]; then
+if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
 fi
 
@@ -125,7 +125,7 @@ do
     shift
 done
 
-if [ ! -d ${DATA_PATH} ]; then
+if [[ ! -d "${DATA_PATH}" ]]; then
     error_msg+exit "Error - data path does not exist: ${DATA_PATH}"
 fi
 

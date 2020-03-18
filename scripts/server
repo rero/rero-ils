@@ -61,7 +61,7 @@ set -e
 
 script_path=$(dirname "$0")
 # PIPENV is a mandatory condition to launch this program!
-if [[ -z  "${VIRTUAL_ENV}" ]]; then
+if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
 fi
 
