@@ -58,7 +58,7 @@ success_msg() {
 msg "PROGRAM: ${PROGRAM}"
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dsb -l -t deploy,ci,tgz_path: -- "$@")
+if ! options=$(getopt -o dct: -l deploy,ci,tgz_package: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -81,7 +81,7 @@ do
       ci=true ;;
     -t|--tgz_package)
       tgz_file=$2
-      if [ ! -f ${tgz_file} ]
+      if [[ ! -f "${tgz_file}" ]]
       then
         error_msg+exit "package tgz file dos not exist: ${tgz_file}"
       fi ;;
@@ -93,7 +93,7 @@ do
 done
 
 # PIPENV is a mandatory condition to launch this program!
-if [[ -z  "${VIRTUAL_ENV}" ]]; then
+if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
 fi
 
@@ -116,7 +116,7 @@ info_msg "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
 # to avoid IPython dependency problem on Mac OS X
-if [ "$(uname -s)" == "Darwin" ]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
   info_msg "Install 'appnope' for Mac OS X"
   pip install appnope
 fi
@@ -135,7 +135,7 @@ info_msg "Search static folder location"
 static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 info_msg "Install static folder npm dependencies in: ${static_folder}"
 npm install --prefix "${static_folder}"
-if [ -f ${tgz_file} ]
+if [[ -f "${tgz_file}" ]]
 then
   info_msg "Install RERO-ILS-UI from tgz: ${tgz_file}"
   npm install "${tgz_file}" --prefix "${static_folder}"
