@@ -145,7 +145,8 @@
     "is_pickup": true,
     "library": {
       "$ref": "https://ils.rero.ch/api/libraries/5"
-    }
+    },
+    "pickup_name": "Public Section"
   },
   {
     "pid": "18",
