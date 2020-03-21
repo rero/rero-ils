@@ -410,7 +410,6 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
                            circ_policy_short_martigny,
                            lib_martigny):
     """Test that timezone affects due date regarding library location."""
-
     # Login to perform action
     login_user_via_session(client, librarian_martigny_no_email.user)
 
@@ -491,7 +490,7 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
     )
     assert res.status_code == 200
 
-    # Get Loan date
+    # Get Loan date (should be in UTC)
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
     loan = Loan.get_record_by_pid(loan_pid)
     loan_end_date = loan.get('end_date')
@@ -502,18 +501,14 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
     lib = Library.get_record_by_pid(item.library_pid)
     lib_datetime = lib.next_open(soon)
 
-    # Get library timezone
-    lib_tz = lib.get_timezone()
-
-    # Apply Switzerland timezone to loan date
-    loan_datetime = ciso8601.parse_datetime(loan_end_date).astimezone(lib_tz)
+    # Loan date should be in UTC (as lib_datetime).
+    loan_datetime = ciso8601.parse_datetime(loan_end_date)
 
     # Compare year, month and date for Loan due date: should be the same!
-    fail_msg = "Check timezone for Loan and Library. It should be the same date, \
-even if timezone changed."
+    fail_msg = "Check timezone for Loan and Library. \
+It should be the same date, even if timezone changed."
     assert loan_datetime.year == lib_datetime.year, fail_msg
     assert loan_datetime.month == lib_datetime.month, fail_msg
     assert loan_datetime.day == lib_datetime.day, fail_msg
-    # Loan date should be 23h59 of library timezone
-    assert loan_datetime.hour == 23, fail_msg
-    assert loan_datetime.minute == 59, fail_msg
+    # Loan date differs regarding timezone, and day of the year (GMT+1/2).
+    check_timezone_date(pytz.utc, loan_datetime, [22, 23])
