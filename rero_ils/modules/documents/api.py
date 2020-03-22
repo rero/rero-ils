@@ -22,13 +22,12 @@ from functools import partial
 
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier
 from .utils import edition_format_text, publication_statement_text, \
     series_format_text
 from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..api import IlsRecord, IlsRecordIndexer
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
@@ -46,23 +45,14 @@ document_id_minter = partial(id_minter, provider=DocumentProvider)
 document_id_fetcher = partial(id_fetcher, provider=DocumentProvider)
 
 
-class DocumentsIndexer(IlsRecordIndexer):
-    """Indexing documents in Elasticsearch."""
-
-    def index(self, record):
-        """Index an document."""
-        return_value = super(DocumentsIndexer, self).index(record)
-        record.index_persons()
-        return return_value
-
-
-class DocumentsSearch(RecordsSearch):
+class DocumentsSearch(IlsRecordsSearch):
     """DocumentsSearch."""
 
     class Meta:
         """Search only on documents index."""
 
         index = 'documents'
+        doc_types = None
 
 
 class Document(IlsRecord):
@@ -71,7 +61,6 @@ class Document(IlsRecord):
     minter = document_id_minter
     fetcher = document_id_fetcher
     provider = DocumentProvider
-    indexer = DocumentsIndexer
 
     def is_available(self, view_code):
         """Get availability for document."""
@@ -180,4 +169,17 @@ class Document(IlsRecord):
                 else:
                     person.reindex()
         if persons_ids:
-            IlsRecordIndexer().bulk_index(persons_ids, doc_type=['pers'])
+            from ..persons.api import PersonsIndexer
+            PersonsIndexer().bulk_index(persons_ids)
+
+
+class DocumentsIndexer(IlsRecordIndexer):
+    """Indexing documents in Elasticsearch."""
+
+    record_cls = Document
+
+    def index(self, record):
+        """Index an document."""
+        return_value = super(DocumentsIndexer, self).index(record)
+        record.index_persons()
+        return return_value

@@ -27,16 +27,27 @@ from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
 from invenio_circulation.proxies import current_circulation
+from invenio_circulation.search.api import LoansSearch as InvenioLoansSearch
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_jsonschemas import current_jsonschemas
+from invenio_search import current_search
 
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer
 from ..documents.api import Document
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
 from ..patrons.api import Patron
+
+
+class LoansSearch(InvenioLoansSearch):
+    """Loan search."""
+
+    @classmethod
+    def flush(cls):
+        """Flush index."""
+        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class LoanAction(object):
@@ -231,7 +242,13 @@ class Loan(IlsRecord):
             notification = Notification.create(
                 data=record, dbcommit=True, reindex=True)
             notification = notification.dispatch()
+
         return notification
+
+    @property
+    def indexer_class(self):
+        """Get the indexer."""
+        return LoansIndexer
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
@@ -364,3 +381,9 @@ def get_overdue_loans():
         if now > due_date + timedelta(days=days_after):
             overdue_loans.append(loan)
     return overdue_loans
+
+
+class LoansIndexer(IlsRecordIndexer):
+    """Indexing loan in Elasticsearch."""
+
+    record_cls = Loan

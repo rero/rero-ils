@@ -23,7 +23,7 @@ from flask import current_app
 
 from .models import AcqAccountIdentifier
 from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
@@ -48,6 +48,7 @@ class AcqAccountsSearch(IlsRecordsSearch):
         """Search only on acq_account index."""
 
         index = 'acq_accounts'
+        doc_types = None
 
 
 class AcqAccount(IlsRecord):
@@ -110,3 +111,9 @@ class AcqAccount(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+
+class AcqAccountsIndexer(IlsRecordIndexer):
+    """Indexing acquisition account in Elasticsearch."""
+
+    record_cls = AcqAccount

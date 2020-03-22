@@ -20,11 +20,10 @@
 from datetime import datetime, timedelta, timezone
 
 from invenio_accounts.testutils import login_user_via_session
-from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, postdata
+from utils import postdata
 
-from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
-    get_overdue_loans
+from rero_ils.modules.loans.api import Loan, LoanAction, LoansSearch, \
+    get_due_soon_loans, get_overdue_loans
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
 from rero_ils.modules.notifications.tasks import \
@@ -64,8 +63,8 @@ def test_create_over_and_due_soon_notifications_task(
     assert due_soon_loans[0].get('pid') == loan_pid
 
     create_over_and_due_soon_notifications()
-    flush_index(NotificationsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    NotificationsSearch.flush()
+    LoansSearch.flush()
 
     assert loan.is_notified(notification_type='due_soon')
 
@@ -78,8 +77,8 @@ def test_create_over_and_due_soon_notifications_task(
     assert overdue_loans[0].get('pid') == loan_pid
 
     create_over_and_due_soon_notifications()
-    flush_index(NotificationsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    NotificationsSearch.flush()
+    LoansSearch.flush()
 
     assert loan.is_notified(notification_type='overdue')
     assert number_of_reminders_sent(loan) == 1

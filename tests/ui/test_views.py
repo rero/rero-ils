@@ -50,7 +50,7 @@ def test_schemaform(client):
     assert result.status_code == 404
 
 
-def test_organisation_link_on_homepage(client):
+def test_organisation_link_on_homepage(client, app):
     """Test Organisation link on homepage."""
     result = client.get(url_for(
         'rero_ils.index'

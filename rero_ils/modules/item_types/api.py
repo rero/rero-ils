@@ -23,10 +23,9 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
-from invenio_search.api import RecordsSearch
 
 from .models import ItemTypeIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -44,13 +43,14 @@ item_type_id_minter = partial(id_minter, provider=ItemTypeProvider)
 item_type_id_fetcher = partial(id_fetcher, provider=ItemTypeProvider)
 
 
-class ItemTypesSearch(RecordsSearch):
+class ItemTypesSearch(IlsRecordsSearch):
     """ItemTypeSearch."""
 
     class Meta:
         """Search only on item_types index."""
 
         index = 'item_types'
+        doc_types = None
 
 
 class ItemType(IlsRecord):
@@ -155,3 +155,9 @@ class ItemType(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+
+class ItemTypesIndexer(IlsRecordIndexer):
+    """Indexing item type in Elasticsearch."""
+
+    record_cls = ItemType

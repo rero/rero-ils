@@ -21,7 +21,6 @@
 from copy import deepcopy
 
 import pytest
-from utils import flush_index
 
 from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
@@ -45,7 +44,7 @@ def vendor_martigny(app, org_martigny, vendor_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -57,7 +56,7 @@ def vendor_martigny_tmp(app, org_martigny, vendor_martigny):
         delete_pid=True,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -75,7 +74,7 @@ def vendor2_martigny(app, vendor2_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -93,7 +92,7 @@ def vendor3_martigny(app, vendor3_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -111,7 +110,7 @@ def vendor_sion(app, vendor_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -129,7 +128,7 @@ def vendor2_sion(app, vendor2_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(VendorsSearch.Meta.index)
+    VendorsSearch.flush()
     return vendor
 
 
@@ -178,7 +177,7 @@ def budget_2017_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(BudgetsSearch.Meta.index)
+    BudgetsSearch.flush()
     return budget
 
 
@@ -191,7 +190,7 @@ def budget_2018_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(BudgetsSearch.Meta.index)
+    BudgetsSearch.flush()
     return budget
 
 
@@ -204,7 +203,7 @@ def budget_2020_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(BudgetsSearch.Meta.index)
+    BudgetsSearch.flush()
     return budget
 
 
@@ -217,7 +216,7 @@ def budget_2019_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(BudgetsSearch.Meta.index)
+    BudgetsSearch.flush()
     return budget
 
 
@@ -230,7 +229,7 @@ def budget_2020_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(BudgetsSearch.Meta.index)
+    BudgetsSearch.flush()
     return budget
 
 
@@ -262,7 +261,7 @@ def acq_account_fiction_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -276,7 +275,7 @@ def acq_account_books_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -295,7 +294,7 @@ def acq_account_books_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -314,7 +313,7 @@ def acq_account_general_fully(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -333,7 +332,7 @@ def acq_account_fiction_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -352,7 +351,7 @@ def acq_account_general_aproz(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqAccountsSearch.Meta.index)
+    AcqAccountsSearch.flush()
     return acac
 
 
@@ -371,7 +370,7 @@ def acq_order_fiction_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrdersSearch.Meta.index)
+    AcqOrdersSearch.flush()
     return acor
 
 
@@ -390,7 +389,7 @@ def acq_order_fiction_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrdersSearch.Meta.index)
+    AcqOrdersSearch.flush()
     return acor
 
 
@@ -409,7 +408,7 @@ def acq_order_fiction_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrdersSearch.Meta.index)
+    AcqOrdersSearch.flush()
     return acor
 
 
@@ -429,7 +428,7 @@ def acq_order_line_fiction_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrderLinesSearch.Meta.index)
+    AcqOrderLinesSearch.flush()
     return acol
 
 
@@ -449,7 +448,7 @@ def acq_order_line2_fiction_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrderLinesSearch.Meta.index)
+    AcqOrderLinesSearch.flush()
     return acol
 
 
@@ -469,7 +468,7 @@ def acq_order_line_fiction_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrderLinesSearch.Meta.index)
+    AcqOrderLinesSearch.flush()
     return acol
 
 
@@ -489,5 +488,5 @@ def acq_order_line_fiction_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(AcqOrderLinesSearch.Meta.index)
+    AcqOrderLinesSearch.flush()
     return acol

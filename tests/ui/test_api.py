@@ -28,7 +28,6 @@ from invenio_pidstore.providers.base import BaseProvider
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jsonschema.exceptions import ValidationError
-from utils import flush_index
 
 from rero_ils.modules.api import IlsRecord, IlsRecordError
 from rero_ils.modules.fetchers import id_fetcher
@@ -55,6 +54,12 @@ class SearchTest(RecordsSearch):
         """Search only on test index."""
 
         index = 'records-record-v1.0.0'
+        doc_types = None
+
+    @classmethod
+    def flush(cls):
+        """Flush index."""
+        current_search.flush_and_refresh(cls.Meta.index)
 
 
 class ProviderTest(BaseProvider):
@@ -131,7 +136,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
             dbcommit=True,
             reindex=True
         )
-    flush_index(SearchTest.Meta.index)
+    SearchTest.flush()
 
     """Test IlsRecord."""
     assert sorted(RecordTest.get_all_pids()) == [

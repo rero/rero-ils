@@ -106,15 +106,41 @@ def can_delete_json_header():
     ]
 
 
+# We need following docker container running for testing:
+#
+# es_test:
+#   image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.2
+#   environment:
+#     - bootstrap.memory_lock=true
+#     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#   ulimits:
+#     memlock:
+#       soft: -1
+#       hard: -1
+#   mem_limit: 1g
+#   ports:
+#     - "9200:9200"
+#     - "9300:9300"
+# cache_test:
+#   image: redis
+#   read_only: true
+#   ports:
+#     - "6379:6379"
+# mq_test:
+#   image: rabbitmq:3-management
+#   ports:
+#     - "5672:5672"
+
 @pytest.fixture(scope='module')
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config['RATELIMIT_STORAGE_URL'] = 'memory://'
-    app_config['CACHE_TYPE'] = 'simple'
-    app_config['SEARCH_ELASTIC_HOSTS'] = None
     app_config['DB_VERSIONING'] = True
-    app_config['CELERY_CACHE_BACKEND'] = "memory"
-    app_config['CELERY_RESULT_BACKEND'] = "cache"
-    app_config['CELERY_TASK_ALWAYS_EAGER'] = True
-    app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
+    # app_config['CACHE_TYPE'] = 'simple'
+    # app_config['SEARCH_ELASTIC_HOSTS'] = None
+    # app_config['CELERY_CACHE_BACKEND'] = "memory"
+    # app_config['CELERY_RESULT_BACKEND'] = "cache"
+    # app_config['CELERY_TASK_ALWAYS_EAGER'] = True
+    # app_config['CELERY_TASK_EAGER_PROPAGATES'] = True
+    # app_config['BROKER_URL'] = 'amqp://guest:guest@localhost:5672//'
     return app_config

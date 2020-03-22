@@ -20,13 +20,10 @@
 from copy import deepcopy
 from uuid import uuid4
 
-import pytz
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from invenio_db import db
-from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
-from invenio_indexer.signals import before_record_index
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
@@ -68,129 +65,6 @@ class IlsRecordsSearch(RecordsSearch):
         current_search.flush_and_refresh(cls.Meta.index)
 
 
-class IlsRecordIndexer(RecordIndexer):
-    """Indexing class for ils."""
-
-    def index(self, record):
-        """Indexing a record."""
-        return_value = super(IlsRecordIndexer, self).index(record)
-        index_name, doc_type = current_record_to_index(record)
-        current_search.flush_and_refresh(index_name)
-        return return_value
-
-    def delete(self, record):
-        """Delete a record.
-
-        :param record: Record instance.
-        """
-        return_value = super(IlsRecordIndexer, self).delete(record)
-        index_name, doc_type = current_record_to_index(record)
-        current_search.flush_and_refresh(index_name)
-        return return_value
-
-    def bulk_index(self, record_id_iterator, doc_type=None):
-        """Bulk index records.
-
-        :param record_id_iterator: Iterator yielding record UUIDs.
-        """
-        self._bulk_op(record_id_iterator, op_type='index', doc_type=doc_type)
-
-    def _get_record_class(self, payload):
-        """Get the record class from payload."""
-        # take the first defined doc type for finding the class
-        pid_type = payload.get('doc_type', 'rec')
-        record_class = obj_or_import_string(
-            current_app.config.get('RECORDS_REST_ENDPOINTS').get(
-                pid_type
-            ).get('record_class', Record)
-        )
-        return record_class
-
-    def _actionsiter(self, message_iterator):
-        """Iterate bulk actions.
-
-        :param message_iterator: Iterator yielding messages from a queue.
-        """
-        for message in message_iterator:
-            payload = message.decode()
-            try:
-                record_class = self._get_record_class(payload)
-                if payload['op'] == 'delete':
-                    yield record_class.indexer()._delete_action(
-                        payload=payload
-                    )
-                else:
-                    yield record_class.indexer()._index_action(
-                        payload=payload
-                    )
-                message.ack()
-            except NoResultFound:
-                message.reject()
-            except Exception:
-                message.reject()
-                current_app.logger.error(
-                    "Failed to index record {0}".format(payload.get('id')),
-                    exc_info=True)
-
-    def _index_action(self, payload):
-        """Bulk index action.
-
-        :param payload: Decoded message body.
-        :returns: Dictionary defining an Elasticsearch bulk 'index' action.
-        """
-        record_class = self._get_record_class(payload)
-        record = record_class.get_record(payload['id'])
-        index, doc_type = self.record_to_index(record)
-
-        arguments = {}
-        body = self._prepare_record(record, index, doc_type, arguments)
-        action = {
-            '_op_type': 'index',
-            '_index': index,
-            '_type': doc_type,
-            '_id': str(record.id),
-            '_version': record.revision_id,
-            '_version_type': self._version_type,
-            '_source': body
-        }
-        action.update(arguments)
-
-        return action
-
-    @staticmethod
-    def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
-        """Prepare record data for indexing.
-
-        :param record: The record to prepare.
-        :param index: The Elasticsearch index.
-        :param doc_type: The Elasticsearch document type.
-        :param arguments: The arguments to send to Elasticsearch upon indexing.
-        :param **kwargs: Extra parameters.
-        :returns: The record metadata.
-        """
-        if current_app.config['INDEXER_REPLACE_REFS']:
-            data = record.replace_refs().dumps()
-        else:
-            data = record.dumps()
-
-        data['_created'] = pytz.utc.localize(record.created).isoformat() \
-            if record.created else None
-        data['_updated'] = pytz.utc.localize(record.updated).isoformat() \
-            if record.updated else None
-
-        # Allow modification of data prior to sending to Elasticsearch.
-        before_record_index.send(
-            current_app._get_current_object(),
-            json=data,
-            record=record,
-            index=index,
-            doc_type=doc_type,
-            arguments={} if arguments is None else arguments,
-            **kwargs
-        )
-        return data
-
-
 class IlsRecord(Record):
     """ILS Record class."""
 
@@ -198,7 +72,6 @@ class IlsRecord(Record):
     fetcher = None
     provider = None
     object_type = 'rec'
-    indexer = IlsRecordIndexer
 
     def validate(self, **kwargs):
         """Validate record against schema.
@@ -388,17 +261,33 @@ class IlsRecord(Record):
         if reindex:
             self.reindex(forceindex=forceindex)
 
+    @property
+    def indexer_class(self):
+        """Get the indexer from config."""
+        try:
+            indexer = obj_or_import_string(
+                current_app.config['RECORDS_REST_ENDPOINTS'][
+                    self.provider.pid_type
+                ]['indexer_class']
+            )
+        except:
+            # provide default indexer if no indexer is defined in config.
+            indexer = RecordIndexer
+        return indexer
+
     def reindex(self, forceindex=False):
         """Reindex record."""
+        indexer = self.indexer_class
         if forceindex:
-            self.indexer(version_type="external_gte").index(self)
+            indexer(version_type="external_gte").index(self)
         else:
-            self.indexer().index(self)
+            indexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
+        indexer = self.indexer_class
         try:
-            self.indexer().delete(self)
+            indexer().delete(self)
         except NotFoundError:
             pass
 
@@ -431,3 +320,30 @@ class IlsRecord(Record):
         if self.get('organisation'):
             return self.replace_refs()['organisation']['pid']
         return None
+
+
+class IlsRecordIndexer(RecordIndexer):
+    """Indexing class for ils."""
+
+    record_cls = IlsRecord
+
+    def index(self, record, arguments=None, **kwargs):
+        """Index a record and flush index.
+
+        :param record: Record instance.
+        """
+        return_value = super(IlsRecordIndexer, self).index(record, arguments,
+                                                           **kwargs)
+        index, doc_type = self.record_to_index(record)
+        current_search.flush_and_refresh(index)
+        return return_value
+
+    def delete(self, record):
+        """Delete a record  and flush index.
+
+        :param record: Record instance.
+        """
+        return_value = super(IlsRecordIndexer, self).delete(record)
+        index_name, doc_type = self.record_to_index(record)
+        current_search.flush_and_refresh(index_name)
+        return return_value

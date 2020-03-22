@@ -26,5 +26,4 @@ import pytest
 def create_app():
     """Create test app."""
     from invenio_app.factory import create_api
-
     return create_api

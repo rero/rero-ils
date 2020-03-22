@@ -23,7 +23,7 @@ from os.path import dirname, join
 
 import mock
 import pytest
-from utils import flush_index, mock_response
+from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
@@ -46,7 +46,7 @@ def ebook_1(app, ebook_1_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -65,7 +65,7 @@ def ebook_2(app, ebook_2_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -84,7 +84,7 @@ def ebook_3(app, ebook_3_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -103,7 +103,7 @@ def ebook_4(app, ebook_4_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -127,7 +127,7 @@ def document(app, document_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -167,7 +167,7 @@ def person(app, person_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PersonsSearch.Meta.index)
+    PersonsSearch.flush()
     return pers
 
 
@@ -184,7 +184,7 @@ def document_ref(mock_persons_mef_get,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -208,7 +208,7 @@ def document_sion_items(app, document_sion_items_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush()
     return doc
 
 
@@ -237,7 +237,7 @@ def item_lib_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -266,7 +266,7 @@ def item2_lib_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -295,7 +295,7 @@ def item3_lib_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -324,7 +324,7 @@ def item4_lib_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -347,7 +347,7 @@ def item_lib_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -370,7 +370,7 @@ def item_lib_fully(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -393,7 +393,7 @@ def item_lib_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -416,7 +416,7 @@ def item2_lib_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -439,7 +439,7 @@ def item2_lib_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
     return item
 
 
@@ -467,7 +467,7 @@ def holding_lib_martigny(app, document, holding_lib_martigny_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     return holding
 
 
@@ -486,7 +486,7 @@ def holding_lib_saxon(app, document, holding_lib_saxon_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     return holding
 
 
@@ -505,7 +505,7 @@ def holding_lib_fully(app, document, holding_lib_fully_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     return holding
 
 
@@ -524,7 +524,7 @@ def holding_lib_sion(app, document, holding_lib_sion_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     return holding
 
 

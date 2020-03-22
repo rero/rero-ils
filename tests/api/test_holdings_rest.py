@@ -23,10 +23,10 @@ import json
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    postdata, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
-from rero_ils.modules.holdings.api import Holding, HoldingsSearch
+from rero_ils.modules.holdings.api import Holding
 
 
 def test_holdings_permissions(client, holding_lib_martigny, json_header):
@@ -271,8 +271,6 @@ def test_holdings_post_put_delete(client, holding_lib_martigny_data_tmp,
         holding_data
     )
     assert res.status_code == 201
-
-    flush_index(HoldingsSearch.Meta.index)
 
     # Check that the returned record matches the given data
     assert data['metadata'] == holding_data

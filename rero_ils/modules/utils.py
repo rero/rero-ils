@@ -19,15 +19,11 @@
 
 from datetime import time
 from json import JSONDecodeError, JSONDecoder
-from time import sleep
 
-import click
 import pytz
 from dateutil import parser
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
-
-from .api import IlsRecordIndexer
 
 
 def strtotime(strtime):
@@ -37,32 +33,6 @@ def strtotime(strtime):
         hour=int(splittime[0]),
         minute=int(splittime[1])
     )
-
-
-def do_bulk_index(uuids, doc_type='rec', process=False, verbose=False):
-    """Bulk index records."""
-    if verbose:
-        click.echo(' add to index: {count}'.format(count=len(uuids)))
-    indexer = IlsRecordIndexer()
-    retry = True
-    minutes = 1
-    while retry:
-        try:
-            indexer.bulk_index(uuids, doc_type=doc_type)
-            retry = False
-        except Exception as exc:
-            msg = 'Bulk Index Error: retry in {minutes} min {exc}'.format(
-                exc=exc,
-                minutes=minutes
-            )
-            current_app.logger.error(msg)
-            if verbose:
-                click.secho(msg, fg='red')
-            sleep(minutes * 60)
-            retry = True
-            minutes *= 2
-    if process:
-        indexer.process_bulk_queue()
 
 
 def date_string_to_utc(date):

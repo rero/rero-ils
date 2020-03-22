@@ -23,10 +23,9 @@ from functools import partial
 import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
-from invenio_search.api import RecordsSearch
 
 from .models import LibraryIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
@@ -50,13 +49,14 @@ class LibraryNeverOpen(Exception):
     """Raised when the library has no open days."""
 
 
-class LibrariesSearch(RecordsSearch):
+class LibrariesSearch(IlsRecordsSearch):
     """Libraries search."""
 
     class Meta():
         """Meta class."""
 
         index = 'libraries'
+        doc_types = None
 
 
 class Library(IlsRecord):
@@ -313,3 +313,9 @@ class Library(IlsRecord):
         # TODO: Use BABEL_DEFAULT_TIMEZONE by default
         default = pytz.timezone('Europe/Zurich')
         return default
+
+
+class LibrariesIndexer(IlsRecordIndexer):
+    """Indexing library in Elasticsearch."""
+
+    record_cls = Library

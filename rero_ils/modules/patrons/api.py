@@ -25,12 +25,11 @@ from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
 from invenio_accounts.ext import hash_password
 from invenio_circulation.proxies import current_circulation
-from invenio_search.api import RecordsSearch
 from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
 
 from .models import PatronIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
@@ -53,13 +52,14 @@ patron_id_minter = partial(id_minter, provider=PatronProvider)
 patron_id_fetcher = partial(id_fetcher, provider=PatronProvider)
 
 
-class PatronsSearch(RecordsSearch):
+class PatronsSearch(IlsRecordsSearch):
     """PatronsSearch."""
 
     class Meta:
         """Search only on patrons index."""
 
         index = 'patrons'
+        doc_types = None
 
 
 class Patron(IlsRecord):
@@ -307,3 +307,9 @@ class Patron(IlsRecord):
             patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
             return patron_type.organisation_pid
         return None
+
+
+class PatronsIndexer(IlsRecordIndexer):
+    """Indexing patron in Elasticsearch."""
+
+    record_cls = Patron

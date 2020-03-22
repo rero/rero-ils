@@ -24,8 +24,7 @@ from celery import shared_task
 from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
-from ..documents.api import DocumentsSearch
-from ..utils import do_bulk_index
+from ..documents.api import DocumentsIndexer, DocumentsSearch
 
 # from time import sleep
 
@@ -65,16 +64,15 @@ def create_records(records):
             if new_record:
                 n_created += 1
                 uuids.append(new_record.id)
-    # TODO: bulk indexing does not work with travis, need to check why
-    do_bulk_index(uuids, doc_type='doc', process=True)
-    # wait for bulk index task to finish
-    # inspector = inspect()
-    # reserved = inspector.reserved()
-    # if reserved:
-    #     while any(a != [] for a in reserved.values()):
-    #         reserved = inspector.reserved()
-    #         sleep(1)
+    # TODO: use background indexing
+    indexer = DocumentsIndexer()
+    indexer.bulk_index(uuids)
+    indexer.process_bulk_queue()
 
-    current_app.logger.info('create_records: {} updated, {} new'
-                            .format(n_updated, n_created))
+    current_app.logger.info(
+        'create_records: {updated} updated, {created} new'.format(
+            updated=n_updated,
+            created=n_created
+        )
+    )
     return n_created, n_updated

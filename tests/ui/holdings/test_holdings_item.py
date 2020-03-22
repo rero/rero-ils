@@ -24,7 +24,6 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
-from utils import flush_index
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch, \
     get_holdings_by_document_item_type
@@ -43,7 +42,7 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     del item['pid']
     item['barcode'] = 'barcode'
     item = Item.create(item, dbcommit=True, reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     assert item.holding_pid == holding_lib_martigny.pid
     assert item.holding_circulation_category_pid == \
         item_type_standard_martigny.pid
@@ -51,7 +50,7 @@ def test_holding_item_links(client, holding_lib_martigny, item_lib_martigny,
     item2 = deepcopy(item_lib_saxon_data)
     del item2['pid']
     item2 = Item.create(item2, dbcommit=True, reindex=True)
-    flush_index(HoldingsSearch.Meta.index)
+    HoldingsSearch.flush()
     assert item2.holding_pid != holding_lib_martigny.pid
 
     holding = Holding.get_record_by_pid(item2.holding_pid)
@@ -96,14 +95,14 @@ def test_holding_delete_after_item_deletion(
         if pid != item_lib_martigny.pid:
             item = Item.get_record_by_pid(pid)
             Item.delete(item, dbcommit=True, delindex=True)
-            flush_index(ItemsSearch.Meta.index)
+            ItemsSearch.flush()
 
     pid = holding_lib_martigny.pid
     holding = Holding.get_record_by_pid(pid)
     assert not holding.can_delete
 
     item_lib_martigny.delete(dbcommit=True, delindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
 
     pid = holding_lib_martigny.pid
     holding = Holding.get_record_by_pid(pid)
@@ -118,7 +117,7 @@ def test_holding_delete_after_item_edition(
         {'$ref': 'https://ils.rero.ch/api/locations/loc5'}
 
     item_lib_saxon.update(item_lib_saxon, dbcommit=True, reindex=True)
-    flush_index(ItemsSearch.Meta.index)
+    ItemsSearch.flush()
 
     item = Item.get_record_by_pid(item_lib_saxon.pid)
     assert item.holding_pid == holding_lib_fully.pid

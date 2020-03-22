@@ -25,11 +25,10 @@ from functools import partial
 
 import ciso8601
 from flask import current_app
-from invenio_search.api import RecordsSearch
 
 from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPolicy
 from ..documents.api import Document
 from ..fetchers import id_fetcher
@@ -53,13 +52,14 @@ notification_id_minter = partial(id_minter, provider=NotificationProvider)
 notification_id_fetcher = partial(id_fetcher, provider=NotificationProvider)
 
 
-class NotificationsSearch(RecordsSearch):
+class NotificationsSearch(IlsRecordsSearch):
     """RecordsSearch for Notifications."""
 
     class Meta:
         """Search only on Notifications index."""
 
         index = 'notifications'
+        doc_types = None
 
 
 class Notification(IlsRecord):
@@ -319,3 +319,9 @@ def calculate_overdue_amount(notification):
         holding_circulation_category_pid
     )
     return cipo.get('reminder_fee_amount')
+
+
+class NotificationsIndexer(IlsRecordIndexer):
+    """Indexing notification in Elasticsearch."""
+
+    record_cls = Notification

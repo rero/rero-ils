@@ -24,11 +24,9 @@ from functools import partial
 from elasticsearch.exceptions import NotFoundError
 from flask import current_app
 from flask_babelex import gettext as _
-from invenio_search import current_search
-from invenio_search.api import RecordsSearch
 
 from .models import HoldingIdentifier
-from ..api import IlsRecord, IlsRecordIndexer
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
@@ -49,28 +47,14 @@ holding_id_minter = partial(id_minter, provider=HoldingProvider)
 holding_id_fetcher = partial(id_fetcher, provider=HoldingProvider)
 
 
-class HoldingsSearch(RecordsSearch):
+class HoldingsSearch(IlsRecordsSearch):
     """RecordsSearch for holdings."""
 
     class Meta:
         """Search only on holdings index."""
 
         index = 'holdings'
-
-    @classmethod
-    def flush(cls):
-        """Flush indexes."""
-        current_search.flush_and_refresh(cls.Meta.index)
-
-
-class HoldingsIndexer(IlsRecordIndexer):
-    """Holdings indexing class."""
-
-    def index(self, record):
-        """Indexing a holding record."""
-        return_value = super(HoldingsIndexer, self).index(record)
-        # current_search.flush_and_refresh(HoldingsSearch.Meta.index)
-        return return_value
+        doc_types = None
 
 
 class Holding(IlsRecord):
@@ -80,7 +64,6 @@ class Holding(IlsRecord):
     fetcher = holding_id_fetcher
     provider = HoldingProvider
     # model_cls = HoldingMetadata
-    indexer = HoldingsIndexer
 
     def delete_from_index(self):
         """Delete record from index."""
@@ -321,3 +304,15 @@ def create_holding(
     record = Holding.create(
         data, dbcommit=True, reindex=True, delete_pid=True)
     return record.get('pid')
+
+
+class HoldingsIndexer(IlsRecordIndexer):
+    """Holding indexing class."""
+
+    record_cls = Holding
+
+    def index(self, record):
+        """Indexing a holding record."""
+        return_value = super(HoldingsIndexer, self).index(record)
+        # current_search.flush_and_refresh(HoldingsSearch.Meta.index)
+        return return_value

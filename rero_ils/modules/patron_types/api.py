@@ -22,10 +22,9 @@ from __future__ import absolute_import, print_function
 from functools import partial
 
 from elasticsearch_dsl import Q
-from invenio_search.api import RecordsSearch
 
 from .models import PatronTypeIdentifier
-from ..api import IlsRecord
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -44,13 +43,14 @@ patron_type_id_minter = partial(id_minter, provider=PatronTypeProvider)
 patron_type_id_fetcher = partial(id_fetcher, provider=PatronTypeProvider)
 
 
-class PatronTypesSearch(RecordsSearch):
+class PatronTypesSearch(IlsRecordsSearch):
     """PatronTypeSearch."""
 
     class Meta:
         """Search only on patrons index."""
 
         index = 'patron_types'
+        doc_types = None
 
 
 class PatronType(IlsRecord):
@@ -117,3 +117,9 @@ class PatronType(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+
+class PatronTypesIndexer(IlsRecordIndexer):
+    """Indexing patron type in Elasticsearch."""
+
+    record_cls = PatronType

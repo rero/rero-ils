@@ -39,33 +39,6 @@ acq_order_line_id_minter = partial(id_minter, provider=AcqOrderLineProvider)
 acq_order_line_id_fetcher = partial(id_fetcher, provider=AcqOrderLineProvider)
 
 
-class AcqOrderLinesIndexer(IlsRecordIndexer):
-    """Indexing Acquisition Order Line in Elasticsearch."""
-
-    def index(self, record):
-        """Index an Acquisition Order Line and update total amount of order."""
-        return_value = super(AcqOrderLinesIndexer, self).index(record)
-        self._update_order_total_amount(record)
-
-        return return_value
-
-    def delete(self, record):
-        """Delete a Acquisition Order Line and update total amount of order."""
-        return_value = super(AcqOrderLinesIndexer, self).delete(record)
-        self._update_order_total_amount(record)
-
-        return return_value
-
-    def _update_order_total_amount(self, record):
-        """Update total amount of the order."""
-        from ..acq_orders.api import AcqOrder
-
-        order_pid = record.replace_refs()['acq_order']['pid']
-        order = AcqOrder.get_record_by_pid(order_pid)
-        order['total_amount'] = order.get_order_total_amount()
-        order.update(order, dbcommit=True, reindex=True)
-
-
 class AcqOrderLinesSearch(IlsRecordsSearch):
     """Acquisition Order Line Search."""
 
@@ -73,6 +46,7 @@ class AcqOrderLinesSearch(IlsRecordsSearch):
         """Search only on Acquisition Order Line index."""
 
         index = 'acq_order_lines'
+        doc_types = None
 
 
 class AcqOrderLine(IlsRecord):
@@ -162,3 +136,32 @@ class AcqOrderLine(IlsRecord):
         results = AcqOrderLinesSearch().filter(
             'term', acq_order__pid=self.order_pid).source().count()
         return results
+
+
+class AcqOrderLinesIndexer(IlsRecordIndexer):
+    """Indexing Acquisition Order Line in Elasticsearch."""
+
+    record_cls = AcqOrderLine
+
+    def index(self, record):
+        """Index an Acquisition Order Line and update total amount of order."""
+        return_value = super(AcqOrderLinesIndexer, self).index(record)
+        self._update_order_total_amount(record)
+
+        return return_value
+
+    def delete(self, record):
+        """Delete a Acquisition Order Line and update total amount of order."""
+        return_value = super(AcqOrderLinesIndexer, self).delete(record)
+        self._update_order_total_amount(record)
+
+        return return_value
+
+    def _update_order_total_amount(self, record):
+        """Update total amount of the order."""
+        from ..acq_orders.api import AcqOrder
+
+        order_pid = record.replace_refs()['acq_order']['pid']
+        order = AcqOrder.get_record_by_pid(order_pid)
+        order['total_amount'] = order.get_order_total_amount()
+        order.update(order, dbcommit=True, reindex=True)

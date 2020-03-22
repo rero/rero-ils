@@ -24,8 +24,8 @@ from datetime import datetime, timezone
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    postdata, to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.notifications.api import Notification, \
@@ -214,7 +214,7 @@ def test_notifications_get(
     assert result == record.replace_refs()
 
     record.delete(dbcommit=True, delindex=True)
-    flush_index(NotificationsSearch.Meta.index)
+    NotificationsSearch.flush()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -238,7 +238,7 @@ def test_notifications_post_put_delete(
         delete_pid=True
     )
     assert notif == record
-    flush_index(NotificationsSearch.Meta.index)
+    NotificationsSearch.flush()
     pid = notif.get('pid')
 
     item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
@@ -255,7 +255,7 @@ def test_notifications_post_put_delete(
     )
     assert res.status_code == 201
 
-    flush_index(NotificationsSearch.Meta.index)
+    NotificationsSearch.flush()
 
     # Check that the returned record matches the given data
     assert data['metadata'] == new_record
@@ -337,7 +337,7 @@ def test_recall_notification(client, patron_martigny_no_email,
     )
     assert res.status_code == 200
 
-    flush_index(NotificationsSearch.Meta.index)
+    NotificationsSearch.flush()
 
     assert loan.is_notified(notification_type='recall')
 

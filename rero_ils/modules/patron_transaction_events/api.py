@@ -23,7 +23,7 @@ from functools import partial
 from flask import current_app
 
 from .models import PatronTransactionEventIdentifier
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
@@ -49,6 +49,7 @@ class PatronTransactionEventsSearch(IlsRecordsSearch):
         """Search only on patron_transaction_event index."""
 
         index = 'patron_transaction_events'
+        doc_types = None
 
 
 class PatronTransactionEvent(IlsRecord):
@@ -173,3 +174,9 @@ def build_patron_transaction_event_ref(patron_transaction, data):
         data['amount'] = patron_transaction.get('total_amount')
 
     return data
+
+
+class PatronTransactionEventsIndexer(IlsRecordIndexer):
+    """Indexing patron transaction event in Elasticsearch."""
+
+    record_cls = PatronTransactionEvent

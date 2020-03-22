@@ -23,7 +23,7 @@ from functools import partial
 from flask import current_app
 
 from .models import PatronTransactionIdentifier
-from ..api import IlsRecord, IlsRecordsSearch
+from ..api import IlsRecord, IlsRecordIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..organisations.api import Organisation
@@ -52,6 +52,7 @@ class PatronTransactionsSearch(IlsRecordsSearch):
         """Search only on patron transaction index."""
 
         index = 'patron_transactions'
+        doc_types = None
 
 
 class PatronTransaction(IlsRecord):
@@ -222,3 +223,9 @@ def build_patron_transaction_ref(notification, data):
             }
     data['total_amount'] = calculate_overdue_amount(notification)
     return data
+
+
+class PatronTransactionsIndexer(IlsRecordIndexer):
+    """Indexing patron transaction in Elasticsearch."""
+
+    record_cls = PatronTransaction

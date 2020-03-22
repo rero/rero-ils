@@ -32,7 +32,6 @@ from celery.schedules import crontab
 from flask import request
 from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
-from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
     ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
@@ -41,21 +40,19 @@ from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 from invenio_search import RecordsSearch
 
-from rero_ils.modules.api import IlsRecordIndexer
-
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
     can_list_acq_account_factory, can_read_update_delete_acq_account_factory
-from .modules.acq_order_lines.api import AcqOrderLine, AcqOrderLinesIndexer
+from .modules.acq_order_lines.api import AcqOrderLine
 from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
 from .modules.budgets.permissions import can_create_budgets_factory, \
     can_list_budgets_factory, can_update_delete_budgets_factory
 from .modules.circ_policies.api import CircPolicy
-from .modules.documents.api import Document, DocumentsIndexer
-from .modules.holdings.api import Holding, HoldingsIndexer
+from .modules.documents.api import Document
+from .modules.holdings.api import Holding
 from .modules.item_types.api import ItemType
-from .modules.items.api import Item, ItemsIndexer
+from .modules.items.api import Item
 from .modules.items.permissions import can_create_item_factory, \
     can_update_delete_item_factory
 from .modules.libraries.api import Library
@@ -395,7 +392,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='documents',
         search_type=None,
-        indexer_class=DocumentsIndexer,
+        indexer_class='rero_ils.modules.documents.api:DocumentsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -438,7 +435,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='items',
         search_type=None,
-        indexer_class=ItemsIndexer,
+        indexer_class='rero_ils.modules.items.api:ItemsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -470,7 +467,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='item_type_id',
         search_class=RecordsSearch,
         search_index='item_types',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.item_types.api:ItemTypesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -502,7 +499,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='holding_id',
         search_class=RecordsSearch,
         search_index='holdings',
-        indexer_class=HoldingsIndexer,
+        indexer_class='rero_ils.modules.holdings.api:HoldingsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -535,7 +532,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='patron_id',
         search_class=RecordsSearch,
         search_index='patrons',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patrons.api:PatronsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -569,7 +566,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='patron_transactions',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patron_transactions.api:PatronTransactionsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -602,7 +599,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='patron_transaction_events',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEventsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -635,7 +632,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='patron_types',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.patron_types.api:PatronTypesIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -666,7 +663,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='organisation_id',
         search_class=RecordsSearch,
         search_index='organisations',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.organisations.api:OrganisationsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -699,7 +696,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='library_id',
         search_class=RecordsSearch,
         search_index='libraries',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.libraries.api:LibrariesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -732,7 +729,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='location_id',
         search_class=RecordsSearch,
         search_index='locations',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.locations.api:LocationsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -764,7 +761,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='person_id',
         search_class=RecordsSearch,
         search_index='persons',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.persons.api:PersonsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -797,7 +794,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='circ_policy_id',
         search_class=RecordsSearch,
         search_index='circ_policies',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.circ_policies.api:CircPoliciesIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -829,7 +826,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='notification_id',
         search_class=RecordsSearch,
         search_index='notifications',
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.notifications.api:NotificationsIndexer',
         search_type=None,
         record_serializers={
             'application/json': (
@@ -862,7 +859,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='vendors',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.vendors.api:VendorsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -895,7 +892,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='acq_accounts',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.acq_accounts.api:AcqAccountsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -931,7 +928,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='budgets',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.budgets.api:BudgetsIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -964,7 +961,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='acq_orders',
         search_type=None,
-        indexer_class=IlsRecordIndexer,
+        indexer_class='rero_ils.modules.acq_orders.api:AcqOrdersIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -1000,7 +997,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=RecordsSearch,
         search_index='acq_order_lines',
         search_type=None,
-        indexer_class=AcqOrderLinesIndexer,
+        indexer_class='rero_ils.modules.acq_order_lines.api:AcqOrderLinesIndexer',
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
@@ -1484,7 +1481,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_type=CIRCULATION_LOAN_PID_TYPE,
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
-        search_class=LoansSearch,
+        search_class='rero_ils.modules.loans.api:LoansSearch',
         search_type=None,
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'

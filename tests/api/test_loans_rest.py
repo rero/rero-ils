@@ -26,14 +26,13 @@ import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
-from invenio_circulation.search.api import LoansSearch
-from utils import check_timezone_date, flush_index, postdata
+from utils import check_timezone_date, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
-    get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
-    get_overdue_loans
+from rero_ils.modules.loans.api import Loan, LoanAction, LoansSearch, \
+    get_due_soon_loans, get_last_transaction_loc_for_item, \
+    get_loans_by_patron_pid, get_overdue_loans
 from rero_ils.modules.loans.utils import can_be_requested
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
@@ -236,8 +235,8 @@ def test_overdue_loans(client, librarian_martigny_no_email,
     assert number_of_reminders_sent(loan) == 0
 
     loan.create_notification(notification_type='overdue')
-    flush_index(NotificationsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    NotificationsSearch.flush()
+    LoansSearch.flush()
 
     assert number_of_reminders_sent(loan) == 1
 

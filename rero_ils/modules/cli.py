@@ -25,6 +25,7 @@ import json
 import logging
 import multiprocessing
 import os
+import shutil
 import sys
 import traceback
 from collections import OrderedDict
@@ -45,8 +46,8 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
+from invenio_app.factory import static_folder
 from invenio_db import db
-from invenio_indexer.tasks import process_bulk_queue
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
@@ -58,7 +59,6 @@ from lxml import etree
 from pkg_resources import resource_string
 from werkzeug.local import LocalProxy
 
-from .api import IlsRecordIndexer
 from .documents.dojson.contrib.marc21tojson import marc21tojson
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
@@ -890,75 +890,6 @@ def reserve_pid_range(pid_type, records_number, unused):
             db.session.commit()
 
 
-@utils.command('runindex')
-@click.option(
-    '--delayed', '-d', is_flag=True, help='Run indexing in background.')
-@click.option(
-    '--concurrency', '-c', default=1, type=int,
-    help='Number of concurrent indexing tasks to start.')
-@click.option('--queue', '-q', type=str,
-              help='Name of the celery queue used to put the tasks into.')
-@click.option('--version-type', help='Elasticsearch version type to use.')
-@click.option(
-    '--raise-on-error/--skip-errors', default=True,
-    help='Controls if Elasticsearch bulk indexing errors raise an exception.')
-@with_appcontext
-def run(delayed, concurrency, version_type=None, queue=None,
-        raise_on_error=True):
-    """Run bulk record indexing."""
-    if delayed:
-        celery_kwargs = {
-            'kwargs': {
-                'version_type': version_type,
-                'es_bulk_kwargs': {'raise_on_error': raise_on_error},
-            }
-        }
-        click.secho(
-            'Starting {0} tasks for indexing records...'.format(concurrency),
-            fg='green')
-        if queue is not None:
-            celery_kwargs.update({'queue': queue})
-        for c in range(0, concurrency):
-            process_bulk_queue.apply_async(**celery_kwargs)
-    else:
-        click.secho('Indexing records...', fg='green')
-        IlsRecordIndexer(version_type=version_type).process_bulk_queue(
-            es_bulk_kwargs={'raise_on_error': raise_on_error})
-
-
-@utils.command('reindex')
-@click.option('--yes-i-know', is_flag=True, callback=abort_if_false,
-              expose_value=False,
-              prompt='Do you really want to reindex all records?')
-@click.option('-t', '--pid-type', multiple=True, required=True)
-@click.option('-n', '--no-info', 'no_info', is_flag=True, default=True)
-@with_appcontext
-def reindex(pid_type, no_info):
-    """Reindex all records.
-
-    :param pid_type: Pid type.
-    """
-    for type in pid_type:
-        click.secho(
-            'Sending {type} to indexing queue ...'.format(type=type),
-            fg='green'
-        )
-
-        query = (x[0] for x in PersistentIdentifier.query.filter_by(
-            object_type='rec', status=PIDStatus.REGISTERED
-        ).filter(
-            PersistentIdentifier.pid_type == type
-        ).values(
-            PersistentIdentifier.object_uuid
-        ))
-        IlsRecordIndexer().bulk_index(query, doc_type=type)
-    if no_info:
-        click.secho(
-            'Execute "runindex" command to process the queue!',
-            fg='yellow'
-        )
-
-
 def get_loc_languages(verbose=False):
     """Get languages from LOC."""
     languages = {}
@@ -1527,3 +1458,25 @@ def export(verbose, pid_type, outfile, pidfile, indent, schema):
             click.echo('ERROR: Can not export pid:{pid}'.format(pid=pid))
     outfile.write(output)
     outfile.write('\n]\n')
+
+
+@utils.command('set_test_static_folder')
+@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@with_appcontext
+def set_test_static_folder(verbose):
+    """Creates a static folder link for tests."""
+    click.secho('Create symlink for static folder', fg='green')
+    test_static_folder = os.path.join(sys.prefix, 'var/instance/static')
+    my_static_folder = static_folder()
+    if verbose:
+        msg = '\t{src} --> {dst}'.format(
+            src=my_static_folder,
+            dst=test_static_folder
+        )
+        click.secho(msg)
+    try:
+        os.unlink(test_static_folder)
+    except:
+        pass
+    shutil.rmtree(test_static_folder, ignore_errors=True)
+    os.symlink(my_static_folder, test_static_folder)

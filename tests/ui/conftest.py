@@ -25,10 +25,7 @@ from invenio_search import current_search_client
 @pytest.fixture(scope='module')
 def create_app():
     """Create test app."""
-    # from invenio_app.factory import create_ui
-    # create_ui
     from invenio_app.factory import create_ui
-
     return create_ui
 
 

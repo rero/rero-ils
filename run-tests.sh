@@ -94,6 +94,7 @@ if [ $# -eq 0 ]
         info_msg "Sphinx-build:"
         pipenv run sphinx-build -qnNW docs docs/_build/html
         info_msg "Tests:"
+        pipenv run invenio utils set_test_static_folder -v
         pipenv run test
 fi
 if [ "$1" = "external" ]

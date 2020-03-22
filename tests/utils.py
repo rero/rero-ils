@@ -104,11 +104,6 @@ def get_mapping(name):
     return current_search.client.indices.get_mapping(name)
 
 
-def flush_index(name):
-    """Flush index."""
-    return current_search.flush_and_refresh(name)
-
-
 def loaded_resources_report():
     """For debug only: returns a list or count of loaded objects."""
     objects = {

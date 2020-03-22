@@ -22,11 +22,9 @@ from datetime import datetime, timedelta, timezone
 
 import mock
 import pytest
-from invenio_circulation.search.api import LoansSearch
-from utils import flush_index
 
 from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.api import Loan, LoansSearch
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     get_availability_notification
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
@@ -68,7 +66,7 @@ def system_librarian_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -85,7 +83,7 @@ def system_librarian_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -114,7 +112,7 @@ def librarian_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -131,7 +129,7 @@ def librarian_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -160,7 +158,7 @@ def librarian2_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -178,7 +176,7 @@ def librarian2_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -207,7 +205,7 @@ def librarian_saxon(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -224,7 +222,7 @@ def librarian_saxon_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -253,7 +251,7 @@ def librarian_fully(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -270,7 +268,7 @@ def librarian_fully_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -300,7 +298,7 @@ def patron_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -317,7 +315,7 @@ def patron_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -341,7 +339,7 @@ def patron2_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -358,7 +356,7 @@ def patron2_martigny_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -387,7 +385,7 @@ def system_librarian_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -404,7 +402,7 @@ def system_librarian_sion_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -427,7 +425,7 @@ def librarian_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -444,7 +442,7 @@ def librarian_sion_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -474,7 +472,7 @@ def patron_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -491,7 +489,7 @@ def patron_sion_no_email(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush()
     return ptrn
 
 
@@ -517,8 +515,8 @@ def loan_pending_martigny(
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item_lib_fully.replace_refs()['document']['pid']
     )
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    ItemsSearch.flush()
+    LoansSearch.flush()
     loan = list(item_lib_fully.get_loans_by_item_pid(
         item_pid=item_lib_fully.pid))[0]
     return loan
@@ -561,9 +559,9 @@ def loan_validated_martigny(
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item2_lib_martigny.replace_refs()['document']['pid']
     )
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
-    flush_index(NotificationsSearch.Meta.index)
+    ItemsSearch.flush()
+    LoansSearch.flush()
+    NotificationsSearch.flush()
 
     loan = list(item2_lib_martigny.get_loans_by_item_pid(
         item_pid=item2_lib_martigny.pid))[0]
@@ -576,9 +574,9 @@ def loan_validated_martigny(
         pickup_location_pid=loc_public_martigny.pid,
         document_pid=item2_lib_martigny.replace_refs()['document']['pid']
     )
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
-    flush_index(NotificationsSearch.Meta.index)
+    ItemsSearch.flush()
+    LoansSearch.flush()
+    NotificationsSearch.flush()
     loan = list(item2_lib_martigny.get_loans_by_item_pid(
         item_pid=item2_lib_martigny.pid))[0]
     return loan
@@ -624,8 +622,8 @@ def loan_overdue_martigny(
         transaction_date=transaction_date,
         document_pid=item4_lib_martigny.replace_refs()['document']['pid']
     )
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    ItemsSearch.flush()
+    LoansSearch.flush()
     loan = Loan.get_record_by_pid(
         item4_lib_martigny.get_loan_pid_with_item_on_loan(
             item4_lib_martigny.pid))
@@ -642,9 +640,9 @@ def notification_overdue_martigny(
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_martigny.create_notification(
         notification_type='overdue')
-    flush_index(NotificationsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
-    flush_index(PatronTransactionsSearch.Meta.index)
+    NotificationsSearch.flush()
+    LoansSearch.flush()
+    PatronTransactionsSearch.flush()
 
     return notification
 
@@ -702,8 +700,8 @@ def loan_overdue_saxon(
         transaction_date=transaction_date,
         document_pid=item2_lib_saxon.replace_refs()['document']['pid']
     )
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    ItemsSearch.flush()
+    LoansSearch.flush()
     loan = Loan.get_record_by_pid(
         item2_lib_saxon.get_loan_pid_with_item_on_loan(
             item2_lib_saxon.pid))
@@ -720,9 +718,9 @@ def notification_overdue_saxon(
     """Create an overdue notification for an overdue loan."""
     notification = loan_overdue_saxon.create_notification(
         notification_type='overdue')
-    flush_index(NotificationsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
-    flush_index(PatronTransactionsSearch.Meta.index)
+    NotificationsSearch.flush()
+    LoansSearch.flush()
+    PatronTransactionsSearch.flush()
 
     return notification
 

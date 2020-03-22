@@ -20,13 +20,13 @@
 from copy import deepcopy
 
 import pytest
-from utils import flush_index
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 from rero_ils.modules.locations.api import Location, LocationsSearch
-from rero_ils.modules.organisations.api import Organisation, OrganisationSearch
+from rero_ils.modules.organisations.api import Organisation, \
+    OrganisationsSearch
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
 
 
@@ -44,7 +44,7 @@ def org_martigny(app, org_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    OrganisationsSearch.flush()
     return org
 
 
@@ -56,7 +56,7 @@ def organisation_temp(app, org_martigny):
         dbcommit=True,
         delete_pid=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    OrganisationsSearch.flush()
     return org
 
 
@@ -74,7 +74,7 @@ def org_sion(app, org_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(OrganisationSearch.Meta.index)
+    OrganisationsSearch.flush()
     return org
 
 
@@ -92,7 +92,7 @@ def lib_martigny(app, org_martigny, lib_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
+    LibrariesSearch.flush()
     return lib
 
 
@@ -110,7 +110,7 @@ def lib_saxon(app, org_martigny, lib_saxon_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
+    LibrariesSearch.flush()
     return lib
 
 
@@ -128,7 +128,7 @@ def lib_fully(app, org_martigny, lib_fully_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
+    LibrariesSearch.flush()
     return lib
 
 
@@ -146,7 +146,7 @@ def lib_sion(app, org_sion, lib_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
+    LibrariesSearch.flush()
     return lib
 
 
@@ -164,7 +164,7 @@ def lib_aproz(app, org_sion, lib_aproz_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LibrariesSearch.Meta.index)
+    LibrariesSearch.flush()
     return lib
 
 
@@ -254,7 +254,7 @@ def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -266,7 +266,7 @@ def loc_restricted_martigny(app, lib_martigny, loc_restricted_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -278,7 +278,7 @@ def loc_public_saxon(app, lib_saxon, loc_public_saxon_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -290,7 +290,7 @@ def loc_restricted_saxon(app, lib_saxon, loc_restricted_saxon_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -302,7 +302,7 @@ def loc_public_fully(app, lib_fully, loc_public_fully_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -314,7 +314,7 @@ def loc_restricted_fully(app, lib_fully, loc_restricted_fully_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -326,7 +326,7 @@ def loc_public_sion(app, lib_sion, loc_public_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -338,7 +338,7 @@ def loc_restricted_sion(app, lib_sion, loc_restricted_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -350,7 +350,7 @@ def loc_online_martigny(app, lib_martigny, loc_online_martigny_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -362,7 +362,7 @@ def loc_online_saxon(app, lib_saxon, loc_online_saxon_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -374,7 +374,7 @@ def loc_online_fully(app, lib_fully, loc_online_fully_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -386,7 +386,7 @@ def loc_online_sion(app, lib_sion, loc_online_sion_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -398,7 +398,7 @@ def loc_online_aproz(app, lib_aproz, loc_online_aproz_data):
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(LocationsSearch.Meta.index)
+    LocationsSearch.flush()
     return loc
 
 
@@ -423,7 +423,7 @@ def item_type_standard_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -442,7 +442,7 @@ def item_type_on_site_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -461,7 +461,7 @@ def item_type_specific_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -480,7 +480,7 @@ def item_type_regular_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -499,7 +499,7 @@ def item_type_internal_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -518,7 +518,7 @@ def item_type_particular_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -537,7 +537,7 @@ def item_type_online_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -556,7 +556,7 @@ def item_type_online_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ItemTypesSearch.Meta.index)
+    ItemTypesSearch.flush()
     return itty
 
 
@@ -591,7 +591,7 @@ def patron_type_children_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronTypesSearch.Meta.index)
+    PatronTypesSearch.flush()
     return ptty
 
 
@@ -610,7 +610,7 @@ def patron_type_adults_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronTypesSearch.Meta.index)
+    PatronTypesSearch.flush()
     return ptty
 
 
@@ -629,7 +629,7 @@ def patron_type_youngsters_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronTypesSearch.Meta.index)
+    PatronTypesSearch.flush()
     return ptty
 
 
@@ -648,7 +648,7 @@ def patron_type_grown_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(PatronTypesSearch.Meta.index)
+    PatronTypesSearch.flush()
     return ptty
 
 
@@ -674,7 +674,7 @@ def circ_policy_default_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
@@ -693,7 +693,7 @@ def circ_policy_default_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
@@ -717,7 +717,7 @@ def circ_policy_short_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
@@ -746,7 +746,7 @@ def circ_policy_temp_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
@@ -769,7 +769,7 @@ def circ_policy_ebooks_martigny(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
@@ -792,7 +792,7 @@ def circ_policy_ebooks_sion(
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(CircPoliciesSearch.Meta.index)
+    CircPoliciesSearch.flush()
     return cipo
 
 
