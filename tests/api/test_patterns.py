@@ -26,6 +26,9 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
+from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.items.api import Item
+
 
 def test_patterns_functions(holding_lib_martigny_w_patterns,
                             holding_lib_martigny):
@@ -336,3 +339,23 @@ def test_holding_pattern_preview_api(
     issues = get_json(res).get('issues')
     assert issues == []
     assert len(issues) == 0
+
+
+def test_automatic_item_creation_no_serials(
+        client, json_header, holding_lib_martigny_w_patterns,
+        item_lib_martigny_data, librarian_martigny_no_email):
+    """Test automatically created items are not attached to serials."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    post_url = 'invenio_records_rest.item_list'
+    res, _ = postdata(
+        client,
+        post_url,
+        item_lib_martigny_data
+    )
+    assert res.status_code == 201
+    item = Item.get_record_by_pid(item_lib_martigny_data.get('pid'))
+    holding = Holding.get_record_by_pid(item.holding_pid)
+    assert holding.pid != holding_lib_martigny_w_patterns.pid
+    assert holding.location_pid == holding_lib_martigny_w_patterns.location_pid
+    assert holding.get('circulation_category') == \
+        holding_lib_martigny_w_patterns.get('circulation_category')

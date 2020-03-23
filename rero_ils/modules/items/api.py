@@ -267,15 +267,15 @@ class Item(IlsRecord):
         data['organisation'] = org_ref
 
     def item_link_to_holding(self):
-        """Link an item to a holding record."""
+        """Link an item to a monograph holding record."""
         from ..holdings.api import \
-            get_holding_pid_by_document_location_item_type, \
+            get_monograph_holding_pid_by_doc_location_item_type, \
             create_holding
 
         item = self.replace_refs()
         document_pid = item.get('document').get('pid')
 
-        holding_pid = get_holding_pid_by_document_location_item_type(
+        holding_pid = get_monograph_holding_pid_by_doc_location_item_type(
             document_pid, self.location_pid, self.item_type_pid)
 
         if not holding_pid:
