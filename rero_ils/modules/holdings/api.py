@@ -335,12 +335,15 @@ class Holding(IlsRecord):
         return text
 
 
-def get_holding_pid_by_document_location_item_type(
+def get_monograph_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid):
-    """Returns holding pid for document/location/item type."""
+    """Returns monograph holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
         'term',
         document__pid=document_pid
+    ).filter(
+        'term',
+        holdings_type='monograph'
     ).filter(
         'term',
         circulation_category__pid=item_type_pid
