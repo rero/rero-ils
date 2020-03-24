@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Item",
   "description": "JSON schema for an item.",
@@ -110,7 +110,7 @@
       "type": "string",
       "title": "circulation status",
       "default": "on_shelf",
-      "readOnly": "true",
+      "readOnly": true,
       "enum": [
         "on_shelf",
         "on_loan",

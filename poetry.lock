@@ -23,7 +23,6 @@ python-editor = ">=0.3"
 [[package]]
 category = "main"
 description = "Low-level AMQP client for Python (fork of amqplib)."
-marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "amqp"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -146,7 +145,6 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydo
 [[package]]
 category = "main"
 description = "Python multiprocessing fork with improvements and bugfixes"
-marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "billiard"
 optional = false
 python-versions = "*"
@@ -991,7 +989,7 @@ optional = true
 version = ">=1.1.3,<1.2.0"
 
 [package.dependencies.invenio-db]
-extras = ["versioning", "postgresql"]
+extras = ["postgresql", "versioning"]
 optional = true
 version = ">=1.0.4,<1.1.0"
 
@@ -1971,7 +1969,6 @@ format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator 
 [[package]]
 category = "main"
 description = "Messaging library for Python."
-marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "kombu"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
@@ -3110,7 +3107,6 @@ test = ["pytest (>=2.2.3)", "flake8 (>=2.4.0)", "isort (>=4.2.2)"]
 [[package]]
 category = "main"
 description = "Promises, promises, promises."
-marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "vine"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
