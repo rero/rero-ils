@@ -24,6 +24,7 @@ include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
 include Dockerfile
+exclude scripts/all_year_days
 include scripts/bootstrap
 include scripts/console
 include scripts/dojson_virtua

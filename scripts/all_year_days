@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#
+# Launch a command every day of current year
+#
+# Depends on: faketime (`apt install faketime` i.e.)
+#
+# EXAMPLE:
+# ./scripts/all_year_days pipenv run pytest -vvs --no-cov --disable-warnings tests/api/test_loans_rest.py
+#
+
+# variables
+launch_command="$@"
+
+# functions
+error+exit() {
+  echo -e "$1" && exit 1
+}
+
+# tests
+if [[ -z "${launch_command}" ]]; then
+  echo "No command given." && exit 1
+fi
+
+if [[ -z $(which faketime) ]]; then
+  echo "faketime command is missing! Please install libfaketime." && exit 1
+fi
+
+# initialization
+current_year=`date +"%Y"`
+# display all days of year (from current year)
+for i in {0..366}; do
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    date="$(date -j -v01m -v01d -v${current_year}y -v+${i}d '+%Y-%m-%d') 9:30:42"
+  else
+    date="$(date -u +"%Y-%m-%d" -d "${current_year}-01-01 +$i days") 9:30:42"
+  fi
+  # display choosen date
+  echo -e "#### CHOOSEN DATE: ${date} ####"
+  faketime "${date}" ${launch_command} \
+    || error+exit "'${launch_command}' FAILED this day: ${date}."
+done
+
+# end
+exit 0
+#vim: ts=2 sw=2 et nu
