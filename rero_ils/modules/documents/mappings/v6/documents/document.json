@@ -523,6 +523,9 @@
         "available": {
           "type": "boolean"
         },
+        "issuance": {
+          "type": "keyword"
+        },
         "harvested": {
           "type": "boolean"
         },

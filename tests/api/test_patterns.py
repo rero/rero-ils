@@ -26,6 +26,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 
@@ -283,8 +285,9 @@ def test_pattern_preview_api(
 
 def test_create_holdings_with_pattern(
         client, librarian_martigny_no_email, loc_public_martigny,
-        document, item_type_standard_martigny,
-        json_header, holding_lib_martigny_data, pattern_yearly_one_level_data):
+        journal, item_type_standard_martigny, document,
+        json_header, holding_lib_martigny_data, pattern_yearly_one_level_data,
+        holding_lib_martigny_w_patterns_data):
     """Test create holding type serial with patterns."""
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_entrypoint = 'invenio_records_rest.hold_list'
@@ -296,17 +299,31 @@ def test_create_holdings_with_pattern(
         post_entrypoint,
         holding_lib_martigny_data
     )
-    assert res.status_code == 400
+    assert res.status_code == 403
 
     holding_lib_martigny_data['patterns'] = \
         pattern_yearly_one_level_data['patterns']
 
+    # test will fail when creating a serial holding for a monograph document.
     res, _ = postdata(
         client,
         post_entrypoint,
         holding_lib_martigny_data
     )
-    assert res.status_code == 201
+    assert res.status_code == 403
+
+    # test will fail when creating a monograph holding for a journal document.
+    holding_lib_martigny_w_patterns_data['holdings_type'] = 'monograph'
+    del holding_lib_martigny_w_patterns_data['patterns']
+    with pytest.raises(RecordValidationError):
+        Holding.create(
+            data=holding_lib_martigny_w_patterns_data,
+            delete_pid=False,
+            dbcommit=True,
+            reindex=True)
+
+    journal_pids = list(Document.get_all_serial_pids())
+    assert journal_pids == [journal.pid]
 
 
 def test_holding_pattern_preview_api(

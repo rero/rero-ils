@@ -165,6 +165,11 @@ class Document(IlsRecord):
         editions = dump.get('editionStatement', [])
         for edition in editions:
             edition['_text'] = edition_format_text(edition)
+        # a temporary way to set the document mode of issuance to serial.
+        # TODO: remove this when the document.issuance field is implemented.
+        document_type = dump.get('type')
+        if document_type == 'journal':
+            dump['issuance'] = 'rdami:1003'
         return dump
 
     def index_persons(self, bulk=False):
@@ -181,3 +186,14 @@ class Document(IlsRecord):
                     person.reindex()
         if persons_ids:
             IlsRecordIndexer().bulk_index(persons_ids, doc_type=['pers'])
+
+    @classmethod
+    def get_all_serial_pids(cls):
+        """Get pids of all serial documents.
+
+        a serial document has mode_of_issuance equal to rdami:1003
+        """
+        es_documents = DocumentsSearch()\
+            .filter('term', issuance="rdami:1003").source(['pid']).scan()
+        for es_document in es_documents:
+            yield es_document.pid

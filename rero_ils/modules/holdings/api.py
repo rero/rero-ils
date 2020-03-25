@@ -32,6 +32,7 @@ from jinja2 import Template
 
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordIndexer
+from ..documents.api import Document
 from ..errors import MissingRequiredParameterError
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
@@ -91,6 +92,27 @@ class Holding(IlsRecord):
             HoldingsIndexer().delete(self)
         except NotFoundError:
             pass
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        Ensures that holdings of type serials are created only on
+        journal documents i.e. serial mode_of_issuance documents.
+        """
+        document = Document.get_record_by_pid(self.document_pid).dumps()
+        is_serial = self.get('holdings_type') == 'serial'
+        is_issuance = document.get('issuance') == 'rdami:1003'
+        if (is_issuance and not is_serial) or (not is_issuance and is_serial):
+            return False
+        return True
+
+    @property
+    def is_serial(self):
+        """Shortcut to check if holding is a serial holding record."""
+        document = Document.get_record_by_pid(self.document_pid).dumps()
+        is_serial = self.get('holdings_type') == 'serial'
+        is_issuance = document.get('issuance') == 'rdami:1003'
+        return is_serial and is_issuance
 
     @property
     def document_pid(self):
