@@ -38,15 +38,18 @@ class DocumentJSONSerializer(JSONSerializer):
         """Prepare a record and persistent identifier for serialization."""
         rec = record
         titles = rec.get('title', [])
+        # build responsibility data for display purpose
         responsibility_statement = rec.get('responsibilityStatement', [])
         responsibilities = \
             create_title_responsibilites(responsibility_statement)
         if responsibilities:
             rec['ui_responsibilities'] = responsibilities
+        # build alternate graphic title data for display purpose
         altgr_titles = create_title_alternate_graphic(titles)
         if altgr_titles:
             rec['ui_title_altgr'] = altgr_titles
         variant_titles = create_title_variants(titles)
+        # build variant title data for display purpose
         if variant_titles:
             rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':

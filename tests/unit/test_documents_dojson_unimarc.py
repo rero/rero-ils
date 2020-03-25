@@ -110,25 +110,72 @@ def test_unimarc_to_type():
     assert data.get('type') == 'video'
 
 
-# title: 200$a
-# without the punctuaction. If there's a $e, then 200$a : $e
-def test_unimarctotitle():
-    """Test dojson unimarctotitle."""
+def test_unimarc_to_title():
+    """Test dojson unimarc to title."""
 
-    # subfields $a $b $c
+    # field 200 to bf:Title
+    # field 200 with $a, $e, $f, $h, $i, $i
     unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
         <subfield code="a">main title</subfield>
         <subfield code="e">subtitle</subfield>
         <subfield code="f">responsibility</subfield>
+        <subfield code="h">Part Number</subfield>
+        <subfield code="i">Part Name</subfield>
+        <subfield code="i">Part Name 2</subfield>
       </datafield>
     </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('title') == 'main title : subtitle'
-    # subfields $a $c
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'main title'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'subtitle'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name'
+                        }
+                    ]
+                },
+                {
+                    'partName': [
+                        {
+                            'value': 'Part Name 2'
+                        }
+                    ]
+                }
+
+            ],
+            'type': 'bf:Title'
+        }
+    ]
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'responsibility'
+            }
+        ]
+    ]
+
+    # field 200 to bf:Title
+    # field 200 with $a, $f
     unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
@@ -139,8 +186,26 @@ def test_unimarctotitle():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('title') == 'main title'
-    # subfield $a
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'main title'
+                }
+            ],
+            'type': 'bf:Title'
+        }
+    ]
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'responsibility'
+            }
+        ]
+    ]
+
+    # field 200 to bf:Title
+    # field 200 with $a
     unimarcxml = """
     <record>
       <datafield tag="200" ind1="1" ind2="0">
@@ -150,7 +215,285 @@ def test_unimarctotitle():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarctojson.do(unimarcjson)
-    assert data.get('title') == 'main title'
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'main title'
+                }
+            ],
+            'type': 'bf:Title'
+        }
+    ]
+    assert data.get('responsibilityStatement') is None
+
+
+def test_unimarctotitle_with_parallel_title():
+    """Test dojson unimarc to title and parallel title."""
+
+    # field 200 to bf:Title
+    # field 200 with $a, $e, $f, $g $h, $i
+    # field 510 to bf:ParallelTitle
+    # field 510 with $a, $e, $h, $i
+
+    unimarcxml = """
+    <record>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="a">main title</subfield>
+        <subfield code="e">subtitle</subfield>
+        <subfield code="f">responsibility f</subfield>
+        <subfield code="g">responsibility g</subfield>
+        <subfield code="h">Part Number</subfield>
+        <subfield code="i">Part Name</subfield>
+      </datafield>
+        <datafield tag="510" ind1="1" ind2="0">
+        <subfield code="a">main parallel title</subfield>
+        <subfield code="e">parallel subtitle</subfield>
+        <subfield code="h">Part Number parallel</subfield>
+        <subfield code="i">Part Name parallel</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'main title'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'subtitle'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:Title'
+        },
+        {
+            'mainTitle': [
+                {
+                    'value': 'main parallel title'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'parallel subtitle'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number parallel'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name parallel'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:ParallelTitle'
+        }
+    ]
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'responsibility f'
+            }
+        ],
+        [
+            {
+                'value': 'responsibility g'
+            }
+        ]
+    ]
+
+
+def test_unimarctotitle_with_parallel_and_variant_title():
+    """Test dojson unimarc to title, parallel and variant title."""
+
+    # field 200 to bf:Title
+    # field 200 with $a, $e, $f, $g $h, $i
+    # field 510 to bf:ParallelTitle
+    # field 510 with $a, $e, $h, $i
+    # field 512 to bf:VariantlTitle
+    # field 512 with $a, $e, $h, $i
+    # field 514 to bf:VariantlTitle
+    # field 514 with $a, $e, $h, $
+
+    unimarcxml = """
+    <record>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="a">main title</subfield>
+        <subfield code="e">subtitle</subfield>
+        <subfield code="f">responsibility f</subfield>
+        <subfield code="g">responsibility g</subfield>
+        <subfield code="h">Part Number</subfield>
+        <subfield code="i">Part Name</subfield>
+      </datafield>
+      <datafield tag="510" ind1="1" ind2="0">
+        <subfield code="a">main parallel title</subfield>
+        <subfield code="e">parallel subtitle</subfield>
+        <subfield code="h">Part Number parallel</subfield>
+        <subfield code="i">Part Name parallel</subfield>
+      </datafield>
+      <datafield>
+        <datafield tag="512" ind1="1" ind2="0">
+        <subfield code="a">main variant title 512</subfield>
+        <subfield code="e">variant subtitle 512</subfield>
+        <subfield code="h">Part Number variant 512</subfield>
+        <subfield code="i">Part Name variant 512</subfield>
+      </datafield>
+      <datafield>
+        <datafield tag="514" ind1="1" ind2="0">
+        <subfield code="a">main variant title 514</subfield>
+        <subfield code="e">variant subtitle 514</subfield>
+        <subfield code="h">Part Number variant 514</subfield>
+        <subfield code="i">Part Name variant 514</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarctojson.do(unimarcjson)
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'main title'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'subtitle'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:Title'
+        },
+        {
+            'mainTitle': [
+                {
+                    'value': 'main parallel title'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'parallel subtitle'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number parallel'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name parallel'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:ParallelTitle'
+        },
+        {
+            'mainTitle': [
+                {
+                    'value': 'main variant title 512'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'variant subtitle 512'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number variant 512'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name variant 512'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:VariantTitle'
+        },
+        {
+            'mainTitle': [
+                {
+                    'value': 'main variant title 514'
+                }
+            ],
+            'subtitle': [
+                {
+                    'value': 'variant subtitle 514'
+                }
+            ],
+            'part': [
+                {
+                    'partNumber': [
+                        {
+                            'value': 'Part Number variant 514'
+                        }
+                    ],
+                    'partName': [
+                        {
+                            'value': 'Part Name variant 514'
+                        }
+                    ]
+                }
+            ],
+            'type': 'bf:VariantTitle'
+        }
+    ]
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'responsibility f'
+            }
+        ],
+        [
+            {
+                'value': 'responsibility g'
+            }
+        ]
+    ]
 
 
 # titleProper: [500$a repetitive]

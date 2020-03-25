@@ -108,60 +108,68 @@ def test_documents_library_facets(
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_post_put_delete(
         client,
-        document_data,
+        document_chinese_data,
         json_header,
         rero_json_header):
     """Test record retrieval."""
     # Create record / POST
-    item_url = url_for('invenio_records_rest.doc_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.doc_list', q='pid:1')
+    item_url = url_for('invenio_records_rest.doc_item', pid_value='4')
+    list_url = url_for('invenio_records_rest.doc_list', q='pid:4')
 
-    document_data['pid'] = '1'
+    document_chinese_data['pid'] = '4'
     res, data = postdata(
         client,
         'invenio_records_rest.doc_list',
-        document_data
+        document_chinese_data
     )
 
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    assert clean_text(data['metadata']) == document_data
+    assert clean_text(data['metadata']) == document_chinese_data
 
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
 
-    assert clean_text(data['metadata']) == document_data
+    assert clean_text(data['metadata']) == document_chinese_data
     expected_title = [
         {
-            '_text': 'La reine Berthe et sa fille : '
-                     'une page du dixième siècle offerte aux jeunes = '
-                     'La regina Bertha e sua figlia : una pagina del X '
-                     'secolo offerta ai giovani',
+            '_text': '\u56fd\u9645\u6cd5 : subtitle (Chinese). '
+                     'Part Number (Chinese), Part Name (Chinese) = '
+                     'International law (Chinese) : '
+                     'Parallel Subtitle (Chinese). '
+                     'Parallel Part Number (Chinese), '
+                     'Parallel Part Name (Chinese) = '
+                     'Parallel Title 2 (Chinese) : '
+                     'Parallel Subtitle 2 (Chinese)',
             'mainTitle': [
-                    {'value': 'La reine Berthe et sa fille'},
+                    {'value': 'Guo ji fa'},
                     {
-                        'value': 'titre en chinois',
+                        'value': '\u56fd\u9645\u6cd5',
                         'language': 'chi-hani'
                     }
             ],
             'subtitle': [
-                {'value': 'une page du dixième siècle offerte aux jeunes'}
+                {'value': 'subtitle (Latin)'},
+                {
+                    'value': 'subtitle (Chinese)',
+                    'language': 'chi-hani'
+                }
             ],
             'part': [{
-                'partName': [
-                    {'value': 'part number'},
+                'partNumber': [
+                    {'value': 'Part Number (Latin)'},
                     {
-                        'value': 'Part Number',
+                        'value': 'Part Number (Chinese)',
                         'language': 'chi-hani'
                     }
                 ],
-                'partNumber': [
-                    {'value': 'part number'},
+                'partName': [
+                    {'value': 'Part Name (Latin)'},
                     {
                         'language': 'chi-hani',
-                        'value': 'Part Number'
+                        'value': 'Part Name (Chinese)'
                     }
                 ]
             }],
@@ -169,29 +177,63 @@ def test_documents_post_put_delete(
         },
         {
             'mainTitle': [
-                {'value': 'La regina Bertha e sua figlia'},
+                {'value': 'International law (Latin)'},
                 {
-                    'value': 'Titolo cinese',
+                    'value': 'International law (Chinese)',
                     'language': 'chi-hani'
                 }
             ],
             'subtitle': [
-                {'value': 'una pagina del X secolo offerta ai giovani'},
+                {'value': 'Parallel Subtitle (Latin)'},
                 {
-                    'value': 'sottotitolo in cinese',
+                    'value': 'Parallel Subtitle (Chinese)',
+                    'language': 'chi-hani'
+                }
+            ],
+            'part': [{
+                'partNumber': [
+                    {'value': 'Parallel Part Number (Latin)'},
+                    {
+                        'value': 'Parallel Part Number (Chinese)',
+                        'language': 'chi-hani'
+                    }
+                ],
+                'partName': [
+                    {'value': 'Parallel Part Name (Latin)'},
+                    {
+                        'language': 'chi-hani',
+                        'value': 'Parallel Part Name (Chinese)'
+                    }
+                ]
+            }],
+
+            'type': 'bf:ParallelTitle'
+        },
+        {
+            'mainTitle': [
+                {'value': 'Parallel Title 2 (Latin)'},
+                {
+                    'value': 'Parallel Title 2 (Chinese)',
+                    'language': 'chi-hani'
+                }
+            ],
+            'subtitle': [
+                {'value': 'Parallel Subtitle 2 (Latin)'},
+                {
+                    'value': 'Parallel Subtitle 2 (Chinese)',
                     'language': 'chi-hani'
                 }
             ],
             'type': 'bf:ParallelTitle'
         },
         {
-            'mainTitle': [{'value': 'Berthe et sa fille'}],
+            'mainTitle': [{'value': 'Guojifa'}],
             'type': 'bf:VariantTitle'
         }
     ]
 
     # Update record/PUT
-    data = document_data
+    data = document_chinese_data
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -203,10 +245,14 @@ def test_documents_post_put_delete(
     # Check that the returned record matches the given data
     data = get_json(res)
     assert data['metadata']['title'] == expected_title
-    assert data['metadata']['ui_title_variants'] == ['Berthe et sa fille']
-    assert data['metadata']['ui_title_altgr'] == ['titre en chinois']
-    assert data['metadata']['ui_responsibilities'] == \
-        ['Zeng Lingliang zhu bian', '曾令良主编']
+    assert data['metadata']['ui_title_variants'] == ['Guojifa']
+    assert data['metadata']['ui_title_altgr'] == \
+        ['Guo ji fa : subtitle (Latin). Part Number (Latin), '
+         'Part Name (Latin)']
+    assert data['metadata']['ui_responsibilities'] == [
+        '梁西原著主编, 王献枢副主编',
+        'Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian'
+    ]
 
     res = client.get(item_url)
     assert res.status_code == 200

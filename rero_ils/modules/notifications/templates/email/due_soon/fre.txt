@@ -4,7 +4,7 @@ Chère lectrice, cher lecteur,
 Le délai de prêt des documents mentionnés ci-dessous arrive à échéance :
 
 {% if author %}Auteur : {{ author }}{% endif %}
-Titre : {{ document.title }}
+Titre : {{ document.title_text }}
 Echéance : {{ end_date }}
 Note : Non prolongeable
 

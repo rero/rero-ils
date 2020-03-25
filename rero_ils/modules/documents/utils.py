@@ -19,6 +19,10 @@
 
 from __future__ import absolute_import, print_function
 
+import re
+
+from elasticsearch_dsl.utils import AttrDict
+
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 
 
@@ -86,7 +90,7 @@ def publication_statement_text(provision_activity):
     statement_text = []
     for key, value in statement_with_language.items():
         value = remove_trailing_punctuation(value)
-        if key == 'default':
+        if display_alternate_graphic_first(key):
             statement_text.insert(0, {'value': value, 'language': key})
         else:
             statement_text.append({'value': value, 'language': key})
@@ -126,12 +130,26 @@ def edition_format_text(edition):
                 responsibility=responsibility_output.get(key, ''),
             )
         )
-        if key == 'default':
+        if display_alternate_graphic_first(key):
             edition_text.insert(0, {'value': value, 'language': key})
         else:
             edition_text.append({'value': value, 'language': key})
 
     return edition_text
+
+
+def display_alternate_graphic_first(language):
+    """Display alternate graphic first.
+
+    This function return true if the given language code is corresponding
+    to an alternate graphic value to display first
+
+    :param language: language code
+    :type language: str
+    :return: true if the alternate graphic value must be display first
+    :rtype: bool
+    """
+    return not re.search(r'(default|^und-|-zyyy$)', language)
 
 
 def title_format_text_head(titles, with_subtitle=True):
@@ -147,21 +165,35 @@ def title_format_text_head(titles, with_subtitle=True):
     head_titles = []
     parallel_titles = []
     for title in titles:
+        if isinstance(title, AttrDict):
+            # force title to dict because ES gives AttrDict
+            title = title.to_dict()
+        title = dict(title)
         if title.get('type') == 'bf:Title':
             title_texts = \
                 title_format_text(title=title, with_subtitle=with_subtitle)
-            for title_text in title_texts:
-                if title_text.get('language') == 'default':
-                    head_titles.append(title_text.get('value'))
+            if len(title_texts) == 1:
+                head_titles.append(title_texts[0].get('value'))
+            else:
+                for title_text in title_texts:
+                    language = title_text.get('language')
+                    if display_alternate_graphic_first(language):
+                        head_titles.append(title_text.get('value'))
         elif title.get('type') == 'bf:ParallelTitle':
             parallel_title_texts = title_format_text(
                 title=title, with_subtitle=with_subtitle)
-            for parallel_title_text in parallel_title_texts:
-                if parallel_title_text.get('language') == 'default':
-                    parallel_titles.append(parallel_title_text.get('value'))
+            if len(parallel_title_texts) == 1:
+                parallel_titles.append(parallel_title_texts[0].get('value'))
+            else:
+                for parallel_title_text in parallel_title_texts:
+                    language = parallel_title_text.get('language')
+                    if display_alternate_graphic_first(language):
+                        parallel_titles.append(
+                            parallel_title_text.get('value')
+                        )
     output_value = '. '.join(head_titles)
-    if parallel_titles:
-        output_value += ' = ' + str(parallel_titles[0])
+    for parallel_title in parallel_titles:
+        output_value += ' = ' + str(parallel_title)
     return output_value
 
 
@@ -179,18 +211,23 @@ def title_format_text_alternate_graphic(titles):
         if title.get('type') == 'bf:Title':
             title_texts = \
                 title_format_text(title=title, with_subtitle=True)
+            # the first title is remove because it is alreday used for the
+            # headding tilte
+            title_texts.pop(0)
             for title_text in title_texts:
                 language = title_text.get('language')
-                if language != 'default':
-                    altgr = altgr_titles.get(language, [])
-                    altgr.append(title_text.get('value'))
-                    altgr_titles[language] = altgr
+                altgr = altgr_titles.get(language, [])
+                altgr.append(title_text.get('value'))
+                altgr_titles[language] = altgr
         elif title.get('type') == 'bf:ParallelTitle':
             parallel_title_texts = title_format_text(
                 title=title, with_subtitle=True)
+            parallel_title_texts.pop(0)
+            # the first parallel title is remove because it is alreday used
+            # for the headding tilte
             for parallel_title_text in parallel_title_texts:
                 language = parallel_title_text.get('language')
-                if language != 'default' and language in parallel_titles:
+                if language in parallel_titles:
                     parallel_titles.get(language, [])
                     parallel_titles[language].append(
                         parallel_title_text.get('value')
@@ -208,8 +245,7 @@ def title_format_text_alternate_graphic(titles):
 def title_variant_format_text(titles, with_subtitle=True):
     """Build a list of variant titles in the display text form.
 
-    The first variant title in the list is in the default language.
-    The following variant titles are in the alternative language.
+    If a vernacular variant exists it will be place on top of the variant list.
     :param titles: list of titles in JSON
     :param with_subtitle: TRUE for including the subtitle in the output
     :return: a list of variant titles in text format
@@ -226,8 +262,7 @@ def title_variant_format_text(titles, with_subtitle=True):
 def title_format_text(title, with_subtitle=True):
     """Build a list of titles in the display text form.
 
-    The first title in the list is in the default language.
-    The following titles are in the alternative language.
+    If a vernacular title exists it will be place on top of the title list.
     :param title: title in JSON
     :param with_subtitle: TRUE for including the subtitle in the output
     :return: a list of titles in the display text form
@@ -236,12 +271,14 @@ def title_format_text(title, with_subtitle=True):
     main_titles = title.get('mainTitle', [])
     subtitles = title.get('subtitle', [])
 
+    # build main_title string per language
     main_title_output = {}
     for main_title in main_titles:
         language = main_title.get('language', 'default')
         value = main_title.get('value', '')
         main_title_output[language] = value
 
+    # build subtitle string per language
     subtitle_output = {}
     if with_subtitle:
         subtitles = title.get('subtitle', [])
@@ -250,13 +287,25 @@ def title_format_text(title, with_subtitle=True):
             value = subtitle.get('value', '')
             subtitle_output[language] = value
 
+    # build part strings per language
     parts = title.get('part', [])
     part_output = {}
     for part in parts:
-        language = part.get('language', 'default')
-        value = part.get('value', '')
-        part_output[language] = value
+        part_strings = {}
+        language = 'default'
+        for part_key in ('partNumber', 'partName'):
+            for part_data in part[part_key]:
+                language = part_data.get('language', 'default')
+                value = part_data.get('value', '')
+                if value:
+                    if language not in part_strings:
+                        part_strings[language] = []
+                    part_strings[language].append(value)
+        for language in part_strings:
+            part_output[language] = ', '.join(part_strings[language])
 
+    # build title text strings lists,
+    # if a vernacular title exists it will be place on top of the title list
     title_text = []
     for key, value in main_title_output.items():
         value = main_title_output.get(key)
@@ -264,7 +313,7 @@ def title_format_text(title, with_subtitle=True):
             value = ' : '.join((value, subtitle_output.get(key)))
         if part_output and key in part_output and part_output.get(key):
             value = '. '.join((value, part_output.get(key)))
-        if key == 'default':
+        if display_alternate_graphic_first(key):
             title_text.insert(0, {'value': value, 'language': key})
         else:
             title_text.append({'value': value, 'language': key})

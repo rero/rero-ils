@@ -22,7 +22,7 @@ from flask import url_for
 
 
 def test_persons_detailed_view(client, person_data, document_ref):
-    """Test mef detailed view."""
+    """Test person detailed view."""
     # check redirection
     res = client.get(url_for(
         'invenio_records_ui.pers', viewcode='global', pid_value='pers1'))

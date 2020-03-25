@@ -4,7 +4,7 @@ Dear patron,
 The document you requested is now available. You can pick it up at the loan desk of the library mentioned below.
 
 {% if author %}Author : {{ author }}{% endif %}
-Title: {{ document.title }}
+Title: {{ document.title_text }}
 Pick up location: {{ pickup_location.library.name }}
 To pick up until: {{ next_open }}
 

@@ -4,7 +4,7 @@ Dear patron,
 The loan period of following documents is expiring:
 
 {% if author %}Author : {{ author }}{% endif %}
-Title: {{ document.title }}
+Title : {{ document.title_text }}
 Due date: {{ end_date }}
 Note: Non extendable
 

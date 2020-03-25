@@ -31,8 +31,8 @@ def test_document_create(db, document_data_tmp):
     assert ptty == document_data_tmp
     assert ptty.get('pid') == '1'
     assert ptty.dumps()['editionStatement'][0]['_text'] == [
-        {'language': 'default', 'value': 'Di 3 ban / Zeng Lingliang zhu bian'},
-        {'language': 'chi-hani', 'value': '第3版 / 曾令良主编'}
+        {'language': 'chi-hani', 'value': '第3版 / 曾令良主编'},
+        {'language': 'default', 'value': 'Di 3 ban / Zeng Lingliang zhu bian'}
     ]
     ptty = Document.get_record_by_pid('1')
     assert ptty == document_data_tmp

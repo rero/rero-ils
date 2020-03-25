@@ -41,7 +41,10 @@
             {% endif %}
             {{ dl(
               _('Document'),
-              '<a href="'+ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid) +'">' + document.title +'</a>')
+              '<a href="{}">{}</a>'.format(
+                url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=document.pid),
+                document.title | create_title_text)
+              )
             }}
             {{ dl(_('Library'), library.name) }}
             {{ dl(_('Location'), location.name) }}
@@ -60,7 +63,7 @@
         <!-- Items data -->
           <header>
               <h3>{{ _('Items') }}</h3>
-          </header>          
+          </header>
               {% for item in items %}
               <section class="py-4">
                   <article>
@@ -79,11 +82,10 @@
                 </dl>
               </article>
               {% endfor %}
-         
+
               </section>
-      </section> 
+      </section>
     {% endif %}
 
 
 {%- endblock body %}
-  

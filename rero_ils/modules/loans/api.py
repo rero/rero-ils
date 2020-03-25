@@ -275,7 +275,7 @@ def patron_profile_loans(patron_pid):
         item = Item.get_record_by_pid(loan.get('item_pid'))
         document = Document.get_record_by_pid(
             item.replace_refs()['document']['pid'])
-        loan['document_title'] = document['title']
+        loan['document_title'] = document.dumps()['title'][0].get('_text', '')
         loan['item_call_number'] = item['call_number']
         loan['library_name'] = Library.get_record_by_pid(
             item.holding_library_pid).get('name')

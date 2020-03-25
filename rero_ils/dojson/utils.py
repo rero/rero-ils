@@ -491,10 +491,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 items = get_field_items(field_246['subfields'])
                 tag_link, link = get_field_link_data(field_246)
                 part_list = TitlePartList(
-                    tag='246',
                     part_number_code='n',
-                    part_name_code='p',
-                    link=link
+                    part_name_code='p'
                 )
 
                 subfield_selection = {'a', 'n', 'p'}
@@ -520,7 +518,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                     '246', blob_key, blob_value,
                                     index, link, ',.', ':;/-=')
                             part_list.update_part(
-                                value_data, blob_key, blob_value, index)
+                                value_data, blob_key, blob_value)
                     if blob_key != '__order__':
                         index += 1
                 the_part_list = part_list.get_part_list()
@@ -547,26 +545,20 @@ class TitlePartList(object):
     method for each of these subfields. At the end of the parsing, the method
     "get_part_list" provides the list of constructed parts.
 
-    :param tag: the marc field tag
-    :type tag: int
     :param part_number_code: the specific subfield code
     :type part_number_code: char
     :param part_name_code: the specific subfield code
     :type part_name_code: char
-    :param link: the link code to the alternate graphic field 880
-    :type link: str
     """
 
-    def __init__(self, tag, part_number_code, part_name_code, link):
+    def __init__(self, part_number_code, part_name_code):
         """Constructor method."""
-        self.tag = tag
-        self.link = link
         self.part_number_waiting_name = {}
         self.part_list = []
         self.part_number_code = part_number_code
         self.part_name_code = part_name_code
 
-    def update_part(self, value_data, subfield_code, subfield_data, index):
+    def update_part(self, value_data, subfield_code, subfield_data):
         """Update part data.
 
         The part object is progressively build with the data collected by
