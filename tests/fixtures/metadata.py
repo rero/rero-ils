@@ -144,6 +144,24 @@ def document_data_ref(data):
 
 
 @pytest.fixture(scope="module")
+def journal_data(holdings):
+    """Load journal data."""
+    return deepcopy(holdings.get('doc4'))
+
+
+@pytest.fixture(scope="module")
+def journal(app, journal_data):
+    """Load journal record."""
+    doc = Document.create(
+        data=journal_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
 def person_data(data):
     """Load mef person data."""
     return deepcopy(data.get('pers1'))
@@ -544,7 +562,7 @@ def holding_lib_martigny_w_patterns_data(holdings):
 
 @pytest.fixture(scope="module")
 def holding_lib_martigny_w_patterns(
-    app, document, holding_lib_martigny_w_patterns_data,
+    app, journal, holding_lib_martigny_w_patterns_data,
         loc_public_martigny, item_type_standard_martigny):
     """Create holding of martigny library with patterns."""
     holding = Holding.create(
