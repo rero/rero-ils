@@ -186,10 +186,8 @@ def marc21_to_title(self, key, value):
     title_list = []
     title_data = {}
     part_list = TitlePartList(
-                    tag='245',
                     part_number_code='n',
-                    part_name_code='p',
-                    link=link
+                    part_name_code='p'
                 )
     parallel_titles = []
     pararalel_title_data_list = []
@@ -219,7 +217,7 @@ def marc21_to_title(self, key, value):
             elif blob_key == 'c':
                 responsibility = build_responsibility_data(value_data)
             elif blob_key in ['n', 'p']:
-                part_list.update_part(value_data, blob_key, blob_value, index)
+                part_list.update_part(value_data, blob_key, blob_value)
         if blob_key != '__order__':
             index += 1
     title_data['type'] = 'bf:Title'

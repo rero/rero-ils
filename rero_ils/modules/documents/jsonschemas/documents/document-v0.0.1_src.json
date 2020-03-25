@@ -156,13 +156,17 @@
             "minItems": 1,
             "items": {
               "$ref": "#/definitions/language_script"
+            },
+            "form": {
+              "hide": true
             }
           },
           "part": {
-            "title": "Part",
+            "title": "Parts",
             "type": "array",
             "minItems": 1,
             "items": {
+              "title": "Part",
               "type": "object",
               "propertiesOrder": [
                 "partNumber",
@@ -201,6 +205,7 @@
       "minItems": 1,
       "title": "Responsibilities",
       "items": {
+        "title": "Responsibility",
         "type": "array",
         "minItems": 1,
         "items": {
@@ -254,6 +259,7 @@
         ],
         "additionalProperties": false,
         "propertiesOrder": [
+          "type",
           "value"
         ],
         "properties": {
@@ -266,6 +272,7 @@
               "bf:Language"
             ],
             "form": {
+              "hideExpression": "true",
               "options": [
                 {
                   "label": "bf:Language",
@@ -3671,7 +3678,10 @@
         "und-jpan",
         "und-kore",
         "und-zyyy"
-      ]
+      ],
+      "form": {
+        "hide": true
+      }
     },
     "language_script": {
       "title": "Values",

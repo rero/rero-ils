@@ -45,7 +45,7 @@
     </icon-thumbnail>
   </div>
   {% endif %}
-  <h1 class="col-sm-10 col-md-11">{{ record.dumps().title[0]._text }}</h1>
+  <h1 class="col-sm-10 col-md-11">{{ record.title | create_title_text }}</h1>
 </header>
 
 {%- block record_body %}

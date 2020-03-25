@@ -113,6 +113,12 @@ def document_data(data):
     return deepcopy(data.get('doc1'))
 
 
+@pytest.fixture(scope="module")
+def document_chinese_data(data):
+    """Load chinese document data."""
+    return deepcopy(data.get('doc4'))
+
+
 @pytest.fixture(scope="function")
 def document_data_tmp(data):
     """Load document data scope function."""

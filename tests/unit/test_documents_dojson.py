@@ -203,9 +203,7 @@ def test_marc21_to_title_245_with_two_246():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'Guo ji fa'
-                },
+                {'value': 'Guo ji fa'},
                 {
                     'value': '国际法',
                     'language': 'chi-hani'
@@ -215,9 +213,7 @@ def test_marc21_to_title_245_with_two_246():
         {
             'type': 'bf:ParallelTitle',
             'mainTitle': [
-                {
-                    'value': 'International law'
-                },
+                {'value': 'International law'},
                 {
                     'value': 'International law',
                     'language': 'chi-hani'
@@ -226,11 +222,7 @@ def test_marc21_to_title_245_with_two_246():
         },
         {
             'type': 'bf:VariantTitle',
-            'mainTitle': [
-                {
-                    'value': 'Guojifa'
-                }
-            ]
+            'mainTitle': [{'value': 'Guojifa'}]
         }
     ]
     assert data.get('responsibilityStatement') == [
@@ -282,18 +274,14 @@ def test_marc21_to_title_245_without_246():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'L.N. Tolstoĭ'
-                },
+                {'value': 'L.N. Tolstoĭ'},
                 {
                     'value': 'Л.Н. Толстой',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'seminariĭ'
-                },
+                {'value': 'seminariĭ'},
                 {
                     'value': 'семинарий',
                     'language': 'rus-cyrl'
@@ -303,9 +291,7 @@ def test_marc21_to_title_245_without_246():
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'B.I. Bursov'
-            },
+            {'value': 'B.I. Bursov'},
             {
                 'value': 'Б.И. Бурсов',
                 'language': 'rus-cyrl'
@@ -355,18 +341,14 @@ def test_marc21_to_title_245_with_part_without_246():
     assert data.get('title') == [
         {
             'mainTitle': [
-                {
-                    'value': 'L.N. Tolstoĭ'
-                },
+                {'value': 'L.N. Tolstoĭ'},
                 {
                     'value': 'Л.Н. Толстой',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'seminariĭ'
-                },
+                {'value': 'seminariĭ'},
                 {
                     'value': 'семинарий',
                     'language': 'rus-cyrl'
@@ -375,18 +357,14 @@ def test_marc21_to_title_245_with_part_without_246():
             'type': 'bf:Title',
             'part': [{
                     'partNumber': [
-                        {
-                            'value': 'part number'
-                        },
+                        {'value': 'part number'},
                         {
                             'value': 'Part Number',
                             'language': 'rus-cyrl'
                         }
                     ],
                     'partName': [
-                        {
-                            'value': 'part name'
-                        },
+                        {'value': 'part name'},
                         {
                             'value': 'Part Name',
                             'language': 'rus-cyrl'
@@ -395,9 +373,7 @@ def test_marc21_to_title_245_with_part_without_246():
                 },
                 {
                     'partNumber': [
-                        {
-                            'value': 'part number 2'
-                        },
+                        {'value': 'part number 2'},
                         {
                             'value': 'Part Number 2',
                             'language': 'rus-cyrl'
@@ -409,9 +385,7 @@ def test_marc21_to_title_245_with_part_without_246():
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'B.I. Bursov'
-            },
+            {'value': 'B.I. Bursov'},
             {
                 'value': 'Б.И. Бурсов',
                 'language': 'rus-cyrl'
@@ -454,69 +428,33 @@ def test_marc21_to_title_with_multiple_parts():
     assert data.get('title') == [
         {
             'type': 'bf:Title',
-            'mainTitle': [
+            'mainTitle': [{'value': 'Statistique'}],
+            'subtitle': [{'value': 'exercices corrigés'}],
+            'part': [
                 {
-                    'value': 'Statistique'
-                }
-            ],
-            'subtitle': [
-                {
-                    'value': 'exercices corrigés'
-                }
-            ],
-            'part': [{
-                    'partNumber': [
-                        {
-                            'value': 'T. 1'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Tome 1'
-                        }
-                    ]
+                    'partNumber': [{'value': 'T. 1'}],
+                    'partName': [{'value': 'Tome 1'}]
                 },
                 {
-                    'partNumber': [
-                        {
-                            'value': 'T. 2'
-                        }
-                     ],
-                    'partName': [
-                            {
-                                'value': 'Tome 2'
-                            }
-                        ]
+                    'partNumber': [{'value': 'T. 2'}],
+                    'partName': [{'value': 'Tome 2'}]
                 },
                 {
-                    'partName': [
-                            {
-                                'value': 'Tome 3'
-                            }
-                        ]
+                    'partName': [{'value': 'Tome 3'}]
+
                 },
                 {
-                    'partNumber': [
-                        {
-                            'value': 'T. 4'
-                        }
-                    ]
+                    'partNumber': [{'value': 'T. 4'}]
                 },
                 {
-                    'partNumber': [
-                        {
-                            'value': 'T. 5'
-                        }
-                    ]
+                    'partNumber': [{'value': 'T. 5'}]
                 }
             ]
         }
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'Christian Labrousse'
-            }
+            {'value': 'Christian Labrousse'}
         ]
     ]
 
@@ -560,18 +498,14 @@ def test_marc21_to_title_245_and_246():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'L.N. Tolstoĭ'
-                },
+                {'value': 'L.N. Tolstoĭ'},
                 {
                     'value': 'Л.Н. Толстой',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'seminariĭ'
-                },
+                {'value': 'seminariĭ'},
                 {
                     'value': 'семинарий',
                     'language': 'rus-cyrl'
@@ -586,9 +520,7 @@ def test_marc21_to_title_245_and_246():
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'B.I. Bursov'
-            },
+            {'value': 'B.I. Bursov'},
             {
                 'value': 'Б.И. Бурсов',
                 'language': 'rus-cyrl'
@@ -636,18 +568,14 @@ def test_marc21_to_title_245_and_246_with_multiple_responsibilities():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'L.N. Tolstoĭ'
-                },
+                {'value': 'L.N. Tolstoĭ'},
                 {
                     'value': 'Л.Н. Толстой',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'seminariĭ'
-                },
+                {'value': 'seminariĭ'},
                 {
                     'value': 'семинарий',
                     'language': 'rus-cyrl'
@@ -662,18 +590,14 @@ def test_marc21_to_title_245_and_246_with_multiple_responsibilities():
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'B.I. Bursov'
-            },
+            {'value': 'B.I. Bursov'},
             {
                 'value': 'Б.И. Бурсов',
                 'language': 'rus-cyrl'
             }
         ],
         [
-            {
-                'value': 'Tolstoĭ'
-            },
+            {'value': 'Tolstoĭ'},
             {
                 'value': 'Толстой',
                 'language': 'rus-cyrl'
@@ -715,44 +639,25 @@ def test_marc21_to_title_with_variant_without_subtitle():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'TRANEL'
-                }
+                {'value': 'TRANEL'}
             ],
             'subtitle': [
-                {
-                    'value': 'travaux neuchâtelois de linguistique'
-                },
+                {'value': 'travaux neuchâtelois de linguistique'},
             ]
         },
         {
             'type': 'bf:VariantTitle',
             'mainTitle': [
-                {
-                    'value': 'Travaux neuchâtelois de linguistique'
-                }
+                {'value': 'Travaux neuchâtelois de linguistique'}
             ],
             'part': [{
-                    'partNumber': [
-                        {
-                            'value': 'T. 1'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Tome 1'
-                        }
-                    ]
-                }
-            ]
+                    'partNumber': [{'value': 'T. 1'}],
+                    'partName': [{'value': 'Tome 1'}]
+            }]
         }
     ]
     assert data.get('responsibilityStatement') == [
-        [
-                {
-                    'value': 'Institut de linguistique, UNINE'
-                }
-        ]
+        [{'value': 'Institut de linguistique, UNINE'}]
     ]
 
 
@@ -785,27 +690,15 @@ def test_marc21_to_title_with_variant_both_without_subtitle():
     assert data.get('title') == [
         {
             'type': 'bf:Title',
-            'mainTitle': [
-                {
-                    'value': '3 filles et 10 kilos en trop'
-                }
-            ]
+            'mainTitle': [{'value': '3 filles et 10 kilos en trop'}]
         },
         {
             'type': 'bf:VariantTitle',
-            'mainTitle': [
-                {
-                    'value': 'Trois filles et dix kilos en trop'
-                }
-            ]
+            'mainTitle': [{'value': 'Trois filles et dix kilos en trop'}]
         }
     ]
     assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'Jacqueline Wilson'
-            }
-        ]
+        [{'value': 'Jacqueline Wilson'}]
     ]
 
 
@@ -842,63 +735,28 @@ def test_marc21_to_title_with_parallel_title():
     assert data.get('title') == [
         {
             'type': 'bf:Title',
-            'mainTitle': [
-                {
-                    'value': 'Schatzkammer der Schweiz'
-                }
-            ],
-            'subtitle': [
-                {
-                    'value': 'Landesmuseums'
-                }
-            ]
+            'mainTitle': [{'value': 'Schatzkammer der Schweiz'}],
+            'subtitle': [{'value': 'Landesmuseums'}]
         },
         {
             'type': 'bf:ParallelTitle',
-            'mainTitle': [
-                {
-                    'value': 'Le Patrimoine Suisse'
-                }
-            ],
-            'subtitle': [
-                {
-                    'value': 'joyaux'
-                }
-            ]
+            'mainTitle': [{'value': 'Le Patrimoine Suisse'}],
+            'subtitle': [{'value': 'joyaux'}]
         },
         {
             'type': 'bf:ParallelTitle',
-            'mainTitle': [
-                {
-                    'value': 'Patrimonio'
-                }
-            ],
-            'subtitle': [
-                {
-                    'value': 'oggetti preziosi'
-                }
-            ]
+            'mainTitle': [{'value': 'Patrimonio'}],
+            'subtitle': [{'value': 'oggetti preziosi'}]
+
         },
         {
             'type': 'bf:VariantTitle',
-            'mainTitle': [
-                {
-                    'value': 'Patrimonio culturale della Svizzera'
-                }
-            ]
+            'mainTitle': [{'value': 'Patrimonio culturale della Svizzera'}]
         }
     ]
     assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'Redaktion J. Schneider'
-            }
-        ],
-        [
-            {
-                'value': 'Texte R. Degan'
-            }
-        ]
+        [{'value': 'Redaktion J. Schneider'}],
+        [{'value': 'Texte R. Degan'}]
     ]
 
 
@@ -941,18 +799,14 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
         {
             'type': 'bf:Title',
             'mainTitle': [
-                {
-                    'value': 'L.N. Tolstoĭ'
-                },
+                {'value': 'L.N. Tolstoĭ'},
                 {
                     'value': 'Л.Н. Толстой',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'seminariĭ'
-                },
+                {'value': 'seminariĭ'},
                 {
                     'value': 'семинарий',
                     'language': 'rus-cyrl'
@@ -962,18 +816,14 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
         {
             'type': 'bf:ParallelTitle',
             'mainTitle': [
-                {
-                    'value': 'TOTO'
-                },
+                {'value': 'TOTO'},
                 {
                     'value': 'toto',
                     'language': 'rus-cyrl'
                 }
             ],
             'subtitle': [
-                {
-                    'value': 'TITI'
-                },
+                {'value': 'TITI'},
                 {
                     'value': 'titi',
                     'language': 'rus-cyrl'
@@ -988,9 +838,7 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
     ]
     assert data.get('responsibilityStatement') == [
         [
-            {
-                'value': 'B.I. Bursov'
-            },
+            {'value': 'B.I. Bursov'},
             {
                 'value': 'Б.И. Бурсов',
                 'language': 'rus-cyrl'
@@ -1791,13 +1639,13 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
         'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Beijing : Beijing da xue chu ban she, 2017',
-        '北京 : 北京大学出版社, 2017'
+        '北京 : 北京大学出版社, 2017',
+        'Beijing : Beijing da xue chu ban she, 2017'
     ]
     marc21xml = """
       <record>
       <controlfield tag=
-        "008">180323s2017    cc ||| |  ||||00|  |eng d</controlfield>
+        "008">180323s2017    cc ||| |  ||||00|  |chi d</controlfield>
       <datafield tag="264" ind1=" " ind2="1">
         <subfield code="6">880-04</subfield>
         <subfield code="a">Beijing :</subfield>
@@ -1833,7 +1681,7 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
             {
                 'label': [
                     {'value': 'Beijing'},
-                    {'value': '北京', 'language': 'und-hani'}
+                    {'value': '北京', 'language': 'chi-hani'}
                 ],
                 'type': 'bf:Place'
             },
@@ -1841,14 +1689,14 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
                 'label': [
                     {'value': 'Beijing da xue chu ban she'},
                     {'value': '北京大学出版社',
-                     'language': 'und-hani'}
+                     'language': 'chi-hani'}
                 ],
                 'type': 'bf:Agent'
             },
             {
                 'label': [
                     {'value': '2017'},
-                    {'language': 'und-hani', 'value': '2017'}
+                    {'language': 'chi-hani', 'value': '2017'}
                 ],
                 'type': 'Date'
             }
@@ -1856,8 +1704,8 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
         'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Beijing : Beijing da xue chu ban she, 2017',
-        '北京 : 北京大学出版社, 2017'
+        '北京 : 北京大学出版社, 2017',
+        'Beijing : Beijing da xue chu ban she, 2017'
     ]
 
 
@@ -1908,7 +1756,7 @@ def test_marc21_to_edition_statement_one_field_250():
 
 def test_marc21_to_edition_statement_two_fields_250():
     """Test dojson edition statement.
-    - 2 edition designation and 2 responsibility from fields 250
+    - 2 edition designations and 2 responsibility from fields 250
     - extract data from the linked 880 from 1 field 880
     """
     marc21xml = """
@@ -2133,8 +1981,8 @@ def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
         'startDate': 2014
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014',
-        'القاهرة : الهيئة العامة لقصور الثقافة, 2014'
+        'القاهرة : الهيئة العامة لقصور الثقافة, 2014',
+        'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014'
     ]
 
 
@@ -2231,8 +2079,8 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
         'startDate': 2017
     }]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017',
-        'Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017'
+        'Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017',
+        'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017'
     ]
 
 
