@@ -148,7 +148,14 @@ def test_documents_import_bnf_ean(client):
         }],
         'series': [{'name': 'Harry Potter.', 'number': '1'}],
         'subjects': ['JnRoman'],
-        'title': "Harry Potter à l'école des sorciers",
+        'title': [{
+            'mainTitle': [{'value': "Harry Potter à l'école des sorciers"}],
+            'type': 'bf:Title'
+        }],
+        'responsibilityStatement': [
+            [{'value': 'J. K. Rowling'}],
+            [{'value': "trad. de l'anglais par Jean-François Ménard"}]
+        ],
         'titlesProper': ['Harry Potter'],
         'translatedFrom': ['eng'],
         'type': 'book'

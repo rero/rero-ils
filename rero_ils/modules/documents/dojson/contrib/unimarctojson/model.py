@@ -24,8 +24,8 @@ from dojson import utils
 from dojson.utils import force_list
 from pkg_resources import resource_string
 
-from rero_ils.dojson.utils import ReroIlsOverdo, get_field_items, make_year, \
-    remove_trailing_punctuation
+from rero_ils.dojson.utils import ReroIlsOverdo, TitlePartList, \
+    get_field_items, make_year, remove_trailing_punctuation
 
 unimarctojson = ReroIlsOverdo()
 
@@ -83,20 +83,64 @@ def unimarc_bnf_id(self, key, value):
 @unimarctojson.over('title', '^200..')
 @utils.ignore_value
 def unimarc_title(self, key, value):
-    """Get title.
+    """Get title data.
 
-    title: 200$a
-    If there's a $e, then 245$a : $e
+    field 200: non repetitive
+        $a : repetitive
+        $e : repetitive
+        $f : repetitive
+        $g : repetitive
+        $h : repetitive
+        $i : repetitive
+    field 510,512,514,515,516,517,518,519,532: repetitive
+        $a : non repetitive
+        $e : repetitive
+        $h : repetitive
+        $i : repetitive
     """
-    main_title = value.get('a')
-    if main_title:
-        main_title = utils.force_list(main_title)[0]
-    else:
-        main_title = ''
-    sub_title = utils.force_list(value.get('e'))
-    if sub_title:
-        main_title += ' : ' + ' : '.join(sub_title)
-    return main_title or None
+    title_list = []
+    responsibilites = []
+    for tag in ['200', '510',
+                '512', '514', '515', '516', '517', '518', '519', '532']:
+        for field in unimarctojson.get_fields(tag=tag):
+            title_data = {}
+            part_list = TitlePartList(
+                part_number_code='h',
+                part_name_code='i'
+            )
+            subfields_a = unimarctojson.get_subfields(field, 'a')
+            subfields_e = unimarctojson.get_subfields(field, 'e')
+            if subfields_a:
+                title_data['mainTitle'] = [dict(value=subfields_a[0])]
+            for subfield_e in subfields_e:
+                title_data['subtitle'] = [dict(value=subfield_e)]
+            title_type = 'bf:VariantTitle'
+            if tag == '200':
+                title_type = 'bf:Title'
+            elif tag == '510':
+                title_type = 'bf:ParallelTitle'
+            # build title parts
+            items = get_field_items(field['subfields'])
+            for blob_key, blob_value in items:
+                if blob_key in ['f', 'g'] and tag == '200':
+                    responsibilites.append([dict(value=blob_value)])
+                if blob_key in ['h', 'i']:
+                    part_list.update_part(
+                        [dict(value=blob_value)], blob_key, blob_value)
+            title_data['type'] = title_type
+            the_part_list = part_list.get_part_list()
+            if the_part_list:
+                title_data['part'] = the_part_list
+            if title_data:
+                title_list.append(title_data)
+
+    # extract responsibilities
+    if responsibilites:
+        new_responsibility = self.get('responsibilityStatement', [])
+        for resp in responsibilites:
+            new_responsibility.append(resp)
+        self['responsibilityStatement'] = new_responsibility
+    return title_list or None
 
 
 @unimarctojson.over('titlesProper', '^500..')
@@ -107,7 +151,7 @@ def unimarc_titles_proper(self, key, value):
 
     titleProper: 500$a
     """
-    return value.get('a')
+    return value.get('a', '')
 
 
 @unimarctojson.over('language', '^101')
@@ -154,15 +198,16 @@ def unimarc_to_author(self, key, value):
     712 Nom de collectivité – Responsabilité secondaire
     """
     author = {}
-    author['name'] = value.get('a')
+    author['name'] = ', '.join(utils.force_list(value.get('a', '')))
     author['type'] = 'person'
     if key[1] == '1':
         author['type'] = 'organisation'
-
-    if value.get('b'):
-        author['name'] += ', ' + ', '.join(utils.force_list(value.get('b')))
-    if value.get('d'):
-        author['name'] += ' ' + ' '.join(utils.force_list(value.get('d')))
+    if author['name']:
+        if value.get('b'):
+            author['name'] += \
+                ', ' + ', '.join(utils.force_list(value.get('b')))
+        if value.get('d'):
+            author['name'] += ' ' + ' '.join(utils.force_list(value.get('d')))
 
     if value.get('c'):
         author['qualifier'] = value.get('c')
@@ -366,7 +411,7 @@ def unimarc_abstracts(self, key, value):
 
     abstract: [330$a repetitive]
     """
-    return ', '.join(utils.force_list(value.get('a')))
+    return ', '.join(utils.force_list(value.get('a', '')))
 
 
 @unimarctojson.over('identifiedBy', '^073..')
@@ -399,7 +444,7 @@ def unimarc_notes(self, key, value):
 
     note: [300$a repetitive]
     """
-    return value.get('a')
+    return value.get('a', '')
 
 
 @unimarctojson.over('subjects', '^6((0[0-9])|(1[0-7]))..')
@@ -430,8 +475,10 @@ def unimarc_subjects(self, key, value):
 @utils.ignore_value
 def marc21_to_electronicLocator_from_field_856(self, key, value):
     """Get electronicLocator from field 856."""
-    electronic_locator = {
-        'url': value.get('u'),
-        'type': 'resource'
-    }
+    electronic_locator = None
+    if value.get('u'):
+        electronic_locator = {
+            'url': value.get('u'),
+            'type': 'resource'
+        }
     return electronic_locator

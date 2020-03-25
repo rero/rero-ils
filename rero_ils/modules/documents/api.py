@@ -26,8 +26,7 @@ from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier
 from .utils import edition_format_text, publication_statement_text, \
-    series_format_text, title_format_text, title_format_text_head, \
-    title_variant_format_text
+    series_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordIndexer
 from ..fetchers import id_fetcher

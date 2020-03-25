@@ -1371,6 +1371,240 @@
       }
     ]
   },
+  "doc4": {
+    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "pid": "doc4",
+    "type": "book",
+    "language": [
+      {
+        "value": "chi",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R008388656",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian"
+        },
+        {
+          "value": "\u6881\u897f\u539f\u8457\u4e3b\u7f16, \u738b\u732e\u67a2\u526f\u4e3b\u7f16",
+          "language": "chi-hani"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Guo ji fa"
+          },
+          {
+            "value": "\u56fd\u9645\u6cd5",
+            "language": "chi-hani"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "subtitle (Latin)"
+          },
+          {
+            "value": "subtitle (Chinese)",
+            "language": "chi-hani"
+          }
+        ],
+        "part": [
+          {
+            "partNumber": [
+              {
+                "value": "Part Number (Latin)"
+              },
+              {
+                "value": "Part Number (Chinese)",
+                "language": "chi-hani"
+              }
+            ],
+            "partName": [
+              {
+                "value": "Part Name (Latin)"
+              },
+              {
+                "value": "Part Name (Chinese)",
+                "language": "chi-hani"
+              }
+            ]
+          }
+        ],
+        "type": "bf:Title"
+      },
+      {
+        "type": "bf:ParallelTitle",
+        "mainTitle": [
+          {
+            "value": "International law (Latin)"
+          },
+          {
+            "value": "International law (Chinese)",
+            "language": "chi-hani"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "Parallel Subtitle (Latin)"
+          },
+          {
+            "value": "Parallel Subtitle (Chinese)",
+            "language": "chi-hani"
+          }
+        ],
+        "part": [
+          {
+            "partNumber": [
+              {
+                "value": "Parallel Part Number (Latin)"
+              },
+              {
+                "value": "Parallel Part Number (Chinese)",
+                "language": "chi-hani"
+              }
+            ],
+            "partName": [
+              {
+                "value": "Parallel Part Name (Latin)"
+              },
+              {
+                "value": "Parallel Part Name (Chinese)",
+                "language": "chi-hani"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "bf:ParallelTitle",
+        "mainTitle": [
+          {
+            "value": "Parallel Title 2 (Latin)"
+          },
+          {
+            "value": "Parallel Title 2 (Chinese)",
+            "language": "chi-hani"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "Parallel Subtitle 2 (Latin)"
+          },
+          {
+            "value": "Parallel Subtitle 2 (Chinese)",
+            "language": "chi-hani"
+          }
+        ]
+      },
+      {
+        "type": "bf:VariantTitle",
+        "mainTitle": [
+          {
+            "value": "Guojifa"
+          }
+        ]
+      }
+    ],
+    "editionStatement": [
+      {
+        "editionDesignation": [
+          {
+            "value": "Di 3 ban"
+          },
+          {
+            "value": "\u7b2c3\u7248",
+            "language": "chi-hani"
+          }
+        ],
+        "responsibility": [
+          {
+            "value": "Zeng Lingliang zhu bian"
+          },
+          {
+            "value": "\u66fe\u4ee4\u826f\u4e3b\u7f16",
+            "language": "chi-hani"
+          }
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Wuhan"
+              },
+              {
+                "value": "\u6b66\u6c49",
+                "language": "chi-hani"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Wuhan da xue chu ban she"
+              },
+              {
+                "value": "\u6b66\u6c49\u5927\u5b66\u51fa\u7248\u793e",
+                "language": "chi-hani"
+              }
+            ]
+          },
+          {
+            "label": [
+              {
+                "value": "2015"
+              },
+              {
+                "value": "2015",
+                "language": "chi-hani"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 2015,
+        "place": [
+          {
+            "country": "cc",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "extent": "444 p.",
+    "series": [
+      {
+        "name": "Chuang xin si wei fa xue jiao cai"
+      }
+    ],
+    "authors": [
+      {
+        "type": "person",
+        "name": "Liang, Xi, 1924-"
+      },
+      {
+        "type": "person",
+        "name": "Zeng, Lingliang"
+      }
+    ]
+  },
   "ebook1": {
     "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook1",

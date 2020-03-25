@@ -133,6 +133,10 @@ class Notification(IlsRecord):
 
             document = self.document.replace_refs().dumps()
             data['loan']['document'] = document
+            titles = document.get('title', [])
+            bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
+            for title in bf_titles:
+                data['loan']['document']['title_text'] = title['_text']
             authors = document.get('authors', '')
             if authors:
                 author = authors[0].get('name', '')
