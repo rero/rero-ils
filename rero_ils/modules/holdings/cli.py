@@ -24,19 +24,12 @@ import json
 import click
 from flask.cli import with_appcontext
 
-from ..documents.api import DocumentsSearch
+from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import create_holding
 from ..item_types.api import ItemTypesSearch
 from ..locations.api import LocationsSearch
 from ..organisations.api import Organisation
 from ..utils import read_json_record
-
-
-def get_documents_with_type_journal():
-    """Get pids of documents with type journal."""
-    es_documents = DocumentsSearch()\
-        .filter('term', type="journal").source(['pid']).scan()
-    return [es_document.pid for es_document in es_documents]
 
 
 def get_document_pid_by_rero_number(rero_control_number):
@@ -84,13 +77,13 @@ def get_random_location(org_pid):
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
 def create_patterns(infile, verbose, debug, lazy):
-    """Create serials patterns for documents of type journals.
+    """Create serials patterns for Serial mode of issuance documents.
 
     :param infile: Json patterns file
     :param lazy: lazy reads file
     """
     click.secho('Create serials patterns:', fg='green')
-    journal_pids = get_documents_with_type_journal()
+    journal_pids = Document.get_all_serial_pids()
     if lazy:
         # try to lazy read json file (slower, better memory management)
         data = read_json_record(infile)
