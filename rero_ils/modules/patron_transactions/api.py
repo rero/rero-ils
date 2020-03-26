@@ -20,7 +20,7 @@
 from datetime import datetime, timezone
 from functools import partial
 
-from flask import current_app
+from flask_babelex import gettext as _
 
 from .models import PatronTransactionIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -30,6 +30,7 @@ from ..organisations.api import Organisation
 from ..patron_transaction_events.api import PatronTransactionEvent, \
     PatronTransactionEventsSearch
 from ..providers import Provider
+from ..utils import get_ref_for_pid
 
 # provider
 PatronTransactionProvider = type(
@@ -139,12 +140,67 @@ class PatronTransaction(IlsRecord):
             cls, notification=None, dbcommit=None, reindex=None,
             delete_pid=None):
         """Create a patron transaction from notification."""
+        from ..notifications.api import calculate_overdue_amount
         record = {}
         if notification.get('notification_type') == 'overdue':
-            data = build_patron_transaction_ref(notification, {})
-            data['creation_date'] = datetime.now(timezone.utc).isoformat()
-            data['type'] = 'overdue'
-            data['status'] = 'open'
+            data = {
+                'notification': {
+                    '$ref': get_ref_for_pid('notif', notification.pid)
+                },
+                'patron': {
+                    '$ref': get_ref_for_pid('ptrn', notification.patron_pid)
+                },
+                'organisation': {
+                    '$ref': get_ref_for_pid(
+                        'org',
+                        notification.organisation_pid
+                    )
+                },
+                'total_amount': calculate_overdue_amount(notification),
+                'creation_date': datetime.now(timezone.utc).isoformat(),
+                'type': 'overdue',
+                'status': 'open'
+            }
+            record = cls.create(
+                data,
+                dbcommit=dbcommit,
+                reindex=reindex,
+                delete_pid=delete_pid
+            )
+        return record
+
+    @classmethod
+    def create_subscription_for_patron(cls, patron, patron_type, start_date,
+                                       end_date, dbcommit=None, reindex=None,
+                                       delete_pid=None):
+        """Create a subscription patron transaction for a patron.
+
+        :param patron: the patron linked to the subscription
+        :param patron_type: the patron_type for which we need to create the
+                            subscription
+        :param start_date: As `datetime`, the starting date of the subscription
+        :param end_date: As `datetime`, the ending date of the subscription
+        """
+        record = {}
+        if patron_type.is_subscription_required:
+            data = {
+                'patron': {
+                    '$ref': get_ref_for_pid('ptrn', patron.pid)
+                },
+                'organisation': {
+                    '$ref': get_ref_for_pid('org', patron.organisation_pid)
+                },
+                'total_amount': patron_type.get('subscription_amount'),
+                'creation_date': datetime.now(timezone.utc).isoformat(),
+                'type': 'subscription',
+                'status': 'open',
+                'note': _("Subscription for '{name}' from {start} to {end}")
+                        .format(
+                            name=patron_type.get('name'),
+                            start=start_date.strftime('%Y-%m-%d'),
+                            end=end_date.strftime('%Y-%m-%d')
+                        )
+            }
             record = cls.create(
                 data,
                 dbcommit=dbcommit,
@@ -163,18 +219,19 @@ class PatronTransaction(IlsRecord):
     @property
     def events(self):
         """Shortcut for events of the patron transaction."""
-        # events = []
-        results = PatronTransactionEventsSearch().filter(
-            'term', parent__pid=self.pid
-        ).source().scan()
+        results = PatronTransactionEventsSearch()\
+            .filter('term', parent__pid=self.pid)\
+            .source()\
+            .scan()
         for result in results:
             yield PatronTransactionEvent.get_record_by_pid(result.pid)
 
     def get_number_of_patron_transaction_events(self):
         """Get number of patron transaction events."""
-        results = PatronTransactionEventsSearch().filter(
-            'term', parent__pid=self.pid).source().count()
-        return results
+        return PatronTransactionEventsSearch()\
+            .filter('term', parent__pid=self.pid)\
+            .source()\
+            .count()
 
     def get_links_to_me(self):
         """Get number of links."""
@@ -191,38 +248,6 @@ class PatronTransaction(IlsRecord):
         if links:
             cannot_delete['links'] = links
         return cannot_delete
-
-
-def build_patron_transaction_ref(notification, data):
-    """Create $ref for a patron transaction."""
-    from ..notifications.api import calculate_overdue_amount
-    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-    data_schema = {
-        'base_url': current_app.config.get(
-            'RERO_ILS_APP_BASE_URL'
-        ),
-        'schema_endpoint': current_app.config.get(
-            'JSONSCHEMAS_ENDPOINT'
-        ),
-        'schema': schemas['pttr']
-    }
-    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-        .format(**data_schema)
-    base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-    url_api = '{base_url}/api/{doc_type}/{pid}'
-    for record in [
-        {'resource': 'notification', 'pid': notification.pid},
-        {'resource': 'patron', 'pid': notification.patron_pid},
-        {'resource': 'organisation', 'pid': notification.organisation_pid}
-    ]:
-        data[record['resource']] = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='{}s'.format(record['resource']),
-                pid=record['pid'])
-            }
-    data['total_amount'] = calculate_overdue_amount(notification)
-    return data
 
 
 class PatronTransactionsIndexer(IlsRecordsIndexer):

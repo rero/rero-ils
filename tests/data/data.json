@@ -759,7 +759,8 @@
     "description": "youngsters patrons",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
-    }
+    },
+    "subscription_amount": 25
   },
   "ptty4": {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
@@ -768,7 +769,8 @@
     "description": "grown patrons",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/org2"
-    }
+    },
+    "subscription_amount": 15
   },
   "cipo1": {
     "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",

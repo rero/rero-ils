@@ -305,3 +305,11 @@ def test_acquisition_invoice_secure_api_update(
         headers=json_header
     )
     assert res.status_code == 403
+
+
+def test_acquisition_invoice_properties(
+        org_sion, vendor_sion, document, lib_sion, acq_invoice_fiction_sion):
+    """Test acquisition invoice properties."""
+    assert acq_invoice_fiction_sion.vendor_pid == vendor_sion.pid
+    assert acq_invoice_fiction_sion.library_pid == lib_sion.pid
+    assert acq_invoice_fiction_sion.organisation_pid == org_sion.pid
