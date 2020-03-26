@@ -87,6 +87,30 @@
         "communication_language": {
           "type": "keyword"
         },
+        "subscriptions": {
+          "properties": {
+            "patron_type": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "patron_transaction": {
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "start_date": {
+              "type": "date"
+            },
+            "end_date": {
+              "type": "date"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },

@@ -17,7 +17,7 @@
 
 """Utilities for rero-ils editor."""
 
-from datetime import time
+from datetime import date, time
 from json import JSONDecodeError, JSONDecoder
 from time import sleep
 
@@ -145,3 +145,19 @@ def get_ref_for_pid(module, pid):
                     pid=pid
                 )
     return None
+
+
+def add_years(initial_date, years):
+    """Return a date that's `years` years after the date (or datetime) object.
+
+    Return the same calendar date (month and day) in the destination year,
+    if it exists, otherwise use the following day (thus changing February 29
+    to March 1).
+
+    source: https://stackoverflow.com/a/15743908/5595377
+    """
+    try:
+        return initial_date.replace(year=initial_date.year + years)
+    except ValueError:
+        return initial_date + (date(initial_date.year + years, 1, 1) -
+                               date(initial_date.year, 1, 1))

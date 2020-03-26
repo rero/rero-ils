@@ -16,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating patrons."""
-
+from datetime import datetime
 from functools import partial
 
 from flask import current_app
@@ -35,7 +35,9 @@ from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..organisations.api import Organisation
+from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
+from ..utils import get_ref_for_pid
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -307,3 +309,62 @@ class Patron(IlsRecord):
             patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
             return patron_type.organisation_pid
         return None
+
+    @property
+    def has_valid_subscription(self):
+        """Check if the patron has a valid subscription at current time.
+
+        To know if the user has a valid subscription, we need to check the
+        patron_type linked to it. If the patron type request a subscription,
+        then we need to check the patron subscription attributes to find a
+        subscription in a valid interval of time.
+        """
+        from ..patron_types.api import PatronType
+        if self.patron_type_pid:
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            if patron_type.is_subscription_required:
+                for sub in self.get('subscriptions', []):
+                    # not need to check if the subscription is for the
+                    # current patron.patron_type. If patron.patron_type
+                    # change while a subscription is still pending, this
+                    # subscription is still valid
+                    start = datetime.strptime(sub['start_date'], '%Y-%m-%d')
+                    end = datetime.strptime(sub['end_date'], '%Y-%m-%d')
+                    if start < datetime.now() < end:
+                        return True
+                return False
+        return True
+
+    def get_valid_subscriptions(self):
+        """Get valid subscriptions for a patron."""
+        def is_subscription_valid(subscription):
+            start = datetime.strptime(subscription['start_date'], '%Y-%m-%d')
+            end = datetime.strptime(subscription['end_date'], '%Y-%m-%d')
+            return start < datetime.now() < end
+        subs = filter(is_subscription_valid, self.get('subscriptions', []))
+        return list(subs)
+
+    def add_subscription(self, patron_type, start_date, end_date):
+        """Add a subscription to a patron type.
+
+        :param patron_type: the patron_type linked to the subscription
+        :param start_date: As `datetime`, the subscription start date
+        :param end_date: As `datetime`, the subscription end date (excluded)
+        """
+        transaction = PatronTransaction.create_subscription_for_patron(
+            self, patron_type, start_date, end_date,
+            dbcommit=True, reindex=True, delete_pid=True)
+        if transaction:
+            subscriptions = self.get('subscriptions', [])
+            subscriptions.append({
+                'patron_type': {
+                    '$ref': get_ref_for_pid('ptty', patron_type.pid)
+                },
+                'patron_transaction': {
+                    '$ref': get_ref_for_pid('pttr', transaction.pid)
+                },
+                'start_date': start_date.strftime('%Y-%m-%d'),
+                'end_date': end_date.strftime('%Y-%m-%d'),
+            })
+            self['subscriptions'] = subscriptions
+            self.update(self, dbcommit=True, reindex=True)

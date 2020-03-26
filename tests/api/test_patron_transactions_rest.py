@@ -19,12 +19,16 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime
 
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
+
+from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.utils import add_years
 
 
 def test_patron_transactions_user_pid(patron_transaction_overdue_martigny):
@@ -439,3 +443,28 @@ def test_patron_transaction_secure_api_delete(
     res = client.delete(record_url)
     # librarian can delete any patron transaction of other libraries.
     assert res.status_code == 204
+
+
+def test_patron_subscription_transaction(
+        patron_type_youngsters_sion, patron_sion_no_email):
+    """Test the creation of a subscription transaction for a patron."""
+    subscription_start_date = datetime.now()
+    subscription_end_date = add_years(subscription_start_date, 1)
+    assert subscription_end_date.year == subscription_start_date.year + 1
+    assert subscription_end_date.month == subscription_start_date.month
+    assert subscription_end_date.day == subscription_start_date.day
+
+    subscription = PatronTransaction.create_subscription_for_patron(
+        patron_sion_no_email,
+        patron_type_youngsters_sion,
+        subscription_start_date,
+        subscription_end_date,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert subscription.get_number_of_patron_transaction_events() == 1
+    event = list(subscription.events)[0]
+    assert event.get('type') == 'fee'
+    assert event.get('subtype') == 'other'
+    assert event.get('amount') == subscription.get('total_amount')

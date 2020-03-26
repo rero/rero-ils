@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-03-23 14:46+0100\n"
+"POT-Creation-Date: 2020-03-26 11:13+0100\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2020\n"
 "Language: fr\n"
@@ -331,9 +331,9 @@ msgstr "Schéma JSON d'un compte"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:23
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:15
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:17
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:19
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:20
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:34
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:15
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:27
@@ -357,7 +357,7 @@ msgstr "Mon compte"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:49
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:31
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:32
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:28
 #: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:31
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:38
@@ -371,7 +371,7 @@ msgstr "Nom du compte"
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:98
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:52
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:50
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
 msgid "Description"
 msgstr "Description"
 
@@ -407,7 +407,7 @@ msgstr "Montant alloué"
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:48
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:67
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:66
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:93
 msgid "Library"
@@ -418,7 +418,7 @@ msgstr "Bibliothèque"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:110
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:71
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:70
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
 msgid "Library URI"
 msgstr "URI de la bibliothèque"
@@ -439,7 +439,7 @@ msgstr "URI de la bibliothèque"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:129
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:55
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:249
 msgid "Organisation"
 msgstr "Organisation"
@@ -455,7 +455,7 @@ msgstr "Organisation"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:133
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:60
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:256
 msgid "Organisation URI"
 msgstr "URI de l'organisation"
@@ -605,7 +605,8 @@ msgstr ""
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:213
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:86
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:45
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:44
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:66
 msgid "Amount"
 msgstr "montant"
 
@@ -713,7 +714,7 @@ msgstr "taux"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:506
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:619
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:793
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:60
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
 msgid "Note"
 msgstr "Note"
@@ -1013,7 +1014,7 @@ msgstr "PID du document"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:672
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:38
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:51
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:50
 msgid "Type"
 msgstr "Type"
 
@@ -6979,6 +6980,10 @@ msgstr "Source moissonnée en ligne"
 msgid "Online harvested source as configured in ebooks server."
 msgstr "Source moissonnée en ligne, comme configuré dans le serveur d'ebooks."
 
+#: rero_ils/modules/patron_transaction_events/api.py:97
+msgid "Initial charge"
+msgstr ""
+
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
 msgid "PatronTransactionEvent"
 msgstr ""
@@ -6987,64 +6992,69 @@ msgstr ""
 msgid "JSON schema for patron_transaction_event."
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:17
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
 msgid "Schema to validate patron_transaction_event records against."
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:23
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:22
 msgid "Patron Transaction Event ID"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:28
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:27
 msgid "Parent patron transaction"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:32
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:31
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:331
 msgid "Patron transaction URI"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:38
 msgid "Event creation date"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:40
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
 msgid "Patron transaction event creation date"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:46
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:45
 msgid "Patron transaction event amount"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:52
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:51
 msgid "Patron transaction event main type"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:56
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:55
 msgid "Subtype"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:56
 msgid "Patron transaction event subtype type"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
 msgid "Additional informations about transaction event"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:78
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:77
 msgid "Operator"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:82
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:81
 msgid "Operator patron URI"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:112
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:111
 msgid "Fee subtype"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:134
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:133
 msgid "Payment mode"
+msgstr ""
+
+#: rero_ils/modules/patron_transactions/api.py:196
+msgid "Subscription for '{name}' from {start} to {end}"
 msgstr ""
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
@@ -7136,25 +7146,37 @@ msgstr "Type de lecteur"
 msgid "JSON schema for patron_types."
 msgstr "Schéma JSON d'un type de lecteur."
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:20
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:21
 msgid "Schema to validate patron_types records against."
 msgstr "Schéma de validation des types de lecteurs."
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:26
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:27
 msgid "Patron type ID"
 msgstr "ID du type de lecteur"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:32
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
 msgid "The name of the patron type"
 msgstr "Le nom du type de lecteur"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:44
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:45
 msgid "The patron type name is already taken."
 msgstr "Le nom du type de lecteur est déjà utilisé."
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:52
 msgid "The description of the patron type."
 msgstr "La description du type de lecteur"
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:67
+msgid "Yearly amount due by patrons linked to this patron type."
+msgstr ""
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:78
+msgid "Yearly subscription"
+msgstr ""
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:79
+msgid "Activation of subscription fees for patrons linked to this type."
+msgstr ""
 
 #: rero_ils/modules/patrons/views.py:98
 #, python-format
@@ -7258,6 +7280,7 @@ msgid "Example: +41791231212"
 msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:116
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:308
 msgid "Patron Type"
 msgstr "Type de lecteur"
 
@@ -7266,6 +7289,7 @@ msgid "Patron type in terms of circulation policy."
 msgstr "Type de lecteur en termes de politique de circulation."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:124
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:316
 msgid "Patron Type URI"
 msgstr "URI du type de lecteur"
 
@@ -7318,6 +7342,42 @@ msgstr "Langue de communication"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:84
 msgid "English"
 msgstr "anglais"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:280
+msgid "Patron subscriptions"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:284
+msgid "Subscription"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:294
+msgid "Subscription start date"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:295
+msgid "The subscription start date (date included)"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:301
+msgid "Subscription end date"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:302
+msgid "The subscription end date (date excluded)"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:309
+msgid "Patron type linked to this subscription"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:323
+msgid "Patron transaction"
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:324
+msgid "Patron transaction linked to this subscription"
+msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:29
 msgid "Phone"
