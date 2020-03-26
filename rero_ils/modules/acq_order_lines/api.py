@@ -140,25 +140,9 @@ class AcqOrderLine(IlsRecord):
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        from ..acq_orders.api import AcqOrder
-        order = AcqOrder.get_record_by_pid(self.order_pid)
-        return order.library_pid
-
-    def get_organisation(self):
-        """Shortcut to the organisation of the acquisition order."""
-        return self.get_library().get_organisation()
-
-    def get_library(self):
-        """Shortcut to the library of the acquisition order."""
-        return self.get_order().get_library()
+        return self.get_order().library_pid
 
     def get_order(self):
         """Shortcut to the order of the order line."""
         from ..acq_orders.api import AcqOrder
         return AcqOrder.get_record_by_pid(self.order_pid)
-
-    def get_number_of_acq_order_lines(self):
-        """Get number of aquisition order lines."""
-        results = AcqOrderLinesSearch().filter(
-            'term', acq_order__pid=self.order_pid).source().count()
-        return results
