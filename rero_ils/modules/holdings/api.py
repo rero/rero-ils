@@ -315,7 +315,11 @@ class Holding(IlsRecord):
                 mapping = level.get('mapping_values')
                 if mapping:
                     text_value = mapping[text_value - 1]
-                level_data.update({level.get('name', ''): str(text_value)})
+                level_data.update({
+                    level.get(
+                        'number_name', level.get('list_name')
+                    ): str(text_value)
+                })
             issue_data[pattern_name] = level_data
         return Template(patterns.get('template')).render(**issue_data)
 

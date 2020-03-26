@@ -20,17 +20,46 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, abort, jsonify
+from functools import wraps
+
+from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
+from jinja2.exceptions import TemplateSyntaxError, UndefinedError
+from werkzeug.exceptions import NotFound
 
 from .api import Holding
-from ..items.api_views import check_authentication, jsonify_error
+from ..items.api_views import check_authentication
 
 api_blueprint = Blueprint(
     'api_holding',
     __name__,
     url_prefix='/holding'
 )
+
+
+def jsonify_error(func):
+    """Jsonify errors.
+
+    :param func: function that use this decorator
+    """
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except NotFound as error:
+            raise(error)
+        except TemplateSyntaxError as error:
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 400
+        except UndefinedError as error:
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 400
+        except Exception as error:
+            raise(error)
+            current_app.logger.error(str(error))
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 500
+    return decorated_view
 
 
 @api_blueprint.route('/availabilty/<holding_pid>', methods=['GET'])
@@ -46,7 +75,7 @@ def holding_availability(holding_pid):
     })
 
 
-@api_blueprint.route('/<holding_pid>/patterns/preview/', methods=['GET'])
+@api_blueprint.route('/<holding_pid>/patterns/preview', methods=['GET'])
 @check_authentication
 @jsonify_error
 def patterns_preview(holding_pid):

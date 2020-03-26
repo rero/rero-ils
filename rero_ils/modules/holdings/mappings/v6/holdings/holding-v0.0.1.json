@@ -79,7 +79,10 @@
                 },
                 "levels": {
                   "properties": {
-                    "name": {
+                    "number_name": {
+                      "type": "keyword"
+                    },
+                    "list_name": {
                       "type": "keyword"
                     },
                     "starting_value": {

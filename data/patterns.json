@@ -9,7 +9,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 61
             }
           ]
@@ -18,11 +18,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "mapping_values": [
                 "mars",
                 "juin",
@@ -45,7 +45,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 82
             }
           ]
@@ -54,7 +54,7 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             }
           ]
@@ -72,7 +72,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 29
             }
           ]
@@ -81,7 +81,7 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             }
           ]
@@ -99,11 +99,11 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 8
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "completion_value": 2,
               "next_value": 2
             }
@@ -113,12 +113,12 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2019,
               "completion_value": 2
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "next_value": 2,
               "mapping_values": [
                 "M\u00e4rz",
@@ -140,11 +140,11 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 20
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "starting_value": 1,
               "completion_value": 4
             }
@@ -154,12 +154,12 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020,
               "completion_value": 4
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "completion_value": 4
             }
           ]
@@ -177,11 +177,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2019
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "starting_value": 1,
               "completion_value": 4
             }
@@ -191,7 +191,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 277
             }
           ]
@@ -200,12 +200,11 @@
           "name": "second_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2018
             },
             {
-              "name": "level_2",
-              "starting_value": 1,
+              "list_name": "level_2",
               "mapping_values": [
                 "printemps",
                 "\u00e9t\u00e9",
@@ -228,7 +227,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 48
             }
           ]
@@ -237,11 +236,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2019
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "mapping_values": [
                 "printemps",
                 "automne"
@@ -262,7 +261,7 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 47
             }
           ]
@@ -271,11 +270,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "mapping_values": [
                 "jan./f\u00e9v.",
                 "mars/avril",
@@ -300,11 +299,11 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 30
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "completion_value": 2
             }
           ]
@@ -313,7 +312,7 @@
           "name": "second_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 84
             }
           ]
@@ -322,11 +321,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "mapping_values": [
                 "June",
                 "Dec."
@@ -347,11 +346,11 @@
           "name": "first_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 51
             },
             {
-              "name": "level_2",
+              "number_name": "level_2",
               "completion_value": 6
             }
           ]
@@ -360,7 +359,7 @@
           "name": "second_enumeration",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "completion_value": 6
             }
           ]
@@ -369,11 +368,11 @@
           "name": "first_chronology",
           "levels": [
             {
-              "name": "level_1",
+              "number_name": "level_1",
               "starting_value": 2020
             },
             {
-              "name": "level_2",
+              "list_name": "level_2",
               "mapping_values": [
                 "Jan.",
                 "M\u00e4rz",

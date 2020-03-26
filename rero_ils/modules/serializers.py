@@ -155,7 +155,7 @@ class JSONSerializer(_JSONSerializer):
                     'invenio_records_rest.{pid_type}_list'.format(
                         pid_type=pid_type), _external=True)
             else:
-                permissions['create'] = {
+                permissions['cannot_create'] = {
                     'permission': "permission denied"}
         results['permissions'] = permissions
         results['links'].update(links)
