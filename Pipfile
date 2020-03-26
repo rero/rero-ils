@@ -60,7 +60,7 @@ invenio-access = "<1.2.0"
 # separate tables
 invenio-records = ">=1.3.0"
 ## RERO ILS specific python modules
-PyYAML = ">=3.13"
+PyYAML = ">=5.3.1"
 dateparser = ">=0.7.0"
 isbnlib = ">=3.9.1"
 requests = ">=2.20.0"
