@@ -18,8 +18,9 @@
 """Test utils."""
 
 import os
+from datetime import datetime
 
-from rero_ils.modules.utils import read_json_record
+from rero_ils.modules.utils import add_years, read_json_record
 from rero_ils.utils import unique_list
 
 
@@ -39,3 +40,17 @@ def test_read_json_record(request):
             count += 1
             assert record.get('pid') == str(count)
         assert count == 2
+
+
+def test_add_years():
+    """Test adding years to a date."""
+    initial_date = datetime.now()
+    one_year_later = add_years(initial_date, 1)
+    assert initial_date.year == one_year_later.year - 1
+
+    initial_date = datetime.strptime('2020-02-29', '%Y-%m-%d')
+    tow_years_later = add_years(initial_date, 2)
+    four_years_later = add_years(initial_date, 4)
+    assert tow_years_later.month == 3 and tow_years_later.day == 1
+    assert four_years_later.month == initial_date.month and \
+        four_years_later.day == initial_date.day

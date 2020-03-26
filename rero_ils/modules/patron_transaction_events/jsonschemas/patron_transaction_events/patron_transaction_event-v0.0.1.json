@@ -8,8 +8,7 @@
     "pid",
     "creation_date",
     "parent",
-    "type",
-    "library"
+    "type"
   ],
   "properties": {
     "$schema": {
