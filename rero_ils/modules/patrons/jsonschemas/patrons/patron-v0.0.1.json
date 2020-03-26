@@ -275,6 +275,67 @@
           "templateOptions.required": "model.roles.some(v => v === 'patron')"
         }
       }
+    },
+    "subscriptions": {
+      "title": "Patron subscriptions",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Subscription",
+        "type": "object",
+        "required": [
+          "start_date",
+          "end_date",
+          "patron_type",
+          "patron_transaction"
+        ],
+        "properties": {
+          "start_date": {
+            "title": "Subscription start date",
+            "description": "The subscription start date (date included)",
+            "type": "string",
+            "format": "date",
+            "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$"
+          },
+          "end_date": {
+            "title": "Subscription end date",
+            "description": "The subscription end date (date excluded)",
+            "type": "string",
+            "format": "date",
+            "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$"
+          },
+          "patron_type": {
+            "title": "Patron Type",
+            "description": "Patron type linked to this subscription",
+            "type": "object",
+            "required": [
+              "$ref"
+            ],
+            "properties": {
+              "$ref": {
+                "title": "Patron Type URI",
+                "type": "string",
+                "pattern": "^https://ils.rero.ch/api/patron_types/.*?$"
+              }
+            }
+          },
+          "patron_transaction": {
+            "title": "Patron transaction",
+            "description": "Patron transaction linked to this subscription",
+            "type": "object",
+            "required": [
+              "$ref"
+            ],
+            "properties": {
+              "$ref": {
+                "title": "Patron transaction URI",
+                "type": "string",
+                "pattern": "^https://ils.rero.ch/api/patron_transactions/.*?$"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

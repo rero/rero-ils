@@ -29,7 +29,7 @@ from ..api import IlsRecord
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from ..patrons.api import PatronsSearch
+from ..patrons.api import Patron, PatronsSearch
 from ..providers import Provider
 
 # provider
@@ -76,15 +76,35 @@ class PatronType(IlsRecord):
         else:
             return None
 
+    @classmethod
+    def get_yearly_subscription_patron_types(cls):
+        """Get PatronType with an active yearly subscription."""
+        results = PatronTypesSearch()\
+            .filter('range', subscription_amount={'gt': 0})\
+            .source('pid')\
+            .scan()
+        for result in results:
+            yield cls.get_record_by_pid(result.pid)
+
+    def get_linked_patron(self):
+        """Get patron linked to this patron type."""
+        results = PatronsSearch()\
+            .filter('term', patron_type__pid=self.pid)\
+            .source('pid')\
+            .scan()
+        for result in results:
+            yield Patron.get_record_by_pid(result.pid)
+
     def get_number_of_patrons(self):
         """Get number of patrons."""
-        results = PatronsSearch().filter(
-            'term', patron_type__pid=self.pid).source().count()
-        return results
+        return PatronsSearch()\
+            .filter('term', patron_type__pid=self.pid)\
+            .source()\
+            .count()
 
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""
-        results = CircPoliciesSearch().filter(
+        return CircPoliciesSearch().filter(
             'nested',
             path='settings',
             query=Q(
@@ -97,7 +117,11 @@ class PatronType(IlsRecord):
                 ]
             )
         ).source().count()
-        return results
+
+    @property
+    def is_subscription_required(self):
+        """Check if a subscription is required for this patron type."""
+        return self.get('subscription_amount', 0) > 0
 
     def get_links_to_me(self):
         """Get number of links."""

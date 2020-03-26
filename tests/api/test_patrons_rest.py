@@ -20,6 +20,7 @@
 import json
 import re
 from copy import deepcopy
+from datetime import datetime, timedelta
 
 import mock
 from flask import url_for
@@ -64,6 +65,57 @@ def test_filtered_patrons_get(
     # assert res.status_code == 200
     # data = get_json(res)
     # assert data['hits']['total'] == 1
+
+
+def test_patron_has_valid_subscriptions(
+        patron_type_grown_sion, patron_sion_no_email,
+        patron_type_adults_martigny, patron2_martigny_no_email,
+        patron_type_youngsters_sion):
+    """Test patron subscriptions."""
+    # 'patron_type_adults_martigny' doesn't require any subscription
+    # 'patron2_martigny_no_email' is linked to it, so `has_valid_subscription`
+    # should return True
+    assert not patron_type_adults_martigny.is_subscription_required
+    assert patron2_martigny_no_email.has_valid_subscription
+
+    # 'patron_type_grown_sion' require a subscription
+    # 'patron_sion_no_email' is linked to it and it hasn't yet any subscription
+    # so `has_valid_subscription` should return False
+    assert patron_type_grown_sion.is_subscription_required
+    assert not patron_sion_no_email.has_valid_subscription
+
+    # Create a subscription for this patron and check this subscription is
+    # stored and valid
+    start = datetime.now() - timedelta(seconds=10)
+    end = datetime.now() + timedelta(days=10)
+    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
+    assert patron_sion_no_email.has_valid_subscription
+    assert len(patron_sion_no_email.get_valid_subscriptions()) == 1
+    subscription = patron_sion_no_email.get_valid_subscriptions()[0]
+    assert subscription.get('start_date') == start.strftime('%Y-%m-%d')
+
+    # Create a old subscription for this patron and check validity
+    start = datetime.now() - timedelta(days=20)
+    end = start + timedelta(days=10)
+    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
+    assert len(patron_sion_no_email.get('subscriptions', [])) == 2
+    assert len(patron_sion_no_email.get_valid_subscriptions()) == 1
+
+    # remove old subscriptions. Create an old one and check the patron doesn't
+    # have any valid subscription
+    del patron_sion_no_email['subscriptions']
+    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
+    assert not patron_sion_no_email.has_valid_subscription
+
+    # remove all subscriptions. Create a valid subscription other patron_type
+    # than current patron.patron_type. Check if the patron has a valid
+    # subscription
+    del patron_sion_no_email['subscriptions']
+    start = datetime.now() - timedelta(seconds=10)
+    end = datetime.now() + timedelta(days=10)
+    patron_sion_no_email.add_subscription(
+        patron_type_youngsters_sion, start, end)
+    assert patron_sion_no_email.has_valid_subscription
 
 
 def test_patrons_permissions(client, librarian_martigny_no_email,

@@ -27,4 +27,3 @@ from ..jsonresolver import resolve_json_refs
 def library_resolver(pid):
     """Library resolver."""
     return resolve_json_refs('lib', pid)
-    persistent_id = PersistentIdentifier.get('lib', pid)

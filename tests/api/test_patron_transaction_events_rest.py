@@ -26,6 +26,9 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.patron_transaction_events.api import \
+    PatronTransactionEvent
+
 
 def test_patron_transaction_events_permissions(
         client, patron_transaction_overdue_event_martigny, json_header):
@@ -216,6 +219,12 @@ def test_patron_transaction_event_secure_api(
         system_librarian_martigny_no_email, system_librarian_sion_no_email,
         patron_transaction_overdue_event_saxon, patron_martigny_no_email):
     """Test patron transaction event secure api access."""
+    # test if a 'creation_date' attribute is created if not present into data
+    trans_data = deepcopy(patron_transaction_overdue_event_martigny)
+    del trans_data['creation_date']
+    trans = PatronTransactionEvent.create(trans_data)
+    assert trans.get('creation_date')
+
     record_url = url_for(
         'invenio_records_rest.ptre_item',
         pid_value=patron_transaction_overdue_event_martigny.pid)
