@@ -20,13 +20,14 @@
 from datetime import datetime, timezone
 from functools import partial
 
-from flask import current_app
+from flask_babelex import gettext as _
 
 from .models import PatronTransactionEventIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import get_ref_for_pid
 
 # provider
 PatronTransactionEventProvider = type(
@@ -76,8 +77,25 @@ class PatronTransactionEvent(IlsRecord):
             cls, patron_transaction=None, dbcommit=None, reindex=None,
             delete_pid=None, update_parent=True):
         """Create a patron transaction event from patron transaction."""
-        data = build_patron_transaction_event_ref(patron_transaction, {})
-        data['creation_date'] = patron_transaction.get('creation_date')
+        data = {
+            'creation_date': patron_transaction.get('creation_date'),
+            'type': 'fee',
+            'amount': patron_transaction.get('total_amount'),
+            'parent': {
+                '$ref': get_ref_for_pid('pttr', patron_transaction.pid)
+            }
+        }
+        if patron_transaction.get('type') == 'overdue':
+            data['library'] = {
+                '$ref': get_ref_for_pid(
+                    'lib',
+                    patron_transaction.notification_transaction_library_pid
+                )
+            }
+            data['subtype'] = 'overdue'
+        elif patron_transaction.get('type') == 'subscription':
+            data['subtype'] = 'other'
+            data['data'] = _('Initial charge')
         record = cls.create(
             data,
             dbcommit=dbcommit,
@@ -137,43 +155,6 @@ class PatronTransactionEvent(IlsRecord):
         patron_transaction = PatronTransaction.get_record_by_pid(
             self.parent_pid)
         return patron_transaction.organisation_pid
-
-
-def build_patron_transaction_event_ref(patron_transaction, data):
-    """Create $ref for a patron transaction event."""
-    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-    data_schema = {
-        'base_url': current_app.config.get('RERO_ILS_APP_BASE_URL'),
-        'schema_endpoint': current_app.config.get('JSONSCHEMAS_ENDPOINT'),
-        'schema': schemas['ptre']
-    }
-    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-        .format(**data_schema)
-    base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-    url_api = '{base_url}/api/{doc_type}/{pid}'
-    for record in [
-        {
-            'resource': 'parent',
-            'doc_type': 'patron_transactions',
-            'pid': patron_transaction.pid
-        }, {
-            'resource': 'library',
-            'doc_type': 'libraries',
-            'pid': patron_transaction.notification_transaction_library_pid
-        },
-    ]:
-        data[record['resource']] = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='{}'.format(record['doc_type']),
-                pid=record['pid'])
-            }
-    if patron_transaction.get('type') == 'overdue':
-        data['type'] = 'fee'
-        data['subtype'] = 'overdue'
-        data['amount'] = patron_transaction.get('total_amount')
-
-    return data
 
 
 class PatronTransactionEventsIndexer(IlsRecordsIndexer):

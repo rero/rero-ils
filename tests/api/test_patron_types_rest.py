@@ -27,6 +27,8 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.patron_types.api import PatronType
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_patron_types_permissions(client, patron_type_children_martigny,
@@ -320,3 +322,35 @@ def test_patron_type_secure_api_delete(client, json_header,
 
     res = client.delete(record_url)
     assert res.status_code == 403
+
+
+def test_patron_types_subscription(
+        patron_type_youngsters_sion, patron_type_adults_martigny,
+        patron_type_grown_sion, patron_sion_no_email):
+    """Test subscription behavior for patron_types."""
+    assert patron_type_youngsters_sion.is_subscription_required
+
+    # A patron_type with a subscription amount equal to 0 doesn't
+    # require a subscription
+    patron_type_youngsters_sion['subscription_amount'] = 0
+    assert not patron_type_youngsters_sion.is_subscription_required
+
+    del(patron_type_youngsters_sion['subscription_amount'])
+    assert not patron_type_youngsters_sion.is_subscription_required
+
+    # Test the 'get_yearly_subscription_patron_types' function.
+    assert len(list(PatronType.get_yearly_subscription_patron_types())) == 2
+
+    # Test 'get_linked_patrons' functions.
+    assert len(list(patron_type_grown_sion.get_linked_patron())) == 1
+    assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 0
+    patron_sion_no_email['patron_type']['$ref'] = get_ref_for_pid(
+        'ptty', patron_type_youngsters_sion.pid)
+    patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
+    patron_sion_no_email.reindex()
+    assert len(list(patron_type_grown_sion.get_linked_patron())) == 0
+    assert len(list(patron_type_youngsters_sion.get_linked_patron())) == 1
+    patron_sion_no_email['patron_type']['$ref'] = get_ref_for_pid(
+        'ptty', patron_type_grown_sion.pid)
+    patron_sion_no_email.update(patron_sion_no_email, dbcommit=True)
+    patron_sion_no_email.reindex()
