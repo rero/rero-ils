@@ -36,8 +36,7 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
-from ..utils import get_ref_for_pid
-from ..utils import trim_barcode_for_record
+from ..utils import get_ref_for_pid, trim_barcode_for_record
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -230,6 +229,10 @@ class Patron(IlsRecord):
         loans = self.get_number_of_loans()
         if loans:
             links['loans'] = loans
+        transactions = PatronTransaction.get_transactions_count_for_patron(
+            self.pid, status='open')
+        if transactions > 0:
+            links['transactions'] = transactions
         return links
 
     def reasons_to_keep(self):
@@ -353,7 +356,8 @@ class PatronsIndexer(IlsRecordsIndexer):
         subs = filter(is_subscription_valid, self.get('subscriptions', []))
         return list(subs)
 
-    def add_subscription(self, patron_type, start_date, end_date):
+    def add_subscription(self, patron_type, start_date, end_date,
+                         dbcommit=True, reindex=True, delete_pids=False):
         """Add a subscription to a patron type.
 
         :param patron_type: the patron_type linked to the subscription
@@ -362,7 +366,7 @@ class PatronsIndexer(IlsRecordsIndexer):
         """
         transaction = PatronTransaction.create_subscription_for_patron(
             self, patron_type, start_date, end_date,
-            dbcommit=True, reindex=True, delete_pid=True)
+            dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pids)
         if transaction:
             subscriptions = self.get('subscriptions', [])
             subscriptions.append({
@@ -376,4 +380,4 @@ class PatronsIndexer(IlsRecordsIndexer):
                 'end_date': end_date.strftime('%Y-%m-%d'),
             })
             self['subscriptions'] = subscriptions
-            self.update(self, dbcommit=True, reindex=True)
+            self.update(self, dbcommit=dbcommit, reindex=reindex)
