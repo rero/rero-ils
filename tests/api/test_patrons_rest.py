@@ -72,50 +72,61 @@ def test_patron_has_valid_subscriptions(
         patron_type_adults_martigny, patron2_martigny_no_email,
         patron_type_youngsters_sion):
     """Test patron subscriptions."""
+    patron_sion = patron_sion_no_email
+    patron_martigny = patron2_martigny_no_email
+
     # 'patron_type_adults_martigny' doesn't require any subscription
     # 'patron2_martigny_no_email' is linked to it, so `has_valid_subscription`
     # should return True
     assert not patron_type_adults_martigny.is_subscription_required
-    assert patron2_martigny_no_email.has_valid_subscription
+    assert patron_martigny.has_valid_subscription
 
     # 'patron_type_grown_sion' require a subscription
-    # 'patron_sion_no_email' is linked to it and it hasn't yet any subscription
-    # so `has_valid_subscription` should return False
+    # removed all stored subscription and test if subscription exists
+    if patron_sion.get('subscriptions'):
+        del patron_sion['subscriptions']
     assert patron_type_grown_sion.is_subscription_required
-    assert not patron_sion_no_email.has_valid_subscription
+    assert not patron_sion.has_valid_subscription
 
     # Create a subscription for this patron and check this subscription is
     # stored and valid
     start = datetime.now() - timedelta(seconds=10)
     end = datetime.now() + timedelta(days=10)
-    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
-    assert patron_sion_no_email.has_valid_subscription
-    assert len(patron_sion_no_email.get_valid_subscriptions()) == 1
-    subscription = patron_sion_no_email.get_valid_subscriptions()[0]
+    patron_sion.add_subscription(patron_type_grown_sion, start, end)
+    assert patron_sion.has_valid_subscription
+    assert len(patron_sion.get_valid_subscriptions()) == 1
+    subscription = patron_sion.get_valid_subscriptions()[0]
     assert subscription.get('start_date') == start.strftime('%Y-%m-%d')
 
     # Create a old subscription for this patron and check validity
     start = datetime.now() - timedelta(days=20)
     end = start + timedelta(days=10)
-    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
-    assert len(patron_sion_no_email.get('subscriptions', [])) == 2
-    assert len(patron_sion_no_email.get_valid_subscriptions()) == 1
+    patron_sion.add_subscription(patron_type_grown_sion, start, end)
+    assert len(patron_sion.get('subscriptions', [])) == 2
+    assert len(patron_sion.get_valid_subscriptions()) == 1
 
     # remove old subscriptions. Create an old one and check the patron doesn't
     # have any valid subscription
-    del patron_sion_no_email['subscriptions']
-    patron_sion_no_email.add_subscription(patron_type_grown_sion, start, end)
-    assert not patron_sion_no_email.has_valid_subscription
+    del patron_sion['subscriptions']
+    patron_sion.add_subscription(patron_type_grown_sion, start, end)
+    # !! As `add_subscription` use the method `Patron.update`, then the signal
+    #    `after_record_update` are send by invenio_records and the patron
+    #    listener `reate_subscription_patron_transaction` is called. This
+    #    listener found that user doesn't have any subscription and add a valid
+    #    one for this patron. So after `add_subscription` call, i just removed
+    #    the valid subscription created.
+    del patron_sion['subscriptions'][1]
+    assert not patron_sion.has_valid_subscription
 
     # remove all subscriptions. Create a valid subscription other patron_type
     # than current patron.patron_type. Check if the patron has a valid
     # subscription
-    del patron_sion_no_email['subscriptions']
+    del patron_sion['subscriptions']
     start = datetime.now() - timedelta(seconds=10)
     end = datetime.now() + timedelta(days=10)
-    patron_sion_no_email.add_subscription(
+    patron_sion.add_subscription(
         patron_type_youngsters_sion, start, end)
-    assert patron_sion_no_email.has_valid_subscription
+    assert patron_sion.has_valid_subscription
 
 
 def test_patrons_permissions(client, librarian_martigny_no_email,

@@ -73,6 +73,37 @@ class PatronTransaction(IlsRecord):
             delete_pid=delete_pid, update_parent=False)
         return record
 
+    @classmethod
+    def _build_transaction_query(cls, patron_pid, status=None):
+        """Private function to build a transaction query linked to a patron."""
+        query = PatronTransactionsSearch() \
+            .filter('term', patron__pid=patron_pid)
+        if status:
+            query = query.filter('term', status=status)
+        return query
+
+    @classmethod
+    def get_transactions_pids_for_patron(cls, patron_pid, status=None):
+        """Get patron transactions linked to a patron.
+
+        :param patron_pid: the patron pid being searched
+        :param status: (optional) transaction status filter,
+        """
+        query = cls._build_transaction_query(patron_pid, status)
+        results = query.source('pid').scan()
+        for result in results:
+            yield result.pid
+
+    @classmethod
+    def get_transactions_count_for_patron(cls, patron_pid, status=None):
+        """Get patron transactions count linked to a patron.
+
+        :param patron_pid: the patron pid being searched
+        :param status: (optional) transaction status filter,
+        """
+        query = cls._build_transaction_query(patron_pid, status)
+        return query.source().count()
+
     @property
     def loan_pid(self):
         """Return the loan pid of the the overdue patron transaction."""
