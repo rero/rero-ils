@@ -20,7 +20,9 @@
 import os
 from datetime import datetime
 
-from rero_ils.modules.utils import add_years, read_json_record
+from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import add_years, get_schema_for_resource, \
+    read_json_record
 from rero_ils.utils import unique_list
 
 
@@ -54,3 +56,10 @@ def test_add_years():
     assert tow_years_later.month == 3 and tow_years_later.day == 1
     assert four_years_later.month == initial_date.month and \
         four_years_later.day == initial_date.day
+
+
+def test_get_schema_for_resources(app):
+    """Test get_schemas_for_resource function."""
+    json_schema = 'https://ils.rero.ch/schema/patrons/patron-v0.0.1.json'
+    assert get_schema_for_resource(Patron) == json_schema
+    assert get_schema_for_resource('ptrn') == json_schema

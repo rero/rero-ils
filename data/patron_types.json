@@ -6,7 +6,8 @@
     "description": "Standard patron.",
     "organisation": {
       "$ref": "https://ils.rero.ch/api/organisations/1"
-    }
+    },
+    "subscription_amount": 10
   },
   {
     "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",

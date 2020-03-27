@@ -468,3 +468,16 @@ def test_patron_subscription_transaction(
     assert event.get('type') == 'fee'
     assert event.get('subtype') == 'other'
     assert event.get('amount') == subscription.get('total_amount')
+
+
+def test_get_transactions_pids_for_patron(patron_sion_no_email):
+    """Test function get_transactions_pids_for_patron."""
+    assert PatronTransaction.get_transactions_count_for_patron(
+        patron_sion_no_email.pid
+    ) == 2
+    assert len(list(PatronTransaction.get_transactions_pids_for_patron(
+        patron_sion_no_email.pid, status='open'
+    ))) == 2
+    assert len(list(PatronTransaction.get_transactions_pids_for_patron(
+        patron_sion_no_email.pid, status='closed'
+    ))) == 0
