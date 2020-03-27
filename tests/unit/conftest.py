@@ -25,6 +25,13 @@ import pytest
 from pkg_resources import resource_string
 
 
+@pytest.fixture(scope='module')
+def create_app():
+    """Create test app."""
+    from invenio_app.factory import create_ui
+    return create_ui
+
+
 @pytest.fixture()
 def circ_policy_schema():
     """Patron Jsonschema for records."""

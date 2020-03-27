@@ -174,3 +174,24 @@ def trim_barcode_for_record(data=None):
     if data and data.get('barcode'):
         data['barcode'] = data.get('barcode').strip()
     return data
+
+
+def get_schema_for_resource(resource):
+    """Return the schema corresponding to a resources.
+
+    :param resource: Either the resource_type shortcut as a string,
+                     Either a resource class (subclass of IlsRecord
+
+    USAGE:
+      schema = get_schemas_for_resource('ptrn')
+      shcema = get_schemas_for_resource(Patron)
+    """
+    if not isinstance(resource, str):
+        resource = resource.provider.pid_type
+    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
+    if resource in schemas:
+        return '{url}{endpoint}{schema}'.format(
+            url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+            endpoint=current_app.config.get('JSONSCHEMAS_ENDPOINT'),
+            schema=schemas[resource]
+        )

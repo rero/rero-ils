@@ -25,8 +25,7 @@ from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
-from invenio_records.signals import after_record_delete, after_record_insert, \
-    after_record_revert, after_record_update
+from invenio_records.signals import after_record_insert, after_record_update
 
 from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
@@ -39,7 +38,8 @@ from .notifications.listener import enrich_notification_data
 from .patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
 from .patron_transactions.listener import enrich_patron_transaction_data
-from .patrons.listener import enrich_patron_data
+from .patrons.listener import create_subscription_patron_transaction, \
+    enrich_patron_data
 from .persons.listener import enrich_persons_data
 from .persons.receivers import publish_api_harvested_records
 from ..filter import format_date_filter, jsondumps, text_to_id, to_pretty_json
@@ -101,6 +101,9 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_notification_data)
         before_record_index.connect(enrich_patron_transaction_event_data)
         before_record_index.connect(enrich_patron_transaction_data)
+
+        after_record_insert.connect(create_subscription_patron_transaction)
+        after_record_update.connect(create_subscription_patron_transaction)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 
