@@ -69,8 +69,8 @@ pycountry = ">=19.7.15"
 xmltodict = "*"
 # TODO: to be removed when the thumbnail will be refactored
 angular-gettext-babel= ">=0.1"
-# Avoid CVE 38076 on bleach <=3.1.1 ( dependency of invenio-record-rest)
-bleach = ">3.1.1"
+# Avoid CVE 38107 on bleach <=3.1.3 (dependency of invenio-record-rest)
+bleach = ">=3.1.4"
 ## Additionnal constraints on python modules
 # solves datetime serialize error
 celery = "<4.3.0"
