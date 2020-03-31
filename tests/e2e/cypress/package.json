@@ -1,0 +1,36 @@
+{
+  "name": "rero-ils-e2e-test",
+  "version": "1.0.0",
+  "description": "rero-ils e2e testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress": "npx cypress open"
+  },
+  "author": {
+    "name": "RERO",
+    "email": "software@rero.ch"
+  },
+  "contributors": [
+    "Alicia Zangger <alicia.zangger@rero.ch>",
+    "Aly Badr <aly.badr@rero.ch>",
+    "Benoit Erken <benoit.erken@uclouvain.be>",
+    "Bertrand Zuchuat <bertrand.zuchuat@rero.ch>",
+    "Gianni Pante <gianni.pante@rero.ch>",
+    "Igor Milhit <igor.milhit@rero.ch>",
+    "Johnny Mariéthoz <johnny.mariethoz@rero.ch>",
+    "Laurent Dubois <laurent.dubois@itld-solutions.be>",
+    "Mana Deweerdt <mana.deweerdt@uclouvain.be>",
+    "Miguel Moreira <miguel.moreira@rero.ch>",
+    "Nicolas Labat <nicolas.labat@rero.ch>",
+    "Nicolas Prongué <nicolas.prongue@rero.ch>",
+    "Olivier Dossmann <git@dossmann.net>",
+    "Peter Weber <peter.weber@rero.ch>",
+    "Renaud Michotte <renaud.michotte@gmail.com>",
+    "Sébastien Délèze <sebastien.deleze@rero.ch>"
+  ],
+  "license": "AGPL-3.0-only",
+  "devDependencies": {
+    "cypress": "^4.6.0"
+  }
+}

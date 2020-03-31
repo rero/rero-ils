@@ -54,6 +54,7 @@ include Pipfile
 include babel.ini
 include pytest.ini
 recursive-include data *.json
+recursive-include tests *.js
 recursive-include tests *.json
 recursive-include tests *.xml
 recursive-include data *.xml
@@ -102,3 +103,6 @@ data/*_errors.xml
 
 # redis scheduler files
 exclude rero_ils.schedulers.RedisScheduler
+
+# Cypress
+prune tests/e2e/cypress/node_modules*

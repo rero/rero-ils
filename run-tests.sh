@@ -75,7 +75,7 @@ if [ $# -eq 0 ]
 
         set -e
         safety check
-        flask utils check_json tests rero_ils/modules data
+        flask utils check_json tests/data rero_ils/modules data
         flask utils check_license check_license_config.yml
         info_msg "Test pydocstyle:"
         pydocstyle rero_ils tests docs
