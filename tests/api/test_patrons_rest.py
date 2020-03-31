@@ -124,9 +124,22 @@ def test_patron_has_valid_subscriptions(
     del patron_sion['subscriptions']
     start = datetime.now() - timedelta(seconds=10)
     end = datetime.now() + timedelta(days=10)
-    patron_sion.add_subscription(
-        patron_type_youngsters_sion, start, end)
+    patron_sion.add_subscription(patron_type_youngsters_sion, start, end)
     assert patron_sion.has_valid_subscription
+
+    # Create a old subscription for `patron_sion`. Call ES to know patrons with
+    # an obsolete subscription. This query should return the recently updated
+    # patron.
+    start = datetime.now() - timedelta(days=20)
+    end = start + timedelta(days=10)
+    patron_sion.add_subscription(patron_type_youngsters_sion, start, end)
+    patron_sion.add_subscription(patron_type_grown_sion, start, end)
+    patrons = list(Patron.patrons_with_obsolete_subscription_pids())
+    assert len(patrons) == 1 and patrons[0].pid == patron_sion.pid
+    # same check for a very old end_date
+    end_date = end - timedelta(days=100)
+    patrons = list(Patron.patrons_with_obsolete_subscription_pids(end_date))
+    assert len(patrons) == 0
 
 
 def test_patrons_permissions(client, librarian_martigny_no_email,
