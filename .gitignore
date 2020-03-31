@@ -83,3 +83,6 @@ rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
 
 # ES mapping files
 tmp/
+
+# Cypress
+tests/e2e/cypress/node_modules
