@@ -107,7 +107,13 @@ class Document(IlsRecord):
         """Get number of items for document."""
         from ..items.api import ItemsSearch
         return ItemsSearch().filter(
-            'term', document__pid=self.pid).source().count()
+            'term', document__pid=self.pid).count()
+
+    def get_number_of_holdings(self):
+        """Get number of holdings for document."""
+        from ..holdings.api import HoldingsSearch
+        return HoldingsSearch().filter(
+            'term', document__pid=self.pid).count()
 
     def get_number_of_loans(self):
         """Get number of document loans."""
@@ -123,11 +129,15 @@ class Document(IlsRecord):
     def get_number_of_acquisition_order_lines(self):
         """Get number of acquisition order lines for document."""
         return AcqOrderLinesSearch().filter(
-            'term', document__pid=self.pid).source().count()
+            'term', document__pid=self.pid).count()
 
     def get_links_to_me(self):
         """Get number of links."""
         links = {}
+        # get number of document holdings
+        number_of_holdings = self.get_number_of_holdings()
+        if number_of_holdings:
+            links['holdings'] = number_of_holdings
         # get number of items linked
         number_of_items = self.get_number_of_items()
         if number_of_items:

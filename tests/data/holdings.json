@@ -135,7 +135,7 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc1"
     },
-    "holdings_type": "monograph"
+    "holdings_type": "standard"
   },
   "holding2": {
     "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
@@ -150,7 +150,7 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc3"
     },
-    "holdings_type": "monograph"
+    "holdings_type": "standard"
   },
   "holding3": {
     "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
@@ -165,7 +165,7 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc5"
     },
-    "holdings_type": "monograph"
+    "holdings_type": "standard"
   },
   "holding4": {
     "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
@@ -180,7 +180,7 @@
     "location": {
       "$ref": "https://ils.rero.ch/api/locations/loc7"
     },
-    "holdings_type": "monograph"
+    "holdings_type": "standard"
   },
   "holding5": {
     "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
@@ -197,10 +197,10 @@
     },
     "holdings_type": "serial",
     "patterns": {
-      "template": "no {{first_chronology.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -209,7 +209,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -232,10 +232,10 @@
   "pattern1": {
     "template_name": "quarterly_one_level",
     "patterns": {
-      "template": "no {{first_chronology.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -244,7 +244,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -267,10 +267,10 @@
   "pattern2": {
     "template_name": "yearly_one_level",
     "patterns": {
-      "template": "{{first_chronology.level_1}} {{second_chronology.level_1}}",
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -279,7 +279,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -293,10 +293,10 @@
   "pattern3": {
     "template_name": "yearly_one_level_with_label",
     "patterns": {
-      "template": "{{first_chronology.level_1}} Edition {{second_chronology.level_1}}",
+      "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -305,7 +305,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -319,10 +319,10 @@
   "pattern4": {
     "template_name": "yearly_two_times",
     "patterns": {
-      "template": "Jg. {{first_chronology.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -336,7 +336,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -359,10 +359,10 @@
   "pattern5": {
     "template_name": "quarterly_two_levels",
     "patterns": {
-      "template": "Jg. {{first_chronology.level_1}} Heft {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -376,7 +376,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -395,7 +395,7 @@
   "pattern6": {
     "template_name": "quarterly_two_levels_with_season",
     "patterns": {
-      "template": "ann\u00e9e {{first_chronology.level_1}} no {{second_chronology.level_1}} {{third_chronology.level_2}} {{third_chronology.level_1}}",
+      "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
       "values": [
         {
           "name": "first_chronology",
@@ -412,7 +412,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -421,7 +421,7 @@
           ]
         },
         {
-          "name": "third_chronology",
+          "name": "second_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -445,10 +445,10 @@
   "pattern7": {
     "template_name": "half_yearly_one_level",
     "patterns": {
-      "template": "N\u02da {{first_chronology.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -457,7 +457,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -478,10 +478,10 @@
   "pattern8": {
     "template_name": "bimonthly_every_two_months_one_level",
     "patterns": {
-      "template": "{{first_chronology.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -490,7 +490,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -515,10 +515,10 @@
   "pattern9": {
     "template_name": "half_yearly_two_levels",
     "patterns": {
-      "template": "Ann\u00e9e {{first_chronology.level_1}} no {{second_chronology.level_1}} {{third_chronology.level_2}} {{third_chronology.level_1}}",
+      "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -531,7 +531,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "second_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -540,7 +540,7 @@
           ]
         },
         {
-          "name": "third_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
@@ -561,10 +561,10 @@
   "pattern10": {
     "template_name": "bimonthly_every_two_months_two_levels",
     "patterns": {
-      "template": "Jg {{first_chronology.level_1}} Nr {{second_chronology.level_1}} {{third_chronology.level_2}} {{third_chronology.level_1}}",
+      "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "values": [
         {
-          "name": "first_chronology",
+          "name": "first_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -577,7 +577,7 @@
           ]
         },
         {
-          "name": "second_chronology",
+          "name": "second_enumeration",
           "levels": [
             {
               "name": "level_1",
@@ -586,7 +586,7 @@
           ]
         },
         {
-          "name": "third_chronology",
+          "name": "first_chronology",
           "levels": [
             {
               "name": "level_1",
