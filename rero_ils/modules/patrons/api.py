@@ -19,6 +19,7 @@
 from datetime import datetime
 from functools import partial
 
+from elasticsearch_dsl import Q
 from flask import current_app
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
@@ -179,6 +180,28 @@ class Patron(IlsRecord):
             return super(Patron, cls).get_record_by_pid(patron_pid)
         except StopIteration:
             return None
+
+    @classmethod
+    def patrons_with_obsolete_subscription_pids(cls, end_date=None):
+        """Search about patrons with obsolete subscription."""
+        if end_date is None:
+            end_date = datetime.now()
+        end_date = end_date.strftime('%Y-%m-%d')
+        results = PatronsSearch()\
+            .filter('range', subscriptions__end_date={'lt': end_date})\
+            .source('pid')\
+            .scan()
+        for result in results:
+            yield Patron.get_record_by_pid(result.pid)
+
+    @classmethod
+    def get_patrons_without_subscription(cls, patron_type_pid):
+        """Get patrons linked to patron_type that haven't any subscription."""
+        query = PatronsSearch() \
+            .filter('term', patron_type__pid=patron_type_pid) \
+            .filter('bool', must_not=[Q('exists', field="subscriptions")])
+        for res in query.source('pid').scan():
+            yield Patron.get_record_by_pid(res.pid)
 
     def add_role(self, role_name):
         """Add a given role to a user."""

@@ -248,6 +248,11 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute="*/5")
         # TODO: in production set this up once a day
     },
+    'clear_and_renew_subscriptions': {
+        'task':
+            'rero_ils.modules.patrons.tasks.task_clear_and_renew_subscriptions',
+        'schedule': crontab(minute='2', hour='2')
+    }
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
