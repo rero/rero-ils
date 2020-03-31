@@ -29,6 +29,30 @@ directories:
       - rero_ils/modules/notifications/templates/email/due_soon
       - rero_ils/modules/notifications/templates/email/overdue
       - rero_ils/modules/notifications/templates/email/recall
+    ts:
+      - tests/e2e/cypress/cypress/support
+      - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/node_modules
+    js:
+      - tests/e2e/cypress/cypress/support
+      - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/node_modules
+    d.ts:
+      - tests/e2e/cypress/cypress/support
+      - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/node_modules
+    d.js:
+      - tests/e2e/cypress/cypress/support
+      - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/node_modules
+    html:
+    - tests/e2e/cypress/cypress/support
+    - tests/e2e/cypress/cypress/plugins
+    - tests/e2e/cypress/node_modules
+    conf:
+      - tests/e2e/cypress/cypress/support
+      - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/node_modules
 
 files:
   py:

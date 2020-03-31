@@ -104,6 +104,7 @@ server = "scripts:run('./scripts/server')"
 setup = "scripts:run('./scripts/setup')"
 tests = "scripts:run('pytest')"
 update = "scripts:run('./scripts/update')"
+cypress = "scripts:run('./scripts/cypress')"
 
 [build-system]
 requires = ["poetry>=0.12"]
