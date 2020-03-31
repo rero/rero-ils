@@ -29,7 +29,7 @@ from jsonschema.exceptions import ValidationError
 
 
 def test_required(holding_schema, holding_lib_martigny_data):
-    """Test required for holdings of type monograph jsonschemas."""
+    """Test required for holdings of type standard jsonschemas."""
     validate(holding_lib_martigny_data, holding_schema)
 
     with pytest.raises(ValidationError):

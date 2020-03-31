@@ -98,21 +98,36 @@ class Holding(IlsRecord):
 
         Ensures that holdings of type serials are created only on
         journal documents i.e. serial mode_of_issuance documents.
+
+        Ensures that holdings of type electronic are created only on
+        ebooks documents i.e. harvested documents.
+
+        :returns: False if
+            - document type is not journal and holding type is serial.
+            - document type is journal and holding type is not serial.
+            - document type is ebook and holding type is not electronic.
+            - document type is not ebook and holding type is electronic.
         """
-        document = Document.get_record_by_pid(self.document_pid).dumps()
-        is_serial = self.get('holdings_type') == 'serial'
-        is_issuance = document.get('issuance') == 'rdami:1003'
-        if (is_issuance and not is_serial) or (not is_issuance and is_serial):
-            return False
-        return True
+        document = Document.get_record_by_pid(self.document_pid)
+        is_serial = self.holdings_type == 'serial'
+        is_electronic = self.holdings_type == 'electronic'
+        is_issuance = document.dumps().get('issuance') == 'rdami:1003'
+        return not(
+            (is_issuance ^ is_serial) or (document.harvested ^ is_electronic)
+            )
 
     @property
     def is_serial(self):
         """Shortcut to check if holding is a serial holding record."""
         document = Document.get_record_by_pid(self.document_pid).dumps()
-        is_serial = self.get('holdings_type') == 'serial'
+        is_serial = self.holdings_type == 'serial'
         is_issuance = document.get('issuance') == 'rdami:1003'
         return is_serial and is_issuance
+
+    @property
+    def holdings_type(self):
+        """Shortcut to return the type of the holding."""
+        return self.get('holdings_type')
 
     @property
     def document_pid(self):
@@ -232,8 +247,14 @@ class Holding(IlsRecord):
         return results
 
     def get_links_to_me(self):
-        """Get number of links."""
+        """Get links that can block the holding deletion.
+
+        Attached items to a holding record blocks the deletion.
+
+        :returns: a list of records links to the holding record.
+        """
         links = {}
+        # get number of attached items
         items = self.get_number_of_items()
         if items:
             links['items'] = items
@@ -357,15 +378,15 @@ class Holding(IlsRecord):
         return text
 
 
-def get_monograph_holding_pid_by_doc_location_item_type(
+def get_standard_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid):
-    """Returns monograph holding pid for document/location/item type."""
+    """Returns standard holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
         'term',
         document__pid=document_pid
     ).filter(
         'term',
-        holdings_type='monograph'
+        holdings_type='standard'
     ).filter(
         'term',
         circulation_category__pid=item_type_pid
@@ -437,7 +458,7 @@ def create_holding(
     if electronic_location:
         data['electronic_location'] = [electronic_location]
     if not holdings_type:
-        holdings_type = 'monograph'
+        holdings_type = 'standard'
     data['holdings_type'] = holdings_type
     if patterns and holdings_type == 'serial':
         data['patterns'] = patterns

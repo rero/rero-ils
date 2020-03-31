@@ -238,7 +238,7 @@ class Item(IlsRecord):
         record = super(Item, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if not data.get('holding'):
-            record.item_link_to_holding()
+            record.link_item_to_holding()
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
@@ -252,7 +252,7 @@ class Item(IlsRecord):
         data = trim_barcode_for_record(data=data)
         super(Item, self).update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
-        self.item_link_to_holding()
+        self.link_item_to_holding()
 
         return self
 
@@ -273,16 +273,16 @@ class Item(IlsRecord):
         }
         data['organisation'] = org_ref
 
-    def item_link_to_holding(self):
-        """Link an item to a monograph holding record."""
+    def link_item_to_holding(self):
+        """Link an item to a standard holding record."""
         from ..holdings.api import \
-            get_monograph_holding_pid_by_doc_location_item_type, \
+            get_standard_holding_pid_by_doc_location_item_type, \
             create_holding
 
         item = self.replace_refs()
         document_pid = item.get('document').get('pid')
 
-        holding_pid = get_monograph_holding_pid_by_doc_location_item_type(
+        holding_pid = get_standard_holding_pid_by_doc_location_item_type(
             document_pid, self.location_pid, self.item_type_pid)
 
         if not holding_pid:

@@ -175,6 +175,7 @@ def create_holding_record(
             '$ref': url_api.format(
                 doc_type='locations', pid=location_pid)
         },
+        'holdings_type': 'standard',
         'circulation_category': {
             '$ref': url_api.format(
                 doc_type='item_types', pid=item_type_pid)
