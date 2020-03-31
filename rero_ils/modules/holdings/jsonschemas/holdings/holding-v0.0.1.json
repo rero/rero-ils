@@ -6,7 +6,11 @@
   "additionalProperties": false,
   "required": [
     "$schema",
-    "pid"
+    "pid",
+    "holdings_type",
+    "circulation_category",
+    "location",
+    "document"
   ],
   "properties": {
     "$schema": {
@@ -90,10 +94,11 @@
       "type": "string",
       "title": "Type of the holdings",
       "enum": [
-        "monograph",
+        "standard",
+        "electronic",
         "serial"
       ],
-      "default": "monograph"
+      "default": "standard"
     },
     "patterns": {
       "title": "Captions for the patterns enumeration and chronology.",
@@ -123,21 +128,21 @@
             "properties": {
               "name": {
                 "type": "string",
-                "title": "Name of the caption chronology.",
+                "title": "Name of the caption chronology or enumeration.",
                 "minLength": 1
               },
               "levels": {
-                "title": "Caption's chronology levels.",
+                "title": "Caption's chronology or enumeration levels.",
                 "type": "array",
                 "minItems": 1,
                 "items": {
-                  "title": "Caption's chronology levels.",
+                  "title": "Caption's chronology or enumeration levels.",
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
                     "name": {
                       "type": "string",
-                      "title": "Name of the chronology level.",
+                      "title": "Name of the chronology or enumeration level.",
                       "minLength": 1
                     },
                     "starting_value": {
@@ -156,7 +161,7 @@
                       "minimum": 1
                     },
                     "mapping_values": {
-                      "title": "Mapping values for the chronology level",
+                      "title": "Mapping values for the chronology or enumeration level",
                       "type": "array",
                       "uniqueItems": true,
                       "minItems": 1,
@@ -192,7 +197,8 @@
       "properties": {
         "holdings_type": {
           "enum": [
-            "monograph"
+            "standard",
+            "electronic"
           ]
         }
       }

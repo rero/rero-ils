@@ -35,7 +35,7 @@ from rero_ils.modules.items.api import Item
 def test_patterns_functions(holding_lib_martigny_w_patterns,
                             holding_lib_martigny):
     """Test holdings patterns functions."""
-    # test no prediction for monograph holdings record
+    # test no prediction for standard holdings record
     assert not holding_lib_martigny.increment_next_prediction()
     assert not holding_lib_martigny.next_issue_display_text
     assert not holding_lib_martigny.prediction_issues_preview(1)
@@ -304,7 +304,7 @@ def test_create_holdings_with_pattern(
     holding_lib_martigny_data['patterns'] = \
         pattern_yearly_one_level_data['patterns']
 
-    # test will fail when creating a serial holding for a monograph document.
+    # test will fail when creating a serial holding for a standard document.
     res, _ = postdata(
         client,
         post_entrypoint,
@@ -312,8 +312,8 @@ def test_create_holdings_with_pattern(
     )
     assert res.status_code == 403
 
-    # test will fail when creating a monograph holding for a journal document.
-    holding_lib_martigny_w_patterns_data['holdings_type'] = 'monograph'
+    # test will fail when creating a standard holding for a journal document.
+    holding_lib_martigny_w_patterns_data['holdings_type'] = 'standard'
     del holding_lib_martigny_w_patterns_data['patterns']
     with pytest.raises(RecordValidationError):
         Holding.create(
