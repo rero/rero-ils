@@ -51,9 +51,9 @@ from .modules.acq_invoices.api import AcquisitionInvoice
 from .modules.acq_order_lines.api import AcqOrderLine, AcqOrderLinesIndexer
 from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
-from .modules.budgets.permissions import can_create_budgets_factory, \
-    can_list_budgets_factory, can_update_delete_budgets_factory
+from .modules.budgets.permissions import can_list_budgets_factory
 from .modules.circ_policies.api import CircPolicy
+from .modules.circ_policies.permissions import can_update_circ_policy_factory
 from .modules.documents.api import Document, DocumentsIndexer
 from .modules.holdings.api import Holding, HoldingsIndexer
 from .modules.item_types.api import ItemType
@@ -61,8 +61,7 @@ from .modules.items.api import Item, ItemsIndexer
 from .modules.items.permissions import can_create_item_factory, \
     can_update_delete_item_factory
 from .modules.libraries.api import Library
-from .modules.libraries.permissions import can_create_library_factory, \
-    can_delete_library_factory, can_update_library_factory
+from .modules.libraries.permissions import can_update_library_factory
 from .modules.loans.api import Loan
 from .modules.loans.permissions import can_list_loan_factory, \
     can_read_loan_factory
@@ -76,7 +75,6 @@ from .modules.locations.permissions import can_create_location_factory, \
     can_update_delete_location_factory
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
-from .modules.organisations.permissions import can_update_organisations_factory
 from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_transaction_events.permissions import can_list_patron_transaction_event_factory, \
     can_read_patron_transaction_event_factory
@@ -95,6 +93,7 @@ from .permissions import can_access_organisation_patrons_factory, \
     can_delete_organisation_records_factory, can_list_acquisition_factory, \
     can_read_update_delete_acquisition_factory, \
     can_update_organisation_records_factory, \
+    is_system_librarian_organisation_record_factory, \
     librarian_delete_permission_factory, librarian_permission_factory, \
     librarian_update_permission_factory, wiki_edit_ui_permission, \
     wiki_edit_view_permission
@@ -408,7 +407,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:document_search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all,
-        update_permission_factory_imp=librarian_update_permission_factory
+        update_permission_factory_imp=librarian_update_permission_factory,
+        delete_permission_factory_imp=librarian_update_permission_factory
     ),
     item=dict(
         pid_type='item',
@@ -471,9 +471,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
     ),
     hold=dict(
         pid_type='hold',
@@ -635,9 +635,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_create_organisation_records_factory,
+        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
     ),
     org=dict(
         pid_type='org',
@@ -668,7 +668,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:organisation_organisation_search_factory',
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=can_update_organisations_factory,
+        update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
         read_permission_factory_imp=can_access_organisation_records_factory,
     ),
@@ -701,9 +701,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:organisation_search_factory',
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_library_factory,
+        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
         update_permission_factory_imp=can_update_library_factory,
-        delete_permission_factory_imp=can_delete_library_factory,
+        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
     ),
     loc=dict(
         pid_type='loc',
@@ -798,9 +798,9 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_organisation_records_factory,
-        update_permission_factory_imp=can_update_organisation_records_factory,
-        delete_permission_factory_imp=can_delete_organisation_records_factory,
+        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        update_permission_factory_imp=can_update_circ_policy_factory,
+        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
     ),
     notif=dict(
         pid_type='notif',
@@ -932,9 +932,9 @@ RECORDS_REST_ENDPOINTS = dict(
         search_factory_imp='rero_ils.query:organisation_search_factory',
         read_permission_factory_imp=can_access_organisation_records_factory,
         list_permission_factory_imp=can_list_budgets_factory,
-        create_permission_factory_imp=can_create_budgets_factory,
-        update_permission_factory_imp=can_update_delete_budgets_factory,
-        delete_permission_factory_imp=can_update_delete_budgets_factory,
+        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
     ),
     acor=dict(
         pid_type='acor',

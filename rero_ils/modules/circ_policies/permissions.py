@@ -15,22 +15,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Organisation permissions."""
+"""Circulation policies permissions."""
 
-from ...permissions import staffer_is_authenticated
+from ...permissions import staffer_is_authenticated, user_has_roles
 
 
-def can_update_organisations_factory(record, *args, **kwargs):
-    """Checks if logged user can update its organisation.
-
-    user must have system_librarian role
-    librarian can not update its organisations.
-    sys_librarian can not update another organisations.
-    """
+def can_update_circ_policy_factory(record, *args, **kwargs):
+    """Check if a user can update a circulation policy."""
     def can(self):
         patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.get('pid') and \
-                patron.is_system_librarian:
+        if patron and not record:
             return True
+        if patron and patron.organisation_pid == record.organisation_pid:
+            if user_has_roles(roles=['system_librarian']):
+                return True
+            elif user_has_roles(roles=['librarian']) \
+                    and record.get('policy_library_level', False):
+                cipo_library_pids = record.replace_refs().get('libraries', [])
+                cipo_library_pids = [lib['pid'] for lib in cipo_library_pids]
+                return patron.library_pid in cipo_library_pids
         return False
     return type('Check', (), {'can': can})()

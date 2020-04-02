@@ -119,7 +119,9 @@ def get_record_class_update_permission_from_route(route_name):
             record_class = obj_or_import_string(record.get('record_class'))
             update_permission = obj_or_import_string(
                 record.get('update_permission_factory_imp'))
-            return record_class, update_permission
+            delete_permission = obj_or_import_string(
+                record.get('delete_permission_factory_imp'))
+            return record_class, update_permission, delete_permission
 
 
 def get_ref_for_pid(module, pid):

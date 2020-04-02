@@ -19,9 +19,28 @@
 
 import json
 
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
+
+from rero_ils.modules.organisations.api import Organisation
+
+
+def test_get_record_by_viewcode(org_martigny):
+    """Test Organisation.get_record_by_viewcode."""
+    data = Organisation.get_record_by_viewcode('org1')
+    assert data['pid'] == org_martigny.pid
+    with pytest.raises(Exception):
+        assert Organisation.get_record_by_viewcode('dummy')
+
+
+def test_get_record_by_online_harvested_source(org_martigny):
+    """Test get_record_by_online_harvested_source."""
+    source = org_martigny.get('online_harvested_source')
+    org = Organisation.get_record_by_online_harvested_source(source)
+    assert org.pid == org_martigny.pid
+    assert Organisation.get_record_by_online_harvested_source('dummy') is None
 
 
 def test_organisation_secure_api_update(client, json_header, org_martigny,
@@ -41,7 +60,7 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
         data=json.dumps(data),
         headers=json_header
     )
-    assert res.status_code == 200
+    assert res.status_code == 403
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     data['name'] = 'New Name 2'
