@@ -45,7 +45,7 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
 from ..providers import Provider
-from ..transactions.api import CircTransaction
+from ..utils import trim_barcode_for_record
 from ...filter import format_date_filter
 
 # provider
@@ -203,7 +203,6 @@ def add_loans_parameters_and_flush_indexes(function):
             current_circulation.loan_search.Meta.index)
         item.status_update(dbcommit=True, reindex=True, forceindex=True)
         ItemsSearch.flush()
-        CircTransaction.create(loan)
         return item, action_applied
     return wrapper
 
@@ -235,6 +234,7 @@ class Item(IlsRecord):
                dbcommit=False, reindex=False, **kwargs):
         """Create item record."""
         cls._item_build_org_ref(data)
+        data = trim_barcode_for_record(data=data)
         record = super(Item, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if not data.get('holding'):
@@ -242,7 +242,14 @@ class Item(IlsRecord):
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
-        """Update item record."""
+        """Update an item record.
+
+        :param data: The record to update.
+        :param dbcommit: boolean to commit the record to the database or not.
+        :param reindex: boolean to reindex the record or not.
+        :returns: The updated item record.
+        """
+        data = trim_barcode_for_record(data=data)
         super(Item, self).update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
         self.item_link_to_holding()

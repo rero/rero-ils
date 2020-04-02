@@ -36,6 +36,7 @@ from ..libraries.api import Library
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..utils import trim_barcode_for_record
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -74,6 +75,7 @@ class Patron(IlsRecord):
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Patron record creation."""
+        data = trim_barcode_for_record(data=data)
         record = super(Patron, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
         record._update_roles()
@@ -87,6 +89,7 @@ class Patron(IlsRecord):
 
     def update(self, data, dbcommit=False, reindex=False):
         """Update data for record."""
+        data = trim_barcode_for_record(data=data)
         super(Patron, self).update(data, dbcommit, reindex)
         self._update_roles()
         return self
