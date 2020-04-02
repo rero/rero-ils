@@ -33,7 +33,7 @@
       "preferred_name_for_person": "Vittorini, Elio",
       "authorized_access_point_representing_a_person": "Vittorini, Elio, 1908-1966"
     },
-    "pid": "20109313",
+    "pid": "20446541",
     "rero": {
       "md5": "958a50b47ecd90fd457716b3f19ac0e5",
       "pid": "A003945843",
@@ -46,7 +46,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11876876X"
+    "viaf_pid": "27072824"
   },
   {
     "bnf": {
@@ -76,7 +76,7 @@
       "preferred_name_for_person": "Brigatti, Virna",
       "authorized_access_point_representing_a_person": "Brigatti, Virna, 1983-"
     },
-    "pid": "25552024",
+    "pid": "25979989",
     "rero": {
       "md5": "a50772f5ff32bf6a646657626626aa7a",
       "pid": "A022418329",
@@ -89,7 +89,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A022418329"
+    "viaf_pid": "296863859"
   },
   {
     "bnf": {
@@ -116,7 +116,7 @@
       "preferred_name_for_person": "Vann, David",
       "authorized_access_point_representing_a_person": "Vann, David, 1966-"
     },
-    "pid": "19985648",
+    "pid": "20320842",
     "rero": {
       "md5": "2f6b39ba73e7f2aab182edf45b5a5807",
       "pid": "A017365038",
@@ -133,10 +133,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A017365038"
+    "viaf_pid": "73594556"
   },
   {
-    "pid": "8942943",
+    "pid": "9092919",
     "rero": {
       "md5": "c256f58e2599e5068cd18591c5164021",
       "pid": "A003466944",
@@ -147,10 +147,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003466944"
+    "viaf_pid": "63035294"
   },
   {
-    "pid": "27605296",
+    "pid": "28067543",
     "rero": {
       "md5": "6404734011ca59dc6121c7beb734a4a3",
       "pid": "A003466946",
@@ -161,10 +161,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003466946"
+    "viaf_pid": "1525953"
   },
   {
-    "pid": "7269280",
+    "pid": "7391223",
     "rero": {
       "md5": "380483da0b29b66ba522dc24e4bc94a8",
       "pid": "A011517473",
@@ -175,7 +175,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A011517473"
+    "viaf_pid": "75313989"
   },
   {
     "gnd": {
@@ -191,7 +191,7 @@
       "preferred_name_for_person": "Clottu, Olivier",
       "authorized_access_point_representing_a_person": "Clottu, Olivier, 1910-1997"
     },
-    "pid": "3869062",
+    "pid": "3933992",
     "rero": {
       "md5": "7547f8bab960012d0bf8c9baee52714b",
       "pid": "A003112005",
@@ -208,7 +208,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003112005"
+    "viaf_pid": "246397147"
   },
   {
     "gnd": {
@@ -248,7 +248,7 @@
       "preferred_name_for_person": "Arndts von Arnesberg, Karl Ludwig",
       "authorized_access_point_representing_a_person": "Arndts von Arnesberg, Karl Ludwig, 1803-1878"
     },
-    "pid": "24028133",
+    "pid": "24430817",
     "rero": {
       "md5": "14f2e88a968c2c3aec4b0a5b199f9439",
       "pid": "A000009678",
@@ -282,7 +282,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A000009678"
+    "viaf_pid": "27411763"
   },
   {
     "bnf": {
@@ -347,7 +347,7 @@
       "preferred_name_for_person": "Savigny, Friedrich Carl von",
       "authorized_access_point_representing_a_person": "Savigny, Friedrich Carl von, 1779-1861"
     },
-    "pid": "5350187",
+    "pid": "5439883",
     "rero": {
       "md5": "43af881e5cf9b7d61b0a3b72d3355b7b",
       "pid": "A000144580",
@@ -366,7 +366,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118605909"
+    "viaf_pid": "76377829"
   },
   {
     "bnf": {
@@ -391,7 +391,7 @@
       "preferred_name_for_person": "Jira, Martin",
       "authorized_access_point_representing_a_person": "Jira, Martin, 1959-"
     },
-    "pid": "20859521",
+    "pid": "21209116",
     "rero": {
       "md5": "7de4fec88328b985ef80c5fb95ab62f4",
       "pid": "A003425954",
@@ -404,7 +404,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13176974"
+    "viaf_pid": "59223859"
   },
   {
     "bnf": {
@@ -439,7 +439,7 @@
       "preferred_name_for_person": "Wickeri, Philip L.",
       "authorized_access_point_representing_a_person": "Wickeri, Philip L."
     },
-    "pid": "7901420",
+    "pid": "8033788",
     "rero": {
       "md5": "7eaa2073b1d9fe41e7a9f9bcb161c849",
       "pid": "A009691511",
@@ -452,7 +452,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "16613045"
+    "viaf_pid": "55660407"
   },
   {
     "bnf": {
@@ -470,7 +470,7 @@
       "preferred_name_for_person": "Crouzet, Yves",
       "authorized_access_point_representing_a_person": "Crouzet, Yves, 1947-...."
     },
-    "pid": "11898207",
+    "pid": "12098096",
     "rero": {
       "md5": "fff42f3d20dce331439f12968aa3b5a6",
       "pid": "A003145289",
@@ -482,10 +482,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11898233"
+    "viaf_pid": "54146221"
   },
   {
-    "pid": "13016890",
+    "pid": "13235150",
     "rero": {
       "md5": "254f4016d58d1dc075930c3ae1704c57",
       "pid": "A011575301",
@@ -496,7 +496,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A011575301"
+    "viaf_pid": "545155042813972402376"
   },
   {
     "gnd": {
@@ -511,7 +511,7 @@
       "preferred_name_for_person": "Kumlehn, Ju\u0308rgen",
       "authorized_access_point_representing_a_person": "Kumlehn, Ju\u0308rgen, 1955-"
     },
-    "pid": "12977661",
+    "pid": "13195448",
     "rero": {
       "md5": "bf93cf27d1a279a4a5aef19cf9cd4b5a",
       "pid": "A006457408",
@@ -523,7 +523,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A006457408"
+    "viaf_pid": "20571491"
   },
   {
     "gnd": {
@@ -535,7 +535,7 @@
       "preferred_name_for_person": "Bursch, Peter",
       "authorized_access_point_representing_a_person": "Bursch, Peter, 1949-"
     },
-    "pid": "14905883",
+    "pid": "15155875",
     "rero": {
       "md5": "efb734c6c5f6fb1cf22be313f4a6220a",
       "pid": "A009505377",
@@ -547,10 +547,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "134341031"
+    "viaf_pid": "25216139"
   },
   {
-    "pid": "22850378",
+    "pid": "23233316",
     "rero": {
       "md5": "28f77fa2dad63b1ccd91b2462a07ae1f",
       "pid": "A003925829",
@@ -561,7 +561,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003925829"
+    "viaf_pid": "380155042722072401382"
   },
   {
     "bnf": {
@@ -588,7 +588,7 @@
       "preferred_name_for_person": "Bovet, Guy",
       "authorized_access_point_representing_a_person": "Bovet, Guy, 1942-"
     },
-    "pid": "12390220",
+    "pid": "12598343",
     "rero": {
       "md5": "933c6f0674ecb93f6bea64e5abfe0734",
       "pid": "A003033988",
@@ -601,7 +601,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003033988"
+    "viaf_pid": "94828853"
   },
   {
     "gnd": {
@@ -611,7 +611,7 @@
       "preferred_name_for_person": "Ku\u0308bert, Rainer",
       "authorized_access_point_representing_a_person": "Ku\u0308bert, Rainer"
     },
-    "pid": "12061244",
+    "pid": "12263786",
     "rero": {
       "md5": "7e5fc8cd41e19cad6cd835895f3c76c3",
       "pid": "A005984709",
@@ -623,7 +623,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "172825229"
+    "viaf_pid": "62258668"
   },
   {
     "bnf": {
@@ -653,7 +653,7 @@
       "preferred_name_for_person": "Nix, Garth",
       "authorized_access_point_representing_a_person": "Nix, Garth, 1963-"
     },
-    "pid": "5336381",
+    "pid": "5425603",
     "rero": {
       "md5": "3db67bff570214549630df473f5109ad",
       "pid": "A009688479",
@@ -666,7 +666,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "122545079"
+    "viaf_pid": "39520118"
   },
   {
     "gnd": {
@@ -680,7 +680,7 @@
       "preferred_name_for_person": "Brun, Rudolf",
       "authorized_access_point_representing_a_person": "Brun, Rudolf, 1939-"
     },
-    "pid": "18660408",
+    "pid": "18973488",
     "rero": {
       "md5": "5d74553ef6ebb7a23828f577ca2ba22a",
       "pid": "A003050309",
@@ -692,7 +692,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003050309"
+    "viaf_pid": "2168793"
   },
   {
     "bnf": {
@@ -722,7 +722,7 @@
       "preferred_name_for_person": "Ruffieux, Roland",
       "authorized_access_point_representing_a_person": "Ruffieux, Roland, 1921-2004"
     },
-    "pid": "27031613",
+    "pid": "27484230",
     "rero": {
       "md5": "dea379bb6d5912fa5788d3e5312d7b27",
       "pid": "A003770031",
@@ -740,7 +740,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "119123800"
+    "viaf_pid": "102314381"
   },
   {
     "bnf": {
@@ -783,7 +783,7 @@
       "preferred_name_for_person": "McKee, David",
       "authorized_access_point_representing_a_person": "McKee, David, 1935-"
     },
-    "pid": "22112968",
+    "pid": "22483704",
     "rero": {
       "md5": "28a4dd18670d8ca9ff2e2ba8e7623570",
       "pid": "A003545881",
@@ -805,7 +805,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003545881"
+    "viaf_pid": "29537351"
   },
   {
     "bnf": {
@@ -833,7 +833,7 @@
       "preferred_name_for_person": "Krebs, Franck",
       "authorized_access_point_representing_a_person": "Krebs, Franck, 1963-"
     },
-    "pid": "10328142",
+    "pid": "10501674",
     "rero": {
       "md5": "e82421a80f15bf191786ae4dbb2acb4f",
       "pid": "A006592097",
@@ -846,7 +846,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1041657412"
+    "viaf_pid": "14949786"
   },
   {
     "gnd": {
@@ -866,7 +866,7 @@
       "preferred_name_for_person": "Arnold, Jane",
       "authorized_access_point_representing_a_person": "Arnold, Jane, 1944-"
     },
-    "pid": "31825533",
+    "pid": "32358221",
     "rero": {
       "md5": "61e002d7994594bf99c4c33393bc8601",
       "pid": "A005939653",
@@ -878,7 +878,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A005939653"
+    "viaf_pid": "85141359"
   },
   {
     "gnd": {
@@ -896,7 +896,7 @@
       "preferred_name_for_person": "Me\u0301las-Kyriazi, Jean",
       "authorized_access_point_representing_a_person": "Me\u0301las-Kyriazi, Jean, ca. 20./21. Jh."
     },
-    "pid": "30554195",
+    "pid": "31065674",
     "rero": {
       "md5": "d139554b4bab44ab62764a16a221f328",
       "pid": "A003482232",
@@ -911,7 +911,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003482232"
+    "viaf_pid": "111528708"
   },
   {
     "bnf": {
@@ -934,7 +934,7 @@
       "authorized_access_point_representing_a_person": "Bach, Johann Sebastian, 1685-1750"
     },
     "gnd": {
-      "md5": "0f9ee8f6ba790818c4e6b70824479deb",
+      "md5": "2dd7f21f8a364041047bfa4080042806",
       "pid": "11850553X",
       "gender": "male",
       "date_of_birth": "21.03.1685",
@@ -953,6 +953,7 @@
         "Bach, John Sebastian",
         "Bach, Iogann S.",
         "Bach, Iogann Sebast'jan",
+        "Bach, Iogann Sebastian",
         "Bach, Giovanni Sebastian",
         "Bach, Johan Sebastian",
         "Bach, Joannes Sebastianus",
@@ -980,7 +981,6 @@
         "Bach, Jean Se\u0301bastien",
         "Bach, Jean-Se\u0301bastien",
         "Bach, Johann",
-        "Bach, Iogann Sebast\u02b9jan",
         "Bakh, Iogann Sebastian"
       ],
       "biographical_information": [
@@ -989,7 +989,7 @@
       "preferred_name_for_person": "Bach, Johann Sebastian",
       "authorized_access_point_representing_a_person": "Bach, Johann Sebastian, 1685-1750"
     },
-    "pid": "25676782",
+    "pid": "26106949",
     "rero": {
       "md5": "780261c03ffb733552867fa158c284f2",
       "pid": "A000015097",
@@ -1011,7 +1011,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11889790"
+    "viaf_pid": "12304462"
   },
   {
     "bnf": {
@@ -1047,7 +1047,7 @@
       "preferred_name_for_person": "Schering, Arnold",
       "authorized_access_point_representing_a_person": "Schering, Arnold, 1877-1941"
     },
-    "pid": "3741835",
+    "pid": "3804420",
     "rero": {
       "md5": "7651846e230cd29daea29cba5264f290",
       "pid": "A003795108",
@@ -1068,7 +1068,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118754688"
+    "viaf_pid": "49405704"
   },
   {
     "gnd": {
@@ -1078,7 +1078,7 @@
       "preferred_name_for_person": "Bachmann, Hans Emil",
       "authorized_access_point_representing_a_person": "Bachmann, Hans Emil"
     },
-    "pid": "17026222",
+    "pid": "17311911",
     "rero": {
       "md5": "243cbb91c704ffab5104994d0c4fa267",
       "pid": "A002958018",
@@ -1090,10 +1090,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "125980051"
+    "viaf_pid": "74830302"
   },
   {
-    "pid": "8939026",
+    "pid": "9088880",
     "rero": {
       "md5": "73228efe4331a5c98ca64428a90f0ab6",
       "pid": "A003683610",
@@ -1104,7 +1104,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003683610"
+    "viaf_pid": "521155042733272400674"
   },
   {
     "bnf": {
@@ -1135,7 +1135,7 @@
       "preferred_name_for_person": "Bichonnier, Henriette",
       "authorized_access_point_representing_a_person": "Bichonnier, Henriette, 1943-"
     },
-    "pid": "14712835",
+    "pid": "14959624",
     "rero": {
       "md5": "1e4ba78d2be368ab658661e696cd5e45",
       "pid": "A003004565",
@@ -1148,7 +1148,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11891951"
+    "viaf_pid": "100252272"
   },
   {
     "bnf": {
@@ -1170,7 +1170,7 @@
       "preferred_name_for_person": "Pef",
       "authorized_access_point_representing_a_person": "Pef, 1939-...."
     },
-    "pid": "2317259",
+    "pid": "2356309",
     "rero": {
       "md5": "a3b065085a29d721784120720d831527",
       "pid": "A000126801",
@@ -1189,7 +1189,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A000126801"
+    "viaf_pid": "95155538"
   },
   {
     "bnf": {
@@ -1218,7 +1218,7 @@
       "preferred_name_for_person": "Salleron, Jules",
       "authorized_access_point_representing_a_person": "Salleron, Jules, 1829-1897"
     },
-    "pid": "8459435",
+    "pid": "8601069",
     "rero": {
       "md5": "cc3445828fa986827d4c7775af3ddcfc",
       "pid": "A012673060",
@@ -1231,7 +1231,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A012673060"
+    "viaf_pid": "51823807"
   },
   {
     "bnf": {
@@ -1270,7 +1270,7 @@
       "preferred_name_for_person": "Baum, Gregory",
       "authorized_access_point_representing_a_person": "Baum, Gregory, 1923-2017"
     },
-    "pid": "10305311",
+    "pid": "10478365",
     "rero": {
       "md5": "e21ed41b09b46da9f03b72f971cf7f21",
       "pid": "A002978001",
@@ -1283,7 +1283,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A002978001"
+    "viaf_pid": "68937895"
   },
   {
     "gnd": {
@@ -1324,7 +1324,7 @@
       "preferred_name_for_person": "Gessner, Johann Jakob",
       "authorized_access_point_representing_a_person": "Gessner, Johann Jakob, 1707-1787"
     },
-    "pid": "29784304",
+    "pid": "30282834",
     "rero": {
       "md5": "ac971e0bd0eadb1e656b2b3f8ab56495",
       "pid": "A003292326",
@@ -1336,7 +1336,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "117543632"
+    "viaf_pid": "25382843"
   },
   {
     "bnf": {
@@ -1404,7 +1404,7 @@
       "preferred_name_for_person": "Fu\u0308ssli, Johann Caspar",
       "authorized_access_point_representing_a_person": "Fu\u0308ssli, Johann Caspar, 1706-1782"
     },
-    "pid": "19839848",
+    "pid": "20172676",
     "rero": {
       "md5": "a3da073f67a86599e29fbf095f4350ea",
       "pid": "A000066970",
@@ -1453,7 +1453,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14974314"
+    "viaf_pid": "12578853"
   },
   {
     "bnf": {
@@ -1472,7 +1472,7 @@
       "preferred_name_for_person": "Steele, Ross",
       "authorized_access_point_representing_a_person": "Steele, Ross"
     },
-    "pid": "26172104",
+    "pid": "26610586",
     "rero": {
       "md5": "bc94620b0550b8e523f1aa6dfb62f544",
       "pid": "A003859900",
@@ -1484,10 +1484,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003859900"
+    "viaf_pid": "17796"
   },
   {
-    "pid": "14589535",
+    "pid": "14834214",
     "rero": {
       "md5": "63125ed82dc1c028f238a727848beca4",
       "pid": "A003997465",
@@ -1498,7 +1498,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003997465"
+    "viaf_pid": "272462055"
   },
   {
     "bnf": {
@@ -1560,7 +1560,7 @@
       "preferred_name_for_person": "Jakobson, Roman",
       "authorized_access_point_representing_a_person": "Jakobson, Roman, 1896-1982"
     },
-    "pid": "9181122",
+    "pid": "9335077",
     "rero": {
       "md5": "2df38de244eb4408344a3e1f255c3300",
       "pid": "A000093211",
@@ -1576,7 +1576,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118711598"
+    "viaf_pid": "59084146"
   },
   {
     "bnf": {
@@ -1594,7 +1594,7 @@
       "preferred_name_for_person": "Mepham, John",
       "authorized_access_point_representing_a_person": "Mepham, John, 1938-...."
     },
-    "pid": "18492069",
+    "pid": "18802328",
     "rero": {
       "md5": "4ab01bed2f334aae60bc205481266f38",
       "pid": "A003584638",
@@ -1606,7 +1606,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003584638"
+    "viaf_pid": "17298380"
   },
   {
     "bnf": {
@@ -1632,7 +1632,53 @@
       "preferred_name_for_person": "Tite-Live",
       "authorized_access_point_representing_a_person": "Tite-Live, 0059? av. J.-C.-0017"
     },
-    "pid": "28390806",
+    "gnd": {
+      "md5": "2f487d0057c6fd3880aff825b880ecff",
+      "pid": "118573624",
+      "gender": "male",
+      "date_of_birth": "v59",
+      "date_of_death": "17",
+      "language_of_person": [
+        "lat"
+      ],
+      "identifier_for_person": "http://d-nb.info/gnd/118573624",
+      "variant_name_for_person": [
+        "Livius, Historicus",
+        "Livius, Patavinus",
+        "Livius, Historian",
+        "Livius Titus, Patavinus",
+        "Tito, Livio",
+        "Livio, Tito",
+        "Livije, Tit",
+        "Live, Tite",
+        "Livus, Titus",
+        "Patavinus, Titus Livius",
+        "Titus Livius, Patavinus",
+        "Livitus Patavinus, Titus",
+        "Patavius, Livius T.",
+        "T. Livius, Patavius",
+        "Titus Livius, Patavius",
+        "Livius, T.",
+        "Titus, Livius",
+        "Patavinus, Titus L.",
+        "Livius",
+        "Tite-Live",
+        "Livy",
+        "Tito Livio",
+        "Livius Patavinus, Titus",
+        "Livius Patavinus, T.",
+        "Patavius, Livius Titus",
+        "Titus Livius",
+        "Livius, Titus, Patavium"
+      ],
+      "biographical_information": [
+        "Ro\u0308m. Geschichtsschreiber;  Foro-Juliensis",
+        "Geschichtsschreiber"
+      ],
+      "preferred_name_for_person": "Livius, Titus",
+      "authorized_access_point_representing_a_person": "Livius, Titus, v59-17"
+    },
+    "pid": "28866236",
     "rero": {
       "md5": "17836ad0f4c57fe12cec9fe2ba7dc0bc",
       "pid": "A000106164",
@@ -1648,9 +1694,10 @@
     },
     "sources": [
       "rero",
+      "gnd",
       "bnf"
     ],
-    "viaf_pid": "11886799"
+    "viaf_pid": "99942145"
   },
   {
     "bnf": {
@@ -1676,7 +1723,7 @@
       "preferred_name_for_person": "Guittard, Charles",
       "authorized_access_point_representing_a_person": "Guittard, Charles"
     },
-    "pid": "23111362",
+    "pid": "23498817",
     "rero": {
       "md5": "ddde6e3a4e7f4ea0bbc7a28a5203170c",
       "pid": "A003331014",
@@ -1689,7 +1736,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003331014"
+    "viaf_pid": "9866105"
   },
   {
     "bnf": {
@@ -1707,7 +1754,7 @@
       "preferred_name_for_person": "Delnoy, Michel",
       "authorized_access_point_representing_a_person": "Delnoy, Michel"
     },
-    "pid": "22531772",
+    "pid": "22909380",
     "rero": {
       "md5": "6562c21e7f49a522ca207ca9d6711564",
       "pid": "A005758918",
@@ -1719,7 +1766,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "15558274"
+    "viaf_pid": "42156358"
   },
   {
     "bnf": {
@@ -1754,7 +1801,7 @@
       "preferred_name_for_person": "Bohas, Georges",
       "authorized_access_point_representing_a_person": "Bohas, Georges, 1946-"
     },
-    "pid": "3873789",
+    "pid": "3938791",
     "rero": {
       "md5": "cc4ce08c0147e38ad9b669b1ac03b4d0",
       "pid": "A003019200",
@@ -1767,7 +1814,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1089838107"
+    "viaf_pid": "27239727"
   },
   {
     "gnd": {
@@ -1780,7 +1827,7 @@
       "preferred_name_for_person": "Wiebringhaus, Hans",
       "authorized_access_point_representing_a_person": "Wiebringhaus, Hans"
     },
-    "pid": "3777676",
+    "pid": "3840985",
     "rero": {
       "md5": "2611fe1150fe9ce73fc5af5fa0e70f13",
       "pid": "A003973310",
@@ -1792,7 +1839,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003973310"
+    "viaf_pid": "17692595"
   },
   {
     "gnd": {
@@ -1808,7 +1855,7 @@
       "preferred_name_for_person": "Sigrist, Georg",
       "authorized_access_point_representing_a_person": "Sigrist, Georg, 1788-1866"
     },
-    "pid": "27128741",
+    "pid": "27582920",
     "rero": {
       "md5": "6300d1fdd3e9fb2b0eb71133d0e5ea79",
       "pid": "A011853076",
@@ -1825,7 +1872,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A011853076"
+    "viaf_pid": "165132505"
   },
   {
     "gnd": {
@@ -1845,7 +1892,7 @@
       "preferred_name_for_person": "Friedl, Johanna",
       "authorized_access_point_representing_a_person": "Friedl, Johanna, 1964-"
     },
-    "pid": "27409172",
+    "pid": "27867730",
     "rero": {
       "md5": "5aa8ee9c8bbfb4b238f1118cec2a8d24",
       "pid": "A018991127",
@@ -1858,7 +1905,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A018991127"
+    "viaf_pid": "37761508"
   },
   {
     "bnf": {
@@ -1884,7 +1931,7 @@
       "preferred_name_for_person": "Krau\u00df, Susanne",
       "authorized_access_point_representing_a_person": "Krau\u00df, Susanne"
     },
-    "pid": "23738199",
+    "pid": "24135867",
     "rero": {
       "md5": "7448b5d902c59ed62d795537e2bbbbf5",
       "pid": "A008616697",
@@ -1897,7 +1944,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14543146"
+    "viaf_pid": "56848947"
   },
   {
     "bnf": {
@@ -1931,7 +1978,7 @@
       "preferred_name_for_person": "Jacq, Christian",
       "authorized_access_point_representing_a_person": "Jacq, Christian, 1947-"
     },
-    "pid": "1532558",
+    "pid": "1558417",
     "rero": {
       "md5": "506f3ac2232dd2470e05ff08058aea34",
       "pid": "A003416729",
@@ -1948,10 +1995,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "115834664"
+    "viaf_pid": "14771549"
   },
   {
-    "pid": "22000444",
+    "pid": "22369423",
     "rero": {
       "md5": "ccee3f342257569f021aced6aad222e5",
       "pid": "A003766597",
@@ -1962,7 +2009,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "17795269"
+    "viaf_pid": "13155224486084372913"
   },
   {
     "gnd": {
@@ -1980,7 +2027,7 @@
       "preferred_name_for_person": "Gansel, Christina",
       "authorized_access_point_representing_a_person": "Gansel, Christina, 1957-"
     },
-    "pid": "2562148",
+    "pid": "2605324",
     "rero": {
       "md5": "7f86f127b28a6f785e4e787562bb01f0",
       "pid": "A014128351",
@@ -1992,7 +2039,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "134301757"
+    "viaf_pid": "113088037"
   },
   {
     "bnf": {
@@ -2033,7 +2080,7 @@
       "preferred_name_for_person": "Straube, Karl",
       "authorized_access_point_representing_a_person": "Straube, Karl, 1873-1950"
     },
-    "pid": "9737705",
+    "pid": "9901094",
     "rero": {
       "md5": "42c4defa5af08878ac763660cb5f39b2",
       "pid": "A003868996",
@@ -2046,7 +2093,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12202722"
+    "viaf_pid": "51737331"
   },
   {
     "bnf": {
@@ -2078,7 +2125,7 @@
       "preferred_name_for_person": "Schneider, Max",
       "authorized_access_point_representing_a_person": "Schneider, Max, 1875-1967"
     },
-    "pid": "11426634",
+    "pid": "11618637",
     "rero": {
       "md5": "702be279b1a9bed27ecc51d4d60ff63a",
       "pid": "A012323210",
@@ -2099,7 +2146,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A012323210"
+    "viaf_pid": "76581215"
   },
   {
     "bnf": {
@@ -2176,7 +2223,7 @@
       "preferred_name_for_person": "Plato",
       "authorized_access_point_representing_a_person": "Plato, v427-v347"
     },
-    "pid": "29753607",
+    "pid": "30251681",
     "rero": {
       "md5": "6d27ba349542c1d138a1d1948913ef0b",
       "pid": "A000131322",
@@ -2210,7 +2257,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000131322"
+    "viaf_pid": "108159964"
   },
   {
     "bnf": {
@@ -2241,7 +2288,7 @@
       "preferred_name_for_person": "Brisson, Luc",
       "authorized_access_point_representing_a_person": "Brisson, Luc, 1946-"
     },
-    "pid": "16773026",
+    "pid": "17054219",
     "rero": {
       "md5": "b63aa4e785479a0279da48048decacab",
       "pid": "A003044237",
@@ -2254,7 +2301,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003044237"
+    "viaf_pid": "39374411"
   },
   {
     "bnf": {
@@ -2292,7 +2339,7 @@
       "preferred_name_for_person": "Monin, Andrej S.",
       "authorized_access_point_representing_a_person": "Monin, Andrej S., 1921-"
     },
-    "pid": "5679052",
+    "pid": "5774228",
     "rero": {
       "md5": "d279969660b40ecf88a1d41704976a98",
       "pid": "A022263222",
@@ -2306,7 +2353,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12291695"
+    "viaf_pid": "108548240"
   },
   {
     "bnf": {
@@ -2357,7 +2404,7 @@
       "preferred_name_for_person": "Jaglom, Akiva M.",
       "authorized_access_point_representing_a_person": "Jaglom, Akiva M., 1921-2007"
     },
-    "pid": "22624145",
+    "pid": "23003427",
     "rero": {
       "md5": "9e6c260fbdc450c57982d5189e026ef6",
       "pid": "A000093166",
@@ -2379,7 +2426,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "137456492"
+    "viaf_pid": "73948466"
   },
   {
     "bnf": {
@@ -2414,7 +2461,7 @@
       "preferred_name_for_person": "Lumley, John L.",
       "authorized_access_point_representing_a_person": "Lumley, John L., 1930-2015"
     },
-    "pid": "7598153",
+    "pid": "7725603",
     "rero": {
       "md5": "6aefaf02c1da7b232d6afb1ecf6be99f",
       "pid": "A003536220",
@@ -2427,10 +2474,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12278670"
+    "viaf_pid": "108141957"
   },
   {
-    "pid": "18994507",
+    "pid": "19313019",
     "rero": {
       "md5": "0a13daf049a30111930df4f876efc158",
       "pid": "A003637021",
@@ -2441,7 +2488,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003637021"
+    "viaf_pid": "30121768"
   },
   {
     "bnf": {
@@ -2456,7 +2503,7 @@
       "preferred_name_for_person": "Dabit, Daniel",
       "authorized_access_point_representing_a_person": "Dabit, Daniel, 1938-...."
     },
-    "pid": "14546355",
+    "pid": "14790309",
     "rero": {
       "md5": "1f9c9e465f26201fae40046fd62b1f73",
       "pid": "A018889260",
@@ -2468,7 +2515,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "14642213"
+    "viaf_pid": "7645260"
   },
   {
     "bnf": {
@@ -2486,7 +2533,7 @@
       "preferred_name_for_person": "Boidin, Pierre",
       "authorized_access_point_representing_a_person": "Boidin, Pierre"
     },
-    "pid": "28581161",
+    "pid": "29059700",
     "rero": {
       "md5": "1ff79ca93ad37c6a0c6bda5d9332a072",
       "pid": "A018889262",
@@ -2498,10 +2545,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12695697"
+    "viaf_pid": "236155284799787060247"
   },
   {
-    "pid": "30474167",
+    "pid": "30984329",
     "rero": {
       "md5": "392d4521adcbcb713c1bb9e443c7bb04",
       "pid": "A006039544",
@@ -2512,10 +2559,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006039544"
+    "viaf_pid": "113387223"
   },
   {
-    "pid": "13982705",
+    "pid": "14217143",
     "rero": {
       "md5": "76a2dd4c1c3c4facd656721be2b7ba8c",
       "pid": "A006039548",
@@ -2526,10 +2573,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006039548"
+    "viaf_pid": "65324508"
   },
   {
-    "pid": "3761253",
+    "pid": "3824314",
     "rero": {
       "md5": "a04755d4ba3b647892f18899fdb25faa",
       "pid": "A006039549",
@@ -2540,7 +2587,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006039549"
+    "viaf_pid": "113387247"
   },
   {
     "bnf": {
@@ -2567,7 +2614,7 @@
       "preferred_name_for_person": "Labrune, Jeanne",
       "authorized_access_point_representing_a_person": "Labrune, Jeanne, 1950-"
     },
-    "pid": "28797707",
+    "pid": "29279915",
     "rero": {
       "md5": "9c0a9f6a65209033976ed3b8b47141b9",
       "pid": "A006348825",
@@ -2580,10 +2627,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "142725803"
+    "viaf_pid": "12509509"
   },
   {
-    "pid": "8093458",
+    "pid": "8229228",
     "rero": {
       "md5": "f21ab013a7b471ab8b4790e1df0a663e",
       "pid": "A018912935",
@@ -2594,103 +2641,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "16508680"
+    "viaf_pid": "170779638"
   },
   {
-    "bnf": {
-      "md5": "f9ae73232e79abca009c6ac64864a64f",
-      "pid": "11955933",
-      "gender": "male",
-      "date_of_birth": "1873-02-11",
-      "date_of_death": "1938-04-12",
-      "language_of_person": [
-        "rus"
-      ],
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb11955933j",
-      "variant_name_for_person": [
-        "Chaliapine, F\u00e9odor Ivanovitch",
-        "Chaliapin, Fyodor Ivanovich",
-        "Chaliapin, Feodor",
-        "Chaliapine, F\u00e9odor",
-        "Chaliapine, Fedor",
-        "Chaliapine, Fiodor",
-        "Shalyapin, Fyodor Ivanovich",
-        "Shaljapin, Fjodor Iwanowitsch",
-        "Schaljapin, Fedor Iwanowitsch"
-      ],
-      "biographical_information": [
-        "Chanteur d'op\u00e9ra (basse)"
-      ],
-      "preferred_name_for_person": "\u0160al\u00e2pin, Fedor Ivanovi\u010d",
-      "authorized_access_point_representing_a_person": "\u0160al\u00e2pin, Fedor Ivanovi\u010d, 1873-1938"
-    },
-    "gnd": {
-      "md5": "586ffc29c34e2a7de48379ec59b3d793",
-      "pid": "118606352",
-      "gender": "male",
-      "date_of_birth": "13.02.1873",
-      "date_of_death": "12.04.1938",
-      "identifier_for_person": "http://d-nb.info/gnd/118606352",
-      "variant_name_for_person": [
-        "Schaljapin, Fjodor Iwanowitsch",
-        "Schaljapin, Fjodor I.",
-        "S\u030caljapin, Fe\u0308dor Ivanovic\u030c",
-        "Shaliapin, F. I.",
-        "S\u0327alyapin, Fe\u0308dor I\u0307vanovic\u0327",
-        "S\u030caljapin, F. I.",
-        "Chaliapine, Fe\u030bdor J.",
-        "Chaliapin, Fyodor Ivanovich",
-        "Chaliapin, Fyodor I.",
-        "Chaliapin, Fedor Ivanovitch",
-        "Chaliapin, Fedor I.",
-        "Chaliapin, F. I.",
-        "Chaliapin",
-        "Schaljapin, Fedor I.",
-        "Shaliapin, Fedor I.",
-        "Chaliapine, Feodor",
-        "Chaliapin, Feodore",
-        "Chaliapine, Feodor Iv.",
-        "Sal\u02b9japin, Fedor Ivanovic\u030c",
-        "Chaliapin, Fedor",
-        "Scialia\u0300pin, Fio\u0300dor Iva\u0300novic",
-        "Scialia\u0300pin, Teodoro",
-        "Chaliapine, The\u0301odore",
-        "Saljapin, Fedor Ivanovic\u030c",
-        "S\u030cal'japin, Fedor Ivanovic\u030c",
-        "Schaliapin, F. J.",
-        "Tschaljapin, Fjodor",
-        "Chaljapin, Feodor",
-        "Schaljapin, Fedor",
-        "S\u030caljapin, Fedor I.",
-        "Shalyapin, Fyodor Ivanovich",
-        "Shalyapin, Fiodor Ivanovich",
-        "Shaliapin, Fedor Ivanovich",
-        "Schaljapin, Fjodor",
-        "Schaljapin, Feodor Iwanowitsch",
-        "Schaljapin, Feodor Ivanovic\u030c",
-        "Schaljapin, Feodor",
-        "S\u030caljapin, Fjodor",
-        "S\u030caljapin, Fedor Ivanovic\u030c",
-        "S\u030caljapin, Fedor",
-        "Chaliapine, Theodore",
-        "Chaliapine, Fedor",
-        "Chaliapin, Feodor Ivanovitch",
-        "Chaliapin, Fyodor",
-        "Chaliapin, Feodor",
-        "Chaliapin, Feodor Ivanovich",
-        "S\u030caljapin, Fe\u034f\u0308dor Ivanovic\u030c",
-        "S\u030caljapin, Fe\u034f\u0308dor I.",
-        "Shalyapin, Fedor I.",
-        "S\u030caljapin, Fe\u034f\u0308dor",
-        "\u0428\u0430\u043b\u044f\u043f\u0438\u043d, \u0424\u0435\u0308\u0434\u043e\u0440 \u0418\u0432\u0430\u043d\u043e\u0432\u0438\u0447"
-      ],
-      "biographical_information": [
-        "emigrierte 1920 in die USA; Russ. Sa\u0308nger (Bassist)"
-      ],
-      "preferred_name_for_person": "S\u030caljapin, Fe\u0308dor I.",
-      "authorized_access_point_representing_a_person": "S\u030caljapin, Fe\u0308dor I., 1873-1938"
-    },
-    "pid": "6459468",
+    "pid": "14348156",
     "rero": {
       "md5": "c3e6c5194d2817fdda55e42c318f1540",
       "pid": "A000195745",
@@ -2703,14 +2657,12 @@
       "authorized_access_point_representing_a_person": "Shali\ufe20a\ufe21pin, Fedor Ivanovich"
     },
     "sources": [
-      "rero",
-      "gnd",
-      "bnf"
+      "rero"
     ],
-    "viaf_pid": "A000195745"
+    "viaf_pid": "286936960"
   },
   {
-    "pid": "1191700",
+    "pid": "1211686",
     "rero": {
       "md5": "11db3331ab581ed47adc629186bdf49b",
       "pid": "A003230481",
@@ -2721,10 +2673,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003230481"
+    "viaf_pid": "70245320"
   },
   {
-    "pid": "24861033",
+    "pid": "25277339",
     "rero": {
       "md5": "57193860e90ea86a64beaa1da3a3606f",
       "pid": "A003031130",
@@ -2735,7 +2687,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003031130"
+    "viaf_pid": "67795276"
   },
   {
     "gnd": {
@@ -2749,7 +2701,7 @@
       "preferred_name_for_person": "Hedde d'Entremont, Bernard",
       "authorized_access_point_representing_a_person": "Hedde d'Entremont, Bernard"
     },
-    "pid": "26263599",
+    "pid": "26703734",
     "rero": {
       "md5": "68b08b5b77e942e61b389526642b434b",
       "pid": "A003357213",
@@ -2761,7 +2713,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003357213"
+    "viaf_pid": "250017404"
   },
   {
     "bnf": {
@@ -2791,7 +2743,7 @@
       "preferred_name_for_person": "Brin, David",
       "authorized_access_point_representing_a_person": "Brin, David, 1950-"
     },
-    "pid": "26866797",
+    "pid": "27316640",
     "rero": {
       "md5": "654a89a2a7a55c634526e0aef604fcb5",
       "pid": "A003043555",
@@ -2804,7 +2756,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12039728"
+    "viaf_pid": "85314364"
   },
   {
     "bnf": {
@@ -2828,7 +2780,7 @@
       "preferred_name_for_person": "Haas, Dominique",
       "authorized_access_point_representing_a_person": "Haas, Dominique"
     },
-    "pid": "28293937",
+    "pid": "28767560",
     "rero": {
       "md5": "9639621019672d17b57df810bf27183a",
       "pid": "A003337301",
@@ -2841,10 +2793,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12014468"
+    "viaf_pid": "49236060"
   },
   {
-    "pid": "31466383",
+    "pid": "31993116",
     "rero": {
       "md5": "0995e34a45fd9fe6c9546c436747e7af",
       "pid": "A000098356",
@@ -2858,7 +2810,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A000098356"
+    "viaf_pid": "267559336"
   },
   {
     "bnf": {
@@ -2890,7 +2842,7 @@
       "preferred_name_for_person": "Siewert, Aruna M.",
       "authorized_access_point_representing_a_person": "Siewert, Aruna M., 1965-"
     },
-    "pid": "28674515",
+    "pid": "29154551",
     "rero": {
       "md5": "c958f3a9cd65fa475f9a1a26aa549aa5",
       "pid": "A023695390",
@@ -2903,7 +2855,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A023695390"
+    "viaf_pid": "305181230"
   },
   {
     "bnf": {
@@ -2919,7 +2871,7 @@
       "preferred_name_for_person": "Follet, V\u00e9ronique",
       "authorized_access_point_representing_a_person": "Follet, V\u00e9ronique"
     },
-    "pid": "26702585",
+    "pid": "27149697",
     "rero": {
       "md5": "035b979d4e395ded36188251f2a6e26e",
       "pid": "A008856176",
@@ -2931,7 +2883,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11903014"
+    "viaf_pid": "71391018"
   },
   {
     "gnd": {
@@ -2949,7 +2901,7 @@
       "preferred_name_for_person": "Farin Urlaub",
       "authorized_access_point_representing_a_person": "Farin Urlaub, 1963-"
     },
-    "pid": "11819905",
+    "pid": "12018506",
     "rero": {
       "md5": "3b524be3d34ebd901ff6cdb18937ebf0",
       "pid": "A011438085",
@@ -2969,7 +2921,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "133458466"
+    "viaf_pid": "60271185"
   },
   {
     "gnd": {
@@ -2984,22 +2936,22 @@
       "preferred_name_for_person": "Hoffmann, Erich",
       "authorized_access_point_representing_a_person": "Hoffmann, Erich, 1904-1989"
     },
-    "pid": "7389744",
+    "pid": "7513691",
     "rero": {
-      "md5": "8ad6685a96bd8cb68acdef82e8e5ae38",
+      "md5": "3af6891e02721c648f48bdc59a943afd",
       "pid": "A012379545",
       "identifier_for_person": "http://data.rero.ch/02-A012379545",
-      "preferred_name_for_person": "Hoffmann, Erich",
+      "preferred_name_for_person": "Hoffmann, Erich, th\u00e9ologien",
       "authorized_access_point_representing_a_person": "Hoffmann, Erich, th\u00e9ologien"
     },
     "sources": [
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A012379545"
+    "viaf_pid": "25450496"
   },
   {
-    "pid": "6719761",
+    "pid": "6832549",
     "rero": {
       "md5": "bdcd95971e7ad923d8c68dc2cbd53198",
       "pid": "A017188049",
@@ -3010,7 +2962,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A017188049"
+    "viaf_pid": "1084155042856472402665"
   },
   {
     "bnf": {
@@ -3041,7 +2993,7 @@
       "preferred_name_for_person": "Brunelli, Antonio",
       "authorized_access_point_representing_a_person": "Brunelli, Antonio, 1577-1630"
     },
-    "pid": "28530135",
+    "pid": "29007612",
     "rero": {
       "md5": "be43be41d7a34808f0e2e5706ba799ec",
       "pid": "A003050517",
@@ -3054,7 +3006,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14004291"
+    "viaf_pid": "39573426"
   },
   {
     "gnd": {
@@ -3066,7 +3018,7 @@
       "preferred_name_for_person": "Erig, Richard",
       "authorized_access_point_representing_a_person": "Erig, Richard, 1946-"
     },
-    "pid": "9914836",
+    "pid": "10081469",
     "rero": {
       "md5": "08dc21363bf4821f6d71ed4205e4a0fb",
       "pid": "A003220465",
@@ -3078,11 +3030,11 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003220465"
+    "viaf_pid": "101049754"
   },
   {
     "bnf": {
-      "md5": "a18d1ac863be7d558964ea743fb39cb2",
+      "md5": "0dcac2de04e955aab311a81ed04c634f",
       "pid": "15006081",
       "gender": "male",
       "date_of_birth": "19..",
@@ -3093,7 +3045,7 @@
       "biographical_information": [
         "Ma\u00eetre de conf\u00e9rences au D\u00e9partement histoire, Stephen F. Austin state university, \u00c9tats-Unis (en 2005)"
       ],
-      "preferred_name_for_person": "Allen, Robert",
+      "preferred_name_for_person": "Allen, Robert, historien",
       "authorized_access_point_representing_a_person": "Allen, Robert, 19..-...., historien"
     },
     "gnd": {
@@ -3106,7 +3058,7 @@
       "preferred_name_for_person": "Allen, Robert",
       "authorized_access_point_representing_a_person": "Allen, Robert"
     },
-    "pid": "18158852",
+    "pid": "18463625",
     "rero": {
       "md5": "4de22e109991e3b18b7f80f53936af09",
       "pid": "A002919829",
@@ -3119,7 +3071,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "15006081"
+    "viaf_pid": "121856135"
   },
   {
     "gnd": {
@@ -3137,7 +3089,7 @@
       "preferred_name_for_person": "Kamphuis, Andrea",
       "authorized_access_point_representing_a_person": "Kamphuis, Andrea, 1966-"
     },
-    "pid": "28713383",
+    "pid": "29194226",
     "rero": {
       "md5": "545f87fba6771825ac656e3571e3a8fa",
       "pid": "A006159863",
@@ -3149,7 +3101,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A006159863"
+    "viaf_pid": "107836474"
   },
   {
     "bnf": {
@@ -3177,7 +3129,7 @@
       "preferred_name_for_person": "Fabre, Marc-Andre\u0301",
       "authorized_access_point_representing_a_person": "Fabre, Marc-Andre\u0301, 1894-1959"
     },
-    "pid": "7980569",
+    "pid": "8114242",
     "rero": {
       "md5": "c8cbafbfb8977d7fecbbd2ddc499f248",
       "pid": "A003228182",
@@ -3190,7 +3142,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12198188"
+    "viaf_pid": "54194878"
   },
   {
     "bnf": {
@@ -3208,7 +3160,7 @@
       "preferred_name_for_person": "Louis, Robert",
       "authorized_access_point_representing_a_person": "Louis, Robert, 1902-1965"
     },
-    "pid": "10461513",
+    "pid": "10637244",
     "rero": {
       "md5": "5b3eefa26b97aee3f5d663db3eb9b9e3",
       "pid": "A003532579",
@@ -3220,7 +3172,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003532579"
+    "viaf_pid": "59085763"
   },
   {
     "bnf": {
@@ -3247,7 +3199,7 @@
       "preferred_name_for_person": "Stricker, Gerd",
       "authorized_access_point_representing_a_person": "Stricker, Gerd, 1941-"
     },
-    "pid": "23889017",
+    "pid": "24289148",
     "rero": {
       "md5": "c2f037c8a99c33cc3d12bb0b1daf6347",
       "pid": "A003870283",
@@ -3260,7 +3212,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003870283"
+    "viaf_pid": "35650772"
   },
   {
     "bnf": {
@@ -3301,7 +3253,7 @@
       "preferred_name_for_person": "Daumier, Honore\u0301",
       "authorized_access_point_representing_a_person": "Daumier, Honore\u0301, 1808-1879"
     },
-    "pid": "15192401",
+    "pid": "15447358",
     "rero": {
       "md5": "5b2efbf5884f21811b1b7f84d92cc513",
       "pid": "A003156436",
@@ -3314,7 +3266,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003156436"
+    "viaf_pid": "96555949"
   },
   {
     "bnf": {
@@ -3347,7 +3299,7 @@
       "preferred_name_for_person": "Nebehay, Christian Michael",
       "authorized_access_point_representing_a_person": "Nebehay, Christian Michael, 1909-2003"
     },
-    "pid": "10636865",
+    "pid": "10815712",
     "rero": {
       "md5": "1bc73340be92280b30fb81366f9a474b",
       "pid": "A003633163",
@@ -3360,7 +3312,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "119294907"
+    "viaf_pid": "108158722"
   },
   {
     "bnf": {
@@ -3379,7 +3331,7 @@
       "preferred_name_for_person": "Philipon, Charles",
       "authorized_access_point_representing_a_person": "Philipon, Charles, 1800-1862"
     },
-    "pid": "1896669",
+    "pid": "1928344",
     "rero": {
       "md5": "43a5cd45427d770a444c2d6c1b8dc5ee",
       "pid": "A003690305",
@@ -3396,7 +3348,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12160175"
+    "viaf_pid": "36956964"
   },
   {
     "bnf": {
@@ -3421,7 +3373,7 @@
       "preferred_name_for_person": "Giovagnoli, Agostino",
       "authorized_access_point_representing_a_person": "Giovagnoli, Agostino, 1952-"
     },
-    "pid": "6080386",
+    "pid": "6182323",
     "rero": {
       "md5": "595fe4e1b30314b10bf9aaf9bc74a23d",
       "pid": "A003298469",
@@ -3434,7 +3386,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1078759375"
+    "viaf_pid": "112685598"
   },
   {
     "bnf": {
@@ -3462,7 +3414,7 @@
       "preferred_name_for_person": "Glass, Lillian",
       "authorized_access_point_representing_a_person": "Glass, Lillian"
     },
-    "pid": "16065835",
+    "pid": "16335359",
     "rero": {
       "md5": "840162636cf43f19a67b57fb76505be5",
       "pid": "A003301074",
@@ -3475,7 +3427,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13170851"
+    "viaf_pid": "74917575"
   },
   {
     "gnd": {
@@ -3493,7 +3445,7 @@
       "preferred_name_for_person": "Jasanoff, Jay H.",
       "authorized_access_point_representing_a_person": "Jasanoff, Jay H., 1942-"
     },
-    "pid": "27525449",
+    "pid": "27986355",
     "rero": {
       "md5": "86b8448cf609e333c5a33d07f9613529",
       "pid": "A003421596",
@@ -3505,7 +3457,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003421596"
+    "viaf_pid": "15332043"
   },
   {
     "bnf": {
@@ -3545,7 +3497,7 @@
       "preferred_name_for_person": "Weiss, Pierre",
       "authorized_access_point_representing_a_person": "Weiss, Pierre, 1865-1940"
     },
-    "pid": "31813692",
+    "pid": "32346008",
     "rero": {
       "md5": "c4c2ef65a221ce1b8d50c7134339dbb0",
       "pid": "A016533496",
@@ -3566,10 +3518,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12289570"
+    "viaf_pid": "4994246"
   },
   {
-    "pid": "30309213",
+    "pid": "30816698",
     "rero": {
       "md5": "bb692d0eb036a56c7c1887b8f24d4641",
       "pid": "A003490634",
@@ -3580,10 +3532,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003490634"
+    "viaf_pid": "9474812"
   },
   {
-    "pid": "469084",
+    "pid": "476754",
     "rero": {
       "md5": "d3e52b638925f2cfc3fe32a3a6423644",
       "pid": "A003939334",
@@ -3594,7 +3546,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003939334"
+    "viaf_pid": "65461949"
   },
   {
     "gnd": {
@@ -3605,7 +3557,7 @@
       "preferred_name_for_person": "Schwetje, Thomas",
       "authorized_access_point_representing_a_person": "Schwetje, Thomas"
     },
-    "pid": "4994060",
+    "pid": "5077830",
     "rero": {
       "md5": "e3ad22e5d4c81b45f81806f04045aedb",
       "pid": "A006020855",
@@ -3617,7 +3569,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A006020855"
+    "viaf_pid": "273155042801572402081"
   },
   {
     "bnf": {
@@ -3660,7 +3612,7 @@
       "preferred_name_for_person": "Monteverdi, Claudio",
       "authorized_access_point_representing_a_person": "Monteverdi, Claudio, 1567-1643"
     },
-    "pid": "18055052",
+    "pid": "18357783",
     "rero": {
       "md5": "11ca6236e8829d953056e5b82d6bd48e",
       "pid": "A000115558",
@@ -3682,7 +3634,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000115558"
+    "viaf_pid": "44485902"
   },
   {
     "bnf": {
@@ -3714,7 +3666,7 @@
       "preferred_name_for_person": "Gardiner, John Eliot",
       "authorized_access_point_representing_a_person": "Gardiner, John Eliot, 1943-"
     },
-    "pid": "3041334",
+    "pid": "3092439",
     "rero": {
       "md5": "8104acca822050ad5a4ffb131af8d9a9",
       "pid": "A003279826",
@@ -3731,7 +3683,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "123592704"
+    "viaf_pid": "113713740"
   },
   {
     "bnf": {
@@ -3755,7 +3707,7 @@
       "preferred_name_for_person": "Chance, Michael",
       "authorized_access_point_representing_a_person": "Chance, Michael, 1955-"
     },
-    "pid": "1260591",
+    "pid": "1281533",
     "rero": {
       "md5": "27d30a7208a68e55475491928bf60181",
       "pid": "A003094395",
@@ -3768,7 +3720,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003094395"
+    "viaf_pid": "42027373"
   },
   {
     "gnd": {
@@ -3778,7 +3730,7 @@
       "preferred_name_for_person": "Hanchard, Dana",
       "authorized_access_point_representing_a_person": "Hanchard, Dana"
     },
-    "pid": "5836485",
+    "pid": "5934377",
     "rero": {
       "md5": "fe7149a01af82a00c7a95088d248490d",
       "pid": "A003345244",
@@ -3790,7 +3742,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "134882644"
+    "viaf_pid": "10044520"
   },
   {
     "bnf": {
@@ -3827,7 +3779,7 @@
       "preferred_name_for_person": "Otter, Anne-Sofie von",
       "authorized_access_point_representing_a_person": "Otter, Anne-Sofie von, 1955-"
     },
-    "pid": "25754629",
+    "pid": "26186107",
     "rero": {
       "md5": "fa4706945cfa367bf412cf0fee1913d5",
       "pid": "A003661760",
@@ -3840,7 +3792,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13546349"
+    "viaf_pid": "113888949"
   },
   {
     "bnf": {
@@ -3876,7 +3828,7 @@
       "preferred_name_for_person": "McNair, Sylvia",
       "authorized_access_point_representing_a_person": "McNair, Sylvia, 1956-"
     },
-    "pid": "30135673",
+    "pid": "30639937",
     "rero": {
       "md5": "7ab7fb0db646b26acc52209edbde3f28",
       "pid": "A003547333",
@@ -3898,10 +3850,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13937533"
+    "viaf_pid": "5122061"
   },
   {
-    "pid": "10909151",
+    "pid": "11092443",
     "rero": {
       "md5": "94080224b90c453a6bde2a44bf2024a3",
       "pid": "A000109522",
@@ -3917,7 +3869,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A000109522"
+    "viaf_pid": "26144814288112432545"
   },
   {
     "bnf": {
@@ -3950,7 +3902,7 @@
       "preferred_name_for_person": "Khadra, Yasmina",
       "authorized_access_point_representing_a_person": "Khadra, Yasmina, 1955-"
     },
-    "pid": "29746963",
+    "pid": "30244901",
     "rero": {
       "md5": "ce43cfad0f2c2d17e5cd7d4974b1ee4f",
       "pid": "A003451933",
@@ -3968,7 +3920,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "123566614"
+    "viaf_pid": "85646876"
   },
   {
     "gnd": {
@@ -3979,7 +3931,7 @@
       "preferred_name_for_person": "Scheffbuch, Ruth",
       "authorized_access_point_representing_a_person": "Scheffbuch, Ruth, 1968-"
     },
-    "pid": "25917164",
+    "pid": "26351380",
     "rero": {
       "md5": "e87cf8ca135c310f5be36265da2b0239",
       "pid": "A018977531",
@@ -3991,7 +3943,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "142191590"
+    "viaf_pid": "123931594"
   },
   {
     "bnf": {
@@ -4024,7 +3976,7 @@
       "preferred_name_for_person": "Ward, Geoffrey C.",
       "authorized_access_point_representing_a_person": "Ward, Geoffrey C., 1940-"
     },
-    "pid": "10949635",
+    "pid": "11133684",
     "rero": {
       "md5": "f83f613ea7bba371b4c60262c98bcc53",
       "pid": "A003958080",
@@ -4037,7 +3989,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "143362402"
+    "viaf_pid": "84615263"
   },
   {
     "bnf": {
@@ -4050,7 +4002,7 @@
       "preferred_name_for_person": "Duncan, Dayton",
       "authorized_access_point_representing_a_person": "Duncan, Dayton"
     },
-    "pid": "26373190",
+    "pid": "26814923",
     "rero": {
       "md5": "5a350a52db4472080a8886baa4ee9abc",
       "pid": "A003197690",
@@ -4062,10 +4014,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003197690"
+    "viaf_pid": "44468239"
   },
   {
-    "pid": "11495128",
+    "pid": "11688151",
     "rero": {
       "md5": "5348628689100f5353c5f3fc16a33f7e",
       "pid": "A003714361",
@@ -4076,7 +4028,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003714361"
+    "viaf_pid": "453155042729772400359"
   },
   {
     "bnf": {
@@ -4103,7 +4055,7 @@
       "preferred_name_for_person": "Moscarelli, Laura",
       "authorized_access_point_representing_a_person": "Moscarelli, Laura, 1985-"
     },
-    "pid": "13980921",
+    "pid": "14215303",
     "rero": {
       "md5": "9aef8449b874136edfde3c299e05d309",
       "pid": "A026828345",
@@ -4116,7 +4068,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A026828345"
+    "viaf_pid": "605149106023768490408"
   },
   {
     "bnf": {
@@ -4149,7 +4101,7 @@
       "preferred_name_for_person": "Bergmann, Ludwig",
       "authorized_access_point_representing_a_person": "Bergmann, Ludwig, 1898-1959"
     },
-    "pid": "6193290",
+    "pid": "6297063",
     "rero": {
       "md5": "52c771822513ca18f416ff76798da765",
       "pid": "A002994419",
@@ -4162,7 +4114,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A002994419"
+    "viaf_pid": "27150085"
   },
   {
     "bnf": {
@@ -4188,7 +4140,7 @@
       "preferred_name_for_person": "Olmi, Ve\u0301ronique",
       "authorized_access_point_representing_a_person": "Olmi, Ve\u0301ronique, 1962-"
     },
-    "pid": "2267833",
+    "pid": "2305990",
     "rero": {
       "md5": "f92f4f0dc5d7c02532196021208b0c33",
       "pid": "A003655506",
@@ -4201,7 +4153,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003655506"
+    "viaf_pid": "22253720"
   },
   {
     "bnf": {
@@ -4219,7 +4171,7 @@
       "preferred_name_for_person": "Rebourg, Muriel",
       "authorized_access_point_representing_a_person": "Rebourg, Muriel, 1970-...."
     },
-    "pid": "57213",
+    "pid": "57838",
     "rero": {
       "md5": "b31ee53759f2e24b00a5f9d91f338928",
       "pid": "A006022356",
@@ -4231,7 +4183,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13540535"
+    "viaf_pid": "34620480"
   },
   {
     "gnd": {
@@ -4246,7 +4198,7 @@
       "preferred_name_for_person": "Ba\u0308uerle, Siegfried",
       "authorized_access_point_representing_a_person": "Ba\u0308uerle, Siegfried, 1941-"
     },
-    "pid": "15815408",
+    "pid": "16080543",
     "rero": {
       "md5": "e485958d3bf47839e728447c51a0b55f",
       "pid": "A003063735",
@@ -4258,10 +4210,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003063735"
+    "viaf_pid": "47552508"
   },
   {
-    "pid": "26513796",
+    "pid": "26957877",
     "rero": {
       "md5": "335d88600b9f91bedd72770d71a1a6d2",
       "pid": "A003602477",
@@ -4272,7 +4224,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "109048016"
+    "viaf_pid": "3029974"
   },
   {
     "bnf": {
@@ -4322,7 +4274,7 @@
       "preferred_name_for_person": "Carlsburg, Gerd-Bodo von",
       "authorized_access_point_representing_a_person": "Carlsburg, Gerd-Bodo von, 1942-"
     },
-    "pid": "10510180",
+    "pid": "10686845",
     "rero": {
       "md5": "5d75e3f489284b452d0aa273eff5828a",
       "pid": "A003735577",
@@ -4350,7 +4302,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003735577"
+    "viaf_pid": "27207572"
   },
   {
     "bnf": {
@@ -4367,7 +4319,7 @@
       "preferred_name_for_person": "\u00c9nel, Thierry",
       "authorized_access_point_representing_a_person": "\u00c9nel, Thierry, 1945-...."
     },
-    "pid": "23648678",
+    "pid": "24044602",
     "rero": {
       "md5": "5a68508f98b2d34b56631ca51ec33115",
       "pid": "A003217048",
@@ -4379,7 +4331,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12153079"
+    "viaf_pid": "34495142"
   },
   {
     "bnf": {
@@ -4396,7 +4348,7 @@
       "preferred_name_for_person": "H\u00e9ry, Fran\u00e7ois-Xavier",
       "authorized_access_point_representing_a_person": "H\u00e9ry, Fran\u00e7ois-Xavier, 1945-...."
     },
-    "pid": "24431453",
+    "pid": "24840672",
     "rero": {
       "md5": "b46a67c4cb797c7679b708c2801f2577",
       "pid": "A003395839",
@@ -4408,10 +4360,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12153077"
+    "viaf_pid": "29571992"
   },
   {
-    "pid": "19027118",
+    "pid": "19346237",
     "rero": {
       "md5": "b15bbc2cf00572a298ca2e250620ff2e",
       "pid": "A003013903",
@@ -4422,7 +4374,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003013903"
+    "viaf_pid": "81155042848272402698"
   },
   {
     "bnf": {
@@ -4440,7 +4392,7 @@
       "preferred_name_for_person": "Overnoy, Sylvie",
       "authorized_access_point_representing_a_person": "Overnoy, Sylvie"
     },
-    "pid": "26054286",
+    "pid": "26490622",
     "rero": {
       "md5": "87ab2310a1d039532ab6f00bb532affa",
       "pid": "A012815062",
@@ -4452,7 +4404,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A012815062"
+    "viaf_pid": "49386291"
   },
   {
     "bnf": {
@@ -4494,7 +4446,7 @@
       "preferred_name_for_person": "Trevin\u0303o, Elizabeth Borton de",
       "authorized_access_point_representing_a_person": "Trevin\u0303o, Elizabeth Borton de, 1904-2001"
     },
-    "pid": "30070120",
+    "pid": "30573473",
     "rero": {
       "md5": "3070f80901740999eafd658abb4d4f38",
       "pid": "A005493756",
@@ -4515,7 +4467,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005493756"
+    "viaf_pid": "95161808"
   },
   {
     "bnf": {
@@ -4530,7 +4482,7 @@
       "preferred_name_for_person": "Brisac, Tessa",
       "authorized_access_point_representing_a_person": "Brisac, Tessa"
     },
-    "pid": "6428398",
+    "pid": "6536262",
     "rero": {
       "md5": "83ec2bc54f67a3e8e9e41e9739255cbd",
       "pid": "A003044077",
@@ -4542,7 +4494,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003044077"
+    "viaf_pid": "24620748"
   },
   {
     "gnd": {
@@ -4557,7 +4509,7 @@
       "preferred_name_for_person": "Abeln, Reinhard",
       "authorized_access_point_representing_a_person": "Abeln, Reinhard, 1938-"
     },
-    "pid": "31018351",
+    "pid": "31537597",
     "rero": {
       "md5": "4505eb1cc70c60b184c16a3f1649fe1e",
       "pid": "A002903975",
@@ -4573,7 +4525,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "115401970"
+    "viaf_pid": "59814245"
   },
   {
     "gnd": {
@@ -4589,7 +4541,7 @@
       "preferred_name_for_person": "Kner, Anton",
       "authorized_access_point_representing_a_person": "Kner, Anton, 1911-2003"
     },
-    "pid": "31152761",
+    "pid": "31674186",
     "rero": {
       "md5": "dc3764ceab168ce9cfaabde8fd798a8d",
       "pid": "A003461608",
@@ -4606,7 +4558,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "12023615X"
+    "viaf_pid": "30361917"
   },
   {
     "bnf": {
@@ -4622,7 +4574,7 @@
       "preferred_name_for_person": "Kinnamon, Michael",
       "authorized_access_point_representing_a_person": "Kinnamon, Michael"
     },
-    "pid": "30871633",
+    "pid": "31388581",
     "rero": {
       "md5": "2f3b0eef69793a5b0143ad43f55c2bc7",
       "pid": "A003455131",
@@ -4634,11 +4586,11 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13477509"
+    "viaf_pid": "9996775"
   },
   {
     "bnf": {
-      "md5": "4aa7959b6c2fd63f1de70608ed990386",
+      "md5": "d7b901d77e8babfa5ecf53656354deb2",
       "pid": "11914522",
       "gender": "female",
       "date_of_birth": "1492-04-11",
@@ -4663,11 +4615,11 @@
       "biographical_information": [
         "Fille de Charles d'Orl\u00e9ans, comte d'Angoul\u00eame et de Louise de Savoie. - S\u0153ur de Fran\u00e7ois Ier. - \u00c9pouse du duc d'Alen\u00e7on, remari\u00e9e \u00e0 Henri d'Albret, roi de Navarre"
       ],
-      "preferred_name_for_person": "Marguerite d'Angoul\u00eame",
+      "preferred_name_for_person": "Marguerite d'Angoul\u00eame, reine de Navarre",
       "authorized_access_point_representing_a_person": "Marguerite d'Angoul\u00eame, reine de Navarre, 1492-1549"
     },
     "gnd": {
-      "md5": "73482522c169a33d180cf27cc003c46d",
+      "md5": "3c5bd91b32cfb9a61e558ad84ac09c4e",
       "pid": "118577719",
       "date_of_birth": "1492",
       "date_of_death": "1549",
@@ -4714,12 +4666,12 @@
       "biographical_information": [
         "Tochter von Charles <Orle\u0301ans, Duc> (1459-1496) und Prinzessin Luise von Sayoven. - 1509: 1. Heirat mit Charles Duc d'Alenc\u0327on (1489-1525) . - 1527: 2. Heirat mit Henri d'Albret, Roi de Navarre (1503-1555)"
       ],
-      "preferred_name_for_person": "Margarete",
+      "preferred_name_for_person": "Margarete Navarra, Ko\u0308nigin",
       "authorized_access_point_representing_a_person": "Margarete, Navarra, Ko\u0308nigin, 1492-1549"
     },
-    "pid": "6554126",
+    "pid": "6664032",
     "rero": {
-      "md5": "a5667751fb395a097c78f03d5019b225",
+      "md5": "b42a867097c12ad89b3fe234444b3e77",
       "pid": "A000110417",
       "date_of_birth": "1492",
       "date_of_death": "1549",
@@ -4741,7 +4693,7 @@
         "Fille de Charles d'Orl\u00e9ans, comte d'Angoul\u00eame, et de Louise de Savoie. - Soeur de Fran\u00e7ois Ier. - Epouse du duc d'Alen\u00e7on, remari\u00e9e \u00e0 Henri d'Albret, roi de Navarre",
         "Ne pas confondre avec Marguerite de Valois, reine de Navarre puis reine de France, 1553-1615"
       ],
-      "preferred_name_for_person": "Marguerite",
+      "preferred_name_for_person": "Marguerite, d'Angoul\u00eame, reine de Navarre",
       "authorized_access_point_representing_a_person": "Marguerite, d'Angoul\u00eame, reine de Navarre, 1492-1549"
     },
     "sources": [
@@ -4749,7 +4701,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11914522"
+    "viaf_pid": "89797196"
   },
   {
     "bnf": {
@@ -4779,7 +4731,7 @@
       "preferred_name_for_person": "Dubois, Pierre",
       "authorized_access_point_representing_a_person": "Dubois, Pierre, 1945-"
     },
-    "pid": "7092619",
+    "pid": "7211228",
     "rero": {
       "md5": "407b9d93b5407cdb5959940d2a360934",
       "pid": "A003193708",
@@ -4796,7 +4748,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003193708"
+    "viaf_pid": "32385970"
   },
   {
     "bnf": {
@@ -4814,7 +4766,7 @@
       "preferred_name_for_person": "Sabatier, Claudine",
       "authorized_access_point_representing_a_person": "Sabatier, Claudine, 1946-...."
     },
-    "pid": "30626860",
+    "pid": "31139528",
     "rero": {
       "md5": "2a83a3ceac7cb10efe8c9e97db985b88",
       "pid": "A003776215",
@@ -4826,37 +4778,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12040143"
-  },
-  {
-    "bnf": {
-      "md5": "91996dfaeab0c8e3940e7f604a40d855",
-      "pid": "12102125",
-      "gender": "male",
-      "date_of_birth": "1942-07-23",
-      "language_of_person": [
-        "fre"
-      ],
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb12102125q",
-      "biographical_information": [
-        "Peintre, graveur, \u00e9crivain, chor\u00e9graphe, po\u00e8te, cin\u00e9aste lettriste. - Entre au Groupe lettriste en 1963 et fonde le Centre de recherche lettriste en 1965. - Directeur de la revue PSI, des Editions \"Lettrismeet hypergraphie\" (en 1978)"
-      ],
-      "preferred_name_for_person": "Sabatier, Roland",
-      "authorized_access_point_representing_a_person": "Sabatier, Roland, 1942-...., peintre lettriste"
-    },
-    "pid": "4992625",
-    "rero": {
-      "md5": "d4dfb627000f1dd0bd9d945689635d80",
-      "pid": "A003776247",
-      "identifier_for_person": "http://data.rero.ch/02-A003776247",
-      "preferred_name_for_person": "Sabatier, Roland",
-      "authorized_access_point_representing_a_person": "Sabatier, Roland"
-    },
-    "sources": [
-      "rero",
-      "bnf"
-    ],
-    "viaf_pid": "12102125"
+    "viaf_pid": "84778421"
   },
   {
     "bnf": {
@@ -4902,7 +4824,7 @@
       "preferred_name_for_person": "Mai, Manfred",
       "authorized_access_point_representing_a_person": "Mai, Manfred, 1949-"
     },
-    "pid": "6661786",
+    "pid": "6773480",
     "rero": {
       "md5": "d4fd519cdee304536a8f9136ea2622d4",
       "pid": "A003551194",
@@ -4915,7 +4837,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "119522632"
+    "viaf_pid": "19808741"
   },
   {
     "bnf": {
@@ -4967,7 +4889,7 @@
       "preferred_name_for_person": "Dietl, Erhard",
       "authorized_access_point_representing_a_person": "Dietl, Erhard, 1953-"
     },
-    "pid": "9676864",
+    "pid": "9839370",
     "rero": {
       "md5": "462b36b25e73f546b333581bb426437e",
       "pid": "A003180182",
@@ -4980,7 +4902,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003180182"
+    "viaf_pid": "115516324"
   },
   {
     "bnf": {
@@ -4996,7 +4918,7 @@
       "preferred_name_for_person": "Rupp, Richard H.",
       "authorized_access_point_representing_a_person": "Rupp, Richard H."
     },
-    "pid": "5468284",
+    "pid": "5559967",
     "rero": {
       "md5": "ef606371604fe0c1046dbcdde513bb83",
       "pid": "A005935937",
@@ -5008,7 +4930,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12568126"
+    "viaf_pid": "244591479"
   },
   {
     "bnf": {
@@ -5053,7 +4975,7 @@
       "preferred_name_for_person": "Disney, Walt",
       "authorized_access_point_representing_a_person": "Disney, Walt, 1901-1966"
     },
-    "pid": "14531058",
+    "pid": "14774528",
     "rero": {
       "md5": "ff8ecc93e64d94cad6c6b68c252a2a6e",
       "pid": "A012267799",
@@ -5071,7 +4993,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11994688"
+    "viaf_pid": "36927108"
   },
   {
     "bnf": {
@@ -5102,7 +5024,7 @@
       "preferred_name_for_person": "Picotti, Lorenzo",
       "authorized_access_point_representing_a_person": "Picotti, Lorenzo, 1952-"
     },
-    "pid": "19919400",
+    "pid": "20253622",
     "rero": {
       "md5": "173871eb23e164d3689294f2ee987369",
       "pid": "A003692739",
@@ -5115,7 +5037,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1071682121"
+    "viaf_pid": "12401787"
   },
   {
     "bnf": {
@@ -5133,7 +5055,7 @@
       "preferred_name_for_person": "Cattan, Olivia",
       "authorized_access_point_representing_a_person": "Cattan, Olivia"
     },
-    "pid": "21068546",
+    "pid": "21421765",
     "rero": {
       "md5": "9251a9c8e7689939c38fe16d6e30120e",
       "pid": "A012072839",
@@ -5145,7 +5067,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A012072839"
+    "viaf_pid": "2758743"
   },
   {
     "bnf": {
@@ -5161,7 +5083,7 @@
       "preferred_name_for_person": "Foiret, Jacques",
       "authorized_access_point_representing_a_person": "Foiret, Jacques"
     },
-    "pid": "27503012",
+    "pid": "27963493",
     "rero": {
       "md5": "6aa0be62f01dc7ce3fbad32a3a00f1f4",
       "pid": "A006080183",
@@ -5173,10 +5095,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A006080183"
+    "viaf_pid": "7447839"
   },
   {
-    "pid": "6223145",
+    "pid": "6327365",
     "rero": {
       "md5": "05198640aad6ef862ab990683697c452",
       "pid": "A003045287",
@@ -5187,10 +5109,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003045287"
+    "viaf_pid": "56155042696472400396"
   },
   {
-    "pid": "24510017",
+    "pid": "24920570",
     "rero": {
       "md5": "557aeb2f36387a421f07fb86677dd145",
       "pid": "A005818603",
@@ -5201,7 +5123,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A005818603"
+    "viaf_pid": "288064621"
   },
   {
     "gnd": {
@@ -5212,7 +5134,7 @@
       "preferred_name_for_person": "Giulietti, Ana Maria",
       "authorized_access_point_representing_a_person": "Giulietti, Ana Maria, 1945-"
     },
-    "pid": "24624414",
+    "pid": "25036807",
     "rero": {
       "md5": "d112e6d7ed300b8189708282d02bce37",
       "pid": "A011438457",
@@ -5224,7 +5146,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A011438457"
+    "viaf_pid": "78425651"
   },
   {
     "bnf": {
@@ -5256,7 +5178,7 @@
       "preferred_name_for_person": "Joly, Genevie\u0300ve",
       "authorized_access_point_representing_a_person": "Joly, Genevie\u0300ve, 1947-"
     },
-    "pid": "1827949",
+    "pid": "1858651",
     "rero": {
       "md5": "d5e4fbd0314f6687a2c429bec14ea0cd",
       "pid": "A003429042",
@@ -5269,10 +5191,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003429042"
+    "viaf_pid": "64149568"
   },
   {
-    "pid": "13362465",
+    "pid": "13586667",
     "rero": {
       "md5": "99f6aff2d6c9cd273e89b546082d3b48",
       "pid": "A003138002",
@@ -5283,7 +5205,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003138002"
+    "viaf_pid": "140155042849772402676"
   },
   {
     "gnd": {
@@ -5301,7 +5223,7 @@
       "preferred_name_for_person": "Nesch, Thorsten",
       "authorized_access_point_representing_a_person": "Nesch, Thorsten, 1968-"
     },
-    "pid": "10910853",
+    "pid": "11094183",
     "rero": {
       "md5": "43ab1ef0e719ac0d6a1eca7af46d04ff",
       "pid": "A018328749",
@@ -5313,7 +5235,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A018328749"
+    "viaf_pid": "276431561"
   },
   {
     "bnf": {
@@ -5346,7 +5268,7 @@
       "preferred_name_for_person": "Casas Ros, Antoni",
       "authorized_access_point_representing_a_person": "Casas Ros, Antoni, 1972-"
     },
-    "pid": "20134811",
+    "pid": "20472332",
     "rero": {
       "md5": "d86c29d8b62488a5f0f6f4c2d20e5a1f",
       "pid": "A013771167",
@@ -5363,7 +5285,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A013771167"
+    "viaf_pid": "45506570"
   },
   {
     "bnf": {
@@ -5378,7 +5300,7 @@
       "preferred_name_for_person": "Van der Linden, Peter",
       "authorized_access_point_representing_a_person": "Van der Linden, Peter"
     },
-    "pid": "7014873",
+    "pid": "7132257",
     "rero": {
       "md5": "ade1a228924c38cda5cf2d8b231a01cf",
       "pid": "A012358683",
@@ -5390,7 +5312,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A012358683"
+    "viaf_pid": "37633145"
   },
   {
     "gnd": {
@@ -5400,7 +5322,7 @@
       "preferred_name_for_person": "Korzan, Kazimierz",
       "authorized_access_point_representing_a_person": "Korzan, Kazimierz"
     },
-    "pid": "25419239",
+    "pid": "25844914",
     "rero": {
       "md5": "d9323fffec41a83e003d1bd569485889",
       "pid": "A003469203",
@@ -5412,7 +5334,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003469203"
+    "viaf_pid": "62542272"
   },
   {
     "gnd": {
@@ -5433,7 +5355,7 @@
       "preferred_name_for_person": "Potter, Philip",
       "authorized_access_point_representing_a_person": "Potter, Philip, 1921-2015"
     },
-    "pid": "30063716",
+    "pid": "30566902",
     "rero": {
       "md5": "4bbe085cdb48011b2779ad19e28940cb",
       "pid": "A010994430",
@@ -5454,10 +5376,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A010994430"
+    "viaf_pid": "74645527"
   },
   {
-    "pid": "3503294",
+    "pid": "3561902",
     "rero": {
       "md5": "e18cdce77621c0443f3e3b5c79048bf2",
       "pid": "A003916863",
@@ -5468,10 +5390,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003916863"
+    "viaf_pid": "528155042808272402267"
   },
   {
-    "pid": "393119",
+    "pid": "399594",
     "rero": {
       "md5": "65ea1b721f6140d1d3b470d4bd00994f",
       "pid": "A003024766",
@@ -5482,7 +5404,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003024766"
+    "viaf_pid": "77605723"
   },
   {
     "bnf": {
@@ -5512,7 +5434,7 @@
       "preferred_name_for_person": "Cooper, Helen",
       "authorized_access_point_representing_a_person": "Cooper, Helen, 1947-"
     },
-    "pid": "28310723",
+    "pid": "28784830",
     "rero": {
       "md5": "5f1f6fbf80e7c84c0535dad70392640d",
       "pid": "A003133641",
@@ -5525,7 +5447,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12298562"
+    "viaf_pid": "100233714"
   },
   {
     "bnf": {
@@ -5543,7 +5465,7 @@
       "preferred_name_for_person": "Lake, A. J.",
       "authorized_access_point_representing_a_person": "Lake, A. J."
     },
-    "pid": "31011099",
+    "pid": "31530082",
     "rero": {
       "md5": "c30016a6d7f521e565caa38d6c38e0ff",
       "pid": "A016698997",
@@ -5555,7 +5477,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "15590656"
+    "viaf_pid": "41254231"
   },
   {
     "bnf": {
@@ -5591,7 +5513,7 @@
       "preferred_name_for_person": "Bo\u0308ttiger, Helmut",
       "authorized_access_point_representing_a_person": "Bo\u0308ttiger, Helmut, 1956-"
     },
-    "pid": "6540941",
+    "pid": "6650478",
     "rero": {
       "md5": "711f03e4fcbbe129c5216977f9744347",
       "pid": "A003064682",
@@ -5604,7 +5526,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003064682"
+    "viaf_pid": "5057159"
   },
   {
     "gnd": {
@@ -5618,7 +5540,7 @@
       "preferred_name_for_person": "Max, Charles",
       "authorized_access_point_representing_a_person": "Max, Charles, 1958-"
     },
-    "pid": "2334057",
+    "pid": "2373329",
     "rero": {
       "md5": "e57c1ba15dd036f6b01f30aebe0d5c39",
       "pid": "A006050060",
@@ -5630,21 +5552,21 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "121358003"
+    "viaf_pid": "15623801"
   },
   {
-    "pid": "14311067",
+    "pid": "14551094",
     "rero": {
-      "md5": "536bbf0e240d429e8f663f7807bd0d78",
+      "md5": "c465f0ecbf2f5f6025057019bc7e770a",
       "pid": "A012350832",
       "identifier_for_person": "http://data.rero.ch/02-A012350832",
-      "preferred_name_for_person": "Henry, Pierre",
+      "preferred_name_for_person": "Henry, Pierre, linguiste",
       "authorized_access_point_representing_a_person": "Henry, Pierre, linguiste"
     },
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A012350832"
+    "viaf_pid": "934155044809672520003"
   },
   {
     "gnd": {
@@ -5655,7 +5577,7 @@
       "preferred_name_for_person": "Watson, J. Francis",
       "authorized_access_point_representing_a_person": "Watson, J. Francis"
     },
-    "pid": "25318867",
+    "pid": "25742736",
     "rero": {
       "md5": "dad7b75ce5d1a2f2fceb117434912d9f",
       "pid": "A011564118",
@@ -5667,7 +5589,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1064757464"
+    "viaf_pid": "308755153"
   },
   {
     "bnf": {
@@ -5697,7 +5619,7 @@
       "preferred_name_for_person": "Baratta, Roberto",
       "authorized_access_point_representing_a_person": "Baratta, Roberto"
     },
-    "pid": "17106157",
+    "pid": "17393237",
     "rero": {
       "md5": "55da2154de63e059e7876675780a8bee",
       "pid": "A002967314",
@@ -5710,7 +5632,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A002967314"
+    "viaf_pid": "7464227"
   },
   {
     "bnf": {
@@ -5723,12 +5645,12 @@
       ],
       "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb12330057j",
       "biographical_information": [
-        "Biologiste. - Sp\u00e9cialis\u00e9 dans l'\u00e9tude de la conservation des resources. - En poste : School of botany, University of Melbourne, Australie (en 2002)"
+        "Biologiste. - Sp\u00e9cialis\u00e9 dans l'\u00e9tude de la conservation des ressources. - En poste : School of botany, University of Melbourne, Australie (en 2002)"
       ],
       "preferred_name_for_person": "Burgman, Mark A.",
       "authorized_access_point_representing_a_person": "Burgman, Mark A."
     },
-    "pid": "27141063",
+    "pid": "27595423",
     "rero": {
       "md5": "c477a8a847964c549f9cada41b8f4850",
       "pid": "A003058658",
@@ -5740,7 +5662,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003058658"
+    "viaf_pid": "233295567"
   },
   {
     "bnf": {
@@ -5754,7 +5676,7 @@
       ],
       "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb14563367n",
       "biographical_information": [
-        "Biologiste. - Sp\u00e9cialiste de la pr\u00e9servation des resources biologiques et des mammif\u00e8res australiens. - En poste : The australian national university, Centre for resource and environmental studies, Canberra (en 2002)"
+        "Biologiste. - Sp\u00e9cialiste de la pr\u00e9servation des ressources biologiques et des mammif\u00e8res australiens. - En poste : The australian national university, Centre for resource and environmental studies, Canberra (en 2002)"
       ],
       "preferred_name_for_person": "Lindenmayer, David B.",
       "authorized_access_point_representing_a_person": "Lindenmayer, David B."
@@ -5774,7 +5696,7 @@
       "preferred_name_for_person": "Lindenmayer, David",
       "authorized_access_point_representing_a_person": "Lindenmayer, David"
     },
-    "pid": "28128728",
+    "pid": "28599511",
     "rero": {
       "md5": "efd1befe21bda575cb42c8b492f0644c",
       "pid": "A005957366",
@@ -5787,7 +5709,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005957366"
+    "viaf_pid": "37158426"
   },
   {
     "bnf": {
@@ -5816,7 +5738,7 @@
       "preferred_name_for_person": "Dahan, Andre\u0301",
       "authorized_access_point_representing_a_person": "Dahan, Andre\u0301, 1935-"
     },
-    "pid": "19589623",
+    "pid": "19918197",
     "rero": {
       "md5": "4d869ea62f0b3abe690017444fec75f3",
       "pid": "A003151225",
@@ -5829,7 +5751,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11898431"
+    "viaf_pid": "85409728"
   },
   {
     "bnf": {
@@ -5866,7 +5788,7 @@
       "preferred_name_for_person": "Scott, James Brown",
       "authorized_access_point_representing_a_person": "Scott, James Brown, 1866-1943"
     },
-    "pid": "21261786",
+    "pid": "21618088",
     "rero": {
       "md5": "797848b5386828a0c8c4c5ce193e1820",
       "pid": "A000147120",
@@ -5882,7 +5804,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000147120"
+    "viaf_pid": "66530059"
   },
   {
     "gnd": {
@@ -5892,7 +5814,7 @@
       "preferred_name_for_person": "Eckebrecht, Marc",
       "authorized_access_point_representing_a_person": "Eckebrecht, Marc"
     },
-    "pid": "21653763",
+    "pid": "22016547",
     "rero": {
       "md5": "9120769784c1c42dfe2082f1a5c012d6",
       "pid": "A017131049",
@@ -5904,7 +5826,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "112610579"
+    "viaf_pid": "42494091"
   },
   {
     "bnf": {
@@ -5945,7 +5867,7 @@
       "preferred_name_for_person": "Pe\u0301tain, Philippe",
       "authorized_access_point_representing_a_person": "Pe\u0301tain, Philippe, 1856-1951"
     },
-    "pid": "28309350",
+    "pid": "28783421",
     "rero": {
       "md5": "542a439afd5f19219f865fac0dba136b",
       "pid": "A000134328",
@@ -5961,10 +5883,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12014186"
+    "viaf_pid": "95295727"
   },
   {
-    "pid": "717712",
+    "pid": "729741",
     "rero": {
       "md5": "36484fe9db9583fcfdb59631e18b7f07",
       "pid": "A017007938",
@@ -5975,10 +5897,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A017007938"
+    "viaf_pid": "897155042801772401734"
   },
   {
-    "pid": "19148634",
+    "pid": "19469778",
     "rero": {
       "md5": "ec5103b5ab1ef26cd0aa0f773e77b898",
       "pid": "A006071567",
@@ -5992,10 +5914,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006071567"
+    "viaf_pid": "26745826"
   },
   {
-    "pid": "26430439",
+    "pid": "26873191",
     "rero": {
       "md5": "34fe2e1fb9f5d86f271f0b15eb6beb79",
       "pid": "A006071570",
@@ -6006,7 +5928,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006071570"
+    "viaf_pid": "287031075"
   },
   {
     "bnf": {
@@ -6042,7 +5964,7 @@
       "preferred_name_for_person": "Mauriac, Claude",
       "authorized_access_point_representing_a_person": "Mauriac, Claude, 1914-1996"
     },
-    "pid": "5759531",
+    "pid": "5856081",
     "rero": {
       "md5": "be4477f1f84c6d85f8268f0ba8e227b6",
       "pid": "A003575060",
@@ -6055,7 +5977,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118782649"
+    "viaf_pid": "109884191"
   },
   {
     "bnf": {
@@ -6111,7 +6033,7 @@
       "preferred_name_for_person": "Vattel, Emer de",
       "authorized_access_point_representing_a_person": "Vattel, Emer de, 1714-1767"
     },
-    "pid": "10066165",
+    "pid": "10235283",
     "rero": {
       "md5": "54e26edf5cb278222493c5fc23ea63f7",
       "pid": "A000170720",
@@ -6128,32 +6050,9 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12347357"
+    "viaf_pid": "71465252"
   },
   {
-    "bnf": {
-      "md5": "dc7d0b62e2e79f1c20374d8cbc0f6f92",
-      "pid": "11994680",
-      "gender": "male",
-      "date_of_birth": "1871-03-30",
-      "date_of_death": "1955-02-02",
-      "language_of_person": [
-        "fre"
-      ],
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb11994680t",
-      "variant_name_for_person": [
-        "Geouffre de Lapradelle, Albert",
-        "Lapradelle, Albert de",
-        "La Pradelle, Albert de",
-        "La Pradelle, Albert Geouffre de",
-        "Geouffre de La Pradelle, Albert"
-      ],
-      "biographical_information": [
-        "Juriste et universitaire. - Professeur de droit \u00e0 l'Universit\u00e9 de Paris. - Rapporteur de la D\u00e9claration de Londres (1910). - Membre de l'Acad\u00e9mie des sciences de Finlande. - P\u00e8re de Paul de Geouffre de La Pradelle (1902-1993) et de Raymond de Geouffre de La Pradelle (1910-....). - Pr\u00e9noms complets : Albert, Pierre, Marie"
-      ],
-      "preferred_name_for_person": "Lapradelle, Albert Geouffre de",
-      "authorized_access_point_representing_a_person": "Lapradelle, Albert Geouffre de, 1871-1955"
-    },
     "gnd": {
       "md5": "2115f93838264e6234a3043d8b3a35f1",
       "pid": "123854687",
@@ -6181,7 +6080,7 @@
       "preferred_name_for_person": "Lapradelle, Albert Geouffre de",
       "authorized_access_point_representing_a_person": "Lapradelle, Albert Geouffre de, 1871-1955"
     },
-    "pid": "24869641",
+    "pid": "25286192",
     "rero": {
       "md5": "0d9b30a90f583213a406861f68ed59ea",
       "pid": "A003496534",
@@ -6207,10 +6106,9 @@
     },
     "sources": [
       "rero",
-      "gnd",
-      "bnf"
+      "gnd"
     ],
-    "viaf_pid": "123854687"
+    "viaf_pid": "95150274"
   },
   {
     "bnf": {
@@ -6248,7 +6146,7 @@
       "preferred_name_for_person": "Fenwick, Charles G.",
       "authorized_access_point_representing_a_person": "Fenwick, Charles G., 1880-1973"
     },
-    "pid": "938918",
+    "pid": "954443",
     "rero": {
       "md5": "0b80a0b5232115fbfd530b736a80edba",
       "pid": "A003237714",
@@ -6261,7 +6159,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1055296972"
+    "viaf_pid": "36994203"
   },
   {
     "bnf": {
@@ -6297,7 +6195,7 @@
       "preferred_name_for_person": "Eisenreich, Gu\u0308nther",
       "authorized_access_point_representing_a_person": "Eisenreich, Gu\u0308nther, 1933-2015"
     },
-    "pid": "27033531",
+    "pid": "27486166",
     "rero": {
       "md5": "9a462ba4ef7da585a5e123d7420d603d",
       "pid": "A003212794",
@@ -6310,7 +6208,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12445456"
+    "viaf_pid": "109340262"
   },
   {
     "bnf": {
@@ -6339,7 +6237,7 @@
       "preferred_name_for_person": "Sube, Ralf",
       "authorized_access_point_representing_a_person": "Sube, Ralf, 1933-"
     },
-    "pid": "16857675",
+    "pid": "17140316",
     "rero": {
       "md5": "efd6693733f97c65ddd79c5e0341f35a",
       "pid": "A003873889",
@@ -6352,10 +6250,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1063955939"
+    "viaf_pid": "5025117"
   },
   {
-    "pid": "9099140",
+    "pid": "9251651",
     "rero": {
       "md5": "a31496f65b540fe432063051e550eaad",
       "pid": "A006010680",
@@ -6366,7 +6264,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006010680"
+    "viaf_pid": "5289155044738172520000"
   },
   {
     "bnf": {
@@ -6531,7 +6429,7 @@
       "preferred_name_for_person": "Pus\u030ckin, Aleksandr Sergeevic\u030c",
       "authorized_access_point_representing_a_person": "Pus\u030ckin, Aleksandr Sergeevic\u030c, 1799-1837"
     },
-    "pid": "29661054",
+    "pid": "30157484",
     "rero": {
       "md5": "1f9ef85a78f57cad223b7c373d21d9d7",
       "pid": "A000134048",
@@ -6556,7 +6454,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000134048"
+    "viaf_pid": "66477450"
   },
   {
     "bnf": {
@@ -6600,7 +6498,7 @@
       "preferred_name_for_person": "Gennadi, Grigorij N.",
       "authorized_access_point_representing_a_person": "Gennadi, Grigorij N., 1826-1880"
     },
-    "pid": "21184677",
+    "pid": "21539771",
     "rero": {
       "md5": "ced745d125af36278e18176f82c1d8c4",
       "pid": "A000070425",
@@ -6617,7 +6515,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000070425"
+    "viaf_pid": "74632746"
   },
   {
     "bnf": {
@@ -6636,7 +6534,7 @@
       "preferred_name_for_person": "Soda, Antonio",
       "authorized_access_point_representing_a_person": "Soda, Antonio, 1943-...."
     },
-    "pid": "28453770",
+    "pid": "28930042",
     "rero": {
       "md5": "177d685d02c1fc9ed19e73b136cd0d81",
       "pid": "A006004727",
@@ -6648,7 +6546,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A006004727"
+    "viaf_pid": "49064379"
   },
   {
     "bnf": {
@@ -6696,7 +6594,7 @@
       "preferred_name_for_person": "Bea, Augustin",
       "authorized_access_point_representing_a_person": "Bea, Augustin, 1881-1968"
     },
-    "pid": "9424642",
+    "pid": "9582789",
     "rero": {
       "md5": "ba661b46cd0c2a070671a6989e68cdb4",
       "pid": "A012348452",
@@ -6718,7 +6616,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A012348452"
+    "viaf_pid": "71432007"
   },
   {
     "gnd": {
@@ -6747,7 +6645,7 @@
       "preferred_name_for_person": "Mylo\u0304nas, Geo\u0304rgios E.",
       "authorized_access_point_representing_a_person": "Mylo\u0304nas, Geo\u0304rgios E., 1898-1988"
     },
-    "pid": "22458987",
+    "pid": "22835524",
     "rero": {
       "md5": "e14d089348c19a9c289d3bec25627064",
       "pid": "A000118573",
@@ -6764,7 +6662,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "118885618"
+    "viaf_pid": "60482049"
   },
   {
     "gnd": {
@@ -6778,7 +6676,7 @@
       "preferred_name_for_person": "Kessel, Katja",
       "authorized_access_point_representing_a_person": "Kessel, Katja, 1976-"
     },
-    "pid": "30596941",
+    "pid": "31109007",
     "rero": {
       "md5": "2782840a9f81c0ef796872ff315e2da2",
       "pid": "A013470856",
@@ -6790,7 +6688,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "130879479"
+    "viaf_pid": "30654780"
   },
   {
     "bnf": {
@@ -6823,7 +6721,7 @@
       "preferred_name_for_person": "Reimann, Sandra",
       "authorized_access_point_representing_a_person": "Reimann, Sandra"
     },
-    "pid": "15016691",
+    "pid": "15268483",
     "rero": {
       "md5": "464644c130d77d03c1db6967a5434fc5",
       "pid": "A013470857",
@@ -6836,7 +6734,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A013470857"
+    "viaf_pid": "50343605"
   },
   {
     "bnf": {
@@ -6871,7 +6769,7 @@
       "preferred_name_for_person": "Martin, Ann M.",
       "authorized_access_point_representing_a_person": "Martin, Ann M., 1955-"
     },
-    "pid": "1729431",
+    "pid": "1758352",
     "rero": {
       "md5": "99ed5d7057dc52b10cff99485e58216c",
       "pid": "A005652122",
@@ -6891,7 +6789,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005652122"
+    "viaf_pid": "311426430"
   },
   {
     "bnf": {
@@ -6928,7 +6826,7 @@
       "preferred_name_for_person": "Perrault, Gilles",
       "authorized_access_point_representing_a_person": "Perrault, Gilles, 1931-"
     },
-    "pid": "4730858",
+    "pid": "4810239",
     "rero": {
       "md5": "1f18e9a444b41bc413bc5cb96bc3d7bc",
       "pid": "A000129446",
@@ -6947,7 +6845,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000129446"
+    "viaf_pid": "14774951"
   },
   {
     "bnf": {
@@ -6968,7 +6866,7 @@
       "preferred_name_for_person": "Wilson, Margaret Dauler",
       "authorized_access_point_representing_a_person": "Wilson, Margaret Dauler, 1939-...."
     },
-    "pid": "12152289",
+    "pid": "12356499",
     "rero": {
       "md5": "16ab50623dad2d7ee21c620da1ff95d7",
       "pid": "A003978760",
@@ -6980,7 +6878,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003978760"
+    "viaf_pid": "98306439"
   },
   {
     "bnf": {
@@ -6997,7 +6895,7 @@
       "preferred_name_for_person": "Van Cutsem, Chantal",
       "authorized_access_point_representing_a_person": "Van Cutsem, Chantal"
     },
-    "pid": "5176776",
+    "pid": "5263362",
     "rero": {
       "md5": "9c945c41df49e01951d11f87d658a6c9",
       "pid": "A012323649",
@@ -7009,7 +6907,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A012323649"
+    "viaf_pid": "39397763"
   },
   {
     "bnf": {
@@ -7027,7 +6925,7 @@
       "preferred_name_for_person": "Schilte, Christine",
       "authorized_access_point_representing_a_person": "Schilte, Christine"
     },
-    "pid": "12940059",
+    "pid": "13157224",
     "rero": {
       "md5": "7cc2a121b04adb8622b789977f62582a",
       "pid": "A003796852",
@@ -7039,7 +6937,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003796852"
+    "viaf_pid": "64017013"
   },
   {
     "bnf": {
@@ -7068,7 +6966,7 @@
       "preferred_name_for_person": "Rufo, Marcel",
       "authorized_access_point_representing_a_person": "Rufo, Marcel, 1945-"
     },
-    "pid": "13751587",
+    "pid": "13982342",
     "rero": {
       "md5": "376de9dc30a998e2b7eb8d7299df1e0f",
       "pid": "A003770152",
@@ -7081,7 +6979,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12130212"
+    "viaf_pid": "96948169"
   },
   {
     "bnf": {
@@ -7114,7 +7012,7 @@
       "preferred_name_for_person": "Wengeroff, Pauline",
       "authorized_access_point_representing_a_person": "Wengeroff, Pauline, 1833-1916"
     },
-    "pid": "15062728",
+    "pid": "15315403",
     "rero": {
       "md5": "10b9a4b34dc3ab91caa9d16fff7b52f7",
       "pid": "A024778522",
@@ -7127,7 +7025,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A024778522"
+    "viaf_pid": "227947"
   },
   {
     "gnd": {
@@ -7145,7 +7043,7 @@
       "preferred_name_for_person": "Forneck, Hermann-Josef",
       "authorized_access_point_representing_a_person": "Forneck, Hermann-Josef, 1950-"
     },
-    "pid": "29017526",
+    "pid": "29503322",
     "rero": {
       "md5": "32f971c109f19f00777afd19bfdd0e0d",
       "pid": "A003253516",
@@ -7157,10 +7055,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "125002327"
+    "viaf_pid": "5880606"
   },
   {
-    "pid": "25169068",
+    "pid": "25590245",
     "rero": {
       "md5": "18bfb316f9957d29aabf1698a5ebc40d",
       "pid": "A019039954",
@@ -7172,7 +7070,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A019039954"
+    "viaf_pid": "3651155286589587180000"
   },
   {
     "bnf": {
@@ -7210,7 +7108,7 @@
       "preferred_name_for_person": "Baldwin, Richard E.",
       "authorized_access_point_representing_a_person": "Baldwin, Richard E."
     },
-    "pid": "16862853",
+    "pid": "17145651",
     "rero": {
       "md5": "e8bb5d973666c7359fa1a0a907dd687c",
       "pid": "A002963274",
@@ -7229,7 +7127,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13493566"
+    "viaf_pid": "64159970"
   },
   {
     "bnf": {
@@ -7264,7 +7162,7 @@
       "preferred_name_for_person": "Pringsheim, Nathanael",
       "authorized_access_point_representing_a_person": "Pringsheim, Nathanael, 1823-1894"
     },
-    "pid": "3427092",
+    "pid": "3484529",
     "rero": {
       "md5": "29bf0d9dbe8f1889972c2f15952175ca",
       "pid": "A018918771",
@@ -7277,7 +7175,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12564115"
+    "viaf_pid": "64121720"
   },
   {
     "bnf": {
@@ -7299,7 +7197,7 @@
       "preferred_name_for_person": "Bacus, Anne",
       "authorized_access_point_representing_a_person": "Bacus, Anne, 1955-...."
     },
-    "pid": "21223470",
+    "pid": "21579222",
     "rero": {
       "md5": "00b9d6a7c8b911f01f32e0b423eb1970",
       "pid": "A000015175",
@@ -7314,7 +7212,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A000015175"
+    "viaf_pid": "24623975"
   },
   {
     "bnf": {
@@ -7339,7 +7237,7 @@
       "preferred_name_for_person": "Wirth, Markus",
       "authorized_access_point_representing_a_person": "Wirth, Markus"
     },
-    "pid": "11655915",
+    "pid": "11851712",
     "rero": {
       "md5": "374dd42cf53d752f221afa3d8691c7d3",
       "pid": "A025075357",
@@ -7353,7 +7251,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A025075357"
+    "viaf_pid": "47382983"
   },
   {
     "bnf": {
@@ -7366,7 +7264,7 @@
       "preferred_name_for_person": "Dekeyzer, Brigitte",
       "authorized_access_point_representing_a_person": "Dekeyzer, Brigitte"
     },
-    "pid": "22215780",
+    "pid": "22588148",
     "rero": {
       "md5": "3fe7128d8735c58574b955eed6f354f4",
       "pid": "A005903211",
@@ -7378,11 +7276,11 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A005903211"
+    "viaf_pid": "49383205"
   },
   {
     "bnf": {
-      "md5": "c4ca6297de7cd96c8f742c6e493db34e",
+      "md5": "43b045f9beaa6348a2b3e257b98cc6da",
       "pid": "12079078",
       "gender": "male",
       "date_of_birth": "1920-05-18",
@@ -7402,12 +7300,77 @@
         "\u00c9crivait aussi en fran\u00e7ais, en italien et en latin",
         "Pape du 16 octobre 1978 au 2 avril 2005. - B\u00e9atifi\u00e9 le 1er mai 2011. - Canonis\u00e9 le 27 avril 2014"
       ],
-      "preferred_name_for_person": "Jean-Paul II",
+      "preferred_name_for_person": "Jean-Paul, pape II",
       "authorized_access_point_representing_a_person": "Jean-Paul, II, pape, 1920-2005"
     },
-    "pid": "11731397",
+    "gnd": {
+      "md5": "74dd468afb9d078facb1fcb475221551",
+      "pid": "118558064",
+      "gender": "male",
+      "date_of_birth": "18.05.1920",
+      "date_of_death": "02.04.2005",
+      "identifier_for_person": "http://d-nb.info/gnd/118558064",
+      "variant_name_for_person": [
+        "Johannes Paul, Papst, Heiliger",
+        "Johannes Paulus, Papst",
+        "Johannes Paulus, Papa",
+        "Giovanni Paolo, Papa",
+        "Ioannes Paulus, Papa",
+        "Wojty\u0142a, Karol",
+        "Wojty\u0142a, Karol Jo\u0301zef",
+        "Ioannis Paulus, Papst",
+        "Ivan Pavao, Papst",
+        "Ivan Pavlo, Papst",
+        "Jan Pavel Druhy\u0301, Papst",
+        "Ja\u0301n Pavol, Papst",
+        "Jan Pawe\u0142, Papst",
+        "Jan Pawe\u0142, Papiez\u0307",
+        "Janez Pavel, Papst",
+        "Ja\u0304nis Pa\u0304vils, Pa\u0304vests",
+        "Ja\u0301nos Pa\u0301l, Pa\u0301pa",
+        "Jean Paul, Papst",
+        "Jean Paul, Pape",
+        "Jean-Paul, Pape",
+        "Joannes Paulus, Papa",
+        "Johannes Paulus, Paus",
+        "Johano Pau\u0306lo la Dua, Papst",
+        "John Paul, Papst",
+        "John Paul, Pope",
+        "Juan Pablo, Papst",
+        "Juan Pablo, Papa",
+        "Vojtyla, Karol",
+        "Wojtyla, Carlo",
+        "Vojtila, Karol",
+        "Wojtyla, Karol",
+        "Wojtyla, Karol, Heiliger",
+        "Johannes Paul, Heiliger",
+        "Yuh\u0323anna\u0304 Bu\u0304lus, al-Ba\u0304ba\u0304",
+        "Yuha\u0323nna\u0304 Bu\u0304lus, al-Ba\u0304ba\u0304",
+        "Yuh\u0323anna\u0304-Bu\u0304lus at-Ta\u0304ni\u0304, al-Ba\u0304ba\u0304",
+        "Yuha\u0323nna\u0304-Bu\u0304lus at-Tani\u0304, al-Ba\u0304ba\u0304",
+        "Yu\u0304ha\u0323nna\u0304 Bu\u0304lus at-Tani\u0304, al-Ba\u0304ba\u0304",
+        "Yu\u0304h\u0323anna\u0304 Bu\u0304lus at-Ta\u0304ni\u0304, al-Ba\u0304ba\u0304",
+        "Ioann Pavel, Papa",
+        "Ioannes Paulos, Papa",
+        "Johano Pau\u0306lo, Papst",
+        "Gioan-Phaolo\u0302, Papst",
+        "Johannes Paul",
+        "Johannes Paul, Papst",
+        "Jawien\u0301, Andrzej",
+        "Gruda, Stanis\u0142aw A.",
+        "Jasien\u0301, Piotr",
+        "Johannes Paul, Pape",
+        "Johannes Paul, Pope"
+      ],
+      "biographical_information": [
+        "Papst von 1978-2005; 2014 heiliggesprochen"
+      ],
+      "preferred_name_for_person": "Johannes Paul II. Papst",
+      "authorized_access_point_representing_a_person": "Johannes Paul, II., Papst, 1920-2005"
+    },
+    "pid": "11928303",
     "rero": {
-      "md5": "88d7243e3b30774b5b514d3e7098ab9e",
+      "md5": "da79ac77df033042b78fb1bccc274e8f",
       "pid": "A000094919",
       "date_of_birth": "1920",
       "date_of_death": "2005",
@@ -7426,28 +7389,29 @@
         "Andrzej Jawie\u0144 est le pseudonyme de Karol Wojty\u0142a",
         "Pape du 16 octobre 1978 au 2 avril 2005. - B\u00e9atifi\u00e9 le 1er mai 2011. - Canonis\u00e9 le 27 avril 2014"
       ],
-      "preferred_name_for_person": "Jean Paul II",
+      "preferred_name_for_person": "Jean Paul II, pape",
       "authorized_access_point_representing_a_person": "Jean Paul, II, pape, 1920-2005"
     },
     "sources": [
       "rero",
+      "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000094919"
+    "viaf_pid": "35605"
   },
   {
-    "pid": "17985979",
+    "pid": "18287761",
     "rero": {
-      "md5": "3b5142a195a05da03738109a3742dc28",
+      "md5": "6c546cb941b00720335de034d606120d",
       "pid": "A022902314",
       "identifier_for_person": "http://data.rero.ch/02-A022902314",
-      "preferred_name_for_person": "Cole, John",
+      "preferred_name_for_person": "Cole, John, of Beverley",
       "authorized_access_point_representing_a_person": "Cole, John, of Beverley"
     },
     "sources": [
       "rero"
     ],
-    "viaf_pid": "159764823"
+    "viaf_pid": "73719903"
   },
   {
     "bnf": {
@@ -7486,7 +7450,7 @@
       "preferred_name_for_person": "Bromfield, Louis",
       "authorized_access_point_representing_a_person": "Bromfield, Louis, 1896-1956"
     },
-    "pid": "31524119",
+    "pid": "32051769",
     "rero": {
       "md5": "860280660e275a5e10e3726ef0e01baa",
       "pid": "A003046346",
@@ -7499,10 +7463,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11894137"
+    "viaf_pid": "14766865"
   },
   {
-    "pid": "9675424",
+    "pid": "9837898",
     "rero": {
       "md5": "e77c5f29f516e5ed462439dc64150981",
       "pid": "A003042303",
@@ -7513,10 +7477,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003042303"
+    "viaf_pid": "109155042791972401757"
   },
   {
-    "pid": "22821326",
+    "pid": "23204059",
     "rero": {
       "md5": "64c65d63a7d2dcbcbccb434eddf03ebf",
       "pid": "A003418300",
@@ -7527,7 +7491,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003418300"
+    "viaf_pid": "230155042731572400595"
   },
   {
     "bnf": {
@@ -7562,7 +7526,7 @@
       "preferred_name_for_person": "Arold, Marliese",
       "authorized_access_point_representing_a_person": "Arold, Marliese, 1958-"
     },
-    "pid": "19540498",
+    "pid": "19868221",
     "rero": {
       "md5": "633dc781fb5aaa8f1c9e469efbf4ca4b",
       "pid": "A002940349",
@@ -7575,7 +7539,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "16544258"
+    "viaf_pid": "208676985"
   },
   {
     "bnf": {
@@ -7602,7 +7566,7 @@
       "preferred_name_for_person": "Falkenberg, Sabine",
       "authorized_access_point_representing_a_person": "Falkenberg, Sabine, 1966-"
     },
-    "pid": "28049352",
+    "pid": "28518783",
     "rero": {
       "md5": "784111854c28a20ee6a59c64a61add12",
       "pid": "A009210319",
@@ -7615,7 +7579,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "16659216"
+    "viaf_pid": "37788516"
   },
   {
     "bnf": {
@@ -7641,7 +7605,7 @@
       "preferred_name_for_person": "Bautz, Friedrich Wilhelm",
       "authorized_access_point_representing_a_person": "Bautz, Friedrich Wilhelm, 1906-1979"
     },
-    "pid": "10590142",
+    "pid": "10768136",
     "rero": {
       "md5": "1cc7227632d703cb134f25bbb8c52898",
       "pid": "A002979260",
@@ -7656,7 +7620,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A002979260"
+    "viaf_pid": "27095235"
   },
   {
     "bnf": {
@@ -7677,7 +7641,7 @@
       "preferred_name_for_person": "Bautz, Traugott",
       "authorized_access_point_representing_a_person": "Bautz, Traugott"
     },
-    "pid": "12378704",
+    "pid": "12586491",
     "rero": {
       "md5": "69bf83bd65940589af096366671390cb",
       "pid": "A002979263",
@@ -7690,7 +7654,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A002979263"
+    "viaf_pid": "59138731"
   },
   {
     "bnf": {
@@ -7716,7 +7680,7 @@
       "preferred_name_for_person": "Gantzhorn, Ralf",
       "authorized_access_point_representing_a_person": "Gantzhorn, Ralf, 1964-"
     },
-    "pid": "59535",
+    "pid": "60262",
     "rero": {
       "md5": "c562b1f9e6ef8d16c3cfdbeca709a440",
       "pid": "A003278361",
@@ -7729,7 +7693,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003278361"
+    "viaf_pid": "40116058"
   },
   {
     "gnd": {
@@ -7741,7 +7705,7 @@
       "preferred_name_for_person": "Attenberger, Moritz",
       "authorized_access_point_representing_a_person": "Attenberger, Moritz, 1978-"
     },
-    "pid": "13062663",
+    "pid": "13281772",
     "rero": {
       "md5": "12be129e52db92ac3a110394cbb187be",
       "pid": "A019207062",
@@ -7753,7 +7717,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "143392905"
+    "viaf_pid": "247699759"
   },
   {
     "bnf": {
@@ -7783,7 +7747,7 @@
       "preferred_name_for_person": "Dvorak, Marta",
       "authorized_access_point_representing_a_person": "Dvorak, Marta, 1951-"
     },
-    "pid": "8147042",
+    "pid": "8283641",
     "rero": {
       "md5": "fb6c00647aac19d06120f93dc5fefae6",
       "pid": "A003201781",
@@ -7796,7 +7760,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1146017235"
+    "viaf_pid": "73853019"
   },
   {
     "bnf": {
@@ -7819,7 +7783,7 @@
       "preferred_name_for_person": "Ventura, H\u00e9liane",
       "authorized_access_point_representing_a_person": "Ventura, H\u00e9liane, 1955-...."
     },
-    "pid": "13227121",
+    "pid": "13448925",
     "rero": {
       "md5": "4a719f06ab0dbf72ef11795cd39a1f52",
       "pid": "A005730379",
@@ -7831,7 +7795,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12354537"
+    "viaf_pid": "27141975"
   },
   {
     "bnf": {
@@ -7875,7 +7839,7 @@
       "preferred_name_for_person": "Fusi Aizpuru\u0301a, Juan Pablo",
       "authorized_access_point_representing_a_person": "Fusi Aizpuru\u0301a, Juan Pablo, 1945-"
     },
-    "pid": "25587994",
+    "pid": "26016601",
     "rero": {
       "md5": "9febc267b6cf99a5f1537ace902c4c61",
       "pid": "A000067228",
@@ -7897,7 +7861,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12090813"
+    "viaf_pid": "88914950"
   },
   {
     "bnf": {
@@ -7935,7 +7899,7 @@
       "preferred_name_for_person": "Garci\u0301a Delgado, Jose\u0301 Luis",
       "authorized_access_point_representing_a_person": "Garci\u0301a Delgado, Jose\u0301 Luis, 1944-"
     },
-    "pid": "2561181",
+    "pid": "2604338",
     "rero": {
       "md5": "cdacd970bc0e8d80a0c6b5dc66500e84",
       "pid": "A000069436",
@@ -7951,7 +7915,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12056353"
+    "viaf_pid": "108735612"
   },
   {
     "bnf": {
@@ -7989,7 +7953,7 @@
       "preferred_name_for_person": "Jime\u0301nez, Juan Carlos",
       "authorized_access_point_representing_a_person": "Jime\u0301nez, Juan Carlos, 1959-"
     },
-    "pid": "3669700",
+    "pid": "3731129",
     "rero": {
       "md5": "dd19fd583cd78380a072d9b28dd3aa28",
       "pid": "A006398171",
@@ -8002,7 +7966,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "133869148"
+    "viaf_pid": "71476593"
   },
   {
     "bnf": {
@@ -8025,7 +7989,7 @@
       "authorized_access_point_representing_a_person": "Alexandre de Roes, 12..-1288"
     },
     "gnd": {
-      "md5": "ab56f7ab0c6c39f18551a5e0b2facbbc",
+      "md5": "eca3786e41c38216b6fff44e6b26af0a",
       "pid": "118501895",
       "gender": "male",
       "date_of_birth": "1225",
@@ -8038,18 +8002,18 @@
       "biographical_information": [
         "Ko\u0308lner Kanoniker, 13. Jh."
       ],
-      "preferred_name_for_person": "Alexander",
+      "preferred_name_for_person": "Alexander de Roes",
       "authorized_access_point_representing_a_person": "Alexander, de Roes, 1225-1288"
     },
-    "pid": "5996920",
+    "pid": "6097517",
     "rero": {
-      "md5": "13bbae116d67080f65872fbb9f556c07",
+      "md5": "904d4007105c9feda4926b70e5c232e0",
       "pid": "A005463681",
       "identifier_for_person": "http://data.rero.ch/02-A005463681",
       "variant_name_for_person": [
         "Roes, Alexander von"
       ],
-      "preferred_name_for_person": "Alexander",
+      "preferred_name_for_person": "Alexander, von Roes",
       "authorized_access_point_representing_a_person": "Alexander, von Roes"
     },
     "sources": [
@@ -8057,7 +8021,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005463681"
+    "viaf_pid": "100897304"
   },
   {
     "bnf": {
@@ -8083,7 +8047,7 @@
       "authorized_access_point_representing_a_person": "Engelbert d'Admont, 1250?-1331"
     },
     "gnd": {
-      "md5": "22a330d4c648a4b8639221a3c5b931d8",
+      "md5": "d9232b0ba570ec168ee75b9f8630a0ae",
       "pid": "118530321",
       "date_of_birth": "1250",
       "date_of_death": "1331",
@@ -8109,12 +8073,12 @@
       "biographical_information": [
         "OSB; Identita\u0308t mit Engelbertus <de Colonia>, dem von Schneyer 74 Sermones zugeschrieben werden, nicht gesichert; Geistl. Schriftsteller u. Philosoph"
       ],
-      "preferred_name_for_person": "Engelbertus",
+      "preferred_name_for_person": "Engelbertus Admontensis",
       "authorized_access_point_representing_a_person": "Engelbertus, Admontensis, 1250-1331"
     },
-    "pid": "4935674",
+    "pid": "5018331",
     "rero": {
-      "md5": "f9e4ab6e8b3f8896a197cc86ecd15a91",
+      "md5": "3f86ef8c364da50625a3d9100f70bff1",
       "pid": "A005491222",
       "identifier_for_person": "http://data.rero.ch/02-A005491222",
       "variant_name_for_person": [
@@ -8125,7 +8089,7 @@
         "Angilbertus",
         "Volckenstorff, Engelbert von"
       ],
-      "preferred_name_for_person": "Engelbertus",
+      "preferred_name_for_person": "Engelbertus, Admontensis",
       "authorized_access_point_representing_a_person": "Engelbertus, Admontensis"
     },
     "sources": [
@@ -8133,7 +8097,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005491222"
+    "viaf_pid": "36891982"
   },
   {
     "bnf": {
@@ -8171,7 +8135,7 @@
       "preferred_name_for_person": "Grundmann, Herbert",
       "authorized_access_point_representing_a_person": "Grundmann, Herbert, 1902-1970"
     },
-    "pid": "1504277",
+    "pid": "1529513",
     "rero": {
       "md5": "63f729a64e92a79ce515b21f5f50906f",
       "pid": "A003325134",
@@ -8184,7 +8148,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12337020"
+    "viaf_pid": "51761584"
   },
   {
     "bnf": {
@@ -8219,7 +8183,7 @@
       "preferred_name_for_person": "Heimpel, Hermann",
       "authorized_access_point_representing_a_person": "Heimpel, Hermann, 1901-1988"
     },
-    "pid": "19613116",
+    "pid": "19942071",
     "rero": {
       "md5": "aa4eb07db4de6c97634161f96a8a6771",
       "pid": "A003359022",
@@ -8232,7 +8196,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003359022"
+    "viaf_pid": "17237020"
   },
   {
     "bnf": {
@@ -8256,7 +8220,7 @@
       "preferred_name_for_person": "Ubl, Karl",
       "authorized_access_point_representing_a_person": "Ubl, Karl, 1973-"
     },
-    "pid": "12216899",
+    "pid": "12421938",
     "rero": {
       "md5": "53176d3871efe840981303ccc12360a5",
       "pid": "A006320808",
@@ -8269,7 +8233,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14414687"
+    "viaf_pid": "5146827"
   },
   {
     "bnf": {
@@ -8292,7 +8256,7 @@
       "preferred_name_for_person": "Schneider, Herbert",
       "authorized_access_point_representing_a_person": "Schneider, Herbert, 1945-"
     },
-    "pid": "10465189",
+    "pid": "10641025",
     "rero": {
       "md5": "d1f388b78019623702f9778fb37f0598",
       "pid": "A003803144",
@@ -8305,7 +8269,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "16624677"
+    "viaf_pid": "69774419"
   },
   {
     "gnd": {
@@ -8319,7 +8283,7 @@
       "preferred_name_for_person": "Bonkowski, Frank",
       "authorized_access_point_representing_a_person": "Bonkowski, Frank, 1965-"
     },
-    "pid": "30368294",
+    "pid": "30876425",
     "rero": {
       "md5": "54618fe02b28a7aa522b94139e3b56ec",
       "pid": "A017776167",
@@ -8331,7 +8295,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A017776167"
+    "viaf_pid": "35523107"
   },
   {
     "bnf": {
@@ -8381,10 +8345,10 @@
       "authorized_access_point_representing_a_person": "Salomon ben Isaac, 1040-1105"
     },
     "gnd": {
-      "md5": "bbe9e800c2fd58fe7a931080d7ceafb3",
+      "md5": "7dc75c4d1f4397fa2c0cc7065c9c9cea",
       "pid": "118598325",
-      "date_of_birth": "1040",
-      "date_of_death": "1105",
+      "date_of_birth": "22.02.1040",
+      "date_of_death": "13.07.1105",
       "identifier_for_person": "http://d-nb.info/gnd/118598325",
       "variant_name_for_person": [
         "Raschi, of Troyes",
@@ -8482,7 +8446,7 @@
       "preferred_name_for_person": "Shelomoh ben Yitsh\u0323ak\u0323",
       "authorized_access_point_representing_a_person": "Shelomoh ben Yitsh\u0323ak\u0323, 1040-1105"
     },
-    "pid": "5222227",
+    "pid": "5309764",
     "rero": {
       "md5": "b6e100e89190d9549a698d4cf6cb3c26",
       "pid": "A000153720",
@@ -8521,10 +8485,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118598325"
+    "viaf_pid": "19684048"
   },
   {
-    "pid": "9606696",
+    "pid": "9767968",
     "rero": {
       "md5": "561cbf79ad6e08aa2c87d94cf398c2b1",
       "pid": "A003811654",
@@ -8535,7 +8499,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003811654"
+    "viaf_pid": "1495916"
   },
   {
     "bnf": {
@@ -8580,12 +8544,12 @@
       "preferred_name_for_person": "Le Blanc, Jean Bernard",
       "authorized_access_point_representing_a_person": "Le Blanc, Jean Bernard, 1707-1781"
     },
-    "pid": "8107060",
+    "pid": "8243023",
     "rero": {
-      "md5": "59fa87e1d937d27400c87d1070a268df",
+      "md5": "65e2efa9468d8be2c9443b565b7ce219",
       "pid": "A012398103",
       "identifier_for_person": "http://data.rero.ch/02-A012398103",
-      "preferred_name_for_person": "Le Blanc, Jean-Bernard",
+      "preferred_name_for_person": "Le Blanc, Jean-Bernard, Abb\u00e9",
       "authorized_access_point_representing_a_person": "Le Blanc, Jean-Bernard, Abb\u00e9"
     },
     "sources": [
@@ -8593,7 +8557,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A012398103"
+    "viaf_pid": "2512077"
   },
   {
     "bnf": {
@@ -8639,7 +8603,7 @@
       "preferred_name_for_person": "Ne\u0301aulme, Jean",
       "authorized_access_point_representing_a_person": "Ne\u0301aulme, Jean, 1694-1780"
     },
-    "pid": "11434015",
+    "pid": "11626208",
     "rero": {
       "md5": "ee202bb093ac2cd5903e4442a2dabb51",
       "pid": "A000123292",
@@ -8655,7 +8619,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000123292"
+    "viaf_pid": "102327968"
   },
   {
     "bnf": {
@@ -8674,7 +8638,7 @@
       "preferred_name_for_person": "Cortey, Anne",
       "authorized_access_point_representing_a_person": "Cortey, Anne, 1966-...."
     },
-    "pid": "31496132",
+    "pid": "32023269",
     "rero": {
       "md5": "7eb99009d501e6dad85d1b781f51130b",
       "pid": "A016412851",
@@ -8687,7 +8651,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A016412851"
+    "viaf_pid": "54375664"
   },
   {
     "bnf": {
@@ -8706,18 +8670,15 @@
       "authorized_access_point_representing_a_person": "Coat, Janik, 1972-...."
     },
     "gnd": {
-      "md5": "e66a1d38a8b7922c19f5edb1fa176047",
+      "md5": "6081bab76c6f69b4a1e047ab0952df7e",
       "pid": "1068191279",
       "gender": "female",
       "date_of_birth": "19.03.1972",
       "identifier_for_person": "http://d-nb.info/gnd/1068191279",
-      "biographical_information": [
-        "Bilderbuchautorin"
-      ],
       "preferred_name_for_person": "Coat, Janik",
       "authorized_access_point_representing_a_person": "Coat, Janik, 1972-"
     },
-    "pid": "3709224",
+    "pid": "3771426",
     "rero": {
       "md5": "ae124ab8fdba615bf3c338f97e825763",
       "pid": "A016412883",
@@ -8731,10 +8692,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A016412883"
+    "viaf_pid": "240592302"
   },
   {
-    "pid": "30776211",
+    "pid": "31291260",
     "rero": {
       "md5": "620ee41d0fc480635748a92ae9857979",
       "pid": "A014161336",
@@ -8745,7 +8706,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A014161336"
+    "viaf_pid": "525149106412168492508"
   },
   {
     "gnd": {
@@ -8760,7 +8721,7 @@
       "preferred_name_for_person": "Elias, Robert H.",
       "authorized_access_point_representing_a_person": "Elias, Robert H., 1914-2008"
     },
-    "pid": "26181741",
+    "pid": "26620410",
     "rero": {
       "md5": "0cacd97ec2b01a84e57bfac126516550",
       "pid": "A003214000",
@@ -8772,7 +8733,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "172068231"
+    "viaf_pid": "235978301"
   },
   {
     "gnd": {
@@ -8782,7 +8743,7 @@
       "preferred_name_for_person": "Hironaka, Toshio",
       "authorized_access_point_representing_a_person": "Hironaka, Toshio"
     },
-    "pid": "23594105",
+    "pid": "23989438",
     "rero": {
       "md5": "850224bad80f4554365940f37bfa155c",
       "pid": "A000080477",
@@ -8798,7 +8759,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "127067620"
+    "viaf_pid": "108273762"
   },
   {
     "bnf": {
@@ -8830,20 +8791,24 @@
       "preferred_name_for_person": "Besson, Philippe",
       "authorized_access_point_representing_a_person": "Besson, Philippe, 1967-"
     },
-    "pid": "8950235",
+    "pid": "9100392",
     "rero": {
-      "md5": "6ca7a201d2497412fd707cda8595c752",
+      "md5": "ca280bc76284abfa0858913be08f0e25",
       "pid": "A006369345",
+      "date_of_birth": "1967",
       "identifier_for_person": "http://data.rero.ch/02-A006369345",
+      "biographical_information": [
+        "Romancier"
+      ],
       "preferred_name_for_person": "Besson, Philippe",
-      "authorized_access_point_representing_a_person": "Besson, Philippe"
+      "authorized_access_point_representing_a_person": "Besson, Philippe, 1967-"
     },
     "sources": [
       "rero",
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A006369345"
+    "viaf_pid": "85496936"
   },
   {
     "bnf": {
@@ -8876,7 +8841,7 @@
       "preferred_name_for_person": "Lansing, Carol",
       "authorized_access_point_representing_a_person": "Lansing, Carol, 1951-"
     },
-    "pid": "26868909",
+    "pid": "27318815",
     "rero": {
       "md5": "284e7af389ecd81782ad2a1640ac8b6c",
       "pid": "A003495693",
@@ -8897,7 +8862,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003495693"
+    "viaf_pid": "91742126"
   },
   {
     "bnf": {
@@ -8913,7 +8878,7 @@
       "preferred_name_for_person": "Niesewand, Nonie",
       "authorized_access_point_representing_a_person": "Niesewand, Nonie"
     },
-    "pid": "8378527",
+    "pid": "8518753",
     "rero": {
       "md5": "7b9ea37dde3e23bb65e1e29e02391211",
       "pid": "A003641046",
@@ -8925,7 +8890,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003641046"
+    "viaf_pid": "4952573"
   },
   {
     "bnf": {
@@ -8941,7 +8906,7 @@
       "preferred_name_for_person": "Bulloch, Ivan",
       "authorized_access_point_representing_a_person": "Bulloch, Ivan"
     },
-    "pid": "27096907",
+    "pid": "27550423",
     "rero": {
       "md5": "c941d70e0f1c62f8e8430ae2fe29d4c4",
       "pid": "A005924293",
@@ -8953,7 +8918,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12228843"
+    "viaf_pid": "54199728"
   },
   {
     "bnf": {
@@ -8966,7 +8931,7 @@
       "preferred_name_for_person": "James, Diane",
       "authorized_access_point_representing_a_person": "James, Diane"
     },
-    "pid": "17662434",
+    "pid": "17958658",
     "rero": {
       "md5": "045d505d4f55c7598b3ab3e73139fea0",
       "pid": "A003418718",
@@ -8978,7 +8943,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11908540"
+    "viaf_pid": "61547398"
   },
   {
     "bnf": {
@@ -9039,7 +9004,7 @@
       "preferred_name_for_person": "Haydn, Joseph",
       "authorized_access_point_representing_a_person": "Haydn, Joseph, 1732-1809"
     },
-    "pid": "29029144",
+    "pid": "29515273",
     "rero": {
       "md5": "4d8f371664b18e37456fe6a0091255e2",
       "pid": "A000078978",
@@ -9063,7 +9028,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13895053"
+    "viaf_pid": "95146280"
   },
   {
     "bnf": {
@@ -9098,7 +9063,7 @@
       "preferred_name_for_person": "Boccherini, Giovanni Gastone",
       "authorized_access_point_representing_a_person": "Boccherini, Giovanni Gastone, 1742-1798"
     },
-    "pid": "301829",
+    "pid": "306674",
     "rero": {
       "md5": "7def5b9f276a8c27441f2c31cb5482d7",
       "pid": "A003016693",
@@ -9111,7 +9076,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11283838"
+    "viaf_pid": "46754440"
   },
   {
     "bnf": {
@@ -9148,7 +9113,7 @@
       "preferred_name_for_person": "Schmid, Ernst Fritz",
       "authorized_access_point_representing_a_person": "Schmid, Ernst Fritz, 1904-1960"
     },
-    "pid": "24849485",
+    "pid": "25265386",
     "rero": {
       "md5": "d0551e4935bf0504586750eafae41678",
       "pid": "A003799486",
@@ -9166,7 +9131,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "124095739"
+    "viaf_pid": "37842254"
   },
   {
     "gnd": {
@@ -9177,7 +9142,7 @@
       "preferred_name_for_person": "Mu\u0308hle, Friederike",
       "authorized_access_point_representing_a_person": "Mu\u0308hle, Friederike"
     },
-    "pid": "10834197",
+    "pid": "11016155",
     "rero": {
       "md5": "34ff364679271549cce2a46d1ec3f688",
       "pid": "A027557687",
@@ -9189,7 +9154,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1160612242"
+    "viaf_pid": "29153593839051671715"
   },
   {
     "gnd": {
@@ -9200,7 +9165,7 @@
       "preferred_name_for_person": "Engel, Klaus",
       "authorized_access_point_representing_a_person": "Engel, Klaus, 1941-"
     },
-    "pid": "6462771",
+    "pid": "6571106",
     "rero": {
       "md5": "6e96a538bd2bbbfeff23ac11cf29fc90",
       "pid": "A003217281",
@@ -9212,7 +9177,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "13291624X"
+    "viaf_pid": "55321171"
   },
   {
     "gnd": {
@@ -9229,7 +9194,7 @@
       "preferred_name_for_person": "Galuska, Dorothea",
       "authorized_access_point_representing_a_person": "Galuska, Dorothea"
     },
-    "pid": "5338741",
+    "pid": "5428061",
     "rero": {
       "md5": "eb5ef38a4299c834351b8b82c8b56fc9",
       "pid": "A006022351",
@@ -9241,7 +9206,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A006022351"
+    "viaf_pid": "4485150470094004330004"
   },
   {
     "bnf": {
@@ -9259,7 +9224,7 @@
       "preferred_name_for_person": "Sorace, Antonella",
       "authorized_access_point_representing_a_person": "Sorace, Antonella"
     },
-    "pid": "2867818",
+    "pid": "2915918",
     "rero": {
       "md5": "7a6dc44c0fb0aec2035e3e98379ca5f1",
       "pid": "A003849279",
@@ -9271,10 +9236,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "16212931"
+    "viaf_pid": "65788785"
   },
   {
-    "pid": "27309240",
+    "pid": "27766260",
     "rero": {
       "md5": "16ce102087d40b34acc393b3c0ce4a18",
       "pid": "A003361480",
@@ -9285,7 +9250,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003361480"
+    "viaf_pid": "287182259"
   },
   {
     "bnf": {
@@ -9309,7 +9274,7 @@
       "preferred_name_for_person": "Nuttall, Mark",
       "authorized_access_point_representing_a_person": "Nuttall, Mark, 1962-"
     },
-    "pid": "26279288",
+    "pid": "26719530",
     "rero": {
       "md5": "e908e965414fad373cc0b919564b740a",
       "pid": "A003647979",
@@ -9322,7 +9287,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1112154302"
+    "viaf_pid": "308779041"
   },
   {
     "bnf": {
@@ -9340,7 +9305,7 @@
       "preferred_name_for_person": "Biquard, Olivier",
       "authorized_access_point_representing_a_person": "Biquard, Olivier"
     },
-    "pid": "23888278",
+    "pid": "24288366",
     "rero": {
       "md5": "e9b797f898d94adc4dfc666739b32a00",
       "pid": "A006076856",
@@ -9352,7 +9317,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A006076856"
+    "viaf_pid": "34001773"
   },
   {
     "bnf": {
@@ -9369,7 +9334,7 @@
       "preferred_name_for_person": "Arnaud, Brigitte",
       "authorized_access_point_representing_a_person": "Arnaud, Brigitte, 1947-...."
     },
-    "pid": "23417554",
+    "pid": "23809856",
     "rero": {
       "md5": "32fa45456e37386e87f829082b7a4dd8",
       "pid": "A005732105",
@@ -9381,7 +9346,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A005732105"
+    "viaf_pid": "54158574"
   },
   {
     "bnf": {
@@ -9397,7 +9362,7 @@
       "preferred_name_for_person": "Texier, Katia",
       "authorized_access_point_representing_a_person": "Texier, Katia"
     },
-    "pid": "30778573",
+    "pid": "31293703",
     "rero": {
       "md5": "c115a16361e340a2d488329297676de9",
       "pid": "A017960007",
@@ -9409,10 +9374,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12104189"
+    "viaf_pid": "59113080"
   },
   {
-    "pid": "4802480",
+    "pid": "4883142",
     "rero": {
       "md5": "a3b30f7a6e778fbe54aeb58fb77828ce",
       "pid": "A013496535",
@@ -9427,7 +9392,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A013496535"
+    "viaf_pid": "118677078"
   },
   {
     "bnf": {
@@ -9449,7 +9414,7 @@
       "preferred_name_for_person": "Courtillon, Janine",
       "authorized_access_point_representing_a_person": "Courtillon, Janine"
     },
-    "pid": "24976106",
+    "pid": "25394322",
     "rero": {
       "md5": "2a4583491f90063b411295e1b5e80d7a",
       "pid": "A003140359",
@@ -9461,7 +9426,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11897986"
+    "viaf_pid": "19676152"
   },
   {
     "gnd": {
@@ -9474,7 +9439,7 @@
       "preferred_name_for_person": "Salins, Genevie\u0300ve-Dominique de",
       "authorized_access_point_representing_a_person": "Salins, Genevie\u0300ve-Dominique de"
     },
-    "pid": "1507624",
+    "pid": "1532965",
     "rero": {
       "md5": "6a53211d4a99e4cdacb0ec24ccb29c1b",
       "pid": "A003780365",
@@ -9486,7 +9451,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003780365"
+    "viaf_pid": "6138416"
   },
   {
     "gnd": {
@@ -9502,7 +9467,7 @@
       "preferred_name_for_person": "Ko\u0308hler, Peter Thomas",
       "authorized_access_point_representing_a_person": "Ko\u0308hler, Peter Thomas"
     },
-    "pid": "12493065",
+    "pid": "12702814",
     "rero": {
       "md5": "f8a3580c875a877d70b32291b8473c09",
       "pid": "A014276535",
@@ -9514,7 +9479,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A014276535"
+    "viaf_pid": "18142816"
   },
   {
     "bnf": {
@@ -9538,12 +9503,12 @@
       "preferred_name_for_person": "Richter, Max",
       "authorized_access_point_representing_a_person": "Richter, Max, 1966-"
     },
-    "pid": "23732451",
+    "pid": "24129926",
     "rero": {
-      "md5": "747ce2e48d3aa88dd3a18c7ec7b424cf",
+      "md5": "5e16ee7586dcd40efcd579d36f52085a",
       "pid": "A014219939",
       "identifier_for_person": "http://data.rero.ch/02-A014219939",
-      "preferred_name_for_person": "Richter, Max",
+      "preferred_name_for_person": "Richter, Max, musicien",
       "authorized_access_point_representing_a_person": "Richter, Max, musicien"
     },
     "sources": [
@@ -9551,10 +9516,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "134977858"
+    "viaf_pid": "42175299"
   },
   {
-    "pid": "18959508",
+    "pid": "19277514",
     "rero": {
       "md5": "8802e99827433f12cbe9428c0fe2e065",
       "pid": "A017202058",
@@ -9565,7 +9530,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A017202058"
+    "viaf_pid": "1258155042717572401337"
   },
   {
     "gnd": {
@@ -9578,7 +9543,7 @@
       "preferred_name_for_person": "Picard, Fernand",
       "authorized_access_point_representing_a_person": "Picard, Fernand"
     },
-    "pid": "616555",
+    "pid": "626528",
     "rero": {
       "md5": "3b6423f318f653cb39cb39f6caae3495",
       "pid": "A003691778",
@@ -9590,10 +9555,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003691778"
+    "viaf_pid": "34057375"
   },
   {
-    "pid": "19632846",
+    "pid": "19962102",
     "rero": {
       "md5": "b7e931469ab8799aced519277274e8d6",
       "pid": "A003673513",
@@ -9604,10 +9569,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003673513"
+    "viaf_pid": "288057925"
   },
   {
-    "pid": "16687927",
+    "pid": "16967588",
     "rero": {
       "md5": "2c861b6d8c4e7d3b242b2c36a5778de0",
       "pid": "A003465047",
@@ -9618,7 +9583,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003465047"
+    "viaf_pid": "316037377"
   },
   {
     "bnf": {
@@ -9642,7 +9607,7 @@
       "preferred_name_for_person": "Dams, Carsten",
       "authorized_access_point_representing_a_person": "Dams, Carsten, 1969-"
     },
-    "pid": "30976396",
+    "pid": "31494997",
     "rero": {
       "md5": "e5f5a6f5243f3a5577850d5a2d1a406e",
       "pid": "A014192236",
@@ -9655,7 +9620,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A014192236"
+    "viaf_pid": "200277390"
   },
   {
     "bnf": {
@@ -9684,7 +9649,7 @@
       "preferred_name_for_person": "Stolle, Michael",
       "authorized_access_point_representing_a_person": "Stolle, Michael, 1970-"
     },
-    "pid": "11981084",
+    "pid": "12182340",
     "rero": {
       "md5": "ec961c4d8e3404463bfb63a3c8353896",
       "pid": "A014192238",
@@ -9697,7 +9662,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "132326876"
+    "viaf_pid": "62705949"
   },
   {
     "bnf": {
@@ -9723,7 +9688,7 @@
       "preferred_name_for_person": "Cantin, Marc",
       "authorized_access_point_representing_a_person": "Cantin, Marc, 1967-"
     },
-    "pid": "17051766",
+    "pid": "17337917",
     "rero": {
       "md5": "062149ed051be33f82ed01f5263c5afe",
       "pid": "A006262439",
@@ -9736,7 +9701,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12476717"
+    "viaf_pid": "16898143"
   },
   {
     "bnf": {
@@ -9756,7 +9721,7 @@
       "preferred_name_for_person": "Vermot-Desroches, Jean-Emmanuel",
       "authorized_access_point_representing_a_person": "Vermot-Desroches, Jean-Emmanuel"
     },
-    "pid": "6779408",
+    "pid": "6892957",
     "rero": {
       "md5": "0508fbb209288567ce6435d29a69b7a6",
       "pid": "A009203115",
@@ -9768,7 +9733,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A009203115"
+    "viaf_pid": "46925810"
   },
   {
     "bnf": {
@@ -9787,15 +9752,15 @@
       "authorized_access_point_representing_a_person": "Ahlberg, Allan, 1938-...."
     },
     "gnd": {
-      "md5": "d91518433bb3699cbc5396b40196f937",
+      "md5": "e334838a7ef0098cfbfbdc1d34acb99e",
       "pid": "1041369913",
       "gender": "male",
-      "date_of_birth": "1938",
+      "date_of_birth": "05.06.1938",
       "identifier_for_person": "http://d-nb.info/gnd/1041369913",
       "preferred_name_for_person": "Ahlberg, Allan",
       "authorized_access_point_representing_a_person": "Ahlberg, Allan, 1938-"
     },
-    "pid": "11033629",
+    "pid": "11219163",
     "rero": {
       "md5": "08c497411f16dacb63c72b07dc3de0c0",
       "pid": "A005512240",
@@ -9808,7 +9773,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005512240"
+    "viaf_pid": "9841958"
   },
   {
     "bnf": {
@@ -9826,7 +9791,7 @@
       "preferred_name_for_person": "Amstutz, Andr\u00e9",
       "authorized_access_point_representing_a_person": "Amstutz, Andr\u00e9"
     },
-    "pid": "19305668",
+    "pid": "19629392",
     "rero": {
       "md5": "a688b24d851d5847ccc147dc39b795da",
       "pid": "A002926924",
@@ -9838,7 +9803,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A002926924"
+    "viaf_pid": "25190692"
   },
   {
     "bnf": {
@@ -9864,7 +9829,7 @@
       "preferred_name_for_person": "Rosamel, Godeleine de",
       "authorized_access_point_representing_a_person": "Rosamel, Godeleine de, 1968-"
     },
-    "pid": "653422",
+    "pid": "664362",
     "rero": {
       "md5": "60314887446d7cf3a11eee1eae8f4d79",
       "pid": "A006223853",
@@ -9877,7 +9842,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A006223853"
+    "viaf_pid": "14840497"
   },
   {
     "bnf": {
@@ -9907,7 +9872,7 @@
       "authorized_access_point_representing_a_person": "Maupassant, Guy de, 1850-1893"
     },
     "gnd": {
-      "md5": "48ea1363edaeeeaf4f6dce812121b6c9",
+      "md5": "8df1180b194a7b28e2a8adafe9b6615d",
       "pid": "118579207",
       "gender": "male",
       "date_of_birth": "05.08.1850",
@@ -9970,6 +9935,8 @@
         "Mo\u0304passan, Gi Do",
         "Valmont, Guy de",
         "Mopassan, Gi de",
+        "Movo-phavo-san-tchi, Ghave dhe",
+        "\u0f58\u0f7c\u0f60\u0f7c\u0f0b\u0f55\u0f60\u0f7c\u0f0b\u0f66\u0f53\u0f0b\u0f4b\u0f72, \u0f42\u0fb7\u0f60\u0f7a\u0f0b \u0f51\u0fb7\u0f7a",
         "\u041c\u043e\u043f\u0430\u0441\u0441\u0430\u043d, \u0413\u0438 \u0434\u0435",
         "\u05de\u05d0\u05e4\u05d0\u05e1\u05d0\u05df, \u05d2\u05d9\u05d5 \u05d3\u05e2",
         "\u30e2\u30fc\u30cf\u309a\u30c3\u30b5\u30f3, \u30ad\u3099\u30fb\u30c8\u3099"
@@ -9980,10 +9947,12 @@
       "preferred_name_for_person": "Maupassant, Guy de",
       "authorized_access_point_representing_a_person": "Maupassant, Guy de, 1850-1893"
     },
-    "pid": "12432335",
+    "pid": "12641056",
     "rero": {
-      "md5": "e2aaebc7e629a493402170b08c06ee11",
+      "md5": "f3c6833ef94c3330c66ba84bb6564e7e",
       "pid": "A000112091",
+      "date_of_birth": "1850",
+      "date_of_death": "1893",
       "identifier_for_person": "http://data.rero.ch/02-A000112091",
       "variant_name_for_person": [
         "Mopassan, Gi de",
@@ -9999,14 +9968,14 @@
         "Ecrivain et journaliste litt\u00e9raire fran\u00e7ais"
       ],
       "preferred_name_for_person": "Maupassant, Guy de",
-      "authorized_access_point_representing_a_person": "Maupassant, Guy de"
+      "authorized_access_point_representing_a_person": "Maupassant, Guy de, 1850-1893"
     },
     "sources": [
       "rero",
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000112091"
+    "viaf_pid": "29537765"
   },
   {
     "bnf": {
@@ -10032,7 +10001,7 @@
       "preferred_name_for_person": "Biaggi, Vladimir",
       "authorized_access_point_representing_a_person": "Biaggi, Vladimir"
     },
-    "pid": "27907401",
+    "pid": "28374712",
     "rero": {
       "md5": "6947c1e33cc7df5bb2ff5a81ae24ba4f",
       "pid": "A003003700",
@@ -10045,7 +10014,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12326800"
+    "viaf_pid": "88053696"
   },
   {
     "bnf": {
@@ -10063,7 +10032,7 @@
       "preferred_name_for_person": "Laborde, Chantal",
       "authorized_access_point_representing_a_person": "Laborde, Chantal, 1946-...."
     },
-    "pid": "5705840",
+    "pid": "5801395",
     "rero": {
       "md5": "a511cf0f30b2bac7e15feb34f5ecedfb",
       "pid": "A008816875",
@@ -10075,7 +10044,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A008816875"
+    "viaf_pid": "22355531"
   },
   {
     "bnf": {
@@ -10093,7 +10062,7 @@
       "preferred_name_for_person": "Bachelier, Benjamin",
       "authorized_access_point_representing_a_person": "Bachelier, Benjamin, 1975-...."
     },
-    "pid": "7511436",
+    "pid": "7637470",
     "rero": {
       "md5": "8368b56ffafc7eaf4eb0ef95f1fdf9f2",
       "pid": "A006348557",
@@ -10105,7 +10074,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13503039"
+    "viaf_pid": "84394437"
   },
   {
     "bnf": {
@@ -10138,7 +10107,7 @@
       "preferred_name_for_person": "Deguy, Michel",
       "authorized_access_point_representing_a_person": "Deguy, Michel, 1930-"
     },
-    "pid": "3433845",
+    "pid": "3491475",
     "rero": {
       "md5": "3b2718c7df62b4bd52dcd326ade1a362",
       "pid": "A003164112",
@@ -10155,7 +10124,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003164112"
+    "viaf_pid": "85274456"
   },
   {
     "bnf": {
@@ -10191,7 +10160,7 @@
       "preferred_name_for_person": "Zanzotto, Andrea",
       "authorized_access_point_representing_a_person": "Zanzotto, Andrea, 1921-2011"
     },
-    "pid": "22955561",
+    "pid": "23340504",
     "rero": {
       "md5": "39f48f9f5f7466e4c7dc72764bda3edd",
       "pid": "A003995460",
@@ -10204,7 +10173,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003995460"
+    "viaf_pid": "113352795"
   },
   {
     "bnf": {
@@ -10234,7 +10203,7 @@
       "preferred_name_for_person": "Branagh, Kenneth",
       "authorized_access_point_representing_a_person": "Branagh, Kenneth, 1960-"
     },
-    "pid": "9275745",
+    "pid": "9431480",
     "rero": {
       "md5": "82a4ab86aed0311a12d03c5e3a8fc538",
       "pid": "A013969320",
@@ -10247,7 +10216,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12572396"
+    "viaf_pid": "106362344"
   },
   {
     "bnf": {
@@ -10278,12 +10247,12 @@
       "preferred_name_for_person": "Doyle, Patrick",
       "authorized_access_point_representing_a_person": "Doyle, Patrick, 1953-"
     },
-    "pid": "22627374",
+    "pid": "23006759",
     "rero": {
-      "md5": "505f4fea030f5bd742d57e7f61c23fff",
+      "md5": "9b36e3d87bfa8b0d1fe6e559b25ec7f5",
       "pid": "A012322620",
       "identifier_for_person": "http://data.rero.ch/02-A012322620",
-      "preferred_name_for_person": "Doyle, Patrick",
+      "preferred_name_for_person": "Doyle, Patrick, compositeur",
       "authorized_access_point_representing_a_person": "Doyle, Patrick, compositeur"
     },
     "sources": [
@@ -10291,10 +10260,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A012322620"
+    "viaf_pid": "85095266"
   },
   {
-    "pid": "29136769",
+    "pid": "29624614",
     "rero": {
       "md5": "799c1fb840ecc413bf9def7894dcffab",
       "pid": "A003488438",
@@ -10305,7 +10274,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003488438"
+    "viaf_pid": "20392564"
   },
   {
     "bnf": {
@@ -10341,7 +10310,7 @@
       "preferred_name_for_person": "Coppola, Francis Ford",
       "authorized_access_point_representing_a_person": "Coppola, Francis Ford, 1939-"
     },
-    "pid": "8798147",
+    "pid": "8945757",
     "rero": {
       "md5": "a2e8ab6226db8fad51c95783c17506fb",
       "pid": "A003134388",
@@ -10354,7 +10323,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003134388"
+    "viaf_pid": "112744406"
   },
   {
     "bnf": {
@@ -10397,7 +10366,7 @@
       "preferred_name_for_person": "Halliday, Michael A. K.",
       "authorized_access_point_representing_a_person": "Halliday, Michael A. K., 1925-2018"
     },
-    "pid": "9378359",
+    "pid": "9535685",
     "rero": {
       "md5": "9230b9b05ed8e127ef235e98e646881b",
       "pid": "A003342996",
@@ -10420,7 +10389,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12050779"
+    "viaf_pid": "19696092"
   },
   {
     "bnf": {
@@ -10459,7 +10428,7 @@
       "preferred_name_for_person": "McIntosh, Angus",
       "authorized_access_point_representing_a_person": "McIntosh, Angus, 1914-2005"
     },
-    "pid": "5424265",
+    "pid": "5515129",
     "rero": {
       "md5": "03965ec912276af2ad27189476a7a460",
       "pid": "A003545513",
@@ -10472,7 +10441,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "133951278"
+    "viaf_pid": "60285199"
   },
   {
     "gnd": {
@@ -10492,7 +10461,7 @@
       "preferred_name_for_person": "Strevens, Peter",
       "authorized_access_point_representing_a_person": "Strevens, Peter, 1922-1989"
     },
-    "pid": "30176939",
+    "pid": "30682014",
     "rero": {
       "md5": "b679a7ad1ef73a96c7842443e285182e",
       "pid": "A003870233",
@@ -10504,10 +10473,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003870233"
+    "viaf_pid": "20210423"
   },
   {
-    "pid": "462499",
+    "pid": "469979",
     "rero": {
       "md5": "6f0eef2a767a08c9440826b2b75e05ee",
       "pid": "A005913488",
@@ -10518,7 +10487,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A005913488"
+    "viaf_pid": "478155042722772401389"
   },
   {
     "bnf": {
@@ -10534,7 +10503,7 @@
       "preferred_name_for_person": "Hasler, Julie",
       "authorized_access_point_representing_a_person": "Hasler, Julie"
     },
-    "pid": "10704275",
+    "pid": "10884107",
     "rero": {
       "md5": "d69235d149a86f1e891a0adfdce0a1a7",
       "pid": "A011127328",
@@ -10546,7 +10515,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A011127328"
+    "viaf_pid": "67911853"
   },
   {
     "bnf": {
@@ -10576,7 +10545,7 @@
       "preferred_name_for_person": "Le Van, Charlotte",
       "authorized_access_point_representing_a_person": "Le Van, Charlotte"
     },
-    "pid": "12871190",
+    "pid": "13087442",
     "rero": {
       "md5": "f357e10e46411e6ad6fac39b12e1c23c",
       "pid": "A003504640",
@@ -10589,10 +10558,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14161031X"
+    "viaf_pid": "9993034"
   },
   {
-    "pid": "24058856",
+    "pid": "24461901",
     "rero": {
       "md5": "8dc9bb629a50484afa223217e55fd47f",
       "pid": "A018554918",
@@ -10603,10 +10572,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A018554918"
+    "viaf_pid": "59154739822052991044"
   },
   {
-    "pid": "5981901",
+    "pid": "6082085",
     "rero": {
       "md5": "955bd8b066d6b505c79a1bcaf777ecb6",
       "pid": "A018554919",
@@ -10617,7 +10586,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A018554919"
+    "viaf_pid": "54154739953752992606"
   },
   {
     "gnd": {
@@ -10631,7 +10600,7 @@
       "preferred_name_for_person": "Porchet, Jean-Louis",
       "authorized_access_point_representing_a_person": "Porchet, Jean-Louis, 1949-"
     },
-    "pid": "1855238",
+    "pid": "1886431",
     "rero": {
       "md5": "dd77b1cefe2ab0ebdd05e18370c530fa",
       "pid": "A003705680",
@@ -10643,7 +10612,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1116547422"
+    "viaf_pid": "159147724950364592621"
   },
   {
     "gnd": {
@@ -10655,7 +10624,7 @@
       "preferred_name_for_person": "Ruey, Ge\u0301rard",
       "authorized_access_point_representing_a_person": "Ruey, Ge\u0301rard, 1953-"
     },
-    "pid": "30521516",
+    "pid": "31032164",
     "rero": {
       "md5": "c3c4364e7c10aee8db6a24ae3e445cde",
       "pid": "A009049662",
@@ -10667,7 +10636,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1061297640"
+    "viaf_pid": "311486399"
   },
   {
     "bnf": {
@@ -10703,7 +10672,7 @@
       "preferred_name_for_person": "Ma\u0308ler, Karl-Go\u0308ran",
       "authorized_access_point_representing_a_person": "Ma\u0308ler, Karl-Go\u0308ran, 1939-"
     },
-    "pid": "7101318",
+    "pid": "7220270",
     "rero": {
       "md5": "3d449630dfdb7feeec4a2b57d491c872",
       "pid": "A009281710",
@@ -10716,10 +10685,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A009281710"
+    "viaf_pid": "52618265"
   },
   {
-    "pid": "21306231",
+    "pid": "21663312",
     "rero": {
       "md5": "5ffffc8cc5d1d90cbc4763d45e727047",
       "pid": "A003989198",
@@ -10730,7 +10699,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003989198"
+    "viaf_pid": "255637658"
   },
   {
     "bnf": {
@@ -10775,7 +10744,7 @@
       "preferred_name_for_person": "Egido, Aurora",
       "authorized_access_point_representing_a_person": "Egido, Aurora, 1946-"
     },
-    "pid": "23666146",
+    "pid": "24062639",
     "rero": {
       "md5": "77bcb11a45c4939ddcb8bf69475d15db",
       "pid": "A003210356",
@@ -10788,10 +10757,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003210356"
+    "viaf_pid": "80733593"
   },
   {
-    "pid": "16653101",
+    "pid": "16932463",
     "rero": {
       "md5": "b7b658ea9e3c99f11ef7780629288e07",
       "pid": "A003602104",
@@ -10802,7 +10771,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003602104"
+    "viaf_pid": "172602773"
   },
   {
     "bnf": {
@@ -10835,7 +10804,7 @@
       "preferred_name_for_person": "Banz, Stefan",
       "authorized_access_point_representing_a_person": "Banz, Stefan, 1961-"
     },
-    "pid": "22710315",
+    "pid": "23091154",
     "rero": {
       "md5": "66d7651f72bc76451edd5744c5b86274",
       "pid": "A002966672",
@@ -10848,7 +10817,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "14487408"
+    "viaf_pid": "95165514"
   },
   {
     "bnf": {
@@ -10878,7 +10847,7 @@
       "preferred_name_for_person": "Denaro, Dolores",
       "authorized_access_point_representing_a_person": "Denaro, Dolores, 1971-"
     },
-    "pid": "11104919",
+    "pid": "11291515",
     "rero": {
       "md5": "b3030f96dfbc73670761014133ce26be",
       "pid": "A005984988",
@@ -10891,7 +10860,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "122165373"
+    "viaf_pid": "69803171"
   },
   {
     "bnf": {
@@ -10921,32 +10890,35 @@
       "authorized_access_point_representing_a_person": "Melanchthon, Philippus, 1497-1560"
     },
     "gnd": {
-      "md5": "638b1e19edae0754c9ee586660a69fad",
+      "md5": "3ba6c75ec0a774d15af03ef6f1463939",
       "pid": "118580485",
       "gender": "male",
       "date_of_birth": "16.02.1497",
       "date_of_death": "19.04.1560",
       "identifier_for_person": "http://d-nb.info/gnd/118580485",
       "variant_name_for_person": [
-        "Didymus Faventinus",
-        "Theophilus Neocomensis",
+        "Melanchthon, Philippe",
         "Melanchthon",
+        "Didymus Faventinus",
+        "Didymus, Faventinus",
+        "Melan, Philippus",
         "Melanchthonius, Philippus",
         "Melanchton, Philip",
         "Melanchton, Phil.",
-        "Melanthon",
-        "Melanthon, Philippe",
-        "Melanthon, Philip",
-        "Schwartzerd, Philipp",
-        "Schwarzerd, Philipp",
-        "Schwarzert, Philipp",
-        "Schwarzerdt, Philipp",
-        "Didymus, Faventinus",
-        "Melan, Philippus",
-        "Melanth, Philippus",
         "Melanchus, Philippus",
+        "Melancthon, Philipp",
+        "Melancthon, Philippe",
         "Melancthon, Philippus",
         "Melancthonus, Philippus",
+        "Melanth, Philippus",
+        "Melanthon, Philippe",
+        "Melanthon, Philip",
+        "Melanthon",
+        "Schwartzerd, Philipp",
+        "Schwarzerd, Philipp",
+        "Schwarzerdt, Philipp",
+        "Schwarzert, Philipp",
+        "Theophilus Neocomensis",
         "Melanthon, Philipp",
         "Melanch., Philippus",
         "Germanus",
@@ -10959,8 +10931,6 @@
         "Melan., Philippus",
         "Melanc., Philippus",
         "Melancht., Philippus",
-        "Melanchthon, Philippe",
-        "Melancthon, Philipp",
         "Melant., Philippus",
         "Melanth., Philippus",
         "Melanchto., Philipp",
@@ -10972,19 +10942,16 @@
         "Melanthone, Philipp",
         "Melanthus, Philippus",
         "Melankhton, Filipp",
-        "Philippus, ...",
         "Melanton, Philipp",
         "Melanton, Philippus",
         "Melantone, Filippo",
         "Melantonis, Philipp",
         "Melanchnecnon, Philippi",
-        "Melanchthon, ...",
         "Melanchthon, Philip",
         "Melanchthon, Philippus",
         "Melanchthonus, Philippus",
         "Melanchton, Philippus",
         "Melanchton, Phillip",
-        "Melancthon, Philippe",
         "Melanthon, Philippus",
         "Faventinus, Didymus",
         "Melancton, Philipp",
@@ -11004,7 +10971,7 @@
       "preferred_name_for_person": "Melanchthon, Philipp",
       "authorized_access_point_representing_a_person": "Melanchthon, Philipp, 1497-1560"
     },
-    "pid": "3030888",
+    "pid": "3081762",
     "rero": {
       "md5": "ab0f1b85beb070b0d62720b6be1644cc",
       "pid": "A000112813",
@@ -11027,7 +10994,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000112813"
+    "viaf_pid": "76319978"
   },
   {
     "bnf": {
@@ -11059,7 +11026,7 @@
       "preferred_name_for_person": "Po\u0308hlmann, Horst Georg",
       "authorized_access_point_representing_a_person": "Po\u0308hlmann, Horst Georg, 1933-"
     },
-    "pid": "24023192",
+    "pid": "24425814",
     "rero": {
       "md5": "03cd96a6f82155b70fad594e549dd9cc",
       "pid": "A003717936",
@@ -11072,7 +11039,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "120691817"
+    "viaf_pid": "24645093"
   },
   {
     "bnf": {
@@ -11101,7 +11068,7 @@
       "preferred_name_for_person": "Morali, Ilaria",
       "authorized_access_point_representing_a_person": "Morali, Ilaria, 1962-"
     },
-    "pid": "31458546",
+    "pid": "31985142",
     "rero": {
       "md5": "787b69cd95ffd9ad9003bb4459686b65",
       "pid": "A006104711",
@@ -11114,7 +11081,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "15052848"
+    "viaf_pid": "21521700"
   },
   {
     "gnd": {
@@ -11132,7 +11099,7 @@
       "preferred_name_for_person": "Egger, Eugen",
       "authorized_access_point_representing_a_person": "Egger, Eugen, 1920-"
     },
-    "pid": "1429091",
+    "pid": "1453034",
     "rero": {
       "md5": "65f83366b56253886a78b2e26b3ee3f3",
       "pid": "A000056443",
@@ -11152,7 +11119,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "118702483"
+    "viaf_pid": "64457002"
   },
   {
     "gnd": {
@@ -11167,7 +11134,7 @@
       "preferred_name_for_person": "Anderegg, Klaus",
       "authorized_access_point_representing_a_person": "Anderegg, Klaus, 1942-"
     },
-    "pid": "13899146",
+    "pid": "14132261",
     "rero": {
       "md5": "01856064c0c0beda43e42672ce0b2305",
       "pid": "A002927632",
@@ -11179,7 +11146,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1031886524"
+    "viaf_pid": "57171582"
   },
   {
     "bnf": {
@@ -11195,7 +11162,7 @@
       "preferred_name_for_person": "Schefer, Dorothy",
       "authorized_access_point_representing_a_person": "Schefer, Dorothy"
     },
-    "pid": "22298855",
+    "pid": "22672687",
     "rero": {
       "md5": "9f6e00b2c3404c0352bc7ccf577a75a8",
       "pid": "A003793614",
@@ -11207,10 +11174,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13548051"
+    "viaf_pid": "59247473"
   },
   {
-    "pid": "26108086",
+    "pid": "26545453",
     "rero": {
       "md5": "a503917614e41a6164a9baaeb2b5e35c",
       "pid": "A006052444",
@@ -11221,7 +11188,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A006052444"
+    "viaf_pid": "278155042790072401775"
   },
   {
     "bnf": {
@@ -11267,7 +11234,7 @@
       "preferred_name_for_person": "Boyle, T. Coraghessan",
       "authorized_access_point_representing_a_person": "Boyle, T. Coraghessan, 1948-"
     },
-    "pid": "332858",
+    "pid": "338403",
     "rero": {
       "md5": "b2ab3115189137a0e41a14c0b5feb198",
       "pid": "A003035307",
@@ -11291,7 +11258,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12089396"
+    "viaf_pid": "14796817"
   },
   {
     "bnf": {
@@ -11328,7 +11295,7 @@
       "preferred_name_for_person": "Besnard, Albert Marie",
       "authorized_access_point_representing_a_person": "Besnard, Albert Marie, 1926-1978"
     },
-    "pid": "25843930",
+    "pid": "26276896",
     "rero": {
       "md5": "71783cc3ca76d243073e02a9b9fb223c",
       "pid": "A003000911",
@@ -11341,10 +11308,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003000911"
+    "viaf_pid": "14766297"
   },
   {
-    "pid": "11012902",
+    "pid": "11197776",
     "rero": {
       "md5": "ac36cb0f5a0d28010399b6511c34a104",
       "pid": "A009042477",
@@ -11355,7 +11322,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A009042477"
+    "viaf_pid": "387155042719472401479"
   },
   {
     "bnf": {
@@ -11382,7 +11349,7 @@
       "preferred_name_for_person": "Villazo\u0301n, Rolando",
       "authorized_access_point_representing_a_person": "Villazo\u0301n, Rolando, 1972-"
     },
-    "pid": "12787241",
+    "pid": "13002041",
     "rero": {
       "md5": "f32426715621373da537747f64dca9e6",
       "pid": "A010978505",
@@ -11395,7 +11362,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A010978505"
+    "viaf_pid": "8558138"
   },
   {
     "bnf": {
@@ -11429,7 +11396,7 @@
       "preferred_name_for_person": "Domingo, Pla\u0301cido",
       "authorized_access_point_representing_a_person": "Domingo, Pla\u0301cido, 1941-"
     },
-    "pid": "23830996",
+    "pid": "24230434",
     "rero": {
       "md5": "d7585521e252899e5ec4ab15ec3b5df5",
       "pid": "A003185547",
@@ -11446,10 +11413,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12404462"
+    "viaf_pid": "97777704"
   },
   {
-    "pid": "2949904",
+    "pid": "2999413",
     "rero": {
       "md5": "938e740e1e56c63a418765edef133cca",
       "pid": "A005972232",
@@ -11460,10 +11427,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A005972232"
+    "viaf_pid": "725155042799472401908"
   },
   {
-    "pid": "29163085",
+    "pid": "29651159",
     "rero": {
       "md5": "eb34b3cff7be5acba2ca03e55db984a7",
       "pid": "A018871003",
@@ -11474,7 +11441,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A018871003"
+    "viaf_pid": "31404010"
   },
   {
     "bnf": {
@@ -11511,7 +11478,7 @@
       "preferred_name_for_person": "Heller-Roazen, Daniel",
       "authorized_access_point_representing_a_person": "Heller-Roazen, Daniel, 1974-"
     },
-    "pid": "29023780",
+    "pid": "29509778",
     "rero": {
       "md5": "d96bebbb4e399e26efe92961aecefc0f",
       "pid": "A005980353",
@@ -11524,7 +11491,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005980353"
+    "viaf_pid": "76597876"
   },
   {
     "bnf": {
@@ -11539,7 +11506,7 @@
       "preferred_name_for_person": "Chemla, Paul",
       "authorized_access_point_representing_a_person": "Chemla, Paul"
     },
-    "pid": "3336290",
+    "pid": "3391960",
     "rero": {
       "md5": "978de2eb634cab56b42613e98b01c995",
       "pid": "A003099712",
@@ -11551,7 +11518,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11896505"
+    "viaf_pid": "36916272"
   },
   {
     "bnf": {
@@ -11579,7 +11546,7 @@
       "preferred_name_for_person": "Caroni, Pio",
       "authorized_access_point_representing_a_person": "Caroni, Pio, 1938-"
     },
-    "pid": "17823118",
+    "pid": "18122047",
     "rero": {
       "md5": "c5f38845c65dcfedb29b767f78f568f2",
       "pid": "A003078471",
@@ -11592,7 +11559,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "129922277"
+    "viaf_pid": "64068649"
   },
   {
     "bnf": {
@@ -11610,7 +11577,7 @@
       "preferred_name_for_person": "Cassina, Ga\u00ebtan",
       "authorized_access_point_representing_a_person": "Cassina, Ga\u00ebtan"
     },
-    "pid": "30458955",
+    "pid": "30968748",
     "rero": {
       "md5": "fa36b6ec8d772252b3bd64be3cf411b2",
       "pid": "A003082311",
@@ -11622,21 +11589,21 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "16521310"
+    "viaf_pid": "62146518"
   },
   {
-    "pid": "1203404",
+    "pid": "1223672",
     "rero": {
-      "md5": "f01d666e6b7f66418e41ee9736df6d03",
+      "md5": "ac6731ba748b632d0c29484d3548e427",
       "pid": "A012506149",
       "identifier_for_person": "http://data.rero.ch/02-A012506149",
-      "preferred_name_for_person": "Mayer, Alexandre",
+      "preferred_name_for_person": "Mayer, Alexandre, \u00e9b\u00e9niste",
       "authorized_access_point_representing_a_person": "Mayer, Alexandre, \u00e9b\u00e9niste"
     },
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A012506149"
+    "viaf_pid": "1114155042859672402724"
   },
   {
     "gnd": {
@@ -11653,7 +11620,7 @@
       "preferred_name_for_person": "Margulies, Anita",
       "authorized_access_point_representing_a_person": "Margulies, Anita"
     },
-    "pid": "13205962",
+    "pid": "13427468",
     "rero": {
       "md5": "45380546fd7fd3b6fddb0503d81239a1",
       "pid": "A011359927",
@@ -11665,10 +11632,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A011359927"
+    "viaf_pid": "15457451"
   },
   {
-    "pid": "20619796",
+    "pid": "20965459",
     "rero": {
       "md5": "419a59b586b971206ebe0cbcc0d13530",
       "pid": "A025133458",
@@ -11679,7 +11646,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "100428363"
+    "viaf_pid": "59431954"
   },
   {
     "gnd": {
@@ -11689,7 +11656,7 @@
       "preferred_name_for_person": "Kinsella, Valerie",
       "authorized_access_point_representing_a_person": "Kinsella, Valerie"
     },
-    "pid": "29973836",
+    "pid": "30475383",
     "rero": {
       "md5": "a858da65633a1708a70dc3c8a3cedc1a",
       "pid": "A003455224",
@@ -11701,7 +11668,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003455224"
+    "viaf_pid": "48010703"
   },
   {
     "bnf": {
@@ -11746,7 +11713,7 @@
       "preferred_name_for_person": "Bourdelle, Antoine",
       "authorized_access_point_representing_a_person": "Bourdelle, Antoine, 1861-1929"
     },
-    "pid": "28219171",
+    "pid": "28691665",
     "rero": {
       "md5": "4e330933c9bbadb09cf5ecde98482a82",
       "pid": "A000022153",
@@ -11765,7 +11732,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11893395"
+    "viaf_pid": "64002371"
   },
   {
     "bnf": {
@@ -11793,7 +11760,7 @@
       "preferred_name_for_person": "Gautherin, Ve\u0301ronique",
       "authorized_access_point_representing_a_person": "Gautherin, Ve\u0301ronique"
     },
-    "pid": "18302255",
+    "pid": "18609329",
     "rero": {
       "md5": "b1f7236fc4e7c32c326237e63cbc63a0",
       "pid": "A003283554",
@@ -11806,7 +11773,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12521457"
+    "viaf_pid": "64113761"
   },
   {
     "gnd": {
@@ -11822,7 +11789,7 @@
       "preferred_name_for_person": "Fazy, Robert",
       "authorized_access_point_representing_a_person": "Fazy, Robert, 1872-1956"
     },
-    "pid": "17428331",
+    "pid": "17720786",
     "rero": {
       "md5": "a2968362be7681b3270ea34e37d80828",
       "pid": "A003234804",
@@ -11834,7 +11801,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "136116698"
+    "viaf_pid": "80515894"
   },
   {
     "bnf": {
@@ -11873,7 +11840,7 @@
       "preferred_name_for_person": "Potockaja, Varvara Vasil\u02b9evna",
       "authorized_access_point_representing_a_person": "Potockaja, Varvara Vasil\u02b9evna, 1872-1944"
     },
-    "pid": "10644752",
+    "pid": "10823711",
     "rero": {
       "md5": "55f71c7688aa82c208b48be39ab473ae",
       "pid": "A000132496",
@@ -11896,7 +11863,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "1103504657"
+    "viaf_pid": "13786133"
   },
   {
     "bnf": {
@@ -11915,7 +11882,7 @@
       "preferred_name_for_person": "Potocka\u00e2, Natal\u02b9\u00e2 Pavlovna",
       "authorized_access_point_representing_a_person": "Potocka\u00e2, Natal\u02b9\u00e2 Pavlovna"
     },
-    "pid": "28449784",
+    "pid": "28925915",
     "rero": {
       "md5": "5ffedd9562586ffe336cbe8214d38f21",
       "pid": "A021732014",
@@ -11930,7 +11897,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A021732014"
+    "viaf_pid": "39425915"
   },
   {
     "gnd": {
@@ -11940,7 +11907,7 @@
       "preferred_name_for_person": "Schild, Tabea",
       "authorized_access_point_representing_a_person": "Schild, Tabea"
     },
-    "pid": "8722621",
+    "pid": "8869002",
     "rero": {
       "md5": "7534a78c4eb029b1f8babcae9bdc49e9",
       "pid": "A018977496",
@@ -11952,7 +11919,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "142191760"
+    "viaf_pid": "129778059"
   },
   {
     "gnd": {
@@ -11967,7 +11934,7 @@
       "preferred_name_for_person": "Schild, Simon",
       "authorized_access_point_representing_a_person": "Schild, Simon, 1979-"
     },
-    "pid": "6623507",
+    "pid": "6734499",
     "rero": {
       "md5": "f3ecf6a650d401350847b1239fc2b4e9",
       "pid": "A018977497",
@@ -11979,7 +11946,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "13181477X"
+    "viaf_pid": "57755880"
   },
   {
     "bnf": {
@@ -12006,20 +11973,24 @@
       "preferred_name_for_person": "Baricco, Alessandro",
       "authorized_access_point_representing_a_person": "Baricco, Alessandro, 1958-"
     },
-    "pid": "29467385",
+    "pid": "29960691",
     "rero": {
-      "md5": "bbdf81dd2d8a3510fe267e3a0bd1d8b8",
+      "md5": "8ab0a84406e82b3c899716733e595ca9",
       "pid": "A002969378",
+      "date_of_birth": "1958",
       "identifier_for_person": "http://data.rero.ch/02-A002969378",
+      "biographical_information": [
+        "Scrittore, giornalista, critico musicale, conduttore e autore di programmi televisivi, studioso di filosofia, diplomato in pianoforte al conservatorio. Nato a Torino.\u200f"
+      ],
       "preferred_name_for_person": "Baricco, Alessandro",
-      "authorized_access_point_representing_a_person": "Baricco, Alessandro"
+      "authorized_access_point_representing_a_person": "Baricco, Alessandro, 1958-"
     },
     "sources": [
       "rero",
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "115743030"
+    "viaf_pid": "27123545"
   },
   {
     "bnf": {
@@ -12046,7 +12017,7 @@
       "preferred_name_for_person": "Steinku\u0308hler, Martina",
       "authorized_access_point_representing_a_person": "Steinku\u0308hler, Martina, 1961-"
     },
-    "pid": "9300554",
+    "pid": "9456605",
     "rero": {
       "md5": "194f8f94b885e4c992c1e68f2ad1f001",
       "pid": "A006029475",
@@ -12059,7 +12030,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A006029475"
+    "viaf_pid": "208443796"
   },
   {
     "gnd": {
@@ -12078,7 +12049,7 @@
       "preferred_name_for_person": "Bruder, Elli",
       "authorized_access_point_representing_a_person": "Bruder, Elli, 1980-"
     },
-    "pid": "5719735",
+    "pid": "5815462",
     "rero": {
       "md5": "f8d38ef7944121e53ef7c711a63071b2",
       "pid": "A023839276",
@@ -12097,10 +12068,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "103824997X"
+    "viaf_pid": "304972209"
   },
   {
-    "pid": "13592756",
+    "pid": "13820844",
     "rero": {
       "md5": "46a2071414e691c5e8ce1df916af44a3",
       "pid": "A003491350",
@@ -12112,7 +12083,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003491350"
+    "viaf_pid": "100963710"
   },
   {
     "gnd": {
@@ -12134,7 +12105,7 @@
       "preferred_name_for_person": "Seeger, Hermann",
       "authorized_access_point_representing_a_person": "Seeger, Hermann, 1829-1903"
     },
-    "pid": "1508027",
+    "pid": "1533387",
     "rero": {
       "md5": "fb01d8c974855939140033529b146c22",
       "pid": "A003817894",
@@ -12146,7 +12117,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003817894"
+    "viaf_pid": "62280229"
   },
   {
     "bnf": {
@@ -12216,7 +12187,7 @@
       "preferred_name_for_person": "Mozart, Wolfgang Amadeus",
       "authorized_access_point_representing_a_person": "Mozart, Wolfgang Amadeus, 1756-1791"
     },
-    "pid": "28126503",
+    "pid": "28597207",
     "rero": {
       "md5": "9e74aab8065c016fbad6af0d98c594c2",
       "pid": "A000116613",
@@ -12236,7 +12207,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A000116613"
+    "viaf_pid": "32197206"
   },
   {
     "bnf": {
@@ -12268,7 +12239,7 @@
       "preferred_name_for_person": "Schnapp, Friedrich",
       "authorized_access_point_representing_a_person": "Schnapp, Friedrich, 1900-1983"
     },
-    "pid": "28772505",
+    "pid": "29254036",
     "rero": {
       "md5": "1ef90f543daa86feab7f13ebe1bbd79e",
       "pid": "A025585467",
@@ -12283,7 +12254,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12755839"
+    "viaf_pid": "44424534"
   },
   {
     "bnf": {
@@ -12314,7 +12285,7 @@
       "preferred_name_for_person": "Somfai, La\u0301szlo\u0301",
       "authorized_access_point_representing_a_person": "Somfai, La\u0301szlo\u0301, 1934-"
     },
-    "pid": "24575644",
+    "pid": "24987226",
     "rero": {
       "md5": "36c3302afcf87c337a9c88acfcb8c177",
       "pid": "A003848298",
@@ -12327,7 +12298,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003848298"
+    "viaf_pid": "19719267"
   },
   {
     "bnf": {
@@ -12356,7 +12327,7 @@
       "preferred_name_for_person": "Bey, Henning",
       "authorized_access_point_representing_a_person": "Bey, Henning, 1968-"
     },
-    "pid": "14428249",
+    "pid": "14670254",
     "rero": {
       "md5": "fe85fe1535b9c53aa862c702f14714df",
       "pid": "A006560589",
@@ -12369,7 +12340,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "130369713"
+    "viaf_pid": "263361538"
   },
   {
     "bnf": {
@@ -12391,7 +12362,7 @@
       "preferred_name_for_person": "Oberthu\u0308r, Rainer",
       "authorized_access_point_representing_a_person": "Oberthu\u0308r, Rainer, 1961-"
     },
-    "pid": "1655768",
+    "pid": "1683329",
     "rero": {
       "md5": "54cb106afbd5b524e588a81e34362f74",
       "pid": "A003650915",
@@ -12404,7 +12375,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "16962801"
+    "viaf_pid": "3292322"
   },
   {
     "bnf": {
@@ -12434,7 +12405,7 @@
       "preferred_name_for_person": "Seelig, Renate",
       "authorized_access_point_representing_a_person": "Seelig, Renate, 1939-2018"
     },
-    "pid": "22471170",
+    "pid": "22848040",
     "rero": {
       "md5": "de512c1cb9a391f88027496535eb40bf",
       "pid": "A005524091",
@@ -12447,56 +12418,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12296755"
-  },
-  {
-    "bnf": {
-      "md5": "0d9755621d91f732ba11aef954ca9df0",
-      "pid": "13331373",
-      "gender": "male",
-      "date_of_birth": "1973-12-29",
-      "language_of_person": [
-        "fre"
-      ],
-      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb133313730",
-      "biographical_information": [
-        "Romancier. - Auteur de livres pour enfants. - Parolier"
-      ],
-      "preferred_name_for_person": "Cathrine, Arnaud",
-      "authorized_access_point_representing_a_person": "Cathrine, Arnaud, 1973-...."
-    },
-    "gnd": {
-      "md5": "47e8e8867ba028887d97ea0388aa83bf",
-      "pid": "123618029",
-      "gender": "male",
-      "date_of_birth": "1973",
-      "identifier_for_person": "http://d-nb.info/gnd/123618029",
-      "variant_name_for_person": [
-        "Arnaud, Cathrine"
-      ],
-      "biographical_information": [
-        "arbeitete als Aufnahmeleiter beim Radiosender \"France Culture\""
-      ],
-      "preferred_name_for_person": "Cathrine, Arnaud",
-      "authorized_access_point_representing_a_person": "Cathrine, Arnaud, 1973-"
-    },
-    "pid": "25107077",
-    "rero": {
-      "md5": "a56c0befe3463277c21b87a855b43b11",
-      "pid": "A005578634",
-      "identifier_for_person": "http://data.rero.ch/02-A005578634",
-      "variant_name_for_person": [
-        "Arnaud, Cathrine"
-      ],
-      "preferred_name_for_person": "Cathrine, Arnaud",
-      "authorized_access_point_representing_a_person": "Cathrine, Arnaud"
-    },
-    "sources": [
-      "rero",
-      "gnd",
-      "bnf"
-    ],
-    "viaf_pid": "A005578634"
+    "viaf_pid": "9913177"
   },
   {
     "bnf": {
@@ -12593,9 +12515,9 @@
       "preferred_name_for_person": "Cicero, Marcus Tullius",
       "authorized_access_point_representing_a_person": "Cicero, Marcus Tullius, v106-v43"
     },
-    "pid": "4231517",
+    "pid": "4302401",
     "rero": {
-      "md5": "b564c7febc015edafea5a366292ffdb2",
+      "md5": "6271b5e3c3d6a3b3a5dae07d4654ac63",
       "pid": "A000036472",
       "identifier_for_person": "http://data.rero.ch/02-A000036472",
       "variant_name_for_person": [
@@ -12608,7 +12530,8 @@
         "Marcus Tullius Cicero",
         "Tullio Cicerone, Marco",
         "Tullius Cicero, Marcus",
-        "Cycero, Tuljusz"
+        "Cycero, Tuljusz",
+        "Cic\u00e9ron"
       ],
       "preferred_name_for_person": "Cicero, Marcus Tullius",
       "authorized_access_point_representing_a_person": "Cicero, Marcus Tullius"
@@ -12618,7 +12541,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11885977"
+    "viaf_pid": "78769600"
   },
   {
     "bnf": {
@@ -12655,7 +12578,7 @@
       "preferred_name_for_person": "Dyck, Andrew R.",
       "authorized_access_point_representing_a_person": "Dyck, Andrew R., 1947-"
     },
-    "pid": "19672770",
+    "pid": "20002784",
     "rero": {
       "md5": "64eef95f1deb10235b48fd19024159ce",
       "pid": "A003202131",
@@ -12676,7 +12599,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003202131"
+    "viaf_pid": "95440321"
   },
   {
     "bnf": {
@@ -12706,7 +12629,7 @@
       "preferred_name_for_person": "Lehner, Franz",
       "authorized_access_point_representing_a_person": "Lehner, Franz, 1946-"
     },
-    "pid": "11676104",
+    "pid": "11872396",
     "rero": {
       "md5": "0b082d9ba3b19c169777a3a4ebcc167e",
       "pid": "A003509474",
@@ -12719,7 +12642,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12174116"
+    "viaf_pid": "108841005"
   },
   {
     "bnf": {
@@ -12755,7 +12678,7 @@
       "preferred_name_for_person": "Widmaier, Ulrich",
       "authorized_access_point_representing_a_person": "Widmaier, Ulrich, 1944-2008"
     },
-    "pid": "28906990",
+    "pid": "29390989",
     "rero": {
       "md5": "164d9eb9554650e628ee3b7a82f8075e",
       "pid": "A003972986",
@@ -12768,10 +12691,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "122047680"
+    "viaf_pid": "272964291"
   },
   {
-    "pid": "15985114",
+    "pid": "16253290",
     "rero": {
       "md5": "b90e7a5d35304e382bf55246014540d1",
       "pid": "A011539270",
@@ -12782,10 +12705,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A011539270"
+    "viaf_pid": "737155042857572402721"
   },
   {
-    "pid": "17266126",
+    "pid": "17555840",
     "rero": {
       "md5": "2a43893bc20387b8cab86c4363294ce4",
       "pid": "A003084243",
@@ -12796,10 +12719,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003084243"
+    "viaf_pid": "74434701"
   },
   {
-    "pid": "24545426",
+    "pid": "24956551",
     "rero": {
       "md5": "5b6de87a837abe717280c3785490e557",
       "pid": "A025550294",
@@ -12811,7 +12734,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A025550294"
+    "viaf_pid": "808155284868087062245"
   },
   {
     "bnf": {
@@ -12829,7 +12752,7 @@
       "preferred_name_for_person": "Giovannuzzi, Stefano",
       "authorized_access_point_representing_a_person": "Giovannuzzi, Stefano"
     },
-    "pid": "14381470",
+    "pid": "14622602",
     "rero": {
       "md5": "3806e940619b40f08c69a4c838ca2ffc",
       "pid": "A003298604",
@@ -12841,7 +12764,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "14036451"
+    "viaf_pid": "64206589"
   },
   {
     "bnf": {
@@ -12860,7 +12783,7 @@
       "preferred_name_for_person": "Le Gall, Danielle",
       "authorized_access_point_representing_a_person": "Le Gall, Danielle, 19..-2018"
     },
-    "pid": "23217171",
+    "pid": "23606231",
     "rero": {
       "md5": "a74bedc9fbe53cc8324ede697502e8f8",
       "pid": "A003503484",
@@ -12872,7 +12795,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "152252819"
+    "viaf_pid": "19770146"
   },
   {
     "bnf": {
@@ -12963,7 +12886,7 @@
       "preferred_name_for_person": "Swift, Jonathan",
       "authorized_access_point_representing_a_person": "Swift, Jonathan, 1667-1745"
     },
-    "pid": "1532575",
+    "pid": "1558434",
     "rero": {
       "md5": "ed1204f36336cebee79e55d61d910b2e",
       "pid": "A000158845",
@@ -12985,7 +12908,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "11925822"
+    "viaf_pid": "14777110"
   },
   {
     "bnf": {
@@ -13001,7 +12924,7 @@
       "preferred_name_for_person": "Cavin, Albert",
       "authorized_access_point_representing_a_person": "Cavin, Albert"
     },
-    "pid": "12349728",
+    "pid": "12557154",
     "rero": {
       "md5": "c7bbcdf4b360f2d05d21aedab452e9b4",
       "pid": "A003085554",
@@ -13013,7 +12936,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "11895638"
+    "viaf_pid": "283849023"
   },
   {
     "bnf": {
@@ -13040,7 +12963,7 @@
       "authorized_access_point_representing_a_person": "Gavarni, 1804-1866"
     },
     "gnd": {
-      "md5": "8d96e0a4f7f5410ae5d17ac53b59d122",
+      "md5": "179c212c26d622789c00763b503e9844",
       "pid": "118537903",
       "gender": "male",
       "date_of_birth": "13.01.1804",
@@ -13073,13 +12996,12 @@
         "Chevalier, Guillaume-Sulpice"
       ],
       "biographical_information": [
-        "Franz. Zeichner, Schriftsteller und Moralist; als richtiger Name wird in den verschiedenen NSWen Chevallier oder Chevalier mit unterschiedlicher Anordnung der Vornamen angegeben",
-        "Ku\u0308nstler"
+        "Franz. Zeichner, Schriftsteller und Moralist; als richtiger Name wird in den verschiedenen NSWen Chevallier oder Chevalier mit unterschiedlicher Anordnung der Vornamen angegeben"
       ],
       "preferred_name_for_person": "Gavarni, Paul",
       "authorized_access_point_representing_a_person": "Gavarni, Paul, 1804-1866"
     },
-    "pid": "18153595",
+    "pid": "18458280",
     "rero": {
       "md5": "28480b6d80584de5322fe77a8285668b",
       "pid": "A000070074",
@@ -13104,7 +13026,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "118537903"
+    "viaf_pid": "100173039"
   },
   {
     "bnf": {
@@ -13134,7 +13056,7 @@
       "preferred_name_for_person": "Koenig, Viviane",
       "authorized_access_point_representing_a_person": "Koenig, Viviane, 1950-"
     },
-    "pid": "21424729",
+    "pid": "21783714",
     "rero": {
       "md5": "11c46bd0cad158f508446e954144d17d",
       "pid": "A003464488",
@@ -13147,7 +13069,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003464488"
+    "viaf_pid": "7392348"
   },
   {
     "bnf": {
@@ -13163,7 +13085,7 @@
       "preferred_name_for_person": "Rou\u00e8che, Arnauld",
       "authorized_access_point_representing_a_person": "Rou\u00e8che, Arnauld"
     },
-    "pid": "8009947",
+    "pid": "8144246",
     "rero": {
       "md5": "c8994964d57fcfef0f863b48e8fc73a3",
       "pid": "A005914947",
@@ -13175,7 +13097,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13197137"
+    "viaf_pid": "153518"
   },
   {
     "bnf": {
@@ -13212,7 +13134,7 @@
       "preferred_name_for_person": "Kreuz, Gottfried",
       "authorized_access_point_representing_a_person": "Kreuz, Gottfried, 1978-"
     },
-    "pid": "67995",
+    "pid": "69018",
     "rero": {
       "md5": "9ea9a7dbeaf38688660375234e21a631",
       "pid": "A014176327",
@@ -13225,10 +13147,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "132551128"
+    "viaf_pid": "61832896"
   },
   {
-    "pid": "8373880",
+    "pid": "8513923",
     "rero": {
       "md5": "cf91397aab9c0cdd40393289460e2ba9",
       "pid": "A005913787",
@@ -13239,7 +13161,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A005913787"
+    "viaf_pid": "386155042726272400201"
   },
   {
     "gnd": {
@@ -13254,7 +13176,7 @@
       "preferred_name_for_person": "Schmidt, Willy",
       "authorized_access_point_representing_a_person": "Schmidt, Willy, 1895-1959"
     },
-    "pid": "17897291",
+    "pid": "18197434",
     "rero": {
       "md5": "d95f2e76d583ca93b2bed3f3c6aace91",
       "pid": "A003801127",
@@ -13266,7 +13188,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003801127"
+    "viaf_pid": "50032606"
   },
   {
     "bnf": {
@@ -13295,7 +13217,7 @@
       "preferred_name_for_person": "Kraft, Hartmut",
       "authorized_access_point_representing_a_person": "Kraft, Hartmut, 1949-"
     },
-    "pid": "21356763",
+    "pid": "21714748",
     "rero": {
       "md5": "bd50f5e1b9ca278a8fc21bb3ac9bee31",
       "pid": "A003471722",
@@ -13308,7 +13230,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "120258315"
+    "viaf_pid": "117871827"
   },
   {
     "gnd": {
@@ -13320,7 +13242,7 @@
       "preferred_name_for_person": "Steinmann, Kurt",
       "authorized_access_point_representing_a_person": "Steinmann, Kurt, 1945-"
     },
-    "pid": "2641442",
+    "pid": "2685860",
     "rero": {
       "md5": "747612205cc2f8260dace9f96313d58a",
       "pid": "A003862181",
@@ -13332,7 +13254,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A003862181"
+    "viaf_pid": "110659057"
   },
   {
     "bnf": {
@@ -13348,18 +13270,18 @@
       "authorized_access_point_representing_a_person": "Egn\u00e9us, Daniel, 1972-...."
     },
     "gnd": {
-      "md5": "12f47b5bda66033c7df8d711756df4e4",
+      "md5": "e9cdc15cdc5cd533c6be13a0ee6d60ca",
       "pid": "1127052241",
       "gender": "male",
       "date_of_birth": "1972",
       "identifier_for_person": "http://d-nb.info/gnd/1127052241",
       "biographical_information": [
-        "schwed. Maler und Buchillustrator, lebt u. arbeitet in Athen, illustrierte mehrere Gedichtba\u0308nde von Alexander Puschkin, Erfinder des Stils \"Quotidiano-Straordinario\""
+        "geb. in Schweden, Aufenthalte in Prag, London, Berlin, Bologna, Rom, Mailand, Buchillustrator, illustrierte mehrere Gedichtba\u0308nde von Alexander Puschkin, Erfinder des Stils \"Quotidiano-Straordinario\""
       ],
       "preferred_name_for_person": "Egne\u0301us, Daniel",
       "authorized_access_point_representing_a_person": "Egne\u0301us, Daniel, 1972-"
     },
-    "pid": "18543173",
+    "pid": "18854253",
     "rero": {
       "md5": "ac8fa4ff10cfbcd10d7b14b0b850d44c",
       "pid": "A026773663",
@@ -13372,7 +13294,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A026773663"
+    "viaf_pid": "69250439"
   },
   {
     "bnf": {
@@ -13398,7 +13320,7 @@
       "preferred_name_for_person": "Marriner, Neville",
       "authorized_access_point_representing_a_person": "Marriner, Neville, 1924-2016"
     },
-    "pid": "18337885",
+    "pid": "18645581",
     "rero": {
       "md5": "3a724831e8a31a1c28d3aeb57f6ed037",
       "pid": "A003564284",
@@ -13416,7 +13338,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "13897117"
+    "viaf_pid": "197041"
   },
   {
     "gnd": {
@@ -13436,7 +13358,7 @@
       "preferred_name_for_person": "Alekseev, Valerij A.",
       "authorized_access_point_representing_a_person": "Alekseev, Valerij A., 1953-"
     },
-    "pid": "26175361",
+    "pid": "26613880",
     "rero": {
       "md5": "907b19f62a63e55f1e48eb295687ab1e",
       "pid": "A018937134",
@@ -13448,9 +13370,32 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "132240289"
+    "viaf_pid": "19044833"
   },
   {
+    "bnf": {
+      "md5": "fc2568d971da4760c1a597225947806d",
+      "pid": "11889551",
+      "gender": "male",
+      "date_of_birth": "0354-11-13",
+      "date_of_death": "0430-08-28",
+      "language_of_person": [
+        "lat"
+      ],
+      "identifier_for_person": "http://catalogue.bnf.fr/ark:/12148/cb11889551s",
+      "variant_name_for_person": [
+        "Augustine",
+        "Augustin d'Hippone",
+        "Augustinus Hipponensis",
+        "Aurelius Augustinus",
+        "Aurelius Augustinus Hipponensis"
+      ],
+      "biographical_information": [
+        "Docteur de l'\u00c9glise latine. - \u00c9v\u00eaque d'Hippone"
+      ],
+      "preferred_name_for_person": "Augustin, saint",
+      "authorized_access_point_representing_a_person": "Augustin, saint, 0354-0430"
+    },
     "gnd": {
       "md5": "2090b650b183d4730e864779072f8871",
       "pid": "118505114",
@@ -13524,9 +13469,9 @@
       "preferred_name_for_person": "Augustinus, Aurelius",
       "authorized_access_point_representing_a_person": "Augustinus, Aurelius, 354-430"
     },
-    "pid": "3588388",
+    "pid": "3648476",
     "rero": {
-      "md5": "79c327590af652a5a291caa2413a1432",
+      "md5": "9977e50b83dc93ff48d27ebea4178615",
       "pid": "A000014063",
       "date_of_birth": "354",
       "date_of_death": "430",
@@ -13546,14 +13491,15 @@
       "biographical_information": [
         "Ev\u00eaque d'Hippone"
       ],
-      "preferred_name_for_person": "Augustinus",
+      "preferred_name_for_person": "Augustinus, saint",
       "authorized_access_point_representing_a_person": "Augustinus, saint, 354-430"
     },
     "sources": [
       "rero",
-      "gnd"
+      "gnd",
+      "bnf"
     ],
-    "viaf_pid": "118505114"
+    "viaf_pid": "66806872"
   },
   {
     "bnf": {
@@ -13571,7 +13517,7 @@
       "preferred_name_for_person": "Berrouard, Marie-Fran\u00e7ois",
       "authorized_access_point_representing_a_person": "Berrouard, Marie-Fran\u00e7ois"
     },
-    "pid": "15409663",
+    "pid": "15667885",
     "rero": {
       "md5": "8fe0a5a76b49e3335e85b7cbc1c08591",
       "pid": "A011158503",
@@ -13583,7 +13529,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A011158503"
+    "viaf_pid": "34452966"
   },
   {
     "bnf": {
@@ -13632,7 +13578,7 @@
       "preferred_name_for_person": "Foucault, Michel",
       "authorized_access_point_representing_a_person": "Foucault, Michel, 1926-1984"
     },
-    "pid": "17595683",
+    "pid": "17890980",
     "rero": {
       "md5": "cd9a2c5037ac006d79a734daf0c96714",
       "pid": "A003255406",
@@ -13658,7 +13604,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003255406"
+    "viaf_pid": "104722665"
   },
   {
     "gnd": {
@@ -13671,7 +13617,7 @@
       "preferred_name_for_person": "Reuter, Ulrike",
       "authorized_access_point_representing_a_person": "Reuter, Ulrike"
     },
-    "pid": "24020127",
+    "pid": "24422677",
     "rero": {
       "md5": "a77097b1dc99a999d44d9ceaa47501a7",
       "pid": "A003740078",
@@ -13683,7 +13629,7 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "1057522678"
+    "viaf_pid": "22049549"
   },
   {
     "bnf": {
@@ -13706,7 +13652,7 @@
       "preferred_name_for_person": "Wolfstetter, Lothar",
       "authorized_access_point_representing_a_person": "Wolfstetter, Lothar, 1942-"
     },
-    "pid": "20109867",
+    "pid": "20447102",
     "rero": {
       "md5": "252a7be6bb89acb167f94f548ff1258c",
       "pid": "A003984222",
@@ -13719,10 +13665,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A003984222"
+    "viaf_pid": "27625910"
   },
   {
-    "pid": "31187884",
+    "pid": "31709968",
     "rero": {
       "md5": "7ffa5a307ee9319050f686b1273989dd",
       "pid": "A002963621",
@@ -13733,7 +13679,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A002963621"
+    "viaf_pid": "91243359"
   },
   {
     "bnf": {
@@ -13759,7 +13705,7 @@
       "preferred_name_for_person": "Frattini, Ste\u0301phane",
       "authorized_access_point_representing_a_person": "Frattini, Ste\u0301phane, 1964-"
     },
-    "pid": "9417822",
+    "pid": "9575760",
     "rero": {
       "md5": "5899a8e8701028e588898bfee4880b06",
       "pid": "A003261170",
@@ -13772,7 +13718,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "12751093"
+    "viaf_pid": "51816087"
   },
   {
     "bnf": {
@@ -13793,7 +13739,7 @@
       "preferred_name_for_person": "Desailly, Thierry",
       "authorized_access_point_representing_a_person": "Desailly, Thierry, 1957-...."
     },
-    "pid": "29370007",
+    "pid": "29861763",
     "rero": {
       "md5": "64f1622d6e66a84d2ee04f496dbf4f75",
       "pid": "A003171459",
@@ -13805,10 +13751,10 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A003171459"
+    "viaf_pid": "17252980"
   },
   {
-    "pid": "10341912",
+    "pid": "10515644",
     "rero": {
       "md5": "2e614ebc01fb5673dbb077e8bdebcac1",
       "pid": "A003422899",
@@ -13819,7 +13765,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003422899"
+    "viaf_pid": "215073608"
   },
   {
     "bnf": {
@@ -13858,7 +13804,7 @@
       "preferred_name_for_person": "Angelidu, Maria",
       "authorized_access_point_representing_a_person": "Angelidu, Maria, 1957-"
     },
-    "pid": "14342928",
+    "pid": "14583453",
     "rero": {
       "md5": "6a2fb710ec26de86883017aab5a83495",
       "pid": "A021920422",
@@ -13871,7 +13817,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "15058336"
+    "viaf_pid": "23795141"
   },
   {
     "bnf": {
@@ -13897,7 +13843,7 @@
       "preferred_name_for_person": "Blanc, Emmanue\u0300le",
       "authorized_access_point_representing_a_person": "Blanc, Emmanue\u0300le"
     },
-    "pid": "2098157",
+    "pid": "2133394",
     "rero": {
       "md5": "c922a6b76384ef05f5801b69780ac30a",
       "pid": "A017781299",
@@ -13910,7 +13856,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A017781299"
+    "viaf_pid": "172568518"
   },
   {
     "bnf": {
@@ -13928,7 +13874,7 @@
       "preferred_name_for_person": "Vassilev, Svetline",
       "authorized_access_point_representing_a_person": "Vassilev, Svetline"
     },
-    "pid": "8776318",
+    "pid": "8923357",
     "rero": {
       "md5": "d8cf336a308f67beceb85d5adbf5528b",
       "pid": "A017781298",
@@ -13940,7 +13886,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "15058339"
+    "viaf_pid": "44589073"
   },
   {
     "bnf": {
@@ -13968,7 +13914,7 @@
       "preferred_name_for_person": "Walden, Laura",
       "authorized_access_point_representing_a_person": "Walden, Laura, 1964-"
     },
-    "pid": "3600656",
+    "pid": "3661081",
     "rero": {
       "md5": "1b6952c38c6f43e70bc39792f45b23e8",
       "pid": "A020498022",
@@ -13981,7 +13927,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A020498022"
+    "viaf_pid": "107488396"
   },
   {
     "bnf": {
@@ -14007,7 +13953,7 @@
       "preferred_name_for_person": "De\u0301chin, Brigitte",
       "authorized_access_point_representing_a_person": "De\u0301chin, Brigitte"
     },
-    "pid": "6383954",
+    "pid": "6490995",
     "rero": {
       "md5": "840ba180bdc7600ddec02be281750922",
       "pid": "A006181439",
@@ -14020,7 +13966,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A006181439"
+    "viaf_pid": "60027872"
   },
   {
     "gnd": {
@@ -14036,7 +13982,7 @@
       "preferred_name_for_person": "Koenig, Willy",
       "authorized_access_point_representing_a_person": "Koenig, Willy, 1899-1982"
     },
-    "pid": "15416145",
+    "pid": "15674616",
     "rero": {
       "md5": "548d0528cca1c54d3cf1e59395c0d14b",
       "pid": "A003464494",
@@ -14048,10 +13994,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "106106384"
+    "viaf_pid": "49705121"
   },
   {
-    "pid": "2067502",
+    "pid": "2102207",
     "rero": {
       "md5": "40a2d3c77fb7f6ced3f4694c68c49774",
       "pid": "A011530636",
@@ -14062,7 +14008,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A011530636"
+    "viaf_pid": "644155042795772401795"
   },
   {
     "bnf": {
@@ -14098,7 +14044,7 @@
       "preferred_name_for_person": "Meyer, Stephenie",
       "authorized_access_point_representing_a_person": "Meyer, Stephenie, 1973-"
     },
-    "pid": "8315693",
+    "pid": "8455036",
     "rero": {
       "md5": "bec3273f696fa83f9e98a7e17021a331",
       "pid": "A013419045",
@@ -14111,10 +14057,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A013419045"
+    "viaf_pid": "102313919"
   },
   {
-    "pid": "5185335",
+    "pid": "5272246",
     "rero": {
       "md5": "516f2bd33a933881ccacead3f11cbbd6",
       "pid": "A017575245",
@@ -14125,10 +14071,10 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A017575245"
+    "viaf_pid": "61320483"
   },
   {
-    "pid": "18323254",
+    "pid": "18630745",
     "rero": {
       "md5": "f492f01d6e69fc8f024bcdf07a43be05",
       "pid": "A003171937",
@@ -14139,7 +14085,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A003171937"
+    "viaf_pid": "13734884"
   },
   {
     "bnf": {
@@ -14169,7 +14115,7 @@
       "preferred_name_for_person": "Eersel, Patrice van",
       "authorized_access_point_representing_a_person": "Eersel, Patrice van, 1949-"
     },
-    "pid": "4628053",
+    "pid": "4705624",
     "rero": {
       "md5": "64bb527ab537ae7273a91b6f0ee88a25",
       "pid": "A012331117",
@@ -14188,10 +14134,10 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "172059666"
+    "viaf_pid": "68936804"
   },
   {
-    "pid": "23468422",
+    "pid": "23861693",
     "rero": {
       "md5": "13b85c6f2ec01dfc344e3f7d5222669f",
       "pid": "A000180000",
@@ -14202,7 +14148,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A000180000"
+    "viaf_pid": "275146340"
   },
   {
     "bnf": {
@@ -14224,7 +14170,7 @@
       "preferred_name_for_person": "Dumont-Le Cornec, \u00c9lisabeth",
       "authorized_access_point_representing_a_person": "Dumont-Le Cornec, \u00c9lisabeth"
     },
-    "pid": "8909946",
+    "pid": "9059399",
     "rero": {
       "md5": "081158e4d3481c976d0e197ca437eb51",
       "pid": "A009687109",
@@ -14236,7 +14182,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "13754031"
+    "viaf_pid": "2652117"
   },
   {
     "bnf": {
@@ -14266,7 +14212,7 @@
       "preferred_name_for_person": "Dautremer, Re\u0301becca",
       "authorized_access_point_representing_a_person": "Dautremer, Re\u0301becca, 1971-"
     },
-    "pid": "29924529",
+    "pid": "30425331",
     "rero": {
       "md5": "2f9d12936642f1c76705c478e7640a69",
       "pid": "A005500376",
@@ -14285,7 +14231,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "A005500376"
+    "viaf_pid": "14907309"
   },
   {
     "bnf": {
@@ -14301,7 +14247,7 @@
       "preferred_name_for_person": "Sabathi\u00e9, Laurent",
       "authorized_access_point_representing_a_person": "Sabathi\u00e9, Laurent"
     },
-    "pid": "4571075",
+    "pid": "4647743",
     "rero": {
       "md5": "12150a6251a1595cbd5f51de97358b3c",
       "pid": "A013587771",
@@ -14313,7 +14259,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "A013587771"
+    "viaf_pid": "14937958"
   },
   {
     "gnd": {
@@ -14329,7 +14275,7 @@
       "preferred_name_for_person": "Liang, Xi",
       "authorized_access_point_representing_a_person": "Liang, Xi, 1924-"
     },
-    "pid": "7022274",
+    "pid": "7139957",
     "rero": {
       "md5": "c85eeeb0328e0c7f9acdd95cc05a0ea2",
       "pid": "A000104952",
@@ -14344,10 +14290,10 @@
       "rero",
       "gnd"
     ],
-    "viaf_pid": "A000104952"
+    "viaf_pid": "55635080"
   },
   {
-    "pid": "8273259",
+    "pid": "8411849",
     "rero": {
       "md5": "116a958354f0be75511ce7c0ee0e6fa3",
       "pid": "A013065996",
@@ -14358,7 +14304,7 @@
     "sources": [
       "rero"
     ],
-    "viaf_pid": "A013065996"
+    "viaf_pid": "286246486"
   },
   {
     "bnf": {
@@ -14387,7 +14333,7 @@
       "preferred_name_for_person": "Boehmer, Rainer Michael",
       "authorized_access_point_representing_a_person": "Boehmer, Rainer Michael, 1930-"
     },
-    "pid": "12299797",
+    "pid": "12506355",
     "rero": {
       "md5": "d5f36ca6c7432e18e54fccbaf2e68c9f",
       "pid": "A003018146",
@@ -14400,7 +14346,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "119315289"
+    "viaf_pid": "61560567"
   },
   {
     "bnf": {
@@ -14439,7 +14385,7 @@
       "preferred_name_for_person": "Stroock, Daniel W.",
       "authorized_access_point_representing_a_person": "Stroock, Daniel W., 1940-"
     },
-    "pid": "29417293",
+    "pid": "29909719",
     "rero": {
       "md5": "6b5b4a681b47be3e74ec7e30d7d325ff",
       "pid": "A003870998",
@@ -14452,7 +14398,7 @@
       "gnd",
       "bnf"
     ],
-    "viaf_pid": "130519561"
+    "viaf_pid": "56671656"
   },
   {
     "bnf": {
@@ -14471,7 +14417,7 @@
       "preferred_name_for_person": "Goonan, Kathleen Ann",
       "authorized_access_point_representing_a_person": "Goonan, Kathleen Ann, 1952-...."
     },
-    "pid": "21414859",
+    "pid": "21773556",
     "rero": {
       "md5": "8767a3ac91f27dc9aa1ee72500a87ee4",
       "pid": "A008956916",
@@ -14483,7 +14429,7 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "14489412"
+    "viaf_pid": "46989958"
   },
   {
     "bnf": {
@@ -14499,7 +14445,7 @@
       "preferred_name_for_person": "Pilandon, Louis",
       "authorized_access_point_representing_a_person": "Pilandon, Louis"
     },
-    "pid": "8938129",
+    "pid": "9087942",
     "rero": {
       "md5": "545fc2f231b537638b2e30bdc975683f",
       "pid": "A003694588",
@@ -14511,6 +14457,6 @@
       "rero",
       "bnf"
     ],
-    "viaf_pid": "12312463"
+    "viaf_pid": "4998615"
   }
 ]
