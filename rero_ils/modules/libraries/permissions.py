@@ -38,37 +38,3 @@ def can_update_library_factory(record, *args, **kwargs):
             return True
         return False
     return type('Check', (), {'can': can})()
-
-
-def can_delete_library_factory(record, *args, **kwargs):
-    """Checks if logged user can delete its organisation libraries.
-
-    librarian must have system_librarian role.
-    librarian can not delete any library.
-    sys_librarian can delete any library of its organisation only.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_system_librarian:
-                return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_create_library_factory(record, *args, **kwargs):
-    """Checks if the logged user can create libraries of its organisation.
-
-    user must have a system_librarian role.
-    returns False if a librarian tries to create a library.
-    returns False if a system_librarian tries to create a library in other org.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and not record:
-            return True
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_system_librarian:
-                return True
-        return False
-    return type('Check', (), {'can': can})()

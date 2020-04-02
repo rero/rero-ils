@@ -25,7 +25,7 @@ from utils import get_json
 
 def test_document_permissions(
         client, document, librarian_martigny_no_email,
-        patron_martigny_no_email, ebook_1):
+        patron_martigny_no_email, ebook_1, circ_policy_short_martigny):
     """Test document permissions."""
     # failed: invlaid document pid is given
     res = client.get(
@@ -94,3 +94,17 @@ def test_document_permissions(
         )
     )
     assert res.status_code == 400
+
+    # failed: permission denied
+    res = client.get(
+        url_for(
+            'api_blueprint.permissions',
+            route_name='circ_policies',
+            record_pid=circ_policy_short_martigny.pid
+        )
+    )
+    data = get_json(res)
+    assert res.status_code == 200
+    assert data.get('delete', {}).get('can') is False
+    reasons = data.get('delete', {}).get('reasons', {})
+    assert 'others' in reasons and 'permission' in reasons['others']

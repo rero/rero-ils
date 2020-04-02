@@ -22,8 +22,22 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
+from invenio_access import Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
+
+from rero_ils.permissions import librarian_delete_permission_factory, \
+    user_has_roles
+
+
+def test_librarian_delete_permission_factory(
+        client, librarian_fully_no_email, org_martigny, lib_martigny):
+    """Test librarian_delete_permission_factory """
+    login_user_via_session(client, librarian_fully_no_email.user)
+    assert type(
+        librarian_delete_permission_factory(None, credentials_only=True)
+    ) == Permission
+    assert librarian_delete_permission_factory(org_martigny) is not None
 
 
 def test_librarian_permissions(
@@ -168,3 +182,17 @@ def test_librarian_permissions(
 
     res = client.delete(record_url)
     assert res.status_code == 403
+
+
+def test_user_has_roles(system_librarian_martigny_no_email,
+                        librarian_martigny_no_email):
+    """Test if user has roles permissions."""
+    assert user_has_roles(system_librarian_martigny_no_email.user,
+                          roles=['system_librarian', 'librarian'],
+                          condition='and')
+    assert user_has_roles(librarian_martigny_no_email.user,
+                          roles=['system_librarian', 'librarian'],
+                          condition='or')
+    assert user_has_roles(librarian_martigny_no_email.user,
+                          roles=['system_librarian', 'librarian'],
+                          condition='and') is False

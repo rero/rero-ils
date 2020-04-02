@@ -58,10 +58,27 @@ def staffer_is_authenticated(user=None):
     if not user:
         user = current_user
     if user.is_authenticated:
-        patron = Patron.get_patron_by_user(current_user)
+        patron = Patron.get_patron_by_user(user)
         if patron and (patron.is_librarian or patron.is_system_librarian):
             return patron
     return None
+
+
+def user_has_roles(user=None, roles=[], condition='or'):
+    """Check if user is authenticated and has requested roles.
+
+    :param user: the user to check (if None, the current user will be used)
+    :param roles: the list of roles to check for the user
+    :param condition: 'or'|'and'. Check if all (for and) roles or any (for or)
+                      roles should be present for the user
+    """
+    if not user:
+        user = current_user
+    if user.is_authenticated:
+        patron = Patron.get_patron_by_user(user)
+        function = all if condition == 'and' else any
+        return function(role in patron.get('roles', []) for role in roles)
+    return False
 
 
 def patron_is_authenticated(user=None):
@@ -74,7 +91,7 @@ def patron_is_authenticated(user=None):
     if not user:
         user = current_user
     if user.is_authenticated:
-        patron = Patron.get_patron_by_user(current_user)
+        patron = Patron.get_patron_by_user(user)
         if patron and patron.is_patron:
             return patron
     return None
@@ -146,6 +163,18 @@ def can_create_organisation_records_factory(record, *args, **kwargs):
     return type('Check', (), {'can': can})()
 
 
+def is_system_librarian_organisation_record_factory(record, *args, **kwargs):
+    """Logged user can execute operations on record of its organisation."""
+    def can(self):
+        patron = staffer_is_authenticated()
+        if patron and not record:
+            return True
+        return patron \
+            and user_has_roles(roles=['system_librarian']) \
+            and patron.organisation_pid == record.organisation_pid
+    return type('Check', (), {'can': can})()
+
+
 def can_access_organisation_patrons_factory(record, *args, **kwargs):
     """Logged user permissions to access patron records."""
     def can(self):
@@ -191,9 +220,7 @@ def librarian_update_permission_factory(record, *args, **kwargs):
 def librarian_delete_permission_factory(
         record, credentials_only=False, *args, **kwargs):
     """User can delete record."""
-    if credentials_only:
-        return librarian_permission
-    if record.can_delete:
+    if credentials_only or record.can_delete:
         return librarian_permission
     return type('Check', (), {'can': lambda x: False})()
 
