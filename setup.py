@@ -154,7 +154,6 @@ setup(
             'item_types = rero_ils.modules.item_types.models',
             'patrons = rero_ils.modules.patrons.models',
             'patron_types = rero_ils.modules.patron_types.models',
-            'transactions = rero_ils.modules.transactions.models',
             'mef = rero_ils.modules.persons.models',
             'apiharvester = rero_ils.modules.apiharvester.models',
             'circ_policies = rero_ils.modules.circ_policies.models',

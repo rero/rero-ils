@@ -303,3 +303,21 @@ def test_patron_secure_api_delete(client, json_header,
 
     # res = client.delete(record_url)
     # assert res.status_code == 403
+
+
+def test_patrons_dirty_barcode(
+        client, patron_martigny_no_email, librarian_martigny_no_email):
+    """Test patron update with dirty barcode."""
+    barcode = patron_martigny_no_email.get('barcode')
+    patron_martigny_no_email['barcode'] = ' {barcode} '.format(
+                barcode=barcode
+            )
+    patron_martigny_no_email.update(
+        patron_martigny_no_email, dbcommit=True, reindex=True)
+    patron = Patron.get_record_by_pid(patron_martigny_no_email.pid)
+    assert patron.get('barcode') == barcode
+
+    # Ensure that users with no patron role will not have a barcode
+    librarian_martigny_no_email.update(
+        librarian_martigny_no_email, dbcommit=True, reindex=True)
+    assert not librarian_martigny_no_email.get('barcode')

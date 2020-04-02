@@ -18,6 +18,7 @@
 """Tests REST API items."""
 
 import json
+from copy import deepcopy
 from datetime import datetime, timezone
 
 import ciso8601
@@ -101,10 +102,15 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     list_url = url_for('invenio_records_rest.item_list', q='pid:1')
 
     item_lib_martigny_data['pid'] = '1'
+    item_record_with_dirty_barcode = deepcopy(item_lib_martigny_data)
+
+    item_record_with_dirty_barcode['barcode'] = ' {barcode} '.format(
+                barcode=item_record_with_dirty_barcode.get('barcode')
+            )
     res, data = postdata(
         client,
         'invenio_records_rest.item_list',
-        item_lib_martigny_data
+        item_record_with_dirty_barcode
     )
     assert res.status_code == 201
 

@@ -145,3 +145,14 @@ def get_ref_for_pid(module, pid):
                     pid=pid
                 )
     return None
+
+
+def trim_barcode_for_record(data=None):
+    """Trim the barcode for a patron or an item record.
+
+    :param data: the patron or item record
+    :return: data with trimmed barcode
+    """
+    if data and data.get('barcode'):
+        data['barcode'] = data.get('barcode').strip()
+    return data
