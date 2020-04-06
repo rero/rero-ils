@@ -101,20 +101,52 @@ class DocumentJSONSerializer(JSONSerializer):
         for org_term in results.get('aggregations', {}).get(
                 'organisation', {}).get('buckets', []):
             pid = org_term.get('key')
-            name = Organisation.get_record_by_pid(pid).get('name')
+            org = Organisation.get_record_by_pid(pid)
+            name = org.get('name')
             org_term['name'] = name
+            lib_buckets = self._process_library_buckets(org, org_term.get(
+                'library', {}).get('buckets', [])
+            )
+            if lib_buckets:
+                org_term['library']['buckets'] = lib_buckets
 
-        # Add library name
-        for lib_term in results.get('aggregations', {}).get(
-                'library', {}).get('buckets', []):
-            pid = lib_term.get('key').split('-')[1]
-            name = Library.get_record_by_pid(pid).get('name')
-            lib_term['key'] = pid
-            lib_term['name'] = name
+        # TODO: Move this logic in the front end (needs backend adaptation)
+        if (viewcode is not None) and (viewcode != current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
+        )):
+            org = Organisation.get_record_by_viewcode(viewcode)
+            org_buckets = results.get('aggregations', {}).get(
+                'organisation', {}).get('buckets', [])
+            for bucket in org_buckets:
+                if bucket.get('key') == org.pid:
+                    lib_agg = bucket.get('library')
+                    if lib_agg:
+                        results['aggregations']['library'] = lib_agg
+                        del results['aggregations']['organisation']
 
         return super(
             DocumentJSONSerializer, self).post_process_serialize_search(
                 results, pid_fetcher)
+
+    @classmethod
+    def _process_library_buckets(cls, org, lib_buckets):
+        """Process library buckets.
+
+        Add library names
+        :param org: current organisation
+        :param lib_buckets: library buckets
+
+        :return processed buckets
+        """
+        processed_buckets = []
+        lib_pids = list(org.get_libraries_pids())
+        for bucket in lib_buckets:
+            if bucket.get('key') in lib_pids:
+                bucket['name'] = Library.get_record_by_pid(
+                    bucket.get('key')).get('name')
+                processed_buckets.append(bucket)
+
+        return processed_buckets
 
 
 json_doc = DocumentJSONSerializer(RecordSchemaJSONV1)

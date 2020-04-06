@@ -432,7 +432,7 @@ RECORDS_REST_ENDPOINTS = dict(
         # ),
         default_media_type='application/json',
         max_result_window=5000000,
-        search_factory_imp='rero_ils.query:document_search_factory',
+        search_factory_imp='rero_ils.query:view_search_factory',
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all,
         update_permission_factory_imp=librarian_update_permission_factory,
@@ -1160,6 +1160,14 @@ RECORDS_REST_FACETS = dict(
             language=dict(
                 terms=dict(field='language.value',
                            size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            organisation=dict(
+                terms=dict(field='holdings.organisation.organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    library=dict(
+                        terms=dict(field='holdings.organisation.library_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
             ),
             subject=dict(
                 terms=dict(field='facet_subjects',
