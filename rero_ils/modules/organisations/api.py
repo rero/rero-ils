@@ -57,13 +57,19 @@ class Organisation(IlsRecord):
     fetcher = organisation_id_fetcher
     provider = OrganisationProvider
 
-    def get_libraries(self):
-        """Get all libraries related to the organisation."""
+    def get_libraries_pids(self):
+        """Get all libraries pids related to the organisation."""
         results = LibrariesSearch().source(['pid'])\
             .filter('term', organisation__pid=self.pid)\
             .scan()
-        for library in results:
-            yield Library.get_record_by_pid(library.pid)
+        for result in results:
+            yield result.pid
+
+    def get_libraries(self):
+        """Get all libraries related to the organisation."""
+        pids = self.get_libraries_pids()
+        for pid in pids:
+            yield Library.get_record_by_pid(pid)
 
     def get_number_of_libraries(self):
         """Get number of libraries."""

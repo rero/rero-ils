@@ -576,9 +576,6 @@
                 },
                 "library_pid": {
                   "type": "keyword"
-                },
-                "organisation_library": {
-                  "type": "keyword"
                 }
               }
             },

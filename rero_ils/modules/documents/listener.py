@@ -51,11 +51,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 },
                 'organisation': {
                     'organisation_pid': holding['organisation']['pid'],
-                    'library_pid': holding['library']['pid'],
-                    'organisation_library': '{}-{}'.format(
-                        holding['organisation']['pid'],
-                        holding['library']['pid']
-                    )
+                    'library_pid': holding['library']['pid']
                 }
             }
             # replace this by an ES query

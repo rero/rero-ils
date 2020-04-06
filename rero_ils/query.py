@@ -19,42 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
-from elasticsearch_dsl import A
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_patron
-
-
-def document_search_factory(self, search, query_parser=None):
-    """Document search factory.
-
-    Dynamic addition of an organisation or library facet
-    depending on the view parameter (global or locale).
-    """
-    agg_size = current_app.config.get('RERO_ILS_AGGREGATION_SIZE').get(
-        'documents', current_app.config.get(
-            'RERO_ILS_DEFAULT_AGGREGATION_SIZE'))
-    view = request.args.get(
-        'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
-    if view == current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-        agg = A(
-            'terms',
-            field='holdings.organisation.organisation_pid',
-            size=agg_size)
-        search.aggs.bucket('organisation', agg)
-    else:
-        org_pid = Organisation.get_record_by_viewcode(view)['pid']
-        agg = A(
-            'terms',
-            field='holdings.organisation.organisation_library',
-            include='{}\\-[0-9]*'.format(org_pid),
-            size=agg_size
-        )
-        search.aggs.bucket('library', agg)
-    return view_search_factory(self, search, query_parser)
 
 
 def view_search_factory(self, search, query_parser=None):
