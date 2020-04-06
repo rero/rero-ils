@@ -26,11 +26,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29744029"
+        "$ref": "https://mef.rero.ch/api/mef/30241885"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30571212"
+        "$ref": "https://mef.rero.ch/api/mef/31082956"
       }
     ],
     "title": "Waldszenen : und Romanzen : f\u00fcr Klavier zu 2 H\u00e4nden : op. 82 u. 28",
@@ -172,7 +172,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27031613"
+        "$ref": "https://mef.rero.ch/api/mef/27484230"
       }
     ],
     "title": "La Suisse",
@@ -260,27 +260,27 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18055052"
+        "$ref": "https://mef.rero.ch/api/mef/18357783"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3041334"
+        "$ref": "https://mef.rero.ch/api/mef/3092439"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1260591"
+        "$ref": "https://mef.rero.ch/api/mef/1281533"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5836485"
+        "$ref": "https://mef.rero.ch/api/mef/5934377"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25754629"
+        "$ref": "https://mef.rero.ch/api/mef/26186107"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30135673"
+        "$ref": "https://mef.rero.ch/api/mef/30639937"
       },
       {
         "type": "organisation",
@@ -354,7 +354,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18323254"
+        "$ref": "https://mef.rero.ch/api/mef/18630745"
       }
     ],
     "title": "Ecclesiological aspects of the race problem",
@@ -401,7 +401,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27128741"
+        "$ref": "https://mef.rero.ch/api/mef/27582920"
       }
     ],
     "title": "Bruder Klaus, oder des seligen Nikolaus von der Flue lehrreiche und wundervolle Lebensgeschichte",
@@ -499,19 +499,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23732451"
+        "$ref": "https://mef.rero.ch/api/mef/24129926"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7510054"
+        "$ref": "https://mef.rero.ch/api/mef/7636042"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28461938"
+        "$ref": "https://mef.rero.ch/api/mef/28938458"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22277050"
+        "$ref": "https://mef.rero.ch/api/mef/22650506"
       },
       {
         "type": "person",
@@ -524,7 +524,7 @@
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19769973"
+        "$ref": "https://mef.rero.ch/api/mef/20101577"
       },
       {
         "type": "organisation",
@@ -803,11 +803,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26328444"
+        "$ref": "https://mef.rero.ch/api/mef/26769628"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7913717"
+        "$ref": "https://mef.rero.ch/api/mef/8046431"
       }
     ]
   },
@@ -830,7 +830,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30063716"
+        "$ref": "https://mef.rero.ch/api/mef/30566902"
       }
     ],
     "title": "Le Partage de la foi : le COE a 25 ans",
@@ -882,7 +882,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20134811"
+        "$ref": "https://mef.rero.ch/api/mef/20472332"
       }
     ],
     "title": "Enigma : roman",
@@ -948,7 +948,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15985114"
+        "$ref": "https://mef.rero.ch/api/mef/16253290"
       }
     ],
     "title": "How to develop new ecumenical mass communication",
@@ -999,7 +999,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12299797"
+        "$ref": "https://mef.rero.ch/api/mef/12506355"
       }
     ],
     "title": "Uruk : fr\u00fcheste Siegelabrollungen",
@@ -1089,7 +1089,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5759531"
+        "$ref": "https://mef.rero.ch/api/mef/5856081"
       }
     ],
     "title": "Mauriac et fils",
@@ -1165,11 +1165,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14854297"
+        "$ref": "https://mef.rero.ch/api/mef/15103291"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15328588"
+        "$ref": "https://mef.rero.ch/api/mef/15585406"
       }
     ],
     "title": "Die Frau im Mittelalter",
@@ -1243,7 +1243,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31466383"
+        "$ref": "https://mef.rero.ch/api/mef/31993116"
       }
     ],
     "title": "Terres perdues",
@@ -1319,7 +1319,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8950235"
+        "$ref": "https://mef.rero.ch/api/mef/9100392"
       }
     ],
     "title": "L'enfant d'octobre",
@@ -1389,11 +1389,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27503012"
+        "$ref": "https://mef.rero.ch/api/mef/27963493"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6223145"
+        "$ref": "https://mef.rero.ch/api/mef/6327365"
       }
     ],
     "title": "Les fr\u00e8res Lumi\u00e8re et le cin\u00e9ma",
@@ -1533,7 +1533,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26175361"
+        "$ref": "https://mef.rero.ch/api/mef/26613880"
       }
     ]
   },
@@ -1560,7 +1560,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6554126"
+        "$ref": "https://mef.rero.ch/api/mef/6664032"
       }
     ],
     "title": "Heptam\u00e9ron",
@@ -1650,7 +1650,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17266126"
+        "$ref": "https://mef.rero.ch/api/mef/17555840"
       }
     ],
     "title": "Die Aufgabe der Zusammenschlusskontrolle : dargestellt am Beispiel der Sanierungsfusion",
@@ -1726,11 +1726,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29753607"
+        "$ref": "https://mef.rero.ch/api/mef/30251681"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16773026"
+        "$ref": "https://mef.rero.ch/api/mef/17054219"
       }
     ],
     "title": "Apologie de Socrate : Criton",
@@ -1805,11 +1805,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8722621"
+        "$ref": "https://mef.rero.ch/api/mef/8869002"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6623507"
+        "$ref": "https://mef.rero.ch/api/mef/6734499"
       }
     ],
     "title": "Wettspiele : Spass & Action f\u00fcr kleine und grosse Teams",
@@ -1893,11 +1893,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26866797"
+        "$ref": "https://mef.rero.ch/api/mef/27316640"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28293937"
+        "$ref": "https://mef.rero.ch/api/mef/28767560"
       }
     ],
     "title": "Le triomphe de Fondation",
@@ -1979,7 +1979,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9099140"
+        "$ref": "https://mef.rero.ch/api/mef/9251651"
       }
     ],
     "title": "Going Public einer Fussball-Kapitalgesellschaft : rechtliche, betriebswirtschaftliche und strategische Konzepte bei der Vorbereitung der B\u00f6rseneinf\u00fchrung eines Fussball-Bundesligavereins",
@@ -2103,7 +2103,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2949904"
+        "$ref": "https://mef.rero.ch/api/mef/2999413"
       }
     ]
   },
@@ -2130,7 +2130,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14188630"
+        "$ref": "https://mef.rero.ch/api/mef/14426611"
       }
     ],
     "title": "Materialien zur Phonetik des Deutschen",
@@ -2219,11 +2219,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12432335"
+        "$ref": "https://mef.rero.ch/api/mef/12641056"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27907401"
+        "$ref": "https://mef.rero.ch/api/mef/28374712"
       }
     ],
     "title": "Au Salon : chroniques sur la peinture",
@@ -2294,7 +2294,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3836237"
+        "$ref": "https://mef.rero.ch/api/mef/3900619"
       }
     ],
     "title": "Le peuple des t\u00e9n\u00e8bres",
@@ -2375,7 +2375,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5634897"
+        "$ref": "https://mef.rero.ch/api/mef/5729284"
       }
     ],
     "title": "Cueillettes gourmandes : cuisinez nature avec vos enfants",
@@ -2558,7 +2558,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4802480"
+        "$ref": "https://mef.rero.ch/api/mef/4883142"
       }
     ],
     "title": "al-Tahk\u012bm al-tij\u0101r\u012b al-dawl\u012b : dir\u0101sah q\u0101n\u016bniyah muq\u0101ranah",
@@ -2642,7 +2642,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13507544"
+        "$ref": "https://mef.rero.ch/api/mef/13734214"
       }
     ],
     "title": "La citt\u00e0 interiore",
@@ -2715,11 +2715,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27141063"
+        "$ref": "https://mef.rero.ch/api/mef/27595423"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28128728"
+        "$ref": "https://mef.rero.ch/api/mef/28599511"
       }
     ],
     "title": "Conservation biology for the Australian environment",
@@ -2791,7 +2791,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/717712"
+        "$ref": "https://mef.rero.ch/api/mef/729741"
       }
     ],
     "title": "Quelques questions en mati\u00e8re de droits r\u00e9els examin\u00e9es \u00e0 la lumi\u00e8re du droit suisse : (Notes et observations \u00e0 la chronique de la jurisprudence fran\u00e7aise en mati\u00e8re de droits r\u00e9els de l'ann\u00e9e 1937)",
@@ -2858,11 +2858,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31018351"
+        "$ref": "https://mef.rero.ch/api/mef/31537597"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31152761"
+        "$ref": "https://mef.rero.ch/api/mef/31674186"
       }
     ],
     "title": "Schenk Liebe ... und dein Leben hat einen Sinn",
@@ -2967,15 +2967,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8639289"
+        "$ref": "https://mef.rero.ch/api/mef/8784246"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14468585"
+        "$ref": "https://mef.rero.ch/api/mef/14711268"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21490223"
+        "$ref": "https://mef.rero.ch/api/mef/21850114"
       }
     ],
     "title": "Un No\u00ebl sous la neige",
@@ -3054,11 +3054,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23417554"
+        "$ref": "https://mef.rero.ch/api/mef/23809856"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30778573"
+        "$ref": "https://mef.rero.ch/api/mef/31293703"
       }
     ],
     "title": "Mes jeux",
@@ -3197,7 +3197,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16949192"
+        "$ref": "https://mef.rero.ch/api/mef/17233558"
       }
     ],
     "title": "Rites de mort",
@@ -3277,11 +3277,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9181122"
+        "$ref": "https://mef.rero.ch/api/mef/9335077"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18492069"
+        "$ref": "https://mef.rero.ch/api/mef/18802328"
       }
     ],
     "title": "Six lectures on sound and meaning",
@@ -3362,7 +3362,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4994060"
+        "$ref": "https://mef.rero.ch/api/mef/5077830"
       }
     ],
     "title": "Kundenzufriedenheit und Arbeitszufriedenheit bei Dienstleistungen : Operationalisierung und Erkl\u00e4rung der Beziehungen am Beispiel des Handels",
@@ -3449,11 +3449,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30070120"
+        "$ref": "https://mef.rero.ch/api/mef/30573473"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6428398"
+        "$ref": "https://mef.rero.ch/api/mef/6536262"
       }
     ],
     "title": "Je suis Juan de Pareja : n\u00e9 esclave \u00e0 S\u00e9ville, \u00e9l\u00e8ve en secret de Velazquez, peintre malgr\u00e9 tout",
@@ -3538,11 +3538,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25676782"
+        "$ref": "https://mef.rero.ch/api/mef/26106949"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3741835"
+        "$ref": "https://mef.rero.ch/api/mef/3804420"
       }
     ],
     "title": "Jauchzet Gott in allen Landen : <Dominica 15 post Trinitatis et in ogni Tempo> : Kantate No 51",
@@ -3626,19 +3626,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9378359"
+        "$ref": "https://mef.rero.ch/api/mef/9535685"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5424265"
+        "$ref": "https://mef.rero.ch/api/mef/5515129"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30176939"
+        "$ref": "https://mef.rero.ch/api/mef/30682014"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/462499"
+        "$ref": "https://mef.rero.ch/api/mef/469979"
       }
     ],
     "title": "Linguistik, Phonetik und Sprachunterricht",
@@ -3717,7 +3717,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9424642"
+        "$ref": "https://mef.rero.ch/api/mef/9582789"
       }
     ],
     "title": "Le mouvement oecum\u00e9nique s'est approfondi",
@@ -3773,19 +3773,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28126503"
+        "$ref": "https://mef.rero.ch/api/mef/28597207"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28772505"
+        "$ref": "https://mef.rero.ch/api/mef/29254036"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24575644"
+        "$ref": "https://mef.rero.ch/api/mef/24987226"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14428249"
+        "$ref": "https://mef.rero.ch/api/mef/14670254"
       }
     ],
     "title": "Neue Ausgabe s\u00e4mtlicher Werke",
@@ -3928,7 +3928,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11898207"
+        "$ref": "https://mef.rero.ch/api/mef/12098096"
       }
     ],
     "title": "Des bambous dans tous les jardins",
@@ -3995,7 +3995,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13016890"
+        "$ref": "https://mef.rero.ch/api/mef/13235150"
       }
     ],
     "title": "Healing in the local church : Oekolampad Basle, Switzerland",
@@ -4051,11 +4051,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14546355"
+        "$ref": "https://mef.rero.ch/api/mef/14790309"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28581161"
+        "$ref": "https://mef.rero.ch/api/mef/29059700"
       }
     ],
     "title": "Mon combat contre l'alcoolisme : le t\u00e9moignage d'un ancien policier",
@@ -4135,7 +4135,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27525449"
+        "$ref": "https://mef.rero.ch/api/mef/27986355"
       }
     ],
     "title": "Hittite and the Indo-European verb",
@@ -4206,7 +4206,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3869062"
+        "$ref": "https://mef.rero.ch/api/mef/3933992"
       }
     ],
     "title": "Le coffre de mariage armori\u00e9 neuch\u00e2telois",
@@ -4286,7 +4286,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31011099"
+        "$ref": "https://mef.rero.ch/api/mef/31530082"
       }
     ],
     "title": "L'\u00e9p\u00e9e de cristal",
@@ -4371,7 +4371,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19027118"
+        "$ref": "https://mef.rero.ch/api/mef/19346237"
       }
     ],
     "title": "Deutsche Untertanen : ein Widerspruch",
@@ -4446,7 +4446,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22458987"
+        "$ref": "https://mef.rero.ch/api/mef/22835524"
       }
     ],
     "title": "To dytikon nekrotapheion t\u0113s Eleusinos",
@@ -4592,11 +4592,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23648678"
+        "$ref": "https://mef.rero.ch/api/mef/24044602"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24431453"
+        "$ref": "https://mef.rero.ch/api/mef/24840672"
       }
     ]
   },
@@ -4619,7 +4619,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17985979"
+        "$ref": "https://mef.rero.ch/api/mef/18287761"
       }
     ],
     "title": "The american war : an ode. Being an impartial description of the most material military and naval transactions there; From The Commencement of Hostilities, to the end of the second Campaign. Interspersed Occasionally With humourous satyrical Animadversions on the conduct of both Parties, with Explanatory Notes through the whole. To which is added, an appendix. Wherein the author has traced the origin of that peoples revolt, to a cause which he never saw yet adverted to; With The many concurring Circumstances which have thus far accelerated the execution of their Plan",
@@ -4765,7 +4765,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5468284"
+        "$ref": "https://mef.rero.ch/api/mef/5559967"
       }
     ]
   },
@@ -4874,7 +4874,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30876761"
+        "$ref": "https://mef.rero.ch/api/mef/31393795"
       }
     ],
     "title": "Regardez-moi",
@@ -5000,11 +5000,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30596941"
+        "$ref": "https://mef.rero.ch/api/mef/31109007"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15016691"
+        "$ref": "https://mef.rero.ch/api/mef/15268483"
       }
     ],
     "title": "Basiswissen deutsche Gegenwartssprache",
@@ -5102,15 +5102,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30474167"
+        "$ref": "https://mef.rero.ch/api/mef/30984329"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13982705"
+        "$ref": "https://mef.rero.ch/api/mef/14217143"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3761253"
+        "$ref": "https://mef.rero.ch/api/mef/3824314"
       }
     ],
     "title": "Socialization games for mentally retarded adolescents and adults",
@@ -5261,11 +5261,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11380903"
+        "$ref": "https://mef.rero.ch/api/mef/11572142"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29253987"
+        "$ref": "https://mef.rero.ch/api/mef/29743678"
       }
     ],
     "title": "Le fils du P\u00e8re No\u00ebl",
@@ -5476,7 +5476,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8938129"
+        "$ref": "https://mef.rero.ch/api/mef/9087942"
       }
     ],
     "title": "Transition vers l'\u00e9conomie de march\u00e9 des pays \"ex de l'Est\"",
@@ -5557,7 +5557,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18994507"
+        "$ref": "https://mef.rero.ch/api/mef/19313019"
       }
     ],
     "title": "Anemoi : Studien zur Darstellung der Winde und Windgottheiten in der Antike",
@@ -5683,11 +5683,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18158852"
+        "$ref": "https://mef.rero.ch/api/mef/18463625"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28713383"
+        "$ref": "https://mef.rero.ch/api/mef/29194226"
       }
     ]
   },
@@ -5714,11 +5714,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26172104"
+        "$ref": "https://mef.rero.ch/api/mef/26610586"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14589535"
+        "$ref": "https://mef.rero.ch/api/mef/14834214"
       }
     ],
     "title": "R\u00e9visions 3 : 350 exercices niveau avanc\u00e9",
@@ -5793,7 +5793,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3873789"
+        "$ref": "https://mef.rero.ch/api/mef/3938791"
       }
     ],
     "title": "F\u012b iktis\u0101b as\u0101l\u012bb al-insh\u0101\u02be",
@@ -6037,11 +6037,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19148634"
+        "$ref": "https://mef.rero.ch/api/mef/19469778"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26430439"
+        "$ref": "https://mef.rero.ch/api/mef/26873191"
       }
     ],
     "title": "Flies of China",
@@ -6112,7 +6112,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30871633"
+        "$ref": "https://mef.rero.ch/api/mef/31388581"
       }
     ],
     "title": "Growing together towards the unity of the Church",
@@ -6159,7 +6159,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10305311"
+        "$ref": "https://mef.rero.ch/api/mef/10478365"
       }
     ],
     "title": "Reflection on councils of churches",
@@ -6311,11 +6311,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22710315"
+        "$ref": "https://mef.rero.ch/api/mef/23091154"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11104919"
+        "$ref": "https://mef.rero.ch/api/mef/11291515"
       },
       {
         "type": "organisation",
@@ -6355,7 +6355,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3503294"
+        "$ref": "https://mef.rero.ch/api/mef/3561902"
       }
     ],
     "title": "Ata\u02bfallam al-\u02bfarabiyya : suppl\u00e9ment grammatical au \"Manuel d'arabe moderne\", premier volume, m\u00e9thode Reig",
@@ -6426,7 +6426,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16862853"
+        "$ref": "https://mef.rero.ch/api/mef/17145651"
       }
     ],
     "title": "The great trade collapse : what caused it and what does it mean?",
@@ -6469,7 +6469,8 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25107077"
+        "name": "Cathrine, Arnaud",
+        "date": "1973-"
       }
     ],
     "title": "Le journal intime de Benjamin Lorca : roman",
@@ -6544,7 +6545,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20462500"
+        "$ref": "https://mef.rero.ch/api/mef/20805570"
       }
     ],
     "title": "Das Sammlungswesen der fr\u00fchen Neuzeit : kritieren der Ordnung und Spezialisierung",
@@ -6627,7 +6628,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7269280"
+        "$ref": "https://mef.rero.ch/api/mef/7391223"
       }
     ],
     "title": "La salud de la mujer es algo mas que una cuestion medica",
@@ -6729,7 +6730,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23594105"
+        "$ref": "https://mef.rero.ch/api/mef/23989438"
       }
     ]
   },
@@ -6756,7 +6757,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31466383"
+        "$ref": "https://mef.rero.ch/api/mef/31993116"
       }
     ],
     "title": "Les trois cartes",
@@ -6836,7 +6837,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18620467"
+        "$ref": "https://mef.rero.ch/api/mef/18932823"
       }
     ],
     "title": "La r\u00e9clusion solitaire",
@@ -6984,15 +6985,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/936612"
+        "$ref": "https://mef.rero.ch/api/mef/952038"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28533241"
+        "$ref": "https://mef.rero.ch/api/mef/29010827"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24871216"
+        "$ref": "https://mef.rero.ch/api/mef/25287793"
       }
     ],
     "title": "La belle et la b\u00eate",
@@ -7111,7 +7112,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12061244"
+        "$ref": "https://mef.rero.ch/api/mef/12263786"
       }
     ]
   },
@@ -7139,7 +7140,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26928250"
+        "$ref": "https://mef.rero.ch/api/mef/27378772"
       }
     ],
     "title": "Cour nord",
@@ -7214,7 +7215,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6784557"
+        "$ref": "https://mef.rero.ch/api/mef/6898247"
       }
     ],
     "title": "Souver\u00e4nit\u00e4tsbegriff und Souver\u00e4nit\u00e4tspolitik in Bayern : von der Mitte des 17. bis zur ersten H\u00e4lfte des 19. Jahrhunderts",
@@ -7286,11 +7287,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11978083"
+        "$ref": "https://mef.rero.ch/api/mef/12179237"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20194412"
+        "$ref": "https://mef.rero.ch/api/mef/20533037"
       }
     ],
     "title": "Emilien et le terreau magique",
@@ -7370,11 +7371,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11033629"
+        "$ref": "https://mef.rero.ch/api/mef/11219163"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19305668"
+        "$ref": "https://mef.rero.ch/api/mef/19629392"
       }
     ],
     "title": "Les Bizardos r\u00eavent de dinosaures",
@@ -7457,11 +7458,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19145615"
+        "$ref": "https://mef.rero.ch/api/mef/19466727"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24099788"
+        "$ref": "https://mef.rero.ch/api/mef/24503565"
       }
     ],
     "title": "No\u00ebl blanc, No\u00ebl noir",
@@ -7533,7 +7534,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11655915"
+        "$ref": "https://mef.rero.ch/api/mef/11851712"
       },
       {
         "type": "organisation",
@@ -7732,7 +7733,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13362465"
+        "$ref": "https://mef.rero.ch/api/mef/13586667"
       }
     ]
   },
@@ -7822,19 +7823,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26613627"
+        "$ref": "https://mef.rero.ch/api/mef/27059182"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20851535"
+        "$ref": "https://mef.rero.ch/api/mef/21200864"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5266066"
+        "$ref": "https://mef.rero.ch/api/mef/5354295"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31923324"
+        "$ref": "https://mef.rero.ch/api/mef/32457688"
       }
     ],
     "title": "La forteresse maudite",
@@ -8048,7 +8049,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21068546"
+        "$ref": "https://mef.rero.ch/api/mef/21421765"
       }
     ],
     "title": "Kabbalah : esp\u00e9ranto",
@@ -8176,7 +8177,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19818408"
+        "$ref": "https://mef.rero.ch/api/mef/20150757"
       }
     ],
     "title": "La confession d'un enfant du si\u00e8cle",
@@ -8252,11 +8253,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6462771"
+        "$ref": "https://mef.rero.ch/api/mef/6571106"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5338741"
+        "$ref": "https://mef.rero.ch/api/mef/5428061"
       }
     ],
     "title": "Meditation : Geschichte, Systematik, Forschung, Theorie",
@@ -8361,7 +8362,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12493065"
+        "$ref": "https://mef.rero.ch/api/mef/12702814"
       }
     ],
     "title": "ITIL : das IT-Servicemanagement Framework",
@@ -8579,15 +8580,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25587994"
+        "$ref": "https://mef.rero.ch/api/mef/26016601"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2561181"
+        "$ref": "https://mef.rero.ch/api/mef/2604338"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3669700"
+        "$ref": "https://mef.rero.ch/api/mef/3731129"
       },
       {
         "type": "person",
@@ -8623,7 +8624,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25419239"
+        "$ref": "https://mef.rero.ch/api/mef/25844914"
       }
     ],
     "title": "S\u0105dowe post\u0119powanie zabezpieczaj\u0105ce i egzekucyjne w sprawach cywilnych",
@@ -8768,7 +8769,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24699016"
+        "$ref": "https://mef.rero.ch/api/mef/25112609"
       }
     ],
     "title": "Jade : un peu de magie et beaucoup d'amour",
@@ -8927,7 +8928,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10328142"
+        "$ref": "https://mef.rero.ch/api/mef/10501674"
       }
     ],
     "title": "L'enfer s'occupe du reste",
@@ -9000,7 +9001,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18660408"
+        "$ref": "https://mef.rero.ch/api/mef/18973488"
       }
     ],
     "title": "Allgemeine Neurosenlehre : Biologie, Psychoanalyse und Psychohygiene leib-seelischer St\u00f6rungen",
@@ -9077,7 +9078,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20859521"
+        "$ref": "https://mef.rero.ch/api/mef/21209116"
       }
     ],
     "title": "Musikalische Temperaturen und musikalischer Satz in der Klaviermusik von J.S. Bach",
@@ -9156,7 +9157,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1429091"
+        "$ref": "https://mef.rero.ch/api/mef/1453034"
       }
     ],
     "title": "Die Organisation des Schulwesens in der Schweiz. Statistik \u00fcber das Schulwesen",
@@ -9219,7 +9220,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29331685"
+        "$ref": "https://mef.rero.ch/api/mef/29822595"
       }
     ],
     "title": "Trio for brass intruments : trumpet, horn, trombone",
@@ -9294,7 +9295,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2562148"
+        "$ref": "https://mef.rero.ch/api/mef/2605324"
       }
     ],
     "title": "Textsortenlinguistik",
@@ -9394,7 +9395,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14381470"
+        "$ref": "https://mef.rero.ch/api/mef/14622602"
       }
     ],
     "title": "Amelia Rosselli : biografia e poesia",
@@ -9598,7 +9599,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10704275"
+        "$ref": "https://mef.rero.ch/api/mef/10884107"
       }
     ],
     "title": "500 [cinq cents] mod\u00e8les au point de croix",
@@ -9674,7 +9675,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25209045"
+        "$ref": "https://mef.rero.ch/api/mef/25631175"
       }
     ],
     "title": "O g\u00eanero 'Aspilia' Thou. ('Asteraceae'-'Heliantheae') no Brasil",
@@ -9751,7 +9752,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26054286"
+        "$ref": "https://mef.rero.ch/api/mef/26490622"
       }
     ],
     "title": "Bienvenue au club! : journal intime du cheval Crac",
@@ -9893,7 +9894,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26181741"
+        "$ref": "https://mef.rero.ch/api/mef/26620410"
       }
     ],
     "title": "Theodore Dreiser : apostle of nature",
@@ -10040,7 +10041,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7901420"
+        "$ref": "https://mef.rero.ch/api/mef/8033788"
       }
     ],
     "title": "Development service and China's modernization : the Amity Foundation in theological perspective",
@@ -10092,7 +10093,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25089209"
+        "$ref": "https://mef.rero.ch/api/mef/25509125"
       }
     ],
     "title": "Mes petits plats \u00e0 la vapeur",
@@ -10163,11 +10164,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8315693"
+        "$ref": "https://mef.rero.ch/api/mef/8455036"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5185335"
+        "$ref": "https://mef.rero.ch/api/mef/5272246"
       }
     ],
     "title": "New moon",
@@ -10424,11 +10425,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24976106"
+        "$ref": "https://mef.rero.ch/api/mef/25394322"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1507624"
+        "$ref": "https://mef.rero.ch/api/mef/1532965"
       }
     ]
   },
@@ -10510,11 +10511,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22298855"
+        "$ref": "https://mef.rero.ch/api/mef/22672687"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26108086"
+        "$ref": "https://mef.rero.ch/api/mef/26545453"
       }
     ]
   },
@@ -10537,11 +10538,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30309213"
+        "$ref": "https://mef.rero.ch/api/mef/30816698"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/469084"
+        "$ref": "https://mef.rero.ch/api/mef/476754"
       }
     ],
     "title": "Le th\u00e9\u00e2tre en France depuis 1900",
@@ -10632,7 +10633,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2561541"
+        "$ref": "https://mef.rero.ch/api/mef/2604705"
       }
     ],
     "title": "Bewegung im anglikanisch - katholischen Dialog : die Antwort der katholischen Bisch\u00f6fe von England und Wales zum Schlussdokument der ARCIC",
@@ -10686,7 +10687,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6540941"
+        "$ref": "https://mef.rero.ch/api/mef/6650478"
       }
     ],
     "title": "Kein Mann, kein Schuss, kein Tor : das Drama des deutschen Fussballs",
@@ -10835,7 +10836,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13205962"
+        "$ref": "https://mef.rero.ch/api/mef/13427468"
       }
     ]
   },
@@ -10866,7 +10867,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12152289"
+        "$ref": "https://mef.rero.ch/api/mef/12356499"
       }
     ],
     "title": "Ideas and mechanism : essays on early modern philosophy",
@@ -11036,11 +11037,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31496132"
+        "$ref": "https://mef.rero.ch/api/mef/32023269"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3709224"
+        "$ref": "https://mef.rero.ch/api/mef/3771426"
       }
     ],
     "title": "Joni et Vatanen : aventures",
@@ -11173,7 +11174,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1532575"
+        "$ref": "https://mef.rero.ch/api/mef/1558434"
       },
       {
         "type": "person",
@@ -11181,11 +11182,11 @@
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12349728"
+        "$ref": "https://mef.rero.ch/api/mef/12557154"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18153595"
+        "$ref": "https://mef.rero.ch/api/mef/18458280"
       }
     ],
     "title": "Les voyages de Gulliver",
@@ -11269,7 +11270,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5733359"
+        "$ref": "https://mef.rero.ch/api/mef/5829127"
       }
     ],
     "title": "Paris graffiti",
@@ -11345,11 +11346,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3588388"
+        "$ref": "https://mef.rero.ch/api/mef/3648476"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15409663"
+        "$ref": "https://mef.rero.ch/api/mef/15667885"
       }
     ],
     "title": "Hom\u00e9lies sur l'\u00e9vangile de saint Jean",
@@ -11443,7 +11444,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20619796"
+        "$ref": "https://mef.rero.ch/api/mef/20965459"
       }
     ],
     "title": "Sulle emorragie interne dell'utero indipendenti dalla gravidanza cenno teorico-pratico",
@@ -11583,7 +11584,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2334057"
+        "$ref": "https://mef.rero.ch/api/mef/2373329"
       }
     ],
     "title": "Entwicklung von Kompetenz - ein neues Paradigma f\u00fcr das Lernen in Schule und Arbeitswelt : Ertrag und Perspektiven der franz\u00f6sischsprachigen Kompetenzforschung und ihre Bedeutung als Gestaltungsprinzip von Bildung",
@@ -11671,11 +11672,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21424729"
+        "$ref": "https://mef.rero.ch/api/mef/21783714"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8009947"
+        "$ref": "https://mef.rero.ch/api/mef/8144246"
       }
     ],
     "title": "Fant\u00f4mes d'Egypte",
@@ -11747,7 +11748,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/393119"
+        "$ref": "https://mef.rero.ch/api/mef/399594"
       }
     ],
     "title": "Assembly theme discussed in Bossey",
@@ -11804,7 +11805,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8459435"
+        "$ref": "https://mef.rero.ch/api/mef/8601069"
       }
     ],
     "title": "Etudes sur le vin mousseux : nouveau mode de tirage rationnel et infaillible, l'\u00e9lasticit\u00e9 du verre et la r\u00e9sistance des bouteilles, le li\u00e8ge et son application au bouchage du vin de Champagne",
@@ -11913,7 +11914,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13817904"
+        "$ref": "https://mef.rero.ch/api/mef/14049621"
       }
     ]
   },
@@ -11940,7 +11941,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28453770"
+        "$ref": "https://mef.rero.ch/api/mef/28930042"
       }
     ],
     "title": "Le organizzazioni internazionali : politica, economie, societ\u00e0 : dizionario",
@@ -12078,7 +12079,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7141561"
+        "$ref": "https://mef.rero.ch/api/mef/7261347"
       }
     ],
     "title": "Bii\ufe20a\ufe21nkurskie prazdniki : Rasskazy v izgnanii",
@@ -12161,15 +12162,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8909946"
+        "$ref": "https://mef.rero.ch/api/mef/9059399"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29924529"
+        "$ref": "https://mef.rero.ch/api/mef/30425331"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4571075"
+        "$ref": "https://mef.rero.ch/api/mef/4647743"
       }
     ],
     "title": "L'Egypte des pharaons, comment c'\u00e9tait ?",
@@ -12244,7 +12245,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20675397"
+        "$ref": "https://mef.rero.ch/api/mef/21022030"
       }
     ],
     "title": "Die evangelische Kirche nach der Wende",
@@ -12300,11 +12301,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9300554"
+        "$ref": "https://mef.rero.ch/api/mef/9456605"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5719735"
+        "$ref": "https://mef.rero.ch/api/mef/5815462"
       }
     ],
     "title": "Warum Franziskus mit den Tieren sprach",
@@ -12368,11 +12369,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27409172"
+        "$ref": "https://mef.rero.ch/api/mef/27867730"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23738199"
+        "$ref": "https://mef.rero.ch/api/mef/24135867"
       }
     ],
     "title": "Alles hat Hand und Fuss : Spiele zur F\u00f6rderung der Motorik, Koordinations- und Wahrnehmungsf\u00e4higkeit f\u00fcr Kinder von 0 bis 8 Jahren",
@@ -12436,7 +12437,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17911071"
+        "$ref": "https://mef.rero.ch/api/mef/18211635"
       }
     ],
     "title": "Die solothurner Orgelbauer Aebi",
@@ -12637,7 +12638,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19919400"
+        "$ref": "https://mef.rero.ch/api/mef/20253622"
       },
       {
         "type": "organisation",
@@ -12838,11 +12839,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9412691"
+        "$ref": "https://mef.rero.ch/api/mef/9570425"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2835023"
+        "$ref": "https://mef.rero.ch/api/mef/2882572"
       }
     ]
   },
@@ -12865,7 +12866,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22531772"
+        "$ref": "https://mef.rero.ch/api/mef/22909380"
       }
     ],
     "title": "Le CWATUP expliqu\u00e9 : [le code wallon de l'am\u00e9nagement du territoire, de l'urbanisme et du patrimoine]",
@@ -12938,7 +12939,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17904939"
+        "$ref": "https://mef.rero.ch/api/mef/18205336"
       }
     ],
     "title": "L'oecum\u00e9nisme contest\u00e9 ?",
@@ -13052,7 +13053,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15416145"
+        "$ref": "https://mef.rero.ch/api/mef/15674616"
       }
     ],
     "title": "Privates und \u00f6ffentliches Recht im Versicherungsverh\u00e4ltnis",
@@ -13304,11 +13305,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31524119"
+        "$ref": "https://mef.rero.ch/api/mef/32051769"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9675424"
+        "$ref": "https://mef.rero.ch/api/mef/9837898"
       }
     ],
     "title": "Colorado.",
@@ -13388,7 +13389,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27974591"
+        "$ref": "https://mef.rero.ch/api/mef/28442885"
       }
     ],
     "title": "Briefe ohne Unterschrift : wie eine BBC-Sendung die DDR herausforderte",
@@ -13472,7 +13473,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25676782"
+        "$ref": "https://mef.rero.ch/api/mef/26106949"
       }
     ],
     "title": "Kantate Nr. 192 : \"Nun danket alle Gott\" : BWV 192",
@@ -13545,7 +13546,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13592756"
+        "$ref": "https://mef.rero.ch/api/mef/13820844"
       }
     ],
     "title": "Les tripl\u00e9s \u00e0 Paris : [bilingue fran\u00e7ais-anglais]",
@@ -13625,11 +13626,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30027106"
+        "$ref": "https://mef.rero.ch/api/mef/30529686"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23354350"
+        "$ref": "https://mef.rero.ch/api/mef/23745745"
       }
     ],
     "title": "La tr\u00eave de No\u00ebl",
@@ -13711,7 +13712,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1532558"
+        "$ref": "https://mef.rero.ch/api/mef/1558417"
       }
     ],
     "title": "L'\u00e9p\u00e9e flamboyante : roman",
@@ -13786,7 +13787,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31705521"
+        "$ref": "https://mef.rero.ch/api/mef/32236193"
       }
     ],
     "title": "Fragen aus der Dritten Welt an Europa",
@@ -13838,7 +13839,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10910853"
+        "$ref": "https://mef.rero.ch/api/mef/11094183"
       }
     ],
     "title": "Joyride Ost : ein Roadmovie-Roman",
@@ -13932,7 +13933,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26263599"
+        "$ref": "https://mef.rero.ch/api/mef/26703734"
       }
     ],
     "title": "Les aciers sp\u00e9ciaux",
@@ -14026,7 +14027,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29467385"
+        "$ref": "https://mef.rero.ch/api/mef/29960691"
       }
     ],
     "title": "Oc\u00e9an mer : roman",
@@ -14105,7 +14106,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6193290"
+        "$ref": "https://mef.rero.ch/api/mef/6297063"
       }
     ],
     "title": "Der Ultraschall und seine Anwendung in Wissenschaft und Technik",
@@ -14194,11 +14195,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11495128"
+        "$ref": "https://mef.rero.ch/api/mef/11688151"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13980921"
+        "$ref": "https://mef.rero.ch/api/mef/14215303"
       }
     ],
     "title": "La parole de Protagoras : fragments et t\u00e9moignages",
@@ -14341,7 +14342,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21332993"
+        "$ref": "https://mef.rero.ch/api/mef/21690292"
       }
     ]
   },
@@ -14420,7 +14421,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14311067"
+        "$ref": "https://mef.rero.ch/api/mef/14551094"
       }
     ],
     "title": "Simples notes relatives \u00e0 l'enseignement de l'histoire du Jura bernois",
@@ -14492,11 +14493,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20109313"
+        "$ref": "https://mef.rero.ch/api/mef/20446541"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25552024"
+        "$ref": "https://mef.rero.ch/api/mef/25979989"
       }
     ],
     "title": "Le due tensioni : appunti per una ideologia della letteratura",
@@ -14587,7 +14588,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12572955"
+        "$ref": "https://mef.rero.ch/api/mef/12784029"
       }
     ],
     "title": "Die politische Rolle der stadtromischen Plebs in der Kaiserzeit",
@@ -14729,11 +14730,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12787241"
+        "$ref": "https://mef.rero.ch/api/mef/13002041"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23830996"
+        "$ref": "https://mef.rero.ch/api/mef/24230434"
       },
       {
         "type": "organisation",
@@ -14817,11 +14818,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23666146"
+        "$ref": "https://mef.rero.ch/api/mef/24062639"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16653101"
+        "$ref": "https://mef.rero.ch/api/mef/16932463"
       },
       {
         "type": "organisation",
@@ -14857,7 +14858,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11731397"
+        "$ref": "https://mef.rero.ch/api/mef/11928303"
       }
     ],
     "title": "Doctrine et action sociales de l'Eglise",
@@ -15078,7 +15079,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/67995"
+        "$ref": "https://mef.rero.ch/api/mef/69018"
       }
     ],
     "title": "Besonderer Ort, poetischer Blick : Untersuchungen zu R\u00e4umen und Bildern in Statius' Silvae",
@@ -15163,11 +15164,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8942943"
+        "$ref": "https://mef.rero.ch/api/mef/9092919"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27605296"
+        "$ref": "https://mef.rero.ch/api/mef/28067543"
       }
     ],
     "title": "Carnivorous plants of the world in color",
@@ -15253,7 +15254,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23217171"
+        "$ref": "https://mef.rero.ch/api/mef/23606231"
       }
     ],
     "title": "\"Electre\" de Jean Giraudoux : textes comment\u00e9s",
@@ -15337,7 +15338,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13899146"
+        "$ref": "https://mef.rero.ch/api/mef/14132261"
       }
     ],
     "title": "Ursachen und Anl\u00e4sse der Walliser Auswanderung im 19. Jahrhundert",
@@ -15389,11 +15390,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11676104"
+        "$ref": "https://mef.rero.ch/api/mef/11872396"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28906990"
+        "$ref": "https://mef.rero.ch/api/mef/29390989"
       }
     ],
     "title": "Vergleichende Regierungslehre",
@@ -15518,7 +15519,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25917164"
+        "$ref": "https://mef.rero.ch/api/mef/26351380"
       }
     ],
     "title": "5-Minuten-Spiele : 44 Ideen f\u00fcr witzige & spontane Aktionen",
@@ -15672,7 +15673,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4730858"
+        "$ref": "https://mef.rero.ch/api/mef/4810239"
       }
     ],
     "title": "Les vacances de l'oberleutnant von La Rochelle : roman",
@@ -15861,7 +15862,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5657281"
+        "$ref": "https://mef.rero.ch/api/mef/5751838"
       }
     ],
     "title": "Konfessionelle Grunddifferenz, Teil 2 : ein Beitrag zur \u00f6kumenischen Epistemologie",
@@ -15917,7 +15918,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14531058"
+        "$ref": "https://mef.rero.ch/api/mef/14774528"
       }
     ],
     "title": "Pinocchio",
@@ -16181,11 +16182,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10590142"
+        "$ref": "https://mef.rero.ch/api/mef/10768136"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12378704"
+        "$ref": "https://mef.rero.ch/api/mef/12586491"
       }
     ]
   },
@@ -16212,7 +16213,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23888278"
+        "$ref": "https://mef.rero.ch/api/mef/24288366"
       }
     ],
     "title": "M\u00e9triques d'Einstein asymptotiquement sym\u00e9triques",
@@ -16285,7 +16286,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6719761"
+        "$ref": "https://mef.rero.ch/api/mef/6832549"
       }
     ],
     "title": "Votum des Hrn. Nat.-Rth Zingg, des Referenten der grossr\u00e4thl. Kommissions-Minderheit in Sachen der revidierten Bundesverfassung",
@@ -16413,7 +16414,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13374542"
+        "$ref": "https://mef.rero.ch/api/mef/13598891"
       }
     ],
     "electronicLocator": [
@@ -16446,11 +16447,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10949635"
+        "$ref": "https://mef.rero.ch/api/mef/11133684"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26373190"
+        "$ref": "https://mef.rero.ch/api/mef/26814923"
       }
     ],
     "title": "The West : an illustrated history",
@@ -16526,7 +16527,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3041465"
+        "$ref": "https://mef.rero.ch/api/mef/3092574"
       }
     ],
     "title": "Un th\u00e9 en Amazonie : tant pis pour eux !",
@@ -16598,11 +16599,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30976396"
+        "$ref": "https://mef.rero.ch/api/mef/31494997"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11981084"
+        "$ref": "https://mef.rero.ch/api/mef/12182340"
       }
     ],
     "title": "Die Gestapo : Herrschaft und Terror im Dritten Reich",
@@ -16755,7 +16756,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16065835"
+        "$ref": "https://mef.rero.ch/api/mef/16335359"
       }
     ],
     "title": "Ces gens qui vous empoisonnent l'existence",
@@ -16908,11 +16909,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24055304"
+        "$ref": "https://mef.rero.ch/api/mef/24458245"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14273506"
+        "$ref": "https://mef.rero.ch/api/mef/14512852"
       }
     ]
   },
@@ -17072,7 +17073,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2267833"
+        "$ref": "https://mef.rero.ch/api/mef/2305990"
       }
     ],
     "title": "Le premier amour : roman",
@@ -17145,7 +17146,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7014873"
+        "$ref": "https://mef.rero.ch/api/mef/7132257"
       }
     ],
     "title": "Just Java 1.2",
@@ -17242,7 +17243,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30410320"
+        "$ref": "https://mef.rero.ch/api/mef/30919368"
       }
     ],
     "title": "La naissance, la vie : pr\u00e9paration \u00e0 l'accouchement et yoga",
@@ -17318,7 +17319,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23468422"
+        "$ref": "https://mef.rero.ch/api/mef/23861693"
       }
     ],
     "title": "Zhongguo yu le fa = Entertainment law of China",
@@ -17413,7 +17414,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24545426"
+        "$ref": "https://mef.rero.ch/api/mef/24956551"
       }
     ],
     "title": "\u1e24ik\u0101yat \u1e25ayy Mi\u1e63r al-qad\u012bmah : dir\u0101sah ta\u02ber\u012bkh\u012byah",
@@ -17554,7 +17555,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7389744"
+        "$ref": "https://mef.rero.ch/api/mef/7513691"
       }
     ],
     "title": "Gedanken zur Weltkonferenz 'Kirche und Gesellschaft', Genf 1966",
@@ -17606,7 +17607,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29746963"
+        "$ref": "https://mef.rero.ch/api/mef/30244901"
       }
     ],
     "title": "L'Olympe des infortun\u00e9s",
@@ -17672,7 +17673,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17897291"
+        "$ref": "https://mef.rero.ch/api/mef/18197434"
       }
     ],
     "title": "Esperienze sull'acclimazione dell'eucalipto nel Cantone Ticino",
@@ -17756,7 +17757,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24250303"
+        "$ref": "https://mef.rero.ch/api/mef/24656572"
       }
     ],
     "title": "Destins magiques : dix contes de f\u00e9es modernes",
@@ -17832,11 +17833,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7025799"
+        "$ref": "https://mef.rero.ch/api/mef/7143601"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5716339"
+        "$ref": "https://mef.rero.ch/api/mef/5812048"
       }
     ],
     "title": "An\u00e1lisis antropof\u00edsico de cuatro personajes hist\u00f3ricos de M\u00e9xico",
@@ -17942,7 +17943,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16621739"
+        "$ref": "https://mef.rero.ch/api/mef/16900498"
       }
     ],
     "title": "Le cercle du silence : thriller",
@@ -18019,11 +18020,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5222227"
+        "$ref": "https://mef.rero.ch/api/mef/5309764"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9606696"
+        "$ref": "https://mef.rero.ch/api/mef/9767968"
       }
     ],
     "title": "The Megilloth and Rashi's commentary with linear translation",
@@ -18102,7 +18103,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30554195"
+        "$ref": "https://mef.rero.ch/api/mef/31065674"
       }
     ],
     "title": "Van Dongen et le fauvisme",
@@ -18185,11 +18186,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24028133"
+        "$ref": "https://mef.rero.ch/api/mef/24430817"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5350187"
+        "$ref": "https://mef.rero.ch/api/mef/5439883"
       }
     ],
     "title": "Rede zur Feier des Andenkens an Friedrich Karl von Savigny ... am 31. Oktober 1861",
@@ -18255,7 +18256,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17428331"
+        "$ref": "https://mef.rero.ch/api/mef/17720786"
       }
     ],
     "title": "L'exploration du Karakoram : essai de synth\u00e8se et de bibliographie raisonn\u00e9e",
@@ -18353,11 +18354,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16557701"
+        "$ref": "https://mef.rero.ch/api/mef/16835584"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/905223"
+        "$ref": "https://mef.rero.ch/api/mef/920419"
       }
     ],
     "title": "The environment",
@@ -18450,11 +18451,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3600656"
+        "$ref": "https://mef.rero.ch/api/mef/3661081"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6383954"
+        "$ref": "https://mef.rero.ch/api/mef/6490995"
       }
     ],
     "title": "La terre des silences",
@@ -18525,7 +18526,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17542346"
+        "$ref": "https://mef.rero.ch/api/mef/17836630"
       }
     ],
     "title": "Le jardin du bossu",
@@ -18689,7 +18690,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15135115"
+        "$ref": "https://mef.rero.ch/api/mef/15389049"
       }
     ],
     "title": "Remembrance",
@@ -18757,7 +18758,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21653763"
+        "$ref": "https://mef.rero.ch/api/mef/22016547"
       }
     ],
     "title": "Die Rechtsstellung des erbrechtlichen Anw\u00e4rters vor und nach dem Erbfall",
@@ -18842,11 +18843,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22379212"
+        "$ref": "https://mef.rero.ch/api/mef/22754388"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20075279"
+        "$ref": "https://mef.rero.ch/api/mef/20412051"
       }
     ],
     "title": "Das grosse Buch des Jiu-Jitsu : alle Griffe, Sweeps und Techniken, die ein K\u00e4mpfer beherrschen muss",
@@ -18921,7 +18922,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31458546"
+        "$ref": "https://mef.rero.ch/api/mef/31985142"
       }
     ],
     "title": "La salvezza dei non cristiani : l'influsso di Henri de Lubac sulla dottrina del Vaticano II",
@@ -19080,11 +19081,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7022274"
+        "$ref": "https://mef.rero.ch/api/mef/7139957"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8273259"
+        "$ref": "https://mef.rero.ch/api/mef/8411849"
       }
     ]
   },
@@ -19192,7 +19193,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15586746"
+        "$ref": "https://mef.rero.ch/api/mef/15848243"
       }
     ],
     "title": "Natural step : [Synod of Evangelical Lutheran Churches and Lutheran Church Missouri Synod]",
@@ -19243,7 +19244,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12871190"
+        "$ref": "https://mef.rero.ch/api/mef/13087442"
       }
     ],
     "title": "Les grossesses \u00e0 l'adolescence : normes sociales, r\u00e9alit\u00e9s v\u00e9cues",
@@ -19314,7 +19315,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16869540"
+        "$ref": "https://mef.rero.ch/api/mef/17152531"
       }
     ],
     "title": "Methodists chill Cocu",
@@ -19374,11 +19375,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28219171"
+        "$ref": "https://mef.rero.ch/api/mef/28691665"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18302255"
+        "$ref": "https://mef.rero.ch/api/mef/18609329"
       }
     ],
     "title": "Quatre-vingts dessins de Bourdelle",
@@ -19456,7 +19457,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2313593"
+        "$ref": "https://mef.rero.ch/api/mef/2352562"
       }
     ],
     "title": "Shall we go into consultation and union ? yes !",
@@ -19592,7 +19593,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7980290"
+        "$ref": "https://mef.rero.ch/api/mef/8113953"
       }
     ],
     "title": "Une poire pour la soif",
@@ -19668,19 +19669,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21868223"
+        "$ref": "https://mef.rero.ch/api/mef/22234759"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14465567"
+        "$ref": "https://mef.rero.ch/api/mef/14708146"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15526254"
+        "$ref": "https://mef.rero.ch/api/mef/15786839"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5281107"
+        "$ref": "https://mef.rero.ch/api/mef/5369701"
       },
       {
         "type": "organisation",
@@ -19770,7 +19771,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10909151"
+        "$ref": "https://mef.rero.ch/api/mef/11092443"
       }
     ],
     "title": "P\u02b9esy",
@@ -19867,7 +19868,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16796229"
+        "$ref": "https://mef.rero.ch/api/mef/17078043"
       }
     ],
     "title": "British society, 1680-1880 : dynamism, containment and change",
@@ -19991,7 +19992,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24624414"
+        "$ref": "https://mef.rero.ch/api/mef/25036807"
       },
       {
         "type": "organisation",
@@ -20102,11 +20103,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17970345"
+        "$ref": "https://mef.rero.ch/api/mef/18271591"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31568051"
+        "$ref": "https://mef.rero.ch/api/mef/32096160"
       }
     ]
   },
@@ -20142,11 +20143,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19540498"
+        "$ref": "https://mef.rero.ch/api/mef/19868221"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28049352"
+        "$ref": "https://mef.rero.ch/api/mef/28518783"
       }
     ],
     "title": "Magic girls : der dunkle Verr\u00e4ter",
@@ -20302,11 +20303,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12977661"
+        "$ref": "https://mef.rero.ch/api/mef/13195448"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14905883"
+        "$ref": "https://mef.rero.ch/api/mef/15155875"
       }
     ]
   },
@@ -20450,7 +20451,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4786794"
+        "$ref": "https://mef.rero.ch/api/mef/4867063"
       }
     ],
     "electronicLocator": [
@@ -20488,7 +20489,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15062728"
+        "$ref": "https://mef.rero.ch/api/mef/15315403"
       }
     ],
     "title": "Vospominanii\ufe20a\ufe21 babushki : ocherki kul\u02b9turno\u012d istorii evreev Rossii v XIX v.",
@@ -20614,19 +20615,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29029144"
+        "$ref": "https://mef.rero.ch/api/mef/29515273"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/301829"
+        "$ref": "https://mef.rero.ch/api/mef/306674"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24849485"
+        "$ref": "https://mef.rero.ch/api/mef/25265386"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10834197"
+        "$ref": "https://mef.rero.ch/api/mef/11016155"
       }
     ],
     "title": "Werke : oratorio 1775/1784 / Joseph Haydn ; Dichtung von Giovanni Gastone Boccherini ; hrsg. von Ernst Fritz Schmid ; kristischer Bericht verf. von Friederike M\u00fchle",
@@ -20714,11 +20715,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28390806"
+        "$ref": "https://mef.rero.ch/api/mef/28866236"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23111362"
+        "$ref": "https://mef.rero.ch/api/mef/23498817"
       }
     ],
     "title": "Histoire romaine",
@@ -20802,11 +20803,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10644752"
+        "$ref": "https://mef.rero.ch/api/mef/10823711"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28449784"
+        "$ref": "https://mef.rero.ch/api/mef/28925915"
       }
     ],
     "title": "Frant\ufe20s\ufe21uzsko-russki\u012d slovar\u02b9 : okolo 25 000 slov",
@@ -20913,7 +20914,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/23889017"
+        "$ref": "https://mef.rero.ch/api/mef/24289148"
       }
     ],
     "title": "Stilistische und verbalsyntaktische Untersuchungen zum moskovitischen Prunkstil des 16. Jahrhunderts : die Erz\u00e4hlung \u00fcber die Belagerung Pleskaus durch den polnischen K\u00f6nig Stephan B\u00e1thory 1581/82 im Vergleich mit der Erz\u00e4hlung \u00fcber die Eroberung Konstantinopels durch die T\u00fcrken 1453",
@@ -20989,11 +20990,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18154161"
+        "$ref": "https://mef.rero.ch/api/mef/18458872"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17429643"
+        "$ref": "https://mef.rero.ch/api/mef/17722149"
       }
     ],
     "title": "Le serrurier volant",
@@ -21139,7 +21140,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/57213"
+        "$ref": "https://mef.rero.ch/api/mef/57838"
       }
     ],
     "title": "Droit des soci\u00e9t\u00e9s et des autres groupements",
@@ -21215,7 +21216,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14863341"
+        "$ref": "https://mef.rero.ch/api/mef/15112593"
       }
     ],
     "title": "Faites-nous la bise : roman noir rural",
@@ -21342,7 +21343,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11889636"
+        "$ref": "https://mef.rero.ch/api/mef/12089196"
       }
     ],
     "titlesProper": [
@@ -21443,7 +21444,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26233875"
+        "$ref": "https://mef.rero.ch/api/mef/26673564"
       }
     ],
     "title": "T\u014dky\u014d Saiban",
@@ -21549,7 +21550,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5176776"
+        "$ref": "https://mef.rero.ch/api/mef/5263362"
       }
     ],
     "title": "La famille recompos\u00e9e : entre d\u00e9fi et incertitude",
@@ -21685,7 +21686,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21356763"
+        "$ref": "https://mef.rero.ch/api/mef/21714748"
       }
     ],
     "title": "Dialoge mit Joseph Beuys, Rolf Escher, Klaus Fussmann, Rolf Iseli, Axel Knopp, Dieter Roth, Reiner Ruthenbeck, Bernard Schultze, Ursula",
@@ -21825,11 +21826,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8107060"
+        "$ref": "https://mef.rero.ch/api/mef/8243023"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11434015"
+        "$ref": "https://mef.rero.ch/api/mef/11626208"
       }
     ],
     "title": "Lettres d'un Fran\u00e7ois",
@@ -21924,15 +21925,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15192401"
+        "$ref": "https://mef.rero.ch/api/mef/15447358"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10636865"
+        "$ref": "https://mef.rero.ch/api/mef/10815712"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1896669"
+        "$ref": "https://mef.rero.ch/api/mef/1928344"
       }
     ],
     "title": "Caricaturiana",
@@ -22004,7 +22005,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3777676"
+        "$ref": "https://mef.rero.ch/api/mef/3840985"
       }
     ],
     "title": "Ein internationaler Gerichtshof zum Schutze der Menschenrechte",
@@ -22141,7 +22142,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13713567"
+        "$ref": "https://mef.rero.ch/api/mef/13943594"
       }
     ],
     "title": "Der goldene Schnitt",
@@ -22393,7 +22394,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6080386"
+        "$ref": "https://mef.rero.ch/api/mef/6182323"
       }
     ],
     "title": "Chiesa e democrazia : la lezione di Pietro Scoppola",
@@ -22534,7 +22535,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24510017"
+        "$ref": "https://mef.rero.ch/api/mef/24920570"
       }
     ]
   },
@@ -22561,7 +22562,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26279288"
+        "$ref": "https://mef.rero.ch/api/mef/26719530"
       }
     ],
     "title": "Protecting the Arctic : indigenous peoples and cultural survival",
@@ -22668,11 +22669,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1655768"
+        "$ref": "https://mef.rero.ch/api/mef/1683329"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22471170"
+        "$ref": "https://mef.rero.ch/api/mef/22848040"
       }
     ],
     "title": "Die Pfingsterz\u00e4hlung",
@@ -22742,15 +22743,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15815408"
+        "$ref": "https://mef.rero.ch/api/mef/16080543"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26513796"
+        "$ref": "https://mef.rero.ch/api/mef/26957877"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10510180"
+        "$ref": "https://mef.rero.ch/api/mef/10686845"
       }
     ],
     "title": "Gewalt in der Schule",
@@ -23031,11 +23032,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22850378"
+        "$ref": "https://mef.rero.ch/api/mef/23233316"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12390220"
+        "$ref": "https://mef.rero.ch/api/mef/12598343"
       },
       {
         "type": "organisation",
@@ -23071,11 +23072,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9417822"
+        "$ref": "https://mef.rero.ch/api/mef/9575760"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29370007"
+        "$ref": "https://mef.rero.ch/api/mef/29861763"
       }
     ],
     "title": "Nos amis les hommes : plus de 50 animaux t\u00e9moignent",
@@ -23154,15 +23155,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14342928"
+        "$ref": "https://mef.rero.ch/api/mef/14583453"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2098157"
+        "$ref": "https://mef.rero.ch/api/mef/2133394"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8776318"
+        "$ref": "https://mef.rero.ch/api/mef/8923357"
       }
     ],
     "title": "Les 21 grands mythes grecs",
@@ -23239,11 +23240,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1532558"
+        "$ref": "https://mef.rero.ch/api/mef/1558417"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22000444"
+        "$ref": "https://mef.rero.ch/api/mef/22369423"
       }
     ],
     "title": "Contes et l\u00e9gendes du temps des pyramides",
@@ -23388,11 +23389,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3030888"
+        "$ref": "https://mef.rero.ch/api/mef/3081762"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24023192"
+        "$ref": "https://mef.rero.ch/api/mef/24425814"
       },
       {
         "type": "organisation",
@@ -23474,7 +23475,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28674515"
+        "$ref": "https://mef.rero.ch/api/mef/29154551"
       }
     ],
     "title": "Pflanzliche Antibiotika : Geheimwaffen aus der Natur",
@@ -23547,7 +23548,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1508027"
+        "$ref": "https://mef.rero.ch/api/mef/1533387"
       }
     ],
     "title": "Die strafrechtlichen consilia Tubingensia von der Gr\u00fcndung der Universit\u00e4t bis zum Jahre 1600",
@@ -23645,7 +23646,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31187884"
+        "$ref": "https://mef.rero.ch/api/mef/31709968"
       }
     ],
     "title": "Le dieu \u00e9parpill\u00e9",
@@ -23711,7 +23712,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27850130"
+        "$ref": "https://mef.rero.ch/api/mef/28316488"
       }
     ],
     "title": "Die Zukunft des Kleinstaates in der europ\u00e4ischen Integration : eine Untersuchung unter besonderer Ber\u00fccksichtigung des F\u00fcrstentums Liechtenstein",
@@ -23860,7 +23861,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8378527"
+        "$ref": "https://mef.rero.ch/api/mef/8518753"
       }
     ],
     "title": "Chambres et salles de bain",
@@ -24009,7 +24010,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12171839"
+        "$ref": "https://mef.rero.ch/api/mef/12376308"
       }
     ],
     "title": "Perg\u00e9lisol et construction de remont\u00e9es m\u00e9caniques : l'exemple des Lapires (Mont-Gel\u00e9, Valais)",
@@ -24086,7 +24087,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22112968"
+        "$ref": "https://mef.rero.ch/api/mef/22483704"
       }
     ],
     "title": "Bernard et le monstre",
@@ -24207,7 +24208,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17823118"
+        "$ref": "https://mef.rero.ch/api/mef/18122047"
       }
     ]
   },
@@ -24230,7 +24231,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2427544"
+        "$ref": "https://mef.rero.ch/api/mef/2468388"
       }
     ],
     "title": "Kein Kampf der Stachelschweine : \u00fcber den Dialog zwischen den Religionen",
@@ -24281,27 +24282,27 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5996920"
+        "$ref": "https://mef.rero.ch/api/mef/6097517"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4935674"
+        "$ref": "https://mef.rero.ch/api/mef/5018331"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1504277"
+        "$ref": "https://mef.rero.ch/api/mef/1529513"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19613116"
+        "$ref": "https://mef.rero.ch/api/mef/19942071"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12216899"
+        "$ref": "https://mef.rero.ch/api/mef/12421938"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10465189"
+        "$ref": "https://mef.rero.ch/api/mef/10641025"
       }
     ],
     "title": "Die Schriften des Alexander von Roes und des Engelbert von Admont",
@@ -24436,7 +24437,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21414859"
+        "$ref": "https://mef.rero.ch/api/mef/21773556"
       }
     ]
   },
@@ -24510,11 +24511,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28797707"
+        "$ref": "https://mef.rero.ch/api/mef/29279915"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8093458"
+        "$ref": "https://mef.rero.ch/api/mef/8229228"
       }
     ]
   },
@@ -24537,7 +24538,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4797852"
+        "$ref": "https://mef.rero.ch/api/mef/4878438"
       }
     ],
     "title": "Alibi",
@@ -24609,7 +24610,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18959508"
+        "$ref": "https://mef.rero.ch/api/mef/19277514"
       }
     ],
     "title": "Previdenza sociale dei lavoratori migranti e totalizzazione dei periodi contributivi",
@@ -24832,7 +24833,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21261786"
+        "$ref": "https://mef.rero.ch/api/mef/21618088"
       }
     ],
     "title": "L'Universalit\u00e9 du droit des gens",
@@ -24903,7 +24904,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27309240"
+        "$ref": "https://mef.rero.ch/api/mef/27766260"
       }
     ],
     "title": "Le commandement des g\u00e9n\u00e9raux Nivelle et P\u00e9tain : 1917",
@@ -25072,15 +25073,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5679052"
+        "$ref": "https://mef.rero.ch/api/mef/5774228"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22624145"
+        "$ref": "https://mef.rero.ch/api/mef/23003427"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7598153"
+        "$ref": "https://mef.rero.ch/api/mef/7725603"
       }
     ],
     "title": "Statistical fluid mechanics : mechanics of turbulence",
@@ -25231,7 +25232,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25843930"
+        "$ref": "https://mef.rero.ch/api/mef/26276896"
       }
     ]
   },
@@ -25258,11 +25259,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7101318"
+        "$ref": "https://mef.rero.ch/api/mef/7220270"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21306231"
+        "$ref": "https://mef.rero.ch/api/mef/21663312"
       },
       {
         "type": "organisation",
@@ -25393,11 +25394,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29017526"
+        "$ref": "https://mef.rero.ch/api/mef/29503322"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25169068"
+        "$ref": "https://mef.rero.ch/api/mef/25590245"
       }
     ]
   },
@@ -25428,15 +25429,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29146327"
+        "$ref": "https://mef.rero.ch/api/mef/29634346"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8619419"
+        "$ref": "https://mef.rero.ch/api/mef/8763863"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30986092"
+        "$ref": "https://mef.rero.ch/api/mef/31504856"
       }
     ],
     "title": "Aus tiefer Not schrei ich zu dir : Worte (nach Psalm 130) und Weise: Martin Luther : op. 23, Nr. 1",
@@ -25515,7 +25516,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22215780"
+        "$ref": "https://mef.rero.ch/api/mef/22588148"
       }
     ],
     "title": "Les primitifs flamands",
@@ -25589,7 +25590,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/555574"
+        "$ref": "https://mef.rero.ch/api/mef/564846"
       }
     ],
     "title": "Le fleuve des t\u00e9n\u00e8bres",
@@ -25671,7 +25672,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28309350"
+        "$ref": "https://mef.rero.ch/api/mef/28783421"
       }
     ],
     "title": "Message du Mar\u00e9chal P\u00e9tain, chef de l'Etat : 12 Aout 1941",
@@ -25819,11 +25820,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8147042"
+        "$ref": "https://mef.rero.ch/api/mef/8283641"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13227121"
+        "$ref": "https://mef.rero.ch/api/mef/13448925"
       }
     ]
   },
@@ -25920,7 +25921,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/653422"
+        "$ref": "https://mef.rero.ch/api/mef/664362"
       }
     ],
     "title": "Dessine avec tes empreintes",
@@ -26000,11 +26001,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27033531"
+        "$ref": "https://mef.rero.ch/api/mef/27486166"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16857675"
+        "$ref": "https://mef.rero.ch/api/mef/17140316"
       }
     ],
     "title": "W\u00f6rterbuch Mathematik : English, Deutsch, mit etwa 35000 Wortstellen, zweisprachige Studentenausg. = Dictionary of Mathematics : English, German, containing approximately 35000 terms, bilingual students ed.",
@@ -26150,19 +26151,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9275745"
+        "$ref": "https://mef.rero.ch/api/mef/9431480"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22627374"
+        "$ref": "https://mef.rero.ch/api/mef/23006759"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29136769"
+        "$ref": "https://mef.rero.ch/api/mef/29624614"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8798147"
+        "$ref": "https://mef.rero.ch/api/mef/8945757"
       }
     ]
   },
@@ -26259,7 +26260,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8373880"
+        "$ref": "https://mef.rero.ch/api/mef/8513923"
       }
     ],
     "title": "Semliki forest virus RNA capping enzyme",
@@ -26346,7 +26347,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6459468"
+        "$ref": "https://mef.rero.ch/api/mef/14348156"
       }
     ],
     "title": "The Chaliapin edition",
@@ -26622,11 +26623,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7980569"
+        "$ref": "https://mef.rero.ch/api/mef/8114242"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10461513"
+        "$ref": "https://mef.rero.ch/api/mef/10637244"
       }
     ]
   },
@@ -26649,11 +26650,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29661054"
+        "$ref": "https://mef.rero.ch/api/mef/30157484"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21184677"
+        "$ref": "https://mef.rero.ch/api/mef/21539771"
       }
     ],
     "title": "Polnoe sobranie sochineni\u012d",
@@ -26755,7 +26756,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10341912"
+        "$ref": "https://mef.rero.ch/api/mef/10515644"
       }
     ],
     "title": "Enseigner la psychologie sociale",
@@ -26831,7 +26832,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22821326"
+        "$ref": "https://mef.rero.ch/api/mef/23204059"
       }
     ],
     "title": "Urkundenf\u00e4lschung : Revision eines T\u00e4uschungsdelikts",
@@ -26910,7 +26911,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30776211"
+        "$ref": "https://mef.rero.ch/api/mef/31291260"
       }
     ],
     "title": "Le grand secret de Djipi",
@@ -26990,11 +26991,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6661786"
+        "$ref": "https://mef.rero.ch/api/mef/6773480"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9676864"
+        "$ref": "https://mef.rero.ch/api/mef/9839370"
       }
     ],
     "title": "Tu t'appelleras Biscotte",
@@ -27155,16 +27156,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7092619"
+        "$ref": "https://mef.rero.ch/api/mef/7211228"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30626860"
+        "$ref": "https://mef.rero.ch/api/mef/31139528"
       },
       {
         "type": "person",
-        "name": "Sabatier, Roland",
-        "date": "1942 16 juin-"
+        "$ref": "https://mef.rero.ch/api/mef/24057808"
       }
     ],
     "title": "La grande encyclop\u00e9die des f\u00e9es",
@@ -27231,7 +27231,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5797927"
+        "$ref": "https://mef.rero.ch/api/mef/5895036"
       }
     ],
     "title": "\u00d6kumene gewinnt Profil (XII) : die Partnerschaft zwischen den Kirchenkreisen Koblenz und Agusan / Philippinen",
@@ -27282,11 +27282,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29029144"
+        "$ref": "https://mef.rero.ch/api/mef/29515273"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18337885"
+        "$ref": "https://mef.rero.ch/api/mef/18645581"
       },
       {
         "type": "organisation",
@@ -27354,11 +27354,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30458955"
+        "$ref": "https://mef.rero.ch/api/mef/30968748"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1203404"
+        "$ref": "https://mef.rero.ch/api/mef/1223672"
       }
     ],
     "title": "Qui a vu un meuble d'Alexandre Mayer ? : un \u00e9b\u00e9niste souabe en Bas-Valais : 1670-1710",
@@ -27425,7 +27425,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25318867"
+        "$ref": "https://mef.rero.ch/api/mef/25742736"
       }
     ],
     "title": "Martin Chemnitz and the Eastern Church : A christology of the Catholic consensus of the Fathers",
@@ -27472,11 +27472,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10772857"
+        "$ref": "https://mef.rero.ch/api/mef/10953609"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4793509"
+        "$ref": "https://mef.rero.ch/api/mef/4873987"
       }
     ],
     "title": "Robert",
@@ -27558,7 +27558,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1827949"
+        "$ref": "https://mef.rero.ch/api/mef/1858651"
       }
     ],
     "title": "Fiches de phon\u00e9tique",
@@ -27642,7 +27642,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26702585"
+        "$ref": "https://mef.rero.ch/api/mef/27149697"
       }
     ],
     "title": "Bracelets des tout-petits",
@@ -27780,11 +27780,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/59535"
+        "$ref": "https://mef.rero.ch/api/mef/60262"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13062663"
+        "$ref": "https://mef.rero.ch/api/mef/13281772"
       }
     ],
     "title": "Himmelsleitern : 50 Fels- und Eisgrate in den Alpen",
@@ -27905,11 +27905,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2641442"
+        "$ref": "https://mef.rero.ch/api/mef/2685860"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/18543173"
+        "$ref": "https://mef.rero.ch/api/mef/18854253"
       }
     ],
     "titlesProper": [
@@ -28006,7 +28006,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31102878"
+        "$ref": "https://mef.rero.ch/api/mef/31623553"
       }
     ],
     "title": "The church and the Church of the Brethren",
@@ -28113,7 +28113,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31825533"
+        "$ref": "https://mef.rero.ch/api/mef/32358221"
       }
     ]
   },
@@ -28136,7 +28136,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/31813692"
+        "$ref": "https://mef.rero.ch/api/mef/32346008"
       }
     ],
     "title": "Walther Ritz (1878-1909) : Liste des oeuvres compl\u00e8tes",
@@ -28211,11 +28211,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29023780"
+        "$ref": "https://mef.rero.ch/api/mef/29509778"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3336290"
+        "$ref": "https://mef.rero.ch/api/mef/3391960"
       }
     ],
     "title": "Une arch\u00e9ologie du toucher",
@@ -28357,7 +28357,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/15736756"
+        "$ref": "https://mef.rero.ch/api/mef/16000611"
       }
     ],
     "titlesProper": [
@@ -28388,11 +28388,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/14712835"
+        "$ref": "https://mef.rero.ch/api/mef/14959624"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2317259"
+        "$ref": "https://mef.rero.ch/api/mef/2356309"
       }
     ],
     "title": "Le roi des bons",
@@ -28466,7 +28466,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16302099"
+        "$ref": "https://mef.rero.ch/api/mef/16575521"
       }
     ],
     "title": "Blake proposal : strides and snags",
@@ -28517,11 +28517,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20353695"
+        "$ref": "https://mef.rero.ch/api/mef/20694994"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29282029"
+        "$ref": "https://mef.rero.ch/api/mef/29772334"
       }
     ],
     "title": "Der geschlossne Handelsstaat : ein philosophischer Entwurf als Anhang zur Rechtslehre, und Probe einer k\u00fcnftig zu liefernden Politik",
@@ -28602,15 +28602,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/616555"
+        "$ref": "https://mef.rero.ch/api/mef/626528"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19632846"
+        "$ref": "https://mef.rero.ch/api/mef/19962102"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/16687927"
+        "$ref": "https://mef.rero.ch/api/mef/16967588"
       }
     ],
     "title": "Le probl\u00e8me des aptitudes : le facteur verbal",
@@ -28700,7 +28700,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2583404"
+        "$ref": "https://mef.rero.ch/api/mef/2626854"
       }
     ],
     "title": "Fleurs sauvages",
@@ -28832,19 +28832,19 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24058856"
+        "$ref": "https://mef.rero.ch/api/mef/24461901"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5981901"
+        "$ref": "https://mef.rero.ch/api/mef/6082085"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1855238"
+        "$ref": "https://mef.rero.ch/api/mef/1886431"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30521516"
+        "$ref": "https://mef.rero.ch/api/mef/31032164"
       }
     ]
   },
@@ -28876,7 +28876,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4628053"
+        "$ref": "https://mef.rero.ch/api/mef/4705624"
       }
     ],
     "title": "La source blanche : l'\u00e9tonnante histoire des \"Dialogues avec l'Ange\" ou l'exigence de cr\u00e9ation",
@@ -28957,7 +28957,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7625574"
+        "$ref": "https://mef.rero.ch/api/mef/7753443"
       }
     ],
     "title": "Dove porta la neve : romanzo",
@@ -29108,11 +29108,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1191700"
+        "$ref": "https://mef.rero.ch/api/mef/1211686"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24861033"
+        "$ref": "https://mef.rero.ch/api/mef/25277339"
       }
     ],
     "title": "Changer les relations administr\u00e9s-administrations : le cas des parents d'enfants handicap\u00e9s",
@@ -29188,7 +29188,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5336381"
+        "$ref": "https://mef.rero.ch/api/mef/5425603"
       }
     ],
     "title": "Samedi supr\u00eame",
@@ -29267,15 +29267,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17595683"
+        "$ref": "https://mef.rero.ch/api/mef/17890980"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24020127"
+        "$ref": "https://mef.rero.ch/api/mef/24422677"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20109867"
+        "$ref": "https://mef.rero.ch/api/mef/20447102"
       }
     ],
     "title": "Das Wahrsprechen des Anderen : zwei Vorlesungen von 1983/84",
@@ -29409,7 +29409,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2867818"
+        "$ref": "https://mef.rero.ch/api/mef/2915918"
       }
     ]
   },
@@ -29442,11 +29442,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29784304"
+        "$ref": "https://mef.rero.ch/api/mef/30282834"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19839848"
+        "$ref": "https://mef.rero.ch/api/mef/20172676"
       }
     ],
     "title": "Numismata Antiqua Imperatorum Romanorum Latina et Graeca : Omnia Quoquot ex Numismato-phylaciis et Scriptoribus de Re numaria comparare licuit, Integra serie Tabulis \u00c6neis Repr\u00e6sentata, adscriptis Nominibus Museorum unde deprompta sunt, et Locis pr\u00e6stantiss: Authorum qui Singula illustrarunt",
@@ -29520,7 +29520,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17106157"
+        "$ref": "https://mef.rero.ch/api/mef/17393237"
       }
     ],
     "title": "Gli effetti delle riserve ai trattati",
@@ -29599,7 +29599,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/2067502"
+        "$ref": "https://mef.rero.ch/api/mef/2102207"
       }
     ],
     "title": "Spannung in der \u00d6kumene",
@@ -29655,11 +29655,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/12940059"
+        "$ref": "https://mef.rero.ch/api/mef/13157224"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/13751587"
+        "$ref": "https://mef.rero.ch/api/mef/13982342"
       }
     ],
     "title": "Elever b\u00e9b\u00e9 : de la naissance \u00e0 six ans",
@@ -29735,7 +29735,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29163085"
+        "$ref": "https://mef.rero.ch/api/mef/29651159"
       }
     ],
     "title": "Zhongguo nong di quan ji ben wen ti : Zhongguo ji ti nong di quan li ti xi de xing cheng yu kuo zhan",
@@ -29835,11 +29835,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/4231517"
+        "$ref": "https://mef.rero.ch/api/mef/4302401"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19672770"
+        "$ref": "https://mef.rero.ch/api/mef/20002784"
       }
     ],
     "title": "Catilinarians",
@@ -29929,11 +29929,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/5705840"
+        "$ref": "https://mef.rero.ch/api/mef/5801395"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/7511436"
+        "$ref": "https://mef.rero.ch/api/mef/7637470"
       }
     ],
     "title": "Ma m\u00e8re est une voyante",
@@ -30009,11 +30009,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17051766"
+        "$ref": "https://mef.rero.ch/api/mef/17337917"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/6779408"
+        "$ref": "https://mef.rero.ch/api/mef/6892957"
       }
     ],
     "title": "L'oeil de b\u00e9zoard",
@@ -30197,7 +30197,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/332858"
+        "$ref": "https://mef.rero.ch/api/mef/338403"
       }
     ],
     "title": "Am\u00e9rica",
@@ -30333,7 +30333,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29973836"
+        "$ref": "https://mef.rero.ch/api/mef/30475383"
       },
       {
         "type": "organisation",
@@ -30369,11 +30369,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/27096907"
+        "$ref": "https://mef.rero.ch/api/mef/27550423"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17662434"
+        "$ref": "https://mef.rero.ch/api/mef/17958658"
       }
     ],
     "title": "Si j'\u00e9tais magicien",
@@ -30452,7 +30452,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/29417293"
+        "$ref": "https://mef.rero.ch/api/mef/29909719"
       }
     ],
     "title": "An introduction to the analysis of paths on a Riemannian manifold",
@@ -30527,7 +30527,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8679964"
+        "$ref": "https://mef.rero.ch/api/mef/8825458"
       }
     ],
     "title": "Jar\u012bmat al-qatl shibh al-\u02bfamd f\u012b al-shari\u02bfah al-isl\u0101miyah wa al-q\u0101n\u016bn",
@@ -30681,7 +30681,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/26868909"
+        "$ref": "https://mef.rero.ch/api/mef/27318815"
       }
     ],
     "title": "Power & [and] purity : Cathar heresy in medieval Italy",
@@ -30783,7 +30783,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11819905"
+        "$ref": "https://mef.rero.ch/api/mef/12018506"
       }
     ],
     "title": "Afrika",
@@ -30951,7 +30951,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11012902"
+        "$ref": "https://mef.rero.ch/api/mef/11197776"
       }
     ]
   },
@@ -30983,7 +30983,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/1729431"
+        "$ref": "https://mef.rero.ch/api/mef/1758352"
       }
     ],
     "title": "Le combat de Jessica",
@@ -31059,7 +31059,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3427092"
+        "$ref": "https://mef.rero.ch/api/mef/3484529"
       }
     ],
     "title": "Untersuchungen \u00fcber den Bau und die Bildung der Pflanzenzelle",
@@ -31136,11 +31136,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/28530135"
+        "$ref": "https://mef.rero.ch/api/mef/29007612"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9914836"
+        "$ref": "https://mef.rero.ch/api/mef/10081469"
       }
     ],
     "title": "Varii esercitii : 1614",
@@ -31223,11 +31223,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/3433845"
+        "$ref": "https://mef.rero.ch/api/mef/3491475"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/22955561"
+        "$ref": "https://mef.rero.ch/api/mef/23340504"
       }
     ],
     "title": "Gisants : po\u00e8mes III : 1980-1995",
@@ -31308,7 +31308,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21223470"
+        "$ref": "https://mef.rero.ch/api/mef/21579222"
       }
     ],
     "title": "Questions au psy : sp\u00e9cial petits",
@@ -31441,11 +31441,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/21418575"
+        "$ref": "https://mef.rero.ch/api/mef/21777369"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17011019"
+        "$ref": "https://mef.rero.ch/api/mef/17296137"
       }
     ],
     "title": "Un cadeau pour le P\u00e8re No\u00ebl",
@@ -31519,15 +31519,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/10066165"
+        "$ref": "https://mef.rero.ch/api/mef/10235283"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/24869641"
+        "$ref": "https://mef.rero.ch/api/mef/25286192"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/938918"
+        "$ref": "https://mef.rero.ch/api/mef/954443"
       }
     ],
     "title": "Le droit des gens, ou, Principes de la loi naturelle appliqu\u00e9s \u00e0 la conduite et aux affaires des nations et des souverains",
@@ -31604,7 +31604,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/876947"
+        "$ref": "https://mef.rero.ch/api/mef/891741"
       }
     ],
     "title": "Capitalism and socialism : a reconsideration",
@@ -31702,11 +31702,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/17026222"
+        "$ref": "https://mef.rero.ch/api/mef/17311911"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/8939026"
+        "$ref": "https://mef.rero.ch/api/mef/9088880"
       }
     ],
     "titlesProper": [
@@ -31808,7 +31808,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/30368294"
+        "$ref": "https://mef.rero.ch/api/mef/30876425"
       }
     ],
     "title": "Gruppen formen : 55 Spiele f\u00fcr Gruppenprozesse",
@@ -32031,7 +32031,7 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9424642"
+        "$ref": "https://mef.rero.ch/api/mef/9582789"
       }
     ],
     "title": "Paul VI on ecumenism",
@@ -32086,15 +32086,15 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25676782"
+        "$ref": "https://mef.rero.ch/api/mef/26106949"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/9737705"
+        "$ref": "https://mef.rero.ch/api/mef/9901094"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/11426634"
+        "$ref": "https://mef.rero.ch/api/mef/11618637"
       }
     ],
     "title": "F\u00fcnfzehn Arien aus Kantaten f\u00fcr Sopran",
