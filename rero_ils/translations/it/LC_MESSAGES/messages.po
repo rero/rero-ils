@@ -1,8 +1,8 @@
-# Italian translations for rero-ils.
+# Translations template for rero-ils.
 # Copyright (C) 2020 RERO
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
-#
+# 
 # Translators:
 # Nicolas Labat <n-labat@hotmail.com>, 2018
 # Bertrand Zuchuat, 2019
@@ -11,24 +11,26 @@
 # Peter Weber <peter.weber@rero.ch>, 2019
 # alicia.zangger <alicia.zangger@gmail.com>, 2019
 # Renaud Michotte <renaud.michotte@gmail.com>, 2019
-# Gianni Pante <gianni.pante@rero.ch>, 2019
 # iGor milhit <igor.milhit@rero.ch>, 2020
 # Vania Malacarne <vaniamalacarne@yahoo.it>, 2020
+# MarionRERO <marion.davis@rero.ch>, 2020
 # Nicolas Prongué <n.prongue@outlook.com>, 2020
+# Gianni Pante <gianni.pante@rero.ch>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.5.2\n"
+"Project-Id-Version: rero-ils 0.6.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
 "POT-Creation-Date: 2020-03-23 14:46+0100\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>, 2020\n"
-"Language: it\n"
+"Last-Translator: Gianni Pante <gianni.pante@rero.ch>, 2020\n"
 "Language-Team: Italian (https://www.transifex.com/rero/teams/77935/it/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: rero_ils/config.py:121
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:257
@@ -462,19 +464,19 @@ msgstr "URI dell'organizzazione"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:4
 msgid "Acquisition invoice"
-msgstr ""
+msgstr "Fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:5
 msgid "JSON schema for Acquisition Invoice resource."
-msgstr ""
+msgstr "JSON schema per una fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:30
 msgid "Acquisition order line"
-msgstr ""
+msgstr "Riga d'ordine"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:34
 msgid "Acquisition order line URI"
-msgstr ""
+msgstr "URI della riga d'ordine"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:45
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
@@ -492,7 +494,7 @@ msgstr "Documento"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
 msgid "document URI"
-msgstr ""
+msgstr "URI del documento"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:63
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:40
@@ -501,11 +503,11 @@ msgstr "Numero dell'ordine"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:68
 msgid "Numbor of units"
-msgstr ""
+msgstr "Numero di unità"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:73
 msgid "Price per unit"
-msgstr ""
+msgstr "Prezzo per unità"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:78
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:241
@@ -515,7 +517,7 @@ msgstr "Importo dello sconto"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:83
 msgid "Total price"
-msgstr ""
+msgstr "Prezzo totale"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:92
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:27
@@ -525,43 +527,43 @@ msgstr "Schema della risorsa"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:93
 msgid "Schema to validate Acquisition Invoice records against."
-msgstr ""
+msgstr "Schema di convalida per fatture."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:100
 msgid "Acquisition Invoice ID"
-msgstr ""
+msgstr "ID della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:105
 msgid "Invoice number"
-msgstr ""
+msgstr "Numero della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:116
 msgid "The invoice number is already taken"
-msgstr ""
+msgstr "Il numero della fattura è già utilizzato"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:122
 msgid "Invoice price"
-msgstr ""
+msgstr "Prezzo della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:126
 msgid "Invoice status"
-msgstr ""
+msgstr "Stato della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:138
 msgid "In progress"
-msgstr ""
+msgstr "In corso"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:142
 msgid "Valid for payment"
-msgstr ""
+msgstr "Valido per pagamento"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:146
 msgid "Deleted"
-msgstr ""
+msgstr "Eliminato"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:152
 msgid "Invoice date"
-msgstr ""
+msgstr "Data della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:156
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:158
@@ -584,23 +586,23 @@ msgstr "Nota"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:180
 msgid "Taxes"
-msgstr ""
+msgstr "Imposte"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:188
 msgid "Type of taxe"
-msgstr ""
+msgstr "Tipo di imposta"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:199
 msgid "Shipping & handling"
-msgstr ""
+msgstr "Spedizione e gestione"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:203
 msgid "State taxes"
-msgstr ""
+msgstr "Tasse statali"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:207
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Varie"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:213
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
@@ -611,19 +613,19 @@ msgstr "Importo"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:222
 msgid "Discount on invoice"
-msgstr ""
+msgstr "Sconto sulla fattura "
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:225
 msgid "Percentage"
-msgstr ""
+msgstr "Percentuale"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:229
 msgid "Discount percentage"
-msgstr ""
+msgstr "Percentuale di sconto"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:254
 msgid "List of invoice lines"
-msgstr ""
+msgstr "Elenco delle righe della fattura"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:259
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:179
@@ -903,8 +905,10 @@ msgid "Number of days after due date"
 msgstr "Numero di giorni dopo la data di scadenza"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:77
-msgid "Number of days after due date for sending the first overdue notification."
-msgstr "Numero di giorni dopo la data di scadenza per mandare il primo richiamo."
+msgid ""
+"Number of days after due date for sending the first overdue notification."
+msgstr ""
+"Numero di giorni dopo la data di scadenza per mandare il primo richiamo."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:83
 msgid "The amount of reminder fee"
@@ -1087,8 +1091,8 @@ msgid ""
 "authority file or list, used as an added access point."
 msgstr ""
 "Titolo uniforme, un titolo associato o analitico, controllato da un "
-"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di"
-" accesso."
+"fascicolo o da un elenco di autorità e utilizzato come ulteriore punto di "
+"accesso."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:113
@@ -1187,8 +1191,8 @@ msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
 msgstr ""
-"Informazioni sulla data di nascita e di decesso di una persona. Utile per"
-" distinguere gli omonimi."
+"Informazioni sulla data di nascita e di decesso di una persona. Utile per "
+"distinguere gli omonimi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:257
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:802
@@ -1203,8 +1207,8 @@ msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr ""
-"Informazioni che qualificano la persona, come la sua occupazione. Utile "
-"per distinguere gli omonimi."
+"Informazioni che qualificano la persona, come la sua occupazione. Utile per "
+"distinguere gli omonimi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:296
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:296
@@ -1330,9 +1334,9 @@ msgstr "Data di pubblicazione 1"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:515
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:515
 msgid ""
-"Start date of the publication. This must be an integer, ie 1989, 453, "
-"-50. Used to sort search results. Once this field is set, a free formed "
-"date of publication can be added in the next field."
+"Start date of the publication. This must be an integer, ie 1989, 453, -50. "
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
 "Data di pubblicazione 1. Deve essere un numero intero, per esempio 1989, "
 "453, -50. Utilizzata per ordinare i risultati di una ricerca. Una volta "
@@ -1348,8 +1352,8 @@ msgstr "Data di pubblicazione 2"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:525
 msgid ""
 "End date of the publication. This must be an integer, ie 1989, 453, -50. "
-"Used to sort search results. Once this field is set, a free formed date "
-"of publication can be added in the next field."
+"Used to sort search results. Once this field is set, a free formed date of "
+"publication can be added in the next field."
 msgstr ""
 "Data di pubblicazione 2. Deve essere un numero intero, per esempio 1989, "
 "453, -50. Utilizzata per ordinare i risultati di una ricerca. Una volta "
@@ -1364,7 +1368,8 @@ msgstr "Importanza materiale"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:544
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:544
 msgid "Extent of the resource, ie number of pages or volumes."
-msgstr "Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
+msgstr ""
+"Importanza materiale della risorsa, ad esempio numero di pagine o volumi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:552
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:552
@@ -1377,8 +1382,8 @@ msgid ""
 "Other Material Characteristics, ie illustrations, black and with or "
 "coloured."
 msgstr ""
-"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco "
-"e nero o a colori."
+"Altre caratteristiche dei materiali, ad esempio illustrazioni, in bianco e "
+"nero o a colori."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:558
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:558
@@ -1643,225 +1648,224 @@ msgstr "Oggetto"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:863
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:64
 msgid "Electronic Locations"
-msgstr ""
+msgstr "Localizzazione delle risorse elettroniche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:864
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:864
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:65
 msgid "Information needed to locate and access an electronic resource."
 msgstr ""
-"Informazioni necessarie per localizzare una risorsa elettronica e "
-"accedervi."
+"Informazioni necessarie per localizzare una risorsa elettronica e accedervi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:869
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:869
 msgid "Electronic Location"
-msgstr ""
+msgstr "Collocazione electronica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:882
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:882
 msgid "url"
-msgstr ""
+msgstr "url"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:883
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:883
 msgid "Record a unique URL here."
-msgstr ""
+msgstr "Registrare qui un URL univoco."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:884
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:884
 msgid "Example: https://www.rero.ch/"
-msgstr ""
+msgstr "Esempio: https://www.rero.ch/"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:890
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:890
 msgid "Type of link"
-msgstr ""
+msgstr "Tipo di link"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:902
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:902
 msgid "resource"
-msgstr ""
+msgstr "risorsa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:906
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:906
 msgid "version of resource"
-msgstr ""
+msgstr "versione della risorsa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:910
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:910
 msgid "related resource"
-msgstr ""
+msgstr "risorsa correlata"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:914
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:914
 msgid "hidden Url"
-msgstr ""
+msgstr "Url nascosto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:918
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:918
 msgid "no info"
-msgstr ""
+msgstr "no info"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:925
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:925
 msgid "Content type"
-msgstr ""
+msgstr "Tipo di contenuto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:926
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:926
 msgid "Is displayed as the text of the link"
-msgstr ""
+msgstr "Viene visualizzato come testo del link"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:961
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:961
 msgid "poster"
-msgstr ""
+msgstr "poster"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:965
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:965
 msgid "audio"
-msgstr ""
+msgstr "audio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:969
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:969
 msgid "postcard"
-msgstr ""
+msgstr "cartolina"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:973
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:973
 msgid "addition"
-msgstr ""
+msgstr "aggiunta"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:977
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:977
 msgid "debriefing"
-msgstr ""
+msgstr "debriefing"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:981
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:981
 msgid "exhibition documentation"
-msgstr ""
+msgstr "documentazione della mostra"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:985
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:985
 msgid "erratum"
-msgstr ""
+msgstr "erratum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:989
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:989
 msgid "bookplate"
-msgstr ""
+msgstr "piastra per libri"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:993
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:993
 msgid "extract"
-msgstr ""
+msgstr "estratto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:997
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:997
 msgid "educational sheet"
-msgstr ""
+msgstr "scheda didattica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1001
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1001
 msgid "illustrations"
-msgstr ""
+msgstr "illustrazioni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1005
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1005
 msgid "cover image"
-msgstr ""
+msgstr "immagine di copertina"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1009
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1009
 msgid "delivery information"
-msgstr ""
+msgstr "informazioni sulla consegna"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1013
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1013
 msgid "biographical information"
-msgstr ""
+msgstr "informazioni biografiche"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1017
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1017
 msgid "introduction/preface"
-msgstr ""
+msgstr "introduzione/prefazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1021
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1021
 msgid "class reading"
-msgstr ""
+msgstr "lettura di classe"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1025
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1025
 msgid "teacher's kit"
-msgstr ""
+msgstr "kit per insegnanti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1029
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1029
 msgid "publisher's note"
-msgstr ""
+msgstr "nota dell'editore"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1033
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1033
 msgid "note on content"
-msgstr ""
+msgstr "nota sul contenuto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1037
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1037
 msgid "title page"
-msgstr ""
+msgstr "frontespizio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1041
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1041
 msgid "photography"
-msgstr ""
+msgstr "fotografia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1045
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1045
 msgid "summarization"
-msgstr ""
+msgstr "riassunto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1049
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1049
 msgid "online resource via RERO DOC"
-msgstr ""
+msgstr "risorsa online tramite RERO DOC"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1053
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1053
 msgid "press review"
-msgstr ""
+msgstr "rassegna stampa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1057
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1057
 msgid "web site"
-msgstr "Sito web"
+msgstr "sito web"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1061
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1061
 msgid "table of contents"
-msgstr ""
+msgstr "indice dei contenuti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1065
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1065
 msgid "full text"
-msgstr ""
+msgstr "testo completo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1076
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1076
 msgid "Uniform Resource Identifier Public Note"
-msgstr ""
+msgstr "Uniform Resource Identifier Public Note"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1077
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1077
 msgid "Is displayed next to the link, as additional information"
-msgstr ""
+msgstr "Viene visualizzato accanto al link, come informazione aggiuntiva"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1083
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1083
 msgid "Example: Access only from the library"
-msgstr ""
+msgstr "Esempio: Accesso solo dalla biblioteca"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1094
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1094
@@ -1872,8 +1876,8 @@ msgstr "Raccolto"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1095
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
-"Documento è stato raccolto o no, disattiva la possibilità di modificare "
-"il record o vice versa."
+"Documento è stato raccolto o no, disattiva la possibilità di modificare il "
+"record o vice versa."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1102
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1102
@@ -4323,17 +4327,17 @@ msgstr "Albania (aa)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3980
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3980
 msgid "country_abc"
-msgstr "[Alberta] (abc)"
+msgstr "Alberta (abc)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3984
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3984
 msgid "country_ac"
-msgstr "[Ashmore and Cartier Islands] (ac)"
+msgstr "Isole Ashmore e Cartier (ac)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3988
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3988
 msgid "country_aca"
-msgstr "[Australian Capital Territory] (aca)"
+msgstr "Territorio della Capitale Australiana (aca)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3992
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3992
@@ -4353,12 +4357,12 @@ msgstr "Argentina (ag)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4004
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4004
 msgid "country_ai"
-msgstr "[Armenia (Republic)] (ai)"
+msgstr "Armenia (Repubblica) (ai)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4008
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4008
 msgid "country_air"
-msgstr "[Armenian S.S.R.] (air)"
+msgstr "R.S.S. di Armenia (air)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4012
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4012
@@ -4368,17 +4372,17 @@ msgstr "Azerbaigian (aj)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4016
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4016
 msgid "country_ajr"
-msgstr "[Azerbaijan S.S.R.] (ajr)"
+msgstr "R.S.S. dell' Azerbaigian (ajr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4020
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4020
 msgid "country_aku"
-msgstr "[Alaska] (aku)"
+msgstr "Alaska (aku)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4024
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4024
 msgid "country_alu"
-msgstr "[Alabama] (alu)"
+msgstr "Alabama (alu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4028
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4028
@@ -4403,7 +4407,7 @@ msgstr "Antigua e Barbuda (aq)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4044
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4044
 msgid "country_aru"
-msgstr "[Arkansas] (aru)"
+msgstr "Arkansas (aru)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4048
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4048
@@ -4433,7 +4437,7 @@ msgstr "Antartide (ay)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4068
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4068
 msgid "country_azu"
-msgstr "[Arizona] (azu)"
+msgstr "Arizona (azu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4072
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4072
@@ -4448,7 +4452,7 @@ msgstr "Barbados (bb)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4080
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4080
 msgid "country_bcc"
-msgstr "[British Columbia] (bcc)"
+msgstr "Columbia Britannica (bcc)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4084
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4084
@@ -4488,7 +4492,7 @@ msgstr "Brasile (bl)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4112
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4112
 msgid "country_bm"
-msgstr "[Bermuda Islands] (bm)"
+msgstr "Bermuda (bm)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4116
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4116
@@ -4508,7 +4512,7 @@ msgstr "Isole Salomone (bp)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4128
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4128
 msgid "country_br"
-msgstr "[Burma] (br)"
+msgstr "Birmania (br)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4132
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4132
@@ -4538,22 +4542,22 @@ msgstr "Bielorussia (bw)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4152
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4152
 msgid "country_bwr"
-msgstr "[Byelorussian S.S.R.] (bwr)"
+msgstr "R.S.S. Bielorussia (bwr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4156
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4156
 msgid "country_bx"
-msgstr "[Brunei] (bx)"
+msgstr "Brunei (bx)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4160
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4160
 msgid "country_ca"
-msgstr "[Caribbean Netherlands] (ca)"
+msgstr "Paesi Bassi caraibici (ca)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4164
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4164
 msgid "country_cau"
-msgstr "[California] (cau)"
+msgstr "California (cau)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4168
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4168
@@ -4578,17 +4582,17 @@ msgstr "Sri Lanka (ce)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4184
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4184
 msgid "country_cf"
-msgstr "[Congo (Brazzaville)] (cf)"
+msgstr "Congo-Brazzaville (cf)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4188
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4188
 msgid "country_cg"
-msgstr "[Congo (Democratic Republic)] (cg)"
+msgstr "Repubblica Democratica del Congo (cg)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4192
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4192
 msgid "country_ch"
-msgstr "[China (Republic : 1949- )] (ch)"
+msgstr "Repubblica Popolare Cinese (ch)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4196
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4196
@@ -4628,12 +4632,12 @@ msgstr "Curaçao (co)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4224
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4224
 msgid "country_cou"
-msgstr "[Colorado] (cou)"
+msgstr "Colorado (cou)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4228
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4228
 msgid "country_cp"
-msgstr "[Canton and Enderbury Islands] (cp)"
+msgstr "Isole Canton ed Enderbury (cp)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4232
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4232
@@ -4648,12 +4652,12 @@ msgstr "Costa Rica (cr)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4240
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4240
 msgid "country_cs"
-msgstr "[Czechoslovakia] (cs)"
+msgstr "Cecoslovacchia (cs)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4244
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4244
 msgid "country_ctu"
-msgstr "[Connecticut] (ctu)"
+msgstr "Connecticut (ctu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4248
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4248
@@ -4683,17 +4687,17 @@ msgstr "Cipro (cy)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4268
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4268
 msgid "country_cz"
-msgstr "[Canal Zone] (cz)"
+msgstr "Zona del Canale di Panama (cz)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4272
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4272
 msgid "country_dcu"
-msgstr "[District of Columbia] (dcu)"
+msgstr "Distretto di Columbia (dcu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4276
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4276
 msgid "country_deu"
-msgstr "[Delaware] (deu)"
+msgstr "Delaware (deu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4280
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4280
@@ -4738,7 +4742,7 @@ msgstr "Timor Est (em)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4312
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4312
 msgid "country_enk"
-msgstr "[England] (enk)"
+msgstr "Inghilterra (enk)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4316
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4316
@@ -4748,7 +4752,7 @@ msgstr "Estonia (er)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4320
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4320
 msgid "country_err"
-msgstr "Estonia (err)"
+msgstr "R.S.S. di Estonia (err)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4324
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4324
@@ -4783,17 +4787,17 @@ msgstr "Figi (fj)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4348
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4348
 msgid "country_fk"
-msgstr "[Falkland Islands] (fk)"
+msgstr "Isole Falkland (fk)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4352
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4352
 msgid "country_flu"
-msgstr "[Florida] (flu)"
+msgstr "Florida (flu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4356
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4356
 msgid "country_fm"
-msgstr "[Micronesia (Federated States)] (fm)"
+msgstr "Stati Federati di Micronesia (fm)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4360
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4360
@@ -4808,7 +4812,7 @@ msgstr "Francia (fr)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4368
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4368
 msgid "country_fs"
-msgstr "[Terres australes et antarctiques françaises] (fs)"
+msgstr "Terre australi e antartiche francesi (fs)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4372
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4372
@@ -4833,7 +4837,7 @@ msgstr "Grenada (gd)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4388
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4388
 msgid "country_ge"
-msgstr "[Germany (East)] (ge)"
+msgstr "Repubblica Democratica Tedesca (ge)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4392
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4392
@@ -4863,7 +4867,7 @@ msgstr "Gambia (gm)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4412
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4412
 msgid "country_gn"
-msgstr "[Gilbert and Ellice Islands] (gn)"
+msgstr "Isole Gilbert ed Ellice (gn)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4416
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4416
@@ -4883,12 +4887,12 @@ msgstr "Grecia (gr)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4428
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4428
 msgid "country_gs"
-msgstr "[Georgia (Republic)] (gs)"
+msgstr "Georgia (Repubblica) (gs)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4432
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4432
 msgid "country_gsr"
-msgstr "[Georgian S.S.R.] (gsr)"
+msgstr "R.S.S. Georgiana (gsr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4436
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4436
@@ -4918,12 +4922,12 @@ msgstr "Guyana (gy)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4456
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4456
 msgid "country_gz"
-msgstr "[Gaza Strip] (gz)"
+msgstr "Striscia di Gaza (gz)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4460
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4460
 msgid "country_hiu"
-msgstr "[Hawaii] (hiu)"
+msgstr "Hawaii (hiu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4464
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4464
@@ -4933,7 +4937,7 @@ msgstr "RAS di Hong Kong (hk)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4468
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4468
 msgid "country_hm"
-msgstr "[Heard and McDonald Islands] (hm)"
+msgstr "Isole Heard e McDonald (hm)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4472
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4472
@@ -4953,7 +4957,7 @@ msgstr "Ungheria (hu)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4484
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4484
 msgid "country_iau"
-msgstr "[Iowa] (iau)"
+msgstr "Iowa (iau)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4488
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4488
@@ -4963,7 +4967,7 @@ msgstr "Islanda (ic)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4492
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4492
 msgid "country_idu"
-msgstr "[Idaho] (idu)"
+msgstr "Idaho (idu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4496
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4496
@@ -4978,7 +4982,7 @@ msgstr "India (ii)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4504
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4504
 msgid "country_ilu"
-msgstr "[Illinois] (ilu)"
+msgstr "Illinois (ilu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4508
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4508
@@ -4988,7 +4992,7 @@ msgstr "Isola di Man (im)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4512
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4512
 msgid "country_inu"
-msgstr "[Indiana] (inu)"
+msgstr "Indiana (inu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4516
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4516
@@ -5003,7 +5007,7 @@ msgstr "Iraq (iq)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4524
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4524
 msgid "country_ir"
-msgstr "[Iran] (ir)"
+msgstr "Iràn (ir)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4528
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4528
@@ -5018,7 +5022,7 @@ msgstr "Italia (it)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4536
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4536
 msgid "country_iu"
-msgstr "[Israel-Syria Demilitarized Zones] (iu)"
+msgstr "Zone demilitarizzate Israele-Siria (iu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4540
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4540
@@ -5028,12 +5032,12 @@ msgstr "Costa d’Avorio (iv)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4544
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4544
 msgid "country_iw"
-msgstr "[Israel-Jordan Demilitarized Zones] (iw)"
+msgstr "Zone demilitarizzate Israele-Giordania (iw)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4548
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4548
 msgid "country_iy"
-msgstr "[Iraq-Saudi Arabia Neutral Zone] (iy)"
+msgstr "zona neutrale iracheno-saudita (iy)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4552
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4552
@@ -5048,7 +5052,7 @@ msgstr "Jersey (je)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4560
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4560
 msgid "country_ji"
-msgstr "[Johnston Atoll] (ji)"
+msgstr "atollo Johnston (ji)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4564
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4564
@@ -5058,7 +5062,7 @@ msgstr "Giamaica (jm)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4568
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4568
 msgid "country_jn"
-msgstr "[Jan Mayen] (jn)"
+msgstr "Jan Mayen (jn)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4572
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4572
@@ -5078,22 +5082,22 @@ msgstr "Kirghizistan (kg)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4584
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4584
 msgid "country_kgr"
-msgstr "[Kirghiz S.S.R.] (kgr)"
+msgstr "R.S.S. Kirghiza (kgr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4588
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4588
 msgid "country_kn"
-msgstr "[Korea (North)] (kn)"
+msgstr "Corea del Nord (kn)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4592
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4592
 msgid "country_ko"
-msgstr "[Korea (South)] (ko)"
+msgstr "Corea del Sud (ko)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4596
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4596
 msgid "country_ksu"
-msgstr "[Kansas] (ksu)"
+msgstr "Kansas (ksu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4600
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4600
@@ -5103,12 +5107,12 @@ msgstr "Kuwait (ku)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4604
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4604
 msgid "country_kv"
-msgstr "[Kosovo] (kv)"
+msgstr "Kosovo (kv)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4608
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4608
 msgid "country_kyu"
-msgstr "[Kentucky] (kyu)"
+msgstr "Kentucky (kyu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4612
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4612
@@ -5118,12 +5122,12 @@ msgstr "Kazakistan (kz)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4616
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4616
 msgid "country_kzr"
-msgstr "[Kazakh S.S.R.] (kzr)"
+msgstr "R.S.S. Kazaka (kzr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4620
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4620
 msgid "country_lau"
-msgstr "[Louisiana] (lau)"
+msgstr "Louisiana (lau)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4624
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4624
@@ -5148,12 +5152,12 @@ msgstr "Lituania (li)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4640
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4640
 msgid "country_lir"
-msgstr "Lituania (lir)"
+msgstr "R.S.S. Lituana (lir)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4644
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4644
 msgid "country_ln"
-msgstr "[Central and Southern Line Islands] (ln)"
+msgstr "Sporadi Equatoriali (ln)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4648
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4648
@@ -5163,7 +5167,7 @@ msgstr "Lesotho (lo)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4652
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4652
 msgid "country_ls"
-msgstr "[Laos] (ls)"
+msgstr "Laos (ls)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4656
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4656
@@ -5178,7 +5182,7 @@ msgstr "Lettonia (lv)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4664
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4664
 msgid "country_lvr"
-msgstr "Lettonia (lvr)"
+msgstr "R.S.S. Lettone (lvr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4668
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4668
@@ -5188,12 +5192,12 @@ msgstr "Libia (ly)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4672
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4672
 msgid "country_mau"
-msgstr "[Massachusetts] (mau)"
+msgstr "Massachusetts (mau)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4676
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4676
 msgid "country_mbc"
-msgstr "[Manitoba] (mbc)"
+msgstr "Manitoba (mbc)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4680
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4680
@@ -5203,12 +5207,12 @@ msgstr "Monaco (mc)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4684
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4684
 msgid "country_mdu"
-msgstr "[Maryland] (mdu)"
+msgstr "Maryland (mdu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4688
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4688
 msgid "country_meu"
-msgstr "[Maine] (meu)"
+msgstr "Maine (meu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4692
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4692
@@ -5228,7 +5232,7 @@ msgstr "RAS di Macao (mh)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4704
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4704
 msgid "country_miu"
-msgstr "[Michigan] (miu)"
+msgstr "Michigan (miu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4708
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4708
@@ -5253,7 +5257,7 @@ msgstr "Malta (mm)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4724
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4724
 msgid "country_mnu"
-msgstr "[Minnesota] (mnu)"
+msgstr "Minnesota (mnu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4728
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4728
@@ -5263,7 +5267,7 @@ msgstr "Montenegro (mo)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4732
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4732
 msgid "country_mou"
-msgstr "[Missouri] (mou)"
+msgstr "Missouri (mou)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4736
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4736
@@ -5283,12 +5287,12 @@ msgstr "Marocco (mr)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4748
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4748
 msgid "country_msu"
-msgstr "[Mississippi] (msu)"
+msgstr "Mississippi (msu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4752
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4752
 msgid "country_mtu"
-msgstr "[Montana] (mtu)"
+msgstr "Montana (mtu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4756
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4756
@@ -5303,7 +5307,7 @@ msgstr "Moldavia (mv)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4764
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4764
 msgid "country_mvr"
-msgstr "[Moldavian S.S.R.] (mvr)"
+msgstr "R.S.S. Moldava (mvr)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4768
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4768
@@ -5328,22 +5332,22 @@ msgstr "Mozambico (mz)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4784
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4784
 msgid "country_na"
-msgstr "[Netherlands Antilles] (na)"
+msgstr "Antille Olandesi (na)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4788
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4788
 msgid "country_nbu"
-msgstr "[Nebraska] (nbu)"
+msgstr "Nebraska (nbu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4792
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4792
 msgid "country_ncu"
-msgstr "[North Carolina] (ncu)"
+msgstr "Carolina del Nord  (ncu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4796
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4796
 msgid "country_ndu"
-msgstr "[North Dakota] (ndu)"
+msgstr "Dakota del Nord (ndu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4800
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4800
@@ -5353,7 +5357,7 @@ msgstr "Paesi Bassi (ne)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4804
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4804
 msgid "country_nfc"
-msgstr "[Newfoundland and Labrador] (nfc)"
+msgstr "Terranova e Labrador (nfc)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4808
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4808
@@ -5363,22 +5367,22 @@ msgstr "Niger (ng)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4812
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4812
 msgid "country_nhu"
-msgstr "[New Hampshire] (nhu)"
+msgstr "New Hampshire (nhu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4816
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4816
 msgid "country_nik"
-msgstr "[Northern Ireland] (nik)"
+msgstr "Irlanda del Nord (nik)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4820
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4820
 msgid "country_nju"
-msgstr "[New Jersey] (nju)"
+msgstr "New Jersey (nju)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4824
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4824
 msgid "country_nkc"
-msgstr "[New Brunswick] (nkc)"
+msgstr "Nuovo Brunswick (nkc)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4828
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4828
@@ -5393,7 +5397,7 @@ msgstr "Isole Marianne settentrionali (nm)"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4836
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4836
 msgid "country_nmu"
-msgstr "[New Mexico] (nmu)"
+msgstr "Nuovo Messico (nmu)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:4840
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:4840
@@ -6382,7 +6386,7 @@ msgstr "Titolo uniforme"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:139
 msgid "Related resource"
-msgstr ""
+msgstr "Risorse correlate"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:161
 msgid "Permalink"
@@ -6395,7 +6399,7 @@ msgstr "JSON"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:181
 msgid "Access"
-msgstr ""
+msgstr "Accesso"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:196
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:74
@@ -6441,11 +6445,11 @@ msgstr "ID del posseduto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:27
 msgid "Holding call number."
-msgstr "Classificazione del posseduto"
+msgstr "Segnatura del posseduto"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:28
 msgid "Call number of the holding."
-msgstr "Classificazione del posseduto"
+msgstr "Segnatura del posseduto."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:31
 msgid "Circulation type"
@@ -6477,8 +6481,8 @@ msgid ""
 "Uniform Resource Identifier (URI), which provides standard syntax for "
 "locating an object using existing Internet protocols."
 msgstr ""
-"Uniform Resource Identifier (URI), una sintassi standard per localizzare "
-"un oggetto utilizzando i protocolli Internet esistenti."
+"Uniform Resource Identifier (URI), una sintassi standard per localizzare un "
+"oggetto utilizzando i protocolli Internet esistenti."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:83
 msgid "Source of the URI."
@@ -6493,7 +6497,7 @@ msgstr "PID"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:55
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:37
 msgid "Call number"
-msgstr "Classificazione"
+msgstr "Segnatura"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:46
 msgid "Circulation category"
@@ -6609,7 +6613,7 @@ msgstr "Il codice a barre è già utilizzato"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:56
 msgid "Call number of the item."
-msgstr "Classificazione dell'esemplare"
+msgstr "Segnatura dell'esemplare."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:90
 msgid "Item Type"
@@ -6811,7 +6815,8 @@ msgstr "annulato"
 msgid ""
 "The name of the explicit action that triggered the transition to current "
 "state"
-msgstr "Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
+msgstr ""
+"Il nome dell'azione che ha innescato la transizione verso lo stato attuale"
 
 #: rero_ils/modules/locations/api.py:68
 msgid "Another online location exists in this library"
@@ -6980,99 +6985,99 @@ msgstr "Fonte raccolta online, come configurato nel server di ebooks"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
 msgid "PatronTransactionEvent"
-msgstr ""
+msgstr "PatronTransactionEvent"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:5
 msgid "JSON schema for patron_transaction_event."
-msgstr ""
+msgstr "JSON schema for patron_transaction_event."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:17
 msgid "Schema to validate patron_transaction_event records against."
-msgstr ""
+msgstr "Schema to validate patron_transaction_event records against."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:23
 msgid "Patron Transaction Event ID"
-msgstr ""
+msgstr "ID della transazione del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:28
 msgid "Parent patron transaction"
-msgstr ""
+msgstr "Transazione del lettore madre"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:32
 msgid "Patron transaction URI"
-msgstr ""
+msgstr "URI del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
 msgid "Event creation date"
-msgstr ""
+msgstr "Data di creazione dell'evento"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:40
 msgid "Patron transaction event creation date"
-msgstr ""
+msgstr "Data di creazione della transazione del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:46
 msgid "Patron transaction event amount"
-msgstr ""
+msgstr "Importo della transazione del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:52
 msgid "Patron transaction event main type"
-msgstr ""
+msgstr "Tipo principale della transazione del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:56
 msgid "Subtype"
-msgstr ""
+msgstr "Sottotipo"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
 msgid "Patron transaction event subtype type"
-msgstr ""
+msgstr "Sottotipo della transazione del lettore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
 msgid "Additional informations about transaction event"
-msgstr ""
+msgstr "Ulteriori informazioni sulla transazione"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:78
 msgid "Operator"
-msgstr ""
+msgstr "Operatore"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:82
 msgid "Operator patron URI"
-msgstr ""
+msgstr "Operatore Lettore URI"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:112
 msgid "Fee subtype"
-msgstr ""
+msgstr "Sottotipo di tassa"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:134
 msgid "Payment mode"
-msgstr ""
+msgstr "Modo di pagamento"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
-msgstr ""
+msgstr "Transazione del lettore "
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:5
 msgid "JSON schema for Patron Transaction."
-msgstr ""
+msgstr "JSON schema for Patron Transaction."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:18
 msgid "Schema to validate Patron Transaction records against."
-msgstr ""
+msgstr "Schema to validate Patron Transaction records against."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:24
 msgid "Patron Transaction ID"
-msgstr ""
+msgstr "ID della transazione del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:31
 msgid "Patron Transaction creation date"
-msgstr ""
+msgstr "Data di creazione della transazione del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:34
 msgid "Patron Transaction Note"
-msgstr ""
+msgstr "Nota della transazione del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:35
 msgid "Additional informations about patron transaction"
-msgstr ""
+msgstr "Informazioni supplementari sulla transazione del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:50
 msgid "open"
@@ -7080,35 +7085,35 @@ msgstr "aperto"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:54
 msgid "closed"
-msgstr ""
+msgstr "chiuso"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:61
 msgid "Patron Transaction Type"
-msgstr ""
+msgstr " Tipo di transazione del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:80
 msgid "photocopy"
-msgstr ""
+msgstr "fotocopia"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
 msgid "subscription"
-msgstr ""
+msgstr "abbonamento"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
 msgid "lost"
-msgstr ""
+msgstr "perso"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:92
 msgid "damaged"
-msgstr ""
+msgstr "danneggiato"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:96
 msgid "Interlibrary loan"
-msgstr ""
+msgstr "Prestito interbibliotecario"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:100
 msgid "other"
-msgstr ""
+msgstr "altro"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:107
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:206
@@ -7117,7 +7122,7 @@ msgstr "Lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:111
 msgid "Patron URI"
-msgstr ""
+msgstr "URI del lettore"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:122
 msgid "Notification URI"
@@ -7125,7 +7130,7 @@ msgstr "URI della notifica"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:142
 msgid "Total calculated amount of the patron transaction"
-msgstr ""
+msgstr "Importo totale calcolato delle transazioni del lettore"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
@@ -7163,7 +7168,7 @@ msgstr "%(icon)s Mio account"
 #: rero_ils/modules/patrons/views.py:115
 #, python-format
 msgid "The request for item %(item_id)s has been canceled."
-msgstr ""
+msgstr "La richiesta sull'esemplare %(item_id)s è stata annullata."
 
 #: rero_ils/modules/patrons/views.py:118
 #, python-format
@@ -7171,6 +7176,7 @@ msgid ""
 "Error during the cancellation of the request of                 item "
 "%(item_id)s."
 msgstr ""
+"Errore durante l'annullamento della richiesta sull'esemplare %(item_id)s."
 
 #: rero_ils/modules/patrons/views.py:128
 #, python-format
@@ -7212,7 +7218,7 @@ msgstr "Data di nascita"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:68
 msgid "Example: 1985-12-29"
-msgstr ""
+msgstr "Esempio: 1985-12-29"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:86
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:25
@@ -7254,7 +7260,7 @@ msgstr "Numero di telefono con l'indicazione internazionale, senza spazi."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:112
 msgid "Example: +41791231212"
-msgstr ""
+msgstr "Esempio: +41791231212"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:116
 msgid "Patron Type"
@@ -7351,7 +7357,7 @@ msgstr "Nessuno storico"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:85
 msgid "Call Number"
-msgstr "Classificazione"
+msgstr "Segnatura"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:88
 msgid "Pickup library"
@@ -7376,7 +7382,7 @@ msgstr "Proroghe"
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:112
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:165
 msgid "Cancel"
-msgstr ""
+msgstr "Annullare"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:154
 msgid "Renew"
@@ -7496,7 +7502,7 @@ msgstr "Sito web"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:96
 msgid "Spanish"
-msgstr ""
+msgstr "spagnolo"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:102
 msgid "Default contact details"
@@ -7700,55 +7706,3 @@ msgstr "è stato eliminato."
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "Clicca qui per reimpostare la password"
-
-#~ msgid "Vendor cover art URL."
-#~ msgstr "URL dell'immagine di copertina del fornitore"
-
-#~ msgid "Online Access"
-#~ msgstr "accesso online"
-
-#~ msgid "Holdings"
-#~ msgstr "Posseduti"
-
-#~ msgid "URL (Adresse URL)"
-#~ msgstr ""
-
-#~ msgid "Fee"
-#~ msgstr "Tassa"
-
-#~ msgid "JSON schema for fee."
-#~ msgstr "Schema JSON per una tassa."
-
-#~ msgid "Schema to validate fee records against."
-#~ msgstr "Schema di convalida per tasse"
-
-#~ msgid "Fee ID"
-#~ msgstr "ID della tassa"
-
-#~ msgid "Fee creation date"
-#~ msgstr "Data di creazione della tassa"
-
-#~ msgid "Fee type"
-#~ msgstr "Tipo di tassa"
-
-#~ msgid "Fee amount"
-#~ msgstr "Importo della tassa"
-
-#~ msgid "Fee currency"
-#~ msgstr "Valuta della tassa"
-
-#~ msgid "CHF"
-#~ msgstr "CHF"
-
-#~ msgid "EUR"
-#~ msgstr "EUR"
-
-#~ msgid "USD"
-#~ msgstr "USD"
-
-#~ msgid "Fee status"
-#~ msgstr "Stato della tassa"
-
-#~ msgid "paid"
-#~ msgstr "pagato"
-
