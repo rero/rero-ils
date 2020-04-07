@@ -396,13 +396,22 @@
           "type": "text",
           "analyzer": "global_lowercase_asciifolding"
         },
-        "otherMaterialCharacteristics": {
+        "bookFormat": {
           "type": "keyword"
         },
-        "formats": {
+        "dimensions": {
           "type": "keyword"
         },
-        "additionalMaterials": {
+        "illustrativeContent": {
+          "type": "keyword"
+        },
+        "colorContent": {
+          "type": "keyword"
+        },
+        "productionMethod": {
+          "type": "keyword"
+        },
+        "duration": {
           "type": "keyword"
         },
         "series": {
@@ -438,25 +447,33 @@
             }
           }
         },
-        "notes": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
-          "fields": {
-            "eng": {
+        "note": {
+          "type": "object",
+          "properties": {
+            "label": {
               "type": "text",
-              "analyzer": "english"
+              "analyzer": "global_lowercase_asciifolding",
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
-            "fre": {
-              "type": "text",
-              "analyzer": "french"
-            },
-            "ger": {
-              "type": "text",
-              "analyzer": "german"
-            },
-            "ita": {
-              "type": "text",
-              "analyzer": "italian"
+            "noteType": {
+              "type": "keyword"
             }
           }
         },

@@ -102,7 +102,8 @@ def test_documents_import_bnf_ean(client):
             }
         ],
         'extent': '232 p.',
-        'formats': ['24 cm'],
+        'dimensions': ['24 cm'],
+        'colorContent': ['rdacc:1003'],
         'identifiedBy': [
             {
                 'source': 'BNF',
@@ -115,7 +116,10 @@ def test_documents_import_bnf_ean(client):
             }
         ],
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
-        'otherMaterialCharacteristics': 'couv. ill. en coul.',
+        'note': [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'couv. ill. en coul.'
+        }],
         'provisionActivity': [{
             'type': 'bf:Publication',
             'place': [
