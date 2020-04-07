@@ -24,7 +24,7 @@ import traceback
 import click
 from dojson import Overdo, utils
 
-UNIMARC_LANGUAGES_SCRIPTS = {
+_UNIMARC_LANGUAGES_SCRIPTS = {
     'ba': 'latn',  # Latin
     'ca': 'cyrl',  # Cyrillic
     'da': 'jpan',  # Japanese - undefined writing
@@ -43,7 +43,7 @@ UNIMARC_LANGUAGES_SCRIPTS = {
     'zz': 'zyyy'   # other
 }
 
-LANGUAGES_SCRIPTS = {
+_LANGUAGES_SCRIPTS = {
     'armn': ('arm', ),
     'arab': ('ara', 'per'),
     'cyrl': ('bel', 'chu', 'mac', 'rus', 'srp', 'ukr'),
@@ -61,13 +61,13 @@ LANGUAGES_SCRIPTS = {
     'zyyy': ('chi', )
 }
 
-SCRIPT_PER_LANG_ASIA = {
+_SCRIPT_PER_LANG_ASIA = {
     'jpn': 'jpan',
     'kor': 'kore',
     'chi': 'hani'
 }
 
-SCRIPT_PER_LANG_NOT_ASIA = {
+_SCRIPT_PER_LANG_NOT_ASIA = {
     'arm': 'armn',
     'geo': 'geor',
     'gre': 'grek',
@@ -87,12 +87,79 @@ SCRIPT_PER_LANG_NOT_ASIA = {
     'chi': 'hani'
 }
 
-SCRIPT_PER_CODE = {
+_SCRIPT_PER_CODE = {
     '(S': 'grek',
     '(3': 'arab',
     '(B': 'latn',
     '(N': 'cyrl',
     '(2': 'hebr'
+}
+
+_ILLUSTRATIVE_CONTENT_REGEXP = {
+    'illustrations':
+        re.compile(
+            r'ill?(\.|\s|:|,|;|s\.|us.*)|ill$|iil|^il$|^il(\.)|'
+            r'fig(\.|\s|,|ur|s)|fig$|abb(\.|\s|,|ild)|abb$|bild|zeichn|'
+            r'front(\.|is|esp|\s|,|s)|front$|dessin',
+            re.IGNORECASE),
+    'maps':
+        re.compile(
+            r'cartes?|cartogra|cartin|cart\.|carta(\s|s)|carta$|maps?|kart',
+            re.IGNORECASE),
+    'portraits':
+        re.compile(r'port(\.|r|\s|s)|portr$|ritr', re.IGNORECASE),
+    'graphs':
+        re.compile(r'gra(ph|f)(\.)|^gra(ph|f)|\sgra(ph|f)|diag',
+                   re.IGNORECASE),
+    'photographs':
+        re.compile(r'(f|ph)oto(g|s|\s|,|typ|\.)|(f|ph)oto^', re.IGNORECASE),
+    'facsimiles': re.compile(r'fa(c|k)', re.IGNORECASE),
+    'coats of arms': re.compile(r'armoirie|arms|wappe|stemm', re.IGNORECASE),
+    'genealogical tables': re.compile(r'genea|généa', re.IGNORECASE),
+    'plans': re.compile(r'plan[^c]|plan$|piant', re.IGNORECASE),
+    'forms': re.compile(r'form[^a|e]|modul', re.IGNORECASE),
+    'illuminations':
+        re.compile(r'enlum|illum|miniatur|buchmale', re.IGNORECASE),
+    'samples': re.compile(r'sample|échant|muster|campion', re.IGNORECASE)
+}
+
+_PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS = {
+    'rdapm:1001': re.compile(r'blueline', re.IGNORECASE),
+    'rdapm:1002': re.compile(r'cyano|blaudr|bluepr', re.IGNORECASE),
+    'rdapm:1003': re.compile(r'collot|lichtdr|(ph|f)otot', re.IGNORECASE),
+    'rdapm:1004': re.compile(r'daguerr', re.IGNORECASE),
+    'rdapm:1005': re.compile(r'stich|engrav|grav', re.IGNORECASE),
+    'rdapm:1006': re.compile(r'eauforte|radier|etch', re.IGNORECASE),
+    'rdapm:1007': re.compile(r'litho', re.IGNORECASE),
+    'rdapm:1008': re.compile(r'(ph|f)oto[ck]o', re.IGNORECASE),
+    'rdapm:1009': re.compile(r'photograv|fotograv|photoengrav', re.IGNORECASE),
+    # The rdapm:1010  extraction is done only from PHYSICAL_DETAILS by the code
+    # 'rdapm:1010': r'impr|druck|print|offset|s[ée]riegr'
+    'rdapm:1011': re.compile(r'white print',  re.IGNORECASE),
+    'rdapm:1012': re.compile(r'grav.+?sur bois|holzschn|woodc', re.IGNORECASE),
+    'rdapm:1014': re.compile(r'hélio|helio', re.IGNORECASE),
+    'rdapm:1015': re.compile(r'brûl|einbren|burn', re.IGNORECASE),
+    'rdapm:1016': re.compile(r'inscript|inscrib', re.IGNORECASE),
+    'rdapm:1017': re.compile(r'estamp|stempel|stamping|lino', re.IGNORECASE),
+    'rdapm:1018': re.compile(r'emboss|präg', re.IGNORECASE),
+    'rdapm:1019': re.compile(r'point rigide|solid dot', re.IGNORECASE),
+    'rdapm:1020': re.compile(r'thermog|schwell|swell|minolta', re.IGNORECASE),
+    'rdapm:1021': re.compile(r'thermof|va[ck]uum|moul.+?vide', re.IGNORECASE)
+}
+
+_COLOR_CONTENT_REGEXP = {
+    # monochrom
+    'rdacc:1002': re.compile(
+            r'noir|black|schwarz|nero|n\.\set|schw|b\&w|'
+            r'b\/n|s\/w|^n\set\sb|\sn\set\sb',
+            re.IGNORECASE
+        ),
+
+    # polychrome
+    'rdacc:1003': re.compile(
+            r'cou?l(\.|,|eur|ou?r|\s)|cou?l$|farb',
+            re.IGNORECASE
+        ),
 }
 
 
@@ -178,6 +245,128 @@ def remove_trailing_punctuation(
         data.rstrip()).rstrip()
 
 
+def add_note(new_note, data):
+    """Add a new note to the data avoiding duplicate notes.
+
+    :param new_note: the note object to add
+    :type new_note: object
+    :param data: the object data on which the new note will be added
+    :type data: object
+    """
+    def note_key(note):
+        """Generate a note key by concataning the noteType and the label.
+
+        :param note: the note objet for which the key is to be generated
+        :type note: object
+        :return: the note key (concatenation of the noteType and the label)
+        :rtype: str
+        """
+        return '|'.join((note['noteType'], note['label']))
+
+    notes = data.get('note', [])
+    note_set = set()
+    for existing_note in notes:
+        note_set.add(note_key(existing_note))
+    if new_note:
+        new_note_key = note_key(new_note)
+        if new_note_key not in note_set:
+            notes.append(new_note)
+        data['note'] = notes
+
+
+def add_data_and_sort_list(key, new_data, data):
+    """Add strings to data[keys] list avoiding duplicates (the list is sorted).
+
+    :param key: the key of object to add
+    :type key: str
+    :param new_data: the new_data (list of string) to add to data[key]
+    :type new_data: list
+    :param data: the object data on which the new data will be added
+    :type data: object
+    """
+    existing_data = data.get(key, [])
+    if new_data:
+        new_set = set(existing_data)
+        for value_data in new_data:
+            new_set.add(value_data)
+        data[key] = sorted(list(new_set))
+
+
+class BookFormatExtraction(object):
+    """Extract book formats from a marc subfield data.
+
+    The regular expression patterns needed to extract book formats are build by
+    the constructor.
+    The method 'extract_book_formats_from' is provided for extract book formats
+    from a given marc subfield data.
+    """
+
+    def __init__(self):
+        """Constructor method.
+
+        The regular expression patterns needed to extract book formats are
+        build by this constructor.
+        """
+        self._format_values = \
+            (1, 2, 4, 8, 12, 16, 18, 24, 32, 36, 48, 64, 72, 96, 128)
+        self._book_format_code_and_regexp = {}
+        self._specific_for_1248 = {
+            1:    'plano',
+            2:    r'fol[i.\s°⁰)]|fol',
+            4:    'quarto',
+            8:    'octavo'
+        }
+
+        def _buid_regexp(value):
+            """Build regular expression pattern for the given value.
+
+            :param value: format (1,2,4,8,12,16,18,24,32,36,48,64,72,96,128)
+            :type value: int
+            :return: an expression pattern according to the given value
+            :rtype: str
+            """
+            # generic regexp valid for all values
+            regexp = \
+                r'(^|[^\d]){val}\s?[°⁰]|in(-|-gr\.)*\s*{val}($|[^\d])'.format(
+                    val=value)
+            # add specific value regexp
+            if value in self._specific_for_1248:
+                regexp = '|'.join([regexp, self._specific_for_1248[value]])
+            else:
+                additional = r'[^\d]{val}mo|^{val}mo'.format(val=value)
+                regexp = '|'.join([regexp, additional])
+            return '({regexp})'.format(regexp=regexp)
+
+        def _populate_regexp():
+            """Populate all the expression patterns."""
+            for value in self._format_values:
+                self._book_format_code_and_regexp[value] = {}
+                format_code = 'in-plano'
+                if value > 1:
+                    format_code = '{val}º'.format(val=value)
+                self._book_format_code_and_regexp[value]['code'] = format_code
+                self._book_format_code_and_regexp[value]['regexp'] = \
+                    re.compile(_buid_regexp(value), re.IGNORECASE)
+
+        _populate_regexp()
+
+    def extract_book_formats_from(self, subfield_data):
+        """Extract book formats from a marc subfield data.
+
+        :param subfield_data: marc subfield data source for format extraction
+        :type subfield_data: str
+        :return: a list of book formats
+        :rtype: list
+        """
+        book_formats = []
+        for value in self._format_values:
+            regexp = self._book_format_code_and_regexp[value]['regexp']
+            if regexp.search(subfield_data):
+                book_formats.append(
+                    self._book_format_code_and_regexp[value]['code'])
+        return book_formats
+
+
 class ReroIlsOverdo(Overdo):
     """Specialized Overdo.
 
@@ -186,7 +375,8 @@ class ReroIlsOverdo(Overdo):
     This class provide also record field manipulation functions.
     """
 
-    blob_record = None
+    _blob_record = None
+    extract_description_subfield = None
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsoverdo init."""
@@ -195,7 +385,7 @@ class ReroIlsOverdo(Overdo):
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
-        self.blob_record = blob
+        self._blob_record = blob
         result = super(ReroIlsOverdo, self).do(
             blob,
             ignore_missing=ignore_missing,
@@ -206,7 +396,7 @@ class ReroIlsOverdo(Overdo):
     def get_fields(self, tag=None):
         """Get all fields having the given tag value."""
         fields = []
-        items = get_field_items(self.blob_record)
+        items = get_field_items(self._blob_record)
         for blob_key, blob_value in items:
             field_data = {}
             tag_value = blob_key[0:3]
@@ -294,6 +484,149 @@ class ReroIlsOverdo(Overdo):
             pass
         return data
 
+    def extract_description_from_marc_field(self, key, value, data):
+        """Extract the physical descriptions data from marc field data.
+
+        This function automatically selects the subfield codes according to
+        the Marc21 or Unimarc format. The extracted data are:
+        - productionMethod
+        - extent
+        - bookFormat
+        - dimensions
+        - physical_detail
+        - colorContent
+        - duration
+        - illustrativeContent
+        - otherPhysicalDetails and accompanyingMaterial note
+
+        :param key: the field tag and indicators
+        :type key: str
+        :param value: the subfields data
+        :type value: object
+        :param data: the object data on which the extracted data will be added
+        :type data: object
+        """
+        # extract production_method from extent and physical_details
+        extent_and_physical_detail_data = []
+        extent = []
+        physical_details = []
+        physical_details_str = ''
+        if value.get('a'):
+            extent = utils.force_list(value.get('a', []))[0]
+            extent_and_physical_detail_data.append(extent)
+            data['extent'] = remove_trailing_punctuation(
+                data=extent,
+                punctuation=':;',
+                spaced_punctuation=':;'
+            )
+            # extract the duration
+            regexp = re.compile(
+                r'(\((\[?{circa_env}\]?\s*{hour_min}.*?)\))|'
+                r'(\[({circa_env}\s*{hour_min}.*?)\])'.format(
+                        circa_env=r'\s*(ca\.?|env\.?)?\s*\d+',
+                        hour_min=r'(h|St(d|\.|u)|[mM]in)'),
+                re.IGNORECASE)
+            match = regexp.search(extent)
+            if match:
+                add_data_and_sort_list('duration', [match.group(1)], data)
+
+        # note_list = data.get('note', [])
+        # intital_note_count = len(note_list)
+        subfield_code = self.extract_description_subfield['physical_detail']
+        for physical_detail in utils.force_list(value.get(subfield_code, [])):
+            physical_detail = remove_trailing_punctuation(
+                                    physical_detail, ':;', ':;')
+            physical_details.append(physical_detail)
+            extent_and_physical_detail_data.append(physical_detail)
+            # to avoid empty note after removing punctuation
+            if physical_detail:
+                add_note(
+                    dict(
+                        noteType='otherPhysicalDetails',
+                        label=physical_detail
+                    ),
+                    data)
+
+        physical_details_str = '|'.join(physical_details)
+        extent_and_physical_detail_str = \
+            '|'.join(extent_and_physical_detail_data)
+
+        color_content_set = set()
+        for key in _COLOR_CONTENT_REGEXP:
+            regexp = _COLOR_CONTENT_REGEXP[key]
+            if regexp.search(physical_details_str):
+                color_content_set.add(key)
+        add_data_and_sort_list('colorContent', color_content_set, data)
+
+        production_method_set = set()
+        for key in _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS:
+            regexp = _PRODUCTION_METHOD_FROM_EXTENT_AND_PHYSICAL_DETAILS[key]
+            if regexp.search(extent_and_physical_detail_str):
+                production_method_set.add(key)
+
+        # extract build illustrativeContent data
+        # remove 'couv. ill' and the extra '|' resulting of the remove
+        physical_detail_ill_str = \
+            re.sub(r'couv\. ill', '', physical_details_str)
+        physical_detail_ill_str = \
+            re.sub(r'\|\||^\||\|$', '', physical_detail_ill_str)
+
+        illustration_set = set()
+        for key in _ILLUSTRATIVE_CONTENT_REGEXP:
+            regexp = _ILLUSTRATIVE_CONTENT_REGEXP[key]
+            if regexp.search(physical_detail_ill_str):
+                illustration_set.add(key)
+        add_data_and_sort_list('illustrativeContent', illustration_set, data)
+
+        # remove 'rdapm:1005' if specific production_method exists
+        if ('rdapm:1005') in production_method_set:
+            del_set = \
+                set(('rdapm:1009', 'rdapm:1012', 'rdapm:1014', 'rdapm:1016'))
+            if production_method_set.intersection(del_set):
+                production_method_set.remove('rdapm:1005')
+
+        # extract production_method from physical_details only
+        if re.search(
+                r'impr|druck|print|offset|s[ée]riegr',
+                physical_details_str,
+                re.IGNORECASE):
+            production_method_set.add('rdapm:1010')
+
+        # build productionMethod data
+        add_data_and_sort_list('productionMethod', production_method_set, data)
+
+        # extract book_format from $c
+        book_formats = []
+        tool = BookFormatExtraction()
+        subfield_code = self.extract_description_subfield['book_format']
+        for dimension in utils.force_list(value.get(subfield_code, [])):
+            formats = tool.extract_book_formats_from(dimension)
+            for book_format in formats:
+                book_formats.append(book_format)
+            dim = remove_trailing_punctuation(
+                data=dimension.rstrip(),
+                punctuation='+,:;&'
+            )
+            add_data_and_sort_list(
+                'dimensions', utils.force_list(dim), data)
+        add_data_and_sort_list('bookFormat', book_formats, data)
+
+        # extract accompanyingMaterial note from $e
+        if value.get('e'):
+            material_notes = []
+            if type(self) == ReroIlsMarc21Overdo:
+                material_note = utils.force_list(value.get('e', []))[0]
+                material_notes = material_note.split('+')
+            elif type(self) == ReroIlsUnimarcOverdo:
+                material_notes = utils.force_list(value.get('e', []))
+            for material_note in material_notes:
+                add_note(
+                    dict(
+                        noteType='accompanyingMaterial',
+                        label=material_note.strip()
+                    ),
+                    data)
+
 
 class ReroIlsMarc21Overdo(ReroIlsOverdo):
     """Specialized Overdo for Marc21.
@@ -316,13 +649,17 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         super(ReroIlsMarc21Overdo, self).__init__(
             bases=bases, entry_point_group=entry_point_group)
         self.count = 0
+        self.extract_description_subfield = {
+            'physical_detail': 'b',
+            'book_format': 'c'
+        }
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
         self.count += 1
         result = None
         try:
-            self.blob_record = blob
+            self._blob_record = blob
             try:
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception as err:
@@ -428,10 +765,10 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             """Initialization of alternate graphic representation."""
             script = None
             default_script = 'zyyy'
-            script_per_lang = SCRIPT_PER_LANG_NOT_ASIA
+            script_per_lang = _SCRIPT_PER_LANG_NOT_ASIA
             if asian:
                 default_script = 'hani'
-                script_per_lang = SCRIPT_PER_LANG_ASIA
+                script_per_lang = _SCRIPT_PER_LANG_ASIA
             script = script_per_lang.get(self.lang_from_008, None)
             if not script:
                 for lang in self.langs_from_041_a:
@@ -455,8 +792,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     link_data = tag_data.get(link, {})
                     if script_code == '$1':
                         script = get_script_from_lang(asian=True)
-                    elif script_code in SCRIPT_PER_CODE:
-                        script = SCRIPT_PER_CODE[script_code]
+                    elif script_code in _SCRIPT_PER_CODE:
+                        script = _SCRIPT_PER_CODE[script_code]
                     else:
                         script = get_script_from_lang()
                     link_data['script'] = script
@@ -486,13 +823,13 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         :return: language script code in the format `<lang_code>-<script_code>`
         :rtype: str
         """
-        if script_code in LANGUAGES_SCRIPTS:
+        if script_code in _LANGUAGES_SCRIPTS:
             languages = (
                 [self.lang_from_008] +
                 self.langs_from_041_a +
                 self.langs_from_041_h)
             for lang in languages:
-                if lang in LANGUAGES_SCRIPTS[script_code]:
+                if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([lang, script_code])
             error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
                         script_code,  '008:', self.lang_from_008,
@@ -580,13 +917,17 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         super(ReroIlsUnimarcOverdo, self).__init__(
             bases=bases, entry_point_group=entry_point_group)
         self.count = 0
+        self.extract_description_subfield = {
+            'physical_detail': 'c',
+            'book_format': 'd',
+        }
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
         self.count += 1
         result = None
         try:
-            self.blob_record = blob
+            self._blob_record = blob
             try:
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception as err:
@@ -619,7 +960,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         :rtype: list
         """
         fields = []
-        items = get_field_items(self.blob_record)
+        items = get_field_items(self._blob_record)
         for blob_key, blob_value in items:
             field_data = {}
             tag_value = blob_key[0:3]
@@ -658,10 +999,10 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         :return: language script code in the format `<lang_code>-<script_code>`
         :rtype: str
         """
-        if unimarc_script_code in UNIMARC_LANGUAGES_SCRIPTS:
-            script_code = UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
-            if script_code in LANGUAGES_SCRIPTS:
-                if self.lang_from_101 in LANGUAGES_SCRIPTS[script_code]:
+        if unimarc_script_code in _UNIMARC_LANGUAGES_SCRIPTS:
+            script_code = _UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
+            if script_code in _LANGUAGES_SCRIPTS:
+                if self.lang_from_101 in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([self.lang_from_101, script_code])
                 error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
                             script_code,  '101:', self.lang_from_101,

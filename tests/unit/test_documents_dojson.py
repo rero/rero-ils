@@ -2139,61 +2139,186 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
     assert err.strip() == 'ERROR INIT CANTONS:\t???\tchbe'
 
 
-# extent: 300$a (the first one if many)
-# otherMaterialCharacteristics: 300$b (the first one if many)
-# formats: 300 [$c repetitive]
-def test_marc21_to_description():
-    """Test dojson extent, otherMaterialCharacteristics, formats."""
+# 300 [$a repetitive]: extent, duration:
+# 300 [$a non repetitive]: colorContent, productionMethod,
+#        illustrativeContent, note of type otherPhysicalDetails
+# 300 [$c repetitive]: format
+# 300 [$e non epetitive]: accompanying material note
+
+def test_marc21_to_physical_description_plano():
+    """Test dojson extent, productionMethod."""
 
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
         <subfield code="a">116 p.</subfield>
-        <subfield code="b">ill.</subfield>
-        <subfield code="c">22 cm</subfield>
+        <subfield code="b">litho photogravure gravure ;</subfield>
+        <subfield code="c">plano 22 cm</subfield>
       </datafield>
     </record>
     """
+
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
+    assert data.get('productionMethod') == \
+        ['rdapm:1007', 'rdapm:1009']
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm']
+    assert data.get('bookFormat') == ['in-plano']
+    assert data.get('dimensions') == ['plano 22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'litho photogravure gravure'
+        }]
+
+
+def test_marc21_to_physical_description_with_material_note():
+    """Test dojson extent, productionMethod, material note."""
 
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
         <subfield code="a">116 p.</subfield>
-        <subfield code="b">ill.</subfield>
-        <subfield code="c">22 cm</subfield>
-        <subfield code="c">12 x 15</subfield>
-      </datafield>
-      <datafield tag="300" ind1=" " ind2=" ">
-        <subfield code="a">200 p.</subfield>
-        <subfield code="b">ill.</subfield>
-        <subfield code="c">19 cm</subfield>
+        <subfield code="b">litho photogravure gravure ;</subfield>
+        <subfield code="c">plano 22 cm</subfield>
+        <subfield code="e">1 atlas</subfield>
       </datafield>
     </record>
     """
+
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
+    assert data.get('productionMethod') == \
+        ['rdapm:1007', 'rdapm:1009']
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm', '12 x 15']
+    assert data.get('bookFormat') == ['in-plano']
+    assert data.get('dimensions') == ['plano 22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'litho photogravure gravure'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': '1 atlas'
+        }
+    ]
+
+
+def test_marc21_to_physical_description_with_material_note_plus():
+    """Test dojson extent, productionMethod, material note with +."""
 
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
         <subfield code="a">116 p.</subfield>
-        <subfield code="b">ill.</subfield>
-        <subfield code="x">22 cm</subfield>
+        <subfield code="b">litho photogravure gravure ;</subfield>
+        <subfield code="c">plano 22 cm</subfield>
+        <subfield code="e">1 atlas + 3 cartes + XXIX f. de pl.</subfield>
+      </datafield>
+    </record>
+    """
+
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('productionMethod') == \
+        ['rdapm:1007', 'rdapm:1009']
+    assert data.get('extent') == '116 p.'
+    assert data.get('bookFormat') == ['in-plano']
+    assert data.get('dimensions') == ['plano 22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'litho photogravure gravure'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': '1 atlas'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': '3 cartes'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': 'XXIX f. de pl.'
+        }
+    ]
+
+
+def test_marc21_to_physical_description_300_without_b():
+    """Test dojson extent, productionMethod."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">191 p. ;</subfield>
+        <subfield code="c">21 cm</subfield>
       </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
+    assert data.get('extent') == '191 p.'
+    assert data.get('dimensions') == ['21 cm']
+    assert data.get('note') is None
+
+
+def test_marc21_to_physical_description_ill_in_8():
+    """Test dojson illustrativeContent: illustrations, dimensions: in-8."""
+    marc21xml = """
+    <record>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">1 DVD-R (50 min.)</subfield>
+        <subfield code="b">litho Ill.en n. et bl. ;</subfield>
+        <subfield code="c">in-8, 22 cm</subfield>
+      </datafield>
+    </record>
+    """
+
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('productionMethod') == ['rdapm:1007']
+    assert data.get('extent') == '1 DVD-R (50 min.)'
+    assert data.get('duration') == ['(50 min.)']
+    assert data.get('illustrativeContent') == ['illustrations']
+    assert data.get('colorContent') == ['rdacc:1002']
+    assert data.get('bookFormat') == ['8º']
+    assert data.get('dimensions') == ['in-8, 22 cm']
+    assert data.get('note') == [{
+        'noteType': 'otherPhysicalDetails',
+        'label': 'litho Ill.en n. et bl.'
+    }]
+
+
+def test_marc21_to_physical_description_multiple_300():
+    """Test dojson physical_description having multiple 300 fields."""
+    marc21xml = """
+    <record>
+       <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="b">litho photogravure gravure n. et bl. ;</subfield>
+        <subfield code="c">plano 22 cm</subfield>
+      </datafield>
+     <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">1 DVD-R (50 min.)</subfield>
+        <subfield code="b">litho Ill.en n. et bl. ;</subfield>
+        <subfield code="c">in-8, 22 cm</subfield>
+      </datafield>
+    </record>
+    """
+
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('productionMethod') == \
+        ['rdapm:1007', 'rdapm:1009']
+    assert data.get('extent') == '1 DVD-R (50 min.)'
+    assert data.get('duration') == ['(50 min.)']
+    assert data.get('illustrativeContent') == ['illustrations', 'photographs']
+    assert data.get('colorContent') == ['rdacc:1002']
+    assert data.get('bookFormat') == ['8º', 'in-plano']
+    assert data.get('dimensions') == ['in-8, 22 cm', 'plano 22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'litho photogravure gravure n. et bl.'
+        }, {
+            'noteType': 'otherPhysicalDetails',
+            'label': 'litho Ill.en n. et bl.'
+        }
+    ]
 
 
 # series.name: [490$a repetitive]
@@ -2258,7 +2383,14 @@ def test_marc21_to_notes():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('notes') == ['note 1', 'note 2']
+    assert data.get('note') == [{
+            'noteType': 'general',
+            'label': 'note 1'
+        }, {
+            'noteType': 'general',
+            'label': 'note 2'
+        }
+    ]
 
 
 # is_part_of 773$t
