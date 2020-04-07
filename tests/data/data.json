@@ -1009,8 +1009,11 @@
     "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
     "pid": "doc1",
     "type": "book",
-    "notes": [
-      "La pr\u00e9face porte la date : 1889"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "La pr\u00e9face porte la date : 1889"
+      }
     ],
     "title": [
       {
@@ -1106,7 +1109,7 @@
         "type": "person"
       }
     ],
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "language": [
@@ -1297,8 +1300,11 @@
     "pid": "doc3",
     "type": "book",
     "harvested": false,
-    "notes": [
-      "La vie est belle"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "La vie est belle"
+      }
     ],
     "title": [
       {
@@ -1323,7 +1329,7 @@
         "type": "person"
       }
     ],
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "language": [
@@ -1944,8 +1950,11 @@
       "thriller",
       "suspense"
     ],
-    "notes": [
-      "La maison des oubli\u00e9s"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "La maison des oubli\u00e9s"
+      }
     ]
   },
   "item1": {

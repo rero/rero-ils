@@ -20,11 +20,10 @@
     "translatedFrom",
     "abstracts",
     "extent",
-    "additionalMaterials",
     "series",
     "is_part_of",
     "identifiedBy",
-    "notes",
+    "note",
     "electronicLocator",
     "copyrightDate",
     "provisionActivity",
@@ -648,38 +647,220 @@
         }
       }
     },
-    "extent": {
-      "title": "Extent",
-      "description": "Extent of the resource, ie number of pages or volumes.",
-      "type": "string",
-      "minLength": 1,
-      "form": {
-        "hide": true
-      }
-    },
-    "otherMaterialCharacteristics": {
-      "title": "Other material characteristics",
-      "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
-      "type": "string",
-      "minLength": 1
-    },
-    "formats": {
-      "title": "Formats",
-      "description": "Format of the resource, ie dimensions in cm.",
+    "illustrativeContent": {
+      "title": "Illustrative content",
+      "description": "Record every different illustrative content in a new field. Use one or more RDA recommended terms, in the singular or plural (MARC 300$b).",
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "string",
-        "minLength": 1
+        "minLength": 3,
+        "form": {
+          "placeholder": "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
+        }
       }
     },
-    "additionalMaterials": {
-      "title": "Additional materials",
-      "description": "Accompanying material of the resource, ie maps.",
+    "extent": {
+      "title": "Extent",
+      "description": "Record the number of units and the type of unit. For the type of unit, use RDA recommended terms.",
       "type": "string",
-      "minLength": 1,
+      "minLength": 2,
       "form": {
-        "hide": true
+        "placeholder": "Example: 355 pages"
+      }
+    },
+    "duration": {
+      "title": "Duration",
+      "description": "A playing time, performance time, running time, etc., of the content of an expression.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: 1h50"
+        }
+      }
+    },
+    "colorContent": {
+      "title": "Colour content",
+      "description": "A presence of colour, tone, etc., in the content of an expression. Record a colour content if considered important for identification or selection.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "default": "rdacc:1002",
+        "enum": [
+          "rdacc:1002",
+          "rdacc:1003"
+        ],
+        "form": {
+          "options": [
+            {
+              "label": "Monochrome",
+              "value": "rdacc:1002"
+            },
+            {
+              "label": "Polychrome",
+              "value": "rdacc:1003"
+            }
+          ]
+        }
+      }
+    },
+    "productionMethod": {
+      "title": "Production method",
+      "description": "Process used to produce a manifestation.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "rdapm:1001",
+          "rdapm:1002",
+          "rdapm:1003",
+          "rdapm:1004",
+          "rdapm:1005",
+          "rdapm:1006",
+          "rdapm:1007",
+          "rdapm:1008",
+          "rdapm:1009",
+          "rdapm:1010",
+          "rdapm:1011",
+          "rdapm:1012",
+          "rdapm:1014",
+          "rdapm:1015",
+          "rdapm:1016",
+          "rdapm:1017",
+          "rdapm:1018",
+          "rdapm:1019",
+          "rdapm:1020",
+          "rdapm:1021"
+        ],
+        "form": {
+          "options": [
+            {
+              "label": "Blueline process",
+              "value": "rdapm:1001"
+            },
+            {
+              "label": "Blueprint process",
+              "value": "rdapm:1002"
+            },
+            {
+              "label": "Collotype",
+              "value": "rdapm:1003"
+            },
+            {
+              "label": "Daguerreotype process",
+              "value": "rdapm:1004"
+            },
+            {
+              "label": "Engraving",
+              "value": "rdapm:1005"
+            },
+            {
+              "label": "Etching",
+              "value": "rdapm:1006"
+            },
+            {
+              "label": "Lithography",
+              "value": "rdapm:1007"
+            },
+            {
+              "label": "Photocopying",
+              "value": "rdapm:1008"
+            },
+            {
+              "label": "Photoengraving",
+              "value": "rdapm:1009"
+            },
+            {
+              "label": "Printing",
+              "value": "rdapm:1010"
+            },
+            {
+              "label": "White print process",
+              "value": "rdapm:1011"
+            },
+            {
+              "label": "Woodcut making",
+              "value": "rdapm:1012"
+            },
+            {
+              "label": "Photogravure process",
+              "value": "rdapm:1014"
+            },
+            {
+              "label": "Burning",
+              "value": "rdapm:1015"
+            },
+            {
+              "label": "Inscribing",
+              "value": "rdapm:1016"
+            },
+            {
+              "label": "Stamping",
+              "value": "rdapm:1017"
+            },
+            {
+              "label": "Embossing",
+              "value": "rdapm:1018"
+            },
+            {
+              "label": "Solid dot",
+              "value": "rdapm:1019"
+            },
+            {
+              "label": "Swell paper",
+              "value": "rdapm:1020"
+            },
+            {
+              "label": "Thermoform",
+              "value": "rdapm:1021"
+            }
+          ]
+        }
+      }
+    },
+    "bookFormat": {
+      "title": "Bibliographic format",
+      "description": "A proportional relationship between a whole sheet in a printed or manuscript resource, and the individual leaves that result if that sheet is left full, cut, or folded.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "default": "8\u00ba",
+        "enum": [
+          "in-plano",
+          "2\u00ba",
+          "4\u00ba",
+          "8\u00ba",
+          "12\u00ba",
+          "16\u00ba",
+          "18\u00ba",
+          "24\u00ba",
+          "32\u00ba",
+          "36\u00ba",
+          "48\u00ba",
+          "64\u00ba",
+          "72\u00ba",
+          "96\u00ba",
+          "128\u00ba"
+        ]
+      }
+    },
+    "dimensions": {
+      "title": "Dimensions",
+      "description": "Dimensions include measurements of height, width, depth, length, gauge, and diameter. For oblong volumes, record the height \u00d7 width.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "form": {
+          "placeholder": "Example: 22 cm"
+        }
       }
     },
     "series": {
@@ -719,15 +900,54 @@
         "hide": true
       }
     },
-    "notes": {
+    "note": {
       "title": "Notes",
-      "description": "Note on the resource.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "type": "object",
         "title": "Note",
-        "type": "string",
-        "minLength": 1
+        "required": [
+          "noteType",
+          "label"
+        ],
+        "propertiesOrder": [
+          "noteType",
+          "label"
+        ],
+        "properties": {
+          "noteType": {
+            "title": "Type of note",
+            "type": "string",
+            "default": "general",
+            "enum": [
+              "accompanyingMaterial",
+              "general",
+              "otherPhysicalDetails"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Accompanying material",
+                  "value": "accompanyingMaterial"
+                },
+                {
+                  "label": "General",
+                  "value": "general"
+                },
+                {
+                  "label": "Other physical details",
+                  "value": "otherPhysicalDetails"
+                }
+              ]
+            }
+          },
+          "label": {
+            "title": "Label",
+            "type": "string",
+            "minLength": 3
+          }
+        }
       },
       "form": {
         "hide": true,

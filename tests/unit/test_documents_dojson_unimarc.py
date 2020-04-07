@@ -1068,11 +1068,37 @@ def test_unimarc_copyright_date():
     assert data.get('copyrightDate') == ['℗ 1919']
 
 
-# extent: 215$a (the first one if many)
-# otherMaterialCharacteristics: 215$c (the first one if many)
-# formats: 215 [$d repetitive]
 def test_unimarc_description():
-    """Test dojson extent, otherMaterialCharacteristics, formats."""
+    """Test dojson physical description.
+
+    215 [$a repetitive (the first one if many)]: extent, duration:
+    215 [$c non repetitive]: colorContent, productionMethod,
+        illustrativeContent, note of type otherPhysicalDetails
+    215 [$d repetitive]: dimensions, book_formats
+    215 [$e repetitive]: note of type accompanyingMaterial
+    """
+    unimarcxml = """
+    <record>
+      <datafield tag="215" ind1=" " ind2=" ">
+        <subfield code="a">116 p.</subfield>
+        <subfield code="c">ill.</subfield>
+        <subfield code="d">22 cm</subfield>
+        <subfield code="e">1 volume (200 pages)</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('extent') == '116 p.'
+    assert data.get('illustrativeContent') == ['illustrations']
+    assert data.get('dimensions') == ['22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'ill.'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': '1 volume (200 pages)'
+        }]
 
     unimarcxml = """
     <record>
@@ -1080,14 +1106,30 @@ def test_unimarc_description():
         <subfield code="a">116 p.</subfield>
         <subfield code="c">ill.</subfield>
         <subfield code="d">22 cm</subfield>
+        <subfield code="e">1 volume (200 pages)</subfield>
+        <subfield code="e">une brochure (12 pages)</subfield>
+        <subfield code="e">une disquette</subfield>
       </datafield>
     </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm']
+    assert data.get('illustrativeContent') == ['illustrations']
+    assert data.get('dimensions') == ['22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'ill.'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': '1 volume (200 pages)'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': 'une brochure (12 pages)'
+        }, {
+            'noteType': 'accompanyingMaterial',
+            'label': 'une disquette'
+        }]
 
     unimarcxml = """
     <record>
@@ -1106,9 +1148,29 @@ def test_unimarc_description():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm', '12 x 15']
+    assert data.get('illustrativeContent') == ['illustrations']
+    assert data.get('dimensions') == ['12 x 15', '19 cm', '22 cm']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'ill.'
+        }]
+    unimarcxml = """
+    <record>
+      <datafield tag="215" ind1=" " ind2=" ">
+        <subfield code="a">232 p.</subfield>
+        <subfield code="c">couv. ill. en coul.</subfield>
+        <subfield code="d">24 cm</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('dimensions') == ['24 cm']
+    assert data.get('colorContent') == ['rdacc:1003']
+    assert data.get('note') == [{
+            'noteType': 'otherPhysicalDetails',
+            'label': 'couv. ill. en coul.'
+        }]
 
 
 # series.name: [225$a repetitive]
@@ -1215,7 +1277,11 @@ def test_unimarc_notes():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('notes') == ['note']
+    assert data.get('note') == [{
+        'noteType': 'general',
+        'label': 'note'
+    }]
+
     unimarcxml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -1228,7 +1294,14 @@ def test_unimarc_notes():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('notes') == ['note 1', 'note 2']
+    assert data.get('note') == [{
+            'noteType': 'general',
+            'label': 'note 1'
+        }, {
+            'noteType': 'general',
+            'label': 'note 2'
+        }
+    ]
 
 
 # subjects: 600..617 $a,$b,$c,$d,$f

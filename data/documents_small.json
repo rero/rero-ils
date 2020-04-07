@@ -82,7 +82,7 @@
       }
     ],
     "extent": "232 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -262,7 +262,7 @@
       }
     ],
     "extent": "195 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -375,7 +375,7 @@
       }
     ],
     "extent": "75 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -485,8 +485,16 @@
       }
     ],
     "extent": "168 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "20 cm"
     ],
     "series": [
@@ -601,8 +609,16 @@
       }
     ],
     "extent": "220 p.",
-    "otherMaterialCharacteristics": "en maj. partie des ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "en maj. partie des ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -675,7 +691,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "authors": [
@@ -750,12 +766,18 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
-    "notes": [
-      "Sous-titre du no 167 au no 169(1991): informer sur l'environnement en Suisse romande",
-      "Sous-titre d\u00e8s le no 170(1992): le journal de l'environnement en Suisse romande"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Sous-titre du no 167 au no 169(1991): informer sur l'environnement en Suisse romande"
+      },
+      {
+        "noteType": "general",
+        "label": "Sous-titre d\u00e8s le no 170(1992): le journal de l'environnement en Suisse romande"
+      }
     ],
     "subjects": [
       "air - protection",
@@ -864,7 +886,15 @@
       }
     ],
     "extent": "In-8\u00b0, VI-178 p.",
-    "otherMaterialCharacteristics": "fig. et pl",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig. et pl"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "subjects": [
       "Vin de Champagne",
       "Vin mousseux",
@@ -963,8 +993,16 @@
       }
     ],
     "extent": "1 vol. (non pagin\u00e9)",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill.,"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -1137,12 +1175,21 @@
       }
     ],
     "extent": "8 classeurs",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "23 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Publication \u00e0 feuillets mobiles avec mises \u00e0 jour p\u00e9riodiques"
+      }
     ],
-    "notes": [
-      "Publication \u00e0 feuillets mobiles avec mises \u00e0 jour p\u00e9riodiques"
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "23 cm"
     ],
     "subjects": [
       "contrat de construction",
@@ -1227,7 +1274,7 @@
       }
     ],
     "extent": "9 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "authors": [
@@ -1348,7 +1395,7 @@
       }
     ],
     "extent": "XXIV, 338 p.",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "series": [
@@ -1432,7 +1479,16 @@
       }
     ],
     "extent": "1 disque compact",
-    "otherMaterialCharacteristics": "st\u00e9r\u00e9o, DDD +",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "st\u00e9r\u00e9o, DDD +"
+      },
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 fasc. (47 p.)"
+      }
+    ],
     "authors": [
       {
         "type": "person",
@@ -1544,8 +1600,16 @@
       }
     ],
     "extent": "X, 435 p.",
-    "otherMaterialCharacteristics": "portr.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "portr."
+      }
+    ],
+    "illustrativeContent": [
+      "portraits"
+    ],
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -1653,8 +1717,16 @@
       }
     ],
     "extent": "165 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "22 cm"
     ]
   },
@@ -1859,11 +1931,14 @@
       }
     ],
     "extent": "4, 198 p.",
-    "formats": [
+    "dimensions": [
       "22 cm."
     ],
-    "notes": [
-      "Revision of the author's thesis (doctoral)"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Revision of the author's thesis (doctoral)"
+      }
     ],
     "subjects": [
       "Collectivization of agriculture",
@@ -1962,8 +2037,16 @@
       "\u00a9 1999"
     ],
     "extent": "XXII, 299 S.",
-    "otherMaterialCharacteristics": "Abb.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Abb."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -2062,7 +2145,15 @@
       }
     ],
     "extent": "192 S.",
-    "otherMaterialCharacteristics": "Ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "subjects": [
       "Chimie biomim\u00e9tique",
       "Nature",
@@ -2243,11 +2334,14 @@
       "\u00a9 1999"
     ],
     "extent": "[23] p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
-    "notes": [
-      "Exposition. Z\u00fcrich. Kunsthalle. 1999"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Exposition. Z\u00fcrich. Kunsthalle. 1999"
+      }
     ],
     "subjects": [
       "M\u00fcller, Christian Philipp",
@@ -2422,7 +2516,7 @@
       }
     ],
     "extent": "509 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -2531,7 +2625,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ]
   },
@@ -2627,7 +2721,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -2740,12 +2834,24 @@
       }
     ],
     "extent": "CLXXXIV, VIII f.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Tafel CXXXII datiert 1747. - SBB-PK Berlin datiert auf 1738. ZB Z\u00fcrich datiert auf 1740"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "2\u00b0"
     ],
-    "notes": [
-      "Tafel CXXXII datiert 1747. - SBB-PK Berlin datiert auf 1738. ZB Z\u00fcrich datiert auf 1740"
+    "bookFormat": [
+      "2\u00ba"
     ]
   },
   {
@@ -2840,7 +2946,15 @@
       }
     ],
     "extent": "127  S.",
-    "otherMaterialCharacteristics": "Ill."
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ]
   },
   {
     "type": "book",
@@ -2929,8 +3043,13 @@
       }
     ],
     "extent": "617 S.",
-    "otherMaterialCharacteristics": "Taf.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Taf."
+      }
+    ],
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -3017,8 +3136,16 @@
       }
     ],
     "extent": "295 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -3212,7 +3339,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "24 cm"
     ]
   },
@@ -3297,9 +3424,15 @@
       }
     ],
     "extent": "5 disques compacts",
-    "notes": [
-      "From the private collection of Vladimir Gurvich",
-      "Program notes by Joseph Darsky and Mark Zaltsberg, and texts with English translations inserted in containers"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "From the private collection of Vladimir Gurvich"
+      },
+      {
+        "noteType": "general",
+        "label": "Program notes by Joseph Darsky and Mark Zaltsberg, and texts with English translations inserted in containers"
+      }
     ]
   },
   {
@@ -3408,7 +3541,15 @@
       }
     ],
     "extent": "344 S.",
-    "otherMaterialCharacteristics": "Ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "series": [
       {
         "name": "Unterwegs / Farin Urlaub",
@@ -3535,7 +3676,7 @@
       }
     ],
     "extent": "197 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -3645,8 +3786,16 @@
       }
     ],
     "extent": "214 S.",
-    "otherMaterialCharacteristics": "Abb.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Abb."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "20 cm"
     ],
     "series": [
@@ -3784,7 +3933,7 @@
       }
     ],
     "extent": "396 p.",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ]
   },
@@ -3870,14 +4019,29 @@
       }
     ],
     "extent": "15 vol. (XLVII, 11038 p.)",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "29 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "\u00c9d. hors commerce exclusivement r\u00e9serv\u00e9e \u00e0 la client\u00e8le de Larousse Diffusion"
+      },
+      {
+        "noteType": "general",
+        "label": "La page de garde porte: Grand Larousse universel avec Actualia. Actualia, panorama du savoir actuel regroupe, en fin de volume, les articles, class\u00e9s alphab\u00e9tiquement, apportant les informations les plus r\u00e9centes sur des sujets nouveaux ou sur des sujets d\u00e9j\u00e0 abord\u00e9s dans le m\u00eame volume. Pour ces derniers, l'existence d'une vignette noire plac\u00e9e en regard de l'entr\u00e9e correspondante signale un compl\u00e9ment d'information dans Actualia."
+      },
+      {
+        "noteType": "general",
+        "label": "Avant-titre : Grand dictionnaire encyclop\u00e9dique Larousse"
+      }
     ],
-    "notes": [
-      "\u00c9d. hors commerce exclusivement r\u00e9serv\u00e9e \u00e0 la client\u00e8le de Larousse Diffusion",
-      "La page de garde porte: Grand Larousse universel avec Actualia. Actualia, panorama du savoir actuel regroupe, en fin de volume, les articles, class\u00e9s alphab\u00e9tiquement, apportant les informations les plus r\u00e9centes sur des sujets nouveaux ou sur des sujets d\u00e9j\u00e0 abord\u00e9s dans le m\u00eame volume. Pour ces derniers, l'existence d'une vignette noire plac\u00e9e en regard de l'entr\u00e9e correspondante signale un compl\u00e9ment d'information dans Actualia.",
-      "Avant-titre : Grand dictionnaire encyclop\u00e9dique Larousse"
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "29 cm"
     ]
   },
   {
@@ -3993,7 +4157,16 @@
         ]
       }
     ],
-    "extent": "3 Compact Discs (231 Min.) +"
+    "extent": "3 Compact Discs (231 Min.) +",
+    "duration": [
+      "(231 Min.)"
+    ],
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 Booklet ([8] S.)"
+      }
+    ]
   },
   {
     "type": "article",
@@ -4065,7 +4238,15 @@
       }
     ],
     "extent": "150 p.",
-    "otherMaterialCharacteristics": "ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "series": [
       {
         "name": "Science & vie. Hors-s\u00e9rie",
@@ -4159,13 +4340,29 @@
       "\u00a9 2001"
     ],
     "extent": "117 p.",
-    "otherMaterialCharacteristics": "ill. en noir et en coul.",
-    "formats": [
-      "31 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill. en noir et en coul."
+      },
+      {
+        "noteType": "general",
+        "label": "Texte bilingue anglais et japonais"
+      },
+      {
+        "noteType": "general",
+        "label": "Exposition. Tokyo. National Museum of Western Art. 2001"
+      }
     ],
-    "notes": [
-      "Texte bilingue anglais et japonais",
-      "Exposition. Tokyo. National Museum of Western Art. 2001"
+    "colorContent": [
+      "rdacc:1002",
+      "rdacc:1003"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "31 cm"
     ],
     "subjects": [
       "18e si\u00e8cle (fin)-20e si\u00e8cle (1re moiti\u00e9)",
@@ -4256,8 +4453,16 @@
       }
     ],
     "extent": "316 p.",
-    "otherMaterialCharacteristics": "fig.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -4405,7 +4610,7 @@
       }
     ],
     "extent": "55 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "is_part_of": "Bulletin Saint Jean-Baptiste"
@@ -4524,8 +4729,16 @@
       }
     ],
     "extent": "479 S.",
-    "otherMaterialCharacteristics": "Ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "22 cm"
     ],
     "subjects": [
@@ -4601,7 +4814,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "authors": [
@@ -4676,8 +4889,17 @@
       }
     ],
     "extent": "3 vol.",
-    "otherMaterialCharacteristics": "fig., portr.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig., portr."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations",
+      "portraits"
+    ],
+    "dimensions": [
       "25 cm"
     ],
     "series": [
@@ -4797,7 +5019,12 @@
       }
     ],
     "extent": "351 S.",
-    "otherMaterialCharacteristics": "zahlr. Darstellungen und Tabellen",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "zahlr. Darstellungen und Tabellen"
+      }
+    ],
     "series": [
       {
         "name": "utb",
@@ -4906,8 +5133,14 @@
       "\u00a9 1959"
     ],
     "extent": "1 partition (10 p.)",
-    "formats": [
-      "28 cm +"
+    "dimensions": [
+      "28 cm"
+    ],
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "3 parties"
+      }
     ],
     "series": [
       {
@@ -5024,7 +5257,7 @@
       }
     ],
     "extent": "1 partition de poche (IX, 26) p.",
-    "formats": [
+    "dimensions": [
       "19 cm"
     ],
     "series": [
@@ -5116,7 +5349,7 @@
       "\u00a9 1987"
     ],
     "extent": "XV, 814 S.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -5206,12 +5439,18 @@
       }
     ],
     "extent": "3 Hefte",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
-    "notes": [
-      "Autre titre: Spruchpraxis des Obergerichts und der Abteilung f\u00fcr Civilsachen am Obergericht in Steuerstreitsachen",
-      "Heft 2 u. 3 u.d.T.: Die Spruchpraxis des Obergerichts und der Abteilung f\u00fcr Civilsachen am Obergericht in Steuerstreitsachen"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Autre titre: Spruchpraxis des Obergerichts und der Abteilung f\u00fcr Civilsachen am Obergericht in Steuerstreitsachen"
+      },
+      {
+        "noteType": "general",
+        "label": "Heft 2 u. 3 u.d.T.: Die Spruchpraxis des Obergerichts und der Abteilung f\u00fcr Civilsachen am Obergericht in Steuerstreitsachen"
+      }
     ],
     "subjects": [
       "Abgaberecht",
@@ -5328,7 +5567,7 @@
       }
     ],
     "extent": "1 portefeuille ([4] p., 80 f. de pl.)",
-    "formats": [
+    "dimensions": [
       "34 cm"
     ],
     "subjects": [
@@ -5438,8 +5677,11 @@
         "number": "no. 21"
       }
     ],
-    "notes": [
-      "\"This volume was inspired by the 48th Conference of Professors of English at the University of Orl\u00e9ans (May 16-18, 2008).\""
+    "note": [
+      {
+        "noteType": "general",
+        "label": "\"This volume was inspired by the 48th Conference of Professors of English at the University of Orl\u00e9ans (May 16-18, 2008).\""
+      }
     ],
     "abstracts": [
       "\"This groundbreaking volume of critical essays revolving around the concept of resurgence maps the modes of conservation, transformation, and invention of the literary, visual, and cultural expressions which Jane Urquhart's singular voice has brought about on the Canadian but also international scene. Taking resurgence as the informing principle of investigation, the volume as a whole focuses on the rewriting and reconstruction of the past, on the modalities of its resurfacing or of its erasure. It raises questions about the explicit or implicit ideological repercussions of such concealment and disclosure, such rupture and resilience. Through the prism of this concept, through surveys, close textual scrutiny and comparative analyses, the book explores Urquhart's discursive practices, the way they hinge on intertextuality or citation, at the same time as upon intratextuality or self-citation. It brings to the fore the extratextual and metatextual quality of her writing together with the transmediality, the transcoding or intersemioticity which characterize the interaction between literature and the visual arts in her fictional and poetic works.\""
@@ -5526,7 +5768,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "20 cm"
     ],
     "subjects": [
@@ -5648,8 +5890,16 @@
       }
     ],
     "extent": "3 vol.",
-    "otherMaterialCharacteristics": "fig.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "31 cm"
     ],
     "series": [
@@ -5762,7 +6012,12 @@
       }
     ],
     "extent": "1 DISQUE COMPACT",
-    "otherMaterialCharacteristics": "st\u00e9r\u00e9o"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "st\u00e9r\u00e9o"
+      }
+    ]
   },
   {
     "type": "journal",
@@ -5849,11 +6104,14 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
-    "notes": [
-      "Anderer Titel: Schriften / Arbeitskreis Volkskunde und Kulturwissenschaften"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Anderer Titel: Schriften / Arbeitskreis Volkskunde und Kulturwissenschaften"
+      }
     ],
     "authors": [
       {
@@ -5940,7 +6198,7 @@
       }
     ],
     "extent": "25 S.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "is_part_of": "Aspects on human rights"
@@ -6105,7 +6363,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "24 cm"
     ]
   },
@@ -6185,6 +6443,12 @@
       }
     ],
     "extent": "1 disque compact et 1 DVD-vid\u00e9o en 1 bo\u00eete +",
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 livret"
+      }
+    ],
     "authors": [
       {
         "type": "organisation",
@@ -6293,7 +6557,7 @@
       }
     ],
     "extent": "IV, 114 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -6486,7 +6750,7 @@
       }
     ],
     "extent": "3 vol.",
-    "formats": [
+    "dimensions": [
       "27 cm"
     ],
     "series": [
@@ -6589,7 +6853,7 @@
       }
     ],
     "extent": "204 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -6667,7 +6931,7 @@
       }
     ],
     "extent": "P. 611-765",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -6777,7 +7041,7 @@
       }
     ],
     "extent": "284 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ]
   },
@@ -6868,7 +7132,7 @@
       }
     ],
     "extent": "173 p.",
-    "formats": [
+    "dimensions": [
       "19 cm"
     ],
     "series": [
@@ -6964,8 +7228,11 @@
       }
     ],
     "extent": "21 S.",
-    "notes": [
-      "Aus: K. Wiener Zeitung"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Aus: K. Wiener Zeitung"
+      }
     ]
   },
   {
@@ -7044,7 +7311,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "27 cm"
     ],
     "authors": [
@@ -7140,9 +7407,18 @@
       }
     ],
     "extent": "319 S.",
-    "otherMaterialCharacteristics": "Tab.",
-    "formats": [
-      "24 cm +"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Tab."
+      },
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 Compact Disc"
+      }
+    ],
+    "dimensions": [
+      "24 cm"
     ],
     "series": [
       {
@@ -7248,7 +7524,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -7351,7 +7627,7 @@
       }
     ],
     "extent": "345 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -7436,8 +7712,16 @@
       }
     ],
     "extent": "50 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -7556,7 +7840,7 @@
       }
     ],
     "extent": "32 p.",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "series": [
@@ -7644,8 +7928,16 @@
       }
     ],
     "extent": "VIII, p. 1136-1603.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "26 cm"
     ]
   },
@@ -7745,8 +8037,16 @@
       }
     ],
     "extent": "765 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "27 cm"
     ],
     "series": [
@@ -7924,9 +8224,23 @@
       }
     ],
     "extent": "VI, 167 p.",
-    "otherMaterialCharacteristics": "ill. d'une grav. en frontisp.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill. d'une grav. en frontisp."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "productionMethod": [
+      "rdapm:1005"
+    ],
+    "dimensions": [
       "8\u00b0 (18 cm)"
+    ],
+    "bookFormat": [
+      "8\u00ba"
     ],
     "subjects": [
       "Nicolas",
@@ -8029,7 +8343,7 @@
       }
     ],
     "extent": "262 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -8038,8 +8352,11 @@
         "number": "848"
       }
     ],
-    "notes": [
-      "Titre conventionnel: Apologia Socratis"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Titre conventionnel: Apologia Socratis"
+      }
     ]
   },
   {
@@ -8109,11 +8426,14 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
-    "notes": [
-      "Le sous-titre varie et devient: revue de cin\u00e9ma"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Le sous-titre varie et devient: revue de cin\u00e9ma"
+      }
     ],
     "subjects": [
       "Cin\u00e9ma",
@@ -8213,7 +8533,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "28 cm"
     ],
     "subjects": [
@@ -8355,7 +8675,7 @@
       }
     ],
     "extent": "XII, 166 p. dont p. 3-100 avec pag. double.",
-    "formats": [
+    "dimensions": [
       "20 cm"
     ]
   },
@@ -8446,7 +8766,7 @@
       }
     ],
     "extent": "364 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -8571,7 +8891,7 @@
       "\u00a9 1955"
     ],
     "extent": "1 r\u00e9duction (96 p.)",
-    "formats": [
+    "dimensions": [
       "27 cm"
     ]
   },
@@ -8666,8 +8986,16 @@
       }
     ],
     "extent": "X, 380 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -8772,7 +9100,7 @@
       }
     ],
     "extent": "126 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -8875,7 +9203,7 @@
       }
     ],
     "extent": "2 vol.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "subjects": [
@@ -9005,8 +9333,16 @@
       }
     ],
     "extent": "17 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "26 cm"
     ],
     "subjects": [
@@ -9219,8 +9555,13 @@
       }
     ],
     "extent": "77 p.",
-    "otherMaterialCharacteristics": "tabl.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "tabl."
+      }
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -9306,7 +9647,7 @@
       }
     ],
     "extent": "P. 223-234",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -9403,8 +9744,14 @@
       }
     ],
     "extent": "2 disques compacts",
-    "formats": [
-      "12 cm +"
+    "dimensions": [
+      "12 cm"
+    ],
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 livret"
+      }
     ],
     "authors": [
       {
@@ -9499,8 +9846,16 @@
       }
     ],
     "extent": "399 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -9603,7 +9958,7 @@
       }
     ],
     "extent": "293 p.",
-    "formats": [
+    "dimensions": [
       "22 cm."
     ],
     "series": [
@@ -9709,7 +10064,15 @@
       }
     ],
     "extent": "48 p.",
-    "otherMaterialCharacteristics": "ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "series": [
       {
         "name": "Ange le Terrible / PoiPoi",
@@ -9811,7 +10174,7 @@
       }
     ],
     "extent": "299 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "abstracts": [
@@ -9895,7 +10258,7 @@
       }
     ],
     "extent": "9 p.",
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -10010,7 +10373,7 @@
       }
     ],
     "extent": "175 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -10106,7 +10469,7 @@
       }
     ],
     "extent": "187 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -10258,7 +10621,7 @@
       "\u00a9 2017"
     ],
     "extent": "349 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -10381,8 +10744,13 @@
       }
     ],
     "extent": "1 disque compact",
-    "otherMaterialCharacteristics": "st\u00e9r\u00e9o (ADD)",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "st\u00e9r\u00e9o (ADD)"
+      }
+    ],
+    "dimensions": [
       "12 cm"
     ],
     "series": [
@@ -10478,10 +10846,22 @@
       }
     ],
     "extent": "1 DVD-vid\u00e9o (52 min.)",
-    "notes": [
-      "Zone 2",
-      "Langues : fran\u00e7ais. Sous-titres : anglais",
-      "Image et son: Rinaldo Marasco, J\u00e9r\u00f4me Piguet, Alain Wirth et Jacques Beaud"
+    "duration": [
+      "(52 min.)"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Zone 2"
+      },
+      {
+        "noteType": "general",
+        "label": "Langues : fran\u00e7ais. Sous-titres : anglais"
+      },
+      {
+        "noteType": "general",
+        "label": "Image et son: Rinaldo Marasco, J\u00e9r\u00f4me Piguet, Alain Wirth et Jacques Beaud"
+      }
     ],
     "abstracts": [
       "Pendant plus de deux ans, les r\u00e9alisateurs ont suivit l'Ensemble vocal de Lausanne et son chef. Ce film est une immersion intimiste dans l'enregistrement de la Messe en si mineur de Jean-S\u00e9bastien Bach (BWV 232)"
@@ -10585,8 +10965,16 @@
       }
     ],
     "extent": "32 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "28 cm"
     ],
     "subjects": [
@@ -10684,7 +11072,7 @@
       }
     ],
     "extent": "XII, 476 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -10777,8 +11165,16 @@
       }
     ],
     "extent": "58, [22] p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "25 cm"
     ],
     "series": [
@@ -10857,7 +11253,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "24 cm"
     ]
   },
@@ -10952,8 +11348,16 @@
       }
     ],
     "extent": "93 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -11095,7 +11499,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -11193,12 +11597,18 @@
       }
     ],
     "extent": "181 p.",
-    "formats": [
+    "dimensions": [
       "27 cm"
     ],
-    "notes": [
-      "Contient: The Book of Esther, the Songs of Songs, Ruth",
-      "Porte \u00e9galement le titre en h\u00e9breu"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Contient: The Book of Esther, the Songs of Songs, Ruth"
+      },
+      {
+        "noteType": "general",
+        "label": "Porte \u00e9galement le titre en h\u00e9breu"
+      }
     ],
     "titlesProper": [
       "Bible.",
@@ -11274,7 +11684,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "26 cm"
     ],
     "authors": [
@@ -11367,7 +11777,7 @@
       }
     ],
     "extent": "287 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -11459,13 +11869,26 @@
       }
     ],
     "extent": "1 disco (CD-ROM)",
-    "formats": [
+    "dimensions": [
       "12 cm"
     ],
-    "notes": [
-      "\"Actas I-X (Oxford, 1962, Barcelona, 1989)\"--Etiqueta",
-      "Adobe Reader 6.0",
-      "T\u00edt. tomado de la pantalla del t\u00edtulo"
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "2 d\u00edpticos"
+      },
+      {
+        "noteType": "general",
+        "label": "\"Actas I-X (Oxford, 1962, Barcelona, 1989)\"--Etiqueta"
+      },
+      {
+        "noteType": "general",
+        "label": "Adobe Reader 6.0"
+      },
+      {
+        "noteType": "general",
+        "label": "T\u00edt. tomado de la pantalla del t\u00edtulo"
+      }
     ],
     "authors": [
       {
@@ -11569,9 +11992,15 @@
       }
     ],
     "extent": "P. 323-331",
-    "notes": [
-      "Photocopies",
-      "Texte publi\u00e9 pour les 70 ans d'Andr\u00e9 Donnet dans: \"Nos monuments d'art et d'histoire\", 1983, Ann\u00e9e 34, no 3, p. 322-331"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Photocopies"
+      },
+      {
+        "noteType": "general",
+        "label": "Texte publi\u00e9 pour les 70 ans d'Andr\u00e9 Donnet dans: \"Nos monuments d'art et d'histoire\", 1983, Ann\u00e9e 34, no 3, p. 322-331"
+      }
     ]
   },
   {
@@ -11656,7 +12085,7 @@
       }
     ],
     "extent": "VI, 90 p.",
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "series": [
@@ -11758,8 +12187,16 @@
       }
     ],
     "extent": "125 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -11816,8 +12253,11 @@
         "type": "bf:Title"
       }
     ],
-    "notes": [
-      "Ressource en ligne consult\u00e9e le 28.02.2011"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Ressource en ligne consult\u00e9e le 28.02.2011"
+      }
     ],
     "is_part_of": "Great trade collapse : causes, consequences and prospects",
     "electronicLocator": [
@@ -11904,8 +12344,16 @@
       }
     ],
     "extent": "31 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "33 cm"
     ],
     "series": [
@@ -12081,9 +12529,15 @@
       }
     ],
     "extent": "1 livre \u00e9lectronique",
-    "notes": [
-      "Preface dated: Beverley, September 20, 1779",
-      "Reproduction of original from British Library"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Preface dated: Beverley, September 20, 1779"
+      },
+      {
+        "noteType": "general",
+        "label": "Reproduction of original from British Library"
+      }
     ],
     "subjects": [
       "Odes",
@@ -12194,12 +12648,21 @@
       }
     ],
     "extent": "151 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "24 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Traduit de: La mesure \u00e9conomique des dommages dans le domaine de l'environnement"
+      }
     ],
-    "notes": [
-      "Traduit de: La mesure \u00e9conomique des dommages dans le domaine de l'environnement"
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "24 cm"
     ],
     "subjects": [
       "Co\u00fbt",
@@ -12327,12 +12790,18 @@
       }
     ],
     "extent": "Bd. 1-",
-    "formats": [
+    "dimensions": [
       "27 cm"
     ],
-    "notes": [
-      "Ab Bd. 3: Begr\u00fcndet und hrsg. von Friedrich Wilhelm Bautz ; fortgef\u00fchrt von Traugott Bautz",
-      "Avec chaque tome para\u00eet un index cumulatif"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Ab Bd. 3: Begr\u00fcndet und hrsg. von Friedrich Wilhelm Bautz ; fortgef\u00fchrt von Traugott Bautz"
+      },
+      {
+        "noteType": "general",
+        "label": "Avec chaque tome para\u00eet un index cumulatif"
+      }
     ],
     "subjects": [
       "Christian biography",
@@ -12494,12 +12963,21 @@
       "\u00a9 2006"
     ],
     "extent": "119 S.",
-    "otherMaterialCharacteristics": "Ill.",
-    "formats": [
-      "23 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Ouvrage bilingue fran\u00e7ais et allemand \u00e9dit\u00e9 \u00e0 l'occasion de l'exposition pr\u00e9sent\u00e9e au Centre PasquART, Bienne, du 22 janvier au 19 mars 2006"
+      }
     ],
-    "notes": [
-      "Ouvrage bilingue fran\u00e7ais et allemand \u00e9dit\u00e9 \u00e0 l'occasion de l'exposition pr\u00e9sent\u00e9e au Centre PasquART, Bienne, du 22 janvier au 19 mars 2006"
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "23 cm"
     ],
     "subjects": [
       "Banz, St\u00e9phane",
@@ -12581,7 +13059,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -12744,7 +13222,7 @@
       }
     ],
     "extent": "332 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -12872,15 +13350,42 @@
       "\u00a9 1998"
     ],
     "extent": "1 DVD vid\u00e9o",
-    "otherMaterialCharacteristics": "couleur PAL",
-    "notes": [
-      "Traduit de: Mary Shelley's \"Frankenstein\"",
-      "Choix de langues en Dolby Digital 5.1: Fran\u00e7ais, anglais. Choix de sous-titres: Fran\u00e7ais, anglais, hollandais, arabe",
-      "Format: \u00e9cran 16:9, compatible 4:3 (Zone 2)",
-      "Une prod.: Columbia Pictures, cop. 1995",
-      "Dur\u00e9e du film: 119 min.",
-      "Comporte \u00e9galement: Menus interactifs, bande-annonce, chapitrage",
-      "Donn\u00e9es vid\u00e9o"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "couleur PAL"
+      },
+      {
+        "noteType": "general",
+        "label": "Traduit de: Mary Shelley's \"Frankenstein\""
+      },
+      {
+        "noteType": "general",
+        "label": "Choix de langues en Dolby Digital 5.1: Fran\u00e7ais, anglais. Choix de sous-titres: Fran\u00e7ais, anglais, hollandais, arabe"
+      },
+      {
+        "noteType": "general",
+        "label": "Format: \u00e9cran 16:9, compatible 4:3 (Zone 2)"
+      },
+      {
+        "noteType": "general",
+        "label": "Une prod.: Columbia Pictures, cop. 1995"
+      },
+      {
+        "noteType": "general",
+        "label": "Dur\u00e9e du film: 119 min."
+      },
+      {
+        "noteType": "general",
+        "label": "Comporte \u00e9galement: Menus interactifs, bande-annonce, chapitrage"
+      },
+      {
+        "noteType": "general",
+        "label": "Donn\u00e9es vid\u00e9o"
+      }
+    ],
+    "colorContent": [
+      "rdacc:1003"
     ],
     "abstracts": [
       "Synopsis : Le jeune savant Victor Frankenstein est persuad\u00e9 que la science peut venir \u00e0 bout de tout et m\u00eame cr\u00e9er la vie. Il s'att\u00e8le \u00e0 cette tache avec ardeur et cr\u00e9e \u00e0 partir de morceaux de cadavres un \u00eatre humain qui sera accul\u00e9 par sa diff\u00e9rence \u00e0 la m\u00e9chancet\u00e9",
@@ -12990,7 +13495,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -13297,12 +13802,21 @@
       }
     ],
     "extent": "14 p.",
-    "formats": [
+    "dimensions": [
       "In-8"
     ],
-    "notes": [
-      "[L\u00e9gion fran\u00e7aise des combattants. Union d\u00e9partementale d\u00e9partemental Cantal]",
-      "La couverture porte : \"La L\u00e9gion demeure, en zone libre, le meilleur instrument de la R\u00e9volution mondiale.\""
+    "bookFormat": [
+      "8\u00ba"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "[L\u00e9gion fran\u00e7aise des combattants. Union d\u00e9partementale d\u00e9partemental Cantal]"
+      },
+      {
+        "noteType": "general",
+        "label": "La couverture porte : \"La L\u00e9gion demeure, en zone libre, le meilleur instrument de la R\u00e9volution mondiale.\""
+      }
     ]
   },
   {
@@ -13415,8 +13929,11 @@
         "name": "Philosophies-artistes"
       }
     ],
-    "notes": [
-      "Textes en grec ancien et en latin avec trad. fran\u00e7aise en regard"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Textes en grec ancien et en latin avec trad. fran\u00e7aise en regard"
+      }
     ],
     "subjects": [
       "Protagoras",
@@ -13581,8 +14098,14 @@
       }
     ],
     "extent": "4 disques compacts en un coffret (4 h.)",
-    "notes": [
-      "La couv. porte: Philippe Besson lit l'int\u00e9gralit\u00e9 de son roman"
+    "duration": [
+      "(4 h.)"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "La couv. porte: Philippe Besson lit l'int\u00e9gralit\u00e9 de son roman"
+      }
     ]
   },
   {
@@ -13806,9 +14329,15 @@
         ]
       }
     ],
-    "notes": [
-      "Catalogu\u00e9 d'apr\u00e8s la page d'accueil du 18.11.2010",
-      "P\u00e9riodique \u00e9lectronique"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Catalogu\u00e9 d'apr\u00e8s la page d'accueil du 18.11.2010"
+      },
+      {
+        "noteType": "general",
+        "label": "P\u00e9riodique \u00e9lectronique"
+      }
     ],
     "subjects": [
       "Environmental policy"
@@ -13939,17 +14468,26 @@
       "\u00a9 1971"
     ],
     "extent": "XIV, 381 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Traduit de: Gulliver's travels"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "21 cm"
     ],
     "series": [
       {
         "name": "Les Livres qui ont fait le monde"
       }
-    ],
-    "notes": [
-      "Traduit de: Gulliver's travels"
     ]
   },
   {
@@ -14043,7 +14581,7 @@
       }
     ],
     "extent": "532 p.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -14143,7 +14681,7 @@
       "\u00a9 2000"
     ],
     "extent": "VII, 106 S.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -14238,7 +14776,7 @@
       }
     ],
     "extent": "P. 444-478",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "subjects": [
@@ -14334,8 +14872,16 @@
       }
     ],
     "extent": "3 vol.",
-    "otherMaterialCharacteristics": "tabl., diagr.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "tabl., diagr."
+      }
+    ],
+    "illustrativeContent": [
+      "graphs"
+    ],
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -14446,7 +14992,7 @@
       }
     ],
     "extent": "IV, 252 p.",
-    "formats": [
+    "dimensions": [
       "20 cm"
     ],
     "series": [
@@ -14454,8 +15000,11 @@
         "name": "Y\u016bhikaku sensho; R"
       }
     ],
-    "notes": [
-      "Titre en fran\u00e7ais: Techniques redactionnelles de la th\u00e8se de doctorat en droit"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Titre en fran\u00e7ais: Techniques redactionnelles de la th\u00e8se de doctorat en droit"
+      }
     ],
     "authors": [
       {
@@ -14602,8 +15151,15 @@
       }
     ],
     "extent": "1 partition en 2 vol. (610 p.) +",
-    "notes": [
-      "[Hob. XXI : 1]"
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 vol. de notes critiques (172 p.)"
+      },
+      {
+        "noteType": "general",
+        "label": "[Hob. XXI : 1]"
+      }
     ]
   },
   {
@@ -14687,8 +15243,16 @@
       }
     ],
     "extent": "6 p., [1] f. di tav.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -14780,7 +15344,7 @@
       }
     ],
     "extent": "67 S.",
-    "formats": [
+    "dimensions": [
       "15 cm"
     ],
     "series": [
@@ -14898,8 +15462,19 @@
       }
     ],
     "extent": "1 vol. (144 p.)",
-    "otherMaterialCharacteristics": "illustrations en couleur",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "illustrations en couleur"
+      }
+    ],
+    "colorContent": [
+      "rdacc:1003"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "24 x 16 cm."
     ],
     "electronicLocator": [
@@ -15005,8 +15580,16 @@
       }
     ],
     "extent": "3 vol.",
-    "otherMaterialCharacteristics": "fig.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "27 cm"
     ],
     "series": [
@@ -15101,8 +15684,11 @@
       }
     ],
     "extent": "30 p.",
-    "formats": [
+    "dimensions": [
       "in-8\u00b0"
+    ],
+    "bookFormat": [
+      "8\u00ba"
     ],
     "electronicLocator": [
       {
@@ -15208,9 +15794,21 @@
       "\u00a9 1999"
     ],
     "extent": "777 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "24 cm +"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 CD-ROM"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "24 cm"
     ],
     "series": [
       {
@@ -15315,9 +15913,21 @@
       }
     ],
     "extent": "XVI, 1114 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "23 cm +"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "Nachtrag zum Litteraturverzeichnis, 1957"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "23 cm"
     ],
     "subjects": [
       "Ultrasons"
@@ -15394,13 +16004,29 @@
       }
     ],
     "extent": "99 p.",
-    "otherMaterialCharacteristics": "ill. en noir et en coul.",
-    "formats": [
-      "28 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill. en noir et en coul."
+      },
+      {
+        "noteType": "general",
+        "label": "Code de vente: \"ANCHISES\""
+      },
+      {
+        "noteType": "general",
+        "label": "Vente. Sotheby's (Gen\u00e8ve ; 1990/05/15)"
+      }
     ],
-    "notes": [
-      "Code de vente: \"ANCHISES\"",
-      "Vente. Sotheby's (Gen\u00e8ve ; 1990/05/15)"
+    "colorContent": [
+      "rdacc:1002",
+      "rdacc:1003"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "28 cm"
     ],
     "subjects": [
       "British Rail Pension Fund (Grande-Bretagne)",
@@ -15500,7 +16126,7 @@
       }
     ],
     "extent": "189 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "abstracts": [
@@ -15589,7 +16215,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -15686,7 +16312,7 @@
       }
     ],
     "extent": "168 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -15781,7 +16407,18 @@
       "\u00a9 1990"
     ],
     "extent": "1 VIDEOCASSETTE [VHS] (56 min)",
-    "otherMaterialCharacteristics": "coul. PAL, son",
+    "duration": [
+      "(56 min)"
+    ],
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "coul. PAL, son"
+      }
+    ],
+    "colorContent": [
+      "rdacc:1003"
+    ],
     "abstracts": [
       "Analyse: Survol de la ville par l'image et les commentaires de quelques-unes de ses personnalit\u00e9s."
     ],
@@ -15891,7 +16528,7 @@
       }
     ],
     "extent": "236 p.",
-    "formats": [
+    "dimensions": [
       "20 cm"
     ],
     "series": [
@@ -16094,7 +16731,7 @@
       "\u00a9 1994"
     ],
     "extent": "179 S.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -16282,7 +16919,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -16365,12 +17002,18 @@
       }
     ],
     "extent": "24 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
-    "notes": [
-      "Discours prononc\u00e9 \u00e0 la s\u00e9ance solennelle d'ouverture de l'Institut de droit international, \u00e0 Lausanne, le 24 ao\u00fbt 1927",
-      "En t\u00eate du titre: Institut de droit international"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Discours prononc\u00e9 \u00e0 la s\u00e9ance solennelle d'ouverture de l'Institut de droit international, \u00e0 Lausanne, le 24 ao\u00fbt 1927"
+      },
+      {
+        "noteType": "general",
+        "label": "En t\u00eate du titre: Institut de droit international"
+      }
     ]
   },
   {
@@ -16482,8 +17125,16 @@
       "\u00a9 1996"
     ],
     "extent": "XVII, 445 p.",
-    "otherMaterialCharacteristics": "nombr. ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "nombr. ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "29 cm"
     ],
     "subjects": [
@@ -16570,7 +17221,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 [puis] 26 cm"
     ],
     "subjects": [
@@ -16671,8 +17322,8 @@
         ]
       }
     ],
-    "extent": "374 p.",
-    "formats": [
+    "extent": "374 p.,",
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -16781,7 +17432,7 @@
       }
     ],
     "extent": "97 S.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -16884,7 +17535,7 @@
       }
     ],
     "extent": "143 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "subjects": [
@@ -17010,7 +17661,7 @@
       }
     ],
     "extent": "466 S.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ]
   },
@@ -17177,7 +17828,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "37 cm"
     ],
     "series": [
@@ -17312,9 +17963,20 @@
       }
     ],
     "extent": "6 vol.",
-    "otherMaterialCharacteristics": "portr.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "portr."
+      }
+    ],
+    "illustrativeContent": [
+      "portraits"
+    ],
+    "dimensions": [
       "8\u00b0"
+    ],
+    "bookFormat": [
+      "8\u00ba"
     ]
   },
   {
@@ -17449,11 +18111,14 @@
       }
     ],
     "extent": "6, 4, 370 pages",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
-    "notes": [
-      "Texte uniquement en chinois"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Texte uniquement en chinois"
+      }
     ],
     "subjects": [
       "Copyright",
@@ -17626,8 +18291,16 @@
       }
     ],
     "extent": "2 vol. (2425 p.)",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "27 cm"
     ],
     "subjects": [
@@ -17700,7 +18373,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "22 cm"
     ]
   },
@@ -17792,7 +18465,18 @@
       }
     ],
     "extent": "250 S.",
-    "otherMaterialCharacteristics": "35 schw.-w. Ill., 20 schw.-w. Tab"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "35 schw.-w. Ill., 20 schw.-w. Tab"
+      }
+    ],
+    "colorContent": [
+      "rdacc:1002"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ]
   },
   {
     "type": "book",
@@ -17881,8 +18565,16 @@
       }
     ],
     "extent": "XII, 214 p., 104 p. de pl.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "36 cm"
     ],
     "series": [
@@ -17997,7 +18689,7 @@
       }
     ],
     "extent": "448 p.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -18005,9 +18697,15 @@
         "name": "Roman"
       }
     ],
-    "notes": [
-      "Traduit de: Foundation's triumph",
-      "Troisi\u00e8me vol. d'une trilogie inspir\u00e9e par le Cycle de Fondation d'Isaac Asimov; le premier vol., \"Fondation en p\u00e9ril\", est d\u00fb \u00e0 Gregory Benford ; le deuxi\u00e8me vol., \"Fondation et chaos\", est d\u00fb \u00e0 Greg Bear"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Traduit de: Foundation's triumph"
+      },
+      {
+        "noteType": "general",
+        "label": "Troisi\u00e8me vol. d'une trilogie inspir\u00e9e par le Cycle de Fondation d'Isaac Asimov; le premier vol., \"Fondation en p\u00e9ril\", est d\u00fb \u00e0 Gregory Benford ; le deuxi\u00e8me vol., \"Fondation et chaos\", est d\u00fb \u00e0 Greg Bear"
+      }
     ],
     "abstracts": [
       "Roman de science-fiction (space opera)"
@@ -18095,7 +18793,7 @@
       }
     ],
     "extent": "IX, 437 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -18104,8 +18802,11 @@
         "number": "95"
       }
     ],
-    "notes": [
-      "English summary"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "English summary"
+      }
     ],
     "subjects": [
       "r\u00e9serve (clause)",
@@ -18262,8 +18963,16 @@
       }
     ],
     "extent": "109 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -18358,8 +19067,20 @@
       "\u00a9 1999"
     ],
     "extent": "506 S.",
-    "otherMaterialCharacteristics": "Abb.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Abb."
+      },
+      {
+        "noteType": "general",
+        "label": "Buchhandelsausg. der Diss. Frankfurt (Main), 1999"
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -18367,9 +19088,6 @@
         "name": "Europ\u00e4ische Hochschulschriften. Reihe 11, P\u00e4dagogik",
         "number": "Bd. 796"
       }
-    ],
-    "notes": [
-      "Buchhandelsausg. der Diss. Frankfurt (Main), 1999"
     ],
     "subjects": [
       "comp\u00e9tence - d\u00e9veloppement",
@@ -18473,8 +19191,16 @@
       }
     ],
     "extent": "191 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -18542,7 +19268,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "17 cm"
     ]
   },
@@ -18631,7 +19357,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -18730,7 +19456,7 @@
       }
     ],
     "extent": "126 p.",
-    "formats": [
+    "dimensions": [
       "20 cm"
     ],
     "series": [
@@ -18823,7 +19549,7 @@
       }
     ],
     "extent": "S. 279-299",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "is_part_of": "Droit des assurances"
@@ -18934,12 +19660,22 @@
       }
     ],
     "extent": "3 disques compacts en 1 coffret",
-    "otherMaterialCharacteristics": "st\u00e9r\u00e9o (DDD)",
-    "formats": [
-      "12 cm +"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "st\u00e9r\u00e9o (DDD)"
+      },
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 livret"
+      },
+      {
+        "noteType": "general",
+        "label": "Livret de Giovanni Francesco Busenello"
+      }
     ],
-    "notes": [
-      "Livret de Giovanni Francesco Busenello"
+    "dimensions": [
+      "12 cm"
     ]
   },
   {
@@ -19037,7 +19773,7 @@
       }
     ],
     "extent": "161 S.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -19137,7 +19873,7 @@
       }
     ],
     "extent": "70 S.",
-    "formats": [
+    "dimensions": [
       "15 cm"
     ],
     "series": [
@@ -19232,7 +19968,7 @@
       }
     ],
     "extent": "284 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -19327,7 +20063,7 @@
       }
     ],
     "extent": "128 p.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -19434,7 +20170,7 @@
       }
     ],
     "extent": "291 p.",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "series": [
@@ -19521,12 +20257,18 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm [puis] 24 cm"
     ],
-    "notes": [
-      "Les fascicules suivants ne sont pas parus: Jg. 56(2004), H. 3-4 ; Jg. 57(2005) ; Jg. 58(2006), H. 3-4",
-      "D\u00e8s 2011, reprend la num\u00e9rotation du Schweizer Theaterjahrbuch"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Les fascicules suivants ne sont pas parus: Jg. 56(2004), H. 3-4 ; Jg. 57(2005) ; Jg. 58(2006), H. 3-4"
+      },
+      {
+        "noteType": "general",
+        "label": "D\u00e8s 2011, reprend la num\u00e9rotation du Schweizer Theaterjahrbuch"
+      }
     ],
     "subjects": [
       "Th\u00e9\u00e2tre",
@@ -19627,7 +20369,7 @@
       }
     ],
     "extent": "153 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -19714,7 +20456,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "22 cm"
     ]
   },
@@ -19788,11 +20530,14 @@
       }
     ],
     "extent": "2 p.",
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
-    "notes": [
-      "Ed. allemande sous le titre: Reglement der Ethik Kommission der VFA/AFIPA"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Ed. allemande sous le titre: Reglement der Ethik Kommission der VFA/AFIPA"
+      }
     ],
     "subjects": [
       "Association fribourgeoise des institutions pour personnes \u00e2g\u00e9es (Fribourg)",
@@ -19897,7 +20642,7 @@
       }
     ],
     "extent": "248 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ]
   },
@@ -19982,7 +20727,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 [puis] 29 cm"
     ],
     "authors": [
@@ -20077,8 +20822,17 @@
       }
     ],
     "extent": "XVIII, 1067 S.",
-    "otherMaterialCharacteristics": "Ill., graph. Darst.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill., graph. Darst."
+      }
+    ],
+    "illustrativeContent": [
+      "graphs",
+      "illustrations"
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -20157,7 +20911,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "subjects": [
@@ -20286,12 +21040,21 @@
       }
     ],
     "extent": "2 vol. (769, 874 p.)",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
-      "24 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Trad. de: Statisticheskai\ufe20a\ufe21 gidromekhanika"
+      }
     ],
-    "notes": [
-      "Trad. de: Statisticheskai\ufe20a\ufe21 gidromekhanika"
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "24 cm"
     ],
     "subjects": [
       "Fluid mechanics",
@@ -20403,7 +21166,15 @@
       }
     ],
     "extent": "396 S.",
-    "otherMaterialCharacteristics": "Ill."
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ]
   },
   {
     "type": "book",
@@ -20487,12 +21258,25 @@
       }
     ],
     "extent": "[31] f. doubles",
-    "otherMaterialCharacteristics": "ill. en noir et en coul.",
-    "formats": [
-      "35 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill. en noir et en coul."
+      },
+      {
+        "noteType": "general",
+        "label": "Biogr."
+      }
     ],
-    "notes": [
-      "Biogr."
+    "colorContent": [
+      "rdacc:1002",
+      "rdacc:1003"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "35 cm"
     ]
   },
   {
@@ -20599,8 +21383,15 @@
       "\u00a9 2017"
     ],
     "extent": "1 disque compact +",
-    "notes": [
-      "Inhalt: Mrs Dalloway ; Orlando ; The waves"
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 livret"
+      },
+      {
+        "noteType": "general",
+        "label": "Inhalt: Mrs Dalloway ; Orlando ; The waves"
+      }
     ],
     "subjects": [
       "Woolf, Virginia",
@@ -20683,11 +21474,14 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
-    "notes": [
-      "Editeur depuis 2019: Bad Heilbrunn : Julius Klinkhardt"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Editeur depuis 2019: Bad Heilbrunn : Julius Klinkhardt"
+      }
     ],
     "subjects": [
       "Formation professionnelle",
@@ -20780,8 +21574,16 @@
       "\u00a9 1999"
     ],
     "extent": "176 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "33 cm"
     ],
     "subjects": [
@@ -20882,8 +21684,16 @@
       "\u00a9 1981"
     ],
     "extent": "118 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "23 cm"
     ],
     "subjects": [
@@ -20981,11 +21791,17 @@
       }
     ],
     "extent": "3 vol. ([4], II, [2], 327 p.) ([4], II, 357 p.) ([4], II, 380, [2] p.)",
-    "formats": [
+    "dimensions": [
       "12\u00b0 (17 cm)"
     ],
-    "notes": [
-      "L'auteur est Jean-Bernard Le Blanc"
+    "bookFormat": [
+      "12\u00ba"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "L'auteur est Jean-Bernard Le Blanc"
+      }
     ],
     "electronicLocator": [
       {
@@ -21128,8 +21944,11 @@
       }
     ],
     "extent": "136 p. 22 cm",
-    "notes": [
-      "Titre en fran\u00e7ais: R\u00e9diger en arabe"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Titre en fran\u00e7ais: R\u00e9diger en arabe"
+      }
     ],
     "subjects": [
       "Arabe (langue)",
@@ -21375,8 +22194,16 @@
       "\u00a9 1971"
     ],
     "extent": "148 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "34 cm"
     ],
     "subjects": [
@@ -21459,7 +22286,7 @@
       }
     ],
     "extent": "P. 177-222",
-    "formats": [
+    "dimensions": [
       "27 cm"
     ],
     "subjects": [
@@ -21577,7 +22404,7 @@
       }
     ],
     "extent": "1 PARTITION (47 p.)",
-    "formats": [
+    "dimensions": [
       "30 cm"
     ]
   },
@@ -21664,7 +22491,7 @@
       }
     ],
     "extent": "202 p.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -21765,7 +22592,7 @@
       }
     ],
     "extent": "198 p.",
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "series": [
@@ -21866,8 +22693,16 @@
       }
     ],
     "extent": "X, 267 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "22 cm"
     ],
     "subjects": [
@@ -21964,8 +22799,14 @@
       }
     ],
     "extent": "12 compact discs dans 2 embo\u00eetages (14h51)",
-    "notes": [
-      "Unabridged"
+    "duration": [
+      "(14h51)"
+    ],
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Unabridged"
+      }
     ]
   },
   {
@@ -22050,7 +22891,7 @@
       }
     ],
     "extent": "282 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -22212,8 +23053,27 @@
       }
     ],
     "extent": "27, 120 pages",
-    "otherMaterialCharacteristics": "illustrations (chiefly color)",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "illustrations (chiefly color)"
+      },
+      {
+        "noteType": "general",
+        "label": "Catalogue for the exhibition held at the Israel Museum, Jerusalem, December 2016-April 2017"
+      },
+      {
+        "noteType": "general",
+        "label": "The artists whose works are united in this exhibition come from three different continents, and their combined lifetimes span the breadth of the twentieth century... They grew out of their own disparate backgrounds and settings, and yet they were fiercely individualistic... And today, all of them... are acknowledged as important figures in the history of twentieth-century art, whose influence on younger generations of artists would come to be substantial.--Foreword, page 5"
+      }
+    ],
+    "colorContent": [
+      "rdacc:1003"
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "27 cm"
     ],
     "series": [
@@ -22221,10 +23081,6 @@
         "name": "\u1e32a\u1e6d.",
         "number": "mis. 646"
       }
-    ],
-    "notes": [
-      "Catalogue for the exhibition held at the Israel Museum, Jerusalem, December 2016-April 2017",
-      "The artists whose works are united in this exhibition come from three different continents, and their combined lifetimes span the breadth of the twentieth century... They grew out of their own disparate backgrounds and settings, and yet they were fiercely individualistic... And today, all of them... are acknowledged as important figures in the history of twentieth-century art, whose influence on younger generations of artists would come to be substantial.--Foreword, page 5"
     ],
     "subjects": [
       "Clark, Lygia,",
@@ -22331,7 +23187,7 @@
       }
     ],
     "extent": "216 S.",
-    "formats": [
+    "dimensions": [
       "22,5 cm"
     ],
     "series": [
@@ -22426,8 +23282,11 @@
       }
     ],
     "extent": "90 p., 4 f. de pl.",
-    "notes": [
-      "Seul le vol. 1 portant le titre \"Grundlinien einer Theorie der Pflanzenzelle\" a paru"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Seul le vol. 1 portant le titre \"Grundlinien einer Theorie der Pflanzenzelle\" a paru"
+      }
     ],
     "subjects": [
       "Cellules v\u00e9g\u00e9tales"
@@ -22515,7 +23374,7 @@
       }
     ],
     "extent": "152 p.",
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -22612,7 +23471,7 @@
       }
     ],
     "extent": "235 p.",
-    "formats": [
+    "dimensions": [
       "20 cm"
     ]
   },
@@ -22694,8 +23553,16 @@
       }
     ],
     "extent": "P. 57-76",
-    "otherMaterialCharacteristics": "fig.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "fig."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "27 cm"
     ],
     "subjects": [
@@ -22939,8 +23806,14 @@
       }
     ],
     "extent": "1 partition (XVIII, 125 p.)",
-    "formats": [
-      "33 cm +"
+    "dimensions": [
+      "33 cm"
+    ],
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 vol. de notes (61 p.) ; 24 cm"
+      }
     ]
   },
   {
@@ -23055,8 +23928,16 @@
       }
     ],
     "extent": "3 vol.",
-    "otherMaterialCharacteristics": "Ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "30 cm"
     ],
     "authors": [
@@ -23148,8 +24029,16 @@
       }
     ],
     "extent": "[26] p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -23265,7 +24154,7 @@
       "\u00a9 1977"
     ],
     "extent": "1 PARTITION (19 S.)",
-    "formats": [
+    "dimensions": [
       "31 cm"
     ],
     "series": [
@@ -23375,7 +24264,7 @@
       }
     ],
     "extent": "238 p.",
-    "formats": [
+    "dimensions": [
       "22 cm"
     ],
     "series": [
@@ -23457,7 +24346,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "23 cm"
     ]
   },
@@ -23563,12 +24452,18 @@
       "\u00a9 1972"
     ],
     "extent": "306 p.",
-    "otherMaterialCharacteristics": "tabl.",
-    "formats": [
-      "22 cm"
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "tabl."
+      },
+      {
+        "noteType": "general",
+        "label": "Trad. de: The Lingusitic sciences and language teaching"
+      }
     ],
-    "notes": [
-      "Trad. de: The Lingusitic sciences and language teaching"
+    "dimensions": [
+      "22 cm"
     ],
     "subjects": [
       "Linguistique",
@@ -23684,7 +24579,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "30 cm"
     ],
     "subjects": [
@@ -23776,7 +24671,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "subjects": [
@@ -23876,7 +24771,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -23976,7 +24871,7 @@
       }
     ],
     "extent": "XIII, 678 p.",
-    "formats": [
+    "dimensions": [
       "21 cm"
     ],
     "series": [
@@ -24070,7 +24965,15 @@
       }
     ],
     "extent": "346 p.",
-    "otherMaterialCharacteristics": "ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "series": [
       {
         "name": "Cambridge language teaching library"
@@ -24265,7 +25168,7 @@
       }
     ],
     "extent": "XIV, 270 p.",
-    "formats": [
+    "dimensions": [
       "25 cm"
     ],
     "subjects": [
@@ -24436,8 +25339,14 @@
       "\u00a9 1997"
     ],
     "extent": "1 partition (13 p.)",
-    "formats": [
-      "30 cm +"
+    "dimensions": [
+      "30 cm"
+    ],
+    "note": [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 mat\u00e9riel d'orchestre"
+      }
     ],
     "authors": [
       {
@@ -24526,7 +25435,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "24 cm"
     ],
     "subjects": [
@@ -24620,8 +25529,16 @@
       }
     ],
     "extent": "271 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "28 cm"
     ],
     "authors": [
@@ -24719,7 +25636,7 @@
       "\u00a9 1999"
     ],
     "extent": "XX, 214 p.",
-    "formats": [
+    "dimensions": [
       "23 cm"
     ],
     "series": [
@@ -24829,9 +25746,15 @@
       }
     ],
     "extent": "1 DVD-vid\u00e9o",
-    "notes": [
-      "Une coprod.: Liaison Cin\u00e9matographique / Samsa Film, 2010",
-      "Dur\u00e9e du film: 92 min."
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Une coprod.: Liaison Cin\u00e9matographique / Samsa Film, 2010"
+      },
+      {
+        "noteType": "general",
+        "label": "Dur\u00e9e du film: 92 min."
+      }
     ],
     "abstracts": [
       "Com\u00e9die"
@@ -24921,8 +25844,16 @@
       }
     ],
     "extent": "32 p.",
-    "otherMaterialCharacteristics": "ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "23x29 cm"
     ]
   },
@@ -25023,7 +25954,7 @@
       }
     ],
     "extent": "149 S.",
-    "formats": [
+    "dimensions": [
       "19 cm"
     ],
     "series": [
@@ -25144,7 +26075,7 @@
         ]
       }
     ],
-    "formats": [
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -25152,9 +26083,15 @@
         "name": "Oeuvres / de saint Augustin"
       }
     ],
-    "notes": [
-      "Traduit de: Tractatus in Evangelium Joannis",
-      "Texte latin et trad. fran\u00e7aise en regard"
+    "note": [
+      {
+        "noteType": "general",
+        "label": "Traduit de: Tractatus in Evangelium Joannis"
+      },
+      {
+        "noteType": "general",
+        "label": "Texte latin et trad. fran\u00e7aise en regard"
+      }
     ],
     "subjects": [
       "Augustin",
@@ -25330,7 +26267,15 @@
       }
     ],
     "extent": "488 p.",
-    "otherMaterialCharacteristics": "ill.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
     "series": [
       {
         "name": "O Instituto do Mil\u00eanio do Semi \u00c1rido (IMSEAR), Brasil (2002-2006)",
@@ -25454,8 +26399,16 @@
       }
     ],
     "extent": "215 S.",
-    "otherMaterialCharacteristics": "Ill.",
-    "formats": [
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Ill."
+      }
+    ],
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
       "18 cm"
     ],
     "series": [
@@ -25581,7 +26534,7 @@
       "\u00a9 2000"
     ],
     "extent": "32 S.",
-    "formats": [
+    "dimensions": [
       "17 cm"
     ],
     "subjects": [

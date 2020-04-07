@@ -240,7 +240,7 @@ def test_provisionActivity(document_schema, document_data_tmp):
 
 def test_extent(document_schema, document_data_tmp):
     """Test extent for jsonschemas."""
-    document_data_tmp['extent'] = '117'
+    document_data_tmp['extent'] = '1 DVD-R (50 min.)'
 
     validate(document_data_tmp, document_schema)
 
@@ -249,37 +249,69 @@ def test_extent(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_otherMaterialCharacteristics(
-        document_schema, document_data_tmp):
-    """Test otherMaterialCharacteristics for jsonschemas."""
-    document_data_tmp['otherMaterialCharacteristics'] = 'ill.'
+def test_duration(document_schema, document_data_tmp):
+    """Test duration for jsonschemas."""
+    document_data_tmp['duration'] = ['(50 min.)']
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['otherMaterialCharacteristics'] = [2]
+        document_data_tmp['duration'] = [2]
         validate(document_data_tmp, document_schema)
 
 
-def test_formats(document_schema, document_data_tmp):
-    """Test formats for jsonschemas."""
-    document_data_tmp['formats'] = ['15 x 22 cm']
+def test_production_method(document_schema, document_data_tmp):
+    """Test productionMethod for jsonschemas."""
+    document_data_tmp['productionMethod'] = ['rdapm:1007']
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['formats'] = 'string is a bad type'
+        document_data_tmp['productionMethod'] = [2]
         validate(document_data_tmp, document_schema)
 
 
-def test_additionalMaterials(document_schema, document_data_tmp):
-    """Test additionalMaterials for jsonschemas."""
-    document_data_tmp['additionalMaterials'] = '1 CD-ROM'
+def test_illustrative_content(document_schema, document_data_tmp):
+    """Test illustrativeContent for jsonschemas."""
+    document_data_tmp['illustrativeContent'] = ['illustrations']
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['additionalMaterials'] = 2
+        document_data_tmp['illustrativeContent'] = [2]
+        validate(document_data_tmp, document_schema)
+
+
+def test_color_content(document_schema, document_data_tmp):
+    """Test colorContent for jsonschemas."""
+    document_data_tmp['colorContent'] = ['rdacc:1002']
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['colorContent'] = [2]
+        validate(document_data_tmp, document_schema)
+
+
+def test_book_format(document_schema, document_data_tmp):
+    """Test bookFormat for jsonschemas."""
+    document_data_tmp['bookFormat'] = ['8º']
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['bookFormat'] = [2]
+        validate(document_data_tmp, document_schema)
+
+
+def test_dimensions(document_schema, document_data_tmp):
+    """Test dimensions for jsonschemas."""
+    document_data_tmp['dimensions'] = ['in-8, 22 cm']
+
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['dimensions'] = [2]
         validate(document_data_tmp, document_schema)
 
 
@@ -307,14 +339,17 @@ def test_series(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_notes(document_schema, document_data_tmp):
-    """Test notes for jsonschemas."""
-    document_data_tmp['notes'] = ["Photo de l'auteur sur le 4e de couv."]
+def test_note(document_schema, document_data_tmp):
+    """Test note for jsonschemas."""
+    document_data_tmp['note'] = [{
+        'noteType': 'otherPhysicalDetails',
+        'label': 'litho Ill.en n. et bl.'
+    }]
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['notes'][0] = 2
+        document_data_tmp['note'][0] = 2
         validate(document_data_tmp, document_schema)
 
 
