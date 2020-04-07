@@ -23,8 +23,8 @@ import re
 import requests
 from dojson import utils
 
-from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
-    build_responsibility_data, error_print, \
+from rero_ils.dojson.utils import BookFormatExtraction, ReroIlsMarc21Overdo, \
+    TitlePartList, add_note, build_responsibility_data, error_print, \
     extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
     get_field_link_data, make_year, not_repetitive, \
     remove_trailing_punctuation
@@ -464,33 +464,28 @@ def marc21_to_provisionActivity(self, key, value):
     return publication or None
 
 
-@marc21.over('formats', '^300..')
+@marc21.over('extent', '^300..')
 @utils.ignore_value
 def marc21_to_description(self, key, value):
-    """Get extent, otherMaterialCharacteristics, formats.
+    """Get physical description.
 
-    extent: 300$a (the first one if many)
-    otherMaterialCharacteristics: 300$b (the first one if many)
-    formats: 300 [$c repetitive]
+    Extract:
+        - extent
+        - duration
+        - colorContent
+        - productionMethod
+        - illustrativeContent
+        - note of type otherPhysicalDetails and accompanyingMaterial
+        - book_formats
+        - dimensions
+
+    300 [$a repetitive]: extent, duration:
+    300 [$a non repetitive]: colorContent, productionMethod,
+        illustrativeContent, note of type otherPhysicalDetails
+    300 [$c repetitive]: dimensions, book_formats
     """
-    if value.get('a'):
-        if not self.get('extent', None):
-            self['extent'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, key, value, 'a')
-            )
-    if value.get('b'):
-        if self.get('otherMaterialCharacteristics', []) == []:
-            self['otherMaterialCharacteristics'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, key, value, 'b')
-            )
-    if value.get('c'):
-        formats = self.get('formats', None)
-        if not formats:
-            data = value.get('c')
-            formats = list(utils.force_list(data))
-        return formats
-    else:
-        return None
+    marc21.extract_description_from_marc_field(key, value, self)
+    return None
 
 
 @marc21.over('series', '^490..')
@@ -855,7 +850,7 @@ def marc21_to_identifiedBy_from_field_930(self, key, value):
     return identifiedBy or None
 
 
-@marc21.over('notes', '^500..')
+@marc21.over('note', '^500..')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_notes(self, key, value):
@@ -863,7 +858,14 @@ def marc21_to_notes(self, key, value):
 
     note: [500$a repetitive]
     """
-    return not_repetitive(marc21.bib_id, key, value, 'a')
+    add_note(
+        dict(
+            noteType='general',
+            label=not_repetitive(marc21.bib_id, key, value, 'a')
+        ),
+        self)
+
+    return None
 
 
 @marc21.over('is_part_of', '^773..')

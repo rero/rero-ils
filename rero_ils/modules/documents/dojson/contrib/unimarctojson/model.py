@@ -25,7 +25,7 @@ from dojson.utils import force_list
 from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
-    get_field_items, make_year, remove_trailing_punctuation
+    add_note, get_field_items, make_year, remove_trailing_punctuation
 
 unimarc = ReroIlsUnimarcOverdo()
 
@@ -367,33 +367,29 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     return publication or None
 
 
-@unimarc.over('formats', '^215..')
+@unimarc.over('extent', '^215..')
 @utils.ignore_value
 def unimarc_description(self, key, value):
-    """Get extent, otherMaterialCharacteristics, formats.
+    """Get physical description.
 
-    extent: 215$a (the first one if many)
-    otherMaterialCharacteristics: 215$b (the first one if many)
-    formats: 215 [$c repetitive]
+    Extract:
+    - extent
+    - duration
+    - colorContent
+    - productionMethod
+    - illustrativeContent
+    - note of type otherPhysicalDetails and accompanyingMaterial
+    - book_formats
+    - dimensions
+
+    215 [$a repetitive (the first one if many)]: extent, duration:
+    215 [$c non repetitive]: colorContent, productionMethod,
+        illustrativeContent, note of type otherPhysicalDetails
+    215 [$d repetitive]: dimensions, book_formats
+    215 [$e repetitive]: accompanying material note
     """
-    if value.get('a'):
-        if not self.get('extent', None):
-            self['extent'] = (
-                utils.force_list(value.get('a'))[0]
-            )
-    if value.get('c'):
-        if self.get('otherMaterialCharacteristics', []) == []:
-            self['otherMaterialCharacteristics'] = (
-                utils.force_list(value.get('c'))[0]
-            )
-    if value.get('d'):
-        formats = self.get('formats', None)
-        if not formats:
-            data = value.get('d')
-            formats = list(utils.force_list(data))
-        return formats
-    else:
-        return None
+    unimarc.extract_description_from_marc_field(key, value, self)
+    return None
 
 
 @unimarc.over('series', '^225..')
@@ -448,7 +444,7 @@ def unimarc_identifier_isbn(self, key, value):
     return identifiers
 
 
-@unimarc.over('notes', '^300..')
+@unimarc.over('note', '^300..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_notes(self, key, value):
@@ -456,7 +452,14 @@ def unimarc_notes(self, key, value):
 
     note: [300$a repetitive]
     """
-    return value.get('a', '')
+    add_note(
+        dict(
+            noteType='general',
+            label=value.get('a', '')
+        ),
+        self)
+
+    return None
 
 
 @unimarc.over('subjects', '^6((0[0-9])|(1[0-7]))..')

@@ -143,11 +143,11 @@ def test_marc21_to_extent():
 def test_marc21_to_description():
     """Test description transformation.
 
-    Transformation of extent: 300$a
-    Transformation of otherMaterialCharacteristics: 300$b
-    Transformation of formats: 300 $c
+    300 [$a repetitive]: extent, duration:
+    300 [$a non repetitive]: colorContent, productionMethod,
+        illustrativeContent, note of type otherPhysicalDetails
+    300 [$c rep
     """
-
     marc21xml = """
     <record>
       <datafield tag="300" ind1=" " ind2=" ">
@@ -160,8 +160,6 @@ def test_marc21_to_description():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm']
 
     marc21xml = """
     <record>
@@ -181,8 +179,6 @@ def test_marc21_to_description():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
-    assert data.get('formats') == ['22 cm', '12 x 15']
 
     marc21xml = """
     <record>
@@ -196,7 +192,6 @@ def test_marc21_to_description():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('extent') == '116 p.'
-    assert data.get('otherMaterialCharacteristics') == 'ill.'
 
 
 def test_marc21_to_series():
@@ -249,7 +244,14 @@ def test_marc21_to_notes():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('notes') == ['note 1', 'note 2']
+    assert data.get('note') == [{
+            'noteType': 'general',
+            'label': 'note 1'
+        }, {
+            'noteType': 'general',
+            'label': 'note 2'
+        }
+    ]
 
 
 def test_marc21_to_abstracts():
