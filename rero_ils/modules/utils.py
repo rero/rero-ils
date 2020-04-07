@@ -124,6 +124,23 @@ def get_record_class_update_permission_from_route(route_name):
             return record_class, update_permission, delete_permission
 
 
+def get_endpoint_configuration(module):
+    """Search into configuration file to find configuration for a module.
+
+    :param module: name of module (class name or endpoint name or module name)
+    :return: The configuration dictionary of the resource. 'None' if resource
+             is not found.
+    """
+    if not isinstance(module, str):
+        # Get the pid_type for the class
+        module = module.provider.pid_type
+    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS', {})
+    for idx, endpoint in endpoints.items():
+        search_index = endpoint.get('search_index')
+        if search_index == module or idx == module:
+            return endpoint
+
+
 def get_ref_for_pid(module, pid):
     """Get the $ref for a pid.
 
@@ -131,22 +148,62 @@ def get_ref_for_pid(module, pid):
     :param pid: pid for record
     :return: url for record
     """
-    if not isinstance(module, str):
-        # Get the pid_type for the class
-        module = module.provider.pid_type
-    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
-    for endpoint in endpoints:
-        search_index = endpoints[endpoint].get('search_index')
-        # Try to find module in entpoints or entpoints.serch_index
-        if search_index == module or endpoint == module:
-            list_route = endpoints[endpoint].get('list_route')
-            if list_route:
-                return '{url}/api{route}{pid}'.format(
-                    url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
-                    route=list_route,
-                    pid=pid
-                )
-    return None
+    configuration = get_endpoint_configuration(module)
+    if configuration and configuration.get('list_route'):
+        return '{url}/api{route}{pid}'.format(
+            url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+            route=configuration.get('list_route'),
+            pid=pid
+        )
+
+
+def extracted_data_from_ref(input, data='pid'):
+    """Extract a data from a `$ref` string.
+
+    :param input: string where to search data, or a dict containing '$ref' key
+    :param data: the data to found. Allowed values are :
+        * 'pid': the pid from the input
+        * 'resource': the resource search_index from input
+        * 'record_class': the record class to used to manage the input
+        * 'record': the record represented by the input
+
+    USAGE :
+      * extract_pid_from_ref('http://localhost/[resource]/[pid]', data='pid')
+      * extract_pid_from_ref({'$ref': 'http://localhost/[resource]/[pid]'})
+    """
+
+    def extract_part(input_string, idx=0):
+        """Extract part of a $ref string."""
+        parts = input_string.split('/')
+        if len(parts) > abs(idx):
+            return input_string.split('/')[idx]
+
+    def get_record_class():
+        """Search about a record_class name for a $ref URI."""
+        resource_list = extracted_data_from_ref(input, data='resource')
+        if resource_list is None:
+            return None
+        configuration = get_endpoint_configuration(resource_list)
+        if configuration and configuration.get('record_class'):
+            return obj_or_import_string(configuration.get('record_class'))
+
+    def get_record():
+        """Try to load a resource corresponding to a $ref URI."""
+        pid = extracted_data_from_ref(input, data='pid')
+        record_class = extracted_data_from_ref(input, data='record_class')
+        if record_class and pid:
+            return record_class.get_record_by_pid(pid)
+
+    if isinstance(input, str):
+        input = {'$ref': input}
+    switcher = {
+        'pid': lambda: extract_part(input.get('$ref'), -1),
+        'resource': lambda: extract_part(input.get('$ref'), -2),
+        'record_class': get_record_class,
+        'record': get_record
+    }
+    if data in switcher:
+        return switcher.get(data)()
 
 
 def add_years(initial_date, years):

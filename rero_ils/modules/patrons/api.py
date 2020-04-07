@@ -37,7 +37,8 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patron_transactions.api import PatronTransaction
 from ..providers import Provider
-from ..utils import get_ref_for_pid, trim_barcode_for_record
+from ..utils import extracted_data_from_ref, get_ref_for_pid, \
+    trim_barcode_for_record
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
@@ -404,3 +405,17 @@ class PatronsIndexer(IlsRecordsIndexer):
             })
             self['subscriptions'] = subscriptions
             self.update(self, dbcommit=dbcommit, reindex=reindex)
+
+    def get_pending_subscriptions(self):
+        """Get the pending subscriptions for a patron."""
+        # Not need to use a generator to get pending subscriptions.
+        # In a normal process, the maximum number of subscriptions for a patron
+        # is two : current subscription and possibly next one.
+        pending_subs = []
+        for sub in self.get('subscriptions', []):
+            trans_pid = extracted_data_from_ref(
+                sub['patron_transaction'], data='pid')
+            transaction = PatronTransaction.get_record_by_pid(trans_pid)
+            if transaction.status == 'open':
+                pending_subs.append(sub)
+        return pending_subs
