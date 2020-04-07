@@ -21,6 +21,14 @@
 {%- block body %}
 {% include('rero_ils/_patron_profile_head.html') %}
 
+<section>
+  {% for key, data in alerts.items() %}
+    {% for message in data['messages'] %}
+      <div class="alert alert-{{ data['level'] }}" role="alert">{{ message }}</div>
+    {% endfor %}
+  {% endfor %}
+</section>
+
 <article class="mt-4">
   <header>
     <nav>
@@ -52,6 +60,7 @@
       </ul>
     </nav>
   </header>
+
   <article class="tab-content">
     <section {% if tab == 'checkouts' %}class="tab-pane show active py-2"{%else%}class="tab-pane show py-2"{% endif %} id="checkouts" role="tabpanel" aria-labelledby="checkouts-tab">
       {% if checkouts|length > 0 %}
