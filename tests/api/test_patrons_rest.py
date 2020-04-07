@@ -28,7 +28,9 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
 
 def test_patrons_shortcuts(
@@ -68,7 +70,7 @@ def test_filtered_patrons_get(
 
 
 def test_patron_has_valid_subscriptions(
-        patron_type_grown_sion, patron_sion_no_email,
+        patron_type_grown_sion, patron_sion_no_email, patron_sion_data,
         patron_type_adults_martigny, patron2_martigny_no_email,
         patron_type_youngsters_sion):
     """Test patron subscriptions."""
@@ -140,6 +142,56 @@ def test_patron_has_valid_subscriptions(
     end_date = end - timedelta(days=100)
     patrons = list(Patron.patrons_with_obsolete_subscription_pids(end_date))
     assert len(patrons) == 0
+
+    # Reset the patron as at the beginning
+    del patron_sion['subscriptions']
+    start = datetime.now()
+    end = datetime.now() + timedelta(days=10)
+    patron_sion.add_subscription(patron_type_grown_sion, start, end)
+
+
+def test_patron_pending_subscription(client, patron_type_grown_sion,
+                                     patron_sion_no_email,
+                                     librarian_sion_no_email,
+                                     patron_transaction_overdue_event_martigny,
+                                     lib_sion):
+    """Test get pending subscription for patron."""
+    # At the beginning, `patron_sion_no_email` should have one pending
+    # subscription.
+    pending_subscription = patron_sion_no_email.get_pending_subscriptions()
+    assert len(pending_subscription) == 1
+
+    # Pay this subscription.
+    login_user_via_session(client, librarian_sion_no_email.user)
+    post_entrypoint = 'invenio_records_rest.ptre_list'
+    trans_pid = extracted_data_from_ref(
+        pending_subscription[0]['patron_transaction'], data='pid'
+    )
+    transaction = PatronTransaction.get_record_by_pid(trans_pid)
+    payment = deepcopy(patron_transaction_overdue_event_martigny)
+    del payment['pid']
+    payment['type'] = 'payment'
+    payment['subtype'] = 'cash'
+    payment['amount'] = transaction.total_amount
+    payment['operator'] = {
+        '$ref': get_ref_for_pid(
+            'patrons', librarian_sion_no_email.pid
+        )
+    }
+    payment['library'] = {
+        '$ref': get_ref_for_pid('libraries', lib_sion.pid)
+    }
+    payment['parent'] = pending_subscription[0]['patron_transaction']
+    res, _ = postdata(client, post_entrypoint, payment)
+    assert res.status_code == 201
+    transaction = PatronTransaction.get_record_by_pid(transaction.pid)
+    assert transaction.status == 'closed'
+
+    # reload the patron and check the pending subscription. As we paid the
+    # previous subscription, there will be none pending subscription
+    patron_sion_no_email = Patron.get_record_by_pid(patron_sion_no_email.pid)
+    pending_subscription = patron_sion_no_email.get_pending_subscriptions()
+    assert len(pending_subscription) == 0
 
 
 def test_patrons_permissions(client, librarian_martigny_no_email,
