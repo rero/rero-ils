@@ -20,9 +20,10 @@
 import os
 from datetime import datetime
 
+from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.utils import add_years, get_schema_for_resource, \
-    read_json_record
+from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
+    get_endpoint_configuration, get_schema_for_resource, read_json_record
 from rero_ils.utils import unique_list
 
 
@@ -63,3 +64,31 @@ def test_get_schema_for_resources(app):
     json_schema = 'https://ils.rero.ch/schema/patrons/patron-v0.0.1.json'
     assert get_schema_for_resource(Patron) == json_schema
     assert get_schema_for_resource('ptrn') == json_schema
+
+
+def test_get_endpoint_configuration(app):
+    """Test get_endpoint_configuration."""
+    assert get_endpoint_configuration('loc')['pid_type'] == 'loc'
+    assert get_endpoint_configuration('locations')['pid_type'] == 'loc'
+    assert get_endpoint_configuration(PatronType)['pid_type'] == 'ptty'
+    assert get_endpoint_configuration('dummy') is None
+
+
+def test_extract_data_from_ref(app, patron_sion_data,
+                               patron_type_grown_sion):
+    """Test extract_data_from_ref."""
+    # Check real data
+    ptty = patron_sion_data['patron_type']
+    print(ptty)
+    assert extracted_data_from_ref(ptty, data='pid') == 'ptty4'
+    assert extracted_data_from_ref(ptty, data='resource') == 'patron_types'
+    assert extracted_data_from_ref(ptty, data='record_class') == PatronType
+    ptty_record = extracted_data_from_ref(ptty, data='record')
+    assert ptty_record.pid == patron_type_grown_sion.pid
+
+    # check dummy data
+    assert extracted_data_from_ref('dummy_data', data='pid') is None
+    assert extracted_data_from_ref('dummy_data', data='resource') is None
+    assert extracted_data_from_ref('dummy_data', data='record_class') is None
+    assert extracted_data_from_ref('dummy_data', data='record') is None
+    assert extracted_data_from_ref(ptty, data='dummy') is None

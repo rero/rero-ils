@@ -133,10 +133,27 @@ def profile(viewcode):
 
     checkouts, requests, history = patron_profile_loans(patron.pid)
 
+    # patron alert list
+    #   each alert dictionary key represent an alert category (subscription,
+    #   fees, blocked, ...). For each category, we define a bootstrap level
+    #   (https://getbootstrap.com/docs/4.0/components/alerts/) and a list of
+    #   message. Each message will be displayed into a separate alert box.
+    alerts = {}
+    pending_subscriptions = patron.get_pending_subscriptions()
+    if pending_subscriptions:
+        alerts['subscriptions'] = {
+            'messages': map(
+                lambda sub: _('You have a pending subscription fee.'),
+                pending_subscriptions
+            ),
+            'level': 'warning'  # bootstrap alert level
+        }
+
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
         checkouts=checkouts,
+        alerts=alerts,
         pendings=requests,
         history=history,
         viewcode=viewcode,
