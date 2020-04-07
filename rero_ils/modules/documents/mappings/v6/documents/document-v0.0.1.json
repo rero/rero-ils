@@ -395,13 +395,22 @@
         "extent": {
           "type": "text"
         },
-        "otherMaterialCharacteristics": {
+        "bookFormat": {
           "type": "text"
         },
-        "formats": {
+        "dimensions": {
           "type": "text"
         },
-        "additionalMaterials": {
+        "illustrativeContent": {
+          "type": "text"
+        },
+        "colorContent": {
+          "type": "text"
+        },
+        "productionMethod": {
+          "type": "text"
+        },
+        "duration": {
           "type": "text"
         },
         "series": {
@@ -438,24 +447,32 @@
             }
           }
         },
-        "notes": {
-          "type": "text",
-          "fields": {
-            "eng": {
+        "note": {
+          "type": "object",
+          "properties": {
+            "label": {
               "type": "text",
-              "analyzer": "english"
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
-            "fre": {
-              "type": "text",
-              "analyzer": "french"
-            },
-            "ger": {
-              "type": "text",
-              "analyzer": "german"
-            },
-            "ita": {
-              "type": "text",
-              "analyzer": "italian"
+            "noteType": {
+              "type": "keyword"
             }
           }
         },
