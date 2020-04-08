@@ -133,6 +133,15 @@ class Location(IlsRecord):
         library = Library.get_record_by_pid(self.library_pid)
         return library.organisation_pid
 
+    def transaction_location_validator(self, location_pid):
+        """Validate that the given transaction location PID is valid.
+
+        Add additional validation later if needed.
+
+        :param location_pid: location pid to validate.
+        :returns: True if valid location otherwise false.
+        """
+        return Location.record_pid_exists(location_pid)
 
 class LocationsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""

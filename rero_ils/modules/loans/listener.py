@@ -33,7 +33,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index == '-'.join(
-            [current_circulation.loan_search.Meta.index, doc_type]):
+            [current_circulation.loan_search_cls.Meta.index, doc_type]):
         item = Item.get_record_by_pid(record.get('item_pid'))
         json['library_pid'] = item.holding_library_pid
 

@@ -240,7 +240,7 @@ class Patron(IlsRecord):
 
     def get_number_of_loans(self):
         """Get number of loans."""
-        search = current_circulation.loan_search
+        search = current_circulation.loan_search_cls
         search = search.filter("term", patron_pid=self.pid)
         exclude_states = ['CANCELLED', 'ITEM_RETURNED']
         search = search.exclude("terms", state=exclude_states)
@@ -413,6 +413,16 @@ class Patron(IlsRecord):
             if transaction.status == 'open':
                 pending_subs.append(sub)
         return pending_subs
+
+    def transaction_user_validator(self, user_pid):
+        """Validate that the given transaction user PID is valid.
+
+        Add additional validation later if needed.
+
+        :param user_pid: user pid to validate.
+        :returns: True if valid user otherwise false.
+        """
+        return Patron.record_pid_exists(user_pid)
 
 
 class PatronsIndexer(IlsRecordsIndexer):
