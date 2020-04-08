@@ -31,7 +31,7 @@ from rero_ils.modules.loans.utils import get_default_loan_duration
 
 def test_loan_es_mapping(es_clear, db):
     """Test loans elasticsearch mapping."""
-    search = current_circulation.loan_search
+    search = current_circulation.loan_search_cls
     mapping = get_mapping(search.Meta.index)
     assert mapping == get_mapping(search.Meta.index)
 
