@@ -37,7 +37,7 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
     ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
-    PendingToItemInTransitPickup, ToItemOnLoan
+    PendingToItemInTransitPickup, ToItemOnLoan, ToCancelled
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .modules.acq_accounts.api import AcqAccount
@@ -1601,6 +1601,12 @@ CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = Item.get_items_pid_by_document_pid
 
 CIRCULATION_DOCUMENT_EXISTS = Document.get_record_by_pid
 CIRCULATION_ITEM_REF_BUILDER = Loan.loan_build_item_ref
+CIRCULATION_PATRON_REF_BUILDER = Loan.loan_build_patron_ref
+CIRCULATION_DOCUMENT_REF_BUILDER = Loan.loan_build_document_ref
+CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = \
+    Location.transaction_location_validator
+CIRCULATION_TRANSACTION_USER_VALIDATOR = \
+    Patron.transaction_user_validator
 
 # This is needed for absolute URL (url_for)
 # SERVER_NAME = 'localhost:5000'
@@ -1661,7 +1667,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
              transition=PendingToItemInTransitPickup,
              trigger='validate_request'),
         dict(dest='ITEM_ON_LOAN', transition=ToItemOnLoan, trigger='checkout'),
-        dict(dest='CANCELLED', trigger='cancel')
+        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_AT_DESK': [
         dict(
@@ -1669,11 +1675,11 @@ CIRCULATION_LOAN_TRANSITIONS = {
             transition=ItemAtDeskToItemOnLoan,
             trigger='checkout'
         ),
-        dict(dest='CANCELLED', trigger='cancel')
+        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [
         dict(dest='ITEM_AT_DESK', trigger='receive'),
-        dict(dest='CANCELLED', trigger='cancel')
+        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_ON_LOAN': [
         dict(dest='ITEM_RETURNED',
@@ -1682,12 +1688,12 @@ CIRCULATION_LOAN_TRANSITIONS = {
              transition=ItemOnLoanToItemInTransitHouse, trigger='checkin'),
         dict(dest='ITEM_ON_LOAN', transition=ItemOnLoanToItemOnLoan,
              trigger='extend'),
-        dict(dest='CANCELLED', trigger='cancel')
+        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_TO_HOUSE': [
         dict(dest='ITEM_RETURNED',
              transition=ItemInTransitHouseToItemReturned, trigger='receive'),
-        dict(dest='CANCELLED', trigger='cancel')
+        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_RETURNED': [],
     'CANCELLED': [],
