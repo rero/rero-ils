@@ -76,7 +76,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The online type must be unique per library."
+            "alreadyTakenMessage": "There is already one online location in this library."
           }
         }
       }
@@ -97,7 +97,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The pickup loation name be unique in your library."
+            "alreadyTakenMessage": "The pickup location name is already taken."
           }
         }
       }

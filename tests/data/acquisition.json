@@ -402,7 +402,7 @@
     "invoice_number": "IN-2",
     "invoice_status": "in_progress",
     "invoice_date": "2020-01-06",
-    "invoice_discount": {
+    "discount": {
       "amount": 100
     },
     "invoice_items": [
@@ -434,7 +434,7 @@
     "invoice_number": "IN-3",
     "invoice_status": "in_progress",
     "invoice_date": "2020-01-06",
-    "invoice_discount": {
+    "discount": {
       "percentage": 10
     },
     "invoice_items": [

@@ -11,7 +11,7 @@
     "quantity",
     "amount",
     "discount_amount",
-    "rate",
+    "exchange_rate",
     "note"
   ],
   "required": [
@@ -24,7 +24,7 @@
   ],
   "properties": {
     "$schema": {
-      "title": "Schema of the resource",
+      "title": "Schema",
       "description": "Schema to validate Acquisition Order Line records against.",
       "type": "string",
       "default": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -100,8 +100,8 @@
       "default": 0,
       "minimum": 0
     },
-    "rate": {
-      "title": "Rate",
+    "exchange_rate": {
+      "title": "Exchange rate",
       "type": "number",
       "minimum": 0
     },
@@ -124,7 +124,7 @@
           "form": {
             "focus": true,
             "fieldMap": "acq_account",
-            "placeholder": "Choose an account",
+            "placeholder": "Select an account",
             "templateOptions": {
               "label": ""
             }

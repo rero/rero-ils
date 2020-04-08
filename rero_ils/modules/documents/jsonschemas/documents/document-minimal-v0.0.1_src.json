@@ -1188,8 +1188,8 @@
             }
           },
           "publicNote": {
-            "title": "Uniform Resource Identifier Public Note",
-            "description": "Is displayed next to the link, as additional information",
+            "title": "Public note",
+            "description": "Is displayed next to the link, as additional information.",
             "type": "array",
             "minItems": 1,
             "items": {

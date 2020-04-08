@@ -15,24 +15,23 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Patron Transaction records against.",
+      "description": "Schema to validate patron transaction records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json"
     },
     "pid": {
-      "title": "Patron Transaction ID",
+      "title": "Patron transaction ID",
       "type": "string",
       "minLength": 1
     },
     "creation_date": {
       "type": "string",
       "format": "date-time",
-      "title": "Patron Transaction creation date"
+      "title": "Patron transaction creation date"
     },
     "note": {
-      "title": "Patron Transaction Note",
-      "description": "Additional informations about patron transaction",
+      "title": "Patron transaction note",
       "type": "string",
       "minLength": 3
     },
@@ -43,22 +42,10 @@
         "open",
         "closed"
       ],
-      "default": "open",
-      "form": {
-        "options": [
-          {
-            "label": "open",
-            "value": "open"
-          },
-          {
-            "label": "closed",
-            "value": "closed"
-          }
-        ]
-      }
+      "default": "open"
     },
     "type": {
-      "title": "Patron Transaction Type",
+      "title": "Patron transaction type",
       "type": "string",
       "enum": [
         "overdue",
@@ -66,42 +53,10 @@
         "subscription",
         "lost",
         "damaged",
-        "Interlibrary loan",
+        "interlibrary_loan",
         "other"
       ],
-      "default": "overdue",
-      "form": {
-        "options": [
-          {
-            "label": "overdue",
-            "value": "overdue"
-          },
-          {
-            "label": "photocopy",
-            "value": "photocopy"
-          },
-          {
-            "label": "subscription",
-            "value": "subscription"
-          },
-          {
-            "label": "lost",
-            "value": "lost"
-          },
-          {
-            "label": "damaged",
-            "value": "damaged"
-          },
-          {
-            "label": "Interlibrary loan",
-            "value": "Interlibrary loan"
-          },
-          {
-            "label": "other",
-            "value": "other"
-          }
-        ]
-      }
+      "default": "overdue"
     },
     "patron": {
       "title": "Patron",

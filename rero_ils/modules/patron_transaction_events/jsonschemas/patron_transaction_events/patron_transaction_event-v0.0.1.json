@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "title": "PatronTransactionEvent",
-  "description": "JSON schema for patron_transaction_event.",
+  "title": "Patron transaction event",
+  "description": "JSON schema for patron transaction event.",
   "required": [
     "$schema",
     "pid",
@@ -14,13 +14,13 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate patron_transaction_event records against.",
+      "description": "Schema to validate patron transaction event records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json"
     },
     "pid": {
-      "title": "Patron Transaction Event ID",
+      "title": "Patron transaction event ID",
       "type": "string",
       "minLength": 1
     },
@@ -36,30 +36,25 @@
       }
     },
     "creation_date": {
-      "title": "Event creation date",
-      "description": "Patron transaction event creation date",
+      "title": "Creation date",
       "type": "string",
       "format": "date-time"
     },
     "amount": {
       "title": "Amount",
-      "description": "Patron transaction event amount",
       "type": "number",
       "minimum": 0
     },
     "type": {
       "title": "Type",
-      "description": "Patron transaction event main type",
       "type": "string"
     },
     "subtype": {
       "title": "Subtype",
-      "description": "Patron transaction event subtype type",
       "type": "string"
     },
     "note": {
       "title": "Note",
-      "description": "Additional informations about transaction event",
       "type": "string",
       "minLength": 3
     },
@@ -109,7 +104,6 @@
           ]
         },
         "subtype": {
-          "description": "Fee subtype",
           "enum": [
             "overdue",
             "damaged",
@@ -131,7 +125,6 @@
           ]
         },
         "subtype": {
-          "description": "Payment mode",
           "enum": [
             "cash",
             "debit_card",

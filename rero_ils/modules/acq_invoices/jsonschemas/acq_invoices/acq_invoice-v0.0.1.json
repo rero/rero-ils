@@ -53,7 +53,7 @@
           "type": "object",
           "properties": {
             "$ref": {
-              "title": "document URI",
+              "title": "Document URI",
               "type": "string",
               "pattern": "^https://ils.rero.ch/api/documents/.*?$"
             }
@@ -65,7 +65,7 @@
           "minLength": 3
         },
         "quantity": {
-          "title": "Numbor of units",
+          "title": "Number of units",
           "type": "integer",
           "minimum": 1
         },
@@ -89,7 +89,7 @@
   },
   "properties": {
     "$schema": {
-      "title": "Schema of the resource",
+      "title": "Schema",
       "description": "Schema to validate Acquisition Invoice records against.",
       "type": "string",
       "minLength": 9,
@@ -97,7 +97,7 @@
       "pattern": "^https://ils.rero.ch/schema/acq_invoices/acq_invoice-v([0-9]+?\\.){3}json$"
     },
     "pid": {
-      "title": "Acquisition Invoice ID",
+      "title": "Acquisition invoice ID",
       "type": "string",
       "minLength": 1
     },
@@ -127,7 +127,7 @@
       "type": "string",
       "enum": [
         "in_progress",
-        "valid_for_payment",
+        "approved",
         "deleted"
       ],
       "default": "in progress",
@@ -138,8 +138,8 @@
             "label": "In progress"
           },
           {
-            "value": "valid_for_payment",
-            "label": "Valid for payment"
+            "value": "approved",
+            "label": "Approved"
           },
           {
             "value": "deleted",
@@ -149,14 +149,14 @@
       }
     },
     "invoice_date": {
-      "title": "Invoice date",
+      "title": "Date",
       "type": "string",
       "format": "date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
-        "placeholder": "Choose a date",
+        "placeholder": "Select a date",
         "wrappers": [
           "form-field"
         ],
@@ -196,7 +196,7 @@
               "options": [
                 {
                   "value": "shipping_and_handling",
-                  "label": "Shipping & handling"
+                  "label": "Shipping and handling"
                 },
                 {
                   "value": "state_taxes",
@@ -217,16 +217,16 @@
         }
       }
     },
-    "invoice_discount": {
+    "discount": {
       "type": "object",
-      "title": "Discount on invoice",
+      "title": "Discount",
       "oneOf": [
         {
           "title": "Percentage",
           "additionalProperties": false,
           "properties": {
             "percentage": {
-              "title": "Discount percentage",
+              "title": "Discount percentage.",
               "type": "number",
               "minimum": 0,
               "maximum": 100

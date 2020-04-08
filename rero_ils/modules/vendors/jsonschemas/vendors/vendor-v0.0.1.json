@@ -116,7 +116,7 @@
       "properties": {
         "contact_person": {
           "title": "Contact person",
-          "description": "Contact person of the address.",
+          "description": "Vendor contact person.",
           "type": "string",
           "minLength": 4
         },
@@ -177,7 +177,7 @@
       "properties": {
         "contact_person": {
           "title": "Contact name",
-          "description": "Contact person of the address.",
+          "description": "Name of the vendor contact person.",
           "type": "string",
           "minLength": 4
         },
