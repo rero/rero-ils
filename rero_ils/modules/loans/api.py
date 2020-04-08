@@ -85,6 +85,13 @@ class Loan(IlsRecord):
             'item': 'item'
         }
     }
+    DATE_FIELDS = [
+        "start_date",
+        "end_date",
+        "request_expire_date",
+        "request_start_date",
+    ]
+    DATETIME_FIELDS = ["transaction_date"]
 
     def __init__(self, data, model=None):
         """Loan init."""
@@ -117,16 +124,37 @@ class Loan(IlsRecord):
             raise MissingRequiredParameterError(
                 description='item_pid missing from loan {0}'.format(
                     self.pid))
-        if self.loan_build_item_ref:
-            self['item'] = self.loan_build_item_ref(item_pid)
+        self['item'] = self.loan_build_item_ref(item_pid, self)
 
-    def loan_build_item_ref(self, item_pid):
+    def loan_build_item_ref(self, item_pid, loan):
         """Build $ref for the Item attached to the Loan."""
         return {'$ref': '{base_url}/api/{doc_type}/{pid}'.format(
             base_url=get_base_url(),
             doc_type='items',
             pid=item_pid
         )}
+
+    def loan_build_patron_ref(self, patron_pid, loan):
+        """Build $ref for the Patron attached to the Loan."""
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        return {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='patrons',
+                pid=patron_pid)
+        }
+
+    def loan_build_document_ref(self, document_pid, loan):
+        """Build $ref for the Document attached to the Loan."""
+        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+        url_api = '{base_url}/api/{doc_type}/{pid}'
+        return {
+            '$ref': url_api.format(
+                base_url=base_url,
+                doc_type='documents',
+                pid=document_pid)
+        }
 
     @classmethod
     def _loan_build_org_ref(cls, data):
@@ -320,7 +348,7 @@ def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
 
 def get_loans_by_patron_pid(patron_pid):
     """Return all loans for patron."""
-    results = current_circulation.loan_search\
+    results = current_circulation.loan_search_cls\
         .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', patron_pid=patron_pid)\
@@ -458,7 +486,7 @@ def _process_patron_profile_fees(patron, organisation, status='open'):
 
 def get_last_transaction_loc_for_item(item_pid):
     """Return last transaction location for an item."""
-    results = current_circulation.loan_search\
+    results = current_circulation.loan_search_cls\
         .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', item_pid=item_pid)\
@@ -477,7 +505,7 @@ def get_due_soon_loans():
     """Return all due_soon loans."""
     from .utils import get_circ_policy
     due_soon_loans = []
-    results = current_circulation.loan_search\
+    results = current_circulation.loan_search_cls\
         .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', state='ITEM_ON_LOAN')\
@@ -500,7 +528,7 @@ def get_overdue_loans():
     """Return all overdue loans."""
     from .utils import get_circ_policy
     overdue_loans = []
-    results = current_circulation.loan_search\
+    results = current_circulation.loan_search_cls\
         .source(['pid'])\
         .params(preserve_order=True)\
         .filter('term', state='ITEM_ON_LOAN')\
