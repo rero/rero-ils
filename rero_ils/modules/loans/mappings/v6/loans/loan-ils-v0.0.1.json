@@ -22,6 +22,20 @@
             }
           }
         },
+        "document": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "patron": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "transaction_date": {
           "type": "date"
         },
@@ -35,7 +49,15 @@
           "type": "keyword"
         },
         "item_pid": {
-          "type": "keyword"
+          "properties": {
+            "type": {
+              "type": "keyword"
+            },
+            "value": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
         },
         "end_date": {
           "type": "date"
@@ -49,7 +71,10 @@
         "start_date": {
           "type": "date"
         },
-        "request_expiry_date": {
+        "request_expire_date": {
+          "type": "date"
+        },
+        "request_start_date": {
           "type": "date"
         },
         "pickup_location_pid": {

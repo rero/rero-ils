@@ -25,6 +25,30 @@
         }
       }
     },
+    "patron": {
+      "title": "Patron",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Patron URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/patrons/.+?$",
+          "default": "https://ils.rero.ch/api/patrons/"
+        }
+      }
+    },
+    "document": {
+      "title": "Document",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Document URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/documents/.+?$",
+          "default": "https://ils.rero.ch/api/documents/"
+        }
+      }
+    },
     "extension_count": {
       "type": "integer",
       "title": "Loan extension count"
@@ -47,8 +71,16 @@
       "title": "Document PID"
     },
     "item_pid": {
-      "type": "string",
-      "title": "Item PID"
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "Item ID",
+      "type": "object"
     },
     "transaction_user_pid": {
       "type": "string",
@@ -62,20 +94,25 @@
       "type": "string",
       "title": "Request pickup location PID"
     },
-    "request_expiry_date": {
-      "type": "string",
-      "format": "date-time",
-      "title": "Request expiry date"
-    },
     "start_date": {
       "type": "string",
-      "format": "date-time",
+      "format": "date",
       "title": "Transaction start date"
     },
     "end_date": {
       "type": "string",
-      "format": "date-time",
+      "format": "date",
       "title": "Transaction end date"
+    },
+    "request_expire_date": {
+      "format": "date",
+      "title": "Request expire date",
+      "type": "string"
+    },
+    "request_start_date": {
+      "format": "date",
+      "title": "Request start date",
+      "type": "string"
     },
     "organisation": {
       "title": "Organisation",
