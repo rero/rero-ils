@@ -17,11 +17,17 @@
 
  */
 
-.thumb,
+.thumb {
+  img {
+    max-height: 122px;
+    width: 80px;
+  }
+}
+
 .thumb-brief {
   img {
-    max-height: 90px;
-    width: 58px;
+    max-height: 122px;
+    width: 80px;
   }
 }
 

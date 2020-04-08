@@ -3,8 +3,7 @@ Sehr geehrte Leserin, sehr geehrter Leser,
 
 Die Ausleihfrist folgender Dokumente ist abgelaufen:
 
-{% if author %}Autor : {{ author }}{% endif %}
-Titel : {{ document.title_text }}
+Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
 Rückgabedatum: {{ end_date }}
 Anmerkung: 1. Mahnung
 

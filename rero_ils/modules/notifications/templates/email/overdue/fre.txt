@@ -3,8 +3,7 @@ Chère lectrice, cher lecteur,
 
 La durée du prêt des documents mentionnés ci-dessous est échue :
 
-{% if author %}Auteur : {{ author }}{% endif %}
-Titre : {{ document.title_text }}
+Titre : {{ document.title_text }} / {{ document.responsibility_statement }}
 Echéance : {{ end_date }}
 Note : 1er rappel
 

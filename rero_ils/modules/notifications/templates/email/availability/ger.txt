@@ -3,8 +3,7 @@ Sehr geehrte Leserin, sehr geehrter Leser,
 
 Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke der nachstehend genannten Bibliothek abgeholt werden.
 
-{% if author %}Autor : {{ author }}{% endif %}
-Titel : {{ document.title_text }}
+Titel : {{ document.title_text }} / {{ document.responsibility_statement }}
 Abholort: {{ pickup_location.library.name }}
 Abholen bis: {{ next_open }}
 

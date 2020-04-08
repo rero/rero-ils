@@ -3,8 +3,7 @@ Cara lettrice, caro lettore,
 
 Il documento che Lei ha domandato è ora disponibile. Lei può ritirarlo al servizio prestiti della biblioteca sotto indicata.
 
-{% if author %}Autore : {{ author }}{% endif %}
-Titolo: {{ document.title_text }}
+Titolo: {{ document.title_text }} / {{ document.responsibility_statement }}
 Punto di ritiro: {{ pickup_location.library.name }}
 Ritirare entro: {{ next_open }}
 
