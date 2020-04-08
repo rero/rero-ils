@@ -28,6 +28,7 @@ from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.ext import pid_exists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
@@ -197,6 +198,26 @@ class IlsRecord(Record):
             return None
         except PIDDoesNotExistError:
             return None
+
+    @classmethod
+    def record_pid_exists(cls, pid):
+        """Check if a persistent identifier exists.
+
+        :param pid: The PID value.
+        :returns: `True` if the PID exists.
+        """
+        assert cls.provider
+        try:
+            PersistentIdentifier.get(
+                cls.provider.pid_type,
+                pid
+            )
+            return True
+
+        except NoResultFound:
+            return False
+        except PIDDoesNotExistError:
+            return False
 
     @classmethod
     def get_pid_by_id(cls, id):
