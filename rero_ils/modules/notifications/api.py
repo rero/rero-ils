@@ -137,16 +137,14 @@ class Notification(IlsRecord):
             bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
             for title in bf_titles:
                 data['loan']['document']['title_text'] = title['_text']
-            authors = document.get('authors', '')
-            if authors:
-                author = authors[0].get('name', '')
-                if not author:
-                    mef_list = ['name_fr', 'name_de', 'name_it', 'name_en']
-                    for a_name in mef_list:
-                        if authors[0].get(a_name, ''):
-                            author = authors[0].get(a_name)
-                            break
-                data['loan']['author'] = author
+
+            from ..documents.views import create_title_responsibilites
+            responsibility_statement = create_title_responsibilites(
+                document.get('responsibilityStatement')
+            )
+            data['loan']['document']['responsibility_statement'] = \
+                next(iter(responsibility_statement or []), '')
+
             end_date = data.get('loan').get('end_date')
             if end_date:
                 end_date = ciso8601.parse_datetime(end_date)
