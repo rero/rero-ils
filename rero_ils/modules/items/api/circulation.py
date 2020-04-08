@@ -21,8 +21,9 @@ from datetime import datetime, timezone
 from functools import wraps
 
 from flask import current_app
-from invenio_circulation.api import get_loan_for_item, \
-    patron_has_active_loan_on_item
+from invenio_circulation.api import get_loan_for_item
+from invenio_circulation.search.api import search_by_patron_item_or_document
+
 from invenio_circulation.errors import MissingRequiredParameterError, \
     NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
@@ -111,7 +112,7 @@ def add_loans_parameters_and_flush_indexes(function):
 
         # commit and reindex item and loans
         current_search.flush_and_refresh(
-            current_circulation.loan_search.Meta.index)
+            current_circulation.loan_search_cls.Meta.index)
         item.status_update(dbcommit=True, reindex=True, forceindex=True)
         ItemsSearch.flush()
         return item, action_applied
@@ -316,7 +317,7 @@ class ItemCirculation(IlsRecord):
     @classmethod
     def get_loans_by_item_pid(cls, item_pid):
         """Return any loan loans for item."""
-        results = current_circulation.loan_search.filter(
+        results = current_circulation.loan_search_cls.filter(
             'term', item_pid=item_pid).source(includes='pid').scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
@@ -361,7 +362,7 @@ class ItemCirculation(IlsRecord):
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
             order_by = 'desc'
-        search = current_circulation.loan_search\
+        search = current_circulation.loan_search_cls\
             .source(['pid'])\
             .params(preserve_order=True)\
             .filter('term', state='PENDING')\
@@ -386,7 +387,7 @@ class ItemCirculation(IlsRecord):
             sort_by = sort_by[1:]
             order_by = 'desc'
 
-        results = current_circulation.loan_search.source(['pid'])\
+        results = current_circulation.loan_search_cls.source(['pid'])\
             .params(preserve_order=True)\
             .filter('term', state='ITEM_ON_LOAN')\
             .filter('term', patron_pid=patron_pid)\
@@ -577,10 +578,11 @@ class ItemCirculation(IlsRecord):
 
     def item_has_active_loan_or_request(self):
         """Return True if active loan or a request found for item."""
+        item_object = {'value': self.pid, 'type': 'item'}
         states = ['PENDING'] + \
             current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
         search = search_by_pid(
-            item_pid=self.pid,
+            item_pid=item_object,
             filter_states=states,
         )
         search_result = search.execute()
@@ -705,10 +707,16 @@ class ItemCirculation(IlsRecord):
         """Check if the item is loaned by a given patron."""
         patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
-            patron_pid = patron.pid
-            checkout = patron_has_active_loan_on_item(patron_pid, self.pid)
-            if checkout:
-                return True
+            states = ['CREATED"', 'PENDING'] + \
+                current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+            search = search_by_patron_item_or_document(
+                patron_pid=patron.pid,
+                item_pid=self.pid,
+                document_pid=self.document_pid,
+                filter_states=states,
+            )
+            search_result = search.execute()
+            return search_result.hits.total > 0
         return False
 
     @classmethod

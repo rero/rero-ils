@@ -27,7 +27,7 @@ Flask-BabelEx = ">=0.9.3"
 
 ## Third party invenio modules used by RERO ILS
 invenio-oaiharvester = {tag = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {tag = "v1.0.0a16", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+invenio-circulation = {tag = "v1.0.0a21", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
 
 ## Invenio 3.2.1 base modules used by RERO ILS
 # same as invenio metadata extras without invenio-search-ui
@@ -55,6 +55,7 @@ pycountry = ">=19.7.15"
 xmltodict = "*"
 redisbeat = "*"
 jsonpickle = "*"
+ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored
 angular-gettext-babel= ">=0.1"
 
@@ -83,7 +84,6 @@ check-manifest = ">=0.35"
 coverage = ">=4.5.3"
 isort = ">=4.3"
 mock = ">=2.0.0"
-marshmallow = ">=2.15.1,<3.0.0"
 pydocstyle = ">=3.0.0"
 pytest = ">=4.6.4"
 pytest-cov = ">=2.7.1"
