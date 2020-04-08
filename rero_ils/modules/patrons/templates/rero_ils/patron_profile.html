@@ -26,9 +26,9 @@
     <nav>
       <ul class="nav nav-tabs" id="nav-tab" role="tablist">
         <li class="nav-item">
-          <a {% if tab == 'checkouts' %}class="nav-link active"{%else%}class="nav-link"{% endif %} href="#checkouts" data-toggle="tab" id="checkouts-tab" title="{{ _('Checkouts') }}"
+          <a {% if tab == 'checkouts' %}class="nav-link active"{%else%}class="nav-link"{% endif %} href="#checkouts" data-toggle="tab" id="checkouts-tab" title="{{ _('Loans') }}"
             role="tab" aria-controls="checkouts" aria-selected="true">
-            {{ _('Checkouts') }} ({{ checkouts|length }})
+            {{ _('Loans') }} ({{ checkouts|length }})
           </a>
         </li>
         <li class="nav-item">
@@ -103,7 +103,7 @@
           {% if type == 'checkouts' %}
           {{ _('Due date') }}
           {% elif type == 'requests' %}
-          {{ _('Reservation date') }}
+          {{ _('Request date') }}
           {% elif type == 'history' %}
           {{ _('Checkin date') }}
           {% endif %}

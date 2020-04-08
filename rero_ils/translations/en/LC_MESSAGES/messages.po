@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.6.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-04-09 15:48+0200\n"
+"POT-Creation-Date: 2020-04-09 16:52+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2020\n"
 "Language: en\n"
@@ -135,123 +135,103 @@ msgid "at_desk"
 msgstr "at desk"
 
 #: rero_ils/manual_translations.txt:22
-msgid "publicAccess"
-msgstr "public access"
-
-#: rero_ils/manual_translations.txt:23
-msgid "storeroom"
-msgstr "store room"
-
-#: rero_ils/manual_translations.txt:24
-msgid "readingRoom"
-msgstr "reading room"
-
-#: rero_ils/manual_translations.txt:25
-msgid "readingroom"
-msgstr "reading room"
-
-#: rero_ils/manual_translations.txt:26
-msgid "publicaccess"
-msgstr "public access"
-
-#: rero_ils/manual_translations.txt:28
 msgid "patrons"
 msgstr "patron"
 
-#: rero_ils/manual_translations.txt:29
+#: rero_ils/manual_translations.txt:23
 msgid "librarian"
 msgstr "librarian"
 
-#: rero_ils/manual_translations.txt:30
+#: rero_ils/manual_translations.txt:24
 msgid "staff"
 msgstr "staff"
 
-#: rero_ils/manual_translations.txt:32
+#: rero_ils/manual_translations.txt:26
 msgid "article"
 msgstr "article"
 
-#: rero_ils/manual_translations.txt:33
+#: rero_ils/manual_translations.txt:27
 msgid "book"
 msgstr "book"
 
-#: rero_ils/manual_translations.txt:34
+#: rero_ils/manual_translations.txt:28
 msgid "ebook"
 msgstr "ebook"
 
-#: rero_ils/manual_translations.txt:35
+#: rero_ils/manual_translations.txt:29
 msgid "journal"
 msgstr "journal"
 
-#: rero_ils/manual_translations.txt:36
+#: rero_ils/manual_translations.txt:30
 msgid "score"
 msgstr "score"
 
-#: rero_ils/manual_translations.txt:37
+#: rero_ils/manual_translations.txt:31
 msgid "sound"
 msgstr "sound"
 
-#: rero_ils/manual_translations.txt:38
+#: rero_ils/manual_translations.txt:32
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1184
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1184
 msgid "video"
 msgstr "video"
 
-#: rero_ils/manual_translations.txt:41
+#: rero_ils/manual_translations.txt:35
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:52
 msgid "gnd"
 msgstr "GND"
 
-#: rero_ils/manual_translations.txt:42
+#: rero_ils/manual_translations.txt:36
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:56
 msgid "bnf"
 msgstr "BNF"
 
-#: rero_ils/manual_translations.txt:43
+#: rero_ils/manual_translations.txt:37
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:48
 msgid "rero"
 msgstr "RERO"
 
-#: rero_ils/manual_translations.txt:46
+#: rero_ils/manual_translations.txt:40
 msgid "ui_language_en"
 msgstr "English"
 
-#: rero_ils/manual_translations.txt:47
+#: rero_ils/manual_translations.txt:41
 msgid "ui_language_fr"
 msgstr "Français"
 
-#: rero_ils/manual_translations.txt:48
+#: rero_ils/manual_translations.txt:42
 msgid "ui_language_de"
 msgstr "Deutsch"
 
-#: rero_ils/manual_translations.txt:49
+#: rero_ils/manual_translations.txt:43
 msgid "ui_language_it"
 msgstr "Italiano"
 
-#: rero_ils/manual_translations.txt:52
+#: rero_ils/manual_translations.txt:46
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:503
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:503
 msgid "bf:Publication"
 msgstr "Publication"
 
-#: rero_ils/manual_translations.txt:53
+#: rero_ils/manual_translations.txt:47
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:507
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:507
 msgid "bf:Manufacture"
 msgstr "Manufacture"
 
-#: rero_ils/manual_translations.txt:54
+#: rero_ils/manual_translations.txt:48
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:511
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:511
 msgid "bf:Distribution"
 msgstr "Distribution"
 
-#: rero_ils/manual_translations.txt:55
+#: rero_ils/manual_translations.txt:49
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:515
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:515
 msgid "bf:Production"
 msgstr "Production"
 
-#: rero_ils/manual_translations.txt:56
+#: rero_ils/manual_translations.txt:50
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:547
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:594
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:547
@@ -259,7 +239,8 @@ msgstr "Production"
 msgid "bf:Place"
 msgstr "Place"
 
-#: rero_ils/manual_translations.txt:57
+#: rero_ils/manual_translations.txt:51
+#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:152
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:364
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:602
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:364
@@ -267,11 +248,11 @@ msgstr "Place"
 msgid "Date"
 msgstr "Date"
 
-#: rero_ils/manual_translations.txt:60
+#: rero_ils/manual_translations.txt:54
 msgid "ebibliomedia"
 msgstr "Access"
 
-#: rero_ils/manual_translations.txt:61
+#: rero_ils/manual_translations.txt:55
 msgid "mv-cantook"
 msgstr "Access"
 
@@ -292,7 +273,7 @@ msgid "Login"
 msgstr "Login"
 
 #: rero_ils/views.py:143
-msgid "Switch to professional view"
+msgid "Professional interface"
 msgstr "Professional interface"
 
 #: rero_ils/views.py:160
@@ -313,10 +294,13 @@ msgid "Acquisition account"
 msgstr "Account"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
-msgid "JSON schema for an acquisition account"
+msgid "JSON schema for an account"
 msgstr "JSON schema for an account"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:22
+#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:92
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:27
+#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:28
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:36
@@ -391,7 +375,7 @@ msgid "Budget URI"
 msgstr "Budget URI"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:60
-msgid "Amount allocated"
+msgid "Allocated amount"
 msgstr "Allocated amount"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:61
@@ -405,7 +389,7 @@ msgstr "Allocated amount."
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:51
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:67
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:93
 msgid "Library"
@@ -416,7 +400,7 @@ msgstr "Library"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:110
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:71
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:66
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
 msgid "Library URI"
 msgstr "Library URI"
@@ -436,7 +420,7 @@ msgstr "Library URI"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:129
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:55
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:249
 msgid "Organisation"
@@ -452,7 +436,7 @@ msgstr "Organisation"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:169
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:133
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:256
 msgid "Organisation URI"
@@ -489,7 +473,10 @@ msgid "Document"
 msgstr "Document"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
-msgid "document URI"
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:151
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:57
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:82
+msgid "Document URI"
 msgstr "Document URI"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:63
@@ -498,7 +485,7 @@ msgid "Order number"
 msgstr "Order number"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:68
-msgid "Numbor of units"
+msgid "Number of units"
 msgstr "Number of units"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:73
@@ -515,18 +502,12 @@ msgstr "Discount amount"
 msgid "Total price"
 msgstr "Total price"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:92
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:27
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:28
-msgid "Schema of the resource"
-msgstr "Schema of the resource."
-
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:93
 msgid "Schema to validate Acquisition Invoice records against."
 msgstr "Schema to validate acquisition invoice records against."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:100
-msgid "Acquisition Invoice ID"
+msgid "Acquisition invoice ID"
 msgstr "Acquisition invoice ID"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:105
@@ -550,16 +531,14 @@ msgid "In progress"
 msgstr "In progress"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:142
-msgid "Valid for payment"
+#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:54
+#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:118
+msgid "Approved"
 msgstr "Approved"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:146
 msgid "Deleted"
 msgstr "Deleted"
-
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:152
-msgid "Invoice date"
-msgstr "Invoice date"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:156
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:158
@@ -570,7 +549,7 @@ msgstr "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:159
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:161
-msgid "Choose a date"
+msgid "Select a date"
 msgstr "Select a date"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:171
@@ -589,7 +568,7 @@ msgid "Type of taxe"
 msgstr "Type of taxe"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:199
-msgid "Shipping & handling"
+msgid "Shipping and handling"
 msgstr "Shipping and handling"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:203
@@ -603,12 +582,12 @@ msgstr "Miscellaneous"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:213
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:86
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:45
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:44
 msgid "Amount"
 msgstr "Amount"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:222
-msgid "Discount on invoice"
+msgid "Discount"
 msgstr "Discount"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:225
@@ -616,8 +595,8 @@ msgid "Percentage"
 msgstr "Percentage"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:229
-msgid "Discount percentage"
-msgstr "Discount percentage"
+msgid "Discount percentage."
+msgstr "Discount percentage."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:254
 msgid "List of invoice lines"
@@ -659,11 +638,6 @@ msgstr "Order line ID"
 msgid "Order line status"
 msgstr "Order line status"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:54
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:118
-msgid "Approved"
-msgstr "Approved"
-
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:58
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:122
 msgid "Canceled"
@@ -701,8 +675,8 @@ msgid "Total amount"
 msgstr "Total amount"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:104
-msgid "Rate"
-msgstr "Rate"
+msgid "Exchange rate"
+msgstr "Exchange rate"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:109
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:621
@@ -711,13 +685,13 @@ msgstr "Rate"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:621
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:734
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:908
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
 msgid "Note"
 msgstr "Note"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:127
-msgid "Choose an account"
+msgid "Select an account"
 msgstr "Select an account"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:136
@@ -727,12 +701,6 @@ msgstr "Order"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:140
 msgid "Acquisition order URI"
 msgstr "Order URI"
-
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:151
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:57
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:82
-msgid "Document URI"
-msgstr "Document URI"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
 msgid "Acquisition order"
@@ -1011,7 +979,7 @@ msgstr "Document PID"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:787
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:38
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:51
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
 msgid "Type"
 msgstr "Type"
 
@@ -1657,7 +1625,7 @@ msgstr "Source of the identifier."
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:938
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:938
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:40
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:39
 msgid "Status"
 msgstr "Status"
 
@@ -1896,12 +1864,12 @@ msgstr "full text"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1191
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1191
-msgid "Uniform Resource Identifier Public Note"
+msgid "Public note"
 msgstr "Public note"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1192
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1192
-msgid "Is displayed next to the link, as additional information"
+msgid "Is displayed next to the link, as additional information."
 msgstr "Is displayed next to the link, as additional information."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1198
@@ -6912,8 +6880,8 @@ msgid "Qualify this location as an online location."
 msgstr "Qualify this location as an online location."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:79
-msgid "The online type must be unique per library."
-msgstr "The online type must be unique per library."
+msgid "There is already one online location in this library."
+msgstr "There is already one online location in this library."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:85
 msgid "Pickup location name"
@@ -6924,11 +6892,11 @@ msgid "Displayed pickup location name, if different from the location name."
 msgstr "Displayed pickup location name, if different from the location name."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:100
-msgid "The pickup loation name be unique in your library."
+msgid "The pickup location name is already taken."
 msgstr "The pickup location name must be unique in your library."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:118
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:73
 msgid "Notification"
 msgstr "Notification"
 
@@ -6977,7 +6945,6 @@ msgid "due_soon"
 msgstr "due soon"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:68
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:76
 msgid "overdue"
 msgstr "overdue"
 
@@ -7035,19 +7002,19 @@ msgid "Online harvested source as configured in ebooks server."
 msgstr "Online harvested source as configured in ebooks server."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
-msgid "PatronTransactionEvent"
+msgid "Patron transaction event"
 msgstr "Transaction"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:5
-msgid "JSON schema for patron_transaction_event."
+msgid "JSON schema for patron transaction event."
 msgstr "JSON schema for patron transaction event."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:17
-msgid "Schema to validate patron_transaction_event records against."
+msgid "Schema to validate patron transaction event records against."
 msgstr "Schema to validate patron transaction event records against."
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:23
-msgid "Patron Transaction Event ID"
+msgid "Patron transaction event ID"
 msgstr "Patron transaction event ID"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:28
@@ -7059,48 +7026,20 @@ msgid "Patron transaction URI"
 msgstr "Fee URI"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
-msgid "Event creation date"
-msgstr "Event creation date"
+msgid "Creation date"
+msgstr "Create date"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:40
-msgid "Patron transaction event creation date"
-msgstr "Transaction creation date"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:46
-msgid "Patron transaction event amount"
-msgstr "Transaction amount"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:52
-msgid "Patron transaction event main type"
-msgstr "Transaction main type"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:56
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
 msgid "Subtype"
 msgstr "Subtype"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
-msgid "Patron transaction event subtype type"
-msgstr "Transaction subtype type"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
-msgid "Additional informations about transaction event"
-msgstr "Additional informations about transaction event"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:78
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:73
 msgid "Operator"
 msgstr "Operator"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:82
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:77
 msgid "Operator patron URI"
 msgstr "Operator patron URI"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:112
-msgid "Fee subtype"
-msgstr "Fee subtype"
-
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:134
-msgid "Payment mode"
-msgstr "Payment mode"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
@@ -7111,75 +7050,39 @@ msgid "JSON schema for Patron Transaction."
 msgstr "JSON schema for patron transaction."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:18
-msgid "Schema to validate Patron Transaction records against."
+msgid "Schema to validate patron transaction records against."
 msgstr "Schema to validate patron transaction records against."
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:24
-msgid "Patron Transaction ID"
+msgid "Patron transaction ID"
 msgstr "Patron transaction ID"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:31
-msgid "Patron Transaction creation date"
-msgstr "Fee creation date"
+msgid "Patron transaction creation date"
+msgstr "Patron transaction creation date"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:34
-msgid "Patron Transaction Note"
-msgstr "Fee note"
+msgid "Patron transaction note"
+msgstr "Patron transaction note"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:35
-msgid "Additional informations about patron transaction"
-msgstr "Additional informations about patron transaction"
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:48
+msgid "Patron transaction type"
+msgstr "Patron transaction type"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:50
-msgid "open"
-msgstr "open"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:54
-msgid "closed"
-msgstr "closed"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:61
-msgid "Patron Transaction Type"
-msgstr "Fee type"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:80
-msgid "photocopy"
-msgstr "photocopy"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
-msgid "subscription"
-msgstr "subscription"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
-msgid "lost"
-msgstr "lost"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:92
-msgid "damaged"
-msgstr "damaged"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:96
-msgid "Interlibrary loan"
-msgstr "Interlibrary loan"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:100
-msgid "other"
-msgstr "other"
-
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:107
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:62
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:206
 msgid "Patron"
 msgstr "Patron"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:111
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:66
 msgid "Patron URI"
 msgstr "Patron URI"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:122
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:77
 msgid "Notification URI"
 msgstr "Notification URI"
 
-#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:142
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:97
 msgid "Total calculated amount of the patron transaction"
 msgstr "Total calculated amount of the fee"
 
@@ -7382,7 +7285,7 @@ msgstr "Phone"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:26
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:28
-msgid "Checkouts"
+msgid "Loans"
 msgstr "Loans"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:38
@@ -7420,8 +7323,8 @@ msgid "Due date"
 msgstr "Due date"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:100
-msgid "Reservation date"
-msgstr "Reservation date"
+msgid "Request date"
+msgstr "Request date"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:102
 msgid "Checkin date"
@@ -7565,9 +7468,8 @@ msgid "Contact person"
 msgstr "Contact person"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:119
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:180
-msgid "Contact person of the address."
-msgstr "Contact person of the address."
+msgid "Vendor contact person."
+msgstr "Vendor contact person."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:166
 msgid "Order contact details"
@@ -7576,6 +7478,10 @@ msgstr "Order contact details"
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:179
 msgid "Contact name"
 msgstr "Contact name"
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:180
+msgid "Name of the vendor contact person."
+msgstr ""
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:194
 msgid "A valid postal code with a min of 4 characters."
@@ -7754,4 +7660,136 @@ msgstr "has been deleted."
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "Click here to reset your password"
+
+#~ msgid "Vendor cover art URL."
+#~ msgstr "Vendor cover art URL."
+
+#~ msgid "Online Access"
+#~ msgstr "Online Access"
+
+#~ msgid "Holdings"
+#~ msgstr "Holdings"
+
+#~ msgid "URL (Adresse URL)"
+#~ msgstr ""
+
+#~ msgid "Fee"
+#~ msgstr "Fee"
+
+#~ msgid "JSON schema for fee."
+#~ msgstr "JSON schema for fee."
+
+#~ msgid "Schema to validate fee records against."
+#~ msgstr "Schema to validate fee records against."
+
+#~ msgid "Fee ID"
+#~ msgstr "Fee ID"
+
+#~ msgid "Fee creation date"
+#~ msgstr "Fee creation date"
+
+#~ msgid "Fee type"
+#~ msgstr "Fee type"
+
+#~ msgid "Fee amount"
+#~ msgstr "Fee amount"
+
+#~ msgid "Fee currency"
+#~ msgstr "Fee currency"
+
+#~ msgid "CHF"
+#~ msgstr "CHF"
+
+#~ msgid "EUR"
+#~ msgstr "EUR"
+
+#~ msgid "USD"
+#~ msgstr "USD"
+
+#~ msgid "Fee status"
+#~ msgstr "Fee status"
+
+#~ msgid "paid"
+#~ msgstr "paid"
+
+#~ msgid "Event creation date"
+#~ msgstr ""
+
+#~ msgid "Patron transaction event creation date"
+#~ msgstr ""
+
+#~ msgid "Patron transaction event amount"
+#~ msgstr ""
+
+#~ msgid "Patron transaction event main type"
+#~ msgstr ""
+
+#~ msgid "Patron transaction event subtype type"
+#~ msgstr ""
+
+#~ msgid "Additional informations about transaction event"
+#~ msgstr ""
+
+#~ msgid "Fee subtype"
+#~ msgstr ""
+
+#~ msgid "Payment mode"
+#~ msgstr ""
+
+#~ msgid "Schema to validate Patron Transaction records against."
+#~ msgstr ""
+
+#~ msgid "Patron Transaction ID"
+#~ msgstr ""
+
+#~ msgid "Patron Transaction creation date"
+#~ msgstr ""
+
+#~ msgid "Patron Transaction Note"
+#~ msgstr ""
+
+#~ msgid "Additional informations about patron transaction"
+#~ msgstr ""
+
+#~ msgid "open"
+#~ msgstr "open"
+
+#~ msgid "closed"
+#~ msgstr ""
+
+#~ msgid "Patron Transaction Type"
+#~ msgstr ""
+
+#~ msgid "photocopy"
+#~ msgstr ""
+
+#~ msgid "subscription"
+#~ msgstr ""
+
+#~ msgid "lost"
+#~ msgstr ""
+
+#~ msgid "damaged"
+#~ msgstr ""
+
+#~ msgid "Interlibrary loan"
+#~ msgstr ""
+
+#~ msgid "other"
+#~ msgstr ""
+
+#~ msgid "publicAccess"
+#~ msgstr "public access"
+
+#~ msgid "storeroom"
+#~ msgstr "store room"
+
+#~ msgid "readingRoom"
+#~ msgstr "reading room"
+
+#~ msgid "readingroom"
+#~ msgstr "reading room"
+
+#~ msgid "publicaccess"
+#~ msgstr "public access"
 

@@ -140,7 +140,7 @@ def init_menu_profile():
         visible_when=lambda: current_patron.is_librarian,
         text='{icon} {professional}'.format(
             icon='<i class="fa fa-briefcase"></i>',
-            professional=_('Switch to professional view')
+            professional=_('Professional interface')
         ),
         order=1
     )

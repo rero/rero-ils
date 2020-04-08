@@ -58,7 +58,7 @@
         "total_amount": {
           "type": "float"
         },
-        "rate": {
+        "exchange_rate": {
           "type": "float"
         },
         "note": {

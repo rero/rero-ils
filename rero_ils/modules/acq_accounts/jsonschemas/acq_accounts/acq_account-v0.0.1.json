@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "Acquisition account",
-  "description": "JSON schema for an acquisition account",
+  "description": "JSON schema for an account",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -57,7 +57,7 @@
       }
     },
     "amount_allocated": {
-      "title": "Amount allocated",
+      "title": "Allocated amount",
       "description": "The amount allocated for the acquisition account.",
       "type": "number"
     },

@@ -19,12 +19,6 @@ _('missing')
 _('in_transit')
 _('at_desk')
 
-_('publicAccess')
-_('storeroom')
-_('readingRoom')
-_('readingroom')
-_('publicaccess')
-
 _('patrons')
 _('librarian')
 _('staff')

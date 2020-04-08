@@ -48,7 +48,7 @@
         "invoice_price": {
           "type": "float"
         },
-        "invoice_discount": {
+        "discount": {
           "properties": {
             "percentage": {
               "type": "float"

@@ -84,12 +84,12 @@ class AcquisitionInvoice(IlsRecord):
             invoice_price += data['invoice_items'][idx]['total_price']
 
         # check if discount percentage
-        if data.get('invoice_discount', {}).get('percentage'):
+        if data.get('discount', {}).get('percentage'):
             invoice_price -= cls._calculate_percentage_discount(
-                invoice_price, data.get('invoice_discount').get('percentage'))
+                invoice_price, data.get('discount').get('percentage'))
         # check if discount amount
-        if data.get('invoice_discount', {}).get('amount'):
-            invoice_price -= data.get('invoice_discount').get('amount')
+        if data.get('discount', {}).get('amount'):
+            invoice_price -= data.get('discount').get('amount')
         # set invoice price
         data['invoice_price'] = invoice_price
 
