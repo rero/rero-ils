@@ -17,6 +17,194 @@
 Changes
 ==========
 
+`v0.7.0 <https://github.com/rero/rero-ils/tree/v0.7.0>`__ (2020-04-09)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.6.1...v0.7.0>`__
+
+**Implemented enhancements:**
+
+-  Browsing during setup
+   `#869 <https://github.com/rero/rero-ils/issues/869>`__
+
+**Fixed bugs:**
+
+-  Protect the library custom editor
+   `#575 <https://github.com/rero/rero-ils/issues/575>`__
+
+**Closed issues:**
+
+-  Action menu for fees
+   `#871 <https://github.com/rero/rero-ils/issues/871>`__
+-  Not possible to create some of the loan fixtures
+   `#838 <https://github.com/rero/rero-ils/issues/838>`__
+-  Space after pickup location name
+   `#830 <https://github.com/rero/rero-ils/issues/830>`__
+-  Flash message for checkin with fees, requests or transit
+   `#829 <https://github.com/rero/rero-ils/issues/829>`__
+-  Alignment of checkins and checkouts infos
+   `#827 <https://github.com/rero/rero-ils/issues/827>`__
+-  Validation message “Record Created with pid”
+   `#805 <https://github.com/rero/rero-ils/issues/805>`__
+-  Focus set in the list of requests to validate
+   `#803 <https://github.com/rero/rero-ils/issues/803>`__
+-  Item detailed view: missing circulation info
+   `#798 <https://github.com/rero/rero-ils/issues/798>`__
+-  Patron to display in the checkin form
+   `#793 <https://github.com/rero/rero-ils/issues/793>`__
+-  Authorisations `#787 <https://github.com/rero/rero-ils/issues/787>`__
+-  Location settings aren’t explained in the editor and an online pickup
+   location is possible
+   `#604 <https://github.com/rero/rero-ils/issues/604>`__
+
+**Merged pull requests:**
+
+-  ui: move to rero-ils-ui v0.1.0
+   `#915 <https://github.com/rero/rero-ils/pull/915>`__
+   (`jma <https://github.com/jma>`__)
+-  location: correct schema to work well with formly
+   `#914 <https://github.com/rero/rero-ils/pull/914>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  project: fix sqlalchemy last releases problems
+   `#910 <https://github.com/rero/rero-ils/pull/910>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  translation: fix key source issues
+   `#909 <https://github.com/rero/rero-ils/pull/909>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘en’
+   `#908 <https://github.com/rero/rero-ils/pull/908>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘nl’
+   `#904 <https://github.com/rero/rero-ils/pull/904>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘es’
+   `#900 <https://github.com/rero/rero-ils/pull/900>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘it’
+   `#897 <https://github.com/rero/rero-ils/pull/897>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  git: integrate US1232 into dev
+   `#896 <https://github.com/rero/rero-ils/pull/896>`__
+   (`reropag <https://github.com/reropag>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘ar’
+   `#892 <https://github.com/rero/rero-ils/pull/892>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  fixture: recreation of documents for MEF
+   `#889 <https://github.com/rero/rero-ils/pull/889>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  issues: trim item and patron barcodes
+   `#887 <https://github.com/rero/rero-ils/pull/887>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  security: fix bleach ReDOS security breach
+   `#872 <https://github.com/rero/rero-ils/pull/872>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  acquisition: cleanup useless functions of order lines resource
+   `#867 <https://github.com/rero/rero-ils/pull/867>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  vulnerability: fix PyYaml CVE vulnerability
+   `#866 <https://github.com/rero/rero-ils/pull/866>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  project: improve test on dates
+   `#863 <https://github.com/rero/rero-ils/pull/863>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  test: fix library opening timezone due date
+   `#859 <https://github.com/rero/rero-ils/pull/859>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  data: fix location data problem
+   `#858 <https://github.com/rero/rero-ils/pull/858>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  bootstrap: fix useless tgz file installation
+   `#857 <https://github.com/rero/rero-ils/pull/857>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  security: fix bleach XSS security breach
+   `#854 <https://github.com/rero/rero-ils/pull/854>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  document: fix cover image in public detailed view
+   `#848 <https://github.com/rero/rero-ils/pull/848>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  tests: fix Zürich timezone problems
+   `#847 <https://github.com/rero/rero-ils/pull/847>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  db: fix sequence indentifier
+   `#846 <https://github.com/rero/rero-ils/pull/846>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  request: fix request made by a librarian
+   `#843 <https://github.com/rero/rero-ils/pull/843>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  location: adapt JSON schema for pickup_name required if is_pickup
+   `#842 <https://github.com/rero/rero-ils/pull/842>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  installation: fix python packages dependencies
+   `#841 <https://github.com/rero/rero-ils/pull/841>`__
+   (`jma <https://github.com/jma>`__)
+-  tests: fix dependencies and security check
+   `#839 <https://github.com/rero/rero-ils/pull/839>`__
+   (`jma <https://github.com/jma>`__)
+-  tests: fix problems with daylight saving time
+   `#836 <https://github.com/rero/rero-ils/pull/836>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  requests: place a request for a patron by a librarian
+   `#835 <https://github.com/rero/rero-ils/pull/835>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  monitoring: monitoring for DB and ES
+   `#833 <https://github.com/rero/rero-ils/pull/833>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  release: v0.6.1 `#825 <https://github.com/rero/rero-ils/pull/825>`__
+   (`jma <https://github.com/jma>`__)
+-  circulation: return all applied actions after a checkin or checkout
+   `#824 <https://github.com/rero/rero-ils/pull/824>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  Transform “Fees” to “PatronTransaction” data model
+   `#820 <https://github.com/rero/rero-ils/pull/820>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  documentation: update INSTALL.rst
+   `#818 <https://github.com/rero/rero-ils/pull/818>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  patron editor: add placeholders
+   `#815 <https://github.com/rero/rero-ils/pull/815>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  public interface: improve patron request deletion
+   `#808 <https://github.com/rero/rero-ils/pull/808>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  utils: $ref from pid
+   `#765 <https://github.com/rero/rero-ils/pull/765>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  metadata: electronicLocator
+   `#761 <https://github.com/rero/rero-ils/pull/761>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  documentation: Flask-Wiki integration
+   `#740 <https://github.com/rero/rero-ils/pull/740>`__
+   (`jma <https://github.com/jma>`__)
+-  acquisition: create invoice resource
+   `#729 <https://github.com/rero/rero-ils/pull/729>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+
+
+`v0.6.1 <https://github.com/rero/rero-ils/tree/v0.6.1>`__ (2020-03-02)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.6.0...v0.6.1>`__
+
+**Closed issues:**
+
+-  Adapt request to validate to the library switch
+   `#817 <https://github.com/rero/rero-ils/issues/817>`__
+
+**Merged pull requests:**
+
+-  ui: move to rero-ils-ui 0.0.12
+   `#823 <https://github.com/rero/rero-ils/pull/823>`__
+   (`jma <https://github.com/jma>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘nl’
+   `#814 <https://github.com/rero/rero-ils/pull/814>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  cli: fix typo `#811 <https://github.com/rero/rero-ils/pull/811>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+
+.. _changelog-1:
+
 `v0.6.0 <https://github.com/rero/rero-ils/tree/v0.6.0>`__ (2020-02-26)
 ----------------------------------------------------------------------
 

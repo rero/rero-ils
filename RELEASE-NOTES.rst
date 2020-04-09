@@ -18,6 +18,226 @@
 Release notes
 =============
 
+v0.7.0
+------
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Moves to ``rero-ils-ui`` version 0.1.0. ``rero-ils-ui`` is the
+   angular project for part of the user interface (public search and
+   professional interface).
+-  Fixes some issues in the source code identified through the
+   translation process (in both projects: ``rero-ils`` and
+   ``rero-ils-ui``).
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Improves request deletion by patron, to keep the request tab
+   active after deletion.
+-  Fixes the cover image display in the document detailed and brief view
+   of the public interface.
+-  Displays the document title field in brief and detailed views.
+-  Adapts the configuration of the search views to be compatible with
+   ``ng-core``, in order to ensure that professional action buttons do
+   not appear on the public interface.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Adds examples in the placeholders in the patron editor.
+-  Adds a request button on the document detailed view, that allows a
+   librarian to place a request on an item on behalf of a patron. The
+   button opens a modal in which the librarian can scan a patron barcode
+   and select a pickup location.
+-  Truncates the abstract in the document detailed view and adds a *show more*
+   link to get the complete abstract. This uses a ``ng-core`` component.
+-  Fixes the messages displayed to the librarian as he or she’s placing
+   a request on an item for a patron.
+-  Centralizes useful data to populate the professional interface front
+   page board and menu.
+-  Improves information about unavailable items on the item detailed
+   view.
+-  Displays the electronic location on the document detailed view.
+-  Displays the document title field in brief and detailed views.
+-  Improves the edition statement field display on the document detailed
+   view.
+-  Implements the fee tab of the patron account from the librarian point
+   of view.
+-  Fixes uniqueness value check of several fields in the location
+   record, such as ``is_online``, ``pickup_name``, etc., when a location
+   is created or updated.
+-  Adds guards to protect access to any resource editor based on the
+   user permissions. A basic error page is also added.
+-  Removes the location from the library brief view (search result) and
+   moves it to the library detailed view.
+-  Hides the action button on the location detailed view depending on the
+   user permission on the library (the parent record).
+
+Circulation
+~~~~~~~~~~~
+
+-  Generates fees (“patron transactions”) and “patron transaction
+   events” when a loan is overdue.
+-  Returns all applied actions after a successful checkin ou checkout,
+   in order to address new circulation use cases.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Adds a new resource, “patron transaction”, to manage all the
+   different fees that a parton will generate (overdue checkout,
+   photocopy, subscription, lost or damaged item, interlibrary loan,
+   etc.)
+-  Adds a new resource, “patron transaction event” to track the history
+   of each fee (partially paid, paid, disputed, etc.)
+-  Adapts the “fee” resource to make use of “patron transaction” and
+   “patron transaction event” resource.
+-  Allows the librarian to register payment or partial payement for fees.
+
+Metadata
+~~~~~~~~
+
+-  Implements the ``electronicLocator`` fields in the metadata model.
+-  Implements the ``title`` fields in the metadata model, with transformation
+   from RERO MARC21 and BNF UNIMARC, which was a huge work.
+-  Improves the ``marc21json`` CLI to enable debugging options.
+-  Updates the location JSON schema to make the ``pickup_name`` field
+   required if the location is a pickup location (``is_pickup`` is set
+   to ``true``).
+-  Updates the document records to the new MEF IDs.
+-  Checks and removes leading or trailing spaces in the item and patron
+   barcodes.
+
+Acquisition
+~~~~~~~~~~~
+
+-  Adds “invoice” resource. This resource is linked to the “vendor”
+   resource.
+-  Removes useless functions in the "order line" ressource.
+
+API
+~~~
+
+-  Adds a sort function on pickup name location.
+-  Checks if the librarian has the permission to place a request on an
+   item for a patron.
+-  Adds the possibility for a librarian to place a request on an item
+   for a patron.
+
+Fixtures
+~~~~~~~~
+
+-  Adds patron transaction and patron transaction event fixtures.
+-  Adds loan fixtures to create active and paid overdue fees.
+
+Tests
+~~~~~
+
+-  Fixes issue with the daylight saving timezone that occurs twice
+   a year.
+-  Fixes other timezone issues and displays better error messages. Tests
+   for the circulation backend are highly dependent on a good timezone
+   management.
+-  Compares library opening hours in UTC only, to avoid changing
+   daylight saving timezones.
+-  Removes solved security exception and adds a new one on ``pipenv``.
+-  Adds a new ``live_server_scope`` option in ``pytest.ini`` due to the
+   new ``pytest`` version (``1.1.0``).
+-  Set ``bleach`` version to ``>=3.1.4`` to fix a ReDOS security breach.
+-  Pins the ``SQLAlchemy`` version to ``1.3.15`` because the last
+   version breaks the tests.
+
+Instance
+~~~~~~~~
+
+-  Adds in the utilities scripts a method to get the JSON reference
+   corresponding to a given PID.
+-  Improves dependencies declaration in the ``Pipfile`` to reduce
+   dependency conflicts and documents the ``Pipfile`` accordingly.
+-  Starts BASH scripts with ``pipenv run`` (bootstrap, console, server,
+   setup, update).
+-  Adds support for newer version of the python import order check tool
+   (``isort`` >= ``4.3.10``).
+-  Fixes the DB identifier sequence computation.
+-  Monitors data consistency between the DB and the indexes. That is
+   useful to be aware of issues in a deployed instance.
+-  Pins the ``bleach`` version to fix a XSS security breach.
+-  Fixes a useless ``tgz`` file installation in the ``bootstrap``
+   script.
+-  Removes wrong parameters to the bootstrap script (``-s`` and ``-b``).
+-  Updates ``PyYaml`` to fix a vulnerability (CVE-2020-1747).
+-  Adds a script to check circulation dates (due date) through a
+   complete year, to identify all timezone issues.
+-  Rename ``rero-ils-ui`` checkout component to checkin accordingly to
+   its usage.
+-  Update dependencies for security reasons: ``minimist``, ``acorn``,
+   ``kind-of``.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Updates installation procedure with instruction to set the correct
+   version of ``pipenv`` and ``python``.
+-  Adds a flask ``Flask-Wiki`` module to display and edit help
+   documentation for the end users.
+-  Updates the contributors list of the ``rero-ils-ui`` project.
+
+Issues
+~~~~~~
+
+-  `rero-ils-ui#169 <https://github.com/rero/rero-ils-ui/issue/169>`__:
+   A CSS styling rule was missing on the person detailed view of the
+   professional interface to reduce the size of the source information
+   badges.
+-  `rero-ils-ui#209 <https://github.com/rero/rero-ils-ui/issue/209>`__:
+   In the patron account fee tab of the professional interface, the
+   actions drop down menu was not placed just below the action button.
+-  `#538 <https://github.com/rero/rero-ils/issue/538>`__: Help messages
+   (ie JSON schema description fields or validation messages) were
+   missing in the patron editor.
+-  `#575 <https://github.com/rero/rero-ils/issue/575>`__: The library
+   editor was accessible to any librarian typing the correct URL in the
+   web browser. The record couldn’t be saved, but still.
+-  `#787 <https://github.com/rero/rero-ils/issues/787>`__: As a
+   generalization of issue
+   `#575 <https://github.com/rero/rero-ils/issue/575>`__, access to
+   resources editor had to be protected based on the user permissions.
+-  `#793 <https://github.com/rero/rero-ils/issues/793>`__: In some
+   cases, the patron displayed in the checkin interface wasn’t correct.
+   To solved this, better information had to be returned after the
+   checkin.
+-  `#794 <https://github.com/rero/rero-ils/issues/794>`__: The
+   ``pickup_name`` field of a location that is pickup wasn’t required,
+   thus resulting in incomplete records when creating or updating a
+   location through the editor.
+-  `#798 <https://github.com/rero/rero-ils/issues/798>`__: The
+   professional item detailed view didn’t display information on why an
+   item isn’t available in some cases.
+-  `#803 <https://github.com/rero/rero-ils/issue/803>`__: In the request
+   validation interface, when the librarian validated a request, the
+   focus form the input field was lost, forcing the librarian to click
+   to set the focus for the next validation.
+-  `#804 <https://github.com/rero/rero-ils/issue/804>`__: Example had to
+   be added in the patron editor to help the end user.
+-  `#826 <https://github.com/rero/rero-ils/issue/826>`__: In the checkin
+   interface, when a checkin item has a request, the name of the patron
+   that placed the request was not displayed in the correct order (last
+   name, first name).
+-  `#827 <https://github.com/rero/rero-ils/issue/827>`__: The component
+   alignment in the circulation interface had to be improved. Items
+   with an action button were shorter than items without any button.
+-  `#829 <https://github.com/rero/rero-ils/issue/829>`__: Some flash
+   messages were missing when the librarian is checkin in items that have
+   requests, or fees, or that should be sent in transit.
+-  `#830 <https://github.com/rero/rero-ils/issue/830>`__: In the
+   circulation interface, the name of some pickup location had an extra
+   trailing space, that had to be removed.
+-  `#856 <https://github.com/rero/rero-ils/issue/856>`__: The bootstrap
+   script was trying to install ``rero-ils-ui`` from the ``tgz`` file
+   even if the ``-t`` option was not used.
+
 v0.6.1
 ------
 
