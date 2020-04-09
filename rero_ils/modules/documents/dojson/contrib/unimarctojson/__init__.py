@@ -17,6 +17,6 @@
 
 """UNIMARC RERO to JSON."""
 
-from .model import unimarctojson
+from .model import unimarc
 
-__all__ = ('unimarctojson')
+__all__ = ('unimarc')

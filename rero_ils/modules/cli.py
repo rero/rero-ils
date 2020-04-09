@@ -64,7 +64,7 @@ from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
 from .utils import read_json_record
-from ..modules.documents.dojson.contrib.unimarctojson import unimarctojson
+from ..modules.documents.dojson.contrib.unimarctojson import unimarc
 from ..modules.providers import append_fixtures_new_identifiers
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -1371,7 +1371,7 @@ def response_test(count, response, exit, verbose):
         count += 1
         json_data = create_record(xml_record)
         try:
-            record = unimarctojson.do(json_data)
+            record = unimarc.do(json_data)
         except Exception as err:
             click.secho('ERROR: {err}'.format(err=err), fg='red')
             traceback.print_exc()

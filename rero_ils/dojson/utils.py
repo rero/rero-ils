@@ -24,14 +24,40 @@ import traceback
 import click
 from dojson import Overdo, utils
 
+UNIMARC_LANGUAGES_SCRIPTS = {
+    'ba': 'latn',  # Latin
+    'ca': 'cyrl',  # Cyrillic
+    'da': 'jpan',  # Japanese - undefined writing
+    'db': 'hani',  # Japanese - Kanji
+    'dc': 'hrkt',  # Japanese - Kana
+    'ea': 'hani',  # Chinese characters (Chinese, Japanese, Korean)
+    'fa': 'arab',  # Arabic
+    'ga': 'grek',  # Greek
+    'ha': 'hebr',  # Hebrew
+    'ia': 'thai',  # Thai
+    'ja': 'deva',  # devanagari
+    'ka': 'kore',  # Korean
+    'la': 'taml',  # Tamil
+    'ma': 'geor',  # Georgian
+    'mb': 'armn',  # Armenian
+    'zz': 'zyyy'   # other
+}
+
 LANGUAGES_SCRIPTS = {
+    'armn': ('arm', ),
     'arab': ('ara', 'per'),
     'cyrl': ('bel', 'chu', 'mac', 'rus', 'srp', 'ukr'),
+    'deva': ('awa', 'bho', 'bra', 'doi', 'hin', 'kas', 'kok', 'mag', 'mai',
+             'mar', 'mun', 'nep', 'pli', 'pra', 'raj', 'san', 'sat', 'snd'),
+    'geor': ('geo', ),
     'grek': ('grc', 'gre'),
     'hani': ('chi', 'jpn'),
     'hebr': ('heb', 'lad', 'yid'),
+    'hrkt': ('jpn', ),
     'jpan': ('jpn', ),
     'kore': ('kor', ),
+    'taml': ('tam', ),
+    'thai': ('tha', ),
     'zyyy': ('chi', )
 }
 
@@ -40,7 +66,10 @@ SCRIPT_PER_LANG_ASIA = {
     'kor': 'kore',
     'chi': 'hani'
 }
+
 SCRIPT_PER_LANG_NOT_ASIA = {
+    'arm': 'armn',
+    'geo': 'geor',
     'gre': 'grek',
     'grc': 'grek',
     'ara': 'arab',
@@ -49,6 +78,7 @@ SCRIPT_PER_LANG_NOT_ASIA = {
     'rus': 'cyrl',
     'mac': 'cyrl',
     'srp': 'cyrl',
+    'tha': 'thai',
     'ukr': 'cyrl',
     'chu': 'cyrl',
     'yid': 'hebr',
@@ -212,9 +242,58 @@ class ReroIlsOverdo(Overdo):
             raise ValueError('data field expected (tag >= 01x)')
         return subfields
 
+    def build_value_with_alternate_graphic(
+            self, tag, code, label, index, link,
+            punct=None, spaced_punct=None):
+        """
+        Build the data structure for alternate graphical representation.
+
+        :param tag: the marc field tag
+        :param code: contains the subfield code. Used for debug only
+        :param label: the subfield data value
+        :param index: the subfield index position in the field
+        :param link: the link code to the alternate graphic field 880
+        :param punct: punctuation chars to remove i.e. ',.'
+        :param spaced_punct: punctuation chars preceded by a space to remove
+        :return: a list of 1 value, or 2 values if alternate graphical exists
+        :rtype: list
+
+        Example of return value:
+        [
+            {
+                "value": "B.I. Bursov"
+            },
+            {
+                "value": "Б.И. Бурсов",
+                "language": "rus-cyrl"
+            }
+        ]
+        """
+        def clean_punctuation(value, punct, spaced_punct):
+            return remove_trailing_punctuation(
+                value,
+                punctuation=punct,
+                spaced_punctuation=spaced_punct)
+
+        # build_value_with_alternate_graphic starts here
+
+        data = [{
+            'value': clean_punctuation(label, punct, spaced_punct).strip()
+        }]
+        try:
+            alt_gr = self.alternate_graphic[tag][link]
+            subfield = self.get_subfields(alt_gr['field'])[index]
+            data.append({
+                'value': clean_punctuation(subfield, punct, spaced_punct),
+                'language': self.get_language_script(alt_gr['script'])
+            })
+        except Exception as err:
+            pass
+        return data
+
 
 class ReroIlsMarc21Overdo(ReroIlsOverdo):
-    """Specialized Overdo.
+    """Specialized Overdo for Marc21.
 
     This class adds RERO Marc21 properties and functions to the ReroIlsOverdo.
     """
@@ -418,55 +497,6 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                         '041$h:', self.langs_from_041_h)
         return '-'.join(['und', script_code])
 
-    def build_value_with_alternate_graphic(
-            self, tag, code, label, index, link,
-            punct=None, spaced_punct=None):
-        """
-        Build the data structure for alternate graphical representation.
-
-        :param tag: the marc field tag
-        :param code: contains the subfield code. Used for debug only
-        :param label: the subfield data value
-        :param index: the subfield index position in the field
-        :param link: the link code to the alternate graphic field 880
-        :param punct: punctuation chars to remove i.e. ',.'
-        :param spaced_punct: punctuation chars preceded by a space to remove
-        :return: a list of 1 value, or 2 values if alternate graphical exists
-        :rtype: list
-
-        Example of return value:
-        [
-            {
-                "value": "B.I. Bursov"
-            },
-            {
-                "value": "Б.И. Бурсов",
-                "language": "rus-cyrl"
-            }
-        ]
-        """
-        def clean_punctuation(value, punct, spaced_punct):
-            return remove_trailing_punctuation(
-                value,
-                punctuation=punct,
-                spaced_punctuation=spaced_punct)
-
-        # build_value_with_alternate_graphic starts here
-
-        data = [{
-            'value': clean_punctuation(label, punct, spaced_punct).strip()
-        }]
-        try:
-            alt_gr = self.alternate_graphic[tag][link]
-            subfield = self.get_subfields(alt_gr['field'])[index]
-            data.append({
-                'value': clean_punctuation(subfield, punct, spaced_punct),
-                'language': self.get_language_script(alt_gr['script'])
-            })
-        except Exception as err:
-            pass
-        return data
-
     def build_variant_title_data(self, string_set):
         """Build variant title data form fields 246.
 
@@ -530,6 +560,110 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 # for showing the variant title skipped for debugging purpose
                 # print('variant skipped', subfield_246_a_cleaned)
         return variant_list
+
+
+class ReroIlsUnimarcOverdo(ReroIlsOverdo):
+    """Specialized Overdo for UNIMARC.
+
+    This class adds UNIMARC properties and functions to the ReroIlsOverdo.
+    """
+
+    bib_id = ''
+    lang_from_101 = None
+    alternate_graphic = {}
+
+    def __init__(self, bases=None, entry_point_group=None):
+        """Constructor."""
+        super(ReroIlsUnimarcOverdo, self).__init__(
+            bases=bases, entry_point_group=entry_point_group)
+        self.count = 0
+
+    def do(self, blob, ignore_missing=True, exception_handlers=None):
+        """Translate blob values and instantiate new model instance."""
+        self.count += 1
+        result = None
+        try:
+            self.blob_record = blob
+            try:
+                self.bib_id = self.get_fields(tag='001')[0]['data']
+            except Exception as err:
+                self.bib_id = '???'
+            fields_101 = self.get_fields(tag='101')
+            if fields_101:
+                field_101_a = self.get_subfields(fields_101[0], 'a')
+                field_101_g = self.get_subfields(fields_101[0], 'g')
+                if field_101_a:
+                    self.lang_from_101 = field_101_a[0]
+                if field_101_g:
+                    self.lang_from_101 = field_101_g[0]
+
+            result = super(ReroIlsUnimarcOverdo, self).do(
+                blob,
+                ignore_missing=ignore_missing,
+                exception_handlers=exception_handlers
+            )
+        except Exception as err:
+            error_print('ERROR:', self.bib_id, self.count, err)
+            traceback.print_exc()
+        return result
+
+    def get_alt_graphic_fields(self, tag=None):
+        """Get all alternate graphic fields having the given tag value.
+
+        :param unimarc_script_code: the unimarc script code
+        :type unimarc_script_code: str
+        :return: a list of alternate graphic fields
+        :rtype: list
+        """
+        fields = []
+        items = get_field_items(self.blob_record)
+        for blob_key, blob_value in items:
+            field_data = {}
+            tag_value = blob_key[0:3]
+            if (tag_value == tag) or not tag:
+                field_data['tag'] = tag_value
+                if len(blob_key) == 3:  # if control field
+                    field_data['data'] = blob_value.rstrip()
+                else:
+                    field_data['ind1'] = blob_key[3:4]
+                    field_data['ind2'] = blob_key[4:5]
+                    field_data['subfields'] = blob_value
+                subfields_6 = self.get_subfields(field_data, '6')
+                subfields_7 = self.get_subfields(field_data, '7')
+                # alternate graphic link code start with 'a'
+                if subfields_6 and subfields_6[0][0] == 'a' \
+                        and subfields_7 and subfields_7[0] != 'ba':  # ba=latin
+                    tag_data = self.alternate_graphic.get(tag, {})
+                    tag_data[subfields_6[0]] = {}
+                    tag_data[subfields_6[0]]['field'] = field_data
+                    tag_data[subfields_6[0]]['script'] = subfields_7[0]
+                    self.alternate_graphic[tag] = tag_data
+                else:
+                    fields.append(field_data)
+        return fields
+
+    def get_language_script(self, unimarc_script_code):
+        """Build the `language-script` code.
+
+        This code is built according to the format
+        <lang_code>-<script_code> for example: chi-hani;
+        the <lang_code> is retrived from field 101
+        the <script_code> is build from the given <unimarc_script_code>
+
+        :param unimarc_script_code: the unimarc script code
+        :param unimarc_script_code: str
+        :return: language script code in the format `<lang_code>-<script_code>`
+        :rtype: str
+        """
+        if unimarc_script_code in UNIMARC_LANGUAGES_SCRIPTS:
+            script_code = UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
+            if script_code in LANGUAGES_SCRIPTS:
+                if self.lang_from_101 in LANGUAGES_SCRIPTS[script_code]:
+                    return '-'.join([self.lang_from_101, script_code])
+                error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
+                            script_code,  '101:', self.lang_from_101,
+                            '101$aor$g:', self.lang_from_101)
+        return '-'.join(['und', script_code])
 
 
 class TitlePartList(object):
