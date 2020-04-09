@@ -52,15 +52,3 @@ def test_locations_name(location_schema, loc_public_martigny_data):
         data = copy.deepcopy(loc_public_martigny_data)
         data['name'] = 25
         validate(data, location_schema)
-
-
-def test_locations_pickup(location_schema, loc_public_martigny_data):
-    """Test pickup location behavior through jsonschemas."""
-    validate(loc_public_martigny_data, location_schema)
-
-    # If location is a pickup_location, then the pickup_name must be present.
-    with pytest.raises(ValidationError):
-        data = copy.deepcopy(loc_public_martigny_data)
-        data['is_pickup'] = True
-        del(data['pickup_name'])
-        validate(data, location_schema)

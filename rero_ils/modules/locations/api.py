@@ -60,12 +60,16 @@ class Location(IlsRecord):
         """Validate record against schema.
 
         and extended validation to allow only one location with field
-        is_online = True per library.
+        is_online = True per library. Also check that "pickup_name" field
+        is present and not empty if location is pickup
         """
         online_location_pid = self.get_library().online_location
         if self.get('is_online') and online_location_pid and \
                 self.pid != online_location_pid:
             return _('Another online location exists in this library')
+        if self.get('is_pickup', False) and \
+                not self.get('pickup_name', '').strip():
+            return _('Pickup name field is required.')
         return True
 
     @classmethod
