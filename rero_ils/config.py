@@ -37,7 +37,7 @@ from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
     ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
-    PendingToItemInTransitPickup, ToItemOnLoan, ToCancelled
+    PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
