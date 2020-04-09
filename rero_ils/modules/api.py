@@ -28,7 +28,6 @@ from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.ext import pid_exists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
