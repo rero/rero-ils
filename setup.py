@@ -137,7 +137,7 @@ setup(
                 rero_ils.modules.ebooks.dojson.contrib.marc21:marc21',
             'unimarctojson = '
             'rero_ils.modules.documents.dojson'
-            '.contrib.unimarctojson:unimarctojson',
+            '.contrib.unimarctojson:unimarc',
         ],
         'flask.commands': [
             'fixtures = rero_ils.modules.cli:fixtures',
