@@ -163,7 +163,7 @@ msgstr "e-book"
 
 #: rero_ils/manual_translations.txt:29
 msgid "journal"
-msgstr "giornale"
+msgstr "rivista"
 
 #: rero_ils/manual_translations.txt:30
 msgid "score"
@@ -1011,7 +1011,7 @@ msgstr "E-book"
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:77
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:77
 msgid "Journal"
-msgstr "Giornale"
+msgstr "Rivista"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:81
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:81
@@ -1872,10 +1872,10 @@ msgstr "indice dei contenuti"
 msgid "full text"
 msgstr "testo completo"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1191
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1191
-msgid "Public note"
-msgstr "Public note"
+#: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1076
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1076
+msgid "Uniform Resource Identifier Public Note"
+msgstr "Nota pubblica"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:1192
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:1192
@@ -7035,7 +7035,7 @@ msgstr "Transazione del lettore madre"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:32
 msgid "Patron transaction URI"
-msgstr "URI del lettore"
+msgstr "URI del tassa"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
 msgid "Creation date"
@@ -7055,7 +7055,7 @@ msgstr "Operatore Lettore URI"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
-msgstr "Transazione del lettore "
+msgstr "Tassa"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:5
 msgid "JSON schema for Patron Transaction."
@@ -7066,16 +7066,52 @@ msgid "Schema to validate patron transaction records against."
 msgstr ""
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:24
-msgid "Patron transaction ID"
-msgstr ""
+msgid "Patron Transaction ID"
+msgstr "ID della tassa"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:31
-msgid "Patron transaction creation date"
-msgstr ""
+msgid "Patron Transaction creation date"
+msgstr "Data di creazione della tassa"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:34
-msgid "Patron transaction note"
-msgstr ""
+msgid "Patron Transaction Note"
+msgstr "Nota della tassa"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:35
+msgid "Additional informations about patron transaction"
+msgstr "Informazioni supplementari sulla tassa"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:50
+msgid "open"
+msgstr "aperto"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:54
+msgid "closed"
+msgstr "chiuso"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:61
+msgid "Patron Transaction Type"
+msgstr " Tipo di tassa"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:80
+msgid "photocopy"
+msgstr "fotocopia"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
+msgid "subscription"
+msgstr "abbonamento"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
+msgid "lost"
+msgstr "perso"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:92
+msgid "damaged"
+msgstr "danneggiato"
+
+#: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:96
+msgid "Interlibrary loan"
+msgstr "Prestito interbibliotecario"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:48
 msgid "Patron transaction type"
@@ -7096,7 +7132,7 @@ msgstr "URI della notifica"
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:97
 msgid "Total calculated amount of the patron transaction"
-msgstr "Importo totale calcolato delle transazioni del lettore"
+msgstr "Importo totale calcolato delle tasse"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:4
 msgid "PatronType"
