@@ -294,13 +294,14 @@ def title_format_text(title, with_subtitle=True):
         part_strings = {}
         language = 'default'
         for part_key in ('partNumber', 'partName'):
-            for part_data in part[part_key]:
-                language = part_data.get('language', 'default')
-                value = part_data.get('value', '')
-                if value:
-                    if language not in part_strings:
-                        part_strings[language] = []
-                    part_strings[language].append(value)
+            if part_key in part:
+                for part_data in part[part_key]:
+                    language = part_data.get('language', 'default')
+                    value = part_data.get('value', '')
+                    if value:
+                        if language not in part_strings:
+                            part_strings[language] = []
+                        part_strings[language].append(value)
         for language in part_strings:
             part_output[language] = ', '.join(part_strings[language])
 

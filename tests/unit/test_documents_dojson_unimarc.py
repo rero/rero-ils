@@ -21,8 +21,7 @@ from __future__ import absolute_import, print_function
 
 from dojson.contrib.marc21.utils import create_record
 
-from rero_ils.modules.documents.dojson.contrib.unimarctojson import \
-    unimarctojson
+from rero_ils.modules.documents.dojson.contrib.unimarctojson import unimarc
 
 
 # type: leader
@@ -45,7 +44,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'book'
 
     unimarcxml = """
@@ -54,7 +53,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'journal'
 
     unimarcxml = """
@@ -63,7 +62,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'article'
 
     unimarcxml = """
@@ -72,7 +71,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'score'
     unimarcxml = """
     <record>
@@ -80,7 +79,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'score'
 
     unimarcxml = """
@@ -89,7 +88,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'sound'
     unimarcxml = """
     <record>
@@ -97,7 +96,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'sound'
 
     unimarcxml = """
@@ -106,7 +105,7 @@ def test_unimarc_to_type():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('type') == 'video'
 
 
@@ -128,7 +127,7 @@ def test_unimarc_to_title():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('title') == [
         {
             'mainTitle': [
@@ -185,7 +184,7 @@ def test_unimarc_to_title():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('title') == [
         {
             'mainTitle': [
@@ -214,7 +213,7 @@ def test_unimarc_to_title():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('title') == [
         {
             'mainTitle': [
@@ -226,6 +225,117 @@ def test_unimarc_to_title():
         }
     ]
     assert data.get('responsibilityStatement') is None
+
+
+def test_unimarc_to_title_with_alt_graphic_with_bad_lang():
+    """Test dojson unimarc to title with alternate graphic."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="101" ind1=" " ind2=" ">
+        <subfield code="a">fre</subfield>
+        <subfield code="c">fre</subfield>
+        <subfield code="g">rus</subfield>
+      </datafield>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="6">a01</subfield>
+        <subfield code="7">ba</subfield>
+        <subfield code="a">Aẖbār min Marrākuš</subfield>
+        <subfield code="f">al-Ṭāhir ibn Ǧullūn</subfield>
+      </datafield>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="6">a01</subfield>
+        <subfield code="7">fa</subfield>
+        <subfield code="a">أخبار من مراكش</subfield>
+        <subfield code="f">لمبرون</subfield>
+      </datafield>
+    </record>
+    """
+
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'Aẖbār min Marrākuš'
+                },
+                {
+                     'value': 'أخبار من مراكش',
+                     'language': 'und-arab'
+                }
+
+            ],
+            'type': 'bf:Title'
+        }
+    ]
+
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'al-Ṭāhir ibn Ǧullūn'
+            },
+            {
+                'value': 'لمبرون',
+                'language': 'und-arab'
+            }
+        ]
+    ]
+
+
+def test_unimarc_to_title_with_alt_graphic():
+    """Test dojson unimarc to title with alternate graphic."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="101" ind1=" " ind2=" ">
+        <subfield code="a">fre</subfield>
+        <subfield code="c">fre</subfield>
+        <subfield code="g">ara</subfield>
+      </datafield>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="6">a01</subfield>
+        <subfield code="7">ba</subfield>
+        <subfield code="a">Aẖbār min Marrākuš</subfield>
+        <subfield code="f">al-Ṭāhir ibn Ǧullūn</subfield>
+      </datafield>
+      <datafield tag="200" ind1="1" ind2="0">
+        <subfield code="6">a01</subfield>
+        <subfield code="7">fa</subfield>
+        <subfield code="a">أخبار من مراكش</subfield>
+        <subfield code="f">لمبرون</subfield>
+      </datafield>
+    </record>
+    """
+
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('title') == [
+        {
+            'mainTitle': [
+                {
+                    'value': 'Aẖbār min Marrākuš'
+                },
+                {
+                     'value': 'أخبار من مراكش',
+                     'language': 'ara-arab'
+                }
+            ],
+            'type': 'bf:Title'
+        }
+    ]
+
+    assert data.get('responsibilityStatement') == [
+        [
+            {
+                'value': 'al-Ṭāhir ibn Ǧullūn'
+            },
+            {
+                'value': 'لمبرون',
+                'language': 'ara-arab'
+            }
+        ]
+    ]
 
 
 def test_unimarctotitle_with_parallel_title():
@@ -255,7 +365,7 @@ def test_unimarctotitle_with_parallel_title():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('title') == [
         {
             'mainTitle': [
@@ -371,7 +481,7 @@ def test_unimarctotitle_with_parallel_and_variant_title():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('title') == [
         {
             'mainTitle': [
@@ -508,7 +618,7 @@ def test_unimarctotitlesProper():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('titlesProper') == ['proper title']
 
     unimarcxml = """
@@ -522,7 +632,7 @@ def test_unimarctotitlesProper():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('titlesProper') == ['proper title', 'other proper title']
 
 
@@ -538,7 +648,7 @@ def test_unimarc_languages():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('language') == [{'value': 'eng', 'type': 'bf:Language'}]
 
     unimarcxml = """
@@ -551,7 +661,7 @@ def test_unimarc_languages():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('language') == [
         {'value': 'eng', 'type': 'bf:Language'},
         {'value': 'fre', 'type': 'bf:Language'}
@@ -568,7 +678,7 @@ def test_unimarc_languages():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('language') == [
         {'value': 'eng', 'type': 'bf:Language'},
     ]
@@ -616,7 +726,7 @@ def test_unimarctoauthors():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     authors = data.get('authors')
     assert authors == [
         {
@@ -664,7 +774,7 @@ def test_unimarc_edition():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('editionStatement') == [
       {
         'editionDesignation': [
@@ -697,7 +807,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'statement': [
@@ -739,7 +849,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'statement': [
@@ -779,7 +889,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'place': [
@@ -830,7 +940,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'statement': [
@@ -877,7 +987,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Production',
         'statement': [
@@ -898,7 +1008,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Distribution',
         'statement': [
@@ -919,7 +1029,7 @@ def test_unimarc_publishers_provision_activity():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('provisionActivity') == [{
         'type': 'bf:Manufacture',
         'statement': [
@@ -943,7 +1053,7 @@ def test_unimarc_copyright_date():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('copyrightDate') == ['© 1919']
 
     unimarcxml = """
@@ -954,7 +1064,7 @@ def test_unimarc_copyright_date():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('copyrightDate') == ['℗ 1919']
 
 
@@ -974,7 +1084,7 @@ def test_unimarc_description():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('extent') == '116 p.'
     assert data.get('otherMaterialCharacteristics') == 'ill.'
     assert data.get('formats') == ['22 cm']
@@ -995,7 +1105,7 @@ def test_unimarc_description():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('extent') == '116 p.'
     assert data.get('otherMaterialCharacteristics') == 'ill.'
     assert data.get('formats') == ['22 cm', '12 x 15']
@@ -1018,7 +1128,7 @@ def test_unimarc_series():
       </datafield>    </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('series') == [
         {
             'name': 'Collection One',
@@ -1043,7 +1153,7 @@ def test_unimarc_abstract():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('abstracts') == ["This book is about"]
 
 
@@ -1061,7 +1171,7 @@ def test_unimarc_identifiers():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('identifiedBy') == [
       {
         "type": "bf:Local",
@@ -1082,7 +1192,7 @@ def test_unimarc_identifiers():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('identifiedBy') == [
       {
         "type": "bf:Ean",
@@ -1104,7 +1214,7 @@ def test_unimarc_notes():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('notes') == ['note']
     unimarcxml = """
     <record>
@@ -1117,7 +1227,7 @@ def test_unimarc_notes():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('notes') == ['note 1', 'note 2']
 
 
@@ -1142,7 +1252,7 @@ def test_unimarc_subjects():
     </record>
     """
     unimarcjson = create_record(unimarcxml)
-    data = unimarctojson.do(unimarcjson)
+    data = unimarc.do(unimarcjson)
     assert data.get('subjects') == [
         'subjects 600', 'Capet, Louis III, Jr., 1700-1780'
     ]

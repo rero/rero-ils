@@ -33,7 +33,7 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
-from .dojson.contrib.unimarctojson import unimarctojson
+from .dojson.contrib.unimarctojson import unimarc
 from .utils import display_alternate_graphic_first, edition_format_text, \
     localized_data_name, publication_statement_text, series_format_text, \
     title_format_text_alternate_graphic, title_format_text_head, \
@@ -155,7 +155,7 @@ def import_bnf_ean(ean):
                 json_data = create_record(xml_record)
 
                 # convert marc json to local json format
-                record = unimarctojson.do(json_data)
+                record = unimarc.do(json_data)
                 response = {
                     'metadata': record
                 }

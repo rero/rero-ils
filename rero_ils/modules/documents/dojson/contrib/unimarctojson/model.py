@@ -24,13 +24,13 @@ from dojson import utils
 from dojson.utils import force_list
 from pkg_resources import resource_string
 
-from rero_ils.dojson.utils import ReroIlsOverdo, TitlePartList, \
+from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     get_field_items, make_year, remove_trailing_punctuation
 
-unimarctojson = ReroIlsOverdo()
+unimarc = ReroIlsUnimarcOverdo()
 
 
-@unimarctojson.over('type', 'leader')
+@unimarc.over('type', 'leader')
 def unimarc_type(self, key, value):
     """
     Get document type.
@@ -63,7 +63,7 @@ def unimarc_type(self, key, value):
     return type
 
 
-@unimarctojson.over('identifiedBy', '^003')
+@unimarc.over('identifiedBy', '^003')
 @utils.ignore_value
 def unimarc_bnf_id(self, key, value):
     """Get ID.
@@ -80,7 +80,7 @@ def unimarc_bnf_id(self, key, value):
     return identifiers
 
 
-@unimarctojson.over('title', '^200..')
+@unimarc.over('title', '^200..')
 @utils.ignore_value
 def unimarc_title(self, key, value):
     """Get title data.
@@ -99,51 +99,81 @@ def unimarc_title(self, key, value):
         $i : repetitive
     """
     title_list = []
-    responsibilites = []
-    for tag in ['200', '510',
-                '512', '514', '515', '516', '517', '518', '519', '532']:
-        for field in unimarctojson.get_fields(tag=tag):
-            title_data = {}
-            part_list = TitlePartList(
-                part_number_code='h',
-                part_name_code='i'
-            )
-            subfields_a = unimarctojson.get_subfields(field, 'a')
-            subfields_e = unimarctojson.get_subfields(field, 'e')
-            if subfields_a:
-                title_data['mainTitle'] = [dict(value=subfields_a[0])]
-            for subfield_e in subfields_e:
-                title_data['subtitle'] = [dict(value=subfield_e)]
-            title_type = 'bf:VariantTitle'
-            if tag == '200':
-                title_type = 'bf:Title'
-            elif tag == '510':
-                title_type = 'bf:ParallelTitle'
-            # build title parts
-            items = get_field_items(field['subfields'])
-            for blob_key, blob_value in items:
-                if blob_key in ['f', 'g'] and tag == '200':
-                    responsibilites.append([dict(value=blob_value)])
-                if blob_key in ['h', 'i']:
-                    part_list.update_part(
-                        [dict(value=blob_value)], blob_key, blob_value)
-            title_data['type'] = title_type
-            the_part_list = part_list.get_part_list()
-            if the_part_list:
-                title_data['part'] = the_part_list
-            if title_data:
-                title_list.append(title_data)
+    title = self.get('title', [])
+    # this function will be called for each fields 200, but as we already
+    # process all of them in the first run and the tittle is already build,
+    # there is nothing to do if the title has already been build.
+    if not title:
+        language = unimarc.lang_from_101
+        responsibilites = []
+        for tag in ['200', '510',
+                    '512', '514', '515', '516', '517', '518', '519', '532']:
+            for field in unimarc.get_alt_graphic_fields(tag=tag):
+                title_data = {}
+                part_list = TitlePartList(
+                    part_number_code='h',
+                    part_name_code='i'
+                )
+                subfields_6 = unimarc.get_subfields(field, '6')
+                subfields_7 = unimarc.get_subfields(field, '7')
+                subfields_a = unimarc.get_subfields(field, 'a')
+                subfields_e = unimarc.get_subfields(field, 'e')
+                language_script_code = ''
+                if subfields_7:
+                    language_script_code = \
+                        unimarc.get_language_script(subfields_7[0])
+                title_type = 'bf:VariantTitle'
+                if tag == '200':
+                    title_type = 'bf:Title'
+                elif tag == '510':
+                    title_type = 'bf:ParallelTitle'
+                # build title parts
+                index = 1
+                link = ''
+                if subfields_6:
+                    link = subfields_6[0]
+                items = get_field_items(field['subfields'])
+                for blob_key, blob_value in items:
+                    if blob_key == 'a':
+                        value_data = \
+                            unimarc.build_value_with_alternate_graphic(
+                                tag, blob_key, blob_value,
+                                index, link, ',.', ':;/-=')
+                        title_data['mainTitle'] = value_data
+                    if blob_key == 'e':
+                        value_data = \
+                            unimarc.build_value_with_alternate_graphic(
+                                tag, blob_key, blob_value,
+                                index, link, ',.', ':;/-=')
+                        title_data['subtitle'] = value_data
+                    if blob_key in ['f', 'g'] and tag == '200':
+                        value_data = \
+                            unimarc.build_value_with_alternate_graphic(
+                                tag, blob_key, blob_value,
+                                index, link, ',.', ':;/-=')
+                        responsibilites.append(value_data)
+                    if blob_key in ['h', 'i']:
+                        part_list.update_part(
+                            [dict(value=blob_value)], blob_key, blob_value)
+                    if blob_key != '__order__':
+                        index += 1
+                title_data['type'] = title_type
+                the_part_list = part_list.get_part_list()
+                if the_part_list:
+                    title_data['part'] = the_part_list
+                if title_data:
+                    title_list.append(title_data)
 
-    # extract responsibilities
-    if responsibilites:
-        new_responsibility = self.get('responsibilityStatement', [])
-        for resp in responsibilites:
-            new_responsibility.append(resp)
-        self['responsibilityStatement'] = new_responsibility
+        # extract responsibilities
+        if responsibilites:
+            new_responsibility = self.get('responsibilityStatement', [])
+            for resp in responsibilites:
+                new_responsibility.append(resp)
+            self['responsibilityStatement'] = new_responsibility
     return title_list or None
 
 
-@unimarctojson.over('titlesProper', '^500..')
+@unimarc.over('titlesProper', '^500..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_titles_proper(self, key, value):
@@ -154,7 +184,7 @@ def unimarc_titles_proper(self, key, value):
     return value.get('a', '')
 
 
-@unimarctojson.over('language', '^101')
+@unimarc.over('language', '^101')
 @utils.ignore_value
 def unimarc_languages(self, key, value):
     """Get languages.
@@ -183,7 +213,7 @@ def unimarc_languages(self, key, value):
     return to_return
 
 
-@unimarctojson.over('authors', '7[01][012]..')
+@unimarc.over('authors', '7[01][012]..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_to_author(self, key, value):
@@ -219,7 +249,7 @@ def unimarc_to_author(self, key, value):
     return author
 
 
-@unimarctojson.over('editionStatement', '^205..')
+@unimarc.over('editionStatement', '^205..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_to_edition_statement(self, key, value):
@@ -240,7 +270,7 @@ def unimarc_to_edition_statement(self, key, value):
     return edition_data or None
 
 
-@unimarctojson.over('provisionActivity', '^21[04]..')
+@unimarc.over('provisionActivity', '^21[04]..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_publishers_provision_activity_publication(self, key, value):
@@ -259,10 +289,10 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     def build_place():
         # country from 102
         place = {}
-        field_102 = unimarctojson.get_fields(tag='102')
+        field_102 = unimarc.get_fields(tag='102')
         if field_102:
             field_102 = field_102[0]
-            country_codes = unimarctojson.get_subfields(field_102, 'a')
+            country_codes = unimarc.get_subfields(field_102, 'a')
             if country_codes:
                 place['country'] = country_codes[0].lower()
                 place['type'] = 'bf:Place'
@@ -293,24 +323,6 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             'type': type_per_ind2[ind2],
             'statement': [],
         }
-
-        # TODO: dates from 100 not working !!!!
-        # if ind2 in (' ', '_', '1'):
-        #     # startDate: 100, pos. 9-12 endDate: 100, pos. 13-16
-        #     field_100 = unimarctojson.get_fields(tag='100')
-        #     if field_100:
-        #         field_100 = field_100[0]
-        #         data = unimarctojson.get_subfields(field_100, 'a')
-        #         if data:
-        #             try:
-        #                 publication['startDate'] = str(int(data[0][9:13]))
-        #             except Exception:
-        #                 pass
-        #             try:
-        #                 publication['endDate'] = str(int(data[0][13:17]))
-        #             except Exception:
-        #                 pass
-
         statement = []
         items = get_field_items(value)
         index = 1
@@ -355,7 +367,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     return publication or None
 
 
-@unimarctojson.over('formats', '^215..')
+@unimarc.over('formats', '^215..')
 @utils.ignore_value
 def unimarc_description(self, key, value):
     """Get extent, otherMaterialCharacteristics, formats.
@@ -384,7 +396,7 @@ def unimarc_description(self, key, value):
         return None
 
 
-@unimarctojson.over('series', '^225..')
+@unimarc.over('series', '^225..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_series(self, key, value):
@@ -403,7 +415,7 @@ def unimarc_series(self, key, value):
     return series
 
 
-@unimarctojson.over('abstracts', '^330..')
+@unimarc.over('abstracts', '^330..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_abstracts(self, key, value):
@@ -414,7 +426,7 @@ def unimarc_abstracts(self, key, value):
     return ', '.join(utils.force_list(value.get('a', '')))
 
 
-@unimarctojson.over('identifiedBy', '^073..')
+@unimarc.over('identifiedBy', '^073..')
 @utils.ignore_value
 def unimarc_identifier_isbn(self, key, value):
     """Get identifier isbn.
@@ -436,7 +448,7 @@ def unimarc_identifier_isbn(self, key, value):
     return identifiers
 
 
-@unimarctojson.over('notes', '^300..')
+@unimarc.over('notes', '^300..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_notes(self, key, value):
@@ -447,7 +459,7 @@ def unimarc_notes(self, key, value):
     return value.get('a', '')
 
 
-@unimarctojson.over('subjects', '^6((0[0-9])|(1[0-7]))..')
+@unimarc.over('subjects', '^6((0[0-9])|(1[0-7]))..')
 @utils.for_each_value
 @utils.ignore_value
 def unimarc_subjects(self, key, value):
@@ -470,7 +482,7 @@ def unimarc_subjects(self, key, value):
     return to_return
 
 
-@unimarctojson.over('electronicLocator', '^8564.')
+@unimarc.over('electronicLocator', '^8564.')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_electronicLocator_from_field_856(self, key, value):
