@@ -113,28 +113,5 @@
         }
       }
     }
-  },
-  "oneOf": [
-    {
-      "properties": {
-        "is_pickup": {
-          "enum": [
-            true
-          ]
-        }
-      },
-      "required": [
-        "pickup_name"
-      ]
-    },
-    {
-      "properties": {
-        "is_pickup": {
-          "enum": [
-            false
-          ]
-        }
-      }
-    }
-  ]
+  }
 }
