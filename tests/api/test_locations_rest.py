@@ -18,12 +18,16 @@
 """Tests REST API locations."""
 
 import json
+from copy import deepcopy
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
+
+from rero_ils.modules.errors import RecordValidationError
 
 
 def test_locations_permissions(client, loc_public_martigny, json_header):
@@ -247,10 +251,23 @@ def test_location_secure_api_create(client, lib_fully, lib_martigny,
                                     system_librarian_martigny_no_email,
                                     system_librarian_sion_no_email):
     """Test location secure api create."""
-    # Martigny
+    # try to create a pickup location without pickup location name. This should
+    # be failed due to `extended_validation` rules
     login_user_via_session(client, librarian_martigny_no_email.user)
     post_entrypoint = 'invenio_records_rest.loc_list'
+    fake_location_data = deepcopy(loc_public_martigny_data)
+    del fake_location_data['pid']
+    if 'pickup_name' in fake_location_data:
+        del fake_location_data['pickup_name']
+    fake_location_data['is_pickup'] = True
+    with pytest.raises(RecordValidationError):
+        res, _ = postdata(
+            client,
+            post_entrypoint,
+            fake_location_data
+        )
 
+    # Martigny
     del loc_public_martigny_data['pid']
     res, _ = postdata(
         client,
