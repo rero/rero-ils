@@ -277,9 +277,12 @@ class ReroIlsOverdo(Overdo):
 
         # build_value_with_alternate_graphic starts here
 
-        data = [{
-            'value': clean_punctuation(label, punct, spaced_punct).strip()
-        }]
+        data = []
+        value = clean_punctuation(label, punct, spaced_punct).strip()
+        if value:
+            data = [{'value': value}]
+        else:
+            error_print('WARNING NO VALUE:', tag, code, label)
         try:
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr['field'])[index]
