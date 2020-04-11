@@ -53,18 +53,26 @@ def create_records(records):
                     pid = [r.pid for r in query.scan()].pop()
                 except IndexError:
                     pid = None
-        if pid:
-            # update the record
-            record['pid'] = pid
-            existing_record = update_document_holding(record, pid)
-            n_updated += 1
-            uuids.append(existing_record.id)
-        else:
-            # create a new record
-            new_record = create_document_holding(record)
-            if new_record:
-                n_created += 1
-                uuids.append(new_record.id)
+        try:
+            if pid:
+                # update the record
+                record['pid'] = pid
+                existing_record = update_document_holding(record, pid)
+                n_updated += 1
+                uuids.append(existing_record.id)
+            else:
+                # create a new record
+                new_record = create_document_holding(record)
+                if new_record:
+                    n_created += 1
+                    uuids.append(new_record.id)
+        except Exception as err:
+            current_app.logger.error(
+                'EBOOKS CREATE RECORDS: {err} {record}'.format(
+                    err=err,
+                    record=record
+                )
+            )
     # TODO: bulk indexing does not work with travis, need to check why
     do_bulk_index(uuids, doc_type='doc', process=True)
     # wait for bulk index task to finish
