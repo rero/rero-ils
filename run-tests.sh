@@ -70,8 +70,8 @@ if [ $# -eq 0 ]
         fi
 
         set -e
-        # remove this when https://github.com/pypa/pipenv/issues/4147 will be solved
-        pipenv check -i 37752
+        # TODO: if new pipenv can check safety again use: pipenv check
+        pipenv run safety check
         pipenv run flask utils check_json tests rero_ils/modules data
         pipenv run flask utils check_license check_license_config.yml
         info_msg "Test pydocstyle:"
