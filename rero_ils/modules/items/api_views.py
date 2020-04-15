@@ -164,7 +164,27 @@ def automatic_checkin(item, data):
 @jsonify_action
 def cancel_loan(item, params):
     """HTTP request for cancel action."""
+    # TODO: manage transitions for complex cases
     return item.cancel_loan(**params)
+
+
+@api_blueprint.route("/update_loan_pickup_location", methods=['POST'])
+@check_authentication
+def update_loan_pickup_location():
+    """HTTP request for update loan pickup location."""
+    # for now request pickup location update allowed for pending requests only
+    # TODO: manage case 'at desk' and 'in transit' (needs PO feedback)
+    data = flask_request.get_json()
+    loan_pid = data.get('loan_pid')
+    pickup_location_pid = data.get('pickup_location_pid')
+    if not loan_pid or not pickup_location_pid:
+        return jsonify({'status': 'error: Bad request'}), 400
+    loan = Loan.get_record_by_pid(loan_pid)
+    loan['pickup_location_pid'] = pickup_location_pid
+    if not loan.get('state') == 'PENDING':
+        return jsonify({'status': 'error: Forbidden'}), 403
+    new_loan = loan.update(loan, dbcommit=True, reindex=True)
+    return new_loan
 
 
 @api_blueprint.route("/lose", methods=['POST'])

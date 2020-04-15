@@ -670,3 +670,83 @@ def test_checkout_cancel_old_loan(
     # loan will be canclled if a librarian decided to checkout the item anyway.
     item, actions = item_lib_fully.prior_checkout_actions(action_params)
     assert 'cancel' in actions
+
+
+def test_update_loan_pickup_location(
+        client, librarian_martigny_no_email,
+        patron_martigny_no_email, loc_public_martigny, loc_public_saxon,
+        item3_lib_martigny, circulation_policies):
+    """Test loan pickup location change."""
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    item_pid = item3_lib_martigny.pid
+    first_loc_pid = loc_public_saxon.pid
+    new_loc_pid = loc_public_martigny.pid
+    # request an item by a librarian
+    res, req_data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item_pid,
+            pickup_location_pid=first_loc_pid,
+            patron_pid=patron_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+    # Update pickup location of the request, no loan pid
+    loan_pid = req_data.get('action_applied')[LoanAction.REQUEST].get('pid')
+    res, data = postdata(
+        client,
+        'api_item.update_loan_pickup_location',
+        dict(
+            item_pid=item_pid,
+            pickup_location_pid=new_loc_pid
+        )
+    )
+    assert res.status_code == 400
+    # Update pickup location of the request, no pickup location pid
+    res, data = postdata(
+        client,
+        'api_item.update_loan_pickup_location',
+        dict(
+            item_pid=item_pid,
+            loan_pid=loan_pid
+        )
+    )
+    assert res.status_code == 400
+    # Update pickup location of the request
+    res, data = postdata(
+        client,
+        'api_item.update_loan_pickup_location',
+        dict(
+            item_pid=item_pid,
+            pickup_location_pid=new_loc_pid,
+            loan_pid=loan_pid
+        )
+    )
+    assert res.status_code == 200
+    assert data.get('pickup_location_pid') == new_loc_pid
+    # Change loan state to 'ITEM_AT_DESK'
+    loans = Item.get_loans_by_item_pid(item_pid)
+    for loan in loans:
+        if loan.get('state') == 'ITEM_ON_LOAN':
+            res, _ = postdata(
+                client,
+                'api_item.checkin',
+                dict(
+                    item_pid=item_pid,
+                    pid=loan.get('pid')
+                ),
+            )
+            assert res.status_code == 200
+    # Update pickup location of the request:
+    # loan state different from 'pending'
+    res, data = postdata(
+        client,
+        'api_item.update_loan_pickup_location',
+        dict(
+            item_pid=item_pid,
+            pickup_location_pid=new_loc_pid,
+            loan_pid=loan_pid
+        )
+    )
+    assert res.status_code == 403
