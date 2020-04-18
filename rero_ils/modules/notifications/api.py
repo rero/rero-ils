@@ -140,7 +140,7 @@ class Notification(IlsRecord):
 
             from ..documents.views import create_title_responsibilites
             responsibility_statement = create_title_responsibilites(
-                document.get('responsibilityStatement')
+                document.get('responsibilityStatement', [])
             )
             data['loan']['document']['responsibility_statement'] = \
                 next(iter(responsibility_statement or []), '')
