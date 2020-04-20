@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-DATA_PATH=$(pipenv --where)/data
+DATA_PATH=./data
 
 # Parameters description:
 #  --create_items_holdings_small:
@@ -94,7 +94,7 @@ msg "PROGRAM: ${PROGRAM}"
 
 # PIPENV is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
 # options may be followed by one colon to indicate they have a required argument
@@ -160,7 +160,7 @@ fi
 
 # Purge celery
 info_msg "Purge celery"
-celery purge -A invenio_app.celery -f
+celery purge -A rero_ils.celery -f
 # Clean redis
 info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
@@ -261,12 +261,12 @@ eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 
 # # - xml to json transformation for rero marcxml --------------------------------
 # # don't forget to recreat the documents json schema files:
-# pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
-# pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+# poetry run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+# poetry run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
 # SIZE=big # SIZE=small
-# pipenv run invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# poetry run invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 # # after recreation and loading of the new documents we have to recreate the person file
-# pipenv run invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
+# poetry run invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then
@@ -284,10 +284,10 @@ fi
 if ${LOADPERSONS}
 then
     info_msg "- PERSONS: ${DOCUMENTS} ${DONT_STOP}"
-    eval ${PREFIX} pipenv run invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
+    eval ${PREFIX} invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Persons:"
-    eval ${PREFIX} pipenv run invenio utils reindex -t pers --yes-i-know --no-info
-    eval ${PREFIX} pipenv run invenio utils runindex --raise-on-error
+    eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+    eval ${PREFIX} invenio utils runindex --raise-on-error
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
@@ -369,7 +369,7 @@ then
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
     info_msg "For ebooks harvesting run:"
-    msg "\tpipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
+    msg "\tpoetry run invenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
 
 if ${ES_MAPPING}

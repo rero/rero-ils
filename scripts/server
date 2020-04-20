@@ -60,15 +60,15 @@ msg "PROGRAM: ${PROGRAM}"
 set -e
 
 script_path=$(dirname "$0")
-# PIPENV is a mandatory condition to launch this program!
+# poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
 export FLASK_DEBUG=True
 export FLASK_ENV=development
 # Start Worker and Server
-celery worker -A invenio_app.celery -l INFO & pid_celery=$!
+celery worker -A rero_ils.celery -l INFO & pid_celery=$!
 
 invenio run \
    --cert "$script_path"/../docker/nginx/test.crt \

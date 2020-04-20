@@ -36,4 +36,4 @@ ARG UI_TGZ=""
 
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
 
-RUN pipenv run bootstrap --deploy ${UI_TGZ}
+RUN poetry run bootstrap --deploy ${UI_TGZ}

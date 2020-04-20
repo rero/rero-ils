@@ -185,7 +185,7 @@ def update_loan_pickup_location():
     if not loan.get('state') == 'PENDING':
         return jsonify({'status': 'error: Forbidden'}), 403
     new_loan = loan.update(loan, dbcommit=True, reindex=True)
-    return new_loan
+    return jsonify(new_loan)
 
 
 @api_blueprint.route("/lose", methods=['POST'])

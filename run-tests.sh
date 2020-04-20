@@ -56,9 +56,14 @@ success_msg() {
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
+# Poetry is a mandatory condition to launch this program!
+if [[ -z "${VIRTUAL_ENV}" ]]; then
+  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
+fi
+
 # compile json files (resolve $ref)
-pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
-pipenv run invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
+invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1.json
+invenio utils compile_json ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json -o ./rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json
 
 if [ $# -eq 0 ]
     then
@@ -67,42 +72,37 @@ if [ $# -eq 0 ]
         then
             error_msg+exit "Error: fuzzy tranlations!"
         fi
-        grep -r appnope Pipfile.lock
-        if [ $? -eq 0 ]
-        then
-            error_msg+exit "appnope in Pipfile.lock!"
-        fi
 
         set -e
-        # TODO: if new pipenv can check safety again use: pipenv check
-        pipenv run safety check
-        pipenv run flask utils check_json tests rero_ils/modules data
-        pipenv run flask utils check_license check_license_config.yml
+        safety check
+        flask utils check_json tests rero_ils/modules data
+        flask utils check_license check_license_config.yml
         info_msg "Test pydocstyle:"
-        pipenv run pydocstyle rero_ils tests docs
+        pydocstyle rero_ils tests docs
         info_msg "Test isort:"
-        pipenv run isort -rc -c -df
+        isort -rc -c -df
         info_msg "Test useless imports:"
-        pipenv run autoflake -c -r \
+        autoflake -c -r \
           --remove-all-unused-imports \
           --ignore-init-module-imports . \
           &> /dev/null || \
           error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
 
-        info_msg "Check-manifest:"
-        pipenv run check-manifest --ignore ".travis-*,docs/_build*"
+        # info_msg "Check-manifest:"
+        # TODO: check if this is required when rero-ils will be published
+        # check-manifest --ignore ".travis-*,docs/_build*"
         info_msg "Sphinx-build:"
-        pipenv run sphinx-build -qnNW docs docs/_build/html
+        sphinx-build -qnNW docs docs/_build/html
         info_msg "Tests:"
-        # pipenv run invenio utils set_test_static_folder -v
-        pipenv run test
+        # invenio utils set_test_static_folder -v
+        poetry run tests
 fi
 if [ "$1" = "external" ]
     then
         export PYTEST_ADDOPTS="--cov-append -m "external""
 
         info_msg "External tests:"
-        pipenv run test
+        test
 fi
 
 success_msg "Perfect ${PROGRAM}! See you soon…"

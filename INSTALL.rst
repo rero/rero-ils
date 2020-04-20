@@ -38,7 +38,7 @@ Requirements
 - ``git``
 - ``docker``, ``docker-compose``
 - ``python``, ``pip``, ``pyenv``
-- ``pipenv``
+- ``poetry``
 
 Installation
 ------------
@@ -49,16 +49,16 @@ First, create your working directory and ``cd`` into it. Clone the project into 
 
     $ git clone https://github.com/rero/rero-ils.git
 
-You need to install `pipenv`, it will handle the virtual environment creation for the project
+You need to install `poetry`, it will handle the virtual environment creation for the project
 in order to sandbox our Python environment, as well as manage the dependency installation,
-among other things. A specific version of pipenv is needed, another version of python 3.6 can be used:
+among other things.
 
 .. code-block:: console
 
     $ pyenv install 3.6.9
     $ cd rero-ils
     $ pyenv local 3.6.9
-    $ sudo pip install pipenv==2018.10.9
+    $ sudo pip install poetry
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install
 all Python dependencies and build all static assets):
@@ -66,7 +66,7 @@ all Python dependencies and build all static assets):
 .. code-block:: console
 
     $ cd rero-ils
-    $ pipenv run bootstrap
+    $ poetry run bootstrap
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
@@ -95,7 +95,7 @@ Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ PIPENV_QUIET=1 pipenv run setup
+    $ poetry run setup
 
 Running
 -------
@@ -103,13 +103,13 @@ Start the webserver and the celery worker:
 
 .. code-block:: console
 
-    $ pipenv run server
+    $ poetry run server
 
 Start a Python shell:
 
 .. code-block:: console
 
-    $ pipenv run console
+    $ poetry run console
 
 Upgrading
 ---------
@@ -117,7 +117,7 @@ In order to upgrade an existing instance simply run:
 
 .. code-block:: console
 
-    $ pipenv run update
+    $ poetry run update
 
 Testing
 -------
@@ -143,7 +143,7 @@ You can build the documentation with:
 
 .. code-block:: console
 
-    $ pipenv run build_sphinx
+    $ poetry run build_sphinx
 
 Production environment
 ----------------------

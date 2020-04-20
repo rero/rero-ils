@@ -1,0 +1,109 @@
+[tool.poetry]
+name = "rero-ils"
+version = "0.8.0"
+description = "Invenio digital library framework."
+authors = ["RERO <software@rero.ch>"]
+license = "GNU Affero General Public License v3.0"
+
+[tool.poetry.dependencies]
+python = ">= 3.6, < 3.8"
+## Python packages dependencies (order matters)
+#------------------------------------------------------------------------------
+## Note: poetry evaluates the package constraints from the top to the bottom
+## and respects only the last constraint to install the package.
+## Thus the most strength constraint should be at the end.
+## Imagine the following package list for the foo package with the
+## most recent version equal to 5.0:
+## A foo Pipfile example:
+## ----------------------
+## foo = ">1.0" # first will install 5.0
+## foo = "==1.0" # then will downgrade to 1.0
+## foo = ">3.0" # finally will upgrade to 5.0
+## when the python code will be executed a conflict exception will be raised.
+#------------------------------------------------------------------------------
+# Default from Invenio
+Babel = ">=2.4.0"
+Flask-BabelEx = ">=0.9.3"
+
+## Third party invenio modules used by RERO ILS
+invenio-oaiharvester = {tag = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
+invenio-circulation = {tag = "v1.0.0a16", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+
+## Invenio 3.2.1 base modules used by RERO ILS
+# same as invenio metadata extras without invenio-search-ui
+invenio-indexer = ">=1.1.1,<1.2.0"
+invenio-jsonschemas = ">=1.0.1,<1.1.0"
+invenio-oaiserver = ">=1.1.1,<1.2.0"
+invenio-pidstore = ">=1.1.0,<1.2.0"
+invenio-records-rest = ">=1.6.4,<1.7.0"
+invenio-records-ui = ">=1.0.1,<1.1.0"
+invenio-records = ">=1.3.0,<1.4.0"
+
+## Default from Invenio
+invenio = {version = "==3.2.1", extras = ["base", "postgresql", "auth", "elasticsearch6" ]}
+uwsgi = ">=2.0"
+uwsgitop = ">=0.11"
+uwsgi-tools = ">=1.1.1"
+
+## RERO ILS specific python modules
+PyYAML = ">=5.3.1"
+dateparser = ">=0.7.0"
+isbnlib = ">=3.9.1"
+requests = ">=2.20.0"
+polib = "*"
+pycountry = ">=19.7.15"
+xmltodict = "*"
+# TODO: to be removed when the thumbnail will be refactored
+angular-gettext-babel= ">=0.1"
+
+## Additionnal constraints on python modules
+# solves datetime serialize error
+# celery = "<4.3.0"
+flask-wiki = {git = "https://github.com/rero/flask-wiki.git"}
+markdown-captions = "*"
+
+## Deployment
+# sentry
+invenio-logging = { version = ">=1.2.0,<1.3.0", extras = ["sentry-sdk", "sentry"] }
+lxml = ">=3.5.0,<4.2.6"
+python-dotenv = "^0.13.0"
+
+[tool.poetry.dev-dependencies]
+## Python packages development dependencies (order matters)
+#----------------------------------------------------------
+## Default from Invenio
+Flask-Debugtoolbar = ">=0.10.1"
+Sphinx = ">=1.5.1"
+check-manifest = ">=0.35"
+coverage = ">=4.5.3"
+isort = ">=4.3"
+mock = ">=2.0.0"
+marshmallow = ">=2.15.1,<3.0.0"
+pydocstyle = ">=3.0.0"
+pytest = ">=4.6.4"
+pytest-cov = ">=2.7.1"
+pytest-invenio = ">=1.2.1,<1.3.0"
+pytest-mock = ">=1.6.0"
+pytest-pep8 = ">=1.0.6"
+pytest-random-order = ">=0.5.4"
+pytest-runner = ">=3.0.0,<5"
+safety = ">=1.8"
+docutils = "*"
+## RERO ILS specific python packages
+autoflake = ">=1.3.1"
+transifex-client = ">=0.12.5"
+appnope = { version = "*", optional = true }
+
+[tool.poetry.scripts]
+bootstrap = "scripts:run('./scripts/bootstrap')"
+console = "scripts:run('./scripts/console')"
+run-tests = "scripts:run('./run-tests.sh')"
+server = "scripts:run('./scripts/server')"
+setup = "scripts:run('./scripts/setup')"
+tests = "scripts:run('pytest')"
+update = "scripts:run('./scripts/update')"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
