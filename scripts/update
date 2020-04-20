@@ -59,9 +59,9 @@ msg "PROGRAM: ${PROGRAM}"
 
 set -e
 
-# PIPENV is a mandatory condition to launch this program!
+# poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
 script_path=$(dirname "$0")

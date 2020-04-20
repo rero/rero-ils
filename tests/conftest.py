@@ -17,6 +17,7 @@
 
 """Common pytest fixtures and plugins."""
 
+
 import json
 import os
 import shutil
@@ -25,6 +26,7 @@ import tempfile
 from os.path import dirname, join
 
 import pytest
+from dotenv import load_dotenv
 
 pytest_plugins = [
     'fixtures.circulation',
@@ -145,6 +147,8 @@ def instance_path():
     environment variable ``INVENIO_INSTANCE_PATH`` is not be set.
     This directory is then automatically removed.
     """
+    # load .env, .flaskenv
+    load_dotenv()
     invenio_instance_path = os.environ.get('INVENIO_INSTANCE_PATH')
     invenio_static_folder = os.environ.get('INVENIO_STATIC_FOLDER')
     path = invenio_instance_path

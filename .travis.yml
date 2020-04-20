@@ -72,7 +72,7 @@ before_install:
   - "PATH=$PATH:$HOME/webdrivers"
   - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
   - "nvm install 8; nvm use 8"
-  - "travis_retry pip install --upgrade pip setuptools py pipenv==2018.10.9"
+  - "travis_retry pip install --upgrade pip setuptools py poetry"
   - "travis_retry pip install twine wheel coveralls"
   # patch default version of travis which is mark as unsave by pipenv check
   - "travis_retry pip install --upgrade numpy"
@@ -80,7 +80,7 @@ before_install:
 
 install:
   - "./scripts/bootstrap --ci $REQUIREMENTS"
-  - "pipenv run pip list"  # To have details about installed libs (isort, pytest, etc.)
+  - "poetry show"  # To have details about installed libs (isort, pytest, etc.)
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
@@ -90,8 +90,8 @@ before_script:
   - "./docker/wait-for-services.sh"
 
 script:
-  - ./run-tests.sh # E2E tests are skipped if E2E env is set to 'no'
-  - ./run-tests.sh external # test external services only
+  - poetry run run-tests # E2E tests are skipped if E2E env is set to 'no'
+  - poetry run run-tests external # test external services only
 
 after_success:
   - coveralls
