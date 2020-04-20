@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-DATA_PATH=$(pipenv --where)/data
+DATA_PATH=./data
 
 # Parameters description:
 #  --create_items_holdings_small:
@@ -286,10 +286,10 @@ fi
 if ${LOADPERSONS}
 then
     info_msg "- PERSONS: ${DOCUMENTS} ${DONT_STOP}"
-    eval ${PREFIX} pipenv run invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
+    eval ${PREFIX} invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schema/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Persons:"
-    eval ${PREFIX} pipenv run invenio utils reindex -t pers --yes-i-know --no-info
-    eval ${PREFIX} pipenv run invenio utils runindex --raise-on-error
+    eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
+    eval ${PREFIX} invenio utils runindex --raise-on-error
 fi
 
 info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
@@ -367,7 +367,7 @@ then
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
     info_msg "For ebooks harvesting run:"
-    msg "\tpipenv run invenio oaiharvester harvest -n ebooks -a max=100 -q"
+    msg "\tpoetry run invenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
 
 if ${ES_MAPPING}

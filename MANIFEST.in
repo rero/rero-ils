@@ -95,3 +95,42 @@ recursive-include tests *.png
 # flask-wiki to be removed
 recursive-include wiki *.md
 recursive-include wiki *.png
+
+# added by check_manifest.py
+include *.base
+include *.in
+include *.json
+include *.lock
+include *.rst
+include *.sh
+include *.txt
+include *.yml
+include .coveragerc
+include Dockerfile
+include babel.ini
+include pytest.ini
+recursive-include data *.json
+recursive-include data *.xml
+recursive-include data *.yml
+recursive-include doc *.graffle
+recursive-include doc *.odg
+recursive-include doc *.pdf
+recursive-include docker *.cfg
+recursive-include docker *.conf
+recursive-include docker *.crt
+recursive-include docker *.ini
+recursive-include docker *.key
+recursive-include docker *.pem
+recursive-include docker *.sh
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include tests *.json
+recursive-include tests *.md
+recursive-include tests *.png
+recursive-include tests *.py
+recursive-include tests *.xml
+recursive-include wiki *.md
+recursive-include wiki *.png

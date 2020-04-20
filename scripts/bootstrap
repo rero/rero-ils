@@ -67,7 +67,7 @@ fi
 # The real bootstrap script starts with app installation below ;-)
 flags=()
 deploy=false
-cmd="pipenv sync"
+cmd="poetry install"
 ci=false
 tgz_file=""
 while test $# -gt 0
@@ -92,23 +92,21 @@ do
   shift
 done
 
-# PIPENV is a mandatory condition to launch this program!
+# Poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via pipenv command:\n\tpipenv run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
-if ! $deploy || $ci ; then
-    flags=("--dev")
-fi
+# if ! $deploy || $ci ; then
+#     flags=("--dev")
+# fi
 
 if ! $deploy ; then
     if $ci ; then
-        cmd="pipenv install --skip-lock --sequential"
+        cmd="poetry update"
     fi
 fi
 
-# go generate a clean lock file
-# pipenv --rm; pipenv install --sequential
 
 # BOOTSTRAP START
 # install the application and all the dependencies
@@ -122,7 +120,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 
 # install assets utils
-virtualenv_path=`pipenv --venv`
+virtualenv_path=`poetry env info -p`
 info_msg "Install npm assets utils in: ${virtualenv_path}"
 npm i npm@latest -g --prefix "${virtualenv_path}" && npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
 
@@ -132,7 +130,7 @@ npm i npm@latest -g --prefix "${virtualenv_path}" && npm install --prefix "${vir
 info_msg "Install npm dependencies"
 invenio npm
 info_msg "Search static folder location"
-static_folder=$(pipenv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
+static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 info_msg "Install static folder npm dependencies in: ${static_folder}"
 npm install --prefix "${static_folder}"
 if [[ -f "${tgz_file}" ]]
