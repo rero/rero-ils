@@ -65,8 +65,12 @@ if [ $# -eq 0 ]
         grep -r fuzzy rero_ils/translations
         if [ $? -eq 0 ]
         then
-            echo -e ${RED}"Error: fuzzy tranlations!"${NC}
-            exit 1
+            error_msg+exit "Error: fuzzy tranlations!"
+        fi
+        grep -r appnope Pipfile.lock
+        if [ $? -eq 0 ]
+        then
+            error_msg+exit "appnope in Pipfile.lock!"
         fi
 
         set -e
@@ -78,16 +82,12 @@ if [ $# -eq 0 ]
         pipenv run pydocstyle rero_ils tests docs
         info_msg "Test isort:"
         pipenv run isort -rc -c -df
-        echo -e ${GREEN}Test useless imports:${NC}
+        info_msg "Test useless imports:"
         pipenv run autoflake -c -r \
           --remove-all-unused-imports \
           --ignore-init-module-imports . \
           &> /dev/null || \
           error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
-
-        # syntax check for typescript
-        info_msg "Syntax check for typescript:"
-        CWD=`pwd`
 
         info_msg "Check-manifest:"
         pipenv run check-manifest --ignore ".travis-*,docs/_build*"
