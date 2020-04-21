@@ -89,7 +89,9 @@ lxml = ">=3.5.0,<4.2.6"
 #----------------------------------------------------------
 ## Default from Invenio
 Flask-Debugtoolbar = ">=0.10.1"
-Sphinx = ">=1.5.1"
+# TODO: run-test.sh: `pipenv run sphinx-build -qnNW docs docs/_build/html crashing
+# https://github.com/mozilla-services/python-dockerflow/issues/42
+Sphinx = "<3.0.2"
 check-manifest = ">=0.35"
 coverage = ">=4.4.1"
 isort = ">=4.3"
@@ -103,6 +105,8 @@ pytest-mock = ">=1.6.0"
 pytest-pep8 = ">=1.0.6"
 pytest-random-order = ">=0.5.4"
 pytest-runner = ">=3.0.0,<5"
+# TODO: safety needs pipenv installed, we will install a working pipenv for us.
+pipenv = "==2018.10.9"
 # TODO: if new pipenv can check safety again we can delete safety
 safety = ">=1.8"
 # FIXME: Remove this once this issue is resolved https://github.com/pypa/pipenv/issues/3865.
