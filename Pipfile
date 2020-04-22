@@ -61,6 +61,9 @@ invenio-access = "<1.2.0"
 invenio-records = ">=1.3.0"
 # TODO: remove when sqlalchemy.exc.NoInspectionAvailable problem will be solved
 SQLAlchemy = "<=1.3.15"
+# TODO: remove when email_validator Exception disappears
+WTForms = "<2.3.0"
+email_validator = "*"
 ## RERO ILS specific python modules
 PyYAML = ">=5.3.1"
 dateparser = ">=0.7.0"
