@@ -30,6 +30,7 @@ from werkzeug.exceptions import NotFound
 
 from .api import Item
 from .models import ItemCirculationAction
+from .utils import item_pid_to_object
 from ..circ_policies.api import CircPolicy
 from ..documents.views import item_library_pickup_locations
 from ..libraries.api import Library
@@ -300,7 +301,7 @@ def item(item_barcode):
     item = Item.get_item_by_barcode(item_barcode)
     if not item:
         abort(404)
-    loan = get_loan_for_item(item.pid)
+    loan = get_loan_for_item(item_pid_to_object(item.pid))
     if loan:
         loan = Loan.get_record_by_pid(loan.get('pid')).dumps_for_circulation()
     item_dumps = item.dumps_for_circulation()

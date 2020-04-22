@@ -45,7 +45,6 @@ def test_item_loans_elements(
         loan_pending_martigny, item_lib_fully, circ_policy_default_martigny):
     """Test loan elements."""
     assert loan_pending_martigny.item_pid == item_lib_fully.pid
-
     loan = list(get_loans_by_patron_pid(loan_pending_martigny.patron_pid))[0]
     assert loan.pid == loan_pending_martigny.get('pid')
 
