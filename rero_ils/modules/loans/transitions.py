@@ -31,55 +31,89 @@ from ..documents.api import Document
 
 
 def _update_document_pending_request_for_item(item_pid, **kwargs):
-    """Update pending loans on a Document with no Item attached yet."""
+    """Update pending loans on a Document with no Item attached yet.
+
+    :param item_pid: a dict containing `value` and `type` fields to
+        uniquely identify the item.
+    """
     document_pid = get_document_pid_by_item_pid(item_pid)
-    # check if document has no other items
     document = Document.get_record_by_pid(document_pid)
     if document.get_number_of_items() == 1:
         for pending_loan in get_pending_loans_by_doc_pid(document_pid):
             pending_loan['item_pid'] = item_pid
             pending_loan.commit()
             db.session.commit()
-            current_circulation.loan_indexer.index(pending_loan)
+            current_circulation.loan_indexer().index(pending_loan)
 
 
 class ItemInTransitHouseToItemReturned(Transition):
     """Check-in action when returning an item to its belonging location."""
 
+    def __init__(
+        self, src, dest, trigger="next", permission_factory=None, **kwargs
+    ):
+        """Constructor."""
+        super().__init__(
+            src,
+            dest,
+            trigger=trigger,
+            permission_factory=permission_factory,
+            **kwargs
+        )
+        self.assign_item = kwargs.get("assign_item", True)
+
     @ensure_same_item
     def before(self, loan, **kwargs):
         """Validate check-in action."""
-        super(ItemInTransitHouseToItemReturned, self).before(loan, **kwargs)
+        super().before(loan, **kwargs)
 
-        _ensure_same_location(loan['item_pid'],
-                              loan['transaction_location_pid'],
-                              self.dest,
-                              error_msg="Item should be in transit to house. ")
+        _ensure_same_location(
+            loan['item_pid'],
+            loan['transaction_location_pid'],
+            self.dest,
+            error_msg="Item should be in transit to house.",
+        )
 
     def after(self, loan):
-        """Convert dates to string before saving loan."""
-        super(ItemInTransitHouseToItemReturned, self).after(loan)
-        _update_document_pending_request_for_item(loan['item_pid'])
+        """Check for pending requests on this item after check-in."""
+        super().after(loan)
+        if self.assign_item:
+            _update_document_pending_request_for_item(loan['item_pid'])
 
 
 class ItemOnLoanToItemReturned(Transition):
     """Check-in action when returning an item to its belonging location."""
 
+    def __init__(
+        self, src, dest, trigger="next", permission_factory=None, **kwargs
+    ):
+        """Constructor."""
+        super().__init__(
+            src,
+            dest,
+            trigger=trigger,
+            permission_factory=permission_factory,
+            **kwargs
+        )
+        self.assign_item = kwargs.get("assign_item", True)
+
     @ensure_same_item
     def before(self, loan, **kwargs):
         """Validate check-in action."""
-        super(ItemOnLoanToItemReturned, self).before(loan, **kwargs)
+        super().before(loan, **kwargs)
 
-        _ensure_same_location(loan['item_pid'],
-                              loan['transaction_location_pid'],
-                              self.dest,
-                              error_msg="Item should be in transit to house. ")
+        _ensure_same_location(
+            loan['item_pid'],
+            loan['transaction_location_pid'],
+            self.dest,
+            error_msg="Item should be in transit to house.",
+        )
 
         # set end loan date as transaction date when completing loan
         loan['end_date'] = loan['transaction_date']
 
     def after(self, loan):
-        """Convert dates to string before saving loan."""
-        loan['end_date'] = loan['end_date'].isoformat()
-        super(ItemOnLoanToItemReturned, self).after(loan)
-        _update_document_pending_request_for_item(loan['item_pid'])
+        """Check for pending requests on this item after check-in."""
+        super().after(loan)
+        if self.assign_item:
+            _update_document_pending_request_for_item(loan['item_pid'])
