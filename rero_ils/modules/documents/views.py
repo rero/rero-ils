@@ -40,6 +40,7 @@ from .utils import display_alternate_graphic_first, edition_format_text, \
     title_variant_format_text
 from ..holdings.api import Holding
 from ..items.api import Item, ItemStatus
+from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..loans.utils import can_be_requested
@@ -208,8 +209,7 @@ def can_request(item):
                     item.get_library().replace_refs()['organisation']['pid']:
                 # Complete metadata before Loan creation
                 loan_metadata = dict(item)
-                if 'item_pid' not in loan_metadata:
-                    loan_metadata['item_pid'] = item.pid
+                loan_metadata['item_pid'] = item_pid_to_object(item.pid)
                 if 'patron_pid' not in loan_metadata:
                     loan_metadata['patron_pid'] = patron.pid
                 # Create "virtual" Loan (not registered)

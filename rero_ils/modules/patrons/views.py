@@ -30,6 +30,7 @@ from werkzeug.exceptions import NotFound
 from .api import Patron
 from .utils import user_has_patron
 from ..items.api import Item
+from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..loans.api import Loan, patron_profile_loans
 from ..locations.api import Location
@@ -106,7 +107,7 @@ def profile(viewcode):
         raise NotFound()
     if request.method == 'POST':
         loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
-        item = Item.get_record_by_pid(loan.get('item_pid'))
+        item = Item.get_record_by_pid(loan.get('item_pid', {}).get('value'))
         if request.form.get('type') == 'cancel':
             tab = 'pendings'
             data = loan
@@ -171,7 +172,7 @@ def get_patron_from_barcode(value):
 def get_patron_from_checkout_item_pid(item_pid):
     """Get patron from a checked out item pid."""
     from invenio_circulation.api import get_loan_for_item
-    patron_pid = get_loan_for_item(item_pid)['patron_pid']
+    patron_pid = get_loan_for_item(item_pid_to_object(item_pid))['patron_pid']
     return Patron.get_record_by_pid(patron_pid)
 
 
@@ -179,7 +180,7 @@ def get_patron_from_checkout_item_pid(item_pid):
 def get_checkout_loan_for_item(item_pid):
     """Get patron from a checkout item pid."""
     from invenio_circulation.api import get_loan_for_item
-    return get_loan_for_item(item_pid)
+    return get_loan_for_item(item_pid_to_object(item_pid))
 
 
 @blueprint.app_template_filter('get_patron_from_pid')

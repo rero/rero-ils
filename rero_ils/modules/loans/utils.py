@@ -25,11 +25,12 @@ from ..circ_policies.api import CircPolicy
 from ..items.api import Item
 from ..libraries.api import Library
 from ..patrons.api import Patron
+from ..utils import get_ref_for_pid
 
 
 def get_circ_policy(loan):
     """Return a circ policy for loan."""
-    item = Item.get_record_by_pid(loan.get('item_pid'))
+    item = Item.get_record_by_pid(loan.item_pid)
     holding_circulation_category = item.holding_circulation_category_pid
     library_pid = loan.library_pid
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
@@ -84,7 +85,7 @@ def get_default_loan_duration(loan):
 def get_extension_params(loan=None, parameter_name=None):
     """Return extension parameters."""
     policy = get_circ_policy(loan)
-    end_date = ciso8601.parse_datetime(loan.get('end_date'))
+    end_date = ciso8601.parse_datetime(str(loan.get('end_date')))
     params = {
         'max_count': policy.get('number_renewals'),
         'duration_default': policy.get('renewal_duration')
@@ -144,7 +145,22 @@ def is_item_available_for_checkout(item_pid):
 
 def can_be_requested(loan):
     """Check if record can be requested."""
-    if not loan.get('item_pid'):
+    if not loan.item_pid:
         raise Exception('Transaction on document is not implemented.')
     policy = get_circ_policy(loan)
     return policy.get('allow_requests')
+
+
+def loan_build_item_ref(loan_pid, loan):
+    """Build $ref for the Item attached to the Loan."""
+    return get_ref_for_pid('items', loan.item_pid)
+
+
+def loan_build_patron_ref(loan_pid, loan):
+    """Build $ref for the Patron attached to the Loan."""
+    return get_ref_for_pid('patrons', loan.patron_pid)
+
+
+def loan_build_document_ref(loan_pid, loan):
+    """Build $ref for the Document attached to the Loan."""
+    return get_ref_for_pid('documents', loan.document_pid)

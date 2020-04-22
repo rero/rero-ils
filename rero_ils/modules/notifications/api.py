@@ -192,7 +192,7 @@ class Notification(IlsRecord):
     def item_pid(self):
         """Shortcut for item pid of the notification."""
         self.init_loan()
-        return self.loan.get('item_pid')
+        return self.loan.get('item_pid', {}).get('value')
 
     @property
     def item(self):
