@@ -17,6 +17,10 @@
 
 """API for manipulating item records."""
 
+
+from flask import current_app
+
+from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...libraries.api import Library
 from ...locations.api import Location
@@ -234,6 +238,18 @@ class ItemRecord(IlsRecord):
         return item.get('document', {}).get('pid')
 
     @classmethod
+    def get_document_pid_by_item_pid_object(cls, item_pid):
+        """Returns document pid from item pid.
+
+        :param item_pid: the item_pid object
+        :type item_pid: object
+        :return: the document pid
+        :rtype: str
+        """
+        item = cls.get_record_by_pid(item_pid.get('value')).replace_refs()
+        return item.get('document', {}).get('pid')
+
+    @classmethod
     def get_items_pid_by_document_pid(cls, document_pid):
         """Returns item pisd from document pid."""
         from . import ItemsSearch
@@ -241,7 +257,7 @@ class ItemRecord(IlsRecord):
             .filter('term', document__pid=document_pid)\
             .source(['pid']).scan()
         for item in results:
-            yield item.pid
+            yield item_pid_to_object(item.pid)
 
     @classmethod
     def get_item_by_barcode(cls, barcode=None):
