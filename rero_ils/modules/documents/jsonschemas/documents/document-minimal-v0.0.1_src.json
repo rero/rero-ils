@@ -45,9 +45,8 @@
     },
     "type": {
       "title": "Type",
-      "description": "Type of the document.",
-      "default": "book",
       "type": "string",
+      "default": "book",
       "enum": [
         "article",
         "book",
@@ -131,22 +130,22 @@
                   "value": "bf:Title"
                 },
                 {
-                  "label": "ParallelTitle",
+                  "label": "Parallel title",
                   "value": "bf:ParallelTitle"
                 },
                 {
-                  "label": "VariantTitle",
+                  "label": "Variant title",
                   "value": "bf:VariantTitle"
                 }
               ]
             }
           },
           "mainTitle": {
-            "title": "Main Title",
+            "title": "Main titles",
             "type": "array",
             "minItems": 1,
             "items": {
-              "title": "Main Title",
+              "title": "Main title",
               "$ref": "#/definitions/language_script_focus"
             }
           },
@@ -174,20 +173,20 @@
               ],
               "properties": {
                 "partNumber": {
-                  "title": "Part Number",
+                  "title": "Part numbers",
                   "type": "array",
                   "minItems": 1,
                   "items": {
-                    "title": "Part Number",
+                    "title": "Part number",
                     "$ref": "#/definitions/language_script"
                   }
                 },
                 "partName": {
-                  "title": "Part Name",
+                  "title": "Part names",
                   "type": "array",
                   "minItems": 1,
                   "items": {
-                    "title": "Part Name",
+                    "title": "Part name",
                     "$ref": "#/definitions/language_script"
                   }
                 }
@@ -201,9 +200,9 @@
       }
     },
     "responsibilityStatement": {
+      "title": "Responsibilities",
       "type": "array",
       "minItems": 1,
-      "title": "Responsibilities",
       "items": {
         "title": "Responsibility",
         "type": "array",
@@ -245,14 +244,12 @@
     },
     "language": {
       "title": "Languages",
-      "description": "List of languages for the resource.",
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
       "items": {
         "type": "object",
         "title": "Language",
-        "description": "Languages for the resource.",
         "required": [
           "type",
           "value"
@@ -265,7 +262,6 @@
         "properties": {
           "type": {
             "title": "Type",
-            "description": "Type of the language.",
             "type": "string",
             "default": "bf:Language",
             "enum": [
@@ -275,7 +271,7 @@
               "hideExpression": "true",
               "options": [
                 {
-                  "label": "bf:Language",
+                  "label": "Language",
                   "value": "bf:Language"
                 }
               ]
@@ -351,7 +347,7 @@
                 }
               },
               "$ref": {
-                "title": "MEF person ref",
+                "title": "MEF person reference",
                 "type": "string",
                 "pattern": "^https://mef.rero.ch/api/mef/.*?$",
                 "form": {
@@ -408,7 +404,6 @@
               },
               "name": {
                 "title": "Name",
-                "description": "Organisation's name.",
                 "type": "string"
               }
             }
@@ -422,12 +417,12 @@
       }
     },
     "copyrightDate": {
-      "title": "Copyright Dates",
+      "title": "Copyright dates",
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "string",
-        "title": "Copyright Date",
+        "title": "Copyright date",
         "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
         "minLength": 4
       },
@@ -469,11 +464,11 @@
       }
     },
     "provisionActivity": {
-      "title": "Provision Activities",
+      "title": "Provision activities",
       "type": "array",
       "minItems": 1,
       "items": {
-        "title": "Provision Activity",
+        "title": "Provision activity",
         "type": "object",
         "additionalProperties": false,
         "propertiesOrder": [
@@ -500,19 +495,19 @@
             "form": {
               "options": [
                 {
-                  "label": "bf:Publication",
+                  "label": "Publication",
                   "value": "bf:Publication"
                 },
                 {
-                  "label": "bf:Manufacture",
+                  "label": "Manufacture",
                   "value": "bf:Manufacture"
                 },
                 {
-                  "label": "bf:Distribution",
+                  "label": "Distribution",
                   "value": "bf:Distribution"
                 },
                 {
-                  "label": "bf:Production",
+                  "label": "Production",
                   "value": "bf:Production"
                 }
               ]
@@ -544,7 +539,7 @@
                   "form": {
                     "options": [
                       {
-                        "label": "bf:Place",
+                        "label": "Place",
                         "value": "bf:Place"
                       }
                     ]
@@ -591,11 +586,11 @@
                   "form": {
                     "options": [
                       {
-                        "label": "bf:Place",
+                        "label": "Place",
                         "value": "bf:Place"
                       },
                       {
-                        "label": "bf:Agent",
+                        "label": "Agent",
                         "value": "bf:Agent"
                       },
                       {
@@ -610,7 +605,7 @@
                   "type": "array",
                   "minItems": 1,
                   "items": {
-                    "title": "Labels",
+                    "title": "Label",
                     "$ref": "#/definitions/language_script"
                   }
                 }
@@ -619,7 +614,6 @@
           },
           "note": {
             "title": "Note",
-            "description": "Note.",
             "type": "string",
             "form": {
               "hide": true
@@ -664,7 +658,7 @@
       }
     },
     "otherMaterialCharacteristics": {
-      "title": "Other Material Characteristics",
+      "title": "Other material characteristics",
       "description": "Other Material Characteristics, ie illustrations, black and with or coloured.",
       "type": "string",
       "minLength": 1
@@ -763,7 +757,7 @@
       }
     },
     "identifiedBy": {
-      "title": "Identifier",
+      "title": "Identifiers",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -812,87 +806,87 @@
             "form": {
               "options": [
                 {
-                  "label": "bf:AudioIssueNumber",
+                  "label": "Audio issue number",
                   "value": "bf:AudioIssueNumber"
                 },
                 {
-                  "label": "bf:Doi",
+                  "label": "DOI",
                   "value": "bf:Doi"
                 },
                 {
-                  "label": "bf:Ean",
+                  "label": "EAN",
                   "value": "bf:Ean"
                 },
                 {
-                  "label": "bf:Gtin14Number",
+                  "label": "GTIN 14",
                   "value": "bf:Gtin14Number"
                 },
                 {
-                  "label": "bf:Identifier",
+                  "label": "Identifier",
                   "value": "bf:Identifier"
                 },
                 {
-                  "label": "bf:Isan",
+                  "label": "ISAN",
                   "value": "bf:Isan"
                 },
                 {
-                  "label": "bf:Isbn",
+                  "label": "ISBN",
                   "value": "bf:Isbn"
                 },
                 {
-                  "label": "bf:Ismn",
+                  "label": "ISMN",
                   "value": "bf:Ismn"
                 },
                 {
-                  "label": "bf:Isrc",
+                  "label": "ISRC",
                   "value": "bf:Isrc"
                 },
                 {
-                  "label": "bf:Issn",
+                  "label": "ISSN",
                   "value": "bf:Issn"
                 },
                 {
-                  "label": "bf:IssnL",
+                  "label": "ISSN-L",
                   "value": "bf:IssnL"
                 },
                 {
-                  "label": "bf:Local",
+                  "label": "Local",
                   "value": "bf:Local"
                 },
                 {
-                  "label": "bf:MatrixNumber",
+                  "label": "Matrix number",
                   "value": "bf:MatrixNumber"
                 },
                 {
-                  "label": "bf:MusicDistributorNumber",
+                  "label": "Music distributor number",
                   "value": "bf:MusicDistributorNumber"
                 },
                 {
-                  "label": "bf:MusicPlate",
+                  "label": "Music plate",
                   "value": "bf:MusicPlate"
                 },
                 {
-                  "label": "bf:MusicPublisherNumber",
+                  "label": "Music publisher number",
                   "value": "bf:MusicPublisherNumber"
                 },
                 {
-                  "label": "bf:PublisherNumber",
+                  "label": "Publisher number",
                   "value": "bf:PublisherNumber"
                 },
                 {
-                  "label": "bf:Upc",
+                  "label": "UPC",
                   "value": "bf:Upc"
                 },
                 {
-                  "label": "bf:Urn",
+                  "label": "URN",
                   "value": "bf:Urn"
                 },
                 {
-                  "label": "bf:VideoRecordingNumber",
+                  "label": "Video recording number",
                   "value": "bf:VideoRecordingNumber"
                 },
                 {
-                  "label": "uri",
+                  "label": "URI",
                   "value": "uri"
                 }
               ]
@@ -975,13 +969,13 @@
       }
     },
     "electronicLocator": {
-      "title": "Electronic Locations",
+      "title": "Electronic locations",
       "description": "Information needed to locate and access an electronic resource.",
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "title": "Electronic Location",
+        "title": "Electronic location",
         "required": [
           "type",
           "url"
@@ -994,7 +988,7 @@
         ],
         "properties": {
           "url": {
-            "title": "url",
+            "title": "URL",
             "description": "Record a unique URL here.",
             "placeholder": "Example: https://www.rero.ch/",
             "type": "string",
@@ -1014,23 +1008,23 @@
             "form": {
               "options": [
                 {
-                  "label": "resource",
+                  "label": "Resource",
                   "value": "resource"
                 },
                 {
-                  "label": "version of resource",
+                  "label": "Version of resource",
                   "value": "versionOfResource"
                 },
                 {
-                  "label": "related resource",
+                  "label": "Related resource",
                   "value": "relatedResource"
                 },
                 {
-                  "label": "hidden Url",
+                  "label": "Hidden URL",
                   "value": "hiddenUrl"
                 },
                 {
-                  "label": "no info",
+                  "label": "No info",
                   "value": "noInfo"
                 }
               ]
@@ -1038,7 +1032,7 @@
           },
           "content": {
             "title": "Content type",
-            "description": "Is displayed as the text of the link",
+            "description": "Is displayed as the text of the link.",
             "type": "string",
             "enum": [
               "poster",
@@ -1073,115 +1067,115 @@
             "form": {
               "options": [
                 {
-                  "label": "poster",
+                  "label": "Poster",
                   "value": "poster"
                 },
                 {
-                  "label": "audio",
+                  "label": "Audio",
                   "value": "audio"
                 },
                 {
-                  "label": "postcard",
+                  "label": "Postcard",
                   "value": "postcard"
                 },
                 {
-                  "label": "addition",
+                  "label": "Addition",
                   "value": "addition"
                 },
                 {
-                  "label": "debriefing",
+                  "label": "Debriefing",
                   "value": "debriefing"
                 },
                 {
-                  "label": "exhibition documentation",
+                  "label": "Exhibition documentation",
                   "value": "exhibitionDocumentation"
                 },
                 {
-                  "label": "erratum",
+                  "label": "Erratum",
                   "value": "erratum"
                 },
                 {
-                  "label": "bookplate",
+                  "label": "Bookplate",
                   "value": "bookplate"
                 },
                 {
-                  "label": "extract",
+                  "label": "Extract",
                   "value": "extract"
                 },
                 {
-                  "label": "educational sheet",
+                  "label": "Educational sheet",
                   "value": "educationalSheet"
                 },
                 {
-                  "label": "illustrations",
+                  "label": "Illustrations",
                   "value": "illustrations"
                 },
                 {
-                  "label": "cover image",
+                  "label": "Cover image",
                   "value": "coverImage"
                 },
                 {
-                  "label": "delivery information",
+                  "label": "Delivery information",
                   "value": "deliveryInformation"
                 },
                 {
-                  "label": "biographical information",
+                  "label": "Biographical information",
                   "value": "biographicalInformation"
                 },
                 {
-                  "label": "introduction/preface",
+                  "label": "Introduction/preface",
                   "value": "introductionPreface"
                 },
                 {
-                  "label": "class reading",
+                  "label": "Class reading",
                   "value": "classReading"
                 },
                 {
-                  "label": "teacher's kit",
+                  "label": "Teacher's kit",
                   "value": "teachersKit"
                 },
                 {
-                  "label": "publisher's note",
+                  "label": "Publisher's note",
                   "value": "publishersNote"
                 },
                 {
-                  "label": "note on content",
+                  "label": "Note on content",
                   "value": "noteOnContent"
                 },
                 {
-                  "label": "title page",
+                  "label": "Title page",
                   "value": "titlePage"
                 },
                 {
-                  "label": "photography",
+                  "label": "Photography",
                   "value": "photography"
                 },
                 {
-                  "label": "summarization",
+                  "label": "Summarization",
                   "value": "summarization"
                 },
                 {
-                  "label": "online resource via RERO DOC",
+                  "label": "Online resource via RERO DOC",
                   "value": "onlineResourceViaRERODOC"
                 },
                 {
-                  "label": "press review",
+                  "label": "Press review",
                   "value": "pressReview"
                 },
                 {
-                  "label": "web site",
+                  "label": "Web site",
                   "value": "webSite"
                 },
                 {
-                  "label": "table of contents",
+                  "label": "Table of contents",
                   "value": "tableOfContents"
                 },
                 {
-                  "label": "full text",
+                  "label": "Full text",
                   "value": "fullText"
                 },
                 {
-                  "label": "video",
+                  "label": "Video",
                   "value": "video"
                 }
               ]
