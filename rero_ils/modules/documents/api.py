@@ -25,8 +25,8 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier, DocumentMetadata
-from .utils import edition_format_text, publication_statement_text, \
-    series_format_text, title_format_text_head
+from .utils import edition_format_text, note_format_text, \
+    publication_statement_text, series_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..fetchers import id_fetcher
@@ -166,6 +166,9 @@ class Document(IlsRecord):
         editions = dump.get('editionStatement', [])
         for edition in editions:
             edition['_text'] = edition_format_text(edition)
+        notes = dump.get('note', [])
+        if notes:
+            dump["notes_text"] = note_format_text(notes)
         titles = dump.get('title', [])
         bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
         for title in bf_titles:

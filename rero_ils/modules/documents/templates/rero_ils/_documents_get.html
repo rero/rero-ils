@@ -1,0 +1,197 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_list, div_json %}
+
+
+{% set accesses = record|get_accesses %}
+{% if accesses|length > 0 or holdings %}
+  <!-- ACCESS -->
+  {% if accesses|length > 0 %}
+  <div class="card mb-2">
+    <!-- Card header -->
+    <div id="online_access" class="card-header p-2">
+      <div class="row">
+        <div class="col-1">
+          <a class="collapse-link" data-toggle="collapse" href="#collapse-access" aria-expanded="false">
+            <i class="fa fa-caret-down fa-lg"></i>
+          </a>
+        </div>
+        <div class="col-10">
+              {{ _("Online") }}
+        </div>
+      </div>
+    </div>
+    <!-- Card body -->
+    <div id="collapse-access" class="collapse show" role="tabpanel">
+      <div class="card-body p-2">
+        {% for access in accesses %}
+        <div class="row my-2">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-sm-1">
+                &nbsp;
+              </div>
+              <div class="col-sm-2">
+                {{ access.type }}
+              </div>
+              <div class="col-sm-9">
+                <a class="rero-ils-external-link" href={{ access.url }}>{{ access.content }}</a>
+                {% if access.public_note %}
+                  ({{ access.public_note }})
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Holdings -->
+  {% if holdings %}
+  <!-- User login -->
+  {%- if current_user.is_anonymous %}
+  <a class="btn btn-primary btn-sm" href="{{ url_for_security('login') + "?next=" + request.path }}">
+    <i class="fa fa-sign-in"></i> {{ _('Login (to see request options)') }}
+  </a>
+  {% endif %}
+  {% for holding in holdings %}
+  {% set items = holding.get_items %}
+  {% set number_items = holding.get_items_count_by_holding_pid %}
+  {% if record.harvested or number_items > 0 %}
+  <!-- Card header -->
+  <div class="card mt-2">
+    <div id="{{ holding.pid }}" class="card-header p-2">
+      <div class="row">
+        <div class="col-1">
+          <a class="collapse-link" data-toggle="collapse" href="#collapse-{{ holding.pid }}" aria-expanded="false">
+            <i class="fa fa-caret-down fa-lg"></i>
+          </a>
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-sm-4">
+              {{ holding|holding_location }}
+            </div>
+            <div class="col-sm-3">
+              {{ holding|holding_circulation_category }}
+            </div>
+            <div class="col-sm-2">
+              {% if not record.harvested %}
+                {{ number_items }} {{ _('items') if number_items > 1 else _('item') }}
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </div>
+
+            <div class="col-sm-2 availability d-none">
+              {% if not record.harvested %}
+                {% if number_items > 0 %}
+                  <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
+                  {{ _('available') if holding.available else _('not available') }}
+                {% else %}
+                  <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
+                {% endif %}
+              {% else %}
+                &nbsp;
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
+      <div class="card-body p-2">
+        <!-- display holding electronic location -->
+        {% if record.harvested %}
+          {% for elocation in holding.electronic_location %}
+            <div class="row my-2">
+              <div class="col-1">
+                &nbsp;
+              </div>
+              <div class="col-10">
+                <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+        <!-- display items -->
+        {% if number_items > 0 %}
+        {% for item in items %}
+        <div class="row my-2">
+          <div class="col-1">
+            &nbsp;
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col-sm-4">
+                {% if current_user|can_edit %}
+                <a
+                  href="{{ url_for('invenio_records_ui.item', viewcode=viewcode, pid_value=item.pid) }}">{{ item.barcode }}</a>
+                {% else %}
+                {{ item.barcode }}
+                {% endif %}
+              </div>
+              <div class="col-sm-3">
+                <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i>
+                {{ item|item_availability_text }}
+              </div>
+              <div class="col-sm-2">
+                {% if item.call_number %}
+                {{ item.call_number }}
+                {% endif %}
+              </div>
+              {% set locations = item|item_library_pickup_locations %}
+              {% if item|can_request and locations %}
+              <div class="col">
+                <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" id="dropdownMenu">
+                  {{ _('Request') }}
+                  <i class="fa fa-caret-down fa-fw"></i>
+                </a>
+                <!-- TODO: Style the dropdown header -->
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                  <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
+                  <div class="dropdown-divider"></div>
+                  {% for location in locations %}
+                  <a class="dropdown-item"
+                    href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
+                    {{ location.pickup_name }}
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <!-- Accordion card -->
+{% endif %}

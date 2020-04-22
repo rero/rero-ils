@@ -35,9 +35,9 @@ from invenio_records_ui.signals import record_viewed
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarc
 from .utils import display_alternate_graphic_first, edition_format_text, \
-    localized_data_name, publication_statement_text, series_format_text, \
-    title_format_text_alternate_graphic, title_format_text_head, \
-    title_variant_format_text
+    localized_data_name, note_format_text, publication_statement_text, \
+    series_format_text, title_format_text_alternate_graphic, \
+    title_format_text_head, title_variant_format_text
 from ..holdings.api import Holding
 from ..items.api import Item
 from ..items.models import ItemCirculationAction, ItemStatus
@@ -289,6 +289,12 @@ def edition_format(editions):
 
 
 @blueprint.app_template_filter()
+def note_format(notes):
+    """Format note for template."""
+    return note_format_text(notes)
+
+
+@blueprint.app_template_filter()
 def publishers_format(publishers):
     """Format publishers for template."""
     output = []
@@ -404,7 +410,7 @@ def language_format(langs_list, language_interface):
     if isinstance(langs_list, str):
         langs_list = [{'type': 'bf:Language', 'value': langs_list}]
     for lang in langs_list:
-        language_code = lang.get('value')
+        language_code = 'lang_{code}'.format(code=lang.get('value'))
         output.append(_(language_code))
     return ", ".join(output)
 
@@ -523,28 +529,34 @@ def get_other_accesses(record):
 
 
 @blueprint.app_template_filter()
-def create_title_text(titles):
+def create_title_text(titles, responsibility_statement=[]):
     """Create the title text for display purpose.
 
     :param titles: list of title objects
     :type titles: list
+    :param responsibility_statement: list of title objects
+    :type responsibility_statement: list
     :return: the title text for display purpose
     :rtype: str
     """
-    return title_format_text_head(titles, with_subtitle=True)
+    return title_format_text_head(titles, responsibility_statement,
+                                  with_subtitle=True)
 
 
 @blueprint.app_template_filter()
-def create_title_alternate_graphic(titles):
+def create_title_alternate_graphic(titles, responsibility_statement=[]):
     """Create the list of alternate graphic titles as text for detail view.
 
     :param titles: list of title objects
     :type titles: list
+    :param responsibility_statement: list of title objects
+    :type responsibility_statement: list
     :return: list of alternate graphic titles as text for detail view
     :rtype: list
     """
     output = []
-    altgr_texts = title_format_text_alternate_graphic(titles)
+    altgr_texts = title_format_text_alternate_graphic(titles,
+                                                      responsibility_statement)
     for altgr_text in altgr_texts:
         value = altgr_text.get('value')
         if value not in output:

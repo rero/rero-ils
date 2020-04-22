@@ -17,13 +17,15 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
-{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_list, div_json %}
+{% from 'rero_ils/macros/macro.html' import div, dict_values, div_list, dl, dl_row, dl_dict, dl_list, div_json %}
 
 {%- block body %}
-<header class="row">
-
+<header class="row py-2">
+    <a href="javascript:history.back()"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
+</header>
+<div class="row">
   {% if record | get_cover_art%}
-  <a id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start" href="{{ (record | get_cover_art) }}" target="_blank">
+  <a id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start" href="{{ (record | get_cover_art) }}" target="_blank">
     <icon-thumbnail class="thumb"
       thumbnailurl='{{ (record | get_cover_art) }}'
       type="{{ record.type }}"
@@ -31,7 +33,7 @@
     </icon-thumbnail>
   </a>
   {% else %}
-  <div id="thumbnail" class="col-sm-2 col-md-1 d-flex justify-content-start">
+  <div id="thumbnail" class="col-sm-2 col-md-2 d-flex justify-content-start">
     <icon-thumbnail class="thumb"
       thumbnailurl="/static/images/icon_{{ record.type }}.png"
         {% if record.identifiedBy %} identifiers='{{ (record.identifiedBy|document_isbn)|tojson }}'
@@ -45,321 +47,129 @@
     </icon-thumbnail>
   </div>
   {% endif %}
-  <h1 class="col-sm-10 col-md-11">{{ record.title | create_title_text }}</h1>
-</header>
+  <div class="col-sm-10 col-md-10">
+    <h2>
+      {{ record.title | create_title_text }}
+    </h2>
+    <!-- TITLE_ALTERNATE_GRAPHIC -->
+    {% for alternate_graphic in record.title | create_title_alternate_graphic %}
+      <h3>
+        {{ alternate_graphic }}
+      </h3>
+    {% endfor %}
+
+    <!-- AUTHORS -->
+    {% if record.authors %}
+    {{ div(record.pid | authors_format(current_i18n.language, viewcode)) }}
+    {% endif %}
+
+    <!-- PROVISION ACTIVITY -->
+    {% for provision_activity in record.provisionActivity %}
+    {% if provision_activity.type == 'bf:Publication' %}
+    {{ div_list(provision_activity|create_publication_statement ) }}
+    {% endif %}
+    {% endfor %}
+
+    <!-- EXTENT -->
+    {% if record.extent %}
+    {{ record.extent }}
+    {% endif %}
+
+    <!-- EDITION STATEMENT-->
+    {% if record.editionStatement %}
+    {{ div_list(record.editionStatement|edition_format) }}
+    {% endif %}
+
+    <!-- INTENDED AUDIENCE -->
+
+    <!-- IS PART OF -->
+    {% if record.is_part_of %}
+    {{ record.is_part_of }}
+    {% endif %}
+
+    <!-- ABSTRACT -->
+    {% if record.abstracts|length > 0 %}
+    <div class="pt-2">
+    {{ div_list(record.abstracts|abstracts_format) }}
+    </div>
+    {% endif %}
+
+    <!-- SUBJECTS -->
+    {% if record.subjects %}
+    <div class="pt-2">
+    {% for subject in record.subjects %}
+      <p class="badge badge-secondary my-0"><i class="fa fa-tag"></i> {{ subject }}</p>
+    {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+</div>
 
 {%- block record_body %}
 <section>
-  <!-- Document -->
-  <section class="py-4 border-bottom">
-    <article class="">
-      <dl class="row mb-0">
-        <!-- TITLE_ALTERNATE_GRAPHIC -->
-        {{ dl_list(_('Title'), record.title | create_title_alternate_graphic()) }}
-
-        <!-- TITLE_VARIANTS -->
-        {{ dl_list(_('Variant title'), record.title | create_title_variants()) }}
-
-        <!-- TITLE_RESPONSIBILITIES -->
-        {{ dl_list(_('Responsibility'), record.responsibilityStatement | create_title_responsibilites()) }}
-
-        <!-- AUTHORS -->
-        {% if record.authors %}
-        {{ dl(_('Author'), record.pid | authors_format(current_i18n.language, viewcode)) }}
-        {% endif %}
-
-        <!-- EDITION STATEMENT-->
-        {% if record.editionStatement %}
-        {{ dl_list(_('Edition'), record.editionStatement|edition_format) }}
-        {% endif %}
-
-        <!-- PUBLICATION STATEMENT -->
-        {% for provision_activity in record.provisionActivity %}
-        {{ dl_list(_(provision_activity.type), provision_activity|create_publication_statement ) }}
-        {% endfor %}
-
-        <!-- COPYRIGHT DATE -->
-        {% if record.copyrightDate %}
-        {{ dl(_('Copyright date'), record.copyrightDate|join(', ')) }}
-        {% endif %}
-
-        <!-- ABSTRACT -->
-        {% if record.abstracts|length > 0 %}
-        {{ dl(_('Abstract'), record.abstracts|abstracts_format|nl2br) }}
-        {% endif %}
-
-        <!-- PHYSICAL DESCRIPTION -->
-        {% if record.extent or record.otherMaterialCharacteristics or record.formats %}
-        {% set formats = ', '.join(record.formats) %}
-        {% set description = ', '.join([record.extent, record.otherMaterialCharacteristics, formats]|select) %}
-        {{ dl(_('Physical description'), description) }}
-        {% endif %}
-
-        <!-- ADDITIONAL MATERIALS -->
-        {% if record.additionalMaterials %}
-        {{ dl(_('Additional Materials'), record.additionalMaterials) }}
-        {% endif %}
-
-        <!-- SERIES -->
-        {% if record.series|length > 0 %}
-        {{ dl(_('Series'), record.series|series_format) }}
-        {% endif %}
-
-        <!-- UNIFORM TITLE -->
-        {% if record.titlesProper|length > 0 %}
-        {{ dl(_('Uniform title'), record.titlesProper|join('; ')) }}
-        {% endif %}
-
-        <!-- IS PART OF -->
-        {% if record.is_part_of %}
-        {{ dl(_('Is part of'), record.is_part_of) }}
-        {% endif %}
-
-        <!-- SUBJECTS -->
-        {% if record.subjects|length > 0 %}
-        {{ dl(_('Subjects'), record.subjects|join('; ')) }}
-        {% endif %}
-
-        <!-- NOTES -->
-        {% if record.notes|length > 0 %}
-        {{ dl(_('Notes'), record.notes|abstracts_format|nl2br) }}
-        {% endif %}
-
-        {% if record.identifiedBy|identifiedby_format|length > 0 %}
-        <dt class="col-sm-3 offset-sm-2 offset-md-1">
-          {{ _('Identifier') }}:
-        </dt>
-        <dd class="col-sm-7 col-md-8 mb-0">
-          <ul class="list-unstyled mb-0">
-            {% for identifier in record.identifiedBy|identifiedby_format %}
-            <li>
-              {{ identifier.value }}
-              <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
-            </li>
-            {% endfor %}
-          </ul>
-        </dd>
-        {% endif %}
-
-        {% if record.language|language_format(current_i18n.language)|length > 0 %}
-        {{ dl(_('Language'), record.language|language_format(current_i18n.language)) }}
-        {% endif %}
-
-        <!-- Related resource -->
-        {% set other_accesses = record|get_other_accesses %}
-        {% if other_accesses|length > 0 %}
-        <dt class="col-sm-3 offset-sm-2 offset-md-1">
-          {{ _('Related resource') }}:
-        </dt>
-        <dd class="col-sm-7 col-md-8 mb-0">
-          <ul class="list-unstyled mb-0">
-            {% for other_access in other_accesses %}
-            <li>
-              <a class="rero-ils-external-link" href={{ other_access.url }}>{{ other_access.content }}</a>
-              {% if other_access.public_note %}
-                ({{ other_access.public_note }})
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-        </dd>
-        {% endif %}
-
-
-
-        {% if record.source %}
-        {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}
-        {% endif %}
-        <dt class="col-sm-3 offset-sm-2 offset-md-1">
-          {{ _('Permalink') }}:
-        </dt>
-        <dd class="col-sm-7 col-md-8">
-          {{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) }}
+  <article class="mt-4">
+    {% if accesses|length < 1 and  not holdings %}
+    <header>
+      <nav>
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+          <li class="nav-item" title="{{ _('No holdings') }}">
+            <a class="nav-link disabled" href="#documents-get" data-toggle="tab"
+               id="documents-get-tab" title="{{ _('Get') }}" role="tab"
+               aria-controls="documents-get" aria-selected="true">
+              <i class="fa fa-list-ul"></i> {{ _('Get') }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="#documents-description" data-toggle="tab"
+               id="documents-description-tab" title="{{ _('Description') }}" role="tab"
+               aria-controls="documents-description" aria-selected="false">
+              <i class="fa fa-bars"></i> {{ _('Description') }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <article class="tab-content">
+      <section class="tab-pane p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab"></section>
+      <section class="tab-pane row show active" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
+        {% include('rero_ils/_documents_description.html') %}
+      </section>
     </article>
-    <footer class="d-flex flex-column pt-2">
-      {% if record.can_edit and current_user|can_edit %}
-      {% with json=record %}
-      {% include 'rero_ils/_editor_button_actions.html' %}
-      {% endwith %}
-      {% else %}
-      {% if current_user|can_edit %}
-      {{ div_json(_('JSON'), record) }}
-      {% endif %}
-      {% endif %}
-    </footer>
-  </section>
-
-  {% set accesses = record|get_accesses %}
-  {% if accesses|length > 0 or holdings %}
-  <h3 class="mt-2">{{ _('Access') }}</h3>
-
-  <section class="py-2">
-    <!-- ACCESS -->
-    {% if accesses|length > 0 %}
-    <div class="card">
-      <!-- Card header -->
-      <div id="online_access" class="card-header p-2">
-        <div class="row">
-          <div class="col-1">
-            <a class="collapse-link" data-toggle="collapse" href="#collapse-access" aria-expanded="false">
-              <i class="fa fa-caret-down fa-lg"></i>
+    {% else %}
+    <header>
+      <nav>
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#documents-get" data-toggle="tab"
+               id="documents-get-tab" title="{{ _('Get') }}" role="tab"
+               aria-controls="documents-get" aria-selected="true">
+              <i class="fa fa-list-ul"></i> {{ _('Get') }}
             </a>
-          </div>
-          <div class="col-10">
-                {{ _("Online") }}
-          </div>
-        </div>
-      </div>
-      <!-- Card body -->
-      <div id="collapse-access" class="collapse show" role="tabpanel">
-        <div class="card-body p-2">
-          {% for access in accesses %}
-          <div class="row my-2">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-sm-1">
-                  &nbsp;
-                </div>
-                <div class="col-sm-2">
-                  {{ access.type }}
-                </div>
-                <div class="col-sm-9">
-                  <a class="rero-ils-external-link" href={{ access.url }}>{{ access.content }}</a>
-                  {% if access.public_note %}
-                    ({{ access.public_note }})
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    {% endif %}
-
-    <!-- Holdings -->
-    {% if holdings %}
-    {% for holding in holdings %}
-    {% set items = holding.get_items %}
-    {% set number_items = holding.get_items_count_by_holding_pid %}
-    {% if record.harvested or number_items > 0 %}
-    <!-- Card header -->
-    <div class="card mt-2">
-      <div id="{{ holding.pid }}" class="card-header p-2">
-        <div class="row">
-          <div class="col-1">
-            <a class="collapse-link" data-toggle="collapse" href="#collapse-{{ holding.pid }}" aria-expanded="false">
-              <i class="fa fa-caret-down fa-lg"></i>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#documents-description" data-toggle="tab"
+               id="documents-description-tab" title="{{ _('Description') }}" role="tab"
+               aria-controls="documents-description" aria-selected="false">
+              <i class="fa fa-bars"></i> {{ _('Description') }}
             </a>
-          </div>
-          <div class="col-10">
-            <div class="row">
-              <div class="col-sm-4">
-                {{ holding|holding_location }}
-              </div>
-              <div class="col-sm-3">
-                {{ holding|holding_circulation_category }}
-              </div>
-              <div class="col-sm-2">
-                {% if not record.harvested %}
-                  {{ number_items }} {{ _('items') if number_items > 1 else _('item') }}
-                {% else %}
-                  &nbsp;
-                {% endif %}
-              </div>
-
-              <div class="col-sm-2 availability d-none">
-                {% if not record.harvested %}
-                  {% if number_items > 0 %}
-                    <i class="fa fa-circle text-{{ 'success' if holding.available else 'danger' }}"></i>
-                    {{ _('available') if holding.available else _('not available') }}
-                  {% else %}
-                    <i class="fa fa-circle text-{{ 'danger' }}"></i> {{ _('not available') }}
-                  {% endif %}
-                {% else %}
-                  &nbsp;
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card body -->
-      <div id="collapse-{{ holding.pid }}" data-holding-id="{{ holding.pid }}" class="collapse show" role="tabpanel">
-        <div class="card-body p-2">
-          <!-- display holding electronic location -->
-          {% if record.harvested %}
-            {% for elocation in holding.electronic_location %}
-              <div class="row my-2">
-                <div class="col-1">
-                  &nbsp;
-                </div>
-                <div class="col-10">
-                  <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
-                </div>
-              </div>
-            {% endfor %}
-          {% endif %}
-          <!-- display items -->
-          {% if number_items > 0 %}
-          {% for item in items %}
-          <div class="row my-2">
-            <div class="col-1">
-              &nbsp;
-            </div>
-            <div class="col-10">
-              <div class="row">
-                <div class="col-sm-4">
-                  {{ item.barcode }}
-                </div>
-                <div class="col-sm-3">
-                  <i class="fa fa-circle text-{{ 'success' if item.available else 'danger' }}"></i>
-                  {{ item|item_availability_text }}
-                </div>
-                <div class="col-sm-2">
-                  {% if item.call_number %}
-                  {{ item.call_number }}
-                  {% endif %}
-                </div>
-                {% set locations = item|item_library_pickup_locations %}
-                {% if item|can_request and locations %}
-                <div class="col">
-                  <a href="#" type="button" class="btn btn-primary btn-sm" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" id="dropdownMenu">
-                    {{ _('Request') }}
-                    <i class="fa fa-caret-down fa-fw"></i>
-                  </a>
-                  <!-- TODO: Style the dropdown header -->
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                    <h6 class="dropdown-header">{{ _('Select a Pickup Location') }}</h6>
-                    <div class="dropdown-divider"></div>
-                    {% for location in locations %}
-                    <a class="dropdown-item"
-                      href="{{ url_for('item.patron_request', viewcode=viewcode, item_pid=item.pid, pickup_location_pid=location.pid)}}">
-                      {{ location.pickup_name }}
-                    </a>
-                    {% endfor %}
-                  </div>
-                </div>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          {% endif %}
-        </div>
-      </div>
-    </div>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <article class="tab-content">
+      <section class="tab-pane show active p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
+        {% include('rero_ils/_documents_get.html') %}
+      </section>
+      <section class="tab-pane row" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
+        {% include('rero_ils/_documents_description.html') %}
+      </section>
+    </article>
     {% endif %}
-    {% endfor %}
-    {% endif %}
-    <!-- Accordion card -->
-  </section>
-  {% endif %}
+  </article>
 </section>
-<footer class="pt-4 rero-ils-detailed-view-footer">
+
+<footer class="pt-4 border-top rero-ils-detailed-view-footer">
   {%- set formats = export_formats(pid.pid_type) %}
   {%- if formats %}
   <h5 class="d-inline-block">{{ _('Export Formats') }}:</h5>
@@ -383,4 +193,18 @@
 {{ super() }}
 {% assets "rero_ils_documents_detailed_js" %}
 <script src="{{ ASSET_URL }}"></script>{% endassets %}
-{%- endblock javascript %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    /* Store state of view tab */
+    $('.nav-tabs a[data-toggle="tab"]').on('click', function(e) {
+      e.preventDefault();
+      localStorage.setItem('activeTab', $(this).attr('href'));
+      var activeTab = localStorage.getItem('activeTab');
+      if(activeTab) {
+        $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+      }
+    });
+});
+</script>
+{% endblock javascript %}
