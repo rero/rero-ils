@@ -23,18 +23,19 @@ from operator import attrgetter
 
 import ciso8601
 from flask import current_app
-from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
+from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
 
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..documents.api import Document
 from ..items.models import ItemCirculationAction
+from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
@@ -117,50 +118,26 @@ class Loan(IlsRecord):
         super(Loan, self).update(data, dbcommit, reindex)
         return self
 
-    def attach_item_ref(self):
-        """Attach item reference."""
-        item_pid = self.get('item_pid')
-        if not item_pid:
-            raise MissingRequiredParameterError(
-                description='item_pid missing from loan {0}'.format(
-                    self.pid))
-        self['item'] = self.loan_build_item_ref(item_pid, self)
+    def date_fields2datetime(self):
+        """Convert string datetime fields to Python datetime."""
+        for field in self.DATE_FIELDS + self.DATETIME_FIELDS:
+            if field in self:
+                self[field] = str2datetime(self[field])
 
-    def loan_build_item_ref(self, item_pid, loan):
-        """Build $ref for the Item attached to the Loan."""
-        return {'$ref': '{base_url}/api/{doc_type}/{pid}'.format(
-            base_url=get_base_url(),
-            doc_type='items',
-            pid=item_pid
-        )}
-
-    def loan_build_patron_ref(self, patron_pid, loan):
-        """Build $ref for the Patron attached to the Loan."""
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        return {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='patrons',
-                pid=patron_pid)
-        }
-
-    def loan_build_document_ref(self, document_pid, loan):
-        """Build $ref for the Document attached to the Loan."""
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        return {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='documents',
-                pid=document_pid)
-        }
+    def date_fields2str(self):
+        """Convert Python datetime fields to string."""
+        for field in self.DATE_FIELDS:
+            if field in self:
+                self[field] = self[field].date().isoformat()
+        for field in self.DATETIME_FIELDS:
+            if field in self:
+                self[field] = self[field].isoformat()
 
     @classmethod
     def _loan_build_org_ref(cls, data):
         """Build $ref for the organisation of the Loan."""
         from ..items.api import Item
-        item_pid = data.get('item_pid')
+        item_pid = data.get('item_pid', {}).get('value')
         data['organisation'] = {'$ref': get_ref_for_pid(
             'org',
             Item.get_record_by_pid(item_pid).organisation_pid
@@ -211,13 +188,23 @@ class Loan(IlsRecord):
 
     @property
     def item_pid(self):
-        """Shortcut for item pid."""
-        return self.get('item_pid')
+        """Returns the item pid value."""
+        return self.get('item_pid', {}).get('value', None)
+
+    @property
+    def item_pid_object(self):
+        """Returns the loan item_pid object."""
+        return self.get('item_pid', {})
 
     @property
     def patron_pid(self):
         """Shortcut for patron pid."""
         return self.get('patron_pid')
+
+    @property
+    def document_pid(self):
+        """Shortcut for document pid."""
+        return self.get('document_pid')
 
     @property
     def is_active(self):
@@ -231,9 +218,9 @@ class Loan(IlsRecord):
     def organisation_pid(self):
         """Get organisation pid for loan."""
         from ..items.api import Item
-
-        if self.get('item_pid'):
-            item = Item.get_record_by_pid(self.get('item_pid'))
+        item_pid = self.item_pid
+        if item_pid:
+            item = Item.get_record_by_pid(item_pid)
             return item.organisation_pid
         # return None
         raise IlsRecordError.PidDoesNotExist(
@@ -251,7 +238,7 @@ class Loan(IlsRecord):
         """Get loan transaction_location PID or item owning location."""
         from ..items.api import Item
         location_pid = self.get('transaction_location_pid')
-        item_pid = self.get('item_pid')
+        item_pid = self.item_pid
 
         if not location_pid and item_pid:
             return Item.get_record_by_pid(item_pid).holding_location_pid
@@ -266,14 +253,12 @@ class Loan(IlsRecord):
         """Dumps for circulation."""
         loan = self.replace_refs()
         data = loan.dumps()
-
         patron = Patron.get_record_by_pid(loan['patron_pid'])
         ptrn_data = patron.dumps()
         data['patron'] = {}
         data['patron']['barcode'] = ptrn_data['barcode']
         data['patron']['name'] = ', '.join((
             ptrn_data['first_name'], ptrn_data['last_name']))
-
         if loan.get('pickup_location_pid'):
             location = Location.get_record_by_pid(loan['pickup_location_pid'])
             library = location.get_library()
@@ -331,7 +316,7 @@ class Loan(IlsRecord):
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
     """Get pending, item_on_transit, item_at_desk loans for item, patron."""
     search = search_by_patron_item_or_document(
-        item_pid=item_pid,
+        item_pid=item_pid_to_object(item_pid),
         patron_pid=patron_pid,
         filter_states=[
             'PENDING',
@@ -348,12 +333,11 @@ def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
 
 def get_loans_by_patron_pid(patron_pid):
     """Return all loans for patron."""
-    results = current_circulation.loan_search_cls\
-        .source(['pid'])\
-        .params(preserve_order=True)\
+    results = current_circulation.loan_search_cls()\
         .filter('term', patron_pid=patron_pid)\
-        .sort({'transaction_date': {'order': 'asc'}})\
-        .scan()
+        .params(preserve_order=True).\
+        sort({'transaction_date': {'order': 'asc'}})\
+        .source(['pid']).scan()
     for loan in results:
         yield Loan.get_record_by_pid(loan.pid)
 
@@ -486,13 +470,12 @@ def _process_patron_profile_fees(patron, organisation, status='open'):
 
 def get_last_transaction_loc_for_item(item_pid):
     """Return last transaction location for an item."""
-    results = current_circulation.loan_search_cls\
-        .source(['pid'])\
-        .params(preserve_order=True)\
+    results = current_circulation.loan_search_cls()\
         .filter('term', item_pid=item_pid)\
+        .params(preserve_order=True)\
         .exclude('terms', state=['PENDING', 'CREATED'])\
         .sort({'transaction_date': {'order': 'desc'}})\
-        .scan()
+        .source(['pid']).scan()
     try:
         loan_pid = next(results).pid
         return Loan.get_record_by_pid(
@@ -505,19 +488,18 @@ def get_due_soon_loans():
     """Return all due_soon loans."""
     from .utils import get_circ_policy
     due_soon_loans = []
-    results = current_circulation.loan_search_cls\
-        .source(['pid'])\
-        .params(preserve_order=True)\
+    results = current_circulation.loan_search_cls()\
         .filter('term', state='ITEM_ON_LOAN')\
+        .params(preserve_order=True)\
         .sort({'transaction_date': {'order': 'asc'}})\
-        .scan()
+        .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
         now = datetime.now(timezone.utc)
         end_date = loan.get('end_date')
-        due_date = ciso8601.parse_datetime(end_date)
-
+        due_date = ciso8601.parse_datetime(end_date).replace(
+            tzinfo=timezone.utc)
         days_before = circ_policy.get('number_of_days_before_due_date')
         if due_date > now > due_date - timedelta(days=days_before):
             due_soon_loans.append(loan)
@@ -528,12 +510,11 @@ def get_overdue_loans():
     """Return all overdue loans."""
     from .utils import get_circ_policy
     overdue_loans = []
-    results = current_circulation.loan_search_cls\
-        .source(['pid'])\
-        .params(preserve_order=True)\
+    results = current_circulation.loan_search_cls()\
         .filter('term', state='ITEM_ON_LOAN')\
+        .params(preserve_order=True)\
         .sort({'transaction_date': {'order': 'asc'}})\
-        .scan()
+        .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
         circ_policy = get_circ_policy(loan)
