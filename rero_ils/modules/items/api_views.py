@@ -29,6 +29,7 @@ from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
 from .api import Item, ItemStatus
+from .utils import item_pid_to_object
 from ..circ_policies.api import CircPolicy
 from ..libraries.api import Library
 from ..loans.api import Loan
@@ -272,7 +273,7 @@ def item(item_barcode):
     item = Item.get_item_by_barcode(item_barcode)
     if not item:
         abort(404)
-    loan = get_loan_for_item(item.pid)
+    loan = get_loan_for_item(item_pid_to_object(item.pid))
     if loan:
         loan = Loan.get_record_by_pid(loan.get('pid')).dumps_for_circulation()
     item_dumps = item.dumps_for_circulation()
@@ -364,11 +365,13 @@ def is_librarian_can_request_item_for_patron(
         return jsonify_response(reason='Library not found.')
     # Create a loan
     loan = Loan({
-        'patron_pid': patron.pid, 'item_pid': item.pid,
+        'patron_pid': patron.pid,
+        'item_pid': item_pid_to_object(item.pid),
         'library_pid': library_pid})
     if not can_be_requested(loan):
         return jsonify_response(
             reason='Request not allowed by the circulation policy.')
+
     if item.status != ItemStatus.MISSING:
         loaned_to_patron = item.is_loaned_to_patron(patron_barcode)
         if loaned_to_patron:

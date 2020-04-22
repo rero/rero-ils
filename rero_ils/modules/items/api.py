@@ -29,9 +29,11 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document, \
     search_by_pid
 from invenio_i18n.ext import current_i18n
+from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_search import current_search
 
 from .models import ItemIdentifier, ItemStatus
+from .utils import item_pid_to_object
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..circ_policies.api import CircPolicy
@@ -110,7 +112,7 @@ def add_loans_parameters_and_flush_indexes(function):
 
             if not loan:
                 data = {
-                    'item_pid': item.pid,
+                    'item_pid': item_pid_to_object(item.pid),
                     'patron_pid': patron_pid
                 }
                 loan = Loan.create(data, dbcommit=True, reindex=True)
@@ -119,7 +121,7 @@ def add_loans_parameters_and_flush_indexes(function):
                 description="Parameter 'pid' is required")
 
         # set missing parameters
-        kwargs['item_pid'] = item.pid
+        kwargs['item_pid'] = item_pid_to_object(item.pid)
         kwargs['patron_pid'] = loan.get('patron_pid')
         kwargs['pid'] = loan.pid
         # TODO: case when user want to have his own transaction date
@@ -263,6 +265,7 @@ class Item(IlsRecord):
         }
         data['actions'] = list(self.actions)
         data['available'] = self.available
+
         # data['number_of_requests'] = self.number_of_requests()
         for loan in self.get_requests(sort_by=sort_by):
             data.setdefault('pending_loans',
@@ -285,10 +288,28 @@ class Item(IlsRecord):
             return self.replace_refs()['holding']['pid']
         return None
 
+    @property
+    def document_pid(self):
+        """Shortcut for item document pid."""
+        if self.replace_refs().get('document'):
+            return self.replace_refs()['document']['pid']
+
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""
         item = cls.get_record_by_pid(item_pid).replace_refs()
+        return item.get('document', {}).get('pid')
+
+    @classmethod
+    def get_document_pid_by_item_pid_object(cls, item_pid):
+        """Returns document pid from item pid.
+
+        :param item_pid: the item_pid object
+        :type item_pid: object
+        :return: the document pid
+        :rtype: str
+        """
+        item = cls.get_record_by_pid(item_pid.get('value')).replace_refs()
         return item.get('document', {}).get('pid')
 
     @classmethod
@@ -298,21 +319,24 @@ class Item(IlsRecord):
             .filter('term', document__pid=document_pid)\
             .source(['pid']).scan()
         for item in results:
-            yield item.pid
+            yield item_pid_to_object(item.pid)
 
     @classmethod
     def get_loans_by_item_pid(cls, item_pid):
         """Return any loan loans for item."""
-        results = current_circulation.loan_search_cls.filter(
-            'term', item_pid=item_pid).source(includes='pid').scan()
+        item_pid_object = item_pid_to_object(item_pid)
+        results = current_circulation.loan_search_cls()\
+            .filter('term', item_pid__value=item_pid_object['value'])\
+            .filter('term', item_pid__type=item_pid_object['type'])\
+            .source(includes='pid').scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
 
     @classmethod
     def get_loan_pid_with_item_on_loan(cls, item_pid):
         """Returns loan pid for checked out item."""
-        search = search_by_pid(
-            item_pid=item_pid, filter_states=['ITEM_ON_LOAN'])
+        search = search_by_pid(item_pid=item_pid_to_object(
+            item_pid), filter_states=['ITEM_ON_LOAN'])
         results = search.source(['pid']).scan()
         try:
             return next(results).pid
@@ -323,7 +347,7 @@ class Item(IlsRecord):
     def get_loan_pid_with_item_in_transit(cls, item_pid):
         """Returns loan pi for in_transit item."""
         search = search_by_pid(
-            item_pid=item_pid, filter_states=[
+            item_pid=item_pid_to_object(item_pid), filter_states=[
                 "ITEM_IN_TRANSIT_FOR_PICKUP",
                 "ITEM_IN_TRANSIT_TO_HOUSE"])
         results = search.source(['pid']).scan()
@@ -358,13 +382,13 @@ class Item(IlsRecord):
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
             order_by = 'desc'
-        search = current_circulation.loan_search_cls\
-            .source(['pid'])\
+
+        results = current_circulation.loan_search_cls()\
             .params(preserve_order=True)\
             .filter('term', state='PENDING')\
             .filter('term', library_pid=library_pid)\
-            .sort({sort_by: {"order": order_by}})
-        results = search.scan()
+            .sort({sort_by: {"order": order_by}})\
+            .source(includes='pid').scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
 
@@ -383,11 +407,12 @@ class Item(IlsRecord):
             sort_by = sort_by[1:]
             order_by = 'desc'
 
-        results = current_circulation.loan_search_cls.source(['pid'])\
+        results = current_circulation.loan_search_cls()\
             .params(preserve_order=True)\
             .filter('term', state='ITEM_ON_LOAN')\
             .filter('term', patron_pid=patron_pid)\
-            .sort({sort_by: {"order": order_by}}).scan()
+            .sort({sort_by: {"order": order_by}})\
+            .source(includes='pid').scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
 
@@ -398,7 +423,7 @@ class Item(IlsRecord):
             patron_pid=patron_pid, sort_by=sort_by)
         returned_item_pids = []
         for loan in loans:
-            item_pid = loan.get('item_pid')
+            item_pid = loan.get('item_pid', {}).get('value')
             item = Item.get_record_by_pid(item_pid)
             if item.status == ItemStatus.ON_LOAN and \
                     item_pid not in returned_item_pids:
@@ -411,7 +436,7 @@ class Item(IlsRecord):
         default sort is transaction_date.
         """
         search = search_by_pid(
-            item_pid=self.pid, filter_states=[
+            item_pid=item_pid_to_object(self.pid), filter_states=[
                 'PENDING',
                 'ITEM_AT_DESK',
                 'ITEM_IN_TRANSIT_FOR_PICKUP'
@@ -433,12 +458,27 @@ class Item(IlsRecord):
             library_pid=library_pid, sort_by=sort_by)
         returned_item_pids = []
         for loan in loans:
-            item_pid = loan.get('item_pid')
+            item_pid = loan.get('item_pid', {}).get('value')
             item = Item.get_record_by_pid(item_pid)
             if item.status == ItemStatus.ON_SHELF and \
                     item_pid not in returned_item_pids:
                 returned_item_pids.append(item_pid)
                 yield item, loan
+
+    @staticmethod
+    def item_exists(item_pid):
+        """Returns true if item exists for the given item_pid.
+
+        :param item_pid: the item_pid object
+        :type item_pid: object
+        :return: True if item found otherwise False
+        :rtype: bool
+        """
+        try:
+            Item.get_record_by_pid(item_pid.get('value'))
+        except PersistentIdentifierError:
+            return False
+        return True
 
     def get_organisation(self):
         """Shortcut to the organisation of the item location."""
@@ -599,7 +639,7 @@ class Item(IlsRecord):
     def actions(self):
         """Get all available actions."""
         transitions = current_app.config.get('CIRCULATION_LOAN_TRANSITIONS')
-        loan = get_loan_for_item(self.pid)
+        loan = get_loan_for_item(item_pid_to_object(self.pid))
         actions = set()
         if loan:
             for transition in transitions.get(loan.get('state')):
@@ -636,7 +676,7 @@ class Item(IlsRecord):
 
     def status_update(self, dbcommit=False, reindex=False, forceindex=False):
         """Update item status."""
-        loan = get_loan_for_item(self.pid)
+        loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
             self['status'] = self.statuses[loan.get('state')]
         else:
@@ -653,7 +693,7 @@ class Item(IlsRecord):
 
     def get_item_end_date(self, format='short_date'):
         """Get item due date for a given item."""
-        loan = get_loan_for_item(self.pid)
+        loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
             end_date = loan['end_date']
             due_date = format_date_filter(
@@ -666,7 +706,7 @@ class Item(IlsRecord):
 
     def get_extension_count(self):
         """Get item renewal count."""
-        loan = get_loan_for_item(self.pid)
+        loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
             return loan.get('extension_count', 0)
         return 0
@@ -702,34 +742,17 @@ class Item(IlsRecord):
         """Check if the item is loaned by a given patron."""
         patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
-            states = ['CREATED"', 'PENDING'] + \
+            states = ['CREATED', 'PENDING'] + \
                 current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
             search = search_by_patron_item_or_document(
                 patron_pid=patron.pid,
-                item_pid=self.pid,
+                item_pid=item_pid_to_object(self.pid),
                 document_pid=self.document_pid,
                 filter_states=states,
             )
             search_result = search.execute()
             return search_result.hits.total > 0
         return False
-
-    @classmethod
-    def item_location_retriever(cls, item_pid, **kwargs):
-        """Get item selflocation or the transaction location of the.
-
-        last loan.
-        """
-        # TODO: for requests we probably need the transation_location_pid
-        #       to deal with multiple pickup locations for a library
-        item = cls.get_record_by_pid(item_pid)
-        if item:
-            # TODO: this will be useful for the very specific rero use cases
-
-            # last_location = item.get_last_location()
-            # if last_location:
-            #     return last_location.pid
-            return item.get_owning_pickup_location_pid()
 
     @add_loans_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
@@ -821,7 +844,7 @@ class Item(IlsRecord):
                 actions.update(cancel_actions)
                 del action_params['pid']
         else:
-            loan = get_loan_for_item(self.pid)
+            loan = get_loan_for_item(item_pid_to_object(self.pid))
             if (loan and loan.get('state') != 'ITEM_AT_DESK'):
                 item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
                 actions.update(cancel_actions)
@@ -930,7 +953,7 @@ class Item(IlsRecord):
     def get_number_of_loans(self):
         """Get number of loans."""
         search = search_by_pid(
-            item_pid=self.pid,
+            item_pid=item_pid_to_object(self.pid),
             exclude_states=[
                 'CANCELLED',
                 'ITEM_RETURNED',
@@ -969,11 +992,10 @@ class Item(IlsRecord):
 
     def item_has_active_loan_or_request(self):
         """Return True if active loan or a request found for item."""
-        item_object = {'value': self.pid, 'type': 'item'}
         states = ['PENDING'] + \
             current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
         search = search_by_pid(
-            item_pid=item_object,
+            item_pid=item_pid_to_object(self.pid),
             filter_states=states,
         )
         search_result = search.execute()

@@ -38,7 +38,8 @@ Babel = ">=2.4.0"
 Flask-BabelEx = ">=0.9.3"
 ## Third party invenio modules used by RERO ILS
 invenio-oaiharvester = {editable = true, ref = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {editable = true, ref = "v1.0.0a21", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+# invenio-circulation = {editable = true, ref = "v1.0.0a21", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+invenio-circulation = {editable = true, ref = "item_at_desk_temp", git = "https://github.com/rero/invenio-circulation.git"}
 ## Invenio 3.2.1 base modules used by RERO ILS
 # same as invenio metadata extras without invenio-search-ui
 invenio-indexer = ">=1.1.1,<1.2.0"
