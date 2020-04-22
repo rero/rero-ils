@@ -22,6 +22,8 @@ from __future__ import absolute_import, print_function
 from utils import get_mapping
 
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher
+from rero_ils.modules.items.utils import item_location_retriever, \
+    item_pid_to_object
 
 
 def test_item_es_mapping(document, loc_public_martigny,
@@ -50,8 +52,8 @@ def test_item_organisation_pid(client, org_martigny, item_lib_martigny):
 def test_item_item_location_retriever(item_lib_martigny, loc_public_martigny,
                                       loc_restricted_martigny):
     """Test location retriever for invenio-circulation."""
-    assert item_lib_martigny.item_location_retriever(
-        item_lib_martigny.pid) == loc_public_martigny.pid
+    assert item_location_retriever(item_pid_to_object(
+        item_lib_martigny.pid)) == loc_public_martigny.pid
 
 
 def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
