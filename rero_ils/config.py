@@ -57,6 +57,7 @@ from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import can_create_item_factory, \
     can_update_delete_item_factory
+from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_update_library_factory
 from .modules.loans.api import Loan
@@ -66,6 +67,7 @@ from .modules.loans.transitions import ItemInTransitHouseToItemReturned, \
     ItemOnLoanToItemReturned
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
+    loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     loan_satisfy_circ_policies
 from .modules.locations.api import Location
 from .modules.locations.permissions import can_create_location_factory, \
@@ -1585,18 +1587,20 @@ JSONSCHEMAS_REPLACE_REFS = True
 OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
 
 #: Invenio circulation configuration.
-CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid
+CIRCULATION_ITEM_EXISTS = Item.item_exists
 CIRCULATION_PATRON_EXISTS = Patron.get_record_by_pid
 
-CIRCULATION_ITEM_LOCATION_RETRIEVER = Item.item_location_retriever
+CIRCULATION_ITEM_LOCATION_RETRIEVER = item_location_retriever
 CIRCULATION_DOCUMENT_RETRIEVER_FROM_ITEM = \
-    Item.get_document_pid_by_item_pid
+    Item.get_document_pid_by_item_pid_object
 CIRCULATION_ITEMS_RETRIEVER_FROM_DOCUMENT = Item.get_items_pid_by_document_pid
 
 CIRCULATION_DOCUMENT_EXISTS = Document.get_record_by_pid
-CIRCULATION_ITEM_REF_BUILDER = Loan.loan_build_item_ref
-CIRCULATION_PATRON_REF_BUILDER = Loan.loan_build_patron_ref
-CIRCULATION_DOCUMENT_REF_BUILDER = Loan.loan_build_document_ref
+
+CIRCULATION_ITEM_REF_BUILDER = loan_build_item_ref
+CIRCULATION_PATRON_REF_BUILDER = loan_build_patron_ref
+CIRCULATION_DOCUMENT_REF_BUILDER = loan_build_document_ref
+
 CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = \
     Location.transaction_location_validator
 CIRCULATION_TRANSACTION_USER_VALIDATOR = \
@@ -1672,7 +1676,10 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [
-        dict(dest='ITEM_AT_DESK', trigger='receive'),
+        dict(
+            dest='ITEM_AT_DESK',
+            trigger='receive'
+        ),
         dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_ON_LOAN': [
