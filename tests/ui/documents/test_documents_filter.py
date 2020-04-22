@@ -59,16 +59,16 @@ def test_language_format_format(app):
     language = [
         {
             'type': 'bf:Language',
-            'value': 'lang_ger'
+            'value': 'ger'
         }, {
             'type': 'bf:Language',
-            'value': 'lang_fre'
+            'value': 'fre'
         }
     ]
     results = 'German, French'
     assert results == language_format(language, 'en')
 
-    language = 'lang_fre'
+    language = 'fre'
     results = 'French'
     assert results == language_format(language, 'en')
 

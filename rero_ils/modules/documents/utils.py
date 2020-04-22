@@ -138,6 +138,15 @@ def edition_format_text(edition):
     return edition_text
 
 
+def note_format_text(node):
+    """Format note for _text."""
+    note_text = '{note_type}: {label}'.format(
+        note_type=node.get('noteType'),
+        label=node.get('label')
+    )
+    return note_text
+
+
 def display_alternate_graphic_first(language):
     """Display alternate graphic first.
 
@@ -152,14 +161,14 @@ def display_alternate_graphic_first(language):
     return not re.search(r'(default|^und-|-zyyy$)', language)
 
 
-def title_format_text_head(titles, with_subtitle=True):
+def title_format_text_head(titles, responsabilities=[], with_subtitle=True):
     """Format title head for display purpose.
 
     :param titles: titles object list
     :type titles: JSON object list
     :param with_subtitle: `True` for including the subtitle in the output
     :type with_subtitle: bool, optional
-    :return: a title string formated for display purpose
+    :return: a title string formatted for display purpose
     :rtype: str
     """
     head_titles = []
@@ -194,15 +203,24 @@ def title_format_text_head(titles, with_subtitle=True):
     output_value = '. '.join(head_titles)
     for parallel_title in parallel_titles:
         output_value += ' = ' + str(parallel_title)
+    for responsibility in responsabilities:
+        if len(responsibility) == 1:
+            output_value += ' / ' + responsibility[0].get('value')
+        else:
+            for responsibility_language in responsibility:
+                value = responsibility_language.get('value')
+                language = responsibility_language.get('language', 'default')
+                if display_alternate_graphic_first(language):
+                    output_value += ' / ' + value
     return output_value
 
 
-def title_format_text_alternate_graphic(titles):
+def title_format_text_alternate_graphic(titles, responsabilities=[]):
     """Build a list of alternate graphic title text for display.
 
     :param titles: titles object list
     :type titles: JSON object list
-    :return: a list of alternate graphic title string formated for display
+    :return: a list of alternate graphic title string formatted for display
     :rtype: list
     """
     altgr_titles = {}
@@ -211,8 +229,8 @@ def title_format_text_alternate_graphic(titles):
         if title.get('type') == 'bf:Title':
             title_texts = \
                 title_format_text(title=title, with_subtitle=True)
-            # the first title is remove because it is alreday used for the
-            # headding tilte
+            # the first title is remove because it is already used for the
+            # heading title
             title_texts.pop(0)
             for title_text in title_texts:
                 language = title_text.get('language')
@@ -223,21 +241,37 @@ def title_format_text_alternate_graphic(titles):
             parallel_title_texts = title_format_text(
                 title=title, with_subtitle=True)
             parallel_title_texts.pop(0)
-            # the first parallel title is remove because it is alreday used
-            # for the headding tilte
+            # the first parallel title is removed because it is already used
+            # for the heading title
             for parallel_title_text in parallel_title_texts:
                 language = parallel_title_text.get('language')
-                if language in parallel_titles:
-                    parallel_titles.get(language, [])
-                    parallel_titles[language].append(
-                        parallel_title_text.get('value')
-                    )
+                parallel_title = parallel_titles.get(language, [])
+                parallel_title.append(parallel_title_text.get('value'))
+                parallel_titles[language] = parallel_title
+                # if language in parallel_titles:
+                #     parallel_titles.get(language, [])
+                #     parallel_titles[language].append(
+                #         parallel_title_text.get('value')
+                #     )
+    responsibilities_text = {}
+    for responsibility in responsabilities:
+        for responsibility_language in responsibility:
+            print(responsibility_language)
+            language = responsibility_language.get('language', 'default')
+            responsibility_text = responsibilities_text.get(language, [])
+            responsibility_text.append(responsibility_language.get('value'))
+            responsibilities_text[language] = responsibility_text
+
     output = []
     for language in altgr_titles.keys():
         altgr_text = '. '.join(altgr_titles[language])
         if language in parallel_titles:
             parallel_title_text = ' = '.join(parallel_titles[language])
             altgr_text += ' = ' + str(parallel_title_text)
+        if language in responsibilities_text:
+            responsibility_text = ' / '.join(responsibilities_text[language])
+            altgr_text += ' / ' + str(responsibility_text)
+
         output.append({'value': altgr_text, 'language': language})
     return output
 

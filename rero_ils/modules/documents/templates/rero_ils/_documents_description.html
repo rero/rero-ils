@@ -1,0 +1,141 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_list, div_json %}
+
+<dl class="row pt-4 ml-4">
+  <!-- LANGUAGE -->
+  {% if record.language|language_format(current_i18n.language)|length > 0 %}
+  {{ dl(_('Language'), record.language|language_format(current_i18n.language)) }}
+  {% endif %}
+
+  <!-- COPYRIGHT DATE -->
+  {% if record.copyrightDate %}
+  {{ dl(_('Copyright date'), record.copyrightDate|join(', ')) }}
+  {% endif %}
+
+  <!-- NOTE -->
+  {% if record.note %}
+  {{ dl_list(_('Notes'), record.note|note_format) }}
+  {% endif %}
+
+  <!-- TITLE_VARIANTS -->
+  {{ dl_list(_('Variant title'), record.title | create_title_variants()) }}
+
+  <!-- TITLE_RESPONSIBILITIES -->
+  <!--
+  {{ dl_list(_('Responsibility'), record.responsibilityStatement | create_title_responsibilites()) }}
+  -->
+
+  <!-- UNIFORM TITLE -->
+  <!--
+  {% if record.titlesProper|length > 0 %}
+  {{ dl(_('Uniform title'), record.titlesProper|join('; ')) }}
+  {% endif %}
+  -->
+
+  <!-- SERIES -->
+  {% if record.series %}
+  {{ dl(_('Series statement'), record.series|series_format) }}
+  {% endif %}
+
+  <!-- PROVISION ACTIVITY -->
+  {% for provision_activity in record.provisionActivity %}
+  {% if provision_activity.type != 'bf:Publication' %}
+  {{ dl_list(_(provision_activity.type),provision_activity|create_publication_statement ) }}
+  {% endif %}
+  {% endfor %}
+
+  <!-- DURATION -->
+  {% if record.duration %}
+  {{ dl(_('Durations'), record.duration|join(', ')) }}
+  {% endif %}
+
+  <!-- ILLUSTRATIVECONTENT -->
+  {% if record.illustrativeContent %}
+  {{ dl(_('Illustrations'), record.illustrativeContent|join(', ')) }}
+  {% endif %}
+
+  <!-- COLORCONTENT -->
+  {% if record.colorContent %}
+  {{ dl(_('Colors'), record.colorContent|join(', ')) }}
+  {% endif %}
+
+  <!-- PRODUCTIONMETHOD -->
+  {% if record.productionMethod %}
+  {{ dl(_('Production Method'), record.productionMethod|join(', ')) }}
+  {% endif %}
+
+  <!-- BOOKFORMAT -->
+  {% if record.bookFormat %}
+  {{ dl(_('Formats'), record.bookFormat|join(', ')) }}
+  {% endif %}
+
+  <!-- DIMENSION -->
+  {% if record.dimensions %}
+  {{ dl(_('Dimensions'), record.dimensions|join(', ')) }}
+  {% endif %}
+
+  <!-- Identifier -->
+  {% if record.identifiedBy|identifiedby_format|length > 0 %}
+  <dt class="col-sm-3">
+    {{ _('Identifier') }}:
+  </dt>
+  <dd class="col-sm-7 col-md-9 mb-0">
+    <ul class="list-unstyled mb-0">
+      {% for identifier in record.identifiedBy|identifiedby_format %}
+      <li>
+        {{ identifier.value }}
+        <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
+      </li>
+      {% endfor %}
+    </ul>
+  </dd>
+  {% endif %}
+
+  <!-- Related resource -->
+  {% set other_accesses = record|get_other_accesses %}
+  {% if other_accesses|length > 0 %}
+  <dt class="col-sm-3">
+    {{ _('Related resource') }}:
+  </dt>
+  <dd class="col-sm-7 col-md-9 mb-0">
+    <ul class="list-unstyled mb-0">
+      {% for other_access in other_accesses %}
+      <li>
+        <a class="rero-ils-external-link" href={{ other_access.url }}>{{ other_access.content }}</a>
+        {% if other_access.public_note %}
+          ({{ other_access.public_note }})
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </dd>
+  {% endif %}
+
+  <!-- PERMALINK -->
+  {% if record.source %}
+  {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}
+  {% endif %}
+  <dt class="col-sm-3">
+    {{ _('Permalink') }}:
+  </dt>
+  <dd class="col-sm-9 col-md-9">
+    {% set permalink = url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) %}
+    <a class="rero-ils-external-link" href={{ permalink }}>{{ permalink }}</a>
+</dl>

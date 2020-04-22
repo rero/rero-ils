@@ -63,8 +63,8 @@ angular.module('reroThumbnails', [])
           jsonpCallbackParam: 'callback',
           type: 'isbn',
           value: isbn,
-          width: '60px',
-          height: '60px'
+          width: '250px',
+          height: '250px'
         }
         // $log.log(angular.version);
         $http.jsonp($scope.thumbnail_service_url, {params: config})

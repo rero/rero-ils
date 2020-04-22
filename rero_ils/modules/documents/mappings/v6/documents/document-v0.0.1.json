@@ -640,6 +640,29 @@
         "issuance": {
           "type": "keyword"
         },
+        "electronicLocator": {
+          "properties": {
+            "publicNote": {
+              "type": "text"
+            },
+            "type": {
+              "type": "keyword"
+            },
+            "url": {
+              "type": "text"
+            }
+          }
+        },
+        "organisation": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
+        "status": {
+          "type": "keyword"
+        },
         "harvested": {
           "type": "boolean"
         },
