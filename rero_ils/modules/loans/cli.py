@@ -31,6 +31,7 @@ from invenio_circulation.api import get_loan_for_item
 from ..circ_policies.api import CircPolicy
 from ..items.api import Item, ItemsSearch
 from ..items.models import ItemStatus
+from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..locations.api import Location
@@ -189,7 +190,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             document_pid=item.replace_refs()['document']['pid'],
             item_pid=item.pid,
         )
-        loan = get_loan_for_item(item.pid)
+        loan = get_loan_for_item(item_pid_to_object(item.pid))
         loan_pid = loan.get('pid')
         loan = Loan.get_record_by_pid(loan_pid)
         if transaction_type == 'overdue_active':
