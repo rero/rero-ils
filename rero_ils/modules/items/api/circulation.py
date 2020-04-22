@@ -30,6 +30,7 @@ from invenio_circulation.search.api import search_by_patron_item_or_document, \
 from invenio_i18n.ext import current_i18n
 from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_records_rest.utils import obj_or_import_string
+from invenio_pidstore.errors import PersistentIdentifierError
 from invenio_search import current_search
 
 from ..models import ItemCirculationAction, ItemStatus
