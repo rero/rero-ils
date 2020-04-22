@@ -37,15 +37,14 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     """
     if index == '-'.join(
             [current_circulation.loan_search_cls.Meta.index, doc_type]):
-        item = Item.get_record_by_pid(record.get('item_pid'))
+        item = Item.get_record_by_pid(record.get('item_pid', {}).get('value'))
         json['library_pid'] = item.holding_library_pid
 
 
 def listener_loan_state_changed(_, prev_loan, loan, trigger):
     """Create notification based on loan state changes."""
     if loan.get('state') == 'PENDING':
-        # create notification to requester
-        item_pid = loan.get('item_pid')
+        item_pid = loan.get('item_pid', {}).get('value')
         checkedout_loan_pid = Item.get_loan_pid_with_item_on_loan(item_pid)
         if checkedout_loan_pid:
             checked_out_loan = Loan.get_record_by_pid(checkedout_loan_pid)

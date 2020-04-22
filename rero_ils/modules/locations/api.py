@@ -173,6 +173,7 @@ class Location(IlsRecord):
         """
         return Location.record_pid_exists(location_pid)
 
+
 class LocationsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
 
