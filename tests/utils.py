@@ -33,6 +33,7 @@ from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
@@ -139,7 +140,7 @@ def loaded_resources_report():
                             item).status,
                         'requests': objects[object].get_record_by_pid(
                             item).number_of_requests(),
-                        'loans': get_loan_for_item(item)
+                        'loans': get_loan_for_item(item_pid_to_object(item))
                     }
                 )
         report['item_details'] = item_details
