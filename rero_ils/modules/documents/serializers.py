@@ -48,6 +48,13 @@ class DocumentJSONSerializer(JSONSerializer):
         altgr_titles = create_title_alternate_graphic(titles)
         if altgr_titles:
             rec['ui_title_altgr'] = altgr_titles
+        altgr_titles_responsibilities = create_title_alternate_graphic(
+            titles,
+            responsibility_statement
+        )
+        if altgr_titles_responsibilities:
+            rec['ui_title_altgr_responsibilities'] = \
+                altgr_titles_responsibilities
         variant_titles = create_title_variants(titles)
         # build variant title data for display purpose
         if variant_titles:
@@ -82,6 +89,12 @@ class DocumentJSONSerializer(JSONSerializer):
             text_title = title_format_text_head(titles, with_subtitle=False)
             if text_title:
                 metadata['ui_title_text'] = text_title
+            responsibility = metadata.get('responsibilityStatement', [])
+            text_title = title_format_text_head(titles, responsibility,
+                                                with_subtitle=False)
+            if text_title:
+                metadata['ui_title_text_responsibility'] = text_title
+
         if viewcode != current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'
         ):

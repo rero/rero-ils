@@ -283,8 +283,10 @@ def test_documents_post_put_delete(
     assert data['metadata']['title'] == expected_title
     assert data['metadata']['ui_title_variants'] == ['Guojifa']
     assert data['metadata']['ui_title_altgr'] == \
-        ['Guo ji fa : subtitle (Latin). Part Number (Latin), '
-         'Part Name (Latin)']
+        ['Guo ji fa : subtitle (Latin). Part Number (Latin), Part Name (Latin)'
+         ' = International law (Latin) : Parallel Subtitle (Latin).'
+         ' Parallel Part Number (Latin), Parallel Part Name (Latin)'
+         ' = Parallel Title 2 (Latin) : Parallel Subtitle 2 (Latin)']
     assert data['metadata']['ui_responsibilities'] == [
         '梁西原著主编, 王献枢副主编',
         'Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian'
