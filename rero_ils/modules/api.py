@@ -396,7 +396,8 @@ class IlsRecordsIndexer(RecordIndexer):
         :param payload: Decoded message body.
         :returns: Dictionary defining an Elasticsearch bulk 'index' action.
         """
-        record = self.record_cls.get_record(payload['id'])
+        with db.session.begin_nested():
+            record = self.record_cls.get_record(payload['id'])
         index, doc_type = self.record_to_index(record)
 
         arguments = {}

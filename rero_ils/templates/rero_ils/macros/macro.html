@@ -17,22 +17,70 @@
 
 #}
 
+{% macro div(content) %}
+  <div>
+    {{ content|safe }}
+  </div>
+{% endmacro %}
+
+{% macro dict_values(dict) %}
+  {% if dict %}
+    <div>
+      {% if dict is string %}
+        {{ dict }}
+      {% else %}
+        <ul class="list-unstyled rero-ils-person mb-0">
+          {% for element in dict %}
+            <li>{{ dict[element] }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro div_list(list) %}
+  {% if list %}
+    <div>
+      {% if list is string %}
+        {{ list }}
+      {% else %}
+        <ul class="list-unstyled rero-ils-person mb-0">
+          {% for element in list %}
+            <li>{{ element }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endmacro %}
 
 {% macro dl(title, content) %}
-  <dt class="col-sm-3 offset-sm-2 offset-md-1">
+  <dt class="col-sm-3">
     {{ title }}:
   </dt>
-  <dd class="col-sm-7 col-md-8 mb-0">
+  <dd class="col-sm-9 col-md-9 mb-0">
     {{ content|safe }}
   </dd>
 {% endmacro %}
 
+{% macro dl_row(title, content) %}
+  <div class="row">
+    <dt class="col-sm-2">
+      {{ title }}:
+    </dt>
+    <dd class="col-sm-10 col-md-10 mb-0">
+      {{ content|safe }}
+    </dd>
+  </div>
+{% endmacro %}
+
 {% macro dl_dict(name, dict) %}
   {% if dict %}
-    <dt class="col-sm-3 offset-sm-2 offset-md-1">
+    <dt class="col-sm-3">
       {{ name }}:
     </dt>
-    <dd class="col-sm-7 col-md-8 mb-0">
+    <dd class="col-sm-9 col-md-9 mb-0">
       {% if dict is string %}
         {{ dict }}
       {% else %}
@@ -48,16 +96,16 @@
 
 {% macro dl_list(name, list) %}
   {% if list %}
-    <dt class="col-sm-3 offset-sm-2 offset-md-1">
+    <dt class="col-sm-3">
       {{ name }}:
     </dt>
-    <dd class="col-sm-7 col-md-8 mb-0">
+    <dd class="col-sm-9 col-md-9 mb-0">
       {% if list is string %}
         {{ list }}
       {% else %}
         <ul class="list-unstyled rero-ils-person mb-0">
-          {% for element in list %}
-            <li>{{ element }}</li>
+          {% for elements in list %}
+            <li>{{ elements }}</li>
           {% endfor %}
         </ul>
       {% endif %}
