@@ -376,11 +376,11 @@ class Patron(IlsRecord):
 
     def get_number_of_loans(self):
         """Get number of loans."""
-        search = current_circulation.loan_search_cls
-        search = search.filter("term", patron_pid=self.pid)
         exclude_states = ['CANCELLED', 'ITEM_RETURNED']
-        search = search.exclude("terms", state=exclude_states)
-        results = search.source().count()
+        results = current_circulation.loan_search_cls()\
+            .filter('term', patron_pid=self.pid)\
+            .exclude('terms', state=exclude_states)\
+            .source().count()
         return results
 
     def get_links_to_me(self):
