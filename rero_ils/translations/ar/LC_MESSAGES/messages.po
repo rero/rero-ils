@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.6.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-04-23 13:14+0200\n"
+"POT-Creation-Date: 2020-04-24 12:51+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Aly Badr <aly.badr@rero.ch>, 2020\n"
 "Language: ar\n"
@@ -22,84 +22,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: rero_ils/config.py:123
+#: rero_ils/config.py:120
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:257
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:80
 msgid "French"
 msgstr "الفرنسية"
 
-#: rero_ils/config.py:124
+#: rero_ils/config.py:121
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:265
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:92
 msgid "German"
 msgstr "الألمانية"
 
-#: rero_ils/config.py:125
+#: rero_ils/config.py:122
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:269
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:88
 msgid "Italian"
 msgstr "الايطالية"
 
-#: rero_ils/config.py:164 rero_ils/config.py:168
+#: rero_ils/config.py:173 rero_ils/config.py:177
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:212
+#: rero_ils/config.py:224
 msgid "Welcome to RERO-ILS!"
 msgstr "مرحباً بك في RERO-ILS"
 
-#: rero_ils/config.py:1094
+#: rero_ils/config.py:1174
 msgid "document_type"
 msgstr "تصنبف المستند"
 
-#: rero_ils/config.py:1095
+#: rero_ils/config.py:1175
 msgid "organisation"
 msgstr "الشبكة"
 
-#: rero_ils/config.py:1098 rero_ils/config.py:1142 rero_ils/config.py:1164
-#: rero_ils/config.py:1186
+#: rero_ils/config.py:1178 rero_ils/config.py:1222 rero_ils/config.py:1244
+#: rero_ils/config.py:1266
 msgid "library"
 msgstr "المكتبة"
 
-#: rero_ils/config.py:1099
+#: rero_ils/config.py:1179
 msgid "author__en"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1100
+#: rero_ils/config.py:1180
 msgid "author__fr"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1101
+#: rero_ils/config.py:1181
 msgid "author__de"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1102
+#: rero_ils/config.py:1182
 msgid "author__it"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1103
+#: rero_ils/config.py:1183
 #: rero_ils/modules/documents/jsonschemas/documents/document-minimal-v0.0.1_src.json:3652
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:3652
 msgid "language"
 msgstr "اللغة"
 
-#: rero_ils/config.py:1104
+#: rero_ils/config.py:1184
 msgid "subject"
 msgstr "الموضوع"
 
-#: rero_ils/config.py:1105 rero_ils/config.py:1165 rero_ils/config.py:1187
+#: rero_ils/config.py:1185 rero_ils/config.py:1245 rero_ils/config.py:1267
 msgid "status"
 msgstr "الحالة"
 
-#: rero_ils/config.py:1121
+#: rero_ils/config.py:1201
 msgid "roles"
 msgstr "مهام"
 
-#: rero_ils/config.py:1143
+#: rero_ils/config.py:1223
 msgid "budget"
 msgstr "الميزانية"
 
-#: rero_ils/config.py:1203
+#: rero_ils/config.py:1283
 msgid "sources"
 msgstr "المصادر"
 
@@ -307,9 +307,9 @@ msgstr "مخطط JSON لحساب التزويد"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:23
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:15
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:17
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:19
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:20
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:34
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:15
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:27
@@ -336,7 +336,7 @@ msgstr "رقم الحساب"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:49
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:31
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:32
 #: rero_ils/modules/persons/templates/rero_ils/_person_by_source_data.html:28
 #: rero_ils/modules/persons/templates/rero_ils/_person_unified.html:31
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:38
@@ -350,7 +350,7 @@ msgstr "إسم حساب التزويد"
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:98
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:52
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:50
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
 msgid "Description"
 msgstr "التفاصيل"
 
@@ -386,9 +386,9 @@ msgstr "المبلغ المخصص لحساب التزويد"
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:53
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:99
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
 msgid "Library"
 msgstr "مكتبة"
 
@@ -397,7 +397,7 @@ msgstr "مكتبة"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:110
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:66
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:65
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
 msgid "Library URI"
 msgstr "URI للمكتبة"
@@ -418,7 +418,7 @@ msgstr "URI للمكتبة"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:84
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:55
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:249
 msgid "Organisation"
 msgstr "الشبكة"
@@ -434,7 +434,7 @@ msgstr "الشبكة"
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:59
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:60
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:256
 msgid "Organisation URI"
 msgstr "URI للشبكة"
@@ -577,7 +577,8 @@ msgstr "مختلفة"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:213
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:86
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:44
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:43
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:66
 msgid "Amount"
 msgstr "المبلغ"
 
@@ -650,8 +651,8 @@ msgstr "مطلوب"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:70
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:134
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:35
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:37
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:43
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
 msgid "Pending"
 msgstr "قيد الانتظار"
 
@@ -680,7 +681,7 @@ msgstr "نسبة"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:621
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:734
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:908
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:56
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
 msgid "Note"
 msgstr "ملاحظة"
@@ -906,6 +907,7 @@ msgid "Patron + Item types links"
 msgstr "روابط تصنيفات المستخدم + النسخة"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:141
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:308
 msgid "Patron type"
 msgstr "تصنيف المستخدم"
 
@@ -975,7 +977,7 @@ msgstr "PID المستند"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:113
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:40
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:48
 msgid "Type"
 msgstr "تصنيف"
 
@@ -1033,7 +1035,7 @@ msgstr "فيديو"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:130
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1_src.json:710
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:58
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:90
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:99
 msgid "Title"
 msgstr "العنوان"
 
@@ -7097,6 +7099,10 @@ msgstr "مصدر مباشر محصود"
 msgid "Online harvested source as configured in ebooks server."
 msgstr "مصدر مباشر محصود كما تم اعداده للكتاب الالكتروني"
 
+#: rero_ils/modules/patron_transaction_events/api.py:98
+msgid "Initial charge"
+msgstr ""
+
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
 msgid "Patron transaction event"
 msgstr "حدث لمعاملة المستخدم"
@@ -7105,37 +7111,42 @@ msgstr "حدث لمعاملة المستخدم"
 msgid "JSON schema for patron transaction event."
 msgstr "مخطط JSON لحدث معاملة المستخدم"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:17
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
 msgid "Schema to validate patron transaction event records against."
 msgstr "مخطط لتدقيق حدث معاملة المستخدم"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:23
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:22
 msgid "Patron transaction event ID"
 msgstr "ID لحدث معاملة المستخدم"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:28
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:27
 msgid "Parent patron transaction"
 msgstr "اصل معاملة المستخدم"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:32
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:31
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:329
 msgid "Patron transaction URI"
 msgstr "URI لمعاملة المستخدم"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:38
 msgid "Creation date"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:52
 msgid "Subtype"
 msgstr "تصنيف فرعي"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:73
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:72
 msgid "Operator"
 msgstr "أمين المكتبة"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:77
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:76
 msgid "Operator patron URI"
 msgstr "URI لأمين المكتبة"
+
+#: rero_ils/modules/patron_transactions/api.py:228
+msgid "Subscription for '{name}' from {start} to {end}"
+msgstr ""
 
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 msgid "Patron Transaction"
@@ -7190,25 +7201,37 @@ msgstr "تصنيف مستخدم"
 msgid "JSON schema for patron_types."
 msgstr "مخطط JSON لتصنيفات المستخدم"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:20
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:21
 msgid "Schema to validate patron_types records against."
 msgstr "مخطط لتدقيق تسجيلات تصنيفات المستخدمين"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:26
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:27
 msgid "Patron type ID"
 msgstr "ID تصنيف مستخدم"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:32
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:33
 msgid "The name of the patron type"
 msgstr "اسم تصنيف المستخدم"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:44
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:45
 msgid "The patron type name is already taken."
 msgstr "اسم تصنيف المستخدم محجوز"
 
-#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:52
 msgid "The description of the patron type."
 msgstr "وصف تصنيف المستخدم"
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:67
+msgid "Yearly amount due by patrons linked to this patron type."
+msgstr ""
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:78
+msgid "Yearly subscription"
+msgstr "التفاصيل"
+
+#: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:79
+msgid "Activation of subscription fees for patrons linked to this type."
+msgstr ""
 
 #: rero_ils/modules/patrons/views.py:98
 #, python-format
@@ -7236,6 +7259,10 @@ msgstr "تم تجديد النسخة %(item_id)s ."
 #, python-format
 msgid "Error during the renewal of the item %(item_id)s."
 msgstr "خطأ في تجديد النسخة %(item_id)s."
+
+#: rero_ils/modules/patrons/views.py:146
+msgid "You have a pending subscription fee."
+msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:4
 msgid "user"
@@ -7320,6 +7347,7 @@ msgid "Patron type in terms of circulation policy."
 msgstr "تصنيف المستخدم لسياسة الإعارة "
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:124
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:315
 msgid "Patron Type URI"
 msgstr "URI ل تصنيف مستخدم"
 
@@ -7373,67 +7401,95 @@ msgstr "لغة الاتصال"
 msgid "English"
 msgstr "الانجليزية"
 
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:280
+msgid "Subscriptions"
+msgstr "التفاصيل"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:284
+msgid "Subscription"
+msgstr "التفاصيل"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:294
+msgid "Subscription start date"
+msgstr "تاريخ بدء المعاملة"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:295
+msgid "The subscription start date (selected date included)."
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:301
+msgid "Subscription end date"
+msgstr "تاريخ انتهاء المعاملة"
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:302
+msgid "The subscription end date (selected date excluded)."
+msgstr ""
+
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:322
+msgid "Patron transaction"
+msgstr "معاملة المستخدم "
+
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:29
 msgid "Phone"
 msgstr "الهاتف"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:29
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:31
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:37
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:39
 msgid "Loans"
 msgstr "الإعارات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:41
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:43
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:49
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:51
 msgid "History"
 msgstr "تاريخ الاعارات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:48
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:49
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:56
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:57
 msgid "Personal data"
 msgstr "معلومات شخصية"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:60
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:69
 msgid "No loan"
 msgstr "ليست إعارة"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:76
 msgid "No pending"
 msgstr "لا انتظار"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:74
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:83
 msgid "No history"
 msgstr "لا يوجد تسجيلات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:91
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:100
 msgid "Call Number"
 msgstr "رقم الاستدعاء"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:94
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:103
 msgid "Pickup library"
 msgstr "مكتبة إستلام"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:104
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:113
 msgid "Due date"
 msgstr "تاريخ الإستحقاق"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:106
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:115
 msgid "Request date"
 msgstr "تاريخ الحجز"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:117
 msgid "Checkin date"
 msgstr "يوم الاسترجاع"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:113
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:122
 msgid "Renewals"
 msgstr "التجديدات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:118
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:173
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:127
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:182
 msgid "Cancel"
 msgstr "الغاء"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:161
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:170
 msgid "Renew"
 msgstr "تجديد"
 

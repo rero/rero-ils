@@ -340,12 +340,6 @@ class Patron(IlsRecord):
             return patron_type.organisation_pid
         return None
 
-
-class PatronsIndexer(IlsRecordsIndexer):
-    """Holdings indexing class."""
-
-    record_cls = Patron
-
     @property
     def has_valid_subscription(self):
         """Check if the patron has a valid subscription at current time.
@@ -419,3 +413,9 @@ class PatronsIndexer(IlsRecordsIndexer):
             if transaction.status == 'open':
                 pending_subs.append(sub)
         return pending_subs
+
+
+class PatronsIndexer(IlsRecordsIndexer):
+    """Holdings indexing class."""
+
+    record_cls = Patron
