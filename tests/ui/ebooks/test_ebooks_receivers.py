@@ -19,12 +19,19 @@
 
 from collections import namedtuple
 
-from rero_ils.modules.documents.api import Document
+from utils import flush_index
+
+from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.ebooks.receivers import publish_harvested_records
+from rero_ils.modules.ebooks.tasks import create_records, delete_records
+from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 
 
 def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
-                                   org_martigny, org_sion):
+                                   org_martigny, loc_online_martigny,
+                                   item_type_online_martigny,
+                                   org_sion, loc_online_sion,
+                                   item_type_online_sion, capsys):
     """Test publish harvested records."""
     Identifier = namedtuple('Identifier', 'identifier')
     Record = namedtuple('Record', 'xml deleted header')
@@ -33,7 +40,13 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
                           header=Identifier(identifier='record1')))
     records.append(Record(xml=ebooks_2_xml, deleted=False,
                           header=Identifier(identifier='record2')))
-    publish_harvested_records(sender=None, records=records)
+    records.append(Record(xml=ebooks_2_xml, deleted=True,
+                          header=Identifier(identifier='record3')))
+
+    kwargs = {'max': 100}
+    publish_harvested_records(sender=None, records=records, kwargs=kwargs)
+    flush_index(DocumentsSearch.Meta.index)
+    flush_index(HoldingsSearch.Meta.index)
 
     assert Document.count() == 2
     doc1 = Document.get_record_by_pid('1')
@@ -42,9 +55,37 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
         {'type': 'bf:Local', 'value': 'cantook-EDEN502344'},
         {'type': 'bf:Local', 'source': 'cantook', 'value': 'record1'}
     ]
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 1
     doc2 = Document.get_record_by_pid('2')
     assert doc2.get('identifiedBy') == [
         {'type': 'bf:Isbn', 'value': '9782811234157'},
         {'type': 'bf:Local', 'value': 'cantook-immateriel.frO1006810'},
         {'type': 'bf:Local', 'source': 'cantook', 'value': 'record2'}
     ]
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 1
+
+    # test update
+    publish_harvested_records(sender=None, records=records)
+    flush_index(DocumentsSearch.Meta.index)
+    flush_index(HoldingsSearch.Meta.index)
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 1
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 1
+
+    # test delete
+    records = []
+    del doc1['electronicLocator']
+    records.append(doc1)
+    doc2['electronicLocator'] = [{
+        "content": "coverImage",
+        "type": "relatedResource",
+        "url": "http://images.immateriel.fr/covers/DEQ2C5A.png"
+    }]
+    records.append(doc2)
+
+    create_records(records=records)
+    flush_index(DocumentsSearch.Meta.index)
+    flush_index(HoldingsSearch.Meta.index)
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 0
+    assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 0
+
+    assert 2 == delete_records(records=records)

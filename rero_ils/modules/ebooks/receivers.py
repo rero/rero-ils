@@ -21,7 +21,7 @@ from dojson.contrib.marc21.utils import create_record
 from flask import current_app
 
 from .dojson.contrib.marc21 import marc21
-from .tasks import create_records
+from .tasks import create_records, delete_records
 
 
 def publish_harvested_records(sender=None, records=[], *args, **kwargs):
@@ -32,10 +32,8 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
     if max:
         records = records[:int(max)]
     converted_records = []
+    deleted_records = []
     for record in records:
-        if record.deleted:
-            # TODO: remove record
-            continue
         rec = create_record(record.xml)
         rec = marc21.do(rec)
         rec.setdefault('harvested', True)
@@ -49,12 +47,19 @@ def publish_harvested_records(sender=None, records=[], *args, **kwargs):
             }
         )
         rec['identifiedBy'] = identifiers
-        converted_records.append(rec)
-    if records:
+        if record.deleted:
+            deleted_records.append(rec)
+        else:
+            converted_records.append(rec)
+    if converted_records:
         current_app.logger.info(
-            'publish_harvester: received {count} records'
+            'publish_harvester: received {count} records to create'
             .format(count=len(converted_records))
         )
         create_records(converted_records)
-    else:
-        current_app.logger.info('publish_harvester: nothing to do')
+    if deleted_records:
+        current_app.logger.info(
+            'publish_harvester: received {count} records to delete'
+            .format(count=len(deleted_records))
+        )
+        delete_records(deleted_records)

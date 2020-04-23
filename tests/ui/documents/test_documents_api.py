@@ -112,7 +112,7 @@ def test_document_create_records(app, org_martigny, org_sion, ebook_1_data,
     assert n_updated == 2
 
     # TODO: find a way to execute celery worker tasks in travis tests
-    # n_created, n_updated = create_records([ebook_1_data])
+    # n_created, n_updated = create_records.delay([ebook_1_data])
     # assert n_created == 0
     # assert n_updated == 1
 
@@ -135,39 +135,6 @@ def test_document_can_delete_with_loans(
 
     reasons = document.reasons_not_to_delete()
     assert 'links' in reasons
-
-
-# TODO: Delete person in enrich_document_data() from index after deletion
-# @mock.patch('rero_ils.modules.documents.listener.requests_get')
-# @mock.patch('rero_ils.modules.persons.jsonresolver.requests_get')
-# def test_document_person_resolve(mock_resolver_get, mock_listener_get,
-#                                  es_clear, db, document_ref,
-#                                  person_response_data):
-#     """Test document person resolve."""
-#     mock_resolver_get.return_value = mock_response(
-#         json_data=person_response_data
-#     )
-#     mock_listener_get.return_value = mock_response(
-#         json_data=person_response_data
-#     )
-
-#     assert document_ref.replace_refs()[
-#         'authors'
-#     ][0]['pid'] == person_response_data['id']
-
-#     count = PersonsSearch().filter(
-#         'term',
-#         pid=person_response_data['id']
-#     ).count()
-#     assert count == 1
-
-#     document_ref.update(document_ref)
-#     document_ref.delete()
-#     count = PersonsSearch().filter(
-#         'term',
-#         pid=person_response_data['id']
-#     ).count()
-#     assert count == 0
 
 
 def test_document_person_resolve_exception(es_clear, db, document_data_ref):

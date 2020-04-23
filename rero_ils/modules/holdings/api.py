@@ -370,22 +370,22 @@ class Holding(IlsRecord):
         return text
 
 
-def get_standard_holding_pid_by_doc_location_item_type(
-        document_pid, location_pid, item_type_pid):
+def get_holding_pid_by_doc_location_item_type(
+        document_pid, location_pid, item_type_pid, holdings_type='standard'):
     """Returns standard holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
         'term',
         document__pid=document_pid
     ).filter(
         'term',
-        holdings_type='standard'
+        holdings_type=holdings_type
     ).filter(
         'term',
         circulation_category__pid=item_type_pid
     ).filter(
         'term',
         location__pid=location_pid
-    ).source().scan()
+    ).source('pid').scan()
     try:
         return next(result).pid
     except StopIteration:

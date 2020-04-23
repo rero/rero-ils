@@ -97,13 +97,13 @@ class ItemRecord(IlsRecord):
         Link an item to a standard holding record.
         """
         from ...holdings.api import \
-            get_standard_holding_pid_by_doc_location_item_type, \
+            get_holding_pid_by_doc_location_item_type, \
             create_holding
 
         item = self.replace_refs()
         document_pid = item.get('document').get('pid')
 
-        holding_pid = get_standard_holding_pid_by_doc_location_item_type(
+        holding_pid = get_holding_pid_by_doc_location_item_type(
             document_pid, self.location_pid, self.item_type_pid)
 
         if not holding_pid:
