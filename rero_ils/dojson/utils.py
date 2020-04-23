@@ -472,7 +472,12 @@ class ReroIlsOverdo(Overdo):
         if value:
             data = [{'value': value}]
         else:
-            error_print('WARNING NO VALUE:', tag, code, label)
+            try:
+                fields_035 = self.get_fields(tag='035')
+                id = self.get_subfields(fields_035[0], 'a')[0]
+            except:
+                id = '???'
+            error_print('WARNING NO VALUE:', id, tag, code, label)
         try:
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr['field'])[index]

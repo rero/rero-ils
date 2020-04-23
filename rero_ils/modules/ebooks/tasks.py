@@ -24,7 +24,7 @@ from celery import shared_task
 from flask import current_app
 
 from .utils import create_document_holding, update_document_holding
-from ..documents.api import DocumentsSearch
+from ..documents.api import Document, DocumentsSearch
 from ..utils import do_bulk_index
 
 # from time import sleep
@@ -50,9 +50,10 @@ def create_records(records):
                     identifiedBy__value=harvested_id
                 ).source(includes=['pid'])
                 try:
-                    pid = [r.pid for r in query.scan()].pop()
-                except IndexError:
+                    pid = next(query.scan()).pid
+                except StopIteration:
                     pid = None
+
         try:
             if pid:
                 # update the record
@@ -73,16 +74,49 @@ def create_records(records):
                     record=record
                 )
             )
-    # TODO: bulk indexing does not work with travis, need to check why
     do_bulk_index(uuids, doc_type='doc', process=True)
-    # wait for bulk index task to finish
-    # inspector = inspect()
-    # reserved = inspector.reserved()
-    # if reserved:
-    #     while any(a != [] for a in reserved.values()):
-    #         reserved = inspector.reserved()
-    #         sleep(1)
 
-    current_app.logger.info('create_records: {} updated, {} new'
-                            .format(n_updated, n_created))
+    current_app.logger.info(
+        'create_records: {updated} updated, {created} new'.format(
+            updated=n_updated,
+            created=n_created
+        )
+    )
     return n_created, n_updated
+
+
+@shared_task(ignore_result=True)
+def delete_records(records):
+    """Records deleting."""
+    count = 0
+    for record in records:
+        # check if exist
+        pid = None
+        for identifier in record.get('identifiedBy'):
+            if identifier.get('source') == 'cantook':
+                harvested_id = identifier.get('value')
+                query = DocumentsSearch().filter(
+                    'term',
+                    identifiedBy__value=harvested_id
+                ).source(includes=['pid'])
+                try:
+                    pid = [r.pid for r in query.scan()].pop()
+                except IndexError:
+                    pid = None
+        try:
+            if pid:
+                # update the record
+                existing_record = Document.get_record_by_pid(pid)
+                # TODO: delete record and linked references
+                count += 1
+        except Exception as err:
+            current_app.logger.error(
+                'EBOOKS DELETE RECORDS: {err} {record}'.format(
+                    err=err,
+                    record=record
+                )
+            )
+    current_app.logger.info('delete_records: {count}'.format(
+        count=count
+    ))
+    return count

@@ -22,9 +22,8 @@ from invenio_db import db
 from invenio_oaiharvester.models import OAIHarvestConfig
 
 from ..documents.api import Document
-from ..holdings.api import create_holding, \
-    get_holdings_by_document_item_type, \
-    get_standard_holding_pid_by_doc_location_item_type
+from ..holdings.api import Holding, create_holding, \
+    get_holding_pid_by_doc_location_item_type
 from ..organisations.api import Organisation
 
 
@@ -96,6 +95,7 @@ def create_document_holding(record):
                 item_type_pid = org.online_circulation_category()
                 locations = org.get_online_locations()
                 for location in locations:
+
                     create_holding(
                         document_pid=new_record.pid,
                         location_pid=location,
@@ -128,19 +128,25 @@ def update_document_holding(record, pid):
             item_type_pid = org.online_circulation_category()
             locations = org.get_online_locations()
             for location_pid in locations:
-                if not get_standard_holding_pid_by_doc_location_item_type(
-                    new_record.pid, location_pid, item_type_pid
+                if not get_holding_pid_by_doc_location_item_type(
+                    new_record.pid, location_pid, item_type_pid, 'electronic'
                 ):
                     create_holding(
                         document_pid=new_record.pid,
                         location_pid=location_pid,
                         item_type_pid=item_type_pid,
                         electronic_location=harvested_source,
-                        holdings_type='electronic')
-                holdings = get_holdings_by_document_item_type(
-                    new_record.pid, item_type_pid)
-                for holding in holdings:
-                    if holding.location_pid not in locations:
-                        holding.delete(
-                            force=False, dbcommit=True, delindex=True)
+                        holdings_type='electronic'
+                    )
+
+    source_uris = [harvested_source.get('uri')
+                   for harvested_source in harvested_sources
+                   if 'source' in harvested_source]
+
+    for holding_pid in Holding.get_holdings_pid_by_document_pid(pid):
+        holding = Holding.get_record_by_pid(holding_pid)
+        for electronic_location in holding.get('electronic_location', []):
+            if electronic_location.get('source') and \
+                    electronic_location.get('uri') not in source_uris:
+                holding.delete(force=False, dbcommit=True, delindex=True)
     return new_record
