@@ -82,14 +82,14 @@ def create_loans(infile, verbose, debug):
                                              errors_count)
 
             for transaction in range(loans.get('overdue_active', 0)):
-                item_barcode = create_loan(
-                    barcode, 'overdue_active', loanable_items, verbose, debug)
+                item_barcode = create_loan(barcode, 'overdue_active',
+                                           loanable_items, verbose, debug)
                 errors_count = print_message(item_barcode, 'overdue_active',
                                              errors_count)
 
             for transaction in range(loans.get('overdue_paid', 0)):
-                item_barcode = create_loan(
-                    barcode, 'overdue_paid', loanable_items, verbose, debug)
+                item_barcode = create_loan(barcode, 'overdue_paid',
+                                           loanable_items, verbose, debug)
                 errors_count = print_message(item_barcode, 'overdue_paid',
                                              errors_count)
 
@@ -124,7 +124,9 @@ def create_loans(infile, verbose, debug):
                 errors_count = print_message(item_barcode, 'rank_2',
                                              errors_count)
     # create due soon notifications, overdue notifications are auto created.
-    create_over_and_due_soon_notifications(overdue=False)
+    result = create_over_and_due_soon_notifications(overdue=False,
+                                                    process=False,
+                                                    verbose=verbose)
     for key, val in errors_count.items():
         click.secho(
             'Errors {transaction_type}: {count}'.format(
@@ -133,6 +135,7 @@ def create_loans(infile, verbose, debug):
             ),
             fg='red'
         )
+    click.echo(result)
 
 
 def print_message(item_barcode, transaction_type, errors_count):

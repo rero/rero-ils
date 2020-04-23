@@ -311,6 +311,9 @@ def test_recall_notification(client, patron_martigny_no_email,
                              item_lib_martigny, librarian_martigny_no_email,
                              circulation_policies, loc_public_martigny):
     """Test recall notification."""
+    # process all notifications still in the queue
+    Notification.process_notifications()
+
     login_user_via_session(client, librarian_martigny_no_email.user)
     res, data = postdata(
         client,
@@ -346,6 +349,8 @@ def test_recall_notification(client, patron_martigny_no_email,
 
     assert not loan.is_notified(notification_type='availability')
     assert not get_availability_notification(loan)
+    assert Notification.process_notifications() == {
+        'send': 1, 'reject': 0, 'error': 0}
 
 
 def test_availability_notification(

@@ -387,7 +387,7 @@ class IlsRecordsIndexer(RecordIndexer):
             except Exception:
                 message.reject()
                 current_app.logger.error(
-                    "Failed to index record {0}".format(payload.get('id')),
+                    "Failed to index record {id}".format(id=payload.get('id')),
                     exc_info=True)
 
     def _index_action(self, payload):

@@ -21,12 +21,14 @@ from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 
+import pytest
 from utils import get_mapping
 
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.api import \
     notification_id_fetcher as fetcher
+from rero_ils.modules.notifications.dispatcher import Dispatcher
 
 
 def test_notification_es_mapping(
@@ -53,10 +55,8 @@ def test_notification_es_mapping(
 def test_notification_organisation_pid(
         app, org_martigny, notification_availability_martigny):
     """Test organisation pid has been added during the indexing."""
-    search = NotificationsSearch()
-    pid = notification_availability_martigny.get('pid')
-    notification = next(search.filter('term', pid=pid).scan())
-    assert notification.organisation.pid == org_martigny.pid
+    assert notification_availability_martigny.organisation_pid == \
+        org_martigny.pid
 
     # test notification can_delete
     assert notification_availability_martigny.get_links_to_me() == {}
@@ -87,5 +87,48 @@ def test_notification_create(
     assert fetched_pid.pid_value == pid
     assert fetched_pid.pid_type == 'notif'
 
-    notification.dispatch()
+    notification.dispatch(enqueue=False, verbose=True)
     assert len(mailbox) == 1
+
+
+def test_notification_dispatch(app, mailbox):
+    """Test notification dispatch."""
+
+    class DummyNotification(object):
+
+        data = {
+            'pid': 'dummy_notification_pid',
+            'notification_type': 'dummy_notification'
+        }
+
+        def __init__(self, communication_channel):
+            self.communication_channel = communication_channel
+
+        def __getitem__(self, key):
+            return self.data[key]
+            return self.data[key]
+
+        def replace_pids_and_refs(self):
+            return {'loan': {
+                'pid': 'dummy_notification_loan_pid',
+                'patron': {
+                    'communication_channel': self.communication_channel
+                }
+            }}
+
+        def update_process_date(self):
+            return self
+
+    notification = DummyNotification('sms')
+    Dispatcher().dispatch_notification(notification=notification, verbose=True)
+
+    notification = DummyNotification('whatsapp')
+    Dispatcher().dispatch_notification(notification=notification, verbose=True)
+
+    notification = DummyNotification('mail')
+    Dispatcher().dispatch_notification(notification=notification, verbose=True)
+
+    notification = DummyNotification('XXXX')
+    with pytest.raises(ValueError):
+        Dispatcher().dispatch_notification(notification=notification,
+                                           verbose=True)

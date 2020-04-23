@@ -19,12 +19,17 @@
 
 from __future__ import absolute_import, print_function
 
+from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from functools import partial
 
 import ciso8601
+from celery import current_app as current_celery_app
 from flask import current_app
+from kombu import Exchange, Producer, Queue
+from kombu.compat import Consumer
+from sqlalchemy.orm.exc import NoResultFound
 
 from .dispatcher import Dispatcher
 from .models import NotificationIdentifier, NotificationMetadata
@@ -40,15 +45,15 @@ from ..patron_transactions.api import PatronTransaction, \
 from ..patrons.api import Patron
 from ..providers import Provider
 
-# notif provider
+# notification provider
 NotificationProvider = type(
     'NotificationProvider',
     (Provider,),
     dict(identifier=NotificationIdentifier, pid_type='notif')
 )
-# notif minter
+# notification minter
 notification_id_minter = partial(id_minter, provider=NotificationProvider)
-# notif fetcher
+# notification fetcher
 notification_id_fetcher = partial(id_fetcher, provider=NotificationProvider)
 
 
@@ -69,6 +74,13 @@ class Notification(IlsRecord):
     fetcher = notification_id_fetcher
     provider = NotificationProvider
     model_cls = NotificationMetadata
+    mq_routing_key = 'notification'
+    mq_exchange = Exchange(mq_routing_key, type='direct')
+    mq_queue = Queue(
+        mq_routing_key,
+        exchange=Exchange(mq_routing_key, type='direct'),
+        routing_key=mq_routing_key
+    )
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
@@ -80,11 +92,6 @@ class Notification(IlsRecord):
             notification=record, dbcommit=dbcommit, reindex=reindex,
             delete_pid=delete_pid)
         return record
-
-    def dispatch(self, delay=True):
-        """Dispatch notification."""
-        self = Dispatcher().dispatch_notification(notification=self)
-        return self
 
     def update_process_date(self):
         """Update process date."""
@@ -183,12 +190,6 @@ class Notification(IlsRecord):
         return self.transaction_location.organisation_pid
 
     @property
-    def organisation(self):
-        """Shortcut for organisation of the notification."""
-        from ..organisations.api import Organisation
-        return Organisation.get_record_by_pid(self.organisation_pid)
-
-    @property
     def item_pid(self):
         """Shortcut for item pid of the notification."""
         self.init_loan()
@@ -269,6 +270,64 @@ class Notification(IlsRecord):
             .source(['pid']).scan()
         for result in results:
             yield PatronTransaction.get_record_by_pid(result.pid)
+
+    def dispatch(self, enqueue=True, verbose=False):
+        """Dispatch notification."""
+        if enqueue:
+            with self.create_producer() as producer:
+                producer.publish(dict(pid=self.pid))
+        else:
+            self = Dispatcher().dispatch_notification(notification=self,
+                                                      verbose=verbose)
+        return self
+
+    @contextmanager
+    def create_producer(self):
+        """Context manager that yields an instance of ``Producer``."""
+        with current_celery_app.pool.acquire(block=True) as conn:
+            yield Producer(
+                conn,
+                exchange=self.mq_exchange,
+                routing_key=self.mq_routing_key,
+                auto_declare=True,
+            )
+
+    @classmethod
+    def process_notifications(cls, verbose=False):
+        """Process notifications queue."""
+        count = {'send': 0, 'reject': 0, 'error': 0}
+        with current_celery_app.pool.acquire(block=True) as conn:
+            consumer = Consumer(
+                connection=conn,
+                queue=cls.mq_queue.name,
+                exchange=cls.mq_exchange.name,
+                routing_key=cls.mq_routing_key,
+            )
+
+            for message in consumer.iterqueue():
+                payload = message.decode()
+                try:
+                    pid = payload['pid']
+                    notification = Notification.get_record_by_pid(pid)
+                    print('----process_notifications----:', notification)
+                    Dispatcher().dispatch_notification(notification, verbose)
+                    message.ack()
+                    count['send'] += 1
+                except NoResultFound:
+                    message.reject()
+                    count['reject'] += 1
+                except Exception:
+                    message.reject()
+                    current_app.logger.error(
+                        "Failed to dispatch notification {pid}".format(
+                            pid=payload.get('pid')
+                        ),
+                        exc_info=True
+                    )
+                    count['error'] += 1
+            consumer.close()
+
+        return count
 
 
 class NotificationsIndexer(IlsRecordsIndexer):
