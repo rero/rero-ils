@@ -337,10 +337,6 @@ eval ${PREFIX} invenio utils runindex --raise-on-error
 info_msg "Serials patterns:"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
 
-# create circulation transactions
-info_msg "Circulation transactions:"
-eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
-
 # # ACQUISITION
 # create vendors
 info_msg "Acquisition vendors:"
@@ -358,6 +354,10 @@ eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts
 eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
 
 eval ${PREFIX} invenio utils runindex --raise-on-error
+
+# create circulation transactions
+info_msg "Circulation transactions:"
+eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 
 # # OAI configuration
 info_msg "OAI configuration:"
