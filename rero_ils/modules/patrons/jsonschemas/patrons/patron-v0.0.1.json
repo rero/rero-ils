@@ -277,7 +277,7 @@
       }
     },
     "subscriptions": {
-      "title": "Patron subscriptions",
+      "title": "Subscriptions",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -292,21 +292,20 @@
         "properties": {
           "start_date": {
             "title": "Subscription start date",
-            "description": "The subscription start date (date included)",
+            "description": "The subscription start date (selected date included).",
             "type": "string",
             "format": "date",
             "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$"
           },
           "end_date": {
             "title": "Subscription end date",
-            "description": "The subscription end date (date excluded)",
+            "description": "The subscription end date (selected date excluded).",
             "type": "string",
             "format": "date",
             "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$"
           },
           "patron_type": {
-            "title": "Patron Type",
-            "description": "Patron type linked to this subscription",
+            "title": "Patron type",
             "type": "object",
             "required": [
               "$ref"
@@ -321,7 +320,6 @@
           },
           "patron_transaction": {
             "title": "Patron transaction",
-            "description": "Patron transaction linked to this subscription",
             "type": "object",
             "required": [
               "$ref"
