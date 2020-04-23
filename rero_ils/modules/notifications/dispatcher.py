@@ -19,9 +19,10 @@
 
 from __future__ import absolute_import, print_function
 
-from flask_security.utils import config_value
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email
+
+from ..locations.api import Location
 
 
 class Dispatcher():
@@ -52,10 +53,16 @@ class Dispatcher():
             type=notification_type,
             lang=language
         )
+        # get the recipient email from loan.patron.email
         recipient = data['loan']['patron']['email']
+        # get the sender email from
+        # loan.pickup_location_pid.location.library.email
+        library = Location.get_record_by_pid(
+            data['loan']['pickup_location_pid']).get_library()
+        sender = library['email']
         msg = TemplatedMessage(
             template_body=template,
-            sender=config_value('EMAIL_SENDER'),
+            sender=sender,
             recipients=[recipient],
             ctx=data['loan']
         )
