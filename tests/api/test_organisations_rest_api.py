@@ -60,7 +60,7 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
         data=json.dumps(data),
         headers=json_header
     )
-    assert res.status_code == 403
+    assert res.status_code == 200
 
     login_user_via_session(client, librarian_martigny_no_email.user)
     data['name'] = 'New Name 2'
