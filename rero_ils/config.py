@@ -717,7 +717,7 @@ RECORDS_REST_ENDPOINTS = dict(
                             'organisation_organisation_search_factory'),
         list_permission_factory_imp=can_access_organisation_patrons_factory,
         create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=deny_all,
+        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
         delete_permission_factory_imp=deny_all,
         read_permission_factory_imp=can_access_organisation_records_factory,
     ),
