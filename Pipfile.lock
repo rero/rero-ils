@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "18530411c4419c828c3480ddfe80f58c19deaa4f23f2d268f27e0dc5e2d1b409"
+            "sha256": "bd63f3b315f06f4d45df3450b9014d6b81bab1f0195f3b7dcc41630506cafd41"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -510,7 +510,7 @@
         "invenio-circulation": {
             "editable": true,
             "git": "https://github.com/rero/invenio-circulation.git",
-            "ref": "f250b11766c5c98503271cd8e51312d1e95cfb38"
+            "ref": "5b586d2ca67c1aca15a793c5463a5281cda02396"
         },
         "invenio-config": {
             "hashes": [
