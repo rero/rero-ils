@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class PatronIdentifier(RecordIdentifier):
@@ -34,3 +35,9 @@ class PatronIdentifier(RecordIdentifier):
         primary_key=True,
         autoincrement=True,
     )
+
+
+class PatronMetadata(db.Model, RecordMetadataBase):
+    """Patron record metadata."""
+
+    __tablename__ = 'patron_metadata'

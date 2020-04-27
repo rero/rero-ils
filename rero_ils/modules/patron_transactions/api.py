@@ -22,7 +22,7 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
-from .models import PatronTransactionIdentifier
+from .models import PatronTransactionIdentifier, PatronTransactionMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -62,6 +62,7 @@ class PatronTransaction(IlsRecord):
     minter = patron_transaction_id_minter
     fetcher = patron_transaction_id_fetcher
     provider = PatronTransactionProvider
+    model_cls = PatronTransactionMetadata
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

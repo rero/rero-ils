@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class LibraryIdentifier(RecordIdentifier):
@@ -33,3 +34,9 @@ class LibraryIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class LibraryMetadata(db.Model, RecordMetadataBase):
+    """Library record metadata."""
+
+    __tablename__ = 'library_metadata'

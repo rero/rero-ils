@@ -21,7 +21,7 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
-from .models import LocationIdentifier
+from .models import LocationIdentifier, LocationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -55,6 +55,7 @@ class Location(IlsRecord):
     minter = location_id_minter
     fetcher = location_id_fetcher
     provider = LocationProvider
+    model_cls = LocationMetadata
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.

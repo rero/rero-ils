@@ -25,7 +25,7 @@ from invenio_db import db
 from requests import codes as requests_codes
 from requests import get as requests_get
 
-from .models import PersonIdentifier
+from .models import PersonIdentifier, PersonMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import DocumentsSearch
 from ..fetchers import id_fetcher
@@ -61,6 +61,7 @@ class Person(IlsRecord):
     minter = person_id_minter
     fetcher = person_id_fetcher
     provider = PersonProvider
+    model_cls = PersonMetadata
 
     @classmethod
     def get_record_by_mef_pid(cls, pid):

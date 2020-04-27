@@ -20,7 +20,7 @@
 
 from functools import partial
 
-from .models import OrganisationIdentifier
+from .models import OrganisationIdentifier, OrganisationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..item_types.api import ItemTypesSearch
@@ -56,6 +56,7 @@ class Organisation(IlsRecord):
     minter = organisation_id_minter
     fetcher = organisation_id_fetcher
     provider = OrganisationProvider
+    model_cls = OrganisationMetadata
 
     def get_libraries_pids(self):
         """Get all libraries pids related to the organisation."""

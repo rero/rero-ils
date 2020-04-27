@@ -21,7 +21,7 @@ from functools import partial
 
 from flask import current_app
 
-from .models import AcqAccountIdentifier
+from .models import AcqAccountIdentifier, AcqAccountMetadata
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -57,6 +57,7 @@ class AcqAccount(IlsRecord):
     minter = acq_account_id_minter
     fetcher = acq_account_id_fetcher
     provider = AcqAccountProvider
+    model_cls = AcqAccountMetadata
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

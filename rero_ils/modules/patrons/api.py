@@ -29,7 +29,7 @@ from invenio_circulation.proxies import current_circulation
 from werkzeug.local import LocalProxy
 from werkzeug.utils import cached_property
 
-from .models import PatronIdentifier
+from .models import PatronIdentifier, PatronMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
@@ -72,6 +72,7 @@ class Patron(IlsRecord):
     minter = patron_id_minter
     fetcher = patron_id_fetcher
     provider = PatronProvider
+    model_cls = PatronMetadata
     available_roles = ['system_librarian', 'librarian', 'patron']
 
     @classmethod

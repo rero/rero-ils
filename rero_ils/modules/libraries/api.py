@@ -24,7 +24,7 @@ import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 
-from .models import LibraryIdentifier
+from .models import LibraryIdentifier, LibraryMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
@@ -65,6 +65,7 @@ class Library(IlsRecord):
     minter = library_id_minter
     fetcher = library_id_fetcher
     provider = LibraryProvider
+    model_cls = LibraryMetadata
 
     @property
     def online_location(self):

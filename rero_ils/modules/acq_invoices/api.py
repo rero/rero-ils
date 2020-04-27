@@ -21,7 +21,7 @@ from functools import partial
 
 from flask import current_app
 
-from .models import AcquisitionInvoiceIdentifier
+from .models import AcquisitionInvoiceIdentifier, AcquisitionInvoiceMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
@@ -57,6 +57,7 @@ class AcquisitionInvoice(IlsRecord):
     minter = acq_invoice_id_minter
     fetcher = acq_invoice_id_fetcher
     provider = AcquisitionInvoiceProvider
+    model_cls = AcquisitionInvoiceMetadata
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,

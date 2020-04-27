@@ -30,7 +30,7 @@ from invenio_search import current_search
 from invenio_search.api import RecordsSearch
 from jinja2 import Template
 
-from .models import HoldingIdentifier
+from .models import HoldingIdentifier, HoldingMetadata
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..documents.api import Document
 from ..errors import MissingRequiredParameterError
@@ -74,7 +74,7 @@ class Holding(IlsRecord):
     minter = holding_id_minter
     fetcher = holding_id_fetcher
     provider = HoldingProvider
-    # model_cls = HoldingMetadata
+    model_cls = HoldingMetadata
 
     def delete_from_index(self):
         """Delete record from index."""

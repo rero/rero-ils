@@ -25,7 +25,7 @@ from invenio_search import current_search
 
 from .circulation import ItemCirculation
 from .record import ItemRecord
-from ..models import ItemIdentifier
+from ..models import ItemIdentifier, ItemMetadata
 from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from ...documents.api import Document, DocumentsSearch
 from ...fetchers import id_fetcher
@@ -66,6 +66,7 @@ class Item(ItemRecord, ItemCirculation):
     minter = item_id_minter
     fetcher = item_id_fetcher
     provider = ItemProvider
+    model_cls = ItemMetadata
 
     def delete_from_index(self):
         """Delete record from index."""

@@ -24,7 +24,7 @@ from flask import current_app
 from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
-from .models import DocumentIdentifier
+from .models import DocumentIdentifier, DocumentMetadata
 from .utils import edition_format_text, publication_statement_text, \
     series_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
@@ -62,6 +62,7 @@ class Document(IlsRecord):
     minter = document_id_minter
     fetcher = document_id_fetcher
     provider = DocumentProvider
+    model_cls = DocumentMetadata
 
     def is_available(self, view_code):
         """Get availability for document."""

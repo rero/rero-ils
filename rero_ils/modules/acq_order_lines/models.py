@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class AcqOrderLineIdentifier(RecordIdentifier):
@@ -33,3 +34,9 @@ class AcqOrderLineIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class AcqOrderLineMetadata(db.Model, RecordMetadataBase):
+    """AcqOrderLine record metadata."""
+
+    __tablename__ = 'acq_order_line_metadata'

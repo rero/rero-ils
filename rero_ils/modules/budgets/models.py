@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class BudgetIdentifier(RecordIdentifier):
@@ -33,3 +34,9 @@ class BudgetIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class BudgetMetadata(db.Model, RecordMetadataBase):
+    """Budget record metadata."""
+
+    __tablename__ = 'budget_metadata'
