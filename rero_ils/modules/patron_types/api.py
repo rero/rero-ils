@@ -23,7 +23,7 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 
-from .models import PatronTypeIdentifier
+from .models import PatronTypeIdentifier, PatronTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
@@ -59,6 +59,7 @@ class PatronType(IlsRecord):
     minter = patron_type_id_minter
     fetcher = patron_type_id_fetcher
     provider = PatronTypeProvider
+    model_cls = PatronTypeMetadata
 
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):

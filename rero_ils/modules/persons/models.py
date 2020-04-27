@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class PersonIdentifier(RecordIdentifier):
@@ -34,3 +35,9 @@ class PersonIdentifier(RecordIdentifier):
         primary_key=True,
         autoincrement=True,
     )
+
+
+class PersonMetadata(db.Model, RecordMetadataBase):
+    """Person record metadata."""
+
+    __tablename__ = 'person_metadata'

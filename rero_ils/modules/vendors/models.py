@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class VendorIdentifier(RecordIdentifier):
@@ -33,3 +34,9 @@ class VendorIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class VendorMetadata(db.Model, RecordMetadataBase):
+    """Vendor record metadata."""
+
+    __tablename__ = 'vendor_metadata'

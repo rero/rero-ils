@@ -21,6 +21,7 @@ from __future__ import absolute_import
 
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
 
 
 class LocationIdentifier(RecordIdentifier):
@@ -33,3 +34,9 @@ class LocationIdentifier(RecordIdentifier):
         db.BigInteger().with_variant(db.Integer, 'sqlite'),
         primary_key=True, autoincrement=True,
     )
+
+
+class LocationMetadata(db.Model, RecordMetadataBase):
+    """Location record metadata."""
+
+    __tablename__ = 'location_metadata'

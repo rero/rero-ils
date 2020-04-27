@@ -24,7 +24,7 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
-from .models import ItemTypeIdentifier
+from .models import ItemTypeIdentifier, ItemTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
@@ -59,6 +59,7 @@ class ItemType(IlsRecord):
     minter = item_type_id_minter
     fetcher = item_type_id_fetcher
     provider = ItemTypeProvider
+    model_cls = ItemTypeMetadata
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.

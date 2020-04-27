@@ -19,7 +19,7 @@
 
 from functools import partial
 
-from .models import VendorIdentifier
+from .models import VendorIdentifier, VendorMetadata
 from ..acq_invoices.api import AcquisitionInvoicesSearch
 from ..acq_orders.api import AcqOrdersSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -55,6 +55,7 @@ class Vendor(IlsRecord):
     minter = vendor_id_minter
     fetcher = vendor_id_fetcher
     provider = VendorProvider
+    model_cls = VendorMetadata
 
     def get_number_of_acq_orders(self):
         """Get number of acquisition orders."""

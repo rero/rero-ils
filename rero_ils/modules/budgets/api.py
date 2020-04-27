@@ -19,7 +19,7 @@
 
 from functools import partial
 
-from .models import BudgetIdentifier
+from .models import BudgetIdentifier, BudgetMetadata
 from ..acq_accounts.api import AcqAccountsSearch
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
@@ -55,6 +55,7 @@ class Budget(IlsRecord):
     minter = budget_id_minter
     fetcher = budget_id_fetcher
     provider = BudgetProvider
+    model_cls = BudgetMetadata
 
     def get_number_of_acq_accounts(self):
         """Get number of acq accounts."""

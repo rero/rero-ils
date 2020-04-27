@@ -23,7 +23,7 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 
-from .models import CircPolicyIdentifier
+from .models import CircPolicyIdentifier, CircPolicyMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
@@ -58,6 +58,7 @@ class CircPolicy(IlsRecord):
     minter = circ_policy_id_minter
     fetcher = circ_policy_id_fetcher
     provider = CircPolicyProvider
+    model_cls = CircPolicyMetadata
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.

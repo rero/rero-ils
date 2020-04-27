@@ -21,7 +21,7 @@ from functools import partial
 
 from flask import current_app
 
-from .models import AcqOrderLineIdentifier
+from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -55,6 +55,7 @@ class AcqOrderLine(IlsRecord):
     minter = acq_order_line_id_minter
     fetcher = acq_order_line_id_fetcher
     provider = AcqOrderLineProvider
+    model_cls = AcqOrderLineMetadata
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
