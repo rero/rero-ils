@@ -177,8 +177,14 @@ def person_data_tmp(data):
 def person_response_data(person_data):
     """Load mef person response data."""
     json_data = {
-        'id': person_data['pid'],
-        'metadata': person_data
+        'hits': {
+            'hits': [
+                {
+                    'id': person_data['pid'],
+                    'metadata': person_data
+                }
+            ]
+        }
     }
     return json_data
 

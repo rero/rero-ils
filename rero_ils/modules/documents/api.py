@@ -183,11 +183,11 @@ class Document(IlsRecord):
     def index_persons(self, bulk=False):
         """Index all attached persons."""
         persons_ids = []
-        for author in self.replace_refs().get('authors', []):
-            auth_pid = author.get('pid')
-            if auth_pid:
+        for author in self.get('authors', []):
+            ref = author.get('$ref')
+            if ref:
                 from ..persons.api import Person
-                person = Person.get_record_by_mef_pid(auth_pid)
+                person = Person.get_record_by_ref(ref)
                 if bulk:
                     persons_ids.append(person.id)
                 else:
@@ -205,6 +205,18 @@ class Document(IlsRecord):
             .filter('term', issuance="rdami:1003").source(['pid']).scan()
         for es_document in es_documents:
             yield es_document.pid
+
+    def replace_refs(self):
+        """Replace $ref with real data."""
+        from ..persons.api import Person
+        authors = self.get('authors', [])
+        for idx, author in enumerate(authors):
+            ref = author.get('$ref')
+            if ref:
+                pers = Person.get_record_by_ref(ref)
+                if pers:
+                    authors[idx] = pers
+        return super(Document, self).replace_refs()
 
 
 class DocumentsIndexer(IlsRecordsIndexer):

@@ -1099,7 +1099,7 @@ def test_marc21_to_authors(mock_get):
     mock_get.return_value = mock_response(json_data={
         'hits': {
             'hits': [{
-                'links': {'self': 'https://mef.rero.ch/api/rero/XXXXXXXX'}
+                'metadata': {'rero': {'pid': 'XXXXXXXX'}}
             }]
         }
     })
@@ -2964,9 +2964,11 @@ def test_marc21_to_identifiedBy_from_930():
 @mock.patch('requests.get')
 def test_get_person_link(mock_get, capsys):
     """Test get mef person link"""
+    os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
+
     mock_get.return_value = mock_response(json_data={
         'hits': {
-            'hits': [{'links': {'self': 'mocked_url'}}]
+            'hits': [{'metadata': {'idref': {'pid': 'idref_pid'}}}]
         }
     })
     mef_url = get_person_link(
@@ -2975,16 +2977,33 @@ def test_get_person_link(mock_get, capsys):
         key='100..',
         value={'0': '(RERO)A003945843'}
     )
-    assert mef_url == 'mocked_url'
+    assert mef_url == 'https://mef.rero.ch/api/idref/idref_pid'
 
-    os.environ['RERO_ILS_MEF_URL'] = 'https://mefdev.test.rero.ch/api/mef'
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{'metadata': {'gnd': {'pid': 'gnd_pid'}}}]
+        }
+    })
     mef_url = get_person_link(
         bibid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
     )
-    assert mef_url == 'mocked_url'
+    assert mef_url == 'https://mef.rero.ch/api/gnd/gnd_pid'
+
+    mock_get.return_value = mock_response(json_data={
+        'hits': {
+            'hits': [{'metadata': {'rero': {'pid': 'rero_pid'}}}]
+        }
+    })
+    mef_url = get_person_link(
+        bibid='1',
+        id='(RERO)A003945843',
+        key='100..',
+        value={'0': '(RERO)A003945843'}
+    )
+    assert mef_url == 'https://mef.rero.ch/api/rero/rero_pid'
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_person_link(
@@ -2996,7 +3015,7 @@ def test_get_person_link(mock_get, capsys):
     assert not mef_url
     out, err = capsys.readouterr()
     assert err == "ERROR MEF REQUEST:\t1\t" + \
-        'https://mefdev.test.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
+        'https://mef.xxx.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_person_link(

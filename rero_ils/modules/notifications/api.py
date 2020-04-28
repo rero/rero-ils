@@ -309,7 +309,6 @@ class Notification(IlsRecord):
                 try:
                     pid = payload['pid']
                     notification = Notification.get_record_by_pid(pid)
-                    print('----process_notifications----:', notification)
                     Dispatcher().dispatch_notification(notification, verbose)
                     message.ack()
                     count['send'] += 1
