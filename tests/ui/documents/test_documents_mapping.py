@@ -17,6 +17,8 @@
 
 """Document mapping tests."""
 
+from copy import deepcopy
+
 from elasticsearch_dsl.query import MultiMatch
 from utils import get_mapping
 
@@ -29,8 +31,9 @@ def test_document_es_mapping(es, db, org_martigny,
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
+    data = deepcopy(document_data_ref)
     Document.create(
-        document_data_ref,
+        data,
         dbcommit=True,
         reindex=True,
         delete_pid=True

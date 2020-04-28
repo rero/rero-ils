@@ -61,13 +61,14 @@ class DocumentJSONSerializer(JSONSerializer):
             rec['ui_title_variants'] = variant_titles
         if request and request.args.get('resolve') == '1':
             rec = record.replace_refs()
-            authors = rec.get('authors', [])
-            for idx, author in enumerate(authors):
-                pid_value = author.get('pid')
-                if pid_value:
-                    person = Person.get_record_by_mef_pid(pid_value)
+            authors = []
+            for author in rec.get('authors', []):
+                pers_pid = author.get('pid')
+                if pers_pid:
+                    person = Person.get_record_by_pid(pers_pid)
                     if person:
-                        authors[idx] = person.dumps_for_document()
+                        authors.append(person.dumps_for_document())
+            rec['authors'] = authors
         data = super(JSONSerializer, self).preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 

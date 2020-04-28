@@ -79,10 +79,9 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         # MEF person ES index update
         authors = []
         for author in json.get('authors', []):
-            pid = author.get('pid', None)
+            pid = author.get('pid')
             if pid:
-                # Check presence in DB
-                person = Person.get_record_by_mef_pid(pid)
+                person = Person.get_record_by_pid(pid)
                 if person:
                     author = person.dumps_for_document()
             authors.append(author)

@@ -36,28 +36,45 @@ def get_person_link(bibid, id, key, value):
     """Get MEF person link."""
     # https://mef.test.rero.ch/api/mef/?q=rero.rero_pid:A012327677
     prod_host = 'mef.rero.ch'
-    test_host = 'mef.test.rero.ch'
-    mef_url = 'https://{host}/api/mef/'.format(host=test_host)
-    if os.environ.get('RERO_ILS_MEF_URL'):
-        mef_url = os.environ.get('RERO_ILS_MEF_URL')
+    test_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
+    mef_url = 'https://{host}/api/'.format(host=test_host)
     mef_link = None
     try:
         identifier = id[1:].split(')')
-        url = "{mef}/?q={org}.pid:{pid}".format(
+        url = "{mef}mef/?q={org}.pid:{pid}".format(
             mef=mef_url,
             org=identifier[0].lower(),
             pid=identifier[1]
         )
         request = requests.get(url=url)
         if request.status_code == requests.codes.ok:
+            pid = None
             data = request.json()
             hits = data.get('hits', {}).get('hits')
             if hits:
-                mef_link = hits[0].get('links').get('self')
+                idref = hits[0].get('metadata', {}).get('idref')
+                gnd = hits[0].get('metadata', {}).get('gnd')
+                rero = hits[0].get('metadata', {}).get('rero')
+                if idref:
+                    pid_type = 'idref'
+                    pid = idref['pid']
+                elif gnd:
+                    pid_type = 'gnd'
+                    pid = gnd['pid']
+                elif rero:
+                    pid_type = 'rero'
+                    pid = rero['pid']
+            if pid:
+                mef_link = "{url}{pid_type}/{pid}".format(
+                    url=mef_url,
+                    pid_type=pid_type,
+                    pid=pid
+                )
                 mef_link = mef_link.replace(test_host, prod_host)
         else:
             error_print('ERROR MEF REQUEST:', bibid, url,
                         request.status_code)
+
     except Exception as err:
         error_print('WARNING NOT MEF REF:', bibid, id, key, value)
     return mef_link

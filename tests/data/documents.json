@@ -27,11 +27,11 @@
     "authors": [
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/20109313"
+        "$ref": "https://mef.rero.ch/api/idref/20109313"
       },
       {
         "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/25552024"
+        "$ref": "https://mef.rero.ch/api/gnd/25552024"
       }
     ],
     "title": "Le due tensioni : appunti per una ideologia della letteratura",
