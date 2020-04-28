@@ -34,9 +34,10 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
-    ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
-    ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
-    PendingToItemInTransitPickup, ToItemOnLoan, ToCancelled
+    ItemAtDeskToItemOnLoan, ItemInTransitHouseToItemReturned, \
+    ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
+    ItemOnLoanToItemReturned, PendingToItemAtDesk, \
+    PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .modules.acq_accounts.api import AcqAccount
@@ -63,8 +64,6 @@ from .modules.libraries.permissions import can_update_library_factory
 from .modules.loans.api import Loan
 from .modules.loans.permissions import can_list_loan_factory, \
     can_read_loan_factory
-from .modules.loans.transitions import ItemInTransitHouseToItemReturned, \
-    ItemOnLoanToItemReturned
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
@@ -1739,6 +1738,7 @@ CIRCULATION_LOAN_TRANSITIONS = {
             dest='ITEM_ON_LOAN',
             trigger='checkout',
             transition=ToItemOnLoan,
+            assign_item=False
         ),
     ],
     'PENDING': [
@@ -1766,8 +1766,12 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_ON_LOAN': [
-        dict(dest='ITEM_RETURNED',
-             transition=ItemOnLoanToItemReturned, trigger='checkin'),
+        dict(
+            dest='ITEM_RETURNED',
+            transition=ItemOnLoanToItemReturned,
+            trigger='checkin',
+            assign_item=False
+        ),
         dict(dest='ITEM_IN_TRANSIT_TO_HOUSE',
              transition=ItemOnLoanToItemInTransitHouse, trigger='checkin'),
         dict(dest='ITEM_ON_LOAN', transition=ItemOnLoanToItemOnLoan,
@@ -1775,8 +1779,12 @@ CIRCULATION_LOAN_TRANSITIONS = {
         dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_TO_HOUSE': [
-        dict(dest='ITEM_RETURNED',
-             transition=ItemInTransitHouseToItemReturned, trigger='receive'),
+        dict(
+            dest='ITEM_RETURNED',
+            transition=ItemInTransitHouseToItemReturned,
+            trigger='receive',
+            assign_item=False
+        ),
         dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_RETURNED': [],
