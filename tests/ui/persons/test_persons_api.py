@@ -20,9 +20,10 @@
 from __future__ import absolute_import, print_function
 
 import mock
-import pytest
+from utils import flush_index, mock_response
 
-from rero_ils.modules.persons.api import Person, person_id_fetcher
+from rero_ils.modules.persons.api import Person, PersonsSearch, \
+    person_id_fetcher
 
 
 def test_person_create(app, person_data_tmp, caplog):
@@ -62,24 +63,23 @@ def test_person_create(app, person_data_tmp, caplog):
     )
 
 
-def test_person_mef_create(app, person_data_tmp):
+@mock.patch('rero_ils.modules.persons.api.requests_get')
+def test_person_mef_create(mock_persons_mef_get, app, person_data_tmp,
+                           person_response_data):
     """Test MEF person creation."""
-    # with pytest.raises(Exception):
-    assert not Person.get_record_by_mef_pid('xxx')
-    with pytest.raises(Exception):
-        Person._get_mef_record('xxx')
-
     count = Person.count()
-    with mock.patch(
-        'rero_ils.modules.persons.api.Person._get_mef_record',
-        mock.MagicMock(return_value={'metadata': person_data_tmp})
-    ):
-        pers_mef = Person.get_record_by_mef_pid('pers1')
-        assert pers_mef == person_data_tmp
-        assert Person.count() == count + 1
-        pers_mef.pop('rero')
-        pers_mef.pop('gnd')
-        pers_mef['sources'] = ['bnf']
-        pers_mef.update(pers_mef, dbcommit=True)
-        pers_db = Person.get_record_by_mef_pid('pers1')
-        assert pers_db['sources'] == ['bnf']
+    mock_persons_mef_get.return_value = mock_response(
+        json_data=person_response_data
+    )
+    pers_mef = Person.get_record_by_ref(
+        'https://mef.rero.ch/api/rero/A017671081')
+    flush_index(PersonsSearch.Meta.index)
+    assert pers_mef == person_data_tmp
+    assert Person.count() == count + 1
+    pers_mef.pop('rero')
+    pers_mef.pop('gnd')
+    pers_mef['sources'] = ['bnf']
+    pers_mef.replace(pers_mef, dbcommit=True)
+    pers_db = Person.get_record_by_ref(
+        'https://mef.rero.ch/api/gnd/172759757')
+    assert pers_db['sources'] == ['bnf']

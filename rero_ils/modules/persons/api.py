@@ -64,56 +64,84 @@ class Person(IlsRecord):
     model_cls = PersonMetadata
 
     @classmethod
-    def get_record_by_mef_pid(cls, pid):
-        """Get record using MEF REST API."""
-        try:
-            db.session.begin_nested()
-            rec = cls.get_record_by_pid(pid)
-            if not rec:
-                # No data found: request on MEF URL
-                data = cls._get_mef_record(pid)
+    def get_record_by_ref(cls, ref):
+        """Get a record from DB.
+
+        If the record dos not exist get it from MEF and creat it.
+        """
+        pers = None
+        ref_split = ref.split('/')
+        ref_type = ref_split[-2]
+        ref_pid = ref_split[-1]
+        db.session.begin_nested()
+        if ref_type == 'mef':
+            pers = cls.get_record_by_pid(ref_pid)
+        else:
+            if ref_type == 'viaf':
+                result = PersonsSearch().filter(
+                    'term', viaf_pid=ref_pid
+                ).source('pid').scan()
+            else:
+                result = PersonsSearch().filter(
+                    {'term': {'{type}.pid'.format(type=ref_type): ref_pid}}
+                ).source('pid').scan()
+            try:
+                pid = next(result).pid
+                pers = cls.get_record_by_pid(pid)
+            except StopIteration:
+                pass
+        if not pers:
+            # We dit not find the record in DB get it from MEF and create it.
+            try:
+                data = cls._get_mef_data_by_type(ref_pid, ref_type)
+                metadata = data['metadata']
                 # Register MEF person
-                metadata = data.get('metadata')
                 if '$schema' in metadata:
                     del metadata['$schema']
                 # we have to commit because create
                 # uses db.session.begin_nested
-                rec = cls.create(metadata, dbcommit=True)
-        except Exception as err:
-            db.session.rollback()
-            current_app.logger.error('Get MEF record: {pid}'.format(
-                pid=pid
-            ))
-            current_app.logger.error(err)
-
-            return None
+                pers = cls.create(metadata, dbcommit=True)
+            except Exception as err:
+                db.session.rollback()
+                current_app.logger.error('Get MEF record: {type}:{pid}'.format(
+                    type=ref_type,
+                    pid=ref_pid
+                ))
+                current_app.logger.error(err)
+                return None
         db.session.commit()
-        rec.reindex()
-        return rec
+        if pers:
+            pers.reindex()
+        return pers
 
     def dumps_for_document(self):
         """Transform the record into document author format."""
         return self._get_author_for_document()
 
     @classmethod
-    def _get_mef_record(cls, pid):
+    def _get_mef_data_by_type(cls, pid, pid_type):
         """Request MEF REST API in JSON format."""
-        url = "{url}{pid}".format(
-            url=current_app.config.get('RERO_ILS_MEF_URL'),
-            pid=pid)
-        request = requests_get(
-            url=url,
-            params=dict(
-                resolve=1,
-                sources=1
-            ))
+        url = current_app.config.get('RERO_ILS_MEF_URL')
+        if pid_type == 'mef':
+            mef_url = "{url}?q=pid:{pid}".format(url=url, pid=pid)
+        else:
+            if pid_type == 'viaf':
+                mef_url = "{url}?q=viaf_pid:{pid}".format(url=url, pid=pid)
+            else:
+                mef_url = "{url}?q={type}.pid:{pid}".format(
+                    url=url,
+                    type=pid_type,
+                    pid=pid
+                )
+        request = requests_get(url=mef_url, params=dict(resolve=1, sources=1))
         if request.status_code == requests_codes.ok:
-            return request.json()
+            data = request.json().get('hits', {}).get('hits', [None])
+            return data[0]
         else:
             current_app.logger.error(
                 'Mef resolver no metadata: {result} {url}'.format(
                     result=request.json(),
-                    url=url
+                    url=mef_url
                 )
             )
             raise Exception('unable to resolve')
@@ -195,6 +223,6 @@ class Person(IlsRecord):
 
 
 class PersonsIndexer(IlsRecordsIndexer):
-    """Holdings indexing class."""
+    """Person indexing class."""
 
     record_cls = Person
