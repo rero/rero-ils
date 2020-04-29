@@ -28,7 +28,8 @@ from utils import get_json, postdata
 
 from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
-from rero_ils.modules.items.api import Item, ItemStatus
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
 
 
@@ -180,7 +181,7 @@ def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
         class locale:
             language = 'fr'
     with mock.patch(
-        'rero_ils.modules.items.api.current_i18n',
+        'rero_ils.modules.items.api.circulation.current_i18n',
         current_i18n
     ):
         assert item.get_item_end_date()
@@ -200,7 +201,7 @@ def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
         class locale:
             language = 'fr'
     with mock.patch(
-        'rero_ils.modules.items.api.current_i18n',
+        'rero_ils.modules.items.api.circulation.current_i18n',
         current_i18n
     ):
         assert not item.get_item_end_date()
@@ -297,7 +298,7 @@ def test_item_different_actions(client, librarian_martigny_no_email,
         class locale:
             language = 'en'
     with mock.patch(
-        'rero_ils.modules.items.api.current_i18n',
+        'rero_ils.modules.items.api.circulation.current_i18n',
         current_i18n
     ):
         text = item_status_text(record, format='medium', locale='en')

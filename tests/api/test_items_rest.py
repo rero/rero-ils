@@ -29,7 +29,8 @@ from utils import VerifyRecordPermissionPatch, check_timezone_date, \
     flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
-from rero_ils.modules.items.api import Item, ItemStatus
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.loans.utils import get_extension_params

@@ -23,7 +23,7 @@ import mock
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
-from rero_ils.modules.items.api import ItemStatus
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import LoanAction
 from rero_ils.modules.patrons.utils import user_has_patron
 
