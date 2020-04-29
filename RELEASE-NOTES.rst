@@ -18,6 +18,176 @@
 Release notes
 =============
 
+v0.8.0
+------
+
+This release note includes the release note of ``rero-ils-ui`` version
+``v0.1.2``.
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Implements gradually the `graphic charter specifications for
+   buttons <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
+-  Launches a search when the user clicks on a title suggestion in the
+   search bar, directly.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Filters search results by organisation to focus on the most useful
+   content for the librarian.
+-  Filters by organisation also the search suggestions.
+-  Adds the librarian organisation as a parameter in the hyperlink of the
+   document title in the brief view (search result list).
+-  Adds a history tab in the patron profile to display the loan history of the
+   last 6 months.
+-  Updates the patron type detailed view with new subscription fields.
+-  Adds a holdings record editor to define:
+
+   -  Publication patterns.
+   -  Prediction preview templates.
+
+-  Supports three different types of holdings record in the document detailed
+   view:
+
+   -  Standard with the add/edit buttons to load the item editor.
+   -  Electronic with no action available (replaces the ``harvested``
+      property mechanism).
+   -  Serial with the add/edit buttons to load the holdings record editor.
+
+-  Adds IdRef persons in the person search (adapts search suggestions and
+   person brief view).
+-  Implements the requests and request queue edition, allowing the
+   librarian to add a new request to the queue or to edit an existing
+   request (deleting it, or updating the pickup location).
+
+Circulation
+~~~~~~~~~~~
+
+-  Adds the responsibility statement to the title in the notification
+   sent to the patron.
+-  Uses the pickup location email as sender for the notification email.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Implements the subscription functionality, so that patrons of a
+   specific patron type will receive an annual fee to subscribe to the
+   library services.
+-  Creates the subscription at patron creation or update if needed
+   (depending on the patron type).
+-  Implements scheduled tasks to:
+
+   -  Clean old subscriptions.
+   -  Create new subscriptions for patrons linked to a patron type with
+      a subscription but that are missing the subscription fee.
+
+-  Displays an alert to the patron, in the patron profile for pending
+   subscription.
+
+Metadata and data
+~~~~~~~~~~~~~~~~~
+
+-  Improves harvesting of ebooks metadata from external commercial
+   platform, avoiding to stop the harvesting when it encounters faulty
+   data.
+-  Displays IdRef as a source in the person detailed view, as IdRef has
+   been added to the MEF server
+   (`rero/rero-mef@7d8a7467 <https://github.com/rero/rero-mef/commit/7d8a746750c92767672aaef04c8a7d628391bb5e>`__).
+-  Displays bibliographic metadata in the fee history only when relevant
+   (ie ovedue transaction).
+-  Improves document JSON schema according to the
+   `guidelines <https://github.com/rero/developer-resources/blob/master/guidelines/json-schemas.md>`__.
+
+Search
+~~~~~~
+
+-  Adapts indexer to new possibilities offered by Invenio 3.2, such as
+   indexer class, which allows the ``IlsRecordIndexer`` to be
+   simplified.
+
+Acquisition
+~~~~~~~~~~~
+
+-  Begins to implement serial management with the creation of a manual
+   prediction:
+
+   -  Adds a ``holdings_type`` parameter to the holdings record to
+      differentiate standard records (ie monographs), electronic records or
+      serials.
+   -  Updates the JSON schema of the holdings record to:
+
+      -  Configure the holdings record editor, in which the publication
+         pattern will be defined.
+      -  Encode the publication pattern in the holdings records.
+
+   -  Computes predicted issues preview based on the publication pattern of a
+      given holdings record.
+   -  Implements a template mechanism to configure how the issue of a
+      given pattern is displayed.
+
+API
+~~~
+
+-  Improves the permission API and configuration to ensure that some
+   resources can only be updated by a system librarian.
+-  Allows the organisation record to be updated. This is needed to allow
+   system librarians to edit the link from an acquisition account to a
+   budget.
+-  Adds a route to update the pickup location of an existing request.
+
+Fixtures
+~~~~~~~~
+
+-  Regenerates documents and holdings records after the changes for the serials
+   predictions.
+-  Adds in the fixtures the 10 publication patterns that are currently most
+   used in the RERO network.
+
+Tests
+~~~~~
+
+-  Uses ``pipenv run safety check`` instead of ``pipenv check`` to avoid
+   a temporary issue with ``pipenv``.
+-  Increases test coverage in the location module.
+-  Fixes ``pytest-invenio`` static path location. A PR is pending on the
+   ``pytest-invenio`` project.
+-  Many fixes due to dependencies issues.
+
+Scripts
+~~~~~~~
+
+-  Allows the ``setup`` script to succeed even if records don’t have any
+   ``responsibilityStatement``.
+
+Instance
+~~~~~~~~
+
+-  Updates Invenio framework to version ``3.2.1``!
+-  Upgrades ``https-proxy-agent`` for security reasons.
+-  Uses ``rero-ils-ui`` version ``v0.1.2``.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Updates the PR templates to add a section on cross dependencies
+   between ``rero-ils`` and ``rero-ils-ui`` projects.
+
+Issues
+~~~~~~
+
+-  `#788 <https://github.com/rero/rero-ils/issues/778>`__: The search
+   suggestions are displayed only after a click in the input field, even
+   after 3 typed characters.
+-  `#939 <https://github.com/rero/rero-ils/issues/939>`__: The email
+   notification should use the email of the library as sender.
+-  `#960 <https://github.com/rero/rero-ils/issues/960>`__: A librarian
+   using the web browser Chrome/Chromium wasn’t able to update the
+   pickup location of a request.
+-  `rero/rero-ils-ui#140 <https://github.com/rero/rero-ils-ui/issues/140>`__:
+   the library facet was missing in the professional interface.
+
 v0.7.0
 ------
 
@@ -1131,8 +1301,8 @@ v.0.1.0a21
 v.0.1.a20
 ---------
 
-:warning: This note lists the changes that occurred since the
-``v0.1.0a18`` release, ie including the ``v0.1.0a19`` release.
+⚠ This note lists the changes that occurred since the ``v0.1.0a18`` release, ie
+including the ``v0.1.0a19`` release.
 
 -  Refactoring:
 
