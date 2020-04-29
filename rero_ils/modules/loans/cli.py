@@ -30,7 +30,8 @@ from flask.cli import with_appcontext
 from invenio_circulation.api import get_loan_for_item
 
 from ..circ_policies.api import CircPolicy
-from ..items.api import Item, ItemsSearch, ItemStatus
+from ..items.api import Item, ItemsSearch
+from ..items.models import ItemStatus
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..locations.api import Location

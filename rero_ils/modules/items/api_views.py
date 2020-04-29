@@ -28,7 +28,8 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import CirculationException
 from werkzeug.exceptions import NotFound
 
-from .api import Item, ItemStatus
+from .api import Item
+from .models import ItemStatus
 from ..circ_policies.api import CircPolicy
 from ..libraries.api import Library
 from ..loans.api import Loan

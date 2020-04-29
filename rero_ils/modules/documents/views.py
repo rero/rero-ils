@@ -39,7 +39,8 @@ from .utils import display_alternate_graphic_first, edition_format_text, \
     title_format_text_alternate_graphic, title_format_text_head, \
     title_variant_format_text
 from ..holdings.api import Holding
-from ..items.api import Item, ItemStatus
+from ..items.api import Item
+from ..items.models import ItemStatus
 from ..libraries.api import Library
 from ..loans.api import Loan
 from ..loans.utils import can_be_requested
