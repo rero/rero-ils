@@ -17,6 +17,96 @@
 Changes
 ==========
 
+`v0.8.0 <https://github.com/rero/rero-ils/tree/v0.8.0>`__ (2020-05-05)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.7.0...v0.8.0>`__
+
+**Fixed bugs:**
+
+-  persons does not appears in the autocomplete search input
+   `#964 <https://github.com/rero/rero-ils/issues/964>`__
+-  pickup location is not updated in item detail view using Chrome
+   `#960 <https://github.com/rero/rero-ils/issues/960>`__
+-  Briew view display bug when quickly clicking from tab to tab
+   `#901 <https://github.com/rero/rero-ils/issues/901>`__
+-  Autocomplete results not displayed, click in the input needed
+   `#788 <https://github.com/rero/rero-ils/issues/788>`__
+-  Changes of communication language for patrons are effective but not
+   displayed `#583 <https://github.com/rero/rero-ils/issues/583>`__
+
+**Closed issues:**
+
+-  Initial Update `#923 <https://github.com/rero/rero-ils/issues/923>`__
+-  document : staff can’t indicate an eISBN or an eISSN as identifier
+   `#895 <https://github.com/rero/rero-ils/issues/895>`__
+-  Location URI are not filtered by library for a system librarian
+   `#697 <https://github.com/rero/rero-ils/issues/697>`__
+-  display of qualifier for persons in RERO ILS
+   `#657 <https://github.com/rero/rero-ils/issues/657>`__
+-  Jean-Paul II (GND) not in MEF anymore
+   `#555 <https://github.com/rero/rero-ils/issues/555>`__
+-  Journal/giornale appears as “Città” in facet document type
+   `#529 <https://github.com/rero/rero-ils/issues/529>`__
+
+**Merged pull requests:**
+
+-  documentation: add dependencies in PR template
+   `#963 <https://github.com/rero/rero-ils/pull/963>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  permission: fix organisation permission
+   `#957 <https://github.com/rero/rero-ils/pull/957>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  publication pattern: create a manual prediction
+   `#952 <https://github.com/rero/rero-ils/pull/952>`__
+   (`jma <https://github.com/jma>`__)
+-  notification: use pickup location email as sender
+   `#950 <https://github.com/rero/rero-ils/pull/950>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  Us1293 doo invenio32
+   `#949 <https://github.com/rero/rero-ils/pull/949>`__
+   (`jma <https://github.com/jma>`__)
+-  test: fix external ones
+   `#946 <https://github.com/rero/rero-ils/pull/946>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  test: fix run-test
+   `#942 <https://github.com/rero/rero-ils/pull/942>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  Merge “Subscription” branch to dev
+   `#940 <https://github.com/rero/rero-ils/pull/940>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  setup: fix ref. prob. on responsibilityStatement
+   `#938 <https://github.com/rero/rero-ils/pull/938>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  loan: update request pickup location
+   `#935 <https://github.com/rero/rero-ils/pull/935>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  notification: use responsibility statement
+   `#926 <https://github.com/rero/rero-ils/pull/926>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  test: safety check
+   `#924 <https://github.com/rero/rero-ils/pull/924>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  fault save ebook harvesting
+   `#922 <https://github.com/rero/rero-ils/pull/922>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  location: add test to increase code coverage
+   `#919 <https://github.com/rero/rero-ils/pull/919>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  Translate ‘/rero_ils/translations/messages.pot’ in ‘it’
+   `#912 <https://github.com/rero/rero-ils/pull/912>`__
+   (`transifex-integration[bot] <https://github.com/apps/transifex-integration>`__)
+-  permissions: update permission API and configuration
+   `#893 <https://github.com/rero/rero-ils/pull/893>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  document: adapt serializer to filter by org in admin view
+   `#852 <https://github.com/rero/rero-ils/pull/852>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  persons: display idref persons
+   `#845 <https://github.com/rero/rero-ils/pull/845>`__
+   (`rerowep <https://github.com/rerowep>`__)
+
 `v0.7.0 <https://github.com/rero/rero-ils/tree/v0.7.0>`__ (2020-04-09)
 ----------------------------------------------------------------------
 
