@@ -58,7 +58,22 @@
       "title": "Is pickup location",
       "type": "boolean",
       "default": false,
-      "description": "Qualify this location as a pickup location."
+      "description": "Qualify this location as a pickup location.",
+      "form": {
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "limitToValues": [
+                true
+              ],
+              "filter": "'library.pid:' + model.library.pid"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "There is already one pickup location in this library."
+          }
+        }
+      }
     },
     "is_online": {
       "title": "Is online location",

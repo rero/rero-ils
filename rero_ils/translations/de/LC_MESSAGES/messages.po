@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.5.2\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-04-27 12:09+0200\n"
+"POT-Creation-Date: 2020-04-30 10:20+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>, 2020\n"
 "Language: de\n"
@@ -396,7 +396,7 @@ msgstr "Zugewiesener Betrag"
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:49
 #: rero_ils/modules/items/templates/rero_ils/detailed_view_items.html:53
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:106
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:121
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:61
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:161
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
@@ -407,7 +407,7 @@ msgstr "Bibliothek"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:287
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:207
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:122
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:110
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:125
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:65
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:169
 msgid "Library URI"
@@ -6999,29 +6999,33 @@ msgstr "Ist Abholort"
 msgid "Qualify this location as a pickup location."
 msgstr "Diesen Standort als Abholort definieren"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:64
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:73
+msgid "There is already one pickup location in this library."
+msgstr ""
+
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:79
 msgid "Is online location"
 msgstr "Ist Online-Standort"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:67
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:82
 msgid "Qualify this location as an online location."
 msgstr "Diesen Standort als Online-Standort definieren"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:79
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:94
 msgid "There is already one online location in this library."
 msgstr "Der Typ \"online\" muss per Bibliothek eindeutig sein."
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:85
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:100
 msgid "Pickup location name"
 msgstr "Abholortname"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:87
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:102
 msgid "Displayed pickup location name, if different from the location name."
 msgstr ""
 "Angezeigter Name des Abholortes, falls vom Namen des Standortes "
 "unterschiedlich"
 
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:100
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:115
 msgid "The pickup location name is already taken."
 msgstr "Der Abholortname muss per Bibliothek eindeutig sein."
 
@@ -7843,3 +7847,4 @@ msgstr "Hier klicken um Passwort zurückzusetzen."
 
 #~ msgid "BNF"
 #~ msgstr "BNF"
+
