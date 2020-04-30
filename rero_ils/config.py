@@ -1449,7 +1449,6 @@ RECORDS_UI_ENDPOINTS = {
     'item': dict(
         pid_type='item',
         route='/<string:viewcode>/items/<pid_value>',
-        template='rero_ils/detailed_view_items.html',
         view_imp='rero_ils.modules.items.views.item_view_method',
         record_class='rero_ils.modules.items.api:Item',
         permission_factory_imp='rero_ils.permissions.'
