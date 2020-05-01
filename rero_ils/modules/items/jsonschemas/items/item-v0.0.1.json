@@ -7,9 +7,8 @@
   "required": [
     "$schema",
     "pid",
-    "barcode",
-    "call_number",
     "location",
+    "barcode",
     "item_type",
     "document",
     "status"
@@ -36,7 +35,6 @@
     },
     "barcode": {
       "title": "Barcode",
-      "description": "Barcode of the item.",
       "type": "string",
       "minLength": 4,
       "form": {
@@ -48,12 +46,14 @@
           "messages": {
             "alreadyTakenMessage": "The barcode is already taken"
           }
+        },
+        "expressionProperties": {
+          "templateOptions.required": "false"
         }
       }
     },
     "call_number": {
       "title": "Call number",
-      "description": "Call number of the item.",
       "type": "string",
       "minLength": 4
     },

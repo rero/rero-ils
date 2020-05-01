@@ -59,13 +59,16 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 'term', holding__pid=holding.pid
             ).scan())
             for item in es_items:
-                data.setdefault('items', []).append({
+                item_record = {
                     'pid': item.pid,
                     'barcode': item.barcode,
-                    'call_number': item.call_number,
                     'status': item.status,
                     'available': item.available
-                })
+                }
+                call_number = item.to_dict().get('call_number')
+                if call_number:
+                    item_record['call_number'] = call_number
+                data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)
 
             holdings.append(data)
