@@ -46,7 +46,7 @@ from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..patrons.api import Patron, current_patron
 from ..providers import Provider
-from ..utils import trim_barcode_for_record
+from ..utils import generate_item_barcode, trim_barcode_for_record
 from ...filter import format_date_filter
 
 # provider
@@ -177,8 +177,12 @@ class Item(IlsRecord):
         """Create item record."""
         cls._item_build_org_ref(data)
         data = trim_barcode_for_record(data=data)
+        # Since the barcode is a mandatory field, we set it to current
+        # timestamp if not given
+        data = generate_item_barcode(data=data)
         record = super(Item, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
+
         if not data.get('holding'):
             record.link_item_to_holding()
         return record
@@ -192,10 +196,24 @@ class Item(IlsRecord):
         :returns: The updated item record.
         """
         data = trim_barcode_for_record(data=data)
+        data = generate_item_barcode(data=data)
         super(Item, self).update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
         self.link_item_to_holding()
 
+        return self
+
+    def replace(self, data, dbcommit=False, reindex=False):
+        """Replace an item record.
+
+        :param data: The record to replace.
+        :param dbcommit: boolean to commit the record to the database or not.
+        :param reindex: boolean to reindex the record or not.
+        :returns: The replaced item record.
+        """
+        # update item record with a generated barcode if does not exist
+        data = generate_item_barcode(data=data)
+        super(Item, self).replace(data, dbcommit, reindex)
         return self
 
     @classmethod
@@ -216,7 +234,10 @@ class Item(IlsRecord):
         data['organisation'] = org_ref
 
     def link_item_to_holding(self):
-        """Link an item to a standard holding record."""
+        """Complete the item record.
+
+        Link an item to a standard holding record.
+        """
         from ..holdings.api import \
             get_standard_holding_pid_by_doc_location_item_type, \
             create_holding
@@ -235,6 +256,7 @@ class Item(IlsRecord):
 
         base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
+        # update item record with the parent holding record
         self['holding'] = {
             '$ref': url_api.format(
                 base_url=base_url,

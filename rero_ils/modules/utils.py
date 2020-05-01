@@ -17,7 +17,7 @@
 
 """Utilities for rero-ils editor."""
 
-from datetime import date, time
+from datetime import date, datetime, time
 from json import JSONDecodeError, JSONDecoder
 from time import sleep
 
@@ -230,6 +230,20 @@ def trim_barcode_for_record(data=None):
     """
     if data and data.get('barcode'):
         data['barcode'] = data.get('barcode').strip()
+    return data
+
+
+def generate_item_barcode(data=None):
+    """Generate a barcode for an item record that does not have one.
+
+    The generated barcode is in the format f-YYYYMMDDHHMISSSSS.
+
+    :param data: the item record
+    :return: data with a generated barcode
+    """
+    if not data.get('barcode'):
+        data['barcode'] = 'f-{}'.format(
+            datetime.now().strftime('%Y%m%d%I%M%S%f'))
     return data
 
 

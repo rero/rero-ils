@@ -36,7 +36,10 @@
     <section class="py-4">
       <article>
         <dl class="row mb-0">
-          {{ dl(_('Call number'), record.call_number) }}
+          {% if record.call_number %}
+            {{ dl(_('Call number'), record.call_number) }}
+          {% endif %}
+  
           {{ dl(_('Type'), item_type.name) }}
           {{ dl(
             _('Document'),

@@ -101,6 +101,38 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     item_url = url_for('invenio_records_rest.item_item', pid_value='1')
     list_url = url_for('invenio_records_rest.item_list', q='pid:1')
 
+    # test when item has no barcode
+    item_record_with_no_barcode = deepcopy(item_lib_martigny_data)
+    item_record_with_no_barcode['pid'] = 'pid'
+    del item_record_with_no_barcode['barcode']
+    res, data = postdata(
+        client,
+        'invenio_records_rest.item_list',
+        item_record_with_no_barcode
+    )
+    assert res.status_code == 201
+    item_barcode = data['metadata']['barcode']
+    assert item_barcode[0:14] == 'f-{}'.format(
+                datetime.now().strftime('%Y%m%d%I%M'))
+    # test updating an item with no barcode, keeps the old barcode
+    created_item = Item.get_record_by_pid('pid')
+    assert created_item.pid == 'pid'
+    item_to_update = deepcopy(created_item)
+    del item_to_update['barcode']
+    updated_item = created_item.update(
+        data=item_to_update, dbcommit=True, reindex=True)
+    assert updated_item['barcode'][0:14] == 'f-{}'.format(
+                datetime.now().strftime('%Y%m%d%I%M'))
+
+    # test replacing an item with no barcode, regenerates a new barcode
+    item_to_replace = deepcopy(updated_item)
+    del item_to_replace['barcode']
+    replaced_item = created_item.replace(
+        data=item_to_replace, dbcommit=True, reindex=True)
+    assert replaced_item['barcode'][0:14] == 'f-{}'.format(
+                datetime.now().strftime('%Y%m%d%I%M'))
+
+    # test when item has a dirty barcode
     item_lib_martigny_data['pid'] = '1'
     item_record_with_dirty_barcode = deepcopy(item_lib_martigny_data)
 
@@ -1528,7 +1560,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 3
+    assert data['hits']['total'] == 4
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
