@@ -91,7 +91,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "always"
-    command: "poetry run celery beat -A rero_ils.celery --loglevel=INFO"
+    command: "poetry run celery beat -A rero_ils.celery -S rero_ils.schedulers.RedisScheduler --loglevel=INFO"
     image: rero-ils-beat
     links:
       - cache

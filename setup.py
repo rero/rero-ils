@@ -145,6 +145,7 @@ setup(
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
             'monitoring = rero_ils.modules.monitoring:monitoring',
+            'scheduler = rero_ils.schedulers:scheduler'
         ],
         'invenio_db.models': [
             'organisations = rero_ils.modules.organisations.models',

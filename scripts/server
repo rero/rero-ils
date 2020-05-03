@@ -68,7 +68,7 @@ fi
 export FLASK_DEBUG=True
 export FLASK_ENV=development
 # Start Worker and Server
-celery worker -A rero_ils.celery -l INFO & pid_celery=$!
+celery worker -A rero_ils.celery --beat -S rero_ils.schedulers.RedisScheduler -l INFO & pid_celery=$!
 
 invenio run \
    --cert "$script_path"/../docker/nginx/test.crt \

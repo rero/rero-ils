@@ -248,37 +248,45 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 CELERY_BEAT_SCHEDULE = {
     'bulk-indexer': {
         'task': 'rero_ils.modules.tasks.process_bulk_queue',
-        'schedule': timedelta(minutes=5),
+        'schedule': timedelta(minutes=1),
+        'enabled': False
     },
     'accounts': {
         'task': 'invenio_accounts.tasks.clean_session_table',
         'schedule': timedelta(minutes=60),
+        'enabled': False
     },
     'ebooks-harvester': {
         'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
         'schedule': timedelta(minutes=60),
-        'kwargs': dict(name='ebooks'),
+        'kwargs': {'name': 'ebooks'},
+        'enabled': False
     },
     'notification-creation': {
         'task': ('rero_ils.modules.notifications.tasks'
                  '.create_over_and_due_soon_notifications'),
-        'schedule': crontab(minute="*/5")
+        'schedule': crontab(minute="*/5"),
+        'enabled': False
         # TODO: in production set this up once a day
     },
     'clear_and_renew_subscriptions': {
         'task':
             'rero_ils.modules.patrons.tasks.task_clear_and_renew_subscriptions',
-        'schedule': crontab(minute='2', hour='2')
+        'schedule': crontab(minute='2', hour='2'),
+        'enabled': False
     }
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
-    #     'kwargs': dict(name='mef'),
+    #     'kwargs': {'name': 'mef', 'enabled': False),
     # },
 
 }
 CELERY_BROKER_HEARTBEAT = 0
 INDEXER_BULK_REQUEST_TIMEOUT = 60
+
+CELERY_BEAT_SCHEDULER = 'rero_ils.schedulers.RedisScheduler'
+CELERY_REDIS_SCHEDULER_URL = 'redis://localhost:6379/4'
 
 # Database
 # ========

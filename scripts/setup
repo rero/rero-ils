@@ -162,6 +162,8 @@ celery purge -A rero_ils.celery -f
 # Clean redis
 info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
+eval ${PREFIX} pipenv run invenio scheduler init -r
+
 eval ${PREFIX} invenio db destroy --yes-i-know
 eval ${PREFIX} invenio db init create
 eval ${PREFIX} invenio index queue purge delete
@@ -362,12 +364,14 @@ info_msg "OAI configuration:"
 eval ${PREFIX} invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
 if ${DEPLOYMENT}
 then
+    eval ${PREFIX} invenio scheduler enable_tasks -a -v
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
-    info_msg "For ebooks harvesting run:"
-    msg "\tpoetry run invenio oaiharvester harvest -n ebooks -a max=100 -q"
+    eval ${PREFIX} invenio scheduler enable_tasks -n bulk-indexer -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
+    info_msg "Start OAI harvesting 100"
+    eval ${PREFIX} invenio oaiharvester harvest -n ebooks -a max=100 -q
 fi
 
 if ${ES_MAPPING}
