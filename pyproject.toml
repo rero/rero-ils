@@ -53,6 +53,7 @@ requests = ">=2.20.0"
 polib = "*"
 pycountry = ">=19.7.15"
 xmltodict = "*"
+redisbeat = "*"
 # TODO: to be removed when the thumbnail will be refactored
 angular-gettext-babel= ">=0.1"
 
@@ -93,6 +94,7 @@ docutils = "*"
 autoflake = ">=1.3.1"
 transifex-client = ">=0.12.5"
 appnope = { version = "*", optional = true }
+jsonpickle = "*"
 
 [tool.poetry.scripts]
 bootstrap = "scripts:run('./scripts/bootstrap')"
@@ -106,4 +108,3 @@ update = "scripts:run('./scripts/update')"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
-

@@ -89,3 +89,6 @@ wiki/
 
 # error files from documents creation
 data/*_errors.xml
+
+# redis scheduler file
+rero_ils.schedulers.RedisScheduler

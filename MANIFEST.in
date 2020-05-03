@@ -96,3 +96,9 @@ recursive-include tests *.png
 # flask-wiki to be removed
 recursive-include wiki *.md
 recursive-include wiki *.png
+
+# error files from documents creation
+data/*_errors.xml
+
+# redis scheduler files
+exclude rero_ils.schedulers.RedisScheduler
