@@ -23,6 +23,7 @@ include .tx/config
 include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
+include docker/elasticsearch/Dockerfile
 include Dockerfile
 exclude scripts/all_year_days
 include scripts/bootstrap

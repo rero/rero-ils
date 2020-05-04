@@ -19,6 +19,7 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.utils import get_ref_for_pid, pids_exists_in_data
+from rero_ils.utils import get_current_language
 
 
 def test_get_ref_for_pid(app):
@@ -81,3 +82,8 @@ def test_pids_exists_in_data(app, org_martigny, lib_martigny):
         not_required={'lib': 'library'}
     )
     assert ok == ['test: Pid does not exist: org org2']
+
+
+def test_get_language(app):
+    """Test get the current language of the application."""
+    assert get_current_language() == 'en'

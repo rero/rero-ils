@@ -1188,6 +1188,7 @@
             "minItems": 1,
             "items": {
               "type": "string",
+              "minLength": 1,
               "form": {
                 "placeholder": "Example: Access only from the library"
               }

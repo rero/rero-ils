@@ -43,7 +43,7 @@
           "type": "object",
           "properties": {
             "uri": {
-              "type": "text"
+              "type": "keyword"
             },
             "source": {
               "type": "keyword"
@@ -65,7 +65,8 @@
           }
         },
         "holdings_type": {
-          "type": "keyword"
+          "type": "text",
+          "analyzer": "custom_keyword"
         },
         "patterns": {
           "properties": {

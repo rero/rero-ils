@@ -17,15 +17,13 @@
         },
         "name": {
           "type": "text",
-          "copy_to": "circ_policy_name",
-          "analyzer": "global_lowercase_asciifolding"
+          "copy_to": "circ_policy_name"
         },
         "circ_policy_name": {
           "type": "keyword"
         },
         "description": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "type": "text"
         },
         "organisation": {
           "properties": {

@@ -57,7 +57,8 @@ def test_documents_permissions(client, document, json_header):
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(
-    client, document, item_lib_martigny, rero_json_header
+    client, document, ebook_1, ebook_2, ebook_3, ebook_4,
+    item_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
     list_url = url_for('invenio_records_rest.doc_list', view='global')
@@ -65,13 +66,48 @@ def test_documents_facets(
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
-
     # check all facets are present
     for facet in [
         'document_type', 'author__en', 'author__fr',
         'author__de', 'author__it', 'language', 'subject', 'status'
     ]:
         assert aggs[facet]
+
+    # FILTERS
+    # person author
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author__de='Peter James')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 2
+
+    # organisation author
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author__de='Great Edition')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    # an other person author
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author__de='J.K. Rowling')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    # two authors in the same document
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author__de=['Great Edition', 'Peter James'])
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    # two authors: each in a separate document
+    list_url = url_for('invenio_records_rest.doc_list', view='global',
+                       author__de=['J.K. Rowling', 'Peter James'])
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 0
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

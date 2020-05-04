@@ -19,6 +19,10 @@
           "type": "keyword"
         },
         "name": {
+          "type": "text",
+          "copy_to": "location_name"
+        },
+        "location_name": {
           "type": "keyword"
         },
         "is_pickup": {
@@ -28,7 +32,12 @@
           "type": "boolean"
         },
         "pickup_name": {
-          "type": "keyword"
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
         },
         "library": {
           "properties": {

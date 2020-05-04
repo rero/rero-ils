@@ -2,6 +2,31 @@
   "index_patterns": "*",
   "settings": {
     "analysis": {
+      "filter": {
+        "french_elision": {
+          "type": "elision",
+          "articles_case": true,
+          "articles": [
+            "l",
+            "m",
+            "t",
+            "qu",
+            "n",
+            "s",
+            "j",
+            "d",
+            "c",
+            "jusqu",
+            "quoiqu",
+            "lorsqu",
+            "puisqu"
+          ]
+        },
+        "french_stemmer": {
+          "type": "stemmer",
+          "language": "light_french"
+        }
+      },
       "tokenizer": {
         "char_group_tokenizer": {
           "type": "char_group",
@@ -12,12 +37,30 @@
         }
       },
       "analyzer": {
-        "global_lowercase_asciifolding": {
+        "custom_keyword": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "lowercase",
+            "icu_folding",
+            "german_normalization"
+          ]
+        },
+        "french": {
+          "tokenizer": "icu_tokenizer",
+          "filter": [
+            "french_elision",
+            "icu_folding",
+            "french_stemmer"
+          ]
+        },
+        "default": {
           "type": "custom",
           "tokenizer": "char_group_tokenizer",
           "filter": [
             "lowercase",
-            "asciifolding"
+            "icu_folding",
+            "german_normalization"
           ]
         }
       }

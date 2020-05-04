@@ -19,12 +19,30 @@
 
 from __future__ import absolute_import, print_function
 
+import re
+
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_patron
+
+_PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')
+
+
+def and_term_filter(field):
+    """Create a term filter.
+
+    :param field: Field name.
+    :returns: Function that returns a boolean AND query between term values.
+    """
+    def inner(values):
+        must = []
+        for value in values:
+            must.append(Q('term', **{field: value}))
+        return Q('bool', must=must)
+    return inner
 
 
 def view_search_factory(self, search, query_parser=None):
@@ -135,14 +153,26 @@ def search_factory(self, search, query_parser=None):
     """
     def _default_parser(qstr=None, query_boosting=[]):
         """Default parser that uses the Q() from elasticsearch_dsl."""
+        query_type = 'query_string'
+        default_operator = 'OR'
+        if request.args.get('simple'):
+            query_type = 'simple_query_string'
+            default_operator = 'AND'
+
         if qstr:
+            # TODO: remove this bad hack
+            qstr = _PUNCTUATION_REGEX.sub(' ', qstr)
+            qstr = re.sub('\s+', ' ', qstr).rstrip()
             if not query_boosting:
-                return Q('query_string', query=qstr)
+                return Q(query_type, query=qstr,
+                         default_operator=default_operator)
             else:
                 return Q('bool', should=[
-                    Q('query_string', query=qstr, boost=2,
-                        fields=query_boosting),
-                    Q('query_string', query=qstr)
+                    Q(query_type, query=qstr, boost=2,
+                        fields=query_boosting,
+                        default_operator=default_operator),
+                    Q(query_type, query=qstr,
+                      default_operator=default_operator)
                 ])
         return Q()
 

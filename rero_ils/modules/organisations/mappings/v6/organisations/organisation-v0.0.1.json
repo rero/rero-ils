@@ -16,7 +16,11 @@
           "type": "keyword"
         },
         "name": {
-          "type": "text"
+          "type": "text",
+          "copy_to": "organisation_name"
+        },
+        "organisation_name": {
+          "type": "keyword"
         },
         "address": {
           "type": "text"

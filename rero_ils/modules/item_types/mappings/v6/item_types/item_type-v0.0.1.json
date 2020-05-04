@@ -17,15 +17,13 @@
         },
         "name": {
           "type": "text",
-          "copy_to": "item_type_name",
-          "analyzer": "global_lowercase_asciifolding"
+          "copy_to": "item_type_name"
         },
         "item_type_name": {
           "type": "keyword"
         },
         "description": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "type": "text"
         },
         "type": {
           "type": "keyword"
