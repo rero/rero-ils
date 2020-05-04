@@ -16,10 +16,10 @@
           "type": "keyword"
         },
         "name": {
-          "type": "keyword"
+          "type": "text"
         },
         "description": {
-          "type": "keyword"
+          "type": "text"
         },
         "budget": {
           "properties": {

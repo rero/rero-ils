@@ -70,21 +70,35 @@
             },
             "biographical_information": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "authorized_access_point_representing_a_person": {
-              "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "type": "text"
             },
             "pid": {
               "type": "keyword"
@@ -116,17 +130,32 @@
             },
             "biographical_information": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "authorized_access_point_representing_a_person": {
               "type": "text"
@@ -147,6 +176,9 @@
             "identifier_for_person": {
               "type": "keyword"
             },
+            "language_of_person": {
+              "type": "keyword"
+            },
             "date_of_birth": {
               "type": "keyword"
             },
@@ -155,17 +187,32 @@
             },
             "biographical_information": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "authorized_access_point_representing_a_person": {
               "type": "text"
@@ -194,17 +241,32 @@
             },
             "biographical_information": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             },
             "preferred_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "variant_name_for_person": {
               "type": "text",
-              "copy_to": "autocomplete_name",
-              "analyzer": "global_lowercase_asciifolding"
+              "copy_to": "autocomplete_name"
             },
             "authorized_access_point_representing_a_person": {
               "type": "text"

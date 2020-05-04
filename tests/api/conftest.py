@@ -20,11 +20,70 @@
 from __future__ import absolute_import, print_function
 
 import pytest
+from utils import flush_index
+
+from rero_ils.modules.documents.api import Document, DocumentsSearch
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def create_app():
     """Create test app."""
     from invenio_app.factory import create_api
 
     return create_api
+
+
+@pytest.fixture(scope='module')
+def doc_title_travailleurs(app):
+    """Document with title with travailleur."""
+    data = {
+        '$schema': 'https://ils.rero.ch/schema/documents/'
+                   'document-minimal-v0.0.1.json',
+        'pid': 'doc_title_test1', 'type': 'book',
+        'language': [{'type': 'bf:Language', 'value': 'fre'}],
+        'title': [{
+            'type': 'bf:Title',
+            'mainTitle': [{
+                'value': 'Les travailleurs assidus sont de retours'
+            }],
+            'subtitle': [{'value': 'les jeunes arrivent bientôt ?'}]
+        }]
+    }
+    doc = Document.create(
+        data=data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope='module')
+def doc_title_travailleuses(app):
+    """Document with title with travailleuses."""
+    data = {
+        '$schema': 'https://ils.rero.ch/schema/documents/'
+                   'document-minimal-v0.0.1.json',
+        'pid': 'doc_title_test2', 'type': 'book',
+        'language': [{'type': 'bf:Language', 'value': 'fre'}],
+        'title': [{
+            'type': 'bf:Title',
+            'mainTitle': [{
+                'value': "Les travailleuses partent à l'école"
+            }],
+            'subtitle': [{'value': "lorsqu'un est bœuf ex aequo"}]
+
+        }],
+        'authors': [{
+            'name': 'Müller, John', 'type': 'person'
+        }, {
+            'name': 'Corminbœuf, Gruß', 'type': 'person'
+        }],
+    }
+    doc = Document.create(
+        data=data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc

@@ -35,8 +35,7 @@
           "type": "keyword"
         },
         "note": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "type": "text"
         },
         "library": {
           "properties": {

@@ -105,7 +105,7 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
     current_search.delete(ignore=[404])
 
-    # the created records will be acessible in all function of this test file
+    # the created records will be accessible in all function of this test file
     record_1 = RecordTest.create(
         data=ils_record,
         dbcommit=True,

@@ -38,7 +38,6 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
     ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToItemOnLoan
-from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .modules.acq_accounts.api import AcqAccount
@@ -95,6 +94,7 @@ from .permissions import can_access_organisation_patrons_factory, \
     librarian_delete_permission_factory, librarian_permission_factory, \
     librarian_update_permission_factory, wiki_edit_ui_permission, \
     wiki_edit_view_permission
+from .query import and_term_filter
 from .utils import get_current_language
 
 
@@ -1180,18 +1180,18 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('document_type'): terms_filter('type'),
-            _('organisation'): terms_filter(
+            _('document_type'): and_term_filter('type'),
+            _('organisation'): and_term_filter(
                 'holdings.organisation.organisation_pid'
             ),
-            _('library'): terms_filter('holdings.organisation.library_pid'),
-            _('author__en'): terms_filter('facet_authors_en'),
-            _('author__fr'): terms_filter('facet_authors_fr'),
-            _('author__de'): terms_filter('facet_authors_de'),
-            _('author__it'): terms_filter('facet_authors_it'),
-            _('language'): terms_filter('language.value'),
-            _('subject'): terms_filter('facet_subjects'),
-            _('status'): terms_filter('holdings.items.status'),
+            _('library'): and_term_filter('holdings.organisation.library_pid'),
+            _('author__en'): and_term_filter('facet_authors_en'),
+            _('author__fr'): and_term_filter('facet_authors_fr'),
+            _('author__de'): and_term_filter('facet_authors_de'),
+            _('author__it'): and_term_filter('facet_authors_it'),
+            _('language'): and_term_filter('language.value'),
+            _('subject'): and_term_filter('facet_subjects'),
+            _('status'): and_term_filter('holdings.items.status'),
         }
     ),
     patrons=dict(
@@ -1207,7 +1207,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('roles'): terms_filter('roles')
+            _('roles'): and_term_filter('roles')
         },
     ),
     acq_accounts=dict(
@@ -1228,8 +1228,8 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('library'): terms_filter('library.pid'),
-            _('budget'): terms_filter('budget')
+            _('library'): and_term_filter('library.pid'),
+            _('budget'): and_term_filter('budget')
         },
     ),
     acq_invoices=dict(
@@ -1250,8 +1250,8 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('library'): terms_filter('library.pid'),
-            _('status'): terms_filter('invoice_status')
+            _('library'): and_term_filter('library.pid'),
+            _('status'): and_term_filter('invoice_status')
         },
     ),
     acq_orders=dict(
@@ -1272,8 +1272,8 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('library'): terms_filter('library.pid'),
-            _('status'): terms_filter('order_status')
+            _('library'): and_term_filter('library.pid'),
+            _('status'): and_term_filter('order_status')
         },
     ),
     persons=dict(
@@ -1289,7 +1289,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('sources'): terms_filter('sources')
+            _('sources'): and_term_filter('sources')
         }
     ),
 )
@@ -1297,7 +1297,7 @@ RECORDS_REST_FACETS = dict(
 # Elasticsearch fields boosting by index
 RERO_ILS_QUERY_BOOSTING = {
     'documents': {
-        'title.*': 3,
+        'title._text.*': 3,
         'titlesProper.*': 3,
         'authors.name': 2,
         'authors.name_*': 2,
@@ -1355,7 +1355,7 @@ RECORDS_REST_SORT_OPTIONS['acq_order_lines'] = dict(
 
 # ------ BUDGETS SORT
 RECORDS_REST_SORT_OPTIONS['budgets']['name'] = dict(
-    fields=['name'], title='Budget name',
+    fields=['budget_name'], title='Budget name',
     default_order='asc'
 )
 RECORDS_REST_DEFAULT_SORT['budgets'] = dict(
@@ -1379,7 +1379,7 @@ RECORDS_REST_DEFAULT_SORT['item_types'] = dict(
 
 # ------ LIBRARIES SORT
 RECORDS_REST_SORT_OPTIONS['libraries']['name'] = dict(
-    fields=['name_sort'], title='Library name',
+    fields=['library_name'], title='Library name',
     default_order='asc'
 )
 RECORDS_REST_DEFAULT_SORT['libraries'] = dict(
@@ -1395,11 +1395,11 @@ RECORDS_REST_SORT_OPTIONS['loans'] = dict(
 
 # ------ LOCATIONS SORT
 RECORDS_REST_SORT_OPTIONS['locations']['name'] = dict(
-    fields=['name'], title='Location name',
+    fields=['location_name'], title='Location name',
     default_order='asc'
 )
 RECORDS_REST_SORT_OPTIONS['locations']['pickup_name'] = dict(
-    fields=['pickup_name'], title='Pickup Location name',
+    fields=['pickup_name.keyword'], title='Pickup Location name',
     default_order='asc'
 )
 RECORDS_REST_DEFAULT_SORT['locations'] = dict(

@@ -16,6 +16,9 @@
           "type": "keyword"
         },
         "name": {
+          "type": "text"
+        },
+        "budget_name": {
           "type": "keyword"
         },
         "start_date": {

@@ -17,7 +17,6 @@
         },
         "first_name": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "copy_to": "first_name_sort"
         },
         "first_name_sort": {
@@ -25,31 +24,39 @@
         },
         "last_name": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "copy_to": "last_name_sort"
         },
         "last_name_sort": {
           "type": "keyword"
         },
         "birth_date": {
-          "type": "date"
+          "type": "date",
+          "fields": {
+            "analyzed": {
+              "type": "text"
+            }
+          }
         },
         "email": {
-          "type": "keyword"
+          "type": "keyword",
+          "fields": {
+            "analyzed": {
+              "type": "text",
+              "analyzer": "custom_keyword"
+            }
+          }
         },
         "street": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "type": "text"
         },
         "postal_code": {
           "type": "keyword"
         },
         "city": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
+          "type": "text"
         },
         "phone": {
-          "type": "text"
+          "type": "keyword"
         },
         "patron_type": {
           "properties": {
@@ -76,7 +83,7 @@
           }
         },
         "circulation_location_pid": {
-          "type": "text"
+          "type": "keyword"
         },
         "roles": {
           "type": "keyword"

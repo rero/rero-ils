@@ -73,7 +73,8 @@ services:
       - "15672:15672"
       - "5672:5672"
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.2
+    build: ./docker/elasticsearch/
+    image: elasticsearch-icu
     restart: "always"
     environment:
       - bootstrap.memory_lock=true

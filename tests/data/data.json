@@ -1652,6 +1652,10 @@
       {
         "name": "Peter James",
         "type": "person"
+      },
+      {
+        "name": "Great Edition",
+        "type": "organisation"
       }
     ],
     "provisionActivity": [

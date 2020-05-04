@@ -45,29 +45,12 @@
               "properties": {
                 "value": {
                   "type": "text",
-                  "analyzer": "global_lowercase_asciifolding",
                   "copy_to": "autocomplete_title",
-                  "fields": {
-                    "eng": {
-                      "type": "text",
-                      "analyzer": "english"
-                    },
-                    "fre": {
-                      "type": "text",
-                      "analyzer": "french"
-                    },
-                    "ger": {
-                      "type": "text",
-                      "analyzer": "german"
-                    },
-                    "ita": {
-                      "type": "text",
-                      "analyzer": "italian"
-                    }
-                  }
+                  "index": false
                 },
                 "language": {
-                  "type": "keyword"
+                  "type": "keyword",
+                  "index": false
                 }
               }
             },
@@ -76,25 +59,7 @@
               "properties": {
                 "value": {
                   "type": "text",
-                  "analyzer": "global_lowercase_asciifolding",
-                  "fields": {
-                    "eng": {
-                      "type": "text",
-                      "analyzer": "english"
-                    },
-                    "fre": {
-                      "type": "text",
-                      "analyzer": "french"
-                    },
-                    "ger": {
-                      "type": "text",
-                      "analyzer": "german"
-                    },
-                    "ita": {
-                      "type": "text",
-                      "analyzer": "italian"
-                    }
-                  }
+                  "index": false
                 },
                 "language": {
                   "type": "keyword"
@@ -108,7 +73,8 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "keyword"
+                      "type": "text",
+                      "index": false
                     }
                   }
                 },
@@ -116,28 +82,16 @@
                   "type": "object",
                   "properties": {
                     "value": {
-                      "type": "keyword"
+                      "type": "text",
+                      "index": false
                     }
                   }
                 }
               }
             },
             "_text": {
-              "type": "text"
-            }
-          }
-        },
-        "autocomplete_title": {
-          "type": "text",
-          "analyzer": "autocomplete",
-          "search_analyzer": "standard"
-        },
-        "responsibilityStatement": {
-          "type": "object",
-          "properties": {
-            "value": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
+              "index": false,
               "fields": {
                 "eng": {
                   "type": "text",
@@ -156,6 +110,19 @@
                   "analyzer": "italian"
                 }
               }
+            }
+          }
+        },
+        "autocomplete_title": {
+          "type": "text",
+          "analyzer": "autocomplete",
+          "search_analyzer": "standard"
+        },
+        "responsibilityStatement": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "text"
             },
             "language": {
               "type": "keyword"
@@ -164,7 +131,6 @@
         },
         "titlesProper": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "fields": {
             "eng": {
               "type": "text",
@@ -200,7 +166,6 @@
         },
         "is_part_of": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "fields": {
             "eng": {
               "type": "text",
@@ -228,7 +193,6 @@
           "properties": {
             "name": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
               "copy_to": [
                 "facet_authors_en",
                 "facet_authors_fr",
@@ -238,27 +202,22 @@
             },
             "name_en": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_en"
             },
             "name_fr": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_fr"
             },
             "name_de": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_de"
             },
             "name_it": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
               "copy_to": "facet_authors_it"
             },
             "variant_name": {
-              "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
+              "type": "text"
             },
             "type": {
               "type": "keyword"
@@ -307,10 +266,11 @@
               "properties": {
                 "value": {
                   "type": "text",
-                  "analyzer": "global_lowercase_asciifolding"
+                  "index": false
                 },
                 "language": {
-                  "type": "keyword"
+                  "type": "keyword",
+                  "index": false
                 }
               }
             },
@@ -319,12 +279,26 @@
               "properties": {
                 "value": {
                   "type": "text",
-                  "analyzer": "global_lowercase_asciifolding"
+                  "index": false
                 },
                 "language": {
-                  "type": "keyword"
+                  "type": "keyword",
+                  "index": false
                 }
               }
+            }
+          }
+        },
+        "electronicLocator": {
+          "properties": {
+            "publicNote": {
+              "type": "text"
+            },
+            "type": {
+              "type": "keyword"
+            },
+            "url": {
+              "type": "keyword"
             }
           }
         },
@@ -335,13 +309,16 @@
               "type": "object",
               "properties": {
                 "type": {
-                  "type": "text"
+                  "type": "text",
+                  "index": false
                 },
                 "canton": {
-                  "type": "text"
+                  "type": "text",
+                  "index": false
                 },
                 "country": {
-                  "type": "text"
+                  "type": "text",
+                  "index": false
                 }
               }
             },
@@ -353,64 +330,23 @@
                   "properties": {
                     "value": {
                       "type": "text",
-                      "analyzer": "global_lowercase_asciifolding"
+                      "index": false
                     },
                     "language": {
-                      "type": "keyword"
+                      "type": "keyword",
+                      "index": false
                     }
                   }
                 },
                 "type": {
-                  "type": "text"
+                  "type": "text",
+                  "index": false
                 }
               }
             },
             "note": {
               "type": "text",
-              "analyzer": "global_lowercase_asciifolding"
-            },
-            "startDate": {
-              "type": "date",
-              "format": "yyyy"
-            },
-            "endDate": {
-              "type": "date",
-              "format": "yyyy"
-            },
-            "type": {
-              "type": "text"
-            },
-            "_text": {
-              "properties": {
-                "value": {
-                  "type": "text"
-                },
-                "language": {
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "extent": {
-          "type": "text",
-          "analyzer": "global_lowercase_asciifolding"
-        },
-        "otherMaterialCharacteristics": {
-          "type": "keyword"
-        },
-        "formats": {
-          "type": "keyword"
-        },
-        "additionalMaterials": {
-          "type": "keyword"
-        },
-        "series": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "text",
-              "analyzer": "global_lowercase_asciifolding",
+              "index": false,
               "fields": {
                 "eng": {
                   "type": "text",
@@ -430,17 +366,80 @@
                 }
               }
             },
-            "number": {
-              "type": "keyword"
+            "startDate": {
+              "type": "date",
+              "format": "yyyy",
+              "index": false
+            },
+            "endDate": {
+              "type": "date",
+              "format": "yyyy",
+              "index": false
+            },
+            "type": {
+              "type": "text",
+              "index": false
             },
             "_text": {
-              "type": "text"
+              "properties": {
+                "value": {
+                  "type": "text"
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "extent": {
+          "type": "text"
+        },
+        "otherMaterialCharacteristics": {
+          "type": "text"
+        },
+        "formats": {
+          "type": "text"
+        },
+        "additionalMaterials": {
+          "type": "text"
+        },
+        "series": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "text",
+              "index": false
+            },
+            "number": {
+              "type": "keyword",
+              "index": false
+            },
+            "_text": {
+              "type": "text",
+              "fields": {
+                "eng": {
+                  "type": "text",
+                  "analyzer": "english"
+                },
+                "fre": {
+                  "type": "text",
+                  "analyzer": "french"
+                },
+                "ger": {
+                  "type": "text",
+                  "analyzer": "german"
+                },
+                "ita": {
+                  "type": "text",
+                  "analyzer": "italian"
+                }
+              }
             }
           }
         },
         "notes": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "fields": {
             "eng": {
               "type": "text",
@@ -462,7 +461,6 @@
         },
         "abstracts": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "fields": {
             "eng": {
               "type": "text",
@@ -510,7 +508,6 @@
         },
         "subjects": {
           "type": "text",
-          "analyzer": "global_lowercase_asciifolding",
           "copy_to": "facet_subjects",
           "fields": {
             "eng": {
@@ -543,17 +540,11 @@
             "available": {
               "type": "boolean"
             },
-            "call_number": {
-              "type": "keyword"
-            },
             "location": {
               "type": "object",
               "properties": {
                 "pid": {
                   "type": "keyword"
-                },
-                "name": {
-                  "type": "text"
                 }
               }
             },
@@ -562,9 +553,6 @@
               "properties": {
                 "pid": {
                   "type": "keyword"
-                },
-                "name": {
-                  "type": "text"
                 }
               }
             },
@@ -579,22 +567,6 @@
                 }
               }
             },
-            "electronicLocator": {
-              "properties": {
-                "content": {
-                  "type": "keyword"
-                },
-                "publicNote": {
-                  "type": "text"
-                },
-                "type": {
-                  "type": "keyword"
-                },
-                "url": {
-                  "type": "keyword"
-                }
-              }
-            },
             "items": {
               "type": "object",
               "properties": {
@@ -605,7 +577,7 @@
                   "type": "keyword"
                 },
                 "call_number": {
-                  "type": "keyword"
+                  "type": "text"
                 },
                 "status": {
                   "type": "keyword"
