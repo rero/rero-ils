@@ -49,6 +49,17 @@ def test_required_patterns(
             holding_lib_martigny_w_patterns_data, holding_schema)
 
 
+def test_required_patterns_frequency(
+        holding_schema, holding_lib_martigny_w_patterns_data):
+    """Test required for frequency in the patterns."""
+    holding = copy.deepcopy(holding_lib_martigny_w_patterns_data)
+    del holding['patterns']['frequency']
+
+    with pytest.raises(ValidationError):
+        validate(
+            holding, holding_schema)
+
+
 def test_pid(
         holding_schema, holding_lib_martigny_w_patterns_data):
     """Test pid for holding jsonschemas."""

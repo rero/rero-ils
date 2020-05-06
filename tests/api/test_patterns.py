@@ -376,3 +376,29 @@ def test_automatic_item_creation_no_serials(
     assert holding.location_pid == holding_lib_martigny_w_patterns.location_pid
     assert holding.get('circulation_category') == \
         holding_lib_martigny_w_patterns.get('circulation_category')
+
+
+def test_validate_first_expected_date(
+        client, librarian_martigny_no_email,
+        journal, loc_public_sion, item_type_internal_sion, document,
+        pattern_yearly_two_times_data, json_header,
+        holding_lib_sion_w_patterns_data):
+    """Test create holding with regular frequency and missing
+
+    the first_expected_date.
+    """
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    holding = holding_lib_sion_w_patterns_data
+    holding['holdings_type'] = 'serial'
+    holding['patterns'] = \
+        pattern_yearly_two_times_data['patterns']
+    del holding['pid']
+    del holding['patterns']['first_expected_date']
+    # test will fail when the serial holding has no field
+    # first_expected_date for the regular frequency
+    with pytest.raises(RecordValidationError):
+        Holding.create(
+            data=holding,
+            delete_pid=False,
+            dbcommit=True,
+            reindex=True)
