@@ -1240,35 +1240,32 @@ category = "main"
 description = "Invenio module for the circulation of bibliographic items."
 name = "invenio-circulation"
 optional = false
-python-versions = "*"
-version = "1.0.0a16"
+python-versions = ">=3"
+version = "1.0.0a21"
 
 [package.dependencies]
 Flask-BabelEx = ">=0.9.3"
-ciso8601 = ">=2.0.1"
-invenio-access = ">=1.0.1"
+arrow = ">=0.15.0"
+invenio-access = ">=1.3.1"
 invenio-base = ">=1.0.1"
 invenio-jsonschemas = ">=1.0.0"
-invenio-logging = ">=1.0.0"
+invenio-logging = ">=1.2.1"
 invenio-pidstore = ">=1.0.0"
-invenio-records = ">=1.0.0"
-invenio-records-rest = ">=1.1.2"
-invenio-rest = ">=1.0.0"
-pytz = ">=2018.5"
+invenio-records-rest = ">=1.6.1"
 
 [package.extras]
 all = ["Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)", "Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)"]
 docs = ["Sphinx (>=1.5.1)"]
-elasticsearch2 = ["invenio-search (>=1.2.1)"]
 elasticsearch5 = ["invenio-search (>=1.2.1)"]
 elasticsearch6 = ["invenio-search (>=1.2.1)"]
+elasticsearch7 = ["invenio-search (>=1.2.1)"]
 mysql = ["invenio-db (>=1.0.4)"]
 postgresql = ["invenio-db (>=1.0.4)"]
 sqlite = ["invenio-db (>=1.0.4)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)"]
 
 [package.source]
-reference = "5133e71119a4d989aaace36e34718b34f2d31fb2"
+reference = "f250b11766c5c98503271cd8e51312d1e95cfb38"
 type = "git"
 url = "https://github.com/inveniosoftware/invenio-circulation.git"
 [[package]]
@@ -2119,15 +2116,14 @@ category = "main"
 description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
 name = "marshmallow"
 optional = false
-python-versions = "*"
-version = "2.21.0"
+python-versions = ">=3.5"
+version = "3.6.0"
 
 [package.extras]
-dev = ["python-dateutil", "simplejson", "pytest", "pytz", "flake8 (3.7.4)", "tox"]
-docs = ["sphinx (2.1.2)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
-lint = ["flake8 (3.7.4)"]
-reco = ["python-dateutil", "simplejson"]
-tests = ["pytest", "pytz"]
+dev = ["pytest", "pytz", "simplejson", "mypy (0.770)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)", "tox"]
+docs = ["sphinx (3.0.3)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
+lint = ["mypy (0.770)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)"]
+tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
 category = "main"
@@ -3917,8 +3913,8 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
-    {file = "marshmallow-2.21.0-py2.py3-none-any.whl", hash = "sha256:7cb1881a0fa84be4b5c1e301168236932c345f6910725f99905d636bfe93e9e9"},
-    {file = "marshmallow-2.21.0.tar.gz", hash = "sha256:e9390c0c80437d7a02d84e3d1635dc20f37a8bcb149ca443d93791bdc683f28d"},
+    {file = "marshmallow-3.6.0-py2.py3-none-any.whl", hash = "sha256:f88fe96434b1f0f476d54224d59333eba8ca1a203a2695683c1855675c4049a7"},
+    {file = "marshmallow-3.6.0.tar.gz", hash = "sha256:c2673233aa21dde264b84349dc2fd1dce5f30ed724a0a00e75426734de5b84ab"},
 ]
 maxminddb = [
     {file = "maxminddb-1.5.4.tar.gz", hash = "sha256:f4d28823d9ca23323d113dc7af8db2087aa4f657fafc64ff8f7a8afda871425b"},

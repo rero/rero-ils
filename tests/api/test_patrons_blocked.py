@@ -19,7 +19,7 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, item_pid_to_object
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import can_be_requested
@@ -104,7 +104,7 @@ def test_blocked_patron_cannot_request(client,
 
     # Create "virtual" Loan (not registered)
     loan = Loan({
-        'item_pid': item_lib_martigny.pid,
+        'item_pid': item_pid_to_object(item_lib_martigny.pid),
         'library_pid': lib_martigny.pid,
         'patron_pid': patron3_martigny_no_email.pid
     })
