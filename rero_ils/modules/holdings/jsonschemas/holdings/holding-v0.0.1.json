@@ -127,10 +127,13 @@
       "type": "object",
       "required": [
         "values",
-        "template"
+        "template",
+        "frequency"
       ],
       "propertiesOrder": [
         "template",
+        "frequency",
+        "first_expected_date",
         "values"
       ],
       "additionalProperties": false,
@@ -147,6 +150,114 @@
             "validation": {
               "messages": {
                 "patternMessage": "Should contains at least one variable between {{ }}."
+              }
+            }
+          }
+        },
+        "frequency": {
+          "title": "Frequency",
+          "type": "string",
+          "enum": [
+            "rdafr:1001",
+            "rdafr:1002",
+            "rdafr:1003",
+            "rdafr:1004",
+            "rdafr:1005",
+            "rdafr:1006",
+            "rdafr:1007",
+            "rdafr:1008",
+            "rdafr:1009",
+            "rdafr:1010",
+            "rdafr:1011",
+            "rdafr:1012",
+            "rdafr:1013",
+            "rdafr:1014",
+            "rdafr:1015",
+            "rdafr:1016"
+          ],
+          "form": {
+            "options": [
+              {
+                "label": "Annual",
+                "value": "rdafr:1013"
+              },
+              {
+                "label": "Biennial",
+                "value": "rdafr:1014"
+              },
+              {
+                "label": "Bimonthly",
+                "value": "rdafr:1007"
+              },
+              {
+                "label": "Biweekly",
+                "value": "rdafr:1003"
+              },
+              {
+                "label": "Daily",
+                "value": "rdafr:1001"
+              },
+              {
+                "label": "Irregular",
+                "value": "rdafr:1016"
+              },
+              {
+                "label": "Monthly",
+                "value": "rdafr:1008"
+              },
+              {
+                "label": "Quarterly",
+                "value": "rdafr:1010"
+              },
+              {
+                "label": "Semiannual",
+                "value": "rdafr:1012"
+              },
+              {
+                "label": "Semimonthly",
+                "value": "rdafr:1009"
+              },
+              {
+                "label": "Semiweekly",
+                "value": "rdafr:1005"
+              },
+              {
+                "label": "Three times a month",
+                "value": "rdafr:1006"
+              },
+              {
+                "label": "Three times a week",
+                "value": "rdafr:1002"
+              },
+              {
+                "label": "Three times a year",
+                "value": "rdafr:1011"
+              },
+              {
+                "label": "Triennial",
+                "value": "rdafr:1015"
+              },
+              {
+                "label": "Weekly",
+                "value": "rdafr:1004"
+              }
+            ]
+          }
+        },
+        "first_expected_date": {
+          "type": "string",
+          "format": "date",
+          "title": "The expected date for the first issue",
+          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+          "form": {
+            "type": "datepicker",
+            "wrappers": [
+              "form-field"
+            ],
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
               }
             }
           }
