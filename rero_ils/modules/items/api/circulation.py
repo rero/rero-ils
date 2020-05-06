@@ -28,8 +28,8 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document, \
     search_by_pid
 from invenio_i18n.ext import current_i18n
-from invenio_records_rest.utils import obj_or_import_string
 from invenio_pidstore.errors import PersistentIdentifierError
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 
 from ..models import ItemCirculationAction, ItemStatus
@@ -748,6 +748,7 @@ class ItemCirculation(IlsRecord):
         :return: True if item found otherwise False
         :rtype: bool
         """
+        from .api import Item
         try:
             Item.get_record_by_pid(item_pid.get('value'))
         except PersistentIdentifierError:
