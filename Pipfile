@@ -60,6 +60,8 @@ invenio-accounts = "<=1.1.2"
 SQLAlchemy = "<=1.3.15"
 # TODO: remove when email_validator Exception disappears
 WTForms = "<2.3.0"
+# TODO: remove this when the rest could work with werkzeug >= 1.0.0
+jsonresolver = "<0.3.0"
 email_validator = "*"
 ## RERO ILS specific python modules
 PyYAML = ">=5.3.1"
