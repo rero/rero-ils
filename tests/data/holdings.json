@@ -210,6 +210,8 @@
     "holdings_type": "serial",
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1010",
+      "first_expected_date": "2020-03-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -245,6 +247,8 @@
     "template_name": "quarterly_one_level",
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1010",
+      "first_expected_date": "2020-03-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -280,6 +284,8 @@
     "template_name": "yearly_one_level",
     "patterns": {
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1013",
+      "first_expected_date": "2020-01-02",
       "values": [
         {
           "name": "first_enumeration",
@@ -306,6 +312,8 @@
     "template_name": "yearly_one_level_with_label",
     "patterns": {
       "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
+      "frequency": "rdafr:1013",
+      "first_expected_date": "2020-06-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -332,6 +340,8 @@
     "template_name": "yearly_two_times",
     "patterns": {
       "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1014",
+      "first_expected_date": "2020-03-03",
       "values": [
         {
           "name": "first_enumeration",
@@ -372,6 +382,8 @@
     "template_name": "quarterly_two_levels",
     "patterns": {
       "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1012",
+      "first_expected_date": "2020-09-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -408,6 +420,8 @@
     "template_name": "quarterly_two_levels_with_season",
     "patterns": {
       "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
+      "frequency": "rdafr:1010",
+      "first_expected_date": "2020-03-20",
       "values": [
         {
           "name": "first_chronology",
@@ -457,6 +471,8 @@
     "template_name": "half_yearly_one_level",
     "patterns": {
       "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1012",
+      "first_expected_date": "2020-03-20",
       "values": [
         {
           "name": "first_enumeration",
@@ -490,6 +506,8 @@
     "template_name": "bimonthly_every_two_months_one_level",
     "patterns": {
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1007",
+      "first_expected_date": "2020-01-15",
       "values": [
         {
           "name": "first_enumeration",
@@ -527,6 +545,8 @@
     "template_name": "half_yearly_two_levels",
     "patterns": {
       "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1012",
+      "first_expected_date": "2020-06-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -573,6 +593,8 @@
     "template_name": "bimonthly_every_two_months_two_levels",
     "patterns": {
       "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1007",
+      "first_expected_date": "2020-01-05",
       "values": [
         {
           "name": "first_enumeration",
