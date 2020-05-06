@@ -91,14 +91,25 @@ class Holding(IlsRecord):
         Ensures that holdings of type electronic are created only on
         ebooks documents i.e. harvested documents.
 
+        Ensures that for the holdings of type serials, if it has a regular
+        frequency the first_expected_date should be given.
+
         :returns: False if
             - document type is not journal and holding type is serial.
             - document type is journal and holding type is not serial.
             - document type is ebook and holding type is not electronic.
             - document type is not ebook and holding type is electronic.
+            - holding type is serial and the first_expected_date
+              is not given for a regular frequency.
         """
         document = Document.get_record_by_pid(self.document_pid)
         is_serial = self.holdings_type == 'serial'
+        if is_serial:
+            patterns = self.get('patterns', {})
+            if patterns and \
+                patterns.get('frequency') != 'rdafr:1016' \
+                    and not patterns.get('first_expected_date'):
+                return False
         is_electronic = self.holdings_type == 'electronic'
         is_issuance = document.dumps().get('issuance') == 'rdami:1003'
         return not(
