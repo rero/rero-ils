@@ -73,6 +73,12 @@
             "template": {
               "type": "keyword"
             },
+            "frequency": {
+              "type": "keyword"
+            },
+            "first_expected_date": {
+              "type": "date"
+            },
             "values": {
               "properties": {
                 "name": {
