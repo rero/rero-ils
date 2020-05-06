@@ -27,11 +27,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-<<<<<<< HEAD
-from utils import check_timezone_date, flush_index, get_json, postdata
-=======
-from utils import flush_index, postdata
->>>>>>> 3cd518da... circulation: adapt reroils
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import Item
