@@ -113,8 +113,7 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     )
     assert res.status_code == 201
     item_barcode = data['metadata']['barcode']
-    assert item_barcode[0:14] == 'f-{}'.format(
-                datetime.now().strftime('%Y%m%d%I%M'))
+    assert item_barcode.startswith('f-')
     # test updating an item with no barcode, keeps the old barcode
     created_item = Item.get_record_by_pid('pid')
     assert created_item.pid == 'pid'
@@ -122,16 +121,14 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     del item_to_update['barcode']
     updated_item = created_item.update(
         data=item_to_update, dbcommit=True, reindex=True)
-    assert updated_item['barcode'][0:14] == 'f-{}'.format(
-                datetime.now().strftime('%Y%m%d%I%M'))
+    assert updated_item['barcode'].startswith('f-')
 
     # test replacing an item with no barcode, regenerates a new barcode
     item_to_replace = deepcopy(updated_item)
     del item_to_replace['barcode']
     replaced_item = created_item.replace(
         data=item_to_replace, dbcommit=True, reindex=True)
-    assert replaced_item['barcode'][0:14] == 'f-{}'.format(
-                datetime.now().strftime('%Y%m%d%I%M'))
+    assert replaced_item['barcode'].startswith('f-')
 
     # test when item has a dirty barcode
     item_lib_martigny_data['pid'] = '1'
