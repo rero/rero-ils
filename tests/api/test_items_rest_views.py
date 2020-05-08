@@ -726,7 +726,8 @@ def test_update_loan_pickup_location(
     )
     assert res.status_code == 200
     assert data.get('pickup_location_pid') == new_loc_pid
-    # Change loan state to 'ITEM_AT_DESK'
+    # Change loan state to 'ITEM_AT_DESK'.
+    # WARNING: Use loan from test_patron_checkouts_order (item3_lib_martigny)
     loans = Item.get_loans_by_item_pid(item_pid)
     for loan in loans:
         if loan.get('state') == 'ITEM_ON_LOAN':
