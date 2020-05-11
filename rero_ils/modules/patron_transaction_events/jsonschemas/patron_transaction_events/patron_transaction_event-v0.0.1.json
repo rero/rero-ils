@@ -3,6 +3,7 @@
   "type": "object",
   "title": "Patron transaction event",
   "description": "JSON schema for patron transaction event.",
+  "additionalProperties": false,
   "required": [
     "$schema",
     "pid",

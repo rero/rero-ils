@@ -454,7 +454,6 @@ def create_payment_record(patron_transaction, user_pid, user_library):
             }
     data['type'] = 'payment'
     data['subtype'] = 'cash'
-    data['status'] = 'open'
     data['amount'] = patron_transaction.get('total_amount')
     data['creation_date'] = datetime.now(timezone.utc).isoformat()
     return data

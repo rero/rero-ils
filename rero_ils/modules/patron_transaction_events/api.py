@@ -97,7 +97,7 @@ class PatronTransactionEvent(IlsRecord):
             data['subtype'] = 'overdue'
         elif patron_transaction.get('type') == 'subscription':
             data['subtype'] = 'other'
-            data['data'] = _('Initial charge')
+            data['note'] = _('Initial charge')
         record = cls.create(
             data,
             dbcommit=dbcommit,
