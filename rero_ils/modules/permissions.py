@@ -20,44 +20,50 @@
 
 from flask import jsonify
 
-from .utils import get_record_class_update_permission_from_route
+from .utils import get_record_class_permissions_factories_from_route
 
 
-def jsonify_permission_api_response(
-        can_update=False, can_delete=False, reasons={}):
-    """Jsonify api response."""
-    return jsonify({
-        'update': {'can': can_update},
-        'delete': {'can': can_delete, 'reasons': reasons}
-    })
-
-
-def record_update_delete_permissions(record_pid=None, route_name=None):
+def record_permissions(record_pid=None, route_name=None):
     """Return record permissions."""
     try:
-        rec_class, update_permission, delete_permission = \
-            get_record_class_update_permission_from_route(route_name)
-        record = rec_class.get_record_by_pid(record_pid)
+        rec_class, create_permission, update_permission, delete_permission = \
+            get_record_class_permissions_factories_from_route(route_name)
 
-        if not record:
-            return jsonify({'status': 'error: Record not found.'}), 404
+        # To check create permission, we don't need to check if the record_pid
+        # exists. Just call the create permission (if exists) with `None` value
+        # as record.
+        permissions = {
+            'create': {'can': True}
+        }
+        if create_permission:
+            permissions['create']['can'] = create_permission(record=None).can()
 
-        # We have two behavior for 'can_delete'. Either the record has linked
-        # resource and so children resources should be deleted before ; either
-        # the `delete_permissions_factory` for this record should be called. If
-        # this call send 'False' then the reason_not_to_delete should be
-        # "permission denied"
-        can_delete = record.can_delete and delete_permission(record).can()
-        reasons = record.reasons_not_to_delete()
-        if not can_delete and not reasons:
-            # in this case, it's because config delete factory return `False`
-            # So the reason is 'Permission denied'
-            reasons = {'others': {'permission': 'permission denied'}}
+        # If record_pid is not None, we can check about 'delete' and 'update'
+        # permissions.
+        if record_pid:
+            record = rec_class.get_record_by_pid(record_pid)
+            if not record:
+                return jsonify({'status': 'error: Record not found.'}), 404
 
-        return jsonify_permission_api_response(
-            can_update=update_permission(record).can(),
-            can_delete=can_delete,
-            reasons=reasons
-        )
-    except Exception as error:
+            # To check if the record could be update, just call the update
+            # permission factory to get the answer
+            permissions['update'] = {'can': update_permission(record).can()}
+
+            # We have two behaviors for 'can_delete'. Either the record has
+            # linked resources and so children resources should be deleted
+            # before ; either the `delete_permissions_factory` for this record
+            # should be called. If this call send 'False' then the
+            # reason_not_to_delete should be "permission denied"
+            permissions['delete'] = {
+                'can': record.can_delete and delete_permission(record).can()
+            }
+            reasons = record.reasons_not_to_delete()
+            if not permissions['delete']['can'] and not reasons:
+                # in this case, it's because config delete factory return
+                # `False`, so the reason is 'Permission denied'
+                reasons = {'others': {'permission': 'permission denied'}}
+            permissions['delete']['reasons'] = reasons
+
+        return jsonify(permissions)
+    except Exception:
         return jsonify({'status': 'error: Bad request'}), 400

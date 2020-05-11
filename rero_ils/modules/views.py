@@ -27,7 +27,7 @@ from flask import Blueprint, abort, jsonify
 from flask_babelex import get_domain
 from flask_login import current_user
 
-from .permissions import record_update_delete_permissions
+from .permissions import record_permissions
 from ..permissions import librarian_permission
 
 api_blueprint = Blueprint(
@@ -50,16 +50,18 @@ def check_authentication(func):
     return decorated_view
 
 
-@api_blueprint.route(
-    '/permissions/<route_name>/<record_pid>', methods=['GET'])
+@api_blueprint.route('/permissions/<route_name>', methods=['GET'])
+@api_blueprint.route('/permissions/<route_name>/<record_pid>', methods=['GET'])
 @check_authentication
-def permissions(route_name, record_pid):
+def permissions(route_name, record_pid=None):
     """HTTP GET request for record permissions.
 
-    Required parameters: route_name, record_pid
+    :param route_name : the list route of the resource
+    :param record_pid : the record pid
+    :return a JSON object with create/update/delete permissions for this
+            record/resource
     """
-    return record_update_delete_permissions(
-        record_pid=record_pid, route_name=route_name)
+    return record_permissions(record_pid=record_pid, route_name=route_name)
 
 
 @api_blueprint.route('/translations/<ln>.json')

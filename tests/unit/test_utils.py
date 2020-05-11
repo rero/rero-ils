@@ -24,7 +24,7 @@ from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
     get_endpoint_configuration, get_schema_for_resource, read_json_record
-from rero_ils.utils import unique_list
+from rero_ils.utils import get_current_language, unique_list
 
 
 def test_unique_list():
@@ -92,3 +92,9 @@ def test_extract_data_from_ref(app, patron_sion_data,
     assert extracted_data_from_ref('dummy_data', data='record_class') is None
     assert extracted_data_from_ref('dummy_data', data='record') is None
     assert extracted_data_from_ref(ptty, data='dummy') is None
+
+
+def test_current_language(app):
+    """Test current language."""
+    # Just test this function return otherwise than None
+    assert get_current_language()

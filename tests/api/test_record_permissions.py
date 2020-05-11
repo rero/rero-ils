@@ -16,11 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test record permissions API."""
-
-
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, login_user
 
 
 def test_document_permissions(
@@ -59,29 +57,13 @@ def test_document_permissions(
 
     # success: logged user and a valid document pid is given
     login_user_via_session(client, librarian_martigny_no_email.user)
-    res = client.get(
-        url_for(
-            'api_blueprint.permissions',
-            route_name='documents',
-            record_pid=document.pid
-        )
-    )
-    assert res.status_code == 200
-    data = get_json(res)
+    data = call_api_permissions(client, 'documents', document.pid)
     assert 'update' in data
     assert 'delete' in data
 
     # success: logged user and a valid document pid is given
     login_user_via_session(client, librarian_martigny_no_email.user)
-    res = client.get(
-        url_for(
-            'api_blueprint.permissions',
-            route_name='documents',
-            record_pid=ebook_1.pid
-        )
-    )
-    assert res.status_code == 200
-    data = get_json(res)
+    data = call_api_permissions(client, 'documents', ebook_1.pid)
     assert 'update' in data
     assert 'delete' in data
 
@@ -96,15 +78,105 @@ def test_document_permissions(
     assert res.status_code == 400
 
     # failed: permission denied
-    res = client.get(
-        url_for(
-            'api_blueprint.permissions',
-            route_name='circ_policies',
-            record_pid=circ_policy_short_martigny.pid
-        )
-    )
-    data = get_json(res)
-    assert res.status_code == 200
+    data = call_api_permissions(client, 'circ_policies',
+                                circ_policy_short_martigny.pid)
     assert data.get('delete', {}).get('can') is False
     reasons = data.get('delete', {}).get('reasons', {})
     assert 'others' in reasons and 'permission' in reasons['others']
+
+
+def test_patrons_permissions(
+    client,
+    patron_martigny_no_email,
+    librarian_martigny_no_email,
+    librarian2_martigny_no_email,
+    librarian_saxon_no_email,
+    system_librarian_martigny_no_email,
+    system_librarian_sion_no_email,
+    librarian_sion_no_email
+):
+    """Test serializers for patrons."""
+
+    # simple librarian -----------------------------------------------
+    login_user(client, librarian_martigny_no_email)
+    # 1) should update and delete a librarian of the same library
+    data = call_api_permissions(client, 'patrons',
+                                librarian2_martigny_no_email.pid)
+    assert data['delete']['can']
+    assert data['update']['can']
+    # 2) should not update and delete a librarian of an other library
+    data = call_api_permissions(client, 'patrons',
+                                librarian_saxon_no_email.pid)
+    assert not data['delete']['can']
+    assert not data['update']['can']
+    # 3) should not update and delete a system librarian
+    data = call_api_permissions(client, 'patrons',
+                                system_librarian_martigny_no_email.pid)
+    assert not data['delete']['can']
+    assert not data['update']['can']
+
+    # system librarian ----------------------------------------------
+    login_user(client, system_librarian_martigny_no_email)
+    # should update and delete a librarian of the same library
+    data = call_api_permissions(client, 'patrons',
+                                librarian2_martigny_no_email.pid)
+    assert data['delete']['can']
+    assert data['update']['can']
+
+    # should update and delete a librarian of an other library
+    data = call_api_permissions(client, 'patrons',
+                                librarian_saxon_no_email.pid)
+    assert data['delete']['can']
+    assert data['update']['can']
+
+    # should update and delete a system librarian of the same organisation
+    data = call_api_permissions(client, 'patrons',
+                                system_librarian_martigny_no_email.pid)
+    assert data['delete']['can']
+    assert data['update']['can']
+
+    # should not update and delete a system librarian of an other organisation
+    data = call_api_permissions(client, 'patrons',
+                                system_librarian_sion_no_email.pid)
+    assert not data['delete']['can']
+    assert not data['update']['can']
+
+
+def test_items_permissions(
+    client,
+    item_lib_martigny,  # on shelf
+    item_lib_fully,  # on loan
+    librarian_martigny_no_email
+):
+    """Test record retrieval."""
+    login_user(client, librarian_martigny_no_email)
+
+    data = call_api_permissions(client, 'items', item_lib_fully.pid)
+    assert not data['delete']['can']
+    assert not data['update']['can']
+
+    data = call_api_permissions(client, 'items', item_lib_martigny.pid)
+    assert data['delete']['can']
+    assert data['update']['can']
+
+    response = client.get(
+        url_for(
+            'api_blueprint.permissions',
+            route_name='items',
+            record_pid='dummy_item_pid'
+        )
+    )
+    assert response.status_code == 404
+
+
+def call_api_permissions(client, route_name, pid):
+    """Get permissions from permissions API."""
+    response = client.get(
+        url_for(
+            'api_blueprint.permissions',
+            route_name=route_name,
+            record_pid=pid
+        )
+    )
+    assert response.status_code == 200
+    return get_json(response)

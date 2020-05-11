@@ -69,10 +69,8 @@ class DocumentJSONSerializer(JSONSerializer):
                     if person:
                         authors.append(person.dumps_for_document())
             rec['authors'] = authors
-        data = super(JSONSerializer, self).preprocess_record(
+        return super(JSONSerializer, self).preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
-
-        return JSONSerializer.add_item_links_and_permissions(record, data, pid)
 
     def post_process_serialize_search(self, results, pid_fetcher):
         """Post process the search results."""
