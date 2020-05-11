@@ -2404,7 +2404,6 @@
     },
     "operator": {
       "$ref": "https://ils.rero.ch/api/patrons/ptrn1"
-    },
-    "status": "open"
+    }
   }
 }
