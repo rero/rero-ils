@@ -343,9 +343,6 @@
                 "type": "string",
                 "form": {
                   "type": "remoteautocomplete",
-                  "wrappers": [
-                    "form-field"
-                  ],
                   "hideExpression": "field.model.$ref != null"
                 }
               },
@@ -545,7 +542,8 @@
                         "label": "Place",
                         "value": "bf:Place"
                       }
-                    ]
+                    ],
+                    "hide": true
                   }
                 },
                 "country": {
@@ -685,6 +683,9 @@
         "form": {
           "placeholder": "Example: 1h50"
         }
+      },
+      "form": {
+        "hide": true
       }
     },
     "colorContent": {
