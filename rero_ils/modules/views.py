@@ -23,7 +23,7 @@ import os
 from functools import wraps
 
 import polib
-from flask import Blueprint, abort, jsonify
+from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import get_domain
 from flask_login import current_user
 
@@ -91,5 +91,5 @@ def translations(ln):
             'unable to open po file: {po}'.format(po=po_file_name))
         abort(404)
     for entry in po:
-        data[entry.msgid] = entry.msgstr
+        data[entry.msgid] = entry.msgstr or entry.msgid
     return jsonify(data)
