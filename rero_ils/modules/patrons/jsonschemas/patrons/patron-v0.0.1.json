@@ -78,8 +78,15 @@
       "minLength": 6,
       "form": {
         "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "term": "email",
+              "remoteRecordType": "patrons/count"
+            }
+          },
           "messages": {
-            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>",
+            "alreadyTakenMessage": "This email is already taken."
           }
         }
       }

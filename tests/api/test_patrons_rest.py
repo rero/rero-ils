@@ -450,3 +450,83 @@ def test_patrons_dirty_barcode(
     librarian_martigny_no_email.update(
         librarian_martigny_no_email, dbcommit=True, reindex=True)
     assert not librarian_martigny_no_email.get('barcode')
+
+
+def test_patrons_count(client, patron_sion_no_email,
+                       librarian_martigny_no_email,
+                       system_librarian_sion_no_email):
+    """Test number of email address."""
+
+    librarian_email = librarian_martigny_no_email.get('email')
+    url = url_for('api_patrons.number_of_patrons', q=librarian_email)
+
+    res = client.get(url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, patron_sion_no_email.user)
+    res = client.get(url)
+    assert res.status_code == 403
+
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    # malformed url
+    res = client.get(url)
+    assert res.status_code == 400
+
+    # librarian email
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}"'.format(
+                    email=librarian_martigny_no_email.get('email')
+                  ))
+    res = client.get(url)
+    assert res.status_code == 200
+    assert get_json(res) == dict(hits=dict(total=1))
+
+    # patron email
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}"'.format(
+                    email=patron_sion_no_email.get('email')
+                  ))
+    res = client.get(url)
+    assert res.status_code == 200
+    assert get_json(res) == dict(hits=dict(total=1))
+
+    # patron email excluding itself
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}" NOT pid:{pid}'.format(
+                    email=patron_sion_no_email.get('email'),
+                    pid=patron_sion_no_email.pid
+                  ))
+    res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=0))
+
+    # patron email excluding itself
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}"'.format(
+                    email='foo@foo.org'
+                  ))
+    res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=0))
+
+    # librarian email uppercase
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}"'.format(
+                    email=librarian_email.upper()
+                  ))
+    res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=1))
+
+    # librarian email with spaces
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:" {email} "'.format(
+                    email=librarian_email.upper()
+                  ))
+    res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=1))
+
+    # system librarian email containing a + char
+    url = url_for('api_patrons.number_of_patrons',
+                  q='email:"{email}"'.format(
+                    email=system_librarian_sion_no_email.get('email').upper()
+                  ))
+    res = client.get(url)
+    assert get_json(res) == dict(hits=dict(total=1))

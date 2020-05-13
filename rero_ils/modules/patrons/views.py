@@ -19,20 +19,25 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, current_app, flash, jsonify, render_template, \
-    request
+import re
+from functools import wraps
+
+from elasticsearch_dsl import Q
+from flask import Blueprint, abort, current_app, flash, jsonify, \
+    render_template, request
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
-from .api import Patron
+from .api import Patron, PatronsSearch
 from .utils import user_has_patron
 from ..items.api import Item
 from ..libraries.api import Library
 from ..loans.api import Loan, patron_profile_loans
 from ..locations.api import Location
+from ...permissions import login_and_librarian
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -41,6 +46,50 @@ api_blueprint = Blueprint(
     template_folder='templates',
     static_folder='static',
 )
+
+
+_PID_REGEX = re.compile(r'NOT\s+pid:\s*(\w+)\s*')
+_EMAIL_REGEX = re.compile(r'email:"\s*(.*?)\s*"')
+
+
+def check_permission(fn):
+    """Decorate to check permission access.
+
+    The access is allow when the connected user is a librarian.
+    """
+    @wraps(fn)
+    def is_logged_librarian(*args, **kwargs):
+        """Decorated view."""
+        login_and_librarian()
+        return fn(*args, **kwargs)
+    return is_logged_librarian
+
+
+@api_blueprint.route('/count/', methods=['GET'])
+@check_permission
+def number_of_patrons():
+    """Returns the number of patrons matching the query.
+
+    The query should be one of the following forms:
+      - `/api/patrons/count/?q=email:"test@test.ch"
+      - `/api/patrons/count/?q=email:"test@test.ch" NOT pid:1
+
+    :return: The number of existing user account corresponding to the given
+    email.
+    :rtype: A JSON of the form:{"hits": {"total": 1}}
+    """
+    query = request.args.get('q')
+    email = _EMAIL_REGEX.search(query)
+    if not email:
+        abort(400)
+    email = email.group(1)
+    s = PatronsSearch().query('match', email__analyzed=email)
+    exclude_pid = _PID_REGEX.search(query)
+    if exclude_pid:
+        exclude_pid = exclude_pid.group(1)
+        s = s.filter('bool', must_not=[Q('term', pid=exclude_pid)])
+    response = dict(hits=dict(total=s.count()))
+    return jsonify(response)
 
 
 blueprint = Blueprint(
@@ -52,7 +101,6 @@ blueprint = Blueprint(
 
 
 @blueprint.route('/patrons/logged_user', methods=['GET'])
-# @check_permission
 def logged_user():
     """Current logged user informations in JSON."""
     patron = Patron.get_patron_by_user(current_user)
