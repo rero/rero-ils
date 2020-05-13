@@ -19,9 +19,8 @@
 
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.views import abstracts_format, \
-    authors_format, identifiedby_format, language_format, publishers_format, \
-    series_format
+from rero_ils.modules.documents.views import authors_format, \
+    identifiedby_format, language_format, publishers_format, series_format
 
 
 def test_authors_format(db, document_data):
@@ -46,12 +45,6 @@ def test_series_format():
     assert result == series_format([
         {'name': 'serie 1'}, {'name': 'serie 2', 'number': '2018'}
     ])
-
-
-def test_abstracts_format():
-    """Test series format."""
-    result = 'line1\nline2\nline3'
-    assert result == abstracts_format(['line1\n\n\nline2', 'line3'])
 
 
 def test_language_format_format(app):

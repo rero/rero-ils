@@ -90,7 +90,7 @@
     <!-- ABSTRACT -->
     {% if record.abstracts|length > 0 %}
     <div class="pt-2">
-    {{ div_list(record.abstracts|abstracts_format) }}
+    {{ div_list(record.abstracts) }}
     </div>
     {% endif %}
 
@@ -192,19 +192,6 @@
 {%- block javascript %}
 {{ super() }}
 {% assets "rero_ils_documents_detailed_js" %}
-<script src="{{ ASSET_URL }}"></script>{% endassets %}
-
-<script type="text/javascript">
-$(document).ready(function() {
-    /* Store state of view tab */
-    $('.nav-tabs a[data-toggle="tab"]').on('click', function(e) {
-      e.preventDefault();
-      localStorage.setItem('activeTab', $(this).attr('href'));
-      var activeTab = localStorage.getItem('activeTab');
-      if(activeTab) {
-        $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
-      }
-    });
-});
-</script>
+<script src="{{ ASSET_URL }}"></script>
+{% endassets %}
 {% endblock javascript %}

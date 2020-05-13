@@ -2273,7 +2273,7 @@ def test_marc21_to_physical_description_ill_in_8():
     data = marc21.do(marc21json)
     assert data.get('productionMethod') == ['rdapm:1007']
     assert data.get('extent') == '1 DVD-R (50 min.)'
-    assert data.get('duration') == ['(50 min.)']
+    assert data.get('duration') == ['50 min.']
     assert data.get('illustrativeContent') == ['illustrations']
     assert data.get('colorContent') == ['rdacc:1002']
     assert data.get('bookFormat') == ['8º']
@@ -2306,7 +2306,7 @@ def test_marc21_to_physical_description_multiple_300():
     assert data.get('productionMethod') == \
         ['rdapm:1007', 'rdapm:1009']
     assert data.get('extent') == '1 DVD-R (50 min.)'
-    assert data.get('duration') == ['(50 min.)']
+    assert data.get('duration') == ['50 min.']
     assert data.get('illustrativeContent') == ['illustrations', 'photographs']
     assert data.get('colorContent') == ['rdacc:1002']
     assert data.get('bookFormat') == ['8º', 'in-plano']

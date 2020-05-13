@@ -40,7 +40,13 @@
   {% if record.note %}
   {% set notes = record.note|note_format %}
   {% for key, value in notes.items() %}
-  {{ dl_list(_(key), value) }}
+  {% if key == "general" %}
+  {{ dl_list(_('Note'), value) }}
+  {% elif key == "otherPhysicalDetails" %}
+  {{ dl_list(_('Physical details'), value) }}
+  {% elif key == "accompanyingMaterial" %}
+  {{ dl_list(_('Accompanying material'), value) }}
+  {% endif %}
   {% endfor %}
   {% endif %}
 
@@ -96,13 +102,17 @@
   <!-- Identifier -->
   {% if record.identifiedBy|identifiedby_format|length > 0 %}
   <dt class="col-sm-3">
-    {{ _('Identifier') }}:
+    {{ _('Identifier') }}
   </dt>
   <dd class="col-sm-7 col-md-9 mb-0">
     <ul class="list-unstyled mb-0">
       {% for identifier in record.identifiedBy|identifiedby_format %}
       <li>
+        {% if identifier.type == "uri" %}
+        <a class="rero-ils-external-link" href="{{ identifier.value }}">{{ identifier.value }}</a>
+        {% else %}
         {{ identifier.value }}
+        {% endif %}
         <small class="badge badge-secondary text-uppercase">{{ identifier.type }}</small>
       </li>
       {% endfor %}
@@ -114,7 +124,7 @@
   {% set other_accesses = record|get_other_accesses %}
   {% if other_accesses|length > 0 %}
   <dt class="col-sm-3">
-    {{ _('Related resource') }}:
+    {{ _('Related resource') }}
   </dt>
   <dd class="col-sm-7 col-md-9 mb-0">
     <ul class="list-unstyled mb-0">
@@ -135,9 +145,9 @@
   {{ dl(_('Source'), '<a href="'+ record.source +'" target="_blank">'+ record.source +'</a>') }}
   {% endif %}
   <dt class="col-sm-3">
-    {{ _('Permalink') }}:
+    {{ _('Permalink') }}
   </dt>
   <dd class="col-sm-9 col-md-9">
     {% set permalink = url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=record.pid, _external=True) %}
-    <a class="rero-ils-external-link" href={{ permalink }}>{{ permalink }}</a>
+    <a class="rero-ils-external-link" href="{{ permalink }}">{{ permalink }}</a>
 </dl>
