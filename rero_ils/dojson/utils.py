@@ -528,7 +528,8 @@ class ReroIlsOverdo(Overdo):
                 re.IGNORECASE)
             match = regexp.search(extent)
             if match:
-                add_data_and_sort_list('duration', [match.group(1)], data)
+                duration = match.group(1).strip('()')
+                add_data_and_sort_list('duration', [duration], data)
 
         # note_list = data.get('note', [])
         # intital_note_count = len(note_list)
