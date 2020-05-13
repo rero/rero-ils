@@ -57,7 +57,7 @@
 
 {% macro dl(title, content) %}
   <dt class="col-sm-3">
-    {{ title }}:
+    {{ title }}
   </dt>
   <dd class="col-sm-9 col-md-9 mb-0">
     {{ content|safe }}
@@ -67,7 +67,7 @@
 {% macro dl_row(title, content) %}
   <div class="row">
     <dt class="col-sm-2">
-      {{ title }}:
+      {{ title }}
     </dt>
     <dd class="col-sm-10 col-md-10 mb-0">
       {{ content|safe }}
@@ -78,7 +78,7 @@
 {% macro dl_dict(name, dict) %}
   {% if dict %}
     <dt class="col-sm-3">
-      {{ name }}:
+      {{ name }}
     </dt>
     <dd class="col-sm-9 col-md-9 mb-0">
       {% if dict is string %}
@@ -97,7 +97,7 @@
 {% macro dl_list(name, list) %}
   {% if list %}
     <dt class="col-sm-3">
-      {{ name }}:
+      {{ name }}
     </dt>
     <dd class="col-sm-9 col-md-9 mb-0">
       {% if list is string %}

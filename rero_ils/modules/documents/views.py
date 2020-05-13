@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 import json
-import re
 from functools import wraps
 
 import requests
@@ -273,7 +272,7 @@ def authors_format(pid, language, viewcode):
             line = ', '.join(str(x) for x in line)
         output.append(line)
 
-    return '; '.join(output)
+    return '&#8239;; '.join(output)
 
 
 @blueprint.app_template_filter()
@@ -316,15 +315,6 @@ def series_format(series):
     for serie in series:
         output.append(series_format_text(serie))
     return '; '.join(str(x) for x in output)
-
-
-@blueprint.app_template_filter()
-def abstracts_format(abstracts):
-    """Format abstracts for template."""
-    output = []
-    for abstract in abstracts:
-        output.append(re.sub(r'\n+', '\n', abstract))
-    return '\n'.join(str(x) for x in output)
 
 
 @blueprint.app_template_filter()

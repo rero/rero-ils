@@ -626,19 +626,6 @@
         "issuance": {
           "type": "keyword"
         },
-        "electronicLocator": {
-          "properties": {
-            "publicNote": {
-              "type": "text"
-            },
-            "type": {
-              "type": "keyword"
-            },
-            "url": {
-              "type": "text"
-            }
-          }
-        },
         "organisation": {
           "properties": {
             "pid": {
