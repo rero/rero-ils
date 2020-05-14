@@ -31,7 +31,7 @@ def record_to_index(record):
     If it fails, return the default values.
 
     :param record: The record object.
-    :returns: Tuple (index, doc_type).
+    :return: Tuple (index, doc_type).
     """
     index_names = current_search.mappings.keys()
     schema = record.get('$schema', '')

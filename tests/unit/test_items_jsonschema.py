@@ -43,6 +43,15 @@ def test_pid(item_schema, item_lib_martigny_data_tmp):
         validate(item_lib_martigny_data_tmp, item_schema)
 
 
+def test_type(item_schema, item_lib_martigny_data_tmp):
+    """Test type for item jsonschemas."""
+    validate(item_lib_martigny_data_tmp, item_schema)
+
+    with pytest.raises(ValidationError):
+        item_lib_martigny_data_tmp['type'] = 25
+        validate(item_lib_martigny_data_tmp, item_schema)
+
+
 def test_barcode(item_schema, item_lib_martigny_data_tmp):
     """Test barcode for item jsonschemas."""
     validate(item_lib_martigny_data_tmp, item_schema)

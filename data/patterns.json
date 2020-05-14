@@ -142,7 +142,7 @@
     "template_name": "quarterly_two_levels",
     "rero_control_number": "R003301493",
     "patterns": {
-      "template": "Jg. {{first_enumeration.level_1}} Heft {{enumeration_chronology.level_2}} {{enumeration_chronology.level_1}}",
+      "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
       "first_expected_date": "2020-09-01",
       "values": [

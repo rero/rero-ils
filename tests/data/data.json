@@ -1957,6 +1957,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item1",
     "barcode": "1234",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -1979,6 +1980,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item2",
     "barcode": "78431",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -1995,6 +1997,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item3",
     "barcode": "891011",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -2021,6 +2024,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item4",
     "barcode": "0123987123",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc3"
     },
@@ -2037,6 +2041,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item5",
     "barcode": "8712133",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -2053,6 +2058,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item6",
     "barcode": "87121336",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -2069,6 +2075,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item7",
     "barcode": "789123",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -2085,6 +2092,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item8",
     "barcode": "100200300",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },
@@ -2101,6 +2109,7 @@
     "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item9",
     "barcode": "91231",
+    "type": "standard",
     "document": {
       "$ref": "https://ils.rero.ch/api/documents/doc1"
     },

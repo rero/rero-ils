@@ -193,7 +193,7 @@ def create_holding_record(
 def get_locations():
     """Get all locations.
 
-    :returns: A dict of list of pids with an organisation pid as key.
+    :return: A dict of list of pids with an organisation pid as key.
     """
     to_return = {}
     for pid in Location.get_all_pids():
@@ -208,7 +208,7 @@ def get_locations():
 def get_item_types():
     """Get all item types.
 
-    :returns: A dict of list of pids with an organisation pid as key.
+    :return: A dict of list of pids with an organisation pid as key.
     """
     to_return = {}
     for pid in ItemType.get_all_pids():
@@ -230,6 +230,7 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
     base_url = get_base_url()
     url_api = '{base_url}/api/{doc_type}/{pid}'
     item = {
+        # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
         'pid': str(item_pid),
         'barcode': barcode,
         'call_number': str(item_pid).zfill(5),
@@ -249,7 +250,8 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         'holding': {
             '$ref': url_api.format(
                 base_url=base_url, doc_type='holdings', pid=holding_pid)
-        }
+        },
+        'type': 'standard'
     }
 
     # RANDOMLY ADD NOTES

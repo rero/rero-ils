@@ -25,6 +25,7 @@ from elasticsearch.exceptions import NotFoundError
 from invenio_search import current_search
 
 from .circulation import ItemCirculation
+from .issue import ItemIssue
 from .record import ItemRecord
 from ..models import ItemIdentifier, ItemMetadata
 from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
@@ -61,7 +62,7 @@ class ItemsSearch(IlsRecordsSearch):
         current_search.flush_and_refresh(cls.Meta.index)
 
 
-class Item(ItemRecord, ItemCirculation):
+class Item(ItemRecord, ItemCirculation, ItemIssue):
     """Item class."""
 
     minter = item_id_minter
