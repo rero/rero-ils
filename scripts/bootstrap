@@ -98,7 +98,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 if $deploy  ; then
-  if !$ci ; then
+  if ! $ci ; then
       flags=("--no-dev")
   fi
 fi

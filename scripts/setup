@@ -152,8 +152,6 @@ if ! ${ENABLE_WARNINGS}
 then
     # Disables different warnings from used applications
     # --------------------------------------------------
-    # avoid 'There are .env of .flaskenv' messages
-    export FLASK_SKIP_DOTENV=1
     # avoid Python deprecation warnings
     export PYTHONWARNINGS="ignore::DeprecationWarning"
 fi
