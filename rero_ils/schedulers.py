@@ -79,7 +79,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Get schedule from REDIS DB.
 
         :param name: name of entry in task scheduler
-        :returns: scheduled task
+        :return: scheduled task
         """
         tasks = self.rdb.zrange(self.key, 0, -1) or []
         for idx, task in enumerate(tasks):
@@ -93,7 +93,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Name for enabled value in REDIS DB.
 
         :param name: name of entry in task scheduler
-        :returns: name of the enable key in REDIS DB
+        :return: name of the enable key in REDIS DB
         """
         return '{key}:{name}'.format(key=self.key, name=name)
 
@@ -131,7 +131,7 @@ class RedisScheduler(OriginalRedisScheduler):
         We get the enabled state for the task directly from REDIS DB.
 
         :param entry: periodic task entry (see class commands)
-        :returns: the state of the entry as schedstate
+        :return: the state of the entry as schedstate
         """
         if self.get_entry_enabled(entry.name):
             state = entry.is_due()
@@ -150,7 +150,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Sets an entry.
 
         :param entry: periodic task entry (see class commands)
-        :returns: True if successful
+        :return: True if successful
         """
         # TODO: find a way to change a entry in zrange directly.
         self.remove(entry.name)
@@ -160,7 +160,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Remove a scheduled task.
 
         :param name: name of entry in task scheduler
-        :returns: True if successful
+        :return: True if successful
         """
         enabled_name = self.enabled_name(name)
         if self.rdb.get(enabled_name):
@@ -183,7 +183,7 @@ class RedisScheduler(OriginalRedisScheduler):
 
         :param entry: periodic task entry (see class commands)
         :param enable: enable or disable scheduling
-        :returns: True if successful
+        :return: True if successful
         """
         result = self.add(**{
             'name': entry.name,
@@ -202,7 +202,7 @@ class RedisScheduler(OriginalRedisScheduler):
 
         :param name: name of entry in task scheduler
         :param prefix: prefix to add to returned info
-        :returns: entry as string representative
+        :return: entry as string representative
         """
         entry_as_text = 'Not found entry: {name}'.format(name=name)
         entry = self.get(name)
@@ -234,7 +234,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Display all entries.
 
         :param prefix: prefix to add to returned info
-        :returns: list of entry as string representative
+        :return: list of entry as string representative
         """
         entries_as_text_list = []
         for entry in self.rdb.zrange(self.key, 0, -1):
@@ -248,7 +248,7 @@ class RedisScheduler(OriginalRedisScheduler):
         """Get the enabled status.
 
         :param name: name of entry in task scheduler
-        :returns: enabled status
+        :return: enabled status
         """
         value = self.rdb.get(self.enabled_name(name))
         if value is None or value == b'1':

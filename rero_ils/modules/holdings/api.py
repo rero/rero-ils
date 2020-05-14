@@ -96,7 +96,7 @@ class Holding(IlsRecord):
         Ensures that for the holdings of type serials, if it has a regular
         frequency the first_expected_date should be given.
 
-        :returns: False if
+        :return: False if
             - document type is not journal and holding type is serial.
             - document type is journal and holding type is not serial.
             - document type is ebook and holding type is not electronic.
@@ -252,7 +252,7 @@ class Holding(IlsRecord):
 
         Attached items to a holding record blocks the deletion.
 
-        :returns: a list of records links to the holding record.
+        :return: a list of records links to the holding record.
         """
         links = {}
         # get number of attached items
@@ -304,7 +304,7 @@ class Holding(IlsRecord):
         """Display the text for the next predicted issue.
 
         :param patterns: List of a valid holdings patterns.
-        :returns: A display text of the next predicted issue.
+        :return: A display text of the next predicted issue.
         """
         issue_data = {}
         for pattern in patterns.get('values', []):
@@ -335,7 +335,7 @@ class Holding(IlsRecord):
         """Increment the next predicted issue.
 
         :param patterns: List of a valid holdings patterns.
-        :returns: The updated patterns with the next issue.
+        :return: The updated patterns with the next issue.
         """
         for pattern in patterns.get('values', []):
             for level in reversed(pattern.get('levels', [])):
@@ -356,7 +356,7 @@ class Holding(IlsRecord):
         """Display preview of next predictions.
 
         :param predictions: Number of the next issues to predict.
-        :returns: An array of issues display text.
+        :return: An array of issues display text.
         """
         text = []
         if self.patterns and self.patterns.get('values'):
@@ -373,7 +373,7 @@ class Holding(IlsRecord):
 
         :param predictions: Number of the next issues to predict.
         :param patterns: The patterns to predict.
-        :returns: An array of issues display text.
+        :return: An array of issues display text.
         """
         text = []
         if patterns and patterns.get('values'):
@@ -383,7 +383,7 @@ class Holding(IlsRecord):
         return text
 
 
-def get_holding_pid_by_doc_location_item_type(
+def get_standard_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid, holdings_type='standard'):
     """Returns standard holding pid for document/location/item type."""
     result = HoldingsSearch().filter(
@@ -456,9 +456,9 @@ def create_holding(
     data['holdings_type'] = holdings_type
     if patterns and holdings_type == 'serial':
         data['patterns'] = patterns
-    record = Holding.create(
+    holding = Holding.create(
         data, dbcommit=True, reindex=True, delete_pid=True)
-    return record.get('pid')
+    return holding
 
 
 class HoldingsIndexer(IlsRecordsIndexer):
