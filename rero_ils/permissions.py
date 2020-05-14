@@ -39,7 +39,7 @@ editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 def user_is_authenticated(user=None):
     """Checks if user is authenticated.
 
-    :returns: True if user is logged in and authenticated.
+    :return: True if user is logged in and authenticated.
     :returns False if user is not logged or not authenticated.
     """
     if not user:
@@ -52,7 +52,7 @@ def user_is_authenticated(user=None):
 def staffer_is_authenticated(user=None):
     """Checks if user (librarian or system_librarian) is authenticated.
 
-    :returns: patron records if user is logged in and authenticated and has
+    :return: patron records if user is logged in and authenticated and has
     librarian or system_librarian role.
     :returns False otherwise.
     """
@@ -85,7 +85,7 @@ def user_has_roles(user=None, roles=[], condition='or'):
 def patron_is_authenticated(user=None):
     """Checks if user (with role patron) is authenticated.
 
-    :returns: Patron records if user is logged in and authenticated and has
+    :return: Patron records if user is logged in and authenticated and has
     the patron role.
     :returns False otherwise.
     """
