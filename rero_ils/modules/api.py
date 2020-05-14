@@ -441,7 +441,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """Bulk index action.
 
         :param payload: Decoded message body.
-        :returns: Dictionary defining an Elasticsearch bulk 'index' action.
+        :return: Dictionary defining an Elasticsearch bulk 'index' action.
         """
         with db.session.begin_nested():
             record = self.record_cls.get_record(payload['id'])
@@ -471,7 +471,7 @@ class IlsRecordsIndexer(RecordIndexer):
         :param doc_type: The Elasticsearch document type.
         :param arguments: The arguments to send to Elasticsearch upon indexing.
         :param **kwargs: Extra parameters.
-        :returns: The record metadata.
+        :return: The record metadata.
         """
         if current_app.config['INDEXER_REPLACE_REFS']:
             data = record.replace_refs().dumps()

@@ -62,14 +62,12 @@ def test_item_get_items_pid_by_document_pid(document, item_lib_martigny):
 def test_item_create(item_lib_martigny_data_tmp, item_lib_martigny):
     """Test itemanisation creation."""
     item = Item.create(item_lib_martigny_data_tmp, delete_pid=True)
-    del item['holding']
     assert item == item_lib_martigny_data_tmp
     # we have used item_lib_martigny_data_tmp two times -> pid == 2
     assert item.get('pid') == '2'
     assert item.can_delete
 
     item = Item.get_record_by_pid('1')
-    del item['holding']
     item_lib_martigny_data_tmp['pid'] = '1'
     assert item == item_lib_martigny_data_tmp
 

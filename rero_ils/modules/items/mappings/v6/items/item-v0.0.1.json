@@ -45,6 +45,28 @@
         "status": {
           "type": "keyword"
         },
+        "type": {
+          "type": "keyword"
+        },
+        "issue": {
+          "properties": {
+            "display_text": {
+              "type": "keyword"
+            },
+            "received_date": {
+              "type": "date"
+            },
+            "expected_date": {
+              "type": "date"
+            },
+            "regular": {
+              "type": "boolean"
+            },
+            "status": {
+              "type": "keyword"
+            }
+          }
+        },
         "available": {
           "type": "boolean"
         },

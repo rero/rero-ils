@@ -20,6 +20,8 @@
 from __future__ import absolute_import, print_function
 
 import json
+import random
+from datetime import datetime
 
 import click
 from flask.cli import with_appcontext
@@ -27,9 +29,10 @@ from flask.cli import with_appcontext
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import create_holding
 from ..item_types.api import ItemTypesSearch
+from ..items.api import Item
 from ..locations.api import LocationsSearch
 from ..organisations.api import Organisation
-from ..utils import read_json_record
+from ..utils import get_ref_for_pid, get_schema_for_resource, read_json_record
 
 
 def get_document_pid_by_rero_number(rero_control_number):
@@ -45,7 +48,7 @@ def get_location(library_pid):
     """Get a location pid for the given library pid.
 
     :param library_pid: a valid library pid.
-    :returns: pid of location.
+    :return: pid of location.
     """
     results = LocationsSearch().source(['pid'])\
         .filter('term', library__pid=library_pid)\
@@ -55,9 +58,10 @@ def get_location(library_pid):
 
 
 def get_circ_category(org_pid):
-    """Get random circ category for an organisation pid."""
+    """Get a random standard circulation category for an organisation pid."""
     results = ItemTypesSearch().source(['pid'])\
         .filter('term', organisation__pid=org_pid)\
+        .filter('term', type='standard')\
         .scan()
     records = [record.pid for record in results]
     return next(iter(records or []), None)
@@ -68,6 +72,47 @@ def get_random_location(org_pid):
     org = Organisation.get_record_by_pid(org_pid)
     libraries = [library.pid for library in org.get_libraries()]
     return get_location(next(iter(libraries or []), None))
+
+
+def create_issues_from_holding(holding, min=2, max=9):
+    """Receive randomly new issues.
+
+    :param holding: the holding record.
+    :param min, max: the min and max range to randomly create number of issues.
+    """
+    for issue_number in range(1, random.randint(min, max)):
+        # TODO: when the issue api is implemented the correct
+        # expected date will given
+        first_expected_date = holding.get(
+            'patterns').get('first_expected_date')
+        call_number = '{pid}_{issue}'.format(
+            pid=holding.pid, issue=str(issue_number).zfill(5))
+        issue = {
+            '$schema': get_schema_for_resource(Item),
+            'type': 'issue',
+            'status': 'on_shelf',
+            'item_type': holding.get('circulation_category'),
+            'location': holding.get('location'),
+            'document': holding.get('document'),
+            'call_number': call_number,
+            'holding': {'$ref': get_ref_for_pid(
+                'hold',
+                holding.pid
+            )},
+            'organisation': {'$ref': get_ref_for_pid(
+                'org',
+                holding.organisation_pid
+            )},
+            'issue': {
+                'regular': True,
+                'status': 'received',
+                'expected_date': first_expected_date,
+                'received_date': datetime.now().strftime('%Y-%m-%d'),
+                'display_text': holding.next_issue_display_text
+            }
+        }
+        Item.create(data=issue, dbcommit=True, reindex=True)
+        holding.increment_next_prediction()
 
 
 @click.command('create_patterns')
@@ -104,20 +149,22 @@ def create_patterns(infile, verbose, debug, lazy):
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
             location_pid = get_random_location(org_pid)
-            holding_pid = create_holding(
+            holdings_record = create_holding(
                 document_pid=document_pid,
                 location_pid=location_pid,
                 item_type_pid=circ_category_pid,
                 holdings_type='serial',
                 patterns=patterns)
+            # create 2 received issues for this holdings/pattern
+            create_issues_from_holding(holdings_record)
             click.echo(
                 '{ptr_str}{template}{hld_str} {holding} {doc_str} {document}'
                 .format(
                     ptr_str='Pattern <',
-                    hld_str='> created for holdings_pid',
+                    hld_str='> created (and 2 rcvd issues) for holdings_pid',
                     doc_str='and document_pid',
                     template=template_name,
-                    holding=holding_pid,
+                    holding=holdings_record.pid,
                     document=document_pid
                 ))
         record_index = record_index + 1

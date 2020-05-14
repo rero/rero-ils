@@ -35,7 +35,7 @@ def and_term_filter(field):
     """Create a term filter.
 
     :param field: Field name.
-    :returns: Function that returns a boolean AND query between term values.
+    :return: Function that returns a boolean AND query between term values.
     """
     def inner(values):
         must = []
@@ -149,7 +149,7 @@ def search_factory(self, search, query_parser=None):
 
     :param self: REST view.
     :param search: Elastic search DSL search instance.
-    :returns: Tuple with search instance and URL arguments.
+    :return: Tuple with search instance and URL arguments.
     """
     def _default_parser(qstr=None, query_boosting=[]):
         """Default parser that uses the Q() from elasticsearch_dsl."""

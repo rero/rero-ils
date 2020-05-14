@@ -145,16 +145,14 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     assert res.status_code == 201
 
     # Check that the returned record matches the given data
-    for deleted_key in ['holding', 'available']:
-        data['metadata'].pop(deleted_key)
+    data['metadata'].pop('available')
     assert data['metadata'] == item_lib_martigny_data
 
     res = client.get(item_url)
     assert res.status_code == 200
 
     data = get_json(res)
-    for deleted_key in ['holding', 'available']:
-        data['metadata'].pop(deleted_key)
+    data['metadata'].pop('available')
     assert item_lib_martigny_data == data['metadata']
 
     # Update record/PUT
