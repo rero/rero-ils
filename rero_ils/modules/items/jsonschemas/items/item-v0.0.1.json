@@ -10,6 +10,7 @@
     "location",
     "barcode",
     "item_type",
+    "type",
     "document",
     "status"
   ],
@@ -87,8 +88,7 @@
       }
     },
     "item_type": {
-      "title": "Item Type",
-      "description": "Item type of the item.",
+      "title": "Circulation category of the item",
       "type": "object",
       "required": [
         "$ref"
@@ -103,6 +103,90 @@
               "type": "item_types"
             }
           }
+        }
+      }
+    },
+    "type": {
+      "title": "Item type",
+      "type": "string",
+      "enum": [
+        "standard",
+        "issue"
+      ],
+      "default": "standard"
+    },
+    "issue": {
+      "title": "Issue",
+      "type": "object",
+      "required": [
+        "display_text",
+        "received_date",
+        "expected_date",
+        "regular",
+        "status"
+      ],
+      "propertiesOrder": [
+        "display_text",
+        "received_date",
+        "expected_date",
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "title": "Issue status",
+          "type": "string",
+          "default": "received",
+          "enum": [
+            "received",
+            "claimed"
+          ]
+        },
+        "display_text": {
+          "title": "displayed text",
+          "type": "string",
+          "minLength": 1
+        },
+        "received_date": {
+          "format": "date",
+          "title": "Date of reception",
+          "type": "string",
+          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+          "form": {
+            "type": "datepicker",
+            "wrappers": [
+              "form-field"
+            ],
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+              }
+            }
+          }
+        },
+        "expected_date": {
+          "format": "date",
+          "title": "Expected date",
+          "type": "string",
+          "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
+          "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+          "form": {
+            "type": "datepicker",
+            "wrappers": [
+              "form-field"
+            ],
+            "validation": {
+              "messages": {
+                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+              }
+            }
+          }
+        },
+        "regular": {
+          "title": "Regularity",
+          "type": "boolean",
+          "default": true
         }
       }
     },

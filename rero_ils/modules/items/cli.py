@@ -191,7 +191,7 @@ def create_holding_record(
 def get_locations():
     """Get all locations.
 
-    :returns: A dict of list of pids with an organisation pid as key.
+    :return: A dict of list of pids with an organisation pid as key.
     """
     to_return = {}
     for pid in Location.get_all_pids():
@@ -206,7 +206,7 @@ def get_locations():
 def get_item_types():
     """Get all item types.
 
-    :returns: A dict of list of pids with an organisation pid as key.
+    :return: A dict of list of pids with an organisation pid as key.
     """
     to_return = {}
     for pid in ItemType.get_all_pids():
@@ -247,7 +247,8 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         'holding': {
             '$ref': url_api.format(
                 doc_type='holdings', pid=holding_pid)
-        }
+        },
+        'type': 'standard'
     }
     return missing, item
 

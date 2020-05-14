@@ -24,25 +24,48 @@ from ...api import IlsRecord
 from ...libraries.api import Library
 from ...locations.api import Location
 from ...organisations.api import Organisation
-from ...utils import generate_item_barcode, trim_barcode_for_record
+from ...utils import extracted_data_from_ref, generate_item_barcode, \
+    get_ref_for_pid, trim_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
     """Item record class."""
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        Ensures that item of type issue is created only on
+        holdings of type serials.
+
+        Ensures that item of type issue has the issue field.
+
+        Ensures that standard item has no issue field.
+
+        :return: False if
+            - holdings type is not journal and item type is issue.
+            - item type is journal and field issue exists.
+            - item type is standard and field issue does not exists.
+        """
+        from ...holdings.api import Holding
+        holding = Holding.get_record_by_pid(self.holding_pid)
+        is_serial = holding.holdings_type == 'serial'
+        if is_serial and self.get('type') == 'standard':
+            return False
+        issue = self.get('issue', {})
+        if issue and self.get('type') == 'standard':
+            return False
+        if self.get('type') == 'issue' and not issue:
+            return False
+        return True
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=False,
                dbcommit=False, reindex=False, **kwargs):
         """Create item record."""
         cls._item_build_org_ref(data)
-        data = trim_barcode_for_record(data=data)
-        # Since the barcode is a mandatory field, we set it to current
-        # timestamp if not given
-        data = generate_item_barcode(data=data)
+        data = cls._prepare_item_record(data=data, mode='create')
         record = super(ItemRecord, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        if not data.get('holding'):
-            record.link_item_to_holding()
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
@@ -51,13 +74,11 @@ class ItemRecord(IlsRecord):
         :param data: The record to update.
         :param dbcommit: boolean to commit the record to the database or not.
         :param reindex: boolean to reindex the record or not.
-        :returns: The updated item record.
+        :return: The updated item record.
         """
-        data = trim_barcode_for_record(data=data)
-        data = generate_item_barcode(data=data)
+        data = self._prepare_item_record(data=data, mode='update')
         super(ItemRecord, self).update(data, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
-        self.link_item_to_holding()
 
         return self
 
@@ -67,7 +88,7 @@ class ItemRecord(IlsRecord):
         :param data: The record to replace.
         :param dbcommit: boolean to commit the record to the database or not.
         :param reindex: boolean to reindex the record or not.
-        :returns: The replaced item record.
+        :return: The replaced item record.
         """
         # update item record with a generated barcode if does not exist
         data = generate_item_barcode(data=data)
@@ -91,38 +112,71 @@ class ItemRecord(IlsRecord):
         }
         data['organisation'] = org_ref
 
-    def link_item_to_holding(self):
+    @classmethod
+    def link_item_to_holding(cls, record, mode):
         """Complete the item record.
 
         Link an item to a standard holding record.
+        Only holdings check is made at the update mode.
+
+        :param record: the item record.
+        :param mode: update or create mode.
+        :return: the updated record with matched holdings record
         """
+        if mode == 'create' and record.get('holding'):
+            return record
+
+        old_holding_pid = None
+        if record.get('holding'):
+            old_holding_pid = extracted_data_from_ref(
+                record['holding'], data='pid')
+
         from ...holdings.api import \
             get_standard_holding_pid_by_doc_location_item_type, \
             create_holding
-
-        item = self.replace_refs()
-        document_pid = item.get('document').get('pid')
+        # get pids from $ref
+        document_pid = extracted_data_from_ref(record['document'], data='pid')
+        location_pid = extracted_data_from_ref(record['location'], data='pid')
+        item_type_pid = extracted_data_from_ref(
+            record['item_type'], data='pid')
 
         holding_pid = get_standard_holding_pid_by_doc_location_item_type(
-            document_pid, self.location_pid, self.item_type_pid)
+            document_pid, location_pid, item_type_pid)
 
         if not holding_pid:
-            holding_pid = create_holding(
+            holdings_record = create_holding(
                 document_pid=document_pid,
-                location_pid=self.location_pid,
-                item_type_pid=self.item_type_pid)
+                location_pid=location_pid,
+                item_type_pid=item_type_pid)
+            holding_pid = holdings_record.pid
 
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        # update item record with the parent holding record
-        self['holding'] = {
-            '$ref': url_api.format(
-                base_url=base_url,
-                doc_type='holdings',
-                pid=holding_pid)
-        }
-        self.commit()
-        self.dbcommit(reindex=True, forceindex=True)
+        # update item record with the parent holding record if different
+        # from the old holding pid
+        if not old_holding_pid or holding_pid != old_holding_pid:
+            record['holding'] = {'$ref': get_ref_for_pid(
+                'hold',
+                holding_pid
+            )}
+        return record
+
+    @classmethod
+    def _prepare_item_record(cls, data, mode):
+        """Prepare item data before the creation.
+
+        Trims the barcode.
+        Relinks to the correct holdings record.
+        Generates a barcode if not given.
+
+        :param data: the item record.
+        :param mode: update or create mode.
+        :return: the modified record.
+        """
+        data = trim_barcode_for_record(data=data)
+        # Since the barcode is a mandatory field, we set it to current
+        # timestamp if not given
+        data = generate_item_barcode(data=data)
+        data = cls.link_item_to_holding(data, mode)
+        return data
 
     @classmethod
     def get_items_pid_by_holding_pid(cls, holding_pid):

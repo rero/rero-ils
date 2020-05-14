@@ -58,7 +58,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     :param record: Record object.
     :param template: Template to render.
     :param \*\*kwargs: Additional view arguments based on URL rule.
-    :returns: The rendered template.
+    :return: The rendered template.
     """
     record_viewed.send(
         current_app._get_current_object(), pid=pid, record=record)
