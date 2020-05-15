@@ -17,6 +17,7 @@
 
 """Poetry script utils."""
 
+import os
 import subprocess
 import sys
 
@@ -29,9 +30,6 @@ import sys
 
 def run(prg_name):  # python 3.7+, otherwise define each script manually
     def fn():
-        res = subprocess.run(
-            [prg_name] + sys.argv[1:]
-        )  # run whatever you like based on 'name
-        if res.returncode:
-            sys.exit(res.returncode)
+        # Replace current Python program by prg_name (same PID)
+        os.execvp(prg_name, [prg_name] + sys.argv[1:])
     return fn
