@@ -26,8 +26,7 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.documents.utils import clean_text
 from rero_ils.modules.documents.views import can_request, \
-    item_library_pickup_locations, item_status_text, number_of_requests, \
-    patron_request_rank, requested_this_item
+    item_library_pickup_locations
 
 
 def test_documents_permissions(client, document, json_header):
@@ -326,16 +325,11 @@ def test_document_can_request_view(client, item_lib_fully,
     """Test can request on document view."""
     login_user_via_session(client, patron_martigny_no_email.user)
 
-    assert not patron_request_rank(item_lib_fully)
-
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',
         patron_martigny_no_email.user
     ):
         assert can_request(item_lib_fully)
-        assert not requested_this_item(item_lib_fully)
-        assert number_of_requests(item_lib_fully) == 1
-        assert number_of_requests(item_lib_martigny) == 0
         assert not can_request(item_lib_sion)
 
     with mock.patch(
@@ -343,14 +337,6 @@ def test_document_can_request_view(client, item_lib_fully,
         patron2_martigny_no_email.user
     ):
         assert not can_request(item_lib_fully)
-        assert requested_this_item(item_lib_fully)
-        assert patron_request_rank(item_lib_fully)
-
-    status = item_status_text(item_lib_fully, format='medium', locale='en')
-    assert status == 'not available (requested)'
-
-    status = item_status_text(item_lib_martigny, format='medium', locale='en')
-    assert status == 'available'
 
     picks = item_library_pickup_locations(item_lib_fully)
     assert len(picks) == 3

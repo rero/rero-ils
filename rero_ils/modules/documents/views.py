@@ -38,14 +38,12 @@ from .utils import display_alternate_graphic_first, edition_format_text, \
     series_format_text, title_format_text_alternate_graphic, \
     title_format_text_head, title_variant_format_text
 from ..holdings.api import Holding
-from ..items.api import Item
-from ..items.models import ItemCirculationAction, ItemStatus
+from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
 from ..persons.api import Person
-from ...filter import format_date_filter
 from ...permissions import login_and_librarian
 
 
@@ -210,36 +208,6 @@ def can_request(item):
 
 
 @blueprint.app_template_filter()
-def requested_this_item(item):
-    """Check if the current user has requested a given item."""
-    if current_user.is_authenticated:
-        patron = Patron.get_patron_by_user(current_user)
-        if patron and 'patron' in patron.get('roles'):
-            patron_barcode = patron.get('barcode')
-            requested = item.is_requested_by_patron(patron_barcode)
-            if requested:
-                return True
-    return False
-
-
-@blueprint.app_template_filter()
-def number_of_requests(item):
-    """Get number of requests for a given item."""
-    return item.number_of_requests()
-
-
-@blueprint.app_template_filter()
-def patron_request_rank(item):
-    """Get the rank of patron in list of requests on this item."""
-    if current_user.is_authenticated:
-        patron = Patron.get_patron_by_user(current_user)
-        if patron:
-            patron_barcode = patron.get('barcode')
-            return Item.patron_request_rank(item, patron_barcode)
-    return False
-
-
-@blueprint.app_template_filter()
 def authors_format(pid, language, viewcode):
     """Format authors for template in given language."""
     doc = Document.get_record_by_pid(pid)
@@ -294,21 +262,6 @@ def note_format(notes):
 
 
 @blueprint.app_template_filter()
-def publishers_format(publishers):
-    """Format publishers for template."""
-    output = []
-    for publisher in publishers:
-        line = []
-        places = publisher.get('place', [])
-        if len(places) > 0:
-            line.append('; '.join(str(x) for x in places) + ': ')
-        names = publisher.get('name')
-        line.append('; '.join(str(x) for x in names))
-        output.append(''.join(str(x) for x in line))
-    return '; '.join(str(x) for x in output)
-
-
-@blueprint.app_template_filter()
 def series_format(series):
     """Format series for template."""
     output = []
@@ -342,27 +295,6 @@ def item_library_pickup_locations(item):
             Location.get_record_by_pid(library.get_pickup_location_pid())
             for library in org.get_libraries()
         ]))
-
-
-@blueprint.app_template_filter()
-def item_status_text(item, format='medium', locale='en'):
-    """Text for item status."""
-    if item.available:
-        text = _('available')
-    else:
-        text = _('not available')
-        if item.status == ItemStatus.ON_LOAN:
-            due_date = format_date_filter(
-                item.get_item_end_date(format=format),
-                format=format,
-                locale=locale
-            )
-            text += ' ({0} {1})'.format(_('due until'), due_date)
-        elif item.number_of_requests() > 0:
-            text += ' ({0})'.format(_('requested'))
-            if item.status == ItemStatus.IN_TRANSIT:
-                text += ' ({0})'.format(_(ItemStatus.IN_TRANSIT))
-    return text
 
 
 @blueprint.app_template_filter()

@@ -20,7 +20,7 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import authors_format, \
-    identifiedby_format, language_format, publishers_format, series_format
+    identifiedby_format, language_format, series_format
 
 
 def test_authors_format(db, document_data):
@@ -28,15 +28,6 @@ def test_authors_format(db, document_data):
     result = 'Vincent, Sophie'
     doc = Document.create(document_data, delete_pid=True)
     assert result == authors_format(doc.pid, 'en', 'global')
-
-
-def test_publishers_format():
-    """Test publishers format."""
-    result = 'Foo; place1; place2: Foo; Bar'
-    assert result == publishers_format([
-        {'name': ['Foo']},
-        {'place': ['place1', 'place2'], 'name': ['Foo', 'Bar']}
-    ])
 
 
 def test_series_format():

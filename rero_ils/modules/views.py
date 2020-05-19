@@ -19,9 +19,12 @@
 
 from __future__ import absolute_import, print_function
 
+import os
 from functools import wraps
 
-from flask import Blueprint, jsonify
+import polib
+from flask import Blueprint, abort, jsonify
+from flask_babelex import get_domain
 from flask_login import current_user
 
 from .permissions import record_update_delete_permissions
@@ -57,3 +60,34 @@ def permissions(route_name, record_pid):
     """
     return record_update_delete_permissions(
         record_pid=record_pid, route_name=route_name)
+
+
+@api_blueprint.route('/translations/<ln>.json')
+def translations(ln):
+    """Exposes translations in JSON format.
+
+    :param ln: language ISO 639-1 Code (two chars).
+    """
+    domain = get_domain()
+    paths = domain.paths
+    try:
+        path = next(p for p in paths if p.find('rero_ils') > -1)
+    except StopIteration:
+        current_app.logger.error(
+            'translations for {ln} does not exist'.format(ln=ln))
+        abort(404)
+
+    po_file_name = '{path}/{ln}/LC_MESSAGES/{domain}.po'.format(
+        path=path, ln=ln, domain=domain.domain)
+    if not os.path.isfile(po_file_name):
+        abort(404)
+    data = {}
+    try:
+        po = polib.pofile(po_file_name)
+    except Exception:
+        current_app.logger.error(
+            'unable to open po file: {po}'.format(po=po_file_name))
+        abort(404)
+    for entry in po:
+        data[entry.msgid] = entry.msgstr
+    return jsonify(data)

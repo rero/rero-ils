@@ -82,7 +82,8 @@ setup(
             'rero-ils = rero_ils.modules.ext:REROILSAPP'
         ],
         'invenio_base.api_apps': [
-            'rero-ils = rero_ils.modules.ext:REROILSAPP'
+            'rero-ils = rero_ils.modules.ext:REROILSAPP',
+            'invenio_i18n = invenio_i18n:InvenioI18N'
         ],
         'invenio_base.blueprints': [
             'rero_ils = rero_ils.views:blueprint',
