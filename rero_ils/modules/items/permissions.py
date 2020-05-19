@@ -21,12 +21,32 @@
 from ...permissions import staffer_is_authenticated
 
 
-def can_update_delete_item_factory(record, *args, **kwargs):
-    """Checks if logged user can update or delete its organisation items.
+def can_delete_item_factory(record, *args, **kwargs):
+    """Checks if logged user can delete its organisation items.
 
     librarian must have librarian or system_librarian role.
-    librarian can only update, delete items of its affiliated library.
-    sys_librarian can update, delete any item of its org only.
+    librarian can only delete items of its affiliated library.
+    sys_librarian can delete any item of its org only.
+    """
+    def can(self):
+        patron = staffer_is_authenticated()
+        if patron:
+            # a regular issue cannot be delete. We can only change the issue
+            # status to 'deleted'
+            if record.item_record_type == 'issue' and record.issue_is_regular:
+                return False
+            if patron.organisation_pid == record.organisation_pid:
+                return check_patron_library_permissions(patron, record)
+        return False
+    return type('Check', (), {'can': can})()
+
+
+def can_update_item_factory(record, *args, **kwargs):
+    """Check if logged user can update an item.
+
+    - logged user must have librarian or system_librarian role.
+    - librarian can only update items of its affiliated library.
+    - system_librarian can update any item of its organisation only.
     """
     def can(self):
         patron = staffer_is_authenticated()

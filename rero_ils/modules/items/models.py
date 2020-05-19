@@ -19,8 +19,6 @@
 
 from __future__ import absolute_import
 
-from enum import Enum
-
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase
@@ -45,7 +43,7 @@ class ItemMetadata(db.Model, RecordMetadataBase):
     __tablename__ = 'item_metadata'
 
 
-class ItemStatus(object):
+class ItemStatus:
     """Class holding all availabe circulation item statuses."""
 
     ON_SHELF = 'on_shelf'
@@ -56,7 +54,15 @@ class ItemStatus(object):
     MISSING = 'missing'
 
 
-class ItemCirculationAction(Enum):
+class ItemIssueStatus:
+    """Enum class to list all possible status of an issue item."""
+
+    RECEIVED = 'received'
+    CLAIMED = 'claimed'
+    DELETED = 'deleted'
+
+
+class ItemCirculationAction:
     """Enum class to list all possible action about an item."""
 
     CHECKOUT = 'checkout'

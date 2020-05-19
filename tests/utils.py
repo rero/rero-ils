@@ -63,7 +63,7 @@ def get_json(response):
     return json.loads(response.get_data(as_text=True))
 
 
-def postdata(client, endpoint, data=None, headers=None):
+def postdata(client, endpoint, data=None, headers=None, url_data=None):
     """
     Build URL from given endpoint and send given data to it.
 
@@ -76,8 +76,10 @@ def postdata(client, endpoint, data=None, headers=None):
             ('Accept', 'application/json'),
             ('Content-Type', 'application/json')
         ]
+    if url_data is None:
+        url_data = {}
     res = client.post(
-        url_for(endpoint),
+        url_for(endpoint, **url_data),
         data=json.dumps(data),
         content_type='application/json',
         headers=headers

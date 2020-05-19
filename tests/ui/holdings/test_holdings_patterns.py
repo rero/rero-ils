@@ -27,6 +27,7 @@ import jinja2
 import pytest
 from invenio_accounts.testutils import login_user_via_session
 
+from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
@@ -544,7 +545,12 @@ def test_regular_issue_creation_update_delete_api(
     item.pop('holding')
     with pytest.raises(RecordValidationError):
         issue.update(data=item, dbcommit=True, reindex=True)
+    # Unable to delete a regular issue
+    with pytest.raises(IlsRecordError.NotDeleted):
+        created_issue.delete(dbcommit=True, delindex=True)
+
     # no errors when deleting an irregular issue
     pid = created_issue.pid
+    created_issue.get('issue')['regular'] = False
     created_issue.delete(dbcommit=True, delindex=True)
     assert not Item.get_record_by_pid(pid)
