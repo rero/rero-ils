@@ -92,7 +92,7 @@ ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# PIPENV is a mandatory condition to launch this program!
+# POETRY is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
@@ -162,7 +162,7 @@ celery purge -A rero_ils.celery -f
 # Clean redis
 info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
-eval ${PREFIX} pipenv run invenio scheduler init -r
+eval ${PREFIX} invenio scheduler init -r
 
 eval ${PREFIX} invenio db destroy --yes-i-know
 eval ${PREFIX} invenio db init create
@@ -370,8 +370,8 @@ then
     eval ${PREFIX} invenio oaiharvester harvest -n ebooks -q -k
 else
     eval ${PREFIX} invenio scheduler enable_tasks -n bulk-indexer -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
-    info_msg "Start OAI harvesting 100"
-    eval ${PREFIX} invenio oaiharvester harvest -n ebooks -a max=100 -q
+    info_msg "For ebooks harvesting run:"
+    msg "\tinvenio oaiharvester harvest -n ebooks -a max=100 -q"
 fi
 
 if ${ES_MAPPING}
