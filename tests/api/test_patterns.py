@@ -134,7 +134,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
-        dict(holdings_pid=holding.pid)
+        url_data=dict(holding_pid=holding.pid)
     )
     assert res.status_code == 401
 
@@ -144,7 +144,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
-        dict(holdings_pid=holding.pid)
+        url_data=dict(holding_pid=holding.pid)
     )
     assert res.status_code == 401
     # only users of same organisation may receive issues.
@@ -152,7 +152,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
-        dict(holdings_pid=holding.pid)
+        url_data=dict(holding_pid=holding.pid)
     )
     assert res.status_code == 401
 
@@ -160,7 +160,7 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
-        dict(holdings_pid=holding.pid)
+        url_data=dict(holding_pid=holding.pid)
     )
     assert res.status_code == 200
     issue = get_json(res).get('issue')
@@ -178,7 +178,8 @@ def test_receive_regular_issue_api(
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
-        {'holdings_pid': holding.pid, 'item': item}
+        data=dict(item=item),
+        url_data=dict(holding_pid=holding.pid)
     )
     assert res.status_code == 200
     issue = get_json(res).get('issue')

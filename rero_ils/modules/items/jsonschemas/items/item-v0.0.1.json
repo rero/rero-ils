@@ -20,6 +20,9 @@
     "item_type",
     "location",
     "status",
+    "type",
+    "status",
+    "issue",
     "notes"
   ],
   "properties": {
@@ -28,7 +31,7 @@
       "description": "Schema to validate item records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schemas/items/item-v0.0.1.json"
+      "default": "https://ils.rero.ch/schema/items/item-v0.0.1.json"
     },
     "pid": {
       "title": "Item ID",
@@ -74,6 +77,9 @@
             "fieldMap": "location"
           }
         }
+      },
+      "form": {
+        "hideExpression": "field.parent.model.type === 'issue'"
       }
     },
     "document": {
@@ -105,6 +111,9 @@
             }
           }
         }
+      },
+      "form": {
+        "hideExpression": "field.parent.model.type === 'issue'"
       }
     },
     "type": {
@@ -114,7 +123,10 @@
         "standard",
         "issue"
       ],
-      "default": "standard"
+      "default": "standard",
+      "form": {
+        "hideExpression": "true"
+      }
     },
     "issue": {
       "title": "Issue",
@@ -130,6 +142,7 @@
         "display_text",
         "received_date",
         "expected_date",
+        "regular",
         "status"
       ],
       "additionalProperties": false,
@@ -174,6 +187,7 @@
           "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "form": {
+            "hideExpression": "field.parent.model.regular",
             "type": "datepicker",
             "wrappers": [
               "form-field"
@@ -188,8 +202,14 @@
         "regular": {
           "title": "Regularity",
           "type": "boolean",
-          "default": true
+          "default": true,
+          "form": {
+            "hideExpression": "true"
+          }
         }
+      },
+      "form": {
+        "hideExpression": "field.parent.model.type !== 'issue'"
       }
     },
     "status": {
