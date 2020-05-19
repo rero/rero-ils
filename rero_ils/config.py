@@ -56,7 +56,7 @@ from .modules.item_types.api import ItemType
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import can_create_item_factory, \
-    can_update_delete_item_factory
+    can_delete_item_factory, can_update_item_factory
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_update_library_factory
 from .modules.loans.api import Loan
@@ -468,8 +468,8 @@ RECORDS_REST_ENDPOINTS = dict(
         read_permission_factory_imp=allow_all,
         list_permission_factory_imp=allow_all,
         create_permission_factory_imp=can_create_item_factory,
-        update_permission_factory_imp=can_update_delete_item_factory,
-        delete_permission_factory_imp=can_update_delete_item_factory,
+        update_permission_factory_imp=can_update_item_factory,
+        delete_permission_factory_imp=can_delete_item_factory,
     ),
     itty=dict(
         pid_type='itty',
@@ -1426,6 +1426,12 @@ RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
 )
 RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
     query='bestmatch', noquery='name')
+
+# ------ ITEMS SORT
+RECORDS_REST_SORT_OPTIONS['items']['issue_expected_date'] = dict(
+    fields=['issue.expected_date'], title='Issue expected date',
+    default_order='asc'
+)
 
 # Detailed View Configuration
 # ===========================

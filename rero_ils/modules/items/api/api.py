@@ -115,6 +115,10 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
         links = self.get_links_to_me()
         if links:
             cannot_delete['links'] = links
+        if self.item_record_type == 'issue' and self.issue_is_regular:
+            cannot_delete['others'] = dict(
+                regular_issue_cannot_be_deleted=True
+            )
         return cannot_delete
 
     def dumps(self, **kwargs):

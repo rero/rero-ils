@@ -42,3 +42,8 @@ class ItemIssue(IlsRecord):
     def issue_status(self):
         """Shortcut for issue status."""
         return self.get('issue', {}).get('status')
+
+    @property
+    def issue_is_regular(self):
+        """Shortcut for issue is regular."""
+        return self.get('issue', {}).get('regular', True)

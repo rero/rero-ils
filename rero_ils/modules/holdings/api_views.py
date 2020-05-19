@@ -117,24 +117,24 @@ def pattern_preview():
     return jsonify({'issues': issues})
 
 
-@api_blueprint.route('/receive_regular_issue', methods=['POST'])
+@api_blueprint.route('/<holding_pid>/issues', methods=['POST'])
 @jsonify_error
 @check_authentication
-def receive_regular_issue():
+def receive_regular_issue(holding_pid):
     """HTTP POST for receiving the next expected issue for a holding.
 
     For a quick receive, do not pass the item parameter
     For a customized receive, send the item fields in the item parameter.
 
     Required parameters:
-        holdings_pid the pid of the holdings.
+        holding_pid: the pid of the holdings.
     Optional parameters:
         item: the item of type issue to create.
     """
     data = flask_request.get_json()
-    holding = Holding.get_record_by_pid(data.get('holdings_pid'))
+    holding = Holding.get_record_by_pid(holding_pid)
     if not holding:
-        abort(404)
+        abort(404, "Holding not found")
     # librarian of same holdings library may receive issues
     # system librarians may receive for all libraries of organisation.
     if not can_receive_regular_issue(holding):
