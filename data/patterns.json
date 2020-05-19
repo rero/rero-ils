@@ -5,7 +5,7 @@
     "patterns": {
       "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
-      "first_expected_date": "2020-03-01",
+      "next_expected_date": "2020-03-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -43,7 +43,7 @@
     "patterns": {
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1013",
-      "first_expected_date": "2020-01-02",
+      "next_expected_date": "2020-01-02",
       "values": [
         {
           "name": "first_enumeration",
@@ -72,7 +72,7 @@
     "patterns": {
       "template": "{{first_enumeration.level_1}} Edition {{first_chronology.level_1}}",
       "frequency": "rdafr:1013",
-      "first_expected_date": "2020-06-01",
+      "next_expected_date": "2020-06-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -101,7 +101,7 @@
     "patterns": {
       "template": "Jg. {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1014",
-      "first_expected_date": "2020-03-03",
+      "next_expected_date": "2020-03-03",
       "values": [
         {
           "name": "first_enumeration",
@@ -144,7 +144,7 @@
     "patterns": {
       "template": "Jg. {{first_enumeration.level_1}} Heft {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1010",
-      "first_expected_date": "2020-09-01",
+      "next_expected_date": "2020-09-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -183,7 +183,7 @@
     "patterns": {
       "template": "ann\u00e9e {{first_chronology.level_1}} no {{first_enumeration.level_1}} {{second_chronology.level_2}} {{second_chronology.level_1}}",
       "frequency": "rdafr:1010",
-      "first_expected_date": "2020-03-20",
+      "next_expected_date": "2020-03-20",
       "values": [
         {
           "name": "first_chronology",
@@ -235,7 +235,7 @@
     "patterns": {
       "template": "N\u02da {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1012",
-      "first_expected_date": "2020-03-20",
+      "next_expected_date": "2020-03-20",
       "values": [
         {
           "name": "first_enumeration",
@@ -271,7 +271,7 @@
     "patterns": {
       "template": "{{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1007",
-      "first_expected_date": "2020-01-15",
+      "next_expected_date": "2020-01-15",
       "values": [
         {
           "name": "first_enumeration",
@@ -311,7 +311,7 @@
     "patterns": {
       "template": "Ann\u00e9e {{first_enumeration.level_1}} no {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1012",
-      "first_expected_date": "2020-06-01",
+      "next_expected_date": "2020-06-01",
       "values": [
         {
           "name": "first_enumeration",
@@ -360,7 +360,7 @@
     "patterns": {
       "template": "Jg {{first_enumeration.level_1}} Nr {{second_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
       "frequency": "rdafr:1007",
-      "first_expected_date": "2020-01-05",
+      "next_expected_date": "2020-01-05",
       "values": [
         {
           "name": "first_enumeration",

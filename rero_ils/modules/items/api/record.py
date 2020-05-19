@@ -66,6 +66,8 @@ class ItemRecord(IlsRecord):
         data = cls._prepare_item_record(data=data, mode='create')
         record = super(ItemRecord, cls).create(
             data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        cls._increment_next_prediction_for_holding(
+            record, dbcommit=dbcommit, reindex=reindex)
         return record
 
     def update(self, data, dbcommit=False, reindex=False):
@@ -96,6 +98,22 @@ class ItemRecord(IlsRecord):
         return self
 
     @classmethod
+    def _increment_next_prediction_for_holding(
+            cls, item, dbcommit=False, reindex=False):
+        """Increment next issue for items with regular frequencies."""
+        from ...holdings.api import Holding
+        holding = Holding.get_record_by_pid(item.holding_pid)
+        if item.get('type') == 'issue' and \
+            item.get('issue', {}).get('regular') and \
+                holding.holdings_type == 'serial' and \
+                holding.get('patterns', {}).get('frequency') != 'rdafr:1016':
+            updated_holding = holding.increment_next_prediction()
+            holding = Holding.get_record_by_pid(item.holding_pid)
+            holding.update(data=updated_holding,
+                           dbcommit=dbcommit, reindex=reindex)
+            holding.commit()
+
+    @classmethod
     def _item_build_org_ref(cls, data):
         """Build $ref for the organisation of the item."""
         loc_pid = data.get('location', {}).get('pid')
@@ -123,27 +141,38 @@ class ItemRecord(IlsRecord):
         :param mode: update or create mode.
         :return: the updated record with matched holdings record
         """
-        if mode == 'create' and record.get('holding'):
-            return record
+        from ...holdings.api import \
+            Holding, get_holding_pid_by_doc_location_item_type, \
+            create_holding
 
         old_holding_pid = None
+        old_holding_type = None
         if record.get('holding'):
             old_holding_pid = extracted_data_from_ref(
                 record['holding'], data='pid')
+            old_holding_type = Holding.get_holdings_type_by_holding_pid(
+                old_holding_pid)
 
-        from ...holdings.api import \
-            get_standard_holding_pid_by_doc_location_item_type, \
-            create_holding
+        if (
+            mode == 'create' and record.get('holding')) or (
+            old_holding_type in ['serial', 'electronic']
+        ):
+            return record
+
+        # item type is important for linking to the correct holdings type.
+        item_record_type = record.get('type', 'standard')
+
         # get pids from $ref
         document_pid = extracted_data_from_ref(record['document'], data='pid')
         location_pid = extracted_data_from_ref(record['location'], data='pid')
         item_type_pid = extracted_data_from_ref(
             record['item_type'], data='pid')
 
-        holding_pid = get_standard_holding_pid_by_doc_location_item_type(
-            document_pid, location_pid, item_type_pid)
+        holding_pid = get_holding_pid_by_doc_location_item_type(
+            document_pid, location_pid, item_type_pid, item_record_type)
 
-        if not holding_pid:
+        # we will NOT create serials holdings for items
+        if not holding_pid and item_record_type != 'serial':
             holdings_record = create_holding(
                 document_pid=document_pid,
                 location_pid=location_pid,
@@ -193,6 +222,13 @@ class ItemRecord(IlsRecord):
         """Shortcut for item holding pid."""
         if self.replace_refs().get('holding'):
             return self.replace_refs()['holding']['pid']
+        return None
+
+    @property
+    def document_pid(self):
+        """Shortcut for item document pid."""
+        if self.replace_refs().get('document'):
+            return self.replace_refs()['document']['pid']
         return None
 
     @classmethod
@@ -248,6 +284,11 @@ class ItemRecord(IlsRecord):
         if item_type:
             item_type_pid = item_type.get('pid')
         return item_type_pid
+
+    @property
+    def item_record_type(self):
+        """Shortcut for item type, whether a standard or an issue record."""
+        return self.get('type')
 
     @property
     def holding_circulation_category_pid(self):
