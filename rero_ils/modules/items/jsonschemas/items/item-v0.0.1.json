@@ -139,7 +139,8 @@
           "default": "received",
           "enum": [
             "received",
-            "claimed"
+            "claimed",
+            "deleted"
           ]
         },
         "display_text": {

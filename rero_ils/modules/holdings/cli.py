@@ -21,18 +21,16 @@ from __future__ import absolute_import, print_function
 
 import json
 import random
-from datetime import datetime
 
 import click
 from flask.cli import with_appcontext
 
 from ..documents.api import Document, DocumentsSearch
-from ..holdings.api import create_holding
+from ..holdings.api import Holding, create_holding
 from ..item_types.api import ItemTypesSearch
-from ..items.api import Item
 from ..locations.api import LocationsSearch
 from ..organisations.api import Organisation
-from ..utils import get_ref_for_pid, get_schema_for_resource, read_json_record
+from ..utils import read_json_record
 
 
 def get_document_pid_by_rero_number(rero_control_number):
@@ -74,45 +72,23 @@ def get_random_location(org_pid):
     return get_location(next(iter(libraries or []), None))
 
 
-def create_issues_from_holding(holding, min=2, max=9):
+def create_issues_from_holding(holding, min=3, max=9):
     """Receive randomly new issues.
 
     :param holding: the holding record.
     :param min, max: the min and max range to randomly create number of issues.
     """
-    for issue_number in range(1, random.randint(min, max)):
-        # TODO: when the issue api is implemented the correct
-        # expected date will given
-        first_expected_date = holding.get(
-            'patterns').get('first_expected_date')
-        call_number = '{pid}_{issue}'.format(
-            pid=holding.pid, issue=str(issue_number).zfill(5))
-        issue = {
-            '$schema': get_schema_for_resource(Item),
-            'type': 'issue',
-            'status': 'on_shelf',
-            'item_type': holding.get('circulation_category'),
-            'location': holding.get('location'),
-            'document': holding.get('document'),
-            'call_number': call_number,
-            'holding': {'$ref': get_ref_for_pid(
-                'hold',
-                holding.pid
-            )},
-            'organisation': {'$ref': get_ref_for_pid(
-                'org',
-                holding.organisation_pid
-            )},
+    for issue_number in range(0, random.randint(min, max)):
+        # prepare some fields for the issue to ensure a variable recv dates.
+        issue_display, expected_date = holding._get_next_issue_display_text(
+                    holding.get('patterns'))
+        item = {
             'issue': {
-                'regular': True,
-                'status': 'received',
-                'expected_date': first_expected_date,
-                'received_date': datetime.now().strftime('%Y-%m-%d'),
-                'display_text': holding.next_issue_display_text
-            }
+                'received_date': expected_date,
+            },
         }
-        Item.create(data=issue, dbcommit=True, reindex=True)
-        holding.increment_next_prediction()
+        holding.receive_regular_issue(item=item, dbcommit=True, reindex=True)
+        holding = Holding.get_record_by_pid(holding.pid)
 
 
 @click.command('create_patterns')
@@ -155,13 +131,14 @@ def create_patterns(infile, verbose, debug, lazy):
                 item_type_pid=circ_category_pid,
                 holdings_type='serial',
                 patterns=patterns)
-            # create 2 received issues for this holdings/pattern
+            # create minimum 3 and max 9 received issues for this holdings
             create_issues_from_holding(holdings_record)
+            text = '> created (& between 3 and 9 rcvd issues) for holdings_pid'
             click.echo(
                 '{ptr_str}{template}{hld_str} {holding} {doc_str} {document}'
                 .format(
                     ptr_str='Pattern <',
-                    hld_str='> created (and 2 rcvd issues) for holdings_pid',
+                    hld_str=text,
                     doc_str='and document_pid',
                     template=template_name,
                     holding=holdings_record.pid,

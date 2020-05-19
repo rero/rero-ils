@@ -76,7 +76,7 @@
             "frequency": {
               "type": "keyword"
             },
-            "first_expected_date": {
+            "next_expected_date": {
               "type": "date"
             },
             "values": {

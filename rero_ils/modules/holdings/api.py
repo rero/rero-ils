@@ -21,8 +21,10 @@ from __future__ import absolute_import, print_function
 
 from builtins import classmethod
 from copy import deepcopy
+from datetime import datetime
 from functools import partial
 
+from dateutil.relativedelta import relativedelta
 from flask import current_app
 from flask_babelex import gettext as _
 from invenio_search import current_search
@@ -32,13 +34,14 @@ from jinja2 import Template
 from .models import HoldingIdentifier
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..documents.api import Document
-from ..errors import MissingRequiredParameterError
+from ..errors import MissingRequiredParameterError, RegularReceiveNotAllowed
 from ..fetchers import id_fetcher
 from ..items.api import Item, ItemsSearch
 from ..locations.api import Location
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..utils import get_ref_for_pid, get_schema_for_resource
 
 # holing provider
 HoldingProvider = type(
@@ -81,6 +84,26 @@ class Holding(IlsRecord):
             'itty': 'circulation_category'
         }
     }
+    # interval definitions for pattern frequencies
+    # the RDA Frequencies are available here:
+    # http://www.rdaregistry.info/termList/frequency/
+    frequencies = {
+        'rdafr:1001': relativedelta(days=1),  # Daily
+        'rdafr:1002': relativedelta(days=2, hours=8),  # Three times a week
+        'rdafr:1003': relativedelta(weeks=2),  # Biweekly
+        'rdafr:1004': relativedelta(weeks=1),  # Weekly
+        'rdafr:1005': relativedelta(days=3, hours=12),  # Semiweekly
+        'rdafr:1006': relativedelta(days=10),  # Three times a month
+        'rdafr:1007': relativedelta(months=2),  # Bimonthly
+        'rdafr:1008': relativedelta(months=1),  # Monthly
+        'rdafr:1009': relativedelta(days=15),  # Semimonthly
+        'rdafr:1010': relativedelta(months=3),  # Quarterly
+        'rdafr:1011': relativedelta(months=4),  # Three times a year
+        'rdafr:1012': relativedelta(months=6),  # Semiannual
+        'rdafr:1013': relativedelta(years=1),  # Annual
+        'rdafr:1014': relativedelta(years=2),  # Biennial
+        'rdafr:1015': relativedelta(years=3)  # Triennial
+    }
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -92,14 +115,14 @@ class Holding(IlsRecord):
         ebooks documents i.e. harvested documents.
 
         Ensures that for the holdings of type serials, if it has a regular
-        frequency the first_expected_date should be given.
+        frequency the next_expected_date should be given.
 
         :return: False if
             - document type is not journal and holding type is serial.
             - document type is journal and holding type is not serial.
             - document type is ebook and holding type is not electronic.
             - document type is not ebook and holding type is electronic.
-            - holding type is serial and the first_expected_date
+            - holding type is serial and the next_expected_date
               is not given for a regular frequency.
         """
         document = Document.get_record_by_pid(self.document_pid)
@@ -108,7 +131,7 @@ class Holding(IlsRecord):
             patterns = self.get('patterns', {})
             if patterns and \
                 patterns.get('frequency') != 'rdafr:1016' \
-                    and not patterns.get('first_expected_date'):
+                    and not patterns.get('next_expected_date'):
                 return False
         is_electronic = self.holdings_type == 'electronic'
         is_issuance = document.dumps().get('issuance') == 'rdami:1003'
@@ -183,6 +206,12 @@ class Holding(IlsRecord):
         """Returns document pid for a holding pid."""
         holding = cls.get_record_by_pid(holding_pid).replace_refs()
         return holding.get('document', {}).get('pid')
+
+    @classmethod
+    def get_holdings_type_by_holding_pid(cls, holding_pid):
+        """Returns holdings type for a holding pid."""
+        holding = cls.get_record_by_pid(holding_pid)
+        return holding.holdings_type
 
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid):
@@ -295,7 +324,7 @@ class Holding(IlsRecord):
     def next_issue_display_text(self):
         """Display the text of the next predicted issue."""
         if self.patterns:
-            return self._get_next_issue_display_text(self.patterns)
+            return self._get_next_issue_display_text(self.patterns)[0]
 
     @classmethod
     def _get_next_issue_display_text(cls, patterns):
@@ -320,17 +349,22 @@ class Holding(IlsRecord):
                     ): str(text_value)
                 })
             issue_data[pattern_name] = level_data
-        return Template(patterns.get('template')).render(**issue_data)
+        next_expected_date = patterns.get('next_expected_date')
+        return Template(patterns.get('template')).render(
+            **issue_data), next_expected_date
 
     def increment_next_prediction(self):
         """Increment next prediction."""
         if not self.patterns or not self.patterns.get('values'):
             return
         self['patterns'] = self._increment_next_prediction(self.patterns)
+        return self
 
     @classmethod
     def _increment_next_prediction(cls, patterns):
         """Increment the next predicted issue.
+
+        Predicts the next value and next_expected_date for the given patterns.
 
         :param patterns: List of a valid holdings patterns.
         :return: The updated patterns with the next issue.
@@ -348,6 +382,14 @@ class Holding(IlsRecord):
                 else:
                     level['next_value'] = next_value + 1
                     break
+        frequency = patterns.get('frequency')
+        if frequency:
+            next_expected_date = datetime.strptime(
+                patterns.get('next_expected_date'), '%Y-%m-%d')
+            interval = cls.frequencies[frequency]
+            next_expected_date = next_expected_date + interval
+            patterns['next_expected_date'] = \
+                next_expected_date.strftime('%Y-%m-%d')
         return patterns
 
     def prediction_issues_preview(self, predictions=1):
@@ -360,7 +402,10 @@ class Holding(IlsRecord):
         if self.patterns and self.patterns.get('values'):
             patterns = deepcopy(self.patterns)
             for r in range(predictions):
-                text.append(self._get_next_issue_display_text(patterns))
+                issue, expected_date = self._get_next_issue_display_text(
+                    patterns)
+                issue_data = self._prepare_issue_data(issue, expected_date)
+                text.append(issue_data)
                 patterns = self._increment_next_prediction(patterns)
         return text
 
@@ -376,12 +421,82 @@ class Holding(IlsRecord):
         text = []
         if patterns and patterns.get('values'):
             for r in range(number_of_predictions):
-                text.append(Holding._get_next_issue_display_text(patterns))
+                issue, expected_date = cls._get_next_issue_display_text(
+                    patterns)
+                issue_data = cls._prepare_issue_data(issue, expected_date)
+                text.append(issue_data)
                 patterns = Holding._increment_next_prediction(patterns)
         return text
 
+    @staticmethod
+    def _prepare_issue_data(issue, expected_date):
+        """Prepare issue record.
 
-def get_standard_holding_pid_by_doc_location_item_type(
+        :param issue: The issue display text to prepare.
+        :param expected_date: The issue expected_date to prepare.
+        :return: The prepared issue data.
+        """
+        issue_data = {
+            'issue': issue,
+            'expected_date':  expected_date
+        }
+        return issue_data
+
+    def _prepare_issue_record(
+            self, item=None, issue_display=None, expected_date=None):
+        """Prepare the issue record before creating the item."""
+        data = {
+            'issue': {
+                'status': 'received',
+                'display_text': issue_display,
+                'received_date': datetime.now().strftime('%Y-%m-%d'),
+                'expected_date': expected_date,
+                'regular': True
+            },
+            'status': 'on_shelf'
+        }
+        if item:
+            issue = item.pop('issue', None)
+            if issue:
+                data['issue'].update(issue)
+            data.update(item)
+        # ensure that we have the right item fields such as location,
+        # and item_type and document.
+        forced_data = {
+            '$schema': get_schema_for_resource(Item),
+            'location': self.get('location'),
+            'document': self.get('document'),
+            'item_type': self.get('circulation_category'),
+            'type': 'issue',
+            'holding': {'$ref': get_ref_for_pid('hold', self.pid)},
+            'organisation':
+                {'$ref': get_ref_for_pid('org', self.organisation_pid)}
+        }
+        data.update(forced_data)
+
+        return data
+
+    def receive_regular_issue(self, item=None, dbcommit=False, reindex=False):
+        """Receive the next expected regular issue for the holdings record."""
+        # receive is allowed only on holdings of type serials and regular
+        # frequency
+        if self.holdings_type != 'serial' or self.get(
+                'patterns', {}).get('frequency') == 'rdafr:1016':
+            raise RegularReceiveNotAllowed()
+
+        issue_display, expected_date = self._get_next_issue_display_text(
+                    self.get('patterns'))
+
+        data = self._prepare_issue_record(
+            item=item, issue_display=issue_display,
+            expected_date=expected_date)
+
+        issue = Item.create(data=data, dbcommit=dbcommit, reindex=reindex)
+
+        return issue
+
+
+def get_holding_pid_by_doc_location_item_type(
         document_pid, location_pid, item_type_pid, holdings_type='standard'):
     """Returns standard holding pid for document/location/item type."""
     result = HoldingsSearch().filter(

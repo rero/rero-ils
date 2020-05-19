@@ -335,3 +335,23 @@ def wiki_edit_ui_permission():
     :return: true if the logged user has the editor role
     """
     return editor_permission.can()
+
+
+def can_receive_regular_issue(holding):
+    """Checks if logged user can receive a regular issue of its organisation.
+
+    user must have librarian or system_librarian role.
+    returns False if a librarian tries to receive anissue of another library.
+    """
+    patron = staffer_is_authenticated()
+    if not patron:
+        return False
+    if patron.organisation_pid == holding.organisation_pid:
+        if patron.is_system_librarian:
+            return True
+        if patron.is_librarian:
+            if patron.library_pid and holding.library_pid and \
+                    holding.library_pid != patron.library_pid:
+                return False
+            return True
+    return False
