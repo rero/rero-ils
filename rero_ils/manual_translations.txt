@@ -52,8 +52,3 @@ _('bf:Place')
 # Harvested source
 _('ebibliomedia')
 _('mv-cantook')
-
-# Notes types
-_('accompanyingMaterial')
-_('general')
-_('otherPhysicalDetails')

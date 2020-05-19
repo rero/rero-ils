@@ -346,7 +346,7 @@
                 }
               },
               "$ref": {
-                "title": "person reference",
+                "title": "MEF person reference",
                 "type": "string",
                 "pattern": "^https://mef.rero.ch/api/bnf|gnd|idref|rero/.*?$",
                 "form": {
