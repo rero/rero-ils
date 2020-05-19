@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.8.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-06-19 16:26+0200\n"
+"POT-Creation-Date: 2020-06-22 09:57+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Peter Weber <peter.weber@rero.ch>, 2020\n"
 "Language: de\n"
@@ -107,27 +107,27 @@ msgid "sources"
 msgstr "Quellen"
 
 #: rero_ils/manual_translations.txt:16
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:130
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:215
 msgid "on_loan"
 msgstr "ausgeliehen"
 
 #: rero_ils/manual_translations.txt:17
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:126
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:211
 msgid "on_shelf"
 msgstr "im Regal"
 
 #: rero_ils/manual_translations.txt:18
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:134
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:219
 msgid "missing"
 msgstr "fehlend"
 
 #: rero_ils/manual_translations.txt:19
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:138
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:223
 msgid "in_transit"
 msgstr "in Transit"
 
 #: rero_ils/manual_translations.txt:20
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:142
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:227
 msgid "at_desk"
 msgstr "an der Ausleihe"
 
@@ -285,7 +285,7 @@ msgstr "JSON Schema für Konto"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:41
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:24
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:26
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:27
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:16
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:28
@@ -311,9 +311,9 @@ msgstr "ID des Kontos"
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:33
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:374
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:459
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:204
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:231
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:270
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:315
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:342
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:381
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:33
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:43
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:54
@@ -396,7 +396,7 @@ msgstr "URI der Bibliothek"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:428
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:449
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:93
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:166
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:251
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
@@ -413,7 +413,7 @@ msgstr "Organisation"
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:95
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:97
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:170
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:255
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:88
@@ -446,13 +446,13 @@ msgstr "URI des Kontos"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:52
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:147
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:43
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:79
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:80
 msgid "Document"
 msgstr "Dokument"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:151
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:83
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:84
 msgid "Document URI"
 msgstr "URI des Dokuments"
 
@@ -532,13 +532,16 @@ msgstr "Wähle ein Datum"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:166
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:63
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:80
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:252
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:157
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:175
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 msgstr "Sollte im folgenden Format sein: 2022-12-31 (JJJJ-MM-TT)"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:170
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1056
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:177
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:262
 msgid "Notes"
 msgstr "Anmerkung"
 
@@ -667,7 +670,7 @@ msgstr "Wechselkurs"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1061
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1299
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:181
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:266
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
 msgid "Note"
@@ -911,6 +914,7 @@ msgid "Patron type URI"
 msgstr "URI des Lesertypen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:156
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:111
 msgid "Item type"
 msgstr "Exemplar Typ"
 
@@ -942,7 +946,7 @@ msgstr "PID des Dokuments"
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1170
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:113
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:193
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:278
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
 msgid "Type"
 msgstr "Typ"
@@ -3809,13 +3813,13 @@ msgstr "Zazaisch"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:4162
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:4193
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:276
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:387
 msgid "Values"
 msgstr "Werte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:4178
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:4209
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:281
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:392
 msgid "Value"
 msgstr "Wert"
 
@@ -5535,7 +5539,7 @@ msgid "Export Formats"
 msgstr "Exportformate"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:154
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:239
 msgid "Holding"
 msgstr "Bestand"
 
@@ -5554,7 +5558,7 @@ msgstr "Permanenter Identifikator"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:36
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:72
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:57
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:58
 msgid "Call number"
 msgstr "Signatur"
 
@@ -5568,14 +5572,14 @@ msgstr "URI der Ausleihkategorie"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:60
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:50
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:62
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:63
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:186
 msgid "Location"
 msgstr "Standort"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:67
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:69
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:70
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:189
 msgid "Location URI"
 msgstr "URI des Standortes"
@@ -5598,11 +5602,11 @@ msgstr ""
 msgid "Serial configuration"
 msgstr "Serielle Konfiguration"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:139
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:142
 msgid "Issue display template"
 msgstr "Ausgabe-Anzeigevorlage "
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:140
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:143
 msgid ""
 "This template define how a prediction is displayed. i.e. year 2020; "
 "vol.1, iss. 4. It should contains the variable field between {{}} with "
@@ -5612,49 +5616,121 @@ msgstr ""
 "2020; Band 1, iss. 4. Sie sollte die Variable field zwischen {{}} mit dem"
 " entsprechenden Muster und Ebenennamen enthalten."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:146
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:149
 msgid "Vol. {{numbering.vol}}, {{chronology.year}}"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:149
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:152
 msgid "Should contains at least one variable between {{ }}."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:155
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:158
+msgid "Frequency"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:181
+msgid "Annual"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:185
+msgid "Biennial"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:189
+msgid "Bimonthly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:193
+msgid "Biweekly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:197
+msgid "Daily"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:201
+msgid "Irregular"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:205
+msgid "Monthly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:209
+msgid "Quarterly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:213
+msgid "Semiannual"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:217
+msgid "Semimonthly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:221
+msgid "Semiweekly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:225
+msgid "Three times a month"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:229
+msgid "Three times a week"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:233
+msgid "Three times a year"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
+msgid "Triennial"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:241
+msgid "Weekly"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:250
+msgid "The expected date for the next issue"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:266
 msgid "Prediction patterns"
 msgstr "Vorhersage-Muster"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:159
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:270
 msgid "numbering"
 msgstr "Zählung"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:171
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:282
 msgid "chronology"
 msgstr "Chronologie"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:191
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:302
 msgid "Prediction pattern"
 msgstr "Vorhersage-Muster"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:206
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:317
 msgid "It should be used in the display template. i.e. chronology, enumeration."
 msgstr ""
 "Sollte in der Anzeigevorlage verwendet werden, d.h. Chronologie, "
 "Aufzählung."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:210
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:321
 msgid "Chronology levels"
 msgstr "Chronologie-Ebenen"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:214
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:325
 msgid "Chronology level"
 msgstr "Chronologie-Ebene"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:218
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:329
 msgid "Number based prediction"
 msgstr "Zahlenbasierte Vorhersage"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:233
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:344
 msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue, etc."
@@ -5662,19 +5738,19 @@ msgstr ""
 "Sollte in der Anzeigevorlage verwendet werden, d.h. Jahr, Monat, Band, "
 "Ausgabe usw."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:237
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:348
 msgid "Starting value"
 msgstr "Anfangswert"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:238
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:349
 msgid "First value of the sequence."
 msgstr "Erster Wert der Sequenz."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:243
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:354
 msgid "Completion of the values"
 msgstr "Vervollständigung der Werte"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:244
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:355
 msgid ""
 "Last value of the sequence. If it is not defined the sequence will "
 "continue until the infinity."
@@ -5682,20 +5758,20 @@ msgstr ""
 "Letzter Wert der Sequenz. Wenn er nicht definiert ist, wird die Sequenz "
 "bis zur Unendlichkeit fortgesetzt."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:249
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:288
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:360
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:399
 msgid "Next predicted value"
 msgstr "Nächster vorhergesagter Wert"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:250
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:361
 msgid "Can be used to correct the next current prediction."
 msgstr "Kann zur Korrektur der nächsten aktuellen Vorhersage verwendet werden."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:257
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:368
 msgid "List based prediction (used for seasons, months...)"
 msgstr "Listenbasierte Vorhersage (verwendet für Jahreszeiten, Monate...)"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:271
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:382
 msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue."
@@ -5703,11 +5779,11 @@ msgstr ""
 "Sollte in der Anzeigevorlage verwendet werden, d.h. Jahr, Monat, Volumen,"
 " Ausgabe."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:282
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:393
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
 msgstr "Verwenden Sie einen Wert anstelle einer Zahl, d.h. Januar, 2., Quartal."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:289
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:400
 msgid ""
 "Can be used to correct the next current prediction. The value is the "
 "current position of the value in the list."
@@ -5741,7 +5817,7 @@ msgid "ID"
 msgstr "ID"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:38
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:39
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:23
 msgid "Barcode"
 msgstr "Strichcode"
@@ -5820,69 +5896,88 @@ msgstr "Exemplar"
 msgid "JSON schema for an item."
 msgstr "JSON Schema für ein Exemplar"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:27
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:28
 msgid "Schema to validate item records against."
 msgstr "Schema zur Validierung von Exemplaren."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:33
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:34
 msgid "Item ID"
 msgstr "PID des Exemplars"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:48
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:49
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:164
 msgid "The barcode is already taken."
 msgstr "Der Barcode ist bereits vergeben."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:91
-msgid "Item Type"
-msgstr "Exemplartyp"
-
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:92
-msgid "Item type of the item."
-msgstr "Exemplartyp des Exemplars"
+msgid "Circulation category of the item"
+msgstr ""
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:99
 msgid "Item Type URI"
 msgstr "URI des Exemplartypen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:112
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:120
+msgid "Issue"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:138
+msgid "Issue status"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:148
+msgid "displayed text"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:154
+msgid "Date of reception"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:172
+msgid "Expected date"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:189
+msgid "Regularity"
+msgstr ""
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:197
 msgid "circulation status"
 msgstr "Ausleihstatus"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:146
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:231
 msgid "excluded"
 msgstr "ausgeschlossen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:155
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:240
 msgid "Holding record for the item."
 msgstr "Bestand des Exemplars."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:159
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:244
 msgid "Holding URI"
 msgstr "URI des Bestandes"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:203
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:288
 msgid "public note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:207
-
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:292
 msgid "staff note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:211
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:296
 msgid "checkin note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:215
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:300
 msgid "checkout note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:223
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:308
 msgid "Content"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:245
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:330
 msgid "Only one note per type is allowed"
 msgstr ""
 
@@ -7054,4 +7149,10 @@ msgstr "Hier klicken um Passwort zurückzusetzen."
 
 #~ msgid "Should be in the ISO 8601, YYYY-MM-DD."
 #~ msgstr ""
+
+#~ msgid "Item Type"
+#~ msgstr "Exemplartyp"
+
+#~ msgid "Item type of the item."
+#~ msgstr "Exemplartyp des Exemplars"
 
