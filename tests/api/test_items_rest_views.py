@@ -26,7 +26,6 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.modules.documents.views import item_status_text
 from rero_ils.modules.errors import InvalidRecordID
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -248,9 +247,6 @@ def test_automatic_checkin(client, librarian_martigny_no_email, lib_martigny,
     item = Item.get_record_by_pid(item_lib_martigny.pid)
     assert item.status == ItemStatus.IN_TRANSIT
 
-    text = item_status_text(item, format='medium', locale='en')
-    assert text == 'not available (requested) (in_transit)'
-
     record, actions = item.automatic_checkin()
     assert 'receive' in actions
 
@@ -293,16 +289,6 @@ def test_item_different_actions(client, librarian_martigny_no_email,
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
 
     record = Item.get_record_by_pid(item_lib_martigny.pid)
-
-    class current_i18n:
-        class locale:
-            language = 'en'
-    with mock.patch(
-        'rero_ils.modules.items.api.circulation.current_i18n',
-        current_i18n
-    ):
-        text = item_status_text(record, format='medium', locale='en')
-        assert 'due until' in text
 
     res, _ = postdata(
         client,

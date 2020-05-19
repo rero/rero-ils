@@ -183,7 +183,7 @@ def test_item_holding_document_availability(
     assert item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny_no_email.user)
     assert item_lib_martigny.available
-    assert item_availability_text(item_lib_martigny) == 'on_shelf'
+    assert item_availability_text(item_lib_martigny) == 'on shelf'
     assert holding_lib_martigny.available
     assert holding_availablity_status(
         client, holding_lib_martigny.pid, librarian_martigny_no_email.user)

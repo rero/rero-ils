@@ -122,7 +122,7 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
 
 @blueprint.app_template_filter()
 def item_availability_text(item):
-    """Returns text to disaply for item."""
+    """Returns text to display for item."""
     if item.available:
         return str(_(item.status))
     else:
