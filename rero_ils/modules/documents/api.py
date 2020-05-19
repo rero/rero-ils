@@ -182,12 +182,17 @@ class Document(IlsRecord):
 
     def index_persons(self, bulk=False):
         """Index all attached persons."""
+        from ..persons.api import Person
         persons_ids = []
         for author in self.get('authors', []):
+            person = None
             ref = author.get('$ref')
             if ref:
-                from ..persons.api import Person
                 person = Person.get_record_by_ref(ref)
+            pid = author.get('pid')
+            if pid:
+                person = Person.get_record_by_pid(pid)
+            if person:
                 if bulk:
                     persons_ids.append(person.id)
                 else:
@@ -213,9 +218,9 @@ class Document(IlsRecord):
         for idx, author in enumerate(authors):
             ref = author.get('$ref')
             if ref:
-                pers = Person.get_record_by_ref(ref)
-                if pers:
-                    authors[idx] = pers
+                person = Person.get_record_by_ref(ref)
+                if person:
+                    authors[idx] = person
         return super(Document, self).replace_refs()
 
 

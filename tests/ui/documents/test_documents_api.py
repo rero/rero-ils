@@ -139,6 +139,10 @@ def test_document_can_delete_with_loans(
 
 def test_document_person_resolve_exception(es_clear, db, document_data_ref):
     """Test document person resolve."""
+    document_data_ref['authors'] = [{
+        '$ref': 'https://mef.rero.ch/api/rero/XXXXXX',
+        'type': 'person'
+    }],
     with pytest.raises(Exception):
         Document.create(
             data=document_data_ref,
