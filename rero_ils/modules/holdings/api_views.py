@@ -28,7 +28,9 @@ from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound
 
 from .api import Holding
+from ..errors import RegularReceiveNotAllowed
 from ..items.api_views import check_authentication
+from ...permissions import can_receive_regular_issue
 
 api_blueprint = Blueprint(
     'api_holding',
@@ -84,7 +86,6 @@ def patterns_preview(holding_pid):
     Required parameters: holding_pid
     Optional parameters: size: number of previewed issues - by default 10
     """
-    print()
     try:
         size = flask_request.args.get('size')
         number_issues = int(size) if size else 10
@@ -101,7 +102,7 @@ def patterns_preview(holding_pid):
 @check_authentication
 @jsonify_error
 def pattern_preview():
-    """HTTP POST for patterns preview of first n issues for a given patterns.
+    """HTTP POST for patterns preview of first n issues for a regular patterns.
 
     Required parameters: data contains the json of holdings record to preview
     Optional parameters: size: number of previewed issues - by default 10
@@ -109,6 +110,41 @@ def pattern_preview():
     patterns_data = flask_request.get_json()
     pattern = patterns_data.get('data', {})
     size = patterns_data.get('size', 10)
+    if pattern and pattern.get('frequency') == 'rdafr:1016':
+        return jsonify({'status': 'error: irregular frequency'}), 400
     issues = Holding.prediction_issues_preview_for_pattern(
         pattern, number_of_predictions=size)
     return jsonify({'issues': issues})
+
+
+@api_blueprint.route('/receive_regular_issue', methods=['POST'])
+@jsonify_error
+@check_authentication
+def receive_regular_issue():
+    """HTTP POST for receiving the next expected issue for a holding.
+
+    For a quick receive, do not pass the item parameter
+    For a customized receive, send the item fields in the item parameter.
+
+    Required parameters:
+        holdings_pid the pid of the holdings.
+    Optional parameters:
+        item: the item of type issue to create.
+    """
+    data = flask_request.get_json()
+    holding = Holding.get_record_by_pid(data.get('holdings_pid'))
+    if not holding:
+        abort(404)
+    # librarian of same holdings library may receive issues
+    # system librarians may receive for all libraries of organisation.
+    if not can_receive_regular_issue(holding):
+        abort(401)
+    item = data.get('item', {})
+    try:
+        issue = holding.receive_regular_issue(
+            item=item, dbcommit=True, reindex=True)
+    except RegularReceiveNotAllowed:
+        # receive allowed only on holding of type serials and regular frequency
+        abort(400)
+    # the created item of type issue is returned
+    return jsonify({'issue': issue})

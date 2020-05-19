@@ -58,7 +58,9 @@ class ItemsSearch(IlsRecordsSearch):
     @classmethod
     def flush(cls):
         """Flush indexes."""
+        from rero_ils.modules.holdings.api import HoldingsSearch
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        current_search.flush_and_refresh(HoldingsSearch.Meta.index)
         current_search.flush_and_refresh(cls.Meta.index)
 
 
@@ -129,7 +131,7 @@ class ItemsIndexer(IlsRecordsIndexer):
 
     def index(self, record):
         """Index an item."""
-        from ...holdings.api import Holding
+        from ...holdings.api import Holding, HoldingsSearch
         # get the old holding record if exists
         items = ItemsSearch().filter(
             'term', pid=record.get('pid')
@@ -145,6 +147,7 @@ class ItemsIndexer(IlsRecordsIndexer):
         document = Document.get_record_by_pid(document_pid)
         document.reindex()
         current_search.flush_and_refresh(DocumentsSearch.Meta.index)
+        current_search.flush_and_refresh(HoldingsSearch.Meta.index)
 
         # check if old holding can be deleted
         if holding_pid:

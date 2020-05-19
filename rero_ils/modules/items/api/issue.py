@@ -22,4 +22,23 @@ from ...api import IlsRecord
 
 class ItemIssue(IlsRecord):
     """Item issue class."""
-    # TODO: the methods are added in the next PR.
+
+    @property
+    def expected_date(self):
+        """Shortcut for issue expected date."""
+        return self.get('issue', {}).get('expected_date')
+
+    @property
+    def received_date(self):
+        """Shortcut for issue received date."""
+        return self.get('issue', {}).get('received_date')
+
+    @property
+    def display_text(self):
+        """Shortcut for issue display_text."""
+        return self.get('issue', {}).get('display_text')
+
+    @property
+    def issue_status(self):
+        """Shortcut for issue status."""
+        return self.get('issue', {}).get('status')
