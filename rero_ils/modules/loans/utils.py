@@ -53,7 +53,7 @@ def get_circ_policy(loan):
     return result
 
 
-def get_default_loan_duration(loan):
+def get_default_loan_duration(loan, initial_loan):
     """Return calculated checkout duration in number of days."""
     # TODO: case when 'now' is not sysdate.
     now = datetime.utcnow()
@@ -92,7 +92,7 @@ def get_default_loan_duration(loan):
     return timedelta(days=0)
 
 
-def get_extension_params(loan=None, parameter_name=None):
+def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
     """Return extension parameters."""
     policy = get_circ_policy(loan)
     end_date = ciso8601.parse_datetime(str(loan.get('end_date')))
