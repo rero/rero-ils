@@ -41,7 +41,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
         json['library_pid'] = item.holding_library_pid
 
 
-def listener_loan_state_changed(_, prev_loan, loan, trigger):
+def listener_loan_state_changed(_, initial_loan, loan, trigger):
     """Create notification based on loan state changes."""
     if loan.get('state') == 'PENDING':
         item_pid = loan.get('item_pid', {}).get('value')
