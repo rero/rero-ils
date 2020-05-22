@@ -50,12 +50,12 @@ def test_item_loans_elements(
 
     new_loan = deepcopy(loan_pending_martigny)
     del new_loan['transaction_location_pid']
-    assert get_default_loan_duration(new_loan) == \
-        get_default_loan_duration(loan_pending_martigny)
+    assert get_default_loan_duration(new_loan, None) == \
+        get_default_loan_duration(loan_pending_martigny, None)
 
     assert item_lib_fully.last_location_pid == item_lib_fully.location_pid
     circ_policy_default_martigny['allow_checkout'] = False
     circ_policy_default_martigny.update(
         circ_policy_default_martigny, dbcommit=True, reindex=True)
 
-    assert get_default_loan_duration(new_loan) == timedelta(0)
+    assert get_default_loan_duration(new_loan, None) == timedelta(0)
