@@ -990,7 +990,7 @@ optional = true
 version = ">=1.1.3,<1.2.0"
 
 [package.dependencies.invenio-db]
-extras = ["postgresql", "versioning"]
+extras = ["versioning", "postgresql"]
 optional = true
 version = ">=1.0.4,<1.1.0"
 
@@ -1242,33 +1242,32 @@ description = "Invenio module for the circulation of bibliographic items."
 name = "invenio-circulation"
 optional = false
 python-versions = ">=3"
-version = "1.0.0a21"
+version = "1.0.0a23"
 
 [package.dependencies]
-Flask-BabelEx = ">=0.9.3"
 arrow = ">=0.15.0"
 invenio-access = ">=1.3.1"
-invenio-base = ">=1.0.1"
-invenio-jsonschemas = ">=1.0.0"
+invenio-base = ">=1.2.1"
+invenio-jsonschemas = ">=1.0.1"
 invenio-logging = ">=1.2.1"
-invenio-pidstore = ">=1.0.0"
-invenio-records-rest = ">=1.6.1"
+invenio-pidstore = ">=1.1.0"
+invenio-records-rest = ">=1.6.4"
 
 [package.extras]
-all = ["Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)", "Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)"]
-docs = ["Sphinx (>=1.5.1)"]
-elasticsearch5 = ["invenio-search (>=1.2.1)"]
-elasticsearch6 = ["invenio-search (>=1.2.1)"]
-elasticsearch7 = ["invenio-search (>=1.2.1)"]
+all = ["Sphinx (>=1.8.4,<3)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "isort (>=4.3.11)", "invenio-app (>=1.2.3)", "invenio-jsonschemas (>=1.0.1)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)", "pytest-invenio (>=1.2.1)", "Sphinx (>=1.8.4,<3)", "check-manifest (>=0.35)", "coverage (>=4.5.3)", "isort (>=4.3.11)", "invenio-app (>=1.2.3)", "invenio-jsonschemas (>=1.0.1)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)", "pytest-invenio (>=1.2.1)"]
+docs = ["Sphinx (>=1.8.4,<3)"]
+elasticsearch5 = ["invenio-search (>=1.2.3)"]
+elasticsearch6 = ["invenio-search (>=1.2.3)"]
+elasticsearch7 = ["invenio-search (>=1.2.3)"]
 mysql = ["invenio-db (>=1.0.4)"]
 postgresql = ["invenio-db (>=1.0.4)"]
 sqlite = ["invenio-db (>=1.0.4)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.4)", "isort (>=4.3.11)", "invenio-app (>=1.0.4)", "invenio-jsonschemas (>=1.0.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.1)", "pytest-invenio (>=1.2.0)"]
+tests = ["check-manifest (>=0.35)", "coverage (>=4.5.3)", "isort (>=4.3.11)", "invenio-app (>=1.2.3)", "invenio-jsonschemas (>=1.0.1)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
-reference = "f250b11766c5c98503271cd8e51312d1e95cfb38"
+reference = "7b6cb5922ba23c970de6987f9096358d47dd89f7"
 type = "git"
-url = "https://github.com/rero/invenio-circulation.git"
+url = "https://github.com/inveniosoftware/invenio-circulation.git"
 [[package]]
 category = "main"
 description = "Invenio configuration loader."
@@ -3258,6 +3257,7 @@ version = "0.12.0"
 [[package]]
 category = "main"
 description = "Backport of pathlib-compatible object wrapper for zip files"
+marker = "python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\" and (python_version < \"3.8\" or python_version >= \"3.7\" and python_version < \"3.8\")"
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
@@ -3268,7 +3268,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "6cf01f949cca114463ffe745ca11437d58c130963188859555fc62289d2d886d"
+content-hash = "12609ca226df81c70de9ae2809971841c1abea1c9706178bc69f3c753b74ef2e"
 python-versions = ">= 3.6, < 3.8"
 
 [metadata.files]
