@@ -96,22 +96,22 @@
     },
     "start_date": {
       "type": "string",
-      "format": "date",
-      "title": "Transaction start date"
+      "format": "date-time",
+      "title": "Transaction start datetime"
     },
     "end_date": {
       "type": "string",
-      "format": "date",
-      "title": "Transaction end date"
+      "format": "date-time",
+      "title": "Transaction end datetime"
     },
     "request_expire_date": {
-      "format": "date",
-      "title": "Request expire date",
+      "format": "date-time",
+      "title": "Request expire datetime",
       "type": "string"
     },
     "request_start_date": {
-      "format": "date",
-      "title": "Request start date",
+      "format": "date-time",
+      "title": "Request start datetime",
       "type": "string"
     },
     "organisation": {
