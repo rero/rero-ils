@@ -722,8 +722,7 @@ def test_items_extend(client, librarian_martigny_no_email,
     # test renewal due date hour
     extended_loan = Loan.get_record_by_pid(loan_pid)
     end_date = ciso8601.parse_datetime(extended_loan.get('end_date'))
-    # TODO: uncomment this line and fix timezone problems
-    # check_timezone_date(lib_tz, end_date)
+    check_timezone_date(lib_tz, end_date)
 
     # second extenion
     res, _ = postdata(
@@ -1360,11 +1359,10 @@ def test_items_extend_end_date(client, librarian_martigny_no_email,
     current_date = datetime.now(timezone.utc)
     calc_date = current_date + renewal_duration
     # finally the comparison should give the same date (in UTC)!
-    # TODO: check why this is failing
-    # assert (
-    #     calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
-    #         loan_date).astimezone(timezone.utc).strftime('%Y-%m-%d')
-    # )
+    assert (
+        calc_date.strftime('%Y-%m-%d') == ciso8601.parse_datetime(
+            loan_date).astimezone(timezone.utc).strftime('%Y-%m-%d')
+    )
 
     # checkin
     res, _ = postdata(
