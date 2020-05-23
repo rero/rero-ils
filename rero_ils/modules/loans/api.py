@@ -81,13 +81,15 @@ class Loan(IlsRecord):
             'item': 'item'
         }
     }
-    DATE_FIELDS = [
-        "start_date",
+    DATE_FIELDS = []
+
+    DATETIME_FIELDS = [
         "end_date",
         "request_expire_date",
         "request_start_date",
+        "start_date",
+        "transaction_date"
     ]
-    DATETIME_FIELDS = ["transaction_date"]
 
     def __init__(self, data, model=None):
         """Loan init."""
