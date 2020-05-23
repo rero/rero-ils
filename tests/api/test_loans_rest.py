@@ -27,7 +27,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, postdata
+from utils import check_timezone_date, flush_index, get_json, postdata
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import Item
@@ -202,13 +202,11 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
     loan_date = ciso8601.parse_datetime(checkout_loan.get('end_date'))
 
     # as instance timezone is Europe/Zurich, it should be either 21 or 22
-    # TODO: check why this fails
-    # check_timezone_date(pytz.utc, loan_date, [21, 22])
+    check_timezone_date(pytz.utc, loan_date, [21, 22])
 
     # should be 14:59/15:59 in US/Pacific (because of daylight saving time)
-    # TODO: check why these fail
-    # check_timezone_date(pytz.timezone('US/Pacific'), loan_date, [14, 15])
-    # check_timezone_date(pytz.timezone('Europe/Amsterdam'), loan_date)
+    check_timezone_date(pytz.timezone('US/Pacific'), loan_date, [14, 15])
+    check_timezone_date(pytz.timezone('Europe/Amsterdam'), loan_date)
 
     # checkin the item to put it back to it's original state
     res, _ = postdata(
@@ -553,8 +551,7 @@ It should be the same date, even if timezone changed."
     assert loan_datetime.month == lib_datetime.month, fail_msg
     assert loan_datetime.day == lib_datetime.day, fail_msg
     # Loan date differs regarding timezone, and day of the year (GMT+1/2).
-    # TODO: check why this fails
-    # check_timezone_date(pytz.utc, loan_datetime, [21, 22])
+    check_timezone_date(pytz.utc, loan_datetime, [21, 22])
 
 
 def test_librarian_request_on_blocked_user(
