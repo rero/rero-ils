@@ -84,7 +84,11 @@ do
       if [[ ! -f "${tgz_file}" ]]
       then
         error_msg+exit "package tgz file dos not exist: ${tgz_file}"
-      fi ;;
+      fi
+      shift ;;
+    -s|--sip2)
+        # install extra sip2 package
+        flags+=("--extras sip2") ;;
     (--) shift; break;;
     (-*) flags+=("$1") ;;
     (*) break;;
