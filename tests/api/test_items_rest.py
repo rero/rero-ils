@@ -192,49 +192,6 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     assert res.status_code == 410
 
 
-def test_items_failed_actions(client, patron_martigny_no_email,
-                              librarian_martigny_no_email,
-                              loc_public_martigny,
-                              item_type_standard_martigny,
-                              item_lib_martigny, json_header):
-    """Test item failed actions."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    item = item_lib_martigny
-    item_pid = item.pid
-    patron_pid = patron_martigny_no_email.pid
-
-    # no item_pid
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            patron_pid=patron_pid
-        )
-    )
-    assert res.status_code == 500
-
-    # failed checkout no patron_pid
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item_pid
-        )
-    )
-    assert res.status_code == 403
-
-    # no pickup
-    res, _ = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid
-        )
-    )
-    assert res.status_code == 403
-
-
 def test_items_simple_checkout(client, librarian_martigny_no_email,
                                patron_martigny_no_email, loc_public_martigny,
                                item_type_standard_martigny,

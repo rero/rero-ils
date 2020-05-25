@@ -17,11 +17,9 @@
 
 """Tests REST API item_types."""
 
-from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
-import pytest
 import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -29,15 +27,12 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
 from utils import flush_index, get_json, postdata
 
-from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction, get_due_soon_loans, \
     get_last_transaction_loc_for_item, get_loans_by_patron_pid, \
     get_overdue_loans
-from rero_ils.modules.loans.utils import can_be_requested
-from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.notifications.api import NotificationsSearch, \
     number_of_reminders_sent
 
@@ -94,61 +89,6 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
 
     res = client.delete(item_url)
     assert res.status_code == 403
-
-
-def test_loan_utils(client, patron_martigny_no_email,
-                    patron2_martigny_no_email, circulation_policies,
-                    loan_pending_martigny, item_lib_martigny,
-                    loc_public_martigny):
-    """Test loan utils."""
-    loan_metadata = dict(item_lib_martigny)
-    loan_metadata['item_pid'] = item_pid_to_object(item_lib_martigny.pid)
-    if 'patron_pid' not in loan_metadata:
-        loan_metadata['patron_pid'] = patron_martigny_no_email.pid
-    # Create "virtual" Loan (not registered)
-    loan = Loan(loan_metadata)
-    assert can_be_requested(loan)
-
-    del loan['item_pid']
-    with pytest.raises(Exception):
-        assert can_be_requested(loan)
-
-    assert loan_pending_martigny.patron_pid == patron2_martigny_no_email.pid
-    assert not loan_pending_martigny.is_active
-
-    with pytest.raises(TypeError):
-        assert get_loans_by_patron_pid()
-    assert get_loans_by_patron_pid(patron2_martigny_no_email.pid)
-
-    with pytest.raises(TypeError):
-        assert get_last_transaction_loc_for_item()
-
-    assert loan_pending_martigny.organisation_pid
-
-    new_loan = deepcopy(loan_pending_martigny)
-    assert new_loan.organisation_pid
-    del new_loan['item_pid']
-    with pytest.raises(IlsRecordError.PidDoesNotExist):
-        new_loan.organisation_pid
-
-    new_loan = deepcopy(loan_pending_martigny)
-    assert can_be_requested(new_loan)
-    loc_public_martigny['allow_request'] = False
-    loc_public_martigny.update(
-        loc_public_martigny,
-        dbcommit=True,
-        reindex=True
-    )
-    flush_index(LocationsSearch.Meta.index)
-    assert not can_be_requested(new_loan)
-
-    loc_public_martigny['allow_request'] = True
-    loc_public_martigny.update(
-        loc_public_martigny,
-        dbcommit=True,
-        reindex=True
-    )
-    flush_index(LocationsSearch.Meta.index)
 
 
 def test_due_soon_loans(client, librarian_martigny_no_email,
@@ -560,7 +500,7 @@ It should be the same date, even if timezone changed."
 def test_librarian_request_on_blocked_user(
         client, item_lib_martigny,
         librarian_martigny_no_email,
-        patron3_martigny_no_email,
+        patron3_martigny_blocked_no_email,
         circulation_policies):
     """Librarian request on blocked user returns a specific 403 message."""
     assert item_lib_martigny.available
@@ -573,7 +513,7 @@ def test_librarian_request_on_blocked_user(
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron3_martigny_no_email.pid
+            patron_pid=patron3_martigny_blocked_no_email.pid
         )
     )
     assert res.status_code == 403

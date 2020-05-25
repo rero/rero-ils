@@ -57,6 +57,19 @@ class LoanAction(object):
     NO = 'no'
 
 
+class LoanState(object):
+    """Class holding all availabe circulation loan states."""
+
+    CREATED = 'CREATED'
+    PENDING = 'PENDING'
+    ITEM_IN_TRANSIT_FOR_PICKUP = 'ITEM_IN_TRANSIT_FOR_PICKUP'
+    ITEM_IN_TRANSIT_TO_HOUSE = 'ITEM_IN_TRANSIT_TO_HOUSE'
+    ITEM_AT_DESK = 'ITEM_AT_DESK'
+    ITEM_ON_LOAN = 'ITEM_ON_LOAN'
+    ITEM_RETURNED = 'ITEM_RETURNED'
+    CANCELLED = 'CANCELLED'
+
+
 class LoansSearch(IlsRecordsSearch):
     """Libraries search."""
 
@@ -274,15 +287,35 @@ class Loan(IlsRecord):
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
     """Get pending, item_on_transit, item_at_desk loans for item, patron."""
+    filter_states = [
+        'PENDING',
+        'ITEM_AT_DESK',
+        'ITEM_IN_TRANSIT_FOR_PICKUP',
+        'ITEM_IN_TRANSIT_TO_HOUSE',
+    ]
+    return get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states)
+
+
+def get_any_loans_by_item_pid_by_patron_pid(item_pid, patron_pid):
+    """Get loans not ITEM_IN_TRANSIT_TO_HOUSE, CREATED for item, patron."""
+    filter_states = [
+        'PENDING',
+        'ITEM_AT_DESK',
+        'ITEM_IN_TRANSIT_FOR_PICKUP',
+        'ITEM_ON_LOAN',
+    ]
+    return get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states)
+
+
+def get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states=[]):
+    """Get loans for item, patron according to the given filter_states."""
     search = search_by_patron_item_or_document(
         item_pid=item_pid_to_object(item_pid),
         patron_pid=patron_pid,
-        filter_states=[
-            'PENDING',
-            'ITEM_AT_DESK',
-            'ITEM_IN_TRANSIT_FOR_PICKUP',
-            'ITEM_IN_TRANSIT_TO_HOUSE',
-        ],
+        filter_states=filter_states,
     )
     search_result = search.execute()
     if search_result.hits:

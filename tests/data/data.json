@@ -2319,6 +2319,30 @@
     "blocked": true,
     "blocked_note": "Lost card"
   },
+  "ptrn12": {
+    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "pid": "ptrn12",
+    "first_name": "Omar",
+    "barcode": "5127891213",
+    "last_name": "Sharif",
+    "street": "Avenue de la Gare, 26",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1928-01-01",
+    "patron_type": {
+      "$ref": "https://ils.rero.ch/api/patron_types/ptty2"
+    },
+    "email": "sharifo@gmail.com",
+    "phone": "+41324991231",
+    "communication_language": "fre",
+    "communication_channel": "email",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "roles": [
+      "patron"
+    ]
+  },
   "dummy_notif": {
     "$schema": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json",
     "pid": "notif1",
