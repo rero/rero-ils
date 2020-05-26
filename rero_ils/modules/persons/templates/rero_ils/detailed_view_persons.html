@@ -85,9 +85,9 @@
 $(document).ready(function() {
     /* Store state of view tab */
     $('a[data-toggle="tab"]').on('click', function(e) {
-      localStorage.setItem('activeTab', $(this).attr('href'));
+      localStorage.setItem('activeTabPers', $(this).attr('href'));
     });
-    var activeTab = localStorage.getItem('activeTab');
+    var activeTab = localStorage.getItem('activeTabPers');
     if(activeTab) {
       $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
     }

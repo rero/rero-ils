@@ -193,5 +193,18 @@
 {{ super() }}
 {% assets "rero_ils_documents_detailed_js" %}
 <script src="{{ ASSET_URL }}"></script>
+
+<script type="text/javascript">
+$( window ).load(function() {
+    /* Store state of view tab */
+    $('a[data-toggle="tab"]').on('click', function(e) {
+      localStorage.setItem('activeTabDoc', $(this).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTabDoc');
+    if(activeTab) {
+      $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+    }
+});
+</script>
 {% endassets %}
 {% endblock javascript %}
