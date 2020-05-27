@@ -18,6 +18,219 @@
 Release notes
 =============
 
+v0.9.0
+------
+
+This release note includes the release note of ``rero-ils-ui`` version
+``v0.2.0``.
+
+User interface
+~~~~~~~~~~~~~~
+
+-  Improves the document detailed views (public and professional) with
+   tabs: a “get” tab with the holdings and information on items, a
+   “description” tab with extended document metadata and, in the professional
+   view, an “online” tab when the resource is available through an hyperlink.
+   On top of these tabs are displayed the main metadata of the document with
+   the cover thumbnail.
+
+Public interface
+^^^^^^^^^^^^^^^^
+
+-  Removes the item detailed public view which is useless, all relevant
+   information being on the public document detailed view.
+
+Professional interface
+^^^^^^^^^^^^^^^^^^^^^^
+
+-  Updates the library custom editor to normalize buttons according to the
+   `charter <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
+   Also, when a day is set to closed, the opening hours are hidden in addition
+   to being disabled.
+
+Search
+~~~~~~
+
+-  Moves from the ES query string, which is powerful but should not be
+   used for public search input, to ES simple query, much simpler but much more
+   resilient to syntax errors in the query. It also allowed to set the default
+   boolean operator to AND, which is what librarians and patrons expect.
+   The API requests are still done through the ES query string, as complex
+   queries are needed to populate the user interface. A new HTTP query optional
+   parameter is added to identify the simple query: ``&simple=1``.
+-  Sets the same AND boolean operator instead of OR when selecting
+   multiple items in the same facet, thus reducing the scope of the
+   filter instead of expanding it.
+-  Improves the ES mapping to enhance the search quality.
+-  Adds a RERO ILS custom analyzer as the default analyzer.
+-  Improves language analyzer with ``unicode`` capabilities (oe, œ, ue, ü,
+   etc.). Uses a new ES docker image with ``icu``
+   `plugins <https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-icu.html>`__
+   for these functionalities.
+
+Circulation
+~~~~~~~~~~~
+
+-  Checks that there is only one pickup location per library.
+-  Processes notifications asynchronously, which is more scalable and reliable.
+-  Implements *paging request to closed stack* functionality, needed and
+   developed by
+   `UCLouvain <https://uclouvain.be/en/libraries/about.html>`__. It
+   allows to restrict, for a specific location, the available pickup
+   locations, or even to disable the request option for the whole location. It
+   also allows to set a manager for these paging requests, who receives
+   printable email notifications for each request.
+
+   -  Updates the location detailed view with new *paging request*
+      fields.
+   -  Updates the location brief view to identify the *closed stacks*. Adds
+      tooltip message when the location can’t be deleted. Updates the buttons
+      style according to the
+      `charter <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
+   -  Adapts the “request item” selector to display only the available
+      pickup locations.
+
+-  Normalizes the action buttons of the user interface according to
+   the
+   `charter <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
+
+Data
+~~~~
+
+-  Updates the item JSON schema in order to remove the requirement on the
+   call number. The item barcode is still required, but can be left
+   empty by the librarian and be automatically set by the system.
+   These changes are needed to an upcoming functionality, *receive an
+   issue*, in which the librarian should be able to add an item without
+   having to assign a barcode and a call number to it.
+-  Creates a separate table for each resource in the database. Import
+   and export of a resource are easier and access to records faster in
+   big datasets.
+-  Updates JSON schema to draft 7.
+-  Adds methods to ensure PIDs are unique.
+-  Improves JSON schema and ES mapping of the patron transaction event.
+-  Implements physical description in the new data model: extent, duration,
+   format, illustrations, colors and physical details.
+-  Fixes creation, merging and deletion of holdings records for ebooks,
+   during harvesting.
+-  Links documents to person authority records through IdRef, GND or RERO
+   ID instead of a MEF record ID. The MEF clustered record is still used
+   to provide multilingual capabilities, but the source authority
+   IDs are much more stable.
+-  Updates the document editor to propose person authorities from the
+   IdRef and GND records in the MEF server.
+
+User management
+~~~~~~~~~~~~~~~
+
+-  Adds manual blocking of patrons by the librarian. Blocked patrons can’t
+   check out or place requests on documents, and are informed of the
+   blocking in their profile. Librarian are also informed of the blocking when
+   displaying the patron profile or when trying to place circulation
+   transactions that are not possible due to the blocking.
+
+API
+~~~
+
+-  Splits the item class into two classes, the ``api.record:ItemRecord``
+   to manage the item record, the ``api.circulation:ItemCirculation`` to
+   manage item circulation transactions.
+-  Adds a new API URL to check, when creating or updating a patron, if
+   the email does not already exist. A validation message is displayed
+   in the editor.
+-  Exposes PO based translations in JSON through a new API HTTP endpoint
+   to the angular application (``rero-ils-ui``), to avoid translating
+   the same strings in both projects. On the ``rero-ils-ui`` side, the
+   translation mechanism is updated to consume the exposed JSON file
+   translations.
+-  Adds ``create`` to the permission API and removes permissions from
+   the ``SearchSerializer``.
+-  Improves the way ``rero-ils-ui`` gets permissions, through the
+   permission API instead of a search query.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Adds an informative ``README.rst``, addressed to the general public and
+   developers, explaining the context of the project, what it does and is going
+   to do, where to find documentation on how to develop, install or contribute
+   to RERO ILS.
+-  Updates the ``rero-ils-ui`` issue template in order to remind users to
+   privilege issue creation in the ``rero-ils`` GitHub repository.
+
+Tests
+~~~~~
+
+-  Fixes another dependency issue, this time with ``jsonresolver``.
+-  Fixes ``pytest-invenio`` version ``1.2.2`` breaking tests, because it
+   downgrades ``pytest-flask`` and ``Flask``. ``pytest-invenio`` is
+   pinned to ``1.2.1``.
+-  Fixes unit tests for item barcode automatically generated (prefixed
+   with “f-”), to ensure that the time stamp of the generated barcode
+   equals the ``sysdate`` time stamp.
+-  Tests the ES simple query with provided search use case in different
+   languages.
+-  Installs, configures and adds first Cypress test for end to end (e2e) tests.
+
+``rero-ils-ui``
+~~~~~~~~~~~~~~~
+
+-  Rewrites ``MainTitleService`` as a pipe to ease its use in
+   components.
+-  Fixes the test component name to be coherent with component name.
+-  Rewrites tests to limit imports and declarations.
+-  Fixes private attribute names that were missing the leading
+   underscore.
+
+Instance
+~~~~~~~~
+
+-  Moves from ``pipenv`` to ``poetry`` to improve dependency
+   management. Uses ``python-dotenv`` to load ``.env`` and ``.flaskenv``
+   files. This allowed to upgrade ``werkzeug`` which resulted in an
+   issue fixed with the item view and the tests.
+-  Removes a bad hack with ``appnope`` package for Mac OSX.
+-  Removes ``setuptools`` manifest which is not used anymore.
+-  Configures ``celery`` to load ``.env`` and ``.flaskenv`` files.
+-  Adds ``invenio-logging`` Sentry extensions.
+-  Removes ``pipenv`` environment variables from the ``setup`` script.
+-  Fixes an error when interrupting the ``server`` script, resulting in
+   processes still running, after the move from ``pipenv`` to
+   ``poetry``.
+-  Improves the handling of scheduled tasks with the use of REDIS
+   scheduler backend, allowing to enable, disable, update, create
+   scheduled tasks dynamically.
+
+Issues
+~~~~~~
+
+-  `#91 <https://github.com/rero/rero-ils/issues/91>`__: The facets
+   behaviour was not as expected. It associated two items with an OR instead of
+   an AND operator.
+-  `#675 <https://github.com/rero/rero-ils/issues/675>`__: A question
+   was raised on how to improve the library custom editor, specifically the
+   opening hours section. It was decided to hide the opening hours for
+   closed days.
+-  `#755 <https://github.com/rero/rero-ils/issues/755>`__: The search
+   failed with a query containing brackets ``[]``.
+-  `#819 <https://github.com/rero/rero-ils/issues/819>`__: The
+   population of items in editor selectors was very slow.
+-  `#850 <https://github.com/rero/rero-ils/issues/850>`__: Creation of
+   two records with the same PID is possible.
+-  `#884 <https://github.com/rero/rero-ils/issues/884>`__: Removes the
+   public item detailed view as it is not useful anymore.
+-  `#890 <https://github.com/rero/rero-ils/issues/890>`__: Actions
+   realised in circulation should be in past participle, not in the
+   infinitive form.
+-  `#932 <https://github.com/rero/rero-ils/issues/932>`__: Librarians were able
+   to edit item types and patron types, but these actions should be reserved to
+   system librarians.
+-  `#934 <https://github.com/rero/rero-ils/issues/934>`__: Searching for
+   patrons in a large data set should rely on a good ranking, in order
+   to get an exact match on the top of the results page.
+-  `#1000 <https://github.com/rero/rero-ils/issues/1000>`__: A test on
+   the document API was not raising exceptions, resulting in a failed test.
+
 v0.8.0
 ------
 
@@ -27,8 +240,7 @@ This release note includes the release note of ``rero-ils-ui`` version
 User interface
 ~~~~~~~~~~~~~~
 
--  Implements gradually the `graphic charter specifications for
-   buttons <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
+-  Implements gradually the `graphic charter specifications for buttons <https://github.com/rero/rero-ils/wiki/Usability-charter#buttons>`__.
 -  Launches a search when the user clicks on a title suggestion in the
    search bar, directly.
 
@@ -81,7 +293,7 @@ User management
 
    -  Clean old subscriptions.
    -  Create new subscriptions for patrons linked to a patron type with
-      a subscription but that are missing the subscription fee.
+     a subscription but that are missing the subscription fee.
 
 -  Displays an alert to the patron, in the patron profile for pending
    subscription.
@@ -340,7 +552,7 @@ Instance
 -  Updates ``PyYaml`` to fix a vulnerability (CVE-2020-1747).
 -  Adds a script to check circulation dates (due date) through a
    complete year, to identify all timezone issues.
--  Rename ``rero-ils-ui`` checkout component to checkin accordingly to
+-  Rename ``rero-ils-ui`` checkout component to checkin according to
    its usage.
 -  Update dependencies for security reasons: ``minimist``, ``acorn``,
    ``kind-of``.

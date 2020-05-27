@@ -75,7 +75,7 @@ python-dotenv = "^0.13.0"
 #----------------------------------------------------------
 ## Default from Invenio
 Flask-Debugtoolbar = ">=0.10.1"
-Sphinx = ">=1.5.1"
+Sphinx = ">=3.0.4"
 check-manifest = ">=0.35"
 coverage = ">=4.5.3"
 isort = ">=4.3"
