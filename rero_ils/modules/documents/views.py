@@ -23,8 +23,6 @@ import json
 from functools import wraps
 
 import requests
-import six
-from dojson.contrib.marc21.utils import create_record, split_stream
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babelex import gettext as _
@@ -32,7 +30,6 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
-from .dojson.contrib.unimarctojson import unimarc
 from .utils import display_alternate_graphic_first, edition_format_text, \
     localized_data_name, note_format_text, publication_statement_text, \
     series_format_text, title_format_text_alternate_graphic, \
@@ -106,83 +103,6 @@ def cover(isbn):
     response = requests.get(
         url, headers={'referer': flask_request.host_url})
     return jsonify(json.loads(response.text[len('thumb('):-1]))
-
-
-@api_blueprint.route("/import/bnf/<int:ean>")
-@check_permission
-def import_bnf_ean(ean):
-    """Import record from BNFr given a isbn 13 without dashes.
-
-    See: https://catalogue.bnf.fr/api/test.do
-    """
-    bnf_url = current_app.config['RERO_ILS_APP_IMPORT_BNF_EAN']
-    try:
-        with requests.get(bnf_url.format(ean)) as response:
-            if not response.ok:
-                status_code = 502
-                response = {
-                    'metadata': {},
-                    'errors': {
-                        'code': status_code,
-                        'title': 'The BNF server returns a bad status code.',
-                        'detail': 'Status code: {}'.format(
-                            response.status_code)
-                    }
-                }
-                current_app.logger.error(
-                    '{title}: {detail}'.format(
-                        title=response.get('title'),
-                        detail=response.get('detail')))
-
-            else:
-                # read the xml date from the HTTP response
-                xml_data = response.content
-
-                # create a xml file in memory
-                xml_file = six.BytesIO()
-                xml_file.write(xml_data)
-                xml_file.seek(0)
-
-                # get the record in xml if exists
-                # note: the request should returns one record max
-                xml_record = next(split_stream(xml_file))
-
-                # convert xml in marc json
-                json_data = create_record(xml_record)
-
-                # convert marc json to local json format
-                record = unimarc.do(json_data)
-                response = {
-                    'metadata': record
-                }
-                status_code = 200
-    # no record found!
-    except StopIteration:
-        status_code = 404
-        response = {
-            'metadata': {},
-            'errors': {
-                'code': status_code,
-                'title': 'The EAN was not found on the BNF server.'
-            }
-        }
-    # other errors
-    except Exception as error:
-        status_code = 500
-        response = {
-            'metadata': {},
-            'errors': {
-                'code': status_code,
-                'title': 'An unexpected error has been raise.',
-                'detail': 'Error: {error}'.format(error=error)
-            }
-        }
-        current_app.logger.error(
-            '{title}: {detail}'.format(
-                title=response.get('title'),
-                detail=response.get('detail')))
-
-    return jsonify(response), status_code
 
 
 blueprint = Blueprint(
