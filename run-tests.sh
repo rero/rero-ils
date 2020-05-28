@@ -90,7 +90,7 @@ if [ $# -eq 0 ]
         info_msg "Sphinx-build:"
         sphinx-build -qnNW docs docs/_build/html
         info_msg "Tests:"
-        # invenio utils set_test_static_folder -v
+        unset PYTEST_ADDOPTS
         poetry run tests
 fi
 if [ "$1" = "external" ]
@@ -98,7 +98,7 @@ if [ "$1" = "external" ]
         export PYTEST_ADDOPTS="--cov-append -m "external""
 
         info_msg "External tests:"
-        test
+        poetry run tests ${@:2}
 fi
 
 success_msg "Perfect ${PROGRAM}! See you soon…"
