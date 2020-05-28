@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 import jinja2
+from flask import Blueprint
 from flask_bootstrap import Bootstrap
 from flask_wiki import Wiki
 from invenio_circulation.signals import loan_state_changed
@@ -31,6 +32,7 @@ from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
+from .imports.views import ImportsListResource, ImportsResource
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
@@ -81,6 +83,36 @@ class REROILSAPP(object):
         Wiki(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
+        self.init_imports(app)
+
+    def init_imports(self, app):
+        """Imports bluprint initialization."""
+        api_blueprint = Blueprint(
+            'api_imports',
+            __name__
+        )
+        endpoints = app.config.get('RERO_IMPORT_REST_ENDPOINTS', {})
+        for endpoint, options in endpoints.items():
+            imports_search = ImportsListResource.as_view(
+                'imports_search',
+                import_class=options.get('import_class'),
+                import_size=options.get('import_size')
+            )
+            api_blueprint.add_url_rule(
+                '/import/{endpoint}/'.format(endpoint=endpoint),
+                view_func=imports_search
+            )
+            app.register_blueprint(api_blueprint)
+
+            imports_record = ImportsResource.as_view(
+                'imports_record',
+                import_class=options.get('import_class')
+            )
+            api_blueprint.add_url_rule(
+                '/import/{endpoint}/<id>'.format(endpoint=endpoint),
+                view_func=imports_record
+            )
+            app.register_blueprint(api_blueprint)
 
     def init_config(self, app):
         """Initialize configuration."""

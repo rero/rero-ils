@@ -288,6 +288,9 @@ INDEXER_BULK_REQUEST_TIMEOUT = 60
 CELERY_BEAT_SCHEDULER = 'rero_ils.schedulers.RedisScheduler'
 CELERY_REDIS_SCHEDULER_URL = 'redis://localhost:6379/4'
 
+RERO_IMPORT_CACHE = 'redis://localhost:6379/5'
+RERO_IMPORT_CACHE_EXPIRE = 10
+
 # Database
 # ========
 #: Database URI including user and password
@@ -401,6 +404,9 @@ RECORDS_REST_DEFAULT_UPDATE_PERMISSION_FACTORY = librarian_update_permission_fac
 RECORDS_REST_DEFAULT_DELETE_PERMISSION_FACTORY = librarian_delete_permission_factory
 """Default delete permission factory: reject any request."""
 
+REST_MIMETYPE_QUERY_ARG_NAME = 'format'
+"""Name of the query argument to specify the mimetype wanted for the output."""
+
 RECORDS_REST_ENDPOINTS = dict(
     doc=dict(
         pid_type='doc',
@@ -417,6 +423,10 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': (
                 'rero_ils.modules.documents.serializers:json_doc_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+            'rero+json': 'application/rero+json'
         },
         search_serializers={
             'application/json': (
@@ -460,6 +470,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -494,6 +507,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -526,6 +542,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -560,6 +579,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -596,6 +618,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -635,6 +660,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -672,6 +700,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -706,6 +737,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -743,6 +777,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -777,6 +814,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -809,6 +849,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -843,6 +886,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -879,6 +925,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -913,6 +962,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -946,6 +998,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -986,6 +1041,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -1019,6 +1077,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -1059,6 +1120,9 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.serializers:json_v1_response'
             )
         },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
@@ -1095,6 +1159,9 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
             )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': (
@@ -1171,10 +1238,12 @@ RECORDS_REST_FACETS = dict(
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             organisation=dict(
-                terms=dict(field='holdings.organisation.organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE),
+                terms=dict(field='holdings.organisation.organisation_pid',
+                           size=DOCUMENTS_AGGREGATION_SIZE),
                 aggs=dict(
                     library=dict(
-                        terms=dict(field='holdings.organisation.library_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                        terms=dict(field='holdings.organisation.library_pid',
+                                   size=DOCUMENTS_AGGREGATION_SIZE)
                     )
                 )
             ),
@@ -1543,7 +1612,6 @@ SEARCH_UI_SEARCH_API = '/api/documents/'
 RERO_ILS_APP_BASE_URL = 'https://ils.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
-RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
 
 #: Git commit hash. If set, a link to github commit page
 #: is displayed on RERO-ILS frontpage.
@@ -1555,13 +1623,6 @@ RERO_ILS_UI_GIT_HASH = None
 #: RERO_ILS MEF specific configurations.
 RERO_ILS_MEF_URL = 'https://{host}/api/mef/'.format(host='mef.rero.ch')
 RERO_ILS_MEF_RESULT_SIZE = 100
-
-
-#: RERO_ILS specific configurations.
-RERO_ILS_APP_IMPORT_BNF_EAN = 'http://catalogue.bnf.fr/api/SRU?'\
-                              'version=1.2&operation=searchRetrieve'\
-                              '&recordSchema=unimarcxchange&maximumRecords=1'\
-                              '&startRecord=1&query=bib.ean all "{}"'
 
 RERO_ILS_APP_HELP_PAGE = (
     'https://github.com/rero/rero-ils/wiki/Public-demo-help'
@@ -1610,6 +1671,9 @@ CIRCULATION_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': ('invenio_records_rest.serializers'
                                  ':json_v1_response'),
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
         },
         search_serializers={
             'application/json': ('invenio_records_rest.serializers'
@@ -1730,3 +1794,12 @@ WIKI_MARKDOWN_EXTENSIONS = set((
     'extra',
     'markdown_captions'
 ))
+
+# IMPORT
+# ====
+RERO_IMPORT_REST_ENDPOINTS = dict(
+    bnf=dict(
+        import_class='rero_ils.modules.imports.api:BnfImport',
+        import_size=50
+    )
+)

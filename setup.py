@@ -106,7 +106,7 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring:api_blueprint',
+            'monitoring = rero_ils.modules.monitoring:api_blueprint'
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',

@@ -84,7 +84,6 @@ def patterns_preview(holding_pid):
     Required parameters: holding_pid
     Optional parameters: size: number of previewed issues - by default 10
     """
-    print()
     try:
         size = flask_request.args.get('size')
         number_issues = int(size) if size else 10
