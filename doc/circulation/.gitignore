@@ -1,0 +1,3 @@
+*.svg
+!loan_states.svg
+*.png

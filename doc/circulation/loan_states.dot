@@ -1,0 +1,84 @@
+digraph G {
+# Title
+label="Circulation state diagram";
+labelloc = "t"; # place label on top
+compound=True;
+
+# Configuration
+rankdir=LR;
+node [shape=rectangle style=rounded]; # change displaying box for states
+
+# Main states
+"CREATED" [label="" xlabel="Loan" shape=circle style=filled color=black];
+"PENDING" [color="transparent" style=filled fillcolor="#ffb3ba"];
+"ITEM_AT_DESK" [shape=house color="transparent" style=filled fillcolor="#ffdfba"];
+"ITEM_IN_TRANSIT";
+"ITEM_ON_LOAN";
+"ITEM_RETURNED";
+"CANCELLED" [color="transparent" style=filled fillcolor="#ffb3ba"];
+"DISPUTED";
+"DELETED" [shape=doublecircle label="" style=filled fillcolor=black];
+
+# Subgraphs
+subgraph cluster_main {
+	label="";
+	"CANCELLED";
+	"ITEM_RETURNED";
+	subgraph cluster_0 {
+		# Configuration
+		node [style=filled];
+		label="";
+		color=gray;
+		# States
+		{ rank=same; "ITEM_AT_DESK", "ITEM_IN_TRANSIT"}
+		{ rank=same; "ITEM_ON_LOAN", "DISPUTED"}
+		# Transitions
+		"PENDING" -> "ITEM_ON_LOAN" [label=checkout];
+		"PENDING" -> "ITEM_AT_DESK" [label=validate color=green fontcolor=green];
+		"PENDING" -> "ITEM_IN_TRANSIT" [label=validate color=blue fontcolor=blue];
+		"ITEM_AT_DESK" -> "ITEM_ON_LOAN" [label=checkout];
+		"ITEM_ON_LOAN" -> "ITEM_IN_TRANSIT" [label=checkin color=violet fontcolor=violet];
+		"ITEM_ON_LOAN" -> "ITEM_ON_LOAN" [label=extend];
+		"ITEM_ON_LOAN" -> "DISPUTED";
+		"DISPUTED" -> "ITEM_ON_LOAN";
+		}
+
+		# Transition from atdesk to main cluster
+		{ rank=same; "ITEM_RETURNED", "CANCELLED"}
+		"ITEM_ON_LOAN" -> "ITEM_RETURNED" [label=checkin color=orange fontcolor=orange];
+		"ITEM_IN_TRANSIT" -> "ITEM_AT_DESK" [label=<delivery_receive>];
+		"ITEM_IN_TRANSIT" -> "ITEM_RETURNED" [label=house_receive];
+	}
+
+"CREATED" -> "PENDING" [label=request];
+"CREATED" -> "ITEM_ON_LOAN" [label=checkout];
+"ITEM_RETURNED" -> "DELETED" [label=delete];
+"CANCELLED" -> "DELETED" [label=delete];
+
+"ITEM_ON_LOAN" -> "CANCELLED" [ltail=cluster_0 color=gray];
+
+# Legend
+subgraph cluster_legend {
+# Config
+node [shape=plaintext style=solid];
+label="Legend";
+# Elements
+"Green" [label="validate" fontcolor=green];
+"Green2" [label="item library = pickup library"];
+"Blue" [label="validate" fontcolor=blue];
+"Blue2" [label="item library != pickup library"];
+"Violet" [label="checkin" fontcolor=violet];
+"Violet2" [label=<no other pending loan &amp;&amp;<br/> item library != transaction library>];
+"Orange" [label="checkin" fontcolor=orange];
+"Orange2" [label=<other pending loan OR<br/> (no other pending loan &amp;&amp;<br/> item library = transaction library)>];
+# Align elements
+{rank=same; "Green", "Blue", "Violet", "Orange"}
+{rank=same; "Green2", "Blue2", "Violet2", "Orange2"}
+# Create arrows
+"Green" -> "Green2" [color=green];
+"Blue" -> "Blue2" [color=blue];
+"Violet" -> "Violet2" [color=violet];
+"Orange" -> "Orange2" [color=orange];
+}
+
+}
