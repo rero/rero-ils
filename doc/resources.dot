@@ -1,0 +1,128 @@
+digraph G {
+
+# Configuration
+label="RERO ILS resources";
+labelloc="t";
+node [shape=box style=filled color="#bae1ff"];
+rankdir=LR;
+nodesep=0.5;
+
+# Transitions
+# -----------
+# Special config for all links:
+# - point in 2 directions
+# - with a dot as origin
+edge [dir=both arrowhead=normal arrowtail=dot];
+
+subgraph group1 {
+{rank=same; "Person", "Document", "Holding", "Item", "Loan", "Notification", "Patron Transaction", "Patron Transaction Events"}
+"Item" -> "Holding";
+"Holding" -> "Document";
+"Document" -> "Person" [arrowhead=crow];
+"Patron Transaction Events" -> "Patron Transaction";
+"Patron Transaction" -> "Notification";
+"Notification" -> "Loan";
+"Loan" -> "Item";
+}
+
+# Libraries
+subgraph group2 {
+{rank=same; "Organisation", "Library", "Location"}
+"Location" -> "Library";
+"Library" -> "Organisation";
+
+}
+
+subgraph group3 {
+"Patron Type";
+"Role" [shape=Mrecord fillcolor="#bae1ff" color=black label="<librarian> Librarian|<patron> Patron"];
+"Role":patron -> "Patron Type" [xlabel="role=patron" color=blue fontcolor=blue];
+"Role":librarian -> "Library" [xlabel="role=librarian" color=gray fontcolor=gray];
+}
+
+"Item Type" -> "Organisation";
+"Patron Transaction" -> "Role":patron;
+"Patron Transaction Events" -> "Role":librarian;
+"Patron Transaction Events" -> "Location" [color=green];
+
+# Circulation policy
+"Circ Policy";
+"Circ Policy" -> "Item Type";
+
+subgraph budgets {
+{rank=same; "Budget", "Account", "Order Lines"}
+"Order Lines" -> "Account";
+"Account" -> "Budget";
+}
+
+subgraph column6 {
+{rank=same; "Order", "Vendor"}
+"Order" -> "Vendor";
+}
+
+"Order Lines" -> "Order";
+
+# Specifics
+# Item to 3 objects (Document, Location, Item Type)
+"IDIL" [shape=none label="" width=0 height=0];
+"Item" -> "IDIL" [color=red arrowtail=dot arrowhead=normal];
+"IDIL" -> "Document" [color=red arrowtail=none arrowhead=normal];
+"IDIL" -> "Location" [color=red arrowtail=none arrowhead=normal];
+"IDIL" -> "Item Type" [color=red arrowtail=none arrowhead=normal];
+
+# special tip to merge 3 arrow in one:
+# - first you create an invisible node
+# - then you link 3 objects to this one, without "arrow"
+# - finally you create one arrow from the invisible node and final object
+"PTBV" [shape=none label="" width=0 height=0];
+"Patron Type" -> "PTBV" [arrowtail=none arrowhead=normal];
+"Budget" -> "PTBV" [arrowtail=none arrowhead=normal];
+"Vendor" -> "PTBV" [arrowtail=none arrowhead=normal];
+"PTBV" -> "Organisation" [arrowtail=none arrowhead=normal];
+
+# 1 objet to 2 others
+"HITL" [label="" shape=none width=0 height=0]; # Holding + Item Type + Location
+"Holding" -> "HITL" [arrowtail=dot arrowhead=normal];
+"HITL" -> "Item Type" [arrowtail=none arrowhead=normal];
+"HITL" -> "Location" [arrowtail=none arrowhead=normal];
+
+# Account + Order to Library
+"AOL" [label="" shape=none width=0 height=0]; # Account + Order + Library
+"Order" -> "AOL" [arrowtail=dot arrowhead=normal];
+"Account" -> "AOL" [arrowtail=dot arrowhead=normal];
+"AOL" -> "Library" [arrowtail=none arrowhead=normal];
+
+# Circulation policy to Library + Location
+"CLL" [label="" shape=none width=0 height=0]; # Circ. polic. + Library + Location
+"Circ Policy" -> "CLL" [arrowtail=dot arrowhead=normal];
+"CLL" -> "Library" [xlabel="library level" arrowtail=none arrowhead=normal];
+"CLL" -> "Location" [arrowtail=none arrowhead=normal];
+
+# Patron Type + Budget + Vendor to Organisation
+"PBVO" [label="" shape=none width=0 height=0]; # Patron Type + Budget + Vendor + Organisation
+"Patron Type" -> "PBVO" [color=green arrowtail=dot arrowhead=normal];
+"Budget" -> "PBVO" [color=green arrowtail=dot arrowhead=normal];
+"Vendor" -> "PBVO" [color=green arrowtail=dot arrowhead=normal];
+"PBVO" -> "Organisation" [color=green arrowtail=none arrowhead=normal];
+
+# Legend
+subgraph cluster_01 {
+	# Config.: No shape, just plaintext without color
+	node [shape=plaintext style=solid];
+	label = "Legend";
+	# Elements
+	"Object" [shape=box style=filled fillcolor="#bae1ff"];
+	"Object2" [shape=plaintext label="Object"];
+	"Black" [label=""];
+	"Red" [label=""];
+	"Black2" [label="Relations by pid $ref"];
+	"Red2" [label="Relations to remove"];
+	# Align elements
+	{rank=same; "Object", "Black", "Red"}
+	{rank=same; "Object2", "Black2", "Red2"}
+	# Create arrows
+	"Black" -> "Black2" [color=black];
+	"Red" -> "Red2" [color=red];
+	}
+
+}
