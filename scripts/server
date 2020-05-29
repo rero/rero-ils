@@ -59,7 +59,7 @@ msg "PROGRAM: ${PROGRAM}"
 
 set -e
 
-script_path=$(dirname "$0")
+SCRIPT_PATH=$(dirname "$0")
 # poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
@@ -67,13 +67,14 @@ fi
 
 export FLASK_DEBUG=True
 export FLASK_ENV=development
-# Start Worker and Server
-celery worker -A rero_ils.celery --beat -S rero_ils.schedulers.RedisScheduler -l INFO & pid_celery=$!
+# Start Worker and Beat
+celery worker --app rero_ils.celery --loglevel INFO --beat --scheduler rero_ils.schedulers.RedisScheduler & PID_CELERY=$!
 
+# Start Server
 invenio run \
-   --cert "$script_path"/../docker/nginx/test.crt \
-   --key "$script_path"/../docker/nginx/test.key & pid_server=$!
+   --cert "$SCRIPT_PATH"/../docker/nginx/test.crt \
+   --key "$SCRIPT_PATH"/../docker/nginx/test.key & PID_SERVER=$!
 
-trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
+trap 'kill $PID_CELERY $PID_SERVER &>/dev/null' EXIT
 
-wait $pid_celery $pid_server
+wait $PID_CELERY $PID_SERVER
