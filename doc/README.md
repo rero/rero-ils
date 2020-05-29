@@ -14,7 +14,12 @@ make
 
 **reroils\_resources.png** and **reroils\_resources.svg** should be generated.
 
-# Loan state chart
+# Circulation
+
+  * [actions](./circulation/actions.md): detail of all actions in circulation module
+  * [scenarios](./circulation/scenarios.md): use previous actions to compose more complex scenarios
+
+## Loan state chart
 
 A chart with all Loan states.
 
@@ -27,3 +32,4 @@ cd circulation && make loan_states
 ```
 
 **loan\_states.png** and **loan\_states.jpg** should be generated.
+
