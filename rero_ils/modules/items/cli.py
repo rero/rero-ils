@@ -26,7 +26,7 @@ from random import randint
 import click
 from flask.cli import with_appcontext
 
-from .models import ItemIdentifier, ItemStatus
+from .models import ItemIdentifier, ItemNoteTypes, ItemStatus
 from ..documents.api import Document
 from ..holdings.models import HoldingIdentifier
 from ..item_types.api import ItemType
@@ -251,6 +251,26 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
                 base_url=base_url, doc_type='holdings', pid=holding_pid)
         }
     }
+
+    # RANDOMLY ADD NOTES
+    #   we will add a note to +/- 30% of the items.
+    #   if an item has notes, between one and 4 notes will be add
+    if random.random() < 0.3:
+        item['notes'] = random.sample([{
+            'type': ItemNoteTypes.PUBLIC,
+            'content': 'Public note lorem ipsum....'
+        }, {
+            'type': ItemNoteTypes.STAFF,
+            'content': 'Eius dolorem dolorem labore neque.'
+        }, {
+            'type': ItemNoteTypes.CHECKIN,
+            'content': 'Nullam non porta urna'
+        }, {
+            'type': ItemNoteTypes.CHECKOUT,
+            'content': 'Interdum et malesuada fames ac ante ipsum primis in '
+                       'faucibus'
+        }], k=random.randint(1, 4))
+
     return missing, item
 
 

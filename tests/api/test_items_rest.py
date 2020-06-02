@@ -23,14 +23,16 @@ from datetime import datetime, timezone
 
 import ciso8601
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, check_timezone_date, \
     flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
+from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan, LoanAction
 from rero_ils.modules.loans.utils import get_extension_params
@@ -1568,3 +1570,47 @@ def test_filtered_items_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total'] == 1
+
+
+def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
+                     json_header):
+    """Test items notes."""
+
+    item = item_lib_martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    # at start the items have one note
+    assert len(item.notes) == 1
+
+    # set one public & one staff note
+    item['notes'] = [
+        {'type': ItemNoteTypes.PUBLIC, 'content': 'Public note'},
+        {'type': ItemNoteTypes.STAFF, 'content': 'Staff note'}
+    ]
+    res = client.put(
+        url_for('invenio_records_rest.item_item', pid_value=item.pid),
+        data=json.dumps(item),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # add a second public note -- This should fail because we can only have one
+    # note of each type for an item
+    item['notes'].append(
+        {'type': ItemNoteTypes.PUBLIC, 'content': 'Second public note'}
+    )
+    with pytest.raises(RecordValidationError):
+        client.put(
+            url_for('invenio_records_rest.item_item', pid_value=item.pid),
+            data=json.dumps(item),
+            headers=json_header
+        )
+    item['notes'] = item.notes[:-1]
+
+    # get a specific type of notes
+    #  --> public : should return a note
+    #  --> checkin : should return nothing
+    #  --> dummy : should never return something !
+    assert item.get_note(ItemNoteTypes.PUBLIC)
+    assert item.get_note(ItemNoteTypes.CHECKIN) is None
+    assert item.get_note('dummy') is None

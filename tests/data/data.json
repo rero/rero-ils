@@ -1967,6 +1967,12 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "Lorem ipsum et blablabla..."
+      }
+    ],
     "status": "on_shelf"
   },
   "item2": {
@@ -1999,6 +2005,16 @@
     "item_type": {
       "$ref": "https://ils.rero.ch/api/item_types/itty1"
     },
+    "notes": [
+      {
+        "type": "public_note",
+        "content": "This is a public note !"
+      },
+      {
+        "type": "checkout_note",
+        "content": "Dummy checkout noote"
+      }
+    ],
     "status": "on_shelf"
   },
   "item4": {
