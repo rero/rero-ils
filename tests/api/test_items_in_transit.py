@@ -23,7 +23,7 @@ from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 
 
 def test_items_in_transit_between_libraries(
@@ -116,10 +116,11 @@ def test_item_multiple_transit(client, item_lib_martigny,
         ),
     )
     assert res.status_code == 200
-    assert Loan.get_record_by_pid(loan_pid).get('state') == 'CANCELLED'
+    assert Loan.get_record_by_pid(loan_pid).get('state') == \
+        LoanState.CANCELLED
     # The request loan will automatically go in transit
     assert Loan.get_record_by_pid(request_loan_pid).get('state') == \
-        'ITEM_IN_TRANSIT_FOR_PICKUP'
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
 
 def test_auto_checkin_else(client, librarian_martigny_no_email,

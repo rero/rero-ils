@@ -27,7 +27,7 @@ marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "amqp"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "2.5.2"
+version = "2.6.0"
 
 [package.dependencies]
 vine = ">=1.1.3,<5.0.0a1"
@@ -179,7 +179,7 @@ description = "Bootstrap helper for Flask/Jinja2."
 name = "bootstrap-flask"
 optional = false
 python-versions = "*"
-version = "1.3.1"
+version = "1.3.2"
 
 [package.dependencies]
 Flask = "*"
@@ -193,12 +193,12 @@ category = "main"
 description = "Distributed Task Queue."
 name = "celery"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*,"
-version = "4.4.2"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "4.4.4"
 
 [package.dependencies]
 billiard = ">=3.6.3.0,<4.0"
-kombu = ">=4.6.8,<4.7"
+kombu = ">=4.6.10,<4.7"
 pytz = ">0.0-dev"
 vine = "1.3.0"
 
@@ -207,10 +207,10 @@ arangodb = ["pyArango (>=1.3.2)"]
 auth = ["cryptography"]
 azureblockblob = ["azure-storage (0.36.0)", "azure-common (1.1.5)", "azure-storage-common (1.1.0)"]
 brotli = ["brotli (>=1.0.0)", "brotlipy (>=0.7.0)"]
-cassandra = ["cassandra-driver"]
+cassandra = ["cassandra-driver (<3.21.0)"]
 consul = ["python-consul"]
 cosmosdbsql = ["pydocumentdb (2.3.2)"]
-couchbase = ["couchbase", "couchbase-cffi"]
+couchbase = ["couchbase-cffi (<3.0.0)", "couchbase (<3.0.0)"]
 couchdb = ["pycouchdb"]
 django = ["Django (>=1.11)"]
 dynamodb = ["boto3 (>=1.9.178)"]
@@ -230,7 +230,7 @@ s3 = ["boto3 (>=1.9.125)"]
 slmq = ["softlayer-messaging (>=1.0.3)"]
 solar = ["ephem"]
 sqlalchemy = ["sqlalchemy"]
-sqs = ["boto3 (>=1.9.125)", "pycurl (7.43.0.2)"]
+sqs = ["boto3 (>=1.9.125)", "pycurl (7.43.0.5)"]
 tblib = ["tblib (>=1.3.0)", "tblib (>=1.5.0)"]
 yaml = ["PyYAML (>=3.10)"]
 zookeeper = ["kazoo (>=1.3.1)"]
@@ -590,7 +590,7 @@ description = "Adds caching support to your Flask application"
 name = "flask-caching"
 optional = false
 python-versions = "*"
-version = "1.8.0"
+version = "1.9.0"
 
 [package.dependencies]
 Flask = "*"
@@ -792,7 +792,7 @@ description = "Adds SQLAlchemy support to your Flask application."
 name = "flask-sqlalchemy"
 optional = false
 python-versions = ">= 2.7, != 3.0.*, != 3.1.*, != 3.2.*, != 3.3.*"
-version = "2.4.2"
+version = "2.4.3"
 
 [package.dependencies]
 Flask = ">=0.10"
@@ -936,7 +936,7 @@ description = "All-in-one infinity value for Python. Can be compared to any obje
 name = "infinity"
 optional = false
 python-versions = "*"
-version = "1.4"
+version = "1.5"
 
 [package.extras]
 test = ["pytest (>=2.2.3)", "Pygments (>=1.2)", "six (>=1.4.1)", "flake8 (>=2.4.0)", "isort (>=4.2.2)"]
@@ -990,7 +990,7 @@ optional = true
 version = ">=1.1.3,<1.2.0"
 
 [package.dependencies.invenio-db]
-extras = ["versioning", "postgresql"]
+extras = ["postgresql", "versioning"]
 optional = true
 version = ">=1.0.4,<1.1.0"
 
@@ -1604,7 +1604,7 @@ description = "Invenio-Records is a metadata storage module."
 name = "invenio-records"
 optional = false
 python-versions = "*"
-version = "1.3.1"
+version = "1.3.2"
 
 [package.dependencies]
 Flask-BabelEx = ">=0.9.3"
@@ -1793,7 +1793,7 @@ description = "IPython: Productive Interactive Computing"
 name = "ipython"
 optional = false
 python-versions = ">=3.6"
-version = "7.14.0"
+version = "7.15.0"
 
 [package.dependencies]
 appnope = "*"
@@ -1809,7 +1809,7 @@ setuptools = ">=18.5"
 traitlets = ">=4.2"
 
 [package.extras]
-all = ["nose (>=0.10.1)", "Sphinx (>=1.3)", "testpath", "nbformat", "ipywidgets", "qtconsole", "numpy (>=1.14)", "notebook", "ipyparallel", "ipykernel", "pygments", "requests", "nbconvert"]
+all = ["Sphinx (>=1.3)", "ipykernel", "ipyparallel", "ipywidgets", "nbconvert", "nbformat", "nose (>=0.10.1)", "notebook", "numpy (>=1.14)", "pygments", "qtconsole", "requests", "testpath"]
 doc = ["Sphinx (>=1.3)"]
 kernel = ["ipykernel"]
 nbconvert = ["nbconvert"]
@@ -1833,7 +1833,7 @@ description = "Extract, clean, transform, hyphenate and metadata for ISBNs (Inte
 name = "isbnlib"
 optional = false
 python-versions = "*"
-version = "3.10.1"
+version = "3.10.3"
 
 [[package]]
 category = "dev"
@@ -1986,10 +1986,10 @@ marker = "python_version < \"3.7\" or python_version >= \"3.7\""
 name = "kombu"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "4.6.8"
+version = "4.6.10"
 
 [package.dependencies]
-amqp = ">=2.5.2,<2.6"
+amqp = ">=2.6.0,<2.7"
 
 [package.dependencies.importlib-metadata]
 python = "<3.8"
@@ -2042,7 +2042,7 @@ description = "A super-fast templating language that borrows the  best ideas fro
 name = "mako"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.1.2"
+version = "1.1.3"
 
 [package.dependencies]
 MarkupSafe = ">=0.9.2"
@@ -2092,12 +2092,12 @@ description = "A lightweight library for converting complex datatypes to and fro
 name = "marshmallow"
 optional = false
 python-versions = ">=3.5"
-version = "3.6.0"
+version = "3.6.1"
 
 [package.extras]
-dev = ["pytest", "pytz", "simplejson", "mypy (0.770)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)", "tox"]
-docs = ["sphinx (3.0.3)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)"]
-lint = ["mypy (0.770)", "flake8 (3.7.9)", "flake8-bugbear (20.1.4)", "pre-commit (>=1.20,<3.0)"]
+dev = ["pytest", "pytz", "simplejson", "mypy (0.770)", "flake8 (3.8.2)", "flake8-bugbear (20.1.4)", "pre-commit (>=2.4,<3.0)", "tox"]
+docs = ["sphinx (3.0.4)", "sphinx-issues (1.2.0)", "alabaster (0.7.12)", "sphinx-version-warning (1.1.2)", "autodocsumm (0.1.13)"]
+lint = ["mypy (0.770)", "flake8 (3.8.2)", "flake8-bugbear (20.1.4)", "pre-commit (>=2.4,<3.0)"]
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
@@ -2425,7 +2425,7 @@ description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
 python-versions = ">=3.5"
-version = "5.4.2"
+version = "5.4.3"
 
 [package.dependencies]
 atomicwrites = ">=1.0"
@@ -2662,7 +2662,7 @@ description = "Python client for Redis key-value store"
 name = "redis"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "3.5.2"
+version = "3.5.3"
 
 [package.extras]
 hiredis = ["hiredis (>=0.1.3)"]
@@ -3136,11 +3136,11 @@ version = "1.3.0"
 
 [[package]]
 category = "main"
-description = "Measures number of Terminal column cells of wide-character codes"
+description = "Measures the displayed width of unicode strings in a terminal"
 name = "wcwidth"
 optional = false
 python-versions = "*"
-version = "0.1.9"
+version = "0.2.3"
 
 [[package]]
 category = "main"
@@ -3212,7 +3212,7 @@ description = "Generates WTForms forms from SQLAlchemy models."
 name = "wtforms-alchemy"
 optional = false
 python-versions = "*"
-version = "0.16.9"
+version = "0.17.0"
 
 [package.dependencies]
 SQLAlchemy = ">=1.0"
@@ -3274,7 +3274,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "12609ca226df81c70de9ae2809971841c1abea1c9706178bc69f3c753b74ef2e"
+content-hash = "9229b70e5f4842f73be6959027a6d6086ec0e26ce93152153b9263e99869f82c"
 python-versions = ">= 3.6, < 3.8"
 
 [metadata.files]
@@ -3286,8 +3286,8 @@ alembic = [
     {file = "alembic-1.4.2.tar.gz", hash = "sha256:035ab00497217628bf5d0be82d664d8713ab13d37b630084da8e1f98facf4dbf"},
 ]
 amqp = [
-    {file = "amqp-2.5.2-py2.py3-none-any.whl", hash = "sha256:6e649ca13a7df3faacdc8bbb280aa9a6602d22fd9d545336077e573a1f4ff3b8"},
-    {file = "amqp-2.5.2.tar.gz", hash = "sha256:77f1aef9410698d20eaeac5b73a87817365f457a507d82edf292e12cbb83b08d"},
+    {file = "amqp-2.6.0-py2.py3-none-any.whl", hash = "sha256:bb68f8d2bced8f93ccfd07d96c689b716b3227720add971be980accfc2952139"},
+    {file = "amqp-2.6.0.tar.gz", hash = "sha256:24dbaff8ce4f30566bb88976b398e8c4e77637171af3af6f1b9650f48890e60b"},
 ]
 angular-gettext-babel = [
     {file = "angular_gettext_babel-0.3-py2.py3-none-any.whl", hash = "sha256:9ff197829501e994ac962c0b22aba99459dcf7b0018bf6514a0de15796ba37d9"},
@@ -3339,12 +3339,12 @@ blinker = [
     {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
 ]
 bootstrap-flask = [
-    {file = "Bootstrap-Flask-1.3.1.tar.gz", hash = "sha256:fca79b590de6bcdd2ca555899a49bbd8eb784ecdb358ca1fe2ce5fe13a8621fe"},
-    {file = "Bootstrap_Flask-1.3.1-py2.py3-none-any.whl", hash = "sha256:a8af2da2558d355e9583ef4b2f504df20ec29be2f317b9ebb7005aa5f39629b4"},
+    {file = "Bootstrap-Flask-1.3.2.tar.gz", hash = "sha256:26c61912fff4584e23472ae66f2d98a8d7340bc1c89b48d21e19acb900356b9b"},
+    {file = "Bootstrap_Flask-1.3.2-py2.py3-none-any.whl", hash = "sha256:3df7044dc9075c01e0c198450da2bd2b84e21a72c8e7cf6157ba51edb8a08ad9"},
 ]
 celery = [
-    {file = "celery-4.4.2-py2.py3-none-any.whl", hash = "sha256:5b4b37e276033fe47575107a2775469f0b721646a08c96ec2c61531e4fe45f2a"},
-    {file = "celery-4.4.2.tar.gz", hash = "sha256:108a0bf9018a871620936c33a3ee9f6336a89f8ef0a0f567a9001f4aa361415f"},
+    {file = "celery-4.4.4-py2.py3-none-any.whl", hash = "sha256:9ae2e73b93cc7d6b48b56aaf49a68c91752d0ffd7dfdcc47f842ca79a6f13eae"},
+    {file = "celery-4.4.4.tar.gz", hash = "sha256:c2037b6a8463da43b19969a0fc13f9023ceca6352b4dd51be01c66fbbb13647e"},
 ]
 certifi = [
     {file = "certifi-2020.4.5.1-py2.py3-none-any.whl", hash = "sha256:1d987a998c75633c40847cc966fcf5904906c920a7f17ef374f5aa4282abd304"},
@@ -3525,8 +3525,8 @@ flask-breadcrumbs = [
     {file = "Flask_Breadcrumbs-0.5.1-py2.py3-none-any.whl", hash = "sha256:cb6fc89d7f76ff429fa4bb1fbc0bfe186f3f7ff8b4f5325c0a7b75946e2de98f"},
 ]
 flask-caching = [
-    {file = "Flask-Caching-1.8.0.tar.gz", hash = "sha256:3d0bd13c448c1640334131ed4163a12aff7df2155e73860f07fc9e5e75de7126"},
-    {file = "Flask_Caching-1.8.0-py2.py3-none-any.whl", hash = "sha256:54b6140bb7b9f3e63d009ff08b03bacd84eefb1af1d30af06b4a6bc3c16fa3b2"},
+    {file = "Flask-Caching-1.9.0.tar.gz", hash = "sha256:a0356ad868b1d8ec2d0e675a6fe891c41303128f8904d5d79e180d8b3f952aff"},
+    {file = "Flask_Caching-1.9.0-py2.py3-none-any.whl", hash = "sha256:e6ef2e2af84e13c4fd32c1839c1943a42f11b6b0fbcfdd6bf46547ea5482dbfe"},
 ]
 flask-celeryext = [
     {file = "Flask-CeleryExt-0.3.4.tar.gz", hash = "sha256:47d5d18daebad300b215faca0d1c6da24625f333020482e27591634c05792c98"},
@@ -3578,8 +3578,8 @@ flask-shell-ipython = [
     {file = "flask_shell_ipython-0.4.1-py2.py3-none-any.whl", hash = "sha256:f212b4fad6831edf652799c719cd05fd0716edfaa5506eb41ff9ef09109890d3"},
 ]
 flask-sqlalchemy = [
-    {file = "Flask-SQLAlchemy-2.4.2.tar.gz", hash = "sha256:6cd9f71a97ef18ca5ae7d8bd316a32b82814efe7b088096ba68fddfd8a17cbe7"},
-    {file = "Flask_SQLAlchemy-2.4.2-py2.py3-none-any.whl", hash = "sha256:2298f6b874c2a2f1f048eaf21ce5d984e36a04ca849b0ac473050a67c8dae76f"},
+    {file = "Flask-SQLAlchemy-2.4.3.tar.gz", hash = "sha256:0b656fbf87c5f24109d859bafa791d29751fabbda2302b606881ae5485b557a5"},
+    {file = "Flask_SQLAlchemy-2.4.3-py2.py3-none-any.whl", hash = "sha256:fcfe6df52cd2ed8a63008ca36b86a51fa7a4b70cef1c39e5625f722fca32308e"},
 ]
 flask-talisman = [
     {file = "flask-talisman-0.5.0.tar.gz", hash = "sha256:e4e3ccba66895e1f46d5b62a9cc0f273731da601bc92d2b9af908011298c0e2b"},
@@ -3617,7 +3617,7 @@ importlib-metadata = [
     {file = "importlib_metadata-1.6.0.tar.gz", hash = "sha256:34513a8a0c4962bc66d35b359558fd8a5e10cd472d37aec5f66858addef32c1e"},
 ]
 infinity = [
-    {file = "infinity-1.4.tar.gz", hash = "sha256:dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"},
+    {file = "infinity-1.5.tar.gz", hash = "sha256:8daa7c15ce2100fdccfde212337e0cd5cf085869f54dc2634b6c30d61461ecda"},
 ]
 intervals = [
     {file = "intervals-0.8.1.tar.gz", hash = "sha256:37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"},
@@ -3708,8 +3708,8 @@ invenio-pidstore = [
     {file = "invenio_pidstore-1.1.0-py2.py3-none-any.whl", hash = "sha256:76a16f24b3a7ac2f898969ce3012bf4b0b9969d5e8c4cd179657cc73c94e1b86"},
 ]
 invenio-records = [
-    {file = "invenio-records-1.3.1.tar.gz", hash = "sha256:07debb2d725f49a5b80e3e0c347b09ce3011e10e13e4db697f8648eaa3c0e4af"},
-    {file = "invenio_records-1.3.1-py2.py3-none-any.whl", hash = "sha256:d3bff9f479811ca50fcbffb88a05e7c1d87970264a407c1140162ab11047fd1d"},
+    {file = "invenio-records-1.3.2.tar.gz", hash = "sha256:9cc95def65fdb46db21d935c0e29bb9296c749f17ac97c0962653ffa736b6414"},
+    {file = "invenio_records-1.3.2-py2.py3-none-any.whl", hash = "sha256:8bc6a64446d23ea9e4b64fbf2069d0218d75a7313946ca1055a142ba0076b103"},
 ]
 invenio-records-rest = [
     {file = "invenio-records-rest-1.6.5.tar.gz", hash = "sha256:59aee01e2e77375078faf981949607aebb2bae7ba095f7a50e14c28524961ac8"},
@@ -3740,16 +3740,16 @@ ipaddress = [
     {file = "ipaddress-1.0.23.tar.gz", hash = "sha256:b7f8e0369580bb4a24d5ba1d7cc29660a4a6987763faf1d8a8046830e020e7e2"},
 ]
 ipython = [
-    {file = "ipython-7.14.0-py3-none-any.whl", hash = "sha256:5b241b84bbf0eb085d43ae9d46adf38a13b45929ca7774a740990c2c242534bb"},
-    {file = "ipython-7.14.0.tar.gz", hash = "sha256:f0126781d0f959da852fb3089e170ed807388e986a8dd4e6ac44855845b0fb1c"},
+    {file = "ipython-7.15.0-py3-none-any.whl", hash = "sha256:1b85d65632211bf5d3e6f1406f3393c8c429a47d7b947b9a87812aa5bce6595c"},
+    {file = "ipython-7.15.0.tar.gz", hash = "sha256:0ef1433879816a960cd3ae1ae1dc82c64732ca75cec8dab5a4e29783fb571d0e"},
 ]
 ipython-genutils = [
     {file = "ipython_genutils-0.2.0-py2.py3-none-any.whl", hash = "sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8"},
     {file = "ipython_genutils-0.2.0.tar.gz", hash = "sha256:eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"},
 ]
 isbnlib = [
-    {file = "isbnlib-3.10.1-py2.py3-none-any.whl", hash = "sha256:8452cafff01e95258df4fb3b0328bb814d1b8919fd1ea1337eb6f6d5656f6936"},
-    {file = "isbnlib-3.10.1.tar.gz", hash = "sha256:2a63fdbdfc78447c0bb6ae557c3958f2c9b6b3372bde3dbaf000958b96f5c5cf"},
+    {file = "isbnlib-3.10.3-py2.py3-none-any.whl", hash = "sha256:55a0f8d2070ce366fd4d03b4f30fe6caf9d0cadb4ae107676980570473e41178"},
+    {file = "isbnlib-3.10.3.tar.gz", hash = "sha256:2295c01465fe19776b1f9432fd99fd24e61230d146ded2752e0d980ef6f4101f"},
 ]
 isort = [
     {file = "isort-4.3.21-py2.py3-none-any.whl", hash = "sha256:6e811fcb295968434526407adb8796944f1988c5b65e8139058f2014cbe100fd"},
@@ -3795,8 +3795,8 @@ jsonschema = [
     {file = "jsonschema-3.2.0.tar.gz", hash = "sha256:c8a85b28d377cc7737e46e2d9f2b4f44ee3c0e1deac6bf46ddefc7187d30797a"},
 ]
 kombu = [
-    {file = "kombu-4.6.8-py2.py3-none-any.whl", hash = "sha256:598e7e749d6ab54f646b74b2d2df67755dee13894f73ab02a2a9feb8870c7cb2"},
-    {file = "kombu-4.6.8.tar.gz", hash = "sha256:2d1cda774126a044d91a7ff5fa6d09edf99f46924ab332a810760fe6740e9b76"},
+    {file = "kombu-4.6.10-py2.py3-none-any.whl", hash = "sha256:dc282bb277197d723bccda1a9ba30a27a28c9672d0ab93e9e51bb05a37bd29c3"},
+    {file = "kombu-4.6.10.tar.gz", hash = "sha256:437b9cdea193cc2ed0b8044c85fd0f126bb3615ca2f4d4a35b39de7cacfa3c1a"},
 ]
 limits = [
     {file = "limits-1.5.1-py2-none-any.whl", hash = "sha256:0e5f8b10f18dd809eb2342f5046eb9aa5e4e69a0258567b5f4aa270647d438b3"},
@@ -3835,8 +3835,8 @@ lxml = [
     {file = "lxml-4.2.5.tar.gz", hash = "sha256:36720698c29e7a9626a0dc802ef8885f8f0239bfd1689628ecd459a061f2807f"},
 ]
 mako = [
-    {file = "Mako-1.1.2-py2.py3-none-any.whl", hash = "sha256:8e8b53c71c7e59f3de716b6832c4e401d903af574f6962edbbbf6ecc2a5fe6c9"},
-    {file = "Mako-1.1.2.tar.gz", hash = "sha256:3139c5d64aa5d175dbafb95027057128b5fbd05a40c53999f3905ceb53366d9d"},
+    {file = "Mako-1.1.3-py2.py3-none-any.whl", hash = "sha256:93729a258e4ff0747c876bd9e20df1b9758028946e976324ccd2d68245c7b6a9"},
+    {file = "Mako-1.1.3.tar.gz", hash = "sha256:8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27"},
 ]
 markdown = [
     {file = "Markdown-3.2.2-py3-none-any.whl", hash = "sha256:c467cd6233885534bf0fe96e62e3cf46cfc1605112356c4f9981512b8174de59"},
@@ -3882,8 +3882,8 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 marshmallow = [
-    {file = "marshmallow-3.6.0-py2.py3-none-any.whl", hash = "sha256:f88fe96434b1f0f476d54224d59333eba8ca1a203a2695683c1855675c4049a7"},
-    {file = "marshmallow-3.6.0.tar.gz", hash = "sha256:c2673233aa21dde264b84349dc2fd1dce5f30ed724a0a00e75426734de5b84ab"},
+    {file = "marshmallow-3.6.1-py2.py3-none-any.whl", hash = "sha256:9aa20f9b71c992b4782dad07c51d92884fd0f7c5cb9d3c737bea17ec1bad765f"},
+    {file = "marshmallow-3.6.1.tar.gz", hash = "sha256:35ee2fb188f0bd9fc1cf9ac35e45fd394bd1c153cee430745a465ea435514bd5"},
 ]
 maxminddb = [
     {file = "maxminddb-1.5.4.tar.gz", hash = "sha256:f4d28823d9ca23323d113dc7af8db2087aa4f657fafc64ff8f7a8afda871425b"},
@@ -4043,8 +4043,8 @@ pyrsistent = [
     {file = "pyrsistent-0.16.0.tar.gz", hash = "sha256:28669905fe725965daa16184933676547c5bb40a5153055a8dee2a4bd7933ad3"},
 ]
 pytest = [
-    {file = "pytest-5.4.2-py3-none-any.whl", hash = "sha256:95c710d0a72d91c13fae35dce195633c929c3792f54125919847fdcdf7caa0d3"},
-    {file = "pytest-5.4.2.tar.gz", hash = "sha256:eb2b5e935f6a019317e455b6da83dd8650ac9ffd2ee73a7b657a30873d67a698"},
+    {file = "pytest-5.4.3-py3-none-any.whl", hash = "sha256:5c0db86b698e8f170ba4582a492248919255fcd4c79b1ee64ace34301fb589a1"},
+    {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
 ]
 pytest-cache = [
     {file = "pytest-cache-1.0.tar.gz", hash = "sha256:be7468edd4d3d83f1e844959fd6e3fd28e77a481440a7118d430130ea31b07a9"},
@@ -4120,8 +4120,8 @@ raven = [
     {file = "raven-5.33.0.tar.gz", hash = "sha256:85af57123d22e9cbe6d1de671c27d337cec45b22e7d5b907578281f8384a2822"},
 ]
 redis = [
-    {file = "redis-3.5.2-py2.py3-none-any.whl", hash = "sha256:2ef11f489003f151777c064c5dbc6653dfb9f3eade159bcadc524619fddc2242"},
-    {file = "redis-3.5.2.tar.gz", hash = "sha256:6d65e84bc58091140081ee9d9c187aab0480097750fac44239307a3bdf0b1251"},
+    {file = "redis-3.5.3-py2.py3-none-any.whl", hash = "sha256:432b788c4530cfe16d8d943a09d40ca6c16149727e4afe8c2c9d5580c59d9f24"},
+    {file = "redis-3.5.3.tar.gz", hash = "sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2"},
 ]
 redisbeat = [
     {file = "redisbeat-1.2.2.tar.gz", hash = "sha256:59b7e9984cb9cde9eaea21093ca2b953f83995a64b6c240e4c36f1b2e9ed1e38"},
@@ -4333,8 +4333,8 @@ vine = [
     {file = "vine-1.3.0.tar.gz", hash = "sha256:133ee6d7a9016f177ddeaf191c1f58421a1dcc6ee9a42c58b34bed40e1d2cd87"},
 ]
 wcwidth = [
-    {file = "wcwidth-0.1.9-py2.py3-none-any.whl", hash = "sha256:cafe2186b3c009a04067022ce1dcd79cb38d8d65ee4f4791b8888d6599d1bbe1"},
-    {file = "wcwidth-0.1.9.tar.gz", hash = "sha256:ee73862862a156bf77ff92b09034fc4825dd3af9cf81bc5b360668d425f3c5f1"},
+    {file = "wcwidth-0.2.3-py2.py3-none-any.whl", hash = "sha256:980fbf4f3c196c0f329cdcd1e84c554d6a211f18e252e525a0cf4223154a41d6"},
+    {file = "wcwidth-0.2.3.tar.gz", hash = "sha256:edbc2b718b4db6cdf393eefe3a420183947d6aa312505ce6754516f458ff8830"},
 ]
 webargs = [
     {file = "webargs-5.5.3-py2-none-any.whl", hash = "sha256:fc81c9f9d391acfbce406a319217319fd8b2fd862f7fdb5319ad06944f36ed25"},
@@ -4358,7 +4358,7 @@ wtforms = [
     {file = "WTForms-2.3.1.tar.gz", hash = "sha256:861a13b3ae521d6700dac3b2771970bd354a63ba7043ecc3a82b5288596a1972"},
 ]
 wtforms-alchemy = [
-    {file = "WTForms-Alchemy-0.16.9.tar.gz", hash = "sha256:c491755380490c5c016f04e62949b22056f915160f54d0d1103c76b944c1c321"},
+    {file = "WTForms-Alchemy-0.17.0.tar.gz", hash = "sha256:b689314354d7405616402fa2c86f90f027e28ae067e09b5477aac815639053b9"},
 ]
 wtforms-components = [
     {file = "WTForms-Components-0.10.4.tar.gz", hash = "sha256:4a7751fc12dc4e4b2ef5700973296b5368094dcdf85c2808d2faff2c8e8f4caa"},
