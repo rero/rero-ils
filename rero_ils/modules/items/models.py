@@ -63,3 +63,12 @@ class ItemCirculationAction(Enum):
     CHECKIN = 'checkin'
     REQUEST = 'request'
     EXTEND = 'extend'
+
+
+class ItemNoteTypes:
+    """Class to list all possible note types."""
+
+    PUBLIC = 'public_note'
+    STAFF = 'staff_note'
+    CHECKIN = 'checkin_note'
+    CHECKOUT = 'checkout_note'
