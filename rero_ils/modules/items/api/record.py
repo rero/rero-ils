@@ -254,6 +254,28 @@ class ItemRecord(IlsRecord):
         return organisation['view_code']
 
     def get_owning_pickup_location_pid(self):
-        """Returns the pickup location for the item owning location."""
+        """Returns the pickup location for the item owning location.
+
+        :return the pid of the item owning item location.
+        """
         library = self.get_library()
         return library.get_pickup_location_pid()
+
+    @property
+    def notes(self):
+        """Return notes related to this item.
+
+        :return an array of all notes related to the item. Each note should
+                have two keys : `type` and `content`.
+        """
+        return self.get('notes', [])
+
+    def get_note(self, note_type):
+        """Return an item note by its type.
+
+        :param note_type: the type of note (see ``ItemNoteTypes``)
+        :return the content of the note, None if note type is not found
+        """
+        notes = [note.get('content') for note in self.notes
+                 if note.get('type') == note_type]
+        return next(iter(notes), None)
