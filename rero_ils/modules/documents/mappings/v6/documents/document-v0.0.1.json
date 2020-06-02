@@ -164,24 +164,44 @@
             }
           }
         },
-        "is_part_of": {
-          "type": "text",
-          "fields": {
-            "eng": {
-              "type": "text",
-              "analyzer": "english"
+        "issuance": {
+          "type": "object",
+          "properties": {
+            "main_type": {
+              "type": "keyword"
             },
-            "fre": {
-              "type": "text",
-              "analyzer": "french"
+            "subtype": {
+              "type": "keyword"
+            }
+          }
+        },
+        "partOf": {
+          "type": "object",
+          "properties": {
+            "document": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "type": "keyword"
+                }
+              }
             },
-            "ger": {
-              "type": "text",
-              "analyzer": "german"
-            },
-            "ita": {
-              "type": "text",
-              "analyzer": "italian"
+            "numbering": {
+              "type": "object",
+              "properties": {
+                "year": {
+                  "type": "text"
+                },
+                "volume": {
+                  "type": "text"
+                },
+                "issue": {
+                  "type": "text"
+                },
+                "pages": {
+                  "type": "text"
+                }
+              }
             }
           }
         },
@@ -447,6 +467,68 @@
             }
           }
         },
+        "seriesStatement": {
+          "type": "object",
+          "properties": {
+            "seriesTitle": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "index": false
+                },
+                "language": {
+                  "type": "keyword",
+                  "index": false
+                }
+              }
+            },
+            "seriesEnumeration": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "index": false
+                },
+                "language": {
+                  "type": "keyword",
+                  "index": false
+                }
+              }
+            },
+            "subseriesStatement": {
+              "type": "object",
+              "properties": {
+                "subseriesTitle": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "text",
+                      "index": false
+                    },
+                    "language": {
+                      "type": "keyword",
+                      "index": false
+                    }
+                  }
+                },
+                "subseriesEnumeration": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "text",
+                      "index": false
+                    },
+                    "language": {
+                      "type": "keyword",
+                      "index": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "note": {
           "type": "object",
           "properties": {
@@ -608,9 +690,6 @@
         },
         "available": {
           "type": "boolean"
-        },
-        "issuance": {
-          "type": "keyword"
         },
         "organisation": {
           "properties": {

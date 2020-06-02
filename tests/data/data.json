@@ -1009,6 +1009,10 @@
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc1",
     "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "note": [
       {
         "noteType": "general",
@@ -1097,10 +1101,18 @@
       ]
     ],
     "extent": "190 p.",
-    "series": [
+    "seriesStatement": [
       {
-        "name": "Biblioth\u00e8que de la jeune fille",
-        "number": "1"
+        "seriesTitle": [
+          {
+            "value": "Biblioth\u00e8que de la jeune fille"
+          }
+        ],
+        "seriesEnumeration": [
+          {
+            "value": "1"
+          }
+        ]
       }
     ],
     "authors": [
@@ -1215,6 +1227,10 @@
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc2",
     "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "language": [
       {
         "type": "bf:Language",
@@ -1299,6 +1315,10 @@
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc3",
     "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "harvested": false,
     "note": [
       {
@@ -1317,10 +1337,18 @@
       }
     ],
     "extent": "191 p.",
-    "series": [
+    "seriesStatement": [
       {
-        "name": "Biblioth\u00e8que de la jeune fille",
-        "number": "1"
+        "seriesTitle": [
+          {
+            "value": "Biblioth\u00e8que de la jeune fille"
+          }
+        ],
+        "seriesEnumeration": [
+          {
+            "value": "1"
+          }
+        ]
       }
     ],
     "authors": [
@@ -1396,6 +1424,10 @@
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc4",
     "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "language": [
       {
         "value": "chi",
@@ -1610,9 +1642,13 @@
       }
     ],
     "extent": "444 p.",
-    "series": [
+    "seriesStatement": [
       {
-        "name": "Chuang xin si wei fa xue jiao cai"
+        "seriesTitle": [
+          {
+            "value": "Chuang xin si wei fa xue jiao cai"
+          }
+        ]
       }
     ],
     "authors": [
@@ -1626,9 +1662,104 @@
       }
     ]
   },
+  "doc5": {
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
+    "pid": "doc5",
+    "type": "journal",
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "monographicSeries"
+    },
+    "language": [
+      {
+        "value": "spa",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R003254527",
+        "type": "bf:Local",
+        "source": "RERO"
+      },
+      {
+        "type": "bf:Issn",
+        "source": "BNF",
+        "value": "0768-2026"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Instituto de Estudios Africanos"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Manuales del Africa espa\u00f1ola"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Madrid"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Consejo Superior de Investigacio\u00f1es Cientificas"
+              }
+            ]
+          },
+          {
+            "label": [
+              {
+                "value": "1950-"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 1950,
+        "place": [
+          {
+            "country": "xx",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "26 cm"
+    ],
+    "authors": [
+      {
+        "type": "organisation",
+        "name": "Instituto de Estudios Africanos (Madrid)"
+      }
+    ]
+  },
   "ebook1": {
     "pid": "ebook1",
     "type": "ebook",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "harvested": true,
     "electronicLocator": [
       {
@@ -1718,6 +1849,10 @@
   "ebook2": {
     "pid": "ebook2",
     "type": "ebook",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "harvested": true,
     "electronicLocator": [
       {
@@ -1802,6 +1937,10 @@
       }
     ],
     "type": "ebook",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "harvested": true,
     "electronicLocator": [
       {
@@ -1879,6 +2018,10 @@
       }
     ],
     "type": "ebook",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "harvested": true,
     "electronicLocator": [
       {
