@@ -39,8 +39,8 @@ from ...circ_policies.api import CircPolicy
 from ...documents.api import Document
 from ...errors import InvalidRecordID
 from ...libraries.api import Library
-from ...loans.api import Loan, LoanAction, get_last_transaction_loc_for_item, \
-    get_request_by_item_pid_by_patron_pid
+from ...loans.api import Loan, LoanAction, LoanState, \
+    get_last_transaction_loc_for_item, get_request_by_item_pid_by_patron_pid
 from ...locations.api import Location
 from ...patrons.api import Patron, current_patron
 from ....filter import format_date_filter
@@ -124,10 +124,10 @@ class ItemCirculation(IlsRecord):
     """Item circulation class."""
 
     statuses = {
-        'ITEM_ON_LOAN': 'on_loan',
-        'ITEM_AT_DESK': 'at_desk',
-        'ITEM_IN_TRANSIT_FOR_PICKUP': 'in_transit',
-        'ITEM_IN_TRANSIT_TO_HOUSE': 'in_transit',
+        LoanState.ITEM_ON_LOAN: 'on_loan',
+        LoanState.ITEM_AT_DESK: 'at_desk',
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'in_transit',
+        LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
     }
 
     @add_loans_parameters_and_flush_indexes
@@ -220,7 +220,8 @@ class ItemCirculation(IlsRecord):
             actions.update(validate_actions)
             validate_loan = validate_actions[LoanAction.VALIDATE]
             # receive the request if it is requested at transaction library
-            if validate_loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP':
+            if validate_loan['state'] == \
+                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 trans_loc = Location.get_record_by_pid(transaction_loc_pid)
                 req_loc = Location.get_record_by_pid(
                     request.get('pickup_location_pid'))
@@ -235,18 +236,19 @@ class ItemCirculation(IlsRecord):
         if action_params.get('pid'):
             loan = Loan.get_record_by_pid(action_params.get('pid'))
             if (
-                loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
-                loan.get('patron_pid') == action_params.get('patron_pid')
+                loan['state'] ==
+                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
+                    loan.get('patron_pid') == action_params.get('patron_pid')
             ):
                 item, receive_actions = self.receive(**action_params)
                 actions.update(receive_actions)
-            if loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE':
+            if loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
                 item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
                 actions.update(cancel_actions)
                 del action_params['pid']
         else:
             loan = get_loan_for_item(item_pid_to_object(self.pid))
-            if (loan and loan.get('state') != 'ITEM_AT_DESK'):
+            if (loan and loan['state'] != LoanState.ITEM_AT_DESK):
                 item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
                 actions.update(cancel_actions)
         return action_params, actions
@@ -269,10 +271,11 @@ class ItemCirculation(IlsRecord):
             if trans_loc_pid is None:
                 transaction_location_pid = \
                     Patron.get_librarian_pickup_location_pid()
-            if loan['state'] == 'ITEM_IN_TRANSIT_FOR_PICKUP' and \
+            if loan['state'] == \
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and \
                     loan['pickup_location_pid'] == transaction_location_pid:
                 do_receive = True
-            if loan['state'] == 'ITEM_IN_TRANSIT_TO_HOUSE':
+            if loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
                 trans_loc = Location.get_record_by_pid(trans_loc_pid)
                 if self.library_pid == trans_loc.library_pid:
                     do_receive = True
@@ -331,7 +334,7 @@ class ItemCirculation(IlsRecord):
     def get_loan_pid_with_item_on_loan(cls, item_pid):
         """Returns loan pid for checked out item."""
         search = search_by_pid(item_pid=item_pid_to_object(
-            item_pid), filter_states=['ITEM_ON_LOAN'])
+            item_pid), filter_states=[LoanState.ITEM_ON_LOAN])
         results = search.source(['pid']).scan()
         try:
             return next(results).pid
@@ -370,7 +373,7 @@ class ItemCirculation(IlsRecord):
 
         results = current_circulation.loan_search_cls()\
             .params(preserve_order=True)\
-            .filter('term', state='PENDING')\
+            .filter('term', state=LoanState.PENDING)\
             .filter('term', library_pid=library_pid)\
             .sort({sort_by: {"order": order_by}})\
             .source(includes='pid').scan()
@@ -394,7 +397,7 @@ class ItemCirculation(IlsRecord):
 
         results = current_circulation.loan_search_cls()\
             .params(preserve_order=True)\
-            .filter('term', state='ITEM_ON_LOAN')\
+            .filter('term', state=LoanState.ITEM_ON_LOAN)\
             .filter('term', patron_pid=patron_pid)\
             .sort({sort_by: {"order": order_by}})\
             .source(includes='pid').scan()
@@ -524,7 +527,8 @@ class ItemCirculation(IlsRecord):
         if action == 'receive':
             if (
                     circ_policy.get('allow_checkout') and
-                    loan.get('state') == 'ITEM_IN_TRANSIT_FOR_PICKUP' and
+                    loan['state'] ==
+                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and
                     loan.get('patron_pid') == patron_pid
             ):
                 data['action_validated'] = False
@@ -538,7 +542,7 @@ class ItemCirculation(IlsRecord):
         loan = get_loan_for_item(item_pid_to_object(self.pid))
         actions = set()
         if loan:
-            for transition in transitions.get(loan.get('state')):
+            for transition in transitions.get(loan['state']):
                 action = transition.get('trigger')
                 data = self.action_filter(action, loan)
                 if data.get('action_validated'):
@@ -547,7 +551,7 @@ class ItemCirculation(IlsRecord):
                     actions.add(data.get('new_action'))
         # default actions
         if not loan:
-            for transition in transitions.get('CREATED'):
+            for transition in transitions.get(LoanState.CREATED):
                 action = transition.get('trigger')
                 actions.add(action)
         # remove unsupported action
@@ -574,7 +578,7 @@ class ItemCirculation(IlsRecord):
         """Update item status."""
         loan = get_loan_for_item(item_pid_to_object(self.pid))
         if loan:
-            self['status'] = self.statuses[loan.get('state')]
+            self['status'] = self.statuses[loan['state']]
         else:
             if self['status'] != ItemStatus.MISSING:
                 self['status'] = ItemStatus.ON_SHELF
@@ -584,7 +588,7 @@ class ItemCirculation(IlsRecord):
 
     def item_has_active_loan_or_request(self):
         """Return True if active loan or a request found for item."""
-        states = ['PENDING'] + \
+        states = [LoanState.PENDING] + \
             current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
         search = search_by_pid(
             item_pid=item_pid_to_object(self.pid),
@@ -610,8 +614,8 @@ class ItemCirculation(IlsRecord):
         search = search_by_pid(
             item_pid=item_pid_to_object(self.pid),
             exclude_states=[
-                'CANCELLED',
-                'ITEM_RETURNED',
+                LoanState.CANCELLED,
+                LoanState.ITEM_RETURNED,
             ]
         )
         results = search.source().count()
@@ -643,9 +647,9 @@ class ItemCirculation(IlsRecord):
         """
         search = search_by_pid(
             item_pid=item_pid_to_object(self.pid), filter_states=[
-                'PENDING',
-                'ITEM_AT_DESK',
-                'ITEM_IN_TRANSIT_FOR_PICKUP'
+                LoanState.PENDING,
+                LoanState.ITEM_AT_DESK,
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]).params(preserve_order=True).source(['pid'])
         order_by = 'asc'
         sort_by = sort_by or 'transaction_date'
@@ -712,7 +716,7 @@ class ItemCirculation(IlsRecord):
         """Check if the item is loaned by a given patron."""
         patron = Patron.get_patron_by_barcode(patron_barcode)
         if patron:
-            states = ['CREATED', 'PENDING'] + \
+            states = [LoanState.CREATED, LoanState.PENDING] + \
                 current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
             search = search_by_patron_item_or_document(
                 patron_pid=patron.pid,
