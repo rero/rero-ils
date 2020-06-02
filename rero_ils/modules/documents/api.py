@@ -108,11 +108,12 @@ class Document(IlsRecord):
 
     def get_number_of_loans(self):
         """Get number of document loans."""
+        from ..loans.api import LoanState
         search = search_by_pid(
             document_pid=self.pid,
             exclude_states=[
-                'CANCELLED',
-                'ITEM_RETURNED',
+                LoanState.CANCELLED,
+                LoanState.ITEM_RETURNED,
             ]
         )
         return search.source().count()

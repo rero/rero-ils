@@ -42,6 +42,19 @@ from ..patrons.api import Patron
 from ..utils import get_ref_for_pid
 
 
+class LoanState(object):
+    """Class to handle different loan states."""
+
+    CREATED = 'CREATED'
+    PENDING = 'PENDING'
+    ITEM_IN_TRANSIT_FOR_PICKUP = 'ITEM_IN_TRANSIT_FOR_PICKUP'
+    ITEM_IN_TRANSIT_TO_HOUSE = 'ITEM_IN_TRANSIT_TO_HOUSE'
+    ITEM_AT_DESK = 'ITEM_AT_DESK'
+    ITEM_ON_LOAN = 'ITEM_ON_LOAN'
+    ITEM_RETURNED = 'ITEM_RETURNED'
+    CANCELLED = 'CANCELLED'
+
+
 class LoanAction(object):
     """Class holding all availabe circulation loan actions."""
 
@@ -252,18 +265,18 @@ class Loan(IlsRecord):
         }
         notification_to_create = False
         if notification_type == 'recall':
-            if self.get('state') == 'ITEM_ON_LOAN' and \
+            if self.get('state') == LoanState.ITEM_ON_LOAN and \
                     not self.is_notified(notification_type=notification_type):
                 notification_to_create = True
         elif notification_type == 'availability' and \
                 not self.is_notified(notification_type=notification_type):
             notification_to_create = True
         elif notification_type == 'due_soon':
-            if self.get('state') == 'ITEM_ON_LOAN' and \
+            if self.get('state') == LoanState.ITEM_ON_LOAN and \
                     not self.is_notified(notification_type=notification_type):
                 notification_to_create = True
         elif notification_type == 'overdue':
-            if self.get('state') == 'ITEM_ON_LOAN' and \
+            if self.get('state') == LoanState.ITEM_ON_LOAN and \
                     not number_of_reminders_sent(self):
                 record['reminder_counter'] = 1
                 notification_to_create = True
@@ -275,16 +288,52 @@ class Loan(IlsRecord):
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
-    """Get pending, item_on_transit, item_at_desk loans for item, patron."""
+    """Get pending, item_in_transit, item_at_desk loans for item, patron.
+
+    :param item_pid: The item pid.
+    :param patron_pid: The patron pid.
+    :return: loans for given item and patron.
+    """
+    filter_states = [
+        LoanState.PENDING,
+        LoanState.ITEM_AT_DESK,
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+    ]
+    return get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states)
+
+
+def get_any_loans_by_item_pid_by_patron_pid(item_pid, patron_pid):
+    """Get loans not ITEM_IN_TRANSIT_TO_HOUSE, CREATED for item, patron.
+
+    :param item_pid: The item pid.
+    :param patron_pid: The patron pid.
+    :return: loans for given item and patron.
+    """
+    filter_states = [
+        LoanState.PENDING,
+        LoanState.ITEM_AT_DESK,
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        LoanState.ITEM_ON_LOAN
+    ]
+    return get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states)
+
+
+def get_loans_by_item_pid_by_patron_pid(
+        item_pid, patron_pid, filter_states=[]):
+    """Get loans for item, patron according to the given filter_states.
+
+    :param item_pid: The item pid.
+    :param patron_pid: The patron pid.
+    :param filter_states: states to use as a filter.
+    :return: loans for given item and patron.
+    """
     search = search_by_patron_item_or_document(
         item_pid=item_pid_to_object(item_pid),
         patron_pid=patron_pid,
-        filter_states=[
-            'PENDING',
-            'ITEM_AT_DESK',
-            'ITEM_IN_TRANSIT_FOR_PICKUP',
-            'ITEM_IN_TRANSIT_TO_HOUSE',
-        ],
+        filter_states=filter_states,
     )
     search_result = search.execute()
     if search_result.hits:
@@ -318,7 +367,7 @@ def patron_profile_loans(patron_pid):
         loan['item_call_number'] = item['call_number']
         loan['library_name'] = Library.get_record_by_pid(
             item.holding_library_pid).get('name')
-        if loan['state'] == 'ITEM_ON_LOAN':
+        if loan['state'] == LoanState.ITEM_ON_LOAN:
             can, reasons = item.can(
                 ItemCirculationAction.EXTEND,
                 loan=loan
@@ -326,16 +375,17 @@ def patron_profile_loans(patron_pid):
             loan['can_renew'] = can
             checkouts.append(loan)
         elif loan['state'] in [
-                'PENDING',
-                'ITEM_AT_DESK',
-                'ITEM_IN_TRANSIT_FOR_PICKUP'
+                LoanState.PENDING,
+                LoanState.ITEM_AT_DESK,
+                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
         ]:
             pickup_loc = Location.get_record_by_pid(
                 loan['pickup_location_pid'])
             loan['pickup_library_name'] = \
                 pickup_loc.get_library().get('name')
             requests.append(loan)
-        elif loan['state'] in ['ITEM_RETURNED', 'CANCELLED']:
+        elif loan['state'] in [
+                LoanState.ITEM_RETURNED, LoanState.CANCELLED]:
             end_date = loan.get('end_date')
             if end_date:
                 end_date = ciso8601.parse_datetime(end_date)
@@ -351,7 +401,8 @@ def get_last_transaction_loc_for_item(item_pid):
     results = current_circulation.loan_search_cls()\
         .filter('term', item_pid=item_pid)\
         .params(preserve_order=True)\
-        .exclude('terms', state=['PENDING', 'CREATED'])\
+        .exclude('terms', state=[
+            LoanState.PENDING, LoanState.CREATED])\
         .sort({'transaction_date': {'order': 'desc'}})\
         .source(['pid']).scan()
     try:
@@ -367,7 +418,7 @@ def get_due_soon_loans():
     from .utils import get_circ_policy
     due_soon_loans = []
     results = current_circulation.loan_search_cls()\
-        .filter('term', state='ITEM_ON_LOAN')\
+        .filter('term', state=LoanState.ITEM_ON_LOAN)\
         .params(preserve_order=True)\
         .sort({'transaction_date': {'order': 'asc'}})\
         .source(['pid']).scan()
@@ -389,7 +440,7 @@ def get_overdue_loans():
     from .utils import get_circ_policy
     overdue_loans = []
     results = current_circulation.loan_search_cls()\
-        .filter('term', state='ITEM_ON_LOAN')\
+        .filter('term', state=LoanState.ITEM_ON_LOAN)\
         .params(preserve_order=True)\
         .sort({'transaction_date': {'order': 'asc'}})\
         .source(['pid']).scan()

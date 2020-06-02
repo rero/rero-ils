@@ -19,6 +19,8 @@
 
 
 import json
+from copy import deepcopy
+from datetime import datetime, timezone
 
 import mock
 from flask import url_for
@@ -32,9 +34,11 @@ from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.item_types.api import ItemType
-from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api import Item, ItemsSearch
+from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.api import Loan, LoanAction, LoansSearch, LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
@@ -186,3 +190,82 @@ def check_timezone_date(timezone, date, expected=[]):
         assert hour in expected, error_msg
     assert tocheck_date.minute == date.minute, error_msg
     assert tocheck_date.hour == hour, error_msg
+
+
+def create_new_item_from_existing_item(item=None):
+    """Create a new item as a copy of a given existing item.
+
+    :param item: the item record
+
+    :return: the newly created item
+    """
+    item = deepcopy(item)
+    item.pop('barcode')
+    item.setdefault('status', ItemStatus.ON_SHELF)
+    item = Item.create(data=item, dbcommit=True,
+                       reindex=True, delete_pid=True)
+    flush_index(ItemsSearch.Meta.index)
+    assert item.status == ItemStatus.ON_SHELF
+    assert item.number_of_requests() == 0
+    return item
+
+
+def item_record_to_a_specific_loan_state(
+        item=None, loan_state=None, params=None, copy_item=True):
+    """Put an item into a specific circulation loan state.
+
+    :param item: the item record
+    :param loan_state: the desired loan state and attached to the given item
+    :param params: the required parameters to perform the circ transactions
+    :param copy_item: an option to perform transaction on a copy of the item
+
+    :return: the item and its loan
+    """
+    if copy_item:
+        item = create_new_item_from_existing_item(item=item)
+
+    # complete missing parameters
+    params.setdefault('transaction_date',
+                      datetime.now(timezone.utc).isoformat())
+    params.setdefault('document_pid', item.document_pid)
+
+    # a parameter to allow in_transit returns
+    checkin_transaction_location_pid = \
+        params.pop('checkin_transaction_location_pid', None)
+    patron = Patron.get_record_by_pid(params.get('patron_pid'))
+    # perform circulation actions
+    if loan_state in [
+            LoanState.PENDING, LoanState.ITEM_AT_DESK,
+            LoanState.ITEM_ON_LOAN,
+            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+    ]:
+        item, actions = item.request(**params)
+        loan = Loan.get_record_by_pid(actions[LoanAction.REQUEST].get('pid'))
+        assert item.number_of_requests() >= 1
+        assert item.is_requested_by_patron(patron.get('barcode'))
+    if loan_state in [
+            LoanState.ITEM_AT_DESK,
+            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+    ]:
+        item, actions = item.validate_request(**params, pid=loan.pid)
+        loan = Loan.get_record_by_pid(actions[LoanAction.VALIDATE].get('pid'))
+    if loan_state in [
+            LoanState.ITEM_ON_LOAN,
+            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+    ]:
+        item, actions = item.checkout(**params, pid=loan.pid)
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+    if loan_state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
+        if checkin_transaction_location_pid:
+            params['transaction_location_pid'] = \
+                checkin_transaction_location_pid
+        item, actions = item.checkin(**params, pid=loan.pid)
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKIN].get('pid'))
+
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+
+    assert loan['state'] == loan_state
+    return item, loan

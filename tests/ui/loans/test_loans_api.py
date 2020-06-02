@@ -25,7 +25,7 @@ from datetime import timedelta
 from invenio_circulation.proxies import current_circulation
 from utils import get_mapping
 
-from rero_ils.modules.loans.api import get_loans_by_patron_pid
+from rero_ils.modules.loans.api import LoanState, get_loans_by_patron_pid
 from rero_ils.modules.loans.utils import get_default_loan_duration
 
 
@@ -38,7 +38,7 @@ def test_loan_es_mapping(es_clear, db):
 
 def test_loans_create(loan_pending_martigny):
     """Test loan creation."""
-    assert loan_pending_martigny.get('state') == 'PENDING'
+    assert loan_pending_martigny.get('state') == LoanState.PENDING
 
 
 def test_item_loans_elements(
