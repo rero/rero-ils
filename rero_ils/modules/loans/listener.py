@@ -21,7 +21,7 @@ from invenio_circulation.proxies import current_circulation
 
 from ..items.api import Item
 from ..items.models import ItemStatus
-from ..loans.api import Loan
+from ..loans.api import Loan, LoanState
 from ..locations.api import Location
 from ..notifications.utils import send_notification_to_location
 
@@ -43,7 +43,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
 
 def listener_loan_state_changed(_, initial_loan, loan, trigger):
     """Create notification based on loan state changes."""
-    if loan.get('state') == 'PENDING':
+    if loan['state'] == LoanState.PENDING:
         item_pid = loan.get('item_pid', {}).get('value')
         checkedout_loan_pid = Item.get_loan_pid_with_item_on_loan(item_pid)
         if checkedout_loan_pid:
@@ -60,5 +60,5 @@ def listener_loan_state_changed(_, initial_loan, loan, trigger):
            and item.status == ItemStatus.ON_SHELF \
            and item.number_of_requests() == 0:
             send_notification_to_location(loan, item, item_location)
-    elif loan.get('state') == 'ITEM_AT_DESK':
+    elif loan['state'] == LoanState.ITEM_AT_DESK:
         loan.create_notification(notification_type='availability')
