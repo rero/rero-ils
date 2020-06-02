@@ -62,6 +62,16 @@
             }
           }
         },
+        "notes": {
+          "properties": {
+            "type": {
+              "type": "keyword"
+            },
+            "content": {
+              "type": "text"
+            }
+          }
+        },
         "_created": {
           "type": "date"
         },
