@@ -3,6 +3,10 @@
     "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc4",
     "type": "journal",
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
     "note": [
       {
         "noteType": "general",
@@ -20,10 +24,18 @@
       }
     ],
     "extent": "190 p.",
-    "series": [
+    "seriesStatement": [
       {
-        "name": "Biblioth\u00e8que de la jeune fille",
-        "number": "1"
+        "seriesTitle": [
+          {
+            "value": "Biblioth\u00e8que de la jeune fille"
+          }
+        ],
+        "seriesEnumeration": [
+          {
+            "value": "1"
+          }
+        ]
       }
     ],
     "authors": [

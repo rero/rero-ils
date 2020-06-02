@@ -47,7 +47,11 @@ def doc_title_travailleurs(app):
                 'value': 'Les travailleurs assidus sont de retours'
             }],
             'subtitle': [{'value': 'les jeunes arrivent bientôt ?'}]
-        }]
+        }],
+        'issuance': {
+            'main_type': 'rdami:1001',
+            'subtype': 'materialUnit'
+        }
     }
     doc = Document.create(
         data=data,
@@ -79,6 +83,10 @@ def doc_title_travailleuses(app):
         }, {
             'name': 'Corminbœuf, Gruß', 'type': 'person'
         }],
+        'issuance': {
+            'main_type': 'rdami:1001',
+            'subtype': 'materialUnit'
+        }
     }
     doc = Document.create(
         data=data,

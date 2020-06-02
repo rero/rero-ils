@@ -109,6 +109,150 @@ def test_unimarc_to_type():
     assert data.get('type') == 'video'
 
 
+def test_marc21_to_mode_of_issuance():
+    """
+    Test dojson marc21_to_mode_issuance.
+    """
+
+    #  rdami:1001 (single unit)
+    #    materialUnit > LDR07=m
+    #    article > LDR07=a
+    #    privateFile > LDR07=c
+    #    privateSubfile > no equivalence
+    unimarcxml = """
+    <record>
+        <leader>00501naa a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'article'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'materialUnit'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nac a2200133 a 4500</leader>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'privateFile'
+    }
+
+    #  rdami:1003 (serial)
+    #    serialInSerial > no equivalence
+    #    monographicSeries > LDR07=s AND 110$a/0=b
+    #    periodical > LDR07=s AND 110$a/0=a
+    unimarcxml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">a</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1003',
+        'subtype': 'periodical'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">b</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1003',
+        'subtype': 'monographicSeries'
+    }
+
+    # rdami:1004 (integrating resource)
+    #    updatingWebsite > LDR07=i AND 110$a/0=f|g|h
+    #    updatingLoose-leaf > LDR07=i AND 110$a/0=e
+    unimarcxml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">f</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingWebsite'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">g</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingWebsite'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">h</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingWebsite'
+    }
+
+    unimarcxml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <datafield tag="110" ind1=" " ind2=" ">
+          <subfield code="a">e</subfield>
+        </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingLoose-leaf'
+    }
+
+
 def test_unimarc_to_title():
     """Test dojson unimarc to title."""
 
@@ -1173,32 +1317,88 @@ def test_unimarc_description():
         }]
 
 
-# series.name: [225$a repetitive]
-# series.number: [225$v repetitive]
-def test_unimarc_series():
-    """Test dojson series."""
+# seriesStatement: [225 repetitive]
+def test_unimarc_series_statement():
+    """Test dojson seriesStatement."""
 
     unimarcxml = """
     <record>
       <datafield tag="225" ind1=" " ind2=" ">
-        <subfield code="a">Collection One</subfield>
+        <subfield code="a">Collection formation</subfield>
+        <subfield code="e">Mucchielli</subfield>
         <subfield code="v">5</subfield>
+        <subfield code="i">Développement personnel</subfield>
+        <subfield code="v">6</subfield>
       </datafield>
       <datafield tag="225" ind1=" " ind2=" ">
         <subfield code="a">Collection Two</subfield>
         <subfield code="v">123</subfield>
-      </datafield>    </record>
+      </datafield>
+    </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('series') == [
-        {
-            'name': 'Collection One',
-            'number': '5'
-        },
-        {
-            'name': 'Collection Two',
-            'number': '123'
+    assert data.get('seriesStatement') == [{
+            'seriesTitle': [{'value': 'Collection formation: Mucchielli'}],
+            'seriesEnumeration': [{'value': '5'}],
+            'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Développement personnel'}],
+                'subseriesEnumeration': [{'value': '6'}]
+                }]
+            }, {
+            'seriesTitle': [{'value': 'Collection Two'}],
+            'seriesEnumeration': [{'value': '123'}],
+        }
+    ]
+
+
+def test_unimarc_partOf_without_link(document):
+    """Test dojson partOf when no linked record found."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="410" ind1=" " ind2="0">
+        <subfield code="t">Formation permanente en sciences humaines</subfield>
+        <subfield code="x">0768-2026</subfield>
+        <subfield code="v">41</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data == {}
+
+    unimarcxml = """
+    <record>
+      <datafield tag="463" ind1=" " ind2="|">
+        <subfield code="t">Acupuncture & moxibustion</subfield>
+        <subfield code="x">1633-3454</subfield>
+        <subfield code="v">17</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data == {}
+
+
+def test_unimarc_partOf_with_link(document_with_issn):
+    """Test dojson partOf when linked record found."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="410" ind1=" " ind2="0">
+        <subfield code="t">Formation permanente en sciences humaines</subfield>
+        <subfield code="x">0768-2026</subfield>
+        <subfield code="v">41</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data['partOf'] == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/doc5'},
+            'numbering': '41'
         }
     ]
 
@@ -1329,3 +1529,23 @@ def test_unimarc_subjects():
     assert data.get('subjects') == [
         'subjects 600', 'Capet, Louis III, Jr., 1700-1780'
     ]
+
+
+def test_unimarc_to_electronicLocator_from_856():
+    """Test dojson electronicLocator from 856."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="856" ind1="4" ind2=" ">
+        <subfield
+            code="u">http://gallica.bnf.fr/ark:/12148/btv1b550017355</subfield>
+      </datafield>
+
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('electronicLocator') == [{
+        'url': 'http://gallica.bnf.fr/ark:/12148/btv1b550017355',
+        'type': 'resource',
+    }]
