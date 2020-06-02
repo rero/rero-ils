@@ -29,7 +29,7 @@ def test_blocked_field_exists(
         client,
         librarian_martigny_no_email,
         patron_martigny_no_email,
-        patron3_martigny_no_email):
+        patron3_martigny_blocked_no_email):
     """Test ptrn6 have blocked field present and set to False."""
     login_user_via_session(client, librarian_martigny_no_email.user)
 
@@ -46,7 +46,7 @@ def test_blocked_field_exists(
     # blocked patron
     blocked_patron_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=patron3_martigny_no_email.pid)
+        pid_value=patron3_martigny_blocked_no_email.pid)
     res = client.get(blocked_patron_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -74,7 +74,7 @@ def test_blocked_patron_cannot_request(client,
                                        item_lib_martigny,
                                        lib_martigny,
                                        patron_martigny_no_email,
-                                       patron3_martigny_no_email,
+                                       patron3_martigny_blocked_no_email,
                                        circulation_policies):
     login_user_via_session(client, librarian_martigny_no_email.user)
     res = client.get(
@@ -82,7 +82,7 @@ def test_blocked_patron_cannot_request(client,
             'api_item.can_request',
             item_pid=item_lib_martigny.pid,
             library_pid=lib_martigny.pid,
-            patron_barcode=patron3_martigny_no_email.get('barcode')
+            patron_barcode=patron3_martigny_blocked_no_email.get('barcode')
         )
     )
     assert res.status_code == 200
@@ -106,6 +106,6 @@ def test_blocked_patron_cannot_request(client,
     loan = Loan({
         'item_pid': item_pid_to_object(item_lib_martigny.pid),
         'library_pid': lib_martigny.pid,
-        'patron_pid': patron3_martigny_no_email.pid
+        'patron_pid': patron3_martigny_blocked_no_email.pid
     })
     assert not can_be_requested(loan)
