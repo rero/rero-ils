@@ -347,7 +347,9 @@ class Patron(IlsRecord):
 
     def get_number_of_loans(self):
         """Get number of loans."""
-        exclude_states = ['CANCELLED', 'ITEM_RETURNED']
+        from ..loans.api import LoanState
+        exclude_states = [
+            LoanState.CANCELLED, LoanState.ITEM_RETURNED]
         results = current_circulation.loan_search_cls()\
             .filter('term', patron_pid=self.pid)\
             .exclude('terms', state=exclude_states)\

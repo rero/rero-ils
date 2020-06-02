@@ -61,7 +61,7 @@ from .modules.items.permissions import can_create_item_factory, \
 from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_update_library_factory
-from .modules.loans.api import Loan
+from .modules.loans.api import Loan, LoanState
 from .modules.loans.permissions import can_list_loan_factory, \
     can_read_loan_factory
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
@@ -1650,59 +1650,62 @@ CIRCULATION_REST_ENDPOINTS = dict(
 
 CIRCULATION_LOAN_TRANSITIONS = {
     'CREATED': [
-        dict(dest='PENDING', trigger='request', transition=CreatedToPending),
         dict(
-            dest='ITEM_ON_LOAN',
+            dest=LoanState.PENDING,
+            trigger='request',
+            transition=CreatedToPending),
+        dict(
+            dest=LoanState.ITEM_ON_LOAN,
             trigger='checkout',
             transition=ToItemOnLoan,
             assign_item=False
         ),
     ],
     'PENDING': [
-        dict(dest='ITEM_AT_DESK',
+        dict(dest=LoanState.ITEM_AT_DESK,
              transition=PendingToItemAtDesk, trigger='validate_request'),
-        dict(dest='ITEM_IN_TRANSIT_FOR_PICKUP',
+        dict(dest=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
              transition=PendingToItemInTransitPickup,
              trigger='validate_request'),
-        dict(dest='ITEM_ON_LOAN', transition=ToItemOnLoan, trigger='checkout'),
-        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
+        dict(dest=LoanState.ITEM_ON_LOAN, transition=ToItemOnLoan, trigger='checkout'),
+        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_AT_DESK': [
         dict(
-            dest='ITEM_ON_LOAN',
+            dest=LoanState.ITEM_ON_LOAN,
             transition=ItemAtDeskToItemOnLoan,
             trigger='checkout'
         ),
-        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
+        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_FOR_PICKUP': [
         dict(
-            dest='ITEM_AT_DESK',
+            dest=LoanState.ITEM_AT_DESK,
             trigger='receive'
         ),
-        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
+        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_ON_LOAN': [
         dict(
-            dest='ITEM_RETURNED',
+            dest=LoanState.ITEM_RETURNED,
             transition=ItemOnLoanToItemReturned,
             trigger='checkin',
             assign_item=False
         ),
-        dict(dest='ITEM_IN_TRANSIT_TO_HOUSE',
+        dict(dest=LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
              transition=ItemOnLoanToItemInTransitHouse, trigger='checkin'),
-        dict(dest='ITEM_ON_LOAN', transition=ItemOnLoanToItemOnLoan,
+        dict(dest=LoanState.ITEM_ON_LOAN, transition=ItemOnLoanToItemOnLoan,
              trigger='extend'),
-        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
+        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_IN_TRANSIT_TO_HOUSE': [
         dict(
-            dest='ITEM_RETURNED',
+            dest=LoanState.ITEM_RETURNED,
             transition=ItemInTransitHouseToItemReturned,
             trigger='receive',
             assign_item=False
         ),
-        dict(dest='CANCELLED', trigger='cancel', transition=ToCancelled)
+        dict(dest=LoanState.CANCELLED, trigger='cancel', transition=ToCancelled)
     ],
     'ITEM_RETURNED': [],
     'CANCELLED': [],
