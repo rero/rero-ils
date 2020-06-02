@@ -30,9 +30,19 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
 marc21 = ReroIlsMarc21Overdo()
 
 
-@marc21.over('languages', '^008')
+@marc21.over('issuance', 'leader')
 @utils.ignore_value
-def marc21_to_languages_from_008(self, key, value):
+def marc21_to_type(self, key, value):
+    """Set the mode of issuance."""
+    self['issuance'] = dict(
+        main_type='rdami:1001',
+        subtype='materialUnit'
+    )
+
+
+@marc21.over('language', '^008')
+@utils.ignore_value
+def marc21_to_language_from_008(self, key, value):
     """Get languages.
 
     languages: 008 and 041 [$a, repetitive]
@@ -145,10 +155,9 @@ def marc21_to_author(self, key, value):
         author = {}
         author['type'] = 'person'
         author['name'] = remove_trailing_punctuation(value.get('a'))
-        author_subs = utils.force_list(value.get('b'))
-        if author_subs:
-            for author_sub in author_subs:
-                author['name'] += ' ' + remove_trailing_punctuation(author_sub)
+        author_subs = utils.force_list(value.get('b', []))
+        for author_sub in author_subs:
+            author['name'] += ' ' + remove_trailing_punctuation(author_sub)
         if key[:3] == '710':
             author['type'] = 'organisation'
         else:
@@ -402,25 +411,6 @@ def marc21_to_description(self, key, value):
     return None
 
 
-@marc21.over('series', '^490..')
-@utils.for_each_value
-@utils.ignore_value
-def marc21_to_series(self, key, value):
-    """Get series.
-
-    series.name: [490$a repetitive]
-    series.number: [490$v repetitive]
-    """
-    series = {}
-    name = value.get('a')
-    if name:
-        series['name'] = ', '.join(utils.force_list(name))
-    number = value.get('v')
-    if number:
-        series['number'] = ', '.join(utils.force_list(number))
-    return series or None
-
-
 @marc21.over('note', '^500..')
 @utils.for_each_value
 @utils.ignore_value
@@ -478,17 +468,6 @@ def marc21_to_titles_proper(self, key, value):
     titleProper: 730$a
     """
     return value.get('a')
-
-
-@marc21.over('is_part_of', '^773..')
-@utils.ignore_value
-def marc21_to_is_part_of(self, key, value):
-    """Get  is_part_of.
-
-    is_part_of: [773$t repetitive]
-    """
-    if not self.get('is_part_of', None):
-        return value.get('t')
 
 
 @marc21.over('electronicLocator', '^8564.')

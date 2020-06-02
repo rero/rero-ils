@@ -56,7 +56,7 @@ def test_marc21_to_type():
 
     Books: LDR/6-7: am
     Journals: LDR/6-7: as
-    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Articles: LDR/6-7: aa
     Scores: LDR/6: c|d
     Videos: LDR/6: g + 007/0: m|v
     Sounds: LDR/6: i|j
@@ -132,6 +132,172 @@ def test_marc21_to_type():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('type') == 'video'
+
+
+def test_marc21_to_mode_of_issuance():
+    """
+    Test dojson marc21_to_mode_issuance.
+    """
+
+    marc21xml = """
+    <record>
+        <leader>00501naa a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'article'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nab a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1003',
+        'subtype': 'serialInSerial'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nac a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'privateFile'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nad a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'privateSubfile'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1001',
+        'subtype': 'materialUnit'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+        <datafield tag="019" ind1="3" ind2=" ">
+            <subfield code="a">Note interne</subfield>
+        </datafield>
+        <datafield tag="019" ind1="3" ind2=" ">
+            <subfield code="a">Niveau supérieur</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1002',
+        'subtype': 'set'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc |||d|  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingWebsite'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc |||l|  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingLoose-leaf'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nai a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc |||w|  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1004',
+        'subtype': 'updatingWebsite'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc |||m|  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1003',
+        'subtype': 'monographicSeries'
+    }
+
+    marc21xml = """
+    <record>
+        <leader>00501nas a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc |||p|  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1003',
+        'subtype': 'periodical'
+    }
 
 
 # pid: 001
@@ -2323,32 +2489,200 @@ def test_marc21_to_physical_description_multiple_300():
 
 # series.name: [490$a repetitive]
 # series.number: [490$v repetitive]
-def test_marc21_to_series():
-    """Test dojson series."""
+def test_marc21_to_series_statement():
+    """Test dojson seriesStatement."""
 
     marc21xml = """
     <record>
-      <datafield tag="490" ind1=" " ind2=" ">
-        <subfield code="a">Collection One</subfield>
-        <subfield code="v">5</subfield>
-      </datafield>
-      <datafield tag="490" ind1=" " ind2=" ">
-        <subfield code="a">Collection Two</subfield>
-        <subfield code="v">123</subfield>
-      </datafield>    </record>
+       <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Handbuch der Orientalistik</subfield>
+            <subfield code="v">Abt. 7.</subfield>
+            <subfield code="a">Kunst und Archäologie</subfield>
+            <subfield code="v">Bd. 6.</subfield>
+            <subfield code="a">Südostasien</subfield>
+            <subfield code="v">Abschnitt 6</subfield>
+        </datafield>
+    </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('series') == [
-        {
-            'name': 'Collection One',
-            'number': '5'
-        },
-        {
-            'name': 'Collection Two',
-            'number': '123'
-        }
-    ]
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
+        'seriesEnumeration': [{'value': 'Abt. 7'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
+                'subseriesEnumeration': [{'value': 'Bd. 6'}]
+            }, {
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
+            }
+        ]
+    }]
+
+
+def test_marc21_to_series_statement_mutiple_490():
+    """Test dojson seriesStatement."""
+
+    marc21xml = """
+    <record>
+       <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Handbuch der Orientalistik 1</subfield>
+            <subfield code="v">Abt. 7.</subfield>
+            <subfield code="a">Kunst und Archäologie</subfield>
+            <subfield code="v">Bd. 6.</subfield>
+            <subfield code="a">Südostasien</subfield>
+            <subfield code="v">Abschnitt 6</subfield>
+        </datafield>
+       <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Handbuch der Orientalistik 2</subfield>
+            <subfield code="v">Abt. 7.</subfield>
+            <subfield code="a">Kunst und Archäologie</subfield>
+            <subfield code="v">Bd. 6.</subfield>
+            <subfield code="a">Südostasien</subfield>
+            <subfield code="v">Abschnitt 6</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik 1'}],
+        'seriesEnumeration': [{'value': 'Abt. 7'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
+                'subseriesEnumeration': [{'value': 'Bd. 6'}]
+            }, {
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
+            }
+        ]
+    }, {
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik 2'}],
+        'seriesEnumeration': [{'value': 'Abt. 7'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
+                'subseriesEnumeration': [{'value': 'Bd. 6'}]
+            }, {
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
+            }
+        ]
+    }]
+
+
+# series.name: [490$a repetitive]
+# series.number: [490$v repetitive]
+def test_marc21_to_series_statement_with_alt_graphic():
+    """Test dojson seriesStatement."""
+
+    marc21xml = """
+    <record>
+        <controlfield tag=
+            "008">960525s1962    ru |||||| ||||00|| |rus d</controlfield>
+        <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="6">880-04</subfield>
+            <subfield code="a">Žizn&apos; zamečatel&apos;nych ljudej</subfield>
+            <subfield code="v">vypusk 4, 357</subfield>
+        </datafield>
+        <datafield tag="880" ind1="1" ind2=" ">
+            <subfield code="6">490-04/(N</subfield>
+            <subfield code="a">Жизнь замечательных людей</subfield>
+            <subfield code="v">выпуск 4, 357</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [
+            {'value': "Žizn' zamečatel'nych ljudej"},
+            {'value': 'Жизнь замечательных людей', 'language': 'rus-cyrl'}
+        ],
+        'seriesEnumeration': [
+            {'value': 'vypusk 4, 357'},
+            {'value': 'выпуск 4, 357', 'language': 'rus-cyrl'}
+        ]
+    }]
+
+
+# series.name: [490$a repetitive]
+# series.number: [490$v repetitive]
+def test_marc21_to_series_statement_with_missig_subfield_v():
+    """Test dojson seriesStatement."""
+
+    marc21xml = """
+    <record>
+        <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Handbuch der Orientalistik</subfield>
+            <subfield code="a">Kunst und Archäologie</subfield>
+            <subfield code="a">Südostasien</subfield>
+            <subfield code="v">Abschnitt 6</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Kunst und Archäologie'}]
+            }, {
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
+            }
+        ]
+    }]
+
+
+# series.name: [490$a repetitive]
+# series.number: [490$v repetitive]
+def test_marc21_to_series_statement_with_missig_subfield_a():
+    """Test dojson seriesStatement."""
+
+    marc21xml = """
+    <record>
+       <controlfield tag="001">REROILS:123456789</controlfield>
+       <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="x">Handbuch der Orientalistik</subfield>
+            <subfield code="v">Abt. 7.</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    # should return None because of the bad formating of field 490
+    assert data.get('seriesStatement') is None
+
+
+# series.name: [490$a repetitive]
+# series.number: [490$v repetitive]
+def test_marc21_to_series_statement_with_succesive_subfield_v():
+    """Test dojson seriesStatement."""
+
+    marc21xml = """
+    <record>
+        <leader>00501nam a2200133 a 4500</leader>
+        <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Handbuch der Orientalistik</subfield>
+            <subfield code="v">Abt. 7.</subfield>
+            <subfield code="v">Bd. 7.</subfield>
+            <subfield code="a">Südostasien</subfield>
+            <subfield code="v">Abschnitt 6</subfield>
+            <subfield code="v">Bd. 6.</subfield>
+        </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
+        'seriesEnumeration': [{'value': 'Abt. 7, Bd. 7'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6, Bd. 6'}]
+            }
+        ]
+    }]
 
 
 # abstract: [520$a repetitive]
@@ -2393,9 +2727,155 @@ def test_marc21_to_notes():
     ]
 
 
-# is_part_of 773$t
-def test_marc21_to_is_part_of():
-    """Test dojson is_part_of."""
+# part_of 773, 800, 830
+def test_marc21_to_part_of():
+    """Test dojson partOf."""
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">411</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'numbering': [{'pages': '411'}]
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">411</subfield>
+        <subfield code="g">2020/1/2/300</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'numbering': [{
+                    'pages': '411'
+                },
+                {
+                    'year': '2020',
+                    'volume': 1,
+                    'issue': 2,
+                    'pages': '300'
+                }]
+        }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">1/2/300</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'numbering': [
+                {
+                    'volume': 1,
+                    'issue': 2,
+                    'pages': '300'
+                }]
+        }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">1/2/3/4</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'}
+        }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">2020/411</subfield>
+        <subfield code="g">1/2</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'numbering': [{
+                    'year': '2020',
+                    'pages': '411'
+                },
+                {
+                    'volume': 1,
+                    'issue': 2
+                }]
+        }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g"> </subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'}
+        }]
+
+    marc21xml = """
+    <record>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="v">256</subfield>
+        <subfield code="w">123456</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') == [{
+            'document': {'$ref': 'https://ils.rero.ch/api/documents/123456'},
+            'numbering': [{
+                    'volume': 256
+                }]
+        }]
+
+
+def test_marc21_to_part_of_without_link():
+    """Test dojson partOf when no link is specified.
+
+    When a field 773, 800 or 830 has no link specified,
+    then a seriesStatement must be generated instead of a partOf.
+    But, in this case, a seriesStatement does not be generated
+    for a field 773 if a field 580 exists
+    and for the fields 800 and 830 if a field 490 exists
+    """
 
     marc21xml = """
     <record>
@@ -2407,7 +2887,165 @@ def test_marc21_to_is_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('is_part_of') == 'Stuart Hall : critical dialogues'
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
+        'seriesEnumeration': [{'value': '411'}],
+        }
+    ]
+
+    # append author and reverse lastname, firstane
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="a">Wehinger, Walter</subfield>
+        <subfield code="t">Neuchâtel disparu</subfield>
+        <subfield code="g">8</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Neuchâtel disparu / Walter Wehinger'}],
+        'seriesEnumeration': [{'value': '8'}],
+        }
+    ]
+
+    # append author without comma
+    marc21xml = """
+    <record>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="a">Wehinger</subfield>
+        <subfield code="t">Neuchâtel disparu</subfield>
+        <subfield code="g">8</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Neuchâtel disparu / Wehinger'}],
+        'seriesEnumeration': [{'value': '8'}],
+        }
+    ]
+
+    # append author
+    marc21xml = """
+    <record>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="a">Jacq, Christian. -</subfield>
+        <subfield code="t">Ramsès</subfield>
+        <subfield code="v">1</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Ramsès / Christian Jacq'}],
+        'seriesEnumeration': [{'value': '1'}],
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="v">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
+        'seriesEnumeration': [{'value': '411'}],
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="830" ind1="1" ind2=" ">
+        <subfield code="a">Stuart Hall : critical dialogues</subfield>
+        <subfield code="v">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
+        'seriesEnumeration': [{'value': '411'}],
+        }
+    ]
+
+    # tests with field 490 and 580
+    marc21xml = """
+    <record>
+       <datafield tag="580" ind1="1" ind2=" ">
+            <subfield code="a">Stuart Hall : critical dialogues</subfield>
+            <subfield code="v">411</subfield>
+      </datafield>
+      <datafield tag="773" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="g">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    assert data.get('seriesStatement') is None
+
+    marc21xml = """
+    <record>
+      <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Stuart Hall : all critical dialogues</subfield>
+            <subfield code="v">512</subfield>
+      </datafield>
+      <datafield tag="800" ind1="1" ind2=" ">
+        <subfield code="t">Stuart Hall : critical dialogues</subfield>
+        <subfield code="v">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    # the seriesStatement is generated form 490 and not from the 800
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Stuart Hall : all critical dialogues'}],
+        'seriesEnumeration': [{'value': '512'}],
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="490" ind1="1" ind2=" ">
+            <subfield code="a">Stuart Hall : all critical dialogues</subfield>
+            <subfield code="v">512</subfield>
+      </datafield>
+      <datafield tag="830" ind1="1" ind2=" ">
+        <subfield code="a">Stuart Hall : critical dialogues</subfield>
+        <subfield code="v">411</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('partOf') is None
+    # the seriesStatement is generated form 490 and not from the 800
+    assert data.get('seriesStatement') == [{
+        'seriesTitle': [{'value': 'Stuart Hall : all critical dialogues'}],
+        'seriesEnumeration': [{'value': '512'}],
+        }
+    ]
 
 
 # subjects: 6xx [duplicates could exist between several vocabularies,
@@ -2542,6 +3180,23 @@ def test_marc21_to_identifiedBy_from_024_snl_bnf():
             'type': 'uri',
             'source': 'BNF',
             'value': 'http://catalogue.bnf.fr/ark:/12148/cb312v'
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="024" ind1="7" ind2=" ">
+        <subfield code="a">http://slsp.ch/12345</subfield>
+        <subfield code="2">uri</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('identifiedBy') == [
+        {
+            'type': 'bf:Identifier',
+            'value': 'http://slsp.ch/12345'
         }
     ]
 
