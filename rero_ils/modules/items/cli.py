@@ -230,7 +230,7 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
     base_url = get_base_url()
     url_api = '{base_url}/api/{doc_type}/{pid}'
     item = {
-        # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
+        # '$schema': 'https://ils.rero.ch/schemas/items/item-v0.0.1.json',
         'pid': str(item_pid),
         'barcode': barcode,
         'call_number': str(item_pid).zfill(5),

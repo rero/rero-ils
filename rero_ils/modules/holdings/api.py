@@ -109,7 +109,7 @@ class Holding(IlsRecord):
         """Add additional record validation.
 
         Ensures that holdings of type serials are created only on
-        journal documents i.e. serial mode_of_issuance documents.
+        journal documents i.e. serial mode_of_issuance main_type of documents.
 
         Ensures that holdings of type electronic are created only on
         ebooks documents i.e. harvested documents.
@@ -134,7 +134,8 @@ class Holding(IlsRecord):
                     and not patterns.get('next_expected_date'):
                 return False
         is_electronic = self.holdings_type == 'electronic'
-        is_issuance = document.dumps().get('issuance') == 'rdami:1003'
+        is_issuance = \
+            document.get('issuance', {}).get('main_type') == 'rdami:1003'
         return not(
             (is_issuance ^ is_serial) or (document.harvested ^ is_electronic)
             )
@@ -144,7 +145,8 @@ class Holding(IlsRecord):
         """Shortcut to check if holding is a serial holding record."""
         document = Document.get_record_by_pid(self.document_pid).dumps()
         is_serial = self.holdings_type == 'serial'
-        is_issuance = document.get('issuance') == 'rdami:1003'
+        is_issuance = \
+            document.get('issuance', {}).get('main_type') == 'rdami:1003'
         return is_serial and is_issuance
 
     @property

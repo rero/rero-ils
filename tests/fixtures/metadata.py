@@ -138,9 +138,27 @@ def document(app, document_data):
 
 
 @pytest.fixture(scope="module")
+def document_with_issn(app, journal_data_with_issn):
+    """Load document record."""
+    doc = Document.create(
+        data=journal_data_with_issn,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
 def document_data_ref(data):
     """Load document ref data."""
     return deepcopy(data.get('doc2'))
+
+
+@pytest.fixture(scope="module")
+def journal_data_with_issn(data):
+    """Load journal document with issn data."""
+    return deepcopy(data.get('doc5'))
 
 
 @pytest.fixture(scope="module")
