@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 from functools import wraps
 
+from elasticsearch import exceptions
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from flask_login import current_user
@@ -34,7 +35,7 @@ from .utils import item_pid_to_object
 from ..circ_policies.api import CircPolicy
 from ..documents.views import item_library_pickup_locations
 from ..libraries.api import Library
-from ..loans.api import Loan
+from ..loans.api import Loan, LoanState
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
@@ -115,11 +116,16 @@ def jsonify_action(func):
             abort(403)
         except NotFound as error:
             raise(error)
+        except exceptions.RequestError as error:
+            # missing required parameters
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 400
         except Exception as error:
+            # TODO: need to know what type of exception and document them.
             # raise(error)
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 500
+                error=error)}), 400
     return decorated_view
 
 
@@ -190,7 +196,7 @@ def update_loan_pickup_location():
         return jsonify({'status': 'error: Bad request'}), 400
     loan = Loan.get_record_by_pid(loan_pid)
     loan['pickup_location_pid'] = pickup_location_pid
-    if not loan.get('state') == 'PENDING':
+    if not loan['state'] == LoanState.PENDING:
         return jsonify({'status': 'error: Forbidden'}), 403
     new_loan = loan.update(loan, dbcommit=True, reindex=True)
     return jsonify(new_loan)
