@@ -45,6 +45,17 @@ def test_marc21_to_isbn_ebooks():
     marc21xml = """
     <record>
       <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9782812</subfield>
+      </datafield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('identifiedBy') is None
+
+    marc21xml = """
+    <record>
+      <datafield tag="020" ind1=" " ind2=" ">
         <subfield code="a">feedhttps-www-feedbooks-com-book-414-epub</subfield>
       </datafield>
     </record>
@@ -52,6 +63,20 @@ def test_marc21_to_isbn_ebooks():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert not data.get('identifiedBy')
+
+
+def test_marc21_to_languages_ebooks_from_008():
+    """Test languages from field 008."""
+    marc21xml = """
+    <record>
+        <leader>00501naa a2200133 a 4500</leader>
+        <controlfield tag=
+            "008">160315s2015    cc ||| |  ||||00|  |fre d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('language') == [{'type': 'bf:Language', 'value': 'fre'}]
 
 
 def test_marc21_to_languages_ebooks():
@@ -192,38 +217,6 @@ def test_marc21_to_description():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('extent') == '116 p.'
-
-
-def test_marc21_to_series():
-    """Test series transformation.
-
-    Transformation series name field 490 $a.
-    Transformation series number field 490 $v.
-    """
-
-    marc21xml = """
-    <record>
-      <datafield tag="490" ind1=" " ind2=" ">
-        <subfield code="a">Collection One</subfield>
-        <subfield code="v">5</subfield>
-      </datafield>
-      <datafield tag="490" ind1=" " ind2=" ">
-        <subfield code="a">Collection Two</subfield>
-        <subfield code="v">123</subfield>
-      </datafield>    </record>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    assert data.get('series') == [
-        {
-            'name': 'Collection One',
-            'number': '5'
-        },
-        {
-            'name': 'Collection Two',
-            'number': '123'
-        }
-    ]
 
 
 def test_marc21_to_notes():

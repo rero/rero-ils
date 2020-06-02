@@ -22,12 +22,39 @@ import re
 
 import requests
 from dojson import utils
+from dojson.utils import GroupableOrderedDict
 
 from rero_ils.dojson.utils import BookFormatExtraction, ReroIlsMarc21Overdo, \
     TitlePartList, add_note, build_responsibility_data, error_print, \
     extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
-    get_field_link_data, make_year, not_repetitive, \
-    remove_trailing_punctuation
+    get_field_link_data, join_alternate_graphic_data, make_year, \
+    not_repetitive, remove_trailing_punctuation
+
+_ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
+    'a': 'rdami:1001',
+    'b': 'rdami:1003',
+    'c': 'rdami:1001',
+    'd': 'rdami:1001',
+    'i': 'rdami:1004',
+    'm': 'rdami:1001',  # rdami:1002 if top_level record
+    's': 'rdami:1003'
+}
+
+_ISSUANCE_SUBTYPE_PER_BIB_LEVEL = {
+    'a': 'article',
+    'b': 'serialInSerial',
+    'c': 'privateFile',
+    'd': 'privateSubfile'
+}
+
+_ISSUANCE_SUBTYPE_PER_SERIAL_TYPE = {
+    'd': 'updatingWebsite',
+    'w': 'updatingWebsite',
+    'l': 'updatingLoose-leaf',
+    'm': 'monographicSeries',
+    'p': 'periodical'
+}
+
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -80,37 +107,54 @@ def get_person_link(bibid, id, key, value):
     return mef_link
 
 
-@marc21.over('type', 'leader')
-def marc21_to_type(self, key, value):
+@marc21.over('type_and_issuance', 'leader')
+@utils.ignore_value
+def marc21_to_type_and_issuance(self, key, value):
     """
-    Get document type.
+    Get document type and the mode of issuance.
 
     Books: LDR/6-7: am
     Journals: LDR/6-7: as
-    Articles: LDR/6-7: aa + add field 773 (journal title)
+    Articles: LDR/6-7: aa
     Scores: LDR/6: c|d
     Videos: LDR/6: g + 007/0: m|v
     Sounds: LDR/6: i|j
     E-books (imported from Cantook)
     """
+    # get the document type
     type = 'other'
-    type_of_record = value[6]
-    bibliographic_level = value[7]
-    if type_of_record == 'a':
-        if bibliographic_level == 'm':
+    if marc21.record_type == 'a':
+        if marc21.bib_level == 'm':
             type = 'book'
-        elif bibliographic_level == 's':
+        elif marc21.bib_level == 's':
             type = 'journal'
-        elif bibliographic_level == 'a':
+        elif marc21.bib_level == 'a':
             type = 'article'
-    elif type_of_record in ['c', 'd']:
+    elif marc21.record_type in ['c', 'd']:
         type = 'score'
-    elif type_of_record in ['i', 'j']:
+    elif marc21.record_type in ['i', 'j']:
         type = 'sound'
-    elif type_of_record == 'g':
+    elif marc21.record_type == 'g':
         type = 'video'
         # Todo 007
-    return type
+    self['type'] = type
+
+    # get the mode of issuance
+    self['issuance'] = {}
+    main_type = _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL.get(
+        marc21.bib_level, 'rdami:1001')
+    sub_type = 'NOT_DEFINED'
+    if marc21.bib_level == 'm':
+        if marc21.is_top_level_record:
+            main_type = 'rdami:1002'
+            sub_type = 'set'
+        else:
+            sub_type = 'materialUnit'
+    if marc21.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
+        sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[marc21.bib_level]
+    if marc21.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
+        sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[marc21.serial_type]
+    self['issuance'] = dict(main_type=main_type, subtype=sub_type)
 
 
 @marc21.over('pid', '^001')
@@ -505,23 +549,17 @@ def marc21_to_description(self, key, value):
     return None
 
 
-@marc21.over('series', '^490..')
+@marc21.over('seriesStatement', '^490..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_series(self, key, value):
-    """Get series.
+def marc21_to_series_statement(self, key, value):
+    """Get seriesStatement.
 
     series.name: [490$a repetitive]
     series.number: [490$v repetitive]
     """
-    series = {}
-    name = value.get('a')
-    if name:
-        series['name'] = ', '.join(utils.force_list(name))
-    number = value.get('v')
-    if number:
-        series['number'] = ', '.join(utils.force_list(number))
-    return series
+    marc21.extract_series_statement_from_marc_field(key, value, self)
+    return None
 
 
 @marc21.over('abstracts', '^520..')
@@ -672,6 +710,7 @@ def marc21_to_identifiedBy_from_field_024(self, key, value):
     }
 
     identifier = {}
+    identifiedBy = None
     subfield_a = not_repetitive(
         marc21.bib_id, key, value, 'a', default='').strip()
     subfield_2 = not_repetitive(
@@ -885,15 +924,186 @@ def marc21_to_notes(self, key, value):
     return None
 
 
-@marc21.over('is_part_of', '^773..')
+@marc21.over('part_of', '^(773|800|830)..')
+@utils.for_each_value
 @utils.ignore_value
-def marc21_to_is_part_of(self, key, value):
-    """Get  is_part_of.
+def marc21_to_part_of(self, key, value):
+    r"""Get part_of.
 
-    is_part_of: [773$t repetitive]
+    The 773 $g can have multiple pattern, most important is to find the year
+    (94% of $g start with pattern '\d{4}'
+    - a/b/c/d > a=year, b=vol, c=issue, d=pages
+      (if a != year pattern, then abandon data)
+    - a/b/c > a=year, b=issue, c=pages
+      (if a != year pattern, then put a in vol, and b in issue, and c in pages)
+    - a/b > a=year, b=pages
+      (if a != year pattern, then put it in vol, and b in issue)
+    - a > a=year (if a != year pattern, then put it in pages)
+    For b, c, d: check that the values match the integer or pages patterns,
+    otherwise abandon data.
+    pages pattern: \d+(-\d+)?  examples: 12-25, 837, 837-838
+
+    When a field 773, 800 or 830 has no link specified,
+    then a seriesStatement must be generated instead of a partOf.
+    But, in this case, a seriesStatement does not be generated
+    for a field 773 if a field 580 exists
+    and for the fields 800 and 830 if a field 490 exists
     """
-    if not self.get('is_part_of', None):
-        return not_repetitive(marc21.bib_id, key, value, 't')
+
+    class Numbering(object):
+        """The purpose of this class is to build the `Numbering` data."""
+
+        def __init__(self):
+            """Constructor method."""
+            self._numbering = {}
+            self._year_regexp = re.compile(r'^\d{4}')
+            self._integer_regexp = re.compile(r'^\d+$')
+            self._pages_regexp = re.compile(r'^\d+(-\d+)?$')
+            self._pattern_per_key = {
+                'year': self._year_regexp,
+                'pages': self._pages_regexp,
+                'issue': self._integer_regexp,
+                'volume': self._integer_regexp
+            }
+
+        def add_numbering_value(self, key, value):
+            """Add numbering `key: value` to `Numbering` data.
+
+            The `Numbering` object is progressively build with the data col-
+            lected by the succesive calls of the method `add_numbering_value`.
+
+            :param key: key code of data to be added
+            :type key: str
+            :param value: value data to be associated the given `key`
+            :type value: str
+            """
+            if self._pattern_per_key[key].search(value):
+                if key in ('issue', 'volume'):
+                    value = int(value)
+                self._numbering[key] = value
+            elif key != 'year':
+                self._numbering['discard'] = True
+
+        def has_year(self):
+            """Check if `year` key is present in `Numbering` data."""
+            return 'year' in self._numbering
+
+        def is_valid(self):
+            """Check if `Numbering` data is valid."""
+            return self._numbering and 'discard' not in self._numbering
+
+        def get(self):
+            """Get the  `Numbering` data object."""
+            return self._numbering
+
+    def add_author_to_subfield_t(value):
+        """Get author from subfield_t and add it to subfield_t.
+
+        The form 'lastname, firstname' of the author form subfield a
+        is a appended to the subfield_t in the following form:
+        ' / firstname lastname'
+        """
+        items = get_field_items(value)
+        new_data = []
+        author = None
+        pending_g_values = []
+        pending_v_values = []
+        match = re.compile(r'\. -$')  # match the trailing '. -'
+        subfield_selection = {'a', 't', 'g', 'v'}
+        for blob_key, blob_value in items:
+            if blob_key in subfield_selection:
+                if blob_key == 'a':
+                    # remove the trailing '. -'
+                    author = match.sub('', blob_value)
+                    # reverse first name and last name
+                    author_parts = author.split(',')
+                    author = ' '.join(reversed(author_parts)).strip()
+                    subfield_selection.remove('a')
+                elif blob_key == 't':
+                    subfield_t = blob_value
+                    if author:
+                        subfield_t += ' / ' + author
+                    new_data.append(('t', subfield_t))
+                elif blob_key == 'g':
+                    pending_g_values.append(blob_value)
+                elif blob_key == 'v':
+                    pending_v_values.append(blob_value)
+        for g_value in pending_g_values:
+            new_data.append(('g', g_value))
+        for v_value in pending_v_values:
+            new_data.append(('v', v_value))
+        return GroupableOrderedDict(tuple(new_data))
+
+    part_of = {}
+    numbering_list = []
+    subfield_w = not_repetitive(
+        marc21.bib_id, key, value, 'w', default='').strip()
+    if subfield_w:
+        match = re.compile(r'^REROILS:')
+        pid = match.sub('', subfield_w)
+        part_of['document'] = {
+            '$ref':
+                'https://ils.rero.ch/api/documents/{pid}'.format(pid=pid)
+        }
+        if key[:3] == '773':
+            subfields_g = utils.force_list(value.get('g'))
+            discard_numbering = False
+            for subfield_g in subfields_g:
+                numbering = Numbering()
+                values = subfield_g.strip().split('/')
+                numbering.add_numbering_value('year', values[0])
+                if len(values) == 1 and not numbering.has_year():
+                    numbering.add_numbering_value('pages', values[0])
+                elif len(values) == 2:
+                    if numbering.has_year():
+                        numbering.add_numbering_value('pages', values[1])
+                    else:
+                        numbering.add_numbering_value('volume', values[0])
+                        numbering.add_numbering_value('issue', values[1])
+                elif len(values) == 3:
+                    if not numbering.has_year():
+                        numbering.add_numbering_value('volume', values[0])
+                    numbering.add_numbering_value('issue', values[1])
+                    numbering.add_numbering_value('pages', values[2])
+                elif len(values) == 4:
+                    if numbering.has_year():
+                        numbering.add_numbering_value('volume', values[1])
+                        numbering.add_numbering_value('issue', values[2])
+                        numbering.add_numbering_value('pages', values[3])
+                    else:
+                        discard_numbering = True
+                if not discard_numbering and numbering.is_valid():
+                    numbering_list.append(numbering.get())
+        else:  # 800, 830
+            subfields_v = utils.force_list(value.get('v', []))
+            for subfield_v in subfields_v:
+                numbering = Numbering()
+                numbering.add_numbering_value('volume', subfield_v)
+                if numbering.is_valid():
+                    numbering_list.append(numbering.get())
+        if 'document' in part_of:
+            if numbering_list:
+                part_of['numbering'] = numbering_list
+            self['partOf'] = self.get('partOf', [])
+            self['partOf'].append(part_of)
+    else:  # no link found
+        if key[:3] == '773':
+            if not marc21.has_field_580:
+                # the author in subfield $a is appended to subfield $t
+                value = add_author_to_subfield_t(value)
+                # create a seriesStatement instead of a partOf
+                marc21.extract_series_statement_from_marc_field(
+                    key, value, self
+                )
+        else:  # 800, 830
+            if not marc21.has_field_490:
+                # create a seriesStatement instead of a partOf
+                if key[:3] == '800':
+                    # the author in subfield $a is appended to subfield $t
+                    value = add_author_to_subfield_t(value)
+                marc21.extract_series_statement_from_marc_field(
+                    key, value, self
+                )
 
 
 @marc21.over('subjects', '^6....')

@@ -161,6 +161,7 @@ class Document(IlsRecord):
         for provision_activity in provision_activities:
             provision_activity['_text'] = \
                 publication_statement_text(provision_activity)
+        # TODO: to by modified according to seriesStatement
         series = dump.get('series', [])
         for series_element in series:
             series_element["_text"] = series_format_text(series_element)
@@ -171,11 +172,6 @@ class Document(IlsRecord):
         bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
         for title in bf_titles:
             title['_text'] = title_format_text_head(titles, with_subtitle=True)
-        # a temporary way to set the document mode of issuance to serial.
-        # TODO: remove this when the document.issuance field is implemented.
-        document_type = dump.get('type')
-        if document_type == 'journal':
-            dump['issuance'] = 'rdami:1003'
         return dump
 
     def index_persons(self, bulk=False):
@@ -202,10 +198,27 @@ class Document(IlsRecord):
     def get_all_serial_pids(cls):
         """Get pids of all serial documents.
 
-        a serial document has mode_of_issuance equal to rdami:1003
+        a serial document has mode_of_issuance main_type equal to rdami:1003
         """
         es_documents = DocumentsSearch()\
-            .filter('term', issuance="rdami:1003").source(['pid']).scan()
+            .filter('term', issuance__main_type="rdami:1003")\
+            .source(['pid']).scan()
+        for es_document in es_documents:
+            yield es_document.pid
+
+    @classmethod
+    def get_document_pids_by_issn(cls, issn_number):
+        """Get pids of documents having the given issn.
+
+        :param issn_number: the ISSN number
+        :param issn_number: str
+        :return: the pids of the record having the given ISSN
+        :rtype: generator
+        """
+        es_documents = DocumentsSearch()\
+            .filter('term', identifiedBy__type="bf:Issn")\
+            .filter('term', identifiedBy__value=issn_number)\
+            .source(['pid']).scan()
         for es_document in es_documents:
             yield es_document.pid
 

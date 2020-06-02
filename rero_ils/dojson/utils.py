@@ -20,6 +20,7 @@
 import re
 import sys
 import traceback
+from copy import deepcopy
 
 import click
 from dojson import Overdo, utils
@@ -292,6 +293,35 @@ def add_data_and_sort_list(key, new_data, data):
         data[key] = sorted(list(new_set))
 
 
+def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
+    """
+    Build the alternate graphical data by joining the alt_gr strings.
+
+    The given join_str id used for joining the strings.
+
+    :param alt_gr_1: the alternate graphic 1
+    :type alt_gr_1: array
+    :param alt_gr_2: the alternate graphic 2
+    :type alt_gr_12: array
+    :param join_str: the string used as separator of concatenated strings
+    :type join_str: str
+    :return: atl_gr structure with joined strings from alt_gr_1 and alt_gr_2
+    :rtype: list
+    """
+    new_alt_gr_data = []
+    for idx, data in enumerate(alt_gr_1):
+        new_data = deepcopy(data)
+        try:
+            str_to_join = alt_gr_2[idx]['value']
+            if str_to_join:
+                new_data['value'] = \
+                    join_str.join((new_data['value'], str_to_join))
+        except Exception as err:
+            pass
+        new_alt_gr_data.append(new_data)
+    return new_alt_gr_data
+
+
 class BookFormatExtraction(object):
     """Extract book formats from a marc subfield data.
 
@@ -376,7 +406,11 @@ class ReroIlsOverdo(Overdo):
     """
 
     _blob_record = None
+    leader = None
+    record_type = ''  # LDR 06
+    bib_level = '?'  # LDR 07
     extract_description_subfield = None
+    extract_series_statement_subfield = None
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsoverdo init."""
@@ -386,6 +420,10 @@ class ReroIlsOverdo(Overdo):
     def do(self, blob, ignore_missing=True, exception_handlers=None):
         """Translate blob values and instantiate new model instance."""
         self._blob_record = blob
+        self.leader = blob.get('leader', '')
+        if self.leader:
+            self.record_type = self.leader[6]  # LDR 06
+            self.bib_level = self.leader[7]  # LDR 07
         result = super(ReroIlsOverdo, self).do(
             blob,
             ignore_missing=ignore_missing,
@@ -633,6 +671,90 @@ class ReroIlsOverdo(Overdo):
                     ),
                     data)
 
+    def extract_series_statement_from_marc_field(self, key, value, data):
+        """Extract the seriesStatement data from marc field data.
+
+        This function automatically selects the subfield codes according field
+        tag ans the Marc21 or Unimarc format. The extracted data are:
+        - seriesTitle
+        - seriesEnumeration
+
+        :param key: the field tag and indicators
+        :type key: str
+        :param value: the subfields data
+        :type value: object
+        :param data: the object data on which the extracted data will be added
+        :type data: object
+        """
+        # extract production_method from extent and physical_details
+        tag_link, link = get_field_link_data(value)
+        items = get_field_items(value)
+        index = 1
+        series = {}
+        subseries = []
+        count = 0
+        tag = key[:3]
+        series_title_subfield_code = \
+            self.extract_series_statement_subfield[tag]['series_title']
+        series_enumeration_subfield_code = \
+            self.extract_series_statement_subfield[tag]['series_enumeration']
+        subfield_selection = \
+            {series_title_subfield_code, series_enumeration_subfield_code}
+        subfield_visited = ''
+        for blob_key, blob_value in items:
+            if blob_key in subfield_selection:
+                subfield_visited += blob_key
+                value_data = self.build_value_with_alternate_graphic(
+                    tag, blob_key, blob_value, index, link, ',.', ':;/-=')
+                if blob_key == series_title_subfield_code:
+                    count += 1
+                    if count == 1:
+                        series['seriesTitle'] = value_data
+                    else:
+                        subseries.append({'subseriesTitle': value_data})
+                elif blob_key == series_enumeration_subfield_code:
+                    if count == 1:
+                        if 'seriesEnumeration' in series:
+                            series['seriesEnumeration'] = \
+                                join_alternate_graphic_data(
+                                    alt_gr_1=series['seriesEnumeration'],
+                                    alt_gr_2=value_data,
+                                    join_str=', '
+                                )
+                        else:
+                            series['seriesEnumeration'] = value_data
+                    elif count > 1:
+                        if 'subseriesEnumeration' in subseries[count-2]:
+                            alt_gr_1 = \
+                                subseries[count-2]['subseriesEnumeration']
+                            subseries[count-2]['subseriesEnumeration'] = \
+                                join_alternate_graphic_data(
+                                    alt_gr_1=alt_gr_1,
+                                    alt_gr_2=value_data,
+                                    join_str=', '
+                                )
+                        else:
+                            subseries[count-2]['subseriesEnumeration'] = \
+                                value_data
+            if blob_key != '__order__':
+                index += 1
+
+        error_msg = ''
+        regexp = re.compile(r'^[^{}]'.format(series_title_subfield_code))
+        if regexp.search(subfield_visited):
+            error_msg = \
+                'missing leading subfield ${code} in field {tag}'.format(
+                    code=series_title_subfield_code,
+                    tag=tag
+                )
+            error_print('ERROR BAD FIELD FORMAT:', self.bib_id, error_msg)
+        else:
+            if subseries:
+                series['subseriesStatement'] = subseries
+            series_statement = data.get('seriesStatement', [])
+            series_statement.append(series)
+            data['seriesStatement'] = series_statement
+
 
 class ReroIlsMarc21Overdo(ReroIlsOverdo):
     """Specialized Overdo for Marc21.
@@ -646,9 +768,13 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     date1_from_008 = None
     date2_from_008 = None
     date_type_from_008 = ''
+    serial_type = ''  # 008 pos 21
     langs_from_041_a = []
     langs_from_041_h = []
     alternate_graphic = {}
+    is_top_level_record = False  # has 019 $a Niveau supérieur
+    has_field_490 = False
+    has_field_580 = False
 
     def __init__(self, bases=None, entry_point_group=None):
         """Reroilsmarc21overdo init."""
@@ -658,6 +784,24 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.extract_description_subfield = {
             'physical_detail': 'b',
             'book_format': 'c'
+        }
+        self.extract_series_statement_subfield = {
+            '490': {
+                'series_title': 'a',
+                'series_enumeration': 'v'
+            },
+            '773': {
+                'series_title': 't',
+                'series_enumeration': 'g'
+            },
+            '800': {
+                'series_title': 't',
+                'series_enumeration': 'v'
+            },
+            '830': {
+                'series_title': 'a',
+                'series_enumeration': 'v'
+            }
         }
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
@@ -670,6 +814,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception as err:
                 self.bib_id = '???'
+
+            # extract record leader
             self.field_008_data = ''
             self.date1_from_008 = None
             self.date2_from_008 = None
@@ -681,9 +827,26 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.date1_from_008 = self.field_008_data[7:11]
                 self.date2_from_008 = self.field_008_data[11:15]
                 self.date_type_from_008 = self.field_008_data[6]
+                self.serial_type = self.field_008_data[21]
             self.init_lang()
             self.init_country()
             self.init_alternate_graphic()
+
+            # identifiy a top level record (has 019 $a Niveau supérieur)
+            regexp = re.compile(r'Niveau sup[eé]rieur', re.IGNORECASE)
+            fields_019 = self.get_fields(tag='019')
+            for field_019 in fields_019:
+                for subfield_a in self.get_subfields(field_019, 'a'):
+                    if regexp.search(subfield_a):
+                        self.is_top_level_record = True
+                        break
+                else:
+                    continue  # only executed if the inner loop did NOT break
+                break  # only executed if the inner loop DID break
+
+            # check presence of specific fields
+            self.has_field_490 = len(self.get_fields(tag='490')) > 0
+            self.has_field_580 = len(self.get_fields(tag='580')) > 0
             result = super(ReroIlsMarc21Overdo, self).do(
                 blob,
                 ignore_missing=ignore_missing,
@@ -917,6 +1080,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
     bib_id = ''
     lang_from_101 = None
     alternate_graphic = {}
+    serial_type = ''
 
     def __init__(self, bases=None, entry_point_group=None):
         """Constructor."""
@@ -926,6 +1090,12 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         self.extract_description_subfield = {
             'physical_detail': 'c',
             'book_format': 'd',
+        }
+        self.extract_series_statement_subfield = {
+            '225': {
+                'series_title': 'a',
+                'series_enumeration': 'v'
+            }
         }
 
     def do(self, blob, ignore_missing=True, exception_handlers=None):
@@ -938,6 +1108,8 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception as err:
                 self.bib_id = '???'
+
+            # get the language code
             fields_101 = self.get_fields(tag='101')
             if fields_101:
                 field_101_a = self.get_subfields(fields_101[0], 'a')
@@ -946,6 +1118,13 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                     self.lang_from_101 = field_101_a[0]
                 if field_101_g:
                     self.lang_from_101 = field_101_g[0]
+
+            # get the type of continuing ressource
+            fields_110 = self.get_fields(tag='110')
+            if fields_110:
+                field_110_a = self.get_subfields(fields_110[0], 'a')
+                if field_110_a and len(field_110_a[0]) > 0:
+                    self.serial_type = field_110_a[0][0]
 
             result = super(ReroIlsUnimarcOverdo, self).do(
                 blob,
