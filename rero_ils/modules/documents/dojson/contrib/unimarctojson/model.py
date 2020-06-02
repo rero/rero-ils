@@ -20,19 +20,45 @@
 
 import jsonref
 from dojson import utils
-from dojson.utils import force_list
+from dojson.utils import GroupableOrderedDict, force_list
 from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
-    add_note, get_field_items, make_year, remove_trailing_punctuation
+    add_note, get_field_items, make_year, not_repetitive, \
+    remove_trailing_punctuation
+from rero_ils.modules.documents.api import Document
+
+_ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
+    'a': 'rdami:1001',
+    'c': 'rdami:1001',
+    'i': 'rdami:1004',
+    'm': 'rdami:1001',
+    's': 'rdami:1003'
+}
+
+_ISSUANCE_SUBTYPE_PER_BIB_LEVEL = {
+    'a': 'article',
+    'c': 'privateFile',
+    'm': 'materialUnit'
+}
+
+_ISSUANCE_SUBTYPE_PER_SERIAL_TYPE = {
+    'a': 'periodical',
+    'b': 'monographicSeries',
+    'e': 'updatingLoose-leaf',
+    'f': 'updatingWebsite',
+    'g': 'updatingWebsite',
+    'h': 'updatingWebsite'
+}
 
 unimarc = ReroIlsUnimarcOverdo()
 
 
-@unimarc.over('type', 'leader')
-def unimarc_type(self, key, value):
+@unimarc.over('type_and_issuance', 'leader')
+@utils.ignore_value
+def unimarc_type_and_issuance(self, key, value):
     """
-    Get document type.
+    Get document type and mode of issuance.
 
     Books: LDR/6-7: am
     Journals: LDR/6-7: as
@@ -43,23 +69,32 @@ def unimarc_type(self, key, value):
     E-books (imported from Cantook)
     """
     type = None
-    type_of_record = value[6]
-    bibliographic_level = value[7]
-    if type_of_record == 'a':
-        if bibliographic_level == 'm':
+    if unimarc.record_type == 'a':
+        if unimarc.bib_level == 'm':
             type = 'book'
-        elif bibliographic_level == 's':
+        elif unimarc.bib_level == 's':
             type = 'journal'
-        elif bibliographic_level == 'a':
+        elif unimarc.bib_level == 'a':
             type = 'article'
-    elif type_of_record in ['c', 'd']:
+    elif unimarc.record_type in ['c', 'd']:
         type = 'score'
-    elif type_of_record in ['i', 'j']:
+    elif unimarc.record_type in ['i', 'j']:
         type = 'sound'
-    elif type_of_record == 'g':
+    elif unimarc.record_type == 'g':
         type = 'video'
         # Todo 007
-    return type
+    self['type'] = type
+
+    # get the mode of issuance
+    self['issuance'] = {}
+    main_type = _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL.get(
+        unimarc.bib_level, 'rdami:1001')
+    sub_type = 'NOT_DEFINED'
+    if unimarc.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
+        sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[unimarc.bib_level]
+    if unimarc.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
+        sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[unimarc.serial_type]
+    self['issuance'] = dict(main_type=main_type, subtype=sub_type)
 
 
 @unimarc.over('identifiedBy', '^003')
@@ -170,6 +205,33 @@ def unimarc_title(self, key, value):
                 new_responsibility.append(resp)
             self['responsibilityStatement'] = new_responsibility
     return title_list or None
+
+
+@unimarc.over('part_of', '^(410|46[234])..')
+@utils.for_each_value
+@utils.ignore_value
+def marc21_to_part_of(self, key, value):
+    """Get part_of."""
+    part_of = {}
+    subfield_x = not_repetitive(
+        unimarc.bib_id, key, value, 'x', default='').strip()
+    linked_pid = None
+    if subfield_x:
+        for pid in Document.get_document_pids_by_issn(subfield_x):
+            linked_pid = pid
+            break
+    if linked_pid:
+        part_of['document'] = {
+            '$ref':
+                'https://ils.rero.ch/api/documents/{pid}'.format(
+                    pid=linked_pid)
+        }
+        subfield_v = not_repetitive(
+            unimarc.bib_id, key, value, 'v', default='').strip()
+        if subfield_v:
+            part_of['numbering'] = subfield_v
+        self['partOf'] = self.get('partOf', [])
+        self['partOf'].append(part_of)
 
 
 @unimarc.over('titlesProper', '^500..')
@@ -348,12 +410,9 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             })
             if ind2 in (' ', '_', '0'):
                 dates = subfield_d.replace('[', '').replace(']', '').split('-')
-                try:
-                    start_date = make_year(dates[0])
-                    if start_date:
-                        publication['startDate'] = start_date
-                except Exception:
-                    pass
+                start_date = make_year(dates[0])
+                if start_date:
+                    publication['startDate'] = start_date
                 try:
                     end_date = make_year(dates[1])
                     if end_date:
@@ -394,20 +453,45 @@ def unimarc_description(self, key, value):
 @unimarc.over('series', '^225..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarc_series(self, key, value):
-    """Get series.
+def unimarc_series_statement(self, key, value):
+    """Get seriesStatement.
 
     series.name: [225$a repetitive]
     series.number: [225$v repetitive]
     """
-    series = {}
-    name = value.get('a')
-    if name:
-        series['name'] = ', '.join(utils.force_list(name))
-    number = value.get('v')
-    if number:
-        series['number'] = ', '.join(utils.force_list(number))
-    return series
+    # normalize the value by building couple of $a, $v
+    # $v can be missing  in a couple
+    items = get_field_items(value)
+    new_data = []
+    fist_a_value = None
+    pending_v_values = []
+    subfield_selection = {'a', 'e', 'i', 'v'}
+    for blob_key, blob_value in items:
+        if blob_key in subfield_selection:
+            if blob_key == 'a':
+                fist_a_value = blob_value
+                subfield_selection.remove('a')
+            elif blob_key == 'e':
+                fist_a_value += ': ' + blob_value
+            elif blob_key == 'i':
+                # we keep on the $e associeted to the $a
+                subfield_selection.remove('e')
+                if fist_a_value:
+                    new_data.append(('a', fist_a_value))
+                    for v_value in pending_v_values:
+                        new_data.append(('v', v_value))
+                    fist_a_value = None
+                    pending_v_values = []
+                new_data.append(('a', blob_value))
+            elif blob_key == 'v':
+                pending_v_values.append(blob_value)
+    if fist_a_value:
+        new_data.append(('a', fist_a_value))
+    for v_value in pending_v_values:
+        new_data.append(('v', v_value))
+
+    new_value = GroupableOrderedDict(tuple(new_data))
+    unimarc.extract_series_statement_from_marc_field(key, new_value, self)
 
 
 @unimarc.over('abstracts', '^330..')

@@ -74,12 +74,12 @@ def test_type(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_is_part_of(document_schema, document_data_tmp):
+def test_part_of(document_schema, document_data_tmp):
     """Test type for document jsonschemas."""
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['is_part_of'] = 2
+        document_data_tmp['partOf'] = 2
         validate(document_data_tmp, document_schema)
 
 
@@ -317,25 +317,31 @@ def test_dimensions(document_schema, document_data_tmp):
 
 def test_series(document_schema, document_data_tmp):
     """Test series for jsonschemas."""
-    document_data_tmp['series'] = [
-        {
-            'name': 'Les débuts de la suite',
-            'number': '1'
-        },
-        {
-            'name': 'Autre collection',
-            'number': '2'
-        }
-    ]
+    document_data_tmp['seriesStatement'] = [{
+        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
+        'seriesEnumeration': [{'value': 'Abt. 7'}],
+        'subseriesStatement': [{
+                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
+                'subseriesEnumeration': [{'value': 'Bd. 6'}]
+            }, {
+                'subseriesTitle': [{'value': 'Südostasien'}],
+                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
+            }
+        ]
+    }]
 
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['series'][0]['name'] = 2
+        document_data_tmp['seriesStatement'][0]['seriesTitle'] = 2
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['series'][0]['number'] = 2
+        document_data_tmp['seriesStatement'][0]['seriesEnumeration'] = 2
+        validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['seriesStatement'][0]['subseriesStatement'] is None
         validate(document_data_tmp, document_schema)
 
 

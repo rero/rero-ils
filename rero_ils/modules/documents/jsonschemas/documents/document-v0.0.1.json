@@ -7,7 +7,8 @@
     "pid",
     "type",
     "title",
-    "language"
+    "language",
+    "issuance"
   ],
   "propertiesOrder": [
     "type",
@@ -20,8 +21,8 @@
     "translatedFrom",
     "abstracts",
     "extent",
-    "series",
-    "is_part_of",
+    "seriesStatement",
+    "partOf",
     "identifiedBy",
     "note",
     "electronicLocator",
@@ -65,6 +66,113 @@
     },
     "language": {
       "$ref": "https://ils.rero.ch/schemas/documents/document_language-v0.0.1.json#/language"
+    },
+    "issuance": {
+      "title": "Mode of issuance",
+      "type": "object",
+      "required": [
+        "main_type",
+        "subtype"
+      ],
+      "propertiesOrder": [
+        "main_type",
+        "subtype"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "main_type": {
+          "title": "Main type",
+          "type": "string",
+          "default": "rdami:1001",
+          "enum": [
+            "rdami:1001",
+            "rdami:1002",
+            "rdami:1003",
+            "rdami:1004"
+          ],
+          "form": {
+            "options": [
+              {
+                "label": "Single unit",
+                "value": "rdami:1001"
+              },
+              {
+                "label": "Multipart monograph",
+                "value": "rdami:1002"
+              },
+              {
+                "label": "Serial",
+                "value": "rdami:1003"
+              },
+              {
+                "label": "Integrating resource",
+                "value": "rdami:1004"
+              }
+            ]
+          }
+        },
+        "subtype": {
+          "title": "Subtype",
+          "type": "string",
+          "default": "materialUnit",
+          "enum": [
+            "article",
+            "materialUnit",
+            "monographicSeries",
+            "periodical",
+            "privateFile",
+            "privateSubfile",
+            "serialInSerial",
+            "set",
+            "updatingWebsite",
+            "updatingLoose-leaf"
+          ],
+          "form": {
+            "options": [
+              {
+                "label": "Article",
+                "value": "article"
+              },
+              {
+                "label": "Material unit",
+                "value": "materialUnit"
+              },
+              {
+                "label": "Monographic series",
+                "value": "monographicSeries"
+              },
+              {
+                "label": "Periodical",
+                "value": "periodical"
+              },
+              {
+                "label": "Private file",
+                "value": "privateFile"
+              },
+              {
+                "label": "Private subfile",
+                "value": "privateSubfile"
+              },
+              {
+                "label": "Serial in serial",
+                "value": "serialInSerial"
+              },
+              {
+                "label": "Set",
+                "value": "set"
+              },
+              {
+                "label": "Updating website",
+                "value": "updatingWebsite"
+              },
+              {
+                "label": "Updating loose leaf",
+                "value": "updatingLoose-leaf"
+              }
+            ]
+          }
+        }
+      }
     },
     "translatedFrom": {
       "$ref": "https://ils.rero.ch/schemas/documents/document_translated_from-v0.0.1.json#/translatedFrom"
