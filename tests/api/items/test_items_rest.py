@@ -34,7 +34,7 @@ from rero_ils.modules.errors import RecordValidationError
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
 from rero_ils.modules.libraries.api import Library
-from rero_ils.modules.loans.api import Loan, LoanAction
+from rero_ils.modules.loans.api import Loan, LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
 
 
@@ -250,7 +250,7 @@ def test_items_failed_actions(client, patron_martigny_no_email,
             patron_pid=patron_pid
         )
     )
-    assert res.status_code == 500
+    assert res.status_code == 400
 
     # failed checkout no patron_pid
     res, _ = postdata(
@@ -1467,7 +1467,7 @@ def test_items_in_transit_between_locations(client,
     assert actions.get(LoanAction.CHECKIN)
     loan_pid = actions[LoanAction.CHECKIN].get('pid')
     loan = actions[LoanAction.CHECKIN]
-    assert loan.get('state') == 'ITEM_IN_TRANSIT_TO_HOUSE'
+    assert loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
 
     # a new checkout
     res, data = postdata(
@@ -1567,9 +1567,10 @@ def test_multiple_loans_on_item_error(client,
     assert checked_in_loan.get('pid') == cancelled_loan.get('pid')
     assert validated_loan.get('pid') == req_loan_pid
 
-    assert Loan.get_record_by_pid(loan_pid).get('state') == 'CANCELLED'
+    assert Loan.get_record_by_pid(loan_pid).get('state') == \
+        LoanState.CANCELLED
     new_loan = Loan.get_record_by_pid(req_loan_pid)
-    assert new_loan.get('state') == 'ITEM_AT_DESK'
+    assert new_loan['state'] == LoanState.ITEM_AT_DESK
     assert Item.get_record_by_pid(item.pid).get('status') == \
         ItemStatus.AT_DESK
     # cancel request

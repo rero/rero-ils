@@ -25,7 +25,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, to_relative_url
 
-from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.api import Loan, LoanState
 
 
 def test_patrons_profile(
@@ -56,7 +56,7 @@ def test_patrons_profile(
     loan_pid = loan[1].get('request').get('pid')
     pending_loan = loan_pending_martigny
     pending_loan_pid = pending_loan.get('pid')
-    assert pending_loan.get('state') == 'PENDING'
+    assert pending_loan['state'] == LoanState.PENDING
 
     # patron successfully cancelled the request
     res = client.post(
@@ -65,7 +65,7 @@ def test_patrons_profile(
     )
     assert res.status_code == 302  # Check redirect
     pending_loan = Loan.get_record_by_pid(pending_loan_pid)
-    assert pending_loan.get('state') == 'CANCELLED'
+    assert pending_loan['state'] == LoanState.CANCELLED
     loan = item_lib_martigny.checkout(**data)
 
     # patron successfully renew the item
@@ -125,9 +125,9 @@ def test_patrons_logged_user(client, librarian_martigny_no_email):
 def test_patrons_logged_user_resolve(
         client,
         lib_martigny,
-        patron3_martigny_no_email):
+        patron3_martigny_blocked_no_email):
     """Test that patron library is resolved in JSON data."""
-    login_user_via_session(client, patron3_martigny_no_email.user)
+    login_user_via_session(client, patron3_martigny_blocked_no_email.user)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
@@ -137,10 +137,10 @@ def test_patrons_logged_user_resolve(
 def test_patrons_blocked_user_profile(
         client,
         lib_martigny,
-        patron3_martigny_no_email):
+        patron3_martigny_blocked_no_email):
     """Test blocked patron profile."""
     # The patron logged in
-    login_user_via_session(client, patron3_martigny_no_email.user)
+    login_user_via_session(client, patron3_martigny_blocked_no_email.user)
     res = client.get(url_for('patrons.profile'))
     assert res.status_code == 200
     # The profile displays the patron a blocked account message.
