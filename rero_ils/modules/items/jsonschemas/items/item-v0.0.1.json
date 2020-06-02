@@ -18,7 +18,8 @@
     "call_number",
     "item_type",
     "location",
-    "status"
+    "status",
+    "notes"
   ],
   "properties": {
     "$schema": {
@@ -169,6 +170,80 @@
           "title": "Organisation URI",
           "type": "string",
           "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Note",
+        "propertiesOrder": [
+          "type",
+          "content"
+        ],
+        "required": [
+          "type",
+          "content"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "enum": [
+              "public_note",
+              "staff_note",
+              "checkin_note",
+              "checkout_note"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "public note",
+                  "value": "public_note"
+                },
+                {
+                  "label": "staff note",
+                  "value": "staff_note"
+                },
+                {
+                  "label": "checkin note",
+                  "value": "checkin_note"
+                },
+                {
+                  "label": "checkout note",
+                  "value": "checkout_note"
+                }
+              ]
+            }
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "maxLength": 2000,
+            "minLength": 3,
+            "form": {
+              "type": "textarea",
+              "templateOptions": {
+                "rows": 3
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "validation": {
+          "validators": {
+            "uniqueValueKeysInObject": {
+              "keys": [
+                "type"
+              ]
+            }
+          },
+          "messages": {
+            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+          }
         }
       }
     }
