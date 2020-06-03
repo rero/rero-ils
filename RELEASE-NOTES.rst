@@ -18,6 +18,47 @@
 Release notes
 =============
 
+v0.9.1
+------
+
+This patch is needed because `#1013`_ is missing in ``v0.9.0``, resulting in
+many user interface elements that are missing.
+
+Documentation
+~~~~~~~~~~~~~
+
+-  Updates the chart of links between RERO ILS resources.
+-  Replace circulation chart with a new chart using ``dot`` from
+   ``graphviz``.
+-  Adds a markdown file with all circulation actions explained.
+-  Adds a markdown file with scenarios based on these actions.
+-  Enriches the mention of contributing libraries with UNamur and
+   U.Saint-Louis Brussels (``README.rst``).
+
+Translations
+~~~~~~~~~~~~
+
+-  Fixes a bug with the translation API that prevented exception to be
+   logged.
+-  Returns the source string instead of an empty string when the translation is
+   missing.
+
+Instance
+~~~~~~~~
+
+- Improves the `nginx` logs to prevents the OPTIONS requests to be logged to
+  get cleaner logs in deployed instances.
+
+Issues
+~~~~~~
+
+- `#890`__: Displays the realized actions in the circulation interface to the
+  past participle, so that the librarian knows the actions are actually done.
+
+
+.. _#1013: https://github.com/rero/rero-ils/pull/1013
+
+
 v0.9.0
 ------
 
