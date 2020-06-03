@@ -71,8 +71,9 @@ its central office) is developing an open source ILS, to be able to address all
 the future needs of its partners and customers.
 
 Using the same legacy commercial ILS and interested by the project for its own
-needs, the `UCLouvain libraries`_ are contributing to the development of RERO
-ILS, and are well integrated into the RERO SCRUM processes.
+needs, the libraries of `UCLouvain`_, `UNamur`_ and `U.Saint-Louis Brussels`_
+are contributing to the development of RERO ILS, and are well integrated into
+the RERO SCRUM processes.
 
 RERO ILS is based on a development framework for information systems such as
 library management (ILS), institutional repositories, digital libraries and
@@ -214,7 +215,9 @@ you can run your own ebooks server.
 .. _`RERO`: https://rero.ch
 .. _`Integrated Library Service`: https://en.wikipedia.org/wiki/Integrated_library_system
 .. _`rero21`: https://rero21.ch/en/about/
-.. _`UCLouvain libraries`: https://uclouvain.be/en/libraries/about.html
+.. _`UCLouvain`: https://uclouvain.be
+.. _`UNamur`: https://www.unamur.be
+.. _`U.Saint-Louis Brussels`: https://www.usaintlouis.be
 .. _`CERN`: https://home.cern
 .. _`Invenio`: https://inveniosoftware.org
 .. _`AGPLv3`: https://www.gnu.org/licenses/agpl-3.0.html
