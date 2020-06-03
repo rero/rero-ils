@@ -17,6 +17,30 @@
 Changes
 =======
 
+`v0.9.1 <https://github.com/rero/rero-ils/tree/v0.9.1>`__ (2020-06-03)
+----------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.9.0...v0.9.1>`__
+
+**Closed issues:**
+
+-  Action realised in circulation must be in the past participle
+   `#890 <https://github.com/rero/rero-ils/issues/890>`__
+
+**Merged pull requests:**
+
+-  Documentation resources: circulation actions, reroils_resources and
+   loan state chart
+   `#1017 <https://github.com/rero/rero-ils/pull/1017>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  translation: fix translations API
+   `#1013 <https://github.com/rero/rero-ils/pull/1013>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  nginx logging `#1007 <https://github.com/rero/rero-ils/pull/1007>`__
+   (`rerowep <https://github.com/rerowep>`__)
+
+
 `v0.9.0 <https://github.com/rero/rero-ils/tree/v0.9.0>`__ (2020-06-02)
 ----------------------------------------------------------------------
 
