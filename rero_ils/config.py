@@ -1540,19 +1540,6 @@ INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
 
 SEARCH_UI_SEARCH_API = '/api/documents/'
 
-# RERO Specific Configuration
-# ===========================
-RERO_ILS_BABEL_TRANSLATE_JSON_KEYS = [
-    'title',
-    'label',
-    'description',
-    'placeholder',
-    'validationMessage',
-    'name',
-    'add',
-    '403',
-]
-
 RERO_ILS_APP_BASE_URL = 'https://ils.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'

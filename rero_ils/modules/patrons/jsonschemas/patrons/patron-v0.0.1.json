@@ -64,7 +64,7 @@
       "form": {
         "validation": {
           "messages": {
-            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
           }
         },
         "placeholder": "Example: 1985-12-29"
@@ -85,7 +85,7 @@
             }
           },
           "messages": {
-            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>",
+            "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>.",
             "alreadyTakenMessage": "This email is already taken."
           }
         }
@@ -115,7 +115,7 @@
       "form": {
         "validation": {
           "messages": {
-            "pattern": "Phone number with the international prefix, without spaces, ie +41221234567."
+            "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
           }
         },
         "placeholder": "Example: +41791231212"
