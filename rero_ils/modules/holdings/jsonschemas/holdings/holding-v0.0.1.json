@@ -146,7 +146,7 @@
             "placeholder": "Vol. {{numbering.vol}}, {{chronology.year}}",
             "validation": {
               "messages": {
-                "pattern": "Should contains at least one variable between {{ }}."
+                "patternMessage": "Should contains at least one variable between {{ }}."
               }
             }
           }

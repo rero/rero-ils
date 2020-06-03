@@ -47,7 +47,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The vendor name is already taken"
+            "alreadyTakenMessage": "The vendor name is already taken."
           }
         }
       }
@@ -155,7 +155,7 @@
           "form": {
             "validation": {
               "messages": {
-                "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+                "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
               }
             }
           }
@@ -190,8 +190,7 @@
         "postal_code": {
           "title": "Postal code",
           "type": "string",
-          "minLength": 4,
-          "validationMessage": "A valid postal code with a min of 4 characters."
+          "minLength": 4
         },
         "city": {
           "title": "City",
@@ -218,7 +217,7 @@
           "form": {
             "validation": {
               "messages": {
-                "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+                "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
               }
             }
           }

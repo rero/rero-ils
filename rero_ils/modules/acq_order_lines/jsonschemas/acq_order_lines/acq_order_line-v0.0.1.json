@@ -154,7 +154,7 @@
           "form": {
             "validation": {
               "messages": {
-                "pattern": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>"
+                "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
               }
             }
           }

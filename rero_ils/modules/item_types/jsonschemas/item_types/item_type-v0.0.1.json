@@ -43,7 +43,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The item type name is already taken"
+            "alreadyTakenMessage": "The item type name is already taken."
           }
         }
       }
@@ -84,7 +84,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "Another online item type exists in this organisation"
+            "alreadyTakenMessage": "Another online item type exists in this organisation."
           }
         }
       }

@@ -36,7 +36,6 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.permissions import can_access_professional_view
 
-from .modules.babel_extractors import translate
 from .version import __version__
 
 blueprint = Blueprint(
@@ -282,15 +281,7 @@ def prepare_jsonschema(schema):
     if schema.get('$schema'):
         del schema['$schema']
     schema['required'].remove('pid')
-    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
-    return translate(schema, keys=keys)
-
-
-def prepare_form_option(form_option):
-    """Option prep."""
-    form_option = copy.deepcopy(form_option)
-    keys = current_app.config['RERO_ILS_BABEL_TRANSLATE_JSON_KEYS']
-    return translate(form_option, keys=keys)
+    return schema
 
 
 @blueprint.route('/schemaform/<document_type>')
@@ -310,12 +301,6 @@ def schemaform(document_type):
     except JSONSchemaNotFound:
         abort(404)
 
-    # try:
-    #     form = current_jsonschemas.get_schema(
-    #         'form_{}/{}-v0.0.1.json'.format(document_type, doc_type))
-    #     data['layout'] = prepare_form_option(form)
-    # except JSONSchemaNotFound as error:
-    #     raise(error)
     return jsonify(data)
 
 

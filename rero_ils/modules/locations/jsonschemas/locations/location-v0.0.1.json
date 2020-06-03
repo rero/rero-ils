@@ -170,7 +170,7 @@
         },
         "validation": {
           "messages": {
-            "pattern": "Email should have at least one <code>@</code> and one <code>.</code>"
+            "patternMessage": "Email should have at least one <code>@</code> and one <code>.</code>."
           }
         }
       }

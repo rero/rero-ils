@@ -44,7 +44,7 @@
             "valueAlreadyExists": {}
           },
           "messages": {
-            "alreadyTakenMessage": "The barcode is already taken"
+            "alreadyTakenMessage": "The barcode is already taken."
           }
         },
         "expressionProperties": {

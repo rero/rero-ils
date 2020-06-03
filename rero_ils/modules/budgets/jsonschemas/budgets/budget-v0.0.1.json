@@ -43,7 +43,7 @@
             }
           },
           "messages": {
-            "alreadyTakenMessage": "The budget name is already taken"
+            "alreadyTakenMessage": "The budget name is already taken."
           }
         }
       }
@@ -53,7 +53,6 @@
       "format": "date",
       "title": "Start date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-      "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
         "wrappers": [
@@ -61,7 +60,7 @@
         ],
         "validation": {
           "messages": {
-            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
           }
         }
       }
@@ -71,7 +70,6 @@
       "format": "date",
       "title": "End date",
       "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-      "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "form": {
         "type": "datepicker",
         "wrappers": [
@@ -79,7 +77,7 @@
         ],
         "validation": {
           "messages": {
-            "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
           }
         }
       }

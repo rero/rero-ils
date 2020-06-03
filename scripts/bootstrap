@@ -125,7 +125,7 @@ fi
 # install assets utils
 virtualenv_path=`poetry env info -p`
 info_msg "Install npm assets utils in: ${virtualenv_path}"
-npm i npm@latest -g --prefix "${virtualenv_path}" && npm install --prefix "${virtualenv_path}" --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 @angular/cli@7.0.4 yarn
+npm i npm@latest -g --prefix "${virtualenv_path}" && npm install --prefix "${virtualenv_path}" --silent -g  node-sass@4.14.1 clean-css-cli@4.3.0 uglify-js@3.9.4 requirejs@2.3.6
 
 # collect static files and compile html/css assets
 # ------------------------------------------------
