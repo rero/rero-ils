@@ -4,7 +4,7 @@
 
 1. :100: __ADD_REQUEST_1__: item on_shelf (no current loan)
     1. :white_check_mark: :white_check_mark: :white_check_mark: :white_check_mark: __ADD_REQUEST_1_1__: PENDING loan does not exist →  (add loan PENDING)
-    1. PENDING loan exists
+    1. __ADD_REQUEST_1_2__: PENDING loan exists
         1. __ADD_REQUEST_1_2_1__: request patron = current loan patron → request denied
         1. :white_check_mark: __ADD_REQUEST_1_2_2__: request patron != current loan patron →  (add loan PENDING)
 1. :100: __ADD_REQUEST_2__: item at_desk, requested (ITEM_AT_DESK) 
@@ -12,9 +12,9 @@
     1. :white_check_mark: __ADD_REQUEST_2_2__: request patron != current loan patron →  (add loan PENDING)
 1. :100: __ADD_REQUEST_3__: item on_loan (ITEM_ON_LOAN) 
     1. __ADD_REQUEST_3_1__: request patron = current loan patron → request denied
-    1. request patron != current loan patron:
+    1. __ADD_REQUEST_3_2__: request patron != current loan patron:
         1. :white_check_mark: __ADD_REQUEST_3_2_1__: PENDING loan does not exist →  (add loan PENDING)
-        1. PENDING loan exists
+        1. __ADD_REQUEST_3_2_2__: PENDING loan exists
             1. __ADD_REQUEST_3_2_2_1__: request patron = PENDING loan patron → request denied
             1. __ADD_REQUEST_3_2_2_2__: request patron != PENDING loan patron →  (add loan PENDING)
 1. :100: __ADD_REQUEST_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
@@ -22,7 +22,7 @@
     1. __ADD_REQUEST_4_2__: request patron != current loan patron →  (add loan PENDING)
 1. :100: __ADD_REQUEST_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
     1. __ADD_REQUEST_5_1__: PENDING loan does not exist →  (add loan PENDING)
-    1. PENDING loan exists
+    1. __ADD_REQUEST_5_2__: PENDING loan exists
         1. __ADD_REQUEST_5_2_1__: request patron = current loan patron → request denied
         1. __ADD_REQUEST_5_2_2__: request patron != current loan patron →  (add loan PENDING)
 
