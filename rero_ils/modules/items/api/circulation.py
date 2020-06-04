@@ -22,8 +22,8 @@ from functools import wraps
 
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item
-from invenio_circulation.errors import MissingRequiredParameterError, \
-    NoValidTransitionAvailableError
+from invenio_circulation.errors import ItemNotAvailableError, \
+    MissingRequiredParameterError, NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document, \
     search_by_pid
@@ -849,15 +849,32 @@ class ItemCirculation(IlsRecord):
             ):
                 item, receive_actions = self.receive(**action_params)
                 actions.update(receive_actions)
-            if loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
-                item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
+            elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
+                item, cancel_actions = self.cancel_loan(**action_params)
                 actions.update(cancel_actions)
                 del action_params['pid']
+                # TODO: Check what's wrong in this case because Loan is cancel
+                # but loan variable is not updated and after prior_checkout
+                # a checkout is done on the item (it becomes ON_LOAN)
         else:
             loan = get_loan_for_item(item_pid_to_object(self.pid))
             if (loan and loan['state'] != LoanState.ITEM_AT_DESK):
                 item, cancel_actions = self.cancel_loan(pid=loan.get('pid'))
                 actions.update(cancel_actions)
+        # CHECKOUT_1_2_2: checkout denied if some pending loan are linked to it
+        # with different patrons
+        # Except while coming from an ITEM_IN_TRANSIT_TO_HOUSE loan because
+        # the loan is cancelled and then came up in ON_SHELF to be checkout
+        # by the second patron.
+        if self.status == ItemStatus.ON_SHELF and \
+                loan['state'] != LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
+            for res in self.get_item_loans_by_state(state=LoanState.PENDING):
+                if res.patron_pid != loan.get('patron_pid'):
+                    item_pid = item_pid_to_object(self.pid)
+                    msg = "A pending loan exists for patron %s" % \
+                        res.patron_pid
+                    raise ItemNotAvailableError(
+                        item_pid=item_pid, description=msg)
         return action_params, actions
 
     def automatic_checkin(self, trans_loc_pid=None):
