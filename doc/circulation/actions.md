@@ -28,21 +28,21 @@
 
 ## Checkout form
 
-1. __CHECKOUT_1__: item on_shelf (no current loan)
+1. :100: __CHECKOUT_1__: item on_shelf (no current loan)
     1. __CHECKOUT_1_1__: PENDING loan does not exist →  (add loan ITEM_ON_LOAN)
     1. PENDING loan exists
         1. :white_check_mark: __CHECKOUT_1_2_1__: checkout patron = patron of first PENDING loan →  (add loan ITEM_ON_LOAN)
         1. :white_check_mark: :white_check_mark: __CHECKOUT_1_2_2__: checkout patron != patron of first PENDING loan →  checkout denied
-1. __CHECKOUT_2__: item at_desk, requested (ITEM_AT_DESK)
+1. :100: __CHECKOUT_2__: item at_desk, requested (ITEM_AT_DESK)
     1. :white_check_mark: :white_check_mark: :white_check_mark: :white_check_mark: __CHECKOUT_2_1__: checkout patron = patron of first PENDING loan →  (add loan ITEM_ON_LOAN)
     1. :white_check_mark: __CHECKOUT_2_2__: checkout patron != patron of first PENDING loan →  checkout denied
-1. __CHECKOUT_3__: item on_loan
+1. :100: __CHECKOUT_3__: item on_loan
     1. __CHECKOUT_3_1__: checkout patron = patron of current loan →  do a checkin
     2. __CHECKOUT_3_2__: checkout patron != patron of current loan →  checkout denied
-1. __CHECKOUT_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
+1. :100: __CHECKOUT_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
     1. __CHECKOUT_4_1__: checkout patron = patron of current loan →  (add loan ITEM_ON_LOAN) [automatic receive]
     1. __CHECKOUT_4_2__: checkout patron != patron of current loan →  checkout denied
-1. __CHECKOUT_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
+1. :100: __CHECKOUT_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
     1. __CHECKOUT_5_1__: PENDING loan does not exist →  (add loan ITEM_ON_LOAN) [cancel previous loan]
     1. PENDING loan exists
         1. __CHECKOUT_5_2_1__: checkout patron = patron of first PENDING loan →  (add loan ITEM_ON_LOAN) [cancel previous loan]
