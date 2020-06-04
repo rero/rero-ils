@@ -143,6 +143,7 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
 
 def loan_satisfy_circ_policies(loan):
     """Validate the loan duration."""
+    # Validate the loan duration
     policy = get_circ_policy(loan)
     return loan['end_date'] > loan['start_date'] and \
         policy.get('allow_checkout')
