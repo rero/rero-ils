@@ -201,15 +201,15 @@ def create_new_item_from_existing_item(item=None):
 
     :return: the newly created item
     """
-    item = deepcopy(item)
-    item.pop('barcode')
-    item.setdefault('status', ItemStatus.ON_SHELF)
-    item = Item.create(data=item, dbcommit=True,
-                       reindex=True, delete_pid=True)
+    data = deepcopy(item)
+    data.pop('barcode')
+    data['status'] = ItemStatus.ON_SHELF
+    new_item = Item.create(data=data, dbcommit=True,
+                           reindex=True, delete_pid=True)
     flush_index(ItemsSearch.Meta.index)
-    assert item.status == ItemStatus.ON_SHELF
-    assert item.number_of_requests() == 0
-    return item
+    assert new_item.status == ItemStatus.ON_SHELF
+    assert new_item.number_of_requests() == 0
+    return new_item
 
 
 def item_record_to_a_specific_loan_state(
