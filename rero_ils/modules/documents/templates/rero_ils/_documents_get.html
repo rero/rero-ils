@@ -126,10 +126,7 @@
         {% if record.harvested %}
           {% for elocation in holding.electronic_location %}
             <div class="row my-2">
-              <div class="col-1">
-                &nbsp;
-              </div>
-              <div class="col-10">
+              <div class="offset-1 col-10">
                 <a href="{{ elocation.uri }}" target="_blank">{{ _(elocation.source) }}</a>
               </div>
             </div>
@@ -139,10 +136,7 @@
         {% if number_items > 0 %}
         {% for item in items %}
         <div class="row my-2">
-          <div class="col-1">
-            &nbsp;
-          </div>
-          <div class="col-10">
+          <div class="offset-1 col-10">
             <div class="row">
               <div class="col-sm-4">
                 {{ item.barcode }}
@@ -180,6 +174,17 @@
             </div>
           </div>
         </div>
+        {% if item|get_note('public_note') %}
+        <div class="row">
+          <div class="offset-1 col-sm-1 text-right pr-2">
+            <i class="fa fa-level-up fa-rotate-90"></i>
+            <i class="fa fa-sticky-note-o text-warning pl-1"></i>
+          </div>
+          <div class="col">
+            {{ item|get_note('public_note') }}
+          </div>
+        </div>
+        {% endif %}
         {% endfor %}
         {% endif %}
       </div>
