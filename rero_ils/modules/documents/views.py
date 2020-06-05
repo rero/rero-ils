@@ -208,6 +208,12 @@ def can_request(item):
 
 
 @blueprint.app_template_filter()
+def get_note(item, note_type):
+    """Get the public note corresponding to an item."""
+    return item.get_note(note_type)
+
+
+@blueprint.app_template_filter()
 def authors_format(pid, language, viewcode):
     """Format authors for template in given language."""
     doc = Document.get_record_by_pid(pid)
