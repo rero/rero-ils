@@ -78,19 +78,9 @@
 
 {% endblock body %}
 
-{% block javascript %}
-{# TODO: insert this in a bundle #}
+{%- block javascript %}
 {{ super() }}
-<script type="text/javascript">
-$(document).ready(function() {
-    /* Store state of view tab */
-    $('a[data-toggle="tab"]').on('click', function(e) {
-      localStorage.setItem('activeTab', $(this).attr('href'));
-    });
-    var activeTab = localStorage.getItem('activeTab');
-    if(activeTab) {
-      $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
-    }
-});
-</script>
+{% assets "rero_ils_persons_detailed_js" %}
+<script src="{{ ASSET_URL }}"></script>
+{% endassets %}
 {% endblock javascript %}

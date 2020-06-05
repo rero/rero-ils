@@ -113,7 +113,7 @@ setup(
         ],
         'invenio_i18n.translations': [
             'messages = rero_ils',
-             'messages_wiki = flask_wiki',
+            'messages_wiki = flask_wiki',
         ],
         'invenio_assets.bundles': [
             'rero_ils_main_css = rero_ils.bundles:main_css',
@@ -122,7 +122,10 @@ setup(
                 rero_ils.modules.documents.bundles:detailed_js',
             'rero_ils_admin_ui_js = rero_ils.bundles:admin_ui_js',
             'rero_ils_search_bar_ui_js = rero_ils.bundles:search_bar_ui_js',
-            'rero_ils_public_search_ui_js = rero_ils.bundles:public_search_ui_js',
+            'rero_ils_public_search_ui_js = \
+                 rero_ils.bundles:public_search_ui_js',
+            'rero_ils_persons_detailed_js = \
+                rero_ils.modules.persons.bundles:detailed_js'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

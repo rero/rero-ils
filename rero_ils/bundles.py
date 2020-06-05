@@ -59,6 +59,7 @@ i18n = GlobBundle(
 js = NpmBundle(
     'node_modules/almond/almond.js',
     'js/rero_ils/rero_ils.js',
+    'js/rero_ils/rero_keep_tab.js',
     filters='requirejs',
     npm={
         'almond': '~0.3.3',

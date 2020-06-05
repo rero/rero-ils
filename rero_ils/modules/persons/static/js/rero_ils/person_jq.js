@@ -1,7 +1,7 @@
 /*
 
 RERO ILS
-Copyright (C) 2019 RERO
+Copyright (C) 2020 RERO
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -18,11 +18,5 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 $(document).ready(function() {
-    $('.collapse').on('hidden.bs.collapse shown.bs.collapse', function () {
-      var element = $('#' + $(this).data('holdingId')).find('.availability');
-      element.hasClass('d-none') ?
-        element.removeClass('d-none') : element.addClass('d-none');
-    });
-
-    $('#nav-tab').keeptab({ localeItemName: 'document-tab'});
-  });
+  $('#nav-tab').keeptab({ localeItemName: 'person-tab'});
+});
