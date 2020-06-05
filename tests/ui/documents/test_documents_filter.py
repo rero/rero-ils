@@ -19,8 +19,15 @@
 
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.views import authors_format, \
+from rero_ils.modules.documents.views import authors_format, get_note, \
     identifiedby_format, language_format, series_format
+from rero_ils.modules.items.models import ItemNoteTypes
+
+
+def test_get_note(item_lib_martigny):
+    """Test get_note function."""
+    assert get_note(item_lib_martigny, ItemNoteTypes.STAFF) is not None
+    assert get_note(item_lib_martigny, ItemNoteTypes.CHECKIN) is None
 
 
 def test_authors_format(db, document_data):
