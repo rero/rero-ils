@@ -21,7 +21,7 @@
       "description": "Schema to validate patron_types records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json"
     },
     "pid": {
       "title": "Patron type ID",

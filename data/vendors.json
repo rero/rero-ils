@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "1",
     "name": "Payot Aoste",
     "website": "http://www.payot.it",
@@ -21,7 +20,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "2",
     "name": "FNAC Aoste",
     "website": "http://www.fnac.it",
@@ -41,7 +39,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "3",
     "name": "Association des Alpes",
     "communication_language": "ita",
@@ -59,7 +56,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "4",
     "name": "Flourish and Blotts Bookseller",
     "website": "http://www.flourishandblotts.com",
@@ -79,7 +75,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "5",
     "name": "Tomes and Scrolls",
     "default_contact": {
@@ -92,7 +87,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "6",
     "name": "Sempere and Sons",
     "note": "Reduction 5% for libraries of the fictive network",
@@ -112,7 +106,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
     "pid": "7",
     "name": "Flourish and Blotts Bookseller",
     "website": "http://www.flourishandblotts.com",

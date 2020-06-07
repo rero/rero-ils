@@ -29,7 +29,7 @@
       "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/locations/location-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json"
     },
     "pid": {
       "title": "Location ID",

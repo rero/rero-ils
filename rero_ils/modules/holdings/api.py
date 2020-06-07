@@ -40,6 +40,7 @@ from ..locations.api import Location
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
+from ..utils import get_base_url, get_schema_for_resource
 
 # holing provider
 HoldingProvider = type(
@@ -416,19 +417,8 @@ def create_holding(
             "or 'location_pid' or 'item_type_pid' is required."
         )
     data = {}
-    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-    data_schema = {
-        'base_url': current_app.config.get(
-            'RERO_ILS_APP_BASE_URL'
-        ),
-        'schema_endpoint': current_app.config.get(
-            'JSONSCHEMAS_ENDPOINT'
-        ),
-        'schema': schemas['hold']
-    }
-    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-        .format(**data_schema)
-    base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+    data['$schema'] = get_schema_for_resource('hold')
+    base_url = get_base_url()
     url_api = '{base_url}/api/{doc_type}/{pid}'
     data['location'] = {
         '$ref': url_api.format(

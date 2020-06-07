@@ -19,8 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
-from json import loads
-
+import jsonref
 import pytest
 from pkg_resources import resource_string
 
@@ -39,7 +38,7 @@ def circ_policy_schema():
         'rero_ils.modules.circ_policies.jsonschemas',
         'circ_policies/circ_policy-v0.0.1.json',
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -50,7 +49,7 @@ def notification_schema():
         'rero_ils.modules.notifications.jsonschemas',
         '/notifications/notification-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -61,7 +60,7 @@ def item_type_schema():
         'rero_ils.modules.item_types.jsonschemas',
         '/item_types/item_type-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -72,7 +71,7 @@ def acq_account_schema():
         'rero_ils.modules.acq_accounts.jsonschemas',
         '/acq_accounts/acq_account-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -83,7 +82,7 @@ def budget_schema():
         'rero_ils.modules.budgets.jsonschemas',
         '/budgets/budget-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -94,7 +93,7 @@ def library_schema():
         'rero_ils.modules.libraries.jsonschemas',
         'libraries/library-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -104,7 +103,7 @@ def location_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.locations.jsonschemas',
         'locations/location-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -114,7 +113,7 @@ def patron_transaction_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.patron_transactions.jsonschemas',
         'patron_transactions/patron_transaction-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -124,7 +123,7 @@ def patron_transaction_event_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.patron_transaction_events.jsonschemas',
         'patron_transaction_events/patron_transaction_event-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -135,7 +134,7 @@ def organisation_schema():
         'rero_ils.modules.organisations.jsonschemas',
         'organisations/organisation-v0.0.1.json',
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -146,7 +145,7 @@ def patron_type_schema():
         'rero_ils.modules.patron_types.jsonschemas',
         '/patron_types/patron_type-v0.0.1.json',
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -156,7 +155,7 @@ def patron_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.patrons.jsonschemas', '/patrons/patron-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -167,7 +166,7 @@ def persons_schema():
         'rero_ils.modules.persons.jsonschemas',
         '/persons/person-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -178,7 +177,7 @@ def document_schema():
         'rero_ils.modules.documents.jsonschemas',
         'documents/document-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -188,7 +187,7 @@ def item_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.items.jsonschemas', 'items/item-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema
 
 
@@ -198,5 +197,5 @@ def holding_schema():
     schema_in_bytes = resource_string(
         'rero_ils.modules.holdings.jsonschemas',
         '/holdings/holding-v0.0.1.json')
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     return schema

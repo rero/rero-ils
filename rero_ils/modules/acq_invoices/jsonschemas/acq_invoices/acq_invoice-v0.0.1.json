@@ -93,8 +93,8 @@
       "description": "Schema to validate Acquisition Invoice records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schema/acq_invoices/acq_invoice-v([0-9]+?\\.){3}json$"
+      "default": "https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
+      "pattern": "^https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "Acquisition invoice ID",

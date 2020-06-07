@@ -24,7 +24,7 @@
       "title": "Schema",
       "description": "Schema to validate holdings records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+      "default": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
       "minLength": 9
     },
     "pid": {

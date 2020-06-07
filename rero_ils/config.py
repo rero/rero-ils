@@ -299,12 +299,6 @@ DB_VERSIONING = False
 #: Disable warning
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-# JSONSchemas
-# ===========
-#: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = 'ils.rero.ch'
-JSONSCHEMAS_ENDPOINT = '/schema'
-
 # Flask configuration
 # ===================
 # See details on
@@ -364,10 +358,6 @@ SESSION_COOKIE_SECURE = False
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
-
-# OAI-PMH
-# =======
-OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
 
 # TODO: Check if needed one day
 # Previewers
@@ -1540,7 +1530,10 @@ INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
 
 SEARCH_UI_SEARCH_API = '/api/documents/'
 
-RERO_ILS_APP_BASE_URL = 'https://ils.rero.ch'
+RERO_ILS_APP_URL_SCHEME = 'https'
+RERO_ILS_APP_HOST = 'ils.rero.ch'
+#: Actual URL used to construct links in notifications for example
+RERO_ILS_APP_URL = 'https://ils.rero.ch'
 
 RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 RERO_ILS_PERMALINK_BNF_URL = 'http://catalogue.bnf.fr/ark:/12148/{identifier}'
@@ -1579,6 +1572,17 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
     'fr': ['rero', 'idref', 'bnf', 'gnd'],
     'de': ['gnd', 'rero', 'idref', 'bnf'],
 }
+
+# JSONSchemas
+# ===========
+#: Hostname used in URLs for local JSONSchemas.
+JSONSCHEMAS_URL_SCHEME = 'https'
+JSONSCHEMAS_HOST = 'ils.rero.ch'
+JSONSCHEMAS_REPLACE_REFS = True
+
+# OAI-PMH
+# =======
+OAISERVER_ID_PREFIX = 'oai:ils.rero.ch:'
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.get_record_by_pid

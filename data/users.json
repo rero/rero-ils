@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1989-05-14",
     "city": "Aosta",
     "email": "reroilstest@gmail.com",
@@ -19,7 +18,6 @@
     "street": "Viale Rue Gran Paradiso, 44"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1974-03-21",
     "city": "Fribourg",
     "email": "reroilstest+jean@gmail.com",
@@ -37,7 +35,6 @@
     "street": "Avenue de la Gare, 80"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1992-11-23",
     "city": "Lugano",
     "email": "reroilstest+elena@gmail.com",
@@ -55,7 +52,6 @@
     "street": "Viale Carlo Cattaneo, 52"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2050124311",
     "birth_date": "1969-06-07",
     "city": "Aosta",
@@ -78,7 +74,6 @@
     "blocked_note": "Test functionnality when active is false"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2030124287",
     "birth_date": "2004-10-11",
     "city": "Aosta",
@@ -98,7 +93,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1969-02-01",
     "city": "Avise",
     "email": "reroilstest+virgile@gmail.com",
@@ -116,7 +110,6 @@
     "street": "Frazione Plan"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "reroils1",
     "birth_date": "2001-12-12",
     "city": "Sion",
@@ -136,7 +129,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2000000001",
     "birth_date": "1970-05-25",
     "city": "Santa Clara",
@@ -157,7 +149,6 @@
     "communication_language": "eng"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "10000001",
     "birth_date": "1976-09-07",
     "city": "Lavey",
@@ -178,7 +169,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "2050124312",
     "birth_date": "1961-11-24",
     "city": "Bellinzona",
@@ -199,7 +189,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "kad001",
     "birth_date": "1980-10-01",
     "city": "Martigny",
@@ -220,7 +209,6 @@
     "communication_language": "eng"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "kad002",
     "birth_date": "1965-02-10",
     "city": "Fully",
@@ -241,7 +229,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1955-01-30",
     "city": "Hogsmeade",
     "email": "reroilstest+irma@gmail.com",
@@ -260,7 +247,6 @@
     "street": "High Street"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "3050124311",
     "birth_date": "1980-07-31",
     "city": "London",
@@ -280,7 +266,6 @@
     "communication_language": "eng"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "3050124312",
     "birth_date": "1979-09-19",
     "city": "London",
@@ -300,7 +285,6 @@
     "communication_language": "eng"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1900-01-01",
     "city": "Imagination",
     "email": "reroilstest+imagination@gmail.com",
@@ -319,7 +303,6 @@
     "street": "Imagination Street 48"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1956-01-30",
     "city": "no indication",
     "email": "jocasta@example.org",
@@ -337,7 +320,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1959-02-27",
     "city": "no indication",
     "email": "urrigon@example.org",
@@ -355,7 +337,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1962-03-24",
     "city": "no indication",
     "email": "thebeast@example.org",
@@ -373,7 +354,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1965-04-21",
     "city": "no indication",
     "email": "dream@example.org",
@@ -391,7 +371,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1971-05-18",
     "city": "no indication",
     "email": "felman@example.org",
@@ -409,7 +388,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1974-06-15",
     "city": "no indication",
     "email": "irma@example.org",
@@ -427,7 +405,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1977-07-12",
     "city": "no indication",
     "email": "jorge@example.org",
@@ -445,7 +422,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1980-08-09",
     "city": "no indication",
     "email": "malachie@example.org",
@@ -463,7 +439,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1983-09-06",
     "city": "no indication",
     "email": "lorren@example.org",
@@ -481,7 +456,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1987-10-03",
     "city": "no indication",
     "email": "fermin@example.org",
@@ -499,7 +473,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1990-11-01",
     "city": "no indication",
     "email": "winston@example.org",
@@ -517,7 +490,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "2005-12-29",
     "city": "no indication",
     "email": "elrond@example.org",
@@ -535,7 +507,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1999-01-09",
     "city": "no indication",
     "email": "phelps@example.org",
@@ -553,7 +524,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1800-01-01",
     "city": "no indication",
     "email": "thelibrarian@example.org",
@@ -571,7 +541,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1925-07-31",
     "city": "no indication",
     "email": "wan@example.org",
@@ -589,7 +558,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "birth_date": "1974-08-24",
     "city": "no indication",
     "email": "rupert@example.org",
@@ -607,7 +575,6 @@
     "street": "no indication"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920001",
     "birth_date": "1941-01-31",
     "city": "Pregny-Chamb\u00e9sy",
@@ -628,7 +595,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920002",
     "birth_date": "1945-02-28",
     "city": "Franex",
@@ -649,7 +615,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920003",
     "birth_date": "1950-03-27",
     "city": "Fregi\u00e9court",
@@ -670,7 +635,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920004",
     "birth_date": "1955-04-25",
     "city": "Neuch\u00e2tel",
@@ -691,7 +655,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920005",
     "birth_date": "1960-05-23",
     "city": "Sierre",
@@ -712,7 +675,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920006",
     "birth_date": "1965-06-21",
     "city": "Bulle",
@@ -733,7 +695,6 @@
     "communication_language": "fre"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920007",
     "birth_date": "1970-07-19",
     "city": "Unterrindal",
@@ -754,7 +715,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920008",
     "birth_date": "1975-08-17",
     "city": "Kempten",
@@ -775,7 +735,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920009",
     "birth_date": "1980-09-15",
     "city": "Mettmenhasli",
@@ -796,7 +755,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920010",
     "birth_date": "1985-10-13",
     "city": "Lenggenwil",
@@ -817,7 +775,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920011",
     "birth_date": "1990-11-09",
     "city": "Thun",
@@ -838,7 +795,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920012",
     "birth_date": "1995-12-07",
     "city": "Brunnwil",
@@ -859,7 +815,6 @@
     "communication_language": "ger"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920013",
     "birth_date": "2000-01-05",
     "city": "Cevio",
@@ -880,7 +835,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920014",
     "birth_date": "2005-02-03",
     "city": "Tenna",
@@ -901,7 +855,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920015",
     "birth_date": "2010-03-01",
     "city": "Caslano",
@@ -922,7 +875,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "920016",
     "birth_date": "1993-04-02",
     "city": "Bellinzona",
@@ -943,7 +895,6 @@
     "communication_language": "ita"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
     "barcode": "999999",
     "birth_date": "1970-01-01",
     "city": "Flueli-Ranft",

@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "1",
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
@@ -13,7 +12,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "2",
     "name": "documentaires",
     "description": "Documentaires de l'espace public",
@@ -26,7 +24,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "3",
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
@@ -39,7 +36,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "4",
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
@@ -52,7 +48,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "5",
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral site de Pont-saint-Martin",
@@ -65,7 +60,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "6",
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral acquisitions",
@@ -78,7 +72,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "7",
     "name": "astronomy",
     "description": "astronomy",
@@ -91,7 +84,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "8",
     "name": "defence against the dark arts",
     "description": "defence against the dark arts",
@@ -104,7 +96,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "9",
     "name": "history of magic",
     "description": "history of magic",
@@ -117,7 +108,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "10",
     "name": "history of magic",
     "description": "history of magic",
@@ -130,7 +120,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "11",
     "name": "history of magic",
     "description": "history of magic",
@@ -143,7 +132,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "12",
     "name": "potions",
     "description": "potions",
@@ -156,7 +144,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "13",
     "name": "transfiguration",
     "description": "transfiguration",
@@ -169,7 +156,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "14",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -182,7 +168,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "15",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -195,7 +180,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "16",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -208,7 +192,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "17",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -221,7 +204,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "18",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -234,7 +216,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "19",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -247,7 +228,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "20",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -260,7 +240,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "21",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -273,7 +252,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "22",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -286,7 +264,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "23",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -299,7 +276,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "24",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -312,7 +288,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "25",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -325,7 +300,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "26",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -338,7 +312,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "27",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -351,7 +324,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "28",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -364,7 +336,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "29",
     "name": "documentaries",
     "description": "Account for documentaries",
@@ -377,7 +348,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "30",
     "name": "fiction",
     "description": "Account for fiction",
@@ -390,7 +360,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "31",
     "name": "fiction",
     "description": "Account for fiction",
@@ -403,7 +372,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "32",
     "name": "fiction",
     "description": "Account for fiction",
@@ -416,7 +384,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "33",
     "name": "fiction",
     "description": "Account for fiction",
@@ -429,7 +396,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "34",
     "name": "fiction",
     "description": "Account for fiction",
@@ -442,7 +408,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "35",
     "name": "fiction",
     "description": "Account for fiction",
@@ -455,7 +420,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "36",
     "name": "fiction",
     "description": "Account for fiction",
@@ -468,7 +432,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "37",
     "name": "fiction",
     "description": "Account for fiction",
@@ -481,7 +444,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "38",
     "name": "fiction",
     "description": "Account for fiction",
@@ -494,7 +456,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "39",
     "name": "fiction",
     "description": "Account for fiction",
@@ -507,7 +468,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "40",
     "name": "fiction",
     "description": "Account for fiction",
@@ -520,7 +480,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "41",
     "name": "fiction",
     "description": "Account for fiction",
@@ -533,7 +492,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "42",
     "name": "fiction",
     "description": "Account for fiction",
@@ -546,7 +504,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "43",
     "name": "fiction",
     "description": "Account for fiction",
@@ -559,7 +516,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "44",
     "name": "fiction",
     "description": "Account for fiction",
@@ -572,7 +528,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "45",
     "name": "fiction",
     "description": "Account for fiction",
@@ -585,7 +540,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
     "pid": "46",
     "name": "general",
     "description": "Account for general",

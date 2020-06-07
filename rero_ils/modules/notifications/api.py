@@ -162,10 +162,10 @@ class Notification(IlsRecord):
             # create a link to patron profile
             patron = Patron.get_record_by_pid(data['loan']['patron']['pid'])
             view_code = patron.get_organisation().get('code')
-            base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
-            url_api = '{base_url}/{view_code}/patrons/profile'
-            profile_url = url_api.format(
-                base_url=base_url, view_code=view_code)
+            profile_url = '{base_url}/{view_code}/patrons/profile'.format(
+                base_url=current_app.config.get('RERO_ILS_APP_URL'),
+                view_code=view_code
+            )
             data['loan']['profile_url'] = profile_url
 
             return data

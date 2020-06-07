@@ -17,14 +17,12 @@
 
 """API for manipulating item records."""
 
-
-from flask import current_app
-
 from ...api import IlsRecord
 from ...libraries.api import Library
 from ...locations.api import Location
 from ...organisations.api import Organisation
-from ...utils import generate_item_barcode, trim_barcode_for_record
+from ...utils import generate_item_barcode, get_base_url, \
+    trim_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
@@ -81,11 +79,10 @@ class ItemRecord(IlsRecord):
         if not loc_pid:
             loc_pid = data.get('location').get('$ref').split('locations/')[1]
             org_pid = Location.get_record_by_pid(loc_pid).organisation_pid
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
         org_ref = {
             '$ref': url_api.format(
-                base_url=base_url,
+                base_url=get_base_url(),
                 doc_type='organisations',
                 pid=org_pid or cls.organisation_pid)
         }
@@ -112,12 +109,11 @@ class ItemRecord(IlsRecord):
                 location_pid=self.location_pid,
                 item_type_pid=self.item_type_pid)
 
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
         # update item record with the parent holding record
         self['holding'] = {
             '$ref': url_api.format(
-                base_url=base_url,
+                base_url=get_base_url(),
                 doc_type='holdings',
                 pid=holding_pid)
         }

@@ -1,7 +1,6 @@
 [
   {
     "pid": "1",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-PUB",
     "name": "Espaces publics",
     "library": {
@@ -13,7 +12,6 @@
   },
   {
     "pid": "2",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-BIBLIOGR",
     "name": "Bibliographie vald\u00f4taine",
     "library": {
@@ -23,7 +21,6 @@
   },
   {
     "pid": "3",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-MAGA",
     "name": "Magasin A",
     "library": {
@@ -33,7 +30,6 @@
   },
   {
     "pid": "4",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT1-ONL",
     "name": "Online",
     "is_pickup": false,
@@ -45,7 +41,6 @@
   },
   {
     "pid": "5",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-CANT2-PUB",
     "name": "Espaces publics",
     "library": {
@@ -57,7 +52,6 @@
   },
   {
     "pid": "7",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-FIC",
     "name": "Section fiction",
     "library": {
@@ -67,7 +61,6 @@
   },
   {
     "pid": "8",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-DOC",
     "name": "Section documentaires",
     "library": {
@@ -77,7 +70,6 @@
   },
   {
     "pid": "9",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-ENF",
     "name": "Section enfants",
     "library": {
@@ -87,7 +79,6 @@
   },
   {
     "pid": "10",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-MUL",
     "name": "Section multim\u00e9dia",
     "library": {
@@ -97,7 +88,6 @@
   },
   {
     "pid": "11",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-PUB",
     "name": "Espaces publics",
     "library": {
@@ -109,7 +99,6 @@
   },
   {
     "pid": "12",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-AVISE-ONL",
     "name": "Online",
     "is_pickup": false,
@@ -121,7 +110,6 @@
   },
   {
     "pid": "13",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-PUB",
     "name": "Espaces publics",
     "library": {
@@ -133,7 +121,6 @@
   },
   {
     "pid": "14",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "AOSTE-LYCEE-MAT",
     "name": "Travaux de maturit\u00e9",
     "library": {
@@ -143,7 +130,6 @@
   },
   {
     "pid": "16",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-RESTR",
     "name": "Restricted Section",
     "library": {
@@ -153,7 +139,6 @@
   },
   {
     "pid": "17",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-PUBL",
     "name": "Public Section",
     "is_pickup": true,
@@ -165,7 +150,6 @@
   },
   {
     "pid": "18",
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "code": "HOG-ONL",
     "name": "Online",
     "is_pickup": false,
@@ -176,7 +160,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "19",
     "code": "CITA-BIB",
     "name": "Defaut location for La Citadelle",
@@ -189,7 +172,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "20",
     "code": "BEAST-BIB",
     "name": "Defaut location for Beast's Library",
@@ -202,7 +184,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "21",
     "code": "DREAM-BIB",
     "name": "Defaut location for Dream's Library",
@@ -215,7 +196,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "22",
     "code": "LUX-BIB",
     "name": "Defaut location for Lux Foundation Library",
@@ -228,7 +208,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "23",
     "code": "HOG-BIB",
     "name": "Defaut location for Hogwarts Library",
@@ -241,7 +220,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "24",
     "code": "BABEL-BIB",
     "name": "Defaut location for Biblioth\u00e8que de Babel",
@@ -254,7 +232,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "25",
     "code": "ROSE-BIB",
     "name": "Defaut location for Biblioth\u00e8que de l\u2019abbaye",
@@ -267,7 +244,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "26",
     "code": "UNI-BIB",
     "name": "Defaut location for The University's Library",
@@ -280,7 +256,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "27",
     "code": "CEMETERY-BIB",
     "name": "Defaut location for Cemetery of Forgotten Books",
@@ -293,7 +268,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "28",
     "code": "TRUTH-BIB",
     "name": "Defaut location for Ministry of Truth",
@@ -306,7 +280,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "29",
     "code": "RIVE-BIB",
     "name": "Defaut location for Rivendell Library",
@@ -319,7 +292,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "30",
     "code": "MATILDA-BIB",
     "name": "Defaut location for Matilda's Library",
@@ -332,7 +304,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "31",
     "code": "UNSEEN-BIB",
     "name": "Defaut location for Unseen University Library",
@@ -345,7 +316,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "32",
     "code": "WAN-BIB",
     "name": "Defaut location for Wan Shi Tong's Library",
@@ -358,7 +328,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "33",
     "code": "BUFFY-BIB",
     "name": "Defaut location for Sunnydale High School library",
@@ -371,7 +340,6 @@
     "allow_request": true
   },
   {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
     "pid": "34",
     "code": "JEDI-BIB",
     "name": "Defaut location for Jedi Archives",

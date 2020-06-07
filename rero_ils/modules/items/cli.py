@@ -33,6 +33,7 @@ from ..item_types.api import ItemType
 from ..items.api import Item
 from ..locations.api import Location
 from ..patrons.api import Patron
+from ..utils import get_base_url
 
 
 class StreamArray(list):
@@ -168,21 +169,22 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
 def create_holding_record(
         holding_pid, location_pid, item_type_pid, document_pid):
     """Create items with randomised values."""
-    url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
+    base_url = get_base_url()
+    url_api = '{base_url}/api/{doc_type}/{pid}'
     holding = {
         'pid': str(holding_pid),
         'location': {
             '$ref': url_api.format(
-                doc_type='locations', pid=location_pid)
+                base_url=base_url, doc_type='locations', pid=location_pid)
         },
         'holdings_type': 'standard',
         'circulation_category': {
             '$ref': url_api.format(
-                doc_type='item_types', pid=item_type_pid)
+                base_url=base_url, doc_type='item_types', pid=item_type_pid)
         },
         'document': {
             '$ref': url_api.format(
-                doc_type='documents', pid=document_pid)
+                base_url=base_url, doc_type='documents', pid=document_pid)
         }
     }
     return holding
@@ -225,28 +227,28 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         if randint(0, 50) == 0 and missing > 0:
             status = ItemStatus.MISSING
             missing -= 1
-    url_api = 'https://ils.rero.ch/api/{doc_type}/{pid}'
+    base_url = get_base_url()
+    url_api = '{base_url}/api/{doc_type}/{pid}'
     item = {
-        # '$schema': 'https://ils.rero.ch/schema/items/item-v0.0.1.json',
         'pid': str(item_pid),
         'barcode': barcode,
         'call_number': str(item_pid).zfill(5),
         'status': status,
         'location': {
             '$ref': url_api.format(
-                doc_type='locations', pid=location_pid)
+                base_url=base_url, doc_type='locations', pid=location_pid)
         },
         'item_type': {
             '$ref': url_api.format(
-                doc_type='item_types', pid=item_type_pid)
+                base_url=base_url, doc_type='item_types', pid=item_type_pid)
         },
         'document': {
             '$ref': url_api.format(
-                doc_type='documents', pid=document_pid)
+                base_url=base_url, doc_type='documents', pid=document_pid)
         },
         'holding': {
             '$ref': url_api.format(
-                doc_type='holdings', pid=holding_pid)
+                base_url=base_url, doc_type='holdings', pid=holding_pid)
         }
     }
     return missing, item

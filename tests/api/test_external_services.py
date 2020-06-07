@@ -88,10 +88,11 @@ def test_documents_import_bnf_ean(client):
     assert res.status_code == 200
     data = get_json(res).get('metadata')
     data.update({
-        "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+        "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json"
     })
     assert data == {
-        '$schema': 'https://ils.rero.ch/schema/documents/document-v0.0.1.json',
+        '$schema':
+            'https://ils.rero.ch/schemas/documents/document-v0.0.1.json',
         'authors': [
             {'date': '1965-', 'name': 'Rowling, J. K.', 'type': 'person'},
             {
@@ -170,6 +171,6 @@ def test_documents_import_bnf_ean(client):
     assert res.status_code == 200
     data = get_json(res).get('metadata')
     data.update({
-        "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+        "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json"
     })
     assert Document.create(data)

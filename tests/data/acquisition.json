@@ -1,6 +1,6 @@
 {
   "vndr1": {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr1",
     "name": "Payot Aoste",
     "website": "http://www.payot.it",
@@ -21,7 +21,7 @@
     }
   },
   "vndr2": {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr2",
     "name": "FNAC Aoste",
     "website": "http://www.fnac.it",
@@ -41,7 +41,7 @@
     }
   },
   "vndr3": {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr3",
     "name": "Association des Alpes",
     "communication_language": "ita",
@@ -59,7 +59,7 @@
     }
   },
   "vndr4": {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr4",
     "name": "Flourish and Blotts Bookseller",
     "website": "http://www.flourishandblotts.com",
@@ -79,7 +79,7 @@
     }
   },
   "vndr5": {
-    "$schema": "https://ils.rero.ch/schema/vendors/vendor-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr5",
     "name": "Tomes and Scrolls",
     "default_contact": {
@@ -92,7 +92,7 @@
     }
   },
   "budg1": {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/budgets/budget-v0.0.1.json",
     "pid": "budg1",
     "name": "2020",
     "start_date": "2020-01-01",
@@ -103,7 +103,7 @@
     }
   },
   "budg2": {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/budgets/budget-v0.0.1.json",
     "pid": "budg2",
     "name": "2020",
     "start_date": "2020-01-01",
@@ -114,7 +114,7 @@
     }
   },
   "budg3": {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/budgets/budget-v0.0.1.json",
     "pid": "budg3",
     "name": "2019",
     "start_date": "2019-01-01",
@@ -125,7 +125,7 @@
     }
   },
   "budg4": {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/budgets/budget-v0.0.1.json",
     "pid": "budg4",
     "name": "2018",
     "start_date": "2018-01-01",
@@ -136,7 +136,7 @@
     }
   },
   "budg5": {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/budgets/budget-v0.0.1.json",
     "pid": "budg5",
     "name": "2017",
     "start_date": "2017-01-01",
@@ -147,7 +147,7 @@
     }
   },
   "acac1": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac1",
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
@@ -160,7 +160,7 @@
     }
   },
   "acac2": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac2",
     "name": "books",
     "description": "Documentaires de l'espace public",
@@ -173,7 +173,7 @@
     }
   },
   "acac3": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac3",
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral",
@@ -186,7 +186,7 @@
     }
   },
   "acac4": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac4",
     "name": "fiction",
     "description": "Romans, nouvelles et pi\u00e8ces de th\u00e9\u00e2tre de l'espace public",
@@ -199,7 +199,7 @@
     }
   },
   "acac5": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac4",
     "name": "general",
     "description": "Compte g\u00e9n\u00e9ral",
@@ -212,7 +212,7 @@
     }
   },
   "acac6": {
-    "$schema": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json",
     "pid": "acac6",
     "name": "books",
     "description": "Books",
@@ -225,7 +225,7 @@
     }
   },
   "acor1": {
-    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
     "pid": "acor1",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr1"
@@ -242,7 +242,7 @@
     "total_amount": 0
   },
   "acor2": {
-    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
     "pid": "acor2",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr2"
@@ -259,7 +259,7 @@
     "total_amount": 0
   },
   "acor3": {
-    "$schema": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
     "pid": "acor3",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr4"
@@ -276,7 +276,7 @@
     "total_amount": 0
   },
   "acol1": {
-    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
     "pid": "acol1",
     "acq_account": {
       "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
@@ -294,7 +294,7 @@
     "total_amount": 1000
   },
   "acol2": {
-    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
     "pid": "acol2",
     "acq_account": {
       "$ref": "https://ils.rero.ch/api/acq_accounts/acac1"
@@ -312,7 +312,7 @@
     "total_amount": 500
   },
   "acol3": {
-    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
     "pid": "acol3",
     "acq_account": {
       "$ref": "https://ils.rero.ch/api/acq_accounts/acac2"
@@ -330,7 +330,7 @@
     "total_amount": 1000
   },
   "acol4": {
-    "$schema": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
     "pid": "acol4",
     "acq_account": {
       "$ref": "https://ils.rero.ch/api/acq_accounts/acac4"
@@ -348,7 +348,7 @@
     "total_amount": 500
   },
   "acin1": {
-    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
     "pid": "acin1",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr1"
@@ -391,7 +391,7 @@
     ]
   },
   "acin2": {
-    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
     "pid": "acin2",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr2"
@@ -423,7 +423,7 @@
     ]
   },
   "acin3": {
-    "$schema": "https://ils.rero.ch/schema/acq_invoices/acq_invoice-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
     "pid": "acin3",
     "vendor": {
       "$ref": "https://ils.rero.ch/api/vendors/vndr4"

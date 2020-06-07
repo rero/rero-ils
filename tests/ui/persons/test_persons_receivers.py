@@ -31,6 +31,6 @@ def test_publish_api_harvested_records(app, person_data_tmp, capsys):
     out, err = capsys.readouterr()
     assert out.strip() == (
         'mef harvester: received 1 records: '
-        'https://ils.rero.ch/schema/persons/person-v0.0.1.json'
+        'https://ils.rero.ch/schemas/persons/person-v0.0.1.json'
     )
     assert Person.count() == 1

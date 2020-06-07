@@ -25,11 +25,11 @@ def test_record_to_index(app):
 
     # for documents
     assert record_to_index({
-        '$schema': 'https://ils.rero.ch/schema/'
-        'documents/document-minimal-v0.0.1.json'
+        '$schema': 'https://ils.rero.ch/schemas/'
+        'documents/document-v0.0.1.json'
     }) == ('documents-document-v0.0.1', 'document-v0.0.1')
     assert record_to_index({
-        '$schema': 'https://ils.rero.ch/schema/'
+        '$schema': 'https://ils.rero.ch/schemas/'
         'documents/document-v0.0.1.json'
     }) == ('documents-document-v0.0.1', 'document-v0.0.1')
 
@@ -41,6 +41,6 @@ def test_record_to_index(app):
 
     # for others
     assert record_to_index({
-        '$schema': 'https://ils.rero.ch/schema/'
+        '$schema': 'https://ils.rero.ch/schemas/'
         'organisations/organisation-v0.0.1.json'
     }) == ('organisations-organisation-v0.0.1', 'organisation-v0.0.1')
