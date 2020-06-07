@@ -63,7 +63,7 @@ def test_circ_policy_create(circ_policy_martigny_data_tmp,
     assert cipo.get('pid') == '2'
 
     cipo_data = {
-        '$schema': 'https://ils.rero.ch/schema/'
+        '$schema': 'https://ils.rero.ch/schemas/'
         'circ_policies/circ_policy-v0.0.1.json',
         'pid': 'cipo_test',
         'name': 'test',

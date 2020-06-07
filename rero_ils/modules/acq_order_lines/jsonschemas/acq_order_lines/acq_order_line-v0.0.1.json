@@ -27,8 +27,8 @@
       "title": "Schema",
       "description": "Schema to validate Acquisition Order Line records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schema/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
+      "default": "https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
+      "pattern": "^https://ils.rero.ch/schemas/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "AcqOrderLine ID",

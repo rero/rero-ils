@@ -38,12 +38,6 @@ def record_to_index(record):
     if isinstance(schema, dict):
         schema = schema.get('$ref', '')
 
-    # put all document in the same index
-    # 'document-minimal-v0.0.1.json' becomes 'document-v0.0.1.json'
-    if re.search(r'/documents/', schema):
-        schema = re.sub(
-            r'/document(?P<word>-\D+)?(?P<version>-v[\d,\.]+).json',
-            r'/document\g<version>.json', schema)
     # authorities specific transformation
     if re.search(r'/authorities/', schema):
         schema = re.sub(r'/authorities/', '/persons/', schema)

@@ -18,8 +18,7 @@
 """rero-ils UNIMARC model definition."""
 
 
-from json import loads
-
+import jsonref
 from dojson import utils
 from dojson.utils import force_list
 from pkg_resources import resource_string
@@ -197,9 +196,9 @@ def unimarc_languages(self, key, value):
         'rero_ils.modules.documents.jsonschemas',
         'documents/document-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
-    langs = schema[
-        'properties']['language']['items']['properties']['value']['enum']
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+    langs = schema['definitions']['language']['enum']
+
     for language in languages:
         if language in langs:
             to_return.append({'value': language, 'type': 'bf:Language'})

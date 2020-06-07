@@ -27,7 +27,13 @@
     "electronicLocator",
     "copyrightDate",
     "provisionActivity",
-    "editionStatement"
+    "editionStatement",
+    "colorContent",
+    "productionMethod",
+    "bookFormat",
+    "dimensions",
+    "duration",
+    "illustrativeContent"
   ],
   "additionalProperties": false,
   "properties": {
@@ -35,7 +41,7 @@
       "title": "Schema",
       "description": "Schema to validate document against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schema/documents/document-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json"
     },
     "pid": {
       "title": "Document PID",
@@ -91,11 +97,14 @@
             "label": "Video",
             "value": "video"
           }
-        ]
+        ],
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-max-width"
+        }
       }
     },
     "title": {
-      "title": "Title",
+      "title": "Titles",
       "type": "array",
       "minItems": 1,
       "items": {
@@ -136,7 +145,10 @@
                   "label": "Variant title",
                   "value": "bf:VariantTitle"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "rero-ils-editor-max-width"
+              }
             }
           },
           "mainTitle": {
@@ -196,6 +208,11 @@
             }
           }
         }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "responsibilityStatement": {
@@ -212,7 +229,10 @@
         }
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "titlesProper": {
@@ -229,6 +249,9 @@
         "hide": true,
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -238,7 +261,10 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-max-width"
+        }
       }
     },
     "language": {
@@ -280,6 +306,11 @@
             "$ref": "#/definitions/language"
           }
         }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "translatedFrom": {
@@ -291,7 +322,10 @@
         "$ref": "#/definitions/language"
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "authors": {
@@ -307,9 +341,9 @@
             "title": "Person",
             "additionalProperties": false,
             "propertiesOrder": [
-              "type",
               "name",
               "$ref",
+              "type",
               "date",
               "qualifier"
             ],
@@ -325,6 +359,9 @@
                 ],
                 "default": "person",
                 "form": {
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  },
                   "options": [
                     {
                       "label": "Person",
@@ -338,10 +375,10 @@
                 "description": "Person's name.",
                 "type": "string",
                 "form": {
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  },
                   "type": "remoteautocomplete",
-                  "wrappers": [
-                    "form-field"
-                  ],
                   "hideExpression": "field.model.$ref != null"
                 }
               },
@@ -352,7 +389,10 @@
                 "form": {
                   "wrappers": [
                     "ref"
-                  ]
+                  ],
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  }
                 }
               },
               "date": {
@@ -360,7 +400,10 @@
                 "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
                 "type": "string",
                 "form": {
-                  "hideExpression": "field.model.$ref != null || !field.model.name"
+                  "hideExpression": "field.model.$ref != null || !field.model.name",
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  }
                 }
               },
               "qualifier": {
@@ -368,8 +411,16 @@
                 "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
                 "type": "string",
                 "form": {
-                  "hideExpression": "field.model.$ref != null || !field.model.name"
+                  "hideExpression": "field.model.$ref != null || !field.model.name",
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  }
                 }
+              }
+            },
+            "form": {
+              "templateOptions": {
+                "cssClass": "row"
               }
             }
           },
@@ -377,8 +428,8 @@
             "title": "Organisation",
             "additionalProperties": false,
             "propertiesOrder": [
-              "type",
-              "name"
+              "name",
+              "type"
             ],
             "required": [
               "name",
@@ -398,12 +449,25 @@
                       "label": "Organisation",
                       "value": "organisation"
                     }
-                  ]
+                  ],
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  }
                 }
               },
               "name": {
                 "title": "Name",
-                "type": "string"
+                "type": "string",
+                "form": {
+                  "templateOptions": {
+                    "cssClass": "col-lg-6"
+                  }
+                }
+              }
+            },
+            "form": {
+              "templateOptions": {
+                "cssClass": "row"
               }
             }
           }
@@ -412,6 +476,9 @@
       "form": {
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -426,7 +493,10 @@
         "minLength": 4
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "editionStatement": {
@@ -459,7 +529,10 @@
         }
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "provisionActivity": {
@@ -509,7 +582,10 @@
                   "label": "Production",
                   "value": "bf:Production"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "rero-ils-editor-max-width"
+              }
             }
           },
           "place": {
@@ -529,7 +605,7 @@
               ],
               "properties": {
                 "type": {
-                  "title": "type",
+                  "title": "Type",
                   "type": "string",
                   "const": "bf:Place",
                   "enum": [
@@ -541,18 +617,22 @@
                         "label": "Place",
                         "value": "bf:Place"
                       }
-                    ]
+                    ],
+                    "templateOptions": {
+                      "cssClass": "col-lg-4"
+                    }
                   }
                 },
                 "country": {
-                  "title": "Country",
-                  "type": "string",
                   "$ref": "#/definitions/country"
                 },
                 "canton": {
-                  "title": "Canton",
-                  "type": "string",
                   "$ref": "#/definitions/canton"
+                }
+              },
+              "form": {
+                "templateOptions": {
+                  "cssClass": "row"
                 }
               }
             }
@@ -596,7 +676,10 @@
                         "label": "Date",
                         "value": "Date"
                       }
-                    ]
+                    ],
+                    "templateOptions": {
+                      "cssClass": "rero-ils-editor-max-width"
+                    }
                   }
                 },
                 "label": {
@@ -625,7 +708,10 @@
             "minimum": -9999,
             "maximum": 2050,
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
           },
           "endDate": {
@@ -635,7 +721,10 @@
             "minimum": -9999,
             "maximum": 2050,
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
           }
         }
@@ -644,19 +733,29 @@
         "hide": true,
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
     "illustrativeContent": {
-      "title": "Illustrative content",
+      "title": "Illustrative contents",
       "description": "Record every different illustrative content in a new field. Use one or more RDA recommended terms, in the singular or plural (MARC 300$b).",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Illustrative content",
         "type": "string",
         "minLength": 3,
         "form": {
           "placeholder": "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -666,30 +765,41 @@
       "type": "string",
       "minLength": 2,
       "form": {
-        "placeholder": "Example: 355 pages"
+        "placeholder": "Example: 355 pages",
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-max-width"
+        }
       }
     },
     "duration": {
-      "title": "Duration",
+      "title": "Durations",
       "description": "A playing time, performance time, running time, etc., of the content of an expression.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Duration",
         "type": "string",
         "minLength": 2,
         "form": {
           "placeholder": "Example: 1h50"
         }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "colorContent": {
-      "title": "Colour content",
-      "description": "A presence of colour, tone, etc., in the content of an expression. Record a colour content if considered important for identification or selection.",
+      "title": "Color contents",
+      "description": "A presence of color, tone, etc., in the content of an expression. Record a color content if considered important for identification or selection.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Color content",
         "type": "string",
-        "default": "rdacc:1002",
         "enum": [
           "rdacc:1002",
           "rdacc:1003"
@@ -706,14 +816,21 @@
             }
           ]
         }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "productionMethod": {
-      "title": "Production method",
+      "title": "Production methods",
       "description": "Process used to produce a manifestation.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Production method",
         "type": "string",
         "enum": [
           "rdapm:1001",
@@ -821,16 +938,22 @@
             }
           ]
         }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "bookFormat": {
-      "title": "Bibliographic format",
+      "title": "Bibliographic formats",
       "description": "A proportional relationship between a whole sheet in a printed or manuscript resource, and the individual leaves that result if that sheet is left full, cut, or folded.",
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Bibliographic format",
         "type": "string",
-        "default": "8\u00ba",
         "enum": [
           "in-plano",
           "2\u00ba",
@@ -848,6 +971,12 @@
           "96\u00ba",
           "128\u00ba"
         ]
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "dimensions": {
@@ -856,10 +985,17 @@
       "type": "array",
       "minItems": 1,
       "items": {
+        "title": "Dimensions",
         "type": "string",
         "minLength": 2,
         "form": {
           "placeholder": "Example: 22 cm"
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -884,20 +1020,36 @@
           "name": {
             "title": "Title",
             "description": "Title of the series.",
-            "type": "string"
+            "type": "string",
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-5"
+              }
+            }
           },
           "number": {
             "title": "Numbering",
             "description": "Numbering of the resource within the series.",
             "type": "string",
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-7"
+              }
             }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
           }
         }
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "note": {
@@ -908,8 +1060,7 @@
         "type": "object",
         "title": "Note",
         "required": [
-          "noteType",
-          "label"
+          "noteType"
         ],
         "propertiesOrder": [
           "noteType",
@@ -919,7 +1070,6 @@
           "noteType": {
             "title": "Type of note",
             "type": "string",
-            "default": "general",
             "enum": [
               "accompanyingMaterial",
               "general",
@@ -939,13 +1089,26 @@
                   "label": "Other physical details",
                   "value": "otherPhysicalDetails"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
           },
           "label": {
             "title": "Label",
             "type": "string",
-            "minLength": 3
+            "minLength": 3,
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
           }
         }
       },
@@ -953,6 +1116,9 @@
         "hide": true,
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -973,7 +1139,10 @@
         }
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "identifiedBy": {
@@ -1109,14 +1278,22 @@
                   "label": "URI",
                   "value": "uri"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-4"
+              }
             }
           },
           "value": {
             "title": "Identifier value",
             "description": "Identifier value.",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6 offset-lg-2"
+              }
+            }
           },
           "note": {
             "title": "Note",
@@ -1124,7 +1301,10 @@
             "type": "string",
             "minLength": 1,
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
           },
           "qualifier": {
@@ -1133,20 +1313,33 @@
             "type": "string",
             "minLength": 1,
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
           },
           "acquisitionTerms": {
             "title": "Acquisition terms",
             "description": "Acquisition terms of the resource.",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
           },
           "source": {
             "title": "Source",
             "description": "Source of the identifier.",
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
           },
           "status": {
             "title": "Status",
@@ -1158,8 +1351,16 @@
               "invalid or cancelled"
             ],
             "form": {
-              "hide": true
+              "hide": true,
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
             }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
           }
         }
       },
@@ -1167,6 +1368,9 @@
         "hide": true,
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -1184,6 +1388,9 @@
         "hide": true,
         "navigation": {
           "essential": true
+        },
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -1212,7 +1419,12 @@
             "placeholder": "Example: https://www.rero.ch/",
             "type": "string",
             "format": "uri",
-            "minLength": 7
+            "minLength": 7,
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-4"
+              }
+            }
           },
           "type": {
             "title": "Type of link",
@@ -1246,7 +1458,10 @@
                   "label": "No info",
                   "value": "noInfo"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-4"
+              }
             }
           },
           "content": {
@@ -1397,25 +1612,43 @@
                   "label": "Video",
                   "value": "video"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-4"
+              }
             }
           },
           "publicNote": {
-            "title": "Public note",
+            "title": "Public notes",
             "description": "Is displayed next to the link, as additional information.",
             "type": "array",
             "minItems": 1,
             "items": {
+              "title": "Public note",
               "type": "string",
+              "minLength": 1,
               "form": {
                 "placeholder": "Example: Access only from the library"
               }
+            },
+            "form": {
+              "templateOptions": {
+                "cssClass": "col"
+              }
             }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
           }
         }
       },
       "form": {
-        "hide": true
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
+        }
       }
     },
     "harvested": {
@@ -3858,11 +4091,14 @@
             "label": "lang_zza",
             "value": "zza"
           }
-        ]
+        ],
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-max-width"
+        }
       }
     },
     "language_script_code": {
-      "title": "language",
+      "title": "Language",
       "type": "string",
       "enum": [
         "ara-arab",
@@ -3916,6 +4152,9 @@
         "yid-hebr"
       ],
       "form": {
+        "templateOptions": {
+          "cssClass": "col-lg-5"
+        },
         "hide": true
       }
     },
@@ -3929,11 +4168,21 @@
       "required": [
         "value"
       ],
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      },
       "properties": {
         "value": {
-          "title": "value",
+          "title": "Value",
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-7"
+            }
+          }
         },
         "language": {
           "$ref": "#/definitions/language_script_code"
@@ -3943,6 +4192,11 @@
     "language_script_focus": {
       "title": "Values",
       "type": "object",
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      },
       "propertiesOrder": [
         "language",
         "value"
@@ -3952,10 +4206,13 @@
       ],
       "properties": {
         "value": {
-          "title": "value",
+          "title": "Value",
           "type": "string",
           "minLength": 1,
           "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-7"
+            },
             "focus": true
           }
         },
@@ -5881,7 +6138,10 @@
             "label": "country_za",
             "value": "za"
           }
-        ]
+        ],
+        "templateOptions": {
+          "cssClass": "col-lg-4"
+        }
       }
     },
     "canton": {
@@ -6021,7 +6281,10 @@
             "label": "canton_zh",
             "value": "zh"
           }
-        ]
+        ],
+        "templateOptions": {
+          "cssClass": "col-lg-4"
+        }
       }
     }
   }

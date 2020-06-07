@@ -37,6 +37,7 @@ from ..items.api import Item
 from ..libraries.api import Library
 from ..loans.api import Loan, patron_profile_loans
 from ..locations.api import Location
+from ..utils import get_base_url
 from ...permissions import login_and_librarian
 
 api_blueprint = Blueprint(
@@ -122,10 +123,7 @@ def logged_user():
             'language': current_i18n.locale.language,
             'global_view': current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
-            'baseUrl': current_app.config.get(
-                'RERO_ILS_APP_BASE_URL',
-                ''
-            ),
+            'baseUrl': get_base_url(),
             'personsLabelOrder': personsLabelOrder.get(
                 current_i18n.locale.language,
                 personsLabelOrder.get(personsLabelOrder.get('fallback')))

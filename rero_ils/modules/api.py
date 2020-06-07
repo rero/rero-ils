@@ -151,17 +151,8 @@ class IlsRecord(Record):
             type = cls.provider.pid_type
             schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
             if type in schemas:
-                data_schema = {
-                    'base_url': current_app.config.get(
-                        'RERO_ILS_APP_BASE_URL'
-                    ),
-                    'schema_endpoint': current_app.config.get(
-                        'JSONSCHEMAS_ENDPOINT'
-                    ),
-                    'schema': schemas[type]
-                }
-                data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-                    .format(**data_schema)
+                from .utils import get_schema_for_resource
+                data['$schema'] = get_schema_for_resource(type)
         pid = data.get('pid')
         if delete_pid:
             if pid:

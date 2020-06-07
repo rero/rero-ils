@@ -1,6 +1,6 @@
 {
   "org1": {
-    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/organisations/organisation-v0.0.1.json",
     "pid": "org1",
     "name": "The district of Martigny Libraries",
     "address": "Ave de la gare, Martigny CH-1920",
@@ -10,7 +10,7 @@
     "online_harvested_source": "ebibliomedia"
   },
   "org2": {
-    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/organisations/organisation-v0.0.1.json",
     "pid": "org2",
     "name": "The district of Sion Libraries",
     "address": "Ave de la gare, Martigny CH-1950",
@@ -20,7 +20,7 @@
     "online_harvested_source": "mv-cantook"
   },
   "lib1": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Ave de la gare, Martigny 1920",
     "code": "MARTIGNY",
     "email": "reroilstest+martigny@gmail.com",
@@ -121,7 +121,7 @@
     ]
   },
   "lib2": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Ave de la gare, Saxon 1907",
     "code": "SAXON",
     "email": "reroilstest+saxon@gmail.com",
@@ -222,7 +222,7 @@
     ]
   },
   "lib3": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Ave de la gare, Fully 1926",
     "code": "FULLY",
     "email": "reroilstest+fully@gmail.com",
@@ -323,7 +323,7 @@
     ]
   },
   "lib4": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Ave de la gare, Sion 1950",
     "code": "SION",
     "email": "reroilstest+sion@gmail.com",
@@ -424,7 +424,7 @@
     ]
   },
   "lib5": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Centre culturel",
     "code": "APROZ",
     "email": "reroilstest+aproz@gmail.com",
@@ -525,7 +525,7 @@
     ]
   },
   "loc1": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "MARTIGNY-PUBLIC",
     "name": "Martigny Library Public Space",
     "pid": "loc1",
@@ -537,7 +537,7 @@
     "allow_request": true
   },
   "loc2": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "MARTIGNY-RESTRICTED",
     "name": "Martigny Library Restricted Space",
     "pid": "loc2",
@@ -547,7 +547,7 @@
     "allow_request": true
   },
   "loc3": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SAXON-PUBLIC",
     "name": "Saxon Library Public Space",
     "pid": "loc3",
@@ -559,7 +559,7 @@
     "allow_request": true
   },
   "loc4": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SAXON-RESTRICTED",
     "name": "Saxon Library Restricted Space",
     "pid": "loc4",
@@ -569,7 +569,7 @@
     "allow_request": true
   },
   "loc5": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "FULLY-PUBLIC",
     "name": "Fully Library Public Space",
     "pid": "loc5",
@@ -581,7 +581,7 @@
     "allow_request": true
   },
   "loc6": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "FULLY-RESTRICTED",
     "name": "Fully Library Restricted Space",
     "pid": "loc6",
@@ -591,7 +591,7 @@
     "allow_request": true
   },
   "loc7": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SION-PUBLIC",
     "name": "Sion Library Public Space",
     "pid": "loc7",
@@ -603,7 +603,7 @@
     "allow_request": true
   },
   "loc8": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SION-RESTRICTED",
     "name": "Sion Library Restricted Space",
     "pid": "loc8",
@@ -613,7 +613,7 @@
     "allow_request": true
   },
   "loc9": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "MARTIGNY-ONLINE",
     "name": "Martigny Library Online Space",
     "pid": "loc9",
@@ -624,7 +624,7 @@
     "allow_request": true
   },
   "loc10": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SAXON-ONLINE",
     "name": "Saxon Library Online Space",
     "pid": "loc10",
@@ -635,7 +635,7 @@
     "allow_request": true
   },
   "loc11": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "FULLY-ONLINE",
     "name": "Fully Library Online Space",
     "pid": "loc11",
@@ -646,7 +646,7 @@
     "allow_request": true
   },
   "loc12": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SION-ONLINE",
     "name": "Sion Library Online Space",
     "pid": "loc12",
@@ -657,7 +657,7 @@
     "allow_request": true
   },
   "loc13": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "APROZ-ONLINE",
     "name": "Aproz Library Online Space",
     "pid": "loc13",
@@ -668,7 +668,7 @@
     "allow_request": true
   },
   "itty1": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "standard",
     "pid": "itty1",
     "description": "Standard checkout.",
@@ -678,7 +678,7 @@
     "type": "standard"
   },
   "itty2": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "on-site",
     "pid": "itty2",
     "description": "On-site consultation.",
@@ -688,7 +688,7 @@
     "type": "standard"
   },
   "itty3": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "specific",
     "pid": "itty3",
     "description": "Specific rules.",
@@ -698,7 +698,7 @@
     "type": "standard"
   },
   "itty4": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "regular",
     "pid": "itty4",
     "description": "Regular checkout.",
@@ -708,7 +708,7 @@
     "type": "standard"
   },
   "itty5": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "internal",
     "pid": "itty5",
     "description": "Internal consultation.",
@@ -718,7 +718,7 @@
     "type": "standard"
   },
   "itty6": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "particular",
     "pid": "itty6",
     "description": "Particular rules.",
@@ -728,7 +728,7 @@
     "type": "standard"
   },
   "itty7": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "Online",
     "pid": "itty7",
     "type": "online",
@@ -738,7 +738,7 @@
     }
   },
   "itty8": {
-    "$schema": "https://ils.rero.ch/schema/item_types/item_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/item_types/item_type-v0.0.1.json",
     "name": "Online",
     "pid": "itty8",
     "type": "online",
@@ -748,7 +748,7 @@
     }
   },
   "ptty1": {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty1",
     "name": "children",
     "description": "children patrons",
@@ -757,7 +757,7 @@
     }
   },
   "ptty2": {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty2",
     "name": "adults",
     "description": "adult patrons",
@@ -766,7 +766,7 @@
     }
   },
   "ptty3": {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty3",
     "name": "youngsters",
     "description": "youngsters patrons",
@@ -776,7 +776,7 @@
     "subscription_amount": 25
   },
   "ptty4": {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_types/patron_type-v0.0.1.json",
     "pid": "ptty4",
     "name": "grown",
     "description": "grown patrons",
@@ -786,7 +786,7 @@
     "subscription_amount": 15
   },
   "cipo1": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo1",
     "name": "Default",
     "description": "Default circulation policy.",
@@ -805,7 +805,7 @@
     "is_default": true
   },
   "cipo2": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo2",
     "name": "short",
     "description": "short circulation policy",
@@ -842,7 +842,7 @@
     ]
   },
   "cipo3": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo3",
     "name": "temporary - Martigny-ville library level",
     "description": "temporary circulation policy for Martigny-ville library",
@@ -876,7 +876,7 @@
     ]
   },
   "cipo4": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo4",
     "name": "Default",
     "description": "Default circulation policy.",
@@ -895,7 +895,7 @@
     "is_default": true
   },
   "cipo5": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo5",
     "name": "Ebooks no circulation",
     "description": "Ebooks no circulation.",
@@ -908,7 +908,7 @@
     "is_default": false
   },
   "cipo6": {
-    "$schema": "https://ils.rero.ch/schema/circ_policies/circ_policy-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
     "pid": "cipo6",
     "name": "Ebooks no circulation",
     "description": "Ebooks no circulation.",
@@ -921,7 +921,7 @@
     "is_default": false
   },
   "pers1": {
-    "$schema": "https://ils.rero.ch/schema/persons/person-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/persons/person-v0.0.1.json",
     "pid": "pers1",
     "viaf_pid": "56597999",
     "sources": [
@@ -1006,7 +1006,7 @@
     }
   },
   "doc1": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc1",
     "type": "book",
     "note": [
@@ -1212,7 +1212,7 @@
     "harvested": false
   },
   "doc2": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc2",
     "type": "book",
     "language": [
@@ -1296,7 +1296,7 @@
     "extent": "560 p."
   },
   "doc3": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc3",
     "type": "book",
     "harvested": false,
@@ -1393,7 +1393,7 @@
     ]
   },
   "doc4": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc4",
     "type": "book",
     "language": [
@@ -1627,7 +1627,6 @@
     ]
   },
   "ebook1": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook1",
     "type": "ebook",
     "harvested": true,
@@ -1717,7 +1716,6 @@
     ]
   },
   "ebook2": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook2",
     "type": "ebook",
     "harvested": true,
@@ -1795,7 +1793,6 @@
     ]
   },
   "ebook3": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook3",
     "identifiedBy": [
       {
@@ -1873,7 +1870,6 @@
     ]
   },
   "ebook4": {
-    "$schema": "https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json",
     "pid": "ebook4",
     "identifiedBy": [
       {
@@ -1958,7 +1954,7 @@
     ]
   },
   "item1": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item1",
     "barcode": "1234",
     "document": {
@@ -1974,7 +1970,7 @@
     "status": "on_shelf"
   },
   "item2": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item2",
     "barcode": "78431",
     "document": {
@@ -1990,7 +1986,7 @@
     "status": "on_shelf"
   },
   "item3": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item3",
     "barcode": "891011",
     "document": {
@@ -2006,7 +2002,7 @@
     "status": "on_shelf"
   },
   "item4": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item4",
     "barcode": "0123987123",
     "document": {
@@ -2022,7 +2018,7 @@
     "status": "on_shelf"
   },
   "item5": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item5",
     "barcode": "8712133",
     "document": {
@@ -2038,7 +2034,7 @@
     "status": "on_shelf"
   },
   "item6": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item6",
     "barcode": "87121336",
     "document": {
@@ -2054,7 +2050,7 @@
     "status": "on_shelf"
   },
   "item7": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item7",
     "barcode": "789123",
     "document": {
@@ -2070,7 +2066,7 @@
     "status": "on_shelf"
   },
   "item8": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item8",
     "barcode": "100200300",
     "document": {
@@ -2086,7 +2082,7 @@
     "status": "on_shelf"
   },
   "item9": {
-    "$schema": "https://ils.rero.ch/schema/items/item-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/items/item-v0.0.1.json",
     "pid": "item9",
     "barcode": "91231",
     "document": {
@@ -2102,7 +2098,7 @@
     "status": "on_shelf"
   },
   "ptrn1": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn1",
     "first_name": "Simonetta",
     "last_name": "Casalini",
@@ -2122,7 +2118,7 @@
     "barcode": "sys_ptrn1"
   },
   "ptrn2": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn2",
     "first_name": "Marie",
     "last_name": "Pedronni",
@@ -2140,7 +2136,7 @@
     ]
   },
   "ptrn3": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn3",
     "first_name": "Marcel",
     "last_name": "Saudan",
@@ -2158,7 +2154,7 @@
     ]
   },
   "ptrn4": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn4",
     "first_name": "El\u00e9na",
     "last_name": "Rodriguez",
@@ -2176,7 +2172,7 @@
     ]
   },
   "ptrn5": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn5",
     "first_name": "Virgile",
     "last_name": "Charbonnet",
@@ -2194,7 +2190,7 @@
     ]
   },
   "ptrn6": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn6",
     "first_name": "Louis",
     "barcode": "4098124352",
@@ -2217,7 +2213,7 @@
     "blocked_note": "Check that even if blocking block exists, user is safe."
   },
   "ptrn7": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn7",
     "first_name": "Louise",
     "barcode": "40981212452",
@@ -2238,7 +2234,7 @@
     ]
   },
   "ptrn8": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn8",
     "birth_date": "2001-12-12",
     "city": "Sion",
@@ -2256,7 +2252,7 @@
     ]
   },
   "ptrn9": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn9",
     "birth_date": "1990-12-12",
     "city": "Sion",
@@ -2273,7 +2269,7 @@
     ]
   },
   "ptrn10": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn10",
     "first_name": "Jules",
     "barcode": "4090124789243",
@@ -2294,7 +2290,7 @@
     ]
   },
   "ptrn11": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn11",
     "first_name": "Marvin",
     "barcode": "42421313000",
@@ -2320,7 +2316,7 @@
     "blocked_note": "Lost card"
   },
   "dummy_notif": {
-    "$schema": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/notifications/notification-v0.0.1.json",
     "pid": "notif1",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "notification_type": "availability",
@@ -2329,7 +2325,7 @@
     }
   },
   "holding1": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding1",
     "call_number": "h00001",
     "document": {
@@ -2343,7 +2339,7 @@
     }
   },
   "holding2": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding2",
     "call_number": "h00002",
     "document": {
@@ -2357,7 +2353,7 @@
     }
   },
   "holding3": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding3",
     "call_number": "h00003",
     "document": {
@@ -2371,7 +2367,7 @@
     }
   },
   "holding4": {
-    "$schema": "https://ils.rero.ch/schema/holdings/holding-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding4",
     "call_number": "h00004",
     "document": {
@@ -2385,7 +2381,7 @@
     }
   },
   "dummy_patron_transaction": {
-    "$schema": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_transactions/patron_transaction-v0.0.1.json",
     "pid": "pttr1",
     "creation_date": "2019-01-09T08:18:22.576291+00:00",
     "type": "overdue",
@@ -2402,7 +2398,7 @@
     "status": "open"
   },
   "dummy_patron_transaction_event": {
-    "$schema": "https://ils.rero.ch/schema/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patron_transaction_events/patron_transaction_event-v0.0.1.json",
     "pid": "ptre1",
     "parent": {
       "$ref": "https://ils.rero.ch/api/patron_transactions/pttr1"

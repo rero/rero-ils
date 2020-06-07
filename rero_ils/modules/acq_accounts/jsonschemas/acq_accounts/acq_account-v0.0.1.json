@@ -23,7 +23,7 @@
       "description": "Schema to validate account records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/acq_accounts/acq_account-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json"
     },
     "pid": {
       "title": "Account ID",

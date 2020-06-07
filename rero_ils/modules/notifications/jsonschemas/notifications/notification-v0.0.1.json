@@ -16,7 +16,7 @@
       "description": "Schema to validate notifications records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/notifications/notification-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/notifications/notification-v0.0.1.json"
     },
     "pid": {
       "title": "Notification ID",

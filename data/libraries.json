@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "1",
     "address": "Via Challand 132, 11100 Aosta",
     "code": "AOSTE-CANT1",
@@ -120,7 +119,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "2",
     "address": "Viale Carlo Viola 931, 11026 Pont-Saint-Martin",
     "code": "AOSTE-CANT2",
@@ -230,7 +228,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "3",
     "address": "Avise 345, 11010 Avise",
     "code": "AOSTE-AVISE",
@@ -338,7 +335,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "4",
     "address": "Via Piave 3, 11027 Saint-Vincent",
     "code": "AOSTE-LYCEE",
@@ -432,7 +428,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "5",
     "address": "Highlands, Scotland, Great Britain",
     "code": "HOG",
@@ -536,7 +531,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "6",
     "address": "street of jedi.",
     "code": "JEDI",
@@ -619,7 +613,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "7",
     "address": "street of citadelle.",
     "code": "CITADELLE",
@@ -702,7 +695,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "8",
     "address": "street of beast.",
     "code": "BEAST",
@@ -785,7 +777,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "9",
     "address": "street of dream.",
     "code": "DREAM",
@@ -868,7 +859,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "10",
     "address": "street of who.",
     "code": "WHO",
@@ -951,7 +941,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "11",
     "address": "street of hog.",
     "code": "HOG",
@@ -1034,7 +1023,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "12",
     "address": "street of babel.",
     "code": "BABEL",
@@ -1117,7 +1105,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "13",
     "address": "street of rose.",
     "code": "ROSE",
@@ -1200,7 +1187,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "14",
     "address": "street of uni.",
     "code": "UNI",
@@ -1283,7 +1269,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "15",
     "address": "street of cemetery.",
     "code": "CEMETERY",
@@ -1366,7 +1351,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "16",
     "address": "street of truth.",
     "code": "TRUTH",
@@ -1449,7 +1433,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "17",
     "address": "street of rive.",
     "code": "RIVE",
@@ -1532,7 +1515,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "18",
     "address": "street of matilda.",
     "code": "MATILDA",
@@ -1615,7 +1597,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "19",
     "address": "street of unseen.",
     "code": "UNSEEN",
@@ -1698,7 +1679,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "20",
     "address": "street of wan.",
     "code": "WAN",
@@ -1781,7 +1761,6 @@
     ]
   },
   {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
     "pid": "21",
     "address": "street of buffy.",
     "code": "BUFFY",

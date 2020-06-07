@@ -25,7 +25,6 @@ import traceback
 from datetime import datetime, timedelta, timezone
 
 import click
-from flask import current_app
 from flask.cli import with_appcontext
 from invenio_circulation.api import get_loan_for_item
 
@@ -39,6 +38,7 @@ from ..notifications.tasks import create_over_and_due_soon_notifications
 from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
+from ..utils import get_base_url, get_schema_for_resource
 
 
 @click.command('create_loans')
@@ -422,15 +422,8 @@ def get_random_librarian_and_transaction_location(patron):
 def create_payment_record(patron_transaction, user_pid, user_library):
     """Create payment record from patron_transaction."""
     data = {}
-    schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
-    data_schema = {
-        'base_url': current_app.config.get('RERO_ILS_APP_BASE_URL'),
-        'schema_endpoint': current_app.config.get('JSONSCHEMAS_ENDPOINT'),
-        'schema': schemas['ptre']
-    }
-    data['$schema'] = '{base_url}{schema_endpoint}{schema}'\
-        .format(**data_schema)
-    base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
+    data['$schema'] = get_schema_for_resource('ptre')
+    base_url = get_base_url()
     url_api = '{base_url}/api/{doc_type}/{pid}'
     for record in [
         {

@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "1",
     "name": "2020",
     "start_date": "2020-01-01",
@@ -11,7 +10,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "2",
     "name": "2019",
     "start_date": "2019-01-01",
@@ -22,7 +20,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "3",
     "name": "2018",
     "start_date": "2018-01-01",
@@ -33,7 +30,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "4",
     "name": "2020",
     "start_date": "2020-01-01",
@@ -44,7 +40,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/budgets/budget-v0.0.1.json",
     "pid": "5",
     "name": "2020",
     "start_date": "2020-01-01",

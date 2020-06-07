@@ -1,7 +1,6 @@
 [
   {
     "pid": "1",
-    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "address": "Via Challand 132, 11100 Aosta",
     "name": "R\u00e9seau des biblioth\u00e8ques du Canton d'Aoste",
     "code": "aoste",
@@ -11,7 +10,6 @@
   },
   {
     "pid": "2",
-    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "address": "Highlands, Scotland, Great Britain",
     "name": "Libraries of the British Ministry of Magic",
     "code": "highlands",
@@ -20,7 +18,6 @@
     "online_harvested_source": "mv-cantook"
   },
   {
-    "$schema": "https://ils.rero.ch/schema/organisations/organisation-v0.0.1.json",
     "pid": "3",
     "address": "The imagination",
     "name": "Network of fictive libraries",

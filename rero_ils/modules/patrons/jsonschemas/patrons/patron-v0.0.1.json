@@ -37,7 +37,7 @@
       "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json"
     },
     "pid": {
       "title": "User ID",

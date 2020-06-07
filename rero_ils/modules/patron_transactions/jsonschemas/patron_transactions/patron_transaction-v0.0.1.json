@@ -18,7 +18,7 @@
       "description": "Schema to validate patron transaction records against.",
       "type": "string",
       "minLength": 9,
-      "default": "https://ils.rero.ch/schema/patron_transactions/patron_transaction-v0.0.1.json"
+      "default": "https://ils.rero.ch/schemas/patron_transactions/patron_transaction-v0.0.1.json"
     },
     "pid": {
       "title": "Patron transaction ID",

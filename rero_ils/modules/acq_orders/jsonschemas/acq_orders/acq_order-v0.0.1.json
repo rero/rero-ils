@@ -28,8 +28,8 @@
       "title": "Schema",
       "description": "Schema to validate Acquisition Order records against.",
       "type": "string",
-      "default": "https://ils.rero.ch/schema/acq_orders/acq_order-v0.0.1.json",
-      "pattern": "^https://ils.rero.ch/schema/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
+      "default": "https://ils.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
+      "pattern": "^https://ils.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"
     },
     "pid": {
       "title": "AcqOrder ID",

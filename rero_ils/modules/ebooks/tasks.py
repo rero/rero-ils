@@ -27,8 +27,6 @@ from .utils import create_document_holding, update_document_holding
 from ..documents.api import Document, DocumentsSearch
 from ..utils import do_bulk_index
 
-# from time import sleep
-
 
 @shared_task(ignore_result=True)
 def create_records(records):
@@ -37,9 +35,6 @@ def create_records(records):
     n_created = 0
     uuids = []
     for record in records:
-        record['$schema'] = \
-            'https://ils.rero.ch/schema/documents/document-minimal-v0.0.1.json'
-
         # check if already harvested
         pid = None
         for identifier in record.get('identifiedBy'):

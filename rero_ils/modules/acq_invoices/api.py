@@ -20,14 +20,13 @@
 
 from functools import partial
 
-from flask import current_app
-
 from .models import AcquisitionInvoiceIdentifier, AcquisitionInvoiceMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..libraries.api import Library
 from ..minters import id_minter
 from ..providers import Provider
+from ..utils import get_base_url
 
 # provider
 AcquisitionInvoiceProvider = type(
@@ -118,11 +117,10 @@ class AcquisitionInvoice(IlsRecord):
             library_pid = data.get('library').get(
                 '$ref').split('libraries/')[1]
         org_pid = Library.get_record_by_pid(library_pid).organisation_pid
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
         org_ref = {
             '$ref': url_api.format(
-                base_url=base_url,
+                base_url=get_base_url(),
                 doc_type='organisations',
                 pid=org_pid or cls.organisation_pid)
         }

@@ -34,7 +34,7 @@ def test_patron_permissions(
     login_user_via_session(client, patron_martigny_no_email.user)
 
     record = {
-        "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+        "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
         "first_name": "first_name",
         "last_name": "Last_name",
         "street": "Avenue Leopold-Robert, 132",

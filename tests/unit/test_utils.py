@@ -61,7 +61,7 @@ def test_add_years():
 
 def test_get_schema_for_resources(app):
     """Test get_schemas_for_resource function."""
-    json_schema = 'https://ils.rero.ch/schema/patrons/patron-v0.0.1.json'
+    json_schema = 'https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json'
     assert get_schema_for_resource(Patron) == json_schema
     assert get_schema_for_resource('ptrn') == json_schema
 

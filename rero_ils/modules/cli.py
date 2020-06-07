@@ -31,7 +31,6 @@ import sys
 import traceback
 from collections import OrderedDict
 from glob import glob
-from json import loads
 
 import click
 import jsonref
@@ -561,7 +560,7 @@ def check_validate(jsonfile, type, schema, verbose, error_file, ok_file):
             schema=schema
         )
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     datas = json.load(jsonfile)
     count = 0
     for data in datas:
@@ -609,7 +608,7 @@ def do_worker(marc21records, results, pid_required, debug):
         'rero_ils.modules.documents.jsonschemas',
         'documents/document-v0.0.1.json'
     )
-    schema = loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     for data in marc21records:
         data_json = data['json']
         pid = data_json.get('001', '???')

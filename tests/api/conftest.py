@@ -37,8 +37,8 @@ def create_app():
 def doc_title_travailleurs(app):
     """Document with title with travailleur."""
     data = {
-        '$schema': 'https://ils.rero.ch/schema/documents/'
-                   'document-minimal-v0.0.1.json',
+        '$schema': 'https://ils.rero.ch/schemas/documents/'
+                   'document-v0.0.1.json',
         'pid': 'doc_title_test1', 'type': 'book',
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{
@@ -62,8 +62,8 @@ def doc_title_travailleurs(app):
 def doc_title_travailleuses(app):
     """Document with title with travailleuses."""
     data = {
-        '$schema': 'https://ils.rero.ch/schema/documents/'
-                   'document-minimal-v0.0.1.json',
+        '$schema': 'https://ils.rero.ch/schemas/documents/'
+                   'document-v0.0.1.json',
         'pid': 'doc_title_test2', 'type': 'book',
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{

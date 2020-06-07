@@ -36,7 +36,7 @@ def test_ilsrecord_pid_after_validationerror(
         'invenio_records_rest.loc_list',
         {
             '$schema':
-                'https://ils.rero.ch/schema/locations/location-v0.0.1.json',
+                'https://ils.rero.ch/schemas/locations/location-v0.0.1.json',
             'library': {'$ref': 'https://ils.rero.ch/api/libraries/lib1'},
             'name': 'Library of Foo'
         }

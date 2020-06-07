@@ -1,6 +1,5 @@
 [
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "1",
     "name": "Standard",
     "description": "Standard patron.",
@@ -10,7 +9,6 @@
     "subscription_amount": 10
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "2",
     "name": "Extended rights",
     "description": "Patron with extended rights: staff, professors, supporting members.",
@@ -19,7 +17,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "3",
     "name": "Children",
     "description": "Children and teenagers (< 16 years old).",
@@ -28,7 +25,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "4",
     "name": "Standard",
     "description": "Standard patron.",
@@ -37,7 +33,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "5",
     "name": "Default",
     "description": "Default patron type",
@@ -46,7 +41,6 @@
     }
   },
   {
-    "$schema": "https://ils.rero.ch/schema/patron_types/patron_type-v0.0.1.json",
     "pid": "6",
     "name": "Children",
     "description": "Children and teenagers (< 16 years old).",

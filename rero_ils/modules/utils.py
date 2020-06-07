@@ -145,22 +145,6 @@ def get_endpoint_configuration(module):
             return endpoint
 
 
-def get_ref_for_pid(module, pid):
-    """Get the $ref for a pid.
-
-    :param module: name of module (class name or endpoint name or module name)
-    :param pid: pid for record
-    :return: url for record
-    """
-    configuration = get_endpoint_configuration(module)
-    if configuration and configuration.get('list_route'):
-        return '{url}/api{route}{pid}'.format(
-            url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
-            route=configuration.get('list_route'),
-            pid=pid
-        )
-
-
 def extracted_data_from_ref(input, data='pid'):
     """Extract a data from a `$ref` string.
 
@@ -265,8 +249,9 @@ def get_schema_for_resource(resource):
         resource = resource.provider.pid_type
     schemas = current_app.config.get('RECORDS_JSON_SCHEMA')
     if resource in schemas:
-        return '{url}{endpoint}{schema}'.format(
-            url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+        return '{scheme}://{url}{endpoint}{schema}'.format(
+            scheme=current_app.config.get('JSONSCHEMAS_URL_SCHEME'),
+            url=current_app.config.get('JSONSCHEMAS_HOST'),
             endpoint=current_app.config.get('JSONSCHEMAS_ENDPOINT'),
             schema=schemas[resource]
         )
@@ -360,3 +345,28 @@ def pids_exists_in_data(info, data, required={}, not_required={}):
         is_required=False
     )
     return return_value_required + return_value_not_required
+
+
+def get_base_url():
+    """Get base url."""
+    base_url = '{scheme}://{host}'.format(
+        scheme=current_app.config.get('RERO_ILS_APP_URL_SCHEME'),
+        host=current_app.config.get('RERO_ILS_APP_HOST')
+    )
+    return base_url
+
+
+def get_ref_for_pid(module, pid):
+    """Get the $ref for a pid.
+
+    :param module: name of module (class name or endpoint name or module name)
+    :param pid: pid for record
+    :return: url for record
+    """
+    configuration = get_endpoint_configuration(module)
+    if configuration and configuration.get('list_route'):
+        return '{url}/api{route}{pid}'.format(
+            url=get_base_url(),
+            route=configuration.get('list_route'),
+            pid=pid
+        )

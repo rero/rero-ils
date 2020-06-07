@@ -39,7 +39,7 @@ from ..locations.api import Location
 from ..notifications.api import Notification, NotificationsSearch, \
     number_of_reminders_sent
 from ..patrons.api import Patron
-from ..utils import get_ref_for_pid
+from ..utils import get_base_url, get_ref_for_pid
 
 
 class LoanAction(object):
@@ -119,7 +119,7 @@ class Loan(IlsRecord):
     def loan_build_item_ref(self, item_pid):
         """Build $ref for the Item attached to the Loan."""
         return {'$ref': '{base_url}/api/{doc_type}/{pid}'.format(
-            base_url=current_app.config.get('RERO_ILS_APP_BASE_URL'),
+            base_url=get_base_url(),
             doc_type='items',
             pid=item_pid
         )}
@@ -228,11 +228,10 @@ class Loan(IlsRecord):
         creation_date = datetime.now(timezone.utc).isoformat()
         record['creation_date'] = creation_date
         record['notification_type'] = notification_type
-        base_url = current_app.config.get('RERO_ILS_APP_BASE_URL')
         url_api = '{base_url}/api/{doc_type}/{pid}'
         record['loan'] = {
             '$ref': url_api.format(
-                base_url=base_url,
+                base_url=get_base_url(),
                 doc_type='loans',
                 pid=self.pid)
         }
