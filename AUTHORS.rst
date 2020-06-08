@@ -17,19 +17,19 @@
 Credits
 =======
 
-  * Aly Badr
-  * Sébastien Délèze
-  * Mana Deweerdt
-  * Olivier Dossmann
-  * Laurent Dubois
-  * Benoit Erken
-  * Nicolas Labat
-  * Johnny Mariéthoz
-  * Renaud Michotte
-  * Igor Milhit
-  * Miguel Moreira
-  * Gianni Pante
-  * Nicolas Prongué
-  * Peter Weber
-  * Alicia Zangger
-  * Bertrand Zuchuat
+* Aly Badr [RERO]
+* Sébastien Délèze [RERO]
+* Mana Deweerdt [UCLouvain]
+* Olivier Dossmann [RERO]
+* Laurent Dubois [UCLouvain]
+* Benoit Erken [UCLouvain]
+* Nicolas Labat [RERO]
+* Johnny Mariéthoz [RERO]
+* Renaud Michotte [UCLouvain]
+* Igor Milhit [RERO]
+* Miguel Moreira [RERO]
+* Gianni Pante [RERO]
+* Nicolas Prongué [RERO]
+* Peter Weber [RERO]
+* Alicia Zangger [RERO]
+* Bertrand Zuchuat [RERO]
