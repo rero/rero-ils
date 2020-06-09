@@ -40,6 +40,8 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     PendingToItemInTransitPickup, ToItemOnLoan
 from invenio_records_rest.utils import allow_all, deny_all
 
+from rero_ils.modules.oauth import reroid
+
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import can_create_acq_account_factory, \
     can_list_acq_account_factory, can_read_update_delete_acq_account_factory
@@ -363,7 +365,7 @@ SESSION_COOKIE_SECURE = False
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+#APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # OAI-PMH
 # =======
@@ -1730,3 +1732,15 @@ WIKI_MARKDOWN_EXTENSIONS = set((
     'extra',
     'markdown_captions'
 ))
+
+# OAuth
+# =====
+OAUTHCLIENT_LOGIN_USER_TEMPLATE = 'rero_ils/oauth_login_user.html'
+OAUTHCLIENT_REMOTE_APPS = dict(
+    reroid=reroid.DEV_REMOTE_APP
+)
+
+REROID_APP_CREDENTIALS = dict(
+    consumer_key=os.environ.get('REROID_CONSUMER_KEY'),
+    consumer_secret=os.environ.get('REROID_CONSUMER_SECRET'),
+)
