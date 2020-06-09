@@ -69,6 +69,7 @@ flags=()
 deploy=false
 cmd="poetry install"
 ci=false
+sip2=false
 tgz_file=""
 while test $# -gt 0
 do
@@ -88,7 +89,7 @@ do
       shift ;;
     -s|--sip2)
         # install extra sip2 package
-        flags+=("--extras sip2") ;;
+        sip2=true ;;
     (--) shift; break;;
     (-*) flags+=("$1") ;;
     (*) break;;
@@ -113,6 +114,9 @@ if ! $deploy ; then
     fi
 fi
 
+if $sip2  ; then
+  flags+=("--extras sip2")
+fi
 
 # BOOTSTRAP START
 # install the application and all the dependencies

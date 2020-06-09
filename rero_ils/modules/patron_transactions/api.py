@@ -107,6 +107,27 @@ class PatronTransaction(IlsRecord):
             yield result.pid
 
     @classmethod
+    def get_transactions_total_amount_for_patron(cls, patron_pid, status=None,
+                                                 with_subscription=True):
+        """Get total amount transactions linked to a patron.
+
+        :param patron_pid: the patron pid being searched
+        :param status: (optional) transaction status filter,
+        :param with_subscription: (optional) include or exclude subscription
+        type filter.
+        :return: return total amount of transactions.
+        """
+        search = cls._build_transaction_query(patron_pid, status)
+        if not with_subscription:
+            search = search.exclude('terms', type=['subscription'])
+        search.aggs.metric('transactions_total_amount',
+                           'sum', field='total_amount')
+        # set the from/size to 0
+        search = search[0:0]
+        results = search.execute()
+        return results.aggregations.transactions_total_amount.value
+
+    @classmethod
     def get_transactions_count_for_patron(cls, patron_pid, status=None):
         """Get patron transactions count linked to a patron.
 
