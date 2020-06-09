@@ -80,6 +80,7 @@ before_install:
 
 install:
   - "./scripts/bootstrap --ci $REQUIREMENTS"
+  - "poetry install --no-root --extras sip2"
   - "poetry show"  # To have details about installed libs (isort, pytest, etc.)
 
 before_script:

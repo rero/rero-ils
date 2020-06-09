@@ -467,14 +467,20 @@ def get_loans_by_item_pid_by_patron_pid(
     return {}
 
 
-def get_loans_by_patron_pid(patron_pid):
-    """Return all loans for patron."""
-    results = current_circulation.loan_search_cls()\
-        .filter('term', patron_pid=patron_pid)\
-        .params(preserve_order=True).\
-        sort({'_created': {'order': 'asc'}})\
-        .source(['pid']).scan()
-    for loan in results:
+def get_loans_by_patron_pid(patron_pid, filter_states=[]):
+    """Search all loans for patron to the given filter_states.
+
+    :param patron_pid: The patron pid.
+    :param filter_states: loan states to use as a filter.
+    :return: loans for given patron.
+    """
+    search = search_by_patron_item_or_document(
+        patron_pid=patron_pid,
+        filter_states=filter_states)\
+        .params(preserve_order=True)\
+        .sort({'_created': {'order': 'asc'}})\
+        .source(['pid'])
+    for loan in search.scan():
         yield Loan.get_record_by_pid(loan.pid)
 
 
@@ -630,7 +636,6 @@ def get_last_transaction_loc_for_item(item_pid):
 
 def get_due_soon_loans():
     """Return all due_soon loans."""
-    from .utils import get_circ_policy
     due_soon_loans = []
     results = current_circulation.loan_search_cls()\
         .filter('term', state=LoanState.ITEM_ON_LOAN)\
@@ -639,20 +644,13 @@ def get_due_soon_loans():
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
-        circ_policy = get_circ_policy(loan)
-        now = datetime.now(timezone.utc)
-        end_date = loan.get('end_date')
-        due_date = ciso8601.parse_datetime(end_date).replace(
-            tzinfo=timezone.utc)
-        days_before = circ_policy.get('number_of_days_before_due_date')
-        if due_date > now > due_date - timedelta(days=days_before):
+        if is_due_soon_loan(loan):
             due_soon_loans.append(loan)
     return due_soon_loans
 
 
 def get_overdue_loans():
     """Return all overdue loans."""
-    from .utils import get_circ_policy
     overdue_loans = []
     results = current_circulation.loan_search_cls()\
         .filter('term', state=LoanState.ITEM_ON_LOAN)\
@@ -661,15 +659,43 @@ def get_overdue_loans():
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
-        circ_policy = get_circ_policy(loan)
-        now = datetime.now(timezone.utc)
-        end_date = loan.get('end_date')
-        due_date = ciso8601.parse_datetime(end_date)
-
-        days_after = circ_policy.get('number_of_days_after_due_date')
-        if now > due_date + timedelta(days=days_after):
+        if is_overdue_loan(loan):
             overdue_loans.append(loan)
     return overdue_loans
+
+
+def is_due_soon_loan(loan):
+    """Check if loan is due soon.
+
+    :param loan: loan object to check
+    :returns True if loan is due Soon.
+    """
+    from .utils import get_circ_policy
+    circ_policy = get_circ_policy(loan)
+    now = datetime.now(timezone.utc)
+    end_date = loan.get('end_date')
+    due_date = ciso8601.parse_datetime(end_date).replace(
+        tzinfo=timezone.utc)
+
+    days_before = circ_policy.get('number_of_days_before_due_date')
+    return due_date > now > due_date - timedelta(days=days_before)
+
+
+def is_overdue_loan(loan):
+    """Check if loan is in overdue.
+
+    :param loan: loan object to check
+    :returns True if loan is in overdue.
+    """
+    from .utils import get_circ_policy
+    circ_policy = get_circ_policy(loan)
+    now = datetime.now(timezone.utc)
+    end_date = loan.get('end_date')
+    due_date = ciso8601.parse_datetime(end_date).replace(
+        tzinfo=timezone.utc)
+
+    days_after = circ_policy.get('number_of_days_after_due_date')
+    return now > due_date + timedelta(days=days_after)
 
 
 class LoansIndexer(IlsRecordsIndexer):

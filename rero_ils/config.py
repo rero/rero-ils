@@ -2008,3 +2008,29 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
         import_size=50
     )
 )
+
+# SIP2
+# ====
+SIP2_SUPPORT_CHECKIN = True
+SIP2_SUPPORT_CHECKOUT = True
+SIP2_SUPPORT_RENEWAL_POLICY = True
+SIP2_TIMEOUT_PERIOD = 10
+SIP2_RETRIES_ALLOWED = 10
+SIP2_SUPPORT_ONLINE_STATUS = True
+SIP2_SUPPORT_OFFLINE_STATUS = True
+SIP2_SUPPORT_STATUS_UPDATE = True
+SIP2_DATE_FORMAT = '%Y%m%d    %H%M%S'
+
+SIP2_REMOTE_ACTION_HANDLERS = dict(
+    rero_ils=dict(
+        login_handler='rero_ils.modules.selfcheck.api:selfcheck_login',
+        logout_handler='rero_ils.modules.selfcheck.api:selfcheck_logout',
+        system_status_handler='rero_ils.modules.selfcheck.api:system_status',
+        patron_handlers=dict(
+            validate_patron='rero_ils.modules.selfcheck.api:validate_patron_account',
+            authorize_patron='rero_ils.modules.selfcheck.api:authorize_patron',
+            enable_patron='rero_ils.modules.selfcheck.api:enable_patron',
+            account='rero_ils.modules.selfcheck.api:patron_information'
+        ),
+    )
+)
