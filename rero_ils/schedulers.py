@@ -104,7 +104,8 @@ class RedisScheduler(OriginalRedisScheduler):
         """
         for name in tasks:
             enabled = tasks[name].pop('enabled', True)
-            self.rdb[self.enabled_name(name)] = int(enabled)
+            if not self.rdb.get(self.enabled_name(name)):
+                self.rdb[self.enabled_name(name)] = int(enabled)
         super(RedisScheduler, self).merge_inplace(tasks)
 
     def setup_schedule(self):
@@ -165,6 +166,15 @@ class RedisScheduler(OriginalRedisScheduler):
         if self.rdb.get(enabled_name):
             del self.rdb[enabled_name]
         return super(RedisScheduler, self).remove(task_key=name)
+
+    def reset(self):
+        """Reset all scheduled tasks."""
+        for entry in self.rdb.zrange(self.key, 0, -1):
+            entry = jsonpickle.decode(entry)
+            enabled_name = self.enabled_name(entry.name)
+            if self.rdb.get(enabled_name):
+                del self.rdb[enabled_name]
+        self._remove_db()
 
     def add_entry(self, entry, enable=True):
         """Add an entry.
@@ -295,7 +305,7 @@ def init(reset, verbose):
     """
     if reset:
         click.secho('Reset REDIS scheduler!', fg='red', bold=True)
-        current_scheduler._remove_db()
+        current_scheduler.reset()
     else:
         click.secho('Initalize REDIS scheduler!', fg='yellow')
     current_scheduler.setup_schedule()
