@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,16 +24,20 @@ from .api import IlsRecordsIndexer
 
 
 @shared_task(ignore_result=True)
-def process_bulk_queue(version_type=None, es_bulk_kwargs=None):
+def process_bulk_queue(version_type=None, es_bulk_kwargs=None,
+                       stats_only=True):
     """Process bulk indexing queue.
 
     :param str version_type: Elasticsearch version type.
     :param dict es_bulk_kwargs: Passed to
         :func:`elasticsearch:elasticsearch.helpers.bulk`.
+    :param boolean stats_only: if `True` only report number of
+            successful/failed operations instead of just number of
+            successful and a list of error responses.
     Note: You can start multiple versions of this task.
     """
-    IlsRecordsIndexer(version_type=version_type).process_bulk_queue(
-        es_bulk_kwargs=es_bulk_kwargs)
+    return IlsRecordsIndexer(version_type=version_type).process_bulk_queue(
+        es_bulk_kwargs=es_bulk_kwargs, stats_only=stats_only)
 
 
 @shared_task(ignore_result=True)

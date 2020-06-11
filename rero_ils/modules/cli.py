@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,7 +49,6 @@ from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
 from invenio_app.factory import static_folder
 from invenio_db import db
-from invenio_indexer.tasks import process_bulk_queue
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
@@ -66,6 +66,7 @@ from .holdings.cli import create_patterns
 from .items.cli import create_items, reindex_items
 from .loans.cli import create_loans
 from .patrons.cli import import_users
+from .tasks import process_bulk_queue
 from .utils import read_json_record
 from ..modules.documents.dojson.contrib.unimarctojson import unimarc
 from ..modules.providers import append_fixtures_new_identifiers
@@ -903,6 +904,9 @@ def reserve_pid_range(pid_type, records_number, unused):
 @click.option(
     '--concurrency', '-c', default=1, type=int,
     help='Number of concurrent indexing tasks to start.')
+@click.option(
+    '--with_stats', is_flag=True, default=False,
+    help='report number of successful and list failed error response.')
 @click.option('--queue', '-q', type=str,
               help='Name of the celery queue used to put the tasks into.')
 @click.option('--version-type', help='Elasticsearch version type to use.')
@@ -910,7 +914,7 @@ def reserve_pid_range(pid_type, records_number, unused):
     '--raise-on-error/--skip-errors', default=True,
     help='Controls if Elasticsearch bulk indexing errors raise an exception.')
 @with_appcontext
-def run(delayed, concurrency, version_type=None, queue=None,
+def run(delayed, concurrency, with_stats, version_type=None, queue=None,
         raise_on_error=True):
     """Run bulk record indexing."""
     if delayed:
@@ -918,6 +922,7 @@ def run(delayed, concurrency, version_type=None, queue=None,
             'kwargs': {
                 'version_type': version_type,
                 'es_bulk_kwargs': {'raise_on_error': raise_on_error},
+                'stats_only': not with_stats
             }
         }
         click.secho(
@@ -929,8 +934,13 @@ def run(delayed, concurrency, version_type=None, queue=None,
             process_bulk_queue.apply_async(**celery_kwargs)
     else:
         click.secho('Indexing records...', fg='green')
-        IlsRecordsIndexer(version_type=version_type).process_bulk_queue(
-            es_bulk_kwargs={'raise_on_error': raise_on_error})
+        indexed, error = IlsRecordsIndexer(version_type=version_type)\
+            .process_bulk_queue(
+                es_bulk_kwargs={'raise_on_error': raise_on_error},
+                stats_only=not with_stats
+        )
+        click.secho('indexed: {indexed}, error: {error}'.format(
+            indexed=indexed, error=error), fg='yellow')
 
 
 @utils.command('reindex')

@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -161,3 +162,11 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
         order = AcqOrder.get_record_by_pid(order_pid)
         order['total_amount'] = order.get_order_total_amount()
         order.update(order, dbcommit=True, reindex=True)
+
+    def bulk_index(self, record_id_iterator):
+        """Bulk index records.
+
+        :param record_id_iterator: Iterator yielding record UUIDs.
+        """
+        super(AcqOrderLinesIndexer, self).bulk_index(record_id_iterator,
+                                                     doc_type='acol')

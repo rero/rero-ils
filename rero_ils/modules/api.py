@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,18 +22,24 @@ from copy import deepcopy
 from uuid import uuid4
 
 import pytz
+from celery import current_app as current_celery_app
+from elasticsearch import VERSION as ES_VERSION
 from elasticsearch.exceptions import NotFoundError
+from elasticsearch.helpers import bulk
+from elasticsearch.helpers import expand_action as default_expand_action
 from flask import current_app
 from invenio_db import db
 from invenio_indexer import current_record_to_index
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
+from invenio_indexer.utils import _es7_expand_action
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
+from kombu.compat import Consumer
 from sqlalchemy.orm.exc import NoResultFound
 
 from .errors import RecordValidationError
@@ -403,6 +410,42 @@ class IlsRecordsIndexer(RecordIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         self._bulk_op(record_id_iterator, op_type='index', doc_type=doc_type)
+
+    def process_bulk_queue(self, es_bulk_kwargs=None, stats_only=True):
+        """Process bulk indexing queue.
+
+        :param dict es_bulk_kwargs: Passed to
+            :func:`elasticsearch:elasticsearch.helpers.bulk`.
+        :param boolean stats_only: if `True` only report number of
+            successful/failed operations instead of just number of
+            successful and a list of error responses
+        """
+        with current_celery_app.pool.acquire(block=True) as conn:
+            consumer = Consumer(
+                connection=conn,
+                queue=self.mq_queue.name,
+                exchange=self.mq_exchange.name,
+                routing_key=self.mq_routing_key,
+            )
+
+            req_timeout = current_app.config['INDEXER_BULK_REQUEST_TIMEOUT']
+
+            es_bulk_kwargs = es_bulk_kwargs or {}
+            count = bulk(
+                self.client,
+                self._actionsiter(consumer.iterqueue()),
+                stats_only=stats_only,
+                request_timeout=req_timeout,
+                expand_action_callback=(
+                    _es7_expand_action if ES_VERSION[0] >= 7
+                    else default_expand_action
+                ),
+                **es_bulk_kwargs
+            )
+
+            consumer.close()
+
+        return count
 
     def _get_record_class(self, payload):
         """Get the record class from payload."""
