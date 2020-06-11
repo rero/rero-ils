@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -514,3 +515,11 @@ class PatronsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
 
     record_cls = Patron
+
+    def bulk_index(self, record_id_iterator):
+        """Bulk index records.
+
+        :param record_id_iterator: Iterator yielding record UUIDs.
+        """
+        super(PatronsIndexer, self).bulk_index(record_id_iterator,
+                                               doc_type='ptrn')

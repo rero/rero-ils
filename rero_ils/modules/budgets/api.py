@@ -2,6 +2,7 @@
 #
 # RERO ILS
 # Copyright (C) 2019 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -100,3 +101,11 @@ class BudgetsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
 
     record_cls = Budget
+
+    def bulk_index(self, record_id_iterator):
+        """Bulk index records.
+
+        :param record_id_iterator: Iterator yielding record UUIDs.
+        """
+        super(BudgetsIndexer, self).bulk_index(record_id_iterator,
+                                               doc_type='budg')
