@@ -1264,7 +1264,7 @@ description = "Invenio module for the circulation of bibliographic items."
 name = "invenio-circulation"
 optional = false
 python-versions = ">=3"
-version = "1.0.0a23"
+version = "1.0.0a24"
 
 [package.dependencies]
 arrow = ">=0.15.0"
@@ -1287,7 +1287,7 @@ sqlite = ["invenio-db (>=1.0.4)"]
 tests = ["check-manifest (>=0.35)", "coverage (>=4.5.3)", "isort (>=4.3.11)", "invenio-app (>=1.2.3)", "invenio-jsonschemas (>=1.0.1)", "mock (>=1.3.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)", "pytest-invenio (>=1.2.1)"]
 
 [package.source]
-reference = "7b6cb5922ba23c970de6987f9096358d47dd89f7"
+reference = "16d0d226c5ed5fd7e3757fa18d0329bb0fccc3d7"
 type = "git"
 url = "https://github.com/inveniosoftware/invenio-circulation.git"
 [[package]]
