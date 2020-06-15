@@ -524,6 +524,107 @@
       }
     ]
   },
+  "lib6": {
+    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "address": "Ave de la gare, Saillon 1913",
+    "code": "SAILLON",
+    "email": "reroilstest+saillon@gmail.com",
+    "name": "Library of Saillon",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org1"
+    },
+    "pid": "lib6",
+    "opening_hours": [
+      {
+        "day": "monday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "tuesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "wednesday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "thursday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "friday",
+        "is_open": true,
+        "times": [
+          {
+            "start_time": "07:00",
+            "end_time": "19:00"
+          }
+        ]
+      },
+      {
+        "day": "saturday",
+        "is_open": false,
+        "times": []
+      },
+      {
+        "day": "sunday",
+        "is_open": false,
+        "times": []
+      }
+    ],
+    "exception_dates": [
+      {
+        "end_date": "2019-01-06",
+        "is_open": false,
+        "start_date": "2018-12-22",
+        "title": "Vacances de No\u00ebl"
+      },
+      {
+        "is_open": true,
+        "start_date": "2018-12-15",
+        "times": [
+          {
+            "end_time": "16:00",
+            "start_time": "10:00"
+          }
+        ],
+        "title": "Samdi du livre"
+      },
+      {
+        "is_open": false,
+        "repeat": {
+          "interval": 1,
+          "period": "yearly"
+        },
+        "start_date": "2019-08-01",
+        "title": "1er ao\u00fbt"
+      }
+    ]
+  },
   "loc1": {
     "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "MARTIGNY-PUBLIC",
@@ -665,6 +766,18 @@
       "$ref": "https://ils.rero.ch/api/libraries/lib5"
     },
     "is_online": true,
+    "allow_request": true
+  },
+  "loc14": {
+    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "code": "SAILLON-PUBLIC",
+    "name": "Saillon Library Public Space",
+    "pid": "loc14",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib6"
+    },
+    "is_pickup": true,
+    "pickup_name": "SAILLON-PUBLIC: Public Space",
     "allow_request": true
   },
   "itty1": {

@@ -46,41 +46,41 @@
     1. __CHECKOUT_5_1__: PENDING loan does not exist →  (add loan ITEM_ON_LOAN) [cancel previous loan]
     1. PENDING loan exists
         1. __CHECKOUT_5_2_1__: checkout patron = patron of first PENDING loan →  (add loan ITEM_ON_LOAN) [cancel previous loan]
-        1. __CHECKOUT_5_2_2__: checkout patron != patron of first PENDING loan →  checkout denied
+        1. __CHECKOUT_5_2_2__: checkout patron != patron of first PENDING loan → checkout denied
 
 ## Checkin form
 
-1. __CHECKIN_1__: item on_shelf (no current loan)
-	1. PENDING loan does not exist
+1. :100:__CHECKIN_1__: item on_shelf (no current loan)
+	1. __CHECKIN_1_1__: PENDING loan does not exist
 		1. :white_check_mark: __CHECKIN_1_1_1__: item library = transaction library →  (no action, item is: on_shelf)
-		1. __CHECKIN_1_1_2__: item library != transaction library →  *item is: in_transit (IN_TRANSIT_TO_HOUSE) [FIND A SOLUTION]*
-	1. PENDING loan exists
+		1. __CHECKIN_1_1_2__: item library != transaction library →  *item is: in_transit (item status is updated and no loan is created)*
+	1. __CHECKIN_1_2__: PENDING loan exists
 		1. __CHECKIN_1_2_1__: pickup library of first PENDING loan = transaction library →  (validate first PENDING loan, item is: at_desk (ITEM_AT_DESK))
 		1. __CHECKIN_1_2_2__: pickup location of first pending loan != transaction library →  (validate first PENDING loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
-1. __CHECKIN_2__: item at_desk, requested (ITEM_AT_DESK)
+1. :100:__CHECKIN_2__: item at_desk, requested (ITEM_AT_DESK)
 	1. __CHECKIN_2_1__: pickup location = transaction library →  (no action, item is: at_desk (ITEM_AT_DESK))
-	1. __CHECKIN_2_2__: pickup location != transaction library →  *item is: in_transit (IN_TRANSIT_FOR_PICKUP) [FIND A SOLUTION]*
-1. __CHECKIN_3__: item on_loan
-	1. PENDING loan does not exist
+	1. __CHECKIN_2_2__: pickup location != transaction library →  *item is: in_transit (IN_TRANSIT_FOR_PICKUP)*
+1. :100: __CHECKIN_3__: item on_loan
+	1. __CHECKIN_3_1__: PENDING loan does not exist
 		1. :white_check_mark: __CHECKIN_3_1_1__: item location = transaction library →  (checkin current loan, item is: on_shelf)
 		1. :white_check_mark: :white_check_mark: __CHECKIN_3_1_2__: item location != transaction library →  (checkin current loan, item is: in_transit (IN_TRANSIT_TO_HOUSE))
-	1. PENDING loan exists
-		1. :white_check_mark: __CHECKIN_3_2_1__: pickup location of first PENDING loan = transaction library →  (checkin current loan, item is: at_desk)[automatic cancel current loan, automatic validate first PENDING loan]
-		1. pickup location of first PENDING loan != transaction library
-			1. :white_check_mark: __CHECKIN_3_2_2_1__: pickup location of first PENDING loan = item library →  (checkin current loan, item is: in_transit (IN_TRANSIT_TO_HOUSE))
-			1. :white_check_mark: __CHECKIN_3_2_2_2__: pickup location of first PENDING loan != item library →  (checkin current loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic cancel current loan, automatic validate first PENDING loan]
-1. __CHECKIN_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
+	1. __CHECKIN_3_2__: PENDING loan exists
+		1. :white_check_mark: __CHECKIN_3_2_1__: pickup location of first PENDING loan = transaction library →  (checkin current loan, item is: at_desk)[the current loan is returned, automatic validate first PENDING loan]
+		1. __CHECKIN_3_2_2__: pickup location of first PENDING loan != transaction library
+			1. :white_check_mark: __CHECKIN_3_2_2_1__: pickup location of first PENDING loan = item library →  (checkin current loan, item is: in_transit, cancel current loan and first pending loan to (IN_TRANSIT_FOR_PICKUP))
+			1. :white_check_mark: __CHECKIN_3_2_2_2__: pickup location of first PENDING loan != item library →  (checkin current loan, item is: in_transit, cancel current loan and pending loan to (IN_TRANSIT_FOR_PICKUP))
+1. :100:__CHECKIN_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
 	1. :white_check_mark: :white_check_mark: :white_check_mark: __CHECKIN_4_1__: pickup location = transaction library →  (delivery_receive current loan, item is: at_desk(ITEM_AT_DESK))
 	1. __CHECKIN_4_2__: pickup location != transaction library →  (no action, item is: in_transit (IN_TRANSIT_FOR_PICKUP)) *Future: would be useful to track that an intermediary checkin has been made*
-1. __CHECKIN_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
-	1. PENDING loan does not exist
+1. :100:__CHECKIN_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
+	1. __CHECKIN_5_1__: PENDING loan does not exist
 		1. :white_check_mark: :white_check_mark: :white_check_mark: __CHECKIN_5_1_1__: item location = transaction library →  (house_receive current loan, item is: on_shelf)
 		1. :white_check_mark: __CHECKIN_5_1_2__: item location != transaction library →  (no action, item is: in_transit (IN_TRANSIT_TO_HOUSE)) *Future: would be useful to track that an intermediary checkin has been made*
-	1. PENDING loan exists
-		1. pickup location of first PENDING loan = transaction library
+	1. __CHECKIN_5_2__: PENDING loan exists
+		1. __CHECKIN_5_2_1__: pickup location of first PENDING loan = transaction library
 			1. __CHECKIN_5_2_1_1__: pickup location of first PENDING loan = item library →  (house_receive current loan, item is: at_desk(ITEM_AT_DESK))[automatic validate first PENDING loan]
 			1. __CHECKIN_5_2_1_2__: pickup location of first PENDING loan != item library →  (cancel current loan, item is: at_desk(ITEM_AT_DESK))[automatic validate first PENDING loan] *It is the case if the first PENDING loan has been deleted or unpriorised since last checkin*
-		1. pickup location of first PENDING loan != transaction library
+		1. __CHECKIN_5_2_2__: pickup location of first PENDING loan != transaction library
 			1. :white_check_mark: __CHECKIN_5_2_2_1__: pickup location of first PENDING loan = item library →  (no action, item is: in_transit (IN_TRANSIT_TO_HOUSE)) *Future: would be useful to track that an intermediary checkin has been made*
 			1. __CHECKIN_5_2_2_2__: pickup location of first PENDING loan != item library →  (checkin current loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic cancel current loan, automatic validate first PENDING loan] *It is the case if the first PENDING loan has been deleted or unpriorised since last checkin*
 
