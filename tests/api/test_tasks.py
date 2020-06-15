@@ -100,7 +100,8 @@ def test_create_over_and_due_soon_notifications_task(
         'api_item.checkin',
         dict(
             item_pid=item_pid,
-            pid=loan_pid
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
