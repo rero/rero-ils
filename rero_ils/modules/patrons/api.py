@@ -71,11 +71,22 @@ class PatronsSearch(IlsRecordsSearch):
 class Patron(IlsRecord):
     """Define API for patrons mixing."""
 
+    ROLE_PATRON = 'patron'
+    ROLE_LIBRARIAN = 'librarian'
+    ROLE_SYSTEM_LIBRARIAN = 'system_librarian'
+
+    ROLES_HIERARCHY = {
+        ROLE_PATRON: [],
+        ROLE_LIBRARIAN: [],
+        ROLE_SYSTEM_LIBRARIAN: [ROLE_LIBRARIAN]
+    }
+
     minter = patron_id_minter
     fetcher = patron_id_fetcher
     provider = PatronProvider
     model_cls = PatronMetadata
-    available_roles = ['system_librarian', 'librarian', 'patron']
+
+    available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
 
     def validate(self, **kwargs):
         """Validate record against schema.
@@ -208,6 +219,24 @@ class Patron(IlsRecord):
         for role in self.available_roles:
             if role in db_roles:
                 self.remove_role(role)
+
+    @classmethod
+    def get_reachable_roles(cls, role):
+        """Get list of roles depending on role hierarchy."""
+        if role not in Patron.ROLES_HIERARCHY:
+            return []
+        roles = Patron.ROLES_HIERARCHY[role].copy()
+        roles.append(role)
+        return roles
+
+    @classmethod
+    def get_all_roles_for_role(cls, role):
+        """The list of roles covering given role based on the hierarchy."""
+        roles = [role]
+        for key in Patron.ROLES_HIERARCHY:
+            if role in Patron.ROLES_HIERARCHY[key] and key not in roles:
+                roles.append(key)
+        return roles
 
     @classmethod
     def get_patron_by_user(cls, user):

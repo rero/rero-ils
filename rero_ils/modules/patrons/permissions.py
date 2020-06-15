@@ -19,6 +19,7 @@
 
 from flask import request
 
+from .api import Patron
 from ...permissions import staffer_is_authenticated
 
 
@@ -58,6 +59,9 @@ def can_delete_patron_factory(record, *args, **kwargs):
     """
     def can(self):
         patron = staffer_is_authenticated()
+        # It should be not possible to remove itself !
+        if patron and patron.pid == record.pid:
+            return False
         if patron and patron.organisation_pid == record.organisation_pid:
             if patron.is_system_librarian:
                 return True
@@ -71,3 +75,19 @@ def can_delete_patron_factory(record, *args, **kwargs):
                 return True
         return False
     return type('Check', (), {'can': can})()
+
+
+def get_allowed_roles_management():
+    """Get the roles that current logged user could manage.
+
+    :return An array of allowed role management.
+    """
+    allowed_roles = []
+    patron = staffer_is_authenticated()
+    if patron:
+        if patron.is_librarian:
+            allowed_roles.append(Patron.ROLE_PATRON)
+            allowed_roles.append(Patron.ROLE_LIBRARIAN)
+        if patron.is_system_librarian:
+            allowed_roles.append(Patron.ROLE_SYSTEM_LIBRARIAN)
+    return allowed_roles

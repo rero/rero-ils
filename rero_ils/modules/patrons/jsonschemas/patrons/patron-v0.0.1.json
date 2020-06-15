@@ -189,7 +189,8 @@
         "hideExpression": "!field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
         "expressionProperties": {
           "templateOptions.required": "field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
-        }
+        },
+        "fieldMap": "library"
       }
     },
     "roles": {
@@ -225,6 +226,9 @@
             }
           ]
         }
+      },
+      "form": {
+        "fieldMap": "roles"
       }
     },
     "communication_channel": {
