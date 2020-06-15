@@ -67,7 +67,7 @@ from .modules.loans.permissions import can_list_loan_factory, \
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
-    loan_satisfy_circ_policies
+    loan_satisfy_circ_policies, validate_item_pickup_transaction_locations
 from .modules.locations.api import Location
 from .modules.locations.permissions import can_create_location_factory, \
     can_update_delete_location_factory
@@ -1684,6 +1684,10 @@ CIRCULATION_TRANSACTION_LOCATION_VALIDATOR = \
     Location.transaction_location_validator
 CIRCULATION_TRANSACTION_USER_VALIDATOR = \
     Patron.transaction_user_validator
+
+CIRCULATION_LOAN_LOCATIONS_VALIDATION = \
+    validate_item_pickup_transaction_locations
+"""Validates the item, pickup and transaction locations of pending loans."""
 
 # This is needed for absolute URL (url_for)
 # SERVER_NAME = 'localhost:5000'

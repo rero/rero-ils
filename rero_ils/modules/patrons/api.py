@@ -99,7 +99,7 @@ class Patron(IlsRecord):
         self.pids_exist_check = self.get_pid_exist_test(self)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
-        if validation_message is True and self.pid_check:
+        if validation_message and self.pid_check:
             from ..utils import pids_exists_in_data
             if self.is_patron:
                 validation_message = pids_exists_in_data(
@@ -122,7 +122,7 @@ class Patron(IlsRecord):
                     not_required={}
                 ) or True
         subscriptions = self.get('subscriptions')
-        if subscriptions and validation_message is True:
+        if subscriptions and validation_message:
             for subscription in subscriptions:
                 subscription_validation_message = pids_exists_in_data(
                     info='{pid_type} ({pid})'.format(
