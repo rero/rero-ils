@@ -98,6 +98,24 @@ def lib_martigny(app, org_martigny, lib_martigny_data):
 
 
 @pytest.fixture(scope="module")
+def lib_saillon_data(data):
+    """Saillon library data."""
+    return deepcopy(data.get('lib6'))
+
+
+@pytest.fixture(scope="module")
+def lib_saillon(app, org_martigny, lib_saillon_data):
+    """Saillon library."""
+    lib = Library.create(
+        data=lib_saillon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LibrariesSearch.Meta.index)
+    return lib
+
+
+@pytest.fixture(scope="module")
 def lib_saxon_data(data):
     """Saxon library data."""
     return deepcopy(data.get('lib2'))
@@ -173,6 +191,12 @@ def lib_aproz(app, org_sion, lib_aproz_data):
 def loc_public_martigny_data(data):
     """Load public space location for Martigny ville."""
     return deepcopy(data.get('loc1'))
+
+
+@pytest.fixture(scope="module")
+def loc_public_saillon_data(data):
+    """Load public space location for Saillon."""
+    return deepcopy(data.get('loc14'))
 
 
 @pytest.fixture(scope="module")
@@ -270,6 +294,18 @@ def loc_public_martigny(app, lib_martigny, loc_public_martigny_data):
     """Create public space location for Martigny ville."""
     loc = Location.create(
         data=loc_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    return loc
+
+
+@pytest.fixture(scope="module")
+def loc_public_saillon(app, lib_saillon, loc_public_saillon_data):
+    """Create public space location for saillon."""
+    loc = Location.create(
+        data=loc_public_saillon_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
