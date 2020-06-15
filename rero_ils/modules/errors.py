@@ -40,3 +40,7 @@ class MissingRequiredParameterError(RecordsError):
 
 class RecordValidationError(RecordsError):
     """Exception raised when record is not validated."""
+
+
+class NoCirculationAction(RecordsError):
+    """Exception raised when no circulation action is performed."""
