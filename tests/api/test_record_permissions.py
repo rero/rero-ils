@@ -92,10 +92,11 @@ def test_patrons_permissions(
     librarian2_martigny_no_email,
     librarian_saxon_no_email,
     system_librarian_martigny_no_email,
+    system_librarian2_martigny_no_email,
     system_librarian_sion_no_email,
     librarian_sion_no_email
 ):
-    """Test serializers for patrons."""
+    """Test permissions for patrons."""
 
     # simple librarian -----------------------------------------------
     login_user(client, librarian_martigny_no_email)
@@ -130,8 +131,9 @@ def test_patrons_permissions(
     assert data['update']['can']
 
     # should update and delete a system librarian of the same organisation
+    # but not itself
     data = call_api_permissions(client, 'patrons',
-                                system_librarian_martigny_no_email.pid)
+                                system_librarian2_martigny_no_email.pid)
     assert data['delete']['can']
     assert data['update']['can']
 

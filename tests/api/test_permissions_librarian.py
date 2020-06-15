@@ -70,6 +70,14 @@ def test_librarian_permissions(
     data = get_json(res)
     assert data['hits']['total'] == 3
 
+    # can manage all types of patron roles
+    role_url = url_for('api_patrons.get_roles_management_permissions')
+    res = client.get(role_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert 'librarian' in data['allowed_roles']
+    assert 'system_librarian' not in data['allowed_roles']
+
     # can create all type of users except system_librarians
     post_entrypoint = 'invenio_records_rest.ptrn_list'
     system_librarian = deepcopy(record)

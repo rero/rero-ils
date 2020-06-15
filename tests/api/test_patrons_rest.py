@@ -356,10 +356,9 @@ def test_patron_secure_api(client, json_header,
     # assert res.status_code == 403
 
 
-def test_patron_secure_api_create(client, json_header,
+def test_patron_secure_api_create(client,
                                   patron_martigny_data,
-                                  librarian_martigny_no_email,
-                                  librarian_sion_no_email):
+                                  librarian_martigny_no_email):
     """Test patron secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -426,6 +425,12 @@ def test_patron_secure_api_delete(client, json_header,
 
     res = client.delete(record_url)
     assert res.status_code == 204
+
+    # try to delete itself
+    record_url = url_for('invenio_records_rest.ptrn_item',
+                         pid_value=librarian_martigny_no_email.pid)
+    res = client.delete(record_url)
+    assert res.status_code == 403
 
     # Sion
     # login_user_via_session(client, librarian_sion_no_email.user)

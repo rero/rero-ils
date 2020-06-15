@@ -50,6 +50,11 @@ def test_patron_permissions(
     res = client.get(list_url)
     assert res.status_code == 403
 
+    # can not manage any types of patron roles
+    role_url = url_for('api_patrons.get_roles_management_permissions')
+    res = client.get(role_url)
+    assert res.status_code == 403
+
     # can not create any type of users.
     system_librarian = deepcopy(record)
     librarian = deepcopy(record)

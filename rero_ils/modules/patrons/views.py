@@ -32,6 +32,7 @@ from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
 
 from .api import Patron, PatronsSearch
+from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..items.api import Item
 from ..libraries.api import Library
@@ -213,6 +214,15 @@ def profile(viewcode):
         viewcode=viewcode,
         tab=tab
     )
+
+
+@api_blueprint.route('/roles_management_permissions', methods=['GET'])
+@check_permission
+def get_roles_management_permissions():
+    """Get the roles that current logged user could manage."""
+    return jsonify({
+        'allowed_roles': get_allowed_roles_management()
+    })
 
 
 @blueprint.app_template_filter('get_patron_from_barcode')

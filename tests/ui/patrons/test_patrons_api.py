@@ -175,3 +175,30 @@ def test_get_patron_blocked_field_absent(patron2_martigny_no_email):
     """Test patron blocked field retrieval."""
     patron = Patron.get_patron_by_email(patron2_martigny_no_email.get('email'))
     assert 'blocked' not in patron
+
+
+def test_get_reachable_roles():
+    """Test get roles covered by the given role."""
+    roles = Patron.get_reachable_roles(Patron.ROLE_SYSTEM_LIBRARIAN)
+    assert len(roles) == 2
+    assert Patron.ROLE_LIBRARIAN in roles
+    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
+
+    roles = Patron.get_reachable_roles('unknown_role')
+    assert not roles
+
+
+def test_get_all_roles_for_role():
+    """Test get roles covering by roles hierarchy."""
+    roles = Patron.get_all_roles_for_role(Patron.ROLE_PATRON)
+    assert len(roles) == 1
+    assert Patron.ROLE_PATRON in roles
+
+    roles = Patron.get_all_roles_for_role(Patron.ROLE_SYSTEM_LIBRARIAN)
+    assert len(roles) == 1
+    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles
+
+    roles = Patron.get_all_roles_for_role(Patron.ROLE_LIBRARIAN)
+    assert len(roles) == 2
+    assert Patron.ROLE_LIBRARIAN in roles
+    assert Patron.ROLE_SYSTEM_LIBRARIAN in roles

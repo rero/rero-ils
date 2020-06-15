@@ -2340,6 +2340,26 @@
     "blocked": true,
     "blocked_note": "Lost card"
   },
+  "ptrn12": {
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
+    "pid": "ptrn12",
+    "first_name": "Joella",
+    "last_name": "Dosimonta",
+    "street": "Grand place, 123",
+    "postal_code": "1920",
+    "city": "Martigny",
+    "birth_date": "1980-06-07",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/lib1"
+    },
+    "email": "joellalibri07@gmail.com",
+    "phone": "+32324993585",
+    "roles": [
+      "system_librarian",
+      "librarian"
+    ],
+    "barcode": "sys_ptrn12"
+  },
   "dummy_notif": {
     "$schema": "https://ils.rero.ch/schemas/notifications/notification-v0.0.1.json",
     "pid": "notif1",
