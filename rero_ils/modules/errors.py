@@ -44,3 +44,7 @@ class RecordValidationError(RecordsError):
 
 class RegularReceiveNotAllowed(Exception):
     """Holdings of type serials and irregular frequency."""
+
+
+class NoCirculationAction(RecordsError):
+    """Exception raised when no circulation action is performed."""
