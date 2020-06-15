@@ -201,3 +201,30 @@ def loan_build_patron_ref(loan_pid, loan):
 def loan_build_document_ref(loan_pid, loan):
     """Build $ref for the Document attached to the Loan."""
     return get_ref_for_pid('documents', loan.document_pid)
+
+
+def validate_item_pickup_transaction_locations(loan, destination, **kwargs):
+    """Validate the loan item, pickup and transaction locations.
+
+    :param loan : the loan record to validate
+    :param destination : transitition destination
+    :param kwargs : all others named arguments
+    :return: validation of the loan to next transition, True or False
+    """
+    pickup_library_pid = kwargs.get('pickup_library_pid', None)
+    transaction_library_pid = kwargs.get('transaction_library_pid', None)
+
+    # validation is made at the library level
+    if not pickup_library_pid:
+        pickup_location_pid = loan['pickup_location_pid']
+        pickup_library_pid = Location.get_record_by_pid(
+            pickup_location_pid).library_pid
+    if not transaction_library_pid:
+        transaction_location_pid = loan['transaction_location_pid']
+        transaction_library_pid = Location.get_record_by_pid(
+            transaction_location_pid).library_pid
+
+    if destination == 'ITEM_AT_DESK':
+        return pickup_library_pid == transaction_library_pid
+    elif destination == 'ITEM_IN_TRANSIT_FOR_PICKUP':
+        return pickup_library_pid != transaction_library_pid

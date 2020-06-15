@@ -159,7 +159,8 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         'api_item.checkin',
         dict(
             item_pid=item_lib_martigny.pid,
-            pid=loan_pid
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -173,7 +174,8 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         'api_item.checkin',
         dict(
             item_pid=item2_lib_martigny.pid,
-            pid=loan2_pid
+            pid=loan2_pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
