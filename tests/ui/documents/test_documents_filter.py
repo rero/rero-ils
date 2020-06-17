@@ -20,7 +20,8 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import authors_format, get_note, \
-    identifiedby_format, language_format, series_format
+    identifiedby_format, language_format, note_format, part_of_format, \
+    series_format
 from rero_ils.modules.items.models import ItemNoteTypes
 
 
@@ -39,10 +40,32 @@ def test_authors_format(db, document_data):
 
 def test_series_format():
     """Test series format."""
-    result = 'serie 1; serie 2, 2018'
-    assert result == series_format([
-        {'name': 'serie 1'}, {'name': 'serie 2', 'number': '2018'}
-    ])
+    serie = {
+        "seriesTitle": [
+            {
+                "value": "Materialis Programm"
+            }
+        ],
+        "seriesEnumeration": [
+            {
+                "value": "MP 31"
+            }
+        ],
+        "subseriesStatement": [
+            {
+                "subseriesTitle": [
+                    {
+                        "value": "Kollektion: Philosophie"
+                    }
+                ]
+            }
+        ]
+    }
+    result = [{
+        'language': 'default',
+        'value': 'Materialis Programm; MP 31. Kollektion: Philosophie'
+    }]
+    assert result == series_format(serie)
 
 
 def test_language_format_format(app):
@@ -91,3 +114,102 @@ def test_identifiedby_format():
             'value': 'http://catalogue.bnf.fr/ark:/12148/cb45295904f'}
     ]
     assert results == identifiedby_format(identifiedby)
+
+
+def test_note_format():
+    """Test note format."""
+    notes = [
+      {
+        "noteType": "accompanyingMaterial",
+        "label": "1 livret"
+      },
+      {
+        "noteType": "general",
+        "label": "Inhalt: Mrs Dalloway ; Orlando ; The waves"
+      },
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      }
+    ]
+    result = {
+        "accompanyingMaterial":
+            [
+                "1 livret"
+            ],
+        "general":
+            [
+                "Inhalt: Mrs Dalloway ; Orlando ; The waves"
+            ],
+        "otherPhysicalDetails":
+            [
+                "ill."
+            ]
+        }
+    assert result == note_format(notes)
+
+
+def test_part_of_format(
+    document_with_issn,
+    document2_with_issn,
+    document_sion_items
+):
+    """Test 'part of' format."""
+    # Label Series with numbering
+    part_of = {
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc5"
+        },
+        "numbering": [
+            {
+                "year": "1818",
+                "volume": 2704,
+                "issue": "1",
+                "pages": "55"
+            }
+        ]
+    }
+    result = {
+        "document_pid": "doc5",
+        "label": "Series",
+        "numbering": [
+            "1818, vol. 2704, nr. 1, p. 55"
+        ],
+        "title": "Manuales del Africa espa\u00f1ola"
+    }
+    assert result == part_of_format(part_of)
+    # Label Journal with numbering
+    part_of = {
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc6"
+        },
+        "numbering": [
+            {
+                "year": "1818",
+                "volume": 2704,
+                "issue": "1",
+                "pages": "55"
+            }
+        ]
+    }
+    result = {
+        "document_pid": "doc6",
+        "label": "Journal",
+        "numbering": [
+            "1818, vol. 2704, nr. 1, p. 55"
+        ],
+        "title": "Nota bene"
+    }
+    assert result == part_of_format(part_of)
+    # Label Published in without numbering
+    part_of = {
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/doc3"
+        }
+    }
+    result = {
+        "document_pid": "doc3",
+        "label": "Published in",
+        "title": "La reine Berthe et son fils"
+    }
+    assert result == part_of_format(part_of)

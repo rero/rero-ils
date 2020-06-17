@@ -27,7 +27,7 @@ from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier, DocumentMetadata
 from .utils import edition_format_text, publication_statement_text, \
-    series_format_text, title_format_text_head
+    series_statement_format_text, title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..fetchers import id_fetcher
@@ -165,10 +165,11 @@ class Document(IlsRecord):
         for provision_activity in provision_activities:
             provision_activity['_text'] = \
                 publication_statement_text(provision_activity)
-        # TODO: to by modified according to seriesStatement
-        series = dump.get('series', [])
+        series = dump.get('seriesStatement', [])
         for series_element in series:
-            series_element["_text"] = series_format_text(series_element)
+            series_element["_text"] = series_statement_format_text(
+                series_element
+            )
         editions = dump.get('editionStatement', [])
         for edition in editions:
             edition['_text'] = edition_format_text(edition)

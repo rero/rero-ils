@@ -34,7 +34,8 @@
     "bookFormat",
     "dimensions",
     "duration",
-    "illustrativeContent"
+    "illustrativeContent",
+    "issuance"
   ],
   "additionalProperties": false,
   "properties": {
@@ -108,7 +109,10 @@
                 "label": "Integrating resource",
                 "value": "rdami:1004"
               }
-            ]
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
           }
         },
         "subtype": {
@@ -169,8 +173,16 @@
                 "label": "Updating loose leaf",
                 "value": "updatingLoose-leaf"
               }
-            ]
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
