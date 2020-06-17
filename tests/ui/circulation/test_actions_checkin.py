@@ -19,8 +19,6 @@
 
 
 import pytest
-from invenio_circulation.errors import MissingRequiredParameterError, \
-    NoValidTransitionAvailableError
 from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction

@@ -86,13 +86,17 @@
 
 ## Manual validate
 
-1. __VALIDATE_1__: item on_shelf (no current loan)
+1. :100:__VALIDATE_1__: item on_shelf (no current loan)
 	1. __VALIDATE_1_1__: PENDING loan does not exist →  (validate not possible)
-	1. :white_check_mark: :white_check_mark: :white_check_mark: __VALIDATE_1_2__: PENDING loan exists →  (validate loan, loan is: ITEM_AT_DESK or IN_TRANSIT_FOR_PICKUP)
-3. __VALIDATE_2__: item at_desk, requested (ITEM_AT_DESK) →  (validate not possible)
-4. __VALIDATE_3__: item on_loan (ITEM_ON_LOAN) →  (validate not possible)
-5. __VALIDATE_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (validate not possible)
-6. __VALIDATE_5__: item in_transit (IN_TRANSIT_TO_HOUSE) →  (validate not possible)
+	1. :white_check_mark: :white_check_mark: :white_check_mark: __VALIDATE_1_2__: PENDING loan exists
+		1. __VALIDATE_1_2_1__: pickup library of first PENDING loan = transaction library → (validate first PENDING loan, loan is: ITEM_AT_DESK)
+		1. __VALIDATE_1_2_2__: pickup library of first PENDING loan != transaction library → (validate first PENDING loan, loan is: IN_TRANSIT_FOR_PICKUP)
+
+1. :100:__VALIDATE_2__: item at_desk, requested (ITEM_AT_DESK) → (manual validate current loan not possible)
+1. :100:__VALIDATE_3__: item on_loan (ITEM_ON_LOAN) →  (manual validate current loan not possible)
+1. :100:__VALIDATE_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (manual validate current loan not possible)
+1. :100:__VALIDATE_5__: item in_transit (IN_TRANSIT_TO_HOUSE) →  (manual validate current loan not possible)
+
 
 ## Extend
 

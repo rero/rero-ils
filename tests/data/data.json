@@ -525,7 +525,7 @@
     ]
   },
   "lib6": {
-    "$schema": "https://ils.rero.ch/schema/libraries/library-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/libraries/library-v0.0.1.json",
     "address": "Ave de la gare, Saillon 1913",
     "code": "SAILLON",
     "email": "reroilstest+saillon@gmail.com",
@@ -769,7 +769,7 @@
     "allow_request": true
   },
   "loc14": {
-    "$schema": "https://ils.rero.ch/schema/locations/location-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/locations/location-v0.0.1.json",
     "code": "SAILLON-PUBLIC",
     "name": "Saillon Library Public Space",
     "pid": "loc14",
@@ -2556,7 +2556,7 @@
     "status": "open"
   },
   "ptrn12": {
-    "$schema": "https://ils.rero.ch/schema/patrons/patron-v0.0.1.json",
+    "$schema": "https://ils.rero.ch/schemas/patrons/patron-v0.0.1.json",
     "pid": "ptrn12",
     "first_name": "Omar",
     "barcode": "5127891213",
