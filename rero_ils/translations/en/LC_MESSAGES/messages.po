@@ -289,7 +289,7 @@ msgstr "JSON schema for an account"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:28
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:41
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:43
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:24
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:30
@@ -316,8 +316,8 @@ msgid "Account ID"
 msgstr "Account ID"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:33
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:374
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:459
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:583
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:668
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:315
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:342
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:381
@@ -338,10 +338,10 @@ msgstr "Name of the account."
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:98
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:125
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:127
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:152
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:154
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:145
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:147
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:172
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:174
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:52
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
 msgid "Description"
@@ -400,8 +400,8 @@ msgstr "Library URI"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:213
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:91
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:428
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:449
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:637
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:658
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:93
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:271
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
@@ -696,6 +696,7 @@ msgid "Acquisition order URI"
 msgstr "Order URI"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:157
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:295
 msgid ""
 "Should be in the following format: "
 "https://ils.rero.ch/api/documents/<PID>."
@@ -732,6 +733,7 @@ msgid "Monograph"
 msgstr "Monograph"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:76
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:441
 msgid "Serial"
 msgstr "Serial"
 
@@ -929,15 +931,41 @@ msgstr "Item type"
 msgid "Item type URI"
 msgstr "Item type URI"
 
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:83
+#: rero_ils/modules/documents/views.py:291
+msgid "Journal"
+msgstr "Journal"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1218
+#: rero_ils/modules/documents/views.py:293
+msgid "Series"
+msgstr "Series"
+
+#: rero_ils/modules/documents/views.py:295
+msgid "Published in"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:305
+msgid "vol"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:308
+msgid "nr"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:311
+msgid "p"
+msgstr ""
+
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Bibliographic Document"
 msgstr "Bibliographic Document"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
 msgid "Schema to validate document against."
 msgstr "Schema to validate document against."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:47
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:49
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:47
 msgid "Document PID"
 msgstr "Document PID"
@@ -958,31 +986,28 @@ msgstr "Document PID"
 msgid "Type"
 msgstr "Type"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:69
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:71
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:473
 msgid "Article"
 msgstr "Article"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:73
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
 msgid "Book"
 msgstr "Book"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:79
 msgid "E-Book"
 msgstr "E-Book"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:81
-msgid "Journal"
-msgstr "Journal"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:85
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:87
 msgid "Other"
 msgstr "Other"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:89
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:91
 msgid "Score"
 msgstr "Score"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:93
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:95
 msgid "Sound"
 msgstr "Sound"
 
@@ -991,7 +1016,7 @@ msgstr "Sound"
 msgid "Video"
 msgstr "Video"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:107
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:109
 msgid "Titles"
 msgstr "Titles"
 
@@ -1002,68 +1027,68 @@ msgstr "Titles"
 msgid "Title"
 msgstr "Title"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:141
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:143
 msgid "Parallel title"
 msgstr "Parallel title"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:145
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:147
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:27
 msgid "Variant title"
 msgstr "Variant title"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:155
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:157
 msgid "Main titles"
 msgstr "Titles proper"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:159
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:161
 msgid "Main title"
 msgstr "Title proper"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:164
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:166
 msgid "Subtitle"
 msgstr "Other title information"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:175
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:177
 msgid "Parts"
 msgstr "Parts, sections, supplements "
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:179
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:181
 msgid "Part"
 msgstr "Part, section, supplement"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:187
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:189
 msgid "Part numbers"
 msgstr "Numbers"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:191
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:193
 msgid "Part number"
 msgstr "Number"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:196
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:198
 msgid "Part names"
 msgstr "Names"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:200
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:202
 msgid "Part name"
 msgstr "Name"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:219
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:521
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:221
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:730
 msgid "Responsibilities"
 msgstr "Statements of responsibility"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:223
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:227
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:525
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:225
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:229
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:734
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:24
 msgid "Responsibility"
 msgstr "Statement of responsibility"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:241
 msgid "Proper titles"
 msgstr "Uniform title"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:240
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 msgid ""
 "Uniform title, a related or an analytical title that is controlled by an "
 "authority file or list, used as an added access point."
@@ -1071,19 +1096,70 @@ msgstr ""
 "Uniform title, a related or an analytical title that is controlled by an "
 "authority file or list, used as an added access point."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:244
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:246
 msgid "Proper title"
 msgstr "Uniform title"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
-msgid "Is part of"
-msgstr "Is part of"
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:261
+msgid "Part of (host document)"
+msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:260
-msgid "Title of the host document."
-msgstr "Title of the host document."
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:262
+msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
+msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:267
+msgid "Part of"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:278
+msgid "Host document"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:289
+msgid "Document link"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:306
+msgid "Numberings"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:307
+msgid ""
+"For series, record only the volume. For journals, record every available "
+"information."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:312
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1240
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1245
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1278
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1283
+msgid "Numbering"
+msgstr "Numbering"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:322
+msgid "Year"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:327
+msgid "Volume"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:332
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:132
+msgid "Issue"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:337
+msgid "Pages"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:341
+msgid "Examples: 135, 5-27, ..."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:362
 msgid "Languages"
 msgstr "Languages"
 
@@ -1094,41 +1170,102 @@ msgstr "Languages"
 msgid "Language"
 msgstr "Language"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:317
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:408
+msgid "Mode of issuance"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:421
+msgid "Main type"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:433
+msgid "Single unit"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:437
+msgid "Multipart monograph"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:445
+msgid "Integrating resource"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:455
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
+msgid "Subtype"
+msgstr "Subtype"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:477
+msgid "Material unit"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:481
+msgid "Monographic series"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:485
+msgid "Periodical"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:489
+msgid "Private file"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:493
+msgid "Private subfile"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:497
+msgid "Serial in serial"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:501
+msgid "Set"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:505
+msgid "Updating website"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:509
+msgid "Updating loose leaf"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:526
 msgid "Translated from"
 msgstr "Translated from"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:318
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:527
 msgid "Language from which a resource is translated."
 msgstr "Language from which a resource is translated."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:332
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:541
 msgid "Authors"
 msgstr "Authors"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:333
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:542
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr "Author(s) of the resource. Can be either persons or organisations."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:337
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:546
 msgid "Author"
 msgstr "Author"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:341
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:367
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:550
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:576
 #: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:26
 msgid "Person"
 msgstr "Person"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:375
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:584
 msgid "Person's name."
 msgstr "Person's name."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:386
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:595
 msgid "MEF person reference"
 msgstr "MEF person URI"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:400
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:609
 msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
@@ -1141,7 +1278,7 @@ msgstr ""
 msgid "Qualifier"
 msgstr "Qualifier"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:411
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:620
 msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
@@ -1149,28 +1286,28 @@ msgstr ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:486
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:695
 msgid "Copyright dates"
 msgstr "Copyright dates"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:491
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:700
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:36
 msgid "Copyright date"
 msgstr "Copyright date"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:503
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:712
 msgid "Edition statements"
 msgstr "Edition statements"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:508
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:717
 msgid "Edition statement"
 msgstr "Edition statement"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:512
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:721
 msgid "Edition designations"
 msgstr "Designations of edition"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:516
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:725
 msgid "Edition designation"
 msgstr "Designation of edition"
 
@@ -5470,15 +5607,15 @@ msgstr "Physical details"
 msgid "Uniform title"
 msgstr "Uniform title"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:84
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:86
 msgid "Colors"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:94
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:96
 msgid "Format"
 msgstr "Format"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:148
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:150
 msgid "Permalink"
 msgstr "Permalink"
 
@@ -5520,18 +5657,18 @@ msgstr "Select a pickup location"
 msgid "Back"
 msgstr "Back"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:116
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:136
 msgid "No holdings"
 msgstr "No holdings"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:118
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:120
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:145
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:147
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:138
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:140
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:165
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:167
 msgid "Get"
 msgstr "Get"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:175
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:195
 msgid "Export Formats"
 msgstr "Export Formats"
 
@@ -6394,10 +6531,6 @@ msgstr "Fee URI"
 msgid "Creation date"
 msgstr "Creation date"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
-msgid "Subtype"
-msgstr "Subtype"
-
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:73
 msgid "Operator"
 msgstr "Operator"
@@ -7096,4 +7229,3 @@ msgstr "has been deleted."
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "Click here to reset your password"
-

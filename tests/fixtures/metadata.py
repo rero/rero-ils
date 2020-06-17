@@ -150,6 +150,18 @@ def document_with_issn(app, journal_data_with_issn):
 
 
 @pytest.fixture(scope="module")
+def document2_with_issn(app, journal2_data_with_issn):
+    """Load document record."""
+    doc = Document.create(
+        data=journal2_data_with_issn,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    return doc
+
+
+@pytest.fixture(scope="module")
 def document_data_ref(data):
     """Load document ref data."""
     return deepcopy(data.get('doc2'))
@@ -159,6 +171,12 @@ def document_data_ref(data):
 def journal_data_with_issn(data):
     """Load journal document with issn data."""
     return deepcopy(data.get('doc5'))
+
+
+@pytest.fixture(scope="module")
+def journal2_data_with_issn(data):
+    """Load journal document with issn data and periodical subtype."""
+    return deepcopy(data.get('doc6'))
 
 
 @pytest.fixture(scope="module")

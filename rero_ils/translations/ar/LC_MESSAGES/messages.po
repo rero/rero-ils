@@ -283,7 +283,7 @@ msgstr "مخطط JSON للحساب"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:28
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:41
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:43
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:24
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:30
@@ -310,8 +310,8 @@ msgid "Account ID"
 msgstr "رقم الحساب"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:33
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:374
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:459
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:583
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:668
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:315
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:342
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:381
@@ -332,10 +332,10 @@ msgstr "إسم حساب التزويد"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:42
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:98
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:125
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:127
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:152
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:154
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:145
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:147
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:172
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:174
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:52
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:51
 msgid "Description"
@@ -394,8 +394,8 @@ msgstr "URI للمكتبة"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:213
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:91
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:428
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:449
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:637
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:658
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:93
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:271
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
@@ -690,6 +690,7 @@ msgid "Acquisition order URI"
 msgstr "URI لطلب شراء التزويد"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:157
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:295
 msgid ""
 "Should be in the following format: "
 "https://ils.rero.ch/api/documents/<PID>."
@@ -724,6 +725,7 @@ msgid "Monograph"
 msgstr "دراسة علمية"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:76
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:441
 msgid "Serial"
 msgstr "دورية"
 
@@ -921,15 +923,41 @@ msgstr "تصنيف النسخة"
 msgid "Item type URI"
 msgstr "URI لتصنيف النسخة"
 
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:83
+#: rero_ils/modules/documents/views.py:291
+msgid "Journal"
+msgstr "دورية"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1218
+#: rero_ils/modules/documents/views.py:293
+msgid "Series"
+msgstr "السلسلة"
+
+#: rero_ils/modules/documents/views.py:295
+msgid "Published in"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:305
+msgid "vol"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:308
+msgid "nr"
+msgstr ""
+
+#: rero_ils/modules/documents/views.py:311
+msgid "p"
+msgstr ""
+
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Bibliographic Document"
 msgstr "مستند ببليوجرافي"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
 msgid "Schema to validate document against."
 msgstr "مخطط لتدقيق المستند"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:47
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:49
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:47
 msgid "Document PID"
 msgstr "PID المستند"
@@ -950,31 +978,28 @@ msgstr "PID المستند"
 msgid "Type"
 msgstr "تصنيف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:69
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:71
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:473
 msgid "Article"
 msgstr "مقالة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:73
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
 msgid "Book"
 msgstr "كتاب"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:79
 msgid "E-Book"
 msgstr "كتاب الكتروني"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:81
-msgid "Journal"
-msgstr "دورية"
-
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:85
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:87
 msgid "Other"
 msgstr "غير"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:89
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:91
 msgid "Score"
 msgstr "نتيجة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:93
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:95
 msgid "Sound"
 msgstr "صوت"
 
@@ -983,7 +1008,7 @@ msgstr "صوت"
 msgid "Video"
 msgstr "فيديو"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:107
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:109
 msgid "Titles"
 msgstr ""
 
@@ -994,68 +1019,68 @@ msgstr ""
 msgid "Title"
 msgstr "العنوان"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:141
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:143
 msgid "Parallel title"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:145
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:147
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:27
 msgid "Variant title"
 msgstr "العنوان المتغير"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:155
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:157
 msgid "Main titles"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:159
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:161
 msgid "Main title"
 msgstr "العنوان"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:164
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:166
 msgid "Subtitle"
 msgstr "العنوان الفرعي"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:175
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:177
 msgid "Parts"
 msgstr "الأجزاء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:179
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:181
 msgid "Part"
 msgstr "جزء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:187
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:189
 msgid "Part numbers"
 msgstr "رقم الجزء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:191
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:193
 msgid "Part number"
 msgstr "رقم الجزء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:196
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:198
 msgid "Part names"
 msgstr "إسم الجزء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:200
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:202
 msgid "Part name"
 msgstr "إسم الجزء"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:219
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:521
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:221
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:730
 msgid "Responsibilities"
 msgstr "المسؤوليات"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:223
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:227
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:525
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:225
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:229
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:734
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:24
 msgid "Responsibility"
 msgstr "المسؤولية"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:241
 msgid "Proper titles"
 msgstr "العناوين المناسبة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:240
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 msgid ""
 "Uniform title, a related or an analytical title that is controlled by an "
 "authority file or list, used as an added access point."
@@ -1063,19 +1088,70 @@ msgstr ""
 "عنوان موحد ، عنوان ذو صلة أو عنوان تحليلي يتم التحكم فيه بواسطة ملف أو "
 "إسنادات ، يستخدم كنقطة دخول معتمدة."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:244
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:246
 msgid "Proper title"
 msgstr "العنوان المناسب"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
-msgid "Is part of"
-msgstr "جزء من"
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:261
+msgid "Part of (host document)"
+msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:260
-msgid "Title of the host document."
-msgstr "عنوان المستند"
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:262
+msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
+msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:267
+msgid "Part of"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:278
+msgid "Host document"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:289
+msgid "Document link"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:306
+msgid "Numberings"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:307
+msgid ""
+"For series, record only the volume. For journals, record every available "
+"information."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:312
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1240
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1245
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1278
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:1283
+msgid "Numbering"
+msgstr "ترقيم"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:322
+msgid "Year"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:327
+msgid "Volume"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:332
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:132
+msgid "Issue"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:337
+msgid "Pages"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:341
+msgid "Examples: 135, 5-27, ..."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:362
 msgid "Languages"
 msgstr "اللغات"
 
@@ -1086,41 +1162,102 @@ msgstr "اللغات"
 msgid "Language"
 msgstr "اللغة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:317
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:408
+msgid "Mode of issuance"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:421
+msgid "Main type"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:433
+msgid "Single unit"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:437
+msgid "Multipart monograph"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:445
+msgid "Integrating resource"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:455
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
+msgid "Subtype"
+msgstr "تصنيف فرعي"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:477
+msgid "Material unit"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:481
+msgid "Monographic series"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:485
+msgid "Periodical"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:489
+msgid "Private file"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:493
+msgid "Private subfile"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:497
+msgid "Serial in serial"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:501
+msgid "Set"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:505
+msgid "Updating website"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:509
+msgid "Updating loose leaf"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:526
 msgid "Translated from"
 msgstr "الترجمة من"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:318
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:527
 msgid "Language from which a resource is translated."
 msgstr "اللغة التي يتم ترجمة المصدر إليها"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:332
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:541
 msgid "Authors"
 msgstr "المؤلفين"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:333
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:542
 msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr "مؤلف(ي) المصدر. يمكن أن يكون إما أشخاص أو منظمات."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:337
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:546
 msgid "Author"
 msgstr "المؤلف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:341
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:367
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:550
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:576
 #: rero_ils/modules/persons/templates/rero_ils/detailed_view_persons.html:26
 msgid "Person"
 msgstr "إسناد المؤلف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:375
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:584
 msgid "Person's name."
 msgstr "إسم إسنادات المؤلف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:386
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:595
 msgid "MEF person reference"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:400
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:609
 msgid ""
 "Information about the birth and the death of a person. Helpful to "
 "disambiguate people."
@@ -1131,34 +1268,34 @@ msgstr "معلومات عن ولادة وموت اسناد مؤلف. مفيدة 
 msgid "Qualifier"
 msgstr "مؤهل"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:411
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:620
 msgid ""
 "Information about the person, ie her profession. Helpful to disambiguate "
 "people."
 msgstr "معلومات عن اسناد مؤلف، المهنة. مفيدة للناس إزالة الغموض."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:486
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:695
 msgid "Copyright dates"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:491
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:700
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:36
 msgid "Copyright date"
 msgstr "تاريخ الحقوق المحفوظة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:503
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:712
 msgid "Edition statements"
 msgstr "بيانات الطبعة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:508
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:717
 msgid "Edition statement"
 msgstr "بيانات الطبعة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:512
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:721
 msgid "Edition designations"
 msgstr "تسميات الطبعة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:516
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:725
 msgid "Edition designation"
 msgstr "تسميات الطبعة"
 
@@ -5445,15 +5582,15 @@ msgstr ""
 msgid "Uniform title"
 msgstr "عنوان منتظم"
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:84
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:86
 msgid "Colors"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:94
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:96
 msgid "Format"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:148
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:150
 msgid "Permalink"
 msgstr "رابط دائم"
 
@@ -5495,18 +5632,18 @@ msgstr "اختيار مكان الإستلام"
 msgid "Back"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:116
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:136
 msgid "No holdings"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:118
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:120
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:145
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:147
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:138
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:140
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:165
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:167
 msgid "Get"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:175
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:195
 msgid "Export Formats"
 msgstr "تنسيقات التصدير"
 
@@ -6360,10 +6497,6 @@ msgstr "URI لمعاملة المستخدم"
 msgid "Creation date"
 msgstr "تاريخ إنشاء "
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
-msgid "Subtype"
-msgstr "تصنيف فرعي"
-
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:73
 msgid "Operator"
 msgstr "أمين المكتبة"
@@ -7060,4 +7193,3 @@ msgstr "يتم حذف"
 #: rero_ils/templates/security/email/reset_instructions.html:21
 msgid "Click here to reset your password"
 msgstr "انقر هنا لإعادة تعيين كلمة المرور الخاصة بك"
-

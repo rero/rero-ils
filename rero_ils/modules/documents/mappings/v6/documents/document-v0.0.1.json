@@ -526,6 +526,16 @@
                   }
                 }
               }
+            },
+            "_text": {
+              "properties": {
+                "value": {
+                  "type": "text"
+                },
+                "language": {
+                  "type": "keyword"
+                }
+              }
             }
           }
         },

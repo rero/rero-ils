@@ -1753,6 +1753,97 @@
       }
     ]
   },
+  "doc6": {
+    "$schema": "https://ils.rero.ch/schemas/documents/document-v0.0.1.json",
+    "pid": "doc6",
+    "type": "journal",
+    "issuance": {
+      "main_type": "rdami:1003",
+      "subtype": "periodical"
+    },
+    "language": [
+      {
+        "value": "spa",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "R003254528",
+        "type": "bf:Local",
+        "source": "RERO"
+      },
+      {
+        "type": "bf:Issn",
+        "source": "BNF",
+        "value": "0768-2027"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "Instituto de Estudios Africanos"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Nota bene"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Madrid"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Consejo Superior de Investigacio\u00f1es Cientificas"
+              }
+            ]
+          },
+          {
+            "label": [
+              {
+                "value": "1950-"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 1950,
+        "place": [
+          {
+            "country": "xx",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "dimensions": [
+      "26 cm"
+    ],
+    "authors": [
+      {
+        "type": "organisation",
+        "name": "Instituto de Estudios Africanos (Madrid)"
+      }
+    ]
+  },
   "ebook1": {
     "pid": "ebook1",
     "type": "ebook",
