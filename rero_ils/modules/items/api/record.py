@@ -18,8 +18,6 @@
 """API for manipulating item records."""
 
 
-from flask import current_app
-
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...libraries.api import Library
