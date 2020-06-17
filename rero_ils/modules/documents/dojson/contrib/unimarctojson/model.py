@@ -224,7 +224,8 @@ def marc21_to_part_of(self, key, value):
         part_of['document'] = {
             '$ref':
                 'https://ils.rero.ch/api/documents/{pid}'.format(
-                    pid=linked_pid)
+                    pid=linked_pid
+                )
         }
         subfield_v = not_repetitive(
             unimarc.bib_id, key, value, 'v', default='').strip()
