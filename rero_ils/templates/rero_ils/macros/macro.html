@@ -113,6 +113,25 @@
   {% endif %}
 {% endmacro %}
 
+{% macro dl_language(name, list) %}
+{% if list %}
+<dt class="col-sm-3">
+  {{ name }}
+</dt>
+<dd class="col-sm-9 col-md-9 mb-0">
+  {% if list is string %}
+    {{ list }}
+  {% else %}
+    <ul class="list-unstyled rero-ils-person mb-0">
+      {% for elements in list %}
+        <li>{{ elements.value }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</dd>
+{% endif %}
+{% endmacro %}
+
 {% macro div_row(title, content) %}
   <div class="row">
     <div class="col-xs-2 col-xs-offset-2">
