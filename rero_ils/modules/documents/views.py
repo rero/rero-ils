@@ -34,9 +34,9 @@ from invenio_records_ui.signals import record_viewed
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarc
 from .utils import display_alternate_graphic_first, edition_format_text, \
-    localized_data_name, publication_statement_text, series_format_text, \
-    title_format_text_alternate_graphic, title_format_text_head, \
-    title_variant_format_text
+    localized_data_name, publication_statement_text, \
+    series_statement_format_text, title_format_text_alternate_graphic, \
+    title_format_text_head, title_variant_format_text
 from ..holdings.api import Holding
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -44,6 +44,7 @@ from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import Patron
 from ..persons.api import Person
+from ..utils import extracted_data_from_ref
 from ...permissions import login_and_librarian
 
 
@@ -278,12 +279,54 @@ def note_format(notes):
 
 
 @blueprint.app_template_filter()
-def series_format(series):
+def part_of_format(part_of):
+    """Format 'part of' data for template."""
+    document_pid = extracted_data_from_ref(part_of.get('document'), data='pid')
+    document = Document.get_record_by_pid(document_pid)
+    nums = part_of.get('numbering')
+    output = {}
+    # Set host document pid
+    output['document_pid'] = document_pid
+    # Set label
+    subtype = document.get('issuance').get('subtype')
+    if subtype == 'periodical':
+        output['label'] = _('Journal')
+    elif subtype == 'monographicSeries':
+        output['label'] = _('Series')
+    else:
+        output['label'] = _('Published in')
+    # Set title
+    bf_titles = list(filter(
+        lambda t: t['type'] == 'bf:Title', document.get('title')
+    ))
+    for title in bf_titles:
+        for main_title in title.get('mainTitle', []):
+            if not main_title.get('language'):
+                output['title'] = main_title.get('value')
+    # Format and set numbering (example: 2020, vol. 2, nr. 3, p. 302)
+    if nums is not None:
+        for num in nums:
+            numbering = []
+            if num.get('year'):
+                numbering.append(num.get('year'))
+            if num.get('volume'):
+                volume = [_('vol'), str(num.get('volume'))]
+                numbering.append(". ".join(volume))
+            if num.get('issue'):
+                issue = [_('nr'), str(num.get('issue'))]
+                numbering.append(". ".join(issue))
+            if num.get('pages'):
+                pages = [_('p'), str(num.get('pages'))]
+                numbering.append(". ".join(pages))
+            output.setdefault('numbering', [])
+            output['numbering'].append(", ".join(numbering))
+    return output
+
+
+@blueprint.app_template_filter()
+def series_format(serie):
     """Format series for template."""
-    output = []
-    for serie in series:
-        output.append(series_format_text(serie))
-    return '; '.join(str(x) for x in output)
+    return series_statement_format_text(serie)
 
 
 @blueprint.app_template_filter()

@@ -16,7 +16,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #}
-{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_list, div_json %}
+{% from 'rero_ils/macros/macro.html' import dl, dl_dict, dl_language, dl_list, div_json %}
 
 <dl class="row pt-4 ml-4">
 
@@ -57,9 +57,11 @@
   {% endif %}
   -->
 
-  <!-- SERIES -->
-  {% if record.series %}
-  {{ dl(_('Series'), record.series|series_format) }}
+  <!-- SERIES STATEMENT -->
+  {% if record.seriesStatement %}
+  {% for serie in record.seriesStatement %}
+  {{ dl_language(_('Series statement'), serie|series_format) }}
+  {% endfor %}
   {% endif %}
 
   <!-- PROVISION ACTIVITY -->

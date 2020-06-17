@@ -34,7 +34,8 @@
     "bookFormat",
     "dimensions",
     "duration",
-    "illustrativeContent"
+    "illustrativeContent",
+    "issuance"
   ],
   "additionalProperties": false,
   "properties": {
@@ -293,13 +294,16 @@
                     "messages": {
                       "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
                     }
+                  },
+                  "templateOptions": {
+                    "cssClass": "rero-ils-editor-max-width"
                   }
                 }
               }
             }
           },
           "numbering": {
-            "title": "Numbering",
+            "title": "Numberings",
             "description": "For series, record only the volume. For journals, record every available information.",
             "type": "array",
             "minItems": 1,
@@ -320,17 +324,17 @@
                   "pattern": "^\\d{4}$"
                 },
                 "volume": {
-                  "title": "volume",
+                  "title": "Volume",
                   "type": "integer",
                   "minimum": 1
                 },
                 "issue": {
-                  "title": "issue",
+                  "title": "Issue",
                   "type": "string",
                   "minLength": 1
                 },
                 "pages": {
-                  "title": "pages",
+                  "title": "Pages",
                   "type": "string",
                   "pattern": "^\\d+(-\\d+)?$",
                   "form": {
@@ -339,10 +343,18 @@
                 }
               },
               "form": {
-                "hide": true
+                "templateOptions": {
+                  "cssClass": "row"
+                }
               }
             }
           }
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -433,7 +445,10 @@
                 "label": "Integrating resource",
                 "value": "rdami:1004"
               }
-            ]
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
           }
         },
         "subtype": {
@@ -494,8 +509,16 @@
                 "label": "Updating loose leaf",
                 "value": "updatingLoose-leaf"
               }
-            ]
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "rero-ils-editor-title"
         }
       }
     },
@@ -986,7 +1009,6 @@
       "items": {
         "title": "Color content",
         "type": "string",
-        "default": "rdacc:1002",
         "enum": [
           "rdacc:1002",
           "rdacc:1003"
@@ -1224,10 +1246,7 @@
               "$ref": "#/definitions/language_script"
             },
             "form": {
-              "hide": true,
-              "templateOptions": {
-                "cssClass": "col-lg-7"
-              }
+              "hide": true
             }
           },
           "subseriesStatement": {
@@ -1268,11 +1287,6 @@
               }
             }
           }
-        },
-        "form": {
-          "templateOptions": {
-            "cssClass": "row"
-          }
         }
       },
       "form": {
@@ -1301,7 +1315,6 @@
           "noteType": {
             "title": "Type of note",
             "type": "string",
-            "default": "general",
             "enum": [
               "accompanyingMaterial",
               "general",
