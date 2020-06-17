@@ -64,6 +64,10 @@ def add_loans_parameters_and_flush_indexes(function):
 
         if loan_pid:
             loan = Loan.get_record_by_pid(loan_pid)
+        elif function.__name__ == 'validate_request':
+            # we arent allowed to validate a request on items with no requests.
+            raise NoCirculationAction(
+                'No circulation action is possible')
         elif function.__name__ in ('checkout', 'request'):
             if function.__name__ == 'request' and not patron_pid:
                 patron_pid = current_patron.pid
@@ -87,6 +91,15 @@ def add_loans_parameters_and_flush_indexes(function):
         else:
             raise MissingRequiredParameterError(
                 description="Parameter 'pid' is required")
+
+        if function.__name__ == 'validate_request' and loan_pid:
+            # no item validation is possible when an item has an active loan.
+            loans = item.get_loans_states_by_item_pid_exclude_loan_pid(
+                item.pid, loan_pid)
+            states = current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+            for state in loans:
+                if state in states:
+                    raise NoValidTransitionAvailableError()
 
         # set missing parameters
         kwargs['item_pid'] = item_pid_to_object(item.pid)
@@ -752,6 +765,22 @@ class ItemCirculation(IlsRecord):
             .source(includes='pid').scan()
         for loan in results:
             yield Loan.get_record_by_pid(loan.pid)
+
+    @classmethod
+    def get_loans_states_by_item_pid_exclude_loan_pid(cls, item_pid, loan_pid):
+        """Return list of loan states for an item excluding a given loan.
+
+        :param item_pid : the item pid
+        :param loan_pid : the loan pid to exclude
+        :return:  the list of loans states attached to the item
+        """
+        item_pid_object = item_pid_to_object(item_pid)
+        results = current_circulation.loan_search_cls()\
+            .filter('term', item_pid__value=item_pid_object['value'])\
+            .filter('term', item_pid__type=item_pid_object['type'])\
+            .source(includes='pid').scan()
+        return [Loan.get_record_by_pid(loan.pid)['state']
+                for loan in results if loan.pid != loan_pid]
 
     @classmethod
     def get_loan_pid_with_item_on_loan(cls, item_pid):
