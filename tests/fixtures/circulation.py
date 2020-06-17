@@ -929,6 +929,31 @@ def item_on_shelf_martigny_patron_and_loan_pending(
 
 
 @pytest.fixture(scope="module")
+def item2_on_shelf_martigny_patron_and_loan_pending(
+        app,
+        librarian_martigny_no_email,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies,):
+    """Creates an item on_shelf requested by a patron.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the pending loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.PENDING,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
 def item_at_desk_martigny_patron_and_loan_at_desk(
         app,
         librarian_martigny_no_email,
