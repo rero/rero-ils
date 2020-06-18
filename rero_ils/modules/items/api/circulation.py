@@ -452,6 +452,110 @@ class ItemCirculation(IlsRecord):
             LoanAction.CANCEL: loan
         }
 
+    def cancel_item_request(self, pid, **kwargs):
+        """A smart cancel request for an item. Some actions are performed.
+
+        during the cancelling process and according to the loan state.
+        :param pid: the loan pid for the request to cancel.
+        :return: the item record and list of actions performed.
+        """
+        actions = {}
+        loan = Loan.get_record_by_pid(pid)
+        # decide  which actions need to be executed according to loan state.
+        actions_to_execute = self.checks_before_a_cancel_item_request(
+            loan, **kwargs)
+        # execute the actions
+        if actions_to_execute.get('cancel_loan'):
+            item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+        elif actions_to_execute.get('loan_update', {}).get('state'):
+            loan['state'] = actions_to_execute['loan_update']['state']
+            loan.update(loan, dbcommit=True, reindex=True)
+            self.status_update(dbcommit=True, reindex=True, forceindex=True)
+            actions.update({LoanAction.UPDATE: loan})
+            item = self
+        elif actions_to_execute.get('validate_first_pending'):
+            pending = self.get_first_loan_by_state(state=LoanState.PENDING)
+            item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+            item, validate_actions = self.validate_request(
+                pid=pending.pid, **kwargs)
+            actions.update({LoanAction.VALIDATE: validate_actions})
+
+        return item, actions
+
+    def checks_before_a_cancel_item_request(self, loan, **kwargs):
+        """Actions tobe executed before a cancel item request.
+
+        :param loan : the current loan to cancel
+        :param kwargs : all others named arguments
+        :return:  the item record and list of actions performed
+        """
+        actions_to_execute = {
+            'cancel_loan': False,
+            'loan_update': {},
+            'validate_first_pending': False
+
+        }
+        libraries = self.compare_item_pickup_transaction_libraries(**kwargs)
+        # List all loan states attached to this item except the loan to cancel.
+        loans_list = self.get_loans_states_by_item_pid_exclude_loan_pid(
+            self.pid, loan.pid)
+        if not loans_list:
+            if loan['state'] in \
+                    [LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
+                # CANCEL_REQUEST_1_2, CANCEL_REQUEST_5_1_1:
+                # cancel the current loan is the only action
+                actions_to_execute['cancel_loan'] = True
+                # item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+            elif loan['state'] == LoanState.ITEM_ON_LOAN:
+                # CANCEL_REQUEST_3_1: no cancel action is possible on the loan
+                # of a checked-in item.
+                raise NoCirculationAction(
+                    'No circulation action is possible')
+            elif loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                # CANCEL_REQUEST_4_1_1: cancelling a ITEM_IN_TRANSIT_FOR_PICKUP
+                # loan with no pending request puts the item on in_transit
+                # and the loan becomes ITEM_IN_TRANSIT_TO_HOUSE.
+                actions_to_execute['loan_update']['state'] = \
+                    LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+            elif loan['state'] == LoanState.ITEM_AT_DESK:
+                if not libraries['item_pickup_libraries']:
+                    # CANCEL_REQUEST_2_1_1_1: when item library and pickup
+                    # pickup library arent equal, update loan to go in_transit.
+                    actions_to_execute['loan_update']['state'] = \
+                        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+                elif libraries['item_pickup_libraries']:
+                    # CANCEL_REQUEST_2_1_1_2: when item library and pickup
+                    # pickup library are equal, cancel loan to go on_shelf.
+                    # item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+                    actions_to_execute['cancel_loan'] = True
+        elif loan['state'] == LoanState.ITEM_AT_DESK and \
+                LoanState.PENDING in loans_list:
+            # CANCEL_REQUEST_2_1_2: when item at desk with pending loan, cancel
+            # the loan triggers an automatic validation of first pending loan.
+            actions_to_execute['validate_first_pending'] = True
+        elif loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and \
+                LoanState.PENDING in loans_list:
+            # CANCEL_REQUEST_4_1_2: when item in_transit with pending loan,
+            # cancel the loan triggers an automatic validation of 1st loan.
+            actions_to_execute['validate_first_pending'] = True
+        elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE and \
+                LoanState.PENDING in loans_list:
+            # CANCEL_REQUEST_5_1_2: when item at desk with pending loan, cancel
+            # the loan triggers an automatic validation of first pending loan.
+            actions_to_execute['validate_first_pending'] = True
+        elif loan['state'] == LoanState.PENDING and (
+            LoanState.ITEM_AT_DESK in loans_list or
+            LoanState.ITEM_ON_LOAN in loans_list or
+            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in loans_list or
+            LoanState.ITEM_IN_TRANSIT_TO_HOUSE in loans_list
+        ):
+            # CANCEL_REQUEST_2_2, CANCEL_REQUEST_3_2, CANCEL_REQUEST_4_2,
+            # CANCEL_REQUEST_5_2:
+            # canceling a pending loan does not affect the other active loans.
+            actions_to_execute['cancel_loan'] = True
+
+        return actions_to_execute
+
     @add_loans_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
         """Validate item request."""
