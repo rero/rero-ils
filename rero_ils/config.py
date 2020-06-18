@@ -71,6 +71,7 @@ from .modules.locations.permissions import can_create_location_factory, \
     can_update_delete_location_factory
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
+from .modules.organisations.permissions import OrganisationPermission
 from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_transaction_events.permissions import \
     can_list_patron_transaction_event_factory, \
@@ -82,6 +83,7 @@ from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
     can_update_patron_factory
+from .modules.permissions import record_permission_factory
 from .modules.persons.api import Person
 from .modules.vendors.api import Vendor
 from .permissions import can_access_organisation_patrons_factory, \
@@ -379,6 +381,10 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # REST API Configuration
 # ======================
+RERO_ILS_APP_DISABLE_PERMISSION_CHECKS = False
+"""Disable permission checks during API calls. Useful when API is test from
+command line or progams like postman."""
+
 RECORDS_REST_DEFAULT_CREATE_PERMISSION_FACTORY = librarian_permission_factory
 """Default create permission factory: reject any request."""
 
@@ -748,11 +754,16 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=10000,
         search_factory_imp=('rero_ils.query:'
                             'organisation_organisation_search_factory'),
-        list_permission_factory_imp=can_access_organisation_patrons_factory,
-        create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        delete_permission_factory_imp=deny_all,
-        read_permission_factory_imp=can_access_organisation_records_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=OrganisationPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=OrganisationPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=OrganisationPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=OrganisationPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=OrganisationPermission),
     ),
     lib=dict(
         pid_type='lib',

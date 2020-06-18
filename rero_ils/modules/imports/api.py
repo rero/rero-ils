@@ -86,7 +86,7 @@ class Import(object):
         """Get direct link to record.
 
         :param id: id to use for the link
-        :returns: url for id
+        :return: url for id
         """
         url_api = self.url_api.format(
             url=self.url,
@@ -102,7 +102,7 @@ class Import(object):
 
         Has to be addaped in each sub class!
         :param id: id to use for the link
-        :returns: url for id
+        :return: url for id
         """
         return None
 
@@ -145,7 +145,7 @@ class Import(object):
         """Create aggregations.
 
         :param results: dictionary with the results in hits hits
-        :returns: dictionary with results and added aggregations
+        :return: dictionary with results and added aggregations
         """
         self.aggregations_creation = {
             'type': {},
@@ -182,7 +182,7 @@ class Import(object):
 
         :param results: dictionary with the results in hits hits
         :param ids: list with ids to filter
-        :returns: dictionary with results filtered by ids and
+        :return: dictionary with results filtered by ids and
                   adapted aggregations
         """
         hits = results['hits']['hits']
@@ -197,7 +197,7 @@ class Import(object):
         :param results: dictionary with the results in hits hits
         :param aggregation: whitch aggregation ro use to use to get the ids
         :param key: whitch key in aggregation to use to get the ids
-        :returns: list of ids
+        :return: list of ids
         """
         ids = []
         buckets = results.get('aggregations').get(
@@ -363,7 +363,7 @@ class BnfImport(Import):
         """Get direct link to marc21 record.
 
         :param id: id to use for the link
-        :returns: url for id
+        :return: url for id
         """
         args = {
             'id': id,
