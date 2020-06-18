@@ -57,7 +57,6 @@ from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import can_create_item_factory, \
     can_delete_item_factory, can_update_item_factory
-    can_update_delete_item_factory
 from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import can_update_library_factory
