@@ -21,12 +21,14 @@ from __future__ import absolute_import, print_function
 
 import pickle
 from datetime import timedelta
+from operator import itemgetter
 
 import requests
-import six
-from dojson.contrib.marc21.utils import create_record, split_stream
-from flask import current_app, jsonify, url_for
+from dojson.contrib.marc21.utils import create_record
+from flask import abort, current_app, jsonify, url_for
+from lxml import etree
 from redis import Redis
+from six import BytesIO
 
 from ..documents.dojson.contrib.unimarctojson import unimarc
 
@@ -62,7 +64,8 @@ class Import(object):
             'aggregations': {},
             'hits': {
                 'hits': [],
-                'total': 0
+                'total': 0,
+                'remote_total': 0
             },
             'links': {},
             'permissions': {}
@@ -162,8 +165,13 @@ class Import(object):
                 buckets.append({
                     'doc_count': len(ids),
                     'ids': ids,
-                    'key': key
+                    'key': str(key)
                 })
+            if agg == 'year':
+                buckets.sort(key=itemgetter('key'), reverse=True)
+            else:
+                buckets.sort(key=lambda e: (-e['doc_count'], e['key']))
+
             if buckets:
                 results['aggregations'][agg] = {'buckets': buckets}
         results['hits']['total'] = len(results['hits']['hits'])
@@ -175,7 +183,7 @@ class Import(object):
         :param results: dictionary with the results in hits hits
         :param ids: list with ids to filter
         :returns: dictionary with results filtered by ids and
-                  addapted aggregations
+                  adapted aggregations
         """
         hits = results['hits']['hits']
         hits = list(filter(lambda hit: hit['id'] in ids, hits))
@@ -195,7 +203,8 @@ class Import(object):
         buckets = results.get('aggregations').get(
             aggregation, {}
         ).get('buckets', [])
-        bucket = list(filter(lambda bucket: bucket['key'] == key, buckets))
+        bucket = list(
+            filter(lambda bucket: bucket['key'] == str(key), buckets))
         if bucket:
             ids = bucket[0]['ids']
         return ids
@@ -210,6 +219,8 @@ class Import(object):
         if max == 0:
             max = self.max
         self.init_results()
+        if not what:
+            return self.results, 200
         try:
             cache_key = '{what}_{relation}_{where}_{max}'.format(
                 what=what,
@@ -251,23 +262,23 @@ class Import(object):
                                 detail=response.get('detail')))
 
                     else:
-                        # read the xml date from the HTTP response
-                        xml_data = response.content
-
-                        # create a xml file in memory
-                        xml_file = six.BytesIO()
-                        xml_file.write(xml_data)
-                        xml_file.seek(0)
-
-                        # get the records in xml if exists
-                        xml_records = split_stream(xml_file)
+                        def _split_stream(stream):
+                            """Yield record elements from given stream."""
+                            for _, element in etree.iterparse(
+                                    stream,
+                                    tag='{http://www.loc.gov/zing/srw/}'
+                                        'record'):
+                                yield element
+                        xml_records = _split_stream(BytesIO(response.content))
 
                         for xml_record in xml_records:
-                            # TODO: find out why we get two times
-                            # the same record
-                            next(xml_records)
                             # convert xml in marc json
                             json_data = create_record(xml_record)
+
+                            # Some BNF records are empty hmm...
+                            if not json_data.values():
+                                continue
+
                             # convert marc json to local json format
                             record = unimarc.do(json_data)
                             id = self.get_id(json_data)
@@ -282,7 +293,9 @@ class Import(object):
                             }
                             self.data.append(json_data)
                             self.results['hits']['hits'].append(data)
-
+                        self.results['hits']['remote_total'] = int(etree.parse(
+                                BytesIO(response.content))
+                                .find('{*}numberOfRecords').text)
             self.results['hits']['total'] = len(self.results['hits']['hits'])
             if self.results['hits']['total'] == 0:
                 self.status_code = 404
@@ -311,18 +324,13 @@ class Import(object):
 
         # other errors
         except Exception as error:
-            status_code = 500
-            self.results['errors'] = {
-                'code': status_code,
-                'title': '{name} Error!'.format(name=self.name),
-                'detail': 'Error: {error}'.format(error=error)
-            }
             current_app.logger.error(
                 '{title}: {detail}'.format(
-                    title=self.results['errors']['title'],
-                    detail=self.results['errors']['detail']
+                    title='{name} Error!'.format(name=self.name),
+                    detail='Error: {error}'.format(error=error)
                 )
             )
+            abort(500, description='Error: {error}'.format(error=error))
         return self.results, self.status_code
 
 
@@ -357,9 +365,10 @@ class BnfImport(Import):
         :param id: id to use for the link
         :returns: url for id
         """
-        url = url_for('api_imports.imports_search')
-        return '{url}{id}?{arg}=marc'.format(
-            url=url,
-            arg=current_app.config.get('REST_MIMETYPE_QUERY_ARG_NAME'),
-            id=id
-        )
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.imports_record', **args)

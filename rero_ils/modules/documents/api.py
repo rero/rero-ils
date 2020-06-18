@@ -154,9 +154,13 @@ class Document(IlsRecord):
             cannot_delete['others'] = dict(harvested=True)
         return cannot_delete
 
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        dump = super(Document, self).dumps(**kwargs)
+    @classmethod
+    def post_process(cls, dump):
+        """Post process data after a dump.
+
+        :param dump: a dictionary of a resulting Record dumps
+        "return: a modified dictionary
+        """
         provision_activities = dump.get('provisionActivity', [])
         for provision_activity in provision_activities:
             provision_activity['_text'] = \
@@ -180,6 +184,10 @@ class Document(IlsRecord):
         if document_type == 'journal':
             dump['issuance'] = 'rdami:1003'
         return dump
+
+    def dumps(self, **kwargs):
+        """Return pure Python dictionary with record metadata."""
+        return self.post_process(super(Document, self).dumps(**kwargs))
 
     def index_persons(self, bulk=False):
         """Index all attached persons."""

@@ -26,6 +26,10 @@ from invenio_records_rest.serializers.response import add_link_header, \
     search_responsify
 from marshmallow import fields
 
+from ..documents.api import Document
+from ..documents.dojson.contrib.unimarctojson import unimarc
+from ..documents.utils import title_format_text_head
+
 
 def record_responsify(serializer, mimetype):
     """Create a Records-REST response serializer.
@@ -74,14 +78,28 @@ class ImportsSearchSerializer(JSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
+        for hit in search_result['hits']['hits']:
+            hit['metadata'] = self.post_process(hit['metadata'])
+            hit['metadata']['pid'] = hit['id']
         results = dict(
             hits=dict(
                 hits=search_result['hits']['hits'],
                 total=search_result['hits']['total'],
+                remote_total=search_result['hits']['remote_total'],
             ),
             aggregations=search_result.get('aggregations', dict()),
         )
         return json.dumps(results, **self._format_args())
+
+    def post_process(self, metadata):
+        """Post process the data.
+
+        hook to be redefined in a child class.
+
+        :param metadata: dictionary version of a record
+        :return: the modified dictionary
+        """
+        return metadata
 
     def serialize(self, pid, record, links_factory=None, **kwargs):
         """Serialize a single record.
@@ -90,7 +108,34 @@ class ImportsSearchSerializer(JSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
-        return json.dumps(record, **self._format_args())
+        return json.dumps(
+            dict(metadata=self.post_process(unimarc.do(record))),
+            **self._format_args())
+
+
+class UIImportsSearchSerializer(ImportsSearchSerializer):
+    """Serializing records as JSON with additional data."""
+
+    def post_process(self, metadata):
+        """Post process the data.
+
+        add extra data such as title statement.
+
+        :param metadata: dictionary version of a record
+        :return: the modified dictionary
+        """
+        metadata = Document.post_process(metadata)
+
+        titles = metadata.get('title', [])
+        text_title = title_format_text_head(titles, with_subtitle=False)
+        if text_title:
+            metadata['ui_title_text'] = text_title
+        responsibility = metadata.get('responsibilityStatement', [])
+        text_title = title_format_text_head(titles, responsibility,
+                                            with_subtitle=False)
+        if text_title:
+            metadata['ui_title_text_responsibility'] = text_title
+        return metadata
 
 
 class ImportsMarcSearchSerializer(JSONSerializer):
@@ -127,9 +172,17 @@ class ImportsMarcSearchSerializer(JSONSerializer):
 
 json_v1_search = ImportsSearchSerializer(ImportSchemaJSONV1)
 json_v1_record = ImportsSearchSerializer(ImportSchemaJSONV1)
+json_v1_uisearch = UIImportsSearchSerializer(ImportSchemaJSONV1)
+json_v1_uirecord = UIImportsSearchSerializer(ImportSchemaJSONV1)
 json_v1_record_marc = ImportsMarcSearchSerializer(ImportSchemaJSONV1)
 
-json_v1_import_search = search_responsify(json_v1_search, 'application/json')
-json_v1_import_record = record_responsify(json_v1_record, 'application/json')
+json_v1_import_search = search_responsify(json_v1_search,
+                                          'application/json')
+json_v1_import_record = record_responsify(json_v1_record,
+                                          'application/json')
+json_v1_import_uisearch = search_responsify(json_v1_uisearch,
+                                            'application/rero+json')
+json_v1_import_uirecord = record_responsify(json_v1_uirecord,
+                                            'application/rero+json')
 json_v1_import_record_marc = record_responsify(json_v1_record_marc,
                                                'application/json+marc')
