@@ -16,10 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """"Test permissions."""
-
 from utils import login_user_for_view
 
-from rero_ils.permissions import can_access_item
+from rero_ils.modules.permissions import has_superuser_access
+from rero_ils.permissions import can_access_item, can_edit, \
+    librarian_update_permission_factory
 
 
 def test_can_access_item_librarian(
@@ -48,3 +49,24 @@ def test_can_access_item_no_user(
     """Test can access an item no user."""
     assert not can_access_item()
     assert not can_access_item(item=item_lib_martigny)
+
+
+def test_has_superuser_access(app):
+    """Test permissions of has_superuser_access functions."""
+    assert not has_superuser_access()
+    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
+    assert has_superuser_access()
+
+
+def test_can_edit(app, client, librarian_martigny_no_email, item_lib_martigny):
+    """Test can_edit function."""
+    login_user_for_view(client, librarian_martigny_no_email)
+    assert can_edit()
+
+
+def test_librarian_update_permission_factory(client, document, ebook_1,
+                                             librarian_martigny_no_email):
+    """Test librarian_update_permission_factory function."""
+    assert not librarian_update_permission_factory(ebook_1).can()
+    login_user_for_view(client, librarian_martigny_no_email)
+    assert librarian_update_permission_factory(document).can()

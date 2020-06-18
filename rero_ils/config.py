@@ -50,6 +50,7 @@ from .modules.budgets.permissions import can_list_budgets_factory
 from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import can_update_circ_policy_factory
 from .modules.documents.api import Document
+from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
 from .modules.item_types.api import ItemType
 from .modules.items.api import Item
@@ -448,10 +449,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=5000000,
         search_factory_imp='rero_ils.query:view_search_factory',
-        read_permission_factory_imp=allow_all,
-        list_permission_factory_imp=allow_all,
-        update_permission_factory_imp=librarian_update_permission_factory,
-        delete_permission_factory_imp=librarian_update_permission_factory
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=DocumentPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=DocumentPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=DocumentPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=DocumentPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=DocumentPermission),
     ),
     item=dict(
         pid_type='item',

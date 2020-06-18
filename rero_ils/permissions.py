@@ -210,7 +210,7 @@ def can_access_item(user=None, item=None):
 
 def can_edit(user=None):
     """User has editor role."""
-    return user_is_authenticated() and librarian_permission.can()
+    return user_is_authenticated(user) and librarian_permission.can()
 
 
 def librarian_permission_factory(record, *args, **kwargs):

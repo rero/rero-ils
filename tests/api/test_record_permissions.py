@@ -21,7 +21,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, login_user
 
 from rero_ils.modules.permissions import RecordPermission, \
-    has_superuser_access, record_permission_factory
+    record_permission_factory
 
 
 def test_document_permissions(
@@ -215,10 +215,3 @@ def test_record_permission_factory(app, client, librarian_martigny_no_email):
     # test dummy action
     permission = record_permission_factory(record={}, action='dummy')
     assert not permission.can()
-
-
-def test_has_superuser_access(app):
-    """Test permissions of has_superuser_access functions."""
-    assert not has_superuser_access()
-    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
-    assert has_superuser_access()
