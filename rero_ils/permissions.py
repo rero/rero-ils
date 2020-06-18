@@ -24,8 +24,6 @@ from flask_login import current_user
 from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
-from invenio_admin.permissions import \
-    admin_permission_factory as default_admin_permission_factory
 
 from .modules.holdings.api import Holding
 from .modules.patrons.api import Patron
@@ -40,7 +38,7 @@ def user_is_authenticated(user=None):
     """Checks if user is authenticated.
 
     :return: True if user is logged in and authenticated.
-    :returns False if user is not logged or not authenticated.
+    :return False if user is not logged or not authenticated.
     """
     if not user:
         user = current_user
@@ -54,7 +52,7 @@ def staffer_is_authenticated(user=None):
 
     :return: patron records if user is logged in and authenticated and has
     librarian or system_librarian role.
-    :returns False otherwise.
+    :return False otherwise.
     """
     if not user:
         user = current_user
@@ -87,7 +85,7 @@ def patron_is_authenticated(user=None):
 
     :return: Patron records if user is logged in and authenticated and has
     the patron role.
-    :returns False otherwise.
+    :return False otherwise.
     """
     if not user:
         user = current_user

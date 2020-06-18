@@ -110,7 +110,7 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
                     buffer = buffer[1:].lstrip()
 
 
-def get_record_class_permissions_factories_from_route(route_name):
+def get_record_class_and_permissions_from_route(route_name):
     """Get record class and permission factories for a record route name."""
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
     for endpoint in endpoints.items():
@@ -118,14 +118,19 @@ def get_record_class_permissions_factories_from_route(route_name):
         list_route = record.get('list_route').replace('/', '')
         if list_route == route_name:
             record_class = obj_or_import_string(record.get('record_class'))
-            create_permission = obj_or_import_string(
-                record.get('create_permission_factory_imp'))
-            update_permission = obj_or_import_string(
-                record.get('update_permission_factory_imp'))
-            delete_permission = obj_or_import_string(
-                record.get('delete_permission_factory_imp'))
-            return record_class, create_permission, \
-                update_permission, delete_permission
+            permissions = dict(
+                read=obj_or_import_string(
+                    record.get('read_permission_factory_imp')),
+                list=obj_or_import_string(
+                    record.get('list_permission_factory_imp')),
+                create=obj_or_import_string(
+                    record.get('create_permission_factory_imp')),
+                update=obj_or_import_string(
+                    record.get('update_permission_factory_imp')),
+                delete=obj_or_import_string(
+                    record.get('delete_permission_factory_imp'))
+            )
+            return record_class, permissions
 
 
 def get_endpoint_configuration(module):

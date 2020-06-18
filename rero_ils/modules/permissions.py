@@ -17,46 +17,68 @@
 
 """Permissions for all modules."""
 
+from flask import current_app, jsonify
+from flask_login import current_user
 
-from flask import jsonify
+from .utils import get_record_class_and_permissions_from_route
 
-from .utils import get_record_class_permissions_factories_from_route
+# Basics access without permission check
+allow_access = type('Allow', (), {'can': lambda self: True})()
+deny_access = type('Deny', (), {'can': lambda self: False})()
 
 
 def record_permissions(record_pid=None, route_name=None):
-    """Return record permissions."""
+    """Return record permissions.
+
+    This function allow to return all permissions for a specific record.
+    :param record_pid: the record PID to check. If None, only 'create'
+                       permission should be available.
+    :param route_name: the 'list' route nome of the resource.
+    :return: a JSON object containing permissions for the requested resource.
+    """
     try:
-        rec_class, create_permission, update_permission, delete_permission = \
-            get_record_class_permissions_factories_from_route(route_name)
+        rec_class, record_permissions_factory = \
+            get_record_class_and_permissions_from_route(route_name)
 
-        # To check create permission, we don't need to check if the record_pid
-        # exists. Just call the create permission (if exists) with `None` value
-        # as record.
         permissions = {
-            'create': {'can': True}
+            'list': {'can': True},
+            'create': {'can': True},
         }
-        if create_permission:
-            permissions['create']['can'] = create_permission(record=None).can()
+        # To check create and list permissions, we don't need to check if the
+        # record_pid exists. Just call the create permission (if exists) with
+        # `None` value as record.
+        for action in ['list', 'create']:
+            if record_permissions_factory[action]:
+                permissions[action]['can'] = \
+                    record_permissions_factory[action](record=None).can()
 
-        # If record_pid is not None, we can check about 'delete' and 'update'
-        # permissions.
+        # If record_pid is not None, we can check about others permissions
+        # (read, update, delete)
         if record_pid:
+            permissions.update({
+                'read': {'can': True},
+                'update': {'can': True},
+                'delete': {'can': True},
+            })
             record = rec_class.get_record_by_pid(record_pid)
             if not record:
                 return jsonify({'status': 'error: Record not found.'}), 404
 
             # To check if the record could be update, just call the update
             # permission factory to get the answer
-            permissions['update'] = {'can': update_permission(record).can()}
+            permissions['read']['can'] = \
+                record_permissions_factory['read'](record=record).can()
+            permissions['update']['can'] = \
+                record_permissions_factory['update'](record=record).can()
 
             # We have two behaviors for 'can_delete'. Either the record has
             # linked resources and so children resources should be deleted
             # before ; either the `delete_permissions_factory` for this record
             # should be called. If this call send 'False' then the
             # reason_not_to_delete should be "permission denied"
-            permissions['delete'] = {
-                'can': record.can_delete and delete_permission(record).can()
-            }
+            permissions['delete']['can'] = \
+                record.can_delete and \
+                record_permissions_factory['delete'](record=record).can()
             reasons = record.reasons_not_to_delete()
             if not permissions['delete']['can'] and not reasons:
                 # in this case, it's because config delete factory return
@@ -67,3 +89,143 @@ def record_permissions(record_pid=None, route_name=None):
         return jsonify(permissions)
     except Exception:
         return jsonify({'status': 'error: Bad request'}), 400
+
+
+def record_permission_factory(record=None, action=None, cls=None):
+    """Record permission factory.
+
+    :param record: Record against which to check permission.
+    :param action: Action to check.
+    :param cls: Class of the permission.
+    :return: Permission object.
+    """
+    # Permission is allowed for all actions.
+    if current_app.config.get('RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'):
+        return allow_access
+    # No specific class, the base record permission class is taken.
+    if not cls:
+        cls = RecordPermission
+    return cls.create_permission(record, action)
+
+
+def has_superuser_access():
+    """Check if current user has access to super admin panel.
+
+    This function is used in app context and can be called in all templates.
+    """
+    if current_app.config.get('RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'):
+        return True
+    # TODO : create a super_user role
+    #   ... superuser_access_permission = Permission(ActionNeed('superuser'))
+    #   ... return superuser_access.can()
+    return deny_access.can()
+
+
+class RecordPermission:
+    """Record permissions for CRUD operations."""
+
+    list_actions = ['list']
+    create_actions = ['create']
+    read_actions = ['read']
+    update_actions = ['update']
+    delete_actions = ['delete']
+
+    def __init__(self, record, func, user):
+        """Initialize a file permission object.
+
+        :param record: Record to check.
+        :param func: method of the class to call.
+        :param user: Object representing current logged user.
+        """
+        self.record = record
+        self.func = func
+        self.user = user or current_user
+
+    def can(self):
+        """Return the permission object determining if the action can be done.
+
+        :return: Permission object.
+        """
+        return self.func(self.user, self.record)
+
+    @classmethod
+    def create_permission(cls, record, action, user=None):
+        """Create a record permission.
+
+        :param record: The record to check.
+        :param action: Action to check.
+        :param user: Logged user.
+        :return: Permission object.
+        """
+        if action in cls.list_actions:
+            return cls(record, cls.list, user)
+        if action in cls.create_actions:
+            return cls(record, cls.create, user)
+        if action in cls.read_actions:
+            return cls(record, cls.read, user)
+        if action in cls.update_actions:
+            return cls(record, cls.update, user)
+        if action in cls.delete_actions:
+            return cls(record, cls.delete, user)
+        # Deny access by default
+        return deny_access
+
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if user.is_anonymous:
+            return False
+        return has_superuser_access()
+
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if user.is_anonymous:
+            return False
+        return has_superuser_access()
+
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if user.is_anonymous:
+            return False
+        return has_superuser_access()
+
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if user.is_anonymous:
+            return False
+        return has_superuser_access()
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if user.is_anonymous:
+            return False
+        return has_superuser_access()

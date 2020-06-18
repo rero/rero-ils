@@ -18,8 +18,10 @@
 
 """API for manipulating organisation."""
 
-
 from functools import partial
+
+from flask_login import current_user
+from werkzeug.local import LocalProxy
 
 from .models import OrganisationIdentifier, OrganisationMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -28,6 +30,9 @@ from ..item_types.api import ItemTypesSearch
 from ..libraries.api import LibrariesSearch, Library
 from ..minters import id_minter
 from ..providers import Provider
+
+current_organisation = LocalProxy(
+    lambda: Organisation.get_record_by_user(current_user))
 
 # provider
 OrganisationProvider = type(
@@ -44,7 +49,7 @@ organisation_id_fetcher = partial(id_fetcher, provider=OrganisationProvider)
 class OrganisationsSearch(IlsRecordsSearch):
     """Organisation search."""
 
-    class Meta():
+    class Meta:
         """Meta class."""
 
         index = 'organisations'
@@ -58,42 +63,6 @@ class Organisation(IlsRecord):
     fetcher = organisation_id_fetcher
     provider = OrganisationProvider
     model_cls = OrganisationMetadata
-
-    def get_libraries_pids(self):
-        """Get all libraries pids related to the organisation."""
-        results = LibrariesSearch().source(['pid'])\
-            .filter('term', organisation__pid=self.pid)\
-            .scan()
-        for result in results:
-            yield result.pid
-
-    def get_libraries(self):
-        """Get all libraries related to the organisation."""
-        pids = self.get_libraries_pids()
-        for pid in pids:
-            yield Library.get_record_by_pid(pid)
-
-    def get_number_of_libraries(self):
-        """Get number of libraries."""
-        results = LibrariesSearch().filter(
-            'term', organisation__pid=self.pid).source().count()
-        return results
-
-    def get_links_to_me(self):
-        """Get number of links."""
-        links = {}
-        libraries = self.get_number_of_libraries()
-        if libraries:
-            links['libraries'] = libraries
-        return links
-
-    def reasons_not_to_delete(self):
-        """Get reasons not to delete record."""
-        cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
-            cannot_delete['links'] = links
-        return cannot_delete
 
     @classmethod
     def get_all(cls):
@@ -121,6 +90,32 @@ class Organisation(IlsRecord):
 
         return result['hits']['hits'][0]['_source']
 
+    @classmethod
+    def get_record_by_user(cls, user):
+        """Return organisation associated with patron.
+
+        :param user: the user to check.
+        :return: Organisation record or None.
+        """
+        from ..patrons.api import Patron, current_patron
+        patron = Patron.get_patron_by_user(user) or current_patron
+        if patron:
+            return patron.get_organisation()
+
+    @classmethod
+    def get_record_by_online_harvested_source(cls, source):
+        """Get record by online harvested source.
+
+        :param source: the record source
+        :return: Organisation record or None.
+        """
+        results = OrganisationsSearch().filter(
+            'term', online_harvested_source=source).scan()
+        try:
+            return Organisation.get_record_by_pid(next(results).pid)
+        except StopIteration:
+            return None
+
     @property
     def organisation_pid(self):
         """Get organisation pid ."""
@@ -136,20 +131,47 @@ class Organisation(IlsRecord):
         except StopIteration:
             return None
 
-    @classmethod
-    def get_record_by_online_harvested_source(cls, source):
-        """Get record by online harvested source."""
-        results = OrganisationsSearch().filter(
-            'term', online_harvested_source=source).scan()
-        try:
-            return Organisation.get_record_by_pid(next(results).pid)
-        except StopIteration:
-            return None
-
     def get_online_locations(self):
         """Get list of online locations."""
         return [library.online_location
                 for library in self.get_libraries() if library.online_location]
+
+    def get_libraries_pids(self):
+        """Get all libraries pids related to the organisation."""
+        results = LibrariesSearch().source(['pid'])\
+            .filter('term', organisation__pid=self.pid)\
+            .scan()
+        for result in results:
+            yield result.pid
+
+    def get_libraries(self):
+        """Get all libraries related to the organisation."""
+        pids = self.get_libraries_pids()
+        for pid in pids:
+            yield Library.get_record_by_pid(pid)
+
+    def get_number_of_libraries(self):
+        """Get number of libraries."""
+        return LibrariesSearch()\
+            .filter('term', organisation__pid=self.pid)\
+            .source()\
+            .count()
+
+    def get_links_to_me(self):
+        """Get number of links."""
+        links = {}
+        libraries = self.get_number_of_libraries()
+        if libraries:
+            links['libraries'] = libraries
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        links = self.get_links_to_me()
+        if links:
+            cannot_delete['links'] = links
+        return cannot_delete
 
 
 class OrganisationsIndexer(IlsRecordsIndexer):

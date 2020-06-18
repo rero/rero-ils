@@ -36,7 +36,7 @@ def record_responsify(serializer, mimetype):
 
     :param serializer: Serializer instance.
     :param mimetype: MIME type of response.
-    :returns: Function that generates a record HTTP response.
+    :return: Function that generates a record HTTP response.
     """
     def view(pid, record, code=200, headers=None, links_factory=None):
         response = current_app.response_class(

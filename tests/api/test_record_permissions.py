@@ -20,12 +20,15 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, login_user
 
+from rero_ils.modules.permissions import RecordPermission, \
+    has_superuser_access, record_permission_factory
+
 
 def test_document_permissions(
         client, document, librarian_martigny_no_email,
         patron_martigny_no_email, ebook_1, circ_policy_short_martigny):
     """Test document permissions."""
-    # failed: invlaid document pid is given
+    # failed: invalid document pid is given
     res = client.get(
         url_for(
             'api_blueprint.permissions',
@@ -67,7 +70,7 @@ def test_document_permissions(
     assert 'update' in data
     assert 'delete' in data
 
-    # failed: invlaid route name
+    # failed: invalid route name
     res = client.get(
         url_for(
             'api_blueprint.permissions',
@@ -182,3 +185,40 @@ def call_api_permissions(client, route_name, pid):
     )
     assert response.status_code == 200
     return get_json(response)
+
+
+def test_record_permission_factory(app, client, librarian_martigny_no_email):
+    """Test record permission factory."""
+
+    # disabled all permission, all operation on all resources are available
+    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
+    permission = record_permission_factory()
+    assert permission.can()
+
+    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = False
+    actions = ['list', 'read', 'create', 'update', 'delete']
+    # test default RecordPermission for not logged user
+    for action in actions:
+        permission = record_permission_factory(record={}, action=action)
+        assert not permission.can()
+
+    # test default RecordPermission for super_user
+    login_user_via_session(client, librarian_martigny_no_email.user)
+    for action in actions:
+        permission = record_permission_factory(record={}, action=action)
+        assert not permission.can()
+        permission = RecordPermission.create_permission(
+            {}, action, user=librarian_martigny_no_email.user
+        )
+        assert not permission.can()
+
+    # test dummy action
+    permission = record_permission_factory(record={}, action='dummy')
+    assert not permission.can()
+
+
+def test_has_superuser_access(app):
+    """Test permissions of has_superuser_access functions."""
+    assert not has_superuser_access()
+    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
+    assert has_superuser_access()

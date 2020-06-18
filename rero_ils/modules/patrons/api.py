@@ -163,8 +163,8 @@ class Patron(IlsRecord):
     def get_pid_exist_test(cls, data):
         """Test if library or patron type $ref pid exist.
 
-        ;param data: Data to find the information for the pids to test.
-        :return: dictionair with pid types to test.
+        :param data: Data to find the information for the pids to test.
+        :return: dictionary with pid types to test.
         """
         roles = data.get('roles', [])
         if 'system_librarian' in roles or 'librarian' in roles:
@@ -431,25 +431,20 @@ class Patron(IlsRecord):
             return None
 
     @property
-    def is_librarian(self):
-        """Shortcut to check if user has librarian role."""
-        if self.is_system_librarian or 'librarian' in self.get('roles'):
-            return True
-        return False
-
-    @property
     def is_system_librarian(self):
         """Shortcut to check if user has system_librarian role."""
-        if 'system_librarian' in self.get('roles'):
-            return True
-        return False
+        return Patron.ROLE_SYSTEM_LIBRARIAN in self.get('roles', [])
+
+    @property
+    def is_librarian(self):
+        """Shortcut to check if user has librarian role."""
+        librarian_roles = [Patron.ROLE_SYSTEM_LIBRARIAN, Patron.ROLE_LIBRARIAN]
+        return any(role in librarian_roles for role in self.get('roles', []))
 
     @property
     def is_patron(self):
         """Shortcut to check if user has patron role."""
-        if 'patron' in self.get('roles'):
-            return True
-        return False
+        return Patron.ROLE_PATRON in self.get('roles', [])
 
     @property
     def organisation_pid(self):

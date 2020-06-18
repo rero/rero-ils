@@ -87,7 +87,7 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
 
         Ensures that only one note of each type is present.
 
-        :returns: False if notes array has multiple notes with same type
+        :return: False if notes array has multiple notes with same type
         """
         note_types = [note.get('type') for note in self.get('notes', [])]
         return len(note_types) == len(set(note_types))
