@@ -37,7 +37,6 @@ import jsonref
 import polib
 import pycountry
 import requests
-import six
 import xmltodict
 import yaml
 from babel import Locale, core
@@ -67,7 +66,6 @@ from .loans.cli import create_loans
 from .patrons.cli import import_users
 from .tasks import process_bulk_queue
 from .utils import read_json_record
-from ..modules.documents.dojson.contrib.unimarctojson import unimarc
 from ..modules.providers import append_fixtures_new_identifiers
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
@@ -1375,97 +1373,6 @@ def dump_es_mappings(verbose, outfile):
             if outfile:
                 json.dump(mapping, outfile, indent=2)
                 outfile.write('\n')
-
-
-def response_test(count, response, exit, verbose):
-    """Test the records in the response."""
-    # read the xml date from the HTTP response
-    xml_data = response.content
-
-    # create a xml file in memory
-    xml_file = six.BytesIO()
-    xml_file.write(xml_data)
-    xml_file.seek(0)
-
-    for xml_record in split_stream(xml_file):
-        count += 1
-        json_data = create_record(xml_record)
-        try:
-            record = unimarc.do(json_data)
-        except Exception as err:
-            click.secho('ERROR: {err}'.format(err=err), fg='red')
-            traceback.print_exc()
-            click.echo(json.dumps(json_data, indent=2))
-            if exit:
-                sys.exit(1)
-
-        if verbose:
-            click.echo('{count:10d}\t{info}'.format(
-                count=count,
-                info=record.get('identifiedBy')
-            ))
-        else:
-            click.echo('{count:10d}'.format(count=count), nl=False)
-            sys.stdout.flush()
-            click.echo('{:\b<10}'.format(''), nl=False)
-
-    return count
-
-
-@utils.command('bnf_import_test')
-@click.option('-S', '--search', default='',
-              help='Serach term.')
-@click.option('-i', '--index', default='bib.recordid',
-              help='SRU index: https://catalogue.bnf.fr/api/test.do'
-                   'default: bib.recordid')
-@click.option('-e', '--exit', default=False, is_flag=True,
-              help='Exit on error.')
-@click.option('-v', '--verbose', default=False, is_flag=True,
-              help='Verbose output.')
-@click.option('-s', '--start', default=1,
-              help='Start at record to search.')
-@click.option('-c', '--chunk_size', default=100,
-              help='How many records to fetch in every request.')
-def bnf_import_test(search, index, exit, verbose, start, chunk_size):
-    """BNF import tests."""
-    bnf_url_all = 'https://catalogue.bnf.fr/api/SRU?version=1.2'\
-                  '&operation=searchRetrieve&query=bib.status all "validated"'\
-                  '&recordSchema=unimarcxchange'\
-                  '&maximumRecords={size}&startRecord={start}'
-
-    bnf_url_ean = 'http://catalogue.bnf.fr/api/SRU?'\
-                  'version=1.2&operation=searchRetrieve'\
-                  '&recordSchema=unimarcxchange&maximumRecords=1'\
-                  '&startRecord=1&query={index} all "{search}"'
-
-    count = 0
-    if search:
-        click.secho('Run BNF import test: {index} {search}'.format(
-            index=index,
-            search=search
-        ), fg='green')
-        with requests.get(bnf_url_ean.format(
-            index=index,
-            search=search
-        )) as response:
-            if not response.ok:
-                sys.exit(0)
-            else:
-                count = response_test(count=count, response=response,
-                                      exit=exit, verbose=verbose)
-    else:
-        click.secho('Run BNF import tests:', fg='green')
-        while True:
-            with requests.get(bnf_url_all.format(
-                size=chunk_size,
-                start=start
-            )) as response:
-                if not response.ok:
-                    sys.exit(0)
-                else:
-                    count = response_test(count=count, response=response,
-                                          exit=exit, verbose=verbose)
-                start += chunk_size
 
 
 @utils.command('export')

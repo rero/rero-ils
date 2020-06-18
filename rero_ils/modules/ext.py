@@ -32,7 +32,8 @@ from .apiharvester.signals import apiharvest_part
 from .documents.listener import enrich_document_data
 from .ebooks.receivers import publish_harvested_records
 from .holdings.listener import enrich_holding_data
-from .imports.views import ImportsListResource, ImportsResource
+from .imports.views import ImportsListResource, ImportsResource, \
+    ResultNotFoundOnTheRemoteServer
 from .items.listener import enrich_item_data
 from .loans.listener import enrich_loan_data, listener_loan_state_changed
 from .locations.listener import enrich_location_data
@@ -83,9 +84,9 @@ class REROILSAPP(object):
         Wiki(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
-        self.init_imports(app)
+        self.register_api_blueprint(app)
 
-    def init_imports(self, app):
+    def register_api_blueprint(self, app):
         """Imports bluprint initialization."""
         api_blueprint = Blueprint(
             'api_imports',
@@ -99,7 +100,7 @@ class REROILSAPP(object):
                 import_size=options.get('import_size')
             )
             api_blueprint.add_url_rule(
-                '/import/{endpoint}/'.format(endpoint=endpoint),
+                '/import_{endpoint}/'.format(endpoint=endpoint),
                 view_func=imports_search
             )
             app.register_blueprint(api_blueprint)
@@ -109,9 +110,15 @@ class REROILSAPP(object):
                 import_class=options.get('import_class')
             )
             api_blueprint.add_url_rule(
-                '/import/{endpoint}/<id>'.format(endpoint=endpoint),
+                '/import_{endpoint}/<id>'.format(endpoint=endpoint),
                 view_func=imports_record
             )
+
+            def handle_bad_request(e):
+                return 'not found', 404
+
+            api_blueprint.register_error_handler(
+                ResultNotFoundOnTheRemoteServer, handle_bad_request)
             app.register_blueprint(api_blueprint)
 
     def init_config(self, app):

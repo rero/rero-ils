@@ -19,13 +19,20 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import abort
 from flask import request as flask_request
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
+from invenio_rest.errors import RESTException
 
 from .serializers import json_v1_import_record, json_v1_import_record_marc, \
-    json_v1_import_search
+    json_v1_import_search, json_v1_import_uirecord, json_v1_import_uisearch
+
+
+class ResultNotFoundOnTheRemoteServer(RESTException):
+    """Non existant remote record."""
+
+    code = 404
+    description = 'Record not found on the remote server.'
 
 
 class ImportsListResource(ContentNegotiatedMethodView):
@@ -39,10 +46,12 @@ class ImportsListResource(ContentNegotiatedMethodView):
             method_serializers={
                 'GET': {
                     'application/json': json_v1_import_search,
+                    'application/rero+json': json_v1_import_uisearch
                 }
             },
             serializers_query_aliases={
-                'json': 'application/json'
+                'json': 'application/json',
+                'rerojson': 'application/rero+json'
             },
             default_method_media_type={
                 'GET': 'application/json'
@@ -54,8 +63,6 @@ class ImportsListResource(ContentNegotiatedMethodView):
     def get(self, **kwargs):
         """Implement the GET /test."""
         query = flask_request.args.get('q')
-        if not query:
-            abort(400)
         try:
             query_split = query.split(':')
             where = query_split[0]
@@ -107,12 +114,14 @@ class ImportsResource(ContentNegotiatedMethodView):
             method_serializers={
                 'GET': {
                     'application/json': json_v1_import_record,
-                    'application/json+marc': json_v1_import_record_marc
+                    'application/rero+json': json_v1_import_uirecord,
+                    'application/marc+json': json_v1_import_record_marc
                 }
             },
             serializers_query_aliases={
                 'json': 'application/json',
-                'marc': 'application/json+marc'
+                'rerojson': 'application/rero+json',
+                'marc': 'application/marc+json'
             },
             default_method_media_type={
                 'GET': 'application/json'
@@ -123,7 +132,6 @@ class ImportsResource(ContentNegotiatedMethodView):
 
     def get(self, id, **kwargs):
         """Implement the GET."""
-        print('----->', id)
         do_import = obj_or_import_string(self.import_class)()
         do_import.search_records(
             what=id,
@@ -131,7 +139,6 @@ class ImportsResource(ContentNegotiatedMethodView):
             where='recordid',
             max=1
         )
-        print('--->', do_import)
         if not do_import.data:
-            abort('404')
+            raise ResultNotFoundOnTheRemoteServer
         return 0, do_import.data[0]
