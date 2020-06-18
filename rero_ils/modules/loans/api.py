@@ -69,6 +69,7 @@ class LoanAction(object):
     CANCEL = 'cancel'
     LOSE = 'lose'
     NO = 'no'
+    UPDATE = 'update'
 
 
 class LoansSearch(IlsRecordsSearch):
