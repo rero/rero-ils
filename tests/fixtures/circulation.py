@@ -979,6 +979,106 @@ def item_at_desk_martigny_patron_and_loan_at_desk(
 
 
 @pytest.fixture(scope="module")
+def item2_at_desk_martigny_patron_and_loan_at_desk(
+        app,
+        librarian_martigny_no_email,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies):
+    """Creates an item with a validated pending request.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the validated pending loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_AT_DESK,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
+def item3_at_desk_martigny_patron_and_loan_at_desk(
+        app,
+        librarian_martigny_no_email,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies):
+    """Creates an item with a validated pending request.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the validated pending loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_AT_DESK,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
+def item4_at_desk_martigny_patron_and_loan_at_desk(
+        app,
+        librarian_martigny_no_email,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies):
+    """Creates an item with a validated pending request.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the validated pending loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_AT_DESK,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
+def item5_at_desk_martigny_patron_and_loan_at_desk(
+        app,
+        librarian_martigny_no_email,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies):
+    """Creates an item with a validated pending request.
+
+    :return item: the created or copied item.
+    :return patron: the patron placed the request.
+    :return loan: the validated pending loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_AT_DESK,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
 def item_on_shelf_fully_patron_and_loan_pending(
         app,
         librarian_martigny_no_email,
@@ -1180,6 +1280,31 @@ def item_in_transit_martigny_patron_and_loan_for_pickup(
 
 @pytest.fixture(scope="module")
 def item2_in_transit_martigny_patron_and_loan_for_pickup(
+        app,
+        librarian_martigny_no_email, loc_public_fully,
+        item_lib_martigny, loc_public_martigny,
+        patron_martigny_no_email, circulation_policies):
+    """Creates an item in_transit for pickup.
+
+    :return item: the created or copied item.
+    :return patron: the patron requested the item.
+    :return loan: the ITEM_IN_TRANSIT_FOR_PICKUP loan.
+    """
+    params = {
+        'patron_pid': patron_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_fully.pid
+    }
+    item, loan = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        params=params, copy_item=True)
+    return item, patron_martigny_no_email, loan
+
+
+@pytest.fixture(scope="module")
+def item3_in_transit_martigny_patron_and_loan_for_pickup(
         app,
         librarian_martigny_no_email, loc_public_fully,
         item_lib_martigny, loc_public_martigny,
