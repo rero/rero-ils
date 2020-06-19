@@ -1,0 +1,22 @@
+{
+  "responsibilityStatement": {
+    "title": "Responsibilities",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Responsibility",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Responsibility",
+        "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

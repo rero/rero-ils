@@ -1,0 +1,35 @@
+{
+  "bookFormat": {
+    "title": "Bibliographic formats",
+    "description": "A proportional relationship between a whole sheet in a printed or manuscript resource, and the individual leaves that result if that sheet is left full, cut, or folded.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Bibliographic format",
+      "type": "string",
+      "enum": [
+        "in-plano",
+        "2\u00ba",
+        "4\u00ba",
+        "8\u00ba",
+        "12\u00ba",
+        "16\u00ba",
+        "18\u00ba",
+        "24\u00ba",
+        "32\u00ba",
+        "36\u00ba",
+        "48\u00ba",
+        "64\u00ba",
+        "72\u00ba",
+        "96\u00ba",
+        "128\u00ba"
+      ]
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

@@ -220,6 +220,7 @@ setup(
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
+            'common = rero_ils.jsonschemas',
             'organisations = rero_ils.modules.organisations.jsonschemas',
             'libraries = rero_ils.modules.libraries.jsonschemas',
             'locations = rero_ils.modules.locations.jsonschemas',

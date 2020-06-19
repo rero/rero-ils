@@ -24,7 +24,7 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(document_schema, document_data_tmp):
+def test_required(app, document_schema, document_data_tmp):
     """Test required for jsonschemas."""
     validate(document_data_tmp, document_schema)
 

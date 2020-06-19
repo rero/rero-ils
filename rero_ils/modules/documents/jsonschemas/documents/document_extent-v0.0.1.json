@@ -1,0 +1,15 @@
+{
+  "extent": {
+    "title": "Extent",
+    "description": "Record the number of units and the type of unit. For the type of unit, use RDA recommended terms.",
+    "type": "string",
+    "minLength": 2,
+    "form": {
+      "placeholder": "Example: 355 pages",
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-max-width"
+      }
+    }
+  }
+}

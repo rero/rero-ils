@@ -1,0 +1,55 @@
+{
+  "series": {
+    "title": "Series",
+    "description": "Series to which belongs the resource.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Series",
+      "description": "Series to which belongs the resource.",
+      "required": [
+        "name"
+      ],
+      "propertiesOrder": [
+        "name",
+        "number"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Title",
+          "description": "Title of the series.",
+          "type": "string",
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-5"
+            }
+          }
+        },
+        "number": {
+          "title": "Numbering",
+          "description": "Numbering of the resource within the series.",
+          "type": "string",
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-7"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

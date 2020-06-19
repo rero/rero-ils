@@ -349,9 +349,10 @@ def schemaform(document_type):
     schema = None
     schema_name = None
     try:
-        current_jsonschemas.get_schema.cache_clear()
+        if current_app.debug:
+            current_jsonschemas.get_schema.cache_clear()
         schema_name = '{}/{}-v0.0.1.json'.format(document_type, doc_type)
-        schema = current_jsonschemas.get_schema(schema_name)
+        schema = current_jsonschemas.get_schema(schema_name, with_refs=True)
         data['schema'] = prepare_jsonschema(schema)
     except JSONSchemaNotFound:
         abort(404)

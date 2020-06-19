@@ -1,0 +1,14 @@
+{
+  "is_part_of": {
+    "title": "Is part of",
+    "description": "Title of the host document.",
+    "type": "string",
+    "minLength": 1,
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-max-width"
+      }
+    }
+  }
+}

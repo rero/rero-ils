@@ -1657,6 +1657,7 @@ RERO_ILS_PERSONS_LABEL_ORDER = {
 JSONSCHEMAS_URL_SCHEME = 'https'
 JSONSCHEMAS_HOST = 'ils.rero.ch'
 JSONSCHEMAS_REPLACE_REFS = True
+JSONSCHEMAS_LOADER_CLS = 'rero_ils.jsonschemas.utils.JsonLoader'
 
 # OAI-PMH
 # =======

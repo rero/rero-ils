@@ -82,6 +82,12 @@
             }
           }
         },
+        "blocked": {
+          "type": "boolean"
+        },
+        "blocked_note": {
+          "type": "text"
+        },
         "circulation_location_pid": {
           "type": "keyword"
         },
