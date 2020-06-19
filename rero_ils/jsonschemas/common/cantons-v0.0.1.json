@@ -1,0 +1,145 @@
+{
+  "canton": {
+    "title": "Cantons",
+    "type": "string",
+    "enum": [
+      "ag",
+      "ai",
+      "ar",
+      "be",
+      "bl",
+      "bs",
+      "fr",
+      "ge",
+      "gl",
+      "gr",
+      "ju",
+      "lu",
+      "ne",
+      "nw",
+      "ow",
+      "sg",
+      "sh",
+      "so",
+      "sz",
+      "tg",
+      "ti",
+      "ur",
+      "vd",
+      "vs",
+      "zg",
+      "zh"
+    ],
+    "form": {
+      "options": [
+        {
+          "label": "canton_ag",
+          "value": "ag"
+        },
+        {
+          "label": "canton_ai",
+          "value": "ai"
+        },
+        {
+          "label": "canton_ar",
+          "value": "ar"
+        },
+        {
+          "label": "canton_be",
+          "value": "be"
+        },
+        {
+          "label": "canton_bl",
+          "value": "bl"
+        },
+        {
+          "label": "canton_bs",
+          "value": "bs"
+        },
+        {
+          "label": "canton_fr",
+          "value": "fr"
+        },
+        {
+          "label": "canton_ge",
+          "value": "ge"
+        },
+        {
+          "label": "canton_gl",
+          "value": "gl"
+        },
+        {
+          "label": "canton_gr",
+          "value": "gr"
+        },
+        {
+          "label": "canton_ju",
+          "value": "ju"
+        },
+        {
+          "label": "canton_lu",
+          "value": "lu"
+        },
+        {
+          "label": "canton_ne",
+          "value": "ne"
+        },
+        {
+          "label": "canton_nw",
+          "value": "nw"
+        },
+        {
+          "label": "canton_ow",
+          "value": "ow"
+        },
+        {
+          "label": "canton_sg",
+          "value": "sg"
+        },
+        {
+          "label": "canton_sh",
+          "value": "sh"
+        },
+        {
+          "label": "canton_so",
+          "value": "so"
+        },
+        {
+          "label": "canton_sz",
+          "value": "sz"
+        },
+        {
+          "label": "canton_tg",
+          "value": "tg"
+        },
+        {
+          "label": "canton_ti",
+          "value": "ti"
+        },
+        {
+          "label": "canton_ur",
+          "value": "ur"
+        },
+        {
+          "label": "canton_vd",
+          "value": "vd"
+        },
+        {
+          "label": "canton_vs",
+          "value": "vs"
+        },
+        {
+          "label": "canton_zg",
+          "value": "zg"
+        },
+        {
+          "label": "canton_zh",
+          "value": "zh"
+        }
+      ],
+      "templateOptions": {
+        "cssClass": "col-lg-4"
+      }
+    }
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "identifiedBy": {
+    "title": "Identifiers",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Identifier",
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "propertiesOrder": [
+        "type",
+        "value",
+        "status",
+        "qualifier",
+        "note",
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "bf:AudioIssueNumber",
+            "bf:Doi",
+            "bf:Ean",
+            "bf:Gtin14Number",
+            "bf:Identifier",
+            "bf:Isan",
+            "bf:Isbn",
+            "bf:Ismn",
+            "bf:Isrc",
+            "bf:Issn",
+            "bf:IssnL",
+            "bf:Local",
+            "bf:MatrixNumber",
+            "bf:MusicDistributorNumber",
+            "bf:MusicPlate",
+            "bf:MusicPublisherNumber",
+            "bf:PublisherNumber",
+            "bf:Upc",
+            "bf:Urn",
+            "bf:VideoRecordingNumber",
+            "uri"
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "options": [
+              {
+                "label": "Audio issue number",
+                "value": "bf:AudioIssueNumber"
+              },
+              {
+                "label": "DOI",
+                "value": "bf:Doi"
+              },
+              {
+                "label": "EAN",
+                "value": "bf:Ean"
+              },
+              {
+                "label": "GTIN 14",
+                "value": "bf:Gtin14Number"
+              },
+              {
+                "label": "Identifier",
+                "value": "bf:Identifier"
+              },
+              {
+                "label": "ISAN",
+                "value": "bf:Isan"
+              },
+              {
+                "label": "ISBN",
+                "value": "bf:Isbn"
+              },
+              {
+                "label": "ISMN",
+                "value": "bf:Ismn"
+              },
+              {
+                "label": "ISRC",
+                "value": "bf:Isrc"
+              },
+              {
+                "label": "ISSN",
+                "value": "bf:Issn"
+              },
+              {
+                "label": "ISSN-L",
+                "value": "bf:IssnL"
+              },
+              {
+                "label": "Local",
+                "value": "bf:Local"
+              },
+              {
+                "label": "Matrix number",
+                "value": "bf:MatrixNumber"
+              },
+              {
+                "label": "Music distributor number",
+                "value": "bf:MusicDistributorNumber"
+              },
+              {
+                "label": "Music plate",
+                "value": "bf:MusicPlate"
+              },
+              {
+                "label": "Music publisher number",
+                "value": "bf:MusicPublisherNumber"
+              },
+              {
+                "label": "Publisher number",
+                "value": "bf:PublisherNumber"
+              },
+              {
+                "label": "UPC",
+                "value": "bf:Upc"
+              },
+              {
+                "label": "URN",
+                "value": "bf:Urn"
+              },
+              {
+                "label": "Video recording number",
+                "value": "bf:VideoRecordingNumber"
+              },
+              {
+                "label": "URI",
+                "value": "uri"
+              }
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-4",
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
+        },
+        "value": {
+          "title": "Identifier value",
+          "description": "Identifier value.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-6 offset-lg-2"
+            }
+          }
+        },
+        "note": {
+          "title": "Note",
+          "description": "Note of the identifier.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        },
+        "qualifier": {
+          "title": "Qualifier",
+          "description": "Qualifier of the identifier.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        },
+        "acquisitionTerms": {
+          "title": "Acquisition terms",
+          "description": "Acquisition terms of the resource.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        },
+        "source": {
+          "title": "Source",
+          "description": "Source of the identifier.",
+          "type": "string",
+          "minLength": 1,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        },
+        "status": {
+          "title": "Status",
+          "description": "Status of the ISBN/ISSN identifier.",
+          "type": "string",
+          "enum": [
+            "invalid",
+            "cancelled",
+            "invalid or cancelled"
+          ],
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "navigation": {
+        "essential": true
+      },
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

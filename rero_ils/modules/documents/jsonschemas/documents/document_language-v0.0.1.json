@@ -1,0 +1,48 @@
+{
+  "language": {
+    "title": "Languages",
+    "type": "array",
+    "minItems": 1,
+    "uniqueItems": true,
+    "items": {
+      "type": "object",
+      "title": "Language",
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "default": "bf:Language",
+          "enum": [
+            "bf:Language"
+          ],
+          "form": {
+            "hideExpression": "true",
+            "options": [
+              {
+                "label": "Language",
+                "value": "bf:Language"
+              }
+            ]
+          }
+        },
+        "value": {
+          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
+        }
+      }
+    },
+    "form": {
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

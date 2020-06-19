@@ -1,0 +1,133 @@
+{
+  "productionMethod": {
+    "title": "Production methods",
+    "description": "Process used to produce a manifestation.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Production method",
+      "type": "string",
+      "enum": [
+        "rdapm:1001",
+        "rdapm:1002",
+        "rdapm:1003",
+        "rdapm:1004",
+        "rdapm:1005",
+        "rdapm:1006",
+        "rdapm:1007",
+        "rdapm:1008",
+        "rdapm:1009",
+        "rdapm:1010",
+        "rdapm:1011",
+        "rdapm:1012",
+        "rdapm:1014",
+        "rdapm:1015",
+        "rdapm:1016",
+        "rdapm:1017",
+        "rdapm:1018",
+        "rdapm:1019",
+        "rdapm:1020",
+        "rdapm:1021"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "options": [
+          {
+            "label": "Blueline process",
+            "value": "rdapm:1001"
+          },
+          {
+            "label": "Blueprint process",
+            "value": "rdapm:1002"
+          },
+          {
+            "label": "Collotype",
+            "value": "rdapm:1003"
+          },
+          {
+            "label": "Daguerreotype process",
+            "value": "rdapm:1004"
+          },
+          {
+            "label": "Engraving",
+            "value": "rdapm:1005"
+          },
+          {
+            "label": "Etching",
+            "value": "rdapm:1006"
+          },
+          {
+            "label": "Lithography",
+            "value": "rdapm:1007"
+          },
+          {
+            "label": "Photocopying",
+            "value": "rdapm:1008"
+          },
+          {
+            "label": "Photoengraving",
+            "value": "rdapm:1009"
+          },
+          {
+            "label": "Printing",
+            "value": "rdapm:1010"
+          },
+          {
+            "label": "White print process",
+            "value": "rdapm:1011"
+          },
+          {
+            "label": "Woodcut making",
+            "value": "rdapm:1012"
+          },
+          {
+            "label": "Photogravure process",
+            "value": "rdapm:1014"
+          },
+          {
+            "label": "Burning",
+            "value": "rdapm:1015"
+          },
+          {
+            "label": "Inscribing",
+            "value": "rdapm:1016"
+          },
+          {
+            "label": "Stamping",
+            "value": "rdapm:1017"
+          },
+          {
+            "label": "Embossing",
+            "value": "rdapm:1018"
+          },
+          {
+            "label": "Solid dot",
+            "value": "rdapm:1019"
+          },
+          {
+            "label": "Swell paper",
+            "value": "rdapm:1020"
+          },
+          {
+            "label": "Thermoform",
+            "value": "rdapm:1021"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

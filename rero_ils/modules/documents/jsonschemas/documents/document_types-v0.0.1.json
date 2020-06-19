@@ -1,0 +1,64 @@
+{
+  "type": {
+    "title": "Type",
+    "type": "string",
+    "default": "book",
+    "enum": [
+      "article",
+      "book",
+      "ebook",
+      "journal",
+      "other",
+      "score",
+      "sound",
+      "video"
+    ],
+    "minLength": 4,
+    "form": {
+      "type": "selectWithSort",
+      "wrappers": [
+        "form-field-horizontal"
+      ],
+      "options": [
+        {
+          "label": "Article",
+          "value": "article"
+        },
+        {
+          "label": "Book",
+          "value": "book"
+        },
+        {
+          "label": "E-Book",
+          "value": "ebook"
+        },
+        {
+          "label": "Journal",
+          "value": "journal"
+        },
+        {
+          "label": "Other",
+          "value": "other"
+        },
+        {
+          "label": "Score",
+          "value": "score"
+        },
+        {
+          "label": "Sound",
+          "value": "sound"
+        },
+        {
+          "label": "Video",
+          "value": "video"
+        }
+      ],
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-max-width",
+        "selectWithSortOptions": {
+          "order": "label"
+        }
+      }
+    }
+  }
+}

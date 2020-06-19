@@ -1,0 +1,79 @@
+{
+  "note": {
+    "title": "Notes",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Note",
+      "required": [
+        "noteType"
+      ],
+      "propertiesOrder": [
+        "noteType",
+        "label"
+      ],
+      "properties": {
+        "noteType": {
+          "title": "Type of note",
+          "type": "string",
+          "enum": [
+            "accompanyingMaterial",
+            "general",
+            "otherPhysicalDetails"
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "options": [
+              {
+                "label": "Accompanying material",
+                "value": "accompanyingMaterial"
+              },
+              {
+                "label": "General",
+                "value": "general"
+              },
+              {
+                "label": "Other physical details",
+                "value": "otherPhysicalDetails"
+              }
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-6",
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
+        },
+        "label": {
+          "title": "Label",
+          "type": "string",
+          "minLength": 3,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "navigation": {
+        "essential": true
+      },
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "duration": {
+    "title": "Durations",
+    "description": "A playing time, performance time, running time, etc., of the content of an expression.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Duration",
+      "type": "string",
+      "minLength": 2,
+      "form": {
+        "placeholder": "Example: 1h50"
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

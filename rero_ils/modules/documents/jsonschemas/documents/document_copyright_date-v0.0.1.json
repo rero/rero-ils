@@ -1,0 +1,19 @@
+{
+  "copyrightDate": {
+    "title": "Copyright dates",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "string",
+      "title": "Copyright date",
+      "pattern": "^([\u00a9\u2117]\\s)?\\d{4}.*",
+      "minLength": 4
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

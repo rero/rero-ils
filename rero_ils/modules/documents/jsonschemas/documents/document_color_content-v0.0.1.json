@@ -1,0 +1,43 @@
+{
+  "colorContent": {
+    "title": "Color contents",
+    "description": "A presence of color, tone, etc., in the content of an expression. Record a color content if considered important for identification or selection.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Color content",
+      "type": "string",
+      "enum": [
+        "rdacc:1002",
+        "rdacc:1003"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "options": [
+          {
+            "label": "Monochrome",
+            "value": "rdacc:1002"
+          },
+          {
+            "label": "Polychrome",
+            "value": "rdacc:1003"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

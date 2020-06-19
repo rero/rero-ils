@@ -1,0 +1,273 @@
+{
+  "electronicLocator": {
+    "title": "Electronic locations",
+    "description": "Information needed to locate and access an electronic resource.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Electronic location",
+      "required": [
+        "type",
+        "url"
+      ],
+      "propertiesOrder": [
+        "type",
+        "url",
+        "content",
+        "publicNote"
+      ],
+      "properties": {
+        "url": {
+          "title": "URL",
+          "description": "Record a unique URL here.",
+          "placeholder": "Example: https://www.rero.ch/",
+          "type": "string",
+          "format": "uri",
+          "minLength": 7,
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-4"
+            }
+          }
+        },
+        "type": {
+          "title": "Type of link",
+          "type": "string",
+          "enum": [
+            "resource",
+            "versionOfResource",
+            "relatedResource",
+            "hiddenUrl",
+            "noInfo"
+          ],
+          "form": {
+            "Type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "options": [
+              {
+                "label": "Resource",
+                "value": "resource"
+              },
+              {
+                "label": "Version of resource",
+                "value": "versionOfResource"
+              },
+              {
+                "label": "Related resource",
+                "value": "relatedResource"
+              },
+              {
+                "label": "Hidden URL",
+                "value": "hiddenUrl"
+              },
+              {
+                "label": "No info",
+                "value": "noInfo"
+              }
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-4",
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
+        },
+        "content": {
+          "title": "Content type",
+          "description": "Is displayed as the text of the link.",
+          "type": "string",
+          "enum": [
+            "poster",
+            "audio",
+            "postcard",
+            "addition",
+            "debriefing",
+            "exhibitionDocumentation",
+            "erratum",
+            "bookplate",
+            "extract",
+            "educationalSheet",
+            "illustrations",
+            "coverImage",
+            "deliveryInformation",
+            "biographicalInformation",
+            "introductionPreface",
+            "classReading",
+            "teachersKit",
+            "publishersNote",
+            "noteOnContent",
+            "titlePage",
+            "photography",
+            "summarization",
+            "onlineResourceViaRERODOC",
+            "pressReview",
+            "webSite",
+            "tableOfContents",
+            "fullText",
+            "video"
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "options": [
+              {
+                "label": "Poster",
+                "value": "poster"
+              },
+              {
+                "label": "Audio",
+                "value": "audio"
+              },
+              {
+                "label": "Postcard",
+                "value": "postcard"
+              },
+              {
+                "label": "Addition",
+                "value": "addition"
+              },
+              {
+                "label": "Debriefing",
+                "value": "debriefing"
+              },
+              {
+                "label": "Exhibition documentation",
+                "value": "exhibitionDocumentation"
+              },
+              {
+                "label": "Erratum",
+                "value": "erratum"
+              },
+              {
+                "label": "Bookplate",
+                "value": "bookplate"
+              },
+              {
+                "label": "Extract",
+                "value": "extract"
+              },
+              {
+                "label": "Educational sheet",
+                "value": "educationalSheet"
+              },
+              {
+                "label": "Illustrations",
+                "value": "illustrations"
+              },
+              {
+                "label": "Cover image",
+                "value": "coverImage"
+              },
+              {
+                "label": "Delivery information",
+                "value": "deliveryInformation"
+              },
+              {
+                "label": "Biographical information",
+                "value": "biographicalInformation"
+              },
+              {
+                "label": "Introduction/preface",
+                "value": "introductionPreface"
+              },
+              {
+                "label": "Class reading",
+                "value": "classReading"
+              },
+              {
+                "label": "Teacher's kit",
+                "value": "teachersKit"
+              },
+              {
+                "label": "Publisher's note",
+                "value": "publishersNote"
+              },
+              {
+                "label": "Note on content",
+                "value": "noteOnContent"
+              },
+              {
+                "label": "Title page",
+                "value": "titlePage"
+              },
+              {
+                "label": "Photography",
+                "value": "photography"
+              },
+              {
+                "label": "Summarization",
+                "value": "summarization"
+              },
+              {
+                "label": "Online resource via RERO DOC",
+                "value": "onlineResourceViaRERODOC"
+              },
+              {
+                "label": "Press review",
+                "value": "pressReview"
+              },
+              {
+                "label": "Web site",
+                "value": "webSite"
+              },
+              {
+                "label": "Table of contents",
+                "value": "tableOfContents"
+              },
+              {
+                "label": "Full text",
+                "value": "fullText"
+              },
+              {
+                "label": "Video",
+                "value": "video"
+              }
+            ],
+            "templateOptions": {
+              "cssClass": "col-lg-4",
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
+        },
+        "publicNote": {
+          "title": "Public notes",
+          "description": "Is displayed next to the link, as additional information.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Public note",
+            "type": "string",
+            "minLength": 1,
+            "form": {
+              "placeholder": "Example: Access only from the library"
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "col"
+            }
+          }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

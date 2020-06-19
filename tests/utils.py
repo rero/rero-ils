@@ -20,12 +20,15 @@
 
 import json
 
+import jsonref
 import mock
+import requests
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session, \
     login_user_via_view
 from invenio_circulation.api import get_loan_for_item
 from invenio_search import current_search
+from pkg_resources import resource_string
 from six.moves.urllib.parse import parse_qs, urlparse
 
 from rero_ils.modules.circ_policies.api import CircPolicy
@@ -187,3 +190,68 @@ def check_timezone_date(timezone, date, expected=[]):
         assert hour in expected, error_msg
     assert tocheck_date.minute == date.minute, error_msg
     assert tocheck_date.hour == hour, error_msg
+
+
+def mocked_requests_get(*args, **kwargs):
+    """This method will be used by the mock to replace requests.get."""
+    class MockResponse:
+        """Mock response class.
+
+        This class will get a json schema directly from the source file.
+        Examples:
+        https://ils.rero.ch/schemas/documents/document-v0.0.1.json ->
+            rero_ils.modules.documents.jsonschemas.document-v0.0.1.json
+        https://ils.rero.ch/schemas/common/languages-v0.0.1.json ->
+            rero_ils.jsonschemas.common.languages-v0.0.1.json
+        """
+
+        def __init__(self, json_data, status_code):
+            self.json_data = json_data
+            self.status_code = status_code
+
+        def json(self):
+            return self.json_data
+
+    ref_split = args[0].split('/')
+    if ref_split[-2] == 'common':
+        path = 'rero_ils.jsonschemas'
+        name = 'common/{name}'.format(
+            name=ref_split[-1]
+        )
+    else:
+        path = 'rero_ils.modules.{type}.jsonschemas'.format(
+            type=ref_split[-2]
+        )
+        name = '{type}/{name}'.format(
+            type=ref_split[-2],
+            name=ref_split[-1]
+        )
+
+    schema_in_bytes = resource_string(path, name)
+    if not schema_in_bytes:
+        return MockResponse({}, 404)
+    schema = json.loads(schema_in_bytes.decode('utf8'))
+    if not schema:
+        return MockResponse({}, 404)
+
+    return MockResponse(schema, 200)
+
+
+def get_schema(monkeypatch, schema_in_bytes):
+    """Get json schema and replace $refs.
+
+    For the resolving of the $ref we have to catch the request.get and
+    get the referenced json schema directly from the resource.
+
+    :param monkeypatch: https://docs.pytest.org/en/stable/monkeypatch.html
+    :schema_in_bytes: schema in bytes.
+    :returns: resolved json schema.
+    """
+    # apply the monkeypatch for requests.get to mocked_requests_get
+    monkeypatch.setattr(requests, "get", mocked_requests_get)
+
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+    # Replace all remaining $refs
+    while schema != jsonref.loads(jsonref.dumps(schema)):
+        schema = jsonref.loads(jsonref.dumps(schema))
+    return schema

@@ -1,0 +1,156 @@
+{
+  "authors": {
+    "title": "Authors",
+    "description": "Author(s) of the resource. Can be either persons or organisations.",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Author",
+      "type": "object",
+      "oneOf": [
+        {
+          "title": "Person",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "name",
+            "$ref",
+            "type",
+            "date",
+            "qualifier"
+          ],
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "enum": [
+                "person"
+              ],
+              "default": "person",
+              "form": {
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                },
+                "options": [
+                  {
+                    "label": "Person",
+                    "value": "person"
+                  }
+                ]
+              }
+            },
+            "name": {
+              "title": "Name",
+              "description": "Person's name.",
+              "type": "string",
+              "form": {
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                },
+                "type": "remoteautocomplete",
+                "hideExpression": "field.model.$ref != null"
+              }
+            },
+            "$ref": {
+              "title": "MEF person reference",
+              "type": "string",
+              "pattern": "^https://mef.rero.ch/api/bnf|gnd|idref|rero/.*?$",
+              "form": {
+                "wrappers": [
+                  "ref"
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            },
+            "date": {
+              "title": "Date",
+              "description": "Information about the birth and the death of a person. Helpful to disambiguate people.",
+              "type": "string",
+              "form": {
+                "hideExpression": "field.model.$ref != null || !field.model.name",
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            },
+            "qualifier": {
+              "title": "Qualifier",
+              "description": "Information about the person, ie her profession. Helpful to disambiguate people.",
+              "type": "string",
+              "form": {
+                "hideExpression": "field.model.$ref != null || !field.model.name",
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        },
+        {
+          "title": "Organisation",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "name",
+            "type"
+          ],
+          "required": [
+            "name",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "default": "organisation",
+              "enum": [
+                "organisation"
+              ],
+              "form": {
+                "options": [
+                  {
+                    "label": "Organisation",
+                    "value": "organisation"
+                  }
+                ],
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            },
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "form": {
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
+                }
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "row"
+            }
+          }
+        }
+      ]
+    },
+    "form": {
+      "navigation": {
+        "essential": true
+      },
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

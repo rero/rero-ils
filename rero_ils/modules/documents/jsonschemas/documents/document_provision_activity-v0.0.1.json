@@ -1,0 +1,220 @@
+{
+  "provisionActivity": {
+    "title": "Provision activities",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Provision activity",
+      "type": "object",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "type",
+        "place",
+        "startDate",
+        "endDate",
+        "note",
+        "statement"
+      ],
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "bf:Publication",
+            "bf:Manufacture",
+            "bf:Distribution",
+            "bf:Production"
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "options": [
+              {
+                "label": "Publication",
+                "value": "bf:Publication"
+              },
+              {
+                "label": "Manufacture",
+                "value": "bf:Manufacture"
+              },
+              {
+                "label": "Distribution",
+                "value": "bf:Distribution"
+              },
+              {
+                "label": "Production",
+                "value": "bf:Production"
+              }
+            ],
+            "templateOptions": {
+              "cssClass": "rero-ils-editor-max-width",
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
+        },
+        "place": {
+          "title": "Places",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "title": "Place",
+            "required": [
+              "country"
+            ],
+            "propertiesOrder": [
+              "type",
+              "country",
+              "canton"
+            ],
+            "properties": {
+              "type": {
+                "title": "Type",
+                "type": "string",
+                "const": "bf:Place",
+                "enum": [
+                  "bf:Place"
+                ],
+                "form": {
+                  "options": [
+                    {
+                      "label": "Place",
+                      "value": "bf:Place"
+                    }
+                  ],
+                  "templateOptions": {
+                    "cssClass": "col-lg-4"
+                  }
+                }
+              },
+              "country": {
+                "$ref": "https://ils.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+              },
+              "canton": {
+                "$ref": "https://ils.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
+              }
+            },
+            "form": {
+              "templateOptions": {
+                "cssClass": "row"
+              }
+            }
+          }
+        },
+        "statement": {
+          "title": "Statements",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "title": "Statement",
+            "description": "Statement of place and agent of the provision activity.",
+            "propertiesOrder": [
+              "type",
+              "label"
+            ],
+            "required": [
+              "type",
+              "label"
+            ],
+            "properties": {
+              "type": {
+                "title": "Type",
+                "type": "string",
+                "enum": [
+                  "bf:Place",
+                  "bf:Agent",
+                  "Date"
+                ],
+                "form": {
+                  "type": "selectWithSort",
+                  "wrappers": [
+                    "form-field-horizontal"
+                  ],
+                  "options": [
+                    {
+                      "label": "Place",
+                      "value": "bf:Place"
+                    },
+                    {
+                      "label": "Agent",
+                      "value": "bf:Agent"
+                    },
+                    {
+                      "label": "Date",
+                      "value": "Date"
+                    }
+                  ],
+                  "templateOptions": {
+                    "cssClass": "rero-ils-editor-max-width",
+                    "selectWithSortOptions": {
+                      "order": "label"
+                    }
+                  }
+                }
+              },
+              "label": {
+                "title": "Labels",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Label",
+                  "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                }
+              }
+            }
+          }
+        },
+        "note": {
+          "title": "Note",
+          "type": "string",
+          "form": {
+            "hide": true
+          }
+        },
+        "startDate": {
+          "title": "Start date of publication",
+          "description": "Start date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+          "type": "integer",
+          "minimum": -9999,
+          "maximum": 2050,
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        },
+        "endDate": {
+          "title": "End date of publication",
+          "description": "End date of the publication. This must be an integer, ie 1989, 453, -50. Used to sort search results. Once this field is set, a free formed date of publication can be added in the next field.",
+          "type": "integer",
+          "minimum": -9999,
+          "maximum": 2050,
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
+          }
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "navigation": {
+        "essential": true
+      },
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}

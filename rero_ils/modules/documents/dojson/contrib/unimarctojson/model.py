@@ -193,11 +193,11 @@ def unimarc_languages(self, key, value):
     languages = utils.force_list(value.get('a'))
     to_return = []
     schema_in_bytes = resource_string(
-        'rero_ils.modules.documents.jsonschemas',
-        'documents/document-v0.0.1.json'
+        'rero_ils.jsonschemas',
+        'common/languages-v0.0.1.json'
     )
     schema = jsonref.loads(schema_in_bytes.decode('utf8'))
-    langs = schema['definitions']['language']['enum']
+    langs = schema['language']['enum']
 
     for language in languages:
         if language in langs:

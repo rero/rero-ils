@@ -1,0 +1,22 @@
+{
+  "illustrativeContent": {
+    "title": "Illustrative contents",
+    "description": "Record every different illustrative content in a new field. Use one or more RDA recommended terms, in the singular or plural (MARC 300$b).",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "title": "Illustrative content",
+      "type": "string",
+      "minLength": 3,
+      "form": {
+        "placeholder": "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
+      }
+    },
+    "form": {
+      "hide": true,
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}
