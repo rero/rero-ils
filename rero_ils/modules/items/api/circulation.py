@@ -68,6 +68,12 @@ def add_loans_parameters_and_flush_indexes(function):
             # we arent allowed to validate a request on items with no requests.
             raise NoCirculationAction(
                 'No circulation action is possible')
+        elif function.__name__ == 'extend_loan':
+            # we arent allowed to extend an item that is not checked out.
+            loan = item.get_first_loan_by_state(state=LoanState.ITEM_ON_LOAN)
+            if not loan:
+                raise NoCirculationAction(
+                    'No circulation action is possible')
         elif function.__name__ in ('checkout', 'request'):
             if function.__name__ == 'request' and not patron_pid:
                 patron_pid = current_patron.pid
@@ -100,6 +106,11 @@ def add_loans_parameters_and_flush_indexes(function):
             for state in loans:
                 if state in states:
                     raise NoValidTransitionAvailableError()
+        if function.__name__ == 'extend_loan' and loan and \
+                LoanState.PENDING in item.get_loan_states_for_an_item():
+            # not possible to extend a checkedout item with requests
+            raise NoCirculationAction(
+                'No circulation action is possible')
 
         # set missing parameters
         kwargs['item_pid'] = item_pid_to_object(item.pid)
@@ -1116,9 +1127,10 @@ class ItemCirculation(IlsRecord):
         """Return the first loan with the given state and attached to item.
 
         :param state : the loan state
-        :return: first loan found
+        :return: first loan found otherwise None
         """
-        return list(self.get_item_loans_by_state(state=state))[0]
+        loans = list(self.get_item_loans_by_state(state=state))
+        return loans[0] if loans else None
 
     def get_item_loans_by_state(self, state=None, sort_by=None):
         """Return sorted item loans with a given state.
