@@ -34,9 +34,9 @@ from invenio_records_ui.signals import record_viewed
 from .api import Document
 from .dojson.contrib.unimarctojson import unimarc
 from .utils import display_alternate_graphic_first, edition_format_text, \
-    localized_data_name, note_format_text, publication_statement_text, \
-    series_format_text, title_format_text_alternate_graphic, \
-    title_format_text_head, title_variant_format_text
+    localized_data_name, publication_statement_text, series_format_text, \
+    title_format_text_alternate_graphic, title_format_text_head, \
+    title_variant_format_text
 from ..holdings.api import Holding
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -269,7 +269,12 @@ def edition_format(editions):
 @blueprint.app_template_filter()
 def note_format(notes):
     """Format note for template."""
-    return note_format_text(notes)
+    notes_text = {}
+    for note in notes:
+        note_type = note.get('noteType')
+        notes_text.setdefault(note_type, [])
+        notes_text[note_type].append(note.get('label'))
+    return notes_text
 
 
 @blueprint.app_template_filter()
