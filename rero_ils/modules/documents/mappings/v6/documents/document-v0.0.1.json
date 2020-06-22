@@ -476,20 +476,6 @@
             }
           }
         },
-        "note_text": {
-          "type": "object",
-          "properties": {
-            "accompanyingMaterial": {
-              "type": "text"
-            },
-            "general": {
-              "type": "text"
-            },
-            "otherPhysicalDetails": {
-              "type": "text"
-            }
-          }
-        },
         "abstracts": {
           "type": "text",
           "fields": {

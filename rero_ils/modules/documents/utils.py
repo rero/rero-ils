@@ -138,16 +138,6 @@ def edition_format_text(edition):
     return edition_text
 
 
-def note_format_text(notes):
-    """Format note for _text."""
-    note_text = {}
-    for note in notes:
-        note_type = note.get('noteType')
-        note_text.setdefault(note_type, [])
-        note_text[note_type].append(note.get('label'))
-    return note_text
-
-
 def display_alternate_graphic_first(language):
     """Display alternate graphic first.
 
