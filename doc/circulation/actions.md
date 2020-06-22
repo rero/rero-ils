@@ -100,13 +100,13 @@
 
 ## Extend
 
-1. __EXTEND_1__: item on_shelf (no current loan) →  (extend not possible)
-1. __EXTEND_2__: item at_desk, requested (ITEM_AT_DESK) →  (extend not possible)
-1. __EXTEND_3__: item on_loan (ITEM_ON_LOAN)
+1. :100: __EXTEND_1__: item on_shelf (no current loan) →  (extend not possible)
+1. :100: __EXTEND_2__: item at_desk, requested (ITEM_AT_DESK) →  (extend not possible)
+1. :100: __EXTEND_3__: item on_loan (ITEM_ON_LOAN)
 	1. :white_check_mark: __EXTEND_3_1__: PENDING loan does not exist →  (extend current loan)
 	1. :white_check_mark: __EXTEND_3_2__: PENDING loan exists →  (extend denied)
-1. __EXTEND_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (extend not possible)
-1. __EXTEND_5__: item in_transit (IN_TRANSIT_TO_HOUSE) →  (extend not possible)
+1. :100: __EXTEND_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (extend not possible)
+1. :100: __EXTEND_5__: item in_transit (IN_TRANSIT_TO_HOUSE) →  (extend not possible)
 
 ## Cancel request
 
