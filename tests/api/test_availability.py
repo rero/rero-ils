@@ -209,8 +209,10 @@ def test_item_holding_document_availability(
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid,
             pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -346,8 +348,10 @@ def test_item_holding_document_availability(
         'api_item.librarian_request',
         dict(
             item_pid=item2_lib_martigny.pid,
+            patron_pid=patron2_martigny_no_email.pid,
             pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron2_martigny_no_email.pid
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
