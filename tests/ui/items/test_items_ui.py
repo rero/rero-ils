@@ -29,7 +29,7 @@ def test_items_ui_permissions(client, item_lib_martigny,
                               loc_public_martigny,
                               patron_martigny_no_email, json_header,
                               circulation_policies):
-    """Test record retrieval."""
+    """Test patron request ui permissions."""
     item_pid = item_lib_martigny.pid
     pickup_location_pid = loc_public_martigny.pid
     request_url = url_for(
