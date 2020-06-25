@@ -223,7 +223,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
                                librarian_martigny_no_email,
                                librarian_saxon_no_email,
                                patron_martigny_no_email,
-                               loc_public_saxon,
+                               loc_public_saxon, lib_martigny,
                                loc_public_martigny,
                                circulation_policies):
     """Test checkout of an item in transit."""
@@ -245,7 +245,9 @@ def test_checkout_item_transit(client, item2_lib_martigny,
         dict(
             item_pid=item2_lib_martigny.pid,
             pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -498,8 +500,8 @@ It should be the same date, even if timezone changed."
 
 
 def test_librarian_request_on_blocked_user(
-        client, item_lib_martigny,
-        librarian_martigny_no_email,
+        client, item_lib_martigny, lib_martigny,
+        librarian_martigny_no_email, loc_public_martigny,
         patron3_martigny_blocked_no_email,
         circulation_policies):
     """Librarian request on blocked user returns a specific 403 message."""
@@ -513,7 +515,10 @@ def test_librarian_request_on_blocked_user(
         'api_item.librarian_request',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron3_martigny_blocked_no_email.pid
+            patron_pid=patron3_martigny_blocked_no_email.pid,
+            pickup_location_pid=loc_public_martigny,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 403
