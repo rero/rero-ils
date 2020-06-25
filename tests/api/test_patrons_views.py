@@ -30,7 +30,7 @@ from rero_ils.modules.patrons.utils import user_has_patron
 
 def test_patron_can_delete(client, librarian_martigny_no_email,
                            patron_martigny_no_email, loc_public_martigny,
-                           item_lib_martigny, json_header,
+                           item_lib_martigny, json_header, lib_martigny,
                            circulation_policies):
     """Test patron can delete."""
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -49,7 +49,9 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
         dict(
             item_pid=item.pid,
             pickup_location_pid=location.pid,
-            patron_pid=patron.pid
+            patron_pid=patron.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200

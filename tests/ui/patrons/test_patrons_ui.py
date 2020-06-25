@@ -30,7 +30,7 @@ from rero_ils.modules.loans.api import Loan, LoanState
 
 def test_patrons_profile(
         client, librarian_martigny_no_email, loan_pending_martigny,
-        lib_martigny, patron_martigny_no_email, loc_public_martigny,
+        patron_martigny_no_email, loc_public_martigny,
         item_type_standard_martigny, item_lib_martigny, json_header,
         circ_policy_short_martigny):
     """Test patron profile."""
@@ -49,7 +49,9 @@ def test_patrons_profile(
     data = {
         'patron_pid': patron_martigny_no_email.pid,
         'item_pid': item_lib_martigny.pid,
-        'pickup_location_pid': loc_public_martigny.pid
+        'pickup_location_pid': loc_public_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid
     }
     loan = item_lib_martigny.request(**data)
     loan_pid = loan[1].get('request').get('pid')
