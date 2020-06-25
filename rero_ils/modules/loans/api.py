@@ -22,6 +22,7 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 from flask import current_app
+from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
 from invenio_circulation.pidstore.providers import CirculationLoanIdProvider
@@ -110,6 +111,29 @@ class Loan(IlsRecord):
         """Loan init."""
         self['state'] = current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
         super(Loan, self).__init__(data, model)
+
+    def action_required_params(self, action=None):
+        """List of required parameters for circulation actions."""
+        params = {
+            'request': [
+                'item_pid',
+                'pickup_location_pid',
+                'patron_pid',
+                'transaction_location_pid',
+                'transaction_user_pid',
+                'pid'
+            ]
+        }
+        return params.get(action)
+
+    def check_required_params(self, action, **kwargs):
+        """Validate that all required parameters are given for an action."""
+        # TODO: do we need to check also the parameter exist and its value?
+        required_params = self.action_required_params(action=action)
+        missing_params = set(required_params) - set(kwargs)
+        if missing_params:
+            message = 'Parameters {} are required'.format(missing_params)
+            raise MissingRequiredParameterError(description=message)
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True,

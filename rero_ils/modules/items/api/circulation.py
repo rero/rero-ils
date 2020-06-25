@@ -46,6 +46,30 @@ from ...patrons.api import Patron, current_patron
 from ....filter import format_date_filter
 
 
+def add_action_parameters_and_flush_indexes(function):
+    """Add missing action parameters and validate parameters.
+
+    This method will replce add_loans_parameters_and_flush_indexes
+    """
+    @wraps(function)
+    def wrapper(item, *args, **kwargs):
+        """Executed before loan action."""
+        from . import ItemsSearch
+
+        loan, kwargs = item.complete_action_missing_params(item, **kwargs)
+        Loan.check_required_params(loan, function.__name__, **kwargs)
+
+        item, action_applied = function(item, loan, *args, **kwargs)
+
+        # commit and reindex item and loans
+        current_search.flush_and_refresh(
+            current_circulation.loan_search_cls.Meta.index)
+        item.status_update(dbcommit=True, reindex=True, forceindex=True)
+        ItemsSearch.flush()
+        return item, action_applied
+    return wrapper
+
+
 def add_loans_parameters_and_flush_indexes(function):
     """Add missing action parameters."""
     @wraps(function)
@@ -199,6 +223,38 @@ class ItemCirculation(IlsRecord):
         LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'in_transit',
         LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
     }
+
+    def complete_action_missing_params(self, item, **kwargs):
+        """Add the missing parameters before executing a circulation action."""
+        # TODO: this code will be enhanced while adding the other actions.
+        loan = None
+        loan_pid = kwargs.get('pid')
+        if loan_pid:
+            loan = Loan.get_record_by_pid(loan_pid)
+        patron_pid = kwargs.get('patron_pid')
+        if patron_pid and not loan:
+            data = {
+                'item_pid': item_pid_to_object(item.pid),
+                'patron_pid': patron_pid
+            }
+            loan = Loan.create(data, dbcommit=True, reindex=True)
+            kwargs['item_pid'] = item_pid_to_object(item.pid)
+            kwargs.setdefault('patron_pid', patron_pid)
+            kwargs.setdefault('pid', loan.pid)
+            kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
+            kwargs.setdefault('document_pid', item.replace_refs().get(
+                'document', {}).get('pid'))
+            transaction_location_pid = kwargs.get(
+                'transaction_location_pid', None)
+            if not transaction_location_pid:
+                transaction_library_pid = kwargs.pop(
+                    'transaction_library_pid', None)
+                if transaction_library_pid is not None:
+                    lib = Library.get_record_by_pid(transaction_library_pid)
+                    kwargs['transaction_location_pid'] = \
+                        lib.get_pickup_location_pid()
+
+        return loan, kwargs
 
     def checkin_on_shelf(self, loans_list, **kwargs):
         """Checkin actions for an item on_shelf.
@@ -576,7 +632,7 @@ class ItemCirculation(IlsRecord):
             LoanAction.EXTEND: loan
         }
 
-    @add_loans_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def request(self, current_loan, **kwargs):
         """Request item for the user and create notifications."""
         loan = current_circulation.circulation.trigger(
