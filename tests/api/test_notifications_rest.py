@@ -306,7 +306,7 @@ def test_notifications_post_put_delete(
     notif.delete(dbcommit=True, delindex=True)
 
 
-def test_recall_notification(client, patron_martigny_no_email,
+def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
                              json_header, patron2_martigny_no_email,
                              item_lib_martigny, librarian_martigny_no_email,
                              circulation_policies, loc_public_martigny):
@@ -335,7 +335,9 @@ def test_recall_notification(client, patron_martigny_no_email,
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny_no_email.pid
+            patron_pid=patron2_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
