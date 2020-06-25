@@ -67,7 +67,7 @@ def test_items_in_transit_between_libraries(
     assert item.get('status') == ItemStatus.ON_SHELF
 
 
-def test_item_multiple_transit(client, item_lib_martigny,
+def test_item_multiple_transit(client, item_lib_martigny, lib_martigny,
                                librarian_martigny_no_email,
                                patron_martigny_no_email, loc_public_martigny,
                                loc_public_saxon, loc_public_fully,
@@ -84,7 +84,9 @@ def test_item_multiple_transit(client, item_lib_martigny,
         dict(
             item_pid=item_lib_martigny.pid,
             pickup_location_pid=loc_public_fully.pid,
-            patron_pid=patron2_martigny_no_email.pid
+            patron_pid=patron2_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -125,7 +127,7 @@ def test_item_multiple_transit(client, item_lib_martigny,
 
 def test_auto_checkin_else(client, librarian_martigny_no_email,
                            patron_martigny_no_email, loc_public_martigny,
-                           item3_lib_martigny, json_header,
+                           item3_lib_martigny, json_header, lib_martigny,
                            loc_public_saxon):
     """Test item automatic checkin other scenarios."""
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -139,7 +141,9 @@ def test_auto_checkin_else(client, librarian_martigny_no_email,
         dict(
             item_pid=item3_lib_martigny.pid,
             pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         ),
     )
     assert res.status_code == 200

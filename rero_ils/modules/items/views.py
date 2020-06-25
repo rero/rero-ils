@@ -33,6 +33,7 @@ from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
+from ..patrons.api import current_patron
 from ...permissions import request_item_permission
 
 
@@ -106,7 +107,10 @@ def patron_request(viewcode, item_pid=None, pickup_location_pid=None):
     """
     data = {
         'item_pid': item_pid,
-        'pickup_location_pid': pickup_location_pid
+        'pickup_location_pid': pickup_location_pid,
+        'patron_pid': current_patron.pid,
+        'transaction_location_pid': pickup_location_pid,
+        'transaction_user_pid': current_patron.pid
     }
     item = Item.get_record_by_pid(data.get('item_pid'))
     item_data, action_applied = item.request(**data)
