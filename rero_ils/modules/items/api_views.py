@@ -26,7 +26,8 @@ from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from flask_login import current_user
 from invenio_circulation.api import get_loan_for_item
-from invenio_circulation.errors import CirculationException
+from invenio_circulation.errors import CirculationException, \
+    MissingRequiredParameterError
 from werkzeug.exceptions import NotFound
 
 from .api import Item
@@ -72,6 +73,63 @@ def jsonify_error(func):
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 500
+    return decorated_view
+
+
+def do_jsonify_action(func):
+    """Jsonify loan actions.
+
+    This method to replace the jsonify_action once completed.
+    """
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        try:
+            # TODO: this code will be enhanced while adding the other actions.
+            data = flask_request.get_json()
+            item_pid = data.get('item_pid')
+            if item_pid:
+                item = Item.get_record_by_pid(item_pid)
+            else:
+                item_barcode = data.pop('item_barcode', None)
+                item = Item.get_item_by_barcode(item_barcode)
+            if not item:
+                abort(404)
+
+            item_data, action_applied = \
+                func(item, data, *args, **kwargs)
+
+            for action, loan in action_applied.items():
+                if loan:
+                    action_applied[action] = loan.dumps_for_circulation()
+
+            return jsonify({
+                'metadata': item_data.dumps_for_circulation(),
+                'action_applied': action_applied
+            })
+        except MissingRequiredParameterError as error:
+            # Return error 400 when there is a missing required parameter
+            abort(400)
+        except CirculationException as error:
+            patron = False
+            # Detect patron details
+            if data.get('patron_pid'):
+                patron = Patron.get_record_by_pid(data.get('patron_pid'))
+            # Add more info in case of blocked patron (for UI)
+            if patron and patron.get('blocked', {}) is True:
+                abort(403, "BLOCKED USER")
+            abort(403)
+        except NotFound as error:
+            raise(error)
+        except exceptions.RequestError as error:
+            # missing required parameters
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 400
+        except Exception as error:
+            # TODO: need to know what type of exception and document them.
+            # raise(error)
+            current_app.logger.error(str(error))
+            return jsonify({'status': 'error: {error}'.format(
+                error=error)}), 400
     return decorated_view
 
 
@@ -131,11 +189,16 @@ def jsonify_action(func):
 
 @api_blueprint.route('/request', methods=['POST'])
 @check_authentication
-@jsonify_action
+@do_jsonify_action
 def librarian_request(item, data):
     """HTTP GET request for Item request action...
 
-    required_parameters: item_pid_value, location
+    required_parameters:
+        item_pid_value,
+        pickup_location_pid,
+        patron_pid,
+        transaction_location_pid or transaction_library_pid,
+        transaction_user_pid
     """
     return item.request(**data)
 
