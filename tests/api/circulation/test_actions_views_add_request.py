@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests REST API methods in the item api_views."""
+"""Tests REST librarian request API methods in the item api_views."""
 
 
 from invenio_accounts.testutils import login_user_via_session
