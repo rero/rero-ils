@@ -2,6 +2,13 @@
 
 ## Add a request
 
+#### required_parameters:
+    item_pid_value,
+    pickup_location_pid,
+    patron_pid,
+    transaction_location_pid or transaction_library_pid,
+    transaction_user_pid
+
 1. :100: __ADD_REQUEST_1__: item on_shelf (no current loan)
     1. :white_check_mark: :white_check_mark: :white_check_mark: :white_check_mark: __ADD_REQUEST_1_1__: PENDING loan does not exist →  (add loan PENDING)
     1. __ADD_REQUEST_1_2__: PENDING loan exists
@@ -25,6 +32,46 @@
     1. __ADD_REQUEST_5_2__: PENDING loan exists
         1. __ADD_REQUEST_5_2_1__: request patron = current loan patron → request denied
         1. __ADD_REQUEST_5_2_2__: request patron != current loan patron →  (add loan PENDING)
+
+
+## Cancel request
+
+#### required_parameters:
+    pid (loan pid)
+    transaction_location_pid or transaction_library_pid,
+    transaction_user_pid
+
+1. :100: __CANCEL_REQUEST_1__: item on_shelf (no current loan)
+	1. __CANCEL_REQUEST_1_1__: PENDING loan does not exist → (cancel not possible)
+	1. __CANCEL_REQUEST_1_2__: PENDING loan exists → (cancel loan, item is: on_shelf)
+
+1. :100: __CANCEL_REQUEST_2__: item at_desk, requested (ITEM_AT_DESK)
+	1. __CANCEL_REQUEST_2_1__: loan to cancel = current loan
+		1. __CANCEL_REQUEST_2_1_1__: PENDING loan does not exist Make it impossible to cancel loan from public interface. Future: make it possible and give an alert to the library that the item should not stayed at desk
+			1. __CANCEL_REQUEST_2_1_1_1__: item library != pickup location of current loan → (update loan to IN_TRANSIT_TO_HOUSE, item is: in_transit)
+			1. __CANCEL_REQUEST_2_1_1_2__: item library = pickup location of current loan → (cancel loan, item is: on_shelf)
+		1. __CANCEL_REQUEST_2_1_2__: PENDING loan exists
+			1. __CANCEL_REQUEST_2_1_2_1__: pickup location of 1st pending loan != pickup location of current loan → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate next PENDING loan]
+			1. __CANCEL_REQUEST_2_1_2_2__: pickup location of 1st pending loan = pickup location of current loan → (cancel loan, item is: at_desk (ITEM_AT_DESK))[automatic validate next PENDING loan]
+	1. __CANCEL_REQUEST_2_2__: loan to cancel != current loan → (cancel loan, item is: at desk)
+
+1. :100: __CANCEL_REQUEST_3__: item on_loan (ITEM_ON_LOAN)
+	1. __CANCEL_REQUEST_3_1__: loan to cancel = current loan → (cancel not possible)
+	1. __CANCEL_REQUEST_3_2__: loan to cancel != current loan → (cancel loan, item is: on_loan (ITEM_ON_LOAN))
+
+1. :100: __CANCEL_REQUEST_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
+	1. __CANCEL_REQUEST_4_1__: loan to cancel = current loan
+		1. __CANCEL_REQUEST_4_1_1__: PENDING loan does not exist → (update loan, item is: in_transit (IN_TRANSIT_TO_HOUSE))
+		1. __CANCEL_REQUEST_4_1_2__: PENDING loan exists → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate logic is applied next PENDING loan] 
+		
+	1. __CANCEL_REQUEST_4_2__: loan to cancel != current loan → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
+
+1. :100: __CANCEL_REQUEST_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
+	1. __CANCEL_REQUEST_5_1__: loan to cancel = current loan
+		1. __CANCEL_REQUEST_5_1_1__: PENDING loan does not exist → (checkin the IN_TRANSIT_TO_HOUSE loan, item will  go on shelf  and the loan is cancelled).
+		1. __CANCEL_REQUEST_5_1_2__: PENDING loan exists → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate next PENDING loan]
+	1. __CANCEL_REQUEST_5_2__: loan to cancel != current loan → (cancel loan, item is: in_transit (IN_TRANSIT_TO_HOUSE)) This use case should in principle never happen.
+
 
 ## Checkout form
 
@@ -108,39 +155,6 @@
 1. :100: __EXTEND_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (extend not possible)
 1. :100: __EXTEND_5__: item in_transit (IN_TRANSIT_TO_HOUSE) →  (extend not possible)
 
-## Cancel request
-
-
-1. :100: __CANCEL_REQUEST_1__: item on_shelf (no current loan)
-	1. __CANCEL_REQUEST_1_1__: PENDING loan does not exist → (cancel not possible)
-	1. __CANCEL_REQUEST_1_2__: PENDING loan exists → (cancel loan, item is: on_shelf)
-
-1. :100: __CANCEL_REQUEST_2__: item at_desk, requested (ITEM_AT_DESK)
-	1. __CANCEL_REQUEST_2_1__: loan to cancel = current loan
-		1. __CANCEL_REQUEST_2_1_1__: PENDING loan does not exist Make it impossible to cancel loan from public interface. Future: make it possible and give an alert to the library that the item should not stayed at desk
-			1. __CANCEL_REQUEST_2_1_1_1__: item library != pickup location of current loan → (update loan to IN_TRANSIT_TO_HOUSE, item is: in_transit)
-			1. __CANCEL_REQUEST_2_1_1_2__: item library = pickup location of current loan → (cancel loan, item is: on_shelf)
-		1. __CANCEL_REQUEST_2_1_2__: PENDING loan exists
-			1. __CANCEL_REQUEST_2_1_2_1__: pickup location of 1st pending loan != pickup location of current loan → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate next PENDING loan]
-			1. __CANCEL_REQUEST_2_1_2_2__: pickup location of 1st pending loan = pickup location of current loan → (cancel loan, item is: at_desk (ITEM_AT_DESK))[automatic validate next PENDING loan]
-	1. __CANCEL_REQUEST_2_2__: loan to cancel != current loan → (cancel loan, item is: at desk)
-
-1. :100: __CANCEL_REQUEST_3__: item on_loan (ITEM_ON_LOAN)
-	1. __CANCEL_REQUEST_3_1__: loan to cancel = current loan → (cancel not possible)
-	1. __CANCEL_REQUEST_3_2__: loan to cancel != current loan → (cancel loan, item is: on_loan (ITEM_ON_LOAN))
-
-1. :100: __CANCEL_REQUEST_4__: item in_transit (IN_TRANSIT_FOR_PICKUP)
-	1. __CANCEL_REQUEST_4_1__: loan to cancel = current loan
-		1. __CANCEL_REQUEST_4_1_1__: PENDING loan does not exist → (update loan, item is: in_transit (IN_TRANSIT_TO_HOUSE))
-		1. __CANCEL_REQUEST_4_1_2__: PENDING loan exists → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate logic is applied next PENDING loan] 
-		
-	1. __CANCEL_REQUEST_4_2__: loan to cancel != current loan → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
-
-1. :100: __CANCEL_REQUEST_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
-	1. __CANCEL_REQUEST_5_1__: loan to cancel = current loan
-		1. __CANCEL_REQUEST_5_1_1__: PENDING loan does not exist → (checkin the IN_TRANSIT_TO_HOUSE loan, item will  go on shelf  and the loan is cancelled).
-		1. __CANCEL_REQUEST_5_1_2__: PENDING loan exists → (cancel loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic validate next PENDING loan]
-	1. __CANCEL_REQUEST_5_2__: loan to cancel != current loan → (cancel loan, item is: in_transit (IN_TRANSIT_TO_HOUSE)) This use case should in principle never happen.
 
 
 ## Change request pickup location

@@ -76,13 +76,13 @@ def test_document_with_one_item_attached_bug(
     assert res.status_code == 200
 
     assert item_lib_martigny.number_of_requests() == 1
-
     res, data = postdata(
         client,
-        'api_item.cancel_loan',
+        'api_item.cancel_item_request',
         dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan2_pid
+            pid=loan2_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
