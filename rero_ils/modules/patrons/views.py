@@ -164,9 +164,13 @@ def profile(viewcode):
         item = Item.get_record_by_pid(loan.get('item_pid', {}).get('value'))
         if request.form.get('type') == 'cancel':
             tab = 'requests'
-            data = loan
+            cancel_params = {
+                'pid': loan.pid,
+                'transaction_location_pid': item.location_pid,
+                'transaction_user_pid': patron.pid
+            }
             try:
-                item.cancel_loan(**data)
+                item.cancel_item_request(**cancel_params)
                 flash(_('The request for item %(item_id)s has been canceled.',
                         item_id=item.pid), 'success')
             except Exception:
