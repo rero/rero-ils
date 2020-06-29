@@ -170,8 +170,18 @@ def test_auto_checkin_else(client, librarian_martigny_no_email,
     assert 'no' in actions
     assert actions['no']['pid'] == loan_pid
 
-    item.cancel_loan(pid=loan_pid)
-    assert item.status == ItemStatus.ON_SHELF
+    res, data = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
+    # TODO check this when automatic_checkin is replaced by checkin
+    assert item.status == ItemStatus.IN_TRANSIT
 
 
 def test_checkout_in_transit_return_same_library(
