@@ -65,7 +65,16 @@ def test_patron_can_delete(client, librarian_martigny_no_email,
     reasons = patron_martigny_no_email.reasons_not_to_delete()
     assert 'links' in reasons
 
-    item.cancel_loan(pid=loan_pid)
+    res, data = postdata(
+        client,
+        'api_item.cancel_item_request',
+        dict(
+            pid=loan_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
+        )
+    )
+    assert res.status_code == 200
     assert item.status == ItemStatus.ON_SHELF
 
 
