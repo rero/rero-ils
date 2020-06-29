@@ -122,6 +122,11 @@ class Loan(IlsRecord):
                 'transaction_location_pid',
                 'transaction_user_pid',
                 'pid'
+            ],
+            'cancel_loan': [
+                'transaction_location_pid',
+                'transaction_user_pid',
+                'pid'
             ]
         }
         return params.get(action)
