@@ -238,21 +238,23 @@ class ItemCirculation(IlsRecord):
                 'patron_pid': patron_pid
             }
             loan = Loan.create(data, dbcommit=True, reindex=True)
-            kwargs['item_pid'] = item_pid_to_object(item.pid)
-            kwargs.setdefault('patron_pid', patron_pid)
-            kwargs.setdefault('pid', loan.pid)
-            kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
-            kwargs.setdefault('document_pid', item.replace_refs().get(
-                'document', {}).get('pid'))
-            transaction_location_pid = kwargs.get(
-                'transaction_location_pid', None)
-            if not transaction_location_pid:
-                transaction_library_pid = kwargs.pop(
-                    'transaction_library_pid', None)
-                if transaction_library_pid is not None:
-                    lib = Library.get_record_by_pid(transaction_library_pid)
-                    kwargs['transaction_location_pid'] = \
-                        lib.get_pickup_location_pid()
+        if not patron_pid and loan:
+            kwargs.setdefault('patron_pid', loan.patron_pid)
+        kwargs['item_pid'] = item_pid_to_object(item.pid)
+        kwargs.setdefault('patron_pid', patron_pid)
+        kwargs.setdefault('pid', loan.pid)
+        kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
+        kwargs.setdefault('document_pid', item.replace_refs().get(
+            'document', {}).get('pid'))
+        transaction_location_pid = kwargs.get(
+            'transaction_location_pid', None)
+        if not transaction_location_pid:
+            transaction_library_pid = kwargs.pop(
+                'transaction_library_pid', None)
+            if transaction_library_pid is not None:
+                lib = Library.get_record_by_pid(transaction_library_pid)
+                kwargs['transaction_location_pid'] = \
+                    lib.get_pickup_location_pid()
 
         return loan, kwargs
 
@@ -498,7 +500,7 @@ class ItemCirculation(IlsRecord):
         actions.update({LoanAction.CHECKOUT: loan})
         return self, actions
 
-    @add_loans_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def cancel_loan(self, current_loan, **kwargs):
         """Cancel a given item loan for a patron."""
         loan = current_circulation.circulation.trigger(
@@ -535,7 +537,8 @@ class ItemCirculation(IlsRecord):
             item, validate_actions = self.validate_request(
                 pid=pending.pid, **kwargs)
             actions.update({LoanAction.VALIDATE: validate_actions})
-
+        else:
+            item = self
         return item, actions
 
     def checks_before_a_cancel_item_request(self, loan, **kwargs):
@@ -962,10 +965,12 @@ class ItemCirculation(IlsRecord):
         :param loan_pid : the loan pid to exclude
         :return:  the list of loans states attached to the item
         """
+        exclude_states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
         item_pid_object = item_pid_to_object(item_pid)
         results = current_circulation.loan_search_cls()\
             .filter('term', item_pid__value=item_pid_object['value'])\
             .filter('term', item_pid__type=item_pid_object['type'])\
+            .exclude('terms', state=exclude_states)\
             .source(includes='pid').scan()
         return [Loan.get_record_by_pid(loan.pid)['state']
                 for loan in results if loan.pid != loan_pid]

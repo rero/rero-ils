@@ -86,15 +86,24 @@ def do_jsonify_action(func):
         try:
             # TODO: this code will be enhanced while adding the other actions.
             data = flask_request.get_json()
-            item_pid = data.get('item_pid')
+            item_pid = data.get('item_pid', None)
+            item_barcode = data.pop('item_barcode', None)
+            loan_pid = data.get('pid', None)
+            # There are three possible way to retrieve the item record
             if item_pid:
+                # from a given item_pid parameter
                 item = Item.get_record_by_pid(item_pid)
-            else:
+            elif item_barcode:
+                # from a given item_barcode parameter
                 item_barcode = data.pop('item_barcode', None)
                 item = Item.get_item_by_barcode(item_barcode)
+            elif loan_pid:
+                # from a given loan pid parameter
+                item_pid = Loan.get_record_by_pid(loan_pid).item_pid
+                item = Item.get_record_by_pid(item_pid)
+
             if not item:
                 abort(404)
-
             item_data, action_applied = \
                 func(item, data, *args, **kwargs)
 
@@ -191,7 +200,7 @@ def jsonify_action(func):
 @check_authentication
 @do_jsonify_action
 def librarian_request(item, data):
-    """HTTP GET request for Item request action...
+    """HTTP GET request for Item request action.
 
     required_parameters:
         item_pid_value,
@@ -201,6 +210,20 @@ def librarian_request(item, data):
         transaction_user_pid
     """
     return item.request(**data)
+
+
+@api_blueprint.route('/cancel_item_request', methods=['POST'])
+@check_authentication
+@do_jsonify_action
+def cancel_item_request(item, data):
+    """HTTP GET request for cancelling and item request action.
+
+    required_parameters:
+        pid (loan pid)
+        transaction_location_pid or transaction_library_pid,
+        transaction_user_pid
+    """
+    return item.cancel_item_request(**data)
 
 
 @api_blueprint.route('/checkout', methods=['POST'])
@@ -235,15 +258,6 @@ def automatic_checkin(item, data):
     """
     trans_loc_pid = data.get('transaction_location_pid')
     return item.automatic_checkin(trans_loc_pid)
-
-
-@api_blueprint.route("/cancel", methods=['POST'])
-@check_authentication
-@jsonify_action
-def cancel_loan(item, params):
-    """HTTP request for cancel action."""
-    # TODO: manage transitions for complex cases
-    return item.cancel_loan(**params)
 
 
 @api_blueprint.route("/update_loan_pickup_location", methods=['POST'])
