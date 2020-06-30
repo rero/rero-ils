@@ -524,9 +524,15 @@
             "items": {
               "title": "Responsibility",
               "$ref": "#/definitions/language_script"
+            },
+            "form": {
+              "hide": true
             }
           }
-        }
+        },
+        "required": [
+          "editionDesignation"
+        ]
       },
       "form": {
         "hide": true,
