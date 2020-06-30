@@ -53,3 +53,9 @@ _('bf:Place')
 # Harvested source
 _('ebibliomedia')
 _('mv-cantook')
+
+# Issuance main type
+_('rdami:1001')
+_('rdami:1002')
+_('rdami:1003')
+_('rdami:1004')
