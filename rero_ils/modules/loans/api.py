@@ -117,18 +117,28 @@ class Loan(IlsRecord):
         shared_params = [
             'transaction_location_pid',
             'transaction_user_pid',
-            'pid'
         ]
         params = {
             'request': [
                 'item_pid',
                 'pickup_location_pid',
                 'patron_pid',
+            ],
+            'cancel_loan': [
                 'pid'
             ],
-            'cancel_loan': [],
-            'checkin': [],
-            'validate_request': []
+            'checkin': [
+                'pid'
+            ],
+            'validate_request': [
+                'pid'
+            ],
+            'checkout': [
+                'item_pid',
+                'patron_pid',
+                'transaction_location_pid',
+                'transaction_user_pid',
+            ]
         }
 
         return params.get(action) + shared_params
