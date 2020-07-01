@@ -54,9 +54,16 @@ def add_action_parameters_and_flush_indexes(function):
     @wraps(function)
     def wrapper(item, *args, **kwargs):
         """Executed before loan action."""
+        # TODO: this code will be enhanced while adding the other actions.
         from . import ItemsSearch
-
-        loan, kwargs = item.complete_action_missing_params(item, **kwargs)
+        # the smart checkin requires extra checks and actions before a checkin
+        if function.__name__ == 'checkin':
+            loan, kwargs = item.prior_checkin_actions(item, **kwargs)
+            loan, kwargs = item.complete_action_missing_params(
+                item=item, checkin_loan=loan, **kwargs)
+        else:
+            loan, kwargs = item.complete_action_missing_params(
+                item=item, **kwargs)
         Loan.check_required_params(loan, function.__name__, **kwargs)
 
         item, action_applied = function(item, loan, *args, **kwargs)
@@ -168,22 +175,25 @@ def add_loans_parameters_and_flush_indexes(function):
     return wrapper
 
 
-def add_checkin_parameters_and_flush_indexes(function):
-    """Add missing checkin action parameters."""
-    @wraps(function)
-    def wrapper(item, *args, **kwargs):
-        """Executed before loan action."""
-        from . import ItemsSearch
-        loan = None
-        loan_pid = kwargs.get('pid')
+class ItemCirculation(IlsRecord):
+    """Item circulation class."""
+
+    statuses = {
+        LoanState.ITEM_ON_LOAN: 'on_loan',
+        LoanState.ITEM_AT_DESK: 'at_desk',
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'in_transit',
+        LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
+    }
+
+    def prior_checkin_actions(self, item, **kwargs):
+        """Actions to execute before a smart checkin."""
+        # TODO: this code will be enhanced while adding the other actions.
         loans_list = item.get_loan_states_for_an_item()
-        if loan_pid:
-            loan = Loan.get_record_by_pid(loan_pid)
         if not loans_list:
             # CHECKIN_1_1: item on_shelf, no pending loans.
             item.checkin_on_shelf(loans_list, **kwargs)
         elif (LoanState.ITEM_AT_DESK not in loans_list and
-              LoanState.ITEM_ON_LOAN not in loans_list):
+                LoanState.ITEM_ON_LOAN not in loans_list):
             if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in loans_list:
                 # CHECKIN_4: item in_transit (IN_TRANSIT_FOR_PICKUP)
                 loan, kwargs = item.checkin_in_transit_for_pickup(**kwargs)
@@ -200,49 +210,36 @@ def add_checkin_parameters_and_flush_indexes(function):
         elif LoanState.ITEM_ON_LOAN in loans_list:
             # CHECKIN_3: item on_loan, will be checked-in normally.
             loan = item.get_first_loan_by_state(state=LoanState.ITEM_ON_LOAN)
+        return loan, kwargs
 
-        kwargs = item.complete_missing_params(loan, **kwargs)
-
-        item, action_applied = function(item, loan, *args, **kwargs)
-
-        # commit and reindex item and loans
-        current_search.flush_and_refresh(
-            current_circulation.loan_search_cls.Meta.index)
-        item.status_update(dbcommit=True, reindex=True, forceindex=True)
-        ItemsSearch.flush()
-        return item, action_applied
-    return wrapper
-
-
-class ItemCirculation(IlsRecord):
-    """Item circulation class."""
-
-    statuses = {
-        LoanState.ITEM_ON_LOAN: 'on_loan',
-        LoanState.ITEM_AT_DESK: 'at_desk',
-        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'in_transit',
-        LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
-    }
-
-    def complete_action_missing_params(self, item, **kwargs):
+    def complete_action_missing_params(
+            self, item=None, checkin_loan=None, **kwargs):
         """Add the missing parameters before executing a circulation action."""
         # TODO: this code will be enhanced while adding the other actions.
-        loan = None
-        loan_pid = kwargs.get('pid')
-        if loan_pid:
-            loan = Loan.get_record_by_pid(loan_pid)
-        patron_pid = kwargs.get('patron_pid')
-        if patron_pid and not loan:
-            data = {
-                'item_pid': item_pid_to_object(item.pid),
-                'patron_pid': patron_pid
-            }
-            loan = Loan.create(data, dbcommit=True, reindex=True)
-        if not patron_pid and loan:
-            kwargs.setdefault('patron_pid', loan.patron_pid)
+        if not checkin_loan:
+            loan = None
+            loan_pid = kwargs.get('pid')
+            if loan_pid:
+                loan = Loan.get_record_by_pid(loan_pid)
+            patron_pid = kwargs.get('patron_pid')
+            if patron_pid and not loan:
+                data = {
+                    'item_pid': item_pid_to_object(item.pid),
+                    'patron_pid': patron_pid
+                }
+                loan = Loan.create(data, dbcommit=True, reindex=True)
+            if not patron_pid and loan:
+                kwargs.setdefault('patron_pid', loan.patron_pid)
+
+            kwargs.setdefault('pid', loan.pid)
+            kwargs.setdefault('patron_pid', patron_pid)
+        else:
+            kwargs['patron_pid'] = checkin_loan.get('patron_pid')
+            kwargs['pid'] = checkin_loan.pid
+            loan = checkin_loan
+
         kwargs['item_pid'] = item_pid_to_object(item.pid)
-        kwargs.setdefault('patron_pid', patron_pid)
-        kwargs.setdefault('pid', loan.pid)
+
         kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
         kwargs.setdefault('document_pid', item.replace_refs().get(
             'document', {}).get('pid'))
@@ -424,26 +421,6 @@ class ItemCirculation(IlsRecord):
             kwargs['validate_current_loan'] = True
             loan = pending
         return loan, kwargs
-
-    def complete_missing_params(self, loan, **kwargs):
-        """Complete the missing parameters to start the checkin action.
-
-        :param item : the item record
-        :param loan: the item loan to be used for the checkin action
-        :param kwargs : all others named arguments
-        """
-        # set missing parameters
-        kwargs['item_pid'] = item_pid_to_object(self.pid)
-        kwargs['patron_pid'] = loan.get('patron_pid')
-        kwargs['pid'] = loan.pid
-        # TODO: case when user want to have his own transaction date
-        kwargs['transaction_date'] = datetime.now(timezone.utc).isoformat()
-        if not kwargs.get('transaction_user_pid'):
-            kwargs.setdefault(
-                'transaction_user_pid', current_patron.pid)
-        kwargs.setdefault(
-            'document_pid', self.replace_refs().get('document', {}).get('pid'))
-        return kwargs
 
     def compare_item_pickup_transaction_libraries(self, **kwargs):
         """Compare item library, pickup and transaction libraries.
@@ -809,7 +786,7 @@ class ItemCirculation(IlsRecord):
             return item, actions
         return self, actions
 
-    @add_checkin_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def checkin(self, current_loan, **kwargs):
         """Perform a smart checkin action."""
         actions = {}
@@ -879,46 +856,6 @@ class ItemCirculation(IlsRecord):
                     raise ItemNotAvailableError(
                         item_pid=item_pid, description=msg)
         return action_params, actions
-
-    def automatic_checkin(self, trans_loc_pid=None):
-        """Apply circ transactions for item."""
-        data = {}
-        if trans_loc_pid is not None:
-            data['transaction_location_pid'] = trans_loc_pid
-        if self.status == ItemStatus.ON_LOAN:
-            loan_pid = self.get_loan_pid_with_item_on_loan(self.pid)
-            return self.checkin(pid=loan_pid, **data)
-
-        elif self.status == ItemStatus.IN_TRANSIT:
-            do_receive = False
-            loan_pid = self.get_loan_pid_with_item_in_transit(self.pid)
-            loan = Loan.get_record_by_pid(loan_pid)
-
-            transaction_location_pid = trans_loc_pid
-            if trans_loc_pid is None:
-                transaction_location_pid = \
-                    Patron.get_librarian_pickup_location_pid()
-            if loan['state'] == \
-                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP and \
-                    loan['pickup_location_pid'] == transaction_location_pid:
-                do_receive = True
-            if loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
-                trans_loc = Location.get_record_by_pid(trans_loc_pid)
-                if self.library_pid == trans_loc.library_pid:
-                    do_receive = True
-            if do_receive:
-                return self.receive(pid=loan_pid, **data)
-            return self, {
-                # None action are available. Send anyway last known loan
-                # informations.
-                LoanAction.NO: loan
-            }
-
-        if self.status == ItemStatus.MISSING:
-            return self.return_missing()
-        return self, {
-            LoanAction.NO: None
-        }
 
     def dumps_for_circulation(self, sort_by=None):
         """Enhance item information for api_views."""
