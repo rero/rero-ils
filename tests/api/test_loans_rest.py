@@ -156,7 +156,8 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -213,7 +214,8 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         dict(
             item_pid=item_pid,
             pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
