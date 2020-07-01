@@ -17,6 +17,104 @@
 Changes
 =======
 
+`v0.10.0 <https://github.com/rero/rero-ils/tree/v0.10.0>`__ (2020-07-01)
+------------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.9.1...v0.10.0>`__
+
+**Implemented enhancements:**
+
+-  Improvement needed on the switch library menu
+   `#821 <https://github.com/rero/rero-ils/issues/821>`__
+
+**Fixed bugs:**
+
+-  Editor: “jump to” not always working
+   `#1035 <https://github.com/rero/rero-ils/issues/1035>`__
+-  Delete disabled button doesn’t allow to show reasons not to delete
+   `#945 <https://github.com/rero/rero-ils/issues/945>`__
+-  The switch library menu is not dynamically populated
+   `#822 <https://github.com/rero/rero-ils/issues/822>`__
+
+**Closed issues:**
+
+-  A librarian can change his/her affiliation library in the editor
+   `#1039 <https://github.com/rero/rero-ils/issues/1039>`__
+-  Author search in document creation display wrong date.
+   `#1038 <https://github.com/rero/rero-ils/issues/1038>`__
+-  Impossible to save the document editor with field “notes”
+   `#1036 <https://github.com/rero/rero-ils/issues/1036>`__
+-  Restarting scheduler is disabling entries
+   `#1033 <https://github.com/rero/rero-ils/issues/1033>`__
+-  Redirection after item deletion from the item detailed view
+   `#1024 <https://github.com/rero/rero-ils/issues/1024>`__
+-  Librarian permissions are too large on other librarian records
+   `#930 <https://github.com/rero/rero-ils/issues/930>`__
+-  Language switch does not work properly on the professional interface
+   `#925 <https://github.com/rero/rero-ils/issues/925>`__
+-  Bigger thumbnails in public view
+   `#903 <https://github.com/rero/rero-ils/issues/903>`__
+-  Link to the patron profile not adapted to the concerned instance in
+   the notification message.
+   `#802 <https://github.com/rero/rero-ils/issues/802>`__
+-  Barcode and callnumber (at item level) shoudn’t be mandatory
+   `#648 <https://github.com/rero/rero-ils/issues/648>`__
+
+**Merged pull requests:**
+
+-  translations: fetch new translations
+   `#1072 <https://github.com/rero/rero-ils/pull/1072>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  documentation: add an issue template for dev
+   `#1064 <https://github.com/rero/rero-ils/pull/1064>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  document: fix edition with notes
+   `#1062 <https://github.com/rero/rero-ils/pull/1062>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  Merge US1275 on dev
+   `#1060 <https://github.com/rero/rero-ils/pull/1060>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  Zan us1351 items notes
+   `#1057 <https://github.com/rero/rero-ils/pull/1057>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  translation: fix string extraction from JSON file
+   `#1054 <https://github.com/rero/rero-ils/pull/1054>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  authorization: create role management API
+   `#1043 <https://github.com/rero/rero-ils/pull/1043>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  cli: correct wrong process bulk queue
+   `#1037 <https://github.com/rero/rero-ils/pull/1037>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+-  scheduler: use saved enabled state of tasks
+   `#1034 <https://github.com/rero/rero-ils/pull/1034>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  license: update missing info in the license
+   `#1031 <https://github.com/rero/rero-ils/pull/1031>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  notifications: patron url
+   `#1029 <https://github.com/rero/rero-ils/pull/1029>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  ui: keep selected tab active on reload
+   `#1025 <https://github.com/rero/rero-ils/pull/1025>`__
+   (`Garfield-fr <https://github.com/Garfield-fr>`__)
+-  docs: add the missing references to the add_request circulation
+   action. `#1023 <https://github.com/rero/rero-ils/pull/1023>`__
+   (`BadrAly <https://github.com/BadrAly>`__)
+-  translations: adds editor translations support
+   `#1021 <https://github.com/rero/rero-ils/pull/1021>`__
+   (`jma <https://github.com/jma>`__)
+-  scripts: correct server script
+   `#1015 <https://github.com/rero/rero-ils/pull/1015>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  merge US1296 to dev (UX of editor)
+   `#1012 <https://github.com/rero/rero-ils/pull/1012>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  install: integration of invenio-sip2 module
+   `#1005 <https://github.com/rero/rero-ils/pull/1005>`__
+   (`lauren-d <https://github.com/lauren-d>`__)
+
 `v0.9.1 <https://github.com/rero/rero-ils/tree/v0.9.1>`__ (2020-06-03)
 ----------------------------------------------------------------------
 
