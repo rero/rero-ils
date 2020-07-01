@@ -118,22 +118,23 @@ class Loan(IlsRecord):
 
     def action_required_params(self, action=None):
         """List of required parameters for circulation actions."""
+        shared_params = [
+            'transaction_location_pid',
+            'transaction_user_pid',
+            'pid'
+        ]
         params = {
             'request': [
                 'item_pid',
                 'pickup_location_pid',
                 'patron_pid',
-                'transaction_location_pid',
-                'transaction_user_pid',
                 'pid'
             ],
-            'cancel_loan': [
-                'transaction_location_pid',
-                'transaction_user_pid',
-                'pid'
-            ]
+            'cancel_loan': [],
+            'checkin': []
         }
-        return params.get(action)
+
+        return params.get(action) + shared_params
 
     def check_required_params(self, action, **kwargs):
         """Validate that all required parameters are given for an action."""
