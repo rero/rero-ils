@@ -70,7 +70,8 @@ def test_document_with_one_item_attached_bug(
         dict(
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -166,7 +167,8 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         dict(
             item_pid=item_lib_martigny.pid,
             pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
@@ -181,7 +183,8 @@ def test_document_with_items_attached_bug(client, librarian_martigny_no_email,
         dict(
             item_pid=item2_lib_martigny.pid,
             pid=loan2_pid,
-            transaction_location_pid=loc_public_martigny.pid
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200

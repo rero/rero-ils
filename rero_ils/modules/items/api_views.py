@@ -226,6 +226,20 @@ def cancel_item_request(item, data):
     return item.cancel_item_request(**data)
 
 
+@api_blueprint.route("/checkin", methods=['POST'])
+@check_authentication
+@do_jsonify_action
+def checkin(item, data):
+    """HTTP GET request for item return action.
+
+    required_parameters:
+        item_pid or item_barcode
+        transaction_location_pid or transaction_library_pid,
+        transaction_user_pid
+    """
+    return item.checkin(**data)
+
+
 @api_blueprint.route('/checkout', methods=['POST'])
 @check_authentication
 @jsonify_action
@@ -235,29 +249,6 @@ def checkout(item, data):
     required_parameters: patron_pid, item_pid
     """
     return item.checkout(**data)
-
-
-@api_blueprint.route("/checkin", methods=['POST'])
-@check_authentication
-@jsonify_action
-def checkin(item, data):
-    """HTTP request for Item return action.
-
-    required_parameters: item_pid
-    """
-    return item.checkin(**data)
-
-
-@api_blueprint.route('/automatic_checkin', methods=['POST'])
-@check_authentication
-@jsonify_action
-def automatic_checkin(item, data):
-    """HTTP request for Item circulation actions.
-
-    required_parameters: item_barcode
-    """
-    trans_loc_pid = data.get('transaction_location_pid')
-    return item.automatic_checkin(trans_loc_pid)
 
 
 @api_blueprint.route("/update_loan_pickup_location", methods=['POST'])
