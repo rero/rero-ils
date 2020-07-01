@@ -21,7 +21,7 @@ from copy import deepcopy
 
 import pytest
 from invenio_circulation.errors import ItemNotAvailableError, \
-    NoValidTransitionAvailableError
+    NoValidTransitionAvailableError, TransitionConstraintsViolationError
 from invenio_circulation.ext import NoValidTransitionAvailableError
 from utils import item_record_to_a_specific_loan_state
 
@@ -326,7 +326,7 @@ def test_checkout_on_item_in_transit_to_house_with_pending_loan(
     assert params['patron_pid'] != requested_loan.patron_pid
     assert intransit_item.status == ItemStatus.IN_TRANSIT
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
-    with pytest.raises(ItemNotAvailableError):
+    with pytest.raises(TransitionConstraintsViolationError):
         asked_item, actions = intransit_item.checkout(
             **params, pid=requested_loan.pid)
     asked_item = Item.get_record_by_pid(intransit_item.pid)
@@ -339,11 +339,11 @@ def test_checkout_on_item_in_transit_to_house_with_pending_loan(
     # WITH pending loan
     # checkout patron = patron of first pending loan
     # CAN BE CHECKOUT
-    params.update({'patron_pid': requested_loan.patron_pid})
     # Checkout it! CHECKOUT patron = patron of first PENDING loan
-    assert params['patron_pid'] == requested_loan.patron_pid
+    assert params['patron_pid'] == loan.patron_pid
     assert intransit_item.status == ItemStatus.IN_TRANSIT
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+    # What differs from CHECKOUT_5_2_2 is the given LOAN (`pid=`)
     checkout_item, actions = asked_item.checkout(**params, pid=loan.pid)
     checkout_loan = Loan.get_record_by_pid(
         actions[LoanAction.CHECKOUT].get('pid'))
