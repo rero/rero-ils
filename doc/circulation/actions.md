@@ -97,6 +97,17 @@
 
 ## Checkin form
 
+#### required_parameters for frontend calls:
+    item_pid or item_barcode
+    transaction_location_pid or transaction_library_pid,
+    transaction_user_pid
+
+#### required_parameters for backend calls:
+    pid (loan pid)
+    transaction_location_pid or transaction_library_pid,
+    transaction_user_pid
+
+
 1. :100:__CHECKIN_1__: item on_shelf (no current loan)
 	1. __CHECKIN_1_1__: PENDING loan does not exist
 		1. :white_check_mark: __CHECKIN_1_1_1__: item library = transaction library →  (no action, item is: on_shelf)
