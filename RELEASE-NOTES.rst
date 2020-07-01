@@ -18,6 +18,220 @@
 Release notes
 =============
 
+v0.10.0
+-------
+
+User interface
+--------------
+
+Public interface
+~~~~~~~~~~~~~~~~
+
+-  Keeps the active tab on the document or person detailed view on page
+   reloads.
+
+Professional interface
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  Renders the language menu with the same look as in the public
+   interface:
+
+   -  Uses the same icons.
+   -  Removes the current language.
+   -  Avoids to translate the language menu.
+   -  Adds a divider to separate the language menu from the help link.
+
+-  Takes the entire screen width. This is useful for the improvement of
+   the editor.
+-  Improves the document editor:
+
+   -  Sets a max width for selects and inputs.
+   -  Sets bold font weight for titles.
+   -  Hides fields with unique value (as ``bf:Place``).
+   -  Displays fields inline and makes this configurable through a HTML class
+      in the JSON schema.
+   -  Adds HTML class in the JSON schema to fix max width and title font
+      size.
+
+-  Implements interface components to import bibliographic records from
+   external sources through the web (SRU protocol). The librarian searches in a
+   regular search interface for the desired record, using a simple query
+   (keywords for the author, title, date, IDs…), selects a record, gets a
+   preview in two formats (the RERO ILS JSON rendered in HTML, and MARC). Once
+   the desired record is identified, through an *Import* button, the record is
+   loaded into the document editor to be modified and then added to the
+   catalog. At this stage, only the BnF SRU service is implemented.
+-  Fixes the redirection to the parent document after the deletion of an item.
+   This behaviour has been generalized to every parent/child resource
+   relationship through a modification in the routing configuration.
+-  Allows to receive a serial issue through the professional
+   interface (see the acquisition section, below). The workflow begins on the
+   holding detailed view and then continues on a dedicated view for serial
+   issues. The *Quick receipt* automatically receive a regular issue and create
+   the corresponding item.
+-  Improves the transaction data displayed on the item detailed view,
+   depending on the transaction type (checkout or request), to avoid
+   displaying an empty pickup location name when this data is not
+   relevant.
+
+Circulation
+-----------
+
+-  Adapts the patron profile URL in notification messages to the active RERO
+   ILS instance.
+-  Adds a CLI for notifications to start the notification process with
+   ``invenio run notifications process``.
+
+Metadata
+--------
+
+-  Adds a translation mechanism for the resource editor (documents, items…).
+   The translated schemas keys in the `rero-ils` project are served through an
+   API endpoint to the `rero-ils-ui` project, in order to avoid translating
+   them twice.
+-  Holding record, serial pattern:
+
+   -  Adds a field to describe the publication frequency of a serial pattern.
+      The librarian has to pick from a fixed list of 15 frequencies, which
+      correspond to the standard RDA list.
+   -  Adds an ``expected_date_for_first_issue`` field to indicate the expected
+      date of the first issue to be received.
+   -  Sets the ``next_expected_date`` field as required for regular
+      frequencies.
+   -  Adapts the item JSON schema to display fields conditionally.
+
+-  Adds ``type`` field in the item record, to distinguish between
+   standard item and serial issue. If the item is of type ``issue``,
+   then the ``issue`` field is required, to describe the issuance
+   details and issue status. Issue items can only be attached to
+   holdings of serial type.
+   The field ``item_type`` that indicates the circulation category will
+   be removed later. The item circulation status is described in the
+   ``item.status`` field, while the issue status is described in the
+   ``item.issue.status``.
+-  Adds ``notes`` field in the item JSON schema. Four types of notes have been
+   added, two regarding their audience (public or staff) and two regarding a
+   circulation operation (checkin/checkout). The notes are displayed according
+   to their type: public notes are publicly displayed on the document detail
+   view of the public interface, staff notes are displayed on the same view but
+   in the professional interface, checkin notes are displayed as a permanent
+   alert as the item is checked in, and checkout notes are displayed as a
+   circulation transaction occurs.
+-  Uses ``JSONSCHEMAS_REPLACE_REFS = True`` to resolve JSON reference
+   before serving the schema.
+-  Removes the ``document-minimal-v0.0.1.json`` schema, as it is not
+   used.
+
+Acquisition
+-----------
+
+-  Receive an issue:
+
+   -  Allows the librarian to receive new issues through the holdings detailed
+      view. The system, based on the holdings pattern, computes the next issue
+      pattern and expected date. The librarian is able to add irregular or
+      exceptional issues.
+   -  Updates automatically the ``next_expected_date`` after a successful
+      receipt of a regular issue (``expected_date`` of the receipt issue plus
+      the pattern frequency).
+
+API
+---
+
+-  Corrects the process used when starting a delayed bulk indexing
+   (switch from ``invenio-indexer`` to ``IlsRecordindexer``).
+-  Uses the standard JSON schema end point (``/schemas``).
+-  Restricts the receipt of issue to librarians of the  holdings record's
+   library.
+-  The pattern preview API returns the ``issue_display_text`` (based on
+   the preview template) and the ``expected_date``.
+-  The holding API is able to receive the next regular issue.
+
+Documentation
+-------------
+
+-  Documents all circulation actions, trying to be the most
+   comprehensive in the context of a library network with complex internal
+   circulation workflows. Actions, scenarios and chart can be found in
+   ```/doc/README.md#circulation``
+   <https://github.com/rero/rero-ils/blob/dev/doc/README.md#circulation>`__. In
+   the same move, the babel configuration has been cleaned.
+-  Removes unnecessary documentation in the ``LICENSE`` file.
+-  Fixes the ``AUTHORS.rst`` file (wrong indentation).
+-  Improves the github issue templates to automatically add various labels to
+   the issue, depending on the type of issue (bug, correction, enhancement,
+   etc.). This should also ease the process of issue creation and triage.
+-  Creates an API to expose which roles can be managed by the current
+   logged user. Introduces a restriction to prevent the current user to
+   delete itself.
+
+Translation
+-----------
+
+-  Fixes a wrong rule in the babel configuration that prevented strings
+   to be extracted from the document JSON schema.
+
+Instance
+--------
+
+-  Upgrades assets utilities (``clean-css``, ``node-sass``\ …)
+-  Fixes version number in the ``pyproject.toml`` file.
+-  Uses enabled state of tasks already saved in REDIS.
+-  Integrates ``invenio-sip2`` module, that can be installed with a new
+   option for the ``bootstrap`` script.
+-  The module ``rero-ils-ui`` uses the ``ng-core`` library in version
+   ``v0.5.0``.
+
+Scripts
+~~~~~~~
+
+-  Fixes ``server`` script to make use of the correct scheduler backend
+   and prevents ``rero_ils.schedulers.RedisScheduler`` file creation.
+
+Fixed issues
+------------
+
+-  `#802 <https://github.com/rero/rero-ils/issues/802>`__: In the
+   notification sent to the patron, the patron profile URL isn’t adapted
+   to the running RERO ILS instance URL.
+-  `#821 <https://github.com/rero/rero-ils/issues/821>`__: The switch
+   library menu of the professional interface should be better positioned. The
+   menu itself should directly inform the librarian of which library is
+   selected. Furthermore, the switch library menu should be displayed on every
+   page of the professional interface, not only on the home page. When another
+   library is selected, the page is reloaded with the new context, implying a
+   possible data loss.
+-  `#822 <https://github.com/rero/rero-ils/issues/822>`__: The switch
+   library menu of the professional interface is not dynamically
+   populated after the creation of a new library.
+-  `#930 <https://github.com/rero/rero-ils/issues/930>`__: A librarian
+   could edit librarian records of other libraries and manage system
+   librarian roles.
+-  `#943 <https://github.com/rero/rero-ils/issues/943>`__: Selecting
+   another interface language in the professional interface wasn’t
+   changing the language of the editor.
+-  `#1033 <https://github.com/rero/rero-ils/issues/1033>`__: Restarting
+   the scheduler disables entries.
+-  `#1036 <https://github.com/rero/rero-ils/issues/1036>`__: ``notes``
+   field prevents to save document record.
+-  `#1038 <https://github.com/rero/rero-ils/issues/1038>`__: The person
+   selector in the document editor doesn’t display the birth and death dates of
+   the person correctly.
+
+Known issues
+------------
+
+There are some critical issues on the editor, that are known and are
+going to be fixed by one of the next sprints (July 2020 or August 2020):
+
+-  `#906 <https://github.com/rero/rero-ils/issues/906>`__: saving a document
+   with edition responsibility is not possible.
+-  `#1003 <https://github.com/rero/rero-ils/issues/1003>`__: multiple provision
+   activity are lost when editing a document.
+-  `#1035 <https://github.com/rero/rero-ils/issues/1035>`__: the navigation
+   helper (*jump to*) is not always functioning.
+
+
 v0.9.1
 ------
 
