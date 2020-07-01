@@ -63,6 +63,12 @@ def add_action_parameters_and_flush_indexes(function):
             # the smart checkin requires extra checks/actions before a checkin
             loan, kwargs = item.prior_checkin_actions(item, **kwargs)
             checkin_loan = loan
+        # CHECKOUT: Case where no loan PID
+        elif function.__name__ == 'checkout' and not kwargs.get('pid'):
+            request = get_request_by_item_pid_by_patron_pid(
+                item_pid=item.pid, patron_pid=kwargs['patron_pid'])
+            if request:
+                kwargs['pid'] = request.get('pid')
 
         loan, kwargs = item.complete_action_missing_params(
                 item=item, checkin_loan=checkin_loan, **kwargs)
@@ -486,7 +492,7 @@ class ItemCirculation(IlsRecord):
             data['transaction_pickup_libraries'] = True
         return data
 
-    @add_loans_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def checkout(self, current_loan, **kwargs):
         """Checkout item to the user."""
         action_params, actions = self.prior_checkout_actions(kwargs)

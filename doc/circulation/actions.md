@@ -2,11 +2,12 @@
 
 ## Add a request
 
-#### required_parameters:
-    item_pid_value,
-    pickup_location_pid,
-    patron_pid,
-    transaction_location_pid or transaction_library_pid,
+### required_parameters:
+
+    item_pid_value
+    pickup_location_pid
+    patron_pid
+    transaction_location_pid or transaction_library_pid
     transaction_user_pid
 
 1. :100: __ADD_REQUEST_1__: item on_shelf (no current loan)
@@ -36,9 +37,10 @@
 
 ## Cancel request
 
-#### required_parameters:
+### required_parameters:
+
     pid (loan pid)
-    transaction_location_pid or transaction_library_pid,
+    transaction_location_pid or transaction_library_pid
     transaction_user_pid
 
 1. :100: __CANCEL_REQUEST_1__: item on_shelf (no current loan)
@@ -75,6 +77,13 @@
 
 ## Checkout form
 
+### required_parameters:
+
+    item_pid_value
+    patron_pid
+    transaction_location_pid or transaction_library_pid
+    transaction_user_pid
+
 1. :100: __CHECKOUT_1__: item on_shelf (no current loan)
     1. __CHECKOUT_1_1__: PENDING loan does not exist →  (add loan ITEM_ON_LOAN)
     1. PENDING loan exists
@@ -97,14 +106,16 @@
 
 ## Checkin form
 
-#### required_parameters for frontend calls:
+### required_parameters for frontend calls:
+
     item_pid or item_barcode
-    transaction_location_pid or transaction_library_pid,
+    transaction_location_pid or transaction_library_pid
     transaction_user_pid
 
-#### required_parameters for backend calls:
+### required_parameters for backend calls:
+
     pid (loan pid)
-    transaction_location_pid or transaction_library_pid,
+    transaction_location_pid or transaction_library_pid
     transaction_user_pid
 
 
