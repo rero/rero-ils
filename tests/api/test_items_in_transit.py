@@ -41,7 +41,8 @@ def test_items_in_transit_between_libraries(
         dict(
             item_pid=item_lib_martigny.pid,
             patron_pid=patron_martigny_no_email.pid,
-            transaction_location_pid=loc_public_saxon.pid
+            transaction_location_pid=loc_public_saxon.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200

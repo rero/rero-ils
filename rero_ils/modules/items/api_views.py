@@ -116,7 +116,7 @@ def do_jsonify_action(func):
             })
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
-            abort(400)
+            abort(400, str(error))
         except CirculationException as error:
             patron = False
             # Detect patron details
@@ -125,7 +125,7 @@ def do_jsonify_action(func):
             # Add more info in case of blocked patron (for UI)
             if patron and patron.get('blocked', {}) is True:
                 abort(403, "BLOCKED USER")
-            abort(403)
+            abort(403, str(error))
         except NotFound as error:
             raise(error)
         except exceptions.RequestError as error:
@@ -133,7 +133,7 @@ def do_jsonify_action(func):
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 400
         except Exception as error:
-            # TODO: need to know what type of exception and document them.
+            # TODO: need to know what type of exception and document there.
             # raise(error)
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
@@ -225,6 +225,21 @@ def cancel_item_request(item, data):
     return item.cancel_item_request(**data)
 
 
+@api_blueprint.route('/checkout', methods=['POST'])
+@check_authentication
+@do_jsonify_action
+def checkout(item, data):
+    """HTTP request for Item checkout action.
+
+    required_parameters:
+        patron_pid,
+        item_pid,
+        transaction_location_pid,
+        transaction_user_pid
+    """
+    return item.checkout(**data)
+
+
 @api_blueprint.route("/checkin", methods=['POST'])
 @check_authentication
 @do_jsonify_action
@@ -237,17 +252,6 @@ def checkin(item, data):
         transaction_user_pid
     """
     return item.checkin(**data)
-
-
-@api_blueprint.route('/checkout', methods=['POST'])
-@check_authentication
-@jsonify_action
-def checkout(item, data):
-    """HTTP request for Item checkout action.
-
-    required_parameters: patron_pid, item_pid
-    """
-    return item.checkout(**data)
 
 
 @api_blueprint.route("/update_loan_pickup_location", methods=['POST'])
