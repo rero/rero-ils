@@ -320,7 +320,9 @@ def test_recall_notification(client, patron_martigny_no_email, lib_martigny,
         'api_item.checkout',
         dict(
             item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
