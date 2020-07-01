@@ -56,7 +56,9 @@ def test_create_over_and_due_soon_notifications_task(
         'api_item.checkout',
         dict(
             item_pid=item_pid,
-            patron_pid=patron_pid
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
