@@ -129,7 +129,9 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_pid,
-            patron_pid=patron_pid
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
@@ -180,7 +182,9 @@ def test_overdue_loans(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_pid,
-            patron_pid=patron_pid
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200, "It probably failed while \
@@ -311,7 +315,9 @@ def test_checkout_item_transit(client, item2_lib_martigny,
         'api_item.checkout',
         dict(
             item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
@@ -322,6 +328,7 @@ def test_checkout_item_transit(client, item2_lib_martigny,
 
 
 def test_loan_access_permissions(client, librarian_martigny_no_email,
+                                 loc_public_saxon,
                                  patron_martigny_no_email,
                                  item_lib_sion, patron_sion_no_email,
                                  librarian_sion_no_email,
@@ -340,7 +347,9 @@ def test_loan_access_permissions(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_lib_sion.pid,
-            patron_pid=patron_sion_no_email.pid
+            patron_pid=patron_sion_no_email.pid,
+            transaction_location_pid=loc_public_saxon.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
@@ -474,7 +483,9 @@ def test_timezone_due_date(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item_pid,
-            patron_pid=patron_pid
+            patron_pid=patron_pid,
+            transaction_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
         )
     )
     assert res.status_code == 200
