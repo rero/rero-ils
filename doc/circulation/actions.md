@@ -144,6 +144,11 @@
 
 ## Manual validate
 
+#### required_parameters:
+    pid (loan pid)
+    transaction_location_pid or transaction_library_pid,
+    transaction_user_pid
+
 1. :100:__VALIDATE_1__: item on_shelf (no current loan)
 	1. __VALIDATE_1_1__: PENDING loan does not exist →  (validate not possible)
 	1. :white_check_mark: :white_check_mark: :white_check_mark: __VALIDATE_1_2__: PENDING loan exists
