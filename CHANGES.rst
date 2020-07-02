@@ -17,6 +17,18 @@
 Changes
 =======
 
+`v0.10.1 <https://github.com/rero/rero-ils/tree/v0.10.1>`__ (2020-07-02)
+------------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.10.0...v0.10.1>`__
+
+**Merged pull requests:**
+
+-  US1274: Import from BnF
+   `#1076 <https://github.com/rero/rero-ils/pull/1076>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+
 `v0.10.0 <https://github.com/rero/rero-ils/tree/v0.10.0>`__ (2020-07-01)
 ------------------------------------------------------------------------
 
