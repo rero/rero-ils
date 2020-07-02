@@ -127,7 +127,8 @@ class Loan(IlsRecord):
                 'pid'
             ],
             'cancel_loan': [],
-            'checkin': []
+            'checkin': [],
+            'validate_request': []
         }
 
         return params.get(action) + shared_params
