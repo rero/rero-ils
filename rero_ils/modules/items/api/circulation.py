@@ -47,33 +47,33 @@ from ....filter import format_date_filter
 
 
 def add_action_parameters_and_flush_indexes(function):
-    """Add missing action parameters and validate parameters.
+    """Add missing action and validate parameters.
 
-    This method will replce add_loans_parameters_and_flush_indexes
+    This method will replace add_loans_parameters_and_flush_indexes
     """
     @wraps(function)
     def wrapper(item, *args, **kwargs):
         """Executed before loan action."""
         # TODO: this code will be enhanced while adding the other actions.
-        from . import ItemsSearch
-        # the smart checkin requires extra checks and actions before a checkin
-        if function.__name__ == 'checkin':
+        checkin_loan = None
+        if function.__name__ == 'validate_request':
+            # checks if the given loan pid can be validated
+            item.is_action_validate_request_possible(**kwargs)
+        elif function.__name__ == 'checkin':
+            # the smart checkin requires extra checks/actions before a checkin
             loan, kwargs = item.prior_checkin_actions(item, **kwargs)
-            loan, kwargs = item.complete_action_missing_params(
-                item=item, checkin_loan=loan, **kwargs)
-        else:
-            loan, kwargs = item.complete_action_missing_params(
-                item=item, **kwargs)
+            checkin_loan = loan
+
+        loan, kwargs = item.complete_action_missing_params(
+                item=item, checkin_loan=checkin_loan, **kwargs)
         Loan.check_required_params(loan, function.__name__, **kwargs)
 
         item, action_applied = function(item, loan, *args, **kwargs)
 
-        # commit and reindex item and loans
-        current_search.flush_and_refresh(
-            current_circulation.loan_search_cls.Meta.index)
-        item.status_update(dbcommit=True, reindex=True, forceindex=True)
-        ItemsSearch.flush()
+        item.commit_and_reindex_with_loans(item)
+
         return item, action_applied
+
     return wrapper
 
 
@@ -184,6 +184,30 @@ class ItemCirculation(IlsRecord):
         LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'in_transit',
         LoanState.ITEM_IN_TRANSIT_TO_HOUSE: 'in_transit',
     }
+
+    def commit_and_reindex_with_loans(self, item):
+        """Commit and reindex the item and its loans."""
+        from . import ItemsSearch
+        current_search.flush_and_refresh(
+            current_circulation.loan_search_cls.Meta.index)
+        item.status_update(dbcommit=True, reindex=True, forceindex=True)
+        ItemsSearch.flush()
+
+    def is_action_validate_request_possible(self, **kwargs):
+        """Checks that a validate_request action is possible for a loan."""
+        loan_pid = kwargs.get('pid')
+        if loan_pid:
+            # no item validation is possible when an item has an active loan.
+            loans = self.get_loans_states_by_item_pid_exclude_loan_pid(
+                self.pid, loan_pid)
+            states = current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+            for state in loans:
+                if state in states:
+                    raise NoValidTransitionAvailableError()
+        else:
+            # must provide a loan to validate
+            raise NoCirculationAction(
+                'No circulation action is possible')
 
     def prior_checkin_actions(self, item, **kwargs):
         """Actions to execute before a smart checkin."""
@@ -592,7 +616,7 @@ class ItemCirculation(IlsRecord):
 
         return actions_to_execute
 
-    @add_loans_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def validate_request(self, current_loan, **kwargs):
         """Validate item request."""
         loan = current_circulation.circulation.trigger(

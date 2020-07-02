@@ -275,7 +275,9 @@ def test_checkout_item_transit(client, item2_lib_martigny,
         'api_item.validate_request',
         dict(
             item_pid=item2_lib_martigny.pid,
-            pid=loan_pid
+            pid=loan_pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
