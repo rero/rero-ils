@@ -18,6 +18,16 @@
 Release notes
 =============
 
+v0.10.1
+-------
+
+The `f01ceffe
+<https://github.com/rero/rero-ils/commit/f01ceffe398c97e713f13db6ef8978eaca5de5bb>`__
+and `38c982c1
+<https://github.com/rero/rero-ils/commit/38c982c1064e85b4cd0bd56fe224016eedfea63d>`__
+commits for the *Import from BnF* functionality are missing in the ``v0.10.0``
+release. This patch fix this oversight.
+
 v0.10.0
 -------
 
