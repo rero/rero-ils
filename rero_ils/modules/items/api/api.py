@@ -86,11 +86,19 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
         """Add additional record validation.
 
         Ensures that only one note of each type is present.
-
-        :returns: False if notes array has multiple notes with same type
+        Ensures that call number is present before using second call number.
+        .
+        :returns: False if any conditions isn't respected
         """
         note_types = [note.get('type') for note in self.get('notes', [])]
-        return len(note_types) == len(set(note_types))
+
+        if len(note_types) != len(set(note_types)):
+            return False
+
+        if not self.get('call_number') and self.get('second_call_number'):
+            return False
+
+        return True
 
     def delete_from_index(self):
         """Delete record from index."""
