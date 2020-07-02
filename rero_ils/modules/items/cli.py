@@ -21,6 +21,7 @@ from __future__ import absolute_import, print_function
 
 import json
 import random
+import string
 from random import randint
 
 import click
@@ -272,6 +273,13 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
             'content': 'Interdum et malesuada fames ac ante ipsum primis in '
                        'faucibus'
         }], k=random.randint(1, 4))
+
+    # RANDOMLY ADD SECOND CALL NUMBER
+    #   we will add a second call number to +/- 25% of the items.
+    if random.random() < 0.25:
+        item['second_call_number'] = ''.join(
+            random.choices(string.ascii_uppercase + string.digits, k=5)
+        )
 
     return missing, item
 

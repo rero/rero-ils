@@ -21,6 +21,9 @@
         "call_number": {
           "type": "keyword"
         },
+        "second_call_number": {
+          "type": "keyword"
+        },
         "location": {
           "properties": {
             "pid": {

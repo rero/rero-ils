@@ -147,7 +147,7 @@
               </div>
               <div class="col-sm-2">
                 {% if item.call_number %}
-                {{ item.call_number }}
+                  {{ item | format_item_call_number }}
                 {% endif %}
               </div>
               {% set locations = item|item_library_pickup_locations %}

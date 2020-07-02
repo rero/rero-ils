@@ -1612,3 +1612,35 @@ def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,
     assert item.get_note(ItemNoteTypes.PUBLIC)
     assert item.get_note(ItemNoteTypes.CHECKIN) is None
     assert item.get_note('dummy') is None
+
+
+def test_items_second_call_number(client, librarian_martigny_no_email,
+                                  item_lib_martigny, json_header):
+    """Test items second call number."""
+
+    item = item_lib_martigny
+    login_user_via_session(client, librarian_martigny_no_email.user)
+
+    # at start the item must have call number and no second call number
+    assert len(item.get('call_number')) > 0
+    assert item.get('second_call_number') is None
+
+    # set a second call number
+    item['second_call_number'] = 'HB171'
+    res = client.put(
+        url_for('invenio_records_rest.item_item', pid_value=item.pid),
+        data=json.dumps(item),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    # remove call number -- This should fail because we can only add second
+    # call number if the item have a call number
+    del(item['call_number'])
+
+    with pytest.raises(RecordValidationError):
+        client.put(
+            url_for('invenio_records_rest.item_item', pid_value=item.pid),
+            data=json.dumps(item),
+            headers=json_header
+        )
