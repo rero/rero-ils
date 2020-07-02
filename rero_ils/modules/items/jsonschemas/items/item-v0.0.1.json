@@ -17,6 +17,7 @@
   "propertiesOrder": [
     "barcode",
     "call_number",
+    "second_call_number",
     "item_type",
     "location",
     "status",
@@ -60,7 +61,17 @@
     "call_number": {
       "title": "Call number",
       "type": "string",
-      "minLength": 4
+      "minLength": 4,
+      "form": {
+        "expressionProperties": {
+          "templateOptions.required": "field.parent.model.second_call_number !== ''"
+        }
+      }
+    },
+    "second_call_number": {
+      "title": "Second call number",
+      "type": "string",
+      "minLength": 1
     },
     "location": {
       "title": "Location",
