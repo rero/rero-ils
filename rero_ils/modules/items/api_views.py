@@ -101,7 +101,6 @@ def do_jsonify_action(func):
                 # from a given loan pid parameter
                 item_pid = Loan.get_record_by_pid(loan_pid).item_pid
                 item = Item.get_record_by_pid(item_pid)
-
             if not item:
                 abort(404)
             item_data, action_applied = \
@@ -278,13 +277,16 @@ def lose(item, params):
     return item.lose()
 
 
-@api_blueprint.route('/validate', methods=['POST'])
+@api_blueprint.route('/validate_request', methods=['POST'])
 @check_authentication
-@jsonify_action
+@do_jsonify_action
 def validate_request(item, data):
-    """HTTP request for Item request validation action..
+    """HTTP GET request for Item request validation action.
 
-    required_parameters: item_pid
+    required_parameters:
+        pid (loan pid)
+        transaction_location_pid or transaction_library_pid,
+        transaction_user_pid
     """
     return item.validate_request(**data)
 
