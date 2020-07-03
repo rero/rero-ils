@@ -174,6 +174,12 @@
 
 ## Extend
 
+### required_parameters:
+
+    item_pid_value
+    transaction_location_pid
+    transaction_user_pid
+
 1. :100: __EXTEND_1__: item on_shelf (no current loan) →  (extend not possible)
 1. :100: __EXTEND_2__: item at_desk, requested (ITEM_AT_DESK) →  (extend not possible)
 1. :100: __EXTEND_3__: item on_loan (ITEM_ON_LOAN)

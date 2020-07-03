@@ -61,7 +61,7 @@ def add_action_parameters_and_flush_indexes(function):
             item.is_action_validate_request_possible(**kwargs)
         elif function.__name__ == 'checkin':
             # the smart checkin requires extra checks/actions before a checkin
-            loan, kwargs = item.prior_checkin_actions(item, **kwargs)
+            loan, kwargs = item.prior_checkin_actions(**kwargs)
             checkin_loan = loan
         # CHECKOUT: Case where no loan PID
         elif function.__name__ == 'checkout' and not kwargs.get('pid'):
@@ -69,6 +69,9 @@ def add_action_parameters_and_flush_indexes(function):
                 item_pid=item.pid, patron_pid=kwargs['patron_pid'])
             if request:
                 kwargs['pid'] = request.get('pid')
+        elif function.__name__ == 'extend_loan':
+            loan, kwargs = item.prior_extend_loan_actions(**kwargs)
+            checkin_loan = loan
 
         loan, kwargs = item.complete_action_missing_params(
                 item=item, checkin_loan=checkin_loan, **kwargs)
@@ -215,31 +218,56 @@ class ItemCirculation(IlsRecord):
             raise NoCirculationAction(
                 'No circulation action is possible')
 
-    def prior_checkin_actions(self, item, **kwargs):
+    def prior_extend_loan_actions(self, **kwargs):
+        """Actions to execute before an extend_loan action."""
+        loan_pid = kwargs.get('pid')
+        checked_out = True  # we consider loan as checked-out
+        if not loan_pid:
+            loan = self.get_first_loan_by_state(LoanState.ITEM_ON_LOAN)
+            if not loan:
+                # item was not checked out
+                checked_out = False
+        else:
+            loan = Loan.get_record_by_pid(loan_pid)
+
+        # Check extend is allowed
+        have_request = False
+        if LoanState.PENDING in self.get_loan_states_for_an_item():
+            # we have pending requests
+            have_request = True
+        # It's not allowed to extend an item that:
+        # 1/ is not checked out
+        # 2/ have requests
+        if not checked_out or have_request:
+            raise NoCirculationAction('No circulation action is possible')
+
+        return loan, kwargs
+
+    def prior_checkin_actions(self, **kwargs):
         """Actions to execute before a smart checkin."""
         # TODO: this code will be enhanced while adding the other actions.
-        loans_list = item.get_loan_states_for_an_item()
+        loans_list = self.get_loan_states_for_an_item()
         if not loans_list:
             # CHECKIN_1_1: item on_shelf, no pending loans.
-            item.checkin_on_shelf(loans_list, **kwargs)
+            self.checkin_on_shelf(loans_list, **kwargs)
         elif (LoanState.ITEM_AT_DESK not in loans_list and
                 LoanState.ITEM_ON_LOAN not in loans_list):
             if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP in loans_list:
                 # CHECKIN_4: item in_transit (IN_TRANSIT_FOR_PICKUP)
-                loan, kwargs = item.checkin_in_transit_for_pickup(**kwargs)
+                loan, kwargs = self.checkin_in_transit_for_pickup(**kwargs)
             elif LoanState.ITEM_IN_TRANSIT_TO_HOUSE in loans_list:
                 # CHECKIN_5: item in_transit (IN_TRANSIT_TO_HOUSE)
-                loan, kwargs = item.checkin_in_transit_to_house(
+                loan, kwargs = self.checkin_in_transit_to_house(
                     loans_list, **kwargs)
             elif LoanState.PENDING in loans_list:
                 # CHECKIN_1_2_1: item on_shelf, with pending loans.
-                loan, kwargs = item.validate_first_pending_request(**kwargs)
+                loan, kwargs = self.validate_first_pending_request(**kwargs)
         elif LoanState.ITEM_AT_DESK in loans_list:
             # CHECKIN_2: item at_desk
-            item.checkin_at_desk(**kwargs)
+            self.checkin_at_desk(**kwargs)
         elif LoanState.ITEM_ON_LOAN in loans_list:
             # CHECKIN_3: item on_loan, will be checked-in normally.
-            loan = item.get_first_loan_by_state(state=LoanState.ITEM_ON_LOAN)
+            loan = self.get_first_loan_by_state(state=LoanState.ITEM_ON_LOAN)
         return loan, kwargs
 
     def complete_action_missing_params(
@@ -632,7 +660,7 @@ class ItemCirculation(IlsRecord):
             LoanAction.VALIDATE: loan
         }
 
-    @add_loans_parameters_and_flush_indexes
+    @add_action_parameters_and_flush_indexes
     def extend_loan(self, current_loan, **kwargs):
         """Extend checkout duration for this item."""
         loan = current_circulation.circulation.trigger(
