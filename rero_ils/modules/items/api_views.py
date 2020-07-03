@@ -299,7 +299,7 @@ def validate_request(item, data):
 @check_authentication
 @jsonify_action
 def receive(item, data):
-    """HTTP HTTP request for receive item action..
+    """HTTP HTTP request for receive item action.
 
     required_parameters: item_pid
     """
@@ -310,7 +310,7 @@ def receive(item, data):
 @check_authentication
 @jsonify_action
 def return_missing(item, data=None):
-    """HTTP request for Item return_missing action..
+    """HTTP request for Item return_missing action.
 
     required_parameters: item_pid
     """
@@ -319,9 +319,9 @@ def return_missing(item, data=None):
 
 @api_blueprint.route('/extend_loan', methods=['POST'])
 @check_authentication
-@jsonify_action
+@do_jsonify_action
 def extend_loan(item, data):
-    """HTTP request for Item due date extend action..
+    """HTTP request for Item due date extend action.
 
     required_parameters: item_pid
     """
