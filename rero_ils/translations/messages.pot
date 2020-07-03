@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the rero-ils project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 0.9.1\n"
+"Project-Id-Version: rero-ils 0.10.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-06-30 11:47+0200\n"
+"POT-Creation-Date: 2020-07-03 11:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,56 +42,56 @@ msgstr ""
 msgid "Welcome to RERO-ILS!"
 msgstr ""
 
-#: rero_ils/config.py:1181
+#: rero_ils/config.py:1250
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:1182
+#: rero_ils/config.py:1251
 msgid "organisation"
 msgstr ""
 
-#: rero_ils/config.py:1185 rero_ils/config.py:1229 rero_ils/config.py:1251
-#: rero_ils/config.py:1273
+#: rero_ils/config.py:1254 rero_ils/config.py:1298 rero_ils/config.py:1320
+#: rero_ils/config.py:1342
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:1186
+#: rero_ils/config.py:1255
 msgid "author__en"
 msgstr ""
 
-#: rero_ils/config.py:1187
+#: rero_ils/config.py:1256
 msgid "author__fr"
 msgstr ""
 
-#: rero_ils/config.py:1188
+#: rero_ils/config.py:1257
 msgid "author__de"
 msgstr ""
 
-#: rero_ils/config.py:1189
+#: rero_ils/config.py:1258
 msgid "author__it"
 msgstr ""
 
-#: rero_ils/config.py:1190
+#: rero_ils/config.py:1259
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:1191
+#: rero_ils/config.py:1260
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:1192 rero_ils/config.py:1252 rero_ils/config.py:1274
+#: rero_ils/config.py:1261 rero_ils/config.py:1321 rero_ils/config.py:1343
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:1208
+#: rero_ils/config.py:1277
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:1230
+#: rero_ils/config.py:1299
 msgid "budget"
 msgstr ""
 
-#: rero_ils/config.py:1290
+#: rero_ils/config.py:1359
 msgid "sources"
 msgstr ""
 
@@ -161,67 +160,71 @@ msgstr ""
 msgid "video"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:34
+#: rero_ils/manual_translations.txt:33
+msgid "other"
+msgstr ""
+
+#: rero_ils/manual_translations.txt:35
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:53
 msgid "gnd"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:35
+#: rero_ils/manual_translations.txt:36
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:57
 msgid "bnf"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:36
+#: rero_ils/manual_translations.txt:37
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:49
 msgid "rero"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:37
+#: rero_ils/manual_translations.txt:38
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:61
 msgid "idref"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:40
+#: rero_ils/manual_translations.txt:41
 msgid "ui_language_en"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:41
+#: rero_ils/manual_translations.txt:42
 msgid "ui_language_fr"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:42
+#: rero_ils/manual_translations.txt:43
 msgid "ui_language_de"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:43
+#: rero_ils/manual_translations.txt:44
 msgid "ui_language_it"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:46
+#: rero_ils/manual_translations.txt:47
 msgid "bf:Publication"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:47
+#: rero_ils/manual_translations.txt:48
 msgid "bf:Manufacture"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:48
+#: rero_ils/manual_translations.txt:49
 msgid "bf:Distribution"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:49
+#: rero_ils/manual_translations.txt:50
 msgid "bf:Production"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:50
+#: rero_ils/manual_translations.txt:51
 msgid "bf:Place"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:53
+#: rero_ils/manual_translations.txt:54
 msgid "ebibliomedia"
 msgstr ""
 
-#: rero_ils/manual_translations.txt:54
+#: rero_ils/manual_translations.txt:55
 msgid "mv-cantook"
 msgstr ""
 
