@@ -142,6 +142,9 @@ class Loan(IlsRecord):
                 'patron_pid',
                 'transaction_location_pid',
                 'transaction_user_pid',
+            ],
+            'extend_loan': [
+                'item_pid'
             ]
         }
 
