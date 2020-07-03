@@ -30,6 +30,7 @@ _('journal')
 _('score')
 _('sound')
 _('video')
+_('other')
 
 _('gnd')
 _('bnf')
