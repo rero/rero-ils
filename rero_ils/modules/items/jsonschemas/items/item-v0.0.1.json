@@ -155,7 +155,18 @@
             "received",
             "claimed",
             "deleted"
-          ]
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "wrappers": [
+              "form-field-horizontal"
+            ],
+            "templateOptions": {
+              "selectWithSortOptions": {
+                "order": "label"
+              }
+            }
+          }
         },
         "display_text": {
           "title": "displayed text",
@@ -226,6 +237,10 @@
         "excluded"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "on_shelf",
@@ -252,6 +267,11 @@
             "value": "excluded"
           }
         ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        },
         "hideExpression": "true"
       }
     },
@@ -303,6 +323,10 @@
               "checkout_note"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "public note",
@@ -320,7 +344,12 @@
                   "label": "checkout note",
                   "value": "checkout_note"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
+              }
             }
           },
           "content": {

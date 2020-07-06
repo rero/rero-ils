@@ -64,6 +64,10 @@
       ],
       "minLength": 4,
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "Article",
@@ -99,7 +103,10 @@
           }
         ],
         "templateOptions": {
-          "cssClass": "rero-ils-editor-max-width"
+          "cssClass": "rero-ils-editor-max-width",
+          "selectWithSortOptions": {
+            "order": "label"
+          }
         }
       }
     },
@@ -132,6 +139,10 @@
               "bf:VariantTitle"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Title",
@@ -147,7 +158,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "rero-ils-editor-max-width"
+                "cssClass": "rero-ils-editor-max-width",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -565,6 +579,10 @@
               "bf:Production"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Publication",
@@ -584,7 +602,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "rero-ils-editor-max-width"
+                "cssClass": "rero-ils-editor-max-width",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -663,6 +684,10 @@
                     "Date"
                   ],
                   "form": {
+                    "type": "selectWithSort",
+                    "wrappers": [
+                      "form-field-horizontal"
+                    ],
                     "options": [
                       {
                         "label": "Place",
@@ -678,7 +703,10 @@
                       }
                     ],
                     "templateOptions": {
-                      "cssClass": "rero-ils-editor-max-width"
+                      "cssClass": "rero-ils-editor-max-width",
+                      "selectWithSortOptions": {
+                        "order": "label"
+                      }
                     }
                   }
                 },
@@ -805,6 +833,10 @@
           "rdacc:1003"
         ],
         "form": {
+          "type": "selectWithSort",
+          "wrappers": [
+            "form-field-horizontal"
+          ],
           "options": [
             {
               "label": "Monochrome",
@@ -814,7 +846,12 @@
               "label": "Polychrome",
               "value": "rdacc:1003"
             }
-          ]
+          ],
+          "templateOptions": {
+            "selectWithSortOptions": {
+              "order": "label"
+            }
+          }
         }
       },
       "form": {
@@ -855,6 +892,10 @@
           "rdapm:1021"
         ],
         "form": {
+          "type": "selectWithSort",
+          "wrappers": [
+            "form-field-horizontal"
+          ],
           "options": [
             {
               "label": "Blueline process",
@@ -936,7 +977,12 @@
               "label": "Thermoform",
               "value": "rdapm:1021"
             }
-          ]
+          ],
+          "templateOptions": {
+            "selectWithSortOptions": {
+              "order": "label"
+            }
+          }
         }
       },
       "form": {
@@ -1076,6 +1122,10 @@
               "otherPhysicalDetails"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Accompanying material",
@@ -1091,7 +1141,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-6"
+                "cssClass": "col-lg-6",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -1193,6 +1246,10 @@
               "uri"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Audio issue number",
@@ -1280,7 +1337,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-4"
+                "cssClass": "col-lg-4",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -1437,6 +1497,10 @@
               "noInfo"
             ],
             "form": {
+              "Type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Resource",
@@ -1460,7 +1524,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-4"
+                "cssClass": "col-lg-4",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -1499,6 +1566,10 @@
               "video"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "label": "Poster",
@@ -1614,7 +1685,10 @@
                 }
               ],
               "templateOptions": {
-                "cssClass": "col-lg-4"
+                "cssClass": "col-lg-4",
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
               }
             }
           },
@@ -2150,6 +2224,10 @@
         "zza"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "lang_aar",
@@ -4093,7 +4171,10 @@
           }
         ],
         "templateOptions": {
-          "cssClass": "rero-ils-editor-max-width"
+          "cssClass": "rero-ils-editor-max-width",
+          "selectWithSortOptions": {
+            "order": "label"
+          }
         }
       }
     },
@@ -4609,6 +4690,10 @@
         "za"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "country_aa",
@@ -6140,7 +6225,10 @@
           }
         ],
         "templateOptions": {
-          "cssClass": "col-lg-4"
+          "cssClass": "col-lg-4",
+          "selectWithSortOptions": {
+            "order": "label"
+          }
         }
       }
     },
@@ -6176,6 +6264,10 @@
         "zh"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "canton_ag",
@@ -6283,7 +6375,10 @@
           }
         ],
         "templateOptions": {
-          "cssClass": "col-lg-4"
+          "cssClass": "col-lg-4",
+          "selectWithSortOptions": {
+            "order": "label"
+          }
         }
       }
     }

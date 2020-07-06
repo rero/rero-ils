@@ -42,6 +42,17 @@
         "open",
         "closed"
       ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      },
       "default": "open"
     },
     "type": {
@@ -56,6 +67,17 @@
         "interlibrary_loan",
         "other"
       ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      },
       "default": "overdue"
     },
     "patron": {

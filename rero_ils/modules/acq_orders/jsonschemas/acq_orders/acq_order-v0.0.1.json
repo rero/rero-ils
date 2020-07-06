@@ -66,6 +66,10 @@
       ],
       "default": "monograph",
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "monograph",
@@ -91,7 +95,12 @@
             "value": "multi_volume",
             "label": "Multi-volume"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     },
     "description": {
@@ -112,6 +121,10 @@
       ],
       "default": "pending",
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "approved",
@@ -137,7 +150,12 @@
             "value": "received",
             "label": "Received"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     },
     "currency": {
@@ -148,6 +166,17 @@
         "EUR",
         "USD"
       ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      },
       "default": "CHF"
     },
     "order_date": {

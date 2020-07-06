@@ -59,6 +59,10 @@
         "recall"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "due_soon",
@@ -76,7 +80,12 @@
             "label": "recall",
             "value": "recall"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     }
   }
