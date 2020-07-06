@@ -37,6 +37,7 @@ def item_location_retriever(item_pid):
     :rtype: str
     """
     from .api import Item
+
     # TODO: for requests we probably need the transation_location_pid
     #       to deal with multiple pickup locations for a library
     item = Item.get_record_by_pid(item_pid.get('value'))
