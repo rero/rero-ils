@@ -16,7 +16,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API items."""
-
 import json
 from copy import deepcopy
 
@@ -85,7 +84,7 @@ def test_checkout_no_loan_given(client, librarian_martigny_no_email,
     assert res.status_code == 200
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
 
-    from rero_ils.modules.patrons.views import  \
+    from rero_ils.modules.patrons.views import \
         get_patron_from_checkout_item_pid
     assert get_patron_from_checkout_item_pid(item.pid) == patron
 

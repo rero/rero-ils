@@ -22,7 +22,6 @@ You overwrite and set instance-specific configuration by either:
 - Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
 - Environment variables: ``APP_<variable name>``
 """
-
 from __future__ import absolute_import, print_function
 
 import os
@@ -73,11 +72,12 @@ from .modules.locations.permissions import can_create_location_factory, \
 from .modules.notifications.api import Notification
 from .modules.organisations.api import Organisation
 from .modules.patron_transaction_events.api import PatronTransactionEvent
-from .modules.patron_transaction_events.permissions import can_list_patron_transaction_event_factory, \
+from .modules.patron_transaction_events.permissions import \
+    can_list_patron_transaction_event_factory, \
     can_read_patron_transaction_event_factory
 from .modules.patron_transactions.api import PatronTransaction
-from .modules.patron_transactions.permissions import can_list_patron_transaction_factory, \
-    can_read_patron_transaction_factory
+from .modules.patron_transactions.permissions import \
+    can_list_patron_transaction_factory, can_read_patron_transaction_factory
 from .modules.patron_types.api import PatronType
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \

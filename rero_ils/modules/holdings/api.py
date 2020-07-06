@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Holdings records."""
-
 from __future__ import absolute_import, print_function
 
 from builtins import classmethod
@@ -299,9 +298,9 @@ class Holding(IlsRecord):
 
     def get_holding_loan_conditions(self):
         """Returns loan conditions for a given holding."""
-        from ..patrons.api import current_patron
-        from ..item_types.api import ItemType
         from ..circ_policies.api import CircPolicy
+        from ..item_types.api import ItemType
+        from ..patrons.api import current_patron
 
         if current_patron and current_patron.is_patron:
             cipo = CircPolicy.provide_circ_policy(
