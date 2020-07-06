@@ -16,7 +16,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
-
 from ...api import IlsRecord
 from ...libraries.api import Library
 from ...locations.api import Location
@@ -137,9 +136,8 @@ class ItemRecord(IlsRecord):
         :param mode: update or create mode.
         :return: the updated record with matched holdings record
         """
-        from ...holdings.api import \
-            Holding, get_holding_pid_by_doc_location_item_type, \
-            create_holding
+        from ...holdings.api import Holding, create_holding, \
+            get_holding_pid_by_doc_location_item_type
 
         old_holding_pid = None
         old_holding_type = None

@@ -17,8 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating items."""
-
-
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -136,6 +134,7 @@ class ItemsIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Index an item."""
         from ...holdings.api import Holding, HoldingsSearch
+
         # get the old holding record if exists
         items = ItemsSearch().filter(
             'term', pid=record.get('pid')

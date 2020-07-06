@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Circulation policies."""
-
 from __future__ import absolute_import, print_function
 
 from functools import partial
@@ -78,8 +77,8 @@ class CircPolicy(IlsRecord):
         and extended validation to check that patron types and item types are
         part of the correct organisation.
         """
-        from ..patron_types.api import PatronType
         from ..item_types.api import ItemType
+        from ..patron_types.api import PatronType
 
         for library in self.replace_refs().get('libraries', []):
             if not Library.get_record_by_pid(library.get('pid')):

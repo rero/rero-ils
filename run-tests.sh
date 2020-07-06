@@ -23,6 +23,7 @@ SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
 ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
 
 PROGRAM=`basename $0`
+SCRIPT_PATH=$(dirname "$0")
 
 # MESSAGES
 msg() {
@@ -76,7 +77,7 @@ if [ $# -eq 0 ]
         info_msg "Test pydocstyle:"
         pydocstyle rero_ils tests docs
         info_msg "Test isort:"
-        isort -rc -c -df
+        isort --check-only --diff "${SCRIPT_PATH}"
         info_msg "Test useless imports:"
         autoflake -c -r \
           --remove-all-unused-imports \

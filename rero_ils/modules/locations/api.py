@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating locations."""
-
 from functools import partial
 
 from flask_babelex import gettext as _
@@ -82,8 +81,8 @@ class Location(IlsRecord):
     @classmethod
     def get_pickup_location_pids(cls, patron_pid=None, item_pid=None):
         """Return pickup locations."""
-        from ..patrons.api import Patron
         from ..items.api import Item
+        from ..patrons.api import Patron
         search = LocationsSearch()
 
         if item_pid:
