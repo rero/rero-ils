@@ -132,6 +132,10 @@
       ],
       "default": "in progress",
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "in_progress",
@@ -145,7 +149,12 @@
             "value": "deleted",
             "label": "Deleted"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     },
     "invoice_date": {
@@ -192,6 +201,10 @@
               "miscellaneous"
             ],
             "form": {
+              "type": "selectWithSort",
+              "wrappers": [
+                "form-field-horizontal"
+              ],
               "options": [
                 {
                   "value": "shipping_and_handling",
@@ -205,7 +218,12 @@
                   "value": "miscellaneous",
                   "label": "Miscellaneous"
                 }
-              ]
+              ],
+              "templateOptions": {
+                "selectWithSortOptions": {
+                  "order": "label"
+                }
+              }
             }
           },
           "amount": {

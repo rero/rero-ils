@@ -240,7 +240,18 @@
                   "weekly",
                   "monthly",
                   "yearly"
-                ]
+                ],
+                "form": {
+                  "type": "selectWithSort",
+                  "wrappers": [
+                    "form-field-horizontal"
+                  ],
+                  "templateOptions": {
+                    "selectWithSortOptions": {
+                      "order": "label"
+                    }
+                  }
+                }
               },
               "data": {
                 "type": "array",

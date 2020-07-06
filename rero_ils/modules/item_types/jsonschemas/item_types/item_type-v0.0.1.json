@@ -64,6 +64,10 @@
         "standard"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "standard",
@@ -74,6 +78,11 @@
             "label": "Online"
           }
         ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        },
         "validation": {
           "validators": {
             "valueAlreadyExists": {

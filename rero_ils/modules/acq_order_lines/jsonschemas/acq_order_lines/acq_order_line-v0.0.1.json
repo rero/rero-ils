@@ -48,6 +48,10 @@
       ],
       "default": "pending",
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "approved",
@@ -73,7 +77,12 @@
             "value": "received",
             "label": "Received"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     },
     "quantity": {

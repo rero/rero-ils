@@ -211,6 +211,10 @@
           "system_librarian"
         ],
         "form": {
+          "type": "selectWithSort",
+          "wrappers": [
+            "form-field-horizontal"
+          ],
           "options": [
             {
               "label": "Patron",
@@ -224,7 +228,12 @@
               "label": "System Librarian",
               "value": "system_librarian"
             }
-          ]
+          ],
+          "templateOptions": {
+            "selectWithSortOptions": {
+              "order": "label"
+            }
+          }
         }
       },
       "form": {
@@ -239,6 +248,10 @@
         "mail"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "email",
@@ -249,6 +262,11 @@
             "value": "mail"
           }
         ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        },
         "hideExpression": "!model.roles.some(v => v === 'patron')",
         "expressionProperties": {
           "templateOptions.required": "model.roles.some(v => v === 'patron')"
@@ -265,6 +283,10 @@
         "ita"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "label": "French",
@@ -283,6 +305,11 @@
             "value": "ita"
           }
         ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        },
         "hideExpression": "!model.roles.some(v => v === 'patron')",
         "expressionProperties": {
           "templateOptions.required": "model.roles.some(v => v === 'patron')"

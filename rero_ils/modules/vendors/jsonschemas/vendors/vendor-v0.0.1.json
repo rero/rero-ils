@@ -74,6 +74,10 @@
         "spa"
       ],
       "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
         "options": [
           {
             "value": "fre",
@@ -95,7 +99,12 @@
             "value": "spa",
             "label": "Spanish"
           }
-        ]
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
       }
     },
     "default_contact": {
@@ -236,7 +245,18 @@
         "AUD"
       ],
       "default": "CHF",
-      "pattern": "^[A-Z]{3}$"
+      "pattern": "^[A-Z]{3}$",
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
     },
     "vat_rate": {
       "title": "VAT rate",
