@@ -34,6 +34,7 @@ from invenio_jsonschemas import current_jsonschemas
 from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..documents.api import Document
+from ..errors import NoCirculationActionIsPermitted
 from ..items.models import ItemCirculationAction
 from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
@@ -154,6 +155,23 @@ class Loan(IlsRecord):
         if missing_params:
             message = 'Parameters {} are required'.format(missing_params)
             raise MissingRequiredParameterError(description=message)
+
+    def update_pickup_location(self, pickup_location_pid):
+        """Update the pickup location for a loan.
+
+        Pickup location update is only possible for pending and in_transit
+        to house loans.
+
+        :param pickup_location_pid: The new pickup_location_pid.
+        :return: the new updated loan.
+        """
+        if self['state'] not in [
+                LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
+            raise NoCirculationActionIsPermitted(
+                'No circulation action is permitted')
+
+        self['pickup_location_pid'] = pickup_location_pid
+        return self.update(self, dbcommit=True, reindex=True)
 
     @classmethod
     def create(cls, data, id_=None, delete_pid=True,

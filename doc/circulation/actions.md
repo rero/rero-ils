@@ -190,22 +190,27 @@
 
 
 
-## Change request pickup location
+## update_loan
 
-1. __CHANGE_PICKUP_LOCATION_1__: item on_shelf (no current loan)
+
+### Change request pickup location
+
+##### required_parameters:
+    pid (loan pid)
+	pickup_location_pid
+
+1. :100: __CHANGE_PICKUP_LOCATION_1__: item on_shelf (no current loan)
 	1. __CHANGE_PICKUP_LOCATION_1_1__: PENDING loan does not exist →  (change not possible)
 	1. __CHANGE_PICKUP_LOCATION_1_2__: PENDING loan exists →  (change possible)
-1. __CHANGE_PICKUP_LOCATION_2__: item at_desk, requested (ITEM_AT_DESK)
+1. :100: __CHANGE_PICKUP_LOCATION_2__: item at_desk, requested (ITEM_AT_DESK)
     1. __CHANGE_PICKUP_LOCATION_2_1__: loan to change = current loan →  (change denied) *Future: make it possible and give an alert to the library that the item should not stayed at desk*
 	1. __CHANGE_PICKUP_LOCATION_2_2__: loan to change != current loan →  (change possible)
-1. __CHANGE_PICKUP_LOCATION_3__: item on_loan (ITEM_ON_LOAN)
+1. :100: __CHANGE_PICKUP_LOCATION_3__: item on_loan (ITEM_ON_LOAN)
 	1. __CHANGE_PICKUP_LOCATION_3_1__: loan to change = current loan →  (change not possible)
 	1. __CHANGE_PICKUP_LOCATION_3_2__: loan to change != current loan →  (change possible)
-1. __CHANGE_PICKUP_LOCATION_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) →  (change possible)
-1. __CHANGE_PICKUP_LOCATION_5__: item in_transit (IN_TRANSIT_TO_HOUSE)
-	1. __CHANGE_PICKUP_LOCATION_5_1__: loan to change = current loan →  (change not possible)
-	1. __CHANGE_PICKUP_LOCATION_5_2__: loan to change = 1st pending loan →  (change loan, item is: in_transit (IN_TRANSIT_FOR_PICKUP))[automatic cancel current loan, automatic validate 1st pending loan]
-	1. __CHANGE_PICKUP_LOCATION_5_3__: loan to change != (current loan OR 1rst pending loan) →  (change loan)
+1. :100: __CHANGE_PICKUP_LOCATION_4__: item in_transit (IN_TRANSIT_FOR_PICKUP) → (change possible)
+1. :100: __CHANGE_PICKUP_LOCATION_5__: item in_transit (IN_TRANSIT_TO_HOUSE) → (change not possible)
+
 
 ## Move request to first priority
 
