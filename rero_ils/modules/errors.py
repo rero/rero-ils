@@ -48,3 +48,7 @@ class RegularReceiveNotAllowed(Exception):
 
 class NoCirculationAction(RecordsError):
     """Exception raised when no circulation action is performed."""
+
+
+class NoCirculationActionIsPermitted(RecordsError):
+    """Exception raised when the circulation action is not forbidden."""

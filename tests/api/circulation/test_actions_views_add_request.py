@@ -44,6 +44,7 @@ def test_add_request_failed_actions(
     assert res.status_code == 400
 
     # test fails for a request with a missing parameter item_pid
+    # when item record not found in database, api returns 404
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -52,7 +53,7 @@ def test_add_request_failed_actions(
             pickup_location_pid=loc_public_martigny.pid
         )
     )
-    assert res.status_code == 400
+    assert res.status_code == 404
 
     # test fails for a request with a missing parameter patron_pid
     res, data = postdata(
