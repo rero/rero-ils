@@ -57,6 +57,7 @@ def test_cancel_an_item_request(
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter
+    # when item record not found in database, api returns 404
     res, data = postdata(
         client,
         'api_item.cancel_item_request',
@@ -65,7 +66,7 @@ def test_cancel_an_item_request(
             transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
-    assert res.status_code == 400
+    assert res.status_code == 404
 
     # test passes when the transaction location pid is given
     res, data = postdata(
