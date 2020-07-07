@@ -125,6 +125,30 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
         dump['available'] = self.available
         return dump
 
+    @classmethod
+    def get_item_record_for_ui(cls, **kwargs):
+        """Return the item record for ui calls.
+
+        retrieving the item record is possible from an item pid, barcode or
+        from a loan.
+
+        :param kwargs: contains at least one of item_pid, item_barcode, or pid.
+        :return: the item record.
+        """
+        from ...loans.api import Loan
+        item = None
+        item_pid = kwargs.get('item_pid', None)
+        item_barcode = kwargs.pop('item_barcode', None)
+        loan_pid = kwargs.get('pid', None)
+        if item_pid:
+            item = Item.get_record_by_pid(item_pid)
+        elif item_barcode:
+            item = Item.get_item_by_barcode(item_barcode)
+        elif loan_pid:
+            item_pid = Loan.get_record_by_pid(loan_pid).item_pid
+            item = Item.get_record_by_pid(item_pid)
+        return item
+
 
 class ItemsIndexer(IlsRecordsIndexer):
     """Indexing items in Elasticsearch."""

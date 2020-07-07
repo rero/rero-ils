@@ -35,8 +35,9 @@ from .models import ItemCirculationAction
 from .utils import item_pid_to_object
 from ..circ_policies.api import CircPolicy
 from ..documents.views import item_library_pickup_locations
+from ..errors import NoCirculationActionIsPermitted
 from ..libraries.api import Library
-from ..loans.api import Loan, LoanState
+from ..loans.api import Loan
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
@@ -76,7 +77,28 @@ def jsonify_error(func):
     return decorated_view
 
 
-def do_jsonify_action(func):
+def do_loan_jsonify_action(func):
+    """Jsonify loan actions for non item methods."""
+    @wraps(func)
+    def decorated_view(*args, **kwargs):
+        try:
+            data = flask_request.get_json()
+            loan_pid = data.pop('pid', None)
+            pickup_location_pid = data.get('pickup_location_pid', None)
+            if not loan_pid or not pickup_location_pid:
+                return jsonify({'status': 'error: Bad request'}), 400
+            loan = Loan.get_record_by_pid(loan_pid)
+            updated_loan = func(loan, data, *args, **kwargs)
+            return jsonify(updated_loan)
+
+        except NoCirculationActionIsPermitted as error:
+            # The circulation specs do not allow updates on some loan states.
+            return jsonify({'status': 'error: Forbidden'}), 403
+
+    return decorated_view
+
+
+def do_item_jsonify_action(func):
     """Jsonify loan actions.
 
     This method to replace the jsonify_action once completed.
@@ -86,21 +108,9 @@ def do_jsonify_action(func):
         try:
             # TODO: this code will be enhanced while adding the other actions.
             data = flask_request.get_json()
-            item_pid = data.get('item_pid', None)
-            item_barcode = data.pop('item_barcode', None)
-            loan_pid = data.get('pid', None)
-            # There are three possible way to retrieve the item record
-            if item_pid:
-                # from a given item_pid parameter
-                item = Item.get_record_by_pid(item_pid)
-            elif item_barcode:
-                # from a given item_barcode parameter
-                item_barcode = data.pop('item_barcode', None)
-                item = Item.get_item_by_barcode(item_barcode)
-            elif loan_pid:
-                # from a given loan pid parameter
-                item_pid = Loan.get_record_by_pid(loan_pid).item_pid
-                item = Item.get_record_by_pid(item_pid)
+            item = Item.get_item_record_for_ui(**data)
+            data.pop('item_barcode', None)
+
             if not item:
                 abort(404)
             item_data, action_applied = \
@@ -114,6 +124,9 @@ def do_jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
+        except NoCirculationActionIsPermitted as error:
+            # The circulation specs do not allow updates on some loan states.
+            return jsonify({'status': 'error: Forbidden'}), 403
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
@@ -197,7 +210,7 @@ def jsonify_action(func):
 
 @api_blueprint.route('/request', methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def librarian_request(item, data):
     """HTTP GET request for Item request action.
 
@@ -213,7 +226,7 @@ def librarian_request(item, data):
 
 @api_blueprint.route('/cancel_item_request', methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def cancel_item_request(item, data):
     """HTTP GET request for cancelling and item request action.
 
@@ -227,7 +240,7 @@ def cancel_item_request(item, data):
 
 @api_blueprint.route('/checkout', methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def checkout(item, data):
     """HTTP request for Item checkout action.
 
@@ -242,7 +255,7 @@ def checkout(item, data):
 
 @api_blueprint.route("/checkin", methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def checkin(item, data):
     """HTTP GET request for item return action.
 
@@ -256,21 +269,15 @@ def checkin(item, data):
 
 @api_blueprint.route("/update_loan_pickup_location", methods=['POST'])
 @check_authentication
-def update_loan_pickup_location():
-    """HTTP request for update loan pickup location."""
-    # for now request pickup location update allowed for pending requests only
-    # TODO: manage case 'at desk' and 'in transit' (needs PO feedback)
-    data = flask_request.get_json()
-    loan_pid = data.get('loan_pid')
-    pickup_location_pid = data.get('pickup_location_pid')
-    if not loan_pid or not pickup_location_pid:
-        return jsonify({'status': 'error: Bad request'}), 400
-    loan = Loan.get_record_by_pid(loan_pid)
-    loan['pickup_location_pid'] = pickup_location_pid
-    if not loan['state'] == LoanState.PENDING:
-        return jsonify({'status': 'error: Forbidden'}), 403
-    new_loan = loan.update(loan, dbcommit=True, reindex=True)
-    return jsonify(new_loan)
+@do_loan_jsonify_action
+def update_loan_pickup_location(loan, data):
+    """HTTP POST request for change a pickup location for a loan.
+
+    required_parameters:
+        pid (loan pid)
+        pickup_location_pid
+    """
+    return loan.update_pickup_location(**data)
 
 
 @api_blueprint.route("/lose", methods=['POST'])
@@ -283,7 +290,7 @@ def lose(item, params):
 
 @api_blueprint.route('/validate_request', methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def validate_request(item, data):
     """HTTP GET request for Item request validation action.
 
@@ -319,7 +326,7 @@ def return_missing(item, data=None):
 
 @api_blueprint.route('/extend_loan', methods=['POST'])
 @check_authentication
-@do_jsonify_action
+@do_item_jsonify_action
 def extend_loan(item, data):
     """HTTP request for Item due date extend action.
 
