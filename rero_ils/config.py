@@ -464,15 +464,26 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_response'
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.items.serializers:json_item_search'
             )
         },
-        record_serializers_aliases={
+        search_serializers_aliases={
             'json': 'application/json',
+            'rero+json': 'application/rero+json',
+            'csv': 'text/csv',
         },
         search_serializers={
             'application/json': (
                 'rero_ils.modules.serializers:json_v1_search'
-            )
+            ),
+            'application/rero+json': (
+                'rero_ils.modules.items.serializers:json_item_search'
+            ),
+            'text/csv': (
+                'rero_ils.modules.items.serializers:csv_item_search'
+            ),
         },
         list_route='/items/',
         record_loaders={
@@ -1271,6 +1282,36 @@ RECORDS_REST_FACETS = dict(
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
         }
+    ),
+    items=dict(
+        aggs=dict(
+            library=dict(
+                terms=dict(
+                    field='library.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            location=dict(
+                terms=dict(
+                    field='location.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            item_type=dict(
+                terms=dict(
+                    field='item_type.pid',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            status=dict(
+                terms=dict(
+                    field='status',
+                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            )
+        ),
+        filters={
+            _('location'): and_term_filter('location.pid'),
+            _('library'): and_term_filter('library.pid'),
+            _('item_type'): and_term_filter('item_type.pid'),
+            _('status'): and_term_filter('status')
+        },
     ),
     patrons=dict(
         aggs=dict(

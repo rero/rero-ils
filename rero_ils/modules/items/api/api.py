@@ -20,6 +20,8 @@
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
+from flask import current_app
+from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search
 
 from .circulation import ItemCirculation
@@ -42,6 +44,23 @@ ItemProvider = type(
 item_id_minter = partial(id_minter, provider=ItemProvider)
 # fetcher
 item_id_fetcher = partial(id_fetcher, provider=ItemProvider)
+
+
+def search_active_loans_for_item(item_pid):
+    """Return count and all active loans for an item."""
+    states = ['PENDING'] + \
+        current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+    search = search_by_pid(
+        item_pid=item_pid,
+        filter_states=states,
+        sort_by_field='transaction_date',
+        sort_order='desc'
+    )
+    loans_count = search.count()
+    try:
+        return loans_count, search.scan()
+    except StopIteration:
+        return loans_count
 
 
 class ItemsSearch(IlsRecordsSearch):

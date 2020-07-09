@@ -63,6 +63,11 @@ def get_json(response):
     return json.loads(response.get_data(as_text=True))
 
 
+def get_csv(response):
+    """Get CSV from response."""
+    return response.get_data(as_text=True)
+
+
 def postdata(client, endpoint, data=None, headers=None, url_data=None):
     """
     Build URL from given endpoint and send given data to it.

@@ -37,4 +37,8 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         json['organisation'] = {
             'pid': org_pid
         }
+        lib_pid = item.get_library().replace_refs()['pid']
+        json['library'] = {
+            'pid': lib_pid
+        }
         json['available'] = item.available
