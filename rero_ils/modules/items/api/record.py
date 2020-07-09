@@ -38,10 +38,13 @@ class ItemRecord(IlsRecord):
 
         Ensures that standard item has no issue field.
 
+        Ensures that only one note of each type is present.
+
         :return: False if
             - holdings type is not journal and item type is issue.
             - item type is journal and field issue exists.
             - item type is standard and field issue does not exists.
+            - if notes array has multiple notes with same type
         """
         from ...holdings.api import Holding
         holding = Holding.get_record_by_pid(self.holding_pid)
@@ -53,6 +56,10 @@ class ItemRecord(IlsRecord):
             return False
         if self.get('type') == 'issue' and not issue:
             return False
+        note_types = [note.get('type') for note in self.get('notes', [])]
+        if len(note_types) != len(set(note_types)):
+            return False
+
         return True
 
     @classmethod
