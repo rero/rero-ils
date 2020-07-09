@@ -78,7 +78,11 @@ def jsonify_error(func):
 
 
 def do_loan_jsonify_action(func):
-    """Jsonify loan actions for non item methods."""
+    """Jsonify loan actions for non item methods.
+
+    This method for the circulation actions that executed directly on the loan
+    object and do not need to have direct access to the item object.
+    """
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
@@ -90,23 +94,21 @@ def do_loan_jsonify_action(func):
             loan = Loan.get_record_by_pid(loan_pid)
             updated_loan = func(loan, data, *args, **kwargs)
             return jsonify(updated_loan)
-
         except NoCirculationActionIsPermitted as error:
             # The circulation specs do not allow updates on some loan states.
-            return jsonify({'status': 'error: Forbidden'}), 403
-
+            abort(403, str(error))
     return decorated_view
 
 
 def do_item_jsonify_action(func):
-    """Jsonify loan actions.
+    """Jsonify loan actions for item methods.
 
-    This method to replace the jsonify_action once completed.
+    This method for the circulation actions that required access to the item
+    object before executing the invenio-circulation logic.
     """
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
-            # TODO: this code will be enhanced while adding the other actions.
             data = flask_request.get_json()
             item = Item.get_item_record_for_ui(**data)
             data.pop('item_barcode', None)
@@ -147,60 +149,6 @@ def do_item_jsonify_action(func):
                 error=error)}), 400
         except Exception as error:
             # TODO: need to know what type of exception and document there.
-            # raise(error)
-            current_app.logger.error(str(error))
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
-    return decorated_view
-
-
-def jsonify_action(func):
-    """Jsonify loan actions."""
-    @wraps(func)
-    def decorated_view(*args, **kwargs):
-        try:
-            data = flask_request.get_json()
-            item_pid = data.get('item_pid')
-            if item_pid:
-                item = Item.get_record_by_pid(item_pid)
-            else:
-                item_barcode = data.pop('item_barcode', None)
-                item = Item.get_item_by_barcode(item_barcode)
-            if not item:
-                abort(404)
-            trans_lib_pid = data.pop('transaction_library_pid', None)
-            if trans_lib_pid is not None:
-                lib = Library.get_record_by_pid(trans_lib_pid)
-                data['transaction_location_pid'] = \
-                    lib.get_pickup_location_pid()
-            item_data, action_applied = \
-                func(item, data, *args, **kwargs)
-
-            for action, loan in action_applied.items():
-                if loan:
-                    action_applied[action] = loan.dumps_for_circulation()
-
-            return jsonify({
-                'metadata': item_data.dumps_for_circulation(),
-                'action_applied': action_applied
-            })
-        except CirculationException as error:
-            patron = False
-            # Detect patron details
-            if data.get('patron_pid'):
-                patron = Patron.get_record_by_pid(data.get('patron_pid'))
-            # Add more info in case of blocked patron (for UI)
-            if patron and patron.get('blocked', {}) is True:
-                abort(403, "BLOCKED USER")
-            abort(403)
-        except NotFound as error:
-            raise(error)
-        except exceptions.RequestError as error:
-            # missing required parameters
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
-        except Exception as error:
-            # TODO: need to know what type of exception and document them.
             # raise(error)
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
@@ -280,14 +228,6 @@ def update_loan_pickup_location(loan, data):
     return loan.update_pickup_location(**data)
 
 
-@api_blueprint.route("/lose", methods=['POST'])
-@check_authentication
-@jsonify_action
-def lose(item, params):
-    """HTTP request for cancel action."""
-    return item.lose()
-
-
 @api_blueprint.route('/validate_request', methods=['POST'])
 @check_authentication
 @do_item_jsonify_action
@@ -304,7 +244,7 @@ def validate_request(item, data):
 
 @api_blueprint.route('/receive', methods=['POST'])
 @check_authentication
-@jsonify_action
+@do_item_jsonify_action
 def receive(item, data):
     """HTTP HTTP request for receive item action.
 
@@ -315,7 +255,7 @@ def receive(item, data):
 
 @api_blueprint.route('/return_missing', methods=['POST'])
 @check_authentication
-@jsonify_action
+@do_item_jsonify_action
 def return_missing(item, data=None):
     """HTTP request for Item return_missing action.
 
