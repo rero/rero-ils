@@ -16,10 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items serializers."""
-
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
+from rero_ils.modules.items.serializers.response import search_responsify_csv
 from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 from .csv import ItemCSVSerializer
@@ -43,7 +43,7 @@ csv_item = ItemCSVSerializer(
     ]
 )
 csv_item_response = record_responsify(csv_item, "text/csv")
-csv_item_search = search_responsify(csv_item, "text/csv")
+csv_item_search = search_responsify_csv(csv_item, "text/csv")
 """CSV serializer."""
 
 json_item = ItemsJSONSerializer(RecordSchemaJSONV1)
