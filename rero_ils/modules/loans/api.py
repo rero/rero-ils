@@ -73,7 +73,6 @@ class LoanAction(object):
     RETURN_MISSING = 'return_missing'
     EXTEND = 'extend'
     CANCEL = 'cancel'
-    LOSE = 'lose'
     NO = 'no'
     UPDATE = 'update'
 
@@ -146,7 +145,8 @@ class Loan(IlsRecord):
             ],
             'extend_loan': [
                 'item_pid'
-            ]
+            ],
+            'receive': []
         }
 
         return params.get(action) + shared_params
