@@ -31,6 +31,13 @@
             }
           }
         },
+        "library": {
+          "properties": {
+            "pid": {
+              "type": "keyword"
+            }
+          }
+        },
         "document": {
           "properties": {
             "pid": {

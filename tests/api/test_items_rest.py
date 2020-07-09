@@ -96,6 +96,45 @@ def test_items_permissions(client, item_lib_martigny,
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_items_facets(
+    client, document, item_lib_martigny, rero_json_header
+):
+    """Test record retrieval."""
+    list_url = url_for('invenio_records_rest.item_list')
+
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+
+    aggs = data['aggregations']
+    # check all facets are present
+    for facet in ['location', 'item_type', 'status']:
+        assert aggs[facet]
+
+    # FILTERS
+    # location
+    list_url = url_for('invenio_records_rest.doc_list',
+                       location='loc1')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    # item_type
+    list_url = url_for('invenio_records_rest.doc_list',
+                       item_type='itty1')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    # status
+    list_url = url_for('invenio_records_rest.doc_list',
+                       status='on_shelf')
+    res = client.get(list_url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_items_post_put_delete(client, document, loc_public_martigny,
                                item_type_standard_martigny,
                                item_lib_martigny_data, json_header):

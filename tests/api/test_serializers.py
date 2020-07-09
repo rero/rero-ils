@@ -19,7 +19,7 @@
 
 
 from flask import url_for
-from utils import get_json, login_user
+from utils import get_csv, get_json, login_user
 
 
 def test_patrons_serializers(
@@ -40,7 +40,9 @@ def test_items_serializers(
     client,
     item_lib_martigny,  # on shelf
     item_lib_fully,  # on loan
+    csv_header,
     json_header,
+    rero_json_header,
     patron_martigny_no_email,
     librarian_martigny_no_email,
     librarian_sion_no_email,
@@ -69,3 +71,17 @@ def test_items_serializers(
     response = client.get(item_url, headers=json_header)
     data = get_json(response)['metadata']
     assert data.get('item_type').get('pid')
+
+    list_url = url_for('invenio_records_rest.item_list')
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+
+    list_url = url_for('invenio_records_rest.item_list')
+    response = client.get(list_url, headers=csv_header)
+    assert response.status_code == 200
+    data = get_csv(response)
+    assert data
+    assert '"pid","document_pid","document_title","document_type",' \
+           '"location_name","barcode","call_number","second_call_number",' \
+           '"loans_count","last_transaction_date","status",' \
+           '"created"' in data
