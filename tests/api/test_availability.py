@@ -264,7 +264,9 @@ def test_item_holding_document_availability(
         'api_item.receive',
         dict(
             item_pid=item_lib_martigny.pid,
-            pid=loan_pid
+            pid=loan_pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid
         )
     )
     assert res.status_code == 200
