@@ -92,6 +92,15 @@ def holdings():
 
 
 @pytest.fixture(scope="session")
+def csv_header():
+    """Load json headers."""
+    return [
+        ('Accept', 'text/csv'),
+        ('Content-Type', 'application/json')
+    ]
+
+
+@pytest.fixture(scope="session")
 def json_header():
     """Load json headers."""
     return [
