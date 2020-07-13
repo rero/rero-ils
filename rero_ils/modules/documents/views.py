@@ -222,15 +222,18 @@ def item_library_pickup_locations(item):
             Location.get_record_by_pid(loc_pid)
             for loc_pid in location.restrict_pickup_to
         ]))
-        return pickup_locations
     else:
         org = Organisation.get_record_by_pid(location.organisation_pid)
         # Get the pickup location from each library of the item organisation
         # (removing possible None value)
-        return list(filter(None, [
+        pickup_locations = list(filter(None, [
             Location.get_record_by_pid(library.get_pickup_location_pid())
             for library in org.get_libraries()
         ]))
+    return sorted(
+        pickup_locations,
+        key=lambda location: location.get('pickup_name', location.get('code'))
+    )
 
 
 @blueprint.app_template_filter()
