@@ -64,12 +64,6 @@ fi
 
 if [ $# -eq 0 ]
     then
-        grep -r fuzzy rero_ils/translations
-        if [ $? -eq 0 ]
-        then
-            error_msg+exit "Error: fuzzy tranlations!"
-        fi
-
         set -e
         safety check
         flask utils check_json tests/data rero_ils/modules data
