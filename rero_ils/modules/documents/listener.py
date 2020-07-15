@@ -17,10 +17,11 @@
 
 """Signals connector for Document."""
 
-from ..documents.api import DocumentsSearch
+from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
 from ..persons.api import Person
+from ..utils import extracted_data_from_ref
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -89,3 +90,17 @@ def enrich_document_data(sender, json=None, record=None, index=None,
         json['authors'] = authors
         # TODO: compare record with those in DB to check which authors have
         # to be deleted from index
+        # Index host document title in child document (part of)
+        if 'partOf' in record:
+            title = {'type': 'partOf'}
+            for part_of in record['partOf']:
+                document_pid = extracted_data_from_ref(
+                    part_of.get('document')
+                )
+                document = Document.get_record_by_pid(document_pid)
+                for part_of_title in document.get('title', []):
+                    if 'mainTitle' in part_of_title:
+                        title['partOfTitle'] = part_of_title.get(
+                            'mainTitle'
+                        )
+            json['title'].append(title)

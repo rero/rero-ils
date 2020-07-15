@@ -92,6 +92,18 @@
       "Litt\u00e9rature",
       "Culture",
       "[Notes, esquisses, etc.]"
+    ],
+    "partOf": [
+      {
+        "document": {
+          "$ref": "https://ils.rero.ch/api/documents/12"
+        },
+        "numbering": [
+          {
+            "volume": 25
+          }
+        ]
+      }
     ]
   },
   {
