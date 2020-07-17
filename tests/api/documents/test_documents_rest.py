@@ -67,43 +67,43 @@ def test_documents_facets(
     aggs = data['aggregations']
     # check all facets are present
     for facet in [
-        'document_type', 'author__en', 'author__fr',
-        'author__de', 'author__it', 'language', 'subject', 'status'
+        'document_type', 'contribution__en', 'contribution__fr',
+        'contribution__de', 'contribution__it', 'language', 'subject', 'status'
     ]:
         assert aggs[facet]
 
     # FILTERS
-    # person author
+    # person contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author__de='Peter James')
+                       contribution__de='Peter James')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total'] == 2
 
-    # organisation author
+    # organisation contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author__de='Great Edition')
+                       contribution__de='Great Edition')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total'] == 1
 
-    # an other person author
+    # an other person contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author__de='J.K. Rowling')
+                       contribution__de='J.K. Rowling')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total'] == 1
 
-    # two authors in the same document
+    # two contributions in the same document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author__de=['Great Edition', 'Peter James'])
+                       contribution__de=['Great Edition', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total'] == 1
 
-    # two authors: each in a separate document
+    # two contributions each in a separate document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author__de=['J.K. Rowling', 'Peter James'])
+                       contribution__de=['J.K. Rowling', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
     assert data['hits']['total'] == 0
@@ -142,10 +142,8 @@ def test_documents_library_facets(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_post_put_delete(
-        client,
-        document_chinese_data,
-        json_header,
-        rero_json_header):
+    client, document_chinese_data, json_header, rero_json_header
+):
     """Test record retrieval."""
     # Create record / POST
     item_url = url_for('invenio_records_rest.doc_item', pid_value='4')
@@ -311,17 +309,19 @@ def test_documents_post_put_delete(
     assert res.status_code == 410
 
 
-def test_document_can_request_view(client, item_lib_fully,
-                                   loan_pending_martigny, document,
-                                   patron_martigny_no_email,
-                                   patron2_martigny_no_email,
-                                   item_type_standard_martigny,
-                                   circulation_policies,
-                                   librarian_martigny_no_email,
-                                   item_lib_martigny,
-                                   item_lib_saxon,
-                                   item_lib_sion,
-                                   loc_public_martigny):
+def test_document_can_request_view(
+        client, item_lib_fully,
+        loan_pending_martigny, document,
+        patron_martigny_no_email,
+        patron2_martigny_no_email,
+        item_type_standard_martigny,
+        circulation_policies,
+        librarian_martigny_no_email,
+        item_lib_martigny,
+        item_lib_saxon,
+        item_lib_sion,
+        loc_public_martigny
+):
     """Test can request on document view."""
     login_user_via_session(client, patron_martigny_no_email.user)
 
@@ -346,11 +346,7 @@ def test_document_can_request_view(client, item_lib_fully,
 
 
 def test_document_boosting(
-        client,
-        ebook_1,
-        ebook_1_data,
-        ebook_4,
-        ebook_4_data
+    client, ebook_1, ebook_1_data, ebook_4, ebook_4_data
 ):
     """Test document boosting."""
     list_url = url_for(
@@ -365,10 +361,37 @@ def test_document_boosting(
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
-        q='autocomplete_title:maison AND authors.name:James'
+        q='autocomplete_title:maison AND' +
+          'contribution.agent.preferred_name:James'
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total'] == 1
     data = hits['hits'][0]['metadata']
     assert data['pid'] == ebook_1_data.get('pid')
+
+
+def test_documents_resolve(
+        client, loc_public_martigny, document_ref
+):
+    """Test document detailed view with items filter."""
+    res = client.get(url_for(
+        'invenio_records_rest.doc_item',
+        pid_value='doc2'
+    ))
+    assert res.json['metadata']['contribution'] == [{
+        'agent': {'$ref': 'https://mef.rero.ch/api/rero/A017671081'},
+        'role': ['aut']
+    }]
+    assert res.status_code == 200
+
+    res = client.get(url_for(
+        'invenio_records_rest.doc_item',
+        pid_value='doc2',
+        resolve='1'
+    ))
+
+    assert res.json['metadata']['contribution'][0]['agent']['sources'] == [
+        'rero', 'gnd', 'bnf'
+    ]
+    assert res.status_code == 200

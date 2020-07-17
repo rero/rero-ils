@@ -105,14 +105,22 @@
       "contrat de construction",
       "Suisse"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/074755978"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074755978"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003683610"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003683610"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "titlesProper": [
@@ -143,10 +151,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006010680"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006010680"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -325,14 +337,30 @@
       "Droit europ\u00e9en",
       "[Actes de congr\u00e8s]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033591067"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033591067"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Libera universit\u00e0 degli studi di Trento. Dipartimento di scienze giuridiche. Studio"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Libera universit\u00e0 degli studi di Trento",
+          "conference": false,
+          "subordinate_unit": [
+            "Dipartimento di scienze giuridiche",
+            "Studio"
+          ],
+          "conference_date": "1997",
+          "conference_place": "Trento"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -360,14 +388,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028278992"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028278992"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050510479"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050510479"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -492,22 +528,38 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028732235"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028732235"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028767888"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028767888"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/055765610"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/055765610"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A005913488"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A005913488"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -642,10 +694,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/133458466"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/133458466"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -872,18 +928,32 @@
         "label": "T\u00edt. tomado de la pantalla del t\u00edtulo"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/02911344X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/02911344X"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028845870"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028845870"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Asociaci\u00f3n Internacional de Hispanistas"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Asociaci\u00f3n Internacional de Hispanistas",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -1101,10 +1171,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/08202412X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/08202412X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -1387,10 +1461,19 @@
       "Bet\u00e4ubungsmittel",
       "Schweiz"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Suisse. D\u00e9partement f\u00e9d\u00e9ral de justice et police"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Suisse",
+          "conference": false,
+          "subordinate_unit": [
+            "D\u00e9partement f\u00e9d\u00e9ral de justice et police"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -1500,10 +1583,14 @@
       "topique (philosophie)",
       "[\u00c9tudes diverses]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A005972232"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A005972232"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -1532,10 +1619,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/079963374"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/079963374"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -1719,22 +1810,38 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027152596"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027152596"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033183139"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033183139"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026773252"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026773252"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032410182"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032410182"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -1858,10 +1965,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/170091317"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/170091317"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -1960,14 +2071,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/02714769X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/02714769X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/056965737"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/056965737"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2073,10 +2192,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/179898582"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/179898582"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2190,10 +2313,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050769561"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050769561"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2366,14 +2493,22 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030031966"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030031966"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/03003194X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/03003194X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -2401,14 +2536,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/151179786"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/151179786"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/12023615X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/12023615X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2526,10 +2669,15 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "name": "Young, M"
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Young, M"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2743,18 +2891,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006039544"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006039544"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006039548"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006039548"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006039549"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006039549"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -2932,10 +3092,14 @@
       "M\u00e9dias",
       "[\u00c9tudes diverses]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/172825229"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/172825229"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -3027,18 +3191,32 @@
         "label": "1 fasc. (47 p.)"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/084291419"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/084291419"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027771202"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027771202"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Orquesta de la Comunidad de Madrid"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Orquesta de la Comunidad de Madrid",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -3151,10 +3329,14 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029768748"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029768748"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "partOf": [
@@ -3185,10 +3367,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/059315156"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/059315156"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -3278,14 +3464,22 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/095969314"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/095969314"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/095969357"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/095969357"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -3430,10 +3624,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027066185"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027066185"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -3521,10 +3719,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/148093507"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/148093507"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -3659,10 +3861,16 @@
       "Fribourg (Suisse, canton)",
       "[document]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Association fribourgeoise des institutions pour personnes \u00e2g\u00e9es"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Association fribourgeoise des institutions pour personnes \u00e2g\u00e9es",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -3695,10 +3903,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050713760"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050713760"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -3805,10 +4017,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A000134328"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A000134328"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "title": [
@@ -4037,14 +4253,29 @@
     "subjects": [
       "Environmental policy"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Union europ\u00e9enne. Commission"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Union europ\u00e9enne",
+          "conference": false,
+          "subordinate_unit": [
+            "Commission"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Agence europ\u00e9enne pour l'environnement"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Agence europ\u00e9enne pour l'environnement",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "electronicLocator": [
@@ -4140,10 +4371,16 @@
         "label": "1 livret"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Bauchklang"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Bauchklang",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -4167,10 +4404,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033893438"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033893438"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -4387,18 +4628,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026870290"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026870290"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/057487359"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/057487359"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/108934578"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/108934578"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -4639,10 +4892,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050421204"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050421204"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -4745,10 +5002,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027009211"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027009211"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -4860,16 +5121,16 @@
       "subtype": "article"
     },
     "pid": "81",
-    "language": [
-      {
-        "value": "eng",
-        "type": "bf:Language"
-      }
-    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
         "startDate": 2009
+      }
+    ],
+    "language": [
+      {
+        "value": "eng",
+        "type": "bf:Language"
       }
     ],
     "identifiedBy": [
@@ -4879,10 +5140,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050305255"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050305255"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -5007,14 +5272,22 @@
     "dimensions": [
       "27 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030599296"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030599296"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003532579"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003532579"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5126,18 +5399,32 @@
       "Neuch\u00e2tel (Suisse, ville)",
       "[enregistrement vid\u00e9o]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003925829"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003925829"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/135988489"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/135988489"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Orchestre de chambre de Neuch\u00e2tel"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Orchestre de chambre de Neuch\u00e2tel",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5262,14 +5549,24 @@
       "Art br\u00e9silien",
       "[Catalogues d'exposition]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/057790981"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/057790981"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Associa\u00e7\u00e3o Brasil 500 Anos Artes Visuais (S\u00e3o Paulo)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Associa\u00e7\u00e3o Brasil 500 Anos Artes Visuais (S\u00e3o Paulo)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5359,10 +5656,16 @@
       "Entraide judiciaire internationale",
       "[Trait\u00e9s]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5390,18 +5693,32 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031771416"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031771416"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031771440"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031771440"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Internationales Institut f\u00fcr Umwelt und Gesellschaft (Berlin, West)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Internationales Institut f\u00fcr Umwelt und Gesellschaft (Berlin, West)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -5548,10 +5865,16 @@
     "dimensions": [
       "22 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Soci\u00e9t\u00e9 internationale de d\u00e9fense sociale"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Soci\u00e9t\u00e9 internationale de d\u00e9fense sociale",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5662,10 +5985,14 @@
       "Canc\u00e9rologie",
       "[\u00c9tudes diverses]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/113845081"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/113845081"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5860,14 +6187,26 @@
       "Liddes (Suisse, VS)",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Office du tourisme (Liddes)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Office du tourisme (Liddes)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Office du tourisme (Bourg-Saint-Pierre)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Office du tourisme (Bourg-Saint-Pierre)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -5891,10 +6230,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A011575301"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A011575301"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -5966,14 +6309,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026815141"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026815141"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/191754285"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/191754285"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6113,14 +6464,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/134232240"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/134232240"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006071570"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006071570"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6216,10 +6575,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/074504878"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074504878"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6314,10 +6677,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1064757464"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1064757464"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6454,10 +6821,16 @@
       "Lutte contre",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Association romande pour la protection des eaux et de l'air"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Association romande pour la protection des eaux et de l'air",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -6485,10 +6858,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/115638989"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/115638989"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6669,10 +7046,19 @@
     "dimensions": [
       "30 [puis] 29 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "United States. Naval Observatory"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "United States",
+          "conference": false,
+          "subordinate_unit": [
+            "Naval Observatory"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -6764,10 +7150,16 @@
     "dimensions": [
       "23 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Council on Christian Unity (United States)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Council on Christian Unity (United States)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -6795,10 +7187,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/035707119"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/035707119"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -6900,14 +7296,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/03020027X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/03020027X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031386725"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031386725"
+        },
+        "role": [
+          "prt"
+        ]
       }
     ],
     "title": [
@@ -7172,14 +7576,22 @@
       "Mat\u00e9riaux",
       "Recherche"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/077491033"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/077491033"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/140859608"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/140859608"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -7207,10 +7619,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028315545"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028315545"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -7333,14 +7749,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003490634"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003490634"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/078122538"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/078122538"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -7562,14 +7986,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026679108"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026679108"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A002926924"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A002926924"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -7751,14 +8183,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/079448860"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/079448860"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/080269699"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/080269699"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -7855,10 +8295,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/113867638"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/113867638"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -7955,10 +8399,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028965892"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028965892"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -8063,14 +8511,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/158715241"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/158715241"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/234931639"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/234931639"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -8200,14 +8656,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033603901"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033603901"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033589194"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033589194"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -8322,14 +8786,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1103504657"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1103504657"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030724392"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030724392"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -8474,10 +8946,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026932997"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026932997"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -8830,10 +9306,14 @@
       "Langues",
       "\u00c9tude et enseignement"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/140222820"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/140222820"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -8861,10 +9341,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032014201"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032014201"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9047,14 +9531,22 @@
     "dimensions": [
       "28 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026803097"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026803097"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/059643307"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/059643307"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "seriesStatement": [
@@ -9091,10 +9583,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032132212"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032132212"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9198,10 +9694,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A025550294"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A025550294"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9332,10 +9832,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1061410447"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1061410447"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9540,10 +10044,16 @@
       "Oberwallis (Suisse, VS)",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Regions- und Wirtschaftszentrum Oberwallis"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Regions- und Wirtschaftszentrum Oberwallis",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -9575,14 +10085,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027128660"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027128660"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/123595738"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/123595738"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9684,10 +10202,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026958775"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026958775"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9803,30 +10325,58 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026859297"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026859297"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/137598041"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/137598041"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026687860"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026687860"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032601786"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032601786"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Union chorale (La Tour de Peilz)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Union chorale (La Tour de Peilz)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Orchestre de la Suisse romande"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Orchestre de la Suisse romande",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -9943,10 +10493,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027343685"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027343685"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -10047,10 +10601,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028431391"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028431391"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -10174,10 +10732,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A000195745"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A000195745"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "title": [
@@ -10318,10 +10880,19 @@
       }
     ],
     "extent": "21 cm",
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Soci\u00e9t\u00e9 suisse de p\u00e9dagogie musicale. Section genevoise"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Soci\u00e9t\u00e9 suisse de p\u00e9dagogie musicale",
+          "conference": false,
+          "subordinate_unit": [
+            "Section genevoise"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -10350,10 +10921,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A014161336"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A014161336"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -10597,14 +11172,22 @@
       "[Dictionnaires allemands]",
       "[dictionnaire]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029383099"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029383099"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031201547"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031201547"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -10628,18 +11211,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/10924785X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/10924785X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/185544207"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/185544207"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/185544266"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/185544266"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -10763,14 +11358,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031771416"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031771416"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031771440"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031771440"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -10915,10 +11518,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/035573473"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/035573473"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11023,14 +11630,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003714361"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003714361"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/199829586"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/199829586"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11143,10 +11758,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028367502"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028367502"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11221,10 +11840,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032441770"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032441770"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11298,14 +11921,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026727587"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026727587"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027062260"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027062260"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11417,14 +12048,22 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/112060234"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/112060234"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1061808637"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1061808637"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11532,10 +12171,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/18609809X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/18609809X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11642,14 +12285,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/13291624X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/13291624X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1139053418"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1139053418"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -11827,14 +12478,32 @@
     "dimensions": [
       "24 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Katholieke Universiteit Leuven (Louvain). Hoger Instituut voor Wijsbegeerte"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Katholieke Universiteit Leuven (Louvain)",
+          "conference": false,
+          "subordinate_unit": [
+            "Hoger Instituut voor Wijsbegeerte"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Universit\u00e9 catholique de Louvain. Institut sup\u00e9rieur de philosophie"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Universit\u00e9 catholique de Louvain",
+          "conference": false,
+          "subordinate_unit": [
+            "Institut sup\u00e9rieur de philosophie"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -11862,14 +12531,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003058658"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003058658"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/073740896"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/073740896"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -12069,22 +12746,38 @@
       "Messes (musique)",
       "[DVD vid\u00e9o]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/186402163"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/186402163"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/186402376"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/186402376"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/186402627"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/186402627"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/18640266X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/18640266X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -12182,10 +12875,14 @@
       "Transports internationaux",
       "Ticino (Suisse, canton)"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031679447"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031679447"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -12209,14 +12906,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/060824069"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/060824069"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A012506149"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A012506149"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -12442,14 +13147,22 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1146234244"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1146234244"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A013065996"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A013065996"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -12478,10 +13191,15 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "name": "Topalovi\u0107, Elvira [VNV]"
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Topalovi\u0107, Elvira [VNV]"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -12583,10 +13301,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/10094244X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/10094244X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -12727,10 +13449,16 @@
     "dimensions": [
       "26 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Fellowship of Socialist Christians"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Fellowship of Socialist Christians",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -12758,10 +13486,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003084243"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003084243"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -12945,10 +13677,14 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026725428"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026725428"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -12985,14 +13721,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026745151"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026745151"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/034460608"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/034460608"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13091,10 +13835,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/112610579"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/112610579"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13207,10 +13955,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/074120956"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074120956"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13284,10 +14036,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027000346"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027000346"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13388,10 +14144,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/171084896"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/171084896"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13507,10 +14267,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/171084896"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/171084896"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13730,10 +14494,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A011766479"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A011766479"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -13848,10 +14616,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032450877"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032450877"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -14043,10 +14815,16 @@
       "Suisse",
       "[Publications officielles]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Association suisse pour l'alimentation"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Association suisse pour l'alimentation",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -14074,34 +14852,64 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028320549"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028320549"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/079000169"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/079000169"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/07950535X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/07950535X"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/134882644"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/134882644"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/060995254"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/060995254"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/079505341"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/079505341"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "English Baroque Soloists"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "English Baroque Soloists",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -14459,10 +15267,16 @@
       "Video art",
       "[Catalogues d'exposition]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Mus\u00e9e d'Isra\u00ebl (J\u00e9rusalem)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Mus\u00e9e d'Isra\u00ebl (J\u00e9rusalem)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -14486,10 +15300,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/185099092"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/185099092"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -14568,10 +15386,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/121098664"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/121098664"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -14708,10 +15530,16 @@
       "Service social",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Sozialistisches B\u00fcro (Offenbach)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Sozialistisches B\u00fcro (Offenbach)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -14812,14 +15640,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031103219"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031103219"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/055281729"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/055281729"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -14954,10 +15790,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/129265047"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/129265047"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15042,10 +15882,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/071047557"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/071047557"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15183,14 +16027,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026662019"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026662019"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/02873789X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/02873789X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15325,10 +16177,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/119295873"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/119295873"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15585,10 +16441,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/198276958"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/198276958"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15816,10 +16676,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/033053413"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/033053413"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -15928,10 +16792,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028339819"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028339819"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -16037,14 +16905,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/02675441X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/02675441X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003042303"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003042303"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -16187,10 +17063,16 @@
       "Afrique",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Herpetological Association of Africa"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Herpetological Association of Africa",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -16326,14 +17208,35 @@
       "Return in literature",
       "Setting (Literature)"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026847760"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026847760"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032533349"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032533349"
+        },
+        "role": [
+          "ctb"
+        ]
+      },
+      {
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Conference of Professors of English",
+          "conference": true,
+          "conference_number": "48th",
+          "conference_date": "2008",
+          "conference_place": "Universit\u00e9 d'Orl\u00e9ans"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ]
   },
@@ -16366,10 +17269,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029093147"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029093147"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -16546,10 +17453,14 @@
       "1848-1849",
       "Royaume de Sardaigne"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003138002"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003138002"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -16713,18 +17624,32 @@
       "1992-2006",
       "[Catalogues d'exposition]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/085817627"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/085817627"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/069761124"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/069761124"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Centre PasquART (Bienne)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Centre PasquART (Bienne)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -16748,10 +17673,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/03176214X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/03176214X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -16921,10 +17850,16 @@
       "Suisse",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -16948,10 +17883,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A008747341"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A008747341"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -17066,14 +18005,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028188012"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028188012"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/094513627"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/094513627"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -17319,14 +18266,22 @@
     "dimensions": [
       "30 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/122742850"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/122742850"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/134341031"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/134341031"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -17496,10 +18451,16 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Israel/Palestine Center for Research and Information"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Israel/Palestine Center for Research and Information",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -17527,14 +18488,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/115098364"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/115098364"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/20183152X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/20183152X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -17633,14 +18602,22 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/227824490"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/227824490"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/229507255"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/229507255"
+        },
+        "role": [
+          "prt"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -17748,18 +18725,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032444621"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032444621"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028028856"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028028856"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032583702"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032583702"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -17950,10 +18939,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/055677401"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/055677401"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -18110,10 +19103,16 @@
       "Botanique",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Hiroshima Botanical Club"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Hiroshima Botanical Club",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -18146,10 +19145,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/03346894X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/03346894X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -18332,10 +19335,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/087110350"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/087110350"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -18470,10 +19477,16 @@
     "dimensions": [
       "21 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Evangelisch-Reformierte Landeskirche des Kantons Z\u00fcrich"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Evangelisch-Reformierte Landeskirche des Kantons Z\u00fcrich",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -18579,10 +19592,14 @@
         "label": "1 mat\u00e9riel d'orchestre"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/152390774"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/152390774"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "titlesProper": [
@@ -18609,10 +19626,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A017007938"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A017007938"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -18705,10 +19726,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/126515786"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/126515786"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -18905,10 +19930,19 @@
       "Schweiz",
       "Periodikum"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Suisse. Office f\u00e9d\u00e9ral de la statistique"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Suisse",
+          "conference": false,
+          "subordinate_unit": [
+            "Office f\u00e9d\u00e9ral de la statistique"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "seriesStatement": [
@@ -19150,10 +20184,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/131203460"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/131203460"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -19408,10 +20446,14 @@
       "D\u00e9mocratie",
       "[\u00c9tudes diverses]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/135690226"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/135690226"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "partOf": [
@@ -19456,18 +20498,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/111661315"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/111661315"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/150083068"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/150083068"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/194090493"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/194090493"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -19583,10 +20637,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1068536632"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1068536632"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -19703,10 +20761,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A002963621"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A002963621"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -19867,14 +20929,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A000015097"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A000015097"
+        },
+        "role": [
+          "cmp"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/066924502"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/066924502"
+        },
+        "role": [
+          "edt"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -20229,10 +21299,19 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Suisse. Office f\u00e9d\u00e9ral de la statistique"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Suisse",
+          "conference": false,
+          "subordinate_unit": [
+            "Office f\u00e9d\u00e9ral de la statistique"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -20295,10 +21374,16 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Comit\u00e9 oecum\u00e9nique suisse pour la justice, la paix et la sauvegarde de la cr\u00e9ation"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Comit\u00e9 oecum\u00e9nique suisse pour la justice, la paix et la sauvegarde de la cr\u00e9ation",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "partOf": [
@@ -20419,10 +21504,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029404053"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029404053"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -20537,22 +21626,38 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028266358"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028266358"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/070427518"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/070427518"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030261163"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030261163"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/061128163"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/061128163"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -20683,10 +21788,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028464249"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028464249"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -20893,10 +22002,14 @@
       "La Praille (Suisse, GE)",
       "[Coupures de presse]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A009042477"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A009042477"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -20920,10 +22033,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A022902314"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A022902314"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21035,18 +22152,32 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/056746512"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/056746512"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/234848111"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/234848111"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21205,10 +22336,19 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Universit\u00e9 de Bourgogne (Dijon). Centre de recherches \"Le texte et l'\u00e9dition\""
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Universit\u00e9 de Bourgogne (Dijon)",
+          "conference": false,
+          "subordinate_unit": [
+            "Centre de recherches \"Le texte et l'\u00e9dition\""
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -21236,10 +22376,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/077083210"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/077083210"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21366,14 +22510,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027280896"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027280896"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026723417"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026723417"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21477,16 +22629,16 @@
       "subtype": "article"
     },
     "pid": "40",
-    "language": [
-      {
-        "value": "eng",
-        "type": "bf:Language"
-      }
-    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
         "startDate": 1818
+      }
+    ],
+    "language": [
+      {
+        "value": "eng",
+        "type": "bf:Language"
       }
     ],
     "identifiedBy": [
@@ -21496,10 +22648,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1072837846"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1072837846"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21554,10 +22710,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027155811"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027155811"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21631,14 +22791,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026817756"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026817756"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/02976615X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/02976615X"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21856,10 +23024,19 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Universit\u00e4t Bremen. Zentrale wissenschaftliche Einrichtung \"Arbeit und Betrieb\""
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Universit\u00e4t Bremen",
+          "conference": false,
+          "subordinate_unit": [
+            "Zentrale wissenschaftliche Einrichtung \"Arbeit und Betrieb\""
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -21887,10 +23064,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003418300"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003418300"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -21986,10 +23167,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/143183907"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/143183907"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22110,10 +23295,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/085939323"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/085939323"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22217,14 +23406,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029679400"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029679400"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029679508"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029679508"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22347,10 +23544,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/084565241"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/084565241"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22472,10 +23673,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/234193093"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/234193093"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22613,14 +23818,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/027076164"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/027076164"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026753618"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026753618"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -22840,10 +24053,14 @@
       "Br\u00e9sil",
       "[Catalogues d'exposition]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/077007220"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/077007220"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "partOf": [
@@ -22929,10 +24146,14 @@
       "Paris (France)",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028804430"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028804430"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -22956,10 +24177,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/035216999"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/035216999"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -23033,10 +24258,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/086955748"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/086955748"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -23231,18 +24460,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/07146073X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/07146073X"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/085977268"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/085977268"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/031604005"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/031604005"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -23376,10 +24617,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030688361"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030688361"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -23488,14 +24733,27 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/064814165"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/064814165"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Ecole polytechnique f\u00e9d\u00e9rale (Z\u00fcrich). Institut pour l'am\u00e9nagement national, r\u00e9gional et local"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Ecole polytechnique f\u00e9d\u00e9rale (Z\u00fcrich)",
+          "conference": false,
+          "subordinate_unit": [
+            "Institut pour l'am\u00e9nagement national, r\u00e9gional et local"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -23856,30 +25114,54 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030690609"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030690609"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/064815846"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/064815846"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032316992"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032316992"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030835801"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030835801"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/064816125"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/064816125"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/145599671"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/145599671"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "title": [
@@ -23985,14 +25267,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/149657986"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/149657986"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/052477878"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/052477878"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -24106,10 +25396,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A000180000"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A000180000"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -24326,10 +25620,14 @@
         "label": "Titre en fran\u00e7ais: Techniques redactionnelles de la th\u00e8se de doctorat en droit"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/127067620"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/127067620"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -24431,10 +25729,19 @@
       "Br\u00e9sil",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Sociedade Bot\u00e2nica do Brasil. Sec\u00e7\u00e3o Rio de Janeiro"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Sociedade Bot\u00e2nica do Brasil",
+          "conference": false,
+          "subordinate_unit": [
+            "Sec\u00e7\u00e3o Rio de Janeiro"
+          ]
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -24555,14 +25862,22 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028592484"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028592484"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/028275055"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/028275055"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -24695,10 +26010,14 @@
         "type": "bf:Local"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/13370744X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/13370744X"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -24803,10 +26122,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/124411177"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/124411177"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -24960,10 +26283,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/074180304"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074180304"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25076,10 +26403,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/106106384"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/106106384"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25162,10 +26493,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/056792948"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/056792948"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25228,10 +26563,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003361480"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003361480"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25494,22 +26833,38 @@
       "Epouvante",
       "Fantastique"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050345095"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050345095"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/05765025X"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/05765025X"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/057223688"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/057223688"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/032768214"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/032768214"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -25537,18 +26892,32 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030260868"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030260868"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/078617960"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/078617960"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "organisation",
-        "name": "Academy of St. Martin-in-the-Fields (London)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Academy of St. Martin-in-the-Fields (London)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25811,10 +27180,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/035155051"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/035155051"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -25921,22 +27294,38 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/030260868"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/030260868"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/172774004"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/172774004"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/124095739"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/124095739"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/1160612242"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/1160612242"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -26148,10 +27537,16 @@
       "\u00c9glise catholique",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Vita et Pax Foundation"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Vita et Pax Foundation",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -26231,10 +27626,16 @@
       "recherche exp\u00e9rimentale",
       "[P\u00e9riodiques]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Estaci\u00f3n Agr\u00edcola Experimental (Le\u00f3n)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Estaci\u00f3n Agr\u00edcola Experimental (Le\u00f3n)",
+          "conference": false
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -26258,18 +27659,30 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/026812924"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/026812924"
+        },
+        "role": [
+          "cre"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/029314100"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/029314100"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/182639096"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/182639096"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -26473,14 +27886,22 @@
       "[Photographies]",
       "[\u00c9tudes diverses]"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/050805916"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/050805916"
+        },
+        "role": [
+          "ctb"
+        ]
       },
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006052444"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A006052444"
+        },
+        "role": [
+          "ctb"
+        ]
       }
     ]
   },
@@ -26508,10 +27929,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A025133458"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A025133458"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [
@@ -26614,10 +28039,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/123889324"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/gnd/123889324"
+        },
+        "role": [
+          "cre"
+        ]
       }
     ],
     "responsibilityStatement": [

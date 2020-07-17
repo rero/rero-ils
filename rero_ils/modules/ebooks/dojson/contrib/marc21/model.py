@@ -137,37 +137,93 @@ def marc21_to_translated_from(self, key, value):
     return None
 
 
-@marc21.over('authors', '[17][01]0..')
+@marc21.over('contribution', '[17][01][01]..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_author(self, key, value):
-    """Get author.
+def marc21_to_contribution(self, key, value):
+    """Get contribution."""
+    if not key[4] == '2' and key[:3] in ['100', '700', '710', '711']:
+        agent = {'type': 'bf:Person'}
+        if value.get('a'):
+            name = utils.force_list(value.get('a'))[0]
+            agent['preferred_name'] = remove_trailing_punctuation(name)
 
-    authors: loop:
-    authors.name: 100$a [+ 100$b if it exists] or
-        [700$a (+$b if it exists) repetitive] or
-        [ 710$a repetitive (+$b if it exists, repetitive)]
-    authors.date: 100 $d or 700 $d (facultatif)
-    authors.qualifier: 100 $c or 700 $c (facultatif)
-    authors.type: if 100 or 700 then person, if 710 then organisation
-    """
-    if not (key[4] == '2' and (key[:3] == '710' or key[:3] == '700')):
-        author = {}
-        author['type'] = 'person'
-        author['name'] = remove_trailing_punctuation(value.get('a'))
-        author_subs = utils.force_list(value.get('b', []))
-        for author_sub in author_subs:
-            author['name'] += ' ' + remove_trailing_punctuation(author_sub)
-        if key[:3] == '710':
-            author['type'] = 'organisation'
-        else:
+        # 100|700 Person
+        if key[:3] in ['100', '700']:
+            if value.get('b'):
+                numeration = utils.force_list(value.get('b'))[0]
+                agent['numeration'] = remove_trailing_punctuation(
+                    numeration)
             if value.get('c'):
-                author['qualifier'] = remove_trailing_punctuation(
-                    value.get('c')
-                )
+                qualifier = utils.force_list(value.get('c'))[0]
+                agent['qualifier'] = remove_trailing_punctuation(qualifier)
             if value.get('d'):
-                author['date'] = remove_trailing_punctuation(value.get('d'))
-        return author
+                date = utils.force_list(value.get('d'))[0]
+                date = date.rstrip(',')
+                dates = remove_trailing_punctuation(date).split('-')
+                try:
+                    date_of_birth = dates[0].strip()
+                    if date_of_birth:
+                        agent['date_of_birth'] = date_of_birth
+                except Exception:
+                    pass
+                try:
+                    date_of_death = dates[1].strip()
+                    if date_of_death:
+                        agent['date_of_death'] = date_of_death
+                except Exception:
+                    pass
+            if value.get('q'):
+                fuller_form_of_name = utils.force_list(value.get('q'))[0]
+                agent['fuller_form_of_name'] = remove_trailing_punctuation(
+                    fuller_form_of_name
+                ).lstrip('(').rstrip(')')
+
+        # 710|711 Organisation
+        elif key[:3] in ['710', '711']:
+            agent['type'] = 'bf:Organisation'
+            if key[:3] == '711':
+                agent['conference'] = True
+            else:
+                agent['conference'] = False
+            if value.get('e'):
+                subordinate_units = []
+                for subordinate_unit in utils.force_list(value.get('e')):
+                    subordinate_units.append(subordinate_unit.rstrip('.'))
+                agent['subordinate_unit'] = subordinate_units
+            if value.get('n'):
+                conference_number = utils.force_list(value.get('n'))[0]
+                agent['conference_number'] = remove_trailing_punctuation(
+                    conference_number
+                ).lstrip('(').rstrip(')')
+            if value.get('d'):
+                conference_date = utils.force_list(value.get('d'))[0]
+                agent['conference_date'] = remove_trailing_punctuation(
+                    conference_date
+                ).lstrip('(').rstrip(')')
+            if value.get('c'):
+                conference_place = utils.force_list(value.get('c'))[0]
+                agent['conference_place'] = remove_trailing_punctuation(
+                    conference_place
+                ).lstrip('(').rstrip(')')
+        roles = ['aut']
+        if value.get('4'):
+            roles = []
+            for role in utils.force_list(value.get('4')):
+                roles.append(role)
+        else:
+            if key[:3] == '100':
+                roles = ['cre']
+            elif key[:3] == '711':
+                roles = ['aut']
+            else:
+                roles = ['ctb']
+        return {
+            'agent': agent,
+            'role': roles
+        }
+    else:
+        return None
 
 
 @marc21.over('title', '^245..')
@@ -477,7 +533,7 @@ def marc21_electronicLocator(self, key, value):
     """Get electronic locator."""
     indicator2 = key[4]
     electronic_locator = {}
-    url = value.get('u')
+    url = utils.force_list(value.get('u'))[0]
     subfield_3 = value.get('3')
     if subfield_3:
         subfield_3 = utils.force_list(subfield_3)[0]

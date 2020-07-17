@@ -38,10 +38,15 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Vincent, Sophie",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Vincent, Sophie",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "dimensions": [

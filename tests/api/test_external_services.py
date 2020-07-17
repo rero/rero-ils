@@ -33,6 +33,18 @@ from rero_ils.modules.documents.api import Document
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_get(client, document):
     """Test record retrieval."""
+    def clean_authorized_access_point(data):
+        """Clean contribution from authorized_access_point_"""
+        contributions = []
+        for contribution in data.get('contribution', []):
+            agent = {}
+            for item in contribution['agent']:
+                if not item.startswith('authorized_access_point'):
+                    agent[item] = contribution['agent'][item]
+            contribution['agent'] = agent
+            contributions.append(contribution)
+        return data
+
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
 
     res = client.get(item_url)
@@ -41,17 +53,13 @@ def test_documents_get(client, document):
     assert res.headers['ETag'] == '"{}"'.format(document.revision_id)
 
     data = get_json(res)
-    assert document.dumps() == data['metadata']
-
-    # Check metadata
-    for k in ['created', 'updated', 'metadata', 'links']:
-        assert k in data
+    assert document.dumps() == clean_authorized_access_point(data['metadata'])
 
     # Check self links
     res = client.get(to_relative_url(data['links']['self']))
     assert res.status_code == 200
     assert data == get_json(res)
-    assert document.dumps() == data['metadata']
+    assert document.dumps() == clean_authorized_access_point(data['metadata'])
 
     list_url = url_for('invenio_records_rest.doc_list')
     res = client.get(list_url)
@@ -59,8 +67,10 @@ def test_documents_get(client, document):
     data = get_json(res)
     document = document.replace_refs()
 
-    assert data['hits']['hits'][0]['metadata'] == \
-        document.replace_refs().dumps()
+    data_clean = clean_authorized_access_point(
+        data['hits']['hits'][0]['metadata']
+    )
+    assert document.replace_refs().dumps() == data_clean
 
     list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
     res = client.get(list_url)

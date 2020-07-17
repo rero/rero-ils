@@ -48,10 +48,10 @@ def person_view_method(pid, record, template=None, **kwargs):
     record_viewed.send(
         current_app._get_current_object(), pid=pid, record=record)
 
-    # Get author documents
+    # Get contribution documents
     search = DocumentsSearch().filter(
         'term',
-        authors__pid=pid.pid_value)
+        contribution__agent__pid=pid.pid_value)
 
     viewcode = kwargs['viewcode']
     if (viewcode != current_app.config.get(

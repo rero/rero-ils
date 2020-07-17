@@ -262,9 +262,10 @@ eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
 # SIZE=big # SIZE=small
-# poetry run invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
+# export RERO_ILS_MEF_HOST=mef.test.rero.ch
+# invenio utils marc21tojson ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 #: after recreation and loading of the new documents we have to recreate the person file
-# poetry run invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
+# invenio utils export -p pers -o ${DATA_PATH}/persons_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then

@@ -32,9 +32,10 @@
           "minItems": 1,
           "items": {
             "title": "Numbering",
-            "numbering_script": {
-              "$ref": "#/definitions/numbering_script"
-            }
+            "$ref": "#/definitions/numbering_script"
+          },
+          "form": {
+            "hide": true
           }
         },
         "subseriesStatement": {
@@ -68,9 +69,10 @@
                 "minItems": 1,
                 "items": {
                   "title": "Numbering",
-                  "numbering_script": {
-                    "$ref": "#/definitions/numbering_script"
-                  }
+                  "$ref": "#/definitions/numbering_script"
+                },
+                "form": {
+                  "hide": true
                 }
               }
             }
@@ -96,8 +98,8 @@
       "title": "Values",
       "type": "object",
       "propertiesOrder": [
-        "language",
-        "value"
+        "value",
+        "language"
       ],
       "required": [
         "value"
@@ -120,7 +122,10 @@
           }
         },
         "language": {
-          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code"
+          "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code",
+          "form": {
+            "hide": true
+          }
         }
       }
     }

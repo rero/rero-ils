@@ -1,0 +1,51 @@
+{
+  "contribution": {
+    "title": "Contribution",
+    "description": "Relationship to an agent associated with the document",
+    "type": "array",
+    "minItems": 1,
+    "items": {
+      "type": "object",
+      "title": "Agents",
+      "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "agent",
+        "role"
+      ],
+      "required": [
+        "agent",
+        "role"
+      ],
+      "properties": {
+        "agent": {
+          "title": "Agent",
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_person_link-v0.0.1.json"
+            },
+            {
+              "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_person-v0.0.1.json"
+            },
+            {
+              "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_organisation-v0.0.1.json"
+            }
+          ]
+        },
+        "role": {
+          "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_role-v0.0.1.json"
+        }
+      }
+    },
+    "form": {
+      "hide": true,
+      "navigation": {
+        "essential": true
+      },
+      "templateOptions": {
+        "cssClass": "editor-title"
+      }
+    }
+  }
+}

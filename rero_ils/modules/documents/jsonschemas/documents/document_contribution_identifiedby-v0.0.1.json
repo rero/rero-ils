@@ -1,0 +1,54 @@
+{
+  "title": "Identifier",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "type",
+    "source",
+    "value"
+  ],
+  "required": [
+    "value"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "default": "bf:Local",
+      "const": "bf:Local",
+      "form": {
+        "options": [
+          {
+            "value": "bf:Local",
+            "label": "Local"
+          }
+        ],
+        "templateOptions": {
+          "cssClass": "col-lg-4"
+        }
+      }
+    },
+    "source": {
+      "title": "Source",
+      "type": "string",
+      "default": "IdRef",
+      "minLength": 1,
+      "form": {
+        "templateOptions": {
+          "cssClass": "col-lg-4"
+        }
+      }
+    },
+    "value": {
+      "title": "Value",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "form": {
+    "hide": true,
+    "templateOptions": {
+      "cssClass": "col-lg-12"
+    }
+  }
+}

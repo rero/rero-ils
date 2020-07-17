@@ -19,7 +19,7 @@
 
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.views import authors_format, get_note, \
+from rero_ils.modules.documents.views import contribution_format, get_note, \
     identifiedby_format, language_format, note_format, part_of_format, \
     series_format
 from rero_ils.modules.items.models import ItemNoteTypes
@@ -31,11 +31,11 @@ def test_get_note(item_lib_martigny):
     assert get_note(item_lib_martigny, ItemNoteTypes.CHECKIN) is None
 
 
-def test_authors_format(db, document_data):
-    """Test authors format."""
+def test_contribution_format(db, document_data):
+    """Test contribution format."""
     result = 'Vincent, Sophie'
     doc = Document.create(document_data, delete_pid=True)
-    assert result == authors_format(doc.pid, 'en', 'global')
+    assert contribution_format(doc.pid, 'en', 'global').startswith(result)
 
 
 def test_series_format():

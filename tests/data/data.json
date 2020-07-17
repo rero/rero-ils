@@ -1228,10 +1228,15 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Vincent, Sophie",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Vincent, Sophie",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "dimensions": [
@@ -1373,10 +1378,14 @@
         "value": "http://catalogue.bnf.fr/ark:/12148/cb45295914f"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A017671081"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A017671081"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "title": [
@@ -1464,10 +1473,48 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Vincent, Edward",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Vincent, Edward",
+          "type": "bf:Person",
+          "date_of_birth": "1954",
+          "date_of_death": "2222",
+          "qualifier": "physicist",
+          "fuller_form_of_name": "fuller"
+        },
+        "role": [
+          "aut"
+        ]
+      },
+      {
+        "agent": {
+          "preferred_name": "Vincent, Edward",
+          "type": "bf:Person",
+          "date_of_birth": "1954",
+          "date_of_death": "2222",
+          "qualifier": "physicist",
+          "numeration": "1"
+        },
+        "role": [
+          "aut"
+        ]
+      },
+      {
+        "agent": {
+          "preferred_name": "RERO",
+          "type": "bf:Organisation",
+          "subordinate_unit": [
+            "Martigny"
+          ],
+          "conference_number": "1",
+          "conference_date": "2020-02-02",
+          "conference_place": "Martigny",
+          "conference": false
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "dimensions": [
@@ -1764,14 +1811,24 @@
         ]
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "name": "Liang, Xi, 1924-"
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Liang, Xi, 1924-"
+        },
+        "role": [
+          "aut"
+        ]
       },
       {
-        "type": "person",
-        "name": "Zeng, Lingliang"
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Zeng, Lingliang"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ]
   },
@@ -1859,10 +1916,16 @@
     "dimensions": [
       "26 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Instituto de Estudios Africanos (Madrid)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Instituto de Estudios Africanos (Madrid)",
+          "conference": false
+        },
+        "role": [
+          "aut"
+        ]
       }
     ]
   },
@@ -1950,10 +2013,16 @@
     "dimensions": [
       "26 cm"
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "organisation",
-        "name": "Instituto de Estudios Africanos (Madrid)"
+        "agent": {
+          "type": "bf:Organisation",
+          "preferred_name": "Instituto de Estudios Africanos (Madrid)",
+          "conference": false
+        },
+        "role": [
+          "aut"
+        ]
       }
     ]
   },
@@ -1988,14 +2057,25 @@
         "value": "fre"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Peter James",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Peter James",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       },
       {
-        "name": "Great Edition",
-        "type": "organisation"
+        "agent": {
+          "preferred_name": "Great Edition",
+          "type": "bf:Organisation",
+          "conference": false
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "provisionActivity": [
@@ -2088,10 +2168,15 @@
         "value": "ger"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Christopher Sch\u00fctze",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Christopher Sch\u00fctze",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "provisionActivity": [
@@ -2169,10 +2254,15 @@
         "value": "eng"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "J.K. Rowling",
-        "type": "person"
+        "agent": {
+          "preferred_name": "J.K. Rowling",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "provisionActivity": [
@@ -2250,10 +2340,15 @@
         "value": "fre"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "name": "Peter James",
-        "type": "person"
+        "agent": {
+          "preferred_name": "Peter James",
+          "type": "bf:Person"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "provisionActivity": [

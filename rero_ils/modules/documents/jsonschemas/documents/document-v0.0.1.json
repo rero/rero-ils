@@ -16,7 +16,7 @@
     "title",
     "responsibilityStatement",
     "titlesProper",
-    "authors",
+    "contribution",
     "subjects",
     "language",
     "translatedFrom",
@@ -75,8 +75,8 @@
     "translatedFrom": {
       "$ref": "https://ils.rero.ch/schemas/documents/document_translated_from-v0.0.1.json#/translatedFrom"
     },
-    "authors": {
-      "$ref": "https://ils.rero.ch/schemas/documents/document_authors-v0.0.1.json#/authors"
+    "contribution": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_contribution-v0.0.1.json#/contribution"
     },
     "copyrightDate": {
       "$ref": "https://ils.rero.ch/schemas/documents/document_copyright_date-v0.0.1.json#/copyrightDate"

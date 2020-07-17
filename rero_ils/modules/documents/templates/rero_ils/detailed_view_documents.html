@@ -58,9 +58,9 @@
       </h3>
     {% endfor %}
 
-    <!-- AUTHORS -->
-    {% if record.authors %}
-    {{ div(record.pid | authors_format(current_i18n.language, viewcode)) }}
+    <!-- CONTRIBUTION -->
+    {% if record.contribution %}
+    {{ div(record.pid | contribution_format(current_i18n.language, viewcode, true)) }}
     {% endif %}
 
     <!-- PROVISION ACTIVITY -->

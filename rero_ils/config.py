@@ -1344,20 +1344,20 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(field='type',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
-            author__en=dict(
-                terms=dict(field='facet_authors_en',
+            contribution__en=dict(
+                terms=dict(field='facet_contribution_en',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
-            author__fr=dict(
-                terms=dict(field='facet_authors_fr',
+            contribution__fr=dict(
+                terms=dict(field='facet_contribution_fr',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
-            author__de=dict(
-                terms=dict(field='facet_authors_de',
+            contribution__de=dict(
+                terms=dict(field='facet_contribution_de',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
-            author__it=dict(
-                terms=dict(field='facet_authors_it',
+            contribution__it=dict(
+                terms=dict(field='facet_contribution_it',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             language=dict(
@@ -1389,10 +1389,10 @@ RECORDS_REST_FACETS = dict(
                 'holdings.organisation.organisation_pid'
             ),
             _('library'): and_term_filter('holdings.organisation.library_pid'),
-            _('author__en'): and_term_filter('facet_authors_en'),
-            _('author__fr'): and_term_filter('facet_authors_fr'),
-            _('author__de'): and_term_filter('facet_authors_de'),
-            _('author__it'): and_term_filter('facet_authors_it'),
+            _('contribution__en'): and_term_filter('facet_contribution_en'),
+            _('contribution__fr'): and_term_filter('facet_contribution_fr'),
+            _('contribution__de'): and_term_filter('facet_contribution_de'),
+            _('contribution__it'): and_term_filter('facet_contribution_it'),
             _('language'): and_term_filter('language.value'),
             _('subject'): and_term_filter('facet_subjects'),
             _('status'): and_term_filter('holdings.items.status'),
@@ -1533,8 +1533,8 @@ RERO_ILS_QUERY_BOOSTING = {
     'documents': {
         'title._text.*': 3,
         'titlesProper.*': 3,
-        'authors.name': 2,
-        'authors.name_*': 2,
+        'contribution.name': 2,
+        'contribution.name_*': 2,
         'publicationYearText': 2,
         'freeFormedPublicationDate': 2,
         'subjects.*': 2

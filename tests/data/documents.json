@@ -46,6 +46,24 @@
         "type": "bf:Title"
       }
     ],
+    "contribution": [
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074755978"
+        },
+        "role": [
+          "aut"
+        ]
+      },
+      {
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/rero/A003683610"
+        },
+        "role": [
+          "aut"
+        ]
+      }
+    ],
     "provisionActivity": [
       {
         "type": "bf:Publication",
@@ -105,16 +123,6 @@
       "contrat de construction",
       "Suisse"
     ],
-    "authors": [
-      {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/074755978"
-      },
-      {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A003683610"
-      }
-    ],
     "titlesProper": [
       "La norme SIA 118 et l'actualit\u00e9 juridique en mati\u00e8re de construction"
     ]
@@ -143,10 +151,14 @@
         "source": "RERO"
       }
     ],
-    "authors": [
+    "contribution": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/rero/A006010680"
+        "agent": {
+          "$ref": "https://mef.rero.ch/api/idref/074755978"
+        },
+        "role": [
+          "aut"
+        ]
       }
     ],
     "responsibilityStatement": [

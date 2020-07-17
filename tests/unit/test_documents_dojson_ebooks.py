@@ -480,8 +480,8 @@ def test_marc21_to_subjects():
     ]
 
 
-def test_marc21_to_authors():
-    """Test authors transformation.
+def test_marc21_to_contribution():
+    """Test contribution transformation.
 
     Test author in field 700 with first indicator = 0
     for Forename (name without comma separator).
@@ -496,13 +496,92 @@ def test_marc21_to_authors():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('authors') == [
-        {'type': 'person', 'name': 'Collectif'}
+    assert data.get('contribution') == [
+        {
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Collectif'
+            },
+            'role': ['aut']
+        }
+    ]
+
+    marc21xml = """
+    <record>
+      <datafield tag="100" ind1=" " ind2=" ">
+        <subfield code="a">Jean-Paul</subfield>
+        <subfield code="b">II</subfield>
+        <subfield code="c">Pape</subfield>
+        <subfield code="d">1954-</subfield>
+        <subfield code="4">aut</subfield>
+      </datafield>
+      <datafield tag="700" ind1=" " ind2=" ">
+        <subfield code="a">Dumont, Jean</subfield>
+        <subfield code="c">Historien</subfield>
+        <subfield code="d">1921-2014</subfield>
+        <subfield code="4">edt</subfield>
+      </datafield>
+      <datafield tag="710" ind1=" " ind2=" ">
+        <subfield code="a">RERO</subfield>
+      </datafield>
+      <datafield tag="711" ind1="2" ind2=" ">
+        <subfield code="a">Biennale de céramique contemporaine</subfield>
+        <subfield code="n">(17 :</subfield>
+        <subfield code="d">2003 :</subfield>
+        <subfield code="c">Châteauroux)</subfield>
+      </datafield>
+    </record>
+    """
+
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    contribution = data.get('contribution')
+    assert contribution == [
+        {
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Jean-Paul',
+                'numeration': 'II',
+                'date_of_birth': '1954',
+                'qualifier': 'Pape'
+            },
+            'role': ['aut']
+        },
+        {
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Dumont, Jean',
+                'date_of_birth': '1921',
+                'date_of_death': '2014',
+                'qualifier': 'Historien'
+            },
+            'role': ['edt']
+        },
+        {
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'RERO',
+                'conference': False
+            },
+            'role': ['ctb']
+        },
+        {
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'Biennale de céramique contemporaine',
+                'conference_date': '2003',
+                'conference_number': '17',
+                'conference_place': 'Châteauroux',
+                'conference': True
+            },
+            'role': ['aut']
+        }
+
     ]
 
 
-def test_marc21_to_authors_and_translator():
-    """Test authors and translator transformation.
+def test_marc21_to_contribution_and_translator():
+    """Test contribution and translator transformation.
 
     Test author and translator in fields 700 with first indicator = 1
     for Surname (name with comma separator).
@@ -521,9 +600,21 @@ def test_marc21_to_authors_and_translator():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('authors') == [
-        {'type': 'person', 'name': 'Peeters, Hagar'},
-        {'type': 'person', 'name': 'Maufroy, Sandrine'}
+    assert data.get('contribution') == [
+        {
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Peeters, Hagar'
+            },
+            'role': ['aut']
+        },
+        {
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Maufroy, Sandrine'
+            },
+            'role': ['trl']
+        }
     ]
 
 

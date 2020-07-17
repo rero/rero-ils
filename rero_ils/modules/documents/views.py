@@ -30,10 +30,11 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document
-from .utils import display_alternate_graphic_first, edition_format_text, \
-    localized_data_name, publication_statement_text, \
-    series_statement_format_text, title_format_text_alternate_graphic, \
-    title_format_text_head, title_variant_format_text
+from .utils import create_authorized_access_point, \
+    display_alternate_graphic_first, edition_format_text, \
+    publication_statement_text, series_statement_format_text, \
+    title_format_text_alternate_graphic, title_format_text_head, \
+    title_variant_format_text
 from ..holdings.api import Holding
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -140,38 +141,44 @@ def get_note(item, note_type):
 
 
 @blueprint.app_template_filter()
-def authors_format(pid, language, viewcode):
-    """Format authors for template in given language."""
+def contribution_format(pid, language, viewcode, role=False):
+    """Format contribution for template in given language.
+
+    :param pid: pid for document.
+    :param language: language to use.
+    :param viewcode: viewcode to use.
+    :param role: display roles.
+    :return the contribution in formatted form.
+    """
     doc = Document.get_record_by_pid(pid)
     doc = doc.replace_refs()
     output = []
-    for author in doc.get('authors', []):
-        line = []
-        author_pid = author.get('pid')
-        if author_pid:
-            if (Person.get_record_by_pid(author_pid)):
-                author = \
-                    Person.get_record_by_pid(author_pid).dumps_for_document()
-        name = localized_data_name(data=author, language=language)
-        line.append(name)
-        qualifier = author.get('qualifier')
-        if qualifier:
-            line.append(qualifier)
-        date = author.get('date')
-        if date:
-            line.append(date)
-        mef_pid = author.get('pid')
-        if mef_pid:
+    for contribution in doc.get('contribution', []):
+        pers_pid = contribution['agent'].get('pid')
+        if pers_pid:
+            person = Person.get_record_by_pid(pers_pid)
             # add link <a href="url">link text</a>
+            authorized_access_point = person.get_authorized_access_point(
+                language=language
+            )
             line = '<a href="/{viewcode}/persons/{pid}">{text}</a>'.format(
                 viewcode=viewcode,
-                pid=mef_pid,
-                text=', '.join(line)
+                pid=pers_pid,
+                text=authorized_access_point
             )
         else:
-            line = ', '.join(str(x) for x in line)
-        output.append(line)
+            line = create_authorized_access_point(contribution['agent'])
 
+        if role:
+            roles = []
+            for role in contribution.get('role'):
+                roles.append(_(role))
+            if roles:
+                line += '<span class="text-secondary"> ({role})</span>'.format(
+                    role=', '.join(roles)
+                )
+
+        output.append(line)
     return '&#8239;; '.join(output)
 
 

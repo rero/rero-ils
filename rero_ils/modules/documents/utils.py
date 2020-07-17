@@ -26,14 +26,6 @@ from elasticsearch_dsl.utils import AttrDict
 from .dojson.contrib.marc21tojson.model import remove_trailing_punctuation
 
 
-def localized_data_name(data, language):
-    """Get localized name."""
-    return data.get(
-        'name_{language}'.format(language=language),
-        data.get('name', '')
-    )
-
-
 def clean_text(data):
     """Delete all _text from data."""
     if isinstance(data, list):
@@ -398,3 +390,73 @@ def title_format_text(title, with_subtitle=True):
         else:
             title_text.append({'value': value, 'language': key})
     return title_text
+
+
+def create_authorized_access_point(agent):
+    """Create the authorized_access_point for an agent.
+
+    :param agent: Agent to create the authorized_access_point for.
+    :returns: authorized access point.
+    """
+    authorized_access_point = agent['preferred_name']
+    if agent['type'] == "bf:Person":
+        date = ''
+        date_of_birth = agent.get('date_of_birth')
+        date_of_death = agent.get('date_of_death')
+        if date_of_birth:
+            date = date_of_birth
+        if date_of_death:
+            date += '-{date_of_death}'.format(
+                date_of_death=date_of_death
+            )
+        numeration = agent.get('numeration')
+        fuller_form_of_name = agent.get('fuller_form_of_name')
+        qualifier = agent.get('qualifier')
+
+        if numeration:
+            authorized_access_point += ' {numeration}'.format(
+                numeration=numeration
+            )
+            if qualifier:
+                authorized_access_point += ', {qualifier}'.format(
+                    qualifier=qualifier
+                )
+            if date:
+                authorized_access_point += ', {date}'.format(
+                    date=date
+                )
+        else:
+            if fuller_form_of_name:
+                authorized_access_point += \
+                    ' ({fuller_form_of_name})'.format(
+                        fuller_form_of_name=fuller_form_of_name
+                    )
+            if date:
+                authorized_access_point += ', {date}'.format(
+                    date=date
+                )
+            if qualifier:
+                authorized_access_point += ', {qualifier}'.format(
+                    qualifier=qualifier
+                )
+    elif agent['type'] == "bf:Organisation":
+        subordinate_unit = agent.get('subordinate_unit')
+        if subordinate_unit:
+            authorized_access_point += '. {sub_unit}'.format(
+                sub_unit='. '.join(subordinate_unit)
+            )
+        conference_data = []
+        conference_number = agent.get('conference_number')
+        if conference_number:
+            conference_data.append(conference_number)
+        conference_date = agent.get('conference_date')
+        if conference_date:
+            conference_data.append(conference_date)
+        conference_place = agent.get('conference_place')
+        if conference_place:
+            conference_data.append(conference_place)
+        if conference_data:
+            authorized_access_point += ' ({conference})'.format(
+                conference=' : '.join(conference_data)
+            )
+    return authorized_access_point

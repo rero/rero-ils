@@ -1184,17 +1184,9 @@ def test_marc21_to_language():
     ]
 
 
-# authors: loop:
-# authors.name: 100$a [+ 100$b if it exists] or
-#   [700$a (+$b if it exists) repetitive] or
-#   [ 710$a repetitive (+$b if it exists, repetitive)]
-# authors.date: 100 $d or 700 $d (facultatif)
-# authors.qualifier: 100 $c or 700 $c (facultatif)
-# authors.type: if 100 or 700 then person, if 710 then organisation
 @mock.patch('requests.get')
-def test_marc21_to_authors(mock_get):
-    """Test dojson marc21_to_authors."""
-
+def test_marc21_to_contribution(mock_get):
+    """Test dojson marc21_to_contribution."""
     marc21xml = """
     <record>
       <datafield tag="100" ind1=" " ind2=" ">
@@ -1202,71 +1194,70 @@ def test_marc21_to_authors(mock_get):
         <subfield code="b">II</subfield>
         <subfield code="c">Pape</subfield>
         <subfield code="d">1954-</subfield>
+        <subfield code="4">aut</subfield>
       </datafield>
       <datafield tag="700" ind1=" " ind2=" ">
         <subfield code="a">Dumont, Jean</subfield>
         <subfield code="c">Historien</subfield>
         <subfield code="d">1921-2014</subfield>
+        <subfield code="4">edt</subfield>
       </datafield>
       <datafield tag="710" ind1=" " ind2=" ">
         <subfield code="a">RERO</subfield>
+      </datafield>
+      <datafield tag="711" ind1="2" ind2=" ">
+        <subfield code="a">Biennale de céramique contemporaine</subfield>
+        <subfield code="n">(17 :</subfield>
+        <subfield code="d">2003 :</subfield>
+        <subfield code="c">Châteauroux)</subfield>
       </datafield>
     </record>
     """
+
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    authors = data.get('authors')
-    assert authors == [
+    contribution = data.get('contribution')
+    assert contribution == [
         {
-            'name': 'Jean-Paul II',
-            'type': 'person',
-            'date': '1954-',
-            'qualifier': 'Pape'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Jean-Paul',
+                'numeration': 'II',
+                'date_of_birth': '1954',
+                'qualifier': 'Pape'
+            },
+            'role': ['aut']
         },
         {
-            'name': 'Dumont, Jean',
-            'type': 'person',
-            'date': '1921-2014',
-            'qualifier': 'Historien'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Dumont, Jean',
+                'date_of_birth': '1921',
+                'date_of_death': '2014',
+                'qualifier': 'Historien'
+            },
+            'role': ['edt']
         },
         {
-            'name': 'RERO',
-            'type': 'organisation'
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'RERO',
+                'conference': False
+            },
+            'role': ['ctb']
+        },
+        {
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'Biennale de céramique contemporaine',
+                'conference_date': '2003',
+                'conference_number': '17',
+                'conference_place': 'Châteauroux',
+                'conference': True
+            },
+            'role': ['aut']
         }
-    ]
-    marc21xml = """
-    <record>
-      <datafield tag="100" ind1=" " ind2=" ">
-        <subfield code="a">Jean-Paul</subfield>
-        <subfield code="b">II</subfield>
-        <subfield code="c">Pape</subfield>
-        <subfield code="d">1954-</subfield>
-      </datafield>
-      <datafield tag="700" ind1=" " ind2="2">
-        <subfield code="a">Dumont, Jean</subfield>
-        <subfield code="c">Historien</subfield>
-        <subfield code="d">1921-2014</subfield>
-      </datafield>
-      <datafield tag="710" ind1=" " ind2=" ">
-        <subfield code="a">RERO</subfield>
-        <subfield code="c">Martigny</subfield>
-        <subfield code="d">1971</subfield>
-      </datafield>
-    """
-    marc21json = create_record(marc21xml)
-    data = marc21.do(marc21json)
-    authors = data.get('authors')
-    assert authors == [
-        {
-            'name': 'Jean-Paul II',
-            'type': 'person',
-            'date': '1954-',
-            'qualifier': 'Pape'
-        },
-        {
-            'name': 'RERO',
-            'type': 'organisation'
-        }
+
     ]
 
     marc21xml = """
@@ -1285,10 +1276,12 @@ def test_marc21_to_authors(mock_get):
     })
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    authors = data.get('authors')
-    assert authors == [{
-        '$ref': 'https://mef.rero.ch/api/rero/XXXXXXXX',
-        'type': 'person'
+    contribution = data.get('contribution')
+    assert contribution == [{
+        'agent': {
+            '$ref': 'https://mef.rero.ch/api/rero/XXXXXXXX'
+        },
+        'role': ['cre']
     }]
 
 
@@ -3715,4 +3708,4 @@ def test_get_person_link(mock_get, capsys):
     assert not mef_url
     out, err = capsys.readouterr()
     assert err == 'WARNING NOT MEF REF:\t1\tX123456789\t100..\t' + \
-        "{'0': 'X123456789'}\t\n"
+        "{'0': 'X123456789'}\tlist index out of range\t\n"

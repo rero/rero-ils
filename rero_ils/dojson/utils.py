@@ -675,7 +675,7 @@ class ReroIlsOverdo(Overdo):
         """Extract the seriesStatement data from marc field data.
 
         This function automatically selects the subfield codes according field
-        tag ans the Marc21 or Unimarc format. The extracted data are:
+        tag in the Marc21 or Unimarc format. The extracted data are:
         - seriesTitle
         - seriesEnumeration
 
