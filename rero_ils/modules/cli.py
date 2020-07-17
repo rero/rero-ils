@@ -26,6 +26,7 @@ import json
 import logging
 import multiprocessing
 import os
+import re
 import shutil
 import sys
 import traceback
@@ -448,6 +449,12 @@ def check_license(configfile, verbose, progress):
         # No error found
         return 0
 
+    def is_slash_directive(file, line):
+        is_js_file = file.name.split('.')[-1] == 'js'
+        if is_js_file and re.search(triple_slash, line):
+            return True
+        return False
+
     def test_license(file, extension, license_lines, verbose):
         """Test the license in file."""
         lines_with_errors = []
@@ -456,7 +463,10 @@ def check_license(configfile, verbose, progress):
         linemaxnbr = len(lines)
         prefix = extension.get('prefix')
         line, linenbr = get_line(lines, linenbr, prefix)
-        while lines[linenbr-1].startswith('#!'):
+        # Get over Shebang lines or Triple-Slash Directives (for Javascript
+        # files)
+        while lines[linenbr-1].startswith('#!') or \
+                is_slash_directive(file, lines[linenbr-1]):
             # get over Shebang
             line, linenbr = get_line(lines, linenbr, prefix)
         if extension.get('top'):
@@ -511,6 +521,9 @@ def check_license(configfile, verbose, progress):
             recursive=True
         )
     files_list = list(set(files_list) - set(exclude_list))
+
+    # set regexp expression for Triple-Slash directives
+    triple_slash = r'^/// <reference \w*=\"\w*\" />$'
 
     license_lines = config['license_text'].split('\n')
     tot_error_cnt = 0
