@@ -54,6 +54,18 @@
                 }
               }
             },
+            "partOfTitle": {
+              "properties": {
+                "value": {
+                  "type": "text",
+                  "index": false
+                },
+                "language": {
+                  "type": "keyword",
+                  "index": false
+                }
+              }
+            },
             "subtitle": {
               "type": "object",
               "properties": {
@@ -62,7 +74,8 @@
                   "index": false
                 },
                 "language": {
-                  "type": "keyword"
+                  "type": "keyword",
+                  "index": false
                 }
               }
             },
@@ -208,61 +221,116 @@
         "translatedFrom": {
           "type": "keyword"
         },
-        "authors": {
+        "contribution": {
           "type": "object",
           "properties": {
-            "name": {
-              "type": "text",
-              "copy_to": [
-                "facet_authors_en",
-                "facet_authors_fr",
-                "facet_authors_de",
-                "facet_authors_it"
-              ]
+            "agent": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "keyword"
+                },
+                "pid": {
+                  "type": "keyword"
+                },
+                "authorized_access_point_en": {
+                  "type": "text",
+                  "copy_to": [
+                    "authorized_access_point",
+                    "facet_contribution_en"
+                  ]
+                },
+                "authorized_access_point_fr": {
+                  "type": "text",
+                  "copy_to": [
+                    "authorized_access_point",
+                    "facet_contribution_fr"
+                  ]
+                },
+                "authorized_access_point_de": {
+                  "type": "text",
+                  "copy_to": [
+                    "authorized_access_point",
+                    "facet_contribution_de"
+                  ]
+                },
+                "authorized_access_point_it": {
+                  "type": "text",
+                  "copy_to": [
+                    "authorized_access_point",
+                    "facet_contribution_it"
+                  ]
+                },
+                "authorized_access_point": {
+                  "type": "text"
+                },
+                "preferred_name": {
+                  "type": "text"
+                },
+                "variant_name": {
+                  "type": "text"
+                },
+                "date_of_birth": {
+                  "type": "keyword"
+                },
+                "date_of_death": {
+                  "type": "keyword"
+                },
+                "qualifier": {
+                  "type": "keyword"
+                },
+                "numeration": {
+                  "type": "keyword"
+                },
+                "fuller_form_of_name": {
+                  "type": "text"
+                },
+                "subordinate_unit": {
+                  "type": "text"
+                },
+                "conference_place": {
+                  "type": "text"
+                },
+                "conference_number": {
+                  "type": "keyword"
+                },
+                "conference_date": {
+                  "type": "keyword"
+                },
+                "conference": {
+                  "type": "boolean"
+                },
+                "identifiedBy": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "keyword"
+                    },
+                    "source": {
+                      "type": "keyword"
+                    },
+                    "value": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
             },
-            "name_en": {
-              "type": "text",
-              "copy_to": "facet_authors_en"
-            },
-            "name_fr": {
-              "type": "text",
-              "copy_to": "facet_authors_fr"
-            },
-            "name_de": {
-              "type": "text",
-              "copy_to": "facet_authors_de"
-            },
-            "name_it": {
-              "type": "text",
-              "copy_to": "facet_authors_it"
-            },
-            "variant_name": {
-              "type": "text"
-            },
-            "type": {
-              "type": "keyword"
-            },
-            "date": {
-              "type": "keyword"
-            },
-            "qualifier": {
-              "type": "keyword"
-            },
-            "pid": {
+            "role": {
               "type": "keyword"
             }
           }
         },
-        "facet_authors_en": {
+        "facet_contribution_en": {
           "type": "keyword"
         },
-        "facet_authors_fr": {
+        "facet_contribution_fr": {
           "type": "keyword"
         },
-        "facet_authors_de": {
+        "facet_contribution_de": {
           "type": "keyword"
         },
-        "facet_authors_it": {
+        "facet_contribution_it": {
           "type": "keyword"
         },
         "copyrightDate": {

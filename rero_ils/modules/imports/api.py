@@ -136,10 +136,10 @@ class Import(object):
             date = provision_activity.get('startDate')
             self.calculate_aggregations_add('year', date, id)
 
-        authors = record.get('authors', [])
-        for author in authors:
-            name = author.get('name')
-            self.calculate_aggregations_add('author', name, id)
+        contribution = record.get('contribution', [])
+        for agent in contribution:
+            name = agent.get('name')
+            self.calculate_aggregations_add('contribution', name, id)
 
     def create_aggregations(self, results):
         """Create aggregations.
@@ -149,7 +149,7 @@ class Import(object):
         """
         self.aggregations_creation = {
             'type': {},
-            'author': {},
+            'contribution': {},
             'year': {}
         }
         results['aggregations'] = {}

@@ -238,7 +238,7 @@ def person(app, person_data):
 
 
 @pytest.fixture(scope="module")
-@mock.patch('rero_ils.modules.persons.api.requests_get')
+@mock.patch('requests.get')
 def document_ref(mock_persons_mef_get,
                  app, document_data_ref, person_response_data):
     """Load document with mef records reference."""

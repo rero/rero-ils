@@ -84,16 +84,27 @@ def doc_title_travailleuses(app):
             'subtitle': [{'value': "lorsqu'un est bœuf ex aequo"}]
 
         }],
-        'authors': [{
-            'name': 'Müller, John', 'type': 'person'
-        }, {
-            'name': 'Corminbœuf, Gruß', 'type': 'person'
-        }],
+        'contribution': [
+            {
+                'agent': {
+                    'preferred_name': 'Müller, John',
+                    'type': 'bf:Person'
+                },
+                'role': ['aut']
+            },
+            {
+                'agent': {
+                    'preferred_name': 'Corminbœuf, Gruß',
+                    'type': 'bf:Person'
+                },
+                'role': ['aut']
+            }
+        ],
         "provisionActivity": [
-          {
-            "type": "bf:Publication",
-            "startDate": 1818
-          }
+            {
+                "type": "bf:Publication",
+                "startDate": 1818
+            }
         ],
         'issuance': {
             'main_type': 'rdami:1001',

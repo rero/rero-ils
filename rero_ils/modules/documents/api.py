@@ -26,8 +26,9 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search.api import RecordsSearch
 
 from .models import DocumentIdentifier, DocumentMetadata
-from .utils import edition_format_text, publication_statement_text, \
-    series_statement_format_text, title_format_text_head
+from .utils import create_authorized_access_point, edition_format_text, \
+    publication_statement_text, series_statement_format_text, \
+    title_format_text_head
 from ..acq_order_lines.api import AcqOrderLinesSearch
 from ..api import IlsRecord, IlsRecordsIndexer
 from ..fetchers import id_fetcher
@@ -198,12 +199,12 @@ class Document(IlsRecord):
         """Index all attached persons."""
         from ..persons.api import Person
         persons_ids = []
-        for author in self.get('authors', []):
+        for contribution in self.get('contribution', []):
             person = None
-            ref = author.get('$ref')
+            ref = contribution['agent'].get('$ref')
             if ref:
                 person = Person.get_record_by_ref(ref)
-            pid = author.get('pid')
+            pid = contribution['agent'].get('pid')
             if pid:
                 person = Person.get_record_by_pid(pid)
             if person:
@@ -245,13 +246,13 @@ class Document(IlsRecord):
     def replace_refs(self):
         """Replace $ref with real data."""
         from ..persons.api import Person
-        authors = self.get('authors', [])
-        for idx, author in enumerate(authors):
-            ref = author.get('$ref')
+        contributions = self.get('contribution', [])
+        for idx, contribution in enumerate(contributions):
+            ref = contribution['agent'].get('$ref')
             if ref:
                 person = Person.get_record_by_ref(ref)
                 if person:
-                    authors[idx] = person
+                    contributions[idx]['agent'] = person
         return super(Document, self).replace_refs()
 
 

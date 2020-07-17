@@ -17,6 +17,7 @@
 
 """Utilities functions for rero-ils."""
 
+from flask import current_app
 from invenio_i18n.ext import current_i18n
 
 
@@ -29,3 +30,13 @@ def get_current_language():
     """Return the current selected locale."""
     loc = current_i18n.locale
     return loc.language
+
+
+def get_i18n_supported_languages():
+    """Get defined languages from config.
+
+    :returns: defined languages from config.
+    """
+    languages = [current_app.config.get('BABEL_DEFAULT_LANGUAGE')]
+    i18n_languages = current_app.config.get('I18N_LANGUAGES')
+    return languages + [ln[0] for ln in i18n_languages]

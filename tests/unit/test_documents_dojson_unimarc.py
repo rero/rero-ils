@@ -829,15 +829,8 @@ def test_unimarc_languages():
     assert data.get('translatedFrom') == ['ita']
 
 
-# authors: loop:
-# 700 Nom de personne – Responsabilité principale
-# 701 Nom de personne – Autre responsabilité principale
-# 702 Nom de personne – Responsabilité secondaire
-# 710 Nom de collectivité – Responsabilité principale
-# 711 Nom de collectivité – Autre responsabilité principale
-# 712 Nom de collectivité – Responsabilité secondaire
-def test_unimarctoauthors():
-    """Test dojson unimarctoauthors."""
+def test_unimarc_contribution():
+    """Test dojson unimarctocontribution."""
 
     unimarcxml = """
     <record>
@@ -846,12 +839,14 @@ def test_unimarctoauthors():
         <subfield code="d">II</subfield>
         <subfield code="c">Pape</subfield>
         <subfield code="f">1954 -</subfield>
+         <subfield code="4">aut</subfield>
       </datafield>
       <datafield tag="701" ind1=" " ind2=" ">
         <subfield code="a">Dumont</subfield>
         <subfield code="b">Jean</subfield>
         <subfield code="c">Historien</subfield>
         <subfield code="f">1921 - 2014</subfield>
+         <subfield code="4">aut</subfield>
       </datafield>
       <datafield tag="702" ind1=" " ind2=" ">
         <subfield code="a">Dicker</subfield>
@@ -860,47 +855,77 @@ def test_unimarctoauthors():
       </datafield>
       <datafield tag="710" ind1=" " ind2=" ">
         <subfield code="a">RERO</subfield>
+         <subfield code="4">edt</subfield>
       </datafield>
       <datafield tag="711" ind1=" " ind2=" ">
         <subfield code="a">LOC</subfield>
+        <subfield code="d">1</subfield>
+        <subfield code="e">London</subfield>
+        <subfield code="f">2020-02-02</subfield>
       </datafield>
-      <datafield tag="712" ind1=" " ind2=" ">
+      <datafield tag="712" ind1="1" ind2=" ">
         <subfield code="a">BNF</subfield>
       </datafield>
     </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    authors = data.get('authors')
-    assert authors == [
+    contribution = data.get('contribution')
+    assert contribution == [
         {
-            'name': 'Jean-Paul II',
-            'type': 'person',
-            'date': '1954 -',
-            'qualifier': 'Pape'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Jean-Paul',
+                'numeration': 'II',
+                'date_of_birth': '1954',
+                'qualifier': 'Pape'
+            },
+            'role': ['aut']
         },
         {
-            'name': 'Dumont, Jean',
-            'type': 'person',
-            'date': '1921 - 2014',
-            'qualifier': 'Historien'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Dumont, Jean',
+                'date_of_birth': '1921',
+                'date_of_death': '2014',
+                'qualifier': 'Historien'
+            },
+            'role': ['aut']
         },
         {
-            'name': 'Dicker, J.',
-            'type': 'person',
-            'date': '1921 -'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Dicker, J.',
+                'date_of_birth': '1921'
+            },
+            'role': ['aut']
         },
         {
-            'name': 'RERO',
-            'type': 'organisation'
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'RERO',
+                'conference': False
+            },
+            'role': ['aut']
         },
         {
-            'name': 'LOC',
-            'type': 'organisation'
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'LOC',
+                'conference': False,
+                'conference_number': '1',
+                'conference_place': 'London',
+                'conference_date': '2020-02-02'
+            },
+            'role': ['aut']
         },
         {
-            'name': 'BNF',
-            'type': 'organisation'
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'BNF',
+                'conference': True
+            },
+            'role': ['aut']
         }
     ]
 

@@ -20,11 +20,11 @@
 
 from functools import partial
 
+import requests
 from elasticsearch_dsl import A
 from flask import current_app
 from invenio_db import db
 from requests import codes as requests_codes
-from requests import get as requests_get
 
 from .models import PersonIdentifier, PersonMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -32,7 +32,7 @@ from ..documents.api import DocumentsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
-from ...utils import unique_list
+from ...utils import get_i18n_supported_languages, unique_list
 
 # provider
 PersonProvider = type(
@@ -116,8 +116,8 @@ class Person(IlsRecord):
         return pers
 
     def dumps_for_document(self):
-        """Transform the record into document author format."""
-        return self._get_author_for_document()
+        """Transform the record into document contribution format."""
+        return self._get_contribution_for_document()
 
     @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type):
@@ -134,7 +134,7 @@ class Person(IlsRecord):
                     type=pid_type,
                     pid=pid
                 )
-        request = requests_get(url=mef_url, params=dict(resolve=1, sources=1))
+        request = requests.get(url=mef_url, params=dict(resolve=1, sources=1))
         if request.status_code == requests_codes.ok:
             data = request.json().get('hits', {}).get('hits', [None])
             return data[0]
@@ -156,7 +156,6 @@ class Person(IlsRecord):
             value = self.get(source, {}).get(key, default)
             if value:
                 return value
-        return value
 
     def _get_mef_localized_value(self, key, language):
         """Get the 1st localized value for given key among MEF source list."""
@@ -168,48 +167,41 @@ class Person(IlsRecord):
                 return value
         return self.get(key, None)
 
-    def _get_i18n_supported_languages(self):
-        """Get defined languages from config."""
-        languages = [current_app.config.get('BABEL_DEFAULT_LANGUAGE')]
-        i18n_languages = current_app.config.get('I18N_LANGUAGES')
-        return languages + [ln[0] for ln in i18n_languages]
-
-    def _get_author_for_document(self):
-        """."""
-        author = {
-            'type': 'person',
+    def _get_contribution_for_document(self):
+        """Get contribution for document."""
+        agent = {
+            'type': 'bf:Person',
             'pid': self.pid
         }
-        for language in self._get_i18n_supported_languages():
-            author[
-                'name_{language}'.format(language=language)
+        for language in get_i18n_supported_languages():
+            agent[
+                'authorized_access_point_{language}'.format(language=language)
             ] = self._get_mef_localized_value(
-                'preferred_name_for_person', language
+                'authorized_access_point_representing_a_person', language
             )
         # date
         date_of_birth = self._get_mef_value('date_of_birth', '')
+        if date_of_birth:
+            agent['date_of_birth'] = date_of_birth
         date_of_death = self._get_mef_value('date_of_death', '')
-        if date_of_birth or date_of_death:
-            date = '{date_of_birth}-{date_of_death}'.format(
-                date_of_birth=date_of_birth,
-                date_of_death=date_of_death
-            )
-            author['date'] = date
-        # variant_name
+        if date_of_death:
+            agent['date_of_death'] = date_of_death
+        # TODO: variant_name
         variant_person = []
         for source in self['sources']:
             if 'variant_name_for_person' in self[source]:
                 variant_person = variant_person +\
                     self[source]['variant_name_for_person']
         if variant_person:
-            author['variant_name'] = unique_list(variant_person)
-        return author
+            agent['variant_name'] = unique_list(variant_person)
+
+        return agent
 
     @property
     def organisation_pids(self):
         """Get organisations pids."""
         organisations = set()
-        search = DocumentsSearch().filter('term', authors__pid=self.pid)
+        search = DocumentsSearch().filter('term', contribution__pid=self.pid)
         size = current_app.config.get(
             'RERO_ILS_AGGREGATION_SIZE'
         ).get('organisations')
@@ -221,6 +213,17 @@ class Person(IlsRecord):
             if result.doc_count:
                 organisations.add(result.key)
         return list(organisations)
+
+    def get_authorized_access_point(self, language):
+        """Get localized authorized_access_point.
+
+        :param language: language for authorized access point.
+        :returns: authorized access point in given lamguage.
+        """
+        return self._get_mef_localized_value(
+            key='authorized_access_point_representing_a_person',
+            language=language
+        )
 
 
 class PersonsIndexer(IlsRecordsIndexer):

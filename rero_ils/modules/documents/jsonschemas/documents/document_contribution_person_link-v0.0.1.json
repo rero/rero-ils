@@ -1,0 +1,32 @@
+{
+  "title": "Link to person entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "$ref"
+  ],
+  "required": [
+    "$ref"
+  ],
+  "properties": {
+    "$ref": {
+      "title": "MEF agent reference",
+      "type": "string",
+      "pattern": "^https://mef.rero.ch/api/bnf|gnd|idref|rero/.*?$",
+      "form": {
+        "remoteTypeahead": {
+          "type": "mef",
+          "enableGroupField": true
+        },
+        "templateOptions": {
+          "cssClass": "col-lg-12"
+        }
+      }
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "cssClass": "row"
+    }
+  }
+}

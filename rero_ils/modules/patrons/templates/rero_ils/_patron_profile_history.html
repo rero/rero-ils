@@ -42,7 +42,7 @@
           </a>
         </div>
         <div class="col-lg-4">
-          {{ loan.document.pid | authors_format(current_i18n.language, viewcode) | safe }}
+          {{ loan.document.pid | contribution_format(current_i18n.language, viewcode) | safe }}
         </div>
         <div class="col-lg-2">
           {{ loan.end_date|format_date(

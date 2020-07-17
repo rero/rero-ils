@@ -17,11 +17,13 @@
 
 """Signals connector for Document."""
 
+from .utils import create_authorized_access_point
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import Holding, HoldingsSearch
 from ..items.api import ItemsSearch
 from ..persons.api import Person
 from ..utils import extracted_data_from_ref
+from ...utils import get_i18n_supported_languages
 
 
 def enrich_document_data(sender, json=None, record=None, index=None,
@@ -78,16 +80,26 @@ def enrich_document_data(sender, json=None, record=None, index=None,
             json['holdings'] = holdings
 
         # MEF person ES index update
-        authors = []
-        for author in json.get('authors', []):
-            pid = author.get('pid')
+        contributions = []
+        for contribution in json.get('contribution', []):
+            pid = contribution['agent'].get('pid')
             if pid:
                 person = Person.get_record_by_pid(pid)
                 if person:
-                    author = person.dumps_for_document()
-            authors.append(author)
-        # Put authors in JSON
-        json['authors'] = authors
+                    contribution['agent'] = person.dumps_for_document()
+            else:
+                authorized_access_point = create_authorized_access_point(
+                    contribution['agent']
+                )
+                for language in get_i18n_supported_languages():
+                    contribution['agent'][
+                        'authorized_access_point_{language}'.format(
+                            language=language
+                        )
+                    ] = authorized_access_point
+            contributions.append(contribution)
+        # Put contribution in JSON
+        json['contribution'] = contributions
         # TODO: compare record with those in DB to check which authors have
         # to be deleted from index
         # Index host document title in child document (part of)

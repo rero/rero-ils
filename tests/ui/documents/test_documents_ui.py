@@ -35,5 +35,3 @@ def tests_document_item_filter_detailed_view(
     res = client.get(url_for(
         'invenio_records_ui.doc', viewcode='org1', pid_value='doc1'))
     assert res.status_code == 200
-
-# TODO: add search view

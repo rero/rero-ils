@@ -87,13 +87,13 @@
       <div id="loan-{{ loan.pid }}" class="mt-1 ng-star-inserted d-none">
       <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
       <section class="col">
-        {% if loan.document.authors %}
+        {% if loan.document.contribution %}
         <div class="row ng-star-inserted">
           <div class="col-lg-2 col-sm-4 text-right label-title">
-            <b>{{ _('Author') }}</b>
+            <b>{{ _('Contribution') }}</b>
           </div>
           <div class="col-lg-10 col-sm-8">
-            {{ loan.document.pid | authors_format(current_i18n.language, viewcode) | safe }}
+            {{ loan.document.pid | contribution_format(current_i18n.language, viewcode) | safe }}
           </div>
         </div>
         {% endif %}

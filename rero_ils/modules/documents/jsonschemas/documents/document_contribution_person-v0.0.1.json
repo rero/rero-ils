@@ -1,0 +1,110 @@
+{
+  "title": "Person",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "preferred_name",
+    "type",
+    "date_of_birth",
+    "date_of_death",
+    "numeration",
+    "qualifier",
+    "fuller_form_of_name"
+  ],
+  "required": [
+    "type",
+    "preferred_name"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Person",
+      "const": "bf:Person",
+      "form": {
+        "templateOptions": {
+          "cssClass": "col-lg-4"
+        }
+      }
+    },
+    "preferred_name": {
+      "title": "Name",
+      "description": "Agent's name.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: M\u00fcller, Hans",
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "date_of_birth": {
+      "title": "Birth date",
+      "description": "Record only years.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 1955",
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "date_of_death": {
+      "title": "Death date",
+      "description": "Record only years.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 2012",
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "qualifier": {
+      "title": "Qualifier",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: physicist",
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "numeration": {
+      "title": "Numeration",
+      "description": "Record only a number.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: XXIII",
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "fuller_form_of_name": {
+      "title": "Fuller form of Name",
+      "description": "Used only for import. Fuller form of a name represented only by an initial, abbreviation, or other variant not included in the form chosen as the preferred name",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "templateOptions": {
+          "cssClass": "col-lg-6"
+        }
+      }
+    },
+    "identifiedBy": {
+      "$ref": "https://ils.rero.ch/schemas/documents/document_contribution_identifiedby-v0.0.1.json"
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "cssClass": "row"
+    }
+  }
+}

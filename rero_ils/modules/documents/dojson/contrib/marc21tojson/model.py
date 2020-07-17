@@ -24,8 +24,8 @@ import requests
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
 
-from rero_ils.dojson.utils import BookFormatExtraction, ReroIlsMarc21Overdo, \
-    TitlePartList, add_note, build_responsibility_data, error_print, \
+from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
+    add_note, build_responsibility_data, error_print, \
     extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
     get_field_link_data, join_alternate_graphic_data, make_year, \
     not_repetitive, remove_trailing_punctuation
@@ -103,7 +103,7 @@ def get_person_link(bibid, id, key, value):
                         request.status_code)
 
     except Exception as err:
-        error_print('WARNING NOT MEF REF:', bibid, id, key, value)
+        error_print('WARNING NOT MEF REF:', bibid, id, key, value, err)
     return mef_link
 
 
@@ -325,50 +325,110 @@ def marc21_to_titlesProper(self, key, value):
     return not_repetitive(marc21.bib_id, key, value, 'a')
 
 
-@marc21.over('authors', '[17][01]0..')
+@marc21.over('contribution', '[17][01][01]..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_author(self, key, value):
-    """Get author.
-
-    authors: loop:
-    authors.name: 100$a [+ 100$b if it exists] or
-        [700$a (+$b if it exists) repetitive] or
-        [ 710$a repetitive (+$b if it exists, repetitive)]
-    authors.date: 100 $d or 700 $d (facultatif)
-    authors.qualifier: 100 $c or 700 $c (facultatif)
-    authors.type: if 100 or 700 then person, if 710 then organisation
-    """
-    if not key[4] == '2':
-        author = {}
-        author['type'] = 'person'
+def marc21_to_contribution(self, key, value):
+    """Get contribution."""
+    if not key[4] == '2' and key[:3] in ['100', '700', '710', '711']:
+        agent = {}
         if value.get('0'):
             refs = utils.force_list(value.get('0'))
             for ref in refs:
                 ref = get_person_link(marc21.bib_id, ref, key, value)
                 if ref:
-                    author['$ref'] = ref
+                    agent['$ref'] = ref
         # we do not have a $ref
-        if not author.get('$ref'):
-            author['name'] = ''
+        if not agent.get('$ref'):
+            agent = {'type': 'bf:Person'}
+            agent['preferred_name'] = ''
             if value.get('a'):
-                data = not_repetitive(marc21.bib_id, key, value, 'a')
-                author['name'] = remove_trailing_punctuation(data)
-            author_subs = utils.force_list(value.get('b'))
-            if author_subs:
-                for author_sub in author_subs:
-                    author['name'] += ' ' + \
-                        remove_trailing_punctuation(author_sub)
-            if key[:3] == '710':
-                author['type'] = 'organisation'
-            else:
+                name = not_repetitive(marc21.bib_id, key, value, 'a')
+                agent['preferred_name'] = name.rstrip('.')
+
+            # 100|700 Person
+            if key[:3] in ['100', '700']:
+                if value.get('b'):
+                    numeration = not_repetitive(marc21.bib_id, key, value, 'b')
+                    agent['numeration'] = remove_trailing_punctuation(
+                        numeration)
                 if value.get('c'):
-                    data = not_repetitive(marc21.bib_id, key, value, 'c')
-                    author['qualifier'] = remove_trailing_punctuation(data)
+                    qualifier = not_repetitive(marc21.bib_id, key, value, 'c')
+                    agent['qualifier'] = remove_trailing_punctuation(qualifier)
                 if value.get('d'):
-                    data = not_repetitive(marc21.bib_id, key, value, 'd')
-                    author['date'] = remove_trailing_punctuation(data)
-        return author
+                    date = not_repetitive(marc21.bib_id, key, value, 'd')
+                    date = date.rstrip(',')
+                    dates = remove_trailing_punctuation(date).split('-')
+                    try:
+                        date_of_birth = dates[0].strip()
+                        if date_of_birth:
+                            agent['date_of_birth'] = date_of_birth
+                    except Exception:
+                        pass
+                    try:
+                        date_of_death = dates[1].strip()
+                        if date_of_death:
+                            agent['date_of_death'] = date_of_death
+                    except Exception:
+                        pass
+                if value.get('q'):
+                    fuller_form_of_name = not_repetitive(
+                        marc21.bib_id, key, value, 'q')
+                    agent['fuller_form_of_name'] = remove_trailing_punctuation(
+                        fuller_form_of_name
+                    ).lstrip('(').rstrip(')')
+
+            # 710|711 Organisation
+            elif key[:3] in ['710', '711']:
+                agent['type'] = 'bf:Organisation'
+                if key[:3] == '711':
+                    agent['conference'] = True
+                else:
+                    agent['conference'] = False
+                if value.get('b'):
+                    subordinate_units = []
+                    for subordinate_unit in utils.force_list(value.get('b')):
+                        subordinate_units.append(subordinate_unit.rstrip('.'))
+                    agent['subordinate_unit'] = subordinate_units
+                if value.get('e'):
+                    subordinate_units = agent.get('subordinate_unit', [])
+                    for subordinate_unit in utils.force_list(value.get('e')):
+                        subordinate_units.append(subordinate_unit.rstrip('.'))
+                    agent['subordinate_unit'] = subordinate_units
+                if value.get('n'):
+                    conference_number = not_repetitive(marc21.bib_id, key,
+                                                       value, 'n')
+                    agent['conference_number'] = remove_trailing_punctuation(
+                        conference_number
+                    ).lstrip('(').rstrip(')')
+                if value.get('d'):
+                    conference_date = not_repetitive(marc21.bib_id, key,
+                                                     value, 'd')
+                    agent['conference_date'] = remove_trailing_punctuation(
+                        conference_date
+                    ).lstrip('(').rstrip(')')
+                if value.get('c'):
+                    conference_place = not_repetitive(marc21.bib_id, key,
+                                                      value, 'c')
+                    agent['conference_place'] = remove_trailing_punctuation(
+                        conference_place
+                    ).lstrip('(').rstrip(')')
+        roles = ['aut']
+        if value.get('4'):
+            roles = []
+            for role in utils.force_list(value.get('4')):
+                roles.append(role)
+        else:
+            if key[:3] == '100':
+                roles = ['cre']
+            elif key[:3] == '711':
+                roles = ['aut']
+            else:
+                roles = ['ctb']
+        return {
+            'agent': agent,
+            'role': roles
+        }
     else:
         return None
 

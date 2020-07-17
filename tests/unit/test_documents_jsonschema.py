@@ -107,45 +107,42 @@ def test_translatedFrom(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_authors(document_schema, document_data_tmp):
-    """Test authors for jsonschemas."""
-    document_data_tmp['authors'] = [
+def test_contribution(document_schema, document_data_tmp):
+    """Test contribution for jsonschemas."""
+    document_data_tmp['contribution'] = [
         {
-            'name': 'Dumont, Jean',
-            'type': 'person',
-            'date': '1954 -',
-            'qualifier': 'Développeur'
+            'agent': {
+                'type': 'bf:Person',
+                'preferred_name': 'Dumont, Jean',
+                'date_of_birth': '1954',
+                'qualifier': 'Développeur'
+            },
+            'role': ['aut']
         },
         {
-            'type': 'organisation',
-            'name': 'RERO'
+            'agent': {
+                'type': 'bf:Organisation',
+                'preferred_name': 'RERO'
+            },
+            'role': ['aut']
         }
     ]
-
     validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['authors'][0]['name'] = [2]
+        document_data_tmp['contribution'][0]['agent']['type'] = [2]
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['authors'][0]['type'] = [2]
+        document_data_tmp['contribution'][0]['agent']['preferred_name'] = [2]
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['authors'][0]['date'] = [2]
+        document_data_tmp['contribution'][1]['agent']['type'] = [2]
         validate(document_data_tmp, document_schema)
 
     with pytest.raises(ValidationError):
-        document_data_tmp['authors'][0]['qualifier'] = [2]
-        validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['authors'][1]['type'] = [2]
-        validate(document_data_tmp, document_schema)
-
-    with pytest.raises(ValidationError):
-        document_data_tmp['authors'][1]['name'] = [2]
+        document_data_tmp['contribution'][1]['agent']['preferred_name'] = [2]
         validate(document_data_tmp, document_schema)
 
 

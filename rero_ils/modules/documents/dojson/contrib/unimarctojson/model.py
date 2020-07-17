@@ -20,7 +20,7 @@
 
 import jsonref
 from dojson import utils
-from dojson.utils import GroupableOrderedDict, force_list
+from dojson.utils import GroupableOrderedDict
 from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
@@ -275,13 +275,13 @@ def unimarc_languages(self, key, value):
     return to_return
 
 
-@unimarc.over('authors', '7[01][012]..')
+@unimarc.over('contribution', '7[01][0123]..')
 @utils.for_each_value
 @utils.ignore_value
-def unimarc_to_author(self, key, value):
-    """Get author.
+def unimarc_to_contribution(self, key, value):
+    """Get contribution.
 
-    authors: loop:
+    contribution: loop:
     700 Nom de personne – Responsabilité principale
     701 Nom de personne – Autre responsabilité principale
     702 Nom de personne – Responsabilité secondaire
@@ -289,26 +289,108 @@ def unimarc_to_author(self, key, value):
     711 Nom de collectivité – Autre responsabilité principale
     712 Nom de collectivité – Responsabilité secondaire
     """
-    author = {}
-    author['name'] = ', '.join(utils.force_list(value.get('a', '')))
-    author['type'] = 'person'
-    if key[1] == '1':
-        author['type'] = 'organisation'
-    if author['name']:
+    agent = {}
+    agent['preferred_name'] = ', '.join(utils.force_list(value.get('a', '')))
+    agent['type'] = 'bf:Person'
+    if agent['preferred_name']:
         if value.get('b'):
-            author['name'] += \
+            agent['preferred_name'] += \
                 ', ' + ', '.join(utils.force_list(value.get('b')))
+
+    if key[:3] in ['700', '701', '702', '703']:
         if value.get('d'):
-            author['name'] += ' ' + ' '.join(utils.force_list(value.get('d')))
+            agent['numeration'] = value.get('d')
 
-    if value.get('c'):
-        author['qualifier'] = value.get('c')
+        if value.get('c'):
+            agent['qualifier'] = value.get('c')
 
-    if value.get('f'):
-        date = utils.force_list(value.get('f'))[0]
-        date = date.replace('-....', '-')
-        author['date'] = date
-    return author
+        if value.get('f'):
+            date = utils.force_list(value.get('f'))[0]
+            date = date.replace('-....', '-')
+            dates = date.split('-')
+            try:
+                date_of_birth = dates[0].strip()
+                if date_of_birth:
+                    agent['date_of_birth'] = date_of_birth
+            except Exception:
+                pass
+            try:
+                date_of_death = dates[1].strip()
+                if date_of_death:
+                    agent['date_of_death'] = date_of_death
+            except Exception:
+                pass
+
+    if key[:3] in ['710', '711', '712']:
+        agent['type'] = 'bf:Organisation'
+        agent['conference'] = key[3] == '1'
+        if agent['preferred_name']:
+            if value.get('c'):
+                agent['preferred_name'] += \
+                    ', ' + ', '.join(utils.force_list(value.get('c')))
+        if value.get('d'):
+            conference_number = utils.force_list(value.get('d'))[0]
+            agent['conference_number'] = remove_trailing_punctuation(
+                conference_number
+            ).lstrip('(').rstrip(')')
+        if value.get('e'):
+            conference_place = utils.force_list(value.get('e'))[0]
+            agent['conference_place'] = remove_trailing_punctuation(
+                conference_place
+            ).lstrip('(').rstrip(')')
+        if value.get('f'):
+            conference_date = utils.force_list(value.get('f'))[0]
+            agent['conference_date'] = remove_trailing_punctuation(
+                conference_date
+            ).lstrip('(').rstrip(')')
+    IDREF_ROLE_CONV = {
+        "070": "aut",
+        "230": "cmp",
+        "205": "ctb",
+        "340": "edt",
+        "420": "hnr",
+        "440": "ill",
+        "600": "pht",
+        "590": "prf",
+        "730": "trl",
+        "080": "aui",
+        "160": "bsl",
+        "220": "com",
+        "300": "drt",
+        "430": "ilu",
+        "651": "pbd",
+        "350": "egr",
+        "630": "pro",
+        "510": "ltg",
+        "365": "exp",
+        "727": "dgs",
+        "180": "ctg",
+        "220": "com",
+        "210": "cmm",
+        "200": "chr",
+        "110": "bnd",
+        "720": "ato",
+        "030": "arr",
+        "020": "ann",
+        "632": "adi",
+        "005": "act",
+        "390": "fmo",
+        "545": "mus"
+    }
+    roles = []
+    if value.get('4'):
+        for role in utils.force_list(value.get('4')):
+            role_conv = IDREF_ROLE_CONV.get(role)
+            if role_conv:
+                roles.append(role_conv)
+        roles = list(set(roles))
+    if not roles:
+        roles = ['aut']
+
+    return {
+        'agent': agent,
+        'role': roles
+    }
 
 
 @unimarc.over('editionStatement', '^205..')
@@ -373,7 +455,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     if ind2 == '4':
         field_d = value.get('d')
         if field_d:
-            field_d = force_list(field_d)[0]
+            field_d = utils.force_list(field_d)[0]
             copyright_date = self.get('copyrightDate', [])
             if field_d[0] == 'P':
                 copyright_date.append('℗ ' + field_d[2:])

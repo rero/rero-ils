@@ -63,7 +63,7 @@ def test_person_create(app, person_data_tmp, caplog):
     )
 
 
-@mock.patch('rero_ils.modules.persons.api.requests_get')
+@mock.patch('requests.get')
 def test_person_mef_create(mock_persons_mef_get, app, person_data_tmp,
                            person_response_data):
     """Test MEF person creation."""
