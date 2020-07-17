@@ -36,6 +36,7 @@ directories:
     js:
       - tests/e2e/cypress/cypress/support
       - tests/e2e/cypress/cypress/plugins
+      - tests/e2e/cypress/cypress/screenshots
       - tests/e2e/cypress/node_modules
     d.ts:
       - tests/e2e/cypress/cypress/support
