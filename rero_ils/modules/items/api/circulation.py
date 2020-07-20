@@ -1151,10 +1151,14 @@ class ItemCirculation(IlsRecord):
         }
 
     def get_number_of_loans(self):
-        """Get number of loans."""
+        """Get number of loans.
+
+        Exclude CREATED Loan as it can block Item deletion.
+        """
         search = search_by_pid(
             item_pid=item_pid_to_object(self.pid),
             exclude_states=[
+                LoanState.CREATED,
                 LoanState.CANCELLED,
                 LoanState.ITEM_RETURNED,
             ]
