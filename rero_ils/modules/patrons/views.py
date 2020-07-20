@@ -143,7 +143,8 @@ def logged_user():
     blueprint,
     'main.profile.profile',
     _('%(icon)s Profile', icon='<i class="fa fa-user fa-fw"></i>'),
-    visible_when=user_has_patron
+    visible_when=user_has_patron,
+    id="my-account-menu"
 )
 def profile(viewcode):
     """Patron Profile Page."""

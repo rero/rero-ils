@@ -61,6 +61,7 @@
               <a class="nav-link collapsed" data-toggle="collapse" role="button"
                  aria-controls="collapseExample" aria-expanded="false"
                  href="#{{ item.name }}"
+                 {{ "id={}".format(item.id) if item.id }}
               >
                {{ item.text|safe }}
               <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -68,7 +69,7 @@
             </li>
             {%- else %}
             <li class="nav-item{{ ' active' if item.active else ''}}">
-              <a href="{{ item.url }}">{{ item.text|safe }}</a>
+              <a href="{{ item.url }}" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }}</a>
             </li>
             {%- endif %}
             {%- endfor %}
@@ -86,7 +87,7 @@
               <ul class="navbar-nav justify-content-end">
                 {%- for child in item.children if child.visible %}
                   <li class="nav-item {{class_name if class_name}}">
-                    <a class="nav-link" href="{{ child.url }}">{{ child.text|safe }}</a>
+                    <a class="nav-link" href="{{ child.url }}" {{ "id={}".format(child.id) if child.id }}>{{ child.text|safe }}</a>
                   </li>
                 {%- endfor %}
               </ul>
@@ -103,18 +104,18 @@
           {%- for item in current_menu.submenu('main').children|sort(attribute='order') if item.visible %}
             {%- if item.children %}
               <li class="nav-item{{ ' active' if item.active else ''}} w-100 list-group-item bg-light">
-                <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false">{{ item.text|safe }} <i class="fa fa-caret-down float-right" aria-hidden="true"></i></a>
+                <a class="nav-link collapsed" href="#{{ item.name }}" data-toggle="collapse" role="button" aria-controls="collapseExample" aria-expanded="false" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }} <i class="fa fa-caret-down float-right" aria-hidden="true"></i></a>
                 <ul class="nav collapse pl-2" id="{{ item.name }}" data-parent="#mobileHide">
                   {%- for child in item.children if child.visible %}
                     <li class="nav-item {{class_name if class_name}} w-100">
-                      <a class="nav-link" href="{{ child.url }}">{{ child.text|safe }}</a>
+                      <a class="nav-link" href="{{ child.url }}" {{ "id={}".format(child.id) if child.id }}>{{ child.text|safe }}</a>
                     </li>
                   {%- endfor %}
                 </ul>
               </li>
             {%- else %}
               <li class="nav-item{{ ' active' if item.active else ''}}">
-                <a href="{{ item.url }}" class="nav-link">{{ item.text|safe }}</a>
+                <a href="{{ item.url }}" class="nav-link" {{ "id={}".format(item.id) if item.id }}>{{ item.text|safe }}</a>
               </li>
             {%- endif %}
           {%- endfor %}
