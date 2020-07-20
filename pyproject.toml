@@ -27,7 +27,7 @@ Flask-BabelEx = ">=0.9.3"
 
 ## Third party invenio modules used by RERO ILS
 invenio-oaiharvester = {tag = "v1.0.0a4", git = "https://github.com/inveniosoftware/invenio-oaiharvester.git"}
-invenio-circulation = {tag = "v1.0.0a25", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
+invenio-circulation = {tag = "v1.0.0a26", git = "https://github.com/inveniosoftware/invenio-circulation.git"}
 
 ## Invenio 3.2.1 base modules used by RERO ILS
 # same as invenio metadata extras without invenio-search-ui
