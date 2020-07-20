@@ -46,17 +46,57 @@ blueprint = Blueprint(
 )
 
 
+def rero_register(
+    item,
+    endpoint=None,
+    text=None,
+    order=0,
+    external_url=None,
+    endpoint_arguments_constructor=None,
+    dynamic_list_constructor=None,
+    active_when=None,
+    visible_when=None,
+    expected_args=None,
+        **kwargs):
+    """Take care each element in kwargs doesn't already exists in item."""
+    # Check which option in kwargs already exists in `item`.
+    to_delete = []
+    for option in kwargs.keys():
+        if hasattr(item, option):
+            to_delete.append(option)
+    # Delete all existing options in kwargs
+    for element in to_delete:
+        del kwargs[element]
+
+    return item.register(
+        endpoint,
+        text,
+        order,
+        external_url,
+        endpoint_arguments_constructor,
+        dynamic_list_constructor,
+        active_when,
+        visible_when,
+        expected_args,
+        **kwargs)
+
+
 def init_menu_lang():
     """Create the header language menu."""
     item = current_menu.submenu('main.menu')
-    item.register(
+    # Bug: when you reload the page with register(**kwargs), it failed
+    # We so check that 'id' already exists. If yes, do not create again
+    # the item.
+    rero_register(
+        item,
         endpoint=None,
         text='{icon} <span class="{visible}">{menu}'.format(
             icon='<i class="fa fa-bars"></i>',
             visible='visible-md-inline visible-lg-inline',
             menu=_('Menu')
         ),
-        order=0
+        order=0,
+        id='language-menu'
     )
 
     order = 10
@@ -72,7 +112,8 @@ def init_menu_lang():
             'main.menu.lang_{language}'.format(
                 language=language_item.language))
         ui_language = 'ui_language_{lang}'.format(lang=language_item.language)
-        item.register(
+        rero_register(
+            item,
             endpoint='invenio_i18n.set_lang',
             endpoint_arguments_constructor=partial(
                 return_language, language_item.language),
@@ -81,18 +122,21 @@ def init_menu_lang():
                 language=_(ui_language)
             ),
             visible_when=partial(hide_language, language_item.language),
-            order=order
-        )
+            order=order,
+            id='language-menu-{language}'.format(language=ui_language))
         order += 1
 
         item = current_menu.submenu('main.menu.help')
-        item.register(
+
+        rero_register(
+            item,
             endpoint='wiki.index',
             text='{icon} {help}'.format(
                 icon='<i class="fa fa-info"></i>',
                 help=_('Help')
             ),
-            order=100
+            order=100,
+            id='help-menu'
         )
 
 
@@ -109,18 +153,22 @@ def init_menu_profile():
             session.pop('user_initials', None)
     account = session.get('user_initials', _('My Account'))
 
-    item.register(
+    rero_register(
+        item,
         endpoint=None,
         text='{icon} <span class="{visible}">{account}</span>'.format(
             icon='<i class="fa fa-user"></i>',
             visible='visible-md-inline visible-lg-inline',
             account=account
         ),
-        order=1
+        order=1,
+        id='my-account-menu',
     )
 
     item = current_menu.submenu('main.profile.login')
-    item.register(
+
+    rero_register(
+        item,
         endpoint='security.login',
         endpoint_arguments_constructor=lambda: dict(
             next=request.full_path
@@ -130,22 +178,26 @@ def init_menu_profile():
             icon='<i class="fa fa-sign-in"></i>',
             login=_('Login')
         ),
-        order=1
+        order=1,
+        id='login-menu',
     )
 
     item = current_menu.submenu('main.profile.professional')
-    item.register(
+    rero_register(
+        item,
         endpoint='rero_ils.professional',
         visible_when=lambda: current_patron.is_librarian,
         text='{icon} {professional}'.format(
             icon='<i class="fa fa-briefcase"></i>',
             professional=_('Professional interface')
         ),
-        order=1
+        order=1,
+        id='professional-interface-menu',
     )
 
     item = current_menu.submenu('main.profile.logout')
-    item.register(
+    rero_register(
+        item,
         endpoint='security.logout',
         endpoint_arguments_constructor=lambda: dict(
             next='/{viewcode}'.format(viewcode=request.view_args.get(
@@ -158,18 +210,21 @@ def init_menu_profile():
             icon='<i class="fa fa-sign-out"></i>',
             logout=_('Logout')
         ),
-        order=1
+        order=1,
+        id='logout-menu',
     )
 
     item = current_menu.submenu('main.profile.signup')
-    item.register(
+    rero_register(
+        item,
         endpoint='security.register',
         visible_when=lambda: not current_user.is_authenticated,
         text='{icon} {signup}'.format(
             icon='<i class="fa fa-user-plus"></i>',
             signup=_('Sign Up')
         ),
-        order=2
+        order=2,
+        id='signup-menu',
     )
 
 
