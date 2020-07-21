@@ -35,6 +35,9 @@
 .. image:: https://img.shields.io/gitter/room/rero/reroils.svg
         :alt: Gitter room
         :target: https://gitter.im/rero/reroils
+.. image:: https://hosted.weblate.org/widgets/rero_plus/-/svg-badge.svg
+        :alt: Translation status
+        :target: https://hosted.weblate.org/engage/rero_plus/?utm_source=widget
 
 *Copyright (C) 2020 RERO*
 
