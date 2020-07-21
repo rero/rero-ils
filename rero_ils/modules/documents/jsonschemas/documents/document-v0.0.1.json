@@ -487,6 +487,7 @@
               "type": "string",
               "readOnly": true,
               "default": "rdami:1001",
+              "const": "rdami:1001",
               "form": {
                 "templateOptions": {
                   "cssClass": "col-lg-6"
@@ -546,6 +547,7 @@
               "type": "string",
               "readOnly": true,
               "default": "rdami:1002",
+              "const": "rdami:1002",
               "form": {
                 "templateOptions": {
                   "cssClass": "col-lg-6"
@@ -605,6 +607,7 @@
               "type": "string",
               "readOnly": true,
               "default": "rdami:1003",
+              "const": "rdami:1003",
               "form": {
                 "templateOptions": {
                   "cssClass": "col-lg-6"
@@ -659,6 +662,7 @@
               "type": "string",
               "readOnly": true,
               "default": "rdami:1004",
+              "const": "rdami:1004",
               "form": {
                 "templateOptions": {
                   "cssClass": "col-lg-6"
@@ -721,20 +725,12 @@
                 "title": "Type",
                 "type": "string",
                 "readOnly": true,
-                "enum": [
-                  "person"
-                ],
                 "default": "person",
+                "const": "person",
                 "form": {
                   "templateOptions": {
                     "cssClass": "col-lg-6"
-                  },
-                  "options": [
-                    {
-                      "label": "Person",
-                      "value": "person"
-                    }
-                  ]
+                  }
                 }
               },
               "name": {
@@ -807,17 +803,9 @@
                 "title": "Type",
                 "type": "string",
                 "default": "organisation",
+                "const": "organisation",
                 "readOnly": true,
-                "enum": [
-                  "organisation"
-                ],
                 "form": {
-                  "options": [
-                    {
-                      "label": "Organisation",
-                      "value": "organisation"
-                    }
-                  ],
                   "templateOptions": {
                     "cssClass": "col-lg-6"
                   }
