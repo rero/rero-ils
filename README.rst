@@ -32,10 +32,12 @@
 .. image:: https://img.shields.io/badge/License-AGPL%20v3-blue.svg
         :alt: License
         :target: http://www.gnu.org/licenses/agpl-3.0.html
+
 .. image:: https://img.shields.io/gitter/room/rero/reroils.svg
         :alt: Gitter room
         :target: https://gitter.im/rero/reroils
-.. image:: https://hosted.weblate.org/widgets/rero_plus/-/svg-badge.svg
+
+.. image:: https://hosted.weblate.org/widgets/rero_plus/-/rero-ils/svg-badge.svg
         :alt: Translation status
         :target: https://hosted.weblate.org/engage/rero_plus/?utm_source=widget
 
