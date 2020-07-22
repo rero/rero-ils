@@ -28,29 +28,16 @@ describe('Circulation checkout checkin', function() {
     const documentUrl = '/professional/records/documents/detail/253'
     const circUrl = '/professional/circulation/checkout'
     const itemBarcode = 'checkout-checkin'
-    const timeOut = 30000;
+    const timeOut = 3000;
 
     cy.setup()
     cy.adminLogin(librarianEmail, librarianPwd)
 
-    // Go to the detailed view of a document
-    cy.visit(documentUrl, { timeout: timeOut })
-
     // Create an item
-    cy.get('.col > .btn',{timeout: timeOut}).click()
-    cy.get('#formly_6_string_barcode_0').type(itemBarcode)
-    cy.wait(3000)
-    cy.get('#formly_6_string_call_number_1').type(itemBarcode)
-    cy.get('select').first().select('Standard')
-    cy.get('select').eq(1).select('Espaces publics')
-    cy.get('.mt-4 > [type="submit"]').click()
-
-    // Assert that the item has been created
-    cy.get(':nth-child(3) > .card > .card-body > .mt-1 > .offset-sm-1 > a', {timeout: timeOut})
-      .should('contain',itemBarcode)
+    cy.createItem(itemBarcode, 'Standard', 'Espaces publics')
 
     // Go to Circulation
-    cy.visit(circUrl, { timeout: timeOut })
+    cy.goToMenu('circulation-menu-frontpage')
 
     // Enter a patron barcode
     cy.get('#search', {timeout: timeOut})
@@ -58,13 +45,15 @@ describe('Circulation checkout checkin', function() {
       .type('{enter}')
 
     // Assert that patron info is displayed
+    cy.wait(3000)
     cy.get(':nth-child(2) > :nth-child(1) > .col-md-10', {timeout: timeOut})
       .should('contain', patronInfo)
 
     // Checkout
-    cy.get('#search', {timeout: timeOut})
+    cy.get('#search', {timeout: 4500})
       .type(itemBarcode)
       .type('{enter}')
+    cy.wait(800)
 
     // Assert checkout
     cy.get(':nth-child(2) > .col > admin-item > .row > :nth-child(1) > a', {timeout: timeOut})
@@ -83,9 +72,11 @@ describe('Circulation checkout checkin', function() {
     cy.get(':nth-child(11) > .col > admin-item > .row > :nth-child(4) > .fa', {timeout: timeOut})
       .should('have.class', 'fa-arrow-circle-o-down')
 
-    // Go back to document detailed view and delete item
-    cy.visit(documentUrl, { timeout: timeOut })
-    cy.get(':nth-child(3) > .card > .card-body > .mt-1 > .col-sm-4 > .btn-outline-danger', {timeout: timeOut}).click()
+    // Go back to homepage, search document and delete item
+    cy.goToItem(itemBarcode)
+    // click on Delete button
+    cy.get('#item-' + itemBarcode + '-delete', {timeout: timeOut}).click()
+    // Then confirm
     cy.get('.modal-footer > .btn-primary', {timeout: timeOut}).click()
   });
 })
