@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,26 +16,90 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Library permissions."""
+"""Permissions for libraries."""
+
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.permissions import RecordPermission
 
 
-from ...permissions import staffer_is_authenticated
+class LibraryPermission(RecordPermission):
+    """Library permissions."""
 
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
 
-def can_update_library_factory(record, *args, **kwargs):
-    """Checks if logged user can update its organisation libraries.
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # List libraries allowed only for staff members (lib, sys_lib)
+        return current_patron and current_patron.is_librarian
 
-    librarian must have librarian or system_librarian role.
-    librarian can only update its affiliated library.
-    sys_librarian can update any library of its organisation only.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if not patron.is_system_librarian:
-                if patron.library_pid and \
-                        record.pid != patron.library_pid:
-                    return False
-            return True
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if not current_patron:
+            return False
+        # only staff members (lib, sys_lib) are allowed to read an library
+        if not current_patron.is_librarian:
+            return False
+        # For staff users, they can read only own organisation libraries
+        return current_organisation['pid'] == record.organisation_pid
+
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only sys_lib user can create library
+        if not current_patron or not current_patron.is_system_librarian:
+            return False
+        # sys_lib can only create library for its own organisation
+        if record and current_organisation['pid'] != record.organisation_pid:
+            return False
+        return True
+
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (lib, sys_lib) can update library
+        # record cannot be null
+        if not current_patron or not current_patron.is_librarian or not record:
+            return False
+        if current_organisation['pid'] == record.organisation_pid:
+            # 'sys_lib' can update all libraries
+            if current_patron.is_system_librarian:
+                return True
+            # 'lib' can only update library linked to its own library
+            if current_patron.is_librarian:
+                return current_patron.library_pid and \
+                       record['pid'] == current_patron.library_pid
         return False
-    return type('Check', (), {'can': can})()
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True if action can be done.
+        """
+        if not record:
+            return False
+        # same as create
+        return cls.create(user, record)

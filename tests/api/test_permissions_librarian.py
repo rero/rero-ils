@@ -195,6 +195,11 @@ def test_librarian_permissions(
 def test_user_has_roles(system_librarian_martigny_no_email,
                         librarian_martigny_no_email):
     """Test if user has roles permissions."""
+    with mock.patch('rero_ils.permissions.current_user',
+                    librarian_martigny_no_email.user):
+        assert user_has_roles(None, roles=['system_librarian', 'librarian'],
+                              condition='or')
+
     assert user_has_roles(system_librarian_martigny_no_email.user,
                           roles=['system_librarian', 'librarian'],
                           condition='and')
