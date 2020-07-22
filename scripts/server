@@ -65,8 +65,12 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
-export FLASK_DEBUG=True
-export FLASK_ENV=development
+if [[ -z "${FLASK_DEBUG}" ]]; then
+  export FLASK_DEBUG=True
+fi
+if [[ -z "${FLASK_ENV}" ]]; then
+  export FLASK_ENV="development"
+fi
 # Start Worker and Beat
 celery worker --app rero_ils.celery --loglevel INFO --beat --scheduler rero_ils.schedulers.RedisScheduler & PID_CELERY=$!
 
