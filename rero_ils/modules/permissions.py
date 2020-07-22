@@ -42,7 +42,7 @@ def record_permissions(record_pid=None, route_name=None):
 
         permissions = {
             'list': {'can': True},
-            'create': {'can': True},
+            'create': {'can': True}
         }
         # To check create and list permissions, we don't need to check if the
         # record_pid exists. Just call the create permission (if exists) with
@@ -58,7 +58,7 @@ def record_permissions(record_pid=None, route_name=None):
             permissions.update({
                 'read': {'can': True},
                 'update': {'can': True},
-                'delete': {'can': True},
+                'delete': {'can': True}
             })
             record = rec_class.get_record_by_pid(record_pid)
             if not record:

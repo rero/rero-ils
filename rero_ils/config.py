@@ -48,11 +48,12 @@ from .modules.acq_orders.api import AcqOrder
 from .modules.budgets.api import Budget
 from .modules.budgets.permissions import can_list_budgets_factory
 from .modules.circ_policies.api import CircPolicy
-from .modules.circ_policies.permissions import can_update_circ_policy_factory
+from .modules.circ_policies.permissions import CirculationPolicyPermission
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.holdings.api import Holding
 from .modules.item_types.api import ItemType
+from .modules.item_types.permissions import ItemTypePermission
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import can_create_item_factory, \
@@ -81,6 +82,7 @@ from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_transactions.permissions import \
     can_list_patron_transaction_factory, can_read_patron_transaction_factory
 from .modules.patron_types.api import PatronType
+from .modules.patron_types.permissions import PatronTypePermission
 from .modules.patrons.api import Patron
 from .modules.patrons.permissions import can_delete_patron_factory, \
     can_update_patron_factory
@@ -539,10 +541,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=ItemTypePermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=ItemTypePermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=ItemTypePermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=ItemTypePermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=ItemTypePermission)
     ),
     hold=dict(
         pid_type='hold',
@@ -733,10 +741,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        update_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=PatronTypePermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=PatronTypePermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=PatronTypePermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=PatronTypePermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=PatronTypePermission)
     ),
     org=dict(
         pid_type='org',
@@ -925,10 +939,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        update_permission_factory_imp=can_update_circ_policy_factory,
-        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=CirculationPolicyPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=CirculationPolicyPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=CirculationPolicyPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=CirculationPolicyPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=CirculationPolicyPermission)
     ),
     notif=dict(
         pid_type='notif',

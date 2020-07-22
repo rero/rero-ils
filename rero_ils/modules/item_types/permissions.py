@@ -16,15 +16,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Circulation policies permissions."""
+"""Permissions for item types."""
 
 from rero_ils.modules.organisations.api import current_organisation
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
 
 
-class CirculationPolicyPermission(RecordPermission):
-    """Circulation policy permissions."""
+class ItemTypePermission(RecordPermission):
+    """Item type permissions."""
 
     @classmethod
     def list(cls, user, record=None):
@@ -61,7 +61,7 @@ class CirculationPolicyPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # only system_librarian can create circulation policy ...
+        # only system_librarian can create patron types ...
         if not current_patron or not current_patron.is_system_librarian:
             return False
         # ... only for its own organisation
@@ -77,26 +77,10 @@ class CirculationPolicyPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # User must be be authenticated and have (at least) librarian role
-        if not current_patron or not current_patron.is_librarian:
+        if not record:
             return False
-        if current_patron and not record:  # legacy
-            return True
-        # * User can only update record of its own organisation
-        #   - 'sys_lib' could always update a record
-        #   - 'lib' could only update cipo, if :
-        #     --> cipo is defined at the library level
-        #     --> current user library is into the cipo libraries list
-        if current_organisation['pid'] == record.organisation_pid:
-            if current_patron.is_system_librarian:
-                return True
-            if current_patron.is_librarian and \
-               record.get('policy_library_level', False):
-                cipo_library_pids = \
-                    [lib['pid'] for lib in
-                     record.replace_refs().get('libraries', [])]
-                return current_patron.library_pid in cipo_library_pids
-        return False
+        # same as create
+        return cls.create(user, record)
 
     @classmethod
     def delete(cls, user, record):
