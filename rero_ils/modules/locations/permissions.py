@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,47 +16,87 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Location permissions."""
+"""Permissions for locations."""
+
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.permissions import RecordPermission
 
 
-from ...permissions import staffer_is_authenticated
+class LocationPermission(RecordPermission):
+    """Location permissions."""
 
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
 
-def can_update_delete_location_factory(record, *args, **kwargs):
-    """Checks if logged user can update or delete its organisation locations.
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # List locations allowed only for staff members (lib, sys_lib)
+        return current_patron and current_patron.is_librarian
 
-    user must have librarian or system_librarian role
-    librarian can only update or delete its affiliated library locations.
-    sys_librarian can update or delete any location of its organisation.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if not patron.is_system_librarian:
-                if patron.library_pid and \
-                        record.library_pid != patron.library_pid:
-                    return False
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (lib, sys_lib) are allowed to read an location
+        if not current_patron or not current_patron.is_librarian:
+            return False
+        # For staff users, they can read only own organisation locations
+        return current_organisation['pid'] == record.organisation_pid
+
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (sys_lib, lib) can create location
+        if not current_patron or not current_patron.is_librarian:
+            return False
+        if not record:  # Used to to know if user could create some location
             return True
-        return False
-    return type('Check', (), {'can': can})()
+        else:
+            # same as update
+            return cls.update(user, record)
 
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
 
-def can_create_location_factory(record, *args, **kwargs):
-    """Checks if the logged user can create locations of its organisation.
-
-    librarian can create locations for its library only.
-    system_librarian can create locations at any library of its org.
-    system_librarian or librarian can create locations at another org.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and not record:
-            return True
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_system_librarian:
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (lib, sys_lib) can update location
+        # record cannot be null
+        if not current_patron or not current_patron.is_librarian or not record:
+            return False
+        if current_organisation['pid'] == record.organisation_pid:
+            # 'sys_lib' can update all locations
+            if current_patron.is_system_librarian:
                 return True
-            if patron.is_librarian and \
-                    record.library_pid == patron.library_pid:
-                return True
+            # 'lib' can only update location linked to its own library
+            if current_patron.is_librarian:
+                return current_patron.library_pid and \
+                       record.library_pid == current_patron.library_pid
         return False
-    return type('Check', (), {'can': can})()
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True if action can be done.
+        """
+        # same as update
+        return cls.update(user, record)

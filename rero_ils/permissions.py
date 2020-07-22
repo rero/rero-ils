@@ -109,18 +109,6 @@ def can_access_organisation_records_factory(record, *args, **kwargs):
     return type('Check', (), {'can': can})()
 
 
-def is_system_librarian_organisation_record_factory(record, *args, **kwargs):
-    """Logged user can execute operations on record of its organisation."""
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and not record:
-            return True
-        return patron \
-            and user_has_roles(roles=['system_librarian']) \
-            and patron.organisation_pid == record.organisation_pid
-    return type('Check', (), {'can': can})()
-
-
 def can_access_organisation_patrons_factory(record, *args, **kwargs):
     """Logged user permissions to access patron records."""
     def can(self):

@@ -61,7 +61,7 @@ from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import ItemPermission
 from .modules.libraries.api import Library
-from .modules.libraries.permissions import can_update_library_factory
+from .modules.libraries.permissions import LibraryPermission
 from .modules.loans.api import Loan
 from .modules.loans.permissions import can_list_loan_factory, \
     can_read_loan_factory
@@ -71,8 +71,7 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_satisfy_circ_policies
 from .modules.locations.api import Location
-from .modules.locations.permissions import can_create_location_factory, \
-    can_update_delete_location_factory
+from .modules.locations.permissions import LocationPermission
 from .modules.notifications.api import Notification
 from .modules.notifications.permissions import NotificationPermission
 from .modules.organisations.api import Organisation
@@ -92,12 +91,9 @@ from .modules.persons.api import Person
 from .modules.persons.permissions import PersonPermission
 from .modules.vendors.api import Vendor
 from .modules.vendors.permissions import VendorPermission
-from .permissions import can_access_organisation_patrons_factory, \
-    can_access_organisation_records_factory, \
-    is_system_librarian_organisation_record_factory, \
-    librarian_delete_permission_factory, librarian_permission_factory, \
-    librarian_update_permission_factory, wiki_edit_ui_permission, \
-    wiki_edit_view_permission
+from .permissions import librarian_delete_permission_factory, \
+    librarian_permission_factory, librarian_update_permission_factory, \
+    wiki_edit_ui_permission, wiki_edit_view_permission
 from .query import and_term_filter
 from .utils import get_current_language
 
@@ -834,7 +830,7 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=lambda record: record_permission_factory(
             action='update', record=record, cls=OrganisationPermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=OrganisationPermission),
+            action='delete', record=record, cls=OrganisationPermission)
     ),
     lib=dict(
         pid_type='lib',
@@ -867,11 +863,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=can_access_organisation_patrons_factory,
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=is_system_librarian_organisation_record_factory,
-        update_permission_factory_imp=can_update_library_factory,
-        delete_permission_factory_imp=is_system_librarian_organisation_record_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=LibraryPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=LibraryPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=LibraryPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=LibraryPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=LibraryPermission)
     ),
     loc=dict(
         pid_type='loc',
@@ -904,10 +905,16 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        read_permission_factory_imp=can_access_organisation_records_factory,
-        create_permission_factory_imp=can_create_location_factory,
-        update_permission_factory_imp=can_update_delete_location_factory,
-        delete_permission_factory_imp=can_update_delete_location_factory,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=LocationPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=LocationPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=LocationPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=LocationPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=LocationPermission)
     ),
     pers=dict(
         pid_type='pers',
