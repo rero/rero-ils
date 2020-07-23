@@ -180,7 +180,8 @@ def profile(viewcode):
             data = {
                 'item_pid': item.pid,
                 'pid': request.values.get('loan_pid'),
-                'transaction_location_pid': item.location_pid
+                'transaction_location_pid': item.location_pid,
+                'transaction_user_pid': patron.pid
             }
             try:
                 item.extend_loan(**data)
