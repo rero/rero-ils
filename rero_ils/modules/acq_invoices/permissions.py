@@ -16,15 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Permissions for Acquisition account."""
+"""Permissions for Acquisition invoice."""
 
-from rero_ils.modules.organisations.api import current_organisation
-from rero_ils.modules.patrons.api import current_patron
-from rero_ils.modules.permissions import RecordPermission
+from ..acq_accounts.permissions import AcqAccountPermission
+from ..permissions import RecordPermission
 
 
-class AcqAccountPermission(RecordPermission):
-    """Acquisition account permissions."""
+class AcqInvoicePermission(RecordPermission):
+    """Acquisition invoice permissions."""
 
     @classmethod
     def list(cls, user, record=None):
@@ -34,8 +33,7 @@ class AcqAccountPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # List organisation allowed only for staff members (lib, sys_lib)
-        return current_patron and current_patron.is_librarian
+        return AcqAccountPermission.list(user, record)
 
     @classmethod
     def read(cls, user, record):
@@ -45,14 +43,7 @@ class AcqAccountPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
-        # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_patron.is_librarian:
-            return False
-        # For staff users, they can read only their own organisation.
-        return current_organisation['pid'] == record.organisation_pid
+        return AcqAccountPermission.read(user, record)
 
     @classmethod
     def create(cls, user, record=None):
@@ -62,14 +53,7 @@ class AcqAccountPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # user should be authenticated
-        if not current_patron:
-            return False
-        if not record:
-            return True
-        else:
-            # Same as update
-            return cls.update(user, record)
+        return AcqAccountPermission.create(user, record)
 
     @classmethod
     def update(cls, user, record):
@@ -79,19 +63,7 @@ class AcqAccountPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # only staff members (lib, sys_lib) can update acq_account
-        # record cannot be null
-        if not current_patron or not current_patron.is_librarian or not record:
-            return False
-        if current_organisation['pid'] == record.organisation_pid:
-            # 'sys_lib' can update all account
-            if current_patron.is_system_librarian:
-                return True
-            # 'lib' can only update account linked to its own library
-            if current_patron.is_librarian:
-                return current_patron.library_pid and \
-                   record.library_pid == current_patron.library_pid
-        return False
+        return AcqAccountPermission.update(user, record)
 
     @classmethod
     def delete(cls, user, record):
@@ -101,5 +73,4 @@ class AcqAccountPermission(RecordPermission):
         :param record: Record to check.
         :return: True if action can be done.
         """
-        # Same as update
-        return cls.update(user, record)
+        return AcqAccountPermission.delete(user, record)
