@@ -28,6 +28,7 @@ from .circulation import ItemCirculation
 from .issue import ItemIssue
 from .record import ItemRecord
 from ..models import ItemIdentifier, ItemMetadata
+from ..utils import item_pid_to_object
 from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
 from ...documents.api import Document, DocumentsSearch
 from ...fetchers import id_fetcher
@@ -48,10 +49,11 @@ item_id_fetcher = partial(id_fetcher, provider=ItemProvider)
 
 def search_active_loans_for_item(item_pid):
     """Return count and all active loans for an item."""
+    item_pid_object = item_pid_to_object(item_pid)
     states = ['PENDING'] + \
         current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
     search = search_by_pid(
-        item_pid=item_pid,
+        item_pid=item_pid_object,
         filter_states=states,
         sort_by_field='transaction_date',
         sort_order='desc'
