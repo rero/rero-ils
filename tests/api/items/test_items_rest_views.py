@@ -17,18 +17,12 @@
 
 """Tests REST API items."""
 import json
-from copy import deepcopy
 
-import mock
-import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.modules.errors import InvalidRecordID
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import LoanAction
 
 
 def test_item_dumps(client, item_lib_martigny, org_martigny,
@@ -51,274 +45,9 @@ def test_item_dumps(client, item_lib_martigny, org_martigny,
     assert item_es.organisation_pid == org_martigny.pid
 
 
-def test_checkout_no_loan_given(client, librarian_martigny_no_email,
-                                patron_martigny_no_email, loc_public_martigny,
-                                item_lib_martigny, json_header,
-                                circulation_policies):
-    """Test checkout item when request loan is not given."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    item = item_lib_martigny
-    patron = patron_martigny_no_email
-    location = loc_public_martigny
-    # request
-    res, _ = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item.pid,
-            pickup_location_pid=location.pid,
-            patron_pid=patron.pid
-        )
-    )
-    assert res.status_code == 200
-
-    # checkout
-    res, data = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron.pid
-        )
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
-
-    from rero_ils.modules.patrons.views import \
-        get_patron_from_checkout_item_pid
-    assert get_patron_from_checkout_item_pid(item.pid) == patron
-
-    res, _ = postdata(client, 'api_item.checkin', dict(item_pid=item.pid))
-    assert res.status_code == 403
-
-    res, _ = postdata(
-        client,
-        'api_item.checkin',
-        dict(
-            item_pid=item.pid,
-            pid=loan_pid
-        ),
-    )
-    assert res.status_code == 200
-
-
-def test_item_misc(client, librarian_martigny_no_email, lib_martigny,
-                   patron_martigny_no_email, loc_public_martigny,
-                   item_lib_martigny, json_header, item_type_standard_martigny,
-                   circ_policy_short_martigny, patron_type_children_martigny):
-    """Test item different functions."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    item = item_lib_martigny
-    patron = patron_martigny_no_email
-    location = loc_public_martigny
-    circ_policy_origin = deepcopy(circ_policy_short_martigny)
-    circ_policy = circ_policy_short_martigny
-
-    assert not item.get_extension_count()
-    assert not item.get_loan_pid_with_item_in_transit(item.pid)
-    assert not item.get_loan_pid_with_item_on_loan(item.pid)
-    assert not item.get_item_by_barcode(barcode='does not exist')
-
-    loans = item.get_checked_out_loans('does not exist')
-
-    with pytest.raises(InvalidRecordID):
-        assert sum(1 for loan in loans)
-
-    assert 'checkout' in item.actions
-
-    res, data = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item.pid,
-            pickup_location_pid=location.pid,
-            patron_pid=patron.pid
-        ),
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
-
-    res, _ = postdata(
-        client,
-        'api_item.validate_request',
-        dict(
-            item_pid=item.pid,
-            pid=loan_pid
-        ),
-    )
-    assert res.status_code == 200
-
-    circ_policy['allow_checkout'] = False
-    circ_policy['renewal_duration'] = 30
-
-    circ_policy.update(circ_policy, dbcommit=True, reindex=True)
-    assert not circ_policy.get('allow_checkout')
-    assert 'checkout' not in item.actions
-
-    circ_policy['allow_checkout'] = True
-    circ_policy.update(
-        circ_policy,
-        dbcommit=True,
-        reindex=True
-    )
-
-    # checkout
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron.pid,
-            pid=loan_pid
-        ),
-    )
-    assert res.status_code == 200
-    assert 'extend_loan' in item.actions
-
-    class current_i18n:
-        class locale:
-            language = 'fr'
-    with mock.patch(
-        'rero_ils.modules.items.api.circulation.current_i18n',
-        current_i18n
-    ):
-        assert item.get_item_end_date()
-
-    circ_policy.update(circ_policy_origin, dbcommit=True, reindex=True)
-    res, _ = postdata(
-        client,
-        'api_item.checkin',
-        dict(
-            item_pid=item.pid,
-            pid=loan_pid
-        ),
-    )
-    assert res.status_code == 200
-
-    class current_i18n:
-        class locale:
-            language = 'fr'
-    with mock.patch(
-        'rero_ils.modules.items.api.circulation.current_i18n',
-        current_i18n
-    ):
-        assert not item.get_item_end_date()
-
-
-def test_automatic_checkin(client, librarian_martigny_no_email, lib_martigny,
-                           patron_martigny_no_email, loc_public_martigny,
-                           item_lib_martigny, json_header,
-                           item_type_standard_martigny,
-                           circ_policy_short_martigny,
-                           patron_type_children_martigny, lib_saxon,
-                           loc_public_saxon, librarian_saxon_no_email):
-    """Test item automatic checkin."""
-    login_user_via_session(client, librarian_saxon_no_email.user)
-    circ_policy_origin = deepcopy(circ_policy_short_martigny)
-    circ_policy = circ_policy_short_martigny
-
-    record, actions = item_lib_martigny.automatic_checkin()
-    assert actions == {'no': None}
-
-    res, data = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny_no_email.pid
-        ),
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
-
-    res, _ = postdata(
-        client,
-        'api_item.validate_request',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid
-        ),
-    )
-    assert res.status_code == 200
-
-    item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert item.status == ItemStatus.IN_TRANSIT
-
-    record, actions = item.automatic_checkin()
-    assert 'receive' in actions
-
-    item.cancel_loan(pid=loan_pid)
-    assert item.status == ItemStatus.ON_SHELF
-
-
-def test_item_different_actions(client, librarian_martigny_no_email,
-                                lib_martigny,
-                                patron_martigny_no_email, loc_public_martigny,
-                                item_lib_martigny, json_header,
-                                item_type_standard_martigny,
-                                circ_policy_short_martigny,
-                                patron_type_children_martigny, lib_saxon,
-                                loc_public_saxon, librarian_saxon_no_email):
-    """Test item possible actions other scenarios."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    circ_policy_origin = deepcopy(circ_policy_short_martigny)
-    circ_policy = circ_policy_short_martigny
-
-    patron_pid = patron_martigny_no_email.pid
-    res = client.get(
-        url_for(
-            'api_item.item',
-            item_barcode='does not exist',
-            patron_pid=patron_pid
-        )
-    )
-    assert res.status_code == 404
-
-    res, data = postdata(
-        client,
-        'api_item.checkout',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_pid
-        )
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
-
-    record = Item.get_record_by_pid(item_lib_martigny.pid)
-
-    res, _ = postdata(
-        client,
-        'api_item.checkin',
-        dict(
-            item_pid='does not exist',
-            pid=loan_pid,
-            transaction_location_pid=loc_public_saxon.pid
-        ),
-    )
-    assert res.status_code == 404
-
-    res, data = postdata(
-        client,
-        'api_item.checkin',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_saxon.pid
-        ),
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.CHECKIN].get('pid')
-
-    data = {'pid': loan_pid}
-    params, actions = item_lib_martigny.prior_checkout_actions(data)
-    assert 'cancel' in actions
-
-
 def test_item_secure_api(client, json_header, item_lib_martigny,
-                         librarian_martigny_no_email, librarian_sion_no_email):
+                         librarian_martigny_no_email, librarian_sion_no_email,
+                         loc_public_saxon):
     """Test item secure api access."""
     # Martigny
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -492,7 +221,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         dict(
             item_pid=item2_lib_martigny.pid,
             patron_pid=patron_sion_no_email.pid,
-            pickup_location_pid=loc_public_martigny.pid
+            pickup_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
 
@@ -502,7 +233,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         dict(
             item_pid=item2_lib_martigny.pid,
             patron_pid=patron_martigny_no_email.pid,
-            pickup_location_pid=loc_public_martigny.pid
+            pickup_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -513,7 +246,9 @@ def test_pending_loans_order(client, librarian_martigny_no_email,
         dict(
             item_pid=item2_lib_martigny.pid,
             patron_pid=patron2_martigny_no_email.pid,
-            pickup_location_pid=loc_public_martigny.pid
+            pickup_location_pid=loc_public_martigny.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
         )
     )
     assert res.status_code == 200
@@ -574,7 +309,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
                                 patron_martigny_no_email, loc_public_martigny,
                                 item_type_standard_martigny,
                                 item3_lib_martigny, json_header,
-                                item2_lib_martigny,
+                                item4_lib_martigny,
                                 circulation_policies):
     """Test sort of checkout loans."""
     login_user_via_session(client, librarian_martigny_no_email.user)
@@ -583,7 +318,9 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
         'api_item.checkout',
         dict(
             item_pid=item3_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
         ),
     )
     assert res.status_code == 200
@@ -592,8 +329,10 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
         client,
         'api_item.checkout',
         dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
+            item_pid=item4_lib_martigny.pid,
+            patron_pid=patron_martigny_no_email.pid,
+            transaction_user_pid=librarian_martigny_no_email.pid,
+            transaction_location_pid=loc_public_martigny.pid
         ),
     )
     assert res.status_code == 200
@@ -608,7 +347,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     items = data['hits']['hits']
 
     assert items[0]['item']['pid'] == item3_lib_martigny.pid
-    assert items[1]['item']['pid'] == item2_lib_martigny.pid
+    assert items[1]['item']['pid'] == item4_lib_martigny.pid
 
     # sort by transaction_date desc
     res = client.get(
@@ -619,7 +358,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     data = get_json(res)
     items = data['hits']['hits']
 
-    assert items[0]['item']['pid'] == item2_lib_martigny.pid
+    assert items[0]['item']['pid'] == item4_lib_martigny.pid
     assert items[1]['item']['pid'] == item3_lib_martigny.pid
 
     # sort by invalid field
@@ -630,29 +369,3 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     assert res.status_code == 500
     data = get_json(res)
     assert 'RequestError(400' in data['status']
-
-
-def test_checkout_cancel_old_loan(
-        client, librarian_martigny_no_email, patron_martigny_no_email,
-        loc_public_martigny, item_lib_fully, circulation_policies,
-        patron2_martigny_no_email):
-    """Test prior checkin actions."""
-    login_user_via_session(client, librarian_martigny_no_email.user)
-    # request an item by a librarian in a remote location
-    res, data = postdata(
-        client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item_lib_fully.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron_martigny_no_email.pid
-        )
-    )
-    assert res.status_code == 200
-    loan_pid = data.get('action_applied')[LoanAction.REQUEST].get('pid')
-    # validate the request to loan status goes to in_transit
-    item_lib_fully.validate_request(pid=loan_pid)
-    action_params = {'patron_pid': patron2_martigny_no_email.pid}
-    # loan will be canclled if a librarian decided to checkout the item anyway.
-    item, actions = item_lib_fully.prior_checkout_actions(action_params)
-    assert 'cancel' in actions
