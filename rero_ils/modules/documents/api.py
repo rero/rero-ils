@@ -172,8 +172,9 @@ class Document(IlsRecord):
         """
         provision_activities = dump.get('provisionActivity', [])
         for provision_activity in provision_activities:
-            provision_activity['_text'] = \
-                publication_statement_text(provision_activity)
+            pub_state_text = publication_statement_text(provision_activity)
+            if pub_state_text:
+                provision_activity['_text'] = pub_state_text
         series = dump.get('seriesStatement', [])
         for series_element in series:
             series_element["_text"] = series_statement_format_text(

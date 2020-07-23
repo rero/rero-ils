@@ -7,7 +7,8 @@
       "type": "object",
       "title": "Note",
       "required": [
-        "noteType"
+        "noteType",
+        "label"
       ],
       "propertiesOrder": [
         "noteType",
@@ -42,7 +43,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-6",
+              "cssClass": "col-lg-12",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -55,7 +56,7 @@
           "minLength": 3,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-12"
             }
           }
         }
@@ -72,7 +73,7 @@
         "essential": true
       },
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

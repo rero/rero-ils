@@ -37,11 +37,16 @@
         "value": {
           "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language"
         }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
+        }
       }
     },
     "form": {
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

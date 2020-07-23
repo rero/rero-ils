@@ -36,9 +36,6 @@
                   "messages": {
                     "patternMessage": "Should be in the following format: https://ils.rero.ch/api/documents/<PID>."
                   }
-                },
-                "templateOptions": {
-                  "cssClass": "rero-ils-editor-max-width"
                 }
               }
             }
@@ -71,7 +68,7 @@
                     }
                   },
                   "templateOptions": {
-                    "cssClass": "col-lg-3"
+                    "cssClass": "col-lg-6"
                   }
                 }
               },
@@ -81,7 +78,7 @@
                 "minimum": 1,
                 "form": {
                   "templateOptions": {
-                    "cssClass": "col-lg-3"
+                    "cssClass": "col-lg-6"
                   }
                 }
               },
@@ -91,7 +88,7 @@
                 "minimum": 1,
                 "form": {
                   "templateOptions": {
-                    "cssClass": "col-lg-3"
+                    "cssClass": "col-lg-6"
                   }
                 }
               },
@@ -107,7 +104,7 @@
                     }
                   },
                   "templateOptions": {
-                    "cssClass": "col-lg-3"
+                    "cssClass": "col-lg-6"
                   }
                 }
               }
@@ -123,8 +120,11 @@
     },
     "form": {
       "hide": true,
+      "navigation": {
+        "essential": true
+      },
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

@@ -47,7 +47,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "rero-ils-editor-max-width",
+              "cssClass": "editor-max-width",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -114,7 +114,7 @@
     },
     "form": {
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

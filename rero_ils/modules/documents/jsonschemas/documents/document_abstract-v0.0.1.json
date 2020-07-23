@@ -18,7 +18,7 @@
     "form": {
       "hide": true,
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

@@ -13,10 +13,11 @@
       "propertiesOrder": [
         "type",
         "value",
+        "source",
         "status",
         "qualifier",
-        "note",
-        "source"
+        "acquisitionTerms",
+        "note"
       ],
       "additionalProperties": false,
       "properties": {
@@ -138,7 +139,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-4",
+              "cssClass": "col-lg-6",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -152,7 +153,7 @@
           "minLength": 1,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-6 offset-lg-2"
+              "cssClass": "col-lg-6"
             }
           }
         },
@@ -176,7 +177,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-4"
             }
           }
         },
@@ -186,6 +187,7 @@
           "type": "string",
           "minLength": 1,
           "form": {
+            "hide": true,
             "templateOptions": {
               "cssClass": "col-lg-6"
             }
@@ -197,8 +199,9 @@
           "type": "string",
           "minLength": 1,
           "form": {
+            "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-4"
             }
           }
         },
@@ -214,7 +217,7 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-4"
             }
           }
         }
@@ -231,7 +234,7 @@
         "essential": true
       },
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

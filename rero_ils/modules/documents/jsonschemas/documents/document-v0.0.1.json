@@ -8,6 +8,7 @@
     "type",
     "title",
     "language",
+    "provisionActivity",
     "issuance"
   ],
   "propertiesOrder": [

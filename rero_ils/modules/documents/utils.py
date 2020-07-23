@@ -61,7 +61,7 @@ def publication_statement_text(provision_activity):
     statement_with_language = {'default': ''}
     statement_type = None
 
-    for statement in provision_activity['statement']:
+    for statement in provision_activity.get('statement', []):
         labels = statement['label']
 
         for label in labels:
