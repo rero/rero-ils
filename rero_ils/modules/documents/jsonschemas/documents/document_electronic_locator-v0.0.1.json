@@ -12,8 +12,8 @@
         "url"
       ],
       "propertiesOrder": [
-        "type",
         "url",
+        "type",
         "content",
         "publicNote"
       ],
@@ -27,7 +27,7 @@
           "minLength": 7,
           "form": {
             "templateOptions": {
-              "cssClass": "col-lg-4"
+              "cssClass": "col-lg-12"
             }
           }
         },
@@ -69,7 +69,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-4",
+              "cssClass": "col-lg-6",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -230,7 +230,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "col-lg-4",
+              "cssClass": "col-lg-6",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -252,7 +252,7 @@
           },
           "form": {
             "templateOptions": {
-              "cssClass": "col"
+              "cssClass": "col-lg-12"
             }
           }
         }
@@ -266,7 +266,7 @@
     "form": {
       "hide": true,
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

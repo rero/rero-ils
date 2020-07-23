@@ -48,6 +48,12 @@ def doc_title_travailleurs(app):
             }],
             'subtitle': [{'value': 'les jeunes arrivent bientôt ?'}]
         }],
+        "provisionActivity": [
+          {
+            "type": "bf:Publication",
+            "startDate": 1818
+          }
+        ],
         'issuance': {
             'main_type': 'rdami:1001',
             'subtype': 'materialUnit'
@@ -83,6 +89,12 @@ def doc_title_travailleuses(app):
         }, {
             'name': 'Corminbœuf, Gruß', 'type': 'person'
         }],
+        "provisionActivity": [
+          {
+            "type": "bf:Publication",
+            "startDate": 1818
+          }
+        ],
         'issuance': {
             'main_type': 'rdami:1001',
             'subtype': 'materialUnit'

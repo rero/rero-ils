@@ -3,16 +3,32 @@
     "title": "Provision activities",
     "type": "array",
     "minItems": 1,
+    "default": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place"
+          },
+          {
+            "type": "bf:Agent"
+          },
+          {
+            "type": "Date"
+          }
+        ]
+      }
+    ],
     "items": {
       "title": "Provision activity",
       "type": "object",
       "additionalProperties": false,
       "propertiesOrder": [
         "type",
-        "place",
         "startDate",
         "endDate",
         "note",
+        "place",
         "statement"
       ],
       "required": [
@@ -52,7 +68,7 @@
               }
             ],
             "templateOptions": {
-              "cssClass": "rero-ils-editor-max-width",
+              "cssClass": "col-lg-4",
               "selectWithSortOptions": {
                 "order": "label"
               }
@@ -67,7 +83,8 @@
             "type": "object",
             "title": "Place",
             "required": [
-              "country"
+              "country",
+              "type"
             ],
             "propertiesOrder": [
               "type",
@@ -79,10 +96,8 @@
                 "title": "Type",
                 "type": "string",
                 "const": "bf:Place",
-                "enum": [
-                  "bf:Place"
-                ],
                 "form": {
+                  "hideExpression": "true",
                   "options": [
                     {
                       "label": "Place",
@@ -105,6 +120,12 @@
               "templateOptions": {
                 "cssClass": "row"
               }
+            }
+          },
+          "form": {
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-12"
             }
           }
         },
@@ -153,7 +174,7 @@
                     }
                   ],
                   "templateOptions": {
-                    "cssClass": "rero-ils-editor-max-width",
+                    "cssClass": "col-lg-4",
                     "selectWithSortOptions": {
                       "order": "label"
                     }
@@ -167,16 +188,40 @@
                 "items": {
                   "title": "Label",
                   "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                },
+                "form": {
+                  "templateOptions": {
+                    "cssClass": "col-lg-8"
+                  }
+                }
+              },
+              "form": {
+                "templateOptions": {
+                  "cssClass": "col-lg-6"
                 }
               }
+            },
+            "form": {
+              "templateOptions": {
+                "cssClass": "row"
+              }
+            }
+          },
+          "form": {
+            "templateOptions": {
+              "cssClass": "col-lg-12"
             }
           }
         },
         "note": {
           "title": "Note",
           "type": "string",
+          "minLength": 1,
           "form": {
-            "hide": true
+            "hide": true,
+            "templateOptions": {
+              "cssClass": "col-lg-6"
+            }
           }
         },
         "startDate": {
@@ -186,9 +231,11 @@
           "minimum": -9999,
           "maximum": 2050,
           "form": {
-            "hide": true,
+            "expressionProperties": {
+              "templateOptions.required": "model.type === 'bf:Publication'"
+            },
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-4"
             }
           }
         },
@@ -201,19 +248,20 @@
           "form": {
             "hide": true,
             "templateOptions": {
-              "cssClass": "col-lg-6"
+              "cssClass": "col-lg-4"
             }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "cssClass": "row"
         }
       }
     },
     "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
-      },
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

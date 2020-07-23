@@ -6,9 +6,12 @@
     "minLength": 2,
     "form": {
       "placeholder": "Example: 355 pages",
+      "navigation": {
+        "essential": true
+      },
       "hide": true,
       "templateOptions": {
-        "cssClass": "rero-ils-editor-max-width"
+        "cssClass": "editor-max-width editor-title"
       }
     }
   }

@@ -5531,7 +5531,7 @@ msgstr "Subseries statement"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:44
 msgid "Subseries"
-msgstr "Suberies"
+msgstr "Subseries"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:3
 msgid "Subjects"

@@ -71608,6 +71608,12 @@
         "type": "bf:Language"
       }
     ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "startDate": 1818
+      }
+    ],
     "identifiedBy": [
       {
         "value": "R008099167",
@@ -93687,6 +93693,12 @@
         "type": "bf:Language"
       }
     ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "startDate": 2009
+      }
+    ],
     "identifiedBy": [
       {
         "value": "R005939923",
@@ -104481,7 +104493,7 @@
     "type": "book",
     "issuance": {
       "main_type": "rdami:1002",
-      "subtype": "monographicSeries"
+      "subtype": "set"
     },
     "pid": "41",
     "language": [

@@ -150,10 +150,11 @@ def marc21_to_type_and_issuance(self, key, value):
             sub_type = 'set'
         else:
             sub_type = 'materialUnit'
-    if marc21.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
-        sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[marc21.bib_level]
-    if marc21.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
-        sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[marc21.serial_type]
+    else:
+        if marc21.bib_level in _ISSUANCE_SUBTYPE_PER_BIB_LEVEL:
+            sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[marc21.bib_level]
+        if marc21.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
+            sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[marc21.serial_type]
     self['issuance'] = dict(main_type=main_type, subtype=sub_type)
 
 
@@ -193,6 +194,14 @@ def marc21_to_language(self, key, value):
                 'type': 'bf:Language'
             })
             lang_codes.append(lang_value)
+    if not marc21.get_fields(tag='264'):
+        self['provisionActivity'] = [{
+            'type': 'bf:Publication',
+            'startDate': make_year(marc21.date1_from_008)
+        }]
+        end_date = make_year(marc21.date2_from_008)
+        if end_date:
+            self['provisionActivity'][0]['endDate'] = end_date
     # if not language:
     #     error_print('ERROR LANGUAGE:', marc21.bib_id, 'set to "und"')
     #     language = [{'value': 'und', 'type': 'bf:Language'}]

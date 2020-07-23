@@ -14,8 +14,11 @@
     },
     "form": {
       "hide": true,
+      "navigation": {
+        "essential": true
+      },
       "templateOptions": {
-        "cssClass": "rero-ils-editor-title"
+        "cssClass": "editor-title"
       }
     }
   }

@@ -299,6 +299,20 @@ def test_marc21_to_mode_of_issuance():
         'subtype': 'periodical'
     }
 
+    marc21xml = """
+    <record>
+        <leader>00604cam a2200205 a 4500</leader>
+          <controlfield tag=
+            "008">150707m20159999fr |||m|| ||||00|| 0fre d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('issuance') == {
+        'main_type': 'rdami:1002',
+        'subtype': 'set'
+    }
+
 
 # pid: 001
 def test_marc21_to_pid():
@@ -1346,6 +1360,25 @@ def test_marc21_to_provisionActivity_manufacture_date():
                 'type': 'Date'
             }
         ]
+    }]
+
+
+def test_marc21_provisionActivity_without_264():
+    """Test dojson publication statement.
+
+    A value should be here even 264 does not exists.
+    """
+    marc21xml = """
+    <record>
+        <controlfield tag=
+          "008">070518s20062010sz ||| |  ||||00|  |fre d</controlfield>
+    </record>"""
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [{
+        'type': 'bf:Publication',
+        'startDate': 2006,
+        'endDate': 2010
     }]
 
 
