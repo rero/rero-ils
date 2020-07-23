@@ -976,6 +976,8 @@ def patron_transaction_overdue_sion_data(data):
 def patron_transaction_overdue_event_sion_data(data):
     """Load Sion patron transaction martigny data."""
     return deepcopy(data.get('dummy_patron_transaction_event_sion'))
+
+
 # ------------ Loans and items for circulation actions ----------
 
 @pytest.fixture(scope="module")

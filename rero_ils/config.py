@@ -34,9 +34,10 @@ from invenio_circulation.pidstore.pids import CIRCULATION_LOAN_FETCHER, \
     CIRCULATION_LOAN_MINTER, CIRCULATION_LOAN_PID_TYPE
 from invenio_circulation.search.api import LoansSearch
 from invenio_circulation.transitions.transitions import CreatedToPending, \
-    ItemAtDeskToItemOnLoan, ItemOnLoanToItemInTransitHouse, \
-    ItemOnLoanToItemOnLoan, PendingToItemAtDesk, \
-    PendingToItemInTransitPickup, ToItemOnLoan, ToCancelled
+    ItemAtDeskToItemOnLoan, ItemInTransitHouseToItemReturned, \
+    ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
+    ItemOnLoanToItemReturned, PendingToItemAtDesk, \
+    PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.utils import deny_all
 
 from .modules.acq_accounts.api import AcqAccount
@@ -59,12 +60,7 @@ from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermission
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction
-<<<<<<< HEAD
 from .modules.items.permissions import ItemPermission
-=======
-from .modules.items.permissions import can_create_item_factory, \
-    can_delete_item_factory, can_update_item_factory
->>>>>>> 70fd8606... circulation: implement cancel item request action
 from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import LibraryPermission
