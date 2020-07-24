@@ -1,47 +1,79 @@
 {
-  "series": {
-    "title": "Series",
-    "description": "Series to which belongs the resource.",
+  "seriesStatement": {
+    "title": "Series statement",
+    "description": "Series and eventual subseries to which a resource belongs (MARC 490).",
     "type": "array",
     "minItems": 1,
     "items": {
       "type": "object",
       "title": "Series",
-      "description": "Series to which belongs the resource.",
       "required": [
-        "name"
+        "seriesTitle"
       ],
       "propertiesOrder": [
-        "name",
-        "number"
+        "seriesTitle",
+        "seriesEnumeration",
+        "subseriesStatement"
       ],
       "additionalProperties": false,
       "properties": {
-        "name": {
+        "seriesTitle": {
           "title": "Title",
-          "description": "Title of the series.",
-          "type": "string",
-          "form": {
-            "templateOptions": {
-              "cssClass": "col-lg-5"
-            }
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Title",
+            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
           }
         },
-        "number": {
+        "seriesEnumeration": {
           "title": "Numbering",
-          "description": "Numbering of the resource within the series.",
-          "type": "string",
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "cssClass": "col-lg-7"
-            }
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Numbering",
+            "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/numbering_script"
           }
-        }
-      },
-      "form": {
-        "templateOptions": {
-          "cssClass": "row"
+        },
+        "subseriesStatement": {
+          "title": "Subseries statement",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "title": "Subseries",
+            "required": [
+              "subseriesTitle"
+            ],
+            "propertiesOrder": [
+              "subseriesTitle",
+              "subseriesEnumeration"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "subseriesTitle": {
+                "title": "Title",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Title",
+                  "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
+                }
+              },
+              "subseriesEnumeration": {
+                "title": "Numbering",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "title": "Numbering",
+                  "$ref": "https://ils.rero.ch/schemas/common/languages-v0.0.1.json#/numbering_script"
+                }
+              }
+            }
+          },
+          "form": {
+            "hide": true
+          }
         }
       }
     },

@@ -1,0 +1,249 @@
+{
+  "issuance": {
+    "title": "Mode of issuance",
+    "type": "object",
+    "oneOf": [
+      {
+        "title": "Single unit",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "main_type",
+          "subtype"
+        ],
+        "required": [
+          "main_type",
+          "subtype"
+        ],
+        "properties": {
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "default": "materialUnit",
+            "enum": [
+              "article",
+              "materialUnit",
+              "privateFile",
+              "privateSubfile"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Article",
+                  "value": "article"
+                },
+                {
+                  "label": "Material unit",
+                  "value": "materialUnit"
+                },
+                {
+                  "label": "Private file",
+                  "value": "privateFile"
+                },
+                {
+                  "label": "Private subfile",
+                  "value": "privateSubfile"
+                }
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          },
+          "main_type": {
+            "title": "Main type",
+            "type": "string",
+            "readOnly": true,
+            "default": "rdami:1001",
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
+          }
+        }
+      },
+      {
+        "title": "Multipart monograph",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "main_type",
+          "subtype"
+        ],
+        "required": [
+          "main_type",
+          "subtype"
+        ],
+        "properties": {
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "default": "set",
+            "enum": [
+              "set",
+              "partIndependentTitle",
+              "partDependantTitle"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Set",
+                  "value": "set"
+                },
+                {
+                  "label": "Independant title",
+                  "value": "partIndependentTitle"
+                },
+                {
+                  "label": "Dependant title",
+                  "value": "partDependantTitle"
+                }
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          },
+          "main_type": {
+            "title": "Main type",
+            "type": "string",
+            "readOnly": true,
+            "default": "rdami:1002",
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
+          }
+        }
+      },
+      {
+        "title": "Serial",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "main_type",
+          "subtype"
+        ],
+        "required": [
+          "main_type",
+          "subtype"
+        ],
+        "properties": {
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "default": "periodical",
+            "enum": [
+              "serialInSerial",
+              "monographicSeries",
+              "periodical"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Serial in serial",
+                  "value": "serialInSerial"
+                },
+                {
+                  "label": "Monographic series",
+                  "value": "monographicSeries"
+                },
+                {
+                  "label": "Periodical",
+                  "value": "periodical"
+                }
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          },
+          "main_type": {
+            "title": "Main type",
+            "type": "string",
+            "readOnly": true,
+            "default": "rdami:1003",
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
+          }
+        }
+      },
+      {
+        "title": "Integrating resource",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "main_type",
+          "subtype"
+        ],
+        "required": [
+          "main_type",
+          "subtype"
+        ],
+        "properties": {
+          "subtype": {
+            "title": "Subtype",
+            "type": "string",
+            "default": "updatingWebsite",
+            "enum": [
+              "updatingWebsite",
+              "updatingLoose-leaf"
+            ],
+            "form": {
+              "options": [
+                {
+                  "label": "Updating website",
+                  "value": "updatingWebsite"
+                },
+                {
+                  "label": "Updating loose leaf",
+                  "value": "updatingLoose-leaf"
+                }
+              ],
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          },
+          "main_type": {
+            "title": "Main type",
+            "type": "string",
+            "readOnly": true,
+            "default": "rdami:1004",
+            "form": {
+              "templateOptions": {
+                "cssClass": "col-lg-6"
+              }
+            }
+          }
+        },
+        "form": {
+          "templateOptions": {
+            "cssClass": "row"
+          }
+        }
+      }
+    ],
+    "form": {
+      "templateOptions": {
+        "cssClass": "rero-ils-editor-title"
+      }
+    }
+  }
+}
