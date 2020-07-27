@@ -71,8 +71,33 @@ fi
 if [[ -z "${FLASK_ENV}" ]]; then
   export FLASK_ENV="development"
 fi
+
+# loglevel: celery log level (Cf. https://docs.celeryproject.org/en/latest/reference/celery.bin.worker.html#cmdoption-celery-worker-l)
+# no-worker: disable celery worker
+if ! options=$(getopt -o nl: -l no-worker,loglevel: -- "$@"); then
+  exit 1
+fi
+
+CELERY_LOG_LEVEL="INFO"
+worker=true
+while test $# -gt 0
+do
+  case "$1" in
+    -l|--loglevel)
+      CELERY_LOG_LEVEL=$2
+      shift ;;
+    -n|--no-worker)
+      worker=false ;;
+    (--) shift; break;;
+    (*) break;;
+  esac
+  shift
+done
+
 # Start Worker and Beat
-celery worker --app rero_ils.celery --loglevel INFO --beat --scheduler rero_ils.schedulers.RedisScheduler & PID_CELERY=$!
+if $worker; then
+  celery worker --app rero_ils.celery --loglevel ${CELERY_LOG_LEVEL} --beat --scheduler rero_ils.schedulers.RedisScheduler & PID_CELERY=$!
+fi
 
 # Start Server
 invenio run \
