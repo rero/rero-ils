@@ -2,6 +2,7 @@
   "country": {
     "title": "Country",
     "type": "string",
+    "default": "xx",
     "enum": [
       "aa",
       "abc",
