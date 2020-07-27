@@ -1,0 +1,41 @@
+{
+  "completeDocument": {
+    "type": "Book",
+    "title": {
+      "mainTitle": "Title test",
+      "language": "arm-armn",
+      "subTitle": "Other title",
+      "partNumber": "Part number",
+      "partName": "Part name"
+    },
+    "language1": "French",
+    "language2": "English",
+    "provisionActivity": {
+      "type": "Distribution",
+      "publicationDate1": "2019",
+      "publicationDate2": "2020",
+      "statement":{
+        "place": "Place",
+        "agent": "Agent",
+        "date": "Date"
+      },
+      "note": "Provision activity note",
+      "place": "Afghanistan (af)"
+    },
+    "issuance": {
+     "issuanceMainType": "Serial",
+     "issuanceMainTypeCode": "rdami:1003",
+     "issuanceSubtype": "Monographic series"
+    },
+    "authors": {
+      "person":{
+        "search": "plo",
+        "name": "Plo, Isabelle"
+      }
+    },
+    "responsibilityStatement": {
+      "value": "Allen J Coombes",
+      "language": "arm-armn"
+    }
+  }
+}

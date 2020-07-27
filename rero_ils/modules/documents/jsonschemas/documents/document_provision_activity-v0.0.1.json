@@ -96,14 +96,9 @@
                 "title": "Type",
                 "type": "string",
                 "const": "bf:Place",
+                "default": "bf:Place",
+                "readOnly": true,
                 "form": {
-                  "hideExpression": "true",
-                  "options": [
-                    {
-                      "label": "Place",
-                      "value": "bf:Place"
-                    }
-                  ],
                   "templateOptions": {
                     "cssClass": "col-lg-4"
                   }

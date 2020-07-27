@@ -12,5 +12,11 @@
       "email": "reroilstest+virgile@gmail.com",
       "name": "Virgile"
     }
+  },
+  "sysLibrarians": {
+    "astrid": {
+      "email": "reroilstest@gmail.com",
+      "name": "Astrid"
+    }
   }
 }
