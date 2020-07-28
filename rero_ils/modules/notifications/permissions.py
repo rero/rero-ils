@@ -16,15 +16,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Permissions for Patron event transaction."""
+"""Permissions for notifications."""
 
-from rero_ils.modules.patron_transactions.permissions import \
-    PatronTransactionPermission
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
 
 
-class PatronTransactionEventPermission(RecordPermission):
-    """Patron transaction event permissions."""
+class NotificationPermission(RecordPermission):
+    """Patron notification permissions."""
 
     @classmethod
     def list(cls, user, record=None):
@@ -34,8 +34,8 @@ class PatronTransactionEventPermission(RecordPermission):
         :param record: Record to check
         :return: True is action can be done.
         """
-        # same as PatronTransaction
-        return PatronTransactionPermission.list(user, record)
+        # user should be a staff members (sys_ib, lib)
+        return current_patron and current_patron.is_librarian
 
     @classmethod
     def read(cls, user, record):
@@ -45,8 +45,11 @@ class PatronTransactionEventPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # same as PatronTransaction
-        return PatronTransactionPermission.read(user, record)
+        # user should be authenticated
+        # user should be a staff member (sys_lib, lib)
+        if not current_patron or not current_patron.is_librarian:
+            return False
+        return current_organisation['pid'] == record.organisation_pid
 
     @classmethod
     def create(cls, user, record=None):
@@ -56,8 +59,14 @@ class PatronTransactionEventPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # same as PatronTransaction
-        return PatronTransactionPermission.create(user, record)
+        # user should be authenticated
+        if not current_patron:
+            return False
+        if not record:
+            return True
+        else:
+            # Same as update
+            return cls.update(user, record)
 
     @classmethod
     def update(cls, user, record):
@@ -67,8 +76,11 @@ class PatronTransactionEventPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # same as PatronTransaction
-        return PatronTransactionPermission.update(user, record)
+        # only staff members (lib, sys_lib) can update notifcations
+        # record cannot be null
+        if not current_patron or not current_patron.is_librarian or not record:
+            return False
+        return current_organisation['pid'] == record.organisation_pid
 
     @classmethod
     def delete(cls, user, record):
@@ -78,5 +90,5 @@ class PatronTransactionEventPermission(RecordPermission):
         :param record: Record to check.
         :return: True if action can be done.
         """
-        # same as PatronTransaction
-        return PatronTransactionPermission.delete(user, record)
+        # Same as update
+        return cls.update(user, record)

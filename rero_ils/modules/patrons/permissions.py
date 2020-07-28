@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,66 +16,105 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Patron permissions."""
-
+"""Permissions for patrons."""
 from flask import request
 
-from .api import Patron
-from ...permissions import staffer_is_authenticated
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.permissions import RecordPermission
+
+from .api import Patron, current_patron
 
 
-def can_update_patron_factory(record, *args, **kwargs):
-    """Checks if the logged user can update its organisations patrons.
+class PatronPermission(RecordPermission):
+    """Patrons permissions."""
 
-    user must have librarian or system_librarian role
-    returns False if a librarian tries to update a system_librarian
-    returns False if a librarian tries to add the system_librarian role.
-    """
-    def can(self):
-        incoming_record = request.get_json(silent=True) or {}
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if not patron.is_system_librarian:
-                if (
-                        'system_librarian' in incoming_record.get(
-                            'roles', []) or
-                        'system_librarian' in record.get('roles', [])
-                ):
-                    return False
-                if patron.library_pid and \
-                        record.library_pid and \
-                        record.library_pid != patron.library_pid:
-                    return False
-            return True
-        return False
-    return type('Check', (), {'can': can})()
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
 
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # All staff members (lib, sys_lib) can list patrons
+        return current_patron and current_patron.is_librarian
 
-def can_delete_patron_factory(record, *args, **kwargs):
-    """Checks if the logged user can delete records of its organisation.
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
 
-    user must have librarian or system_librarian role
-    returns False if a librarian tries to delete a system_librarian and if
-    librarian tries to delete a librarian from another library.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        # It should be not possible to remove itself !
-        if patron and patron.pid == record.pid:
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # user should be authenticated
+        if not current_patron:
             return False
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_system_librarian:
-                return True
-            if patron.is_librarian:
-                if 'system_librarian' in record.get('roles', []):
-                    return False
-                if patron.library_pid and \
-                        record.library_pid and \
-                        record.library_pid != patron.library_pid:
-                    return False
-                return True
-        return False
-    return type('Check', (), {'can': can})()
+        # only staff members (lib, sys_lib) are allowed to read an organisation
+        if not current_patron.is_librarian:
+            return False
+        # For staff users, they can read only their own organisation.
+        return current_organisation['pid'] == record.organisation_pid
+
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (lib, sys_lib) can create patrons ...
+        if not current_patron or not current_patron.is_librarian:
+            return False
+        # ... only for its own organisation
+        if record:
+            if current_organisation['pid'] == record.organisation_pid:
+                # sys_lib can manage all kind of patron
+                if current_patron.is_system_librarian:
+                    return True
+                # librarian user has some restrictions...
+                if current_patron.is_librarian:
+                    incoming_record = request.get_json(silent=True) or {}
+                    # a librarian cannot manage a system_librarian patron
+                    if 'system_librarian' in incoming_record.get('roles', [])\
+                       or 'system_librarian' in record.get('roles', []):
+                        return False
+                    # a librarian can only manage other librarian from its own
+                    # library
+                    if current_patron.library_pid and record.library_pid and\
+                       record.library_pid != current_patron.library_pid:
+                        return False
+                    return True
+            return False
+        return True
+
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if not record:
+            return False
+        return cls.create(user, record)
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True if action can be done.
+        """
+        if not record:
+            return False
+        # It should be not possible to remove itself
+        if current_patron and record.pid == current_patron.pid:
+            return False
+        return cls.create(user, record)
 
 
 def get_allowed_roles_management():
@@ -83,11 +123,10 @@ def get_allowed_roles_management():
     :return An array of allowed role management.
     """
     allowed_roles = []
-    patron = staffer_is_authenticated()
-    if patron:
-        if patron.is_librarian:
+    if current_patron and current_patron.is_librarian:
+        if current_patron.is_librarian:
             allowed_roles.append(Patron.ROLE_PATRON)
             allowed_roles.append(Patron.ROLE_LIBRARIAN)
-        if patron.is_system_librarian:
+        if current_patron.is_system_librarian:
             allowed_roles.append(Patron.ROLE_SYSTEM_LIBRARIAN)
     return allowed_roles

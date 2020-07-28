@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,73 +16,82 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Item permissions."""
+"""Permissions for items."""
+
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.permissions import RecordPermission
 
 
-from ...permissions import staffer_is_authenticated
+class ItemPermission(RecordPermission):
+    """Items permissions."""
 
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
 
-def can_delete_item_factory(record, *args, **kwargs):
-    """Checks if logged user can delete its organisation items.
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        return True
 
-    librarian must have librarian or system_librarian role.
-    librarian can only delete items of its affiliated library.
-    sys_librarian can delete any item of its org only.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron:
-            # a regular issue cannot be delete. We can only change the issue
-            # status to 'deleted'
-            if record.item_record_type == 'issue' and record.issue_is_regular:
-                return False
-            if patron.organisation_pid == record.organisation_pid:
-                return check_patron_library_permissions(patron, record)
-        return False
-    return type('Check', (), {'can': can})()
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
 
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        return True
 
-def can_update_item_factory(record, *args, **kwargs):
-    """Check if logged user can update an item.
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
 
-    - logged user must have librarian or system_librarian role.
-    - librarian can only update items of its affiliated library.
-    - system_librarian can update any item of its organisation only.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            return check_patron_library_permissions(patron, record)
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_create_item_factory(record, *args, **kwargs):
-    """Checks if the logged user can create items for its organisation.
-
-    librarian must have librarian or system_librarian role.
-    librarian can only create items in its affiliated library.
-    sys_librarian can create any item of its org only.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and not record:
-            return True
-        if patron and patron.organisation_pid == record.organisation_pid:
-            return check_patron_library_permissions(patron, record)
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def check_patron_library_permissions(patron, record):
-    """Checks if the logged user can create items for its organisation.
-
-    librarian must have librarian or system_librarian role.
-    librarian can only create, update, delete items in its affiliated library.
-    sys_librarian can create, update, delete any item of its org only.
-    """
-    if not patron.is_system_librarian:
-        if patron.library_pid and \
-                record.library_pid != patron.library_pid:
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (sys_lib, lib) can create items
+        if not current_patron or not current_patron.is_librarian:
             return False
-    return True
+        if not record:  # Used to to know if user may create some item
+            return True
+        else:
+            # same as update
+            return cls.update(user, record)
+
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # only staff members (lib, sys_lib) can update item
+        # record cannot be null
+        if not current_patron or not current_patron.is_librarian or not record:
+            return False
+        if current_organisation['pid'] == record.organisation_pid:
+            # 'sys_lib' can update all items
+            if current_patron.is_system_librarian:
+                return True
+            # 'lib' can only update items linked to its own library
+            if current_patron.is_librarian:
+                return current_patron.library_pid and \
+                       record.library_pid == current_patron.library_pid
+        return False
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True if action can be done.
+        """
+        # same as update
+        return cls.update(user, record)

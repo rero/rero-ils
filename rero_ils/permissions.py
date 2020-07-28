@@ -25,7 +25,6 @@ from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 
-from .modules.holdings.api import Holding
 from .modules.patrons.api import Patron
 
 request_item_permission = Permission(RoleNeed('patron'))
@@ -105,67 +104,6 @@ def can_access_organisation_records_factory(record, *args, **kwargs):
         patron = staffer_is_authenticated()
         if patron and patron.organisation_pid == record.organisation_pid:
             if patron.is_librarian or patron.is_system_librarian:
-                return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_delete_organisation_records_factory(record, *args, **kwargs):
-    """Checks if the logged user can delete records of its organisation.
-
-    user must have librarian or system_librarian role.
-    users have no permission to delete a standard or electronic holdings.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if isinstance(record, Holding) and not record.is_serial:
-            return False
-        if patron and patron.organisation_pid == record.organisation_pid:
-            return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_update_organisation_records_factory(record, *args, **kwargs):
-    """Checks if the logged user can update records of its organisation.
-
-    user must have librarian or system_librarian role.
-    users have no permission to update a standard or electronic holdings.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if isinstance(record, Holding) and not record.is_serial:
-                return False
-            return True
-        return False
-    return type('Check', (), {'can': can})()
-
-
-def can_create_organisation_records_factory(record, *args, **kwargs):
-    """Checks if the logged user can create records of its organisation.
-
-    user must have librarian or system_librarian role.
-    returns False if a librarian tries to create a system_librarian.
-    users have no permission to create a standard or electronic holdings.
-    """
-    def can(self):
-        patron = staffer_is_authenticated()
-        if patron and not record:
-            return True
-        if isinstance(record, Holding) and not record.is_serial:
-            return False
-        if patron and patron.organisation_pid == record.organisation_pid:
-            if patron.is_system_librarian:
-                return True
-            if patron.is_librarian:
-                if 'system_librarian' in record.get('roles', []):
-                    return False
-                if patron.library_pid and \
-                        isinstance(record, Patron) and \
-                        record.library_pid and \
-                        record.library_pid != patron.library_pid:
-                    return False
                 return True
         return False
     return type('Check', (), {'can': can})()

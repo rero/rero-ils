@@ -356,7 +356,7 @@ def test_patron_secure_api(client, json_header,
     # assert res.status_code == 403
 
 
-def test_patron_secure_api_create(client,
+def test_patron_secure_api_create(client, patron_type_children_martigny,
                                   patron_martigny_data,
                                   librarian_martigny_no_email):
     """Test patron secure api create."""
