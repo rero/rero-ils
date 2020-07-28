@@ -142,6 +142,34 @@ class PatronTransactionEvent(IlsRecord):
         from ..patron_transactions.api import PatronTransaction
         return PatronTransaction.get_record_by_pid(self.parent_pid)
 
+    @classmethod
+    def get_events_by_transaction_id(cls, transaction_pid):
+        """Return events of current transaction.
+
+        :param transaction_pid: The transaction PID
+        :return: Array of events selected by transaction PID
+        """
+        return PatronTransactionEventsSearch()\
+            .params(preserve_order=True)\
+            .filter('term', parent__pid=transaction_pid)\
+            .sort({'creation_date': {'order': 'desc'}})\
+            .scan()
+
+    @classmethod
+    def get_initial_amount_transaction_event(cls, transaction_pid):
+        """Get initial amount by transaction.
+
+        :param transaction_pid: The transaction PID
+        :return: The initial amount for selected transaction
+        """
+        result = PatronTransactionEventsSearch()\
+            .params(preserve_order=True)\
+            .filter('term', parent__pid=transaction_pid)\
+            .sort({'creation_date': {'order': 'asc'}})\
+            .source(['amount'])\
+            .scan()
+        return next(result).amount
+
     @property
     def parent_pid(self):
         """Return the parent pid of the patron transaction event."""

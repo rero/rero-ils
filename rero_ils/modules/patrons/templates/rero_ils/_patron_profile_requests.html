@@ -1,0 +1,114 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<div id="requests-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-4">{{ _('Title') }}</div>
+      <div class="col-lg-4">{{ _('Pickup location') }}</div>
+      <div class="col-lg-2">{{ _('Status') }}</div>
+      <div class="col-lg-2">&nbsp;</div>
+    </div>
+  </div>
+</div>
+
+{% if requests|length > 0 %}
+  {% for loan in requests %}
+  <div class="row mb-1">
+    <div class="col mr-1 p-2 border rounded{% if loan.state == 'ITEM_AT_DESK' %} border-success{% endif %}">
+      <div class="row pl-2 pr-2">
+        <div class="col-lg-4">
+          <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="request-{{ loan.pid }}">
+            <i class="fa fa-caret-right pr-0"></i>
+          </button>
+          <a
+            href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=loan.document.pid) }}"
+          >
+          {{ loan.document.title[0]._text }}
+          </a>
+        </div>
+        <div class="col-lg-4">
+          {{ loan.pickup_name }}
+        </div>
+        <div class="col-lg-2{% if loan.state == 'ITEM_AT_DESK' %} text-success{% endif %}">
+          {% if loan.state == 'ITEM_AT_DESK' %}
+          <i class="fa fa-check"  title="{{ _('item at desk') }}" aria-hidden="true"></i>
+          {{ _('ready') }}
+          {% elif loan.state in ['PENDING', 'ITEM_IN_TRANSIT_FOR_PICKUP'] %}
+          <i class="fa fa-bullseye"  title="{{ _('pending') }}" aria-hidden="true"></i>
+          <!-- TODO: Add expired date and remove "waiting" text
+          expected availability 00.00.0000  -->
+          {{ _('waiting') }}
+          {% endif %}
+          {% if loan.state == 'PENDING' and 'rank' in loan and loan.rank > 1 %}
+            {% trans trimmed rank=loan.rank %}
+              <br>(position {{ rank }} in waiting list)
+            {% endtrans %}
+          {% endif %}
+        </div>
+        <div class="col-lg-2 text-right">
+        {% if loan.state == 'PENDING' %}
+          <form class="mt-0" action="{{ url_for('patrons.profile') }}" method="POST" name="cancel_request">
+            <input type="hidden" name="type" value="cancel">
+            <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
+            <button type="submit" class="btn btn-outline-primary mt-1">
+              {{ _('Cancel') }}
+            </button>
+          </form>
+        {% endif %}
+        </div>
+      </div>
+      <div id="request-{{ loan.pid }}" class="mt-1 ng-star-inserted d-none">
+      <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
+      <section class="col">
+        {% if loan.document.authors %}
+        <div class="row ng-star-inserted">
+          <div class="col-lg-2 col-sm-4 text-right label-title">
+            <b>{{ _('Author') }}</b>
+          </div>
+          <div class="col-lg-10 col-sm-8">
+            {{ loan.document.pid | authors_format(current_i18n.language, viewcode) | safe }}
+          </div>
+        </div>
+        {% endif %}
+        <div class="row ng-star-inserted">
+          <div class="col-lg-2 col-sm-4 text-right label-title">
+            <b>{{ _('Call number') }}</b>
+          </div>
+          <div class="col-lg-10 col-sm-8">
+            {{ loan.item_call_number }}
+          </div>
+        </div>
+        <div class="row ng-star-inserted">
+          <div class="col-lg-2 col-sm-4 text-right label-title">
+            <b>{{ _('Transaction date') }}</b>
+          </div>
+          <div class="col-lg-10 col-sm-8">
+            {{ loan.transaction_date|format_date(
+              locale=current_i18n.locale.language
+            )}}
+          </div>
+        </div>
+      </section>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>{{ _('No request') }}</p>
+{% endif %}

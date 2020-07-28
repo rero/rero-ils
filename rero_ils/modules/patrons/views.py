@@ -24,19 +24,21 @@ from functools import wraps
 
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, current_app, flash, jsonify, \
-    render_template, request
+    render_template, request, url_for
+from flask_babelex import format_currency
 from flask_babelex import gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from invenio_i18n.ext import current_i18n
 from werkzeug.exceptions import NotFound
+from werkzeug.utils import redirect
 
 from .api import Patron, PatronsSearch
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
 from ..items.api import Item
 from ..libraries.api import Library
-from ..loans.api import Loan, patron_profile_loans
+from ..loans.api import Loan, patron_profile
 from ..locations.api import Location
 from ..utils import get_base_url
 from ...permissions import login_and_librarian
@@ -148,15 +150,19 @@ def logged_user():
 )
 def profile(viewcode):
     """Patron Profile Page."""
-    tab = 'checkouts'
+    tab = request.args.get('tab', 'loans')
+    if tab not in ['loans', 'requests', 'fees', 'history', 'personal']:
+        abort(400)
     patron = Patron.get_patron_by_user(current_user)
     if patron is None:
         raise NotFound()
+    if not patron.is_patron:
+        abort(403)
     if request.method == 'POST':
         loan = Loan.get_record_by_pid(request.values.get('loan_pid'))
         item = Item.get_record_by_pid(loan.get('item_pid'))
         if request.form.get('type') == 'cancel':
-            tab = 'pendings'
+            tab = 'requests'
             data = loan
             try:
                 item.cancel_loan(**data)
@@ -178,8 +184,10 @@ def profile(viewcode):
             except Exception:
                 flash(_('Error during the renewal of the item %(item_id)s.',
                         item_id=item.pid), 'danger')
+        return redirect(url_for(
+            'patrons.profile', viewcode=viewcode) + '?tab={0}'.format(tab))
 
-    checkouts, requests, history = patron_profile_loans(patron.pid)
+    loans, requests, fees, history = patron_profile(patron)
 
     # patron alert list
     #   each alert dictionary key represent an alert category (subscription,
@@ -208,13 +216,20 @@ def profile(viewcode):
     return render_template(
         'rero_ils/patron_profile.html',
         record=patron,
-        checkouts=checkouts,
-        alerts=alerts,
-        pendings=requests,
+        loans=loans,
+        requests=requests,
+        fees=fees,
         history=history,
+        alerts=alerts,
         viewcode=viewcode,
         tab=tab
     )
+
+
+@blueprint.app_template_filter('format_currency')
+def format_currency_filter(value, currency):
+    """Format currency with current locale."""
+    return format_currency(value, currency)
 
 
 @api_blueprint.route('/roles_management_permissions', methods=['GET'])

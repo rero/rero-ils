@@ -24,7 +24,11 @@
     <h1 class="mb-0">{{ record.first_name }} {{ record.last_name }}</h1>
     {% if record.birth_date %}
       <p>
-        {{ record.birth_date | format_date(format='medium_date', locale=current_i18n.locale.language)}}
+        <b>{{ _('Date of birth') }}:</b> {{ record.birth_date | format_date(
+          date_format='medium',
+          time_format=None,
+          locale=current_i18n.locale.language
+        )}}
       </p>
     {% endif %}
   </hgroup>

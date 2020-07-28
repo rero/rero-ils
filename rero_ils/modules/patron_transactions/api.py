@@ -116,6 +116,20 @@ class PatronTransaction(IlsRecord):
         query = cls._build_transaction_query(patron_pid, status)
         return query.source().count()
 
+    @classmethod
+    def get_transactions_by_patron_pid(cls, patron_pid, status=None):
+        """Return opened fees for patron.
+
+        :param patron_pid: the patron PID
+        :param status: the status of transaction
+        :return: return an array of transaction
+        """
+        query = cls._build_transaction_query(patron_pid, status)
+        return query\
+            .params(preserve_order=True)\
+            .sort({'creation_date': {'order': 'asc'}})\
+            .scan()
+
     @property
     def loan_pid(self):
         """Return the loan pid of the the overdue patron transaction."""

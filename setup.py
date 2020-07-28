@@ -125,7 +125,9 @@ setup(
             'rero_ils_public_search_ui_js = \
                  rero_ils.bundles:public_search_ui_js',
             'rero_ils_persons_detailed_js = \
-                rero_ils.modules.persons.bundles:detailed_js'
+                rero_ils.modules.persons.bundles:detailed_js',
+            'rero_ils_patron_profile_js = \
+                rero_ils.modules.patrons.bundles:patron_profile_js'
         ],
         'dojson.cli': [
             'reverse = rero_ils.dojson.cli:reverse',

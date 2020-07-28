@@ -78,13 +78,13 @@ class ItemCSVSerializer(CSVSerializer):
             loan = next(loans)
             record['last_transaction_date'] = format_date_filter(
                 loan.transaction_date,
-                format='short_date',
+                date_format='short',
                 locale=current_i18n.locale.language,
             )
 
         record['created'] = format_date_filter(
             record['_created'],
-            format='short_date',
+            date_format='short',
             locale=current_i18n.locale.language,
         )
 

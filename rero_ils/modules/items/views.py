@@ -128,7 +128,7 @@ def item_availability_text(item):
     else:
         text = ''
         if item.status == ItemStatus.ON_LOAN:
-            due_date = item.get_item_end_date(format='short_date')
+            due_date = item.get_item_end_date(format='short')
             text = '{msg} {date}'.format(
                 msg=_('due until'),
                 date=due_date)

@@ -20,26 +20,52 @@
 import json
 import re
 
-import babel
 import dateparser
+from babel.dates import format_date, format_datetime, format_time
+from flask import current_app
+from invenio_i18n.ext import current_i18n
 
 
-def format_date_filter(date_str, format='medium', locale='en'):
-    """Format the date to the given locale."""
-    form_date = dateparser.parse(str(date_str), locales=[locale, 'en'])
-    if format == 'full':
-        format = "EEEE, d. MMMM y"
-    elif format == 'medium':
-        format = "EE dd.MM.y"
-    elif format == 'medium_date':
-        format = "dd MMMM y"
-    elif format == 'short_date':
-        format = "dd.MM.y"
-    elif format == 'timestamp':
-        format = "dd.MM.y HH:mm"
-    elif format == 'day_month':
-        format = "dd.MM"
-    return babel.dates.format_datetime(form_date, format, locale=locale)
+def format_date_filter(
+    date_str, date_format='full', time_format='medium',
+    locale=None, delimiter=', ', timezone=None,
+    timezone_default='utc'
+):
+    """Format the date to the given locale.
+
+    :param date_str: The date and time string
+    :param date_format: The date format, ex: 'full', 'medium', 'short'
+                        or custom
+    :param time_format: The time format, ex: 'medium', 'short' or custom
+    :param locale: The locale to fix the language format
+    :param delimiter: The date/time Separator Characters
+    :param timezone: The timezone to fix the date and time offset
+                     ex: 'Europe/Zurich'
+    :param timezone_default: The default timezone
+    :return: Return the formatted date and/or time
+    """
+    date = None
+    time = None
+    # TODO: Using the library or organisation timezone in the future
+    if not locale:
+        locale = current_i18n.locale.language
+
+    if timezone:
+        tzinfo = timezone
+    else:
+        tzinfo = current_app.config.get(
+            'BABEL_DEFAULT_TIMEZONE', timezone_default)
+
+    datetimetz = format_datetime(dateparser.parse(
+        date_str, locales=['en']), tzinfo=tzinfo, locale='en')
+
+    if date_format:
+        date = format_date(
+            dateparser.parse(datetimetz), format=date_format, locale=locale)
+    if time_format:
+        time = format_time(
+            dateparser.parse(datetimetz), format=time_format, locale=locale)
+    return delimiter.join(filter(None, [date, time]))
 
 
 def to_pretty_json(value):
