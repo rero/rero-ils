@@ -18,16 +18,17 @@
 #}
 {% from 'rero_ils/macros/macro.html' import dl %}
 
-<div class="card col-lg-6">
-<dl class="card-body p-2 mb-0 row">
-  <dt class="col-lg-4">{{_('Barcode')}}:</dt>
-  <dd class="col-lg-8 mb-0">{{ record.barcode }}</dd>
-  <dt class="col-lg-4">{{_('Street')}}:</dt>
-  <dd class="col-lg-8 mb-0">{{ record.street }}</dd>
-  <dt class="col-lg-4">{{_('City')}}:</dt>
-  <dd class="col-lg-8 mb-0">{{ record.postal_code }} {{ record.city }}</dd>
-  <dt class="col-lg-4">{{_('Phone')}}:</dt>
-  <dd class="col-lg-8 mb-0">{{ record.phone }}</dd>
-  <dt class="col-lg-4">{{_('Email')}}:</dt>
-  <dd class="col-lg-8 mb-0">{{ record.email }}</dd>
+<h4 class="text-secondary border-bottom mt-3 pb-1">{{ _('Personal details') }}</h4>
+
+<dl class="row">
+  <dt class="col-lg-3">{{_('Barcode')}}:</dt>
+  <dd class="col-lg-9 mb-0">{{ record.barcode }}</dd>
+  <dt class="col-lg-3">{{_('Street')}}:</dt>
+  <dd class="col-lg-9 mb-0">{{ record.street }}</dd>
+  <dt class="col-lg-3">{{_('City')}}:</dt>
+  <dd class="col-lg-9 mb-0">{{ record.postal_code }} {{ record.city }}</dd>
+  <dt class="col-lg-3">{{_('Phone')}}:</dt>
+  <dd class="col-lg-9 mb-0">{{ record.phone }}</dd>
+  <dt class="col-lg-3">{{_('Email')}}:</dt>
+  <dd class="col-lg-9 mb-0">{{ record.email }}</dd>
 </dl>

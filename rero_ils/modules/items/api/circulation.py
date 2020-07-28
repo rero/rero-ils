@@ -654,14 +654,14 @@ class ItemCirculation(IlsRecord):
         """Get availability for item."""
         return self.item_has_active_loan_or_request() == 0
 
-    def get_item_end_date(self, format='short_date'):
+    def get_item_end_date(self, format='short'):
         """Get item due date for a given item."""
         loan = get_loan_for_item(self.pid)
         if loan:
             end_date = loan['end_date']
             due_date = format_date_filter(
                 end_date,
-                format=format,
+                date_format=format,
                 locale=current_i18n.locale.language,
             )
             return due_date

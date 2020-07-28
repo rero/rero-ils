@@ -1,0 +1,125 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<div id="history-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-6">{{ _('Title') }}</div>
+      <div class="col-lg-4">{{ _('Author(s)') }}</div>
+      <div class="col-lg-2">{{ _('Return date') }}</div>
+    </div>
+  </div>
+</div>
+
+{% if history|length > 0 %}
+  {% for loan in history %}
+  <div class="row mb-1">
+    <div class="col mr-1 p-2 border rounded">
+      <div class="row pl-2 pr-2">
+        <div class="col-lg-6">
+          <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="history-{{ loan.pid }}">
+            <i class="fa fa-caret-right pr-0"></i>
+          </button>
+          <a
+            href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=loan.document.pid) }}"
+          >
+          {{ loan.document.title[0]._text }}
+          </a>
+        </div>
+        <div class="col-lg-4">
+          {{ loan.document.pid | authors_format(current_i18n.language, viewcode) | safe }}
+        </div>
+        <div class="col-lg-2">
+          {{ loan.end_date|format_date(
+              date_format='short',
+              time_format='short',
+              locale=current_i18n.locale.language
+          )}}
+        </div>
+      </div>
+
+      <div id="history-{{ loan.pid }}" class="mt-1 ng-star-inserted d-none">
+        <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
+        <section class="col">
+          {% if
+            loan.document.provisionActivity
+            and '_text' in loan.document.provisionActivity[0]
+          %}
+          <div class="row ng-star-inserted">
+            <div class="col-lg-2 col-sm-4 text-right label-title">
+              <b>{{ _('Provision activity') }}</b>
+            </div>
+            <div class="col-lg-10 col-sm-8">
+              {{ loan.document.provisionActivity[0]._text[0].value }}
+            </div>
+          </div>
+          {% endif %}
+        </section>
+        <h6 class="mt-2">{{ _('Transaction history') }}</h6>
+        <section class="col events-timeline">
+          <div class="row pl-2 pr-2 align-items-start timeline-event">
+            <div class="col-lg-2 pr-4 text-right event-timestamp">
+              <i class="fa fa-calendar-o"></i>
+              {{ loan.end_date|format_date(
+                  date_format='short',
+                  time_format='short',
+                  locale=current_i18n.locale.language
+              )}}
+            </div>
+            <div class="col-lg-10 event-content">
+              <div class="row">
+                <div class="col-3 pl-3">
+                  <i class="fa fa-angle-double-left text-success pr-2"></i>
+                    {{ _('Checkin') }}
+                  </div>
+                  <div class="col-9 ng-star-inserted">
+                    <i class="fa fa-map-marker"></i>
+                    {{ loan.transaction_library_name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-2 pr-2 align-items-start timeline-event">
+              <div class="col-lg-2 pr-4 text-right event-timestamp">
+                <i class="fa fa-calendar-o"></i>
+                  {{ loan.start_date|format_date(
+                    date_format='short',
+                    time_format='short',
+                    locale=current_i18n.locale.language
+                  )}}
+                </div>
+              <div class="col-lg-10 event-content">
+                <div class="row"><div class="col-3 pl-3">
+                  <i class="fa fa-angle-double-right text-danger pr-2"></i>
+                  {{ _('Checkout') }}
+                </div>
+                <div class="col-9 ng-star-inserted">
+                  <i class="fa fa-map-marker"></i>
+                  {{ loan.pickup_library_name }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>{{ _('No history') }}</p>
+{% endif %}

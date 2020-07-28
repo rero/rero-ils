@@ -1,0 +1,115 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+<div id="loans-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-4">{{ _('Title') }}</div>
+      <div class="col-lg-4">{{ _('Library') }}</div>
+      <div class="col-lg-2">{{ _('Due date') }}</div>
+      <div class="col-lg-2">&nbsp;</div>
+    </div>
+  </div>
+</div>
+
+{% if loans|length > 0 %}
+  {% for loan in loans %}
+  <div class="row mb-1">
+    <div class="col mr-1 p-2 border rounded">
+      <div class="row pl-2 pr-2">
+        <div class="col-lg-4">
+          <button class="pl-0 pt-0 btn btn-toogle" type="button" data-target-id="loan-{{ loan.pid }}">
+            <i class="fa fa-caret-right pr-0"></i>
+          </button>
+          <a
+            href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=loan.document.pid) }}"
+          >
+          {{ loan.document.title[0]._text }}
+          </a>
+        </div>
+        <div class="col-lg-4">
+          {{ loan.library_name }}
+        </div>
+        <div class="col-lg-2">
+          {{ loan.end_date|format_date(
+              date_format='short',
+              time_format=None,
+              locale=current_i18n.locale.language
+          )}}
+          {% if 'extension_count' in loan and loan.extension_count > 0 %}
+            <br>
+            <span class="badge badge-secondary font-weight-normal">
+            {% trans count = loan.extension_count %}
+              {{ count }} renewal
+            {% pluralize %}
+              {{ count }} renewals
+            {% endtrans %}
+            </span>
+          {% endif %}
+          {% if loan.overdue %}
+          {% if not ('extension_count' in loan) %}
+            <br>
+          {% endif %}
+          <span class="badge badge-warning font-weight-normal">
+            {{ _('overdue') }}
+          </span>
+          {% endif %}
+        </div>
+        <div class="col-lg-2 text-right">
+          {% if loan.can_renew %}
+          {%- with form = can_renew_form %}
+            <form action="{{ url_for('patrons.profile') }}" method="POST" name="can_renew_form">
+              <input type="hidden" name="type" value="renew">
+              <input type="hidden" name="loan_pid" value="{{ loan.pid }}">
+              <button type="submit" class="btn btn-primary mt-1">
+                {{ _('Renew') }}
+              </button>
+            </form>
+          {%- endwith %}
+          {% endif %}
+        </div>
+      </div>
+      <div id="loan-{{ loan.pid }}" class="mt-1 ng-star-inserted d-none">
+      <h6 class="mt-2 mb-2 ng-star-inserted">{{ _('Details') }}</h6>
+      <section class="col">
+        {% if loan.document.authors %}
+        <div class="row ng-star-inserted">
+          <div class="col-lg-2 col-sm-4 text-right label-title">
+            <b>{{ _('Author') }}</b>
+          </div>
+          <div class="col-lg-10 col-sm-8">
+            {{ loan.document.pid | authors_format(current_i18n.language, viewcode) | safe }}
+          </div>
+        </div>
+        {% endif %}
+        <div class="row ng-star-inserted">
+          <div class="col-lg-2 col-sm-4 text-right label-title">
+            <b>{{ _('Call number') }}</b>
+          </div>
+          <div class="col-lg-10 col-sm-8">
+            {{ loan.item_call_number }}
+          </div>
+        </div>
+      </section>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>{{ _('No loan') }}</p>
+{% endif %}

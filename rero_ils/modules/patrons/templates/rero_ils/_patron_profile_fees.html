@@ -1,0 +1,46 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2020 RERO
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% if fees.open.lines|length > 0 %}
+<div id="fees-section" class="row mb-1 align-items-center">
+  <div class="col mr-1 d-none d-lg-block">
+    <div class="row p-2 bg-dark rounded text-light">
+      <div class="col-lg-2">{{ _('Date') }}</div>
+      <div class="col-lg-7">{{ _('Category') }}</div>
+      <div class="col-lg-3 text-lg-right">
+        {{ _('Total amount') }}:
+        {{ fees.open.total_amount | format_currency(fees.open.currency) }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ build_fees(fees.open.lines) }}
+{% else %}
+<p>{{ _('No fee') }}</p>
+{% endif %}
+
+{% if fees.closed.lines|length > 0 %}
+<a class="btn btn-light mt-3 btn-toogle" data-target-id="fees-history">
+  {{ _('History') }}
+  <i class="fa fa-caret-right pr-0"></i>
+</a>
+
+<div class="mt-2 d-none" id="fees-history">
+  {{ build_fees(fees.closed.lines) }}
+</div>
+{% endif %}
