@@ -781,8 +781,6 @@ def patron_transaction_overdue_events_martigny(
 
 
 # ------------ Patron Transactions: Lib Saxon overdue scenario ----------
-
-
 @pytest.fixture(scope="module")
 def loan_overdue_saxon(
         app,
@@ -859,3 +857,82 @@ def patron_transaction_overdue_saxon_data(data):
 def patron_transaction_overdue_event_saxon_data(data):
     """Load Martigny patron transaction martigny data."""
     return deepcopy(data.get('dummy_patron_transaction_event'))
+
+
+# ------------ Patron Transactions: Lib Sion overdue scenario ----------
+@pytest.fixture(scope="module")
+def loan_overdue_sion(
+        app,
+        document,
+        item_lib_sion,
+        loc_public_sion,
+        item_type_regular_sion,
+        librarian_sion_no_email,
+        patron_sion_no_email,
+        circulation_policies):
+    """Checkout an item to a patron.
+
+    item_lib_sion is overdue.
+    """
+    transaction_date = datetime.now(timezone.utc).isoformat()
+
+    item_lib_sion.checkout(
+        patron_pid=patron_sion_no_email.pid,
+        transaction_location_pid=loc_public_sion.pid,
+        transaction_user_pid=librarian_sion_no_email.pid,
+        transaction_date=transaction_date,
+        document_pid=item_lib_sion.replace_refs()['document']['pid']
+    )
+    flush_index(ItemsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    loan = Loan.get_record_by_pid(
+        item_lib_sion.get_loan_pid_with_item_on_loan(item_lib_sion.pid)
+    )
+    end_date = datetime.now(timezone.utc) - timedelta(days=25)
+    loan['end_date'] = end_date.isoformat()
+    loan = loan.update(loan, dbcommit=True, reindex=True)
+    return loan
+
+
+@pytest.fixture(scope="module")
+def notification_overdue_sion(
+        app,
+        loan_overdue_sion):
+    """Create an overdue notification for an overdue loan."""
+    notification = loan_overdue_sion.create_notification(
+        notification_type='overdue')
+    flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoansSearch.Meta.index)
+    flush_index(PatronTransactionsSearch.Meta.index)
+
+    return notification
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_sion(
+        app,
+        notification_overdue_sion):
+    """Return an overdue patron transaction for an overdue notification."""
+    records = list(notification_overdue_sion.patron_transactions)
+    return records[0]
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_event_sion(
+        app,
+        patron_transaction_overdue_sion):
+    """Return overdue events for patron transaction for a notification."""
+    for event in patron_transaction_overdue_sion.events:
+        return event
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_sion_data(data):
+    """Load Sion patron transaction martigny data."""
+    return deepcopy(data.get('dummy_patron_transaction_sion'))
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_overdue_event_sion_data(data):
+    """Load Sion patron transaction martigny data."""
+    return deepcopy(data.get('dummy_patron_transaction_event_sion'))

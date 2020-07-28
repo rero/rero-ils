@@ -2693,5 +2693,40 @@
     "operator": {
       "$ref": "https://ils.rero.ch/api/patrons/ptrn1"
     }
+  },
+  "dummy_patron_transaction_sion": {
+    "$schema": "https://ils.rero.ch/schemas/patron_transactions/patron_transaction-v0.0.1.json",
+    "pid": "pttr2",
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "type": "overdue",
+    "total_amount": 5.0,
+    "notification": {
+      "$ref": "https://ils.rero.ch/api/notifications/x"
+    },
+    "patron": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn8"
+    },
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/org2"
+    },
+    "status": "open"
+  },
+  "dummy_patron_transaction_event_sion": {
+    "$schema": "https://ils.rero.ch/schemas/patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    "pid": "ptre2",
+    "parent": {
+      "$ref": "https://ils.rero.ch/api/patron_transactions/pttr2"
+    },
+    "creation_date": "2019-01-09T08:18:22.576291+00:00",
+    "type": "fee",
+    "subtype": "overdue",
+    "amount": 5.0,
+    "note": "event of the dummy_patron_transaction",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/x"
+    },
+    "operator": {
+      "$ref": "https://ils.rero.ch/api/patrons/ptrn8"
+    }
   }
 }

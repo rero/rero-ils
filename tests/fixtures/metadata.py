@@ -619,13 +619,13 @@ def holding_lib_martigny_w_patterns(
 @pytest.fixture(scope="module")
 def holding_lib_sion_w_patterns_data(holdings):
     """Load holding of sion library."""
-    return deepcopy(holdings.get('holding4'))
+    return deepcopy(holdings.get('holding6'))
 
 
 @pytest.fixture(scope="module")
 def holding_lib_sion_w_patterns(
     app, journal, holding_lib_sion_w_patterns_data,
-        loc_public_sion, item_type_internal_sion):
+        loc_public_sion, item_type_regular_sion):
     """Create holding of sion library with patterns."""
     holding = Holding.create(
         data=holding_lib_sion_w_patterns_data,
