@@ -1,114 +1,11 @@
 [
   {
     "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
     "pid": "1",
-    "language": [
-      {
-        "value": "ita",
-        "type": "bf:Language"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "value": "9788898983056",
-        "type": "bf:Isbn"
-      },
-      {
-        "value": "R008400428",
-        "type": "bf:Local",
-        "source": "RERO"
-      },
-      {
-        "source": "OCoLC",
-        "value": "ocn945401320",
-        "type": "bf:Local"
-      }
-    ],
-    "authors": [
-      {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/idref/20109313"
-      },
-      {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/gnd/25552024"
-      }
-    ],
-    "title": "Le due tensioni : appunti per una ideologia della letteratura",
-    "provisionActivity": [
-      {
-        "type": "bf:Publication",
-        "place": [
-          {
-            "type": "bf:Place",
-            "country": "it"
-          }
-        ],
-        "statement": [
-          {
-            "type": "bf:Place",
-            "label": [
-              {
-                "value": "Matelica (MC)"
-              }
-            ]
-          },
-          {
-            "type": "bf:Agent",
-            "label": [
-              {
-                "value": "Hacca"
-              }
-            ]
-          },
-          {
-            "type": "Date",
-            "label": [
-              {
-                "value": "2016"
-              }
-            ]
-          }
-        ],
-        "startDate": 2016
-      }
-    ],
-    "extent": "380 pages",
-    "formats": [
-      "21 cm"
-    ],
-    "series": [
-      {
-        "name": "Novecento.0",
-        "number": "68"
-      }
-    ],
-    "notes": [
-      "Collected writings",
-      "Includes preface (pages 9-22) and postface (pages 347-357)",
-      "Includes writings, published for the first time"
-    ],
-    "subjects": [
-      "Litt\u00e9rature",
-      "Culture",
-      "[Notes, esquisses, etc.]"
-    ],
-    "partOf": [
-      {
-        "document": {
-          "$ref": "https://ils.rero.ch/api/documents/12"
-        },
-        "numbering": [
-          {
-            "volume": 25
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "type": "book",
-    "pid": "2",
     "language": [
       {
         "value": "fre",
@@ -117,33 +14,47 @@
     ],
     "identifiedBy": [
       {
-        "value": "R006039425",
+        "value": "0812781",
         "type": "bf:Local",
         "source": "RERO"
       }
     ],
-    "authors": [
+    "responsibilityStatement": [
+      [
+        {
+          "value": "[\u00e9d.] Hans E. Bachmann"
+        }
+      ],
+      [
+        {
+          "value": "trad. Henri Perrin"
+        }
+      ]
+    ],
+    "title": [
       {
-        "type": "person",
-        "$ref": "https://mef.rero.ch/api/mef/19985648"
+        "mainTitle": [
+          {
+            "value": "La norme S.I.A. 118 et l'actualit\u00e9 juridique en mati\u00e8re de construction"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "un ouvrage pratique pour tous les entrepreneurs en rapport avec la construction, avec \u00e9tudes de cas, check-lists, exemples de contrats et de lettres relatifs au contrat d'entreprise"
+          }
+        ],
+        "type": "bf:Title"
       }
     ],
-    "title": "Sukkwan island : roman",
     "provisionActivity": [
       {
         "type": "bf:Publication",
-        "place": [
-          {
-            "type": "bf:Place",
-            "country": "fr"
-          }
-        ],
         "statement": [
           {
             "type": "bf:Place",
             "label": [
               {
-                "value": "Paris"
+                "value": "Z\u00fcrich"
               }
             ]
           },
@@ -151,33 +62,162 @@
             "type": "bf:Agent",
             "label": [
               {
-                "value": "Gallmeister"
+                "value": "Ed. Weka"
               }
             ]
           },
           {
-            "type": "Date",
             "label": [
               {
-                "value": "2009"
+                "value": "1987->"
               }
-            ]
+            ],
+            "type": "Date"
           }
         ],
-        "startDate": 2009
+        "startDate": 1987,
+        "place": [
+          {
+            "country": "sz",
+            "type": "bf:Place"
+          }
+        ]
       }
     ],
-    "extent": "191 p.",
-    "formats": [
-      "21 cm"
-    ],
-    "series": [
+    "extent": "8 classeurs",
+    "note": [
       {
-        "name": "Nature writing"
+        "noteType": "otherPhysicalDetails",
+        "label": "ill."
+      },
+      {
+        "noteType": "general",
+        "label": "Publication \u00e0 feuillets mobiles avec mises \u00e0 jour p\u00e9riodiques"
       }
     ],
-    "abstracts": [
-      "Une \u00eele sauvage du Sud de l'Alaska, accessible uniquement par bateau ou par hydravion, tout en for\u00eats humides et montagnes escarp\u00e9es. C'est dans ce d\u00e9cor que Jim d\u00e9cide d'emmener son fils de treize ans pour y vivre dans une cabane isol\u00e9e, une ann\u00e9e durant. Apr\u00e8s une succession d'\u00e9checs personnels, il voit l\u00e0 l'occasion de prendre un nouveau d\u00e9part et de renouer avec ce gar\u00e7on qu'il conna\u00eet si mal. La rigueur de cette vie et les d\u00e9faillances du p\u00e8re ne tardent pas \u00e0 transformer ce s\u00e9jour en cauchemar, et la situation devient vite incontr\u00f4lable. Jusqu'au drame violent et impr\u00e9visible qui scellera leur destin. Sukkwan Island est une histoire au suspense insoutenable. Avec ce roman qui nous entra\u00eene au coeur des t\u00e9n\u00e8bres de l'\u00e2me humaine, David Vann s'installe d'embl\u00e9e parmi les jeunes auteurs am\u00e9ricains de tout premier plan."
+    "illustrativeContent": [
+      "illustrations"
+    ],
+    "dimensions": [
+      "23 cm"
+    ],
+    "subjects": [
+      "contrat de construction",
+      "Suisse"
+    ],
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/idref/074755978"
+      },
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/rero/A003683610"
+      }
+    ],
+    "titlesProper": [
+      "La norme SIA 118 et l'actualit\u00e9 juridique en mati\u00e8re de construction"
+    ]
+  },
+  {
+    "type": "book",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "pid": "2",
+    "language": [
+      {
+        "value": "ger",
+        "type": "bf:Language"
+      }
+    ],
+    "identifiedBy": [
+      {
+        "value": "9783503057221",
+        "type": "bf:Isbn"
+      },
+      {
+        "value": "R270072860",
+        "type": "bf:Local",
+        "source": "RERO"
+      }
+    ],
+    "authors": [
+      {
+        "type": "person",
+        "$ref": "https://mef.rero.ch/api/rero/A006010680"
+      }
+    ],
+    "responsibilityStatement": [
+      [
+        {
+          "value": "von Erwin Zacharias"
+        }
+      ]
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Going Public einer Fussball-Kapitalgesellschaft"
+          }
+        ],
+        "subtitle": [
+          {
+            "value": "rechtliche, betriebswirtschaftliche und strategische Konzepte bei der Vorbereitung der B\u00f6rseneinf\u00fchrung eines Fussball-Bundesligavereins"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "type": "bf:Place",
+            "label": [
+              {
+                "value": "Bielefeld"
+              }
+            ]
+          },
+          {
+            "type": "bf:Agent",
+            "label": [
+              {
+                "value": "Erich Schmidt"
+              }
+            ]
+          },
+          {
+            "label": [
+              {
+                "value": "1999"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 1999,
+        "place": [
+          {
+            "country": "gw",
+            "type": "bf:Place"
+          }
+        ]
+      }
+    ],
+    "extent": "617 S.",
+    "note": [
+      {
+        "noteType": "otherPhysicalDetails",
+        "label": "Taf."
+      }
+    ],
+    "dimensions": [
+      "21 cm"
     ]
   }
 ]
