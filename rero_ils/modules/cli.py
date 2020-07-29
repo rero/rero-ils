@@ -34,7 +34,6 @@ from collections import OrderedDict
 from glob import glob
 
 import click
-import jsonref
 import polib
 import pycountry
 import requests
@@ -48,6 +47,7 @@ from flask_security.confirmable import confirm_user
 from invenio_accounts.cli import commit, users
 from invenio_app.factory import static_folder
 from invenio_db import db
+from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
@@ -56,7 +56,6 @@ from invenio_search.proxies import current_search
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 from lxml import etree
-from pkg_resources import resource_string
 from werkzeug.local import LocalProxy
 
 from .api import IlsRecordsIndexer
@@ -68,8 +67,10 @@ from .patrons.cli import import_users
 from .tasks import process_bulk_queue
 from .utils import read_json_record
 from ..modules.providers import append_fixtures_new_identifiers
+from ..modules.utils import get_schema_for_resource
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
+_records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
 
 def abort_if_false(ctx, param, value):
@@ -555,23 +556,20 @@ def check_license(configfile, verbose, progress):
 
 @utils.command('validate')
 @click.argument('jsonfile', type=click.File('r'))
-@click.argument('type', default='documents')
-@click.argument('schema', default='document-v0.0.1.json')
+@click.argument('type', default='doc')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-e', '--error_file', 'error_file', type=click.File('w'),
               default=None)
 @click.option('-o', '--ok_file', 'ok_file', type=click.File('w'), default=None)
-def check_validate(jsonfile, type, schema, verbose, error_file, ok_file):
+@with_appcontext
+def check_validate(jsonfile, type, verbose, error_file, ok_file):
     """Check record validation."""
     click.secho('Testing json schema for file', fg='green')
-    schema_in_bytes = resource_string(
-        'rero_ils.modules.{type}.jsonschemas'.format(type=type),
-        '{type}/{schema}'.format(
-            type=type,
-            schema=schema
-        )
-    )
-    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+
+    path = current_jsonschemas.url_to_path(get_schema_for_resource(type))
+    schema = current_jsonschemas.get_schema(path=path)
+    schema = _records_state.replace_refs(schema)
+
     datas = json.load(jsonfile)
     count = 0
     for data in datas:
@@ -599,27 +597,8 @@ def check_validate(jsonfile, type, schema, verbose, error_file, ok_file):
             click.secho(str(err))
 
 
-@utils.command('compile_json')
-@click.argument('src_jsonfile', type=click.File('r'))
-@click.option('-o', '--output', 'output', type=click.File('w'), default=None)
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-def compile_json(src_jsonfile, output, verbose):
-    """Compile source json file (resolve $ref)."""
-    click.secho('Compile json file (resolve $ref): ', fg='green', nl=False)
-    click.secho(src_jsonfile.name)
-    data = jsonref.load(src_jsonfile)
-    if not output:
-        output = sys.stdout
-    json.dump(data, fp=output, indent=2)
-
-
-def do_worker(marc21records, results, pid_required, debug):
+def do_worker(marc21records, results, pid_required, debug, schema=None):
     """Worker for marc21 to json transformation."""
-    schema_in_bytes = resource_string(
-        'rero_ils.modules.documents.jsonschemas',
-        'documents/document-v0.0.1.json'
-    )
-    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
     for data in marc21records:
         data_json = data['json']
         pid = data_json.get('001', '???')
@@ -632,7 +611,8 @@ def do_worker(marc21records, results, pid_required, debug):
                 if not record.get("pid"):
                     # create dummy pid in data
                     record["pid"] = 'dummy'
-            validate(record, schema)
+            if schema:
+                validate(record, schema)
             if record["$schema"] == 'dummy':
                 del record["$schema"]
             if not pid_required:
@@ -660,11 +640,12 @@ class Marc21toJson():
     __slots__ = ['xml_file', 'json_file_ok', 'xml_file_error', 'parallel',
                  'chunk', 'verbose', 'debug', 'pid_required',
                  'count', 'count_ok', 'count_ko', 'ctx',
-                 'results', 'active_buffer', 'buffer', 'first_result']
+                 'results', 'active_buffer', 'buffer', 'first_result',
+                 'schema']
 
     def __init__(self, xml_file, json_file_ok, xml_file_error,
                  parallel=8, chunk=5000,
-                 verbose=False, debug=False, pid_required=False):
+                 verbose=False, debug=False, pid_required=False, schema=None):
         """Constructor."""
         self.count = 0
         self.count_ok = 0
@@ -675,6 +656,7 @@ class Marc21toJson():
         self.parallel = parallel
         self.chunk = chunk
         self.verbose = verbose
+        self.schema = schema
         self.first_result = True
         if verbose:
             click.echo('Main process pid: {pid}'.format(
@@ -746,7 +728,7 @@ class Marc21toJson():
         new_process = self.ctx.Process(
             target=do_worker,
             args=(self.active_records, self.results, self.pid_required,
-                  self.debug)
+                  self.debug, self.schema)
         )
         self.wait_free_process()
         new_process.start()
@@ -829,6 +811,7 @@ class Marc21toJson():
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-r', '--pidrequired', 'pid_required', is_flag=True,
               default=False)
+@with_appcontext
 def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
                verbose, debug, pid_required):
     """Convert xml file to json with dojson."""
@@ -837,8 +820,12 @@ def marc21json(xml_file, json_file_ok, xml_file_error, parallel, chunk,
         click.secho(' (validation tests pid) ', nl=False)
     click.secho(xml_file.name)
 
+    path = current_jsonschemas.url_to_path(get_schema_for_resource(type))
+    schema = current_jsonschemas.get_schema(path=path)
+    schema = _records_state.replace_refs(schema)
     transform = Marc21toJson(xml_file, json_file_ok, xml_file_error,
-                             parallel, chunk, verbose, debug, pid_required)
+                             parallel, chunk, verbose, debug, pid_required,
+                             schema)
 
     count, count_ok, count_ko = transform.counts()
 
