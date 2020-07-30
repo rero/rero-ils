@@ -18,6 +18,176 @@
 Release notes
 =============
 
+v0.11.0
+-------
+
+User interface
+--------------
+
+-  Updates schema of forms to use the new sorted select menu.
+-  Displays new metadata fields: ``seriesStatement`` and ``partOf``:
+
+   -  Displays fields in detailed view and in editor.
+   -  Removes ``partOf`` field from brief view.
+   -  Adds ``oneOf`` attribute in order to link issuance ``maintype``
+      and ``subtype`` in editor.
+
+-  Adds missing translations of item notes types.
+-  Limits length of document title to 150 characters in detailed view.
+   Adds a *Show more*/*Show less* link if the title is truncated.
+-  Sorts pickup locations alphabetically when placing a request for an
+   item.
+
+Professional interface
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  Adds inventory list functionality and view based on ``item``
+   resources. The librarian can access them using the ``Reports & Monitoring`` menu. 
+   This functionality allows the librarian to display a list of 
+   items, search and filter them and extract them to a CSV file for 
+   inventory purposes.
+
+   -  Adds ``CSVSerializer`` to render list results to CSV.
+
+-  Adds several improvements to the editor layout:
+
+   -  Improves document ``JSONSchema`` form options by adding css
+      classes, default values and form options to increase its
+      usability.
+   -  Adds borders to form groups and generally improves UI.
+   -  Fixes fields to be displayed by default in editor, input sizes,
+      always-hidden fields.
+
+-  Adds a custom directive allowing to order tabs.
+-  Changes the sequence of editor initialization to avoid concurrency
+   problem with ``JSONSchema`` loading in BNF import editor.
+
+Metadata
+--------
+
+-  Adds three new fields to the data model: ``seriesStatement``,
+   ``partOf`` and ``issuance``.
+
+   -  Implements transformation of these fields for ``MARC21`` and
+      ``UNIMARC``.
+   -  Adapts ES mappings and JSON schemas.
+   -  Indexes host document title in child document’s record for search
+      results relevance.
+
+-  Adds a ``second_call_number`` field to ``item`` resource.
+-  Splits document ``JSONSchema`` into smaller files, to improve
+   readability. JSON references are resolved on the fly.
+
+API
+---
+
+-  Refactors the permission processes using a permission factory and
+   classes for specific resources instead of all resources.
+
+   -  Refactors permission factories for resources: organisation,
+      document, item, vendor.
+
+Documentation
+-------------
+
+-  Documents the new ``Weblate`` translation workflow.
+
+   -  Adds a Weblate badge in the ``README.rst`` that informs about the
+      completion of translations, and points to the Weblate service.
+   -  Removes the check of translation message extraction in the PR
+      template.
+
+-  Improves the ``rero-ils-ui`` README and adds badges as well as
+   UCLouvain in copyright declaration.
+
+Tests
+-----
+
+-  Adds an ``id`` on all menus in order to simplify and improve Cypress
+   tests.
+
+   -  Replaces ``getId()`` by ``idAttribute`` pipe from Angular.
+   -  Doesn’t hide the Debug toolbar in Cypress tests as ``FLASK_DEBUG``
+      should be set to ``False`` when launching the server.
+   -  Creates new ``setLanguageToEnglish`` Cypress command to set
+      language to English.
+   -  Deletes all ``cy.visit()`` methods and use menus to navigate in the
+      application.
+   -  Creates new ``logout()`` Cypress command.
+   -  Creates new ``goToMenu()`` Cypress command.
+   -  Creates new ``createItem()`` Cypress command.
+   -  Creates new ``goToItem()`` Cypress command.
+   -  Improves ``checkout-checkin.spec.js`` Cypress tests using new
+      Cypress commands.
+
+-  Limits pytest version to <``6.0.0`` in order to avoid critical issues
+   with newer versions.
+
+Instance
+--------
+
+-  Upgrades ``node.js`` package from ``v10`` to ``v12``.
+-  Updates ``poetry`` packages to latest versions.
+-  Prepares the project for migration from `Transifex`_ to `Weblate`_
+   translation web service. Pulls the translations from Transifex,
+   extract messages and updates catalog.
+-  Adds ``ngx-spinner`` dependency used in ``ng-core`` to
+   ``rero-ils-ui``. ``ngx-spinner`` is used in version ``v8.1.0`` for
+   compatibility with Angular 8.
+-  The module ``rero-ils-ui`` uses the ``ng-core`` library in version
+   ``v0.6.0``
+
+Scripts
+~~~~~~~
+
+-  Fixes ``npm`` asset utils installation at ``bootstrap``: adds error
+   message when npm asset utils fails and uses –force option for npm
+   asset utils installation.
+-  Improves ``Celery`` script option for server launching: adds new
+   ``-l`` or ``--loglevel`` server script option to change Celery log
+   level and adds new ``-n`` or ``--no-worker`` server script option to
+   disable Celery workers.
+-  Improves ``check_license`` method to include Triple-Slash directives
+   for ``.js`` files, avoids checking screenshots directory in Cypress,
+   and adds a triple slash directive on 2 JS files (from Cypress).
+
+Fixed issues
+------------
+
+-  `#880`_: Reduce size of title in document detailed view
+-  `#882`_: Translations of actions realised in circulation UI
+-  `#883`_: Improvement needed on the request information when doing a
+   checkin
+-  `#886`_: Clear the patron info on top of checkin form when quitting it
+-  `#898`_: Autocomplete stays even after the results list is displayed
+-  `#906`_: Saving a document with edition responsibility impossible
+-  `#916`_: Translate content field "Language" in document detailed view
+   of public interface
+-  `#917`_: Document type “Other” not translated in document detailed
+   view (public interface)
+-  `#1003`_: editor : multiple provision activity lost when editing a 
+   document
+-  `#1035`_: Editor: “jump to” not always working
+-  `#1078`_: The tab order of the document detailed view (pro interface)
+   should be: get / description
+-  `#1102`_: Authors and issuance fields: organisation as author and 
+   subtype are not loaded correctly when editing a record with those fields
+
+.. _Transifex: https://www.transifex.com/
+.. _Weblate: https://weblate.org
+.. _#880: https://github.com/rero/rero-ils/issues/880
+.. _#882: https://github.com/rero/rero-ils/issues/882
+.. _#883: https://github.com/rero/rero-ils/issues/883
+.. _#886: https://github.com/rero/rero-ils/issues/886
+.. _#898: https://github.com/rero/rero-ils/issues/898
+.. _#906: https://github.com/rero/rero-ils/issues/906
+.. _#916: https://github.com/rero/rero-ils/issues/916
+.. _#917: https://github.com/rero/rero-ils/issues/917
+.. _#1003: https://github.com/rero/rero-ils/issues/1003
+.. _#1035: https://github.com/rero/rero-ils/issues/1035
+.. _#1078: https://github.com/rero/rero-ils/issues/1078
+.. _#1102: https://github.com/rero/rero-ils/issues/1102
+
 v0.10.1
 -------
 
