@@ -85,7 +85,9 @@ isort = ">=4.3"
 mock = ">=2.0.0"
 marshmallow = ">=2.15.1,<3.0.0"
 pydocstyle = ">=3.0.0"
-pytest = ">=4.6.4"
+# TODO: Delete 6.0.0 limitation when pytest_pep8 will use Pep8Item.from_parent
+# Cf. https://bitbucket.org/pytest-dev/pytest-pep8/issues/25/pep8item-should-use-from_parent-method
+pytest = ">=4.6.4,<6.0.0"
 pytest-cov = ">=2.7.1"
 pytest-invenio = ">=1.2.1,<1.3.0"
 pytest-mock = ">=1.6.0"
