@@ -17,6 +17,119 @@
 Changes
 =======
 
+`v0.11.0 <https://github.com/rero/rero-ils/tree/v0.11.0>`__ (2020-08-03)
+------------------------------------------------------------------------
+
+`Full
+Changelog <https://github.com/rero/rero-ils/compare/v0.10.1...v0.11.0>`__
+
+**Implemented enhancements:**
+
+-  Reduce size of title in document detailed view
+   `#880 <https://github.com/rero/rero-ils/issues/880>`__
+-  server: enable options to server script
+   `#1115 <https://github.com/rero/rero-ils/pull/1115>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+
+**Fixed bugs:**
+
+-  Authors and issuance fields: organisation as author and subtype are
+   not loaded correctly when editing a record with those fields
+   `#1102 <https://github.com/rero/rero-ils/issues/1102>`__
+-  Autocomplete stays even after the results list is displayed
+   `#898 <https://github.com/rero/rero-ils/issues/898>`__
+
+**Closed issues:**
+
+-  The tab order of the document detailed view (pro interface) should
+   be: get / description
+   `#1078 <https://github.com/rero/rero-ils/issues/1078>`__
+-  editor : multiple provision activity lost when editing a document
+   `#1003 <https://github.com/rero/rero-ils/issues/1003>`__
+-  Document type “Other” not translated in document detailed view
+   (public interface)
+   `#917 <https://github.com/rero/rero-ils/issues/917>`__
+-  Translate content field “Language” in document detailed view of
+   public interface
+   `#916 <https://github.com/rero/rero-ils/issues/916>`__
+-  Saving a document with edition responsibility impossible
+   `#906 <https://github.com/rero/rero-ils/issues/906>`__
+-  Clear the patron info on top of checkin form when quitting it
+   `#886 <https://github.com/rero/rero-ils/issues/886>`__
+-  Improvement needed on the request information when doing a checkin
+   `#883 <https://github.com/rero/rero-ils/issues/883>`__
+-  Translations of actions realised in circulation UI
+   `#882 <https://github.com/rero/rero-ils/issues/882>`__
+
+**Merged pull requests:**
+
+-  pytest: fix deprecation warnings on version 6.0.0
+   `#1121 <https://github.com/rero/rero-ils/pull/1121>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  documents: improve editor layout
+   `#1118 <https://github.com/rero/rero-ils/pull/1118>`__
+   (`jma <https://github.com/jma>`__)
+-  Us1491 item inventory list
+   `#1114 <https://github.com/rero/rero-ils/pull/1114>`__
+   (`jma <https://github.com/jma>`__)
+-  permission: refactoring acquisition resources permission factory
+   `#1113 <https://github.com/rero/rero-ils/pull/1113>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  permission: refactoring resources permission factory
+   `#1110 <https://github.com/rero/rero-ils/pull/1110>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  documentation: fix README weblate badge
+   `#1109 <https://github.com/rero/rero-ils/pull/1109>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  deployment: node 12
+   `#1108 <https://github.com/rero/rero-ils/pull/1108>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  documentation: add a weblate badge to the README
+   `#1106 <https://github.com/rero/rero-ils/pull/1106>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  cypress: enhance commands to improve tests
+   `#1104 <https://github.com/rero/rero-ils/pull/1104>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  permission: refactoring document permission factory
+   `#1103 <https://github.com/rero/rero-ils/pull/1103>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  ui: select menu items by Cypress through ids
+   `#1101 <https://github.com/rero/rero-ils/pull/1101>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  check_license: accept Triple Slash Directive
+   `#1098 <https://github.com/rero/rero-ils/pull/1098>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  translations: prepare project for weblate
+   `#1092 <https://github.com/rero/rero-ils/pull/1092>`__
+   (`iGormilhit <https://github.com/iGormilhit>`__)
+-  request: sort alphabetically pickup location
+   `#1090 <https://github.com/rero/rero-ils/pull/1090>`__
+   (`Garfield-fr <https://github.com/Garfield-fr>`__)
+-  bootstrap scripts: fix npm utils installation
+   `#1088 <https://github.com/rero/rero-ils/pull/1088>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  poetry: update packages to their last version
+   `#1087 <https://github.com/rero/rero-ils/pull/1087>`__
+   (`blankoworld <https://github.com/blankoworld>`__)
+-  json schema: use the select menu with order
+   `#1086 <https://github.com/rero/rero-ils/pull/1086>`__
+   (`Garfield-fr <https://github.com/Garfield-fr>`__)
+-  document: translate document type in detail view
+   `#1083 <https://github.com/rero/rero-ils/pull/1083>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  editor: fix edition statement saving problem.
+   `#1071 <https://github.com/rero/rero-ils/pull/1071>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+-  branch for the data model series user story
+   `#1069 <https://github.com/rero/rero-ils/pull/1069>`__
+   (`AoNoOokami <https://github.com/AoNoOokami>`__)
+-  schema: split JSON schemas
+   `#1056 <https://github.com/rero/rero-ils/pull/1056>`__
+   (`rerowep <https://github.com/rerowep>`__)
+-  permissions: refactoring organisation permissions
+   `#1051 <https://github.com/rero/rero-ils/pull/1051>`__
+   (`zannkukai <https://github.com/zannkukai>`__)
+
 `v0.10.1 <https://github.com/rero/rero-ils/tree/v0.10.1>`__ (2020-07-02)
 ------------------------------------------------------------------------
 
