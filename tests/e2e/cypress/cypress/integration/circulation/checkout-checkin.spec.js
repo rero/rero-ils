@@ -18,20 +18,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+// Pull data from common.json and users.json
+beforeEach(function () {
+  cy.fixture('users').then(function (userData) {
+    this.users = userData;
+  })
+  cy.fixture('common').then(function (commonData) {
+    this.common = commonData;
+  })
+})
+
 describe('Circulation checkout checkin', function() {
   it('Performs a checkout and a checkin', function() {
 
-    const librarianEmail = 'reroilstest+virgile@gmail.com'
-    const librarianPwd = '123456'
+    const virgile = this.users.librarians.virgile;
+    const simonetta = this.users.patrons.simonetta;
+    const password = this.common.uniquePwd;
     const patronBarcode = '2050124311'
-    const patronInfo = 'Casalini, Simonetta'
-    const documentUrl = '/professional/records/documents/detail/253'
-    const circUrl = '/professional/circulation/checkout'
     const itemBarcode = 'checkout-checkin'
     const timeOut = 3000;
 
     cy.setup()
-    cy.adminLogin(librarianEmail, librarianPwd)
+    cy.adminLogin(virgile.email, password)
 
     // Create an item
     cy.createItem(itemBarcode, 'Standard', 'Espaces publics')
@@ -47,7 +55,7 @@ describe('Circulation checkout checkin', function() {
     // Assert that patron info is displayed
     cy.wait(3000)
     cy.get(':nth-child(2) > :nth-child(1) > .col-md-10', {timeout: timeOut})
-      .should('contain', patronInfo)
+      .should('contain', simonetta.fullname)
 
     // Checkout
     cy.get('#search', {timeout: 4500})
