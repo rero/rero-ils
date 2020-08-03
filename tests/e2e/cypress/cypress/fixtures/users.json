@@ -1,0 +1,16 @@
+{
+  "patrons": {
+    "simonetta": {
+      "email": "reroilstest+simonetta@gmail.com",
+      "name": "Simonetta",
+      "surname": "Casalini",
+      "fullname": "Casalini, Simonetta"
+    }
+  },
+  "librarians": {
+    "virgile": {
+      "email": "reroilstest+virgile@gmail.com",
+      "name": "Virgile"
+    }
+  }
+}
