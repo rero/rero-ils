@@ -827,6 +827,8 @@ class ItemCirculation(IlsRecord):
                         res.patron_pid
                     raise ItemNotAvailableError(
                         item_pid=item_pid, description=msg)
+                # exit from loop after evaluation of the first request.
+                break
         return action_params, actions
 
     def dumps_for_circulation(self, sort_by=None):
