@@ -293,7 +293,6 @@ def title_format_text_alternate_graphic(titles, responsabilities=[]):
     responsibilities_text = {}
     for responsibility in responsabilities:
         for responsibility_language in responsibility:
-            print(responsibility_language)
             language = responsibility_language.get('language', 'default')
             responsibility_text = responsibilities_text.get(language, [])
             responsibility_text.append(responsibility_language.get('value'))
