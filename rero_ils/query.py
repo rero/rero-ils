@@ -45,6 +45,65 @@ def and_term_filter(field):
     return inner
 
 
+def acquisition_filter():
+    """Create a nested filter for new acquisition.
+
+    :return: Function that returns a nested query to retrieve new acquisition
+    """
+    def inner(values):
+
+        # `values` params could contains one or two values. Values must be
+        # separate by a ':' character. Values are :
+        #   1) from_date (optional) : the lower limit range acquisition_date.
+        #        this date will be included into the search result ('<=').
+        #        if not specified the '*' value will be used
+        #   2) until_date (optional) : the upper limit range acquisition_date.
+        #        this date will be excluded from the search result ('>').
+        #        if not specified the current timestamp value will be used
+        #  !!! Other filers could be used to restrict data result : This
+        #      function will check for 'organisation' and/or 'library' and/or
+        #      'location' url parameter to limit query result.
+        #
+        #   SOME EXAMPLES :
+        #     * ?new_acquisition=2020-01-01&organisation=1
+        #       --> all new acq for org with pid=1 from 2020-01-01 to now
+        #     * ?library=3&new_acquisition=2020-01-01:2021-01-01
+        #       --> all new acq for library with pid=3 for the 2020 year
+        #     * ?location=17&library=2&new_acquisition=:2020-01-01
+        #       --> all new acq for (location with pid=17 and library with
+        #           pid=2) until Jan, 1 2020
+
+        # build acquisition date range query
+        values = dict(zip(['from', 'to'], values.pop().split(':')))
+        range_acquisition_dates = {'lt': values.get('to') or 'now/d'}
+        if values.get('from'):
+            range_acquisition_dates['gte'] = values.get('from')
+
+        # build general 'match' query (including acq date range query)
+        must_queries = [Q(
+            'range',
+            holdings__items__acquisition__date=range_acquisition_dates
+        )]
+
+        # Check others filters from command line and add them to the query if
+        # needed
+        for level in ['location', 'library', 'organisation']:
+            arg = request.args.get(level)
+            if arg:
+                field = 'holdings__items__acquisition__{0}_pid'.format(level)
+                must_queries.append(Q('match', **{field: arg}))
+
+        return Q(
+            'nested',
+            path='holdings.items.acquisition',
+            query=Q(
+                'bool',
+                must=must_queries
+            )
+        )
+    return inner
+
+
 def view_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get(

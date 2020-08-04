@@ -466,6 +466,7 @@ class Holding(IlsRecord):
         # and item_type and document.
         forced_data = {
             '$schema': get_schema_for_resource(Item),
+            'acquisition_date': datetime.now().strftime('%Y-%m-%d'),
             'location': self.get('location'),
             'document': self.get('document'),
             'item_type': self.get('circulation_category'),

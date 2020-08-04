@@ -761,6 +761,24 @@
                 },
                 "available": {
                   "type": "boolean"
+                },
+                "acquisition": {
+                  "type": "nested",
+                  "properties": {
+                    "organisation_pid": {
+                      "type": "keyword"
+                    },
+                    "library_pid": {
+                      "type": "keyword"
+                    },
+                    "location_pid": {
+                      "type": "keyword"
+                    },
+                    "date": {
+                      "type": "date",
+                      "format": "yyyy-MM-dd"
+                    }
+                  }
                 }
               }
             }

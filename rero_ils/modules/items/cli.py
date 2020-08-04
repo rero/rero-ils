@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+import datetime
 import json
 import random
 import string
@@ -115,6 +116,7 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                     org = random.choice(list(locations_pids.keys()))
                     location_pid = random.choice(locations_pids[org])
                     item_type_pid = random.choice(item_types_pids[org])
+                    new_acquisition = bool(random.getrandbits(1))
                     holding_found = False
                     new_holding = None
                     for hold in holdings:
@@ -150,7 +152,8 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
                         document_pid=document_pid,
                         holding_pid=item_holding_pid,
                         barcode=barcode,
-                        status=status
+                        status=status,
+                        new_acquisition=new_acquisition
                     )
                     item_pid += 1
                     yield item, new_holding
@@ -221,7 +224,8 @@ def get_item_types():
 
 
 def create_random_item(item_pid, location_pid, missing, item_type_pid,
-                       document_pid, holding_pid, barcode, status):
+                       document_pid, holding_pid, barcode, status,
+                       new_acquisition):
     """Create items with randomised values."""
     if not status:
         status = ItemStatus.ON_SHELF
@@ -254,6 +258,13 @@ def create_random_item(item_pid, location_pid, missing, item_type_pid,
         },
         'type': 'standard'
     }
+    # ACQUISITION DATE
+    #   add acquisition date if item is a new acquisition
+    #   choose a days delta between 1 past year to 1 month later than sysdate.
+    if new_acquisition:
+        diff = datetime.timedelta(random.randint(-31, 365))
+        acquisition_date = datetime.date.today() - diff
+        item['acquisition_date'] = acquisition_date.strftime('%Y-%m-%d')
 
     # RANDOMLY ADD NOTES
     #   we will add a note to +/- 30% of the items.

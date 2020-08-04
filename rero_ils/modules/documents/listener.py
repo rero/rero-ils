@@ -57,10 +57,10 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                     'library_pid': holding['library']['pid']
                 }
             }
-            # replace this by an ES query
-            es_items = list(ItemsSearch().filter(
-                'term', holding__pid=holding.pid
-            ).scan())
+            # items linked to the holding
+            es_items = list(
+                ItemsSearch().filter('term', holding__pid=holding.pid).scan()
+            )
             for item in es_items:
                 item_record = {
                     'pid': item.pid,
@@ -71,9 +71,21 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 call_number = item.to_dict().get('call_number')
                 if call_number:
                     item_record['call_number'] = call_number
+                # item acquisition part.
+                #   We need to store the acquisition data of the items into the
+                #   document. As we need to link acquisition date and
+                #   org/lib/loc, we need to store theses data together in a
+                #   'nested' structure.
+                acq_date = item.to_dict().get('acquisition_date')
+                if acq_date:
+                    item_record['acquisition'] = {
+                        'organisation_pid': holding['organisation']['pid'],
+                        'library_pid': holding['library']['pid'],
+                        'location_pid': holding['location']['pid'],
+                        'date': acq_date
+                    }
                 data.setdefault('items', []).append(item_record)
             data['available'] = Holding.isAvailable(es_items)
-
             holdings.append(data)
 
         if holdings:

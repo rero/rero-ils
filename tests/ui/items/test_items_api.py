@@ -19,7 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from utils import get_mapping
 
@@ -129,3 +129,23 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
     # # can not create an issue item without issues on a serial holdings
     # with pytest.raises(RecordValidationError):
     #     Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
+
+
+def test_items_new_acquisition(item_lib_martigny):
+    """Test acquisition date behavior."""
+    item = item_lib_martigny
+
+    # test 'is_new_acquisition' property
+    #  --> not yet a new acquisition
+    acq_date = datetime.now() + timedelta(days=1)
+    item['acquisition_date'] = acq_date.strftime('%Y-%m-%d')
+    assert not item.is_new_acquisition
+
+    # --> Without acq_date, this will be never a new acq
+    del item['acquisition_date']
+    assert not item.is_new_acquisition
+
+    # --> there is an acq_date and this date is now past
+    acq_date = datetime.now() - timedelta(days=1)
+    item['acquisition_date'] = acq_date.strftime('%Y-%m-%d')
+    assert item.is_new_acquisition

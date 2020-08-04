@@ -16,6 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
+import datetime
+
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...libraries.api import Library
@@ -399,3 +401,15 @@ class ItemRecord(IlsRecord):
         notes = [note.get('content') for note in self.notes
                  if note.get('type') == note_type]
         return next(iter(notes), None)
+
+    @property
+    def is_new_acquisition(self):
+        """Is this item should be considered as a new acquisition.
+
+        :return True if Item is a new acquisition, False otherwise
+        """
+        acquisition_date = self.get('acquisition_date')
+        if acquisition_date:
+            return datetime.datetime.strptime(
+                acquisition_date, '%Y-%m-%d') < datetime.datetime.now()
+        return False

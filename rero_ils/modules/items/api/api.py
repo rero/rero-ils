@@ -112,11 +112,12 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
 
         :returns: False if any conditions isn't respected
         """
+        # check notes types
         note_types = [note.get('type') for note in self.get('notes', [])]
-
         if len(note_types) != len(set(note_types)):
             return False
 
+        # check second call number
         if not self.get('call_number') and self.get('second_call_number'):
             return False
 

@@ -82,7 +82,7 @@ def test_item_secure_api_create(client, json_header, item_lib_martigny,
         post_url,
         item_lib_martigny_data
     )
-    # librarian can create items on its affilicated library
+    # librarian can create items on its affiliated library
     assert res.status_code == 201
 
     del item_lib_saxon_data['pid']

@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+import datetime
+
 import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
@@ -112,4 +114,14 @@ def test_item_notes(item_schema, item_lib_martigny_data_tmp):
     # add a too long note content
     with pytest.raises(ValidationError):
         item_lib_martigny_data_tmp['notes'] = [long_note]
+        validate(item_lib_martigny_data_tmp, item_schema)
+
+
+def test_new_acquisition(item_schema, item_lib_martigny_data_tmp):
+    """Test new acquisition for item jsonschemas."""
+    validate(item_lib_martigny_data_tmp, item_schema)
+
+    with pytest.raises(ValidationError):
+        acq_date = datetime.date.today().strftime('%Y/%m/%d')
+        item_lib_martigny_data_tmp['acquisition_date'] = acq_date
         validate(item_lib_martigny_data_tmp, item_schema)

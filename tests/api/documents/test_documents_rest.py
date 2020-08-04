@@ -18,6 +18,8 @@
 """Tests REST API documents."""
 
 import json
+from copy import deepcopy
+from datetime import datetime, timedelta
 
 import mock
 from flask import url_for
@@ -27,6 +29,7 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata
 from rero_ils.modules.documents.utils import clean_text
 from rero_ils.modules.documents.views import can_request, \
     item_library_pickup_locations
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_documents_permissions(client, document, json_header):
@@ -51,6 +54,109 @@ def test_documents_permissions(client, document, json_header):
 
     res = client.delete(item_url)
     assert res.status_code == 401
+
+
+def test_documents_newacq_filters(app, client,
+                                  system_librarian_martigny_no_email,
+                                  rero_json_header, document,
+                                  holding_lib_martigny, holding_lib_saxon,
+                                  loc_public_saxon,
+                                  item_lib_martigny_data,
+                                  ):
+    login_user_via_session(client, system_librarian_martigny_no_email.user)
+
+    # compute useful date
+    today = datetime.today()
+    past = (today - timedelta(days=1)).strftime('%Y-%m-%d')
+    future = (today + timedelta(days=10)).strftime('%Y-%m-%d')
+    future_1 = (today + timedelta(days=11)).strftime('%Y-%m-%d')
+    today = today.strftime('%Y-%m-%d')
+
+    # Add a new items with acq_date
+    new_acq1 = deepcopy(item_lib_martigny_data)
+    new_acq1['pid'] = 'itemacq1'
+    new_acq1['acquisition_date'] = today
+    del new_acq1['barcode']
+    res, data = postdata(client, 'invenio_records_rest.item_list', new_acq1)
+    assert res.status_code == 201
+
+    new_acq2 = deepcopy(item_lib_martigny_data)
+    new_acq2['pid'] = 'itemacq2'
+    new_acq2['acquisition_date'] = future
+    new_acq2['location']['$ref'] = get_ref_for_pid('loc', loc_public_saxon.pid)
+    del new_acq2['barcode']
+    res, data = postdata(client, 'invenio_records_rest.item_list', new_acq2)
+    assert res.status_code == 201
+
+    # check item creation and indexation
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global', pid='doc1'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert len(data['hits']['hits']) == 1
+    data = data['hits']['hits'][0]['metadata']
+    assert len(data['holdings']) == 2
+    assert len(data['holdings'][0]['items']) == 1
+    assert len(data['holdings'][1]['items']) == 1
+
+    # check new_acquisition filters
+    #   --> For org2, there is no new acquisition
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        new_acquisition=':',
+        organisation='org2'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 0
+
+    #   --> for org1, there is 1 document with 2 new acquisition items
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        new_acquisition='{0}:{1}'.format(past, future_1),
+        organisation='org1'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+    assert len(data['hits']['hits'][0]['metadata']['holdings']) == 2
+
+    #   --> for lib2, there is 1 document with 1 new acquisition items
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        new_acquisition='{0}:{1}'.format(past, future_1),
+        library='lib2'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    #   --> for loc3, there is 1 document with 1 new acquisition items
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        new_acquisition='{0}:{1}'.format(past, future_1),
+        location='loc3'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 1
+
+    #   --> for loc3, there is no document corresponding to range date
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        new_acquisition='{0}:{1}'.format(past, today),
+        locatiin='loc3'
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total'] == 0
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

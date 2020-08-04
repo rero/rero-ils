@@ -104,6 +104,9 @@
             }
           }
         },
+        "acquisition_date": {
+          "type": "date"
+        },
         "_created": {
           "type": "date"
         },
