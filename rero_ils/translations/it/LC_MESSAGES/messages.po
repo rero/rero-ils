@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-07-24 10:46+0200\n"
-"PO-Revision-Date: 2020-08-05 09:57+0000\n"
+"PO-Revision-Date: 2020-08-06 08:14+0000\n"
 "Last-Translator: Davide Dosi <davide.dosi@usi.ch>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -281,7 +281,7 @@ msgstr "Interfaccia professionale"
 
 #: rero_ils/views.py:211
 msgid "Logout"
-msgstr "Logout"
+msgstr "Disconnettersi"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:43
@@ -4039,7 +4039,7 @@ msgstr "URI della biblioteca"
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:56
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
 msgid "Organisation"
-msgstr "Ente"
+msgstr "Organizzazione"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:80
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:315
@@ -4178,7 +4178,7 @@ msgstr "Deve essere nel formato seguente: 2022-12-31 (AAAA-MM-GG)."
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:3
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:302
 msgid "Notes"
-msgstr "Nota"
+msgstr "Note"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:188
 msgid "Taxes"
@@ -4417,7 +4417,7 @@ msgstr ""
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:54
 msgid "Start date"
-msgstr "Data 1"
+msgstr "Data iniziale"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:71
 msgid "End date"
@@ -4610,7 +4610,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:3
 msgid "Abstracts"
-msgstr "Riassunto"
+msgstr "Riassunti"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_abstract-v0.0.1.json:4
 msgid "Abstract of the resource."
@@ -5331,7 +5331,7 @@ msgstr "Numero"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:99
 msgid "Pages"
-msgstr ""
+msgstr "Pagine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
 msgid "Ex: 135, 5-27, ..."
@@ -5490,7 +5490,7 @@ msgstr "Label"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:183
 msgid "Start date of publication"
-msgstr "Data di pubblicazione 1"
+msgstr "Data iniziale di pubblicazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:184
 msgid ""
@@ -5505,7 +5505,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:196
 msgid "End date of publication"
-msgstr "Data di pubblicazione 2"
+msgstr "Data finale di pubblicazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:197
 msgid ""
@@ -5572,11 +5572,11 @@ msgstr "Titolo variante"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:58
 msgid "Main titles"
-msgstr "Titoli propri"
+msgstr "Titoli principali"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:62
 msgid "Main title"
-msgstr "Titolo proprio"
+msgstr "Titolo principale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:67
 msgid "Subtitle"
@@ -7143,7 +7143,7 @@ msgstr ""
 #: rero_ils/templates/rero_ils/register_user.html:51
 #: rero_ils/templates/rero_ils/reset_password.html:46
 msgid "Log In"
-msgstr "Login"
+msgstr "Autentificarsi"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/reset_password.html:47
@@ -7235,7 +7235,7 @@ msgstr "Ricerca"
 
 #: rero_ils/templates/rero_ils/login_user.html:25
 msgid "Log in to account"
-msgstr "Accedi al account"
+msgstr "Accedere al proprio conto"
 
 #: rero_ils/templates/rero_ils/login_user.html:43
 #, python-format
