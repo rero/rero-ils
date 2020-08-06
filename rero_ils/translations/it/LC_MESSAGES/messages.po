@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-07-24 10:46+0200\n"
-"PO-Revision-Date: 2020-08-06 08:14+0000\n"
+"PO-Revision-Date: 2020-08-07 07:59+0000\n"
 "Last-Translator: Davide Dosi <davide.dosi@usi.ch>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -3895,7 +3895,7 @@ msgstr "Valori"
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2581
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:401
 msgid "Value"
-msgstr ""
+msgstr "Valore"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2585
 msgid "Example: vol.3"
@@ -5314,7 +5314,7 @@ msgstr "Numerazione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:64
 msgid "Year"
-msgstr ""
+msgstr "Anno"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:70
 msgid "Should be in the following format: AAAA (2020)."
@@ -5322,7 +5322,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:79
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:89
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:132
@@ -5559,7 +5559,7 @@ msgstr "Soggetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:3
 msgid "Titles"
-msgstr ""
+msgstr "Titoli"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:41
 msgid "Parallel title"
@@ -6572,7 +6572,7 @@ msgstr "URI del tassa"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:39
 msgid "Creation date"
-msgstr ""
+msgstr "Data di creazione"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:73
 msgid "Operator"
@@ -6914,7 +6914,7 @@ msgstr ""
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:49
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:51
 msgid "History"
-msgstr "Storico"
+msgstr "Istoriato"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:56
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:57
