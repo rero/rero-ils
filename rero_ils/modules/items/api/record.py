@@ -18,6 +18,8 @@
 """API for manipulating item records."""
 import datetime
 
+from flask_babelex import gettext as _
+
 from ..utils import item_pid_to_object
 from ...api import IlsRecord
 from ...libraries.api import Library
@@ -49,18 +51,24 @@ class ItemRecord(IlsRecord):
             - if notes array has multiple notes with same type
         """
         from ...holdings.api import Holding
-        holding = Holding.get_record_by_pid(self.holding_pid)
+        holding_pid = extracted_data_from_ref(self.get('holding').get('$ref'))
+        holding = Holding.get_record_by_pid(holding_pid)
+        if not holding:
+            return _('Holding does not exist: {pid}.'.format(pid=holding_pid))
         is_serial = holding.holdings_type == 'serial'
         if is_serial and self.get('type') == 'standard':
-            return False
+            return _('Standard item can not attached to a journal.')
         issue = self.get('issue', {})
         if issue and self.get('type') == 'standard':
-            return False
+            return _('Standard item can not have a issue field.')
         if self.get('type') == 'issue' and not issue:
-            return False
+            return _('Issue item must have an issue field.')
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
-            return False
+            return _('Can not have multiple notes of same type.')
+        if not self.get('call_number') and self.get('second_call_number'):
+            return _(
+                'Must have a first call number to have a second call number')
 
         return True
 

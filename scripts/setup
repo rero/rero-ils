@@ -107,17 +107,40 @@ fi
 while [ $# -gt 0 ]
 do
     case $1 in
-    -d|--deployment) DEPLOYMENT=true ;;
-    -P|--persons) LOADPERSONS=true ;;
-    -s|--create_items_holdings_small) CREATE_ITEMS_HOLDINGS_SMALL=true ;;
-    -b|--create_items_holdings_big) CREATE_ITEMS_HOLDINGS_BIG=true ;;
-    -c|--continue) STOP_EXECUTION=false ;;
-    -l|--lazy) CREATE_LAZY="--lazy" ;;
-    -p|--pursue) DONT_STOP="--dont-stop" ;;
-    -t|--time) PREFIX="time" ;;  # Get time for all commands
-    -m|--es-mapping) ES_MAPPING=true ;;
-    -w|--warnings) invert_warning_option ;;
-    -D|--data_path) DATA_PATH=$2 ;;
+    -d|--deployment)
+      DEPLOYMENT=true
+      ;;
+    -P|--persons)
+      LOADPERSONS=true
+      ;;
+    -s|--create_items_holdings_small)
+      CREATE_ITEMS_HOLDINGS_SMALL=true
+      ;;
+    -b|--create_items_holdings_big)
+      CREATE_ITEMS_HOLDINGS_BIG=true
+      ;;
+    -c|--continue)
+      STOP_EXECUTION=false
+      ;;
+    -l|--lazy)
+      CREATE_LAZY="--lazy"
+      ;;
+    -p|--pursue)
+      DONT_STOP="--dont-stop"
+      ;;
+    -t|--time)
+      PREFIX="time"
+      ;;  # Get time for all commands
+    -m|--es-mapping)
+      ES_MAPPING=true
+      ;;
+    -w|--warnings)
+      invert_warning_option
+      ;;
+    -D|--data_path)
+      DATA_PATH=$2
+      shift
+      ;;
     (--) shift; break;;
     (-*) error_msg+exit "$0: Unrecognized option $1";;
     (*) break;;
@@ -239,32 +262,32 @@ eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
 # Generate fixtures
 info_msg "Generate fixtures:"
 
-info_msg "- Organisations ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Organisations ${DATA_PATH}/organisations.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type org ${DATA_PATH}/organisations.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t org --yes-i-know --no-info
 
-info_msg "- Libraries: ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Libraries: ${DATA_PATH}/libraries.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type lib ${DATA_PATH}/libraries.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t lib --yes-i-know --no-info
 
-info_msg "- Locations: ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Locations: ${DATA_PATH}/locations.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type loc ${DATA_PATH}/locations.json  --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t loc --yes-i-know --no-info
 
-info_msg "- Item types: ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Item types: ${DATA_PATH}/item_types.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type itty ${DATA_PATH}/item_types.json  --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t itty --yes-i-know --no-info
 
-info_msg "- Patron types: ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Patron types: ${DATA_PATH}/patron_types.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type ptty ${DATA_PATH}/patron_types.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t ptty --yes-i-know --no-info
 
-info_msg "- Circulation policies: ${CREATE_LAZY} ${DONT_STOP}"
+info_msg "- Circulation policies: ${DATA_PATH}/circulation_policies.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type cipo ${DATA_PATH}/circulation_policies.json --append ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t cipo --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
-info_msg "- Users:"
+info_msg "- Users: ${DATA_PATH}/users.json"
 eval ${PREFIX} invenio fixtures import_users ${DATA_PATH}/users.json -v
 
 #: - xml to json transformation for rero marcxml --------------------------------
@@ -290,14 +313,14 @@ fi
 
 if ${LOADPERSONS}
 then
-    info_msg "- PERSONS: ${DOCUMENTS} ${DONT_STOP}"
+    info_msg "- PERSONS: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
     eval ${PREFIX} invenio fixtures create --pid_type pers --schema 'http://ils.rero.ch/schemas/persons/person-v0.0.1.json' ${PERSONS} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Persons:"
     eval ${PREFIX} invenio utils reindex -t pers --yes-i-know --no-info
     eval ${PREFIX} invenio utils runindex --raise-on-error
 fi
 
-info_msg "- Documents: ${DOCUMENTS} ${DONT_STOP}"
+info_msg "- Documents: ${DOCUMENTS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type doc --schema 'http://ils.rero.ch/schemas/documents/document-v0.0.1.json' ${DOCUMENTS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 if ${CREATE_ITEMS_HOLDINGS_SMALL}
@@ -341,29 +364,29 @@ eval ${PREFIX} invenio utils reindex -t doc --yes-i-know --no-info
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create serials patterns
-info_msg "Serials patterns:"
+info_msg "Serials patterns: ${DATA_PATH}/patterns.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create_patterns ${DATA_PATH}/patterns.json
 
 # # ACQUISITION
 # create vendors
-info_msg "Acquisition vendors:"
+info_msg "Acquisition vendors: ${DATA_PATH}/vendors.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type vndr ${DATA_PATH}/vendors.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t vndr --yes-i-know --no-info
 
 # create library budgets
-info_msg "Library budgets:"
+info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t budg --yes-i-know --no-info
 
 # create acquisition accounts
-info_msg "Acquisition accounts:"
+info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
 
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create circulation transactions
-info_msg "Circulation transactions:"
+info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 
 # process notifications
@@ -372,15 +395,16 @@ eval ${PREFIX} invenio notifications process
 # create token access for ngscan (ezpump)
 # if the environement variable INVENIO_RERO_ACCESS_TOKEN_NGSCAN is not set a new
 # token will be generated
-if ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
+info_msg "Create token for: gipi@ngscan.com"
+if [ -z ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}]
 then
-    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
-else
     eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com
+else
+    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
 fi
 
 # # OAI configuration
-info_msg "OAI configuration:"
+info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"
 eval ${PREFIX} invenio oaiharvester initconfig ${DATA_PATH}/oaisources.yml
 if ${DEPLOYMENT}
 then

@@ -102,7 +102,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
-if $deploy  ; then
+if $deploy ; then
   if ! $ci ; then
       flags=("--no-dev")
   fi

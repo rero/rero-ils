@@ -163,15 +163,21 @@ _COLOR_CONTENT_REGEXP = {
         ),
 }
 
+_CANTON = [
+    'ag', 'ai', 'ar', 'be', 'bl', 'bs', 'fr', 'ge', 'gl', 'gr', 'ju', 'lu',
+    'ne', 'nw', 'ow', 'sg', 'sh', 'so', 'sz', 'tg', 'ti', 'ur', 'vd', 'vs',
+    'zg', 'zh'
+]
+
 
 def error_print(*args):
-    """Error printing to sdterr."""
+    """Error printing to sdtout."""
     msg = ''
     for arg in args:
         msg += str(arg) + '\t'
     msg.strip()
-    click.echo(msg, err=True)
-    sys.stderr.flush()
+    click.echo(msg)
+    sys.stdout.flush()
 
 
 def make_year(date):
@@ -185,14 +191,15 @@ def make_year(date):
     return None
 
 
-def not_repetitive(bibid, key, value, subfield, default=None):
+def not_repetitive(bibid, reroid, key, value, subfield, default=None):
     """Get the first value if the value is a list or tuple."""
     if default is None:
         data = value.get(subfield)
     else:
         data = value.get(subfield, default)
     if isinstance(data, (list, tuple)):
-        error_print('WARNING NOT REPETITIVE:', bibid, key, subfield, value)
+        error_print('WARNING NOT REPETITIVE:', bibid, reroid, key, subfield,
+                    value)
         data = data[0]
     return data
 
@@ -268,7 +275,7 @@ def add_note(new_note, data):
     note_set = set()
     for existing_note in notes:
         note_set.add(note_key(existing_note))
-    if new_note:
+    if new_note and new_note.get('label') and new_note.get('noteType'):
         new_note_key = note_key(new_note)
         if new_note_key not in note_set:
             notes.append(new_note)
@@ -510,12 +517,8 @@ class ReroIlsOverdo(Overdo):
         if value:
             data = [{'value': value}]
         else:
-            try:
-                fields_035 = self.get_fields(tag='035')
-                id = self.get_subfields(fields_035[0], 'a')[0]
-            except:
-                id = '???'
-            error_print('WARNING NO VALUE:', id, tag, code, label)
+            error_print('WARNING NO VALUE:', self.bib_id, self.rero_id, tag,
+                        code, label)
         try:
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr['field'])[index]
@@ -525,7 +528,7 @@ class ReroIlsOverdo(Overdo):
             })
         except Exception as err:
             pass
-        return data
+        return data or None
 
     def extract_description_from_marc_field(self, key, value, data):
         """Extract the physical descriptions data from marc field data.
@@ -570,7 +573,7 @@ class ReroIlsOverdo(Overdo):
                         hour_min=r'(h|St(d|\.|u)|[mM]in)'),
                 re.IGNORECASE)
             match = regexp.search(extent)
-            if match:
+            if match and match.group(1):
                 duration = match.group(1).strip('()')
                 add_data_and_sort_list('duration', [duration], data)
 
@@ -651,8 +654,9 @@ class ReroIlsOverdo(Overdo):
                 data=dimension.rstrip(),
                 punctuation='+,:;&'
             )
-            add_data_and_sort_list(
-                'dimensions', utils.force_list(dim), data)
+            if dim:
+                add_data_and_sort_list(
+                    'dimensions', utils.force_list(dim), data)
         add_data_and_sort_list('bookFormat', book_formats, data)
 
         # extract accompanyingMaterial note from $e
@@ -664,12 +668,13 @@ class ReroIlsOverdo(Overdo):
             elif type(self) == ReroIlsUnimarcOverdo:
                 material_notes = utils.force_list(value.get('e', []))
             for material_note in material_notes:
-                add_note(
-                    dict(
-                        noteType='accompanyingMaterial',
-                        label=material_note.strip()
-                    ),
-                    data)
+                if material_note:
+                    add_note(
+                        dict(
+                            noteType='accompanyingMaterial',
+                            label=material_note.strip()
+                        ),
+                        data)
 
     def extract_series_statement_from_marc_field(self, key, value, data):
         """Extract the seriesStatement data from marc field data.
@@ -747,13 +752,15 @@ class ReroIlsOverdo(Overdo):
                     code=series_title_subfield_code,
                     tag=tag
                 )
-            error_print('ERROR BAD FIELD FORMAT:', self.bib_id, error_msg)
+            error_print('ERROR BAD FIELD FORMAT:', self.bib_id, self.rero_id,
+                        error_msg)
         else:
             if subseries:
                 series['subseriesStatement'] = subseries
             series_statement = data.get('seriesStatement', [])
-            series_statement.append(series)
-            data['seriesStatement'] = series_statement
+            if series:
+                series_statement.append(series)
+                data['seriesStatement'] = series_statement
 
 
 class ReroIlsMarc21Overdo(ReroIlsOverdo):
@@ -767,6 +774,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
     lang_from_008 = None
     date1_from_008 = None
     date2_from_008 = None
+    date = {'start_date'}
     date_type_from_008 = ''
     serial_type = ''  # 008 pos 21
     langs_from_041_a = []
@@ -814,12 +822,17 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.bib_id = self.get_fields(tag='001')[0]['data']
             except Exception as err:
                 self.bib_id = '???'
-
+            try:
+                fields_035 = self.get_fields(tag='035')
+                self.rero_id = self.get_subfields(fields_035[0], 'a')[0]
+            except:
+                self.rero_id = '???'
             # extract record leader
             self.field_008_data = ''
             self.date1_from_008 = None
             self.date2_from_008 = None
             self.date_type_from_008 = ''
+            self.date = {'start_date': None}
             fields_008 = self.get_fields(tag='008')
             if fields_008:
                 self.field_008_data = self.get_control_field_data(
@@ -831,6 +844,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self.init_lang()
             self.init_country()
             self.init_alternate_graphic()
+            self.init_date()
 
             # identifiy a top level record (has 019 $a Niveau supérieur)
             regexp = re.compile(r'Niveau sup[eé]rieur', re.IGNORECASE)
@@ -853,7 +867,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 exception_handlers=exception_handlers
             )
         except Exception as err:
-            error_print('ERROR:', self.bib_id, self.count, err)
+            error_print('ERROR:', self.bib_id, self.rero_id, self.count, err)
             traceback.print_exc()
         return result
 
@@ -885,10 +899,15 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             for cantons_codes in self.get_subfields(field_044, 'c'):
                 try:
                     canton = cantons_codes.split('-')[1].strip()
-                    self.cantons.append(canton)
+                    if canton:
+                        if canton in _CANTON:
+                            self.cantons.append(canton)
+                        else:
+                            error_print('WARNING INIT CANTONS:', self.bib_id,
+                                        self.rero_id, cantons_codes)
                 except Exception as err:
-                    error_print('ERROR INIT CANTONS:', self.bib_id,
-                                cantons_codes)
+                    error_print('WARNING INIT CANTONS:', self.bib_id,
+                                self.rero_id, cantons_codes)
             if self.cantons:
                 self.country = 'sz'
         else:
@@ -916,11 +935,65 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             self.lang_from_008 = self.field_008_data[35:38]
         except Exception as err:
             self.lang_from_008 = 'und'
-            error_print('WARNING:', "set 008 language to 'und'")
+            error_print("WARNING: set 008 language to 'und'", self.bib_id,
+                        self.rero_id)
 
         fields_041 = self.get_fields(tag='041')
         self.langs_from_041_a = init_lang_from(fields_041, code='a')
         self.langs_from_041_h = init_lang_from(fields_041, code='h')
+
+    def init_date(self):
+        """Initialization start and end date.
+
+        1. get dates from 008
+        2. get dates from 264 Ind2 1,0,2,4,3 $c
+        3. get dates from 773 $g
+        4. set start_date to 2050
+        """
+        if (self.date_type_from_008 == 'q' or self.date_type_from_008 == 'n'):
+            self.date['note'] = 'Date(s) uncertain or unknown'
+        start_date = make_year(self.date1_from_008)
+        if not(start_date and start_date >= -9999 and start_date <= 2050):
+            start_date = None
+        if not start_date:
+            fields_264 = self.get_fields('264')
+            for ind2 in ['1', '0', '2', '4', '3']:
+                for field_264 in fields_264:
+                    if ind2 == field_264['ind2']:
+                        subfields_c = self.get_subfields(field_264, 'c')
+                        if subfields_c:
+                            year = re.search(r"(-?\d{1,4})", subfields_c[0])
+                            if year:
+                                year = int(year.group(0))
+                            if year and year <= -9999 and year >= 2050:
+                                start_date = year
+                                break
+                else:
+                    # Continue if the inner loop wasn't broken.
+                    continue
+                # Inner loop was broken, break the outer.
+                break
+        if not start_date:
+            fields_773 = self.get_fields('773')
+            for field_773 in fields_773:
+                subfields_g = self.get_subfields(field_773, 'g')
+                if subfields_g:
+                    year = re.search(r"(-?\d{4})", subfields_g[0])
+                    if year:
+                        year = int(year.group(0))
+                    if year and year <= -9999 and year >= 2050:
+                        start_date = year
+        if not start_date:
+            start_date = 2050
+            self.date['note'] = \
+                'Date not available and automatically set to 2050'
+            error_print('WARNING START DATE 264:', self.bib_id, self.rero_id,
+                        self.date1_from_008)
+        self.date['start_date'] = start_date
+
+        end_date = make_year(self.date2_from_008)
+        if end_date and end_date >= -9999 and end_date <= 2050:
+            self.date['end_date'] = end_date
 
     def init_alternate_graphic(self):
         """Initialization of alternate graphic representation.
@@ -1000,7 +1073,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             for lang in languages:
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([lang, script_code])
-            error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
+            error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id, self.rero_id,
                         script_code,  '008:', self.lang_from_008,
                         '041$a:', self.langs_from_041_a,
                         '041$h:', self.langs_from_041_h)
@@ -1045,25 +1118,29 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                     build_value_with_alternate_graphic(
                                         '246', blob_key, subfield_a_part,
                                         index, link, ',.', ':;/-=')
-                                if part_index == 0:
-                                    variant_data['type'] = 'bf:VariantTitle'
-                                    variant_data['mainTitle'] = value_data
-                                else:
-                                    variant_data['subtitle'] = value_data
-                                part_index += 1
+                                if value_data:
+                                    if part_index == 0:
+                                        variant_data['type'] = \
+                                            'bf:VariantTitle'
+                                        variant_data['mainTitle'] = value_data
+                                    else:
+                                        variant_data['subtitle'] = value_data
+                                    part_index += 1
                         elif blob_key in ['n', 'p']:
                             value_data = self. \
                                 build_value_with_alternate_graphic(
                                     '246', blob_key, blob_value,
                                     index, link, ',.', ':;/-=')
-                            part_list.update_part(
-                                value_data, blob_key, blob_value)
+                            if value_data:
+                                part_list.update_part(
+                                    value_data, blob_key, blob_value)
                     if blob_key != '__order__':
                         index += 1
                 the_part_list = part_list.get_part_list()
                 if the_part_list:
                     variant_data['part'] = the_part_list
-                variant_list.append(variant_data)
+                if variant_data:
+                    variant_list.append(variant_data)
             else:
                 pass
                 # for showing the variant title skipped for debugging purpose
@@ -1078,6 +1155,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
     """
 
     bib_id = ''
+    rero_id = 'unimarc'
     lang_from_101 = None
     alternate_graphic = {}
     serial_type = ''
@@ -1132,7 +1210,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 exception_handlers=exception_handlers
             )
         except Exception as err:
-            error_print('ERROR:', self.bib_id, self.count, err)
+            error_print('ERROR:', self.bib_id, self.rero_id, self.count, err)
             traceback.print_exc()
         return result
 
@@ -1190,8 +1268,9 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 if self.lang_from_101 in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([self.lang_from_101, script_code])
                 error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
-                            script_code,  '101:', self.lang_from_101,
-                            '101$aor$g:', self.lang_from_101)
+                            self.rero_id, script_code, '101:',
+                            self.lang_from_101, '101$aor$g:',
+                            self.lang_from_101)
         return '-'.join(['und', script_code])
 
 
@@ -1336,14 +1415,15 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
 
     for data_std in data_std_items:
         if index == 0 and not field_245_a_end_with_equal:
-            main_subtitle.append({'value': data_std.rstrip()})
-            if lang and index < len(data_lang_items):
-                main_subtitle.append({
-                    'value': data_lang_items[index].rstrip(),
-                    'language': lang
-                })
+            if data_std.rstrip():
+                main_subtitle.append({'value': data_std.rstrip()})
+                if lang and index < len(data_lang_items):
+                    if data_lang_items[index].rstrip():
+                        main_subtitle.append({
+                            'value': data_lang_items[index].rstrip(),
+                            'language': lang
+                        })
         else:
-            out_data_dict = {'type': 'bf:ParallelTitle'}
             main_title = []
             subtitle = []
             data_value = \
@@ -1354,37 +1434,41 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
             data_lang_value = ''
             pararalel_title_altgr_str = ''
             subtitle_altgr_str = ''
-            main_title.append({'value': pararalel_title_str})
-            if lang:
-                try:
-                    data_lang_value = remove_trailing_punctuation(
-                            data_lang_items[index].lstrip(), ',.', ':;/-=')
-                except Exception as err:
-                    data_lang_value = '[missing data]'
-                pararalel_title_altgr_str, sep, subtitle_altgr_str = \
-                    data_lang_value.partition(':')
-                if pararalel_title_altgr_str:
-                    main_title.append({
-                        'value': pararalel_title_altgr_str.strip(),
-                        'language': lang,
-                    })
-            pararalel_title_without_article = \
-                remove_leading_article(pararalel_title_str)
-            if pararalel_title_without_article:
-                pararalel_title_string_set.add(pararalel_title_without_article)
-            pararalel_title_string_set.add(pararalel_title_str)
+            if pararalel_title_str:
+                out_data_dict = {'type': 'bf:ParallelTitle'}
+                main_title.append({'value': pararalel_title_str})
+                if lang:
+                    try:
+                        data_lang_value = remove_trailing_punctuation(
+                                data_lang_items[index].lstrip(), ',.', ':;/-=')
+                    except Exception as err:
+                        data_lang_value = '[missing data]'
+                    pararalel_title_altgr_str, sep, subtitle_altgr_str = \
+                        data_lang_value.partition(':')
+                    if pararalel_title_altgr_str:
+                        main_title.append({
+                            'value': pararalel_title_altgr_str.strip(),
+                            'language': lang,
+                        })
+                pararalel_title_without_article = \
+                    remove_leading_article(pararalel_title_str)
+                if pararalel_title_without_article:
+                    pararalel_title_string_set.add(
+                        pararalel_title_without_article
+                    )
+                pararalel_title_string_set.add(pararalel_title_str)
 
-            if subtitle_str:
-                subtitle.append({'value': subtitle_str})
-                if lang and subtitle_altgr_str:
-                    subtitle.append({
-                        'value': subtitle_altgr_str.strip(),
-                        'language': lang,
-                    })
-            if main_title:
-                out_data_dict['mainTitle'] = main_title
-            if subtitle:
-                out_data_dict['subtitle'] = subtitle
+                if subtitle_str:
+                    subtitle.append({'value': subtitle_str})
+                    if lang and subtitle_altgr_str:
+                        subtitle.append({
+                            'value': subtitle_altgr_str.strip(),
+                            'language': lang,
+                        })
+                if main_title:
+                    out_data_dict['mainTitle'] = main_title
+                if subtitle:
+                    out_data_dict['subtitle'] = subtitle
         index += 1
         if out_data_dict:
             parallel_titles.append(out_data_dict)
@@ -1419,15 +1503,18 @@ def build_responsibility_data(responsibility_data):
         out_data = []
         data_value = remove_trailing_punctuation(
                         data_std.lstrip(), ',.[]', ':;/-=')
-        out_data.append({'value': data_value})
-        if lang:
-            try:
-                data_lang_value = \
-                    remove_trailing_punctuation(
-                        data_lang_items[index].lstrip(), ',.[]', ':;/-=')
-            except Exception as err:
-                data_lang_value = '[missing data]'
-            out_data.append({'value': data_lang_value, 'language': lang})
-        index += 1
-        responsibilities.append(out_data)
+        if data_value:
+            out_data.append({'value': data_value})
+            if lang:
+                try:
+                    data_lang_value = \
+                        remove_trailing_punctuation(
+                            data_lang_items[index].lstrip(), ',.[]', ':;/-=')
+                    if not data_lang_value:
+                        raise Exception('missing data')
+                except Exception as err:
+                    data_lang_value = '[missing data]'
+                out_data.append({'value': data_lang_value, 'language': lang})
+            index += 1
+            responsibilities.append(out_data)
     return responsibilities

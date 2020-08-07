@@ -31,6 +31,7 @@ import sys
 import traceback
 from collections import OrderedDict
 from glob import glob
+from pprint import pprint
 
 import click
 import polib
@@ -226,6 +227,7 @@ def init(force):
 @click.option('-r', '--reindex', 'reindex', is_flag=True, default=False)
 @click.option('-c', '--dbcommit', 'dbcommit', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=True)
+@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @click.option('-s', '--schema', 'schema', default=None)
 @click.option('-p', '--pid_type', 'pid_type', default=None)
 @click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
@@ -235,8 +237,8 @@ def init(force):
               is_flag=True, default=False)
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @with_appcontext
-def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
-           dont_stop_on_error, pid_check):
+def create(infile, append, reindex, dbcommit, verbose, debug, schema, pid_type,
+           lazy, dont_stop_on_error, pid_check):
     """Load REROILS record.
 
     :param infile: Json file
@@ -289,29 +291,25 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
         except Exception as err:
             error_records.append(record)
             click.secho(
-                '{count: <8} {pid_type} create error {pid}: {err}'.format(
+                '{count: <8} {type} create error {pid}: {err}'.format(
                     count=count,
-                    pid_type=pid_type,
+                    type=pid_type,
                     pid=record.get('pid', '???'),
                     err=err
                 ),
-                err=True,
                 fg='red'
             )
+            if debug:
+                traceback.print_exc()
             if not dont_stop_on_error:
                 sys.exit(1)
         db.session.flush()
     db.session.commit()
-    if error_records:
-        err_file_name = '{pid_type}_error.json'.format(pid_type=pid_type)
-        with open(err_file_name, 'w') as error_file:
-            error_file.write('[\n')
-            for error_record in error_records:
-                for line in json.dumps(error_record, indent=2).split('\n'):
-                    error_file.write('  ' + line + '\n')
-            error_file.write(']')
 
     if append:
+        click.secho(
+            'Append fixtures new identifiers: {len}'.format(len=len(pids))
+        )
         identifier = record_class.provider.identifier
         try:
             append_fixtures_new_identifiers(
@@ -321,11 +319,22 @@ def create(infile, append, reindex, dbcommit, verbose, schema, pid_type, lazy,
             )
         except Exception as err:
             click.secho(
-                "ERROR append fixtures new identifiers: {err}".format(
-                    err=err
-                ),
+                "ERROR append fixtures new identifiers: {err}".format(err=err),
                 fg='red'
             )
+
+    if error_records:
+        err_file_name = os.path.join(
+            os.path.dirname(infile),
+            '{pid_type}_error.json'.format(pid_type=pid_type)
+        )
+        click.secho('Write error file: {name}'.format(name=err_file_name))
+        with open(err_file_name, 'w') as error_file:
+            error_file.write('[\n')
+            for error_record in error_records:
+                for line in json.dumps(error_record, indent=2).split('\n'):
+                    error_file.write('  ' + line + '\n')
+            error_file.write(']')
 
 
 fixtures.add_command(create)
@@ -601,6 +610,7 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
     for data in marc21records:
         data_json = data['json']
         pid = data_json.get('001', '???')
+        record = {}
         try:
             record = marc21.do(data_json)
             if not record.get("$schema"):
@@ -621,9 +631,29 @@ def do_worker(marc21records, results, pid_required, debug, schema=None):
                 'status': True,
                 'data': record
             })
+        except ValidationError as err:
+            if debug:
+                pprint(record)
+            trace_lines = traceback.format_exc(1).split('\n')
+            msg = 'ERROR:\t{pid}\t{rero_pid}\t{err}\t-\t{trace}'.format(
+                pid=pid,
+                rero_pid=data_json.get('035__', {}).get('a'),
+                err=err.args[0],
+                trace=trace_lines[5].strip()
+            )
+            click.secho(msg, fg='red')
+            results.append({
+                'pid': pid,
+                'status': False,
+                'data': data['xml']
+            })
         except Exception as err:
-            msg = 'ERROR:\t{pid}\t{err}'.format(pid=pid, err=err.args[0])
-            click.secho(msg, err=True, fg='red')
+            msg = 'ERROR:\t{pid}\t{rero_pid}\t{err}'.format(
+                pid=pid,
+                rero_pid=data_json.get('035__', {}).get('a'),
+                err=err.args[0],
+            )
+            click.secho(msg, fg='red')
             if debug:
                 traceback.print_exc()
             results.append({

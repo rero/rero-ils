@@ -2109,7 +2109,7 @@
           }
         ],
         "startDate": 1966,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -4770,7 +4770,9 @@
             "type": "Date"
           }
         ],
+        "startDate": 2050,
         "endDate": 2002,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "canton": "vd",
@@ -12869,7 +12871,10 @@
     "electronicLocator": [
       {
         "url": "http://deposit.d-nb.de/cgi-bin/dokserv?id=4c08517bf1de45b09aa51a1fec91382b&prov=M&dok_var=1&dok_ext=htm",
-        "type": "relatedResource"
+        "type": "relatedResource",
+        "publicNote": [
+          "Inhaltstext"
+        ]
       }
     ]
   },
@@ -19346,6 +19351,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -31772,6 +31779,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -40517,7 +40526,7 @@
           }
         ],
         "startDate": 1965,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -54890,6 +54899,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -55117,6 +55128,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -58596,6 +58609,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "canton": "be",
@@ -61783,7 +61798,7 @@
         ],
         "startDate": 1900,
         "endDate": 1910,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -64444,6 +64459,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "fr",
@@ -74676,6 +74693,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -76381,7 +76400,7 @@
           }
         ],
         "startDate": 1950,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "canton": "be",
@@ -76851,6 +76870,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -79531,7 +79552,7 @@
         ],
         "startDate": 1900,
         "endDate": 1910,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -81779,7 +81800,10 @@
     "electronicLocator": [
       {
         "url": "http://doc.rero.ch/record/21683",
-        "type": "versionOfResource"
+        "type": "versionOfResource",
+        "publicNote": [
+          "Ressource en ligne via RERO DOC"
+        ]
       }
     ]
   },
@@ -85835,7 +85859,7 @@
         ],
         "startDate": 1980,
         "endDate": 1993,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "gw",
@@ -88189,7 +88213,7 @@
           }
         ],
         "startDate": 1991,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "is",
@@ -89402,6 +89426,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "canton": "ne",
@@ -90466,7 +90492,7 @@
           }
         ],
         "startDate": 1927,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "canton": "sz",
@@ -94822,6 +94848,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "fr",
@@ -95987,7 +96015,10 @@
     "electronicLocator": [
       {
         "url": "http://doc.rero.ch/record/21511",
-        "type": "versionOfResource"
+        "type": "versionOfResource",
+        "publicNote": [
+          "Ressource en ligne via RERO DOC"
+        ]
       }
     ]
   },
@@ -99013,6 +99044,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -100341,7 +100374,7 @@
         ],
         "startDate": 1880,
         "endDate": 1890,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -110010,7 +110043,7 @@
           }
         ],
         "startDate": 1999,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "sz",
@@ -120641,7 +120674,7 @@
           }
         ],
         "startDate": 1941,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "fr",
@@ -130535,7 +130568,7 @@
           }
         ],
         "startDate": 1968,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "gw",
@@ -133311,7 +133344,10 @@
     "electronicLocator": [
       {
         "url": "http://doc.rero.ch/record/200260",
-        "type": "versionOfResource"
+        "type": "versionOfResource",
+        "publicNote": [
+          "Ressource en ligne via RERO DOC"
+        ]
       }
     ]
   },
@@ -134035,7 +134071,7 @@
           }
         ],
         "startDate": 1990,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "xx",
@@ -135008,7 +135044,7 @@
         ],
         "startDate": 1935,
         "endDate": 1936,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "canton": "ti",

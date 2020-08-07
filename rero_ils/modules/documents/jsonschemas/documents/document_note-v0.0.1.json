@@ -53,7 +53,7 @@
         "label": {
           "title": "Label",
           "type": "string",
-          "minLength": 3,
+          "minLength": 1,
           "form": {
             "templateOptions": {
               "cssClass": "col-lg-12"

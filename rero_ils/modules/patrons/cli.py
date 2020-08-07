@@ -35,9 +35,10 @@ datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
 @click.command('import_users')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@click.option('-p', '--password', 'password', default='123456')
 @click.argument('infile', type=click.File('r'))
 @with_appcontext
-def import_users(infile, verbose):
+def import_users(infile, verbose, password):
     """Import users.
 
     infile: Json organisation file
@@ -51,8 +52,8 @@ def import_users(infile, verbose):
             click.secho('\tUser email not defined!', fg='red')
         else:
             # create User
-            password = patron_data.get('password', '123456')
-            del(patron_data['password'])
+            password = patron_data.get('password', password)
+            patron_data.pop('password', None)
             patron = Patron.get_patron_by_email(email)
             if patron:
                 click.secho('\tUser exist: ' + email, fg='yellow')
@@ -66,7 +67,6 @@ def import_users(infile, verbose):
                     click.secho('\tUser exist: ' + email, fg='yellow')
                 else:
                     pwd = hash_password(password)
-
                     datastore.create_user(
                         email=email,
                         password=pwd

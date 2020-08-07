@@ -214,7 +214,7 @@ def marc21_to_part_of(self, key, value):
     """Get part_of."""
     part_of = {}
     subfield_x = not_repetitive(
-        unimarc.bib_id, key, value, 'x', default='').strip()
+        unimarc.bib_id, 'unimarc', key, value, 'x', default='').strip()
     linked_pid = None
     if subfield_x:
         for pid in Document.get_document_pids_by_issn(subfield_x):
@@ -228,7 +228,7 @@ def marc21_to_part_of(self, key, value):
                 )
         }
         subfield_v = not_repetitive(
-            unimarc.bib_id, key, value, 'v', default='').strip()
+            unimarc.bib_id, 'unimarc', key, value, 'v', default='').strip()
         if subfield_v:
             part_of['numbering'] = subfield_v
         self['partOf'] = self.get('partOf', [])

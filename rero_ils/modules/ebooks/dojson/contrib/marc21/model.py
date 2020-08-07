@@ -297,7 +297,7 @@ def marc21_to_title(self, key, value):
                     if subtitle:
                         title_data['subtitle'] = subtitle
                 elif not subfield_246_a and value_data:
-                        title_data['subtitle'] = value_data
+                    title_data['subtitle'] = value_data
             elif blob_key == 'c':
                 responsibility = marc21.build_responsibility_data(value_data)
             elif blob_key in ['n', 'p']:
