@@ -560,7 +560,7 @@ def _process_patron_profile_fees(patron, organisation, status='open'):
         if 'loan' in transaction:
             item_pid = Loan.get_record_by_pid(transaction.loan.pid)\
                 .get('item_pid')
-            item = Item.get_record_by_pid(item_pid)
+            item = Item.get_record_by_pid(item_pid.get('value'))
             transaction['item_call_number'] = item['call_number']
         if (transaction.status == 'closed'):
             transaction.total_amount = PatronTransactionEvent\
