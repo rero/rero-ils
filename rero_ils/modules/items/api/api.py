@@ -104,25 +104,6 @@ class Item(ItemRecord, ItemCirculation, ItemIssue):
         }
     }
 
-    def extended_validation(self, **kwargs):
-        """Add additional record validation.
-
-        Ensures that only one note of each type is present.
-        Ensures that call number is present before using second call number.
-
-        :returns: False if any conditions isn't respected
-        """
-        # check notes types
-        note_types = [note.get('type') for note in self.get('notes', [])]
-        if len(note_types) != len(set(note_types)):
-            return False
-
-        # check second call number
-        if not self.get('call_number') and self.get('second_call_number'):
-            return False
-
-        return True
-
     def delete_from_index(self):
         """Delete record from index."""
         try:

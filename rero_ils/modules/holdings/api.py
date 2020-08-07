@@ -41,7 +41,8 @@ from ..locations.api import Location
 from ..minters import id_minter
 from ..organisations.api import Organisation
 from ..providers import Provider
-from ..utils import get_base_url, get_ref_for_pid, get_schema_for_resource
+from ..utils import extracted_data_from_ref, get_base_url, get_ref_for_pid, \
+    get_schema_for_resource
 
 # holing provider
 HoldingProvider = type(
@@ -125,20 +126,27 @@ class Holding(IlsRecord):
             - holding type is serial and the next_expected_date
               is not given for a regular frequency.
         """
-        document = Document.get_record_by_pid(self.document_pid)
+        document_pid = extracted_data_from_ref(
+            self.get('document').get('$ref'))
+        document = Document.get_record_by_pid(document_pid)
+        if not document:
+            return _('Document does not exist {pid}.'.format(pid=document_pid))
         is_serial = self.holdings_type == 'serial'
         if is_serial:
             patterns = self.get('patterns', {})
             if patterns and \
                 patterns.get('frequency') != 'rdafr:1016' \
                     and not patterns.get('next_expected_date'):
-                return False
+                return _(
+                    'Must have next expected date for regular frequencies.')
         is_electronic = self.holdings_type == 'electronic'
         is_issuance = \
             document.get('issuance', {}).get('main_type') == 'rdami:1003'
-        return not(
-            (is_issuance ^ is_serial) or (document.harvested ^ is_electronic)
-            )
+        if (is_issuance ^ is_serial) or (document.harvested ^ is_electronic):
+            msg = _('Holding is not attached to the correct document type.'
+                    ' document: {pid}')
+            return _(msg.format(pid=document_pid))
+        return True
 
     @property
     def is_serial(self):
@@ -213,7 +221,9 @@ class Holding(IlsRecord):
     def get_holdings_type_by_holding_pid(cls, holding_pid):
         """Returns holdings type for a holding pid."""
         holding = cls.get_record_by_pid(holding_pid)
-        return holding.holdings_type
+        if holding:
+            return holding.holdings_type
+        return None
 
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid):

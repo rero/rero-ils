@@ -94,6 +94,7 @@
       "title": "Conference",
       "description": "Mark as conference if the access point is directly at the conference name and not at the corporate body name",
       "type": "boolean",
+      "default": false,
       "form": {
         "templateOptions": {
           "cssClass": "col-lg-12"

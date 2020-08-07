@@ -1781,6 +1781,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "fr",
@@ -4072,7 +4074,7 @@
           }
         ],
         "startDate": 1941,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "fr",
@@ -4155,6 +4157,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "canton": "be",
@@ -7465,6 +7469,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -8139,6 +8145,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -16235,7 +16243,7 @@
         ],
         "startDate": 1935,
         "endDate": 1936,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "canton": "ti",
@@ -16399,6 +16407,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -18442,7 +18452,7 @@
           }
         ],
         "startDate": 1991,
-        "note": "Date(s) incertaine(s) ou inconnue(s)",
+        "note": "Date(s) uncertain or unknown",
         "place": [
           {
             "country": "is",
@@ -20136,6 +20146,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -21290,6 +21302,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "canton": "ne",
@@ -22328,6 +22342,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -23016,6 +23032,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",
@@ -24129,6 +24147,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "fr",
@@ -25070,6 +25090,8 @@
             ]
           }
         ],
+        "startDate": 2050,
+        "note": "Date not available and automatically set to 2050",
         "place": [
           {
             "country": "xx",

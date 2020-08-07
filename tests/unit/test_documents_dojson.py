@@ -36,17 +36,31 @@ from rero_ils.modules.documents.views import create_publication_statement, \
 def test_not_repetetive(capsys):
     """Test the function not_repetetive."""
     data_dict = {'sub': ('first', 'second')}
-    data = not_repetitive('pid1', 'key', data_dict, 'sub')
+    data = not_repetitive(
+        bibid='pid1',
+        reroid='rero1',
+        key='key',
+        value=data_dict,
+        subfield='sub'
+    )
     assert data == 'first'
     out, err = capsys.readouterr()
-    assert err == 'WARNING NOT REPETITIVE:\tpid1\tkey\tsub\t{data}\t\n'.format(
-        data=str(data_dict)
-    )
+    assert out == \
+        'WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{data}\t\n'.format(
+            data=str(data_dict)
+        )
     data = {'sub': 'only'}
-    data = not_repetitive('pid1', 'key', data, 'sub', '')
+    data = not_repetitive(
+        bibid='pid1',
+        reroid='rero1',
+        key='key',
+        value=data,
+        subfield='sub',
+        default=''
+    )
     assert data == 'only'
     out, err = capsys.readouterr()
-    assert err == ''
+    assert out == ''
 
 
 # type: leader
@@ -1337,23 +1351,25 @@ def test_marc21_to_provisionActivity_manufacture_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Manufacture',
-        'statement': [
-            {
-                'label': [{'value': 'Bienne'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Impr. Weber'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '[2006]'}],
-                'type': 'Date'
-            }
-        ]
-    }]
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Manufacture',
+            'statement': [
+                {
+                    'label': [{'value': 'Bienne'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Impr. Weber'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '[2006]'}],
+                    'type': 'Date'
+                }
+            ]
+        }
+    ]
 
 
 def test_marc21_provisionActivity_without_264():
@@ -1413,62 +1429,66 @@ def test_marc21_to_provisionActivity_canton():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'canton': 'be',
-            'country': 'sz',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': 'Biel/Bienne'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'canton': 'be',
+                'country': 'sz',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Centre PasquArt'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': 'Nürnberg'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Verlag für Moderne Kunst'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': 'Manchester'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'distrib. in the United Kingdom [etc.]'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '[2006-2010]'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2006,
-        'endDate': 2010
-    }, {
-        'type': 'bf:Manufacture',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Bienne'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Impr. Weber'}
-                ],
-                'type': 'bf:Agent'
-            }
-        ]
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [{'value': 'Biel/Bienne'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Centre PasquArt'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Nürnberg'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Verlag für Moderne Kunst'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Manchester'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{
+                        'value': 'distrib. in the United Kingdom [etc.]'
+                    }],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '[2006-2010]'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 2006,
+            'endDate': 2010
+        }, {
+            'type': 'bf:Manufacture',
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Bienne'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Impr. Weber'}
+                    ],
+                    'type': 'bf:Agent'
+                }
+            ]
+        }
+    ]
 
 
 def test_marc21_to_provisionActivity_1_place_2_agents():
@@ -1490,32 +1510,34 @@ def test_marc21_to_provisionActivity_1_place_2_agents():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'fr',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': '[Paris]'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'fr',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Desclée de Brouwer [puis]'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': 'Etudes augustiniennes'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '1969-'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 1969
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [{'value': '[Paris]'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Etudes augustiniennes'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1969-'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1969
+        }
+    ]
 
 
 def test_marc21_to_provisionActivity_unknown_place_2_agents():
@@ -1536,32 +1558,36 @@ def test_marc21_to_provisionActivity_unknown_place_2_agents():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'be',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': '[Lieu de publication non identifié]'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'be',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Labor'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': 'Nathan'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '1968'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 1968
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [
+                        {'value': '[Lieu de publication non identifié]'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Labor'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': 'Nathan'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1968'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1968
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         '[Lieu de publication non identifié] : Labor, Nathan, 1968'
     ]
@@ -1587,36 +1613,38 @@ def test_marc21_to_provisionActivity_3_places_dann_2_agents():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-             'country': 'gw',
-             'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': 'Hamm (Westf.)'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': '[dann] Herzberg'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': '[dann] Nordhausen'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'T. Bautz'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '1975-'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 1975
-    }]
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                 'country': 'gw',
+                 'type': 'bf:Place'
+            }],
+            'statement': [
+                {
+                    'label': [{'value': 'Hamm (Westf.)'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': '[dann] Herzberg'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': '[dann] Nordhausen'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'T. Bautz'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1975-'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1975
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Hamm (Westf.) ; [dann] Herzberg ; [dann] Nordhausen : T. Bautz, 1975-'
     ]
@@ -1641,32 +1669,34 @@ def test_marc21_to_provisionActivity_2_places_1_agent():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'sz',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': '[Louvain]'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'sz',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': '[Paris]'}],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': '[éditeur non identifié]'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '[1966]'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 1966
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [{'value': '[Louvain]'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': '[Paris]'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': '[éditeur non identifié]'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '[1966]'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1966
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         '[Louvain] ; [Paris] : [éditeur non identifié], [1966]'
     ]
@@ -1694,29 +1724,31 @@ def test_marc21_to_provisionActivity_1_place_1_agent_reprint_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'xxu',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': 'Washington'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'xxu',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Carnegie Institution of Washington'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '1916'}],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 1758,
-        'endDate': 1916
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [{'value': 'Washington'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Carnegie Institution of Washington'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '1916'}],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 1758,
+            'endDate': 1916
+        }
+    ]
 
 
 def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
@@ -1737,29 +1769,31 @@ def test_marc21_to_provisionActivity_1_place_1_agent_uncertain_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'fr',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [{'value': 'Aurillac'}],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'fr',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [{'value': 'Impr. moderne'}],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [{'value': '[1941?]'}],
-                'type': 'Date'
-            }
-        ],
-        'note': 'Date(s) incertaine(s) ou inconnue(s)',
-        'startDate': 1941
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [{'value': 'Aurillac'}],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [{'value': 'Impr. moderne'}],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [{'value': '[1941?]'}],
+                    'type': 'Date'
+                }
+            ],
+            'note': 'Date(s) uncertain or unknown',
+            'startDate': 1941
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Aurillac : Impr. moderne, [1941?]'
     ]
@@ -1799,37 +1833,39 @@ def test_marc21_to_provisionActivity_1_place_1_agent_chi_hani():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'cc',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Beijing'},
-                    {'value': '北京', 'language': 'chi-hani'}
-                ],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'cc',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [
-                      {'value': 'Beijing da xue chu ban she'},
-                      {'value': '北京大学出版社', 'language': 'chi-hani'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2017'},
-                    {'language': 'chi-hani', 'value': '2017'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2017
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Beijing'},
+                        {'value': '北京', 'language': 'chi-hani'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                          {'value': 'Beijing da xue chu ban she'},
+                          {'value': '北京大学出版社', 'language': 'chi-hani'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '2017'},
+                        {'language': 'chi-hani', 'value': '2017'}
+                    ],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 2017
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         '北京 : 北京大学出版社, 2017',
         'Beijing : Beijing da xue chu ban she, 2017'
@@ -2139,39 +2175,41 @@ def test_marc21_to_provisionActivity_1_place_1_agent_ara_arab():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'ua',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [
-                    {'value': 'al-Qāhirah'},
-                    {'value': 'القاهرة',
-                     'language': 'ara-arab'}
-                ],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'ua',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah'},
-                    {'value': 'الهيئة العامة لقصور الثقافة',
-                     'language': 'ara-arab'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2014'},
-                    {'value': '2014', 'language': 'ara-arab'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2014
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'al-Qāhirah'},
+                        {'value': 'القاهرة',
+                         'language': 'ara-arab'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah'},
+                        {'value': 'الهيئة العامة لقصور الثقافة',
+                         'language': 'ara-arab'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '2014'},
+                        {'value': '2014', 'language': 'ara-arab'}
+                    ],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 2014
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'القاهرة : الهيئة العامة لقصور الثقافة, 2014',
         'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014'
@@ -2221,55 +2259,57 @@ def test_marc21_to_provisionActivity_2_places_2_agents_rus_cyrl():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'ru',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Ierusalim'},
-                    {'value': 'Иерусалим',
-                     'language': 'rus-cyrl'}
-                ],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'ru',
                 'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Gesharim'},
-                    {'value': 'Гешарим',
-                     'language': 'rus-cyrl'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': 'Moskva'},
-                    {'value': 'Москва',
-                     'language': 'rus-cyrl'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Mosty Kulʹtury'},
-                    {'value': 'Мосты Культуры',
-                     'language': 'rus-cyrl'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2017'},
-                    {'language': 'rus-cyrl', 'value': '2017'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2017
-    }]
+            }],
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Ierusalim'},
+                        {'value': 'Иерусалим',
+                         'language': 'rus-cyrl'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Gesharim'},
+                        {'value': 'Гешарим',
+                         'language': 'rus-cyrl'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': 'Moskva'},
+                        {'value': 'Москва',
+                         'language': 'rus-cyrl'}
+                    ],
+                    'type': 'bf:Place'
+                },
+                {
+                    'label': [
+                        {'value': 'Mosty Kulʹtury'},
+                        {'value': 'Мосты Культуры',
+                         'language': 'rus-cyrl'}
+                    ],
+                    'type': 'bf:Agent'
+                },
+                {
+                    'label': [
+                        {'value': '2017'},
+                        {'language': 'rus-cyrl', 'value': '2017'}
+                    ],
+                    'type': 'Date'
+                }
+            ],
+            'startDate': 2017
+        }
+    ]
     assert create_publication_statement(data.get('provisionActivity')[0]) == [
         'Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017',
         'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017'
@@ -2297,25 +2337,27 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'ru',
-            'type': 'bf:Place'
-        }],
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Ierusalim'},
-                    {'value': 'Иерусалим',
-                     'language': 'und-cyrl'}
-                ],
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'ru',
                 'type': 'bf:Place'
-            },
-        ],
-        'startDate': 2017
-    }]
-    assert err.strip() == ('WARNING LANGUAGE SCRIPTS:\t???\tcyrl\t008:'
+            }],
+            'statement': [
+                {
+                    'label': [
+                        {'value': 'Ierusalim'},
+                        {'value': 'Иерусалим',
+                         'language': 'und-cyrl'}
+                    ],
+                    'type': 'bf:Place'
+                },
+            ],
+            'startDate': 2017
+        }
+    ]
+    assert out.strip() == ('WARNING LANGUAGE SCRIPTS:\t???\t???\tcyrl\t008:'
                            '\t\t041$a:\t[]\t041$h:\t[]')
 
     marc21xml = """
@@ -2328,7 +2370,8 @@ def test_marc21_to_provisionActivity_exceptions(capsys):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
-    assert err.strip() == 'ERROR INIT CANTONS:\t???\tchbe'
+    assert out.strip() == ('WARNING INIT CANTONS:\t???\t???\tchbe\t\n'
+                           'WARNING START DATE 264:\t???\t???\tNone')
 
 
 # 300 [$a repetitive]: extent, duration:
@@ -3654,6 +3697,7 @@ def test_get_person_link(mock_get, capsys):
     })
     mef_url = get_person_link(
         bibid='1',
+        reroid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
@@ -3667,6 +3711,7 @@ def test_get_person_link(mock_get, capsys):
     })
     mef_url = get_person_link(
         bibid='1',
+        reroid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
@@ -3680,6 +3725,7 @@ def test_get_person_link(mock_get, capsys):
     })
     mef_url = get_person_link(
         bibid='1',
+        reroid='1',
         id='(RERO)A003945843',
         key='100..',
         value={'0': '(RERO)A003945843'}
@@ -3689,23 +3735,25 @@ def test_get_person_link(mock_get, capsys):
     mock_get.return_value = mock_response(status=400)
     mef_url = get_person_link(
         bibid='1',
+        reroid='1',
         id='(RERO)A123456789',
         key='100..',
         value={'0': '(RERO)A123456789'}
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert err == "ERROR MEF REQUEST:\t1\t" + \
+    assert out == "ERROR MEF REQUEST:\t1\t1\t" + \
         'https://mef.xxx.rero.ch/api/mef/?q=rero.pid:A123456789\t400\t\n'
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_person_link(
         bibid='1',
+        reroid='1',
         id='X123456789',
         key='100..',
         value={'0': 'X123456789'}
     )
     assert not mef_url
     out, err = capsys.readouterr()
-    assert err == 'WARNING NOT MEF REF:\t1\tX123456789\t100..\t' + \
+    assert out == 'WARNING NOT MEF REF:\t1\tX123456789\t100..\t' + \
         "{'0': 'X123456789'}\tlist index out of range\t\n"

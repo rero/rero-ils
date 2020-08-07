@@ -165,7 +165,7 @@ class IlsRecord(Record):
                 test_rec = cls.get_record_by_pid(pid)
                 if test_rec is not None:
                     raise IlsRecordError.PidAlradyUsed(
-                        '{pid_type} {pid} {uuid}'.format(
+                        'PidAlradyUsed {pid_type} {pid} {uuid}'.format(
                             pid_type=cls.provider.pid_type,
                             pid=test_rec.pid,
                             uuid=test_rec.id

@@ -162,8 +162,8 @@ def extracted_data_from_ref(input, data='pid'):
         * 'record': the record represented by the input
 
     USAGE :
-      * extract_pid_from_ref('http://localhost/[resource]/[pid]', data='pid')
-      * extract_pid_from_ref({'$ref': 'http://localhost/[resource]/[pid]'})
+    * extracted_data_from_ref('http://localhost/[resource]/[pid]', data='pid')
+    * extracted_data_from_ref({'$ref': 'http://localhost/[resource]/[pid]'})
     """
 
     def extract_part(input_string, idx=0):

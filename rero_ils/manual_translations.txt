@@ -49,6 +49,8 @@ _('bf:Manufacture')
 _('bf:Distribution')
 _('bf:Production')
 _('bf:Place')
+_('Date(s) uncertain or unknown')
+_('Date not available and automatically set to 2050')
 
 # Harvested source
 _('ebibliomedia')
