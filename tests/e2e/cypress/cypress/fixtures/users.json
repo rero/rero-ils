@@ -4,13 +4,25 @@
       "email": "reroilstest+simonetta@gmail.com",
       "name": "Simonetta",
       "surname": "Casalini",
-      "fullname": "Casalini, Simonetta"
+      "fullname": "Casalini, Simonetta",
+      "barcode": "2050124311"
+    },
+    "jules": {
+      "email": "reroilstest+jules@gmail.com",
+      "name": "Jules",
+      "surname": "Rard",
+      "fullname": "Jules, Rard",
+      "barcode": "kad002"
     }
   },
   "librarians": {
     "virgile": {
       "email": "reroilstest+virgile@gmail.com",
       "name": "Virgile"
+    },
+    "jean": {
+      "email": "reroilstest+jean@gmail.com",
+      "name": "Jean"
     }
   },
   "sysLibrarians": {

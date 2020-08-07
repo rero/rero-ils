@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 // Go to user profile (using menus)
 // tabId: (not mandatory). If exists: go directly to given tabId
-Cypress.Commands.add("userProfile", (tabId) => {
+Cypress.Commands.add("goToUserProfile", (tabId) => {
   // we should be already connected
   cy.get('#my-account-menu').click()
   cy.get('#my-profile-menu').click()
-  cy.wait(2500)
+  cy.wait(4000)
   // Go to tabId if exist
   if (tabId !== undefined) {
     cy.get('#' + tabId).click()
