@@ -1,9 +1,5 @@
 /// <reference types="Cypress" />
 // ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
 // For more comprehensive examples of custom
 // commands please read more here:
 // https://on.cypress.io/custom-commands
@@ -82,23 +78,46 @@ Cypress.Commands.add("login", (email, password) => {
 // Login to professional interface
 Cypress.Commands.add("adminLogin", (email, password) => {
   cy.login(email, password)
+  cy.wait(1000)
+
+  // set language to english BEFORE going to professional interface
+  cy.setLanguageToEnglish()
 
   // go to professional interface
   cy.get('#my-account-menu').click()
   cy.get('#professional-interface-menu').click()
   cy.url().should('include', '/professional/')
-  // Check language and force to english
-  cy.wait(1000)
-  cy.get('#language-menu').click()
-  cy.setLanguageToEnglish()
  })
  //#endregion
 
  //#region Navigation
-// Go to /professional/records/documents (using main menu and click)
+// Go to user profile (using menus)
+// tabId: (not mandatory). If exists: go directly to given tabId
+Cypress.Commands.add("userProfile", (tabId) => {
+  // we should be already connected
+  cy.get('#my-account-menu').click()
+  cy.get('#my-profile-menu').click()
+  cy.wait(2500)
+  // Go to tabId if exist
+  if (tabId !== undefined) {
+    cy.get('#' + tabId).click()
+  }
+})
+
+// Go to a specific menu from professional homepage
+// menuId: `id=` attribute content
 Cypress.Commands.add("goToMenu", (menuId) => {
   // Go to professional homepage
-  cy.get('.logo').click()
+  cy.get('#homepage-logo').click()
+  // if already on professional, do nothing
+  cy.url().then((url) => {
+    if (!url.includes('/professional/')) {
+      cy.get('#my-account-menu').click()
+      cy.get('#professional-interface-menu').click()
+      cy.wait(800)
+    }
+  })
+
   // Check we're on admin page
   cy.url().should('include', '/professional/')
   // Click on 'menuTitle' from Catalog menu
@@ -107,17 +126,18 @@ Cypress.Commands.add("goToMenu", (menuId) => {
 
 Cypress.Commands.add("goToItem", (itemBarcode) => {
   // Go to homepage
-  if (cy.url().should('include', '/professional/')) {
-    // on professional context
-    cy.get('.logo').click()
-    cy.get('.form-control').type(itemBarcode).type('{enter}')
-  }
-  else {
-    // on public context
-    cy.get('#global-logo').click()
-    cy.wait(800)
-    cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')
-  }
+  cy.get('#homepage-logo').click()
+  cy.wait(800)
+  cy.url().then((url) => {
+    if (url.includes('/professional/')) {
+      // on professional context
+      cy.get('.form-control').type(itemBarcode).type('{enter}')
+    }
+    else {
+       // on public context
+      cy.get('.d-none > main-search-bar > .flex-grow-1 > .rero-ils-autocomplete > .form-control').type(itemBarcode).type('{enter}')
+    }
+  })
   // Use first element
   cy.get('.card-title > a').click()
 })
@@ -129,6 +149,7 @@ Cypress.Commands.add("createItem", (barcode, itemType, localisation) => {
   cy.goToMenu('documents-menu-frontpage')
   // Use one document (between first and tenth)
   let randomInteger = Math.floor((Math.random() * 9) + 1);
+  cy.wait(2100) // because ngx-spinner hide the menu with a black transparent filter
   cy.get(':nth-child(' + randomInteger.toString() + ') > ng-core-record-search-result > admin-documents-brief-view > .card-title > a').click()
   // Click on "Add…" button to add an item
   cy.get('.col > .btn').click()
@@ -147,7 +168,7 @@ Cypress.Commands.add("createItem", (barcode, itemType, localisation) => {
   cy.get('.mt-4 > [type="submit"]').click()
 
   // Assert that the item has been created
-  cy.contains(barcode)
+  cy.contains(barcode, {timeout: 8000})
 })
 //#endregion
 
