@@ -35,13 +35,13 @@
     <header class="">
       {%- block brand %}
         {%- if config.THEME_LOGO %}
-          <a href="/">
+          <a href="/" id="homepage-logo">
             <img class="text-center rero-ils-cover-logo"
             src="{{ url_for('static', filename=config.THEME_LOGO)}}"
             alt="{{ _(config.THEME_SITENAME) }}" />
           </a>
           {%- elif config.THEME_SITENAME %}
-          <a href="/" class="text-center mb-4">
+          <a href="/" class="text-center mb-4" id="homepage-logo">
             {{ _(config.THEME_SITENAME) }}
         </a>
         {% endif %}

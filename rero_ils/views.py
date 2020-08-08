@@ -123,7 +123,8 @@ def init_menu_lang():
             ),
             visible_when=partial(hide_language, language_item.language),
             order=order,
-            id='language-menu-{language}'.format(language=ui_language))
+            id='language-menu-{language}'.format(
+                language=language_item.language))
         order += 1
 
         item = current_menu.submenu('main.menu.help')

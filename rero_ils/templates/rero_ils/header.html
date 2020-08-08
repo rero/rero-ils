@@ -24,7 +24,7 @@
         {%- block navbar_brand %}
           {%- if config.THEME_LOGO %}
             <div class="align-self-center d-flex justify-content-between">
-              <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand pr-2">
+              <a href="/{% if viewcode != config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}{{ viewcode }}{% endif %}" class="navbar-brand pr-2" id="homepage-logo">
                 <img class="rero-ils-logo navbar-brand" src="{{ url_for('static', filename=config.THEME_LOGO)}}" alt="{{_(config.THEME_SITENAME)}} logo">
                 <div id="{{ viewcode }}-logo"></div>
               </a>
