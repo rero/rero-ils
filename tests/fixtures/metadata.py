@@ -729,3 +729,17 @@ def babel_filehandle():
         join(dirname(__file__), '..', 'data', 'babel_extraction.json'),
         'rb'
     )
+
+
+@pytest.fixture(scope='module')
+def documents_marcxml():
+    """Load marc xml records in one file."""
+    with open(join(dirname(__file__), '..', 'data', 'documents.xml')) as fh:
+        return fh.read()
+
+
+@pytest.fixture(scope='module')
+def document_marcxml():
+    """Load one marc xml record in one file."""
+    with open(join(dirname(__file__), '..', 'data', 'document.xml')) as fh:
+        return fh.read()

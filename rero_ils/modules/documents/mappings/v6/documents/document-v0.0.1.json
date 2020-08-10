@@ -800,6 +800,9 @@
         "harvested": {
           "type": "boolean"
         },
+        "_draft": {
+          "type": "boolean"
+        },
         "_created": {
           "type": "date"
         },
