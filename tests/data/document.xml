@@ -1,0 +1,82 @@
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <leader>00975nam a2200277 a 4500</leader>
+  <controlfield tag="001">REROILS:1</controlfield>
+  <controlfield tag="005">20170518120100.0</controlfield>
+  <controlfield tag="008">000918s1999    gw ||| |  ||||00|  |ger d</controlfield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9783503057221</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">R270072860</subfield>
+  </datafield>
+  <datafield tag="039" ind1=" " ind2=" ">
+    <subfield code="b">4606</subfield>
+  </datafield>
+  <datafield tag="039" ind1=" " ind2="9">
+    <subfield code="a">201705181201</subfield>
+    <subfield code="b">VLOAD</subfield>
+    <subfield code="c">200812211738</subfield>
+    <subfield code="d">VLOAD</subfield>
+    <subfield code="y">200009182231</subfield>
+    <subfield code="z">VLOAD</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">RERO neubfd</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">s1dr</subfield>
+    <subfield code="2">rero</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Zacharias, Erwin</subfield>
+    <subfield code="4">cre</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Going Public einer Fussball-Kapitalgesellschaft :</subfield>
+    <subfield code="b">rechtliche, betriebswirtschaftliche und strategische Konzepte bei der Vorbereitung der Börseneinführung eines Fussball-Bundesligavereins /</subfield>
+    <subfield code="c">von Erwin Zacharias</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">Bielefeld :</subfield>
+    <subfield code="b">Erich Schmidt,</subfield>
+    <subfield code="c">1999</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">617 S. :</subfield>
+    <subfield code="b">Taf. ;</subfield>
+    <subfield code="c">21 cm</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="904" ind1=" " ind2=" ">
+    <subfield code="a">neciesna</subfield>
+    <subfield code="b">2000/05</subfield>
+  </datafield>
+  <datafield tag="962" ind1=" " ind2=" ">
+    <subfield code="a">necies</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="2">dr-sys</subfield>
+    <subfield code="a">A 79.1 h</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="2">dr-sys</subfield>
+    <subfield code="a">A 61 h</subfield>
+  </datafield>
+  <datafield tag="984" ind1=" " ind2=" ">
+    <subfield code="2">dr-necies</subfield>
+    <subfield code="a">A 79.1 h ZACH 1999</subfield>
+  </datafield>
+</record>
+</collection>

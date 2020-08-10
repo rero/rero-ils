@@ -111,6 +111,15 @@ def json_header():
 
 
 @pytest.fixture(scope="session")
+def rero_marcxml_header():
+    """Load marcxml headers."""
+    return [
+        ('Accept', 'application/json'),
+        ('Content-Type', 'application/marcxml+xml')
+    ]
+
+
+@pytest.fixture(scope="session")
 def rero_json_header():
     """Load json headers."""
     return [

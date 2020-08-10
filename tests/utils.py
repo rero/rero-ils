@@ -76,11 +76,13 @@ def get_csv(response):
     return response.get_data(as_text=True)
 
 
-def postdata(client, endpoint, data=None, headers=None, url_data=None):
-    """
-    Build URL from given endpoint and send given data to it.
+def postdata(
+        client, endpoint, data=None, headers=None, url_data=None,
+        force_data_as_json=True):
+    """Build URL from given endpoint and send given data to it.
 
-    Returns result and JSON from result.
+    :param force_data_as_json: the data sent forced json.
+    :return: returns result and JSON from result.
     """
     if data is None:
         data = {}
@@ -91,10 +93,11 @@ def postdata(client, endpoint, data=None, headers=None, url_data=None):
         ]
     if url_data is None:
         url_data = {}
+    if force_data_as_json:
+        data = json.dumps(data)
     res = client.post(
         url_for(endpoint, **url_data),
-        data=json.dumps(data),
-        content_type='application/json',
+        data=data,
         headers=headers
     )
     output = get_json(res)
