@@ -1,0 +1,22 @@
+{
+  "vendor" : {
+    "name" : "EDP Sciences",
+    "website" : "https://www.edpsciences.org/fr/",
+    "note" : "This is a new vendor for Cypress test :-)",
+    "vat_rate" : "6",
+    "default_contact_contact_person" : "John Smith",
+    "default_contact_street" : "Avenue du Hoggar, 17. BP 112",
+    "default_contact_postal_code" : "91944",
+    "default_contact_city" : "Les Ulis Cedex A",
+    "default_contact_country" : "France",
+    "default_contact_phone" : "+33169187575",
+    "default_contact_email" : "commande@edpsciences.org",
+    "order_contact_contact_person" : "Roger la Science",
+    "order_contact_street" : "Avenue du Hoggar, 17. BP 112",
+    "order_contact_postal_code" : "91944",
+    "order_contact_city" : "Les Ulis Cedex A",
+    "order_contact_country" : "France",
+    "order_contact_phone" : "+33169187575",
+    "order_contact_email" : "roger.lascience@edpsciences.org"
+  }
+}

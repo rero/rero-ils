@@ -1,0 +1,7 @@
+{
+  "account": {
+    "name" : "Cypress-Account-123456",
+    "description" : "A Cypress Test Account",
+    "amount_allocated" : "10000"
+  }
+}

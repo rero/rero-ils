@@ -223,3 +223,21 @@ Cypress.Commands.add("checkDocumentEssentialFields", (document) => {
   cy.get('#doc-provision-activity-0').should('contain', document.provisionActivity.statement.place + ' : ' + document.provisionActivity.statement.agent + ', ' + document.provisionActivity.statement.date);
 });
 //#endregion ------------------------------------------------------------------>
+
+//#region Record
+Cypress.Commands.add("populateOrderLine", (order_number, acq_account_reference, document_reference, order_line_status, amount, note) => {
+
+  cy.get('.mt-4 > .btn').click({multiple : true})
+  cy.get('#acq_account-\\$ref').select(acq_account_reference)
+  // Document URI
+  cy.get('#document-\\$ref').type(document_reference)
+  cy.get('#order_line_status').select(order_line_status)
+  // Amount
+  cy.get('#amount').clear().type(amount)
+  cy.get('#note').type(note)
+  // Save
+  cy.get('.btn-primary').click()
+  cy.wait(3000)
+
+})
+//#endregion

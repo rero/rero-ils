@@ -1,0 +1,33 @@
+{
+  "order" : {
+    "vendor_reference" : "FNAC Aoste",
+    "order_number" : "Cypress-Order-123456",
+    "order_status" : "Ordered",
+    "order_date" : "2020-08-26",
+    "description" : "A new order for Cypress",
+    "lines" : [
+      {
+        "acq_account_reference" : "general",
+        "document_reference" : "https://ils.rero.ch/api/documents/237",
+        "order_line_status" : "Ordered",
+        "amount" : 10,
+        "note" : "A Little Note for line 1"
+      },
+      {
+        "acq_account_reference" : "general",
+        "document_reference" : "https://ils.rero.ch/api/documents/104",
+        "order_line_status" : "Ordered",
+        "amount" : 15,
+        "note" : "A Little Note for line 2"
+      },
+      {
+        "acq_account_reference" : "general",
+        "document_reference" : "https://ils.rero.ch/api/documents/79",
+        "order_line_status" : "Ordered",
+        "amount" : 7,
+        "note" : "A Little Note for line 3"
+      }
+    ]
+  }
+
+}
