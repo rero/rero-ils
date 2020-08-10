@@ -115,6 +115,9 @@ class IlsRecord(Record):
         extended validation per record class
         and test of pid existence.
         """
+        if self.get('_draft'):
+            # No validation is needed for draft records
+            return True
         super(IlsRecord, self).validate(**kwargs)
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True

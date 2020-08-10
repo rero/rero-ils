@@ -430,6 +430,11 @@ RECORDS_REST_ENDPOINTS = dict(
                 'rero_ils.modules.documents.serializers:json_doc_search'
             ),
         },
+        record_loaders={
+            'application/marcxml+xml': 'rero_ils.modules.documents.loaders:marcxml_loader',
+            'application/json': lambda: Document(request.get_json()),
+        },
+
         list_route='/documents/',
         record_class='rero_ils.modules.documents.api:Document',
         item_route=('/documents/<pid(doc, record_class='

@@ -426,3 +426,12 @@ def test_harvested(document_schema, document_data_tmp):
     with pytest.raises(ValidationError):
         document_data_tmp['harvested'] = 2
         validate(document_data_tmp, document_schema)
+
+
+def test_draft(document_schema, document_data_tmp):
+    """Test draft for jsonschemas."""
+    validate(document_data_tmp, document_schema)
+
+    with pytest.raises(ValidationError):
+        document_data_tmp['_draft'] = 2
+        validate(document_data_tmp, document_schema)
