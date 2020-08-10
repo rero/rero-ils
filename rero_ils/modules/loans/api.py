@@ -346,7 +346,10 @@ def patron_profile(patron):
     history = []
 
     for loan in get_loans_by_patron_pid(patron_pid):
-        item = Item.get_record_by_pid(loan.item_pid)
+        item = Item.get_record_by_pid(loan.item_pid, with_deleted=True)
+        if item == {}:
+            # loans for deleted items are temporarily skipped.
+            continue
         document = Document.get_record_by_pid(
             item.replace_refs()['document']['pid'])
         loan['document'] = document.replace_refs().dumps()
