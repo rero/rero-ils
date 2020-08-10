@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-07-24 10:46+0200\n"
-"PO-Revision-Date: 2020-08-06 08:14+0000\n"
-"Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
+"PO-Revision-Date: 2020-08-10 09:53+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -268,7 +268,7 @@ msgstr "Help"
 
 #: rero_ils/views.py:154
 msgid "My Account"
-msgstr "My Account"
+msgstr "My account"
 
 #: rero_ils/views.py:179
 msgid "Login"
