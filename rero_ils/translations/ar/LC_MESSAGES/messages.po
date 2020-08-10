@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-07-24 10:46+0200\n"
+"POT-Creation-Date: 2020-08-10 12:02+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Aly Badr <aly.badr@rero.ch>, 2020\n"
 "Language: ar\n"
@@ -22,107 +22,118 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: rero_ils/config.py:123
+#: rero_ils/config.py:121
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:292
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:84
 msgid "French"
 msgstr "الفرنسية"
 
-#: rero_ils/config.py:124
+#: rero_ils/config.py:122
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:300
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:96
 msgid "German"
 msgstr "الألمانية"
 
-#: rero_ils/config.py:125
+#: rero_ils/config.py:123
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:304
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:92
 msgid "Italian"
 msgstr "الايطالية"
 
-#: rero_ils/config.py:176 rero_ils/config.py:180
+#: rero_ils/config.py:174 rero_ils/config.py:178
 msgid "rero-ils"
 msgstr "rero-ils"
 
-#: rero_ils/config.py:227
+#: rero_ils/config.py:225
 msgid "Welcome to RERO-ILS!"
 msgstr "مرحباً بك في RERO-ILS"
 
-#: rero_ils/config.py:1261
+#: rero_ils/config.py:1386
 msgid "document_type"
 msgstr "تصنبف المستند"
 
-#: rero_ils/config.py:1262
+#: rero_ils/config.py:1387
 msgid "organisation"
 msgstr "الشبكة"
 
-#: rero_ils/config.py:1265 rero_ils/config.py:1309 rero_ils/config.py:1331
-#: rero_ils/config.py:1353
+#: rero_ils/config.py:1390 rero_ils/config.py:1425 rero_ils/config.py:1464
+#: rero_ils/config.py:1486 rero_ils/config.py:1508
 msgid "library"
 msgstr "المكتبة"
 
-#: rero_ils/config.py:1266
+#: rero_ils/config.py:1391
 msgid "author__en"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1267
+#: rero_ils/config.py:1392
 msgid "author__fr"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1268
+#: rero_ils/config.py:1393
 msgid "author__de"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1269
+#: rero_ils/config.py:1394
 msgid "author__it"
 msgstr "المؤلف"
 
-#: rero_ils/config.py:1270
+#: rero_ils/config.py:1395
 msgid "language"
 msgstr "اللغة"
 
-#: rero_ils/config.py:1271
+#: rero_ils/config.py:1396
 msgid "subject"
 msgstr "الموضوع"
 
-#: rero_ils/config.py:1272 rero_ils/config.py:1332 rero_ils/config.py:1354
+#: rero_ils/config.py:1397 rero_ils/config.py:1427 rero_ils/config.py:1487
+#: rero_ils/config.py:1509
 msgid "status"
 msgstr "الحالة"
 
-#: rero_ils/config.py:1288
+#: rero_ils/config.py:1424
+#, fuzzy
+msgid "location"
+msgstr "مكان"
+
+#: rero_ils/config.py:1426
+#, fuzzy
+msgid "item_type"
+msgstr "تصنيف النسخة"
+
+#: rero_ils/config.py:1443
 msgid "roles"
 msgstr "مهام"
 
-#: rero_ils/config.py:1310
+#: rero_ils/config.py:1465
 msgid "budget"
 msgstr "الميزانية"
 
-#: rero_ils/config.py:1370
+#: rero_ils/config.py:1525
 msgid "sources"
 msgstr "المصادر"
 
 #: rero_ils/manual_translations.txt:16
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:250
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:261
 msgid "on_loan"
 msgstr "مُعار"
 
 #: rero_ils/manual_translations.txt:17
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:246
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:257
 msgid "on_shelf"
 msgstr "على الرف"
 
 #: rero_ils/manual_translations.txt:18
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:254
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:265
 msgid "missing"
 msgstr "مفقود"
 
 #: rero_ils/manual_translations.txt:19
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:258
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:269
 msgid "in_transit"
 msgstr "في مرحلة انتقالية"
 
 #: rero_ils/manual_translations.txt:20
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:262
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:273
 msgid "at_desk"
 msgstr "في مكتب الإعارة"
 
@@ -395,1531 +406,1531 @@ msgstr "canton_zh"
 msgid "Country"
 msgstr "البلد"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:392
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:393
 msgid "country_aa"
 msgstr "country_aa"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:396
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:397
 msgid "country_abc"
 msgstr "country_abc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:400
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:401
 msgid "country_ac"
 msgstr "country_ac"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:404
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:405
 msgid "country_aca"
 msgstr "country_aca"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:408
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:409
 msgid "country_ae"
 msgstr "country_ae"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:412
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:413
 msgid "country_af"
 msgstr "country_af"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:416
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:417
 msgid "country_ag"
 msgstr "country_ag"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:420
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:421
 msgid "country_ai"
 msgstr "country_ai"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:424
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:425
 msgid "country_air"
 msgstr "country_air"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:428
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:429
 msgid "country_aj"
 msgstr "country_aj"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:432
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:433
 msgid "country_ajr"
 msgstr "country_ajr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:436
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:437
 msgid "country_aku"
 msgstr "country_aku"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:440
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:441
 msgid "country_alu"
 msgstr "country_alu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:444
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:445
 msgid "country_am"
 msgstr "country_am"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:448
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:449
 msgid "country_an"
 msgstr "country_an"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:452
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:453
 msgid "country_ao"
 msgstr "country_ao"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:456
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:457
 msgid "country_aq"
 msgstr "(aq) أنتيغوا وبربودا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:460
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:461
 msgid "country_aru"
 msgstr "country_aru"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:464
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:465
 msgid "country_as"
 msgstr "country_as"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:468
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:469
 msgid "country_at"
 msgstr "country_at"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:472
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:473
 msgid "country_au"
 msgstr "country_au"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:476
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:477
 msgid "country_aw"
 msgstr "country_aw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:480
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:481
 msgid "country_ay"
 msgstr "country_ay"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:484
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:485
 msgid "country_azu"
 msgstr "country_azu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:488
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:489
 msgid "country_ba"
 msgstr "country_ba"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:492
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:493
 msgid "country_bb"
 msgstr "(bb) بربادوس"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:496
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:497
 msgid "country_bcc"
 msgstr "(bbc) كولومبيا البريطانية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:500
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:501
 msgid "country_bd"
 msgstr "country_bd"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:504
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:505
 msgid "country_be"
 msgstr "country_be"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:508
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:509
 msgid "country_bf"
 msgstr "country_bf"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:512
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:513
 msgid "country_bg"
 msgstr "country_bg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:516
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:517
 msgid "country_bh"
 msgstr "country_bh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:520
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:521
 msgid "country_bi"
 msgstr "country_bi"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:524
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:525
 msgid "country_bl"
 msgstr "country_bl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:528
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:529
 msgid "country_bm"
 msgstr "country_bm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:532
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:533
 msgid "country_bn"
 msgstr "country_bn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:536
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:537
 msgid "country_bo"
 msgstr "country_bo"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:540
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:541
 msgid "country_bp"
 msgstr "(bp) جزر سليمان"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:544
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:545
 msgid "country_br"
 msgstr "country_br"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:548
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:549
 msgid "country_bs"
 msgstr "country_bs"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:552
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:553
 msgid "country_bt"
 msgstr "(bt) بوتان"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:556
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:557
 msgid "country_bu"
 msgstr "country_bu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:560
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:561
 msgid "country_bv"
 msgstr "(bv) جزيرة بوفيه"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:564
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:565
 msgid "country_bw"
 msgstr "(bw) بيلاروس"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:568
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:569
 msgid "country_bwr"
 msgstr "country_bwr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:572
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:573
 msgid "country_bx"
 msgstr "(bx) بروناي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:576
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:577
 msgid "country_ca"
 msgstr "country_ca"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:580
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:581
 msgid "country_cau"
 msgstr "(cau) كاليفورنيا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:584
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:585
 msgid "country_cb"
 msgstr "country_cb"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:588
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:589
 msgid "country_cc"
 msgstr "(cc) الصين"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:592
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:593
 msgid "country_cd"
 msgstr "country_cd"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:596
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:597
 msgid "country_ce"
 msgstr "country_ce"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:600
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:601
 msgid "country_cf"
 msgstr "(cf) كونجو برازفيل"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:604
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:605
 msgid "country_cg"
 msgstr "country_cg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:608
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:609
 msgid "country_ch"
 msgstr "country_ch"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:612
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:613
 msgid "country_ci"
 msgstr "country_ci"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:616
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:617
 msgid "country_cj"
 msgstr "(cj) جزر كايمان"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:620
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:621
 msgid "country_ck"
 msgstr "country_ck"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:624
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:625
 msgid "country_cl"
 msgstr "(cl) تشيلي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:628
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:629
 msgid "country_cm"
 msgstr "country_cm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:632
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:633
 msgid "country_cn"
 msgstr "country_cn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:636
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:637
 msgid "country_co"
 msgstr "country_co"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:640
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:641
 msgid "country_cou"
 msgstr "country_cou"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:644
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:645
 msgid "country_cp"
 msgstr "country_cp"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:648
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:649
 msgid "country_cq"
 msgstr "(cq) جزر القمر"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:652
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:653
 msgid "country_cr"
 msgstr "country_cr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:656
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:657
 msgid "country_cs"
 msgstr "country_cs"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:660
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:661
 msgid "country_ctu"
 msgstr "country_ctu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:664
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:665
 msgid "country_cu"
 msgstr "country_cu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:668
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:669
 msgid "country_cv"
 msgstr "country_cv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:672
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:673
 msgid "country_cw"
 msgstr "(cw) جزر كوك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:676
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:677
 msgid "country_cx"
 msgstr "(cx) جمهورية أفريقيا الوسطى"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:680
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:681
 msgid "country_cy"
 msgstr "country_cy"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:684
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:685
 msgid "country_cz"
 msgstr "(cz) قناة الزون"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:688
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:689
 msgid "country_dcu"
 msgstr "country_dcu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:692
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:693
 msgid "country_deu"
 msgstr "country_deu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:696
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:697
 msgid "country_dk"
 msgstr "country_dk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:700
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:701
 msgid "country_dm"
 msgstr "country_dm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:704
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:705
 msgid "country_dq"
 msgstr "(dq) دومينيكا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:708
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:709
 msgid "country_dr"
 msgstr "country_dr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:712
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:713
 msgid "country_ea"
 msgstr "country_ea"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:716
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:717
 msgid "country_ec"
 msgstr "(ec) الإكوادور"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:720
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:721
 msgid "country_eg"
 msgstr "country_eg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:724
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:725
 msgid "country_em"
 msgstr "country_em"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:728
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:729
 msgid "country_enk"
 msgstr "country_enk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:732
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:733
 msgid "country_er"
 msgstr "country_er"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:736
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:737
 msgid "country_err"
 msgstr "country_err"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:740
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:741
 msgid "country_es"
 msgstr "country_es"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:744
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:745
 msgid "country_et"
 msgstr "country_et"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:748
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:749
 msgid "country_fa"
 msgstr "country_fa"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:752
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:753
 msgid "country_fg"
 msgstr "(fg) غويانا الفرنسية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:756
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:757
 msgid "country_fi"
 msgstr "country_fi"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:760
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:761
 msgid "country_fj"
 msgstr "country_fj"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:764
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:765
 msgid "country_fk"
 msgstr "(fk) جزر الفوكلاند"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:768
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:769
 msgid "country_flu"
 msgstr "country_flu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:772
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:773
 msgid "country_fm"
 msgstr "country_fm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:776
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:777
 msgid "country_fp"
 msgstr "(fp) بولينيزيا الفرنسية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:780
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:781
 msgid "country_fr"
 msgstr "country_fr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:784
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:785
 msgid "country_fs"
 msgstr "country_fs"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:788
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:789
 msgid "country_ft"
 msgstr "country_ft"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:792
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:793
 msgid "country_gau"
 msgstr "country_gau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:796
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:797
 msgid "country_gb"
 msgstr "country_gb"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:800
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:801
 msgid "country_gd"
 msgstr "country_gd"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:804
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:805
 msgid "country_ge"
 msgstr "country_ge"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:808
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:809
 msgid "country_gg"
 msgstr "country_gg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:812
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:813
 msgid "country_gh"
 msgstr "country_gh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:816
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:817
 msgid "country_gi"
 msgstr "country_gi"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:820
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:821
 msgid "country_gl"
 msgstr "country_gl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:824
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:825
 msgid "country_gm"
 msgstr "country_gm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:828
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:829
 msgid "country_gn"
 msgstr "country_gn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:832
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:833
 msgid "country_go"
 msgstr "country_go"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:836
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:837
 msgid "country_gp"
 msgstr "(gp) غوادلوب"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:840
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:841
 msgid "country_gr"
 msgstr "country_gr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:844
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:845
 msgid "country_gs"
 msgstr "country_gs"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:848
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:849
 msgid "country_gsr"
 msgstr "country_gsr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:852
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:853
 msgid "country_gt"
 msgstr "country_gt"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:856
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:857
 msgid "country_gu"
 msgstr "country_gu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:860
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:861
 msgid "country_gv"
 msgstr "country_gv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:864
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:865
 msgid "country_gw"
 msgstr "country_gw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:868
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:869
 msgid "country_gy"
 msgstr "country_gy"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:872
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:873
 msgid "country_gz"
 msgstr "country_gz"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:876
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:877
 msgid "country_hiu"
 msgstr "country_hiu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:880
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:881
 msgid "country_hk"
 msgstr "country_hk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:884
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:885
 msgid "country_hm"
 msgstr "country_hm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:888
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:889
 msgid "country_ho"
 msgstr "country_ho"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:892
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:893
 msgid "country_ht"
 msgstr "country_ht"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:896
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:897
 msgid "country_hu"
 msgstr "country_hu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:900
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:901
 msgid "country_iau"
 msgstr "country_iau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:904
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:905
 msgid "country_ic"
 msgstr "country_ic"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:908
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:909
 msgid "country_idu"
 msgstr "country_idu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:912
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:913
 msgid "country_ie"
 msgstr "country_ie"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:916
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:917
 msgid "country_ii"
 msgstr "country_ii"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:920
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:921
 msgid "country_ilu"
 msgstr "country_ilu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:924
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:925
 msgid "country_im"
 msgstr "country_im"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:928
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:929
 msgid "country_inu"
 msgstr "country_inu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:932
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:933
 msgid "country_io"
 msgstr "country_io"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:936
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:937
 msgid "country_iq"
 msgstr "(iq) العراق"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:940
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:941
 msgid "country_ir"
 msgstr "country_ir"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:944
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:945
 msgid "country_is"
 msgstr "country_is"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:948
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:949
 msgid "country_it"
 msgstr "country_it"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:952
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:953
 msgid "country_iu"
 msgstr "country_iu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:956
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:957
 msgid "country_iv"
 msgstr "country_iv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:960
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:961
 msgid "country_iw"
 msgstr "(iw) المناطق المنزوعة السلاح بين إسرائيل والأردن"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:964
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:965
 msgid "country_iy"
 msgstr "country_iy"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:968
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:969
 msgid "country_ja"
 msgstr "country_ja"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:972
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:973
 msgid "country_je"
 msgstr "(je) جيرسي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:976
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:977
 msgid "country_ji"
 msgstr "country_ji"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:980
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:981
 msgid "country_jm"
 msgstr "(jm) جامايكا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:984
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:985
 msgid "country_jn"
 msgstr "country_jn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:988
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:989
 msgid "country_jo"
 msgstr "country_jo"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:992
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:993
 msgid "country_ke"
 msgstr "country_ke"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:996
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:997
 msgid "country_kg"
 msgstr "(kg) قيرغيزستان"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1000
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1001
 msgid "country_kgr"
 msgstr "country_kgr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1004
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1005
 msgid "country_kn"
 msgstr "country_kn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1008
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1009
 msgid "country_ko"
 msgstr "country_ko"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1012
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1013
 msgid "country_ksu"
 msgstr "country_ksu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1016
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1017
 msgid "country_ku"
 msgstr "country_ku"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1020
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1021
 msgid "country_kv"
 msgstr "(kv) كوسوفو"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1024
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1025
 msgid "country_kyu"
 msgstr "country_kyu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1028
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1029
 msgid "country_kz"
 msgstr "country_kz"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1032
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1033
 msgid "country_kzr"
 msgstr "country_kzr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1036
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1037
 msgid "country_lau"
 msgstr "country_lau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1040
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1041
 msgid "country_lb"
 msgstr "country_lb"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1044
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1045
 msgid "country_le"
 msgstr "country_le"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1048
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1049
 msgid "country_lh"
 msgstr "country_lh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1052
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1053
 msgid "country_li"
 msgstr "country_li"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1056
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1057
 msgid "country_lir"
 msgstr "country_lir"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1060
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1061
 msgid "country_ln"
 msgstr "country_ln"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1064
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1065
 msgid "country_lo"
 msgstr "country_lo"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1068
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1069
 msgid "country_ls"
 msgstr "country_ls"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1072
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1073
 msgid "country_lu"
 msgstr "country_lu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1076
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1077
 msgid "country_lv"
 msgstr "country_lv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1080
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1081
 msgid "country_lvr"
 msgstr "country_lvr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1084
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1085
 msgid "country_ly"
 msgstr "(ly) ليبيا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1088
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1089
 msgid "country_mau"
 msgstr "country_mau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1092
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1093
 msgid "country_mbc"
 msgstr "country_mbc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1096
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1097
 msgid "country_mc"
 msgstr "country_mc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1100
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1101
 msgid "country_mdu"
 msgstr "country_mdu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1104
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1105
 msgid "country_meu"
 msgstr "country_meu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1108
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1109
 msgid "country_mf"
 msgstr "country_mf"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1112
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1113
 msgid "country_mg"
 msgstr "country_mg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1116
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1117
 msgid "country_mh"
 msgstr "country_mh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1120
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1121
 msgid "country_miu"
 msgstr "country_miu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1124
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1125
 msgid "country_mj"
 msgstr "country_mj"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1128
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1129
 msgid "country_mk"
 msgstr "country_mk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1132
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1133
 msgid "country_ml"
 msgstr "country_ml"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1136
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1137
 msgid "country_mm"
 msgstr "(mm) مالطا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1140
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1141
 msgid "country_mnu"
 msgstr "country_mnu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1144
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1145
 msgid "country_mo"
 msgstr "country_mo"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1148
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1149
 msgid "country_mou"
 msgstr "country_mou"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1152
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1153
 msgid "country_mp"
 msgstr "(mp) منغوليا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1156
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1157
 msgid "country_mq"
 msgstr "(mq) جزر المارتينيك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1160
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1161
 msgid "country_mr"
 msgstr "country_mr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1164
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1165
 msgid "country_msu"
 msgstr "country_msu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1168
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1169
 msgid "country_mtu"
 msgstr "country_mtu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1172
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1173
 msgid "country_mu"
 msgstr "country_mu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1176
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1177
 msgid "country_mv"
 msgstr "country_mv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1180
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1181
 msgid "country_mvr"
 msgstr "country_mvr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1184
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1185
 msgid "country_mw"
 msgstr "country_mw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1188
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1189
 msgid "country_mx"
 msgstr "(mx) المكسيك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1192
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1193
 msgid "country_my"
 msgstr "country_my"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1196
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1197
 msgid "country_mz"
 msgstr "(mz) موزمبيق"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1200
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1201
 msgid "country_na"
 msgstr "country_na"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1204
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1205
 msgid "country_nbu"
 msgstr "country_nbu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1208
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1209
 msgid "country_ncu"
 msgstr "country_ncu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1212
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1213
 msgid "country_ndu"
 msgstr "country_ndu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1216
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1217
 msgid "country_ne"
 msgstr "country_ne"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1220
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1221
 msgid "country_nfc"
 msgstr "country_nfc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1224
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1225
 msgid "country_ng"
 msgstr "country_ng"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1228
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1229
 msgid "country_nhu"
 msgstr "country_nhu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1232
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1233
 msgid "country_nik"
 msgstr "country_nik"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1236
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1237
 msgid "country_nju"
 msgstr "country_nju"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1240
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1241
 msgid "country_nkc"
 msgstr "country_nkc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1244
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1245
 msgid "country_nl"
 msgstr "country_nl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1248
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1249
 msgid "country_nm"
 msgstr "country_nm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1252
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1253
 msgid "country_nmu"
 msgstr "country_nmu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1256
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1257
 msgid "country_nn"
 msgstr "country_nn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1260
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1261
 msgid "country_no"
 msgstr "country_no"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1264
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1265
 msgid "country_np"
 msgstr "country_np"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1268
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1269
 msgid "country_nq"
 msgstr "country_nq"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1272
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1273
 msgid "country_nr"
 msgstr "country_nr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1276
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1277
 msgid "country_nsc"
 msgstr "country_nsc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1280
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1281
 msgid "country_ntc"
 msgstr "country_ntc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1284
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1285
 msgid "country_nu"
 msgstr "country_nu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1288
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1289
 msgid "country_nuc"
 msgstr "country_nuc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1292
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1293
 msgid "country_nvu"
 msgstr "country_nvu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1296
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1297
 msgid "country_nw"
 msgstr "country_nw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1300
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1301
 msgid "country_nx"
 msgstr "(nx) جزيرة نورفولك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1304
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1305
 msgid "country_nyu"
 msgstr "country_nyu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1308
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1309
 msgid "country_nz"
 msgstr "country_nz"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1312
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1313
 msgid "country_ohu"
 msgstr "country_ohu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1316
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1317
 msgid "country_oku"
 msgstr "country_oku"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1320
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1321
 msgid "country_onc"
 msgstr "country_onc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1324
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1325
 msgid "country_oru"
 msgstr "country_oru"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1328
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1329
 msgid "country_ot"
 msgstr "country_ot"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1332
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1333
 msgid "country_pau"
 msgstr "(pau) بنسلفانيا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1336
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1337
 msgid "country_pc"
 msgstr "(pc) جزيرة بيتكيرن"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1340
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1341
 msgid "country_pe"
 msgstr "country_pe"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1344
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1345
 msgid "country_pf"
 msgstr "(pf) جزر باراسيل"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1348
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1349
 msgid "country_pg"
 msgstr "country_pg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1352
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1353
 msgid "country_ph"
 msgstr "country_ph"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1356
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1357
 msgid "country_pic"
 msgstr "country_pic"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1360
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1361
 msgid "country_pk"
 msgstr "country_pk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1364
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1365
 msgid "country_pl"
 msgstr "country_pl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1368
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1369
 msgid "country_pn"
 msgstr "country_pn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1372
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1373
 msgid "country_po"
 msgstr "country_po"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1376
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1377
 msgid "country_pp"
 msgstr "country_pp"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1380
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1381
 msgid "country_pr"
 msgstr "country_pr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1384
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1385
 msgid "country_pt"
 msgstr "(pt) تيمور البرتغالية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1388
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1389
 msgid "country_pw"
 msgstr "(pw) بالاو"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1392
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1393
 msgid "country_py"
 msgstr "(py) باراغواي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1396
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1397
 msgid "country_qa"
 msgstr "(qa) قطر"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1400
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1401
 msgid "country_qea"
 msgstr "country_qea"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1404
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1405
 msgid "country_quc"
 msgstr "country_quc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1408
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1409
 msgid "country_rb"
 msgstr "country_rb"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1412
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1413
 msgid "country_re"
 msgstr "country_re"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1416
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1417
 msgid "country_rh"
 msgstr "country_rh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1420
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1421
 msgid "country_riu"
 msgstr "country_riu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1424
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1425
 msgid "country_rm"
 msgstr "country_rm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1428
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1429
 msgid "country_ru"
 msgstr "country_ru"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1432
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1433
 msgid "country_rur"
 msgstr "country_rur"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1436
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1437
 msgid "country_rw"
 msgstr "country_rw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1440
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1441
 msgid "country_ry"
 msgstr "country_ry"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1444
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1445
 msgid "country_sa"
 msgstr "country_sa"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1448
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1449
 msgid "country_sb"
 msgstr "country_sb"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1452
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1453
 msgid "country_sc"
 msgstr "country_sc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1456
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1457
 msgid "country_scu"
 msgstr "country_scu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1460
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1461
 msgid "country_sd"
 msgstr "country_sd"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1464
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1465
 msgid "country_sdu"
 msgstr "country_sdu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1468
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1469
 msgid "country_se"
 msgstr "country_se"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1472
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1473
 msgid "country_sf"
 msgstr "(sf) ساو تومي وبرينسيبي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1476
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1477
 msgid "country_sg"
 msgstr "country_sg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1480
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1481
 msgid "country_sh"
 msgstr "country_sh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1484
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1485
 msgid "country_si"
 msgstr "country_si"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1488
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1489
 msgid "country_sj"
 msgstr "country_sj"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1492
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1493
 msgid "country_sk"
 msgstr "country_sk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1496
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1497
 msgid "country_sl"
 msgstr "country_sl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1500
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1501
 msgid "country_sm"
 msgstr "country_sm"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1504
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1505
 msgid "country_sn"
 msgstr "country_sn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1508
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1509
 msgid "country_snc"
 msgstr "country_snc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1512
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1513
 msgid "country_so"
 msgstr "country_so"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1516
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1517
 msgid "country_sp"
 msgstr "country_sp"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1520
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1521
 msgid "country_sq"
 msgstr "(sq) إسواتيني"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1524
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1525
 msgid "country_sr"
 msgstr "country_sr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1528
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1529
 msgid "country_ss"
 msgstr "country_ss"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1532
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1533
 msgid "country_st"
 msgstr "country_st"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1536
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1537
 msgid "country_stk"
 msgstr "country_stk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1540
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1541
 msgid "country_su"
 msgstr "country_su"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1544
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1545
 msgid "country_sv"
 msgstr "country_sv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1548
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1549
 msgid "country_sw"
 msgstr "country_sw"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1552
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1553
 msgid "country_sx"
 msgstr "country_sx"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1556
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1557
 msgid "country_sy"
 msgstr "country_sy"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1560
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1561
 msgid "country_sz"
 msgstr "(sz) سويسرا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1564
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1565
 msgid "country_ta"
 msgstr "country_ta"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1568
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1569
 msgid "country_tar"
 msgstr "country_tar"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1572
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1573
 msgid "country_tc"
 msgstr "(tc) جزر توركس وكايكوس"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1576
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1577
 msgid "country_tg"
 msgstr "country_tg"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1580
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1581
 msgid "country_th"
 msgstr "country_th"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1584
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1585
 msgid "country_ti"
 msgstr "country_ti"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1588
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1589
 msgid "country_tk"
 msgstr "country_tk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1592
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1593
 msgid "country_tkr"
 msgstr "country_tkr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1596
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1597
 msgid "country_tl"
 msgstr "country_tl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1600
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1601
 msgid "country_tma"
 msgstr "country_tma"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1604
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1605
 msgid "country_tnu"
 msgstr "country_tnu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1608
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1609
 msgid "country_to"
 msgstr "country_to"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1612
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1613
 msgid "country_tr"
 msgstr "country_tr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1616
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1617
 msgid "country_ts"
 msgstr "country_ts"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1620
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1621
 msgid "country_tt"
 msgstr "country_tt"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1624
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1625
 msgid "country_tu"
 msgstr "country_tu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1628
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1629
 msgid "country_tv"
 msgstr "country_tv"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1632
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1633
 msgid "country_txu"
 msgstr "country_txu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1636
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1637
 msgid "country_tz"
 msgstr "country_tz"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1640
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1641
 msgid "country_ua"
 msgstr "country_ua"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1644
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1645
 msgid "country_uc"
 msgstr "(uc) الولايات المتحدة متفرقات. جزر الكاريبي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1648
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1649
 msgid "country_ug"
 msgstr "country_ug"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1652
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1653
 msgid "country_ui"
 msgstr "country_ui"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1656
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1657
 msgid "country_uik"
 msgstr "country_uik"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1660
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1661
 msgid "country_uk"
 msgstr "country_uk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1664
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1665
 msgid "country_un"
 msgstr "country_un"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1668
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1669
 msgid "country_unr"
 msgstr "country_unr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1672
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1673
 msgid "country_up"
 msgstr "country_up"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1676
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1677
 msgid "country_ur"
 msgstr "country_ur"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1680
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1681
 msgid "country_us"
 msgstr "country_us"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1684
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1685
 msgid "country_utu"
 msgstr "country_utu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1688
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1689
 msgid "country_uv"
 msgstr "(uv) بوركينا فاسو"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1692
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1693
 msgid "country_uy"
 msgstr "(uy) أورغواي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1696
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1697
 msgid "country_uz"
 msgstr "country_uz"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1700
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1701
 msgid "country_uzr"
 msgstr "country_uzr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1704
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1705
 msgid "country_vau"
 msgstr "country_vau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1708
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1709
 msgid "country_vb"
 msgstr "(vb) جزر فيرجن البريطانية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1712
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1713
 msgid "country_vc"
 msgstr "(vc) مدينة الفاتيكان"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1716
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1717
 msgid "country_ve"
 msgstr "country_ve"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1720
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1721
 msgid "country_vi"
 msgstr "country_vi"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1724
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1725
 msgid "country_vm"
 msgstr "(vm) فيتنام"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1728
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1729
 msgid "country_vn"
 msgstr "country_vn"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1732
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1733
 msgid "country_vp"
 msgstr "(vp) أماكن متعددة"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1736
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1737
 msgid "country_vra"
 msgstr "country_vra"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1740
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1741
 msgid "country_vs"
 msgstr "(vs) فيتنام الجنوبية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1744
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1745
 msgid "country_vtu"
 msgstr "country_vtu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1748
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1749
 msgid "country_wau"
 msgstr "country_wau"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1752
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1753
 msgid "country_wb"
 msgstr "(wb) برلين الغربية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1756
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1757
 msgid "country_wea"
 msgstr "country_wea"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1760
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1761
 msgid "country_wf"
 msgstr "(wf) جزر والس وفوتونا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1764
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1765
 msgid "country_wiu"
 msgstr "country_wiu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1768
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1769
 msgid "country_wj"
 msgstr "(wj) الضفة الغربية لنهر الأردن"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1772
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1773
 msgid "country_wk"
 msgstr "(wk) جزيرة ويك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1776
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1777
 msgid "country_wlk"
 msgstr "country_wlk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1780
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1781
 msgid "country_ws"
 msgstr "country_ws"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1784
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1785
 msgid "country_wvu"
 msgstr "(wvu) فرجينيا الغربية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1788
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1789
 msgid "country_wyu"
 msgstr "country_wyu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1792
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1793
 msgid "country_xa"
 msgstr "country_xa"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1796
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1797
 msgid "country_xb"
 msgstr "(xb) جزر كوكوس (كيلينغ)"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1800
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1801
 msgid "country_xc"
 msgstr "(xc) جزر المالديف"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1804
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1805
 msgid "country_xd"
 msgstr "(xd) سانت كيتس-نيفيس"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1808
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1809
 msgid "country_xe"
 msgstr "(xe) جزر مارشال"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1812
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1813
 msgid "country_xf"
 msgstr "(xf) جزر ميدواي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1816
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1817
 msgid "country_xga"
 msgstr "country_xga"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1820
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1821
 msgid "country_xh"
 msgstr "country_xh"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1824
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1825
 msgid "country_xi"
 msgstr "(xi) سانت كيتس-نيفيس أنغيلا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1828
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1829
 msgid "country_xj"
 msgstr "(xj) سانت هيلانة"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1832
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1833
 msgid "country_xk"
 msgstr "(xk) سانت لوسيا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1836
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1837
 msgid "country_xl"
 msgstr "country_xl"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1840
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1841
 msgid "country_xm"
 msgstr "(xm) سانت فنسنت وجزر غرينادين"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1844
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1845
 msgid "country_xn"
 msgstr "(xn) مقدونيا الشمالية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1848
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1849
 msgid "country_xna"
 msgstr "country_xna"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1852
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1853
 msgid "country_xo"
 msgstr "country_xo"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1856
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1857
 msgid "country_xoa"
 msgstr "country_xoa"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1860
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1861
 msgid "country_xp"
 msgstr "(xp) جزيرة سبراتلي"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1864
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1865
 msgid "country_xr"
 msgstr "(xr) التشيك"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1868
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1869
 msgid "country_xra"
 msgstr "country_xra"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1872
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1873
 msgid "country_xs"
 msgstr "(xs) جورجيا الجنوبية وجزر ساندويتش الجنوبية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1876
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1877
 msgid "country_xv"
 msgstr "(xv) سلوفينيا"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1880
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1881
 msgid "country_xx"
 msgstr "country_xx"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1884
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1885
 msgid "country_xxc"
 msgstr "country_xxc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1888
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1889
 msgid "country_xxk"
 msgstr "country_xxk"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1892
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1893
 msgid "country_xxr"
 msgstr "country_xxr"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1896
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1897
 msgid "country_xxu"
 msgstr "country_xxu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1900
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1901
 msgid "country_ye"
 msgstr "country_ye"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1904
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1905
 msgid "country_ykc"
 msgstr "country_ykc"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1908
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1909
 msgid "country_ys"
 msgstr "(ys) الجمهورية اليمنية الديمقراطية الشعبية"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1912
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1913
 msgid "country_yu"
 msgstr "country_yu"
 
-#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1916
+#: rero_ils/jsonschemas/common/countries-v0.0.1.json:1917
 msgid "country_za"
 msgstr "country_za"
 
@@ -3908,10 +3919,10 @@ msgstr "مخطط JSON للحساب"
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:28
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:16
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:24
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:21
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:30
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:31
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:16
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:28
@@ -3999,7 +4010,8 @@ msgstr "المبلغ المخصص لحساب التزويد"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:126
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:62
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:170
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:108
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:133
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:23
 msgid "Library"
 msgstr "مكتبة"
 
@@ -4022,7 +4034,7 @@ msgstr "URI للمكتبة"
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:99
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:120
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:102
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:302
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:27
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:81
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:4
@@ -4039,7 +4051,7 @@ msgstr "الشبكة"
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:95
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:295
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:306
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:31
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:85
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:110
@@ -4072,13 +4084,14 @@ msgstr "URI لحساب التزويد"
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:52
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:156
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:43
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:86
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:97
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:50
 msgid "Document"
 msgstr "المستند"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:160
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:90
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:101
 msgid "Document URI"
 msgstr "URI المستند"
 
@@ -4145,7 +4158,8 @@ msgstr "تم الحذف"
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:161
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:70
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:151
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:167
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:23
 msgid "Date"
 msgstr "التاريخ"
 
@@ -4159,15 +4173,15 @@ msgstr "اختار تاريخ"
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:63
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:80
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:261
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:181
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:199
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:192
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:210
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:67
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 msgstr "يجب أن تكون بالتنسيق: 2022-12-31 (YYYY-MM-DD)."
 
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:179
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:3
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:302
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:313
 msgid "Notes"
 msgstr "ملاحظات"
 
@@ -4268,8 +4282,6 @@ msgstr "مطلوب"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:74
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:147
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:43
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
 msgid "Pending"
 msgstr "قيد الانتظار"
 
@@ -4284,6 +4296,7 @@ msgstr "كمية"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:107
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:201
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:26
 msgid "Total amount"
 msgstr "المبلغ الاجمالي"
 
@@ -4292,12 +4305,13 @@ msgid "Exchange rate"
 msgstr "سعر الصرف"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:118
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:160
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:161
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:8
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:176
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:212
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:44
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:306
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:317
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:57
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:130
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:62
 msgid "Note"
 msgstr "ملاحظة"
@@ -4350,7 +4364,7 @@ msgid "Monograph"
 msgstr "دراسة علمية"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:80
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:130
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:132
 msgid "Serial"
 msgstr "دورية"
 
@@ -4540,7 +4554,7 @@ msgid "Patron type URI"
 msgstr "URI لتصنيف المستخدم"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:156
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:120
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:131
 msgid "Item type"
 msgstr "تصنيف النسخة"
 
@@ -4578,20 +4592,20 @@ msgstr ""
 msgid "Bibliographic Document"
 msgstr "مستند ببليوجرافي"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:45
 msgid "Schema to validate document against."
 msgstr "مخطط لتدقيق المستند"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:49
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:50
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:47
 msgid "Document PID"
 msgstr "PID المستند"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:129
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:130
 msgid "Harvested"
 msgstr "محصود"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:130
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:131
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr "يتم حصاد المستند أم لا ، سيتم تعطيل إصدار السجل أو ما شابه"
 
@@ -4616,6 +4630,8 @@ msgid "Author(s) of the resource. Can be either persons or organisations."
 msgstr "مؤلف(ي) المصدر. يمكن أن يكون إما أشخاص أو منظمات."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:8
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:93
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:82
 msgid "Author"
 msgstr "المؤلف"
 
@@ -4627,16 +4643,16 @@ msgstr "إسناد المؤلف"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:111
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:24
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:25
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:21
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:23
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:79
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:129
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:96
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:145
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:3
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:113
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:58
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:318
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:329
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:49
 msgid "Type"
 msgstr "تصنيف"
@@ -4656,7 +4672,7 @@ msgid ""
 msgstr "معلومات عن ولادة وموت اسناد مؤلف. مفيدة للناس إزالة الغموض."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_authors-v0.0.1.json:81
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:172
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:173
 msgid "Qualifier"
 msgstr "مؤهل"
 
@@ -4711,6 +4727,10 @@ msgstr ""
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:36
 msgid "Copyright date"
 msgstr "تاريخ الحقوق المحفوظة"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:12
+msgid "Example: \\u00a9 2010"
+msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -4985,133 +5005,134 @@ msgid "Identifiers"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:72
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:73
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:107
 msgid "Identifier"
 msgstr "معرف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:56
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:57
 msgid "Audio issue number"
 msgstr "رقم الإصدار الصوتي"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:60
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:61
 msgid "DOI"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:64
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:65
 msgid "EAN"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:68
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:69
 msgid "GTIN 14"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:76
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:77
 msgid "ISAN"
 msgstr "ISAN"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:80
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:81
 msgid "ISBN"
 msgstr "ISBN"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:84
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:85
 msgid "ISMN"
 msgstr "ISMN"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:88
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:89
 msgid "ISRC"
 msgstr "ISRC"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:92
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:93
 msgid "ISSN"
 msgstr "ISSN"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:96
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:97
 msgid "ISSN-L"
 msgstr "ISSN-L"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:100
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
 msgid "Local"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:104
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:105
 msgid "Matrix number"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:108
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:109
 msgid "Music distributor number"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:112
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:113
 msgid "Music plate"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:116
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:117
 msgid "Music publisher number"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:120
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:121
 msgid "Publisher number"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:124
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:125
 msgid "UPC"
 msgstr "UPC"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:128
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:129
 msgid "URN"
 msgstr "URN"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:132
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:133
 msgid "Video recording number"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:136
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:137
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:101
 msgid "URI"
 msgstr "URI"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:149
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:150
 msgid "Identifier value"
 msgstr "رقم التعريف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:150
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:151
 msgid "Identifier value."
 msgstr "رقم التعريف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:161
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:162
 msgid "Note of the identifier."
 msgstr "ملاحطة التعريف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:173
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:174
 msgid "Qualifier of the identifier."
 msgstr "تأهيل المعرف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:184
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:185
 msgid "Acquisition terms"
 msgstr "شروط المقنيات"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:185
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:186
 msgid "Acquisition terms of the resource."
 msgstr "شروط المقنيات للمصدر"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:195
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:197
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:147
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:106
 msgid "Source"
 msgstr "مصدر"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:196
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:198
 msgid "Source of the identifier."
 msgstr "مصدر رقم التعريف"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:206
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:209
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:75
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:39
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:24
 msgid "Status"
 msgstr "الحالة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:207
+#: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:210
 msgid "Status of the ISBN/ISSN identifier."
 msgstr "حالة معرف ISBN/ISSN"
 
@@ -5142,9 +5163,9 @@ msgid "Single unit"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:19
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:83
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:142
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:201
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:84
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:144
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:204
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:53
 msgid "Subtype"
 msgstr "تصنيف فرعي"
@@ -5167,49 +5188,49 @@ msgid "Private subfile"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:53
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:112
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:171
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:225
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:113
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:173
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:228
 msgid "Main type"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:71
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:72
 msgid "Multipart monograph"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:94
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:95
 msgid "Set"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:98
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
 msgid "Independant title"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:102
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
 msgid "Dependant title"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:153
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
 msgid "Serial in serial"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:157
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
 msgid "Monographic series"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:161
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
 msgid "Periodical"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:189
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:192
 msgid "Integrating resource"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:211
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
 msgid "Updating website"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:215
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:218
 msgid "Updating loose leaf"
 msgstr ""
 
@@ -5217,25 +5238,25 @@ msgstr ""
 msgid "Languages"
 msgstr "اللغات"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:18
+#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:19
 msgid "Type of note"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:32
+#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:33
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:48
 msgid "Accompanying material"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:36
+#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:37
 msgid "General"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:40
+#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:41
 msgid "Other physical details"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:53
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:168
+#: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:184
 msgid "Label"
 msgstr ""
 
@@ -5259,17 +5280,17 @@ msgstr ""
 msgid "Document link"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:48
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:45
 msgid "Numberings"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:49
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:46
 msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:30
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:34
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:64
@@ -5277,32 +5298,32 @@ msgstr ""
 msgid "Numbering"
 msgstr "ترقيم"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:64
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:61
 msgid "Year"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:70
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:67
 msgid "Should be in the following format: AAAA (2020)."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:79
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:76
 msgid "Volume"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:89
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:132
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:86
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:143
 msgid "Issue"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:99
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:96
 msgid "Pages"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:100
 msgid "Ex: 135, 5-27, ..."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:106
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
 msgid "Should be in the following format: 135 or 5-27."
 msgstr ""
 
@@ -5403,61 +5424,61 @@ msgstr ""
 msgid "Provision activities"
 msgstr "أنشطة توفير"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:7
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:23
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:65
 msgid "Provision activity"
 msgstr "نشاط توفير"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:38
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:54
 msgid "Publication"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:58
 msgid "Manufacture"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:46
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:62
 msgid "Distribution"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:50
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:66
 msgid "Production"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:63
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:79
 msgid "Places"
 msgstr "اماكن"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:68
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:88
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:143
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:84
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:159
 msgid "Place"
 msgstr "مكان"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:112
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:128
 msgid "Statements"
 msgstr "صياغات"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:117
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:133
 msgid "Statement"
 msgstr "صياغة"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:118
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:134
 msgid "Statement of place and agent of the provision activity."
 msgstr "بيان مكان وكيل النشاط المخصص"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:147
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
 msgid "Agent"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:164
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:180
 msgid "Labels"
 msgstr "ملصقات"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:183
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:223
 msgid "Start date of publication"
 msgstr "تاريخ بدء النشر"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:184
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:224
 msgid ""
 "Start date of the publication. This must be an integer, ie 1989, 453, "
 "-50. Used to sort search results. Once this field is set, a free formed "
@@ -5467,11 +5488,11 @@ msgstr ""
 "يستخدم لفرز نتائج البحث. بمجرد تعيين هذا الحقل ، يمكن إضافة تاريخ نشر اخر"
 " في الحقل التالي."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:196
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:238
 msgid "End date of publication"
 msgstr "تاريخ الانتهاء من النشر"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:197
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:239
 msgid ""
 "End date of the publication. This must be an integer, ie 1989, 453, -50. "
 "Used to sort search results. Once this field is set, a free formed date "
@@ -5496,7 +5517,9 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:37
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:99
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:22
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:22
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:22
 msgid "Title"
 msgstr "العنوان"
 
@@ -5687,7 +5710,7 @@ msgid "Export Formats"
 msgstr "تنسيقات التصدير"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:279
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:290
 msgid "Holding"
 msgstr "مقتنيات"
 
@@ -5706,7 +5729,10 @@ msgstr ""
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:36
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:40
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:72
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:61
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:62
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:71
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:102
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:91
 msgid "Call number"
 msgstr "رقم استدعاء"
 
@@ -5720,14 +5746,14 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:60
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:50
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:66
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:77
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:186
 msgid "Location"
 msgstr "مكان"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:67
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:73
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:84
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:189
 msgid "Location URI"
 msgstr "URI للمكان"
@@ -5950,8 +5976,8 @@ msgid "ID"
 msgstr "ID"
 
 #: rero_ils/modules/holdings/templates/rero_ils/detailed_view_holdings.html:73
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:42
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:23
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:43
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:24
 msgid "Barcode"
 msgstr "باركود"
 
@@ -6029,84 +6055,89 @@ msgstr "النسخة"
 msgid "JSON schema for an item."
 msgstr "مخطط JSON للنسخة"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:31
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:32
 msgid "Schema to validate item records against."
 msgstr "مخطط لتدقيق تسجيلات النسخ"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:37
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:38
 msgid "Item ID"
 msgstr "رقم النسخة"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:52
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:53
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:164
 msgid "The barcode is already taken."
 msgstr "الرقم الممغنط محجوز"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:98
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:72
+#, fuzzy
+msgid "Second call number"
+msgstr "رقم استدعاء"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:109
 msgid "Circulation category of the item"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:105
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:116
 msgid "Item Type URI"
 msgstr "URI لتصنيف النسخة"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:151
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:162
 msgid "Issue status"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:172
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:183
 msgid "displayed text"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:178
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:189
 msgid "Date of reception"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:196
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:207
 msgid "Expected date"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:214
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:225
 msgid "Regularity"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:228
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:239
 msgid "circulation status"
 msgstr "حالة الاعارة"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:266
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:277
 msgid "excluded"
 msgstr "مستبعد"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:280
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:291
 msgid "Holding record for the item."
 msgstr "سجل إقتناء النسخة"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:284
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:295
 msgid "Holding URI"
 msgstr "URI مقتنيات"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:332
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:343
 msgid "public note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:336
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:347
 msgid "staff note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:340
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:351
 msgid "checkin note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:344
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:355
 msgid "checkout note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:357
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:368
 msgid "Content"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:379
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:390
 msgid "Only one note per type is allowed"
 msgstr ""
 
@@ -6152,7 +6183,7 @@ msgstr "عنوان المكتبة"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:55
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:74
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:31
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:32
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:159
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:221
 msgid "Email"
@@ -6444,6 +6475,7 @@ msgid "due_soon"
 msgstr "اقتراب الاستحقاق"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:72
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:69
 msgid "overdue"
 msgstr "متأخر"
 
@@ -6540,7 +6572,7 @@ msgstr "أمين المكتبة"
 msgid "Operator patron URI"
 msgstr "URI لأمين المكتبة"
 
-#: rero_ils/modules/patron_transactions/api.py:239
+#: rero_ils/modules/patron_transactions/api.py:253
 msgid "Subscription for '{name}' from {start} to {end}"
 msgstr ""
 
@@ -6629,38 +6661,38 @@ msgstr ""
 msgid "Activation of subscription fees for patrons linked to this type."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:145
+#: rero_ils/modules/patrons/views.py:147
 #, python-format
 msgid "%(icon)s Profile"
 msgstr "%(icon)s الملف الشخصي"
 
-#: rero_ils/modules/patrons/views.py:163
+#: rero_ils/modules/patrons/views.py:169
 #, python-format
 msgid "The request for item %(item_id)s has been canceled."
 msgstr "الطلب على النسخة %(item_id)s تم الغاؤه ."
 
-#: rero_ils/modules/patrons/views.py:166
+#: rero_ils/modules/patrons/views.py:172
 #, python-format
 msgid ""
 "Error during the cancellation of the request of                 item "
 "%(item_id)s."
 msgstr "خطأ في عملية الالغاء%(item_id)s."
 
-#: rero_ils/modules/patrons/views.py:176
+#: rero_ils/modules/patrons/views.py:182
 #, python-format
 msgid "The item %(item_id)s has been renewed."
 msgstr "تم تجديد النسخة %(item_id)s ."
 
-#: rero_ils/modules/patrons/views.py:179
+#: rero_ils/modules/patrons/views.py:185
 #, python-format
 msgid "Error during the renewal of the item %(item_id)s."
 msgstr "خطأ في تجديد النسخة %(item_id)s."
 
-#: rero_ils/modules/patrons/views.py:194
+#: rero_ils/modules/patrons/views.py:202
 msgid "You have a pending subscription fee."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:203
+#: rero_ils/modules/patrons/views.py:211
 #, python-format
 msgid "Your account is currently blocked. Reason: %(reason)s"
 msgstr ""
@@ -6690,6 +6722,7 @@ msgid "Last name"
 msgstr "إسم العائلة"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:60
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_head.html:27
 msgid "Date of birth"
 msgstr "تاريخ الميلاد"
 
@@ -6702,7 +6735,7 @@ msgid "This email is already taken."
 msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:95
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:25
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:26
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:133
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:194
 msgid "Street"
@@ -6721,7 +6754,7 @@ msgid "Postal code"
 msgstr "رقم البريد"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:106
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:27
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:28
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:144
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:205
 msgid "City"
@@ -6856,69 +6889,167 @@ msgid ""
 "patron in his account."
 msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:29
-msgid "Phone"
-msgstr "الهاتف"
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:45
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:57
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:88
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:77
+#, fuzzy
+msgid "Details"
+msgstr "البريد الالكتروني"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:37
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:39
-msgid "Loans"
-msgstr "إعارات"
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:80
+msgid "Loan started at"
+msgstr ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:49
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:51
+#: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
+#, fuzzy
+msgid "Transactions history"
+msgstr "تاريخ بدء المعاملة"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:24
+msgid "Category"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:34
+msgid "No fee"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:39
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:59
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:61
 msgid "History"
 msgstr "تاريخ الاعارات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:56
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:57
-msgid "Personal data"
-msgstr "معلومات شخصية"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:23
+#, fuzzy
+msgid "Author(s)"
+msgstr "المؤلفين"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:69
-msgid "No loan"
-msgstr "ليست إعارة"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:24
+#, fuzzy
+msgid "Return date"
+msgstr "تاريخ الإستحقاق"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:76
-msgid "No pending"
-msgstr "لا انتظار"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
+#, fuzzy
+msgid "Transaction history"
+msgstr "تاريخ بدء المعاملة"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:83
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:88
+#, fuzzy
+msgid "Checkin"
+msgstr "يوم الاسترجاع"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:109
+#, fuzzy
+msgid "Checkout"
+msgstr "السماح بالإعارة"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:124
 msgid "No history"
 msgstr "لا يوجد تسجيلات"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:100
-msgid "Call Number"
-msgstr "رقم الاستدعاء"
-
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:103
-msgid "Pickup library"
-msgstr "مكتبة إستلام"
-
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:113
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:24
 msgid "Due date"
 msgstr "تاريخ الإستحقاق"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:115
-msgid "Request date"
-msgstr "تاريخ الحجز"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:57
+#, fuzzy, python-format
+msgid ""
+"\n"
+"              %(count)s renewal\n"
+"            "
+msgid_plural ""
+"\n"
+"              %(count)s renewals\n"
+"            "
+msgstr[0] "%(icon)s الملف الشخصي"
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:117
-msgid "Checkin date"
-msgstr "يوم الاسترجاع"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:80
+msgid "Renew"
+msgstr "تجديد"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:122
-msgid "Renewals"
-msgstr "التجديدات"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:114
+msgid "No loan"
+msgstr "ليست إعارة"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:127
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:182
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:21
+#, fuzzy
+msgid "Personal details"
+msgstr "معلومات شخصية"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:30
+msgid "Phone"
+msgstr "الهاتف"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:23
+#, fuzzy
+msgid "Pickup location"
+msgstr "هل مكان إستلام"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:50
+#, fuzzy
+msgid "item at desk"
+msgstr "في مكتب الإعارة"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
+msgid "ready"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:53
+#, fuzzy
+msgid "pending"
+msgstr "قيد الانتظار"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:56
+msgid "waiting"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:59
+#, python-format
+msgid "<br>(position %(rank)s in waiting list)"
+msgstr ""
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
 msgid "Cancel"
 msgstr "الغاء"
 
-#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:170
-msgid "Renew"
-msgstr "تجديد"
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:99
+#, fuzzy
+msgid "Transaction date"
+msgstr "تاريخ انتهاء المعاملة"
+
+#: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:113
+#, fuzzy
+msgid "No request"
+msgstr "طلب"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:38
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:40
+msgid "Loans"
+msgstr "إعارات"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:47
+#, fuzzy
+msgid "Requests"
+msgstr "طلبات"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:52
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
+#, fuzzy
+msgid "Fees"
+msgstr "السلسلة"
+
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
+#: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:68
+msgid "Personal data"
+msgstr "معلومات شخصية"
 
 #: rero_ils/modules/persons/jsonschemas/persons/person-v0.0.1.json:4
 msgid "Mef person"
@@ -7243,4 +7374,19 @@ msgstr "انقر هنا لإعادة تعيين كلمة المرور الخاص
 
 #~ msgid "Should be in the following format: 2020."
 #~ msgstr ""
+
+#~ msgid "No pending"
+#~ msgstr "لا انتظار"
+
+#~ msgid "Call Number"
+#~ msgstr "رقم الاستدعاء"
+
+#~ msgid "Pickup library"
+#~ msgstr "مكتبة إستلام"
+
+#~ msgid "Request date"
+#~ msgstr "تاريخ الحجز"
+
+#~ msgid "Renewals"
+#~ msgstr "التجديدات"
 
