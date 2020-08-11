@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+#
+# russian_dolls: packages ng-core into rero-ils-ui then packages
+# rero-ils-ui to include it into rero-ils (in static directory).
+#
+#
+
+PROGRAM=`basename $0`
+SCRIPT_PATH=$(cd `dirname $0` && pwd)
+CURRENT_DIR=$(pwd)
+
+NC='\033[0m'                    # Default color
+INFO_COLOR='\033[1;97;44m'      # Bold + white + blue background
+SUCCESS_COLOR='\033[1;97;42m'   # Bold + white + green background
+ERROR_COLOR='\033[1;97;41m'     # Bold + white + red background
+
+# Default values
+# First we check in parent directory if frontend and ng-core exists.
+# If not uses:
+# ~/rero/frontend for FRONTEND_DIR
+# ~/rero/ng-core for NG_DIR
+FRONTEND_DIR=$(cd "${CURRENT_DIR}/../frontend" &>/dev/null && pwd || echo "${HOME}/rero/frontend")
+NG_DIR=$(cd "${CURRENT_DIR}/../ng-core" &>/dev/null && pwd || echo "${HOME}/rero/ng-core")
+
+# MESSAGES
+msg() {
+  echo -e "${1}" 1>&2
+}
+# Display a colored message
+# More info: https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# $1: choosen color
+# $2: title
+# $3: the message
+colored_msg() {
+  msg "${1}[${2}]: ${3}${NC}"
+}
+
+info_msg() {
+  colored_msg "${INFO_COLOR}" "INFO" "${1}"
+}
+
+error_msg() {
+  colored_msg "${ERROR_COLOR}" "ERROR" "${1}"
+}
+
+error_msg+exit() {
+    error_msg "${1}" && exit 1
+}
+
+success_msg() {
+  colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}"
+}
+
+set -e
+
+# Displays program name
+msg "PROGRAM: ${PROGRAM}"
+
+# functions
+get_version() {
+  info_msg "VERSION ❯ fetching $1 package name…"
+  if [[ -z "$1" ]]; then
+    error_msg+exit "VERSION ❯ no directory given!"
+  fi
+  cd "$1"
+  version=`grep version package.json|awk -F: '{ print $2 }'| sed 's/[", ]//g'`
+  name=`grep name package.json|head -n 1|awk -F: '{ print $2 }' \
+    |sed 's/[",@ ]//g ; s|/|-|g'`
+  PACKAGE_NAME="${name}-${version}.tgz"
+  cd - &>/dev/null
+  success_msg "VERSION ❯ package: ${PACKAGE_NAME}."
+}
+
+# start
+if ! options=$(getopt -o c:u: -l core:,ui: -- "$@"); then
+  error_msg+exit "Error in given options!"
+fi
+
+while [ $# -gt 0 ]
+do
+  case "$1" in
+    -c|--core)
+      NG_DIR=$2; shift ;;
+    -u|--ui)
+      FRONTEND_DIR=$2; shift ;;
+    (--) shift; break;;
+    (*) break;;
+  esac
+  shift
+done
+
+# check ng-core directory
+if [[ -z "${NG_DIR}" ]]; then
+  error_msg+exit "No ng-core directory given. Use '-c' option to give one."
+fi
+if ! [[ -d "${NG_DIR}" ]]; then
+  error_msg+exit "'${NG_DIR}', ng-core directory not found."
+fi
+# check rero-ils-ui directory
+if [[ -z "${FRONTEND_DIR}" ]]; then
+  error_msg+exit "No rero-ils-ui directory given. Use '-u' option to give one."
+fi
+if ! [[ -d "${FRONTEND_DIR}" ]]; then
+  error_msg+exit "'${FRONTEND_DIR}', rero-ils-ui directory not found."
+fi
+
+# fetch ng-core version
+PACKAGE_NAME=""
+get_version "${NG_DIR}"
+NG_PACKAGE="${NG_DIR}/${PACKAGE_NAME}"
+# fetch rero-ils-ui version
+get_version "${FRONTEND_DIR}"
+FRONTEND_PACKAGE="${FRONTEND_DIR}/${PACKAGE_NAME}"
+
+# packages ng-core
+info_msg "NG-CORE ❯ packaging…"
+cd "${NG_DIR}" \
+  && npm ci \
+  && npm run pack \
+  && cd - &>/dev/null \
+  || error_msg+exit "NG-CORE ❯ packaging failed!"
+success_msg "NG-CORE ❯ successfully packaged."
+
+# packages rero-ils-ui using previous ng-core package
+info_msg "UI ❯ including ng-core + packaging…"
+cd "${FRONTEND_DIR}" \
+  && npm ci \
+  && npm i "${NG_PACKAGE}" --no-save \
+  && npm run pack \
+  && cd - &>/dev/null \
+  || error_msg+exit "UI ❯ packaging failed!"
+success_msg "UI ❯ successfully packaged."
+
+# include rero-ils-ui into rero-ils
+info_msg "ILS ❯ including rero-ils-ui…"
+static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder|cut -d: -f2-) || error_msg+exit "Error. Have you launched a bootstrap on this directory?"
+npm i "${FRONTEND_PACKAGE}" --prefix "${static_folder}" \
+  && poetry run invenio assets build \
+  || error_msg+exit "ILS ❯ inclusion failed!"
+success_msg "ILS ❯ successfully included."
+
+# Display a recap
+echo -e "\n"
+info_msg "Summary:"
+msg "ng-core:     ${NG_DIR}"
+msg "             ${NG_PACKAGE}"
+msg "rero-ils-ui: ${FRONTEND_DIR}"
+msg "             ${FRONTEND_PACKAGE}"
+msg "rero-ils:    ${CURRENT_DIR}"
+
+# end
+exit 0
+
+# vim: ts=2 sw=2 et nu
