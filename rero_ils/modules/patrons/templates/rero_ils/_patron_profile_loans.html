@@ -54,11 +54,7 @@
           {% if 'extension_count' in loan and loan.extension_count > 0 %}
             <br>
             <span class="badge badge-secondary font-weight-normal">
-            {% trans count = loan.extension_count %}
-              {{ count }} renewal
-            {% pluralize %}
-              {{ count }} renewals
-            {% endtrans %}
+              <!-- TODO include('rero_ils/_patron_profile_extend.html') -->
             </span>
           {% endif %}
           {% if loan.overdue %}
