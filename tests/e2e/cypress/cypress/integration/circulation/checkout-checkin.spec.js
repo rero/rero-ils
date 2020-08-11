@@ -47,21 +47,8 @@ describe('Circulation checkout checkin', function() {
     // Go to Circulation
     cy.goToMenu('circulation-menu-frontpage')
 
-    // Enter a patron barcode
-    cy.get('#search', {timeout: timeOut})
-      .type(patronBarcode)
-      .type('{enter}')
-
-    // Assert that patron info is displayed
-    cy.wait(3000)
-    cy.get(':nth-child(2) > :nth-child(1) > .col-md-10', {timeout: timeOut})
-      .should('contain', simonetta.fullname)
-
     // Checkout
-    cy.get('#search', {timeout: 4500})
-      .type(itemBarcode)
-      .type('{enter}')
-    cy.wait(800)
+    cy.scanPatronBarcodeThenItemBarcode(patronBarcode, simonetta.fullname, itemBarcode);
 
     // Assert checkout
     cy.get(':nth-child(2) > .col > admin-item > .row > :nth-child(1) > a', {timeout: timeOut})
@@ -70,9 +57,7 @@ describe('Circulation checkout checkin', function() {
       .should('have.class', 'fa-arrow-circle-o-right')
 
     // Checkin
-    cy.get('#search', {timeout: timeOut})
-      .type(itemBarcode)
-      .type('{enter}')
+    cy.scanItemBarcode(itemBarcode);
 
     // Assert checkin
     cy.get(':nth-child(11) > .col > admin-item > .row > :nth-child(1) > a', {timeout: timeOut})
