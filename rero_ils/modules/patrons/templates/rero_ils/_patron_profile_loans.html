@@ -54,7 +54,7 @@
           {% if 'extension_count' in loan and loan.extension_count > 0 %}
             <br>
             <span class="badge badge-secondary font-weight-normal">
-            {% trans count = loan.extension_count %}
+            {% trans trimmed count = loan.extension_count %}
               {{ count }} renewal
             {% pluralize %}
               {{ count }} renewals
