@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-12 12:26+0000\n"
+"PO-Revision-Date: 2020-08-12 12:50+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -57,7 +57,7 @@ msgstr "RERO ILS"
 
 #: rero_ils/config.py:225
 msgid "Welcome to RERO-ILS!"
-msgstr "Bienvenue sur RERO-ILS!"
+msgstr "Bienvenue sur RERO-ILS !"
 
 #: rero_ils/config.py:1386
 msgid "document_type"
@@ -256,7 +256,7 @@ msgstr "Accès"
 
 #: rero_ils/manual_translations.txt:58
 msgid "rdami:1001"
-msgstr ""
+msgstr "unité isolée"
 
 #: rero_ils/manual_translations.txt:59
 msgid "rdami:1002"
@@ -4311,7 +4311,7 @@ msgstr "Montant total"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:113
 msgid "Exchange rate"
-msgstr "Taux"
+msgstr "Taux de change"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:118
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:161
@@ -4753,7 +4753,7 @@ msgstr "Date de copyright"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:12
 msgid "Example: \\u00a9 2010"
-msgstr "Exemple: © 2010"
+msgstr "Exemple : © 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:8
@@ -5213,62 +5213,62 @@ msgstr "article"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
 msgid "Material unit"
-msgstr ""
+msgstr "Unité matérielle"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
 msgid "Private file"
-msgstr ""
+msgstr "Dossier privé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
 msgid "Private subfile"
-msgstr ""
+msgstr "Sous-dossier privé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:53
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:113
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:173
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:228
 msgid "Main type"
-msgstr ""
+msgstr "Type principal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:72
 msgid "Multipart monograph"
-msgstr ""
+msgstr "Monographie en plusieurs parties"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:95
 msgid "Set"
-msgstr ""
+msgstr "Description globale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
 msgid "Independant title"
-msgstr ""
+msgstr "Partie avec titre indépendant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
 msgid "Dependant title"
-msgstr ""
+msgstr "Partie avec titre dépendant"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:155
 msgid "Serial in serial"
-msgstr ""
+msgstr "Publication en série dans une publication en série"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
 msgid "Monographic series"
-msgstr ""
+msgstr "Collection de monographies"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
 msgid "Periodical"
-msgstr ""
+msgstr "Périodique"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:192
 msgid "Integrating resource"
-msgstr ""
+msgstr "Ressource intégratrice"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
 msgid "Updating website"
-msgstr ""
+msgstr "Site web maintenu à jour"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:218
 msgid "Updating loose leaf"
-msgstr ""
+msgstr "Publication à feuillets mobiles à mise à jour"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:3
 msgid "Languages"
@@ -5303,28 +5303,32 @@ msgstr "Contenu dans (document hôte)"
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:4
 msgid "Host document, for example a journal or a series (MARC 773, 800, 830)."
 msgstr ""
+"Document hôte, par exemple un périodique ou une collection (MARC 773, 800, "
+"830)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:9
 msgid "Part of"
-msgstr ""
+msgstr "Contenu dans"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:20
 msgid "Host document"
-msgstr ""
+msgstr "Document hôte"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
 msgid "Document link"
-msgstr ""
+msgstr "Lien du document"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:45
 msgid "Numberings"
-msgstr ""
+msgstr "Numérotations"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:46
 msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
 msgstr ""
+"Pour les collections, n'enregistrer que le volume. Pour les périodiques, "
+"enregistrer toutes les informations disponibles."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:30
@@ -5340,7 +5344,7 @@ msgstr "Année"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:67
 msgid "Should be in the following format: AAAA (2020)."
-msgstr ""
+msgstr "Doit être au format suivant : AAAA (2020)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:76
 msgid "Volume"
@@ -5357,11 +5361,11 @@ msgstr "Pages"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:100
 msgid "Ex: 135, 5-27, ..."
-msgstr ""
+msgstr "Ex : 135, 5-27, …"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
 msgid "Should be in the following format: 135 or 5-27."
-msgstr ""
+msgstr "Doit être au format suivant : 135 ou 5-27."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:3
 msgid "Production methods"
@@ -5548,6 +5552,8 @@ msgstr "Mention de collection"
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:4
 msgid "Series and eventual subseries to which a resource belongs (MARC 490)."
 msgstr ""
+"Collections et éventuelles sous-collections auxquelles une ressource "
+"appartient (MARC 490)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:21
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:25
@@ -5563,11 +5569,11 @@ msgstr "Titre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:39
 msgid "Subseries statement"
-msgstr ""
+msgstr "Mention de sous-collection"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:44
 msgid "Subseries"
-msgstr ""
+msgstr "Sous-collection"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:3
 msgid "Subjects"
@@ -6593,7 +6599,7 @@ msgstr "Source moissonnée en ligne, comme configuré dans le serveur d'ebooks."
 
 #: rero_ils/modules/patron_transaction_events/api.py:115
 msgid "Initial charge"
-msgstr ""
+msgstr "Montant initial"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:4
 msgid "Patron transaction event"
@@ -6964,7 +6970,7 @@ msgstr "Détails"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:80
 msgid "Loan started at"
-msgstr ""
+msgstr "Prêté le"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
 msgid "Transactions history"
@@ -6972,11 +6978,11 @@ msgstr "Historique des transactions"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:24
 msgid "Category"
-msgstr ""
+msgstr "Catégorie"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:34
 msgid "No fee"
-msgstr ""
+msgstr "Aucun frais"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:39
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:59
@@ -6993,18 +6999,16 @@ msgid "Return date"
 msgstr "Date de retour"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
-#, fuzzy
 msgid "Transaction history"
-msgstr "Date de début de la transaction"
+msgstr "Historique de la transaction"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:88
 msgid "Checkin"
 msgstr "Retour"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:109
-#, fuzzy
 msgid "Checkout"
-msgstr "Note de prêt"
+msgstr "Prêt"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:124
 msgid "No history"
@@ -7030,7 +7034,6 @@ msgid "No loan"
 msgstr "Aucun livre emprunté"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:21
-#, fuzzy
 msgid "Personal details"
 msgstr "Données personnelles"
 
@@ -7039,47 +7042,41 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:23
-#, fuzzy
 msgid "Pickup location"
-msgstr "Est un lieu de retrait"
+msgstr "Lieu de retrait"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:50
-#, fuzzy
 msgid "item at desk"
 msgstr "au bureau de prêt"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:51
 msgid "ready"
-msgstr ""
+msgstr "prêt"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:53
-#, fuzzy
 msgid "pending"
-msgstr "En attente"
+msgstr "en attente"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:56
-#, fuzzy
 msgid "waiting"
-msgstr "Impression"
+msgstr "en attente"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:59
 #, python-format
 msgid "<br>(position %(rank)s in waiting list)"
-msgstr ""
+msgstr "<br>(position %(rank)s dans la liste d'attente)"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:70
 msgid "Cancel"
 msgstr "Annuler"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:99
-#, fuzzy
 msgid "Transaction date"
-msgstr "Date de fin de la transaction"
+msgstr "Date de la transaction"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:113
-#, fuzzy
 msgid "No request"
-msgstr "demande"
+msgstr "Aucune demande"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:38
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:40
@@ -7088,15 +7085,13 @@ msgstr "Emprunts"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:47
-#, fuzzy
 msgid "Requests"
-msgstr "demandes"
+msgstr "Demandes"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:52
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
-#, fuzzy
 msgid "Fees"
-msgstr "Collection"
+msgstr "Frais"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:68
