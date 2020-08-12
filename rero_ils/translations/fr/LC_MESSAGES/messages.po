@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-10 14:15+0000\n"
+"PO-Revision-Date: 2020-08-12 11:52+0000\n"
 "Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
 "Generated-By: Babel 2.8.0\n"
 
 #: rero_ils/config.py:121
@@ -7014,11 +7015,11 @@ msgid "Due date"
 msgstr "Date d'échéance"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:57
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)s renewal"
 msgid_plural "%(count)s renewals"
-msgstr[0] "%(icon)s Mon compte"
-msgstr[1] ""
+msgstr[0] "%(count)s prolongation"
+msgstr[1] "%(count)s prolongations"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:80
 msgid "Renew"
@@ -7449,4 +7450,3 @@ msgstr "Cliquez ici pour réinitialiser votre mot de passe"
 #~ "            "
 #~ msgstr[0] "%(icon)s Mon compte"
 #~ msgstr[1] ""
-
