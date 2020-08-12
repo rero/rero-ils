@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-12 12:26+0000\n"
+"PO-Revision-Date: 2020-08-12 12:50+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
@@ -4292,7 +4292,7 @@ msgstr "Richiesto"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:74
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:147
 msgid "Pending"
-msgstr "Richieste"
+msgstr "In attesa"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:78
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:151
@@ -4311,7 +4311,7 @@ msgstr "Importo totale"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:113
 msgid "Exchange rate"
-msgstr ""
+msgstr "Tasso di cambio"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:118
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:161
@@ -4366,7 +4366,7 @@ msgstr ""
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:57
 msgid "Order type"
-msgstr "Tipo dell'ordine"
+msgstr "Tipo di ordine"
 
 #: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:76
 msgid "Monograph"
@@ -4593,11 +4593,11 @@ msgstr ""
 
 #: rero_ils/modules/documents/views.py:236
 msgid "nr"
-msgstr ""
+msgstr "no."
 
 #: rero_ils/modules/documents/views.py:239
 msgid "p"
-msgstr ""
+msgstr "p"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:3
 msgid "Bibliographic Document"
@@ -4865,7 +4865,7 @@ msgstr "Versione della risorsa"
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:59
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:129
 msgid "Related resource"
-msgstr "Risorse correlate"
+msgstr "Risorsa correlata"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:63
 msgid "Hidden URL"
@@ -5192,7 +5192,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 msgid "Mode of issuance"
-msgstr ""
+msgstr "Modalità di emissione"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:7
 msgid "Single unit"
@@ -5677,7 +5677,7 @@ msgstr "Audio"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:46
 msgid "Physical details"
-msgstr ""
+msgstr "Dettagli fisici"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:56
 msgid "Uniform title"
@@ -6110,9 +6110,8 @@ msgid "The barcode is already taken."
 msgstr "Il codice a barre è già utilizzato."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:72
-#, fuzzy
 msgid "Second call number"
-msgstr "Segnatura"
+msgstr "2° segnatura"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:109
 msgid "Circulation category of the item"
@@ -6136,7 +6135,7 @@ msgstr ""
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:207
 msgid "Expected date"
-msgstr ""
+msgstr "Data prevista"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:225
 msgid "Regularity"
@@ -6236,7 +6235,7 @@ msgstr "Indirizzo email della biblioteca"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:63
 msgid "Opening Hours"
-msgstr "Orario di apertura"
+msgstr "Orari di apertura"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:64
 msgid "Weekly opening hours"
@@ -6424,7 +6423,7 @@ msgstr "Il nome del punto di ritiro à già utilizzato."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:137
 msgid "Allow request"
-msgstr ""
+msgstr "Consentire le richieste"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:139
 msgid "If enabled, it allows requests for items linked to this location."
@@ -6698,7 +6697,7 @@ msgstr ""
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:79
 msgid "Yearly subscription"
-msgstr ""
+msgstr "Abbonamento annuale"
 
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:80
 msgid "Activation of subscription fees for patrons linked to this type."
@@ -6928,7 +6927,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:384
 msgid "Reason"
-msgstr ""
+msgstr "Motivo"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:386
 msgid ""
@@ -6940,9 +6939,8 @@ msgstr ""
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:57
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:88
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_requests.html:77
-#, fuzzy
 msgid "Details"
-msgstr "e-mail"
+msgstr "Dettagli"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:80
 msgid "Loan started at"
@@ -6973,14 +6971,12 @@ msgid "Author(s)"
 msgstr "Autori"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:24
-#, fuzzy
 msgid "Return date"
-msgstr "Data dell'ordine"
+msgstr "Data di ritorno"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:73
-#, fuzzy
 msgid "Transaction history"
-msgstr "Data di inizio della transazione"
+msgstr "Storico delle transazioni"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:88
 #, fuzzy
@@ -6988,9 +6984,8 @@ msgid "Checkin"
 msgstr "Data di ritorno"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:109
-#, fuzzy
 msgid "Checkout"
-msgstr "Consentire il prestito"
+msgstr "Prestito"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_history.html:124
 msgid "No history"
@@ -7074,15 +7069,13 @@ msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:45
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:47
-#, fuzzy
 msgid "Requests"
-msgstr "richieste"
+msgstr "Richieste"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:52
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:54
-#, fuzzy
 msgid "Fees"
-msgstr "Serie"
+msgstr "Tasse"
 
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:67
 #: rero_ils/modules/patrons/templates/rero_ils/patron_profile.html:68
