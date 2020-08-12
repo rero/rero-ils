@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2020-08-10 12:02+0200\n"
+"POT-Creation-Date: 2020-08-12 13:36+0200\n"
 "PO-Revision-Date: 2020-08-06 08:14+0000\n"
 "Last-Translator: Marion Davis <marion.davis@rero.ch>\n"
 "Language: en\n"
@@ -272,30 +272,30 @@ msgstr ""
 msgid "Menu"
 msgstr "Menu"
 
-#: rero_ils/views.py:136
+#: rero_ils/views.py:137
 msgid "Help"
 msgstr "Help"
 
-#: rero_ils/views.py:154
+#: rero_ils/views.py:155
 msgid "My Account"
 msgstr "My account"
 
-#: rero_ils/views.py:179
+#: rero_ils/views.py:180
 msgid "Login"
 msgstr "Login"
 
-#: rero_ils/views.py:192
+#: rero_ils/views.py:193
 msgid "Professional interface"
 msgstr "Professional interface"
 
-#: rero_ils/views.py:211
+#: rero_ils/views.py:212
 msgid "Logout"
 msgstr "Logout"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:43
 #: rero_ils/templates/rero_ils/register_user.html:45
-#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:224
+#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:225
 msgid "Sign Up"
 msgstr "Sign Up"
 
@@ -6997,14 +6997,8 @@ msgstr "Due date"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:57
 #, fuzzy, python-format
-msgid ""
-"\n"
-"              %(count)s renewal\n"
-"            "
-msgid_plural ""
-"\n"
-"              %(count)s renewals\n"
-"            "
+msgid "%(count)s renewal"
+msgid_plural "%(count)s renewals"
 msgstr[0] "%(icon)s Profile"
 msgstr[1] ""
 
@@ -7421,4 +7415,15 @@ msgstr "Click here to reset your password"
 
 #~ msgid "Renewals"
 #~ msgstr "Renewals"
+
+#~ msgid ""
+#~ "\n"
+#~ "              %(count)s renewal\n"
+#~ "            "
+#~ msgid_plural ""
+#~ "\n"
+#~ "              %(count)s renewals\n"
+#~ "            "
+#~ msgstr[0] "%(icon)s Profile"
+#~ msgstr[1] ""
 

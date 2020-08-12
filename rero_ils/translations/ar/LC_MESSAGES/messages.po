@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2020-08-10 12:02+0200\n"
+"POT-Creation-Date: 2020-08-12 13:36+0200\n"
 "PO-Revision-Date: 2018-09-03 13:16+0000\n"
 "Last-Translator: Aly Badr <aly.badr@rero.ch>, 2020\n"
 "Language: ar\n"
@@ -265,30 +265,30 @@ msgstr ""
 msgid "Menu"
 msgstr "القائمة"
 
-#: rero_ils/views.py:136
+#: rero_ils/views.py:137
 msgid "Help"
 msgstr "المساعدة"
 
-#: rero_ils/views.py:154
+#: rero_ils/views.py:155
 msgid "My Account"
 msgstr "حسابي"
 
-#: rero_ils/views.py:179
+#: rero_ils/views.py:180
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: rero_ils/views.py:192
+#: rero_ils/views.py:193
 msgid "Professional interface"
 msgstr "المنصة المهنية"
 
-#: rero_ils/views.py:211
+#: rero_ils/views.py:212
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
 #: rero_ils/templates/rero_ils/forgot_password.html:47
 #: rero_ils/templates/rero_ils/login_user.html:43
 #: rero_ils/templates/rero_ils/register_user.html:45
-#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:224
+#: rero_ils/templates/rero_ils/reset_password.html:47 rero_ils/views.py:225
 msgid "Sign Up"
 msgstr "تسجيل جديد"
 
@@ -6955,14 +6955,8 @@ msgstr "تاريخ الإستحقاق"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_loans.html:57
 #, fuzzy, python-format
-msgid ""
-"\n"
-"              %(count)s renewal\n"
-"            "
-msgid_plural ""
-"\n"
-"              %(count)s renewals\n"
-"            "
+msgid "%(count)s renewal"
+msgid_plural "%(count)s renewals"
 msgstr[0] "%(icon)s الملف الشخصي"
 msgstr[1] ""
 msgstr[2] ""
@@ -7389,4 +7383,19 @@ msgstr "انقر هنا لإعادة تعيين كلمة المرور الخاص
 
 #~ msgid "Renewals"
 #~ msgstr "التجديدات"
+
+#~ msgid ""
+#~ "\n"
+#~ "              %(count)s renewal\n"
+#~ "            "
+#~ msgid_plural ""
+#~ "\n"
+#~ "              %(count)s renewals\n"
+#~ "            "
+#~ msgstr[0] "%(icon)s الملف الشخصي"
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+#~ msgstr[3] ""
+#~ msgstr[4] ""
+#~ msgstr[5] ""
 
