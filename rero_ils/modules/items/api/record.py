@@ -262,11 +262,22 @@ class ItemRecord(IlsRecord):
             yield item_pid_to_object(item.pid)
 
     @classmethod
-    def get_item_by_barcode(cls, barcode=None):
-        """Get item by barcode."""
+    def get_item_by_barcode(cls, barcode, organisation_pid):
+        """Get item by barcode.
+
+        :param barcode: the item barcode.
+        :param organisation_pid: the organisation pid. As barcode could be
+                                 shared between items from multiple
+                                 organisations we need to filter result by
+                                 organisation.pid
+        :return The item corresponding to the barcode if exists or None.
+        """
         from . import ItemsSearch
-        results = ItemsSearch().filter(
-            'term', barcode=barcode).source(includes='pid').scan()
+        results = ItemsSearch()\
+            .filter('term', barcode=barcode)\
+            .filter('term', organisation__pid=organisation_pid)\
+            .source(includes='pid')\
+            .scan()
         try:
             return cls.get_record_by_pid(next(results).pid)
         except StopIteration:
