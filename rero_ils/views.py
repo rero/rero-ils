@@ -131,7 +131,10 @@ def init_menu_lang():
 
         rero_register(
             item,
-            endpoint='wiki.index',
+            endpoint='wiki.page',
+            endpoint_arguments_constructor=lambda: {
+                'url': 'home/public_help_{0}'.format(current_i18n.language)
+            },
             text='{icon} {help}'.format(
                 icon='<i class="fa fa-info"></i>',
                 help=_('Help')
