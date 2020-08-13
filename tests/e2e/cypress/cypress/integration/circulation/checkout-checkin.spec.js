@@ -68,7 +68,7 @@ describe('Circulation checkout checkin', function() {
     // Go back to homepage, search document and delete item
     cy.goToItem(itemBarcode)
     // click on Delete button
-    cy.get('#item-' + itemBarcode + '-delete', {timeout: timeOut}).click()
+    cy.get('#item-' + itemBarcode + ' > .col-sm-4 > .btn-outline-danger', {timeout: timeOut}).click()
     // Then confirm
     cy.get('.modal-footer > .btn-primary', {timeout: timeOut}).click()
   });

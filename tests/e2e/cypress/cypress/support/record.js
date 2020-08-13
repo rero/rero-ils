@@ -22,7 +22,7 @@ Cypress.Commands.add("createItem", (barcode, itemType, localisation) => {
   cy.goToMenu('documents-menu-frontpage')
   // Use one document (between first and tenth)
   let randomInteger = Math.floor((Math.random() * 9) + 1);
-  cy.wait(2100) // because ngx-spinner hide the menu with a black transparent filter
+  cy.wait(3500) // because ngx-spinner hide the menu with a black transparent filter
   cy.get(':nth-child(' + randomInteger.toString() + ') > ng-core-record-search-result > admin-documents-brief-view > .card-title > a').click()
   // Click on "Add…" button to add an item
   cy.get('.col > .btn').click()

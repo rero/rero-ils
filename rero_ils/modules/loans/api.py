@@ -480,6 +480,7 @@ def patron_profile(patron):
             item.replace_refs()['document']['pid'])
         loan['document'] = document.replace_refs().dumps()
         loan['item_call_number'] = item['call_number']
+        loan['item_barcode'] = item['barcode']
         if loan['state'] == LoanState.ITEM_ON_LOAN:
             loan['overdue'] = loan.is_loan_overdue()
             loan['library_name'] = Library.get_record_by_pid(

@@ -29,7 +29,7 @@
 
 {% if requests|length > 0 %}
   {% for loan in requests %}
-  <div class="row mb-1">
+  <div class="row mb-1" id="item-{{ loan.item_barcode }}">
     <div class="col mr-1 p-2 border rounded{% if loan.state == 'ITEM_AT_DESK' %} border-success{% endif %}">
       <div class="row pl-2 pr-2">
         <div class="col-lg-4">

@@ -2,9 +2,17 @@
   "patrons": {
     "simonetta": {
       "email": "reroilstest+simonetta@gmail.com",
+      "barcode": "2050124311",
       "name": "Simonetta",
       "surname": "Casalini",
       "fullname": "Casalini, Simonetta"
+    },
+    "jules": {
+      "email": "reroilstest+jules@gmail.com",
+      "barcode": "kad002",
+      "name": "Jules",
+      "surname": "Rard",
+      "fullname": "Jules, Rard"
     }
   },
   "librarians": {

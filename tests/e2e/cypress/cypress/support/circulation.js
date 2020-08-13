@@ -26,11 +26,12 @@ Cypress.Commands.add('scanPatronBarcodeThenItemBarcode', (patronBarcode, patronN
   cy.get(':nth-child(2) > :nth-child(1) > .col-md-10', {timeout: 3000})
     .should('contain', patronName)
   // Enter item barcode for checkout
-  cy.get('#search').type(itemBarcode).type('{enter}');
+  cy.scanItemBarcode(itemBarcode)
 });
 
 // Scan the barcode of an item (this can do a checkin, a receive or "nothing", depending on context)
 Cypress.Commands.add('scanItemBarcode', (itemBarcode) => {
   // Enter item barcode for checkout
   cy.get('#search').type(itemBarcode).type('{enter}');
+  cy.wait(5000)
 });
