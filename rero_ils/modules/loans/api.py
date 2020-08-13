@@ -36,7 +36,7 @@ from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from ..documents.api import Document
 from ..errors import NoCirculationActionIsPermitted
-from ..items.models import ItemCirculationAction
+from ..items.models import ItemCirculationAction, ItemStatus
 from ..items.utils import item_pid_to_object
 from ..libraries.api import Library
 from ..locations.api import Location
@@ -335,6 +335,7 @@ class Loan(IlsRecord):
 
     def dumps_for_circulation(self):
         """Dumps for circulation."""
+        from ..items.api import Item
         loan = self.replace_refs()
         data = loan.dumps()
         patron = Patron.get_record_by_pid(loan['patron_pid'])
@@ -345,11 +346,23 @@ class Loan(IlsRecord):
             ptrn_data['first_name'], ptrn_data['last_name']))
         if loan.get('pickup_location_pid'):
             location = Location.get_record_by_pid(loan['pickup_location_pid'])
-            library = location.get_library()
-            loc_data = location.dumps()
-            data['pickup_location'] = {}
-            data['pickup_location']['name'] = loc_data['name']
-            data['pickup_location']['library_name'] = library.get('name')
+            data['pickup_location'] = {
+                'name': location.get('name'),
+                'library_name': location.get_library().get('name')
+            }
+        # Always add item destination readable informations if item state is
+        # 'in transit' ; much more easier to know these informations for UI !
+        item = Item.get_record_by_pid(self.item_pid)
+        if item.status == ItemStatus.IN_TRANSIT:
+            destination_loc_pid = item.location_pid
+            if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                destination_loc_pid = self.get('pickup_location_pid')
+            destination_loc = Location.get_record_by_pid(destination_loc_pid)
+            data['item_destination'] = {
+                'location_name': destination_loc.get('name'),
+                'library_name': destination_loc.get_library().get('name')
+            }
+
         return data
 
     def is_notified(self, notification_type=None):
