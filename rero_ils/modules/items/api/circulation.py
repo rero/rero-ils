@@ -1033,8 +1033,8 @@ class ItemCirculation(IlsRecord):
             item.item_type_pid
         )
         extension_count = loan.get('extension_count', 0)
-        if not (cipo.get('number_renewals') > 0 and
-                extension_count < cipo.get('number_renewals') and
+        if not (cipo.get('number_renewals', 0) > 0 and
+                extension_count < cipo.get('number_renewals', 0) and
                 extend_loan_data_is_valid(
                     loan.get('end_date'),
                     cipo.get('renewal_duration'),
