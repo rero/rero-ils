@@ -87,16 +87,27 @@ CHECKIN_5.1.1
 
 ## scenario_E
 
-*WORK IN PROGRESS*
+:heavy_check_mark:
+:warning: Complete file action.md with the checkmark for each action
 
-A request is made by user B on item of library A, on-shelf without previous requests, to be picked up at library B. Librarian A finds this item on the floor and does a checkin, by security. The item is validated and goes in transit.
+A request is made by user B on item of library A, on-shelf without previous requests, to be picked up at library B.
+Librarian A finds this item on the floor and does a checkin, by security.
+The item is validated and goes in transit.
 
-A librarian C checks the item in, but it stays in transit, because it goes to library B. Impatient, user B tries to request again the item (impossible). Another person, user A, requests it with pickup at library A.
+A librarian C checks the item in, but it stays in transit, because it goes to library B.
+Impatient, user B tries to request again the item (impossible).
+Another person, user A, requests it with pickup at library A.
 
-A librarian B sees this document and wants to borrow it for himself. Before doing a *receive*, he tries to do a checkout (-> denied). He definitely forgots to do the receive, but by chance the requesting person, user B, come and ask for it. Checkout is done.
+A librarian B sees this document and wants to borrow it for himself. Before doing a receive, he tries to do a checkout (-> denied). He definitely forgots to do the receive, but by chance the requesting person, user B, come and ask for it. Checkout is done.
 
-User A is impatient as well and tries to request the item again (impossible). User C requests it with pickup library C. Librarian A tries to check it out for user C (-> denied). User B returns the item at library A; a checkin is done from the checkout interface. Item is directly at desk for user A.
+User A is impatient as well and tries to request the item again (impossible).
+User C requests it with pickup library C. Librarian A tries to check it out for user C (-> denied).
+User B returns the item at library B, the item goes in transit to library A for user A. User A changes the pickup location to library B.
+User A waited to long and cancels his request, the item goes in transit to library C for user C.
+User C cancels his request as well, the item is in transit to its owning library.
+User C adds a request again, with pickup library A, and removes it just after.
 
+By chance, user B find the item at library B and borrows it. He brings it back at library A, the item is on shelf.
 
 ```
 ADD_REQUEST_1.1
@@ -109,5 +120,12 @@ CHECKOUT_4.1
 ADD_REQUEST_3.2.2.1
 ADD_REQUEST_3.2.2.2
 CHECKOUT_3.2
-CHECKOUT_3.1
+CHECKIN_3_2_2_1
+CHANGE_PICKUP_LOCATION_4
+CANCEL_REQUEST_4_1_2
+CANCEL_REQUEST_4_1_1
+ADD_REQUEST_5_1
+CANCEL_REQUEST_4_1_1
+CHECKOUT_5.1
+CHECKIN_3.1.1
 ```

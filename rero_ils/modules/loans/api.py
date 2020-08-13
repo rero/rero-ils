@@ -236,6 +236,12 @@ class Loan(IlsRecord):
         return False
 
     @property
+    def request_creation_date(self):
+        """Shortcut for request create date."""
+        # TODO: remove this when the field request_creation_date is added.
+        return self.created
+
+    @property
     def pid(self):
         """Shortcut for pid."""
         return self.get('pid')
@@ -450,7 +456,7 @@ def get_loans_by_patron_pid(patron_pid):
     results = current_circulation.loan_search_cls()\
         .filter('term', patron_pid=patron_pid)\
         .params(preserve_order=True).\
-        sort({'transaction_date': {'order': 'asc'}})\
+        sort({'_created': {'order': 'asc'}})\
         .source(['pid']).scan()
     for loan in results:
         yield Loan.get_record_by_pid(loan.pid)
@@ -487,10 +493,12 @@ def patron_profile(patron):
         else:
             pickup_location = Location.get_record_by_pid(
                 loan.get('pickup_location_pid'))
-            if pickup_location.get('pickup_name'):
-                loan['pickup_name'] = pickup_location.get('pickup_name')
-            else:
-                loan['pickup_name'] = pickup_location.get('name')
+            if pickup_location:
+                pickup_location.get('pickup_name')
+                if pickup_location.get('pickup_name'):
+                    loan['pickup_name'] = pickup_location.get('pickup_name')
+                else:
+                    loan['pickup_name'] = pickup_location.get('name')
         if loan['state'] == LoanState.ITEM_ON_LOAN:
             can, reasons = item.can(
                 ItemCirculationAction.EXTEND,
@@ -507,9 +515,10 @@ def patron_profile(patron):
                 loan['pickup_location_pid'])
             loan['pickup_library_name'] = \
                 pickup_loc.get_library().get('name')
-            if loan['state'] == 'ITEM_AT_DESK':
+            if loan['state'] == LoanState.ITEM_AT_DESK:
                 loan['rank'] = 0
-            if loan['state'] in ['PENDING', 'ITEM_IN_TRANSIT_FOR_PICKUP']:
+            if loan['state'] in [
+                    LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
                 loan['rank'] = item.patron_request_rank(patron['barcode'])
             requests.append(loan)
         elif loan['state'] in [
@@ -533,7 +542,7 @@ def patron_profile(patron):
         'closed': _process_patron_profile_fees(patron, organisation, 'closed')
     }
     return sorted(loans, key=attrgetter('end_date')),\
-        sorted(requests, key=attrgetter('rank', 'transaction_date')),\
+        sorted(requests, key=attrgetter('rank', 'request_creation_date')),\
         fees,\
         history
 
@@ -593,7 +602,7 @@ def get_last_transaction_loc_for_item(item_pid):
         .params(preserve_order=True)\
         .exclude('terms', state=[
             LoanState.PENDING, LoanState.CREATED])\
-        .sort({'transaction_date': {'order': 'desc'}})\
+        .sort({'_created': {'order': 'desc'}})\
         .source(['pid']).scan()
     try:
         loan_pid = next(results).pid
@@ -610,7 +619,7 @@ def get_due_soon_loans():
     results = current_circulation.loan_search_cls()\
         .filter('term', state=LoanState.ITEM_ON_LOAN)\
         .params(preserve_order=True)\
-        .sort({'transaction_date': {'order': 'asc'}})\
+        .sort({'_created': {'order': 'asc'}})\
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)
@@ -632,7 +641,7 @@ def get_overdue_loans():
     results = current_circulation.loan_search_cls()\
         .filter('term', state=LoanState.ITEM_ON_LOAN)\
         .params(preserve_order=True)\
-        .sort({'transaction_date': {'order': 'asc'}})\
+        .sort({'_created': {'order': 'asc'}})\
         .source(['pid']).scan()
     for record in results:
         loan = Loan.get_record_by_pid(record.pid)

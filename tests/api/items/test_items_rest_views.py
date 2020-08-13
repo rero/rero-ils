@@ -341,7 +341,7 @@ def test_patron_checkouts_order(client, librarian_martigny_no_email,
     res = client.get(
         url_for(
             'api_item.loans', patron_pid=patron_martigny_no_email.pid,
-            sort='transaction_date'))
+            sort='_created'))
     assert res.status_code == 200
     data = get_json(res)
     items = data['hits']['hits']
