@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-12 11:52+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2020-08-13 04:49+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -50,7 +50,7 @@ msgstr "Italian"
 
 #: rero_ils/config.py:174 rero_ils/config.py:178
 msgid "rero-ils"
-msgstr "rero-ils"
+msgstr "RERO ILS"
 
 #: rero_ils/config.py:225
 msgid "Welcome to RERO-ILS!"
@@ -5078,7 +5078,7 @@ msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
 msgid "Local"
-msgstr ""
+msgstr "Local identifier"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:105
 msgid "Matrix number"
@@ -5090,7 +5090,7 @@ msgstr "Music distributor number"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:113
 msgid "Music plate"
-msgstr ""
+msgstr "Plate number (printed music)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:117
 msgid "Music publisher number"
@@ -6701,7 +6701,7 @@ msgstr "Activation of subscription fees for patrons linked to this type."
 #: rero_ils/modules/patrons/views.py:147
 #, python-format
 msgid "%(icon)s Profile"
-msgstr "%(icon)s Profile"
+msgstr "%(icon)s My account"
 
 #: rero_ils/modules/patrons/views.py:169
 #, python-format
@@ -6945,9 +6945,8 @@ msgid "Loan started at"
 msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
-#, fuzzy
 msgid "Transactions history"
-msgstr "Transaction start date"
+msgstr "Transaction history"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:24
 msgid "Category"
