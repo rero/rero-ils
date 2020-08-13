@@ -2560,37 +2560,5 @@
         "$ref": "#/language_script_code"
       }
     }
-  },
-  "numbering_script": {
-    "title": "Values",
-    "type": "object",
-    "propertiesOrder": [
-      "language",
-      "value"
-    ],
-    "required": [
-      "value"
-    ],
-    "form": {
-      "templateOptions": {
-        "cssClass": "row"
-      }
-    },
-    "properties": {
-      "value": {
-        "title": "Value",
-        "type": "string",
-        "minLength": 1,
-        "form": {
-          "placeholder": "Example: vol.3",
-          "templateOptions": {
-            "cssClass": "col-lg-6"
-          }
-        }
-      },
-      "language": {
-        "$ref": "#/language_script_code"
-      }
-    }
   }
 }
