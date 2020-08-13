@@ -38,6 +38,7 @@ from ..documents.views import item_library_pickup_locations
 from ..errors import NoCirculationActionIsPermitted
 from ..libraries.api import Library
 from ..loans.api import Loan
+from ..organisations.api import current_organisation
 from ..patrons.api import Patron
 from ...permissions import librarian_permission
 
@@ -142,7 +143,7 @@ def do_item_jsonify_action(func):
                 abort(403, "BLOCKED USER")
             abort(403, str(error))
         except NotFound as error:
-            raise(error)
+            raise error
         except exceptions.RequestError as error:
             # missing required parameters
             return jsonify({'status': 'error: {error}'.format(
@@ -325,7 +326,7 @@ def loans(patron_pid):
 @jsonify_error
 def item(item_barcode):
     """HTTP GET request for requested loans for a library item and patron."""
-    item = Item.get_item_by_barcode(item_barcode)
+    item = Item.get_item_by_barcode(item_barcode, current_organisation.pid)
     if not item:
         abort(404)
     loan = get_loan_for_item(item_pid_to_object(item.pid))
