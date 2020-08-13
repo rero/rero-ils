@@ -62,7 +62,7 @@
           {% endif %}
         </div>
         <div class="col-lg-2 text-right">
-        {% if loan.state == 'PENDING' %}
+        {% if loan.state in ['PENDING', 'ITEM_IN_TRANSIT_FOR_PICKUP'] %}
           <form class="mt-0" action="{{ url_for('patrons.profile') }}" method="POST" name="cancel_request">
             <input type="hidden" name="type" value="cancel">
             <input type="hidden" name="loan_pid" value="{{ loan.pid }}">

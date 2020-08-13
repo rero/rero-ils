@@ -876,7 +876,8 @@ class ItemCirculation(IlsRecord):
         :param loan_pid : the loan pid to exclude
         :return:  the list of loans states attached to the item
         """
-        exclude_states = [LoanState.ITEM_RETURNED, LoanState.CANCELLED]
+        exclude_states = [
+            LoanState.ITEM_RETURNED, LoanState.CANCELLED, LoanState.CREATED]
         item_pid_object = item_pid_to_object(item_pid)
         results = current_circulation.loan_search_cls()\
             .filter('term', item_pid__value=item_pid_object['value'])\
@@ -898,17 +899,17 @@ class ItemCirculation(IlsRecord):
             return None
 
     @classmethod
-    def get_pendings_loans(cls, library_pid=None, sort_by='transaction_date'):
+    def get_pendings_loans(cls, library_pid=None, sort_by='_created'):
         """Return list of sorted pending loans for a given library.
 
-        default sort is set to transaction_date
+        default sort is set to _created
         """
         # check if library exists
         lib = Library.get_record_by_pid(library_pid)
         if not lib:
             raise Exception('Invalid Library PID')
         # the '-' prefix means a desc order.
-        sort_by = sort_by or 'transaction_date'
+        sort_by = sort_by or '_created'
         order_by = 'asc'
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
@@ -925,14 +926,14 @@ class ItemCirculation(IlsRecord):
 
     @classmethod
     def get_checked_out_loans(
-            cls, patron_pid=None, sort_by='transaction_date'):
+            cls, patron_pid=None, sort_by='_created'):
         """Returns sorted checked out loans for a given patron."""
         # check library exists
         patron = Patron.get_record_by_pid(patron_pid)
         if not patron:
             raise InvalidRecordID('Invalid Patron PID')
         # the '-' prefix means a desc order.
-        sort_by = sort_by or 'transaction_date'
+        sort_by = sort_by or '_created'
         order_by = 'asc'
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
@@ -1171,7 +1172,7 @@ class ItemCirculation(IlsRecord):
     def get_requests(self, sort_by=None):
         """Return sorted pending, item_on_transit, item_at_desk loans.
 
-        default sort is transaction_date.
+        default sort is _created.
         """
         search = search_by_pid(
             item_pid=item_pid_to_object(self.pid), filter_states=[
@@ -1180,7 +1181,7 @@ class ItemCirculation(IlsRecord):
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
             ]).params(preserve_order=True).source(['pid'])
         order_by = 'asc'
-        sort_by = sort_by or 'transaction_date'
+        sort_by = sort_by or '_created'
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
             order_by = 'desc'
@@ -1200,7 +1201,7 @@ class ItemCirculation(IlsRecord):
     def get_item_loans_by_state(self, state=None, sort_by=None):
         """Return sorted item loans with a given state.
 
-        default sort is transaction_date.
+        default sort is _created.
         :param state : the loan state
         :param sort_by : field to use for sorting
         :return: loans found
@@ -1210,7 +1211,7 @@ class ItemCirculation(IlsRecord):
                 state
             ]).params(preserve_order=True).source(['pid'])
         order_by = 'asc'
-        sort_by = sort_by or 'transaction_date'
+        sort_by = sort_by or '_created'
         if sort_by.startswith('-'):
             sort_by = sort_by[1:]
             order_by = 'desc'

@@ -55,7 +55,7 @@ def search_active_loans_for_item(item_pid):
     search = search_by_pid(
         item_pid=item_pid_object,
         filter_states=states,
-        sort_by_field='transaction_date',
+        sort_by_field='_created',
         sort_order='desc'
     )
     loans_count = search.count()
