@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-12 11:52+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2020-08-13 04:49+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -49,7 +49,7 @@ msgstr "Italienisch"
 
 #: rero_ils/config.py:174 rero_ils/config.py:178
 msgid "rero-ils"
-msgstr "rero-ils"
+msgstr "RERO ILS"
 
 #: rero_ils/config.py:225
 msgid "Welcome to RERO-ILS!"
@@ -3908,7 +3908,7 @@ msgstr "Wert"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2585
 msgid "Example: vol.3"
-msgstr ""
+msgstr "Beispiel: Bd. 3"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
@@ -5081,11 +5081,11 @@ msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
 msgid "Local"
-msgstr "Lokal"
+msgstr "Lokaler Identifikator"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:105
 msgid "Matrix number"
-msgstr "Matrix-Nummer"
+msgstr "Matrix-Nummer (Tone)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:109
 msgid "Music distributor number"
@@ -6462,7 +6462,7 @@ msgstr "Benachrichtigungs E-Mail-Addresse"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:156
 msgid "Specify a generic email address used for notification."
 msgstr ""
-"Geben Sie eineE-Mail-Adresse an, die für die Benachrichtigung verwendet "
+"Geben Sie eine E-Mail-Adresse an, die für die Benachrichtigung verwendet "
 "wird."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:173
@@ -6976,9 +6976,8 @@ msgid "Loan started at"
 msgstr ""
 
 #: rero_ils/modules/patrons/templates/rero_ils/_macro_profile.html:97
-#, fuzzy
 msgid "Transactions history"
-msgstr "Startdatum der Transaktion"
+msgstr "Transaktionshistorie"
 
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_fees.html:24
 msgid "Category"

@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2020-08-12 13:36+0200\n"
-"PO-Revision-Date: 2020-08-12 12:50+0000\n"
-"Last-Translator: iGor milhit <igor.milhit@rero.ch>\n"
+"PO-Revision-Date: 2020-08-13 04:49+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -5083,7 +5083,7 @@ msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:101
 msgid "Local"
-msgstr "Local"
+msgstr "Identifiant local"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:105
 msgid "Matrix number"
@@ -5095,7 +5095,7 @@ msgstr "Référence du distributeur (musique)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:113
 msgid "Music plate"
-msgstr "Cotage pour la musique notée"
+msgstr "Cotage (musique imprimée)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:117
 msgid "Music publisher number"
@@ -5454,7 +5454,7 @@ msgstr "Point rigide"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:111
 msgid "Swell paper"
-msgstr "papier thermogonflé"
+msgstr "Papier thermogonflé"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_production_method-v0.0.1.json:115
 msgid "Thermoform"
@@ -6249,7 +6249,7 @@ msgstr "E-mail"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:56
 msgid "Email of the library."
-msgstr "Email de la bibliothèque."
+msgstr "E-mail de la bibliothèque."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:63
 msgid "Opening Hours"
@@ -6456,12 +6456,12 @@ msgstr "Envoyer une notification"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:144
 msgid "Send a email notification when an item of the location has been requested."
 msgstr ""
-"Envoyer un email de notification lorsqu'un exemplaire de la localisation "
+"Envoyer un e-mail de notification lorsqu'un exemplaire de la localisation "
 "est demandé."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:155
 msgid "Notification email"
-msgstr "Email pour notification"
+msgstr "E-mail de notification"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:156
 msgid "Specify a generic email address used for notification."
@@ -6798,7 +6798,7 @@ msgstr "Exemple: 1985-12-29"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:89
 msgid "This email is already taken."
-msgstr "L'email est déjà utilisé."
+msgstr "L'e-mail est déjà utilisé."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:95
 #: rero_ils/modules/patrons/templates/rero_ils/_patron_profile_personal.html:26
