@@ -276,6 +276,7 @@ setup(
             'ebooks = rero_ils.modules.ebooks.tasks',
             'apiharvester = rero_ils.modules.apiharvester.tasks',
             'notifications = rero_ils.modules.notifications.tasks',
+            'patrons = rero_ils.modules.patrons.tasks',
         ],
         'invenio_records.jsonresolver': [
             'organisations = rero_ils.modules.organisations.jsonresolver',
