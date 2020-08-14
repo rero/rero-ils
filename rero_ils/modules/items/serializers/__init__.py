@@ -31,6 +31,7 @@ csv_item = ItemCSVSerializer(
         'pid',
         'document_pid',
         'document_title',
+        'document_creator',
         'document_type',
         'location_name',
         'barcode',
