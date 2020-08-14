@@ -81,7 +81,7 @@ def test_items_serializers(
     assert response.status_code == 200
     data = get_csv(response)
     assert data
-    assert '"pid","document_pid","document_title","document_type",' \
-           '"location_name","barcode","call_number","second_call_number",' \
-           '"loans_count","last_transaction_date","status",' \
-           '"created"' in data
+    assert '"pid","document_pid","document_title","document_creator",' \
+           '"document_type","location_name","barcode","call_number",' \
+           '"second_call_number","loans_count","last_transaction_date",' \
+           '"status","created"' in data

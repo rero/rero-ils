@@ -29,6 +29,29 @@ from rero_ils.modules.documents.utils import title_format_text_head
 from rero_ils.modules.items.api import search_active_loans_for_item
 from rero_ils.modules.locations.api import LocationsSearch
 
+role_filter = [
+    'rsp',
+    'cre',
+    'enj',
+    'dgs',
+    'prg',
+    'dsr',
+    'ctg',
+    'cmp',
+    'inv',
+    'com',
+    'pht',
+    'ivr',
+    'art',
+    'ive',
+    'chr',
+    'aut',
+    'arc',
+    'fmk',
+    'pra',
+    'csl'
+]
+
 
 class ItemCSVSerializer(CSVSerializer):
     """Serialize and filter item circulation status."""
@@ -68,6 +91,17 @@ class ItemCSVSerializer(CSVSerializer):
         document = search_document_by_pid(record['document']['pid'])
         record['document_title'] = title_format_text_head(document.title,
                                                           with_subtitle=True)
+        creator = []
+        for contribution in document.contribution:
+            if any(role in contribution.role for role in role_filter):
+                try:
+                    creator.append(contribution['agent']['preferred_name'])
+                except KeyError:
+                    creator.append(
+                        contribution['agent']['authorized_access_point_en']
+                    )
+        if creator:
+            record['document_creator'] = ' ; '.join(creator)
         record['document_type'] = document.type
 
         # get loans information
