@@ -37,13 +37,11 @@ def user_is_authenticated(user=None):
     """Checks if user is authenticated.
 
     :return: True if user is logged in and authenticated.
-    :return False if user is not logged or not authenticated.
+    :return: False if user is not logged or not authenticated.
     """
     if not user:
         user = current_user
-    if user.is_authenticated:
-        return True
-    return False
+    return user.is_authenticated
 
 
 def staffer_is_authenticated(user=None):
@@ -55,7 +53,7 @@ def staffer_is_authenticated(user=None):
     """
     if not user:
         user = current_user
-    if user.is_authenticated:
+    if user and user.is_authenticated:
         patron = Patron.get_patron_by_user(user)
         if patron and (patron.is_librarian or patron.is_system_librarian):
             return patron
@@ -77,22 +75,6 @@ def user_has_roles(user=None, roles=[], condition='or'):
         function = all if condition == 'and' else any
         return function(role in patron.get('roles', []) for role in roles)
     return False
-
-
-def patron_is_authenticated(user=None):
-    """Checks if user (with role patron) is authenticated.
-
-    :return: Patron records if user is logged in and authenticated and has
-    the patron role.
-    :return False otherwise.
-    """
-    if not user:
-        user = current_user
-    if user.is_authenticated:
-        patron = Patron.get_patron_by_user(user)
-        if patron and patron.is_patron:
-            return patron
-    return None
 
 
 def can_access_organisation_records_factory(record, *args, **kwargs):

@@ -113,6 +113,7 @@ def read_json_record(json_file, buf_size=1024, decoder=JSONDecoder()):
 def get_record_class_and_permissions_from_route(route_name):
     """Get record class and permission factories for a record route name."""
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
+    endpoints.update(current_app.config.get('CIRCULATION_REST_ENDPOINTS', {}))
     for endpoint in endpoints.items():
         record = endpoint[1]
         list_route = record.get('list_route').replace('/', '')

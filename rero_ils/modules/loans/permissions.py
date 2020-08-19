@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2020 RERO
+# Copyright (C) 2020 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,39 +16,74 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Loan permissions."""
+"""Permissions for loans."""
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.organisations.api import current_organisation
+from rero_ils.modules.patrons.api import current_patron
+from rero_ils.modules.permissions import RecordPermission
 
 
-from .api import Loan
-from ...permissions import patron_is_authenticated, staffer_is_authenticated, \
-    user_is_authenticated
+class LoanPermission(RecordPermission):
+    """Loan permissions."""
 
+    @classmethod
+    def list(cls, user, record=None):
+        """List permission check.
 
-def can_list_loan_factory(record, *args, **kwargs):
-    """Checks if the logged user have access to loans list.
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # user must be authenticated
+        return bool(current_patron)
 
-    only authenticated users can place a search on loans.
-    """
-    def can(self):
-        patron = user_is_authenticated()
-        if patron:
-            return True
-        return False
-    return type('Check', (), {'can': can})()
+    @classmethod
+    def read(cls, user, record):
+        """Read permission check.
 
-
-def can_read_loan_factory(record, *args, **kwargs):
-    """Checks if the logged user have access to loans of its organisation.
-
-    users with librarian or system_librarian roles can acess all loans.
-    users with patron role can access only its loans
-    """
-    def can(self):
-        patron = staffer_is_authenticated() or patron_is_authenticated()
-        if patron and patron.organisation_pid == Loan(record).organisation_pid:
-            if patron.is_librarian or patron.is_system_librarian:
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        if current_patron \
+           and current_organisation.pid == Loan(record).organisation_pid:
+            # staff member (lib, sys_lib) can always read loans
+            if current_patron.is_librarian:
                 return True
-            elif patron.is_patron and Loan(record).patron_pid == patron.pid:
-                return True
+            # patron can only read their own loans
+            if current_patron.is_patron:
+                return Loan(record).patron_pid == current_patron.pid
         return False
-    return type('Check', (), {'can': can})()
+
+    @classmethod
+    def create(cls, user, record=None):
+        """Create permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # deny all
+        return False
+
+    @classmethod
+    def update(cls, user, record):
+        """Update permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True is action can be done.
+        """
+        # deny all
+        return False
+
+    @classmethod
+    def delete(cls, user, record):
+        """Delete permission check.
+
+        :param user: Logged user.
+        :param record: Record to check.
+        :return: True if action can be done.
+        """
+        # deny all
+        return False

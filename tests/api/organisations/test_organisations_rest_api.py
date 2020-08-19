@@ -62,6 +62,10 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
     )
     assert res.status_code == 200
 
+    list_url = url_for('invenio_records_rest.org_list')
+    client.get(list_url)
+    assert res.status_code == 200
+
     login_user_via_session(client, librarian_martigny_no_email.user)
     data['name'] = 'New Name 2'
     res = client.put(
