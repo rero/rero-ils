@@ -104,8 +104,8 @@ def test_due_soon_loans(client, librarian_martigny_no_email,
 
     assert not get_last_transaction_loc_for_item(item_pid)
 
-    assert not item.is_loaned_to_patron(patron_martigny_no_email.get(
-        'barcode'))
+    assert not item.patron_has_an_active_loan_on_item(
+        patron_martigny_no_email.get('barcode'))
     assert item.can_delete
     assert item.available
 
