@@ -974,6 +974,30 @@ class ItemCirculation(IlsRecord):
             return loan_location_pid
         return self.location_pid
 
+    def patron_has_an_active_loan_on_item(self, patron_barcode):
+        """Return True if patron has an active loan on the item.
+
+        The new circ specs do allow requests on ITEM_IN_TRANSIT_TO_HOUSE loans.
+
+        :param patron_barcode: the patron barcode.
+        :return: True is requested otherwise False.
+        """
+        patron = Patron.get_patron_by_barcode(patron_barcode)
+        if patron:
+            search = search_by_patron_item_or_document(
+                item_pid=item_pid_to_object(self.pid),
+                patron_pid=patron.pid,
+                filter_states=[
+                    LoanState.PENDING,
+                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+                    LoanState.ITEM_AT_DESK,
+                    LoanState.ITEM_ON_LOAN
+                ]).params(preserve_order=True).source(['state'])
+            return len(
+                list(
+                    dict.fromkeys(
+                        [result.state for result in search.scan()]))) > 0
+
     # CIRCULATION METHODS =====================================================
     def can(self, action, **kwargs):
         """Check if a specific action is allowed on this item.
@@ -1009,7 +1033,7 @@ class ItemCirculation(IlsRecord):
                 reasons.append("Item and patron are not in the same "
                                "organisation.")
             if patron.get('barcode') and \
-               item.is_loaned_to_patron(patron.get('barcode')):
+               item.patron_has_an_active_loan_on_item(patron.get('barcode')):
                 reasons.append("Item is already checked-out or requested by "
                                "patron.")
         return len(reasons) == 0, reasons
@@ -1284,22 +1308,6 @@ class ItemCirculation(IlsRecord):
             )
             if request:
                 return True
-        return False
-
-    def is_loaned_to_patron(self, patron_barcode):
-        """Check if the item is loaned by a given patron."""
-        patron = Patron.get_patron_by_barcode(patron_barcode)
-        if patron:
-            states = [LoanState.CREATED, LoanState.PENDING] + \
-                current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
-            search = search_by_patron_item_or_document(
-                patron_pid=patron.pid,
-                item_pid=item_pid_to_object(self.pid),
-                document_pid=self.document_pid,
-                filter_states=states,
-            )
-            search_result = search.execute()
-            return search_result.hits.total > 0
         return False
 
     @classmethod
