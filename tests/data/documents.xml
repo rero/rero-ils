@@ -1,7 +1,6 @@
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record>
   <leader>00975nam a2200277 a 4500</leader>
-  <controlfield tag="001">REROILS:1</controlfield>
   <controlfield tag="005">20170518120100.0</controlfield>
   <controlfield tag="008">000918s1999    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
@@ -81,7 +80,6 @@
 </record>
 <record>
   <leader>00975nam a2200277 a 4500</leader>
-  <controlfield tag="001">REROILS:1</controlfield>
   <controlfield tag="005">20170518120100.0</controlfield>
   <controlfield tag="008">000918s1999    gw ||| |  ||||00|  |ger d</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">

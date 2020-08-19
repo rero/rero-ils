@@ -196,10 +196,14 @@ info_msg "Create new admin user"
 eval ${PREFIX} invenio users create -a admin@rero.ch --password administrator
 eval ${PREFIX} invenio users create -a editor@rero.ch --password editor
 
+info_msg "Create document_importer user"
+eval ${PREFIX} invenio users create -a gipi@ngscan.com --password ngscan
+
 # confirm users
 info_msg "Confirm admin creation"
 eval ${PREFIX} invenio users confirm admin@rero.ch
 eval ${PREFIX} invenio users confirm editor@rero.ch
+eval ${PREFIX} invenio users confirm gipi@ngscan.com
 
 # create roles
 info_msg "Create roles: admin, patron, librarian and system librarian"
@@ -214,8 +218,11 @@ eval "${PREFIX} invenio roles create -d 'Librarian' librarian"
 # create a role for users qualified as a System librarian
 eval "${PREFIX} invenio roles create -d 'System Librarian' system_librarian"
 
-# create a role for users qualified as a System librarian
+# create a role for users qualified as a Documentation Editor
 eval "${PREFIX} invenio roles create -d 'Documentation Editor' editor"
+
+# create a role for users qualified as a Documment Importing
+eval "${PREFIX} invenio roles create -d 'Documment Importing' document_importer"
 
 # grant accesses to action roles
 info_msg "Grant access to action roles (admins, superusers)"
@@ -227,6 +234,7 @@ info_msg "Grant roles to users"
 eval ${PREFIX} invenio roles add admin@rero.ch admins
 eval ${PREFIX} invenio roles add admin@rero.ch superusers
 eval ${PREFIX} invenio roles add editor@rero.ch editor
+eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
 
 # Generate fixtures
 info_msg "Generate fixtures:"
@@ -360,6 +368,16 @@ eval ${PREFIX} invenio fixtures create_loans ${DATA_PATH}/loans.json
 
 # process notifications
 eval ${PREFIX} invenio notifications process
+
+# create token access for ngscan (ezpump)
+# if the environement variable INVENIO_RERO_ACCESS_TOKEN_NGSCAN is not set a new
+# token will be generated
+if ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
+then
+    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
+else
+    eval ${PREFIX} invenio utils tokens_create -n ezpump -u gipi@ngscan.com
+fi
 
 # # OAI configuration
 info_msg "OAI configuration:"
