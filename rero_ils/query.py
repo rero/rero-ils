@@ -25,7 +25,7 @@ from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 
-from .modules.organisations.api import Organisation
+from .modules.organisations.api import Organisation, current_organisation
 from .modules.patrons.api import current_patron
 
 _PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')
@@ -55,7 +55,7 @@ def view_search_factory(self, search, query_parser=None):
         search = search.filter(
             'term', **{'holdings__organisation__organisation_pid': org['pid']}
         )
-    return (search, urlkwargs)
+    return search, urlkwargs
 
 
 def person_view_search_factory(self, search, query_parser=None):
@@ -66,16 +66,15 @@ def person_view_search_factory(self, search, query_parser=None):
     if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         org = Organisation.get_record_by_viewcode(view)
         search = search.filter('term', organisations=org['pid'])
-    return (search, urlkwargs)
+    return search, urlkwargs
 
 
 def organisation_organisation_search_factory(self, search, query_parser=None):
     """Organisation Search factory."""
     search, urlkwargs = search_factory(self, search)
     if current_patron:
-        search = search.filter(
-            'term', pid=current_patron.get_organisation()['pid'])
-    return (search, urlkwargs)
+        search = search.filter('term', pid=current_organisation.pid)
+    return search, urlkwargs
 
 
 def organisation_search_factory(self, search, query_parser=None):
@@ -83,8 +82,9 @@ def organisation_search_factory(self, search, query_parser=None):
     search, urlkwargs = search_factory(self, search)
     if current_patron:
         search = search.filter(
-            'term', organisation__pid=current_patron.get_organisation()['pid'])
-    return (search, urlkwargs)
+            'term', organisation__pid=current_organisation.pid
+        )
+    return search, urlkwargs
 
 
 def loans_search_factory(self, search, query_parser=None):
@@ -95,14 +95,13 @@ def loans_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
     if current_patron:
-        if current_patron.is_librarian or current_patron.is_system_librarian:
+        if current_patron.is_librarian:
             search = search.filter(
-                'term', organisation__pid=current_patron.get_organisation(
-                    )['pid'])
-        if current_patron.is_patron:
-            search = search.filter(
-                'term', patron__pid=current_patron.pid)
-    return (search, urlkwargs)
+                'term', organisation__pid=current_organisation.pid
+            )
+        elif current_patron.is_patron:
+            search = search.filter('term', patron__pid=current_patron.pid)
+    return search, urlkwargs
 
 
 def patron_transactions_search_factory(self, search, query_parser=None):
@@ -113,14 +112,13 @@ def patron_transactions_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
     if current_patron:
-        if current_patron.is_librarian or current_patron.is_system_librarian:
+        if current_patron.is_librarian:
             search = search.filter(
-                'term', organisation__pid=current_patron.get_organisation(
-                    )['pid'])
-        if current_patron.is_patron:
-            search = search.filter(
-                'term', patron__pid=current_patron.pid)
-    return (search, urlkwargs)
+                'term', organisation__pid=current_organisation.pid
+            )
+        elif current_patron.is_patron:
+            search = search.filter('term', patron__pid=current_patron.pid)
+    return search, urlkwargs
 
 
 def acq_accounts_search_factory(self, search, query_parser=None):
@@ -133,12 +131,12 @@ def acq_accounts_search_factory(self, search, query_parser=None):
     if current_patron:
         if current_patron.is_system_librarian:
             search = search.filter(
-                'term', organisation__pid=current_patron.get_organisation(
-                    )['pid'])
+                'term', organisation__pid=current_organisation.pid
+            )
         elif current_patron.is_librarian:
             search = search.filter(
                 'term', library__pid=current_patron.library_pid)
-    return (search, urlkwargs)
+    return search, urlkwargs
 
 
 def search_factory(self, search, query_parser=None):
@@ -149,6 +147,7 @@ def search_factory(self, search, query_parser=None):
 
     :param self: REST view.
     :param search: Elastic search DSL search instance.
+    :param query_parser: a specific query parser
     :return: Tuple with search instance and URL arguments.
     """
     def _default_parser(qstr=None, query_boosting=[]):

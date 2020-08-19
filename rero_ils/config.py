@@ -38,7 +38,6 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemInTransitHouse, ItemOnLoanToItemOnLoan, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
-from invenio_records_rest.utils import deny_all
 
 from .modules.acq_accounts.api import AcqAccount
 from .modules.acq_accounts.permissions import AcqAccountPermission
@@ -65,8 +64,7 @@ from .modules.items.utils import item_location_retriever
 from .modules.libraries.api import Library
 from .modules.libraries.permissions import LibraryPermission
 from .modules.loans.api import Loan, LoanState
-from .modules.loans.permissions import can_list_loan_factory, \
-    can_read_loan_factory
+from .modules.loans.permissions import LoanPermission
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
@@ -1880,11 +1878,16 @@ CIRCULATION_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=10000,
         error_handlers=dict(),
-        read_permission_factory_imp=can_read_loan_factory,
-        list_permission_factory_imp=can_list_loan_factory,
-        create_permission_factory_imp=deny_all,
-        update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=LoanPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=LoanPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=LoanPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=LoanPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=LoanPermission)
     )
 )
 """Disable Circulation REST API."""

@@ -24,6 +24,13 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
+from rero_ils.permissions import staffer_is_authenticated
+
+
+def test_anonymous_user():
+    """Test functions if not logged."""
+    assert not staffer_is_authenticated()
+
 
 def test_patron_permissions(
         client, json_header, system_librarian_martigny_no_email,
