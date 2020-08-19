@@ -18,8 +18,13 @@
 
 """Permissions for documents."""
 
+from flask_principal import RoleNeed
+from invenio_access.permissions import Permission
+
 from rero_ils.modules.patrons.api import current_patron
 from rero_ils.modules.permissions import RecordPermission
+
+document_importer_permission = Permission(RoleNeed('document_importer'))
 
 
 class DocumentPermission(RecordPermission):
@@ -55,6 +60,9 @@ class DocumentPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
+        # users with document_importer permission can add new records
+        if document_importer_permission:
+            return True
         # user should be authenticated
         if not current_patron:
             return False
