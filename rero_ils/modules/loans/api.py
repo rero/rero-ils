@@ -358,9 +358,12 @@ class Loan(IlsRecord):
             if LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 destination_loc_pid = self.get('pickup_location_pid')
             destination_loc = Location.get_record_by_pid(destination_loc_pid)
+            destination_lib = destination_loc.get_library()
             data['item_destination'] = {
                 'location_name': destination_loc.get('name'),
-                'library_name': destination_loc.get_library().get('name')
+                'location_code': destination_loc.get('code'),
+                'library_name': destination_lib.get('name'),
+                'library_code': destination_lib.get('code')
             }
 
         return data
