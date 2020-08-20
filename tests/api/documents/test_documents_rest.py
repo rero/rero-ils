@@ -501,3 +501,38 @@ def test_documents_resolve(
         'rero', 'gnd', 'bnf'
     ]
     assert res.status_code == 200
+
+
+def test_document_exclude_draft_records(client, document):
+    """Test document exclude draft record."""
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='Lingliang'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total'] == 1
+    data = hits['hits'][0]['metadata']
+    assert data['pid'] == document.get('pid')
+
+    document['_draft'] = True
+    document.update(document, dbcommit=True, reindex=True)
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='Lingliang'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total'] == 0
+
+    document['_draft'] = False
+    document.update(document, dbcommit=True, reindex=True)
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='Lingliang'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total'] == 1
