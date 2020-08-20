@@ -114,6 +114,9 @@ def view_search_factory(self, search, query_parser=None):
         search = search.filter(
             'term', **{'holdings__organisation__organisation_pid': org['pid']}
         )
+    # exclude draft records
+    search = search.filter('bool', must_not=[Q('term', _draft=True)])
+
     return search, urlkwargs
 
 
