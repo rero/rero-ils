@@ -352,6 +352,11 @@ info_msg "Acquisition accounts:"
 eval ${PREFIX} invenio fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  ${CREATE_LAZY} ${DONT_STOP}
 eval ${PREFIX} invenio utils reindex -t acac --yes-i-know --no-info
 
+# create resource templates
+info_msg "Resource templates:"
+eval ${PREFIX} invenio fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio utils reindex -t tmpl --yes-i-know --no-info
+
 eval ${PREFIX} invenio utils runindex --raise-on-error
 
 # create circulation transactions
