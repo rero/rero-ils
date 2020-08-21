@@ -170,7 +170,7 @@ class Loan(IlsRecord):
         :return: the new updated loan.
         """
         if self['state'] not in [
-                LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
+                LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
             raise NoCirculationActionIsPermitted(
                 'No circulation action is permitted')
 

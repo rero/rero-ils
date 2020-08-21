@@ -98,7 +98,7 @@ def test_change_pickup_location_request_for_other_loans(
         )
     )
     assert res.status_code == 403
-    # CHANGE_PICKUP_LOCATION_4: update denied on IN_TRANSIT_FOR_PICKUP loans.
+    # CHANGE_PICKUP_LOCATION_4: update allowed on IN_TRANSIT_FOR_PICKUP loans.
     item, patron, loan = item_in_transit_martigny_patron_and_loan_for_pickup
     res, data = postdata(
         client,
@@ -108,8 +108,8 @@ def test_change_pickup_location_request_for_other_loans(
             pickup_location_pid=loc_public_fully.pid
         )
     )
-    assert res.status_code == 403
-    # CHANGE_PICKUP_LOCATION_5: update is allowed on IN_TRANSIT_TO_HOUSE loans.
+    assert res.status_code == 200
+    # CHANGE_PICKUP_LOCATION_5: update denied on IN_TRANSIT_TO_HOUSE loans.
     item, patron, loan = item_in_transit_martigny_patron_and_loan_to_house
     res, data = postdata(
         client,
@@ -119,4 +119,4 @@ def test_change_pickup_location_request_for_other_loans(
             pickup_location_pid=loc_public_fully.pid
         )
     )
-    assert res.status_code == 200
+    assert res.status_code == 403

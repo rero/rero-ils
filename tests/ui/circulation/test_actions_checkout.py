@@ -278,6 +278,38 @@ def test_checkout_on_item_in_transit_to_house(
     assert intransit_item.number_of_requests() == 0
 
 
+def test_checkout_on_item_in_transit_to_house_for_another_patron(
+        item2_in_transit_martigny_patron_and_loan_to_house,
+        patron2_martigny_no_email,
+        librarian_martigny_no_email,
+        loc_public_martigny,
+        loc_public_saxon):
+    """Test CHECKOUT on an IN_TRANSIT (to house) item."""
+    # Create a new item in IN_TRANSIT_TO_HOUSE
+    intransit_item, patron, loan = \
+        item2_in_transit_martigny_patron_and_loan_to_house
+    assert intransit_item.number_of_requests() == 0
+
+    # the following tests the circulation action CHECKOUT_5_1
+    # an IN_TRANSIT (to house) item
+    # WITHOUT pending loan
+    # CAN be CHECKOUT
+    params = {
+        'patron_pid': patron2_martigny_no_email.pid,
+        'transaction_location_pid': loc_public_saxon.pid,
+        'transaction_user_pid': librarian_martigny_no_email.pid,
+        'pickup_location_pid': loc_public_martigny.pid,
+    }
+    # Checkout it!
+    asked_item, actions = intransit_item.checkout(**params, pid=loan.pid)
+    checkout_loan = Loan.get_record_by_pid(
+        actions[LoanAction.CHECKOUT].get('pid'))
+    # Check loan is ITEM_ON_LOAN and item is ON_LOAN
+    assert intransit_item.status == ItemStatus.ON_LOAN
+    assert checkout_loan['state'] == LoanState.ITEM_ON_LOAN
+    assert intransit_item.number_of_requests() == 0
+
+
 def test_checkout_on_item_in_transit_to_house_with_pending_loan(
         item_in_transit_martigny_patron_and_loan_to_house,
         item_lib_martigny,
