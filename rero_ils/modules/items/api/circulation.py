@@ -17,6 +17,7 @@
 
 """API for manipulating item circulation transactions."""
 
+from copy import deepcopy
 from datetime import datetime, timezone
 from functools import wraps
 
@@ -802,7 +803,10 @@ class ItemCirculation(IlsRecord):
                 item, receive_actions = self.receive(**action_params)
                 actions.update(receive_actions)
             elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
-                item, cancel_actions = self.cancel_loan(**action_params)
+                # do not pass the patron_pid when cancelling a loan
+                cancel_params = deepcopy(action_params)
+                cancel_params.pop('patron_pid')
+                item, cancel_actions = self.cancel_loan(**cancel_params)
                 actions.update(cancel_actions)
                 del action_params['pid']
                 # TODO: Check what's wrong in this case because Loan is cancel
