@@ -42,6 +42,7 @@ def test_monitoring_es_db_counts(client):
             'cipo': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'circ_policies'},
             'doc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'documents'},
             'hold': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'holdings'},
+            'illr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'ill_requests'}
             'item': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'items'},
             'itty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'item_types'},
             'lib': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'libraries'},
@@ -56,8 +57,8 @@ def test_monitoring_es_db_counts(client):
             'pttr': {'db': 0, 'db-es': 0, 'es': 0,
                      'index': 'patron_transactions'},
             'ptty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_types'},
+            'tmpl': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'templates'},
             'vndr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'vendors'},
-            'illr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'ill_requests'}
         }
     }
 
