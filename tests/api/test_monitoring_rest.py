@@ -56,6 +56,7 @@ def test_monitoring_es_db_counts(client):
             'pttr': {'db': 0, 'db-es': 0, 'es': 0,
                      'index': 'patron_transactions'},
             'ptty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_types'},
+            'tmpl': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'templates'},
             'vndr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'vendors'}
         }
     }

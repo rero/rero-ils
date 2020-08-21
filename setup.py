@@ -106,7 +106,8 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring:api_blueprint'
+            'monitoring = rero_ils.modules.monitoring:api_blueprint',
+            'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -176,6 +177,7 @@ setup(
             'acq_invoices = rero_ils.modules.acq_invoices.models',
             'patron_transactions = rero_ils.modules.patron_transactions.models',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.models',
+            'templates = rero_ils.modules.templates.models',
         ],
         'invenio_pidstore.minters': [
             'organisation_id = rero_ils.modules.organisations.api:organisation_id_minter',
@@ -197,7 +199,8 @@ setup(
             'acq_order_line_id = rero_ils.modules.acq_order_lines.api:acq_order_line_id_minter',
             'acq_invoice_id = rero_ils.modules.acq_invoices.api:acq_invoice_id_minter',
             'patron_transaction_id = rero_ils.modules.patron_transactions.api:patron_transaction_id_minter',
-            'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter'
+            'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter',
+            'template_id = rero_ils.modules.templates.api:template_id_minter',
         ],
         'invenio_pidstore.fetchers': [
             'organisation_id = rero_ils.modules.organisations.api:organisation_id_fetcher',
@@ -220,6 +223,7 @@ setup(
             'acq_invoice_id = rero_ils.modules.acq_invoices.api:acq_invoice_id_fetcher',
             'patron_transaction_id = rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher',
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher',
+            'template_id = rero_ils.modules.templates.api:template_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
             'common = rero_ils.jsonschemas',
@@ -244,6 +248,7 @@ setup(
             'acq_invoices = rero_ils.modules.acq_invoices.jsonschemas',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonschemas',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonschemas',
+            'templates = rero_ils.modules.templates.jsonschemas',
         ],
         'invenio_search.mappings': [
             'organisations = rero_ils.modules.organisations.mappings',
@@ -267,6 +272,7 @@ setup(
             'acq_invoices = rero_ils.modules.acq_invoices.mappings',
             'patron_transactions = rero_ils.modules.patron_transactions.mappings',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.mappings',
+            'templates = rero_ils.modules.templates.mappings',
         ],
         'invenio_search.templates': [
             'base-record = rero_ils.es_templates:list_es_templates',
@@ -298,7 +304,7 @@ setup(
             'acq_order_lines = rero_ils.modules.acq_order_lines.jsonresolver',
             'acq_invoices = rero_ils.modules.acq_invoices.jsonresolver',
             'patron_transactions = rero_ils.modules.patron_transactions.jsonresolver',
-            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver',
+            'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver'
         ]
     },
     classifiers=[

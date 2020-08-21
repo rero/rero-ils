@@ -27,6 +27,7 @@ from invenio_records_rest.errors import InvalidQueryRESTError
 
 from .modules.organisations.api import Organisation, current_organisation
 from .modules.patrons.api import current_patron
+from .modules.templates.api import TemplateVisibility
 
 _PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')
 
@@ -160,6 +161,29 @@ def loans_search_factory(self, search, query_parser=None):
             )
         elif current_patron.is_patron:
             search = search.filter('term', patron__pid=current_patron.pid)
+    return search, urlkwargs
+
+
+def templates_search_factory(self, search, query_parser=None):
+    """Template search factory.
+
+    Restricts results to organisation level for librarian and sys_lib.
+    Restricts results to private templates for users with role librarian.
+    """
+    search, urlkwargs = search_factory(self, search)
+    if current_patron:
+        if current_patron.is_system_librarian:
+            search = search.filter(
+                'term', organisation__pid=current_organisation.pid)
+        elif current_patron.is_librarian:
+            search = search.filter(
+                'term', organisation__pid=current_organisation.pid)
+            search = search.filter('bool', should=[
+                Q('bool', must=[
+                    Q('match', creator__pid=current_patron.pid),
+                    Q('match', visibility=TemplateVisibility.PRIVATE)]),
+                Q('match', visibility=TemplateVisibility.PUBLIC)])
+
     return search, urlkwargs
 
 

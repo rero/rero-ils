@@ -29,6 +29,7 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.persons.api import Person, PersonsSearch
+from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
 @pytest.fixture(scope="module")
@@ -729,3 +730,132 @@ def babel_filehandle():
         join(dirname(__file__), '..', 'data', 'babel_extraction.json'),
         'rb'
     )
+
+
+# --------- Template records -----------
+
+
+@pytest.fixture(scope="function")
+def templ_doc_public_martigny_data_tmp(data):
+    """Load template for a public document martigny data scope function."""
+    return deepcopy(data.get('tmpl1'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_martigny_data(data):
+    """Load template for a public document martigny data."""
+    return deepcopy(data.get('tmpl1'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_martigny(
+        app, org_martigny, templ_doc_public_martigny_data,
+        system_librarian_martigny_no_email):
+    """Create template for a public document martigny."""
+    template = Template.create(
+        data=templ_doc_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_doc_private_martigny_data(data):
+    """Load template for a private document martigny data."""
+    return deepcopy(data.get('tmpl2'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_private_martigny(
+        app, org_martigny, templ_doc_private_martigny_data,
+        librarian_martigny_no_email):
+    """Create template for a private document martigny."""
+    template = Template.create(
+        data=templ_doc_private_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_sion_data(data):
+    """Load template for a public document sion data."""
+    return deepcopy(data.get('tmpl3'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_sion(
+        app, org_sion, templ_doc_public_sion_data,
+        system_librarian_sion_no_email):
+    """Create template for a public document sion."""
+    template = Template.create(
+        data=templ_doc_public_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_holdings_public_martigny_data(data):
+    """Load template for a public holdings martigny data."""
+    return deepcopy(data.get('tmpl4'))
+
+
+@pytest.fixture(scope="module")
+def templ_holdings_public_martigny(
+        app, org_martigny, templ_holdings_public_martigny_data,
+        system_librarian_martigny_no_email):
+    """Load template for a public holdings martigny."""
+    template = Template.create(
+        data=templ_holdings_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_item_public_martigny_data(data):
+    """Load template for a public item martigny data."""
+    return deepcopy(data.get('tmpl5'))
+
+
+@pytest.fixture(scope="module")
+def templ_item_public_martigny(
+        app, org_martigny, templ_item_public_martigny_data,
+        system_librarian_martigny_no_email):
+    """Load template for a public item martigny."""
+    template = Template.create(
+        data=templ_item_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_patron_public_martigny_data(data):
+    """Load template for a public patron martigny data."""
+    return deepcopy(data.get('tmpl6'))
+
+
+@pytest.fixture(scope="module")
+def templ_patron_public_martigny(
+        app, org_martigny, templ_patron_public_martigny_data,
+        system_librarian_martigny_no_email):
+    """Load template for a public item martigny."""
+    template = Template.create(
+        data=templ_patron_public_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
