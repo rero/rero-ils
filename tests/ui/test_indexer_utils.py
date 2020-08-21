@@ -27,20 +27,20 @@ def test_record_to_index(app):
     assert record_to_index({
         '$schema': 'https://ils.rero.ch/schemas/'
         'documents/document-v0.0.1.json'
-    }) == ('documents-document-v0.0.1', 'document-v0.0.1')
+    }) == ('documents-document-v0.0.1', '_doc')
     assert record_to_index({
         '$schema': 'https://ils.rero.ch/schemas/'
         'documents/document-v0.0.1.json'
-    }) == ('documents-document-v0.0.1', 'document-v0.0.1')
+    }) == ('documents-document-v0.0.1', '_doc')
 
     # for mef-persons
     assert record_to_index({
         '$schema': 'http://mef.rero.ch/schemas/'
         'authorities/mef-person-v0.0.1.json'
-    }) == ('persons-person-v0.0.1', 'person-v0.0.1')
+    }) == ('persons-person-v0.0.1', '_doc')
 
     # for others
     assert record_to_index({
         '$schema': 'https://ils.rero.ch/schemas/'
         'organisations/organisation-v0.0.1.json'
-    }) == ('organisations-organisation-v0.0.1', 'organisation-v0.0.1')
+    }) == ('organisations-organisation-v0.0.1', '_doc')

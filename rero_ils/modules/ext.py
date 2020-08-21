@@ -76,7 +76,7 @@ class REROILSAPP(object):
             app.add_template_filter(text_to_id, name='text_to_id')
             app.add_template_filter(jsondumps, name='jsondumps')
             app.jinja_env.add_extension('jinja2.ext.do')
-            self.register_signals()
+            self.register_signals(app)
 
     def init_app(self, app):
         """Flask application initialization."""
@@ -128,18 +128,23 @@ class REROILSAPP(object):
             if k.startswith('RERO_ILS_APP_'):
                 app.config.setdefault(k, getattr(app.config, k))
 
-    def register_signals(self):
+    def register_signals(self, app):
         """Register signals."""
-        before_record_index.connect(enrich_loan_data)
-        before_record_index.connect(enrich_document_data)
-        before_record_index.connect(enrich_persons_data)
-        before_record_index.connect(enrich_item_data)
-        before_record_index.connect(enrich_patron_data)
-        before_record_index.connect(enrich_location_data)
-        before_record_index.connect(enrich_holding_data)
-        before_record_index.connect(enrich_notification_data)
-        before_record_index.connect(enrich_patron_transaction_event_data)
-        before_record_index.connect(enrich_patron_transaction_data)
+        # TODO: use before_record_index.dynamic_connect() if it works
+        # example:
+        # before_record_index.dynamic_connect(
+        #    enrich_patron_data, sender=app, index='patrons-patron-v0.0.1')
+        before_record_index.connect(enrich_loan_data, sender=app)
+        before_record_index.connect(enrich_document_data, sender=app)
+        before_record_index.connect(enrich_persons_data, sender=app)
+        before_record_index.connect(enrich_item_data, sender=app)
+        before_record_index.connect(enrich_patron_data, sender=app)
+        before_record_index.connect(enrich_location_data, sender=app)
+        before_record_index.connect(enrich_holding_data, sender=app)
+        before_record_index.connect(enrich_notification_data, sender=app)
+        before_record_index.connect(enrich_patron_transaction_event_data,
+                                    sender=app)
+        before_record_index.connect(enrich_patron_transaction_data, sender=app)
 
         after_record_insert.connect(create_subscription_patron_transaction)
         after_record_update.connect(create_subscription_patron_transaction)

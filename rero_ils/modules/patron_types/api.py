@@ -52,6 +52,10 @@ class PatronTypesSearch(IlsRecordsSearch):
 
         index = 'patron_types'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class PatronType(IlsRecord):
@@ -70,17 +74,12 @@ class PatronType(IlsRecord):
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique within organisation."""
-        patron_type = (
-            PatronTypesSearch()
-            .filter('term', patron_type_name=name)
-            .filter('term', organisation__pid=organisation_pid)
-            .source()
-            .scan()
-        )
-        result = list(patron_type)
-        if len(result) > 0:
-            return result.pop(0)
-        else:
+        patron_type = PatronTypesSearch()\
+            .filter('term', patron_type_name=name)\
+            .filter('term', organisation__pid=organisation_pid).source().scan()
+        try:
+            return next(patron_type)
+        except StopIteration:
             return None
 
     @classmethod
@@ -96,18 +95,14 @@ class PatronType(IlsRecord):
     def get_linked_patron(self):
         """Get patron linked to this patron type."""
         results = PatronsSearch()\
-            .filter('term', patron_type__pid=self.pid)\
-            .source('pid')\
-            .scan()
+            .filter('term', patron_type__pid=self.pid).source('pid').scan()
         for result in results:
             yield Patron.get_record_by_pid(result.pid)
 
     def get_number_of_patrons(self):
         """Get number of patrons."""
         return PatronsSearch()\
-            .filter('term', patron_type__pid=self.pid)\
-            .source()\
-            .count()
+            .filter('term', patron_type__pid=self.pid).source().count()
 
     def get_number_of_circ_policies(self):
         """Get number of circulation policies."""

@@ -50,7 +50,7 @@
       "form": {
         "type": "selectWithSort",
         "wrappers": [
-          "form-field-horizontal"
+          "form-field"
         ],
         "options": [
           {
@@ -155,6 +155,9 @@
     "document": {
       "title": "Document",
       "type": "object",
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Document URI",

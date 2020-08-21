@@ -27,7 +27,7 @@ from ..notifications.utils import send_notification_to_location
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
-                     doc_type=None, **dummy_kwargs):
+                     doc_type=None, arguments=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -35,8 +35,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index == '-'.join(
-            [current_circulation.loan_search_cls.Meta.index, doc_type]):
+    if index.split('-')[0] == current_circulation.loan_search_cls.Meta.index:
         item = Item.get_record_by_pid(record.get('item_pid', {}).get('value'))
         json['library_pid'] = item.holding_library_pid
 

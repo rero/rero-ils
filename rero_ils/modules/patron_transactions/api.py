@@ -55,6 +55,10 @@ class PatronTransactionsSearch(IlsRecordsSearch):
 
         index = 'patron_transactions'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class PatronTransaction(IlsRecord):
@@ -297,18 +301,14 @@ class PatronTransaction(IlsRecord):
     def events(self):
         """Shortcut for events of the patron transaction."""
         results = PatronTransactionEventsSearch()\
-            .filter('term', parent__pid=self.pid)\
-            .source()\
-            .scan()
+            .filter('term', parent__pid=self.pid).source('pid').scan()
         for result in results:
             yield PatronTransactionEvent.get_record_by_pid(result.pid)
 
     def get_number_of_patron_transaction_events(self):
         """Get number of patron transaction events."""
         return PatronTransactionEventsSearch()\
-            .filter('term', parent__pid=self.pid)\
-            .source()\
-            .count()
+            .filter('term', parent__pid=self.pid).source().count()
 
     def get_links_to_me(self):
         """Get number of links."""

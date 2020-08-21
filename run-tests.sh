@@ -62,39 +62,119 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
   error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
 fi
 
-if [ $# -eq 0 ]
-    then
-        set -e
-        safety check
-        flask utils check_json tests/data rero_ils/modules data
-        flask utils check_license check_license_config.yml
-        info_msg "Test pydocstyle:"
-        pydocstyle rero_ils tests docs
-        info_msg "Test isort:"
-        isort --check-only --diff "${SCRIPT_PATH}"
-        info_msg "Test useless imports:"
-        autoflake -c -r \
-          --remove-all-unused-imports \
-          --ignore-init-module-imports . \
-          &> /dev/null || \
-          error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
+function pretests () {
+  # TODO: find out why we have following error:
+  # | pipenv                     | 2018.11.2 | <2020.5.28               | 38334    |
+  safety check --ignore 38334
+  info_msg "Check json:"
+  flask utils check_json tests/data rero_ils/modules data
+  info_msg "Check license:"
+  flask utils check_license check_license_config.yml
+  info_msg "Test pydocstyle:"
+  pydocstyle rero_ils tests docs
+  info_msg "Test isort:"
+  isort --check-only --diff "${SCRIPT_PATH}"
+  info_msg "Test useless imports:"
+  autoflake -c -r \
+    --remove-all-unused-imports \
+    --ignore-init-module-imports . \
+    &> /dev/null || \
+    error_msg+exit "\nUse this command to check imports: \n\tautoflake --remove-all-unused-imports -r --ignore-init-module-imports .\n"
 
-        # info_msg "Check-manifest:"
-        # TODO: check if this is required when rero-ils will be published
-        # check-manifest --ignore ".travis-*,docs/_build*"
-        info_msg "Sphinx-build:"
-        sphinx-build -qnNW docs docs/_build/html
-        info_msg "Tests:"
-        unset PYTEST_ADDOPTS
-        poetry run tests
+  # info_msg "Check-manifest:"
+  # TODO: check if this is required when rero-ils will be published
+  # check-manifest --ignore ".travis-*,docs/_build*"
+  info_msg "Sphinx-build:"
+  sphinx-build -qnNW docs docs/_build/html
+}
+
+
+# TODO: we have to test 3 folowing files:
+# tests/conftest.py                                                                                                                                                                                                                                                 [  0%]
+# tests/test_version.py                                                                                                                                                                                                                                            [  0%]
+# tests/utils.py
+
+function tests () {
+  info_msg "Tests All:"
+  unset PYTEST_ADDOPTS
+  poetry run tests
+}
+
+function tests_api () {
+  info_msg "Tests API:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/api
+}
+function tests_e2e () {
+  info_msg "Tests E2E:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/e2e
+}
+function tests_scheduler () {
+  info_msg "Tests Scheduler:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/scheduler
+}
+function tests_ui () {
+  info_msg "Tests UI:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/ui
+}
+function tests_unit () {
+  info_msg "Tests Unit:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/unit
+}
+function tests_other () {
+  info_msg "Tests Other:"
+  unset PYTEST_ADDOPTS
+  poetry run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
+}
+
+if [ $# -eq 0 ]
+  then
+    set -e
+    pretests
+    tests
+fi
+if [ "$1" = "other" ]
+  then
+    set -e
+    pretests
+    tests_other
+fi
+if [ "$1" = "api" ]
+  then
+    set -e
+    tests_api
+fi
+if [ "$1" = "e2e" ]
+  then
+    set -e
+    tests_e2e
+fi
+if [ "$1" = "scheduler" ]
+  then
+    set -e
+    tests_scheduler
+fi
+if [ "$1" = "ui" ]
+  then
+    set -e
+    tests_ui
+fi
+if [ "$1" = "unit" ]
+  then
+    set -e
+    tests_unit
 fi
 if [ "$1" = "external" ]
-    then
-        export PYTEST_ADDOPTS="--cov-append -m "external""
-
-        info_msg "External tests:"
-        poetry run tests ${@:2}
+  then
+    export PYTEST_ADDOPTS="--cov-append -m "external""
+    info_msg "External tests:"
+    poetry run tests ${@:2}
 fi
+
 
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0

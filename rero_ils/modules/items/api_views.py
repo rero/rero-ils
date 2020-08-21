@@ -291,7 +291,9 @@ def requested_loans(library_pid):
         })
     return jsonify({
         'hits': {
-            'total': len(metadata),
+            'total': {
+                'value': len(metadata)
+            },
             'hits': metadata
         }
     })
@@ -314,7 +316,9 @@ def loans(patron_pid):
         })
     return jsonify({
         'hits': {
-            'total': len(metadata),
+            'total': {
+                'value': len(metadata)
+            },
             'hits': metadata
         }
     })

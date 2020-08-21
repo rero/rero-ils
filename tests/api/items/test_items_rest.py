@@ -563,7 +563,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get('hits').get('total') == 1
+    assert data['hits']['total']['value'] == 1
     actions = data.get('hits').get('hits')[0].get('item').get('actions')
     assert 'checkin' in actions
 
@@ -585,7 +585,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
     )
     assert res.status_code == 200
     data = get_json(res)
-    assert data.get('hits').get('total') == 1
+    assert data['hits']['total']['value'] == 1
     actions = data.get('hits').get('hits')[0].get('item').get('actions')
     assert 'extend_loan' not in actions
     assert 'checkin' in actions
@@ -796,7 +796,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 4
+    assert data['hits']['total']['value'] == 4
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -805,7 +805,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
 
 def test_items_notes(client, librarian_martigny_no_email, item_lib_martigny,

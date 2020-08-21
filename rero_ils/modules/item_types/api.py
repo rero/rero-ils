@@ -52,6 +52,10 @@ class ItemTypesSearch(IlsRecordsSearch):
 
         index = 'item_types'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class ItemType(IlsRecord):
@@ -102,17 +106,12 @@ class ItemType(IlsRecord):
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the name is unique in organisation."""
-        item_type = (
-            ItemTypesSearch()
-            .filter('term', item_type_name=name)
-            .filter('term', organisation__pid=organisation_pid)
-            .source()
-            .scan()
-        )
-        result = list(item_type)
-        if len(result) > 0:
-            return result.pop(0)
-        else:
+        item_type = ItemTypesSearch()\
+            .filter('term', item_type_name=name)\
+            .filter('term', organisation__pid=organisation_pid).source().scan()
+        try:
+            return next(item_type)
+        except StopIteration:
             return None
 
     def get_number_of_items(self):

@@ -243,7 +243,7 @@ def test_filtered_locations_get(client, librarian_martigny_no_email,
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 9
+    assert data['hits']['total']['value'] == 9
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -252,7 +252,7 @@ def test_filtered_locations_get(client, librarian_martigny_no_email,
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 4
+    assert data['hits']['total']['value'] == 4
 
 
 def test_location_secure_api(client, json_header, loc_public_martigny,

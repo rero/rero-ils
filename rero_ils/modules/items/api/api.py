@@ -74,6 +74,10 @@ class ItemsSearch(IlsRecordsSearch):
 
         index = 'items'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
     @classmethod
     def flush(cls):
@@ -173,16 +177,16 @@ class ItemsIndexer(IlsRecordsIndexer):
         from ...holdings.api import Holding, HoldingsSearch
 
         # get the old holding record if exists
-        items = ItemsSearch().filter(
+        items_search = ItemsSearch().filter(
             'term', pid=record.get('pid')
-        ).source().execute().hits
+        ).source('holding').execute().hits
 
         holding_pid = None
-        if items.total:
-            item = items.hits[0]['_source']
-            holding_pid = item.get('holding', {}).get('pid')
+        if items_search.total.value:
+            holding_pid = items_search[0].holding.pid
 
         return_value = super(ItemsIndexer, self).index(record)
+
         document_pid = record.replace_refs()['document']['pid']
         document = Document.get_record_by_pid(document_pid)
         document.reindex()

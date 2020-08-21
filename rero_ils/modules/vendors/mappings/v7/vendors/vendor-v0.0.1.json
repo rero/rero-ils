@@ -1,0 +1,116 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "max_result_window": 20000
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text",
+        "copy_to": "vendor_name"
+      },
+      "vendor_name": {
+        "type": "keyword"
+      },
+      "note": {
+        "type": "text"
+      },
+      "website": {
+        "type": "keyword"
+      },
+      "currency": {
+        "type": "keyword"
+      },
+      "communication_language": {
+        "type": "keyword"
+      },
+      "vat_rate": {
+        "type": "keyword"
+      },
+      "organisation": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "default_contact": {
+        "properties": {
+          "contact_person": {
+            "type": "text"
+          },
+          "city": {
+            "type": "text"
+          },
+          "country": {
+            "type": "text"
+          },
+          "email": {
+            "type": "keyword",
+            "fields": {
+              "analyzed": {
+                "type": "text",
+                "analyzer": "custom_keyword"
+              }
+            }
+          },
+          "phone": {
+            "type": "keyword"
+          },
+          "postal_code": {
+            "type": "keyword"
+          },
+          "street": {
+            "type": "text"
+          }
+        }
+      },
+      "order_contact": {
+        "properties": {
+          "contact_person": {
+            "type": "text"
+          },
+          "city": {
+            "type": "text"
+          },
+          "country": {
+            "type": "text"
+          },
+          "email": {
+            "type": "keyword",
+            "fields": {
+              "analyzed": {
+                "type": "text",
+                "analyzer": "custom_keyword"
+              }
+            }
+          },
+          "phone": {
+            "type": "keyword"
+          },
+          "postal_code": {
+            "type": "keyword"
+          },
+          "street": {
+            "type": "text"
+          }
+        }
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}

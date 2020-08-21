@@ -49,6 +49,10 @@ class AcquisitionInvoicesSearch(IlsRecordsSearch):
 
         index = 'acq_invoices'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class AcquisitionInvoice(IlsRecord):

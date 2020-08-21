@@ -47,6 +47,10 @@ class LocationsSearch(IlsRecordsSearch):
 
         index = 'locations'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Location(IlsRecord):

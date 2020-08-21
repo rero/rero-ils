@@ -49,6 +49,10 @@ class AcqAccountsSearch(IlsRecordsSearch):
 
         index = 'acq_accounts'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class AcqAccount(IlsRecord):

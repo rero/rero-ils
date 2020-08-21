@@ -199,7 +199,7 @@ def test_filtered_acquisition_invoices_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total']['value'] == 2
 
     # Sion
     login_user_via_session(client, librarian_sion_no_email.user)
@@ -208,7 +208,7 @@ def test_filtered_acquisition_invoices_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
 
 def test_acquisition_invoice_secure_api(

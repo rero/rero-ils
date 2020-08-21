@@ -84,7 +84,7 @@ class ImportsSearchSerializer(JSONSerializer):
         results = dict(
             hits=dict(
                 hits=search_result['hits']['hits'],
-                total=search_result['hits']['total'],
+                total=search_result['hits']['total']['value'],
                 remote_total=search_result['hits']['remote_total'],
             ),
             aggregations=search_result.get('aggregations', dict()),

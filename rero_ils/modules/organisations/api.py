@@ -54,6 +54,10 @@ class OrganisationsSearch(IlsRecordsSearch):
 
         index = 'organisations'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Organisation(IlsRecord):
@@ -84,7 +88,7 @@ class Organisation(IlsRecord):
             'term',
             code=viewcode
         ).execute()
-        if result['hits']['total'] != 1:
+        if result['hits']['total']['value'] != 1:
             raise Exception(
                 'Organisation (get_record_by_viewcode): Result not found.')
 
@@ -153,9 +157,7 @@ class Organisation(IlsRecord):
     def get_number_of_libraries(self):
         """Get number of libraries."""
         return LibrariesSearch()\
-            .filter('term', organisation__pid=self.pid)\
-            .source()\
-            .count()
+            .filter('term', organisation__pid=self.pid).source().count()
 
     def get_links_to_me(self):
         """Get number of links."""

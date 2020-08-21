@@ -67,10 +67,12 @@ def add_action_parameters_and_flush_indexes(function):
             checkin_loan = loan
         # CHECKOUT: Case where no loan PID
         elif function.__name__ == 'checkout' and not kwargs.get('pid'):
+            patron_pid = kwargs['patron_pid']
+            item_pid = item.pid
             request = get_request_by_item_pid_by_patron_pid(
-                item_pid=item.pid, patron_pid=kwargs['patron_pid'])
+                item_pid=item_pid, patron_pid=patron_pid)
             if request:
-                kwargs['pid'] = request.get('pid')
+                kwargs['pid'] = request.pid
         elif function.__name__ == 'extend_loan':
             loan, kwargs = item.prior_extend_loan_actions(**kwargs)
             checkin_loan = loan
@@ -437,7 +439,6 @@ class ItemCirculation(IlsRecord):
         current_loan = loan or Loan.create(action_params,
                                            dbcommit=True,
                                            reindex=True)
-
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(action_params, trigger='checkout')
         )
@@ -1167,7 +1168,7 @@ class ItemCirculation(IlsRecord):
             filter_states=states,
         )
         search_result = search.execute()
-        return search_result.hits.total
+        return search_result.hits.total.value
 
     def return_missing(self):
         """Return the missing item.

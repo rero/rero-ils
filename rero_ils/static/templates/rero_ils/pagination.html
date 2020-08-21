@@ -18,7 +18,7 @@
 
 -->
 <nav aria-label="Search results pages">
-  <ul class="pagination pagination-sm mb-0" ng-if="vm.invenioSearchResults.hits.total">
+  <ul class="pagination pagination-sm mb-0" ng-if="vm.invenioSearchResults.hits.total.value">
     <li ng-show="showGoToFirstLast" ng-class="paginationHelper.getFirstClass()" class="page-item">
       <a href="#" ng-click="paginationHelper.changePage(1)" aria-label="First" class="page-link">
         <span aria-hidden="true"><i class="fa fa-angle-double-left"></i><span>

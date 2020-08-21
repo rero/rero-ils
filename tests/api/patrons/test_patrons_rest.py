@@ -57,7 +57,7 @@ def test_filtered_patrons_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total']['value'] == 2
 
     # Sion
     # TODO: find why it's failed
@@ -67,7 +67,7 @@ def test_filtered_patrons_get(
     # res = client.get(list_url)
     # assert res.status_code == 200
     # data = get_json(res)
-    # assert data['hits']['total'] == 1
+    # assert data['hits']['total']['value'] == 1
 
 
 def test_patron_has_valid_subscriptions(

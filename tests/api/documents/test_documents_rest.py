@@ -111,7 +111,7 @@ def test_documents_newacq_filters(app, client,
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 0
+    assert data['hits']['total']['value'] == 0
 
     #   --> for org1, there is 1 document with 2 new acquisition items
     doc_list = url_for(
@@ -122,7 +122,7 @@ def test_documents_newacq_filters(app, client,
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
     assert len(data['hits']['hits'][0]['metadata']['holdings']) == 2
 
     #   --> for lib2, there is 1 document with 1 new acquisition items
@@ -134,7 +134,7 @@ def test_documents_newacq_filters(app, client,
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     #   --> for loc3, there is 1 document with 1 new acquisition items
     doc_list = url_for(
@@ -145,7 +145,7 @@ def test_documents_newacq_filters(app, client,
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     #   --> for loc3, there is no document corresponding to range date
     doc_list = url_for(
@@ -156,7 +156,7 @@ def test_documents_newacq_filters(app, client,
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 0
+    assert data['hits']['total']['value'] == 0
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -183,35 +183,35 @@ def test_documents_facets(
                        contribution__de='Peter James')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 2
+    assert data['hits']['total']['value'] == 2
 
     # organisation contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        contribution__de='Great Edition')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     # an other person contribution
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        contribution__de='J.K. Rowling')
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     # two contributions in the same document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        contribution__de=['Great Edition', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
     # two contributions each in a separate document
     list_url = url_for('invenio_records_rest.doc_list', view='global',
                        contribution__de=['J.K. Rowling', 'Peter James'])
     res = client.get(list_url, headers=rero_json_header)
     data = get_json(res)
-    assert data['hits']['total'] == 0
+    assert data['hits']['total']['value'] == 0
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -460,7 +460,7 @@ def test_document_boosting(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 2
+    assert hits['total']['value'] == 2
     data = hits['hits'][0]['metadata']
     assert data['pid'] == ebook_1_data.get('pid')
 
@@ -471,7 +471,7 @@ def test_document_boosting(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
     data = hits['hits'][0]['metadata']
     assert data['pid'] == ebook_1_data.get('pid')
 
@@ -510,7 +510,7 @@ def test_document_exclude_draft_records(client, document):
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
     data = hits['hits'][0]['metadata']
     assert data['pid'] == document.get('pid')
 
@@ -523,7 +523,7 @@ def test_document_exclude_draft_records(client, document):
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 0
+    assert hits['total']['value'] == 0
 
     document['_draft'] = False
     document.update(document, dbcommit=True, reindex=True)
@@ -534,4 +534,4 @@ def test_document_exclude_draft_records(client, document):
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1

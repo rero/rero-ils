@@ -153,6 +153,11 @@ def app_config(app_config):
     help_test_dir = join(dirname(__file__), 'data', 'help')
     app_config['WIKI_CONTENT_DIR'] = help_test_dir
     app_config['WIKI_UPLOAD_FOLDER'] = join(help_test_dir, 'files')
+    app_config['ACCOUNTS_SESSION_REDIS_URL'] = 'redis://localhost:6379/1'
+    app_config['CACHE_REDIS_URL'] = 'redis://localhost:6379/0'
+    app_config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/2'
+    app_config['CELERY_REDIS_SCHEDULER_URL'] = 'redis://localhost:6379/4'
+    app_config['RATELIMIT_STORAGE_URL'] = 'redis://localhost:6379/3'
     return app_config
 
 

@@ -48,6 +48,10 @@ class BudgetsSearch(IlsRecordsSearch):
 
         index = 'budgets'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Budget(IlsRecord):
