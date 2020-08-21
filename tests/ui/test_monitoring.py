@@ -51,6 +51,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         '      0    ptrn          0                    patrons          0',
         '      0    pttr          0        patron_transactions          0',
         '      0    ptty          0               patron_types          0',
+        '      0    tmpl          0                  templates          0',
         '      0    vndr          0                    vendors          0'
     ]
 
@@ -91,6 +92,7 @@ def test_monitoring(app, document_sion_items_data, script_info):
         'ptrn': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patrons'},
         'pttr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_transactions'},
         'ptty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_types'},
+        'tmpl': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'templates'},
         'vndr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'vendors'}
     }
     assert mon.__str__().split('\n') == cli_output + ['']

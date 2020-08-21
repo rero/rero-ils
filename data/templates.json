@@ -1,0 +1,170 @@
+[
+  {
+    "pid": "1",
+    "name": "Public template for documents",
+    "description": "Public template for documents.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {}
+  },
+  {
+    "pid": "2",
+    "name": "Public template for holdings",
+    "description": "Public template for holdings.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "holdings",
+    "data": {}
+  },
+  {
+    "pid": "3",
+    "name": "Public template for items",
+    "description": "Public template for items.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "items",
+    "data": {}
+  },
+  {
+    "pid": "4",
+    "name": "Public template for patrons",
+    "description": "Public template for patrons.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/1"
+    },
+    "visibility": "public",
+    "template_type": "patrons",
+    "data": {}
+  },
+  {
+    "pid": "5",
+    "name": "Private template for documents - Jean Dupont",
+    "description": "Private template for documents Jean Dupont.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/2"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {}
+  },
+  {
+    "pid": "6",
+    "name": "Private template for holdings - Jean Dupont",
+    "description": "Private template for holdings Jean Dupont.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/2"
+    },
+    "visibility": "private",
+    "template_type": "holdings",
+    "data": {}
+  },
+  {
+    "pid": "7",
+    "name": "Private template for items - Jean Dupont",
+    "description": "Private template for items Jean Dupont.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/2"
+    },
+    "visibility": "private",
+    "template_type": "items",
+    "data": {}
+  },
+  {
+    "pid": "8",
+    "name": "Private template for patrons - Jean Dupont",
+    "description": "Private template for patrons Jean Dupont.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/2"
+    },
+    "visibility": "private",
+    "template_type": "patrons",
+    "data": {}
+  },
+  {
+    "pid": "9",
+    "name": "Private template for documents - Elena Rodriguez",
+    "description": "Private template for documents Elena Rodriguez.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/3"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {}
+  },
+  {
+    "pid": "10",
+    "name": "Private template for holdings - Elena Rodriguez",
+    "description": "Private template for holdings Elena Rodriguez.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/3"
+    },
+    "visibility": "private",
+    "template_type": "holdings",
+    "data": {}
+  },
+  {
+    "pid": "11",
+    "name": "Private template for items - Elena Rodriguez",
+    "description": "Private template for items Elena Rodriguez.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/3"
+    },
+    "visibility": "private",
+    "template_type": "items",
+    "data": {}
+  },
+  {
+    "pid": "12",
+    "name": "Private template for patrons - Elena Rodriguez",
+    "description": "Private template for patrons Elena Rodriguez.",
+    "organisation": {
+      "$ref": "https://ils.rero.ch/api/organisations/1"
+    },
+    "creator": {
+      "$ref": "https://ils.rero.ch/api/patrons/3"
+    },
+    "visibility": "private",
+    "template_type": "patrons",
+    "data": {}
+  }
+]

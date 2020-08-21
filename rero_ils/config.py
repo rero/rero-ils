@@ -90,6 +90,8 @@ from .modules.patrons.permissions import PatronPermission
 from .modules.permissions import record_permission_factory
 from .modules.persons.api import Person
 from .modules.persons.permissions import PersonPermission
+from .modules.templates.api import Template
+from .modules.templates.permissions import TemplatePermission
 from .modules.vendors.api import Vendor
 from .modules.vendors.permissions import VendorPermission
 from .permissions import librarian_delete_permission_factory, \
@@ -1366,6 +1368,49 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=AcqInvoicePermission)
     ),
+    tmpl=dict(
+        pid_type='tmpl',
+        pid_minter='template_id',
+        pid_fetcher='template_id',
+        search_class='rero_ils.modules.templates.api:TemplatesSearch',
+        search_index='templates',
+        indexer_class='rero_ils.modules.templates.api:TemplatesIndexer',
+        search_type=None,
+        record_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_response'
+            )
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': (
+                'rero_ils.modules.serializers:json_v1_search'
+            )
+        },
+        record_loaders={
+            'application/json': lambda: Template(request.get_json()),
+        },
+        list_route='/templates/',
+        record_class='rero_ils.modules.templates.api:Template',
+        item_route=('/templates/<pid(tmpl, record_class='
+                    '"rero_ils.modules.templates.api:'
+                    'Template"):pid_value>'),
+        default_media_type='application/json',
+        max_result_window=10000,
+        search_factory_imp='rero_ils.query:templates_search_factory',
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=TemplatePermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=TemplatePermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=TemplatePermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=TemplatePermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=TemplatePermission)
+    ),
 )
 
 SEARCH_UI_SEARCH_INDEX = 'documents'
@@ -1603,6 +1648,7 @@ indexes = [
     'documents',
     'items',
     'item_types',
+    'ill_requests',
     'libraries',
     'loans',
     'locations',
@@ -1610,7 +1656,8 @@ indexes = [
     'patrons',
     'patron_types',
     'persons',
-    'vendors'
+    'vendors',
+    'templates'
 ]
 
 RECORDS_REST_SORT_OPTIONS = dict()
@@ -1799,6 +1846,7 @@ RECORDS_JSON_SCHEMA = {
     'ptty': '/patron_types/patron_type-v0.0.1.json',
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
+    'tmpl': '/templates/template-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
 }
 

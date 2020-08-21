@@ -107,7 +107,8 @@ setup(
             'items = rero_ils.modules.items.api_views:api_blueprint',
             'persons = rero_ils.modules.persons.views:api_blueprint',
             'holdings = rero_ils.modules.holdings.api_views:api_blueprint',
-            'monitoring = rero_ils.modules.monitoring:api_blueprint'
+            'monitoring = rero_ils.modules.monitoring:api_blueprint',
+            'templates = rero_ils.modules.templates.views:blueprint',
         ],
         'invenio_config.module': [
             'rero_ils = rero_ils.config',
@@ -179,6 +180,7 @@ setup(
             'patron_transactions = rero_ils.modules.patron_transactions.models',
             'patron_types = rero_ils.modules.patron_types.models',
             'patrons = rero_ils.modules.patrons.models',
+            'templates = rero_ils.modules.templates.models',
             'vendors = rero_ils.modules.vendors.models',
         ],
         'invenio_pidstore.minters': [
@@ -202,6 +204,7 @@ setup(
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_minter',
             'patron_type_id = rero_ils.modules.patron_types.api:patron_type_id_minter',
             'person_id = rero_ils.modules.persons.api:person_id_minter',
+            'template_id = rero_ils.modules.templates.api:template_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_minter',
         ],
         'invenio_pidstore.fetchers': [
@@ -225,6 +228,7 @@ setup(
             'patron_transaction_event_id = rero_ils.modules.patron_transaction_events.api:patron_transaction_event_id_fetcher',
             'patron_type_id = rero_ils.modules.patron_types.api:patron_type_id_fetcher',
             'person_id = rero_ils.modules.persons.api:person_id_fetcher',
+            'template_id = rero_ils.modules.templates.api:template_id_minter',
             'vendor_id = rero_ils.modules.vendors.api:vendor_id_fetcher',
         ],
         'invenio_jsonschemas.schemas': [
@@ -250,6 +254,7 @@ setup(
             'patron_transactions = rero_ils.modules.patron_transactions.jsonschemas',
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonschemas',
             'persons = rero_ils.modules.persons.jsonschemas',
+            'templates = rero_ils.modules.templates.jsonschemas',
             'vendors = rero_ils.modules.vendors.jsonschemas',
         ],
         'invenio_search.mappings': [
@@ -274,6 +279,7 @@ setup(
             'patron_types = rero_ils.modules.patron_types.mappings',
             'patrons = rero_ils.modules.patrons.mappings',
             'persons = rero_ils.modules.persons.mappings',
+            'templates = rero_ils.modules.templates.mappings',
             'vendors = rero_ils.modules.vendors.mappings',
         ],
         'invenio_search.templates': [
@@ -307,6 +313,7 @@ setup(
             'patron_transaction_events = rero_ils.modules.patron_transaction_events.jsonresolver',
             'patron_types = rero_ils.modules.patron_types.jsonresolver',
             'persons = rero_ils.modules.persons.jsonresolver',
+            'templates = rero_ils.modules.templates.jsonresolver',
             'vendors = rero_ils.modules.vendors.jsonresolver',
         ]
     },
