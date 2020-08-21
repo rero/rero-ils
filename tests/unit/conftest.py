@@ -33,10 +33,20 @@ def create_app():
 
 @pytest.fixture()
 def circ_policy_schema(monkeypatch):
-    """Patron Jsonschema for records."""
+    """Circ policy Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.circ_policies.jsonschemas',
         'circ_policies/circ_policy-v0.0.1.json',
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
+def template_schema(monkeypatch):
+    """Template Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.templates.jsonschemas',
+        'templates/template-v0.0.1.json',
     )
     return get_schema(monkeypatch, schema_in_bytes)
 

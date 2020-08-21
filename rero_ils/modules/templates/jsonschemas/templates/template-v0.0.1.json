@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Template",
+  "description": "JSON schema for templates.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "template_type",
+    "name",
+    "creator",
+    "organisation",
+    "visibility"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate templates records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://ils.rero.ch/schemas/templates/template-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Template ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "minLength": 2
+    },
+    "description": {
+      "title": "Description",
+      "type": "string",
+      "minLength": 1
+    },
+    "organisation": {
+      "title": "Organisation",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "creator": {
+      "title": "Creator",
+      "type": "object",
+      "properties": {
+        "$ref": {
+          "title": "Creator URI",
+          "type": "string",
+          "pattern": "^https://ils.rero.ch/api/patrons/.*?$"
+        }
+      }
+    },
+    "visibility": {
+      "title": "Visibility",
+      "description": "Public templates are visible by all users of the organisation. Private templates are visible only by its creator (you).",
+      "type": "string",
+      "enum": [
+        "public",
+        "private"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "options": [
+          {
+            "label": "public",
+            "value": "public"
+          },
+          {
+            "label": "private",
+            "value": "private"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "template_type": {
+      "title": "Template type",
+      "type": "string",
+      "enum": [
+        "documents",
+        "items",
+        "holdings",
+        "patrons"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "wrappers": [
+          "form-field-horizontal"
+        ],
+        "options": [
+          {
+            "label": "documents",
+            "value": "documents"
+          },
+          {
+            "label": "items",
+            "value": "items"
+          },
+          {
+            "label": "holdings",
+            "value": "holdings"
+          },
+          {
+            "label": "patrons",
+            "value": "patrons"
+          }
+        ],
+        "templateOptions": {
+          "selectWithSortOptions": {
+            "order": "label"
+          }
+        }
+      }
+    },
+    "data": {
+      "title": "Template json data",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
