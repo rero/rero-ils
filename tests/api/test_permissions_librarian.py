@@ -68,7 +68,7 @@ def test_librarian_permissions(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 3
+    assert data['hits']['total']['value'] == 3
 
     # can manage all types of patron roles
     role_url = url_for('api_patrons.get_roles_management_permissions')

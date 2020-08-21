@@ -66,6 +66,10 @@ class NotificationsSearch(IlsRecordsSearch):
 
         index = 'notifications'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Notification(IlsRecord):
@@ -360,7 +364,7 @@ def get_recall_notification(loan):
     """Returns availability notification from loan."""
     results = NotificationsSearch().filter(
         'term', loan__pid=loan.pid
-        ).filter('term', notification_type='recall').source().scan()
+        ).filter('term', notification_type='recall').source('pid').scan()
     try:
         pid = next(results).pid
         return Notification.get_record_by_pid(pid)
@@ -372,7 +376,7 @@ def number_of_reminders_sent(loan):
     """Get the number of overdue notifications sent for the given loan."""
     results = NotificationsSearch().filter(
         'term', loan__pid=loan.pid
-        ).filter('term', notification_type='overdue').source().scan()
+        ).filter('term', notification_type='overdue').source('pid').scan()
     try:
         pid = next(results).pid
         notification = Notification.get_record_by_pid(pid)

@@ -78,6 +78,10 @@ class IlsRecordsSearch(RecordsSearch):
 
         index = 'records'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
     @classmethod
     def flush(cls):

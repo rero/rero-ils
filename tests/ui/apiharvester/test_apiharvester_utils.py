@@ -38,7 +38,9 @@ def test_api_source(mock_get, app, capsys):
                 {'metadata': {'pid': 'test1', 'data': 'test data 1'}},
                 {'metadata': {'pid': 'test2', 'data': 'test data 2'}}
             ],
-            'total': 2,
+            'total': {
+                'value': 2
+            },
             'links': {
                 'self': 'http:/test.com'
             }
@@ -66,7 +68,9 @@ def test_get_records(mock_get, app, capsys):
                 {'metadata': {'pid': 'test1', 'data': 'test data 1'}},
                 {'metadata': {'pid': 'test2', 'data': 'test data 2'}}
             ],
-            'total': 2,
+            'total': {
+                'value': 2
+            },
             'links': {
                 'self': 'http:/test.com'
             }
@@ -87,7 +91,9 @@ def test_get_records(mock_get, app, capsys):
                 {'metadata': {'pid': 'test3', 'data': 'test data 3'}},
                 {'metadata': {'pid': 'test4', 'data': 'test data 4'}}
             ],
-            'total': 2,
+            'total': {
+                'value': 2
+            },
             'links': {
                 'self': 'http:/test.com'
             }

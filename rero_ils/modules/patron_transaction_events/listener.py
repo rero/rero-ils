@@ -21,9 +21,9 @@ from .api import PatronTransactionEventsSearch
 from ..patron_transactions.api import PatronTransactionsSearch
 
 
-def enrich_patron_transaction_event_data(
-        sender, json=None, record=None, index=None, doc_type=None, **
-        dummy_kwargs):
+def enrich_patron_transaction_event_data(sender, json=None, record=None,
+                                         index=None, doc_type=None,
+                                         arguments=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -31,7 +31,7 @@ def enrich_patron_transaction_event_data(
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index == '-'.join([PatronTransactionEventsSearch.Meta.index, doc_type]):
+    if index.split('-')[0] == PatronTransactionEventsSearch.Meta.index:
         # ES search reduces number of requests for organisation and patron.
         es_patron_transaction = next(PatronTransactionsSearch().filter(
             'term', pid=json['parent']['pid']

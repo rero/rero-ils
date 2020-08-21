@@ -54,6 +54,10 @@ class PersonsSearch(IlsRecordsSearch):
 
         index = 'persons'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Person(IlsRecord):

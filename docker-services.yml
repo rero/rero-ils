@@ -74,11 +74,13 @@ services:
       - "5672:5672"
   es:
     build: ./docker/elasticsearch/
-    image: elasticsearch-icu
+    image: elasticsearch-icu-7.9.1
     restart: "always"
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.type=single-node"
+      - "indices.query.bool.max_clause_count=3000"
     ulimits:
       memlock:
         soft: -1
@@ -88,7 +90,7 @@ services:
       - "9200:9200"
       - "9300:9300"
   kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.6.2
+    image: docker.elastic.co/kibana/kibana-oss:7.9.1
     environment:
       - "ELASTICSEARCH_URL=http://es:9200"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"

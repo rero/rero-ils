@@ -53,6 +53,10 @@ class PatronTransactionEventsSearch(IlsRecordsSearch):
 
         index = 'patron_transaction_events'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class PatronTransactionEvent(IlsRecord):

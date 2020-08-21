@@ -48,6 +48,10 @@ class AcqOrderLinesSearch(IlsRecordsSearch):
 
         index = 'acq_order_lines'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class AcqOrderLine(IlsRecord):

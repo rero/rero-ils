@@ -76,7 +76,7 @@ def test_documents_get(client, document):
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total'] == 1
+    assert data['hits']['total']['value'] == 1
 
 
 @pytest.mark.external

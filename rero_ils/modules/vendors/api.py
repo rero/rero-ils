@@ -48,6 +48,10 @@ class VendorsSearch(IlsRecordsSearch):
 
         index = 'vendors'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Vendor(IlsRecord):

@@ -12,7 +12,7 @@
     "project_site": "ils.rero.ch",
     "database": "postgresql",
     "description": "Integrated Library System flavour of Invenio by RERO.",
-    "elasticsearch": "6",
+    "elasticsearch": "7",
     "github_repo": "rero/rero-ils"
   }
 }

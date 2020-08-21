@@ -85,6 +85,10 @@ class LoansSearch(IlsRecordsSearch):
 
         index = 'loans'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Loan(IlsRecord):

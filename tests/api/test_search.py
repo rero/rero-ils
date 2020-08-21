@@ -35,7 +35,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # phrase search with punctuations
     list_url = url_for(
@@ -45,7 +45,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # word search
     list_url = url_for(
@@ -55,7 +55,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 2
+    assert hits['total']['value'] == 2
 
     # travailleurs == travailleur == travailleuses
     list_url = url_for(
@@ -65,7 +65,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 2
+    assert hits['total']['value'] == 2
 
     # ecole == école
     list_url = url_for(
@@ -75,7 +75,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # Ecole == école
     list_url = url_for(
@@ -85,7 +85,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # ECOLE == école
     list_url = url_for(
@@ -95,7 +95,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # _école_ == école
     list_url = url_for(
@@ -105,7 +105,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # Müller
     list_url = url_for(
@@ -115,7 +115,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # Müller == Muller
     list_url = url_for(
@@ -125,7 +125,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # Müller == Mueller
     list_url = url_for(
@@ -135,7 +135,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # test AND
     list_url = url_for(
@@ -145,7 +145,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # test OR in two docs
     list_url = url_for(
@@ -155,7 +155,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 2
+    assert hits['total']['value'] == 2
 
     # test AND in two fields (travailleuses == travailleur)
     list_url = url_for(
@@ -165,7 +165,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -174,7 +174,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # test NOT
     list_url = url_for(
@@ -184,7 +184,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # test OR in two docs (each match only one term)
     list_url = url_for(
@@ -194,7 +194,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 2
+    assert hits['total']['value'] == 2
 
     # test AND in two docs (each match only one term) => no result
     list_url = url_for(
@@ -204,7 +204,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 0
+    assert hits['total']['value'] == 0
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -213,7 +213,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 0
+    assert hits['total']['value'] == 0
 
     # title + subtitle
     list_url = url_for(
@@ -224,7 +224,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # punctuation
     list_url = url_for(
@@ -234,7 +234,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -243,7 +243,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # special chars
     # œ in title
@@ -254,7 +254,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # æ in title
     list_url = url_for(
@@ -264,7 +264,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # æ in title
     list_url = url_for(
@@ -274,7 +274,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # œ in author
     list_url = url_for(
@@ -284,7 +284,7 @@ def test_document_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
 
 def test_patrons_search(
@@ -302,7 +302,7 @@ def test_patrons_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1
 
     # birth year
     list_url = url_for(
@@ -312,4 +312,4 @@ def test_patrons_search(
     )
     res = client.get(list_url)
     hits = get_json(res)['hits']
-    assert hits['total'] == 1
+    assert hits['total']['value'] == 1

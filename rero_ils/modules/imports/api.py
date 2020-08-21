@@ -64,7 +64,10 @@ class Import(object):
             'aggregations': {},
             'hits': {
                 'hits': [],
-                'total': 0,
+                'total': {
+                    'value': 0,
+                    'relation': 'eq'
+                },
                 'remote_total': 0
             },
             'links': {},
@@ -174,7 +177,7 @@ class Import(object):
 
             if buckets:
                 results['aggregations'][agg] = {'buckets': buckets}
-        results['hits']['total'] = len(results['hits']['hits'])
+        results['hits']['total']['value'] = len(results['hits']['hits'])
         return results
 
     def filter_records(self, results, ids):
@@ -296,8 +299,9 @@ class Import(object):
                         self.results['hits']['remote_total'] = int(etree.parse(
                                 BytesIO(response.content))
                                 .find('{*}numberOfRecords').text)
-            self.results['hits']['total'] = len(self.results['hits']['hits'])
-            if self.results['hits']['total'] == 0:
+            self.results['hits']['total']['value'] = \
+                len(self.results['hits']['hits'])
+            if self.results['hits']['total']['value'] == 0:
                 self.status_code = 404
                 self.results['errors'] = {
                     'code': self.status_code,

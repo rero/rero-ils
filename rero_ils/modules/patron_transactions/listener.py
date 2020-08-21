@@ -20,9 +20,9 @@
 from .api import PatronTransaction, PatronTransactionsSearch
 
 
-def enrich_patron_transaction_data(
-        sender, json=None, record=None, index=None, doc_type=None, **
-        dummy_kwargs):
+def enrich_patron_transaction_data(sender, json=None, record=None, index=None,
+                                   doc_type=None, arguments=None,
+                                   **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -30,7 +30,7 @@ def enrich_patron_transaction_data(
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index == '-'.join([PatronTransactionsSearch.Meta.index, doc_type]):
+    if index.split('-')[0] == PatronTransactionsSearch.Meta.index:
         if not isinstance(record, PatronTransaction):
             record = PatronTransaction.get_record_by_pid(record.get('pid'))
         if record.notification_pid:

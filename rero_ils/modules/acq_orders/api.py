@@ -49,6 +49,10 @@ class AcqOrdersSearch(IlsRecordsSearch):
 
         index = 'acq_orders'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class AcqOrder(IlsRecord):

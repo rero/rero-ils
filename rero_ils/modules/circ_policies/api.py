@@ -50,6 +50,10 @@ class CircPoliciesSearch(IlsRecordsSearch):
 
         index = 'circ_policies'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class CircPolicy(IlsRecord):
@@ -102,13 +106,9 @@ class CircPolicy(IlsRecord):
     @classmethod
     def exist_name_and_organisation_pid(cls, name, organisation_pid):
         """Check if the policy name is unique on organisation."""
-        result = CircPoliciesSearch().filter(
-            'term',
-            circ_policy_name=name
-        ).filter(
-            'term',
-            organisation__pid=organisation_pid
-        ).source().scan()
+        result = CircPoliciesSearch()\
+            .filter('term', circ_policy_name=name)\
+            .filter('term', organisation__pid=organisation_pid).source().scan()
         try:
             return next(result)
         except StopIteration:
@@ -144,7 +144,7 @@ class CircPolicy(IlsRecord):
                     )
                 ]
             )
-        ).source().scan()
+        ).source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:
@@ -176,7 +176,7 @@ class CircPolicy(IlsRecord):
                     )
                 ]
             )
-        ).source().scan()
+        ).source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:
@@ -191,7 +191,7 @@ class CircPolicy(IlsRecord):
         ).filter(
             'term',
             is_default=True
-        ).source().scan()
+        ).source('pid').scan()
         try:
             return CircPolicy.get_record_by_pid(next(result).pid)
         except StopIteration:

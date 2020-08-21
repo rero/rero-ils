@@ -55,6 +55,10 @@ class DocumentsSearch(RecordsSearch):
 
         index = 'documents'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 def search_document_by_pid(pid):

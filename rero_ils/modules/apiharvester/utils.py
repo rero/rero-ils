@@ -98,7 +98,7 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
         request = requests.get(url)
         data = request.json()
 
-        total = data.get('hits', {}).get('total', 0)
+        total = data['hits']['total']['value']
         click.echo(
             'API records found: {total}'.format(total=total)
         )

@@ -22,30 +22,32 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+language: python
+
+python:
+  - "3.6"
+
+cache:
+  - pip
+
+dist: xenial
+
+sudo: required
+
+services:
+  - docker
+  - xvfb
+
 addons:
   chrome: stable # https://docs.travis-ci.com/user/chrome
-
-# Chrome Webdriver fails if not on sudo
-# See https://github.com/travis-ci/travis-ci/issues/8836
-sudo: true
-
-dist: trusty # Chrome driver fails if not trusty dist
 
 notifications:
   email: # sent to the committer and the author
     on_success: never # default: always
     on_failure: always # default: always
 
-language: python
-
 matrix:
   fast_finish: true
-
-cache:
-  - pip
-
-services:
-  - docker
 
 env:
   global:
@@ -59,40 +61,47 @@ env:
     - REQUIREMENTS="--deploy" E2E=yes
     - REQUIREMENTS=""
 
-python:
-  - "3.6"
+before_script:
+  - CHROME_MAIN_VERSION=`google-chrome-stable --version | sed -E 's/(^Google Chrome |\.[0-9]+ )//g'`
+  - CHROMEDRIVER_VERSION=`curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAIN_VERSION"`
+  - curl "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -O
+  - unzip chromedriver_linux64.zip -d ~/bin
+  # Allow services running inside docker to start
+  - "./docker/wait-for-services.sh"
 
 before_install:
   # Stop default travis services
   - "sudo service mysql stop"
   - "sudo service postgresql stop"
+  - # start your web application and listen on `localhost`
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:5000 &
   # Start docker services
   - "docker-compose up -d"
-  # Chrome webdriver for Selenium
-  - "PATH=$PATH:$HOME/webdrivers"
-  - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
   - "nvm install 8; nvm use 8"
   - "travis_retry pip install --upgrade pip setuptools py poetry"
   - "travis_retry pip install twine wheel coveralls"
-  # patch default version of travis which is mark as unsave by pipenv check
   - "travis_retry pip install --upgrade numpy"
-
 
 install:
   - "./scripts/bootstrap --ci $REQUIREMENTS"
   - "poetry install --no-root --extras sip2"
   - "poetry show"  # To have details about installed libs (isort, pytest, etc.)
 
-before_script:
-  # https://docs.travis-ci.com/user/gui-and-headless-browsers/
-  - "export DISPLAY=:99.0"
-  - "if [ ${E2E} == 'yes' ]; then sh -e /etc/init.d/xvfb start; sleep 3; fi"
-  # Allow services running inside docker to start
-  - "./docker/wait-for-services.sh"
+env:
+  # Travis can run 5 tests in parallel
+  - TEST=other
+  - TEST=api
+  - TEST=e2e
+  - TEST=scheduler
+  - TEST=ui
+  - TEST=unit
+  - TEST=external
 
 script:
-  - poetry run run-tests # E2E tests are skipped if E2E env is set to 'no'
-  - poetry run run-tests external # test external services only
+  - poetry run run-tests $TEST
 
 after_success:
-  - coveralls
+  - "COVERALLS_PARALLEL=true coveralls"
+
+notifications:
+  webhooks: 'https://coveralls.io/webhook'

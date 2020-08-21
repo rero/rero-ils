@@ -64,6 +64,11 @@ class HoldingsSearch(RecordsSearch):
 
         index = 'holdings'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
+
 
     @classmethod
     def flush(cls):

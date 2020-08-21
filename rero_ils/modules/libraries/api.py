@@ -58,6 +58,10 @@ class LibrariesSearch(IlsRecordsSearch):
 
         index = 'libraries'
         doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Library(IlsRecord):

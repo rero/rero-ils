@@ -17,9 +17,9 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<div ng-show="vm.invenioSearchResults.hits.total != undefined">
+<div ng-show="vm.invenioSearchResults.hits.total.value != undefined">
   <div class="invenio-search-results">
-    <div translate ng-show="vm.invenioSearchResults.hits.total" translate-n="vm.invenioSearchResults.hits.total" translate-plural="Found {{$count}} results.">Found {{$count}} result.</div>
-    <div translate ng-hide="vm.invenioSearchResults.hits.total">No results found.</div>
+    <div translate ng-show="vm.invenioSearchResults.hits.total.value" translate-n="vm.invenioSearchResults.hits.total.value" translate-plural="Found {{$count}} results.">Found {{$count}} result.</div>
+    <div translate ng-hide="vm.invenioSearchResults.hits.total.value">No results found.</div>
   </div>
 </div>
