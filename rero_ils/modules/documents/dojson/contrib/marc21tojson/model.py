@@ -27,8 +27,8 @@ from dojson.utils import GroupableOrderedDict
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
     add_note, build_responsibility_data, error_print, \
     extract_subtitle_and_parallel_titles_from_field_245_b, get_field_items, \
-    get_field_link_data, join_alternate_graphic_data, make_year, \
-    not_repetitive, remove_trailing_punctuation
+    get_field_link_data, make_year, not_repetitive, \
+    remove_trailing_punctuation
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',

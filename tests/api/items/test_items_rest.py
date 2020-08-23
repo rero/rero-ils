@@ -26,8 +26,7 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, check_timezone_date, \
-    flush_index, get_json, postdata
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.errors import RecordValidationError

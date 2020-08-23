@@ -21,9 +21,6 @@
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
-    get_last_transaction_loc_for_item, get_loans_by_patron_pid
-
 
 def test_circ_scenario_d(
         client, librarian_martigny_no_email, lib_martigny, lib_saxon,
