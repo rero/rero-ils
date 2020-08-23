@@ -24,8 +24,8 @@ from copy import deepcopy
 import mock
 import pytest
 
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
-    CircPolicy, circ_policy_id_fetcher
+from rero_ils.modules.circ_policies.api import CircPolicy, \
+    circ_policy_id_fetcher
 from rero_ils.modules.errors import RecordValidationError
 
 

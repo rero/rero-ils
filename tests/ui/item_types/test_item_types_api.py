@@ -22,8 +22,7 @@ from __future__ import absolute_import, print_function
 import pytest
 
 from rero_ils.modules.errors import RecordValidationError
-from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch, \
-    item_type_id_fetcher
+from rero_ils.modules.item_types.api import ItemType, item_type_id_fetcher
 
 
 def test_item_type_create(db, item_type_data_tmp, org_martigny,

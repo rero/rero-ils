@@ -19,8 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.circ_policies.api import CircPoliciesSearch, \
-    CircPolicy, circ_policy_id_fetcher
+from rero_ils.modules.circ_policies.api import CircPolicy
 
 
 def test_circ_policy_search(app, circulation_policies):

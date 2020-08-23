@@ -23,8 +23,6 @@ from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
-from rero_ils.modules.loans.api import Loan, LoanAction, LoanState, \
-    get_last_transaction_loc_for_item, get_loans_by_patron_pid
 
 
 def test_checkin_an_item(

@@ -24,7 +24,7 @@ from functools import wraps
 from flask import current_app
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import ItemNotAvailableError, \
-    MissingRequiredParameterError, NoValidTransitionAvailableError
+    NoValidTransitionAvailableError
 from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document, \
     search_by_pid
