@@ -118,7 +118,6 @@ def do_item_jsonify_action(func):
                 abort(404)
             item_data, action_applied = \
                 func(item, data, *args, **kwargs)
-
             for action, loan in action_applied.items():
                 if loan:
                     action_applied[action] = loan.dumps_for_circulation()
@@ -150,7 +149,7 @@ def do_item_jsonify_action(func):
                 error=error)}), 400
         except Exception as error:
             # TODO: need to know what type of exception and document there.
-            # raise(error)
+            # raise error
             current_app.logger.error(str(error))
             return jsonify({'status': 'error: {error}'.format(
                 error=error)}), 400

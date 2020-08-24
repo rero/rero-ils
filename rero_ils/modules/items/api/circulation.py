@@ -480,7 +480,7 @@ class ItemCirculation(IlsRecord):
             item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
             item, validate_actions = self.validate_request(
                 pid=pending.pid, **kwargs)
-            actions.update({LoanAction.VALIDATE: validate_actions})
+            actions.update(validate_actions)
         else:
             item = self
         return item, actions
