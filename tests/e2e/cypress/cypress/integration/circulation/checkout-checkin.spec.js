@@ -29,16 +29,15 @@ beforeEach(function () {
 })
 
 describe('Circulation checkout checkin', function() {
-  it('Performs a checkout and a checkin', function() {
+  it.skip('Performs a checkout and a checkin', function() {
 
     const virgile = this.users.librarians.virgile;
     const simonetta = this.users.patrons.simonetta;
     const password = this.common.uniquePwd;
     const patronBarcode = '2050124311'
-    const itemBarcode = 'checkout-checkin'
-    const timeOut = 3000;
+    const itemBarcode = 'checkout-checkin' + cy.getCurrentDateAndHour()
 
-    cy.setup()
+    cy.setLanguageToEnglish()
     cy.adminLogin(virgile.email, password)
 
     // Create an item
@@ -48,28 +47,28 @@ describe('Circulation checkout checkin', function() {
     cy.goToMenu('circulation-menu-frontpage')
 
     // Checkout
-    cy.scanPatronBarcodeThenItemBarcode(patronBarcode, simonetta.fullname, itemBarcode);
+    cy.scanPatronBarcodeThenItemBarcode(patronBarcode, simonetta, itemBarcode);
 
     // Assert checkout
-    cy.get(':nth-child(2) > .col > admin-item > .row > :nth-child(1) > a', {timeout: timeOut})
-      .should('contain',itemBarcode)
-    cy.get(':nth-child(2) > .col > admin-item > .row > :nth-child(4) > .fa', {timeout: timeOut})
+    cy.get('#item-' + itemBarcode + ' > .row > [name="barcode"]')
+      .should('contain', itemBarcode)
+    cy.get('#item-' + itemBarcode + ' > .row > [name="action-done"] > i')
       .should('have.class', 'fa-arrow-circle-o-right')
 
     // Checkin
     cy.scanItemBarcode(itemBarcode);
 
     // Assert checkin
-    cy.get(':nth-child(11) > .col > admin-item > .row > :nth-child(1) > a', {timeout: timeOut})
-      .should('contain',itemBarcode)
-    cy.get(':nth-child(11) > .col > admin-item > .row > :nth-child(4) > .fa', {timeout: timeOut})
+    cy.get('#item-' + itemBarcode + ' > .row > [name="barcode"]')
+      .should('contain', itemBarcode)
+    cy.get('#item-' + itemBarcode + ' > .row > [name="action-done"] > i')
       .should('have.class', 'fa-arrow-circle-o-down')
 
     // Go back to homepage, search document and delete item
-    cy.goToItem(itemBarcode)
+    cy.goToDocumentDetailView(itemBarcode)
     // click on Delete button
-    cy.get('#item-' + itemBarcode + '-delete', {timeout: timeOut}).click()
+    cy.get('#item-' + itemBarcode + ' > [name=buttons] > button[name=delete]').click();
     // Then confirm
-    cy.get('.modal-footer > .btn-primary', {timeout: timeOut}).click()
+    cy.get('#modal-confirm-button').click()
   });
 })

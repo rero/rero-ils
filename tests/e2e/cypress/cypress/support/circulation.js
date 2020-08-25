@@ -18,13 +18,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 // Scan the patron barcode, then the item barcode (this does a checkout)
-Cypress.Commands.add('scanPatronBarcodeThenItemBarcode', (patronBarcode, patronName, itemBarcode) => {
+Cypress.Commands.add('scanPatronBarcodeThenItemBarcode', (patronBarcode, patron, itemBarcode) => {
   // Enter patron barcode
   cy.get('#search').type(patronBarcode).type('{enter}');
   // Assert that patron info is displayed
-  cy.wait(3000)
-  cy.get(':nth-child(2) > :nth-child(1) > .col-md-10', {timeout: 3000})
-    .should('contain', patronName)
+  cy.get('#patron-last-name').should('contain', patron.lastname);
+  cy.get('#patron-first-name').should('contain', ', ' + patron.firstname);
   // Enter item barcode for checkout
   cy.get('#search').type(itemBarcode).type('{enter}');
 });

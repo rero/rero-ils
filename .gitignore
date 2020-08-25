@@ -92,3 +92,5 @@ rero_ils.schedulers.RedisScheduler
 # Cypress
 tests/e2e/cypress/node_modules
 tests/e2e/cypress/cypress/videos
+tests/e2e/cypress/cypress/screenshots
+tests/e2e/cypress/cypress/integration/test
