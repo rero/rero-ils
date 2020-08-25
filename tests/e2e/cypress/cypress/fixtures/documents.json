@@ -1,5 +1,5 @@
 {
-  "completeDocument": {
+  "book": {
     "type": "Book",
     "title": {
       "mainTitle": "Title test",
@@ -23,9 +23,9 @@
       "place": "Afghanistan (af)"
     },
     "issuance": {
-     "issuanceMainType": "Serial",
-     "issuanceMainTypeCode": "rdami:1003",
-     "issuanceSubtype": "Monographic series"
+     "mainType": "Serial",
+     "mainTypeCode": "rdami:1001",
+     "subtype": "Material unit"
     },
     "authors": {
       "person":{

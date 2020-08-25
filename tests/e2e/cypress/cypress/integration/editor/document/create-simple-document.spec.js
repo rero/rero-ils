@@ -18,8 +18,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 before(function () {
-  cy.fixture('document').then(function (documentData) {
-    this.document = documentData;
+  cy.fixture('documents').then(function (documents) {
+    this.documents = documents;
   });
   cy.fixture('users').then(function (userData) {
     this.users = userData;
@@ -30,29 +30,31 @@ before(function () {
 })
 
 describe('Document editor', function() {
-  it('Creates a document with only essential fields', function() {
-    const document = this.document.completeDocument;
+  before('Login as a professional and create an item', function() {
+    this.spock = this.users.librarians.spock;
+    //Open app on frontpage
+    cy.visit('');
+    // Check language and force to english
+    cy.setLanguageToEnglish();
+    // Login as librarian
+    cy.adminLogin(this.spock.email, this.common.uniquePwd);
+  });
 
-    // Go to frontpage and log in as system librarian
-    cy.setup();
-    cy.adminLogin(this.users.sysLibrarians.astrid.email, this.common.uniquePwd);
-
-    // Go to document editor
-    cy.goToMenu('create-bibliographic-record-menu-frontpage');
-
-    // Populate form with simple record
-    cy.populateSimpleRecord(document);
-
-    //Save record
-    cy.saveRecord();
-
-    // Go to description tab
-    cy.get('#documents-description-tab-link').click()
-
-    // Assert that the values are correctly displayed
-    cy.checkDocumentEssentialFields(document);
-
+  after('Clean data: remove document', function() {
     // Delete record
     cy.deleteRecordFromDetailView();
+  });
+
+  it('Creates a document with only essential fields', function() {
+    // Go to document editor
+    cy.goToMenu('create-bibliographic-record-menu-frontpage');
+    // Populate form with simple record
+    cy.populateSimpleRecord(this.documents.book);
+    //Save record
+    cy.saveRecord();
+    // Go to description tab
+    cy.get('#documents-description-tab-link').click()
+    // Assert that the values are correctly displayed
+    cy.checkDocumentEssentialFields(this.documents.book);
   });
 })
