@@ -1,0 +1,18 @@
+{
+  "vulcanDefault": {
+    "location": "Default location for Vulcan library",
+    "pickupName": "Vulcan library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/23"
+    },
+    "itemTypeUri": "Default"
+  },
+  "starfleetDefault": {
+    "location": "Default location for Starfleet library",
+    "pickupName": "Starfleet library",
+    "library": {
+      "$ref": "https://ils.rero.ch/api/libraries/22"
+    },
+    "itemTypeUri": "Default"
+  }
+}

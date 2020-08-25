@@ -37,13 +37,10 @@ Cypress.Commands.add("login", (email, password) => {
 // Login to professional interface
 Cypress.Commands.add("adminLogin", (email, password) => {
   cy.login(email, password)
-  cy.wait(1000)
-
   // set language to english BEFORE going to professional interface
   cy.setLanguageToEnglish()
-
   // go to professional interface
   cy.get('#my-account-menu').click()
   cy.get('#professional-interface-menu').click()
-  cy.url().should('include', '/professional/')
+  cy.url(60000).should('include', '/professional/')
  })
