@@ -1,22 +1,32 @@
 {
   "patrons": {
-    "simonetta": {
-      "email": "reroilstest+simonetta@gmail.com",
-      "name": "Simonetta",
-      "surname": "Casalini",
-      "fullname": "Casalini, Simonetta"
+    "james": {
+      "email": "reroilstest+james@gmail.com",
+      "first_name": "James",
+      "last_name": "Kirk",
+      "barcode": "cypress-1"
+    },
+    "nyota": {
+      "email": "reroilstest+nyota@gmail.com",
+      "first_name": "Nyota",
+      "last_name": "Uhura",
+      "barcode": "cypress-2"
     }
   },
   "librarians": {
-    "virgile": {
-      "email": "reroilstest+virgile@gmail.com",
-      "name": "Virgile"
+    "spock": {
+      "email": "reroilstest+spock@gmail.com",
+      "first_name": "Spock",
+      "last_name": "Grayson",
+      "libraryPid": "23"
     }
   },
   "sysLibrarians": {
-    "astrid": {
-      "email": "reroilstest@gmail.com",
-      "name": "Astrid"
+    "leonard": {
+      "email": "reroilstest+leonard@gmail.com",
+      "first_name": "Leonard",
+      "last_name": "McCoy",
+      "libraryPid": "22"
     }
   }
 }
